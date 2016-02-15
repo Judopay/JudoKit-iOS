@@ -12,6 +12,22 @@
 		3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */; };
 		3B678B771C6CE7770001DC2F /* JPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B751C6CE7770001DC2F /* JPSession.h */; };
 		3B678B781C6CE7770001DC2F /* JPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B761C6CE7770001DC2F /* JPSession.m */; };
+		3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B791C6DD8800001DC2F /* NSError+Judo.h */; };
+		3B678B7C1C6DD8800001DC2F /* NSError+Judo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */; };
+		3B678B7F1C6DE0FA0001DC2F /* JPPagination.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */; };
+		3B678B801C6DE0FA0001DC2F /* JPPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */; };
+		3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B811C6DE2850001DC2F /* JPResponse.h */; };
+		3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B821C6DE2850001DC2F /* JPResponse.m */; };
+		3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B851C6DF6130001DC2F /* JPTransaction.h */; };
+		3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B861C6DF6130001DC2F /* JPTransaction.m */; };
+		3B678B8B1C6DF9D00001DC2F /* JPAmount.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B891C6DF9D00001DC2F /* JPAmount.h */; };
+		3B678B8C1C6DF9D00001DC2F /* JPAmount.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B8A1C6DF9D00001DC2F /* JPAmount.m */; };
+		3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B8D1C6DFF340001DC2F /* JPReference.h */; };
+		3B678B901C6DFF340001DC2F /* JPReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B8E1C6DFF340001DC2F /* JPReference.m */; };
+		3B678B951C6E282B0001DC2F /* JPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B931C6E282B0001DC2F /* JPCard.h */; };
+		3B678B961C6E282B0001DC2F /* JPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B941C6E282B0001DC2F /* JPCard.m */; };
+		3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B971C71D9D60001DC2F /* JPPaymentToken.h */; };
+		3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B981C71D9D60001DC2F /* JPPaymentToken.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +49,22 @@
 		3B678B671C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B678B751C6CE7770001DC2F /* JPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPSession.h; path = API/JPSession.h; sourceTree = "<group>"; };
 		3B678B761C6CE7770001DC2F /* JPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPSession.m; path = API/JPSession.m; sourceTree = "<group>"; };
+		3B678B791C6DD8800001DC2F /* NSError+Judo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+Judo.h"; path = "Extensions/NSError+Judo.h"; sourceTree = "<group>"; };
+		3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+Judo.m"; path = "Extensions/NSError+Judo.m"; sourceTree = "<group>"; };
+		3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPPagination.h; path = Model/JPPagination.h; sourceTree = "<group>"; };
+		3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPPagination.m; path = Model/JPPagination.m; sourceTree = "<group>"; };
+		3B678B811C6DE2850001DC2F /* JPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPResponse.h; path = Model/JPResponse.h; sourceTree = "<group>"; };
+		3B678B821C6DE2850001DC2F /* JPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPResponse.m; path = Model/JPResponse.m; sourceTree = "<group>"; };
+		3B678B851C6DF6130001DC2F /* JPTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTransaction.h; path = API/JPTransaction.h; sourceTree = "<group>"; };
+		3B678B861C6DF6130001DC2F /* JPTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTransaction.m; path = API/JPTransaction.m; sourceTree = "<group>"; };
+		3B678B891C6DF9D00001DC2F /* JPAmount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPAmount.h; path = Model/JPAmount.h; sourceTree = "<group>"; };
+		3B678B8A1C6DF9D00001DC2F /* JPAmount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPAmount.m; path = Model/JPAmount.m; sourceTree = "<group>"; };
+		3B678B8D1C6DFF340001DC2F /* JPReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPReference.h; path = Model/JPReference.h; sourceTree = "<group>"; };
+		3B678B8E1C6DFF340001DC2F /* JPReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPReference.m; path = Model/JPReference.m; sourceTree = "<group>"; };
+		3B678B931C6E282B0001DC2F /* JPCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPCard.h; path = Model/JPCard.h; sourceTree = "<group>"; };
+		3B678B941C6E282B0001DC2F /* JPCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCard.m; path = Model/JPCard.m; sourceTree = "<group>"; };
+		3B678B971C71D9D60001DC2F /* JPPaymentToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPPaymentToken.h; path = Model/JPPaymentToken.h; sourceTree = "<group>"; };
+		3B678B981C71D9D60001DC2F /* JPPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPPaymentToken.m; path = Model/JPPaymentToken.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +129,18 @@
 		3B678B701C6CE5F70001DC2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */,
+				3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */,
+				3B678B811C6DE2850001DC2F /* JPResponse.h */,
+				3B678B821C6DE2850001DC2F /* JPResponse.m */,
+				3B678B891C6DF9D00001DC2F /* JPAmount.h */,
+				3B678B8A1C6DF9D00001DC2F /* JPAmount.m */,
+				3B678B8D1C6DFF340001DC2F /* JPReference.h */,
+				3B678B8E1C6DFF340001DC2F /* JPReference.m */,
+				3B678B931C6E282B0001DC2F /* JPCard.h */,
+				3B678B941C6E282B0001DC2F /* JPCard.m */,
+				3B678B971C71D9D60001DC2F /* JPPaymentToken.h */,
+				3B678B981C71D9D60001DC2F /* JPPaymentToken.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -106,6 +150,8 @@
 			children = (
 				3B678B751C6CE7770001DC2F /* JPSession.h */,
 				3B678B761C6CE7770001DC2F /* JPSession.m */,
+				3B678B851C6DF6130001DC2F /* JPTransaction.h */,
+				3B678B861C6DF6130001DC2F /* JPTransaction.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -113,6 +159,8 @@
 		3B678B731C6CE6500001DC2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3B678B791C6DD8800001DC2F /* NSError+Judo.h */,
+				3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -131,7 +179,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B678B7F1C6DE0FA0001DC2F /* JPPagination.h in Headers */,
+				3B678B8B1C6DF9D00001DC2F /* JPAmount.h in Headers */,
 				3B678B5A1C6CE5190001DC2F /* JudoKitObjC.h in Headers */,
+				3B678B951C6E282B0001DC2F /* JPCard.h in Headers */,
+				3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */,
+				3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */,
+				3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */,
+				3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */,
+				3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */,
 				3B678B771C6CE7770001DC2F /* JPSession.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +288,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
+				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
+				3B678B801C6DE0FA0001DC2F /* JPPagination.m in Sources */,
+				3B678B901C6DFF340001DC2F /* JPReference.m in Sources */,
+				3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */,
 				3B678B781C6CE7770001DC2F /* JPSession.m in Sources */,
+				3B678B7C1C6DD8800001DC2F /* NSError+Judo.m in Sources */,
+				3B678B8C1C6DF9D00001DC2F /* JPAmount.m in Sources */,
+				3B678B961C6E282B0001DC2F /* JPCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
