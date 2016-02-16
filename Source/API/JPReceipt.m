@@ -1,5 +1,5 @@
 //
-//  NSError+Judo.m
+//  JPReceipt.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,53 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSError+Judo.h"
+#import "JPReceipt.h"
 
-@implementation NSError (Judo)
-
-+ (NSError *)judoRequestFailedError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoJSONSerializationError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoJudoIdMissingError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoAmountMissingError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoPaymentMethodMissingError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoReferenceMissingError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoDuplicateTransactionError {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judoErrorFromErrorCode:(NSInteger)code {
-    // TODO:
-    return [[NSError alloc] init];
-}
-
-+ (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
-    // TODO:
-    return [[NSError alloc] init];
-}
+@implementation JPReceipt
 
 @end
