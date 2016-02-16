@@ -24,6 +24,41 @@
 
 #import "JPReceipt.h"
 
+#import "JPPagination.h"
+
+#import "JPSession.h"
+
+@interface JPReceipt ()
+
+@property (nonatomic, strong, readwrite) NSString *receiptId;
+
+@end
+
 @implementation JPReceipt
+
+- (instancetype)initWithReceiptId:(NSString *)receiptId {
+    self = [super init];
+    if (self) {
+        self.receiptId = receiptId;
+    }
+    return self;
+}
+
+- (void)sendWithCompletion:(void(^)(JPResponse *, NSError *))completion {
+    
+    NSString *path = @"transactions/";
+    
+    if (self.receiptId) {
+        path = [path stringByAppendingString:self.receiptId];
+    }
+    
+    [[JPSession sharedSession] GET:path parameters:nil completion:completion];
+}
+
+- (void)listWithPagination:(JPPagination *)pagination completion:(void(^)(JPResponse *, NSError *))completion {
+    NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li7sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
+    
+    [[JPSession sharedSession] GET:path parameters:nil completion:completion];
+}
 
 @end

@@ -24,6 +24,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class JPResponse;
+@class JPPagination;
+
 @interface JPReceipt : NSObject
+
+@property (nonatomic, strong, readonly) NSString *receiptId;
+
+- (instancetype)initWithReceiptId:(NSString *)receiptId;
+
+- (void)sendWithCompletion:(void(^)(JPResponse *, NSError *))completion;
+
+- (void)listWithPagination:(JPPagination *)pagination completion:(void(^)(JPResponse *, NSError *))completion;
 
 @end
