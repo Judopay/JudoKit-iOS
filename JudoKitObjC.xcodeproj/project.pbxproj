@@ -44,6 +44,7 @@
 		3B678BB61C7327410001DC2F /* JPReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB41C7327410001DC2F /* JPReceipt.m */; };
 		3B678BB91C7331280001DC2F /* JPTransactionProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB71C7331280001DC2F /* JPTransactionProcess.h */; };
 		3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB81C7331280001DC2F /* JPTransactionProcess.m */; };
+		3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,8 @@
 		3B678BB41C7327410001DC2F /* JPReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPReceipt.m; path = API/JPReceipt.m; sourceTree = "<group>"; };
 		3B678BB71C7331280001DC2F /* JPTransactionProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTransactionProcess.h; path = API/JPTransactionProcess.h; sourceTree = "<group>"; };
 		3B678BB81C7331280001DC2F /* JPTransactionProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTransactionProcess.m; path = API/JPTransactionProcess.m; sourceTree = "<group>"; };
+		3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoPaymentTests.h; sourceTree = "<group>"; };
+		3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoPaymentTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,8 @@
 			children = (
 				3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */,
 				3B678B671C6CE5190001DC2F /* Info.plist */,
+				3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */,
+				3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */,
 				3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
