@@ -24,6 +24,12 @@
 
 #import "JPVoid.h"
 
+static NSString * const kVoidTransactionPathKey = @"/transactions/voids";
+
 @implementation JPVoid
+
+- (NSString *)transactionProcessingPath {
+    return kVoidTransactionPathKey;
+}
 
 @end

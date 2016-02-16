@@ -24,6 +24,12 @@
 
 #import "JPRefund.h"
 
+static NSString * const kRefundPathKey = @"/transactions/refunds";
+
 @implementation JPRefund
+
+- (NSString *)transactionProcessingPath {
+    return kRefundPathKey;
+}
 
 @end
