@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
-@interface JudoPaymentTests : XCTestCase
+@import Quick;
+@import Nimble;
+
+@interface JudoPaymentTests : QuickSpec
 
 @end

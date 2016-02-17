@@ -33,7 +33,7 @@
 }
 
 - (void)sendWithCompletion:(void(^)(JPResponse *, NSError *))completion {
-    [[JPSession sharedSession] POST:self.transactionProcessingPath parameters:self.parameters completion:completion];
+    [self.currentAPISession POST:self.transactionProcessingPath parameters:self.parameters completion:completion];
 }
 
 #pragma mark - getters

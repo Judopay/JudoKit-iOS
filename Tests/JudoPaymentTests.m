@@ -8,6 +8,26 @@
 
 #import "JudoPaymentTests.h"
 
+#import "JPPayment.h"
+#import "JPSession.h"
+
 @implementation JudoPaymentTests
+
+- (void)spec {
+    
+    describe(@"Payment", ^{
+        
+        
+        
+        
+    });
+    
+}
+
+- (void)test_Payment {
+    describe(@"Payment test", ^{
+        
+    });
+}
 
 @end

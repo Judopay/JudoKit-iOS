@@ -4,4 +4,10 @@
    <FileRef
       location = "group:JudoKitObjC.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Vendor/Quick/Quick.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Vendor/Nimble/Nimble.xcodeproj">
+   </FileRef>
 </Workspace>

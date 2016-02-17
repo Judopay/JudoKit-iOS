@@ -1,5 +1,5 @@
 //
-//  JPPayment.m
+//  JudoKit.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,38 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import <Foundation/Foundation.h>
 
-#import "JPSession.h"
+@class JPPayment;
 
-static NSString * const kPaymentPathKey             = @"transactions/payments";
-static NSString * const kPaymentValidationPathKey   = @"/validate";
+@class JPAmount;
+@class JPReference;
 
-@interface JPTransaction ()
+@interface JudoKit : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary *parameters;
+- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
-@end
+- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret;
 
-@implementation JPPayment
-
-- (void)validateWithCompletion:(JudoCompletionBlock)completion {
-    if (!completion) {
-        return; // BAIL
-    }
-    
-    NSError *validationError = [self validateTransaction];
-    
-    if (validationError) {
-        completion(nil, validationError);
-        return; // BAIL
-    }
-    
-    [self.currentAPISession POST:kPaymentValidationPathKey parameters:self.parameters completion:completion];
-}
-
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
-}
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId;
 
 @end

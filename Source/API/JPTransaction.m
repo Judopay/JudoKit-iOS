@@ -80,12 +80,12 @@
     
     self.currentTransactionReference = self.reference.paymentReference;
     
-    [[JPSession sharedSession] POST:self.transactionPath parameters:self.parameters completion:completion];
+    [self.currentAPISession POST:self.transactionPath parameters:self.parameters completion:completion];
     
 }
 
 - (NSError *)validateTransaction {
-    if (!self.judoID) {
+    if (!self.judoId) {
         return [NSError judoJudoIdMissingError];
     }
     
@@ -109,7 +109,7 @@
 
 - (void)threeDSecureWithParameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
     
-    [[JPSession sharedSession] PUT:[NSString stringWithFormat:@"transactions/%@", parameters[@"receiptID"]]
+    [self.currentAPISession PUT:[NSString stringWithFormat:@"transactions/%@", parameters[@"receiptID"]]
                         parameters:parameters
                         completion:completion];
     
@@ -124,17 +124,17 @@
     if (pagination) {
         path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
     }
-    [[JPSession sharedSession] GET:path parameters:nil completion:completion];
+    [self.currentAPISession GET:path parameters:nil completion:completion];
 }
 
 #pragma mark - getters and setters
 
-- (NSString *)judoID {
+- (NSString *)judoId {
     return self.parameters[@"judoId"];
 }
 
-- (void)setJudoID:(NSString *)judoID {
-    self.parameters[@"judoId"] = judoID;
+- (void)setJudoId:(NSString *)judoId {
+    self.parameters[@"judoId"] = judoId;
 }
 
 - (JPAmount *)amount {

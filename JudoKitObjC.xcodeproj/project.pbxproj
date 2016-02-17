@@ -45,6 +45,10 @@
 		3B678BB91C7331280001DC2F /* JPTransactionProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB71C7331280001DC2F /* JPTransactionProcess.h */; };
 		3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB81C7331280001DC2F /* JPTransactionProcess.m */; };
 		3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */; };
+		3B678BC11C7358940001DC2F /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC01C7358940001DC2F /* Quick.framework */; };
+		3B678BC41C7359D30001DC2F /* DummyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC31C7359D30001DC2F /* DummyTest.swift */; };
+		3B678BC61C7359F40001DC2F /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC51C7359F40001DC2F /* Nimble.framework */; };
+		3B678BC91C735AB80001DC2F /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +104,12 @@
 		3B678BB81C7331280001DC2F /* JPTransactionProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTransactionProcess.m; path = API/JPTransactionProcess.m; sourceTree = "<group>"; };
 		3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoPaymentTests.h; sourceTree = "<group>"; };
 		3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoPaymentTests.m; sourceTree = "<group>"; };
+		3B678BC01C7358940001DC2F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Vendor/Quick/build/Debug/Quick.framework; sourceTree = "<group>"; };
+		3B678BC21C7359D20001DC2F /* JudoKitObjCTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitObjCTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B678BC31C7359D30001DC2F /* DummyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyTest.swift; sourceTree = "<group>"; };
+		3B678BC51C7359F40001DC2F /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../Vendor/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
+		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
+		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B678BC61C7359F40001DC2F /* Nimble.framework in Frameworks */,
+				3B678BC11C7358940001DC2F /* Quick.framework in Frameworks */,
 				3B678B611C6CE5190001DC2F /* JudoKitObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +160,8 @@
 				3B678B701C6CE5F70001DC2F /* Model */,
 				3B678B591C6CE5190001DC2F /* JudoKitObjC.h */,
 				3B678B5B1C6CE5190001DC2F /* Info.plist */,
+				3B678BC71C735AB80001DC2F /* JudoKit.h */,
+				3B678BC81C735AB80001DC2F /* JudoKit.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -155,10 +169,14 @@
 		3B678B641C6CE5190001DC2F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3B678BC01C7358940001DC2F /* Quick.framework */,
+				3B678BC51C7359F40001DC2F /* Nimble.framework */,
 				3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */,
 				3B678B671C6CE5190001DC2F /* Info.plist */,
 				3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */,
 				3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */,
+				3B678BC31C7359D30001DC2F /* DummyTest.swift */,
+				3B678BC21C7359D20001DC2F /* JudoKitObjCTests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -374,6 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */,
+				3B678BC41C7359D30001DC2F /* DummyTest.swift in Sources */,
+				3B678BC91C735AB80001DC2F /* JudoKit.m in Sources */,
 				3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,20 +534,35 @@
 		3B678B6E1C6CE5190001DC2F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Quick/build/Debug",
+					"$(PROJECT_DIR)/Vendor/Nimble/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3B678B6F1C6CE5190001DC2F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Quick/build/Debug",
+					"$(PROJECT_DIR)/Vendor/Nimble/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -10,6 +10,7 @@
 
 @class JPAmount;
 @class JPResponse;
+@class JPSession;
 
 @interface JPTransactionProcess : NSObject
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong, readonly) NSString *paymentReference;
 
 @property (nonatomic, strong, readonly) NSString *transactionProcessingPath;
+
+@property (nonatomic, strong) JPSession *currentAPISession;
 
 - (instancetype)initWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentRef;
 

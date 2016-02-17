@@ -35,8 +35,6 @@ typedef void (^JudoCompletionBlock)(JPResponse *, NSError *);
 
 @property (nonatomic, assign) BOOL sandboxed;
 
-+ (instancetype)sharedSession;
-
 - (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion;
 
 - (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion;

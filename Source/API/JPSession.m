@@ -27,8 +27,8 @@
 #import "JPResponse.h"
 #import "NSError+Judo.h"
 
-static NSInteger const kMinimumJudoIDLength = 6;
-static NSInteger const kMaximumJudoIDLength = 10;
+static NSInteger const kMinimumJudoIdLength = 6;
+static NSInteger const kMaximumJudoIdLength = 10;
 
 @interface JPSession ()
 
@@ -40,15 +40,6 @@ static NSInteger const kMaximumJudoIDLength = 10;
 @implementation JPSession
 
 #pragma mark - REST API
-
-+ (instancetype)sharedSession {
-    static JPSession *sharedSession;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedSession = [JPSession new];
-    });
-    return sharedSession;
-}
 
 - (void)apiCall:(NSString *)HTTPMethod path:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
     NSMutableURLRequest *request = [self judoRequest:[NSString stringWithFormat:@"%@%@", self.endpoint, path]];

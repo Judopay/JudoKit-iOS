@@ -1,5 +1,5 @@
 //
-//  JPTransaction.h
+//  JudoKit.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,38 +22,48 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
-#import <PassKit/PassKit.h>
+#import "JudoKit.h"
 
-@class JPAmount;
-@class JPReference;
-@class JPCard;
-@class JPPaymentToken;
-@class JPSession;
+#import "JPSession.h"
+#import "JPPayment.h"
 
-@interface JPTransaction : NSObject
+@interface JPSession ()
 
-@property (nonatomic, strong, readonly) NSString *transactionPath;
+@property (nonatomic, strong, readwrite) NSString *authorizationHeader;
 
-@property (nonatomic, strong) NSString *judoId;
-@property (nonatomic, strong) JPReference *reference;
-@property (nonatomic, strong) JPAmount *amount;
+@end
 
-@property (nonatomic, strong) JPCard *card;
-@property (nonatomic, strong) JPPaymentToken *paymentToken;
-@property (nonatomic, strong, readonly) PKPayment *pkPayment;
-
-@property (nonatomic, assign) CLLocationCoordinate2D location;
-@property (nonatomic, strong) NSDictionary *deviceSignal;
-
-@property (nonatomic, strong) NSString *mobileNumber;
-@property (nonatomic, strong) NSString *emailAddress;
+@interface JudoKit ()
 
 @property (nonatomic, strong) JPSession *currentAPISession;
 
-- (void)setPkPayment:(PKPayment *)pkPayment error:(NSError **)error;
+@end
 
-- (NSError *)validateTransaction;
+@implementation JudoKit
+
+- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret {
+    return [self initWithToken:token secret:secret allowJailbrokenDevices:YES];
+}
+
+- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
+    self = [super init];
+    if (self) {
+        NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
+        NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        
+        self.currentAPISession = [JPSession new];
+        
+        [self.currentAPISession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
+    }
+    return self;
+}
+
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId {
+    JPPayment *payment = [JPPayment new];
+    payment.judoId = judoId;
+    payment.currentAPISession = self.currentAPISession;
+    return payment;
+}
 
 @end
