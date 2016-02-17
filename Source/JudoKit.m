@@ -35,7 +35,7 @@
 
 @interface JudoKit ()
 
-@property (nonatomic, strong) JPSession *currentAPISession;
+@property (nonatomic, strong, readwrite) JPSession *currentAPISession;
 
 @end
 

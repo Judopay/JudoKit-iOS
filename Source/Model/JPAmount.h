@@ -26,9 +26,9 @@
 
 @interface JPAmount : NSObject
 
-@property (nonatomic, strong, readonly) NSString *amount;
-@property (nonatomic, strong, readonly) NSString *currency;
+@property (nonatomic, strong, readonly) NSString * __nonnull amount;
+@property (nonatomic, strong, readonly) NSString * __nonnull currency;
 
-+ (instancetype)amount:(NSString *)amount currency:(NSString *)currency;
++ (nonnull instancetype)amount:(nonnull NSString *)amount currency:(nonnull NSString *)currency;
 
 @end

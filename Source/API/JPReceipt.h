@@ -26,15 +26,18 @@
 
 @class JPResponse;
 @class JPPagination;
+@class JPSession;
 
 @interface JPReceipt : NSObject
 
-@property (nonatomic, strong, readonly) NSString *receiptId;
+@property (nonatomic, strong, readonly) NSString * __nullable receiptId;
 
-- (instancetype)initWithReceiptId:(NSString *)receiptId;
+@property (nonatomic, strong) JPSession * __nullable currentAPISession;
 
-- (void)sendWithCompletion:(void(^)(JPResponse *, NSError *))completion;
+- (nonnull instancetype)initWithReceiptId:(nullable NSString *)receiptId;
 
-- (void)listWithPagination:(JPPagination *)pagination completion:(void(^)(JPResponse *, NSError *))completion;
+- (void)sendWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+
+- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
 
 @end

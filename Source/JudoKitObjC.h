@@ -33,3 +33,19 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <JudoKitObjC/PublicHeader.h>
 
 #import <JudoKitObjC/JudoKit.h>
+#import <JudoKitObjC/JPPayment.h>
+#import <JudoKitObjC/JPPreAuth.h>
+#import <JudoKitObjC/JPCollection.h>
+#import <JudoKitObjC/JPReceipt.h>
+#import <JudoKitObjC/JPRefund.h>
+#import <JudoKitObjC/JPRegisterCard.h>
+#import <JudoKitObjC/JPTransaction.h>
+#import <JudoKitObjC/JPVoid.h>
+#import <JudoKitObjC/JPTransactionProcess.h>
+#import <JudoKitObjC/JPPagination.h>
+#import <JudoKitObjC/JPResponse.h>
+#import <JudoKitObjC/JPReference.h>
+#import <JudoKitObjC/JPSession.h>
+#import <JudoKitObjC/JPAmount.h>
+#import <JudoKitObjC/JPCard.h>
+#import <JudoKitObjC/JPPaymentToken.h>

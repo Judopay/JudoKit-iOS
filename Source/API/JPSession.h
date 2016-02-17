@@ -26,19 +26,19 @@
 
 @class JPResponse;
 
-typedef void (^JudoCompletionBlock)(JPResponse *, NSError *);
+typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
 
 @interface JPSession : UIViewController
 
-@property (nonatomic, strong, readonly) NSString *endpoint;
-@property (nonatomic, strong, readonly) NSString *authorizationHeader;
+@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
+@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
 
 @property (nonatomic, assign) BOOL sandboxed;
 
-- (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion;
+- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
-- (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion;
+- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
-- (void)GET:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion;
+- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
 @end

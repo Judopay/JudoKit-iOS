@@ -24,12 +24,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class JPSession;
+
 @class JPPayment;
 
 @class JPAmount;
 @class JPReference;
 
 @interface JudoKit : NSObject
+
+@property (nonatomic, strong, readonly) JPSession *currentAPISession;
 
 - (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 

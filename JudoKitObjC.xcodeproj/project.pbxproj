@@ -10,45 +10,45 @@
 		3B678B5A1C6CE5190001DC2F /* JudoKitObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B591C6CE5190001DC2F /* JudoKitObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B611C6CE5190001DC2F /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
 		3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */; };
-		3B678B771C6CE7770001DC2F /* JPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B751C6CE7770001DC2F /* JPSession.h */; };
+		3B678B771C6CE7770001DC2F /* JPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B751C6CE7770001DC2F /* JPSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B781C6CE7770001DC2F /* JPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B761C6CE7770001DC2F /* JPSession.m */; };
 		3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B791C6DD8800001DC2F /* NSError+Judo.h */; };
 		3B678B7C1C6DD8800001DC2F /* NSError+Judo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */; };
-		3B678B7F1C6DE0FA0001DC2F /* JPPagination.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */; };
+		3B678B7F1C6DE0FA0001DC2F /* JPPagination.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B801C6DE0FA0001DC2F /* JPPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */; };
-		3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B811C6DE2850001DC2F /* JPResponse.h */; };
+		3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B811C6DE2850001DC2F /* JPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B821C6DE2850001DC2F /* JPResponse.m */; };
-		3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B851C6DF6130001DC2F /* JPTransaction.h */; };
+		3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B851C6DF6130001DC2F /* JPTransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B861C6DF6130001DC2F /* JPTransaction.m */; };
-		3B678B8B1C6DF9D00001DC2F /* JPAmount.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B891C6DF9D00001DC2F /* JPAmount.h */; };
+		3B678B8B1C6DF9D00001DC2F /* JPAmount.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B891C6DF9D00001DC2F /* JPAmount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B8C1C6DF9D00001DC2F /* JPAmount.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B8A1C6DF9D00001DC2F /* JPAmount.m */; };
-		3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B8D1C6DFF340001DC2F /* JPReference.h */; };
+		3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B8D1C6DFF340001DC2F /* JPReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B901C6DFF340001DC2F /* JPReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B8E1C6DFF340001DC2F /* JPReference.m */; };
-		3B678B951C6E282B0001DC2F /* JPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B931C6E282B0001DC2F /* JPCard.h */; };
+		3B678B951C6E282B0001DC2F /* JPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B931C6E282B0001DC2F /* JPCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B961C6E282B0001DC2F /* JPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B941C6E282B0001DC2F /* JPCard.m */; };
-		3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B971C71D9D60001DC2F /* JPPaymentToken.h */; };
+		3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B971C71D9D60001DC2F /* JPPaymentToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B981C71D9D60001DC2F /* JPPaymentToken.m */; };
-		3B678B9D1C7326C00001DC2F /* JPPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B9B1C7326C00001DC2F /* JPPayment.h */; };
+		3B678B9D1C7326C00001DC2F /* JPPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B9B1C7326C00001DC2F /* JPPayment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B9E1C7326C00001DC2F /* JPPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678B9C1C7326C00001DC2F /* JPPayment.m */; };
-		3B678BA11C7326D30001DC2F /* JPPreAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B9F1C7326D30001DC2F /* JPPreAuth.h */; };
+		3B678BA11C7326D30001DC2F /* JPPreAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B9F1C7326D30001DC2F /* JPPreAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BA21C7326D30001DC2F /* JPPreAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BA01C7326D30001DC2F /* JPPreAuth.m */; };
-		3B678BA51C7326F10001DC2F /* JPRegisterCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BA31C7326F10001DC2F /* JPRegisterCard.h */; };
+		3B678BA51C7326F10001DC2F /* JPRegisterCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BA31C7326F10001DC2F /* JPRegisterCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BA61C7326F10001DC2F /* JPRegisterCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BA41C7326F10001DC2F /* JPRegisterCard.m */; };
-		3B678BA91C7327040001DC2F /* JPCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BA71C7327040001DC2F /* JPCollection.h */; };
+		3B678BA91C7327040001DC2F /* JPCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BA71C7327040001DC2F /* JPCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BAA1C7327040001DC2F /* JPCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BA81C7327040001DC2F /* JPCollection.m */; };
-		3B678BAD1C7327160001DC2F /* JPRefund.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BAB1C7327160001DC2F /* JPRefund.h */; };
+		3B678BAD1C7327160001DC2F /* JPRefund.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BAB1C7327160001DC2F /* JPRefund.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BAE1C7327160001DC2F /* JPRefund.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BAC1C7327160001DC2F /* JPRefund.m */; };
-		3B678BB11C7327270001DC2F /* JPVoid.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BAF1C7327270001DC2F /* JPVoid.h */; };
+		3B678BB11C7327270001DC2F /* JPVoid.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BAF1C7327270001DC2F /* JPVoid.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BB21C7327270001DC2F /* JPVoid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB01C7327270001DC2F /* JPVoid.m */; };
-		3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB31C7327410001DC2F /* JPReceipt.h */; };
+		3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB31C7327410001DC2F /* JPReceipt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BB61C7327410001DC2F /* JPReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB41C7327410001DC2F /* JPReceipt.m */; };
-		3B678BB91C7331280001DC2F /* JPTransactionProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB71C7331280001DC2F /* JPTransactionProcess.h */; };
+		3B678BB91C7331280001DC2F /* JPTransactionProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BB71C7331280001DC2F /* JPTransactionProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB81C7331280001DC2F /* JPTransactionProcess.m */; };
-		3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */; };
 		3B678BC11C7358940001DC2F /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC01C7358940001DC2F /* Quick.framework */; };
-		3B678BC41C7359D30001DC2F /* DummyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC31C7359D30001DC2F /* DummyTest.swift */; };
 		3B678BC61C7359F40001DC2F /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC51C7359F40001DC2F /* Nimble.framework */; };
-		3B678BC91C735AB80001DC2F /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */; };
+		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,14 +102,12 @@
 		3B678BB41C7327410001DC2F /* JPReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPReceipt.m; path = API/JPReceipt.m; sourceTree = "<group>"; };
 		3B678BB71C7331280001DC2F /* JPTransactionProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTransactionProcess.h; path = API/JPTransactionProcess.h; sourceTree = "<group>"; };
 		3B678BB81C7331280001DC2F /* JPTransactionProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTransactionProcess.m; path = API/JPTransactionProcess.m; sourceTree = "<group>"; };
-		3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoPaymentTests.h; sourceTree = "<group>"; };
-		3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoPaymentTests.m; sourceTree = "<group>"; };
 		3B678BC01C7358940001DC2F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Vendor/Quick/build/Debug/Quick.framework; sourceTree = "<group>"; };
 		3B678BC21C7359D20001DC2F /* JudoKitObjCTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitObjCTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		3B678BC31C7359D30001DC2F /* DummyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyTest.swift; sourceTree = "<group>"; };
 		3B678BC51C7359F40001DC2F /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../Vendor/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
+		3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoPaymentTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,10 +171,8 @@
 				3B678BC51C7359F40001DC2F /* Nimble.framework */,
 				3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */,
 				3B678B671C6CE5190001DC2F /* Info.plist */,
-				3B678BBB1C7343F20001DC2F /* JudoPaymentTests.h */,
-				3B678BBC1C7343F20001DC2F /* JudoPaymentTests.m */,
-				3B678BC31C7359D30001DC2F /* DummyTest.swift */,
 				3B678BC21C7359D20001DC2F /* JudoKitObjCTests-Bridging-Header.h */,
+				3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -268,6 +264,7 @@
 				3B678B9D1C7326C00001DC2F /* JPPayment.h in Headers */,
 				3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */,
 				3B678B771C6CE7770001DC2F /* JPSession.h in Headers */,
+				3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +368,7 @@
 				3B678BB21C7327270001DC2F /* JPVoid.m in Sources */,
 				3B678BA21C7326D30001DC2F /* JPPreAuth.m in Sources */,
 				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
+				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
 				3B678BA61C7326F10001DC2F /* JPRegisterCard.m in Sources */,
 				3B678B801C6DE0FA0001DC2F /* JPPagination.m in Sources */,
@@ -391,9 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B678BBF1C7345130001DC2F /* JudoPaymentTests.m in Sources */,
-				3B678BC41C7359D30001DC2F /* DummyTest.swift in Sources */,
-				3B678BC91C735AB80001DC2F /* JudoKit.m in Sources */,
+				3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */,
 				3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +496,7 @@
 		3B678B6B1C6CE5190001DC2F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -511,12 +508,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3B678B6C1C6CE5190001DC2F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

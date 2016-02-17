@@ -26,8 +26,8 @@
 
 @interface JPPaymentToken : NSObject
 
-@property (nonatomic, strong) NSString *consumerToken;
-@property (nonatomic, strong) NSString *cardToken;
-@property (nonatomic, strong) NSString *secureCode;
+@property (nonatomic, strong) NSString * __nullable consumerToken;
+@property (nonatomic, strong) NSString * __nullable cardToken;
+@property (nonatomic, strong) NSString * __nullable secureCode;
 
 @end

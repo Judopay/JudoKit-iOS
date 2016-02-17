@@ -34,26 +34,26 @@
 
 @interface JPTransaction : NSObject
 
-@property (nonatomic, strong, readonly) NSString *transactionPath;
+@property (nonatomic, strong, readonly) NSString * __nullable transactionPath;
 
-@property (nonatomic, strong) NSString *judoId;
-@property (nonatomic, strong) JPReference *reference;
-@property (nonatomic, strong) JPAmount *amount;
+@property (nonatomic, strong) NSString * __nonnull judoId;
+@property (nonatomic, strong) JPReference * __nonnull reference;
+@property (nonatomic, strong) JPAmount * __nonnull amount;
 
-@property (nonatomic, strong) JPCard *card;
-@property (nonatomic, strong) JPPaymentToken *paymentToken;
-@property (nonatomic, strong, readonly) PKPayment *pkPayment;
+@property (nonatomic, strong) JPCard * __nullable card;
+@property (nonatomic, strong) JPPaymentToken * __nullable paymentToken;
+@property (nonatomic, strong, readonly) PKPayment * __nullable pkPayment;
 
 @property (nonatomic, assign) CLLocationCoordinate2D location;
-@property (nonatomic, strong) NSDictionary *deviceSignal;
+@property (nonatomic, strong) NSDictionary * __nullable deviceSignal;
 
-@property (nonatomic, strong) NSString *mobileNumber;
-@property (nonatomic, strong) NSString *emailAddress;
+@property (nonatomic, strong) NSString * __nullable mobileNumber;
+@property (nonatomic, strong) NSString * __nullable emailAddress;
 
-@property (nonatomic, strong) JPSession *currentAPISession;
+@property (nonatomic, strong) JPSession * __nullable currentAPISession;
 
-- (void)setPkPayment:(PKPayment *)pkPayment error:(NSError **)error;
+- (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-- (NSError *)validateTransaction;
+- (nullable NSError *)validateTransaction;
 
 @end

@@ -26,10 +26,10 @@
 
 @interface JPReference : NSObject
 
-@property (nonatomic, strong, readonly) NSString *consumerReference;
-@property (nonatomic, strong, readonly) NSString *paymentReference;
-@property (nonatomic, strong) NSDictionary<NSString *, NSObject *> *metaData;
+@property (nonatomic, strong, readonly) NSString * __nonnull consumerReference;
+@property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
+@property (nonatomic, strong) NSDictionary<NSString *, NSObject *> * __nullable metaData;
 
-+ (instancetype)consumerReference:(NSString *)ref;
++ (nonnull instancetype)consumerReference:(nonnull NSString *)ref;
 
 @end

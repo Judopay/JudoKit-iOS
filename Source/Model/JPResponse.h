@@ -28,8 +28,8 @@
 
 @interface JPResponse : NSObject
 
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSArray * __nullable items;
 
-+ (instancetype)responseWithPagination:(JPPagination *)pagination;
++ (nonnull instancetype)responseWithPagination:(nullable JPPagination *)pagination;
 
 @end
