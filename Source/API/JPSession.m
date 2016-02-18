@@ -132,7 +132,7 @@ static NSInteger const kMaximumJudoIdLength = 10;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
                     if (!jsonError) {
-                        jsonError = [NSError judoJSONSerializationError];
+                        jsonError = [NSError judoJSONSerializationFailedError];
                     }
                     completion(nil, jsonError);
                 }

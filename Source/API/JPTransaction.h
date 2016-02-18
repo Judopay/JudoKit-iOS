@@ -26,11 +26,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <PassKit/PassKit.h>
 
-@class JPAmount;
-@class JPReference;
-@class JPCard;
-@class JPPaymentToken;
-@class JPSession;
+@class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference;
 
 @interface JPTransaction : NSObject
 
@@ -55,5 +51,11 @@
 - (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 - (nullable NSError *)validateTransaction;
+
+- (void)sendWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+
+- (void)listWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+
+- (void)listWithPagination:(nonnull JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
 
 @end

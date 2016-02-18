@@ -34,10 +34,16 @@
 @implementation JPAmount
 
 + (instancetype)amount:(NSString *)amount currency:(NSString *)currency {
-    JPAmount *jpAmount = [JPAmount new];
-    jpAmount.amount = amount;
-    jpAmount.currency = currency;
-    return jpAmount;
+    return [[JPAmount alloc] initWithAmount:amount currency:amount];
+}
+
+- (instancetype)initWithAmount:(NSString *)amount currency:(NSString *)currency {
+	self = [super init];
+	if (self) {
+        self.amount = amount;
+        self.currency = currency;
+	}
+	return self;
 }
 
 @end

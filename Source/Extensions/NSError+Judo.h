@@ -27,7 +27,7 @@
 @interface NSError (Judo)
 
 + (NSError *)judoRequestFailedError;
-+ (NSError *)judoJSONSerializationError;
++ (NSError *)judoJSONSerializationFailedError;
 + (NSError *)judoJudoIdMissingError;
 + (NSError *)judoPaymentMethodMissingError;
 + (NSError *)judoAmountMissingError;

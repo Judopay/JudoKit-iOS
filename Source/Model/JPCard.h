@@ -35,4 +35,6 @@
 
 @property (nonatomic, strong) NSDictionary * __nullable cardAddress;
 
+- (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
+
 @end

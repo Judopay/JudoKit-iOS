@@ -49,6 +49,8 @@
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		3BF476F71C74E960008AE0D3 /* NSString+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BF476F51C74E960008AE0D3 /* NSString+Helper.h */; };
+		3BF476F81C74E960008AE0D3 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF476F61C74E960008AE0D3 /* NSString+Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
 		3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoPaymentTests.swift; sourceTree = "<group>"; };
+		3BF476F51C74E960008AE0D3 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
+		3BF476F61C74E960008AE0D3 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,8 @@
 			children = (
 				3B678B791C6DD8800001DC2F /* NSError+Judo.h */,
 				3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */,
+				3BF476F51C74E960008AE0D3 /* NSString+Helper.h */,
+				3BF476F61C74E960008AE0D3 /* NSString+Helper.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -260,6 +266,7 @@
 				3B678BB11C7327270001DC2F /* JPVoid.h in Headers */,
 				3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */,
 				3B678BAD1C7327160001DC2F /* JPRefund.h in Headers */,
+				3BF476F71C74E960008AE0D3 /* NSString+Helper.h in Headers */,
 				3B678BA11C7326D30001DC2F /* JPPreAuth.h in Headers */,
 				3B678B9D1C7326C00001DC2F /* JPPayment.h in Headers */,
 				3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */,
@@ -375,6 +382,7 @@
 				3B678B901C6DFF340001DC2F /* JPReference.m in Sources */,
 				3B678BAE1C7327160001DC2F /* JPRefund.m in Sources */,
 				3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */,
+				3BF476F81C74E960008AE0D3 /* NSString+Helper.m in Sources */,
 				3B678B781C6CE7770001DC2F /* JPSession.m in Sources */,
 				3B678B7C1C6DD8800001DC2F /* NSError+Judo.m in Sources */,
 				3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */,

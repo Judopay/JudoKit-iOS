@@ -28,47 +28,47 @@
 
 + (NSError *)judoRequestFailedError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"Request Failed Error" code:1 userInfo:@{}];
 }
 
-+ (NSError *)judoJSONSerializationError {
++ (NSError *)judoJSONSerializationFailedError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"JSON Serialization Failed" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoJudoIdMissingError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"JudoId missing" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoAmountMissingError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"Amount missing" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoPaymentMethodMissingError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"Payment method missing" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoReferenceMissingError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"Reference missing" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoDuplicateTransactionError {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"duplicate transaction" code:1 userInfo:@{}];
 }
 
 + (NSError *)judoErrorFromErrorCode:(NSInteger)code {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"NaN" code:1 userInfo:@{}];
 }
 
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
     // TODO:
-    return [[NSError alloc] init];
+    return [NSError errorWithDomain:@"NaN" code:1 userInfo:@{}];
 }
 
 @end

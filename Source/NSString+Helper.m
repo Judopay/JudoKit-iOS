@@ -1,5 +1,5 @@
 //
-//  JPReference.h
+//  NSString+Helper.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -11,25 +11,33 @@
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
-#import <UIKit/UIKit.h>
+#import "NSString+Helper.h"
 
-@interface JPReference : NSObject
+@implementation NSString (Helper)
 
-@property (nonatomic, strong, readonly) NSString * __nonnull consumerReference;
-@property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
-@property (nonatomic, strong) NSDictionary<NSString *, NSObject *> * __nullable metaData;
-
-+ (nonnull instancetype)consumerReference:(nonnull NSString *)ref;
+- (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
+    NSMutableString *s = [NSMutableString stringWithCapacity:self.length];
+    for (NSUInteger i = 0; i < self.length; ++i) {
+        unichar c = [self characterAtIndex:i];
+        if (![charSet characterIsMember:c]) {
+            [s appendFormat:@"%C", c];
+        } else {
+            [s appendString:aString];
+        }
+    }
+    return s;
+}
 
 @end

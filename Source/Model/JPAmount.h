@@ -31,4 +31,6 @@
 
 + (nonnull instancetype)amount:(nonnull NSString *)amount currency:(nonnull NSString *)currency;
 
+- (nonnull instancetype)initWithAmount:(nonnull NSString *)amount currency:(nonnull NSString *)currency;
+
 @end
