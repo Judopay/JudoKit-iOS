@@ -1,5 +1,5 @@
 //
-//  JudoKitObjC.h
+//  JPAddress.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,34 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for JudoKitObjC.
-FOUNDATION_EXPORT double JudoKitObjCVersionNumber;
+@interface JPAddress : NSObject
 
-//! Project version string for JudoKitObjC.
-FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
+@property (nonatomic, strong) NSString * __nullable line1;
+@property (nonatomic, strong) NSString * __nullable line2;
+@property (nonatomic, strong) NSString * __nullable line3;
+@property (nonatomic, strong) NSString * __nullable postCode;
+@property (nonatomic, strong) NSString * __nullable town;
 
-// In this header, you should import all the public headers of your framework using statements like #import <JudoKitObjC/PublicHeader.h>
+- (nonnull instancetype)initWithLine1:(nullable NSString *)line1
+                                line2:(nullable NSString *)line2
+                                line3:(nullable NSString *)line3
+                             postCode:(nullable NSString *)postCode
+                                 town:(nullable NSString *)town;
 
-#import <JudoKitObjC/JudoKit.h>
-#import <JudoKitObjC/JPPayment.h>
-#import <JudoKitObjC/JPPreAuth.h>
-#import <JudoKitObjC/JPCollection.h>
-#import <JudoKitObjC/JPReceipt.h>
-#import <JudoKitObjC/JPRefund.h>
-#import <JudoKitObjC/JPRegisterCard.h>
-#import <JudoKitObjC/JPTransaction.h>
-#import <JudoKitObjC/JPVoid.h>
-#import <JudoKitObjC/JPTransactionProcess.h>
-#import <JudoKitObjC/JPAddress.h>
-#import <JudoKitObjC/JPPagination.h>
-#import <JudoKitObjC/JPResponse.h>
-#import <JudoKitObjC/JPTransactionData.h>
-#import <JudoKitObjC/JPReference.h>
-#import <JudoKitObjC/JPConsumer.h>
-#import <JudoKitObjC/JPSession.h>
-#import <JudoKitObjC/JPAmount.h>
-#import <JudoKitObjC/JPCard.h>
-#import <JudoKitObjC/JPPaymentToken.h>
-#import <JudoKitObjC/JPCardDetails.h>
+@end

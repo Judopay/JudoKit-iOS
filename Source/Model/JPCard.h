@@ -24,6 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class JPAddress;
+
 @interface JPCard : NSObject
 
 @property (nonatomic, strong) NSString * __nullable cardNumber;
@@ -33,7 +35,7 @@
 @property (nonatomic, strong) NSString * __nullable startDate;
 @property (nonatomic, strong) NSString * __nullable issueNumber;
 
-@property (nonatomic, strong) NSDictionary * __nullable cardAddress;
+@property (nonatomic, strong) JPAddress * __nullable cardAddress;
 
 - (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
 

@@ -24,6 +24,22 @@
 
 #import "JPPaymentToken.h"
 
+@interface JPPaymentToken ()
+
+@property (nonatomic, strong, readwrite) NSString * consumerToken;
+@property (nonatomic, strong, readwrite) NSString * cardToken;
+
+@end
+
 @implementation JPPaymentToken
+
+- (instancetype)initWithConsumerToken:(NSString *)consumerToken cardToken:(NSString *)cardToken {
+    self = [super init];
+    if (self) {
+        self.consumerToken = consumerToken;
+        self.cardToken = cardToken;
+    }
+    return self;
+}
 
 @end

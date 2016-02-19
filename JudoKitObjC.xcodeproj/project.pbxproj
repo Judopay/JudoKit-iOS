@@ -46,6 +46,24 @@
 		3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BB81C7331280001DC2F /* JPTransactionProcess.m */; };
 		3B678BC11C7358940001DC2F /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC01C7358940001DC2F /* Quick.framework */; };
 		3B678BC61C7359F40001DC2F /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678BC51C7359F40001DC2F /* Nimble.framework */; };
+		3B97118E1C7618CA00E9A347 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711841C7618CA00E9A347 /* CollectionTests.swift */; };
+		3B97118F1C7618CA00E9A347 /* JudoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711851C7618CA00E9A347 /* JudoTests.swift */; };
+		3B9711901C7618CA00E9A347 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711861C7618CA00E9A347 /* ListTests.swift */; };
+		3B9711911C7618CA00E9A347 /* PaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711871C7618CA00E9A347 /* PaymentTests.swift */; };
+		3B9711921C7618CA00E9A347 /* PreAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711881C7618CA00E9A347 /* PreAuthTests.swift */; };
+		3B9711931C7618CA00E9A347 /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711891C7618CA00E9A347 /* ReceiptTests.swift */; };
+		3B9711941C7618CA00E9A347 /* RefundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97118A1C7618CA00E9A347 /* RefundTests.swift */; };
+		3B9711951C7618CA00E9A347 /* requests in Resources */ = {isa = PBXBuildFile; fileRef = 3B97118B1C7618CA00E9A347 /* requests */; };
+		3B9711961C7618CA00E9A347 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97118C1C7618CA00E9A347 /* SessionTests.swift */; };
+		3B9711971C7618CA00E9A347 /* VoidTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97118D1C7618CA00E9A347 /* VoidTransactionTests.swift */; };
+		3B97119A1C761B9700E9A347 /* JPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711991C761B9700E9A347 /* JPAddress.m */; };
+		3B97119B1C76353E00E9A347 /* JPAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B9711981C761B9700E9A347 /* JPAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD353C11C77557F0045658A /* JPTransactionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353C21C77557F0045658A /* JPTransactionData.m */; };
+		3BD353C71C7774780045658A /* JPConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD353C51C7774780045658A /* JPConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BD353C81C7774780045658A /* JPConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353C61C7774780045658A /* JPConsumer.m */; };
+		3BD353CB1C77803F0045658A /* JPCardDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD353C91C77803F0045658A /* JPCardDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BD353CC1C77803F0045658A /* JPCardDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353CA1C77803F0045658A /* JPCardDetails.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
@@ -109,6 +127,24 @@
 		3B678BC51C7359F40001DC2F /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../Vendor/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
+		3B9711841C7618CA00E9A347 /* CollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionTests.swift; path = APITests/CollectionTests.swift; sourceTree = "<group>"; };
+		3B9711851C7618CA00E9A347 /* JudoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JudoTests.swift; path = APITests/JudoTests.swift; sourceTree = "<group>"; };
+		3B9711861C7618CA00E9A347 /* ListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTests.swift; path = APITests/ListTests.swift; sourceTree = "<group>"; };
+		3B9711871C7618CA00E9A347 /* PaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentTests.swift; path = APITests/PaymentTests.swift; sourceTree = "<group>"; };
+		3B9711881C7618CA00E9A347 /* PreAuthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreAuthTests.swift; path = APITests/PreAuthTests.swift; sourceTree = "<group>"; };
+		3B9711891C7618CA00E9A347 /* ReceiptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceiptTests.swift; path = APITests/ReceiptTests.swift; sourceTree = "<group>"; };
+		3B97118A1C7618CA00E9A347 /* RefundTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefundTests.swift; path = APITests/RefundTests.swift; sourceTree = "<group>"; };
+		3B97118B1C7618CA00E9A347 /* requests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = requests; path = APITests/requests; sourceTree = "<group>"; };
+		3B97118C1C7618CA00E9A347 /* SessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionTests.swift; path = APITests/SessionTests.swift; sourceTree = "<group>"; };
+		3B97118D1C7618CA00E9A347 /* VoidTransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoidTransactionTests.swift; path = APITests/VoidTransactionTests.swift; sourceTree = "<group>"; };
+		3B9711981C761B9700E9A347 /* JPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPAddress.h; path = Model/JPAddress.h; sourceTree = "<group>"; };
+		3B9711991C761B9700E9A347 /* JPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPAddress.m; path = Model/JPAddress.m; sourceTree = "<group>"; };
+		3BD353C11C77557F0045658A /* JPTransactionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTransactionData.h; path = Model/JPTransactionData.h; sourceTree = "<group>"; };
+		3BD353C21C77557F0045658A /* JPTransactionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTransactionData.m; path = Model/JPTransactionData.m; sourceTree = "<group>"; };
+		3BD353C51C7774780045658A /* JPConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPConsumer.h; path = Model/JPConsumer.h; sourceTree = "<group>"; };
+		3BD353C61C7774780045658A /* JPConsumer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPConsumer.m; path = Model/JPConsumer.m; sourceTree = "<group>"; };
+		3BD353C91C77803F0045658A /* JPCardDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPCardDetails.h; path = Model/JPCardDetails.h; sourceTree = "<group>"; };
+		3BD353CA1C77803F0045658A /* JPCardDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCardDetails.m; path = Model/JPCardDetails.m; sourceTree = "<group>"; };
 		3BF476F01C748A64008AE0D3 /* JudoPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoPaymentTests.swift; sourceTree = "<group>"; };
 		3BF476F51C74E960008AE0D3 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
 		3BF476F61C74E960008AE0D3 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
@@ -171,6 +207,7 @@
 		3B678B641C6CE5190001DC2F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3B9711831C7618C000E9A347 /* APITests */,
 				3B678BC01C7358940001DC2F /* Quick.framework */,
 				3B678BC51C7359F40001DC2F /* Nimble.framework */,
 				3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */,
@@ -196,6 +233,14 @@
 				3B678B941C6E282B0001DC2F /* JPCard.m */,
 				3B678B971C71D9D60001DC2F /* JPPaymentToken.h */,
 				3B678B981C71D9D60001DC2F /* JPPaymentToken.m */,
+				3B9711981C761B9700E9A347 /* JPAddress.h */,
+				3B9711991C761B9700E9A347 /* JPAddress.m */,
+				3BD353C11C77557F0045658A /* JPTransactionData.h */,
+				3BD353C21C77557F0045658A /* JPTransactionData.m */,
+				3BD353C51C7774780045658A /* JPConsumer.h */,
+				3BD353C61C7774780045658A /* JPConsumer.m */,
+				3BD353C91C77803F0045658A /* JPCardDetails.h */,
+				3BD353CA1C77803F0045658A /* JPCardDetails.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -245,6 +290,23 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		3B9711831C7618C000E9A347 /* APITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B9711841C7618CA00E9A347 /* CollectionTests.swift */,
+				3B9711851C7618CA00E9A347 /* JudoTests.swift */,
+				3B9711861C7618CA00E9A347 /* ListTests.swift */,
+				3B9711871C7618CA00E9A347 /* PaymentTests.swift */,
+				3B9711881C7618CA00E9A347 /* PreAuthTests.swift */,
+				3B9711891C7618CA00E9A347 /* ReceiptTests.swift */,
+				3B97118A1C7618CA00E9A347 /* RefundTests.swift */,
+				3B97118B1C7618CA00E9A347 /* requests */,
+				3B97118C1C7618CA00E9A347 /* SessionTests.swift */,
+				3B97118D1C7618CA00E9A347 /* VoidTransactionTests.swift */,
+			);
+			name = APITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -260,13 +322,17 @@
 				3B678B951C6E282B0001DC2F /* JPCard.h in Headers */,
 				3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */,
 				3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */,
+				3B97119B1C76353E00E9A347 /* JPAddress.h in Headers */,
+				3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */,
 				3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */,
 				3B678BA51C7326F10001DC2F /* JPRegisterCard.h in Headers */,
 				3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */,
 				3B678BB11C7327270001DC2F /* JPVoid.h in Headers */,
 				3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */,
+				3BD353CB1C77803F0045658A /* JPCardDetails.h in Headers */,
 				3B678BAD1C7327160001DC2F /* JPRefund.h in Headers */,
 				3BF476F71C74E960008AE0D3 /* NSString+Helper.h in Headers */,
+				3BD353C71C7774780045658A /* JPConsumer.h in Headers */,
 				3B678BA11C7326D30001DC2F /* JPPreAuth.h in Headers */,
 				3B678B9D1C7326C00001DC2F /* JPPayment.h in Headers */,
 				3B678B7B1C6DD8800001DC2F /* NSError+Judo.h in Headers */,
@@ -361,6 +427,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9711951C7618CA00E9A347 /* requests in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,12 +440,15 @@
 			files = (
 				3B678B9E1C7326C00001DC2F /* JPPayment.m in Sources */,
 				3B678BB21C7327270001DC2F /* JPVoid.m in Sources */,
+				3BD353CC1C77803F0045658A /* JPCardDetails.m in Sources */,
 				3B678BA21C7326D30001DC2F /* JPPreAuth.m in Sources */,
 				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
+				3BD353C81C7774780045658A /* JPConsumer.m in Sources */,
 				3B678BA61C7326F10001DC2F /* JPRegisterCard.m in Sources */,
 				3B678B801C6DE0FA0001DC2F /* JPPagination.m in Sources */,
+				3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */,
 				3B678B901C6DFF340001DC2F /* JPReference.m in Sources */,
 				3B678BAE1C7327160001DC2F /* JPRefund.m in Sources */,
 				3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */,
@@ -397,8 +467,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9711911C7618CA00E9A347 /* PaymentTests.swift in Sources */,
 				3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */,
+				3B97119A1C761B9700E9A347 /* JPAddress.m in Sources */,
+				3B97118E1C7618CA00E9A347 /* CollectionTests.swift in Sources */,
+				3B9711971C7618CA00E9A347 /* VoidTransactionTests.swift in Sources */,
+				3B9711921C7618CA00E9A347 /* PreAuthTests.swift in Sources */,
+				3B9711961C7618CA00E9A347 /* SessionTests.swift in Sources */,
+				3B9711931C7618CA00E9A347 /* ReceiptTests.swift in Sources */,
 				3B678B661C6CE5190001DC2F /* JudoKitObjCTests.m in Sources */,
+				3B9711901C7618CA00E9A347 /* ListTests.swift in Sources */,
+				3B97118F1C7618CA00E9A347 /* JudoTests.swift in Sources */,
+				3B9711941C7618CA00E9A347 /* RefundTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

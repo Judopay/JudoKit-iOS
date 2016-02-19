@@ -35,12 +35,18 @@
 @implementation JPReference
 
 + (instancetype)consumerReference:(NSString *)ref {
-    JPReference *reference = [JPReference new];
-    NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
-    reference.paymentReference = [[NSString stringWithFormat:@"%@%@", uuidString, [NSDate date]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
-    reference.consumerReference = ref;
-    return reference;
+    return [[JPReference alloc] initWithConsumerReference:ref];;
+}
+
+- (instancetype)initWithConsumerReference:(NSString *)ref {
+    self = [super init];
+    if (self) {
+        NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
+        self.paymentReference = [[NSString stringWithFormat:@"%@%@", uuidString, [NSDate date]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
+        self.consumerReference = ref;
+    }
+    return self;
 }
 
 @end

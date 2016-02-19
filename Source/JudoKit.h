@@ -26,19 +26,33 @@
 
 @class JPSession;
 
-@class JPPayment;
+@class JPPayment, JPPreAuth, JPRegisterCard;
+@class JPCollection, JPVoid, JPRefund;
+@class JPReceipt;
 
 @class JPAmount;
 @class JPReference;
 
 @interface JudoKit : NSObject
 
-@property (nonatomic, strong, readonly) JPSession *currentAPISession;
+@property (nonatomic, strong, readonly) JPSession * __nonnull currentAPISession;
 
-- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
+- (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
-- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret;
+- (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret;
 
-- (JPPayment *)paymentWithJudoId:(NSString *)judoId;
+- (nonnull JPPayment *)paymentWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+
+- (nonnull JPPreAuth *)preAuthWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+
+- (nonnull JPRegisterCard *)registerCardWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+
+- (nonnull JPCollection *)collectionWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+
+- (nonnull JPVoid *)voidWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+
+- (nonnull JPRefund *)refundWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+
+- (nonnull JPReceipt *)receipt:(nullable NSString *)receiptId;
 
 @end

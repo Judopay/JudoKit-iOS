@@ -30,6 +30,8 @@
 @property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
 @property (nonatomic, strong) NSDictionary<NSString *, NSObject *> * __nullable metaData;
 
+- (nonnull instancetype)initWithConsumerReference:(nonnull NSString *)ref;
+
 + (nonnull instancetype)consumerReference:(nonnull NSString *)ref;
 
 @end

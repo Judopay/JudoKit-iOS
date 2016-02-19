@@ -25,10 +25,11 @@
 #import <Foundation/Foundation.h>
 
 @class JPPagination;
+@class JPTransactionData;
 
 @interface JPResponse : NSObject
 
-@property (nonatomic, strong) NSArray * __nullable items;
+@property (nonatomic, strong) NSArray<JPTransactionData *> * __nullable items;
 
 + (nonnull instancetype)responseWithPagination:(nullable JPPagination *)pagination;
 

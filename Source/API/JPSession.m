@@ -189,15 +189,11 @@ static NSInteger const kMaximumJudoIdLength = 10;
 
 #pragma mark - getters and setters
 
-- (BOOL)sandboxed {
-    return [self.endpoint isEqualToString:@"https://gw1.judopay-sandbox.com/"];
-}
-
-- (void)setSandboxed:(BOOL)sandboxed {
-    if (sandboxed) {
-        self.endpoint = @"https://gw1.judopay-sandbox.com/";
+- (NSString *)endpoint {
+    if (self.sandboxed) {
+        return @"https://gw1.judopay-sandbox.com/";
     } else {
-        self.endpoint = @"https://gw1.judopay.com/";
+        return @"https://gw1.judopay.com/";
     }
 }
 

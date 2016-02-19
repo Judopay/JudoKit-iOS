@@ -210,9 +210,8 @@
 
 - (JPPaymentToken *)paymentToken {
     if (self.parameters[@"consumerToken"] && self.parameters[@"cardToken"]) {
-        JPPaymentToken *paymentToken = [JPPaymentToken new];
-        paymentToken.consumerToken = self.parameters[@"consumerToken"];
-        paymentToken.cardToken = self.parameters[@"cardToken"];
+        JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:self.parameters[@"consumerToken"]
+                                                                           cardToken:self.parameters[@"cardToken"]];
         paymentToken.secureCode = self.parameters[@"cv2"];
         return paymentToken;
     }
@@ -220,8 +219,8 @@
 }
 
 - (void)setPaymentToken:(JPPaymentToken *)paymentToken {
-    paymentToken.consumerToken = self.parameters[@"consumerToken"];
-    paymentToken.secureCode = self.parameters[@"cardToken"];
+    self.parameters[@"consumerToken"] = paymentToken.consumerToken;
+    self.parameters[@"cardToken"] = paymentToken.secureCode;
     if (self.paymentToken.secureCode) {
         self.parameters[@"cv2"] = paymentToken.secureCode;
     }
