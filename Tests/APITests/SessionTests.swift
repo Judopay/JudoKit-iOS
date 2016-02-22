@@ -46,22 +46,18 @@ class SessionTests: XCTestCase {
         // Given
         let references = JPReference(consumerReference: "consumer0053252")
         let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
-        let card = JPCard(number: "4976000000003436", expiryDate: "12/15", cv2: "452", address: address)
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/15", secureCode: "452")
+        card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"
         let path = "transactions/payments"
         let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
-
-        guard let parameters = Session.transactionParameters(strippedJudoID, amount: amount, reference: references, card: card, token: nil, pkPayment: nil, location: location, email: emailAddress, mobile: mobileNumber, deviceSignal: nil) as? [String : AnyObject] else {
-            XCTFail()
-            return
-        }
         
         // When
         let expectation = self.expectationWithDescription("payment expectation")
         
-        Session.POST(path, parameters: parameters) { (receipt, error) -> () in
+        judo.currentAPISession.POST(path, parameters: parameters) { (receipt, error) -> () in
             expectation.fulfill()
         }
         
@@ -75,7 +71,7 @@ class SessionTests: XCTestCase {
         XCTAssertTrue(validLuhnNumber.isLuhnValid())
         let invalidLuhnNumber = "100963874"
         XCTAssertFalse(invalidLuhnNumber.isLuhnValid())
-
+        
     }
     
 }

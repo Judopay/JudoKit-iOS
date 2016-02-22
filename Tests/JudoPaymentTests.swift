@@ -27,7 +27,7 @@ class JudoPaymentTests: QuickSpec {
         
         beforeEach {
             judoKitSession = JudoKit(token: globalToken, secret: globalSecret)
-            judoKitSession.currentAPISession.sandboxed = true
+            judoKitSession.apiSession.sandboxed = true
         }
         
         describe("when initializing a payment", { () -> Void in
@@ -50,7 +50,7 @@ class JudoPaymentTests: QuickSpec {
             })
             
             it("should have the authentication headers set") { () -> () in
-                expect(judoKitSession.currentAPISession.authorizationHeader).notTo(beNil())
+                expect(judoKitSession.apiSession.authorizationHeader).notTo(beNil())
             }
             
         })

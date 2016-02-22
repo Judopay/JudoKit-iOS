@@ -34,13 +34,13 @@ class PaymentTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        judo.currentAPISession.sandboxed = true
+        judo.apiSession.sandboxed = true
     }
     
     
     
     override func tearDown() {
-        judo.currentAPISession.sandboxed = false
+        judo.apiSession.sandboxed = false
         
         super.tearDown()
     }
@@ -116,7 +116,7 @@ class PaymentTests: XCTestCase {
                     XCTFail("no data available")
                     return // BAIL
                 }
-                let payToken = JPPaymentToken(consumerToken: item.consumer.consumerToken, cardToken: item.cardDetails.cardToken!)
+                let payToken = JPPaymentToken(consumerToken: item.consumer.consumerToken, cardToken: item.cardDetails!.cardToken!)
                 let payment = self.judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
                 payment.paymentToken = payToken
                 payment.sendWithCompletion({ (data, error) -> () in
@@ -157,7 +157,7 @@ class PaymentTests: XCTestCase {
         makePayment.emailAddress = emailAddress
         makePayment.validateWithCompletion { response, error in
             if let error = error {
-                XCTAssertEqual(error.code, JudoErrorCode.Validation_Passed)
+                XCTAssertEqual(error.code, Int(JudoError.ErrorValidation_Passed.rawValue))
             } else {
                 XCTFail("api call failed with error: \(error)")
             }

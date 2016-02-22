@@ -24,51 +24,56 @@
 
 #import "NSError+Judo.h"
 
+NSString * const JudoErrorDomain = @"com.judo.error";
+
 @implementation NSError (Judo)
 
 + (NSError *)judoRequestFailedError {
-    // TODO:
-    return [NSError errorWithDomain:@"Request Failed Error" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:@{}];
 }
 
 + (NSError *)judoJSONSerializationFailedError {
-    // TODO:
-    return [NSError errorWithDomain:@"JSON Serialization Failed" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJSONSerializationFailed userInfo:@{}];
 }
 
 + (NSError *)judoJudoIdMissingError {
-    // TODO:
-    return [NSError errorWithDomain:@"JudoId missing" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJudoIdMissing userInfo:@{}];
 }
 
 + (NSError *)judoAmountMissingError {
-    // TODO:
-    return [NSError errorWithDomain:@"Amount missing" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:@{}];
 }
 
 + (NSError *)judoPaymentMethodMissingError {
-    // TODO:
-    return [NSError errorWithDomain:@"Payment method missing" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:@{}];
 }
 
 + (NSError *)judoReferenceMissingError {
-    // TODO:
-    return [NSError errorWithDomain:@"Reference missing" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:@{}];
 }
 
 + (NSError *)judoDuplicateTransactionError {
-    // TODO:
-    return [NSError errorWithDomain:@"duplicate transaction" code:1 userInfo:@{}];
+    // TODO: userInfo
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorDuplicateTransaction userInfo:@{}];
 }
 
 + (NSError *)judoErrorFromErrorCode:(NSInteger)code {
     // TODO:
-    return [NSError errorWithDomain:@"NaN" code:1 userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:1 userInfo:@{}];
+}
+
++ (NSError *)judoErrorFromError:(NSError *)error {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUnderlyingError userInfo:@{NSUnderlyingErrorKey:error}];
 }
 
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
-    // TODO:
-    return [NSError errorWithDomain:@"NaN" code:1 userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoError3DSRequest userInfo:payload];
 }
 
 @end

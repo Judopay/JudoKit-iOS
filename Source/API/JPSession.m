@@ -170,7 +170,7 @@ static NSInteger const kMaximumJudoIdLength = 10;
                                                        sort:responseJSON[@"sort"]];
         }
         
-        JPResponse *result = [JPResponse responseWithPagination:pagination];
+        JPResponse *result = [[JPResponse alloc] initWithPagination:pagination];
         
         if (responseJSON[@"results"]) {
             result.items = responseJSON[@"results"];

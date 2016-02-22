@@ -32,13 +32,13 @@ class ReceiptTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        judo.currentAPISession.sandboxed = true
+        judo.apiSession.sandboxed = true
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-        judo.currentAPISession.sandboxed = false
+        judo.apiSession.sandboxed = false
     }
 
     func testJudoTransactionReceipt() {
@@ -82,15 +82,17 @@ class ReceiptTests: XCTestCase {
         let page = JPPagination(offset: 8, pageSize: 4, sort: "Ascending")
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        JPReceipt.list(page) { (dict, error) -> () in
+        let receipt = JPReceipt(receiptId: nil)
+        
+        receipt.listWithPagination(page, completion: { (dict, error) in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
-                XCTAssertEqual(dict!.items.count, 5)
+                XCTAssertEqual(dict!.items!.count, 5)
                 XCTAssertEqual(dict!.pagination!.offset, 8)
                 expectation.fulfill()
             }
-        }
+        })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }

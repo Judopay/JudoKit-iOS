@@ -32,11 +32,11 @@ class CollectionTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        judo.currentAPISession.sandboxed = true
+        judo.apiSession.sandboxed = true
     }
     
     override func tearDown() {
-        judo.currentAPISession.sandboxed = false
+        judo.apiSession.sandboxed = false
         
         super.tearDown()
     }

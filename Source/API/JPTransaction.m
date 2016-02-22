@@ -80,7 +80,7 @@
     
     self.currentTransactionReference = self.reference.paymentReference;
     
-    [self.currentAPISession POST:self.transactionPath parameters:self.parameters completion:completion];
+    [self.apiSession POST:self.transactionPath parameters:self.parameters completion:completion];
     
 }
 
@@ -109,9 +109,9 @@
 
 - (void)threeDSecureWithParameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
     
-    [self.currentAPISession PUT:[NSString stringWithFormat:@"transactions/%@", parameters[@"receiptID"]]
-                        parameters:parameters
-                        completion:completion];
+    [self.apiSession PUT:[NSString stringWithFormat:@"transactions/%@", parameters[@"receiptID"]]
+              parameters:parameters
+              completion:completion];
     
 }
 
@@ -124,7 +124,7 @@
     if (pagination) {
         path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
     }
-    [self.currentAPISession GET:path parameters:nil completion:completion];
+    [self.apiSession GET:path parameters:nil completion:completion];
 }
 
 #pragma mark - getters and setters

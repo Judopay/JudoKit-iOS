@@ -35,7 +35,7 @@
 
 @interface JudoKit ()
 
-@property (nonatomic, strong, readwrite) JPSession *currentAPISession;
+@property (nonatomic, strong, readwrite) JPSession *apiSession;
 
 @end
 
@@ -52,9 +52,9 @@
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
         NSString *base64String = [plainData base64EncodedStringWithOptions:0];
         
-        self.currentAPISession = [JPSession new];
+        self.apiSession = [JPSession new];
         
-        [self.currentAPISession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
+        [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
     }
     return self;
 }
@@ -62,8 +62,14 @@
 - (JPPayment *)paymentWithJudoId:(NSString *)judoId {
     JPPayment *payment = [JPPayment new];
     payment.judoId = judoId;
-    payment.currentAPISession = self.currentAPISession;
+    payment.apiSession = self.apiSession;
     return payment;
+}
+
+- (void)list:(Class)type paginated:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
+    JPTransaction *transaction = [type new];
+    transaction.apiSession = self.apiSession;
+    [transaction listWithPagination:pagination completion:completion];
 }
 
 @end

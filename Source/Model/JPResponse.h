@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) NSArray<JPTransactionData *> * __nullable items;
 
-+ (nonnull instancetype)responseWithPagination:(nullable JPPagination *)pagination;
+@property (nonatomic, strong) JPPagination * __nullable pagination;
+
+- (nonnull instancetype)initWithPagination:(nullable JPPagination *)pagination;
 
 @end

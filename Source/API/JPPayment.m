@@ -49,7 +49,7 @@ static NSString * const kPaymentValidationPathKey   = @"/validate";
         return; // BAIL
     }
     
-    [self.currentAPISession POST:kPaymentValidationPathKey parameters:self.parameters completion:completion];
+    [self.apiSession POST:kPaymentValidationPathKey parameters:self.parameters completion:completion];
 }
 
 - (NSString *)transactionPath {

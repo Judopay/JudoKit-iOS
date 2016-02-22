@@ -46,7 +46,7 @@
 @property (nonatomic, strong) NSString * __nullable mobileNumber;
 @property (nonatomic, strong) NSString * __nullable emailAddress;
 
-@property (nonatomic, strong) JPSession * __nullable currentAPISession;
+@property (nonatomic, strong) JPSession * __nullable apiSession;
 
 - (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing __nullable * __nullable)error;
 
@@ -56,6 +56,6 @@
 
 - (void)listWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
 
-- (void)listWithPagination:(nonnull JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
 
 @end

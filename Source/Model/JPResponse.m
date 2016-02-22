@@ -26,9 +26,12 @@
 
 @implementation JPResponse
 
-+ (instancetype)responseWithPagination:(JPPagination *)pagination {
-#warning TODO:
-    return [[JPResponse alloc] init];
+- (instancetype)initWithPagination:(JPPagination *)pagination {
+	self = [super init];
+	if (self) {
+        self.pagination = pagination;
+	}
+	return self;
 }
 
 @end

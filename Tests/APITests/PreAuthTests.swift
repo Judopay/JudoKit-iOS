@@ -33,12 +33,12 @@ class PreAuthTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        judo.currentAPISession.sandboxed = true
+        judo.apiSession.sandboxed = true
     }
     
     
     override func tearDown() {
-        judo.currentAPISession.sandboxed = false
+        judo.apiSession.sandboxed = false
         
         super.tearDown()
     }
@@ -112,7 +112,7 @@ class PreAuthTests: XCTestCase {
                     XCTFail()
                     return // BAIL
                 }
-                let payToken = JPPaymentToken(consumerToken: item.consumer.consumerToken, cardToken: item.cardToken!)
+                let payToken = JPPaymentToken(consumerToken: item.consumer.consumerToken, cardToken: item.cardDetails!.cardToken!)
                 let preAuth = self.judo.preAuthWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (data, error) -> () in
@@ -135,13 +135,13 @@ class PreAuthTests: XCTestCase {
     func testJudoListPreAuths() {
         let expectation = self.expectationWithDescription("list all preauths expectation")
         
-        JPPreAuth.list({ (dict, error) -> () in
+        judo.list(JPPreAuth.self, paginated: nil) { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
                 expectation.fulfill()
             }
-        })
+        }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }

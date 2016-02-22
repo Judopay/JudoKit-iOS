@@ -26,16 +26,18 @@
 
 @class JPSession;
 
-@class JPPayment, JPPreAuth, JPRegisterCard;
+@class JPPayment, JPPreAuth, JPRegisterCard, JPTransaction;
 @class JPCollection, JPVoid, JPRefund;
 @class JPReceipt;
 
 @class JPAmount;
 @class JPReference;
+@class JPPagination;
+@class JPResponse;
 
 @interface JudoKit : NSObject
 
-@property (nonatomic, strong, readonly) JPSession * __nonnull currentAPISession;
+@property (nonatomic, strong, readonly) JPSession * __nonnull apiSession;
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
@@ -54,5 +56,7 @@
 - (nonnull JPRefund *)refundWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
 
 - (nonnull JPReceipt *)receipt:(nullable NSString *)receiptId;
+
+- (void)list:(nonnull Class)type paginated:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
 
 @end

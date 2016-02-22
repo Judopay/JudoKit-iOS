@@ -27,18 +27,16 @@ import JudoKitObjC
 
 class RefundTests: XCTestCase {
     
-    let judo = try! Judo(token: token, secret: secret)
+    let judo = JudoKit(token: token, secret: secret)
     
     override func setUp() {
         super.setUp()
         
-        Session.isTesting = true
-        judo.sandboxed = true
+        judo.apiSession.sandboxed = true
     }
     
     override func tearDown() {
-        Session.isTesting = false
-        judo.sandboxed = false
+        judo.apiSession.sandboxed = false
         
         super.tearDown()
     }
@@ -46,26 +44,23 @@ class RefundTests: XCTestCase {
     func testRefund() {
         // Given
         let receiptID = "1497684"
-        let amount = Amount(decimalNumber: 30, currency: .GBP)
+        let amount = JPAmount(amount: "30", currency: "GBP")
         let payRef = "payment123asd"
         
         let expectation = self.expectationWithDescription("refund expectation")
 
         // When
-        do {
-            let refund = try judo.refund(receiptID, amount: amount, paymentReference: payRef).completion({ (dict, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                } else {
-                    expectation.fulfill()
-                }
-            })
-
-            // Then
-            XCTAssertNotNil(refund)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+        let refund = judo.refundWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
+        refund.sendWithCompletion({ (dict, error) -> () in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            } else {
+                expectation.fulfill()
+            }
+        })
+        
+        // Then
+        XCTAssertNotNil(refund)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

@@ -32,7 +32,7 @@ let strippedJudoID = "100000009"
 
 class JudoTests: XCTestCase {
     
-    let judo = try! Judo(token: token, secret: secret)
+    let judo = JudoKit(token: token, secret: secret)
     
     override func setUp() {
         super.setUp()
@@ -48,31 +48,11 @@ class JudoTests: XCTestCase {
     
     
     
-    func testJudoErrorDomain() {
-        let errorDomain = JudoErrorDomain
-        XCTAssertNotNil(errorDomain)
-    }
-    
-    
-    
     func testJudoSandboxMode() {
-        judo.sandboxed = false
-        XCTAssertEqual(Session.endpoint, "https://gw1.judopay.com/")
-        judo.sandboxed = true
-        XCTAssertEqual(Session.endpoint, "https://gw1.judopay-sandbox.com/")
+        judo.apiSession.sandboxed = false
+        XCTAssertEqual(judo.apiSession.endpoint, "https://gw1.judopay.com/")
+        judo.apiSession.sandboxed = true
+        XCTAssertEqual(judo.apiSession.endpoint, "https://gw1.judopay-sandbox.com/")
     }
     
-    
-    
-    func testSetTokenAndSecret() {
-        // Given
-//        XCTAssertFalse(Judo.didSetTokenAndSecret()) can not be checked since this test might be triggered after other tests have run
-        
-        // When
-        judo.setToken(token, secret: secret)
-        
-        // Then
-        XCTAssertTrue(judo.didSetTokenAndSecret())
-    }
-
 }
