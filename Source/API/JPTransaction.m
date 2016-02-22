@@ -30,7 +30,7 @@
 #import "JPReference.h"
 #import "JPCard.h"
 #import "JPPaymentToken.h"
-#import "JPPaymentToken.h"
+#import "JPAddress.h"
 #import "JPResponse.h"
 #import "JPPagination.h"
 
@@ -178,7 +178,7 @@
         card.startDate = self.parameters[@"startDate"];
         card.issueNumber = self.parameters[@"issueNumber"];
         
-        card.cardAddress = self.parameters[@"cardAddress"];
+        card.cardAddress = [[JPAddress alloc] initWithDictionary:self.parameters[@"cardAddress"]];
         
         return card;
     }
@@ -204,7 +204,7 @@
     }
     
     if (card.cardAddress) {
-        self.parameters[@"cardAddress"] = card.cardAddress;
+        self.parameters[@"cardAddress"] = card.cardAddress.dictionaryRepresentation;
     }
 }
 

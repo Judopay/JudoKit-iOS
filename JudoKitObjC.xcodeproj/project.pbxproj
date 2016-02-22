@@ -55,7 +55,6 @@
 		3B9711941C7618CA00E9A347 /* RefundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97118A1C7618CA00E9A347 /* RefundTests.swift */; };
 		3B9711951C7618CA00E9A347 /* requests in Resources */ = {isa = PBXBuildFile; fileRef = 3B97118B1C7618CA00E9A347 /* requests */; };
 		3B9711971C7618CA00E9A347 /* VoidTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97118D1C7618CA00E9A347 /* VoidTransactionTests.swift */; };
-		3B97119A1C761B9700E9A347 /* JPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711991C761B9700E9A347 /* JPAddress.m */; };
 		3B97119B1C76353E00E9A347 /* JPAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B9711981C761B9700E9A347 /* JPAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD353C11C77557F0045658A /* JPTransactionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353C21C77557F0045658A /* JPTransactionData.m */; };
@@ -68,6 +67,7 @@
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 		3BF476F71C74E960008AE0D3 /* NSString+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BF476F51C74E960008AE0D3 /* NSString+Helper.h */; };
 		3BF476F81C74E960008AE0D3 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF476F61C74E960008AE0D3 /* NSString+Helper.m */; };
+		DA7DF5B31C7B7A8300652A1F /* JPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711991C761B9700E9A347 /* JPAddress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -441,6 +441,7 @@
 				3B678BA21C7326D30001DC2F /* JPPreAuth.m in Sources */,
 				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
+				DA7DF5B31C7B7A8300652A1F /* JPAddress.m in Sources */,
 				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
 				3BD353C81C7774780045658A /* JPConsumer.m in Sources */,
 				3B678BA61C7326F10001DC2F /* JPRegisterCard.m in Sources */,
@@ -466,7 +467,6 @@
 			files = (
 				3B9711911C7618CA00E9A347 /* PaymentTests.swift in Sources */,
 				3BF476F31C748C47008AE0D3 /* JudoPaymentTests.swift in Sources */,
-				3B97119A1C761B9700E9A347 /* JPAddress.m in Sources */,
 				3B97118E1C7618CA00E9A347 /* CollectionTests.swift in Sources */,
 				3B9711971C7618CA00E9A347 /* VoidTransactionTests.swift in Sources */,
 				3B9711921C7618CA00E9A347 /* PreAuthTests.swift in Sources */,

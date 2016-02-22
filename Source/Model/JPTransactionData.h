@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 
 @property (nonatomic, strong) NSString * __nonnull receiptId;
 /// Your original reference for this payment
-@property (nonatomic, strong) NSString * __nonnull yourPaymentReference;
+@property (nonatomic, strong) NSString * __nonnull paymentReference;
 /// The type of Transaction, either "Payment" or "Refund"
 @property (nonatomic, assign) TransactionType type;
 /// Date and time of the Transaction including time zone offset
@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 /// The result of this transactions, this will either be "Success" or "Declined"
 @property (nonatomic, assign) TransactionResult result;
 /// A message detailing the result.
-@property (nonatomic, strong) NSString * __nullable String;
+@property (nonatomic, strong) NSString * __nullable message;
 /// The number (e.g. "123-456" or "654321") identifying the Merchant to whom payment has been made
 @property (nonatomic, strong) NSString * __nonnull judoId;
 /// The trading name of the Merchant to whom payment has been made
@@ -59,5 +59,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 @property (nonatomic, strong) JPConsumer * __nonnull consumer;
 /// Raw data of the received dictionary
 @property (nonatomic, strong) NSDictionary * __nonnull rawData;
+
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

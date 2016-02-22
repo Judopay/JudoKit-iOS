@@ -26,6 +26,13 @@
 
 #import "JPSession.h"
 #import "JPPayment.h"
+#import "JPPreAuth.h"
+#import "JPRefund.h"
+#import "JPReceipt.h"
+#import "JPReference.h"
+#import "JPRegisterCard.h"
+#import "JPVoid.h"
+#import "JPCollection.h"
 
 @interface JPSession ()
 
@@ -59,12 +66,43 @@
     return self;
 }
 
-- (JPPayment *)paymentWithJudoId:(NSString *)judoId {
-    JPPayment *payment = [JPPayment new];
-    payment.judoId = judoId;
-    payment.apiSession = self.apiSession;
-    return payment;
+- (JPTransaction *)transactionForType:(Class)type judoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
+    JPTransaction *transaction = [type new];
+    transaction.judoId = judoId;
+    transaction.amount = amount;
+    transaction.reference = [[JPReference alloc] initWithConsumerReference:consumerReference];
+    transaction.apiSession = self.apiSession;
+    return transaction;
 }
+
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
+    return (JPPayment *)[self transactionForType:[JPPayment class] judoId:judoId amount:amount consumerReference:consumerReference];
+}
+
+- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
+    return (JPPreAuth *)[self transactionForType:[JPPreAuth class] judoId:judoId amount:amount consumerReference:consumerReference];
+}
+
+- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
+    return (JPRegisterCard *)[self transactionForType:[JPRegisterCard class] judoId:judoId amount:amount consumerReference:consumerReference];
+}
+
+- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
+    return [[JPCollection alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+}
+
+- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
+    return [[JPVoid alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+}
+
+- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
+    return [[JPRefund alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+}
+
+- (JPReceipt *)receipt:(NSString *)receiptId {
+    return [[JPReceipt alloc] initWithReceiptId:receiptId];
+}
+
 
 - (void)list:(Class)type paginated:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
     JPTransaction *transaction = [type new];

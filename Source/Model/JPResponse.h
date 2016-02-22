@@ -35,4 +35,8 @@
 
 - (nonnull instancetype)initWithPagination:(nullable JPPagination *)pagination;
 
+- (void)appendItems:(nonnull NSArray *)items;
+
+- (void)appendItem:(nonnull NSDictionary *)item;
+
 @end

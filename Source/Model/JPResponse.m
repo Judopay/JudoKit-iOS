@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPResponse.h"
+#import "JPTransactionData.h"
 
 @implementation JPResponse
 
@@ -32,6 +33,18 @@
         self.pagination = pagination;
 	}
 	return self;
+}
+
+- (void)appendItems:(NSArray *)items {
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.items];
+    for (NSDictionary *item in items) {
+        [array addObject:[[JPTransactionData alloc] initWithDictionary:item]];
+    }
+    self.items = [array copy];
+}
+
+- (void)appendItem:(NSDictionary *)item {
+    [self appendItems:@[item]];
 }
 
 @end

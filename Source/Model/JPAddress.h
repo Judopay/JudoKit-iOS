@@ -32,10 +32,14 @@
 @property (nonatomic, strong) NSString * __nullable postCode;
 @property (nonatomic, strong) NSString * __nullable town;
 
+@property (nonatomic, strong, readonly) NSDictionary * __nullable dictionaryRepresentation;
+
 - (nonnull instancetype)initWithLine1:(nullable NSString *)line1
                                 line2:(nullable NSString *)line2
                                 line3:(nullable NSString *)line3
                              postCode:(nullable NSString *)postCode
                                  town:(nullable NSString *)town;
+
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

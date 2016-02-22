@@ -54,7 +54,7 @@ class PreAuthTests: XCTestCase {
     func testJudoMakeValidPreAuth() {
         // Given
         let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
-        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/15", secureCode: "452")
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
         card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
@@ -88,7 +88,7 @@ class PreAuthTests: XCTestCase {
     func testJudoMakeValidTokenPreAuth() {
         // Given
         let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
-        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/15", secureCode: "452")
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
         card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"

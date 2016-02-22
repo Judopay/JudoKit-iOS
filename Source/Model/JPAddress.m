@@ -26,4 +26,59 @@
 
 @implementation JPAddress
 
+- (instancetype)initWithLine1:(NSString *)line1 line2:(NSString *)line2 line3:(NSString *)line3 postCode:(NSString *)postCode town:(NSString *)town {
+    self = [super init];
+    if (self) {
+        self.line1 = line1;
+        self.line2 = line2;
+        self.line3 = line3;
+        self.postCode = postCode;
+        self.town = town;
+    }
+    return self;
+}
+
+- (nonnull instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        if (dictionary[@"line1"]) {
+            self.line1 = dictionary[@"line1"];
+        }
+        if (dictionary[@"line2"]) {
+            self.line2 = dictionary[@"line2"];
+        }
+        if (dictionary[@"line3"]) {
+            self.line3 = dictionary[@"line3"];
+        }
+        if (dictionary[@"postCode"]) {
+            self.postCode = dictionary[@"postCode"];
+        }
+        if (dictionary[@"town"]) {
+            self.town = dictionary[@"town"];
+        }
+    }
+    return self;
+}
+
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (self.line1) {
+        dictionary[@"line1"] = self.line1;
+    }
+    if (self.line2) {
+        dictionary[@"line2"] = self.line2;
+    }
+    if (self.line3) {
+        dictionary[@"line3"] = self.line3;
+    }
+    if (self.postCode) {
+        dictionary[@"postCode"] = self.postCode;
+    }
+    if (self.town) {
+        dictionary[@"town"] = self.town;
+    }
+    return [dictionary copy];
+}
+
+
 @end
