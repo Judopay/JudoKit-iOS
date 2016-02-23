@@ -43,24 +43,49 @@ class CollectionTests: XCTestCase {
     
     func testCollection() {
         // Given
-        let receiptID = "1497684"
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
         let amount = JPAmount(amount: "30", currency: "GBP")
-        let payRef = "payment123asd"
+        let emailAddress = "hans@email.com"
+        let mobileNumber = "07100000000"
         
-        let expectation = self.expectationWithDescription("collection expectation")
-
+        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
+        
+        let expectation = self.expectationWithDescription("refund expectation")
+        
         // When
-        let collection = judo.collectionWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
-        
-        collection.sendWithCompletion({ (dict, error) -> () in
+        let makePayment = judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
+        makePayment.card = card
+        makePayment.location = location
+        makePayment.mobileNumber = mobileNumber
+        makePayment.emailAddress = emailAddress
+        makePayment.sendWithCompletion({ (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
+                return // BAIL
             }
-            expectation.fulfill();
+            
+            // Given
+            guard let receiptID = data?.items?.first?.receiptId else {
+                XCTFail()
+                return // BAIL
+            }
+            let amount = JPAmount(amount: "30", currency: "GBP")
+            let payRef = "payment123asd"
+            
+            // When
+            let collection = self.judo.collectionWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
+            
+            collection.sendWithCompletion({ (dict, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                expectation.fulfill();
+            })
+            
+            // Then
+            XCTAssertNotNil(collection)
+            
         })
-        
-        // Then
-        XCTAssertNotNil(collection)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

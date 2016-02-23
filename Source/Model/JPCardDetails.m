@@ -22,14 +22,4 @@
 	return self;
 }
 
-/*
- 
- self.cardLastFour = dict?["cardLastfour"] as? String
- self.endDate = dict?["endDate"] as? String
- self.cardToken = dict?["cardToken"] as? String
- self.cardNumber = dict?["cardNumber"] as? String
- if let cardType = dict?["cardType"] as? Int {
- 
- */
-
 @end

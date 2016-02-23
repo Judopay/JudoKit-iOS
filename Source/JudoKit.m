@@ -106,7 +106,9 @@
 }
 
 - (JPReceipt *)receipt:(NSString *)receiptId {
-    return [[JPReceipt alloc] initWithReceiptId:receiptId];
+    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
+    receipt.apiSession = self.apiSession;
+    return receipt;
 }
 
 

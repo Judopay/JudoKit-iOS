@@ -52,13 +52,13 @@
         path = [path stringByAppendingString:self.receiptId];
     }
     
-    [self.currentAPISession GET:path parameters:nil completion:completion];
+    [self.apiSession GET:path parameters:nil completion:completion];
 }
 
 - (void)listWithPagination:(JPPagination *)pagination completion:(void(^)(JPResponse *, NSError *))completion {
-    NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li7sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
+    NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li&sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
     
-    [self.currentAPISession GET:path parameters:nil completion:completion];
+    [self.apiSession GET:path parameters:nil completion:completion];
 }
 
 @end

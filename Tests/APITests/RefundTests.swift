@@ -43,24 +43,48 @@ class RefundTests: XCTestCase {
     
     func testRefund() {
         // Given
-        let receiptID = "1497684"
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
         let amount = JPAmount(amount: "30", currency: "GBP")
-        let payRef = "payment123asd"
+        let emailAddress = "hans@email.com"
+        let mobileNumber = "07100000000"
+        
+        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
         
         let expectation = self.expectationWithDescription("refund expectation")
-
+        
         // When
-        let refund = judo.refundWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
-        refund.sendWithCompletion({ (dict, error) -> () in
+        let makePayment = judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
+        makePayment.card = card
+        makePayment.location = location
+        makePayment.mobileNumber = mobileNumber
+        makePayment.emailAddress = emailAddress
+        makePayment.sendWithCompletion({ (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
-            } else {
-                expectation.fulfill()
+                return // BAIL
             }
+            
+            // Given
+            guard let receiptID = data?.items?.first?.receiptId else {
+                XCTFail()
+                return // BAIL
+            }
+            let amount = JPAmount(amount: "30", currency: "GBP")
+            let payRef = "payment123asd"
+            
+            // When
+            let refund = self.judo.refundWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
+            refund.sendWithCompletion({ (dict, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                expectation.fulfill()
+            })
+            
+            // Then
+            XCTAssertNotNil(refund)
+            
         })
-        
-        // Then
-        XCTAssertNotNil(refund)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

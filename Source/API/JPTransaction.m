@@ -220,8 +220,8 @@
 
 - (void)setPaymentToken:(JPPaymentToken *)paymentToken {
     self.parameters[@"consumerToken"] = paymentToken.consumerToken;
-    self.parameters[@"cardToken"] = paymentToken.secureCode;
-    if (self.paymentToken.secureCode) {
+    self.parameters[@"cardToken"] = paymentToken.cardToken;
+    if (paymentToken.secureCode) {
         self.parameters[@"cv2"] = paymentToken.secureCode;
     }
 }

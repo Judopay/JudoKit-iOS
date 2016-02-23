@@ -56,9 +56,39 @@ class PaymentTests: XCTestCase {
     
     func testJudoMakeValidPayment() {
         // Given
-//        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
         let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-//        card.cardAddress = address
+        let amount = JPAmount(amount: "30", currency: "GBP")
+        let emailAddress = "hans@email.com"
+        let mobileNumber = "07100000000"
+        
+        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
+        
+        let expectation = self.expectationWithDescription("payment expectation")
+        
+        // When
+        let makePayment = judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
+        makePayment.card = card
+        makePayment.location = location
+        makePayment.mobileNumber = mobileNumber
+        makePayment.emailAddress = emailAddress
+        makePayment.sendWithCompletion({ (data, error) -> () in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            }
+            expectation.fulfill()
+        })
+        // Then
+        XCTAssertNotNil(makePayment)
+        XCTAssertEqual(makePayment.judoId, strippedJudoID)
+        
+        self.waitForExpectationsWithTimeout(30, handler: nil)
+    }
+    
+    
+    
+    func testJudoMakeValidTokenPayment() {
+        // Given
+        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"
@@ -77,54 +107,19 @@ class PaymentTests: XCTestCase {
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
-                expectation.fulfill()
-            }
-        })
-        // Then
-        XCTAssertNotNil(makePayment)
-        XCTAssertEqual(makePayment.judoId, strippedJudoID)
-        
-        self.waitForExpectationsWithTimeout(30, handler: nil)
-    }
-    
-    
-    
-    func testJudoMakeValidTokenPayment() {
-        // Given
-//        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
-        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-//        card.cardAddress = address
-        let amount = JPAmount(amount: "30", currency: "GBP")
-        let emailAddress = "hans@email.com"
-        let mobileNumber = "07100000000"
-        
-        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
-        
-        let expectation = self.expectationWithDescription("payment expectation")
-        
-        // When
-        let makePayment = judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
-        makePayment.card = card
-        makePayment.location = location
-        makePayment.mobileNumber = mobileNumber
-        makePayment.emailAddress = emailAddress
-        makePayment.sendWithCompletion({ (data, error) -> () in
-            if let _ = error {
-                XCTFail()
-            } else {
                 guard let item = data?.items?.first else {
                     XCTFail("no data available")
                     return // BAIL
                 }
                 let payToken = JPPaymentToken(consumerToken: item.consumer.consumerToken, cardToken: item.cardDetails!.cardToken!)
+                payToken.secureCode = "452"
                 let payment = self.judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
                 payment.paymentToken = payToken
                 payment.sendWithCompletion({ (data, error) -> () in
                     if let error = error {
                         XCTFail("api call failed with error: \(error)")
-                    } else {
-                        expectation.fulfill()
                     }
+                    expectation.fulfill()
                 })
             }
         })
@@ -138,9 +133,7 @@ class PaymentTests: XCTestCase {
     
     func testJudoValidation() {
         // Given
-        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
         let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-        card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"

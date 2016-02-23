@@ -43,7 +43,7 @@ class ReceiptTests: XCTestCase {
 
     func testJudoTransactionReceipt() {
         // Given
-        let receiptID = "1491273"
+        let receiptID = "3079803"
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
@@ -68,9 +68,8 @@ class ReceiptTests: XCTestCase {
         receipt.sendWithCompletion({ (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
-            } else {
-                expectation.fulfill()
             }
+            expectation.fulfill()
         })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
@@ -79,10 +78,10 @@ class ReceiptTests: XCTestCase {
     
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = JPPagination(offset: 8, pageSize: 4, sort: "Ascending")
+        let page = JPPagination(offset: 8, pageSize: 4, sort: "time-ascending")
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        let receipt = JPReceipt(receiptId: nil)
+        let receipt = judo.receipt(nil)
         
         receipt.listWithPagination(page, completion: { (dict, error) in
             if let error = error {
@@ -90,8 +89,8 @@ class ReceiptTests: XCTestCase {
             } else {
                 XCTAssertEqual(dict!.items!.count, 5)
                 XCTAssertEqual(dict!.pagination!.offset, 8)
-                expectation.fulfill()
             }
+            expectation.fulfill()
         })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)

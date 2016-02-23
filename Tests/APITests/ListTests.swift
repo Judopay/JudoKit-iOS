@@ -47,9 +47,8 @@ class ListTests: XCTestCase {
         judo.list(JPPayment.self, paginated: nil) { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
-            } else {
-                expectation.fulfill()
             }
+            expectation.fulfill()
         }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
@@ -57,20 +56,20 @@ class ListTests: XCTestCase {
     
     func testJudoPaginatedListPayments() {
         // Given
-        let pagination = JPPagination(offset: 44, pageSize: 14, sort: "Descending")
+        let pagination = JPPagination(offset: 44, pageSize: 14, sort: "time-descending")
         
         let expectation = self.expectationWithDescription("list all payments for given pagination")
         
         // When
         judo.list(JPPayment.self, paginated: pagination, completion: { (response, error) in
             // Then
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
                 XCTAssertEqual(response!.items!.count, 15)
                 XCTAssertEqual(response!.pagination!.offset, 44)
-                expectation.fulfill()
             }
+            expectation.fulfill()
         })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)

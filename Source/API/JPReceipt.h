@@ -32,7 +32,7 @@
 
 @property (nonatomic, strong, readonly) NSString * __nullable receiptId;
 
-@property (nonatomic, strong) JPSession * __nullable currentAPISession;
+@property (nonatomic, strong) JPSession * __nullable apiSession;
 
 - (nonnull instancetype)initWithReceiptId:(nullable NSString *)receiptId;
 
