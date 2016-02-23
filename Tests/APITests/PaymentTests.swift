@@ -56,9 +56,9 @@ class PaymentTests: XCTestCase {
     
     func testJudoMakeValidPayment() {
         // Given
-        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
+//        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
         let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-        card.cardAddress = address
+//        card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"
@@ -91,9 +91,9 @@ class PaymentTests: XCTestCase {
     
     func testJudoMakeValidTokenPayment() {
         // Given
-        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
+//        let address = JPAddress(line1: "242 Acklam Road", line2: "Westbourne Park", line3: nil, postCode: "W10 5JJ", town: "London")
         let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-        card.cardAddress = address
+//        card.cardAddress = address
         let amount = JPAmount(amount: "30", currency: "GBP")
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"

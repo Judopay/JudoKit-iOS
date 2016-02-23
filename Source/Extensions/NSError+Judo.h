@@ -24,24 +24,30 @@
 
 #import <Foundation/Foundation.h>
 
+@class JPTransactionData;
+
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const JudoErrorDomain;
 
 @interface NSError (Judo)
 
 + (NSError *)judoRequestFailedError;
-+ (NSError *)judoJSONSerializationFailedError;
++ (NSError *)judoJSONSerializationFailedWithError:(NSError *)error;
 + (NSError *)judoJudoIdMissingError;
 + (NSError *)judoPaymentMethodMissingError;
 + (NSError *)judoAmountMissingError;
 + (NSError *)judoReferenceMissingError;
 + (NSError *)judoDuplicateTransactionError;
 
-
-+ (NSError *)judoErrorFromErrorCode:(NSInteger)code;
++ (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data;
++ (NSError *)judoErrorFromDictionary:(NSDictionary *)dict;
 + (NSError *)judoErrorFromError:(NSError *)error;
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorRequestFailed,
@@ -53,6 +59,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorDuplicateTransaction,
     JudoError3DSRequest,
     JudoErrorUnderlyingError,
+    JudoErrorTransactionDeclined,
     
     JudoErrorGeneral_Error = 0,
     JudoErrorGeneral_Model_Error = 1,

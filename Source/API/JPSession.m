@@ -25,6 +25,7 @@
 #import "JPSession.h"
 #import "JPPagination.h"
 #import "JPResponse.h"
+#import "JPTransactionData.h"
 #import "NSError+Judo.h"
 
 static NSInteger const kMinimumJudoIdLength = 6;
@@ -132,7 +133,7 @@ static NSInteger const kMaximumJudoIdLength = 10;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
                     if (!jsonError) {
-                        jsonError = [NSError judoJSONSerializationFailedError];
+                        jsonError = [NSError judoJSONSerializationFailedWithError:jsonError];
                     }
                     completion(nil, jsonError);
                 }
@@ -141,12 +142,10 @@ static NSInteger const kMaximumJudoIdLength = 10;
         }
         
         // check if API Error was returned
-        NSNumber *errorCode = responseJSON[@"code"];
-        
-        if (errorCode) {
+        if (responseJSON[@"code"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
-                    completion(nil, [NSError judoErrorFromErrorCode:errorCode.integerValue]);
+                    completion(nil, [NSError judoErrorFromDictionary:responseJSON]);
                 }
             });
             return; // BAIL
@@ -180,7 +179,11 @@ static NSInteger const kMaximumJudoIdLength = 10;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {
-                completion(result, nil);
+                if (result.items.count == 1 && result.items.firstObject.result != TransactionResultSuccess) {
+                    completion(nil, [NSError judoErrorFromTransactionData:result.items.firstObject]);
+                } else {
+                    completion(result, nil);
+                }
             }
         });
         

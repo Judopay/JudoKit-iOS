@@ -85,4 +85,6 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
 /// The card number if available
 @property (nonatomic, strong) NSString * __nullable cardNumber;
 
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
+
 @end

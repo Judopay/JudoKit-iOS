@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "NSError+Judo.h"
+#import "JPTransactionData.h"
 
 NSString * const JudoErrorDomain = @"com.judo.error";
 
@@ -33,9 +34,8 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:@{}];
 }
 
-+ (NSError *)judoJSONSerializationFailedError {
-    // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJSONSerializationFailed userInfo:@{}];
++ (NSError *)judoJSONSerializationFailedWithError:(NSError *)error {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJSONSerializationFailed userInfo:@{NSUnderlyingErrorKey:error}];
 }
 
 + (NSError *)judoJudoIdMissingError {
@@ -63,9 +63,12 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorDuplicateTransaction userInfo:@{}];
 }
 
-+ (NSError *)judoErrorFromErrorCode:(NSInteger)code {
-    // TODO:
-    return [NSError errorWithDomain:JudoErrorDomain code:1 userInfo:@{}];
++ (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorTransactionDeclined userInfo:data.rawData];
+}
+
++ (NSError *)judoErrorFromDictionary:(NSDictionary *)dict {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUnderlyingError userInfo:dict];
 }
 
 + (NSError *)judoErrorFromError:(NSError *)error {

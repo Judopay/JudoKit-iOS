@@ -36,7 +36,7 @@
 
 @property (nonatomic, strong, readonly) NSString * __nullable transactionProcessingPath;
 
-@property (nonatomic, strong) JPSession * __nullable currentAPISession;
+@property (nonatomic, strong) JPSession * __nullable apiSession;
 
 - (nonnull instancetype)initWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentRef;
 

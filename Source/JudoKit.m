@@ -87,16 +87,22 @@
     return (JPRegisterCard *)[self transactionForType:[JPRegisterCard class] judoId:judoId amount:amount consumerReference:consumerReference];
 }
 
+- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
+    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+    transactionProc.apiSession = self.apiSession;
+    return transactionProc;
+}
+
 - (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return [[JPCollection alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+    return (JPCollection *)[self transactionProcessForType:[JPCollection class] receiptId:receiptId amount:amount paymentReference:paymentReference];
 }
 
 - (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return [[JPVoid alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+    return (JPVoid *)[self transactionProcessForType:[JPVoid class] receiptId:receiptId amount:amount paymentReference:paymentReference];
 }
 
 - (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return [[JPRefund alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+    return (JPRefund *)[self transactionProcessForType:[JPRefund class] receiptId:receiptId amount:amount paymentReference:paymentReference];
 }
 
 - (JPReceipt *)receipt:(NSString *)receiptId {

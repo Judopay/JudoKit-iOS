@@ -9,6 +9,7 @@
 #import "JPTransactionData.h"
 #import "JPAmount.h"
 #import "JPCardDetails.h"
+#import "JPConsumer.h"
 
 @implementation JPTransactionData
 
@@ -34,93 +35,35 @@
         NSString *amount = dictionary[@"amount"];
         self.amount = [[JPAmount alloc] initWithAmount:amount currency:currency];
         NSDictionary *cardDetailsDictionary = dictionary[@"cardDetails"];
-        self.cardDetails = [[JPCardDetails alloc] init];
-        // TODO:
-        self.consumer = dictionary[@"consumer"];
+        if (cardDetailsDictionary) {
+            self.cardDetails = [[JPCardDetails alloc] initWithDictionary:cardDetailsDictionary];
+        }
+        self.consumer = [[JPConsumer alloc] initWithDictionary:dictionary[@"consumer"]];
         self.rawData = dictionary;
     }
     return self;
 }
 
 - (TransactionResult)transactionResultForString:(NSString *)resultString {
-    return TransactionResultDeclined;
+    if ([resultString isEqualToString:@"Success"]) {
+        return TransactionResultSuccess;
+    } else if ([resultString isEqualToString:@"Declined"]) {
+        return TransactionResultDeclined;
+    }
+    return TransactionResultError;
 }
 
 - (TransactionType)transactionTypeForString:(NSString *)typeString {
-    return TransactionTypePayment;
+    if ([typeString isEqualToString:@"Payment"]) {
+        return TransactionTypePayment;
+    } else if ([typeString isEqualToString:@"PreAuth"]) {
+        return TransactionTypePreAuth;
+    } else if ([typeString isEqualToString:@"RegisterCard"]) {
+        return TransactionTypeRegisterCard;
+    }
+    return TransactionTypeRefund;
 }
 
-/*
- 
- guard let receiptID = dict["receiptId"] as? String,
- let yourPaymentReference = dict["yourPaymentReference"] as? String,
- let typeString = dict["type"] as? String,
- let type = TransactionType(rawValue: typeString),
- let createdAtString = dict["createdAt"] as? String,
- let createdAt = ISO8601DateFormatter.dateFromString(createdAtString),
- let resultString = dict["result"] as? String,
- let result = TransactionResult(rawValue: resultString),
- let judoID = dict["judoId"] as? NSNumber,
- let merchantName = dict["merchantName"] as? String,
- let appearsOnStatementAs = dict["appearsOnStatementAs"] as? String,
- let currency = dict["currency"] as? String,
- let amountString = dict["amount"] as? String,
- let cardDetailsDict = dict["cardDetails"] as? JSONDictionary,
- let consumerDict = dict["consumer"] as? JSONDictionary else {
- self.receiptID = ""
- self.yourPaymentReference = ""
- self.type = TransactionType.Payment
- self.createdAt = NSDate()
- self.result = TransactionResult.Error
- self.message = ""
- self.judoID = ""
- self.merchantName = ""
- self.appearsOnStatementAs = ""
- self.refunds = Amount(amountString: "1", currency: "XOR")
- self.originalAmount = Amount(amountString: "1", currency: "XOR")
- self.netAmount = Amount(amountString: "1", currency: "XOR")
- self.amount = Amount(amountString: "1", currency: "XOR")
- self.cardDetails = CardDetails(nil)
- self.consumer = Consumer(consumerToken: "", consumerReference: "")
- self.rawData = [String : AnyObject]()
- super.init()
- throw JudoError(.ResponseParseError)
- }
- 
- self.receiptID = receiptID
- self.yourPaymentReference = yourPaymentReference
- self.type = type
- self.createdAt = createdAt
- self.result = result
- self.message = dict["message"] as? String
- self.judoID = String(judoID.integerValue)
- self.merchantName = merchantName
- self.appearsOnStatementAs = appearsOnStatementAs
- 
- if let refunds = dict["refunds"] as? String {
- self.refunds = Amount(amountString: refunds, currency: currency)
- } else {
- self.refunds = nil
- }
- 
- if let originalAmount = dict["originalAmount"] as? String {
- self.originalAmount = Amount(amountString: originalAmount, currency: currency)
- } else {
- self.originalAmount = nil
- }
- 
- if let netAmount = dict["netAmount"] as? String {
- self.netAmount = Amount(amountString: netAmount, currency: currency)
- } else {
- self.netAmount = nil
- }
- 
- self.amount = Amount(amountString: amountString, currency: currency)
- 
- self.cardDetails = CardDetails(cardDetailsDict)
- self.consumer = Consumer(consumerDict)
- self.rawData = dict
- 
- */
+
 
 @end

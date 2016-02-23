@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString * __nonnull consumerToken;
 @property (nonatomic, strong) NSString * __nonnull consumerReference;
 
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
+
 @end
