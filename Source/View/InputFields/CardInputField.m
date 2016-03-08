@@ -1,5 +1,5 @@
 //
-//  JPSession.h
+//  CardInputField.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,25 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "CardInputField.h"
 
-@class JPResponse;
+@implementation CardInputField
 
-typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
-
-@interface JPSession : UIViewController
-
-@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
-@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
-
-@property (nonatomic, assign) BOOL uiClientMode;
-
-@property (nonatomic, assign) BOOL sandboxed;
-
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
 
 @end

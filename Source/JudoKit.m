@@ -34,6 +34,8 @@
 #import "JPVoid.h"
 #import "JPCollection.h"
 
+#import "JPTheme.h"
+
 @interface JPSession ()
 
 @property (nonatomic, strong, readwrite) NSString *authorizationHeader;
@@ -116,6 +118,15 @@
     JPTransaction *transaction = [type new];
     transaction.apiSession = self.apiSession;
     [transaction listWithPagination:pagination completion:completion];
+}
+
+#pragma mark - Getters
+
+- (JPTheme *)theme {
+	if (!_theme) {
+		_theme = [JPTheme new];
+	}
+	return _theme;
 }
 
 @end

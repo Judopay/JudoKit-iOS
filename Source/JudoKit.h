@@ -30,6 +30,8 @@
 @class JPCollection, JPVoid, JPRefund;
 @class JPReceipt;
 
+@class JPTheme;
+
 @class JPAmount;
 @class JPReference;
 @class JPPagination;
@@ -38,6 +40,8 @@
 @interface JudoKit : NSObject
 
 @property (nonatomic, strong, readonly) JPSession * __nonnull apiSession;
+
+@property (nonatomic, strong) JPTheme * __nonnull theme;
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 

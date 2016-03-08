@@ -1,5 +1,5 @@
 //
-//  JPSession.h
+//  DateInputField.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,25 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPInputField.h"
 
-@class JPResponse;
+@interface DateInputField : JPInputField
 
-typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
-
-@interface JPSession : UIViewController
-
-@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
-@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
-
-@property (nonatomic, assign) BOOL uiClientMode;
-
-@property (nonatomic, assign) BOOL sandboxed;
-
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+@property (nonatomic, assign) BOOL isStartDate;
 
 @end

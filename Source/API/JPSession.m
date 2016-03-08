@@ -92,6 +92,15 @@ static NSInteger const kMaximumJudoIdLength = 10;
         [request addValue:@"iOSObjC-\(version)" forHTTPHeaderField:@"Sdk-Version"];
     }
     
+    NSString *uiClientModeString = @"Judo-SDK";
+    
+    if (self.uiClientMode) {
+        uiClientModeString = @"Custom-UI";
+    }
+    
+    [request addValue:uiClientModeString forHTTPHeaderField:@"UI-Client-Mode"];
+
+    
     // Check if token and secret have been set
     NSAssert(self.authorizationHeader, @"token and secret not set");
     

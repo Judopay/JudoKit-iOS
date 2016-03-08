@@ -1,5 +1,5 @@
 //
-//  JPSession.h
+//  FloatingTextField.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -24,23 +24,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class JPResponse;
-
-typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
-
-@interface JPSession : UIViewController
-
-@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
-@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
-
-@property (nonatomic, assign) BOOL uiClientMode;
-
-@property (nonatomic, assign) BOOL sandboxed;
-
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+@interface FloatingTextField : UITextField
 
 @end

@@ -1,5 +1,5 @@
 //
-//  JPSession.h
+//  JPInputField.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -24,23 +24,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class JPResponse;
+@protocol JudoPayInputDelegate <NSObject>
 
-typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
 
-@interface JPSession : UIViewController
 
-@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
-@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
+@end
 
-@property (nonatomic, assign) BOOL uiClientMode;
+@interface JPInputField : UIView
 
-@property (nonatomic, assign) BOOL sandboxed;
+@property (nonatomic, strong) UITextField *textField;
 
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+@property (nonatomic, weak) id<JudoPayInputDelegate> delegate;
 
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
-
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)updateCardLogo;
 
 @end

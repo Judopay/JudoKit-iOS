@@ -87,4 +87,10 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
 
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
+- (nullable NSString *)formattedCardLastFour;
+
+- (nullable NSString *)formattedExpiryDate;
+
++ (nonnull NSString *)titleForCardNetwork:(CardNetwork)network;
+
 @end
