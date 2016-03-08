@@ -24,9 +24,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class JPTheme;
+
 @interface LoadingView : UIView
 
 @property (nonatomic, strong, readonly) UILabel *actionLabel;
+
+@property (nonatomic, strong) JPTheme *theme;
 
 - (void)startAnimating;
 - (void)stopAnimating;

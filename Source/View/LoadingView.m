@@ -24,6 +24,8 @@
 
 #import "LoadingView.h"
 
+#import "JPTheme.h"
+
 @interface LoadingView ()
 
 @property (nonatomic, strong) UIView *blockView;
@@ -52,15 +54,48 @@
 }
 
 - (void)setupView {
+    self.backgroundColor = self.theme.judoLoadingBackgroundColor;
     
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.alpha = 0.0f;
+    
+    self.blockView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.actionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor;
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.actionLabel.textColor = self.theme.judoDarkGrayColor;
+    
+    self.blockView.clipsToBounds = true;
+    self.blockView.layer.cornerRadius = 5.0f;
+    
+    [self addSubview:self.blockView];
+    
+    [self.blockView addSubview:self.activityIndicatorView];
+    [self.blockView addSubview:self.actionLabel];
+    
+    [self.blockView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-<=30-[activity]-25-[label]-<=30-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:@{@"activity":self.activityIndicatorView, @"label":self.actionLabel}]];
+    
+    [self.blockView addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.blockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    
+    [self.blockView addConstraint:[NSLayoutConstraint constraintWithItem:self.actionLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.blockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-<=30-[block(>=270)]-<=30-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:@{@"block":self.blockView}]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.blockView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:110.0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.blockView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
 }
 
 - (void)startAnimating {
-    
+    [self.activityIndicatorView startAnimating];
+    self.alpha = 1.0f;
 }
 
 - (void)stopAnimating {
-    
+    [self.activityIndicatorView stopAnimating];
+    self.alpha = 0.0f;
 }
 
 /*
