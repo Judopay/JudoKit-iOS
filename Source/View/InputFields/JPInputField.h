@@ -36,6 +36,8 @@
 
 @property (nonatomic, weak) id<JudoPayInputDelegate> delegate;
 
+@property (nonatomic, strong, readonly) NSString *hintLabelText;
+
 - (void)updateCardLogo;
 
 @end

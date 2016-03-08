@@ -24,6 +24,8 @@
 
 #import "JPInputField.h"
 
+#import "JPCardDetails.h"
+
 @interface CardInputField : JPInputField
 
 @property (nonatomic, assign) CardNetwork cardNetwork;

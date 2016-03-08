@@ -42,6 +42,8 @@
 #import "BillingCountryInputField.h"
 #import "PostCodeInputField.h"
 
+#import "NSTimer+Blocks.h"
+
 static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCurve curve) {
     UIViewAnimationOptions opt = (UIViewAnimationOptions)curve;
     return opt << 16;
@@ -143,36 +145,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - View Lifecycle
 
 /* 
-
- // Layout constraints
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
- 
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
- 
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[tdsecure]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
- 
- self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
- self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
- 
- self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
- self.addConstraint(keyboardHeightConstraint!)
- 
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[card]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["card":cardInputField]))
- self.contentView.addConstraint(NSLayoutConstraint(item: cardInputField, attribute: NSLayoutAttribute.Width, relatedBy: .Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 2))
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[billing]-(-1)-[post(==billing)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField, "post":postCodeInputField]))
- 
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[hint]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["hint":hintLabel]))
- 
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
- 
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "hint":hintLabel]))
- self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "hint":hintLabel]))
- 
  self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1.0)
  self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
  self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: self.hintLabel, attribute: .Bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
@@ -260,7 +232,12 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(20)-[hint(18)]-(15)-|" options:0 metrics:@{@"fieldHeight":@(self.theme.inputFieldHeight)} views:@{@"card":self.cardInputField, @"start":self.startDateInputField, @"expiry":self.expiryDateInputField, @"billing":self.billingCountryInputField, @"hint":self.hintLabel}]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[post]-(20)-[hint]-(15)-|" options:0 metrics:@{@"fieldHeight":@(self.theme.inputFieldHeight)} views:@{@"card":self.cardInputField, @"issue":self.issueNumberInputField, @"start":self.startDateInputField, @"security":self.securityCodeInputField, @"post":self.postCodeInputField, @"hint":self.hintLabel}]];
-
+    
+    self.maestroFieldsHeightConstraint = [NSLayoutConstraint constraintWithItem:self.startDateInputField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:1.0];
+    
+    self.avsFieldsHeightConstraint = [NSLayoutConstraint constraintWithItem:self.billingCountryInputField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.0];
+    
+    self.securityMessageTopConstraint = [NSLayoutConstraint constraintWithItem:self.securityMessageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.hintLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-self.hintLabel.bounds.size.height];
     
     self.securityMessageLabel.hidden = !self.theme.showSecurityMessage;
     
@@ -283,12 +260,83 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     }
 }
 
+- (void)toggleStartDateVisibility:(BOOL)isVisible {
+    self.maestroFieldsHeightConstraint.constant = isVisible ? self.theme.inputFieldHeight : 1;
+    [self.issueNumberInputField setNeedsUpdateConstraints];
+    [self.startDateInputField setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.issueNumberInputField layoutIfNeeded];
+        [self.startDateInputField layoutIfNeeded];
+        
+        [self.expiryDateInputField layoutIfNeeded];
+        [self.securityCodeInputField layoutIfNeeded];
+    }];
+}
+
+- (void)toggleAVSVisibility:(BOOL)isVisible completion:(void (^)())completion {
+    self.avsFieldsHeightConstraint.constant = isVisible ? self.theme.inputFieldHeight : 0;
+    [self.billingCountryInputField setNeedsUpdateConstraints];
+    [self.postCodeInputField setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.billingCountryInputField layoutIfNeeded];
+        [self.postCodeInputField layoutIfNeeded];
+        
+    } completion:^(BOOL finished) {
+        if (completion) {
+            completion();
+        }
+    }];
+}
+
 - (void)updateInputFieldsWithNetwork:(CardNetwork)network {
     self.cardInputField.cardNetwork = network;
     [self.cardInputField updateCardLogo];
     self.securityCodeInputField.cardNetwork = network;
     [self.securityCodeInputField updateCardLogo];
     self.securityCodeInputField.textField.placeholder = [JPCardDetails titleForCardNetwork:network];
+}
+
+- (void)paymentEnabled:(BOOL)enabled {
+    _paymentEnabled = enabled;
+    self.paymentButton.hidden = !enabled;
+    
+    self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + (_paymentEnabled ? 0 : self.paymentButton.bounds.size.height);
+    
+    [self.paymentButton setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.25 delay:0.0 options:(enabled ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn) animations:^{
+        [self.paymentButton layoutIfNeeded];
+    } completion:nil];
+    
+    self.paymentNavBarButton.enabled = enabled;
+}
+
+- (void)showHintAfterDefaultDelay:(JPInputField *)input {
+    if (self.securityCodeInputField.isTokenPayment && !self.securityCodeInputField.textField.text.length) {
+        [self.hintLabel showHint:self.securityCodeInputField.hintLabelText];
+    } else {
+        [self.hintLabel hideHint];
+    }
+    
+    [self updateSecurityMessagePosition:false];
+    
+    [NSTimer scheduleWithDelay:3.0 handler:^(CFRunLoopTimerRef runLoopTimerRef) {
+        NSString *hintLabelText = input.hintLabelText;
+        if (hintLabelText.length && !input.textField.text.length && input.textField.isFirstResponder) {
+            [self updateSecurityMessagePosition:false];
+            [self.hintLabel showHint:hintLabelText];
+        }
+    }];
+}
+
+- (void)updateSecurityMessagePosition:(BOOL)toggleUp {
+    [self.contentView layoutIfNeeded];
+    self.securityMessageTopConstraint.constant = (toggleUp && !self.hintLabel.isActive) ? -self.hintLabel.bounds.size.height : 14.0;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView layoutIfNeeded];
+    }];
 }
 
 @end

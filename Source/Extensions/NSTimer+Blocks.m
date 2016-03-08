@@ -1,8 +1,8 @@
 //
-//  SecurityCodeInputField.h
+//  NSTimer+Blocks.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPInputField.h"
+#import "NSTimer+Blocks.h"
 
-#import "JPCardDetails.h"
+@implementation NSTimer (Blocks)
 
-@interface SecurityCodeInputField : JPInputField
-
-@property (nonatomic, assign) CardNetwork cardNetwork;
-
-@property (nonatomic, assign) BOOL isTokenPayment;
++ (instancetype)scheduleWithDelay:(NSTimeInterval)delay handler:(void (^)(CFRunLoopTimerRef))handler {
+    NSTimeInterval fireDate = CFAbsoluteTimeGetCurrent() + delay;
+    NSTimer *timer = CFBridgingRelease(CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler));
+    [NSRunLoop.currentRunLoop addTimer:timer forMode:NSDefaultRunLoopMode];
+    return timer;
+}
 
 @end

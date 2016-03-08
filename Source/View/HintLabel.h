@@ -26,4 +26,15 @@
 
 @interface HintLabel : UILabel
 
+@property (nonatomic, strong) NSAttributedString *hintLabelText;
+@property (nonatomic, strong) NSAttributedString *alertText;
+
+@property (nonatomic, assign, readonly) BOOL isActive;
+
+- (void)showHint:(NSString *)hint;
+- (void)hideHint;
+
+- (void)showAlert:(NSString *)alert;
+- (void)hideAlert;
+
 @end
