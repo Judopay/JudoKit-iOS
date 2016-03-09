@@ -29,9 +29,9 @@
 
 @interface JPResponse : NSObject
 
-@property (nonatomic, strong) NSArray<JPTransactionData *> * __nullable items;
+@property (nonatomic, strong) NSArray<JPTransactionData *> * _Nullable items;
 
-@property (nonatomic, strong) JPPagination * __nullable pagination;
+@property (nonatomic, strong) JPPagination * _Nullable pagination;
 
 - (nonnull instancetype)initWithPagination:(nullable JPPagination *)pagination;
 

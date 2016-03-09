@@ -28,6 +28,6 @@
 
 @interface JPPayment : JPTransaction
 
-- (void)validateWithCompletion:(nonnull void (^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)validateWithCompletion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

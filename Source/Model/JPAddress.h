@@ -26,7 +26,7 @@
 
 @interface JPAddress : NSObject
 
-@property (nonatomic, strong) NSString * __nullable line1;
+@property (nonatomic, strong) NSString * _Nullable line1;
 @property (nonatomic, strong) NSString * __nullable line2;
 @property (nonatomic, strong) NSString * __nullable line3;
 @property (nonatomic, strong) NSString * __nullable postCode;

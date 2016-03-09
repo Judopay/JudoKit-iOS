@@ -31,7 +31,6 @@
 #import "JPTheme.h"
 
 #import "HintLabel.h"
-#import "JPButton.h"
 #import "LoadingView.h"
 #import "JP3DSWebView.h"
 
@@ -65,7 +64,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong, readonly) UILabel *securityMessageLabel;
 
 @property (nonatomic, strong) UIBarButtonItem *paymentNavBarButton;
-@property (nonatomic, strong) JPButton *paymentButton;
+@property (nonatomic, strong) UIButton *paymentButton;
 
 @property (nonatomic, strong) LoadingView *loadingView;
 
@@ -337,6 +336,20 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [UIView animateWithDuration:0.3 animations:^{
         [self.contentView layoutIfNeeded];
     }];
+}
+
+#pragma mark - Lazy Loading
+
+- (UIButton *)paymentButton {
+	if (!_paymentButton) {
+		_paymentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _paymentButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _paymentButton.backgroundColor = self.theme.judoButtonColor;
+        [_paymentButton setTitle:@"Pay" forState:UIControlStateNormal];
+        [_paymentButton setTitleColor:self.theme.judoButtonTitleColor forState:UIControlStateNormal];
+        [_paymentButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22.0]];
+	}
+	return _paymentButton;
 }
 
 @end

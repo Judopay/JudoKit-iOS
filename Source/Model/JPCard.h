@@ -28,14 +28,14 @@
 
 @interface JPCard : NSObject
 
-@property (nonatomic, strong) NSString * __nullable cardNumber;
-@property (nonatomic, strong) NSString * __nullable expiryDate;
-@property (nonatomic, strong) NSString * __nullable secureCode;
+@property (nonatomic, strong) NSString * _Nullable cardNumber;
+@property (nonatomic, strong) NSString * _Nullable expiryDate;
+@property (nonatomic, strong) NSString * _Nullable secureCode;
 
-@property (nonatomic, strong) NSString * __nullable startDate;
-@property (nonatomic, strong) NSString * __nullable issueNumber;
+@property (nonatomic, strong) NSString * _Nullable startDate;
+@property (nonatomic, strong) NSString * _Nullable issueNumber;
 
-@property (nonatomic, strong) JPAddress * __nullable cardAddress;
+@property (nonatomic, strong) JPAddress * _Nullable cardAddress;
 
 - (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
 

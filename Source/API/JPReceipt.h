@@ -30,14 +30,14 @@
 
 @interface JPReceipt : NSObject
 
-@property (nonatomic, strong, readonly) NSString * __nullable receiptId;
+@property (nonatomic, strong, readonly) NSString * _Nullable receiptId;
 
-@property (nonatomic, strong) JPSession * __nullable apiSession;
+@property (nonatomic, strong) JPSession * _Nullable apiSession;
 
 - (nonnull instancetype)initWithReceiptId:(nullable NSString *)receiptId;
 
-- (void)sendWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
-- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

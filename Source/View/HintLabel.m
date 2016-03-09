@@ -24,14 +24,50 @@
 
 #import "HintLabel.h"
 
+#import "JPTheme.h"
+
 @implementation HintLabel
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (BOOL)isActive {
+    return self.alertText.length > 0 || self.hintText.length > 0;
 }
-*/
+
+- (void)showHint:(NSString *)hint {
+    self.hintText = [[NSAttributedString alloc] initWithString:hint attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor}];
+    if (self.alertText == nil) {
+        [self addAnimation];
+        
+        self.attributedText = self.hintText;
+    }
+}
+
+- (void)showAlert:(NSString *)alert {
+    [self addAnimation];
+    
+    self.alertText = [[NSAttributedString alloc] initWithString:alert attributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
+    self.attributedText = self.alertText;
+}
+
+- (void)hideHint {
+    [self addAnimation];
+    
+    self.hintText = nil;
+    self.attributedText = self.alertText;
+}
+
+- (void)hideAlert {
+    [self addAnimation];
+    
+    self.alertText = nil;
+    self.attributedText = self.alertText;
+}
+
+- (void)addAnimation {
+    CATransition *transition = [CATransition new];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.duration = .5f;
+    [self.layer addAnimation:transition forKey:@"kCATransitionFade"];
+}
 
 @end

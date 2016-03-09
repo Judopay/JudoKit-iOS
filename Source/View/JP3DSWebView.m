@@ -23,15 +23,60 @@
 //  SOFTWARE.
 
 #import "JP3DSWebView.h"
+#import "NSError+Judo.h"
 
 @implementation JP3DSWebView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)init {
+	self = [super init];
+	if (self) {
+        [self setupView];
+	}
+	return self;
 }
-*/
+
+- (instancetype)initWithFrame:(CGRect)frame {
+	self = [super initWithFrame:CGRectZero];
+	if (self) {
+        
+	}
+	return self;
+}
+
+- (void)setupView {
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.alpha = 0.0f;
+}
+
+- (NSString *)load3DSWithPayload:(NSDictionary *)payload error:(NSError **)error {
+    
+    NSCharacterSet *allowedCharSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
+    
+    NSString *urlString = payload[@"acsUrl"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSString *md = payload[@"md"];
+    NSString *receiptId = payload[@"receiptId"];
+    NSString *paReqString = payload[@"paReq"];
+    NSString *paReqStringEscaped = [paReqString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
+    NSString *termUrlString = [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
+    
+    if (!url || !md || !receiptId || !paReqString || !paReqStringEscaped || !termUrlString) {
+        *error = [NSError judo3DSRequestFailedError];
+        return nil;
+    }
+    
+    NSData *postData = [[NSString stringWithFormat:@"MD=%@&PaReq=%@&TermUrl=%@", md, paReqStringEscaped, termUrlString] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    request.HTTPMethod = @"POST";
+    [request setValue:[NSString stringWithFormat:@"%li", postData.length] forHTTPHeaderField:@"Content-Length"];
+    request.HTTPBody = postData;
+    
+    [self loadRequest:request];
+    
+    return receiptId;
+    
+}
 
 @end

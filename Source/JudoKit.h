@@ -61,6 +61,6 @@
 
 - (nonnull JPReceipt *)receipt:(nullable NSString *)receiptId;
 
-- (void)list:(nonnull Class)type paginated:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)list:(nonnull Class)type paginated:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

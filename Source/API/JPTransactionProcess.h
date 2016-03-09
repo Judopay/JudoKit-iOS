@@ -34,12 +34,12 @@
 @property (nonatomic, strong, readonly) JPAmount * __nonnull amount;
 @property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
 
-@property (nonatomic, strong, readonly) NSString * __nullable transactionProcessingPath;
+@property (nonatomic, strong, readonly) NSString * _Nullable transactionProcessingPath;
 
-@property (nonatomic, strong) JPSession * __nullable apiSession;
+@property (nonatomic, strong) JPSession * _Nullable apiSession;
 
 - (nonnull instancetype)initWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentRef;
 
-- (void)sendWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

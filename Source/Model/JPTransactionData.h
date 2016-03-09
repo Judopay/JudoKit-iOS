@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 /// The result of this transactions, this will either be "Success" or "Declined"
 @property (nonatomic, assign) TransactionResult result;
 /// A message detailing the result.
-@property (nonatomic, strong) NSString * __nullable message;
+@property (nonatomic, strong) NSString * _Nullable message;
 /// The number (e.g. "123-456" or "654321") identifying the Merchant to whom payment has been made
 @property (nonatomic, strong) NSString * __nonnull judoId;
 /// The trading name of the Merchant to whom payment has been made
@@ -62,15 +62,15 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 /// How the Merchant will appear on the Consumers statement
 @property (nonatomic, strong) NSString * __nonnull appearsOnStatementAs;
 /// If present this will show the total value of refunds made against the original payment
-@property (nonatomic, strong) JPAmount * __nullable refunds;
+@property (nonatomic, strong) JPAmount * _Nullable refunds;
 /// This is the original value of this transaction before refunds
-@property (nonatomic, strong) JPAmount * __nullable originalAmount;
+@property (nonatomic, strong) JPAmount * _Nullable originalAmount;
 /// This will show the remaining balance of the transaction after refunds. You cannot refund more than the original payment
-@property (nonatomic, strong) JPAmount * __nullable netAmount;
+@property (nonatomic, strong) JPAmount * _Nullable netAmount;
 /// This is the value of this transaction (if refunds available it is the amount after refunds)
 @property (nonatomic, strong) JPAmount * __nonnull amount;
 /// Information about the card used in this transaction
-@property (nonatomic, strong) JPCardDetails * __nullable cardDetails;
+@property (nonatomic, strong) JPCardDetails * _Nullable cardDetails;
 /// Details of the Consumer for use in repeat payments
 @property (nonatomic, strong) JPConsumer * __nonnull consumer;
 /// Raw data of the received dictionary

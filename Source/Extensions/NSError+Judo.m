@@ -63,6 +63,10 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorDuplicateTransaction userInfo:@{}];
 }
 
++ (NSError *)judo3DSRequestFailedError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:@{}];
+}
+
 + (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data {
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorTransactionDeclined userInfo:data.rawData];
 }

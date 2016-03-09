@@ -1,8 +1,8 @@
 //
-//  JPButton.h
+//  NSString+TextDirection.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface JPButton : UIButton
+typedef NS_ENUM(NSUInteger, JPTextDirection) {
+    JPTextDirectionNeutral = 0,
+    
+    JPTextDirectionLeftToRight,
+    
+    JPTextDirectionRightToLeft,
+};
+
+@interface NSString (TextDirection)
+
+/**
+ *  Inspects the string and makes a best guess at text directionality.
+ *
+ *  @return the inferred text directionality of this string.
+ */
+- (JPTextDirection)getBaseDirection;
 
 @end

@@ -26,12 +26,12 @@
 
 @class JPResponse;
 
-typedef void (^JudoCompletionBlock)(JPResponse * __nullable, NSError * __nullable);
+typedef void (^JudoCompletionBlock)(JPResponse * _Nullable, NSError * _Nullable);
 
 @interface JPSession : UIViewController
 
 @property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
-@property (nonatomic, strong, readonly) NSString * __nullable authorizationHeader;
+@property (nonatomic, strong, readonly) NSString * _Nullable authorizationHeader;
 
 @property (nonatomic, assign) BOOL uiClientMode;
 

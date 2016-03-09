@@ -30,32 +30,32 @@
 
 @interface JPTransaction : NSObject
 
-@property (nonatomic, strong, readonly) NSString * __nullable transactionPath;
+@property (nonatomic, strong, readonly) NSString * _Nullable transactionPath;
 
 @property (nonatomic, strong) NSString * __nonnull judoId;
 @property (nonatomic, strong) JPReference * __nonnull reference;
 @property (nonatomic, strong) JPAmount * __nonnull amount;
 
-@property (nonatomic, strong) JPCard * __nullable card;
-@property (nonatomic, strong) JPPaymentToken * __nullable paymentToken;
-@property (nonatomic, strong, readonly) PKPayment * __nullable pkPayment;
+@property (nonatomic, strong) JPCard * _Nullable card;
+@property (nonatomic, strong) JPPaymentToken * _Nullable paymentToken;
+@property (nonatomic, strong, readonly) PKPayment * _Nullable pkPayment;
 
 @property (nonatomic, assign) CLLocationCoordinate2D location;
-@property (nonatomic, strong) NSDictionary * __nullable deviceSignal;
+@property (nonatomic, strong) NSDictionary * _Nullable deviceSignal;
 
-@property (nonatomic, strong) NSString * __nullable mobileNumber;
-@property (nonatomic, strong) NSString * __nullable emailAddress;
+@property (nonatomic, strong) NSString * _Nullable mobileNumber;
+@property (nonatomic, strong) NSString * _Nullable emailAddress;
 
-@property (nonatomic, strong) JPSession * __nullable apiSession;
+@property (nonatomic, strong) JPSession * _Nullable apiSession;
 
-- (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing _Nullable * _Nullable)error;
 
 - (nullable NSError *)validateTransaction;
 
-- (void)sendWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
-- (void)listWithCompletion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)listWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
-- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * __nullable, NSError * __nullable))completion;
+- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

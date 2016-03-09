@@ -24,12 +24,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class JPTheme;
+
 @interface HintLabel : UILabel
 
-@property (nonatomic, strong) NSAttributedString *hintLabelText;
+@property (nonatomic, strong) NSAttributedString *hintText;
 @property (nonatomic, strong) NSAttributedString *alertText;
 
 @property (nonatomic, assign, readonly) BOOL isActive;
+
+@property (nonatomic, strong) JPTheme *theme;
 
 - (void)showHint:(NSString *)hint;
 - (void)hideHint;

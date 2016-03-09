@@ -26,4 +26,6 @@
 
 @interface JP3DSWebView : UIWebView
 
+- (NSString * _Nullable)load3DSWithPayload:(nonnull NSDictionary *)payload error:(NSError * _Nullable * _Nullable)error;
+
 @end

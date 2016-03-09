@@ -98,12 +98,14 @@
     self.alpha = 0.0f;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setTheme:(JPTheme *)theme {
+    if (_theme == theme) {
+        return; // BAIL
+    }
+    _theme = theme;
+    self.backgroundColor = self.theme.judoLoadingBackgroundColor;
+    self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor;
+    self.actionLabel.textColor = self.theme.judoDarkGrayColor;
 }
-*/
 
 @end

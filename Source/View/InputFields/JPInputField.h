@@ -24,6 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class JPTheme;
+
+@class FloatingTextField;
+
 @protocol JudoPayInputDelegate <NSObject>
 
 
@@ -32,7 +36,9 @@
 
 @interface JPInputField : UIView
 
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) FloatingTextField *textField;
+
+@property (nonatomic, strong) JPTheme *theme;
 
 @property (nonatomic, weak) id<JudoPayInputDelegate> delegate;
 
