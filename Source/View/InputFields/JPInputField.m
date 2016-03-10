@@ -27,8 +27,9 @@
 #import "JPTheme.h"
 
 #import "FloatingTextField.h"
+#import "CardLogoView.h"
 
-@interface JPInputField () <UITextFieldDelegate>
+@interface JPInputField ()
 
 @property (nonatomic, strong, readwrite) NSString *hintLabelText;
 
@@ -96,31 +97,95 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:visualFormat options:NSLayoutFormatDirectionLeftToRight metrics:nil views:views]];
 }
 
-- (void)textFieldDidChangeValue:(UITextField *)textField {
-    [self dismissError];
+- (void)errorAnimation:(BOOL)showRedBlock {
+    void (^blockAnimation)(BOOL) = ^void(BOOL didFinish) {
+        CAKeyframeAnimation *contentViewAnimation = [CAKeyframeAnimation animation];
+        contentViewAnimation.keyPath = @"position.x";
+        contentViewAnimation.values = @[@0, @10, @(-8), @6, @(-4), @2, @0];
+        contentViewAnimation.keyTimes = @[@0, @(1 / 11.0), @(3 / 11.0), @(5 / 11.0), @(7 / 11.0), @(9 / 11.0), @1];
+        contentViewAnimation.duration = 0.4;
+        contentViewAnimation.additive = YES;
+        
+        [self.layer addAnimation:contentViewAnimation forKey:@"wiggle"];
+    };
+    
+    if (showRedBlock) {
+        self.redBlock.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 4.0);
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.redBlock.frame = CGRectMake(0, self.bounds.size.height - 4, self.bounds.size.width, 4.0);
+            self.textField.textColor = self.theme.judoRedColor;
+        } completion:blockAnimation];
+    } else {
+        blockAnimation(YES);
+    }
 }
 
-- (void)dismissError {
-    
+- (void)updateCardLogo {
+    CardLogoView *logoView = [self logoView];
+    logoView.frame = CGRectMake(0, 0, 42, 27);
+    CardLogoView *oldLogoView = self.logoContainerView.subviews.firstObject;
+    if ([oldLogoView isKindOfClass:[self class]] && oldLogoView.type != logoView.type) {
+        [UIView transitionFromView:oldLogoView toView:logoView duration:0.3 options:UIViewAnimationOptionTransitionFlipFromBottom completion:nil];
+    }
+    [self.textField setPlaceholder:[self placeHolder] floatingTitle:[self placeHolder]];
 }
 
 - (void)setActive:(BOOL)active {
     self.textField.alpha = active ? 1.0 : 0.5;
 }
 
-- (void)updateCardLogo {
-    
+- (void)dismissError {
+    if (self.redBlock.bounds.origin.y >= self.bounds.size.height) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.redBlock.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 4.0f);
+            self.textField.textColor = self.theme.judoDarkGrayColor;
+        }];
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self setActive:YES];
+    [self.delegate judoPayInputDidChangeText:self];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self setActive:(textField.text.length > 0)];
+}
+
+- (BOOL)isValid {
+    return false;
+}
+
+- (void)didChangeInputText {
+    [self.delegate judoPayInputDidChangeText:self];
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [self dismissError];
+}
+
+- (NSString *)placeHolder {
+    return @"";
 }
 
 - (BOOL)containsLogo {
     return NO;
 }
 
-- (UIView *)logoView {
-    return [UIView new];
+- (CardLogoView *)logoView {
+    return nil;
 }
 
 - (NSString *)title {
+    return @"";
+}
+
+- (CGFloat)titleWidth {
+    return 50.0f;
+}
+
+- (NSString *)hintLabelText {
     return @"";
 }
 

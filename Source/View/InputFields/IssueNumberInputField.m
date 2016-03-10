@@ -23,15 +23,48 @@
 //  SOFTWARE.
 
 #import "IssueNumberInputField.h"
+#import "NSString+Helper.h"
+#import "FloatingTextField.h"
+#import "JPTheme.h"
 
 @implementation IssueNumberInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSString *oldString = textField.text;
+    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
+    
+    if (!newString.length) {
+        return true;
+    }
+    
+    return [newString isNumeric] && newString.length <= 3;
 }
-*/
+
+#pragma mark - Superclass methods
+
+- (BOOL)isValid {
+    return self.textField.text.length > 0 && self.textField.text.length < 4;
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [super textFieldDidChangeValue:textField];
+    
+    [self didChangeInputText];
+    
+    [self.delegate issueNumberInputDidEnterCode:self withIssueNumber:self.textField.text];
+}
+
+- (NSAttributedString *)placeholder {
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:[self.theme judoLightGrayColor]}];
+}
+
+- (NSString *)title {
+    return @"Issue number";
+}
+
+- (NSString *)hintLabelText {
+    return @"Issue number on front of card";
+}
 
 @end

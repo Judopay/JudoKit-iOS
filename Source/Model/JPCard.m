@@ -23,6 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCard.h"
+#import "CardNetwork.h"
+#import "NSString+Helper.h"
 
 @interface JPCard ()
 
@@ -39,5 +41,33 @@
 	}
 	return self;
 }
+
++ (NSString *)cardPresentationStringFromString:(NSString *)fromString withAcceptedNetworks:(NSArray *)networks {
+    
+    // strip whitespaces
+    NSString *strippedString = [fromString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    // check if count is between 0 and 16
+    if (strippedString.length == 0) {
+        return @"";
+    } else if (strippedString.length > 16 || ![strippedString isNumeric]) {
+        return nil;
+    }
+    
+    // make sure to only check for the allowed networks
+    CardNetwork network = [self networkForString:strippedString];
+    
+    // Only try to format if a specific card number has been recognized
+    if (network == CardNetworkUnknown) {
+        return strippedString;
+    }
+    
+    return @"";
+}
+
++ (CardNetwork)networkForString:(NSString *)networkString {
+    return CardNetworkUnknown;
+}
+
 
 @end

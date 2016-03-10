@@ -23,18 +23,40 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "JPCardDetails.h"
+#import "BillingCountry.h"
 
 @class JPTheme;
 
-@class FloatingTextField;
+@class FloatingTextField, CardLogoView;
+
+@class IssueNumberInputField, CardInputField, DateInputField, BillingCountryInputField, PostCodeInputField, JPInputField;
 
 @protocol JudoPayInputDelegate <NSObject>
 
+- (void)issueNumberInputDidEnterCode:(IssueNumberInputField *)input withIssueNumber:(NSString *)issueNumber;
 
+- (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error;
+
+- (void)cardInput:(CardInputField *)input didFindValidNumber:(NSString *)cardNumberString;
+
+- (void)cardInput:(CardInputField *)input didDetectNetwork:(CardNetwork)network;
+
+- (void)dateInput:(DateInputField *)input didFailWithError:(NSError *)error;
+
+- (void)dateInput:(DateInputField *)input didFindValidDate:(NSDate *)date;
+
+- (void)billingCountryInput:(BillingCountryInputField *)input didSelect:(BillingCountry)billingCountry;
+
+- (void)postCodeInputField:(PostCodeInputField *)input didFailWithError:(NSError *)NSError;
+
+- (void)judoPayInput:(JPInputField *)input didValidate:(BOOL)valid;
+
+- (void)judoPayInputDidChangeText:(JPInputField *)input;
 
 @end
 
-@interface JPInputField : UIView
+@interface JPInputField : UIView <UITextFieldDelegate>
 
 @property (nonatomic, strong) FloatingTextField *textField;
 
@@ -42,8 +64,25 @@
 
 @property (nonatomic, weak) id<JudoPayInputDelegate> delegate;
 
+@property (nonatomic, strong, readonly) NSAttributedString *placeholder;
+@property (nonatomic, assign, readonly) BOOL containsLogo;
+@property (nonatomic, strong, readonly) CardLogoView *logoView;
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, assign, readonly) CGFloat titleWidth;
 @property (nonatomic, strong, readonly) NSString *hintLabelText;
 
+@property (nonatomic, assign, readonly) BOOL isValid;
+
+- (void)errorAnimation:(BOOL)showRedBlock;
+
 - (void)updateCardLogo;
+
+- (void)dismissError;
+
+- (void)setActive:(BOOL)isActive;
+
+- (void)didChangeInputText;
+
+- (void)textFieldDidChangeValue:(UITextField *)textField;
 
 @end

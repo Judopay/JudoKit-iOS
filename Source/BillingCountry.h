@@ -1,5 +1,5 @@
 //
-//  JPCard.h
+//  BillingCountry.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,23 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
-@class JPAddress;
-
-@interface JPCard : NSObject
-
-@property (nonatomic, strong) NSString * _Nullable cardNumber;
-@property (nonatomic, strong) NSString * _Nullable expiryDate;
-@property (nonatomic, strong) NSString * _Nullable secureCode;
-
-@property (nonatomic, strong) NSString * _Nullable startDate;
-@property (nonatomic, strong) NSString * _Nullable issueNumber;
-
-@property (nonatomic, strong) JPAddress * _Nullable cardAddress;
-
-- (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
-
-+ (NSString *)cardPresentationStringFromString:(NSString *)fromString withAcceptedNetworks:(NSArray *)networks;
-
-@end
+typedef NS_ENUM(NSUInteger, BillingCountry) {
+    BillingCountryUK,
+    BillingCountryUSA,
+    BillingCountryCanada,
+    BillingCountryOther
+};

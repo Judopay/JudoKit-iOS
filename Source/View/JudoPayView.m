@@ -33,6 +33,7 @@
 #import "HintLabel.h"
 #import "LoadingView.h"
 #import "JP3DSWebView.h"
+#import "FloatingTextField.h"
 
 #import "CardInputField.h"
 #import "DateInputField.h"

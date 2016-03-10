@@ -26,12 +26,18 @@
 
 @implementation CardInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSString *oldString = textField.text;
+    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
+    
+    if (!newString.length || !string.length) {
+        return YES;
+    }
+    
+    result
+    
 }
-*/
+
 
 @end

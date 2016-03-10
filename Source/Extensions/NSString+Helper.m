@@ -40,4 +40,10 @@
     return s;
 }
 
+- (BOOL)isNumeric {
+    NSString *regexPattern = @"^[0-9]*$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
+    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
+}
+
 @end

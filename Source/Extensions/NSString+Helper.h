@@ -42,4 +42,6 @@
  */
 - (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString;
 
+- (BOOL)isNumeric;
+
 @end

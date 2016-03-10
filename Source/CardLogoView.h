@@ -1,6 +1,6 @@
 //
-//  JPCard.h
-//  JudoKitObjC
+//  CardLogoView.h
+//  JudoKit
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,22 +23,22 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@class JPAddress;
+typedef NS_ENUM(NSUInteger, CardLogoType) {
+    CardLogoTypeVisa,
+    CardLogoTypeMasterCard,
+    CardLogoTypeAMEX,
+    CardLogoTypeMaestro,
+    CardLogoTypeCIDV,
+    CardLogoTypeCVC,
+    CardLogoTypeUnknown
+};
 
-@interface JPCard : NSObject
+@interface CardLogoView : UIView
 
-@property (nonatomic, strong) NSString * _Nullable cardNumber;
-@property (nonatomic, strong) NSString * _Nullable expiryDate;
-@property (nonatomic, strong) NSString * _Nullable secureCode;
+@property (nonatomic, assign, readonly) CardLogoType type;
 
-@property (nonatomic, strong) NSString * _Nullable startDate;
-@property (nonatomic, strong) NSString * _Nullable issueNumber;
-
-@property (nonatomic, strong) JPAddress * _Nullable cardAddress;
-
-- (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
-
-+ (NSString *)cardPresentationStringFromString:(NSString *)fromString withAcceptedNetworks:(NSArray *)networks;
+- (instancetype)initWithType:(CardLogoType)type;
 
 @end
