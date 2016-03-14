@@ -193,8 +193,26 @@
         if (error) {
             if (error.domain == JudoErrorDomain && error.code == JudoError3DSRequest) {
                 if (!error.userInfo) {
-                    
+                    if (self.completionBlock) {
+                        self.completionBlock(nil, [NSError judoResponseParseError]);
+                        return; // BAIL
+                    }
                 }
+                
+                NSError *load3DSerror = nil;
+                
+                self.pending3DSReceiptId = [self.view.threeDSWebView load3DSWithPayload:error.userInfo error:&load3DSerror];
+                
+                if (load3DSerror && self.completionBlock) {
+                    self.completionBlock(nil, load3DSerror);
+                    [self.view.loadingView stopAnimating];
+                    return; // BAIL
+                }
+                
+                self.view.loadingView.actionLabel.text = self.theme.redirecting3DSTitle;
+                self.title = self.theme.authenticationTitle;
+                [self.view paymentEnabled:NO];
+                
             }
         } else if (response) {
             if (self.completionBlock) {
