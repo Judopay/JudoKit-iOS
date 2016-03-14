@@ -26,6 +26,7 @@
 #import "JPTransaction.h"
 #import "JudoPayView.h"
 #import "JPSession.h"
+#import "JudoKit.h"
 
 @import CoreLocation;
 @import JudoShield;
@@ -41,13 +42,15 @@
 @property (nonatomic, assign) CLLocationCoordinate2D currentLocation;
 @property (nonatomic, strong) JPTransaction *pending3DSTransaction;
 @property (nonatomic, strong) NSString *pending3DSReceiptId;
-@property (nonatomic, strong) JudoCompletionBlock *completionBlock;
+@property (nonatomic, strong) JudoCompletionBlock completionBlock;
 
 @property (nonatomic, strong) JudoPayView *view;
 
 @end
 
 @implementation JudoPayViewController
+
+@synthesize view;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

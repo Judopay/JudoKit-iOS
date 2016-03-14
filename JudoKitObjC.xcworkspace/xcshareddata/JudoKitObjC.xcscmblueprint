@@ -6,12 +6,14 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : 0,
     "18183958D89FC50CCD8B131419490530C61A3596" : 0,
+    "CD675D6B08F18484481B3C037D8994E547E3DD19" : 0,
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "993BF825-A745-4586-AE44-10843827156A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : "JudoKitObjC\/Vendor\/Nimble\/",
     "18183958D89FC50CCD8B131419490530C61A3596" : "JudoKitObjC\/",
+    "CD675D6B08F18484481B3C037D8994E547E3DD19" : "JudoKitObjC\/JudoShield\/",
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "JudoKitObjC\/Vendor\/Quick\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "JudoKitObjC",
@@ -27,6 +29,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Nimble.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "95438028B10BBB846574013D29F154A00556A9D1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JudoPay\/JudoShield.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD675D6B08F18484481B3C037D8994E547E3DD19"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Quick.git",

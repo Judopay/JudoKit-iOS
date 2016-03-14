@@ -24,7 +24,16 @@
 
 #import "JPTheme.h"
 
+#import "CardNetwork.h"
+
 @implementation JPTheme
+
+- (NSArray *)acceptedCardNetworks {
+    if (!_acceptedCardNetworks) {
+        _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
+    }
+    return _acceptedCardNetworks;
+}
 
 - (UIColor *)tintColor {
     if (!_tintColor) {

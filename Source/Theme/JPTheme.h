@@ -26,6 +26,8 @@
 
 @interface JPTheme : NSObject
 
+@property (nonatomic, strong) NSArray *acceptedCardNetworks;
+
 @property (nonatomic, strong) UIColor *tintColor;
 @property (nonatomic, assign) BOOL avsEnabled;
 @property (nonatomic, assign) BOOL showSecurityMessage;

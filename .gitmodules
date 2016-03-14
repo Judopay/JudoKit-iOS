@@ -4,3 +4,6 @@
 [submodule "Vendor/Nimble"]
 	path = Vendor/Nimble
 	url = https://github.com/Quick/Nimble.git
+[submodule "JudoShield"]
+	path = JudoShield
+	url = https://github.com/JudoPay/JudoShield.git

@@ -1,8 +1,8 @@
 //
-//  CardInputField.m
+//  NSArray+Prefix.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "CardInputField.h"
+#import "NSArray+Prefix.h"
 
-#import "JPCard.h"
-#import "JPTheme.h"
+@implementation NSArray (Prefix)
 
-@implementation CardInputField
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)containsPrefix:(NSString *)prefix {
     
-    NSString *oldString = textField.text;
-    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
-    
-    if (!newString.length || !string.length) {
-        return YES;
+    for (NSString *p in self) {
+        if ([prefix hasPrefix:p]) {
+            return YES;
+        }
     }
     
-    NSString *cardPresentationString = [JPCard cardPresentationStringFromString:newString withAcceptedNetworks:self.theme.acceptedCardNetworks];
-    
-    // TODO: need to add an error case here
-    
-    if (cardPresentationString) {
-        [self dismissError];
-    }
-    
-    return YES;
+    return NO;
 }
-
 
 @end
