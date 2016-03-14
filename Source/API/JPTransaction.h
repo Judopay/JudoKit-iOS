@@ -54,6 +54,8 @@
 
 - (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
+- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters completion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+
 - (void)listWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 - (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;

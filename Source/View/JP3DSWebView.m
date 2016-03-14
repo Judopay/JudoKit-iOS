@@ -61,7 +61,7 @@
     NSString *termUrlString = [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
     
     if (!url || !md || !receiptId || !paReqString || !paReqStringEscaped || !termUrlString) {
-        *error = [NSError judo3DSRequestFailedError];
+        *error = [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil];
         return nil;
     }
     

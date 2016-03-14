@@ -39,6 +39,4 @@
 
 - (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
 
-+ (NSString *)cardPresentationStringFromString:(NSString *)fromString withAcceptedNetworks:(NSArray *)networks;
-
 @end

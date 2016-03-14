@@ -26,4 +26,6 @@
 
 @interface PostCodeInputField : JPInputField
 
+@property (nonatomic, assign) BillingCountry billingCountry;
+
 @end

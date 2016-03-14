@@ -24,11 +24,23 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JPTransactionData.h"
+
+@class JP3DSWebView, JPTheme, LoadingView;
+
 @class CardInputField, IssueNumberInputField, DateInputField, SecurityCodeInputField, PostCodeInputField, BillingCountryInputField;
 
 @interface JudoPayView : UIView
 
 @property (nonatomic, strong, readonly) UIScrollView *contentView;
+
+@property (nonatomic, strong, readonly) JP3DSWebView *threeDSWebView;
+
+@property (nonatomic, strong, readonly) LoadingView *loadingView;
+
+@property (nonatomic, strong) JPCardDetails *cardDetails;
+
+@property (nonatomic, strong) JPTheme *theme;
 
 @property (nonatomic, strong, readonly) CardInputField *cardInputField;
 @property (nonatomic, strong, readonly) DateInputField *expiryDateInputField;
@@ -37,5 +49,13 @@
 @property (nonatomic, strong, readonly) IssueNumberInputField *issueNumberInputField;
 @property (nonatomic, strong, readonly) PostCodeInputField *postCodeInputField;
 @property (nonatomic, strong, readonly) BillingCountryInputField *billingCountryInputField;
+
+@property (nonatomic, strong, readonly) NSString *transactionTitle;
+@property (nonatomic, assign, readonly) TransactionType transactionType;
+
+@property (nonatomic, strong, readonly) UIButton *paymentButton;
+@property (nonatomic, strong) UIBarButtonItem *paymentNavBarButton;
+
+- (void)paymentEnabled:(BOOL)enabled;
 
 @end

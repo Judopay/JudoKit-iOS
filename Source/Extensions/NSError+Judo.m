@@ -63,7 +63,10 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorDuplicateTransaction userInfo:@{}];
 }
 
-+ (NSError *)judo3DSRequestFailedError {
++ (NSError *)judo3DSRequestFailedErrorWithUnderlyingError:(NSError *)underlyingError {
+    if (underlyingError) {
+        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:@{NSUnderlyingErrorKey:underlyingError}];
+    }
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:@{}];
 }
 
@@ -79,8 +82,24 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUnderlyingError userInfo:@{NSUnderlyingErrorKey:error}];
 }
 
++ (NSError *)judoUserDidCancelError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUserDidCancel userInfo:nil];
+}
+
++ (NSError *)judoParameterError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:nil];
+}
+
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
     return [NSError errorWithDomain:JudoErrorDomain code:JudoError3DSRequest userInfo:payload];
+}
+
++ (NSError *)judoInputMismatchErrorWithMessage:(NSString *)message {
+    if (message) {
+        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorInputMismatchError userInfo:@{NSLocalizedDescriptionKey:message}];
+    } else {
+        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorInputMismatchError userInfo:nil];
+    }
 }
 
 @end

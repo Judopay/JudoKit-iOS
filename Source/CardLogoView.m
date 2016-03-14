@@ -54,8 +54,8 @@
         case CardLogoTypeMaestro:
             [self drawCardMaestro];
             break;
-        case CardLogoTypeCIDV:
-            [self drawCardCidv];
+        case CardLogoTypeCID:
+            [self drawCardCid];
             break;
         case CardLogoTypeCVC:
             [self drawCardCvc];
@@ -1539,7 +1539,7 @@
     CGColorSpaceRelease(colorSpace);
 }
 
-- (void)drawCardCidv {
+- (void)drawCardCid {
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -1559,7 +1559,7 @@
     CGFloat sVGID_5_2Locations[] = {0, 0.68, 1};
     CGGradientRef sVGID_5_2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColor.CGColor, (id)gradientColor2.CGColor, (id)gradientColor3.CGColor], sVGID_5_2Locations);
 
-    //// ic_card_cidv Group
+    //// ic_card_cid Group
     {
         //// Group 2
         {

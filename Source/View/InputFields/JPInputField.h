@@ -34,8 +34,6 @@
 
 @protocol JudoPayInputDelegate <NSObject>
 
-- (void)issueNumberInputDidEnterCode:(IssueNumberInputField *)input withIssueNumber:(NSString *)issueNumber;
-
 - (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error;
 
 - (void)cardInput:(CardInputField *)input didFindValidNumber:(NSString *)cardNumberString;
@@ -46,9 +44,11 @@
 
 - (void)dateInput:(DateInputField *)input didFindValidDate:(NSDate *)date;
 
+- (void)issueNumberInputDidEnterCode:(IssueNumberInputField *)input withIssueNumber:(NSString *)issueNumber;
+
 - (void)billingCountryInput:(BillingCountryInputField *)input didSelect:(BillingCountry)billingCountry;
 
-- (void)postCodeInputField:(PostCodeInputField *)input didFailWithError:(NSError *)NSError;
+- (void)postCodeInputField:(PostCodeInputField *)input didFailWithError:(NSError *)error;
 
 - (void)judoPayInput:(JPInputField *)input didValidate:(BOOL)valid;
 

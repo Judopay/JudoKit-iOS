@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, CardLogoType) {
     CardLogoTypeMasterCard,
     CardLogoTypeAMEX,
     CardLogoTypeMaestro,
-    CardLogoTypeCIDV,
+    CardLogoTypeCID,
     CardLogoTypeCVC,
     CardLogoTypeUnknown
 };

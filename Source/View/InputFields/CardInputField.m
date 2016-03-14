@@ -24,6 +24,8 @@
 
 #import "CardInputField.h"
 
+#import "NSString+Card.h"
+
 #import "JPCard.h"
 #import "JPTheme.h"
 
@@ -38,7 +40,9 @@
         return YES;
     }
     
-    NSString *cardPresentationString = [JPCard cardPresentationStringFromString:newString withAcceptedNetworks:self.theme.acceptedCardNetworks];
+    NSError *error = nil;
+    
+    NSString *cardPresentationString = [newString cardPresentationStringWithAcceptedNetworks:self.theme.acceptedCardNetworks error:&error];
     
     // TODO: need to add an error case here
     

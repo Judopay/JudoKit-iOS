@@ -28,6 +28,4 @@
 
 + (NSTimer *)scheduleWithDelay:(NSTimeInterval)delay handler:(void (^)(CFRunLoopTimerRef))handler;
 
-+ (NSTimer *)scheduleWithRepeatInterval:(NSTimeInterval)delay handler:(void (^)(CFRunLoopTimerRef))handler;
-
 @end

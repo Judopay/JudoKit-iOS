@@ -173,8 +173,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
         originX = textRect.origin.x + textRect.size.width - _floatingLabel.frame.size.width;
     }
     else if (self.textAlignment == NSTextAlignmentNatural) {
-        JVTextDirection baseDirection = [_floatingLabel.text getBaseDirection];
-        if (baseDirection == JVTextDirectionRightToLeft) {
+        JPTextDirection baseDirection = [_floatingLabel.text getBaseDirection];
+        if (baseDirection == JPTextDirectionRightToLeft) {
             originX = textRect.origin.x + textRect.size.width - _floatingLabel.frame.size.width;
         }
     }

@@ -33,6 +33,7 @@
 #import "JPRegisterCard.h"
 #import "JPVoid.h"
 #import "JPCollection.h"
+#import "JPTransactionData.h"
 
 #import "JPTheme.h"
 
@@ -118,6 +119,17 @@
     JPTransaction *transaction = [type new];
     transaction.apiSession = self.apiSession;
     [transaction listWithPagination:pagination completion:completion];
+}
+
+- (nullable JPTransaction *)transactionWithType:(TransactionType)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference {
+    switch (type) {
+        case <#constant#>:
+            <#statements#>
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Getters

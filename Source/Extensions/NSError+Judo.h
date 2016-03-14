@@ -39,7 +39,10 @@ extern NSString * const JudoErrorDomain;
 + (NSError *)judoAmountMissingError;
 + (NSError *)judoReferenceMissingError;
 + (NSError *)judoDuplicateTransactionError;
-+ (NSError *)judo3DSRequestFailedError;
++ (NSError *)judo3DSRequestFailedErrorWithUnderlyingError:(nullable NSError *)underlyingError;
++ (NSError *)judoUserDidCancelError;
++ (NSError *)judoParameterError;
++ (NSError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
 
 + (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data;
 + (NSError *)judoErrorFromDictionary:(NSDictionary *)dict;
@@ -62,6 +65,9 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorUnderlyingError,
     JudoErrorTransactionDeclined,
     JudoErrorFailed3DSRequest,
+    JudoErrorInputMismatchError,
+    JudoErrorUserDidCancel,
+    JudoErrorParameterError,
     
     JudoErrorGeneral_Error = 0,
     JudoErrorGeneral_Model_Error = 1,

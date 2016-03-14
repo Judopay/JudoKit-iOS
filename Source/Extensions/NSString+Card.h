@@ -1,8 +1,8 @@
 //
-//  JPAddress.h
+//  NSString+Card.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JPAddress : NSObject
+#import "CardNetwork.h"
 
-@property (nonatomic, strong) NSString * _Nullable line1;
-@property (nonatomic, strong) NSString * __nullable line2;
-@property (nonatomic, strong) NSString * __nullable line3;
-@property (nonatomic, strong) NSString * __nullable postCode;
-@property (nonatomic, strong) NSString * __nullable town;
-@property (nonatomic, strong) NSString * __nullable billingCountry;
+@interface NSString (Card)
 
-@property (nonatomic, strong, readonly) NSDictionary * __nullable dictionaryRepresentation;
+@property (nonatomic, assign, readonly) CardNetwork cardNetwork;
 
-- (nonnull instancetype)initWithLine1:(nullable NSString *)line1
-                                line2:(nullable NSString *)line2
-                                line3:(nullable NSString *)line3
-                             postCode:(nullable NSString *)postCode
-                                 town:(nullable NSString *)town;
-
-- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
+- (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks error:(NSError * _Nullable * _Nullable)error;
 
 @end

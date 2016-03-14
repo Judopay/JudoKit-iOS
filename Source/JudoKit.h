@@ -63,4 +63,6 @@
 
 - (void)list:(nonnull Class)type paginated:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
+- (nullable JPTransaction *)transactionWithType:(TransactionType)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
+
 @end

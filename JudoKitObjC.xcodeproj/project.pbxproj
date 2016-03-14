@@ -63,6 +63,8 @@
 		3B6912D11C93179100367660 /* NSArray+Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6912CF1C93179100367660 /* NSArray+Prefix.h */; };
 		3B6912D21C93179100367660 /* NSArray+Prefix.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6912D01C93179100367660 /* NSArray+Prefix.m */; };
 		3B6912DA1C96BA3400367660 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6912D91C96BA3400367660 /* JudoShield.framework */; };
+		3B6912DE1C96BFED00367660 /* NSString+Card.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6912DC1C96BFED00367660 /* NSString+Card.h */; };
+		3B6912DF1C96BFED00367660 /* NSString+Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6912DD1C96BFED00367660 /* NSString+Card.m */; };
 		3B6991561C8DD85B006ED1FB /* JPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6991541C8DD85B006ED1FB /* JPTheme.h */; };
 		3B6991571C8DD85B006ED1FB /* JPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6991551C8DD85B006ED1FB /* JPTheme.m */; };
 		3B6991631C8F26FE006ED1FB /* NSTimer+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */; };
@@ -182,6 +184,8 @@
 		3B6912CF1C93179100367660 /* NSArray+Prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Prefix.h"; path = "Extensions/NSArray+Prefix.h"; sourceTree = "<group>"; };
 		3B6912D01C93179100367660 /* NSArray+Prefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Prefix.m"; path = "Extensions/NSArray+Prefix.m"; sourceTree = "<group>"; };
 		3B6912D91C96BA3400367660 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
+		3B6912DC1C96BFED00367660 /* NSString+Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Card.h"; path = "Extensions/NSString+Card.h"; sourceTree = "<group>"; };
+		3B6912DD1C96BFED00367660 /* NSString+Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Card.m"; path = "Extensions/NSString+Card.m"; sourceTree = "<group>"; };
 		3B6991541C8DD85B006ED1FB /* JPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTheme.h; path = Theme/JPTheme.h; sourceTree = "<group>"; };
 		3B6991551C8DD85B006ED1FB /* JPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTheme.m; path = Theme/JPTheme.m; sourceTree = "<group>"; };
 		3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+Blocks.h"; path = "Extensions/NSTimer+Blocks.h"; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				3B5AFC081C9079E600DABB4C /* NSString+TextDirection.m */,
 				3B6912CF1C93179100367660 /* NSArray+Prefix.h */,
 				3B6912D01C93179100367660 /* NSArray+Prefix.m */,
+				3B6912DC1C96BFED00367660 /* NSString+Card.h */,
+				3B6912DD1C96BFED00367660 /* NSString+Card.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 				3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */,
 				3BD353CB1C77803F0045658A /* JPCardDetails.h in Headers */,
 				3B678BAD1C7327160001DC2F /* JPRefund.h in Headers */,
+				3B6912DE1C96BFED00367660 /* NSString+Card.h in Headers */,
 				3B704A9A1C89F1C700376773 /* SecurityCodeInputField.h in Headers */,
 				3BF476F71C74E960008AE0D3 /* NSString+Helper.h in Headers */,
 				3BD353C71C7774780045658A /* JPConsumer.h in Headers */,
@@ -641,6 +648,7 @@
 				3B53629F1C7CBD8100CEBAE2 /* JudoPayView.m in Sources */,
 				3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */,
 				3B704A8F1C89F19800376773 /* IssueNumberInputField.m in Sources */,
+				3B6912DF1C96BFED00367660 /* NSString+Card.m in Sources */,
 				3B678BB61C7327410001DC2F /* JPReceipt.m in Sources */,
 				3B678BAA1C7327040001DC2F /* JPCollection.m in Sources */,
 				3B5362961C7CBD3F00CEBAE2 /* JudoPayViewController.m in Sources */,

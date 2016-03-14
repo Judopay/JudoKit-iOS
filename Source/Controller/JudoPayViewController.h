@@ -24,11 +24,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class JudoKit, JPAmount, JPReference, JPPaymentToken;
+#import "JPTransactionData.h"
+
+@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken;
 
 @interface JudoPayViewController : UIViewController
 
 @property (nonatomic, strong) JudoKit *judoKitSession;
+
+@property (nonatomic, strong) JPTheme *theme;
+
+@property (nonatomic, assign) TransactionType type;
 
 @property (nonatomic, strong, readonly) JPAmount *amount;
 @property (nonatomic, strong, readonly) NSString *judoId;

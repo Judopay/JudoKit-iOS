@@ -43,6 +43,7 @@
 #import "PostCodeInputField.h"
 
 #import "NSTimer+Blocks.h"
+#import "NSError+Judo.h"
 
 static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCurve curve) {
     UIViewAnimationOptions opt = (UIViewAnimationOptions)curve;
@@ -54,8 +55,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     CGFloat _currentKeyboardHeight;
 }
 
-@property (nonatomic, strong) JPCardDetails *cardDetails;
-
 @property (nonatomic, strong) NSLayoutConstraint *keyboardHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *maestroFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *avsFieldsHeightConstraint;
@@ -64,16 +63,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong) HintLabel *hintLabel;
 @property (nonatomic, strong, readonly) UILabel *securityMessageLabel;
 
-@property (nonatomic, strong) UIBarButtonItem *paymentNavBarButton;
-@property (nonatomic, strong) UIButton *paymentButton;
+@property (nonatomic, strong, readwrite) UIButton *paymentButton;
 
-@property (nonatomic, strong) LoadingView *loadingView;
+@property (nonatomic, strong, readwrite) LoadingView *loadingView;
 
-@property (nonatomic, strong) JP3DSWebView *threeDSWebView;
+@property (nonatomic, strong, readwrite) JP3DSWebView *threeDSWebView;
 
-@property (nonatomic, assign) TransactionType transactionType;
-
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, assign, readwrite) TransactionType transactionType;
 
 @end
 
@@ -339,6 +335,16 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     }];
 }
 
+- (void)showAlertOnHintLabel:(NSString *)message {
+    [self.hintLabel showAlert:message];
+    [self updateSecurityMessagePosition:NO];
+}
+
+- (void)hideAlertOnHintLabel {
+    [self.hintLabel hideAlert];
+    [self updateSecurityMessagePosition:YES];
+}
+
 #pragma mark - Lazy Loading
 
 - (UIButton *)paymentButton {
@@ -351,6 +357,106 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [_paymentButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22.0]];
 	}
 	return _paymentButton;
+}
+
+- (NSString *)transactionTitle {
+    switch (self.transactionType) {
+        case TransactionTypePayment:
+        case TransactionTypePreAuth:
+            return self.theme.paymentTitle;
+        case TransactionTypeRegisterCard:
+            return self.theme.registerCardTitle;
+        case TransactionTypeRefund:
+            return self.theme.refundTitle;
+        default:
+            return @"Invalid";
+    }
+}
+
+#pragma mark - JudoPayInputDelegate
+
+- (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error {
+    [input errorAnimation:(error.code != JudoErrorInputMismatchError)];
+    if (error.userInfo[NSLocalizedDescriptionKey]) {
+        [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
+    }
+}
+
+- (void)cardInput:(CardInputField *)input didFindValidNumber:(NSString *)cardNumberString {
+    if (input.cardNetwork == CardNetworkMaestro) {
+        [self.startDateInputField.textField becomeFirstResponder];
+    } else {
+        [self.expiryDateInputField.textField becomeFirstResponder];
+    }
+}
+
+- (void)cardInput:(CardInputField *)input didDetectNetwork:(CardNetwork)network {
+    [self updateInputFieldsWithNetwork:network];
+    [self.hintLabel hideAlert];
+    [self updateSecurityMessagePosition:YES];
+}
+
+- (void)dateInput:(DateInputField *)input didFailWithError:(NSError *)error {
+    [input errorAnimation:(error.code == JudoErrorInputMismatchError)];
+    if (error.userInfo[NSLocalizedDescriptionKey]) {
+        [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
+    }
+}
+
+- (void)dateInput:(DateInputField *)input didFindValidDate:(NSDate *)date {
+    [self hideAlertOnHintLabel];
+    if (input == self.startDateInputField) {
+        [self.issueNumberInputField.textField becomeFirstResponder];
+    } else {
+        [self.securityCodeInputField.textField becomeFirstResponder];
+    }
+}
+
+- (void)issueNumberInputDidEnterCode:(IssueNumberInputField *)input withIssueNumber:(NSString *)issueNumber {
+    if (issueNumber.length == 3) {
+        [self.expiryDateInputField.textField becomeFirstResponder];
+    }
+}
+
+- (void)billingCountryInput:(BillingCountryInputField *)input didSelect:(BillingCountry)billingCountry {
+    self.postCodeInputField.billingCountry = billingCountry;
+    self.postCodeInputField.textField.text = @"";
+    self.postCodeInputField.userInteractionEnabled = billingCountry != BillingCountryOther;
+    [self judoPayInputDidChangeText:self.billingCountryInputField];
+}
+
+- (void)postCodeInputField:(PostCodeInputField *)input didFailWithError:(NSError *)error {
+    if (error.userInfo[NSLocalizedDescriptionKey]) {
+        [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
+    }
+}
+
+- (void)judoPayInput:(JPInputField *)input didValidate:(BOOL)valid {
+    if (input == self.securityCodeInputField) {
+        if (self.theme.avsEnabled) {
+            if (valid) {
+                [self.postCodeInputField.textField becomeFirstResponder];
+                [self toggleAVSVisibility:YES completion:^{
+                    [self.contentView scrollRectToVisible:self.postCodeInputField.frame animated:YES];
+                }];
+            }
+        }
+    } else if (input == self.postCodeInputField) {
+        [self hideAlertOnHintLabel];
+    }
+}
+
+- (void)judoPayInputDidChangeText:(JPInputField *)input {
+    [self showHintAfterDefaultDelay:input];
+    BOOL allFieldsValid = NO;
+    allFieldsValid = self.cardInputField.isValid && self.expiryDateInputField.isValid && self.securityCodeInputField.isValid;
+    if (self.theme.avsEnabled) {
+        allFieldsValid = allFieldsValid && self.postCodeInputField.isValid && self.billingCountryInputField.isValid;
+    }
+    if (self.cardInputField.cardNetwork == CardNetworkMaestro) {
+        allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid || self.startDateInputField.isValid);
+    }
+    [self paymentEnabled:allFieldsValid];
 }
 
 @end
