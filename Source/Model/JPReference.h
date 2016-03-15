@@ -34,4 +34,6 @@
 
 + (nonnull instancetype)consumerReference:(nonnull NSString *)ref;
 
++ (nullable NSString *)generatePaymentReference;
+
 @end

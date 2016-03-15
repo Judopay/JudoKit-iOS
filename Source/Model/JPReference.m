@@ -41,12 +41,16 @@
 - (instancetype)initWithConsumerReference:(NSString *)ref {
     self = [super init];
     if (self) {
-        NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-        NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
-        self.paymentReference = [[NSString stringWithFormat:@"%@%@", uuidString, [NSDate date]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
+        self.paymentReference = [JPReference generatePaymentReference];
         self.consumerReference = ref;
     }
     return self;
+}
+
++ (NSString *)generatePaymentReference {
+    NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
+    return [[NSString stringWithFormat:@"%@%@", uuidString, [NSDate date]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
 }
 
 @end

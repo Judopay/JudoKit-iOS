@@ -1,5 +1,5 @@
 //
-//  JPTransactionProcess.h
+//  UIColor+Judo.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,24 +22,30 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "UIColor+Judo.h"
 
-@class JPAmount;
-@class JPResponse;
-@class JPSession;
+@implementation UIColor (Judo)
 
-@interface JPTransactionProcess : NSObject
+- (UIColor *)inverseColor {
+    CGFloat r;
+    CGFloat g;
+    CGFloat b;
+    CGFloat a;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
+}
 
-@property (nonatomic, strong, readonly) NSString * __nonnull receiptId;
-@property (nonatomic, strong, readonly) JPAmount * __nonnull amount;
-@property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
+- (CGFloat)greyScale {
+    CGFloat r;
+    CGFloat g;
+    CGFloat b;
+    CGFloat a;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    return (0.299 * r + 0.587 * g + 0.114 * b);
+}
 
-@property (nonatomic, strong, readonly) NSString * _Nullable transactionProcessingPath;
-
-@property (nonatomic, strong) JPSession * _Nullable apiSession;
-
-- (nonnull instancetype)initWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
-
-- (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+- (BOOL)colorMode {
+    return self.greyScale < 0.5;
+}
 
 @end

@@ -25,6 +25,7 @@
 #import "JPTransactionProcess.h"
 
 #import "JPAmount.h"
+#import "JPReference.h"
 
 #import "JPSession.h"
 
@@ -36,14 +37,14 @@
 
 @implementation JPTransactionProcess
 
-- (instancetype)initWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentRef {
+- (instancetype)initWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
     self = [super init];
     if (self) {
         self.parameters = [NSMutableDictionary dictionary];
         self.parameters[@"receiptId"] = receiptId;
         self.parameters[@"amount"] = amount.amount;
         self.parameters[@"currency"] = amount.currency;
-        self.parameters[@"yourPaymentReference"] = paymentRef;
+        self.parameters[@"yourPaymentReference"] = [JPReference generatePaymentReference];
     }
     return self;
 }

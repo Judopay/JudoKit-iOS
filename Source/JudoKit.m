@@ -69,43 +69,61 @@
     return self;
 }
 
-- (JPTransaction *)transactionForType:(Class)type judoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
+- (JPTransaction *)transactionForTypeClass:(Class)type judoId:(NSString *)judoId amount:(JPAmount *)amount reference:(nonnull JPReference *)reference {
     JPTransaction *transaction = [type new];
     transaction.judoId = judoId;
     transaction.amount = amount;
-    transaction.reference = [[JPReference alloc] initWithConsumerReference:consumerReference];
+    transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     return transaction;
 }
 
-- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
-    return (JPPayment *)[self transactionForType:[JPPayment class] judoId:judoId amount:amount consumerReference:consumerReference];
+- (JPTransaction *)transactionForType:(TransactionType)type judoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    Class transactionTypeClass;
+    switch (type) {
+        case TransactionTypePayment:
+            transactionTypeClass = [JPPayment class];
+            break;
+        case TransactionTypePreAuth:
+            transactionTypeClass = [JPPreAuth class];
+            break;
+        case TransactionTypeRegisterCard:
+            transactionTypeClass = [JPRegisterCard class];
+            break;
+        default:
+            return nil;
+    }
+    return [self transactionForTypeClass:transactionTypeClass judoId:judoId amount:amount reference:reference];
 }
 
-- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
-    return (JPPreAuth *)[self transactionForType:[JPPreAuth class] judoId:judoId amount:amount consumerReference:consumerReference];
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    return (JPPayment *)[self transactionForTypeClass:[JPPayment class] judoId:judoId amount:amount reference:reference];
 }
 
-- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)consumerReference {
-    return (JPRegisterCard *)[self transactionForType:[JPRegisterCard class] judoId:judoId amount:amount consumerReference:consumerReference];
+- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    return (JPPreAuth *)[self transactionForTypeClass:[JPPreAuth class] judoId:judoId amount:amount reference:reference];
 }
 
-- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount paymentReference:paymentReference];
+- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    return (JPRegisterCard *)[self transactionForTypeClass:[JPRegisterCard class] judoId:judoId amount:amount reference:reference];
+}
+
+- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     return transactionProc;
 }
 
-- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return (JPCollection *)[self transactionProcessForType:[JPCollection class] receiptId:receiptId amount:amount paymentReference:paymentReference];
+- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPCollection *)[self transactionProcessForType:[JPCollection class] receiptId:receiptId amount:amount];
 }
 
-- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return (JPVoid *)[self transactionProcessForType:[JPVoid class] receiptId:receiptId amount:amount paymentReference:paymentReference];
+- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPVoid *)[self transactionProcessForType:[JPVoid class] receiptId:receiptId amount:amount];
 }
 
-- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount paymentReference:(NSString *)paymentReference {
-    return (JPRefund *)[self transactionProcessForType:[JPRefund class] receiptId:receiptId amount:amount paymentReference:paymentReference];
+- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPRefund *)[self transactionProcessForType:[JPRefund class] receiptId:receiptId amount:amount];
 }
 
 - (JPReceipt *)receipt:(NSString *)receiptId {
@@ -121,16 +139,6 @@
     [transaction listWithPagination:pagination completion:completion];
 }
 
-- (nullable JPTransaction *)transactionWithType:(TransactionType)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference {
-    switch (type) {
-        case <#constant#>:
-            <#statements#>
-            break;
-            
-        default:
-            break;
-    }
-}
 
 #pragma mark - Getters
 

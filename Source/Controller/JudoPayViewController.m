@@ -144,7 +144,7 @@
     
     [self.view.loadingView startAnimating];
     
-    JPTransaction *transaction = [self.judoKitSession transactionWithType:self.type judoId:self.judoId amount:self.amount reference:self.reference];
+    JPTransaction *transaction = [self.judoKitSession transactionForType:self.type judoId:self.judoId amount:self.amount reference:self.reference];
     
     if (self.paymentToken) {
         self.paymentToken.secureCode = self.view.securityCodeInputField.textField.text;
@@ -208,6 +208,8 @@
                     [self.view.loadingView stopAnimating];
                     return; // BAIL
                 }
+                
+                
                 
                 self.view.loadingView.actionLabel.text = self.theme.redirecting3DSTitle;
                 self.title = self.theme.authenticationTitle;

@@ -24,6 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "JPTransactionData.h"
+
 @class JPSession;
 
 @class JPPayment, JPPreAuth, JPRegisterCard, JPTransaction;
@@ -47,22 +49,24 @@
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret;
 
-- (nonnull JPPayment *)paymentWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+- (nonnull JPPayment *)paymentWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 
-- (nonnull JPPreAuth *)preAuthWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+- (nonnull JPPreAuth *)preAuthWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 
-- (nonnull JPRegisterCard *)registerCardWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)consumerReference;
+- (nonnull JPRegisterCard *)registerCardWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 
-- (nonnull JPCollection *)collectionWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+- (nonnull JPCollection *)collectionWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
 
-- (nonnull JPVoid *)voidWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+- (nonnull JPVoid *)voidWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
 
-- (nonnull JPRefund *)refundWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount paymentReference:(nonnull NSString *)paymentReference;
+- (nonnull JPRefund *)refundWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
 
 - (nonnull JPReceipt *)receipt:(nullable NSString *)receiptId;
 
 - (void)list:(nonnull Class)type paginated:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
-- (nullable JPTransaction *)transactionWithType:(TransactionType)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
+- (nonnull JPTransaction *)transactionForTypeClass:(nonnull Class)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
+
+- (nonnull JPTransaction *)transactionForType:(TransactionType)type judoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 
 @end
