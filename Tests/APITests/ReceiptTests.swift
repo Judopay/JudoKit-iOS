@@ -33,16 +33,12 @@ class ReceiptTests: JudoTestCase {
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
-        do {
-            try judo.receipt(receiptID).completion({ (dict, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                }
-                expectation.fulfill()
-            })
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+        judo.receipt(receiptID).sendWithCompletion({ (dict, error) -> () in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            }
+            expectation.fulfill()
+        })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
         
@@ -53,16 +49,12 @@ class ReceiptTests: JudoTestCase {
         // Given
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        do {
-            try judo.receipt().completion({ (dict, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                }
-                expectation.fulfill()
-            })
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+        judo.receipt(nil).sendWithCompletion({ (dict, error) -> () in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            }
+            expectation.fulfill()
+        })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
         
@@ -71,16 +63,16 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = Pagination(pageSize: 4, offset: 8, sort: Sort.Ascending)
+        let page = JPPagination(offset: 8, pageSize: 4, sort: "Ascending")
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        let receipt = try! judo.receipt()
+        let receipt = judo.receipt(nil)
         
-        receipt.list(page) { (dict, error) -> () in
+        receipt.listWithPagination(page) { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
-                XCTAssertEqual(dict!.items.count, 5)
+                XCTAssertEqual(dict!.items?.count, 5)
                 XCTAssertEqual(dict!.pagination!.offset, 8)
             }
             expectation.fulfill()

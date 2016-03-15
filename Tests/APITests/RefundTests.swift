@@ -31,53 +31,45 @@ class RefundTests: JudoTestCase {
         
         let expectation = self.expectationWithDescription("payment expectation")
         
-        do {
-            // Given I have made a payment
-            let preAuth = try judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+        // Given I have made a payment
+        let preAuth = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        preAuth.card = validVisaTestCard
+        
+        preAuth.sendWithCompletion({ (response, error) -> () in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+                expectation.fulfill()
+                return
+            }
             
-            try preAuth.completion({ (response, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
+            // And I have a receipt ID of a given transaction
+            // And I have the amount of that transaction
+            guard let receiptId = response?.items?.first?.receiptId,
+                let amount = response?.items?.first?.amount else {
+                    XCTFail("receipt ID was not available in response")
                     expectation.fulfill()
                     return
+            }
+            
+            // When I perform a refund up to the original amount
+            let refund = self.judo.refundWithReceiptId(receiptId, amount: amount)
+            refund.sendWithCompletion({ (response, error) -> () in
+                // Then I receive a successful response
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
                 }
                 
-                // And I have a receipt ID of a given transaction
-                // And I have the amount of that transaction
-                guard let receiptId = response?.first?.receiptID,
-                    let amount = response?.first?.amount else {
-                        XCTFail("receipt ID was not available in response")
-                        expectation.fulfill()
-                        return
-                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.items?.first)
                 
-                // When I perform a refund up to the original amount
-                do {
-                    let collection = try self.judo.refund(receiptId, amount: amount).completion({ (response, error) -> () in
-                        // Then I receive a successful response
-                        if let error = error {
-                            XCTFail("api call failed with error: \(error)")
-                        }
-                        
-                        XCTAssertNotNil(response)
-                        XCTAssertNotNil(response?.first)
-                        
-                        expectation.fulfill();
-                    })
-                    
-                    XCTAssertNotNil(collection)
-                } catch {
-                    XCTFail("exception thrown: \(error)")
-                    expectation.fulfill();
-                }
+                expectation.fulfill();
             })
             
-            XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-            expectation.fulfill();
-        }
+            XCTAssertNotNil(refund)
+        })
+        
+        XCTAssertNotNil(preAuth)
+        XCTAssertEqual(preAuth.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
         

@@ -28,168 +28,151 @@ import XCTest
 class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeValidTokenPreAuth() {
-        do {
-            // Given I have an SDK
-            // When I provide the required fields
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
-            
-            let expectation = self.expectationWithDescription("token payment expectation")
-            
-            try registerCard.completion({ (data, error) -> () in
-                if let _ = error {
-                    XCTFail()
-                } else {
-                    guard let uData = data else {
-                        XCTFail("no data available")
-                        return // BAIL
-                    }
-                    let payToken = PaymentToken(consumerToken: uData.items.first!.consumer.consumerToken, cardToken: uData.items.first!.cardDetails.cardToken!)
-                    do {
-                        // Then I should be able to make a token Pre-authorization
-                        try self.judo.preAuth(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference).paymentToken(payToken).completion({ (data, error) -> () in
-                            if let error = error {
-                                XCTFail("api call failed with error: \(error)")
-                            }
-                            expectation.fulfill()
-                        })
-                    } catch {
-                        XCTFail("exception thrown: \(error)")
-                    }
+        // Given I have an SDK
+        // When I provide the required fields
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        registerCard.card = validVisaTestCard
+        
+        let expectation = self.expectationWithDescription("token payment expectation")
+        
+        registerCard.sendWithCompletion({ (data, error) -> () in
+            if let _ = error {
+                XCTFail()
+            } else {
+                guard let uData = data else {
+                    XCTFail("no data available")
+                    return // BAIL
                 }
-            })
-            XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+                
+                let consumerToken = uData.items?.first?.consumer.consumerToken
+                let cardToken = uData.items?.first?.cardDetails?.cardToken
+                
+                let payToken = JPPaymentToken(consumerToken: consumerToken!, cardToken: cardToken!)
+                
+                // Then I should be able to make a token Pre-authorization
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
+                preAuth.paymentToken = payToken
+                preAuth.sendWithCompletion({ (data, error) -> () in
+                    if let error = error {
+                        XCTFail("api call failed with error: \(error)")
+                    }
+                    expectation.fulfill()
+                })
+            }
+        })
+        XCTAssertNotNil(registerCard)
+        XCTAssertEqual(registerCard.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutToken() {
-        do {
-            // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
-            
-            let expectation = self.expectationWithDescription("token payment expectation")
-            
-            try registerCard.completion({ (data, error) -> () in
-                if let _ = error {
-                    XCTFail()
-                } else {
-                    
-                    // When I do not provide a card token
-                    do {
-                        try self.judo.preAuth(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference).completion({ (data, error) -> () in
-                            XCTFail("api call failed with error: \(error)")
-                            expectation.fulfill()
-                        })
-                    } catch {
-                        // Then I should receive an error
-                        if let error = error as? JudoError {
-                            XCTAssertEqual(error.code, JudoErrorCode.CardOrTokenMissingError)
-                        } else {
-                            XCTFail("exception thrown: \(error)")
-                        }
-                        expectation.fulfill()
-                    }
-                }
-            })
-            XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+        // Given I have an SDK
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        registerCard.card = validVisaTestCard
+        
+        let expectation = self.expectationWithDescription("token payment expectation")
+        
+        registerCard.sendWithCompletion({ (data, error) -> () in
+            if let _ = error {
+                XCTFail()
+            } else {
+                
+                // When I do not provide a card token
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
+                preAuth.sendWithCompletion({ (data, error) -> () in
+                    // Then I should receive an error
+                    XCTAssertEqual(error!.code, Int(JudoError.ErrorPaymentMethodMissing.rawValue))
+                    expectation.fulfill()
+                })
+            }
+        })
+        XCTAssertNotNil(registerCard)
+        XCTAssertEqual(registerCard.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutReference() {
-        do {
-            // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
-            
-            let expectation = self.expectationWithDescription("token payment expectation")
-            
-            try registerCard.completion({ (data, error) -> () in
-                if let _ = error {
-                    XCTFail()
-                } else {
-                    guard let uData = data else {
-                        XCTFail("no data available")
-                        return // BAIL
-                    }
-                    let payToken = PaymentToken(consumerToken: uData.items.first!.consumer.consumerToken, cardToken: uData.items.first!.cardDetails.cardToken!)
-                    
-                    do {
-                        // When I do not provide a consumer reference
-                        // Then I should receive an error
-                        try self.judo.preAuth(self.myJudoID, amount: self.oneGBPAmount, reference: self.invalidReference).paymentToken(payToken).completion({ (response, error) -> () in
-                            XCTAssertNil(response)
-                            XCTAssertNotNil(error)
-                            XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
-                            
-                            XCTAssertEqual(error?.details?.count, 2)
-                            
-                            expectation.fulfill()
-                        })
-                    } catch {
-                        XCTFail("exception thrown: \(error)")
-                    }
+        // Given I have an SDK
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        registerCard.card = validVisaTestCard
+        
+        let expectation = self.expectationWithDescription("token payment expectation")
+        
+        registerCard.sendWithCompletion({ (data, error) -> () in
+            if let _ = error {
+                XCTFail()
+            } else {
+                guard let uData = data else {
+                    XCTFail("no data available")
+                    return // BAIL
                 }
-            })
-            XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+                
+                let consumerToken = uData.items?.first?.consumer.consumerToken
+                let cardToken = uData.items?.first?.cardDetails?.cardToken
+                
+                let payToken = JPPaymentToken(consumerToken: consumerToken!, cardToken: cardToken!)
+                
+                // When I do not provide a consumer reference
+                // Then I should receive an error
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.invalidReference)
+                preAuth.paymentToken = payToken
+                preAuth.sendWithCompletion({ (response, error) -> () in
+                    XCTAssertNil(response)
+                    XCTAssertNotNil(error)
+                    XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+                    
+                    expectation.fulfill()
+                })
+            }
+        })
+        XCTAssertNotNil(registerCard)
+        XCTAssertEqual(registerCard.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutAmount() {
-        do {
-            // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
-            
-            let expectation = self.expectationWithDescription("token payment expectation")
-            
-            try registerCard.completion({ (data, error) -> () in
-                if let _ = error {
-                    XCTFail()
-                } else {
-                    guard let uData = data else {
-                        XCTFail("no data available")
-                        return // BAIL
-                    }
-                    let payToken = PaymentToken(consumerToken: uData.items.first!.consumer.consumerToken, cardToken: uData.items.first!.cardDetails.cardToken!)
-                    
-                    do {
-                        // When I do not provide an amount
-                        // Then I should receive an error
-                        try self.judo.preAuth(self.myJudoID, amount: self.invalidCurrencyAmount, reference: self.validReference).paymentToken(payToken).completion({ (response, error) -> () in
-                            XCTAssertNil(response)
-                            XCTAssertNotNil(error)
-                            XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
-                            
-                            XCTAssertEqual(error?.details?.count, 3)
-                            
-                            expectation.fulfill()
-                        })
-                    } catch {
-                        XCTFail("exception thrown: \(error)")
-                    }
+        // Given I have an SDK
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        registerCard.card = validVisaTestCard
+        
+        let expectation = self.expectationWithDescription("token payment expectation")
+        
+        registerCard.sendWithCompletion({ (data, error) -> () in
+            if let _ = error {
+                XCTFail()
+            } else {
+                guard let uData = data else {
+                    XCTFail("no data available")
+                    return // BAIL
                 }
-            })
-            // Then
-            XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+                
+                let consumerToken = uData.items?.first?.consumer.consumerToken
+                let cardToken = uData.items?.first?.cardDetails?.cardToken
+                
+                let payToken = JPPaymentToken(consumerToken: consumerToken!, cardToken: cardToken!)
+                
+                // When I do not provide an amount
+                // Then I should receive an error
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.invalidCurrencyAmount, reference: self.validReference)
+                preAuth.paymentToken = payToken
+                preAuth.sendWithCompletion({ (response, error) -> () in
+                    XCTAssertNil(response)
+                    XCTAssertNotNil(error)
+                    XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+                    
+                    expectation.fulfill()
+                })
+            }
+        })
+        // Then
+        XCTAssertNotNil(registerCard)
+        XCTAssertEqual(registerCard.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

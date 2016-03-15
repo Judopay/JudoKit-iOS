@@ -30,38 +30,33 @@ class ListTests: JudoTestCase {
     func testJudoListPayments() {
         let expectation = self.expectationWithDescription("list all payments expectation")
         
-        let payment = judo.list(Payment)
-        
-        payment.list({ (dict, error) -> () in
+        self.judo.list(JPPayment.self, paginated: nil, completion: { (response, error) in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
             expectation.fulfill()
         })
         
-        
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }
     
     func testJudoPaginatedListPayments() {
         // Given
-        let pagination = Pagination(pageSize: 14, offset: 44, sort: Sort.Descending)
+        let pagination = JPPagination(offset: 44, pageSize: 14, sort: "Descending")
         
         let expectation = self.expectationWithDescription("list all payments for given pagination")
         
-        let payment = judo.list(Payment)
-        
         // When
-        payment.list(pagination) { (response, error) -> () in
+        self.judo.list(JPPayment.self, paginated: pagination, completion: { (response, error) in
             // Then
             if let _ = error {
                 XCTFail()
             } else {
-                XCTAssertEqual(response!.items.count, 15)
+                XCTAssertEqual(response!.items!.count, 15)
                 XCTAssertEqual(response!.pagination!.offset, 44)
             }
             expectation.fulfill()
-        }
+        })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }
@@ -71,9 +66,7 @@ class ListTests: JudoTestCase {
         
         let expectation = self.expectationWithDescription("list all preauths expectation")
         
-        let preAuth = judo.list(PreAuth)
-        
-        preAuth.list({ (dict, error) -> () in
+        self.judo.list(JPPreAuth.self, paginated: nil, completion: { (response, error) in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }

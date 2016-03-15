@@ -31,53 +31,47 @@ class CollectionTests: JudoTestCase {
         
         let expectation = self.expectationWithDescription("payment expectation")
         
-        do {
-            // Given I have made a pre-authorisation
-            let preAuth = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+        // Given I have made a pre-authorisation
+        let preAuth = judo.preAuthWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        preAuth.card = validVisaTestCard
+        
+        preAuth.sendWithCompletion { (response, error) in
             
-            try preAuth.completion({ (response, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                    expectation.fulfill()
-                    return
-                }
-                
-                // And I have a receipt ID of a given transaction
-                // And I have the amount of that transaction
-                guard let receiptId = response?.first?.receiptID,
-                    let amount = response?.first?.amount else {
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+                expectation.fulfill()
+                return
+            }
+            
+            // And I have a receipt ID of a given transaction
+            // And I have the amount of that transaction
+            guard let receiptId = response?.items?.first?.receiptId,
+                let amount = response?.items?.first?.amount else {
                     XCTFail("receipt ID was not available in response")
                     expectation.fulfill()
                     return
+            }
+            
+            // When I perform a collection
+            let collection = self.judo.collectionWithReceiptId(receiptId, amount: amount)
+            collection.sendWithCompletion({ (response, error) -> () in
+                // Then I receive a successful response
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
                 }
                 
-                // When I perform a collection
-                do {
-                    let collection = try self.judo.collection(receiptId, amount: amount).completion({ (response, error) -> () in
-                        // Then I receive a successful response
-                        if let error = error {
-                            XCTFail("api call failed with error: \(error)")
-                        }
-                        
-                        XCTAssertNotNil(response)
-                        XCTAssertNotNil(response?.first)
-                        
-                        expectation.fulfill();
-                    })
-                    
-                    XCTAssertNotNil(collection)
-                } catch {
-                    XCTFail("exception thrown: \(error)")
-                    expectation.fulfill();
-                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.items?.first)
+                
+                expectation.fulfill();
             })
             
-            XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-            expectation.fulfill();
+            XCTAssertNotNil(collection)
+            
         }
+        
+        XCTAssertNotNil(preAuth)
+        XCTAssertEqual(preAuth.judoId, myJudoID)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
         
