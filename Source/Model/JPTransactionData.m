@@ -25,6 +25,7 @@
 #import "JPTransactionData.h"
 #import "JPAmount.h"
 #import "JPCardDetails.h"
+#import "JPPaymentToken.h"
 #import "JPConsumer.h"
 
 @implementation JPTransactionData
@@ -80,6 +81,8 @@
     return TransactionTypeRefund;
 }
 
-
+- (JPPaymentToken *)paymentToken {
+    return [[JPPaymentToken alloc] initWithConsumerToken:self.consumer.consumerToken cardToken:self.cardDetails.cardToken];
+}
 
 @end

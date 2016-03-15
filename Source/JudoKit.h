@@ -32,6 +32,9 @@
 @class JPCollection, JPVoid, JPRefund;
 @class JPReceipt;
 
+@class JPCardDetails;
+@class JPPaymentToken;
+
 @class JPTheme;
 
 @class JPAmount;
@@ -48,6 +51,16 @@
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret;
+
+- (void)invokePayment:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)reference cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+
+- (void)invokePreAuth:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)reference cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+
+- (void)invokeRegisterCard:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)reference cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+
+- (void)invokeTokenPayment:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)reference cardDetails:(nullable JPCardDetails *)cardDetails paymentToken:(nonnull JPPaymentToken *)paymentToken completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+
+- (void)invokeTokenPreAuth:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount consumerReference:(nonnull NSString *)reference cardDetails:(nullable JPCardDetails *)cardDetails paymentToken:(nonnull JPPaymentToken *)paymentToken completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 - (nonnull JPPayment *)paymentWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 

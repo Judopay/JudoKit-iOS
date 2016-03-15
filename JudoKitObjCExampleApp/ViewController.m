@@ -25,7 +25,7 @@
 #import "ViewController.h"
 #import "DetailViewController.h"
 
-@import JudoKitObjC;
+#import "JudoKitObjC.h"
 
 #pragma warning "set your own token and secret to see testing results"
 static NSString * const token   = @"<#YOUR TOKEN#>";
@@ -194,19 +194,17 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)paymentOperation {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
     
-    JPReference *ref = [[JPReference alloc] initWithConsumerReference:@"consRef"];
-    
-    [self.judoKitSession paymentWithJudoId:judoID amount:amount reference:ref cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession invokePayment:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
-            if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+            if (error.domain == JudoErrorDomain && error.code == -999) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
-        TransactionData *tData = response.items[0];
+        JPTransactionData *tData = response.items[0];
         if (tData.cardDetails) {
             self.cardDetails = tData.cardDetails;
             self.payToken = tData.paymentToken;
@@ -221,20 +219,19 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)preAuthOperation {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
-    JPReference *ref = [[JPReference alloc] initWithConsumerReference:@"consRef"];
 
-    [self.judoKitSession preAuth:judoID amount:amount reference:ref cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession invokePreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-            if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+            if (error.domain == JudoErrorDomain && error.code == -999) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
-        TransactionData *tData = response.items[0];
+        JPTransactionData *tData = response.items[0];
         if (tData.cardDetails) {
             self.cardDetails = tData.cardDetails;
             self.payToken = tData.paymentToken;
@@ -250,19 +247,18 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)createCardTokenOperation {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
     
-    
-    [self.judoKitSession registerCard:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession invokeRegisterCard:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-            if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+            if (error.domain == JudoErrorDomain && error.code == -999) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             return; // BAIL
         }
-        TransactionData *tData = response.items[0];
+        JPTransactionData *tData = response.items[0];
         if (tData.cardDetails) {
             self.cardDetails = tData.cardDetails;
             self.payToken = tData.paymentToken;
@@ -273,19 +269,19 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)tokenPaymentOperation {
     if (self.cardDetails) {
         JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
-        
-        [self.judoKitSession tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+
+        [self.judoKitSession invokeTokenPayment:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
                 // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                if (error.domain == JudoErrorDomain && error.code == -999) {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
+                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
-            TransactionData *tData = response.items[0];
+            JPTransactionData *tData = response.items[0];
             if (tData.cardDetails) {
                 self.cardDetails = tData.cardDetails;
                 self.payToken = tData.paymentToken;
@@ -306,20 +302,20 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPreAuthOperation {
     if (self.cardDetails) {
-        Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:[Currency GBP]];
-        
-        [self.judoKitSession tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+
+        [self.judoKitSession invokeTokenPreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
                 // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                if (error.domain == JudoErrorDomain && error.code == -999) {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
+                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
-            TransactionData *tData = response.items[0];
+            JPTransactionData *tData = response.items[0];
             if (tData.cardDetails) {
                 self.cardDetails = tData.cardDetails;
                 self.payToken = tData.paymentToken;
