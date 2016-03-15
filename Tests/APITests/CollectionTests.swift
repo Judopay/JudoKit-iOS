@@ -1,6 +1,6 @@
 //
 //  CollectionTests.swift
-//  Judo
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,71 +23,64 @@
 //  SOFTWARE.
 
 import XCTest
-import JudoKitObjC
+@testable import JudoKitObjC
 
-class CollectionTests: XCTestCase {
-    
-    let judo = JudoKit(token: token, secret: secret)
-    
-    override func setUp() {
-        super.setUp()
-
-        judo.apiSession.sandboxed = true
-    }
-    
-    override func tearDown() {
-        judo.apiSession.sandboxed = false
-        
-        super.tearDown()
-    }
+class CollectionTests: JudoTestCase {
     
     func testCollection() {
-        // Given
-        let card = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-        let amount = JPAmount(amount: "30", currency: "GBP")
-        let emailAddress = "hans@email.com"
-        let mobileNumber = "07100000000"
         
-        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
+        let expectation = self.expectationWithDescription("payment expectation")
         
-        let expectation = self.expectationWithDescription("refund expectation")
-        
-        // When
-        let makePayment = judo.paymentWithJudoId(strippedJudoID, amount: amount, consumerReference: "consumer0053252")
-        makePayment.card = card
-        makePayment.location = location
-        makePayment.mobileNumber = mobileNumber
-        makePayment.emailAddress = emailAddress
-        makePayment.sendWithCompletion({ (data, error) -> () in
-            if let error = error {
-                XCTFail("api call failed with error: \(error)")
-                return // BAIL
-            }
+        do {
+            // Given I have made a pre-authorisation
+            let preAuth = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
-            // Given
-            guard let receiptID = data?.items?.first?.receiptId else {
-                XCTFail()
-                return // BAIL
-            }
-            let amount = JPAmount(amount: "30", currency: "GBP")
-            let payRef = "payment123asd"
-            
-            // When
-            let collection = self.judo.collectionWithReceiptId(receiptID, amount: amount, paymentReference: payRef)
-            
-            collection.sendWithCompletion({ (dict, error) -> () in
+            try preAuth.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
+                    expectation.fulfill()
+                    return
                 }
-                expectation.fulfill();
+                
+                // And I have a receipt ID of a given transaction
+                // And I have the amount of that transaction
+                guard let receiptId = response?.first?.receiptID,
+                    let amount = response?.first?.amount else {
+                    XCTFail("receipt ID was not available in response")
+                    expectation.fulfill()
+                    return
+                }
+                
+                // When I perform a collection
+                do {
+                    let collection = try self.judo.collection(receiptId, amount: amount).completion({ (response, error) -> () in
+                        // Then I receive a successful response
+                        if let error = error {
+                            XCTFail("api call failed with error: \(error)")
+                        }
+                        
+                        XCTAssertNotNil(response)
+                        XCTAssertNotNil(response?.first)
+                        
+                        expectation.fulfill();
+                    })
+                    
+                    XCTAssertNotNil(collection)
+                } catch {
+                    XCTFail("exception thrown: \(error)")
+                    expectation.fulfill();
+                }
             })
             
-            // Then
-            XCTAssertNotNil(collection)
-            
-        })
+            XCTAssertNotNil(preAuth)
+            XCTAssertEqual(preAuth.judoID, myJudoID)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+            expectation.fulfill();
+        }
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
+        
     }
     
 }

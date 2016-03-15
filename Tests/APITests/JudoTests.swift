@@ -23,29 +23,14 @@
 //  SOFTWARE.
 
 import XCTest
-import JudoKitObjC
+@testable import JudoKitObjC
 
-let token = "823Eja2fEM6E9NAE"
-let secret = "382df6f458294f49f02f073e8f356f8983e2460631ea1b4c8ed4c3ee502dcbe6"
-
-let strippedJudoID = "100407196"
-
-class JudoTests: XCTestCase {
+class JudoTests: JudoTestCase {
     
-    let judo = JudoKit(token: token, secret: secret)
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testJudoErrorDomain() {
+        let errorDomain = JudoErrorDomain
+        XCTAssertNotNil(errorDomain)
     }
-    
-    
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     
     
     func testJudoSandboxMode() {

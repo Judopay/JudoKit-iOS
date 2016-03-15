@@ -66,12 +66,6 @@
 
 #pragma mark - Colors
 
-- (UIColor *)inverseColor;
-
-- (CGFloat)greyScale;
-
-- (BOOL)colorMode;
-
 - (UIColor *)judoDarkGrayColor;
 - (UIColor *)judoInputFieldTextColor;
 - (UIColor *)judoLightGrayColor;

@@ -1,6 +1,6 @@
 //
 //  ListTests.swift
-//  Judo
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,30 +23,42 @@
 //  SOFTWARE.
 
 import XCTest
-import JudoKitObjC
+@testable import JudoKitObjC
 
-class ListTests: XCTestCase {
-    
-    let judo = JudoKit(token: token, secret: secret)
-    
-    override func setUp() {
-        super.setUp()
-        
-        judo.apiSession.sandboxed = true
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-        judo.apiSession.sandboxed = false
-    }
+class ListTests: JudoTestCase {
     
     func testJudoListPayments() {
         let expectation = self.expectationWithDescription("list all payments expectation")
         
-        judo.list(JPPayment.self, paginated: nil) { (dict, error) -> () in
+        let payment = judo.list(Payment)
+        
+        payment.list({ (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
+            }
+            expectation.fulfill()
+        })
+        
+        
+        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+    }
+    
+    func testJudoPaginatedListPayments() {
+        // Given
+        let pagination = Pagination(pageSize: 14, offset: 44, sort: Sort.Descending)
+        
+        let expectation = self.expectationWithDescription("list all payments for given pagination")
+        
+        let payment = judo.list(Payment)
+        
+        // When
+        payment.list(pagination) { (response, error) -> () in
+            // Then
+            if let _ = error {
+                XCTFail()
+            } else {
+                XCTAssertEqual(response!.items.count, 15)
+                XCTAssertEqual(response!.pagination!.offset, 44)
             }
             expectation.fulfill()
         }
@@ -54,20 +66,16 @@ class ListTests: XCTestCase {
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }
     
-    func testJudoPaginatedListPayments() {
-        // Given
-        let pagination = JPPagination(offset: 44, pageSize: 14, sort: "time-descending")
+    
+    func testJudoListPreAuths() {
         
-        let expectation = self.expectationWithDescription("list all payments for given pagination")
+        let expectation = self.expectationWithDescription("list all preauths expectation")
         
-        // When
-        judo.list(JPPayment.self, paginated: pagination, completion: { (response, error) in
-            // Then
+        let preAuth = judo.list(PreAuth)
+        
+        preAuth.list({ (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
-            } else {
-                XCTAssertEqual(response!.items!.count, 15)
-                XCTAssertEqual(response!.pagination!.offset, 44)
             }
             expectation.fulfill()
         })

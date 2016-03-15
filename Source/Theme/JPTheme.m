@@ -26,7 +26,7 @@
 
 #import "UIColor+Judo.h"
 
-#import "CardNetwork.h"
+#import "JPCardDetails.h"
 
 @implementation JPTheme
 
@@ -198,7 +198,7 @@
 }
 
 - (UIColor *)judoButtonTitleColor {
-    return [self colorMode] ? [UIColor whiteColor] : [UIColor blackColor];
+    return [self.tintColor colorMode] ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 - (UIColor *)judoLoadingBackgroundColor {

@@ -28,9 +28,6 @@
 #import "JPTransactionData.h"
 #import "NSError+Judo.h"
 
-static NSInteger const kMinimumJudoIdLength = 6;
-static NSInteger const kMaximumJudoIdLength = 10;
-
 @interface JPSession ()
 
 @property (nonatomic, strong, readwrite) NSString *endpoint;

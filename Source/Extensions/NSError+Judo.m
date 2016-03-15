@@ -90,6 +90,10 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:nil];
 }
 
++ (NSError *)judoResponseParseError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:@{}];
+}
+
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
     return [NSError errorWithDomain:JudoErrorDomain code:JudoError3DSRequest userInfo:payload];
 }

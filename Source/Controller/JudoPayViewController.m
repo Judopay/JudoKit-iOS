@@ -41,6 +41,7 @@
 #import "FloatingTextField.h"
 
 #import "NSString+Card.h"
+#import "UIColor+Judo.h"
 
 #import "JPCard.h"
 #import "JPAddress.h"
@@ -93,7 +94,7 @@
     
     self.navigationController.navigationBar.tintColor = self.theme.judoDarkGrayColor;
     
-    if (self.theme.colorMode) {
+    if ([self.theme.tintColor colorMode]) {
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     }
     

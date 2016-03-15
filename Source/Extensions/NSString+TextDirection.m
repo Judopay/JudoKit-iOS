@@ -26,4 +26,8 @@
 
 @implementation NSString (TextDirection)
 
+- (JPTextDirection)getBaseDirection {
+    return JPTextDirectionRightToLeft;
+}
+
 @end

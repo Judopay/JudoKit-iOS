@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CardNetwork.h"
+#import "JPCardDetails.h"
 
 @interface NSString (Card)
 

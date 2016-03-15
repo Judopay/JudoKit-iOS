@@ -38,4 +38,103 @@
 	return self;
 }
 
+- (nullable NSString *)formattedCardLastFour {
+    if (!self.cardLastFour) {
+        return nil;
+    }
+    
+    switch (self.cardNetwork) {
+        case CardNetworkAMEX:
+            return [NSString stringWithFormat:@"**** ****** *%@", self.cardLastFour];
+            break;
+        case CardNetworkUnknown:
+            return [NSString stringWithFormat:@"**** %@", self.cardLastFour];
+            break;
+        default:
+            return [NSString stringWithFormat:@"**** **** **** %@", self.cardLastFour];
+            break;
+    }
+    
+}
+
+- (nullable NSString *)formattedExpiryDate {
+    if (!self.endDate) {
+        return nil;
+    }
+    
+    if (self.endDate.length == 4) {
+        NSString *prefix = [self.endDate substringToIndex:2];
+        NSString *suffix = [self.endDate substringFromIndex:2];
+        return [NSString stringWithFormat:@"%@/%@", prefix, suffix];
+    }
+    return self.endDate;
+}
+
++ (nonnull NSString *)titleForCardNetwork:(CardNetwork)network {
+    switch (network) {
+        case CardNetworkUnknown:
+            return @"Unknown Card Network";
+        case CardNetworkVisa:
+            return @"Visa Card Network";
+        case CardNetworkMasterCard:
+            return @"MasterCard Network";
+        case CardNetworkVisaElectron:
+            return @"Visa Electron Network";
+        case CardNetworkSwitch:
+            return @"Switch Network";
+        case CardNetworkSolo:
+            return @"Solo Network";
+        case CardNetworkLaser:
+            return @"Laser Network";
+        case CardNetworkChinaUnionPay:
+            return @"China UnionPay Network";
+        case CardNetworkAMEX:
+            return @"American Express Card Network";
+        case CardNetworkJCB:
+            return @"JCB Network";
+        case CardNetworkMaestro:
+            return @"Maestro Card Network";
+        case CardNetworkVisaDebit:
+            return @"Visa Debit Card Network";
+        case CardNetworkMasterCardDebit:
+            return @"MasterCard Network";
+        case CardNetworkVisaPurchasing:
+            return @"Visa Purchasing Network";
+        case CardNetworkDiscover:
+            return @"Discover Network";
+        case CardNetworkCarnet:
+            return @"Carnet Network";
+        case CardNetworkCarteBancaire:
+            return @"Carte Bancaire Network";
+        case CardNetworkDinersClub:
+            return @"Diners Club Network";
+        case CardNetworkElo:
+            return @"Elo Network";
+        case CardNetworkFarmersCard:
+            return @"Farmers Card Network";
+        case CardNetworkSoriana:
+            return @"Soriana Network";
+        case CardNetworkPrivateLabelCard:
+            return @"Private Label Card Network";
+        case CardNetworkQCard:
+            return @"Q Card Network";
+        case CardNetworkStyle:
+            return @"Style Network";
+        case CardNetworkTrueRewards:
+            return @"True Rewards Network";
+        case CardNetworkUATP:
+            return @"UATP Network";
+        case CardNetworkBankCard:
+            return @"Bank Card Network";
+        case CardNetworkBanamex_Costco:
+            return @"Banamex Costco Network";
+        case CardNetworkInterPayment:
+            return @"InterPayment Network";
+        case CardNetworkInstaPayment:
+            return @"InstaPayment Network";
+        case CardNetworkDankort:
+            return @"Dankort Network";
+    }
+}
+
 @end

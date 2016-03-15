@@ -53,7 +53,7 @@
 
 - (nonnull JPPreAuth *)preAuthWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
 
-- (nonnull JPRegisterCard *)registerCardWithJudoId:(nonnull NSString *)judoId amount:(nonnull JPAmount *)amount reference:(nonnull JPReference *)reference;
+- (nonnull JPRegisterCard *)registerCardWithJudoId:(nonnull NSString *)judoId amount:(nullable JPAmount *)amount reference:(nonnull JPReference *)reference;
 
 - (nonnull JPCollection *)collectionWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
 

@@ -1,6 +1,6 @@
 //
 //  ReceiptTests.swift
-//  Judo
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,75 +23,68 @@
 //  SOFTWARE.
 
 import XCTest
-import JudoKitObjC
+@testable import JudoKitObjC
 
-class ReceiptTests: XCTestCase {
+class ReceiptTests: JudoTestCase {
     
-    let judo = JudoKit(token: token, secret: secret)
-    
-    override func setUp() {
-        super.setUp()
-
-        judo.apiSession.sandboxed = true
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-        judo.apiSession.sandboxed = false
-    }
-
     func testJudoTransactionReceipt() {
         // Given
-        let receiptID = "3079803"
+        let receiptID = "1491273"
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
-        let receipt = judo.receipt(receiptID)
-        receipt.sendWithCompletion({ (dict, error) -> () in
-            if let error = error {
-                XCTFail("api call failed with error: \(error)")
-            } else {
+        do {
+            try judo.receipt(receiptID).completion({ (dict, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
                 expectation.fulfill()
-            }
-        })
+            })
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
         
     }
+    
     
     func testJudoTransactionAllReceipts() {
         // Given
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        let receipt = judo.receipt(nil)
-        receipt.sendWithCompletion({ (dict, error) -> () in
-            if let error = error {
-                XCTFail("api call failed with error: \(error)")
-            }
-            expectation.fulfill()
-        })
+        do {
+            try judo.receipt().completion({ (dict, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                expectation.fulfill()
+            })
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
         
     }
     
+    
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = JPPagination(offset: 8, pageSize: 4, sort: "time-ascending")
+        let page = Pagination(pageSize: 4, offset: 8, sort: Sort.Ascending)
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
-        let receipt = judo.receipt(nil)
+        let receipt = try! judo.receipt()
         
-        receipt.listWithPagination(page, completion: { (dict, error) in
+        receipt.list(page) { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
-                XCTAssertEqual(dict!.items!.count, 5)
+                XCTAssertEqual(dict!.items.count, 5)
                 XCTAssertEqual(dict!.pagination!.offset, 8)
             }
             expectation.fulfill()
-        })
+        }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }

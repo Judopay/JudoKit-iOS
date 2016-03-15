@@ -27,7 +27,6 @@
 #import "JPSession.h"
 
 static NSString * const kPaymentPathKey             = @"transactions/payments";
-static NSString * const kPaymentValidationPathKey   = @"/validate";
 
 @interface JPTransaction ()
 
@@ -36,21 +35,6 @@ static NSString * const kPaymentValidationPathKey   = @"/validate";
 @end
 
 @implementation JPPayment
-
-- (void)validateWithCompletion:(JudoCompletionBlock)completion {
-    if (!completion) {
-        return; // BAIL
-    }
-    
-    NSError *validationError = [self validateTransaction];
-    
-    if (validationError) {
-        completion(nil, validationError);
-        return; // BAIL
-    }
-    
-    [self.apiSession POST:kPaymentValidationPathKey parameters:self.parameters completion:completion];
-}
 
 - (NSString *)transactionPath {
     return kPaymentPathKey;
