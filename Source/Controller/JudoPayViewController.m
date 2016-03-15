@@ -70,6 +70,19 @@
 
 @synthesize view;
 
+- (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type completion:(JudoCompletionBlock)completion currentSession:(JudoKit *)session {
+    self = [super init];
+    if (self) {
+        self.judoId = judoId;
+        self.amount = amount;
+        self.reference = reference;
+        self.type = type;
+        self.completionBlock = completion;
+        self.judoKitSession = session;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

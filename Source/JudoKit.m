@@ -34,6 +34,12 @@
 #import "JPVoid.h"
 #import "JPCollection.h"
 #import "JPTransactionData.h"
+#import "JudoPayViewController.h"
+#import "JudoPayView.h"
+#import "JPInputField.h"
+#import "CardInputField.h"
+#import "DateInputField.h"
+#import "FloatingTextField.h"
 
 #import "JPTheme.h"
 
@@ -70,7 +76,13 @@
 }
 
 - (void)invokePayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
-    
+    JudoPayViewController *controller = [[JudoPayViewController alloc] init];
+    controller.judoId = judoId;
+    controller.amount = amount;
+    controller.reference = [[JPReference alloc] initWithConsumerReference:reference];
+    controller.judoId = judoId;
+    controller.judoId = judoId;
+    [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
 - (void)invokePreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
@@ -157,6 +169,19 @@
     JPTransaction *transaction = [type new];
     transaction.apiSession = self.apiSession;
     [transaction listWithPagination:pagination completion:completion];
+}
+
+#pragma mark - Helper methods
+
+- (void)initiateAndShow:(JudoPayViewController *)viewController cardDetails:(JPCardDetails *)cardDetails {
+    viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
+    viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
+    [self showViewController:viewController];
+}
+
+- (void)showViewController:(UIViewController *)vc {
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:vc animated:YES completion:nil];
 }
 
 

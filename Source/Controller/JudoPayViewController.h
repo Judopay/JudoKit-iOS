@@ -26,7 +26,7 @@
 
 #import "JPTransactionData.h"
 
-@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken;
+@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView;
 
 @interface JudoPayViewController : UIViewController
 
@@ -40,5 +40,9 @@
 @property (nonatomic, strong, readonly) NSString *judoId;
 @property (nonatomic, strong, readonly) JPReference *reference;
 @property (nonatomic, strong, readonly) JPPaymentToken *paymentToken;
+
+@property (nonatomic, strong) JudoPayView *view;
+
+- (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type completion:(void (^)(JPResponse *, NSError *))completion currentSession:(JudoKit *)apiSession;
 
 @end
