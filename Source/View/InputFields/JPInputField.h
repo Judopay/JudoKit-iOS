@@ -42,7 +42,7 @@
 
 - (void)dateInput:(DateInputField *)input didFailWithError:(NSError *)error;
 
-- (void)dateInput:(DateInputField *)input didFindValidDate:(NSDate *)date;
+- (void)dateInput:(DateInputField *)input didFindValidDate:(NSString *)date;
 
 - (void)issueNumberInputDidEnterCode:(IssueNumberInputField *)input withIssueNumber:(NSString *)issueNumber;
 

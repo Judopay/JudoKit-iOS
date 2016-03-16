@@ -90,6 +90,10 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:nil];
 }
 
++ (NSError *)judoInvalidCardNumberError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorInvalidCardNumberError userInfo:@{NSLocalizedDescriptionKey:@"Check card number"}];
+}
+
 + (NSError *)judoResponseParseError {
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:@{}];
 }

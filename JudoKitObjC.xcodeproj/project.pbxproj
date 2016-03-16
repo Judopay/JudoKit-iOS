@@ -96,6 +96,8 @@
 		3B6991571C8DD85B006ED1FB /* JPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6991551C8DD85B006ED1FB /* JPTheme.m */; };
 		3B6991631C8F26FE006ED1FB /* NSTimer+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */; };
 		3B6991641C8F26FE006ED1FB /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6991621C8F26FE006ED1FB /* NSTimer+Blocks.m */; };
+		3B69D5E81C99A7550075FFD8 /* NSDate+Judo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B69D5E61C99A7550075FFD8 /* NSDate+Judo.h */; };
+		3B69D5E91C99A7550075FFD8 /* NSDate+Judo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B69D5E71C99A7550075FFD8 /* NSDate+Judo.m */; };
 		3B704A861C89F16500376773 /* FloatingTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A841C89F16500376773 /* FloatingTextField.h */; };
 		3B704A871C89F16500376773 /* FloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A851C89F16500376773 /* FloatingTextField.m */; };
 		3B704A8A1C89F18000376773 /* JPInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A881C89F18000376773 /* JPInputField.h */; };
@@ -265,6 +267,8 @@
 		3B6991551C8DD85B006ED1FB /* JPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTheme.m; path = Theme/JPTheme.m; sourceTree = "<group>"; };
 		3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+Blocks.h"; path = "Extensions/NSTimer+Blocks.h"; sourceTree = "<group>"; };
 		3B6991621C8F26FE006ED1FB /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+Blocks.m"; path = "Extensions/NSTimer+Blocks.m"; sourceTree = "<group>"; };
+		3B69D5E61C99A7550075FFD8 /* NSDate+Judo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Judo.h"; path = "Extensions/NSDate+Judo.h"; sourceTree = "<group>"; };
+		3B69D5E71C99A7550075FFD8 /* NSDate+Judo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Judo.m"; path = "Extensions/NSDate+Judo.m"; sourceTree = "<group>"; };
 		3B704A841C89F16500376773 /* FloatingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloatingTextField.h; path = View/InputFields/FloatingTextField.h; sourceTree = "<group>"; };
 		3B704A851C89F16500376773 /* FloatingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FloatingTextField.m; path = View/InputFields/FloatingTextField.m; sourceTree = "<group>"; };
 		3B704A881C89F18000376773 /* JPInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPInputField.h; path = View/InputFields/JPInputField.h; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 				3B6912DD1C96BFED00367660 /* NSString+Card.m */,
 				3B4EB38F1C981511006265A0 /* UIColor+Judo.h */,
 				3B4EB3901C981511006265A0 /* UIColor+Judo.m */,
+				3B69D5E61C99A7550075FFD8 /* NSDate+Judo.h */,
+				3B69D5E71C99A7550075FFD8 /* NSDate+Judo.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -614,6 +620,7 @@
 				3B678BA51C7326F10001DC2F /* JPRegisterCard.h in Headers */,
 				3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */,
 				3B704A8A1C89F18000376773 /* JPInputField.h in Headers */,
+				3B69D5E81C99A7550075FFD8 /* NSDate+Judo.h in Headers */,
 				3B704A921C89F1A800376773 /* CardInputField.h in Headers */,
 				3B678BB11C7327270001DC2F /* JPVoid.h in Headers */,
 				3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */,
@@ -840,6 +847,7 @@
 				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				3B6912D21C93179100367660 /* NSArray+Prefix.m in Sources */,
+				3B69D5E91C99A7550075FFD8 /* NSDate+Judo.m in Sources */,
 				DA7DF5B31C7B7A8300652A1F /* JPAddress.m in Sources */,
 				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
 				3B704A971C89F1B700376773 /* DateInputField.m in Sources */,

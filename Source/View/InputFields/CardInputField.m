@@ -25,6 +25,7 @@
 #import "CardInputField.h"
 
 #import "NSString+Card.h"
+#import "NSError+Judo.h"
 
 #import "FloatingTextField.h"
 
@@ -58,6 +59,38 @@
 
 - (BOOL)isValid {
     return self.isTokenPayment || self.textField.text.isCardNumberValid;
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [super textFieldDidChangeValue:textField];
+    
+    [self didChangeInputText];
+    
+    NSError *error = nil;
+    
+    self.textField.text = [self.textField.text cardPresentationStringWithAcceptedNetworks:self.theme.acceptedCardNetworks error:&error];
+    
+    if (error) {
+        [self.delegate cardInput:self didFailWithError:error];
+    } else {
+        CardNetwork network = self.textField.text.cardNetwork;
+        [self.delegate cardInput:self didDetectNetwork:network];
+        
+        NSUInteger cardNumberLength = 16;
+        
+        if (network == CardNetworkAMEX || network == CardNetworkUATP) {
+            cardNumberLength = 15;
+        }
+        
+        if ([self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == cardNumberLength) {
+            if (self.textField.text.isCardNumberValid) {
+                [self.delegate cardInput:self didFindValidNumber:self.textField.text];
+            } else {
+                [self.delegate cardInput:self didFailWithError:[NSError judoInvalidCardNumberError]];
+            }
+        }
+        
+    }
 }
 
 - (NSAttributedString *)placeholder {

@@ -190,6 +190,18 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.hintLabel.numberOfLines = 3;
     self.hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
+    // Themes
+    self.loadingView.theme = self.theme;
+    self.hintLabel.theme = self.theme;
+    
+    self.cardInputField.theme = self.theme;
+    self.startDateInputField.theme = self.theme;
+    self.issueNumberInputField.theme = self.theme;
+    self.expiryDateInputField.theme = self.theme;
+    self.securityCodeInputField.theme = self.theme;
+    self.billingCountryInputField.theme = self.theme;
+    self.postCodeInputField.theme = self.theme;
+    
     // Delegates
     self.cardInputField.delegate = self;
     self.startDateInputField.delegate = self;
@@ -494,7 +506,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - JudoPayInputDelegate
 
 - (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error {
-    [input errorAnimation:(error.code != JudoErrorInputMismatchError)];
+    [input errorAnimation:(error.code != JudoErrorInvalidCardNumberError)];
     if (error.userInfo[NSLocalizedDescriptionKey]) {
         [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
     }

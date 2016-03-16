@@ -24,14 +24,136 @@
 
 #import "DateInputField.h"
 
+#import "FloatingTextField.h"
+#import "JPTheme.h"
+#import "NSError+Judo.h"
+#import "NSDate+Judo.h"
+
+@interface DateInputField ()
+
+@property (nonatomic, assign, readonly) NSInteger currentYear;
+@property (nonatomic, assign, readonly) NSInteger currentMonth;
+
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+@end
+
 @implementation DateInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark - Superclass methods
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (self.textField != textField) {
+        return YES;
+    }
+    
+    NSString *oldString = textField.text;
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (newString.length == 0) {
+        return YES;
+    } else if (newString.length == 1) {
+        return [newString isEqualToString:@"0"] || [newString isEqualToString:@"1"];
+    } else if (newString.length == 2) {
+        
+    } else if (newString.length == 3) {
+        return [newString characterAtIndex:2] == '/';
+    } else if (newString.length == 4) {
+        
+    } else if (newString.length == 5) {
+        return YES;
+    } else {
+        [self.delegate dateInput:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:nil]];
+        return NO;
+    }
 }
-*/
+
+- (BOOL)isValid {
+    
+    if (self.textField.text.length != 5) {
+        return NO;
+    }
+    
+    NSDate *beginningOfMonthDate =[self.dateFormatter dateFromString:self.textField.text];
+    
+    if (!beginningOfMonthDate) {
+        return false;
+    }
+    
+    if (self.isStartDate) {
+        NSDate *minimumDate = [[NSDate new] dateByAddingYears:-10];
+        return [beginningOfMonthDate compare:[NSDate new]] == NSOrderedAscending && [beginningOfMonthDate compare:minimumDate] == NSOrderedDescending;
+    } else {
+        NSDate *endOfMonthDate = [beginningOfMonthDate endOfMonthDate];
+        NSDate *maximumDate = [[NSDate new] dateByAddingYears:10];
+        return [endOfMonthDate compare:[NSDate new]] == NSOrderedDescending && [endOfMonthDate compare:maximumDate] == NSOrderedAscending;
+    }
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [super textFieldDidChangeValue:textField];
+    
+    [self didChangeInputText];
+    
+    if (textField.text.length != 5) {
+        return; // BAIL
+    }
+    
+    if (![self.dateFormatter dateFromString:textField.text]) {
+        return; // BAIL
+    }
+    
+    if (self.isValid) {
+        [self.delegate dateInput:self didFindValidDate:textField.text];
+    } else {
+        NSString *errorMessage = @"Check expiry date";
+        if (self.isStartDate) {
+            errorMessage = @"Check start date";
+        }
+        [self.delegate dateInput:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:errorMessage]];
+    }
+    
+}
+
+- (NSAttributedString *)placeholder {
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoLightGrayColor}];
+}
+
+- (NSString *)title {
+    return self.isStartDate ? @"Start Date" : @"Expiry Date";
+}
+
+- (NSString *)hintLabelText {
+    return @"MM/YY";
+}
+
+#pragma mark - Lazy Loading
+
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [NSDateFormatter new];
+        _dateFormatter.dateFormat = @"MM/yy";
+    }
+    return _dateFormatter;
+}
+
+- (NSInteger)currentYear {
+    return [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate new]];
+}
+
+- (NSInteger)currentMonth {
+    return [[NSCalendar currentCalendar] component:NSCalendarUnitMonth fromDate:[NSDate new]];
+}
+
+#pragma mark - Setters
+
+- (void)setIsStartDate:(BOOL)isStartDate {
+    if (_isStartDate == isStartDate) {
+        return; //BAIL
+    }
+    _isStartDate = isStartDate;
+    [self.textField setPlaceholder:self.title floatingTitle:self.title];
+}
 
 @end
