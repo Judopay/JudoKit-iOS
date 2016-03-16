@@ -189,4 +189,30 @@
     return @"";
 }
 
+#pragma mark - Lazy Loading
+
+- (FloatingTextField *)textField {
+    if (!_textField) {
+        _textField = [FloatingTextField new];
+        _textField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _textField;
+}
+
+- (UIView *)redBlock {
+    if (!_redBlock) {
+        _redBlock = [UIView new];
+        _redBlock.backgroundColor = self.theme.judoRedColor;
+    }
+    return _redBlock;
+}
+
+- (UIView *)logoContainerView {
+    if (!_logoContainerView) {
+        _logoContainerView = [UIView new];
+        _logoContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _logoContainerView;
+}
+
 @end

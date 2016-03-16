@@ -77,31 +77,31 @@
 
 - (void)invokePayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
-    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment completion:completion currentSession:self];
+    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment currentSession:self cardDetails:cardDetails completion:completion];
     [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
 - (void)invokePreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
-    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth completion:completion currentSession:self];
+    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth currentSession:self cardDetails:cardDetails completion:completion];
     [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
 - (void)invokeRegisterCard:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
-    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypeRegisterCard completion:completion currentSession:self];
+    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypeRegisterCard currentSession:self cardDetails:cardDetails completion:completion];
     [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
 - (void)invokeTokenPayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
-    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment completion:completion currentSession:self];
+    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment currentSession:self cardDetails:cardDetails completion:completion];
     [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
 - (void)invokeTokenPreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
-    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth completion:completion currentSession:self];
+    JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth currentSession:self cardDetails:cardDetails completion:completion];
     [self initiateAndShow:controller cardDetails:cardDetails];
 }
 
@@ -178,6 +178,7 @@
 #pragma mark - Helper methods
 
 - (void)initiateAndShow:(JudoPayViewController *)viewController cardDetails:(JPCardDetails *)cardDetails {
+    viewController.theme = self.theme;
     viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
     viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
     [self showViewController:viewController];

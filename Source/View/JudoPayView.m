@@ -55,21 +55,30 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     CGFloat _currentKeyboardHeight;
 }
 
+@property (nonatomic, strong, readwrite) UIScrollView *contentView;
+
 @property (nonatomic, strong) NSLayoutConstraint *keyboardHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *maestroFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *avsFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *securityMessageTopConstraint;
 
 @property (nonatomic, strong) HintLabel *hintLabel;
-@property (nonatomic, strong, readonly) UILabel *securityMessageLabel;
+@property (nonatomic, strong) UILabel *securityMessageLabel;
 
 @property (nonatomic, strong, readwrite) UIButton *paymentButton;
 
 @property (nonatomic, strong, readwrite) LoadingView *loadingView;
-
 @property (nonatomic, strong, readwrite) JP3DSWebView *threeDSWebView;
 
 @property (nonatomic, assign, readwrite) TransactionType transactionType;
+
+@property (nonatomic, strong, readwrite) CardInputField *cardInputField;
+@property (nonatomic, strong, readwrite) DateInputField *expiryDateInputField;
+@property (nonatomic, strong, readwrite) SecurityCodeInputField *securityCodeInputField;
+@property (nonatomic, strong, readwrite) DateInputField *startDateInputField;
+@property (nonatomic, strong, readwrite) IssueNumberInputField *issueNumberInputField;
+@property (nonatomic, strong, readwrite) PostCodeInputField *postCodeInputField;
+@property (nonatomic, strong, readwrite) BillingCountryInputField *billingCountryInputField;
 
 @end
 
@@ -77,17 +86,17 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 #pragma mark - Initialization
 
-- (instancetype)initWithType:(TransactionType)type cardDetails:(JPCardDetails *)cardDetails {
+- (instancetype)initWithType:(TransactionType)type cardDetails:(JPCardDetails *)cardDetails theme:(JPTheme *)theme {
     self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
     if (self) {
         self.cardDetails = cardDetails;
         self.transactionType = type;
+        self.theme = theme;
+        [self setupView];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
-    
-    [self setupView];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     return self;
 }
@@ -221,7 +230,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(-1)-[billing]-(-1)-[post(==billing)]-(-1)-|" options:0 metrics:nil views:@{@"billing":self.billingCountryInputField, @"post":self.postCodeInputField}]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(12)-[hint]-(12)-|" options:0 metrics:nil views:@{}]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(12)-[hint]-(12)-|" options:0 metrics:nil views:@{@"hint":self.hintLabel}]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(12)-[securityMessage]-(12)-|" options:0 metrics:nil views:@{@"securityMessage":self.securityMessageLabel}]];
     
@@ -346,6 +355,115 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 }
 
 #pragma mark - Lazy Loading
+
+- (UIScrollView *)contentView {
+    if (!_contentView) {
+        _contentView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _contentView.directionalLockEnabled = YES;
+        _contentView.showsHorizontalScrollIndicator = NO;
+        _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _contentView;
+}
+
+- (LoadingView *)loadingView {
+    if (!_loadingView) {
+        _loadingView = [LoadingView new];
+    }
+    return _loadingView;
+}
+
+- (JP3DSWebView *)threeDSWebView {
+    if (!_threeDSWebView) {
+        _threeDSWebView = [JP3DSWebView new];
+        _threeDSWebView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _threeDSWebView;
+}
+
+- (CardInputField *)cardInputField {
+    if (!_cardInputField) {
+        _cardInputField = [CardInputField new];
+        _cardInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cardInputField;
+}
+
+- (DateInputField *)startDateInputField {
+    if (!_startDateInputField) {
+        _startDateInputField = [DateInputField new];
+        _startDateInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _startDateInputField;
+}
+
+- (IssueNumberInputField *)issueNumberInputField {
+    if (!_issueNumberInputField) {
+        _issueNumberInputField = [IssueNumberInputField new];
+        _issueNumberInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _issueNumberInputField;
+}
+
+- (DateInputField *)expiryDateInputField {
+    if (!_expiryDateInputField) {
+        _expiryDateInputField = [DateInputField new];
+        _expiryDateInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _expiryDateInputField;
+}
+
+- (SecurityCodeInputField *)securityCodeInputField {
+    if (!_securityCodeInputField) {
+        _securityCodeInputField = [SecurityCodeInputField new];
+        _securityCodeInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _securityCodeInputField;
+}
+
+- (BillingCountryInputField *)billingCountryInputField {
+    if (!_billingCountryInputField) {
+        _billingCountryInputField = [BillingCountryInputField new];
+        _billingCountryInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _billingCountryInputField;
+}
+
+- (PostCodeInputField *)postCodeInputField {
+    if (!_postCodeInputField) {
+        _postCodeInputField = [PostCodeInputField new];
+        _postCodeInputField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _postCodeInputField;
+}
+
+- (HintLabel *)hintLabel {
+    if (!_hintLabel) {
+        _hintLabel = [HintLabel new];
+        _hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _hintLabel;
+}
+
+- (UILabel *)securityMessageLabel {
+    if (!_securityMessageLabel) {
+        _securityMessageLabel = [UILabel new];
+        _securityMessageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _securityMessageLabel.numberOfLines = 0;
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"Secure server: " attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:self.theme.securityMessageTextSize]}];
+        
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:self.theme.securityMessageString attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor, NSFontAttributeName:[UIFont systemFontOfSize:self.theme.securityMessageTextSize]}]];
+        
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.alignment = NSTextAlignmentJustified;
+        paragraphStyle.lineSpacing = 3.0f;
+        
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedString.length)];
+        _securityMessageLabel.attributedText = attributedString;
+    }
+    return _securityMessageLabel;
+}
 
 - (UIButton *)paymentButton {
 	if (!_paymentButton) {

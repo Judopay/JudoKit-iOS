@@ -62,7 +62,7 @@
 @property (nonatomic, strong) NSString *pending3DSReceiptId;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 
-@property (nonatomic, strong) JudoPayView *view;
+@property (nonatomic, strong) JPCardDetails *cardDetails;
 
 @end
 
@@ -70,15 +70,16 @@
 
 @synthesize view;
 
-- (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type completion:(JudoCompletionBlock)completion currentSession:(JudoKit *)session {
+- (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type currentSession:(JudoKit *)session cardDetails:(JPCardDetails *)cardDetails completion:(JudoCompletionBlock)completion {
     self = [super init];
     if (self) {
         self.judoId = judoId;
         self.amount = amount;
         self.reference = reference;
         self.type = type;
-        self.completionBlock = completion;
         self.judoKitSession = session;
+        self.cardDetails = cardDetails;
+        self.completionBlock = completion;
     }
     return self;
 }
@@ -244,6 +245,15 @@
     if (self.completionBlock) {
         self.completionBlock(nil, [NSError judoUserDidCancelError]);
     }
+}
+
+#pragma mark - Lazy Loading
+
+- (JudoPayView *)view {
+    if (!view || [view isKindOfClass:[UIView class]]) {
+        view = [[JudoPayView alloc] initWithType:self.type cardDetails:self.cardDetails theme:self.theme];
+    }
+    return view;
 }
 
 #pragma mark - UIWebView Delegate Methods

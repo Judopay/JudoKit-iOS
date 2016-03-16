@@ -108,4 +108,27 @@
     self.actionLabel.textColor = self.theme.judoDarkGrayColor;
 }
 
+#pragma mark - Lazy Loading
+
+- (UIView *)blockView {
+    if (!_blockView) {
+        _blockView = [UIView new];
+    }
+    return _blockView;
+}
+
+- (UIActivityIndicatorView *)activityIndicatorView {
+    if (!_activityIndicatorView) {
+        _activityIndicatorView = [UIActivityIndicatorView new];
+    }
+    return _activityIndicatorView;
+}
+
+- (UILabel *)actionLabel {
+    if (!_actionLabel) {
+        _actionLabel = [UILabel new];
+    }
+    return _actionLabel;
+}
+
 @end

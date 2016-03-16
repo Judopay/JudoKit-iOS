@@ -23,26 +23,26 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-
+#import "JudoPayView.h"
 #import "JPTransactionData.h"
 
-@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView;
+@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView, JPResponse;
 
 @interface JudoPayViewController : UIViewController
 
-@property (nonatomic, strong) JudoKit *judoKitSession;
+@property (nonatomic, strong) JudoKit * _Nullable judoKitSession;
 
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong) JPTheme * _Nullable theme;
 
 @property (nonatomic, assign) TransactionType type;
 
-@property (nonatomic, strong, readonly) JPAmount *amount;
-@property (nonatomic, strong, readonly) NSString *judoId;
-@property (nonatomic, strong, readonly) JPReference *reference;
-@property (nonatomic, strong, readonly) JPPaymentToken *paymentToken;
+@property (nonatomic, strong, readonly) JPAmount * _Nonnull amount;
+@property (nonatomic, strong, readonly) NSString * _Nonnull judoId;
+@property (nonatomic, strong, readonly) JPReference * _Nonnull reference;
+@property (nonatomic, strong, readonly) JPPaymentToken * _Nullable paymentToken;
 
-@property (nonatomic, strong) JudoPayView *view;
+@property (nonatomic, strong) JudoPayView * _Nonnull view;
 
-- (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type completion:(void (^)(JPResponse *, NSError *))completion currentSession:(JudoKit *)apiSession;
+- (nonnull instancetype)initWithJudoId:(nonnull NSString *)judoId amount:(nullable JPAmount *)amount reference:(nonnull JPReference *)reference transaction:(TransactionType)type currentSession:(nonnull JudoKit *)session cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end
