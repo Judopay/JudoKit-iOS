@@ -136,4 +136,49 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
     }
 }
 
+- (BOOL)isCardNumberValid {
+    CardNetwork network = self.cardNetwork;
+    NSString *strippedSelf = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if ([strippedSelf rangeOfString:@"."].location != NSNotFound) {
+        return false;
+    }
+    
+    if (!strippedSelf.isLuhnValid) {
+        return false;
+    }
+    
+    // TODO: check if luhn valid
+    
+    switch (network) {
+        case CardNetworkUATP:
+        case CardNetworkAMEX:
+            return strippedSelf.length == 15;
+        default:
+            return strippedSelf.length == 16;
+    }
+}
+
+- (BOOL)isLuhnValid {
+    NSString *baseNumber = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSUInteger total = 0;
+    
+    NSUInteger len = [baseNumber length];
+    for (NSUInteger i=len; i > 0;) {
+        BOOL odd = (len-i)&1;
+        --i;
+        unichar c = [baseNumber characterAtIndex:i];
+        if(c < '0' || c > '9') continue;
+        c -= '0';
+        if(odd) c *= 2;
+        if(c >= 10) {
+            total += 1;
+            c -= 10;
+        }
+        total += c;
+    }
+    
+    return (total%10) == 0 ? YES : NO;
+}
+
 @end

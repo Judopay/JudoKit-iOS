@@ -26,8 +26,11 @@
 
 #import "NSString+Card.h"
 
+#import "FloatingTextField.h"
+
 #import "JPCard.h"
 #import "JPTheme.h"
+#import "CardLogoView.h"
 
 @implementation CardInputField
 
@@ -53,5 +56,47 @@
     return YES;
 }
 
+- (BOOL)isValid {
+    return self.isTokenPayment || self.textField.text.isCardNumberValid;
+}
+
+- (NSAttributedString *)placeholder {
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoLightGrayColor}];
+}
+
+- (BOOL)containsLogo {
+    return YES;
+}
+
+- (CardLogoView *)logoView {
+    return [[CardLogoView alloc] initWithType:[CardInputField cardLogoTypeForNetworkType:self.cardNetwork]];
+}
+
+- (NSString *)title {
+    return @"Card number";
+}
+
+- (NSString *)hintLabelText {
+    return @"Long card number";
+}
+
++ (CardLogoType)cardLogoTypeForNetworkType:(CardNetwork)network {
+    switch (network) {
+        case CardNetworkVisa:
+        case CardNetworkVisaDebit:
+        case CardNetworkVisaElectron:
+        case CardNetworkVisaPurchasing:
+            return CardLogoTypeVisa;
+        case CardNetworkMasterCard:
+        case CardNetworkMasterCardDebit:
+            return CardLogoTypeMasterCard;
+        case CardNetworkAMEX:
+            return CardLogoTypeAMEX;
+        case CardNetworkMaestro:
+            return CardLogoTypeMaestro;
+        default:
+            return CardLogoTypeUnknown;
+    }
+}
 
 @end

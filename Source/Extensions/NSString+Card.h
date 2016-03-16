@@ -29,6 +29,8 @@
 @interface NSString (Card)
 
 @property (nonatomic, assign, readonly) CardNetwork cardNetwork;
+@property (nonatomic, assign, readonly) BOOL isCardNumberValid;
+@property (nonatomic, assign, readonly) BOOL isLuhnValid;
 
 - (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks error:(NSError * _Nullable * _Nullable)error;
 
