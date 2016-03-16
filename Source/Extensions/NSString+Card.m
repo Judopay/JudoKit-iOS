@@ -63,7 +63,26 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
         return strippedString;
     }
     
-    return [self patternStringFromString:strippedString withCardNetwork:network];
+    NSString *patternString = [self patternStringFromString:strippedString withCardNetwork:network];
+    
+    NSString *returnString = @"";
+    
+    NSInteger patternIndex = 0;
+    
+    for (int i = 0; i < strippedString.length; i++) {
+        const char element = [patternString UTF8String][patternIndex];
+        if (element == 'X') {
+            char num = [strippedString characterAtIndex:i];
+            returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@"%c", num]];
+        } else {
+            char num = [strippedString characterAtIndex:i];
+            returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@" %c", num]];
+            patternIndex++;
+        }
+        patternIndex++;
+    }
+    
+    return returnString;
 }
 
 - (CardNetwork)cardNetwork {

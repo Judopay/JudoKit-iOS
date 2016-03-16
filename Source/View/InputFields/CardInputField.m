@@ -48,7 +48,9 @@
     
     NSString *cardPresentationString = [newString cardPresentationStringWithAcceptedNetworks:self.theme.acceptedCardNetworks error:&error];
     
-    // TODO: need to add an error case here
+    if (error) {
+        [self.delegate cardInput:self didFailWithError:error];
+    }
     
     if (cardPresentationString) {
         [self dismissError];

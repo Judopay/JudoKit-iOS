@@ -48,7 +48,6 @@
         return YES;
     }
     
-    NSString *oldString = textField.text;
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
     if (newString.length == 0) {
@@ -57,9 +56,28 @@
         return [newString isEqualToString:@"0"] || [newString isEqualToString:@"1"];
     } else if (newString.length == 2) {
         
+        if (string.length == 0) {
+            return YES;
+        }
+        
+        if ([newString integerValue] <= 0 || [newString integerValue] > 12) {
+            return NO;
+        }
+        
+        self.textField.text = [newString stringByAppendingString:@"/"];
+        return NO;
+        
     } else if (newString.length == 3) {
         return [newString characterAtIndex:2] == '/';
     } else if (newString.length == 4) {
+        NSInteger deciYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate new]] - 2000 / 10.0;
+        NSInteger lastNumber = [[newString substringFromIndex:3] integerValue];
+        
+        if (self.isStartDate) {
+            return lastNumber == deciYear || lastNumber == deciYear - 1;
+        } else {
+            return lastNumber == deciYear || lastNumber == deciYear + 1;
+        }
         
     } else if (newString.length == 5) {
         return YES;
