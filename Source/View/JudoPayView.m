@@ -158,6 +158,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (void)setupView {
     
+    // Themes (needs to be set before setting up subviews
+    self.loadingView.theme = self.theme;
+    self.hintLabel.theme = self.theme;
+    
     NSString *paymentButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle;
     
     self.loadingView.actionLabel.text = self.transactionType == TransactionTypeRegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle;
@@ -189,18 +193,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.hintLabel.font = [UIFont systemFontOfSize:14];
     self.hintLabel.numberOfLines = 3;
     self.hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    // Themes
-    self.loadingView.theme = self.theme;
-    self.hintLabel.theme = self.theme;
-    
-    self.cardInputField.theme = self.theme;
-    self.startDateInputField.theme = self.theme;
-    self.issueNumberInputField.theme = self.theme;
-    self.expiryDateInputField.theme = self.theme;
-    self.securityCodeInputField.theme = self.theme;
-    self.billingCountryInputField.theme = self.theme;
-    self.postCodeInputField.theme = self.theme;
     
     // Delegates
     self.cardInputField.delegate = self;
@@ -395,7 +387,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (CardInputField *)cardInputField {
     if (!_cardInputField) {
-        _cardInputField = [CardInputField new];
+        _cardInputField = [[CardInputField alloc] initWithTheme:self.theme];
         _cardInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _cardInputField;
@@ -403,7 +395,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (DateInputField *)startDateInputField {
     if (!_startDateInputField) {
-        _startDateInputField = [DateInputField new];
+        _startDateInputField = [[DateInputField alloc] initWithTheme:self.theme];
         _startDateInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _startDateInputField;
@@ -411,7 +403,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (IssueNumberInputField *)issueNumberInputField {
     if (!_issueNumberInputField) {
-        _issueNumberInputField = [IssueNumberInputField new];
+        _issueNumberInputField = [[IssueNumberInputField alloc] initWithTheme:self.theme];
         _issueNumberInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _issueNumberInputField;
@@ -419,7 +411,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (DateInputField *)expiryDateInputField {
     if (!_expiryDateInputField) {
-        _expiryDateInputField = [DateInputField new];
+        _expiryDateInputField = [[DateInputField alloc] initWithTheme:self.theme];
         _expiryDateInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _expiryDateInputField;
@@ -427,7 +419,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (SecurityCodeInputField *)securityCodeInputField {
     if (!_securityCodeInputField) {
-        _securityCodeInputField = [SecurityCodeInputField new];
+        _securityCodeInputField = [[SecurityCodeInputField alloc] initWithTheme:self.theme];
         _securityCodeInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _securityCodeInputField;
@@ -435,7 +427,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (BillingCountryInputField *)billingCountryInputField {
     if (!_billingCountryInputField) {
-        _billingCountryInputField = [BillingCountryInputField new];
+        _billingCountryInputField = [[BillingCountryInputField alloc] initWithTheme:self.theme];
         _billingCountryInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _billingCountryInputField;
@@ -443,7 +435,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (PostCodeInputField *)postCodeInputField {
     if (!_postCodeInputField) {
-        _postCodeInputField = [PostCodeInputField new];
+        _postCodeInputField = [[PostCodeInputField alloc] initWithTheme:self.theme];
         _postCodeInputField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _postCodeInputField;

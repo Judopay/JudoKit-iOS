@@ -93,8 +93,6 @@
     
     self.view.threeDSWebView.delegate = self;
     
-    self.view.theme = self.theme;
-    
     // Button Actions
     
     NSString *payButtonTitle = self.view.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardButtonTitle : self.theme.paymentButtonTitle;
@@ -108,7 +106,7 @@
     
     self.navigationController.navigationBar.tintColor = self.theme.judoDarkGrayColor;
     
-    if ([self.theme.tintColor colorMode]) {
+    if (![self.theme.tintColor colorMode]) {
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     }
     
@@ -119,8 +117,6 @@
     [super viewWillAppear:animated];
     
     [self.view paymentEnabled:NO];
-    
-    [self.view layoutIfNeeded];
     
     if (self.view.cardDetails == nil && self.view.cardInputField.textField.text) {
         [self.view.cardInputField textFieldDidChangeValue:self.view.cardInputField.textField];
@@ -224,8 +220,6 @@
                     return; // BAIL
                 }
                 
-                
-                
                 self.view.loadingView.actionLabel.text = self.theme.redirecting3DSTitle;
                 self.title = self.theme.authenticationTitle;
                 [self.view paymentEnabled:NO];
@@ -250,7 +244,7 @@
 #pragma mark - Lazy Loading
 
 - (JudoPayView *)view {
-    if (!view || [view isKindOfClass:[UIView class]]) {
+    if (!view || ![view isKindOfClass:[JudoPayView class]]) {
         view = [[JudoPayView alloc] initWithType:self.type cardDetails:self.cardDetails theme:self.theme];
     }
     return view;

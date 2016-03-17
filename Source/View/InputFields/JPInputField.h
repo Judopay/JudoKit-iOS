@@ -73,6 +73,8 @@
 
 @property (nonatomic, assign, readonly) BOOL isValid;
 
+- (instancetype)initWithTheme:(JPTheme *)theme;
+
 - (void)errorAnimation:(BOOL)showRedBlock;
 
 - (void)updateCardLogo;

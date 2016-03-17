@@ -41,9 +41,10 @@
 
 @implementation JPInputField
 
-- (instancetype)init {
+- (instancetype)initWithTheme:(JPTheme *)theme {
 	self = [super init];
 	if (self) {
+        self.theme = theme;
         [self setupView];
 	}
 	return self;
@@ -204,7 +205,7 @@
 
 - (UIView *)redBlock {
     if (!_redBlock) {
-        _redBlock = [UIView new];
+        _redBlock = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 48.0f, 0.0f, 0.0f)];
         _redBlock.backgroundColor = self.theme.judoRedColor;
     }
     return _redBlock;
