@@ -136,9 +136,9 @@
     }];
     
     if (self.view.cardInputField.textField.text.length) {
-        [self.view.securityCodeInputField becomeFirstResponder];
+        [self.view.securityCodeInputField.textField becomeFirstResponder];
     } else {
-        [self.view.cardInputField becomeFirstResponder];
+        [self.view.cardInputField.textField becomeFirstResponder];
     }
 }
 

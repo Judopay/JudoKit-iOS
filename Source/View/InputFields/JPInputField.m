@@ -128,7 +128,7 @@
     CardLogoView *logoView = [self logoView];
     logoView.frame = CGRectMake(0, 0, 42, 27);
     CardLogoView *oldLogoView = self.logoContainerView.subviews.firstObject;
-    if ([oldLogoView isKindOfClass:[self class]] && oldLogoView.type != logoView.type) {
+    if (oldLogoView.type != logoView.type) {
         [UIView transitionFromView:oldLogoView toView:logoView duration:0.3 options:UIViewAnimationOptionTransitionFlipFromBottom completion:nil];
     }
 }
