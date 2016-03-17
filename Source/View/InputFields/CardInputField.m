@@ -50,6 +50,7 @@
     
     if (error) {
         [self.delegate cardInput:self didFailWithError:error];
+        return NO;
     }
     
     if (cardPresentationString) {

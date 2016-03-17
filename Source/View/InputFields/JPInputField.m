@@ -107,6 +107,8 @@
         contentViewAnimation.additive = YES;
         
         [self.layer addAnimation:contentViewAnimation forKey:@"wiggle"];
+        
+        [self layoutIfNeeded];
     };
     
     if (showRedBlock) {
@@ -128,7 +130,6 @@
     if ([oldLogoView isKindOfClass:[self class]] && oldLogoView.type != logoView.type) {
         [UIView transitionFromView:oldLogoView toView:logoView duration:0.3 options:UIViewAnimationOptionTransitionFlipFromBottom completion:nil];
     }
-    [self.textField setPlaceholder:[self placeHolder] floatingTitle:[self placeHolder]];
 }
 
 - (void)setActive:(BOOL)active {
@@ -136,10 +137,12 @@
 }
 
 - (void)dismissError {
-    if (self.redBlock.bounds.origin.y >= self.bounds.size.height) {
+    if (self.redBlock.bounds.origin.y < self.bounds.size.height) {
         [UIView animateWithDuration:0.4 animations:^{
             self.redBlock.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 4.0f);
             self.textField.textColor = self.theme.judoDarkGrayColor;
+        } completion:^(BOOL finished) {
+            [self layoutIfNeeded];
         }];
     }
 }
@@ -165,8 +168,8 @@
     [self dismissError];
 }
 
-- (NSString *)placeHolder {
-    return @"";
+- (NSAttributedString *)placeHolder {
+    return [NSAttributedString new];
 }
 
 - (BOOL)containsLogo {

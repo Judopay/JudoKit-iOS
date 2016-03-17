@@ -24,14 +24,88 @@
 
 #import "SecurityCodeInputField.h"
 
+#import "FloatingTextField.h"
+#import "CardLogoView.h"
+#import "JPTheme.h"
+
+#import "NSString+Helper.h"
+
 @implementation SecurityCodeInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (self.textField != textField) {
+        return YES;
+    }
+    
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (newString.length == 0) {
+        return YES;
+    }
+    
+    return newString.isNumeric && newString.length <= [self securityCodeLengthForCardNetwork:self.cardNetwork];
 }
-*/
+
+#pragma mark - Helpers
+
+- (BOOL)isValid {
+    return self.textField.text.length == [self securityCodeLengthForCardNetwork:self.cardNetwork];
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [super textFieldDidChangeValue:textField];
+    
+    [self didChangeInputText];
+    
+    [self.delegate judoPayInput:self didValidate:self.textField.text.length == [self securityCodeLengthForCardNetwork:self.cardNetwork]];
+}
+
+- (NSAttributedString *)placeholder {
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoLightGrayColor}];
+}
+
+- (BOOL)containsLogo {
+    return YES;
+}
+
+- (CardLogoView *)logoView {
+    CardLogoType type = self.cardNetwork == CardNetworkAMEX ? CardLogoTypeCID : CardLogoTypeCVC;
+    return [[CardLogoView alloc] initWithType:type];
+}
+
+- (NSString *)title {
+    switch (self.cardNetwork) {
+        case CardNetworkVisa:
+            return @"CVV2";
+        case CardNetworkMasterCard:
+            return @"CVC2";
+        case CardNetworkAMEX:
+            return @"CID";
+        case CardNetworkChinaUnionPay:
+            return @"CVN2";
+        case CardNetworkDiscover:
+            return @"CID";
+        case CardNetworkJCB:
+            return @"CAV2";
+        default:
+            return @"CVV";
+    }
+}
+
+- (NSString *)hintLabelText {
+    if (self.isTokenPayment) {
+        return @"Please re-enter the card security code";
+    }
+    return @"Security code";
+}
+
+- (NSInteger)securityCodeLengthForCardNetwork:(CardNetwork)network {
+    if (network == CardNetworkAMEX) {
+        return 4;
+    } else {
+        return 3;
+    }
+}
 
 @end

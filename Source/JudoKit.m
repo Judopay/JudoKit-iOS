@@ -181,7 +181,7 @@
     viewController.theme = self.theme;
     viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
     viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
-    [self showViewController:viewController];
+    [self showViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
 }
 
 - (void)showViewController:(UIViewController *)vc {

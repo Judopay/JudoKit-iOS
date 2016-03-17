@@ -312,7 +312,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [self.cardInputField updateCardLogo];
     self.securityCodeInputField.cardNetwork = network;
     [self.securityCodeInputField updateCardLogo];
-    self.securityCodeInputField.textField.placeholder = [JPCardDetails titleForCardNetwork:network];
+    [self.securityCodeInputField.textField setPlaceholder:self.securityCodeInputField.title floatingTitle:self.securityCodeInputField.title];
 }
 
 - (void)paymentEnabled:(BOOL)enabled {

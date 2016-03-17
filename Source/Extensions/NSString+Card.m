@@ -26,6 +26,7 @@
 
 #import "NSString+Helper.h"
 #import "NSArray+Prefix.h"
+#import "NSError+Judo.h"
 
 static NSString const * VISAPattern         = @"XXXX XXXX XXXX XXXX";
 static NSString const * AMEXPattern         = @"XXXX XXXXXX XXXXX";
@@ -52,6 +53,7 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
     if (strippedString.length == 0) {
         return @"";
     } else if (strippedString.length > 16 || ![strippedString isNumeric]) {
+        *error = [NSError judoInputMismatchErrorWithMessage:@"Check card number"];
         return nil;
     }
     

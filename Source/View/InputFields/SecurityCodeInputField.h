@@ -32,4 +32,6 @@
 
 @property (nonatomic, assign) BOOL isTokenPayment;
 
+@property (nonatomic, strong) NSString *floatingTitle;
+
 @end
