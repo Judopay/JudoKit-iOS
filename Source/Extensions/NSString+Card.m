@@ -24,7 +24,6 @@
 
 #import "NSString+Card.h"
 
-#import "NSString+Helper.h"
 #import "NSArray+Prefix.h"
 #import "NSError+Judo.h"
 
@@ -201,5 +200,25 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
     
     return (total%10) == 0 ? YES : NO;
 }
+
+- (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
+    NSMutableString *s = [NSMutableString stringWithCapacity:self.length];
+    for (NSUInteger i = 0; i < self.length; ++i) {
+        unichar c = [self characterAtIndex:i];
+        if (![charSet characterIsMember:c]) {
+            [s appendFormat:@"%C", c];
+        } else {
+            [s appendString:aString];
+        }
+    }
+    return s;
+}
+
+- (BOOL)isNumeric {
+    NSString *regexPattern = @"^[0-9]*$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
+    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
+}
+
 
 @end

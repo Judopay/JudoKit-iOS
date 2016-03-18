@@ -24,14 +24,121 @@
 
 #import "PostCodeInputField.h"
 
+#import "FloatingTextField.h"
+
+#import "NSError+Judo.h"
+#import "NSString+Card.h"
+
+static NSString * const kUKRegexString = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
+static NSString * const kCanadaRegexString = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]";
+static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
+
+@interface JPInputField ()
+
+- (void)setupView;
+
+@end
+
 @implementation PostCodeInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setupView {
+    [super setupView];
+    self.textField.keyboardType = UIKeyboardTypeDefault;
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
 }
-*/
+
+- (void)setBillingCountry:(BillingCountry)billingCountry {
+    if (_billingCountry == billingCountry) {
+        return; // BAIL
+    }
+    _billingCountry = billingCountry;
+    
+    switch (_billingCountry) {
+        case BillingCountryUK:
+        case BillingCountryCanada:
+            self.textField.keyboardType = UIKeyboardTypeDefault;
+            break;
+        default:
+            self.textField.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+    }
+    NSString *placeholder = [NSString stringWithFormat:@"Billing %@", [self descriptionForBillingCountry:_billingCountry]];
+    [self.textField setPlaceholder:placeholder floatingTitle:placeholder];
+}
+
+- (NSString *)descriptionForBillingCountry:(BillingCountry)country {
+    switch (country) {
+    case BillingCountryUSA:
+        return @"ZIP code";
+    case BillingCountryCanada:
+        return @"Postal code";
+    default:
+        return @"Postcode";
+    }
+}
+
+- (BOOL)isValid {
+    if (self.billingCountry == BillingCountryOther) {
+        return YES;
+    }
+    
+    NSString *newString = [self.textField.text uppercaseString];
+    
+    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:kUKRegexString options:NSRegularExpressionAnchorsMatchLines error:nil];
+    NSRegularExpression *canadaRegex = [NSRegularExpression regularExpressionWithPattern:kCanadaRegexString options:NSRegularExpressionAnchorsMatchLines error:nil];
+    NSRegularExpression *usaRegex = [NSRegularExpression regularExpressionWithPattern:kUSARegexString options:NSRegularExpressionAnchorsMatchLines error:nil];
+    
+    switch (self.billingCountry) {
+        case BillingCountryUK:
+            return [ukRegex numberOfMatchesInString:newString options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, newString.length)] > 0;
+        case BillingCountryCanada:
+            return [canadaRegex numberOfMatchesInString:newString options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, newString.length)] > 0 && newString.length == 6;
+        case BillingCountryUSA:
+            return [usaRegex numberOfMatchesInString:newString options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, newString.length)] > 0;
+        default:
+            return newString.isNumeric && newString.length <= 8;
+    }
+    
+    return NO;
+}
+
+- (void)textFieldDidChangeValue:(UITextField *)textField {
+    [super textFieldDidChangeValue:textField];
+    
+    [self didChangeInputText];
+    
+    BOOL valid = self.isValid;
+    
+    [self.delegate judoPayInput:self didValidate:valid];
+    
+    if (valid) {
+        NSUInteger characterCount = textField.text.length;
+        
+        switch (self.billingCountry) {
+            case BillingCountryUK:
+                if (characterCount >= 7) {
+                    
+                }
+                break;
+            case BillingCountryCanada:
+                if (characterCount >= 6) {
+                    [self errorAnimation:YES];
+                    [self.delegate postCodeInputField:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:[NSString stringWithFormat:@"Check %@", [self descriptionForBillingCountry:self.billingCountry]]]];
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+- (NSString *)title {
+    return [NSString stringWithFormat:@"Billing %@", [self descriptionForBillingCountry:self.billingCountry]];
+}
+
+- (CGFloat)titleWidth {
+    return 120.0f;
+}
 
 @end

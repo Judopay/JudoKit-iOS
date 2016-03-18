@@ -28,6 +28,7 @@
 #import "JPTheme.h"
 #import "NSError+Judo.h"
 #import "NSDate+Judo.h"
+#import "NSString+Card.h"
 
 @interface DateInputField ()
 
@@ -60,6 +61,10 @@
             return YES;
         }
         
+        if (!string.isNumeric) {
+            return NO;
+        }
+        
         if ([newString integerValue] <= 0 || [newString integerValue] > 12) {
             return NO;
         }
@@ -70,8 +75,15 @@
     } else if (newString.length == 3) {
         return [newString characterAtIndex:2] == '/';
     } else if (newString.length == 4) {
-        NSInteger deciYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate new]] - 2000 / 10.0;
-        NSInteger lastNumber = [[newString substringFromIndex:3] integerValue];
+        NSInteger deciYear = ([[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate new]] - 2000) / 10.0;
+        
+        NSString *lastNumberString = [newString substringFromIndex:3];
+        
+        if (!lastNumberString.isNumeric) {
+            return NO;
+        }
+        
+        NSInteger lastNumber = [lastNumberString integerValue];
         
         if (self.isStartDate) {
             return lastNumber == deciYear || lastNumber == deciYear - 1;
@@ -80,6 +92,13 @@
         }
         
     } else if (newString.length == 5) {
+        
+        NSString *lastNumberString = [newString substringFromIndex:4];
+        
+        if (!lastNumberString.isNumeric) {
+            return NO;
+        }
+        
         return YES;
     } else {
         [self.delegate dateInput:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:nil]];
@@ -139,7 +158,7 @@
 }
 
 - (NSString *)title {
-    return self.isStartDate ? @"Start Date" : @"Expiry Date";
+    return self.isStartDate ? @"Start date" : @"Expiry date";
 }
 
 - (NSString *)hintLabelText {

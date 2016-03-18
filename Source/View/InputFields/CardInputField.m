@@ -44,6 +44,10 @@
         return YES;
     }
     
+    if (!newString.isNumeric) {
+        return NO;
+    }
+    
     NSError *error = nil;
     
     NSString *cardPresentationString = [newString cardPresentationStringWithAcceptedNetworks:self.theme.acceptedCardNetworks error:&error];

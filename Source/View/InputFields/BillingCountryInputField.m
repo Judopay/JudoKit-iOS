@@ -23,15 +23,79 @@
 //  SOFTWARE.
 
 #import "BillingCountryInputField.h"
+#import "BillingCountry.h"
+
+#import "FloatingTextField.h"
+
+@interface JPInputField ()
+
+- (void)setupView;
+
+@end
+
+@interface BillingCountryInputField () <UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property (nonatomic, strong) UIPickerView *countryPicker;
+@property (nonatomic, assign) BillingCountry selectedCountry;
+
+@property (nonatomic, strong) NSArray *allCountries;
+
+@end
 
 @implementation BillingCountryInputField
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setupView {
+    [super setupView];
+    
+    self.countryPicker.delegate = self;
+    self.countryPicker.dataSource = self;
+    
+    self.textField.text = @"UK";
+    self.textField.inputView = self.countryPicker;
+    
+    [self setActive:YES];
 }
-*/
+
+- (NSString *)titleForBillingCountry:(BillingCountry)country {
+    switch (country) {
+        case BillingCountryUK:
+            return @"UK";
+        case BillingCountryCanada:
+            return @"Canada";
+        case BillingCountryUSA:
+            return @"USA";
+        default:
+            return @"Other";
+    }
+}
+
+#pragma mark - PickerView Delegate & DataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.allCountries.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [self titleForBillingCountry:[self.allCountries[row] integerValue]];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.selectedCountry = [self.allCountries[row] integerValue];
+    self.textField.text = [self titleForBillingCountry:self.selectedCountry];
+    [self.delegate billingCountryInput:self didSelect:self.selectedCountry];
+}
+
+#pragma mark - Getters
+
+- (NSArray *)allCountries {
+    if (_allCountries == nil) {
+        _allCountries = @[@(BillingCountryUK), @(BillingCountryCanada), @(BillingCountryUSA), @(BillingCountryOther)];
+    }
+    return _allCountries;
+}
 
 @end

@@ -31,7 +31,14 @@
 @property (nonatomic, assign, readonly) CardNetwork cardNetwork;
 @property (nonatomic, assign, readonly) BOOL isCardNumberValid;
 @property (nonatomic, assign, readonly) BOOL isLuhnValid;
+@property (nonatomic, assign, readonly) BOOL isNumeric;
 
 - (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks error:(NSError * _Nullable * _Nullable)error;
+
+/*
+ * Helper method that removes all occurences of characters defined in a given set
+ */
+- (nullable NSString *)stringByReplacingCharactersInSet:(nonnull NSCharacterSet *)charSet withString:(nonnull NSString *)aString;
+
 
 @end

@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "IssueNumberInputField.h"
-#import "NSString+Helper.h"
+#import "NSString+Card.h"
 #import "FloatingTextField.h"
 #import "JPTheme.h"
 
@@ -35,7 +35,11 @@
     NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
     
     if (!newString.length) {
-        return true;
+        return YES;
+    }
+    
+    if (!newString.isNumeric) {
+        return NO;
     }
     
     return [newString isNumeric] && newString.length <= 3;

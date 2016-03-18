@@ -28,7 +28,7 @@
 #import "CardLogoView.h"
 #import "JPTheme.h"
 
-#import "NSString+Helper.h"
+#import "NSString+Card.h"
 
 @implementation SecurityCodeInputField
 
