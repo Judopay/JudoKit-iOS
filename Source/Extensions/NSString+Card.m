@@ -220,5 +220,9 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
     return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
 }
 
+- (BOOL)isAlphaNumeric {
+    NSCharacterSet *nonAlphaNumeric = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+    return [self rangeOfCharacterFromSet:nonAlphaNumeric].location == NSNotFound;
+}
 
 @end

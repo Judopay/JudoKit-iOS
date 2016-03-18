@@ -78,6 +78,29 @@ static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField != self.textField) {
+        return YES;
+    }
+    
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (newString.length == 0) {
+        return YES;
+    }
+    
+    switch (self.billingCountry) {
+        case BillingCountryUK:
+            return newString.isAlphaNumeric && newString.length <= 8;
+        case BillingCountryCanada:
+            return newString.isAlphaNumeric && newString.length <= 6;
+        case BillingCountryUSA:
+            return newString.isNumeric && newString.length <= 5;
+        default:
+            return newString.isNumeric && newString.length <= 8;
+    }
+}
+
 - (BOOL)isValid {
     if (self.billingCountry == BillingCountryOther) {
         return YES;
@@ -108,29 +131,33 @@ static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
     
     [self didChangeInputText];
     
-    BOOL valid = self.isValid;
+    [self.delegate judoPayInput:self didValidate:self.isValid];
     
-    [self.delegate judoPayInput:self didValidate:valid];
+    NSUInteger characterCount = textField.text.length;
     
-    if (valid) {
-        NSUInteger characterCount = textField.text.length;
-        
-        switch (self.billingCountry) {
-            case BillingCountryUK:
-                if (characterCount >= 7) {
-                    
-                }
-                break;
-            case BillingCountryCanada:
-                if (characterCount >= 6) {
-                    [self errorAnimation:YES];
-                    [self.delegate postCodeInputField:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:[NSString stringWithFormat:@"Check %@", [self descriptionForBillingCountry:self.billingCountry]]]];
-                }
-                break;
-            default:
-                break;
-        }
+    BOOL valid = YES;
+    
+    switch (self.billingCountry) {
+        case BillingCountryUK:
+            if (characterCount >= 8) {
+                valid = NO;
+            }
+            break;
+        case BillingCountryCanada:
+            if (characterCount >= 6) {
+                valid = NO;
+            }
+            break;
+        default:
+            break;
     }
+    
+    if (!valid) {
+        [self errorAnimation:YES];
+        [self.delegate postCodeInputField:self didFailWithError:[NSError judoInputMismatchErrorWithMessage:[NSString stringWithFormat:@"Check %@", [self descriptionForBillingCountry:self.billingCountry]]]];
+        return; // BAIL
+    }
+    
 }
 
 - (NSString *)title {

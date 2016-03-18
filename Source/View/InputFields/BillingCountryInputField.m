@@ -69,6 +69,14 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return NO;
+}
+
+- (BOOL)isValid {
+    return YES;
+}
+
 #pragma mark - PickerView Delegate & DataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -92,10 +100,17 @@
 #pragma mark - Getters
 
 - (NSArray *)allCountries {
-    if (_allCountries == nil) {
+    if (!_allCountries) {
         _allCountries = @[@(BillingCountryUK), @(BillingCountryCanada), @(BillingCountryUSA), @(BillingCountryOther)];
     }
     return _allCountries;
+}
+
+- (UIPickerView *)countryPicker {
+    if (!_countryPicker) {
+        _countryPicker = [UIPickerView new];
+    }
+    return _countryPicker;
 }
 
 @end

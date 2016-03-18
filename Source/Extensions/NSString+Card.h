@@ -32,6 +32,7 @@
 @property (nonatomic, assign, readonly) BOOL isCardNumberValid;
 @property (nonatomic, assign, readonly) BOOL isLuhnValid;
 @property (nonatomic, assign, readonly) BOOL isNumeric;
+@property (nonatomic, assign, readonly) BOOL isAlphaNumeric;
 
 - (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks error:(NSError * _Nullable * _Nullable)error;
 
