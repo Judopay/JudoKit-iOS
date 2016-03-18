@@ -198,6 +198,8 @@
 - (FloatingTextField *)textField {
     if (!_textField) {
         _textField = [FloatingTextField new];
+        _textField.floatingLabelYPadding = 6.0f;
+        _textField.floatingLabelFont = [UIFont systemFontOfSize:12.0f];
         _textField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _textField;
