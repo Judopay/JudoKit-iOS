@@ -54,7 +54,6 @@
 @property (nonatomic, assign, readonly) TransactionType transactionType;
 
 @property (nonatomic, strong, readonly) UIButton *paymentButton;
-@property (nonatomic, strong) UIBarButtonItem *paymentNavBarButton;
 
 - (instancetype)initWithType:(TransactionType)type cardDetails:(JPCardDetails *)cardDetails theme:(JPTheme *)theme;
 

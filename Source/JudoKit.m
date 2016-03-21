@@ -35,7 +35,6 @@
 #import "JPCollection.h"
 #import "JPTransactionData.h"
 #import "JudoPayViewController.h"
-#import "JudoPayView.h"
 #import "JPInputField.h"
 #import "CardInputField.h"
 #import "DateInputField.h"
@@ -78,31 +77,31 @@
 - (void)invokePayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment currentSession:self cardDetails:cardDetails completion:completion];
-    [self initiateAndShow:controller cardDetails:cardDetails];
+    [self initiateAndShow:controller];
 }
 
 - (void)invokePreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth currentSession:self cardDetails:cardDetails completion:completion];
-    [self initiateAndShow:controller cardDetails:cardDetails];
+    [self initiateAndShow:controller];
 }
 
 - (void)invokeRegisterCard:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypeRegisterCard currentSession:self cardDetails:cardDetails completion:completion];
-    [self initiateAndShow:controller cardDetails:cardDetails];
+    [self initiateAndShow:controller];
 }
 
 - (void)invokeTokenPayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment currentSession:self cardDetails:cardDetails completion:completion];
-    [self initiateAndShow:controller cardDetails:cardDetails];
+    [self initiateAndShow:controller];
 }
 
 - (void)invokeTokenPreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth currentSession:self cardDetails:cardDetails completion:completion];
-    [self initiateAndShow:controller cardDetails:cardDetails];
+    [self initiateAndShow:controller];
 }
 
 - (JPTransaction *)transactionForTypeClass:(Class)type judoId:(NSString *)judoId amount:(JPAmount *)amount reference:(nonnull JPReference *)reference {
@@ -177,10 +176,10 @@
 
 #pragma mark - Helper methods
 
-- (void)initiateAndShow:(JudoPayViewController *)viewController cardDetails:(JPCardDetails *)cardDetails {
+- (void)initiateAndShow:(JudoPayViewController *)viewController {
     viewController.theme = self.theme;
-    viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
-    viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
+//    viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
+//    viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
     [self showViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
 }
 

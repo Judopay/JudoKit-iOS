@@ -73,6 +73,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
     self.judoKitSession.apiSession.sandboxed = YES;
     
+    self.judoKitSession.theme.showSecurityMessage = YES;
+    
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = self.tableFooterView;
 }

@@ -40,8 +40,6 @@
 		3B5362961C7CBD3F00CEBAE2 /* JudoPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362941C7CBD3F00CEBAE2 /* JudoPayViewController.m */; };
 		3B53629A1C7CBD7000CEBAE2 /* HintLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362981C7CBD7000CEBAE2 /* HintLabel.h */; };
 		3B53629B1C7CBD7000CEBAE2 /* HintLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362991C7CBD7000CEBAE2 /* HintLabel.m */; };
-		3B53629E1C7CBD8100CEBAE2 /* JudoPayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B53629C1C7CBD8100CEBAE2 /* JudoPayView.h */; };
-		3B53629F1C7CBD8100CEBAE2 /* JudoPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B53629D1C7CBD8100CEBAE2 /* JudoPayView.m */; };
 		3B5362A21C7CBD9000CEBAE2 /* LoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362A01C7CBD9000CEBAE2 /* LoadingView.h */; };
 		3B5362A31C7CBD9000CEBAE2 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362A11C7CBD9000CEBAE2 /* LoadingView.m */; };
 		3B5362A61C7CBE4A00CEBAE2 /* JP3DSWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362A41C7CBE4A00CEBAE2 /* JP3DSWebView.h */; };
@@ -202,8 +200,6 @@
 		3B5362941C7CBD3F00CEBAE2 /* JudoPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JudoPayViewController.m; path = Controller/JudoPayViewController.m; sourceTree = "<group>"; };
 		3B5362981C7CBD7000CEBAE2 /* HintLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HintLabel.h; path = View/HintLabel.h; sourceTree = "<group>"; };
 		3B5362991C7CBD7000CEBAE2 /* HintLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HintLabel.m; path = View/HintLabel.m; sourceTree = "<group>"; };
-		3B53629C1C7CBD8100CEBAE2 /* JudoPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JudoPayView.h; path = View/JudoPayView.h; sourceTree = "<group>"; };
-		3B53629D1C7CBD8100CEBAE2 /* JudoPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JudoPayView.m; path = View/JudoPayView.m; sourceTree = "<group>"; };
 		3B5362A01C7CBD9000CEBAE2 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingView.h; path = View/LoadingView.h; sourceTree = "<group>"; };
 		3B5362A11C7CBD9000CEBAE2 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingView.m; path = View/LoadingView.m; sourceTree = "<group>"; };
 		3B5362A41C7CBE4A00CEBAE2 /* JP3DSWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JP3DSWebView.h; path = View/JP3DSWebView.h; sourceTree = "<group>"; };
@@ -541,8 +537,6 @@
 				3B5362B01C7CBE9B00CEBAE2 /* InputFields */,
 				3B5362981C7CBD7000CEBAE2 /* HintLabel.h */,
 				3B5362991C7CBD7000CEBAE2 /* HintLabel.m */,
-				3B53629C1C7CBD8100CEBAE2 /* JudoPayView.h */,
-				3B53629D1C7CBD8100CEBAE2 /* JudoPayView.m */,
 				3B5362A01C7CBD9000CEBAE2 /* LoadingView.h */,
 				3B5362A11C7CBD9000CEBAE2 /* LoadingView.m */,
 				3B5362A41C7CBE4A00CEBAE2 /* JP3DSWebView.h */,
@@ -606,7 +600,6 @@
 				3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */,
 				3B6991561C8DD85B006ED1FB /* JPTheme.h in Headers */,
 				3B5AFC0D1C90925300DABB4C /* CardLogoView.h in Headers */,
-				3B53629E1C7CBD8100CEBAE2 /* JudoPayView.h in Headers */,
 				3B704AA21C89F1E800376773 /* BillingCountryInputField.h in Headers */,
 				3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */,
 				3B704A8E1C89F19800376773 /* IssueNumberInputField.h in Headers */,
@@ -861,7 +854,6 @@
 				3B678B781C6CE7770001DC2F /* JPSession.m in Sources */,
 				3B704A931C89F1A800376773 /* CardInputField.m in Sources */,
 				3B678B7C1C6DD8800001DC2F /* NSError+Judo.m in Sources */,
-				3B53629F1C7CBD8100CEBAE2 /* JudoPayView.m in Sources */,
 				3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */,
 				3B704A8F1C89F19800376773 /* IssueNumberInputField.m in Sources */,
 				3B6912DF1C96BFED00367660 /* NSString+Card.m in Sources */,

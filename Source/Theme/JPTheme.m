@@ -45,7 +45,7 @@
 }
 
 - (NSString *)paymentButtonTitle {
-    if (_paymentButtonTitle) {
+    if (!_paymentButtonTitle) {
         _paymentButtonTitle = @"Pay";
     }
     return _paymentButtonTitle;
