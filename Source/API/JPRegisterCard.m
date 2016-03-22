@@ -24,7 +24,7 @@
 
 #import "JPRegisterCard.h"
 
-static NSString * const kRegisterCardPathKey = @"transactions/preauths";
+static NSString * const kRegisterCardPathKey = @"transactions/registercard";
 
 @implementation JPRegisterCard
 

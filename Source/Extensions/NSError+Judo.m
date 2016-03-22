@@ -75,7 +75,7 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 }
 
 + (NSError *)judoErrorFromDictionary:(NSDictionary *)dict {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUnderlyingError userInfo:dict];
+    return [NSError errorWithDomain:JudoErrorDomain code:[dict[@"code"] integerValue] userInfo:dict];
 }
 
 + (NSError *)judoErrorFromError:(NSError *)error {

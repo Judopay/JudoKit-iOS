@@ -30,14 +30,14 @@ class TokenPreAuthTests: JudoTestCase {
     func testJudoMakeValidTokenPreAuth() {
         // Given I have an SDK
         // When I provide the required fields
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
         
         registerCard.sendWithCompletion({ (data, error) -> () in
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
                 guard let uData = data else {
                     XCTFail("no data available")
@@ -48,6 +48,8 @@ class TokenPreAuthTests: JudoTestCase {
                 let cardToken = uData.items?.first?.cardDetails?.cardToken
                 
                 let payToken = JPPaymentToken(consumerToken: consumerToken!, cardToken: cardToken!)
+                
+                payToken.secureCode = self.validVisaTestCard.secureCode
                 
                 // Then I should be able to make a token Pre-authorization
                 let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
@@ -69,14 +71,14 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutToken() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
         
         registerCard.sendWithCompletion({ (data, error) -> () in
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
                 
                 // When I do not provide a card token
@@ -97,14 +99,14 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutReference() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
         
         registerCard.sendWithCompletion({ (data, error) -> () in
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
                 guard let uData = data else {
                     XCTFail("no data available")
@@ -138,14 +140,14 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutAmount() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
         
         registerCard.sendWithCompletion({ (data, error) -> () in
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
                 guard let uData = data else {
                     XCTFail("no data available")

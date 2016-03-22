@@ -72,11 +72,10 @@ class PaymentTests: JudoTestCase {
         let expectation = self.expectationWithDescription("payment expectation")
         
         payment.sendWithCompletion({ (response, error) -> () in
-            if let error = error {
-                XCTFail("api call failed with error: \(error)")
-            }
-            XCTAssertNotNil(response)
-            XCTAssertNotNil(response?.items?.first)
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+            
             expectation.fulfill()
         })
         

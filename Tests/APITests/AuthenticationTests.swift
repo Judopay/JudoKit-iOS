@@ -59,8 +59,10 @@ class AuthenticationTests: JudoTestCase {
         // When I make a transaction
         let payment = myInvalidJudoSession.paymentWithJudoId(myLuhnValidJudoId, amount: JPAmount(amount: "1.00", currency: "GBP"), reference: JPReference(consumerReference: "reference"))
         
+        payment.card = self.validVisaTestCard
+        
         payment.sendWithCompletion { (response, error) in
-            XCTFail()
+            XCTAssertEqual(error!.code, Int(JudoError.ErrorAuthenticationFailure.rawValue))
             expectation.fulfill()
         }
         

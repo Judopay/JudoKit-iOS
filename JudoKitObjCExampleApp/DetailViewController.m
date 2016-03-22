@@ -47,7 +47,7 @@
     self.navigationItem.hidesBackButton = YES;
     
     if (self.transactionData) {
-        NSDate *createdAtDate = self.transactionData.createdAt;
+        NSDate *createdAtDate = [self.inputDateFormatter dateFromString:self.transactionData.createdAt];
         self.dateStampLabel.text = [self.outputDateFormatter stringFromDate:createdAtDate];
         
         self.numberFormatter.currencyCode = self.transactionData.amount.currency;
@@ -59,7 +59,7 @@
     [super viewWillAppear:animated];
     if (self.transactionData) {
         self.numberFormatter.currencyCode = self.transactionData.amount.currency;
-        self.amountLabel.text = self.transactionData.amount.amount;
+        self.amountLabel.text = [self.numberFormatter stringFromNumber:@([self.transactionData.amount.amount integerValue])];
     }
 }
 

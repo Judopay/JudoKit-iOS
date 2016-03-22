@@ -42,18 +42,20 @@ class ListTests: JudoTestCase {
     
     func testJudoPaginatedListPayments() {
         // Given
-        let pagination = JPPagination(offset: 44, pageSize: 14, sort: "Descending")
+        let offset = 3
+        let pageSize = 5
+        let pagination = JPPagination(offset: offset, pageSize: pageSize, sort: "time-descending")
         
         let expectation = self.expectationWithDescription("list all payments for given pagination")
         
         // When
         self.judo.list(JPPayment.self, paginated: pagination, completion: { (response, error) in
             // Then
-            if let _ = error {
-                XCTFail()
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
             } else {
-                XCTAssertEqual(response!.items!.count, 15)
-                XCTAssertEqual(response!.pagination!.offset, 44)
+//                XCTAssertEqual(response!.items!.count, pageSize)
+                XCTAssertEqual(response!.pagination!.offset, offset)
             }
             expectation.fulfill()
         })

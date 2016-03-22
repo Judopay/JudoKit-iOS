@@ -59,6 +59,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 @interface JudoPayViewController () <UIWebViewDelegate, JudoPayInputDelegate> {
     BOOL _paymentEnabled;
+    BOOL _isMakingTransaction;
     CGFloat _currentKeyboardHeight;
 }
 
@@ -236,6 +237,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         return; // BAIL
     }
     
+    if (_isMakingTransaction) {
+        return; // BAIL
+    }
+    
+    _isMakingTransaction = YES;
+    self.paymentNavBarButton.enabled = NO;
+    
     [self.securityCodeInputField.textField resignFirstResponder];
     [self.postCodeInputField.textField resignFirstResponder];
     
@@ -310,6 +318,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                 self.title = self.theme.authenticationTitle;
                 [self paymentEnabled:NO];
                 
+            } else if (self.completionBlock) {
+                self.completionBlock(nil, error);
             }
         } else if (response) {
             if (self.completionBlock) {

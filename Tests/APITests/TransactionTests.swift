@@ -62,17 +62,20 @@ class TransactionTests: JudoTestCase {
         // When I submit the card details
         makePayment.sendWithCompletion({ (response, error) -> () in
             // And the transaction is successful
-            // Then I receive a successful response
-            XCTAssertNotNil(response)
-            XCTAssertNotNil(response?.items?.first)
-            XCTAssertEqual(response?.items?.first?.result, TransactionResult.Declined)
+            // Then I receive an error
+            XCTAssertNotNil(error)
+            
+            if let error = error {
+                XCTAssertNotNil(error.userInfo)
+                XCTAssertEqual(error.code, Int(JudoError.ErrorTransactionDeclined.rawValue))
+            } else {
+                XCTFail("api call did not fail")
+            }
             
             expectation.fulfill()
         })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
     }
-    
-    
     
 }

@@ -29,7 +29,7 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
         // Given
-        let receiptID = "1491273"
+        let receiptID = "3374881"
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
@@ -63,7 +63,7 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = JPPagination(offset: 8, pageSize: 4, sort: "Ascending")
+        let page = JPPagination(offset: 8, pageSize: 4, sort: "time-ascending")
         let expectation = self.expectationWithDescription("all receipts fetch expectation")
         
         let receipt = judo.receipt(nil)

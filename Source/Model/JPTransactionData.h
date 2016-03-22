@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 /// The type of Transaction, either "Payment" or "Refund"
 @property (nonatomic, assign) TransactionType type;
 /// Date and time of the Transaction including time zone offset
-@property (nonatomic, strong) NSDate * _Nonnull createdAt;
+@property (nonatomic, strong) NSString * _Nonnull createdAt;
 /// The result of this transactions, this will either be "Success" or "Declined"
 @property (nonatomic, assign) TransactionResult result;
 /// A message detailing the result.
