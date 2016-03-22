@@ -95,12 +95,14 @@
 - (void)invokeTokenPayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePayment currentSession:self cardDetails:cardDetails completion:completion];
+    controller.paymentToken = paymentToken;
     [self initiateAndShow:controller];
 }
 
 - (void)invokeTokenPreAuth:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails paymentToken:(JPPaymentToken *)paymentToken completion:(void (^)(JPResponse *, NSError *))completion {
     JPReference *ref = [[JPReference alloc] initWithConsumerReference:reference];
     JudoPayViewController *controller = [[JudoPayViewController alloc] initWithJudoId:judoId amount:amount reference:ref transaction:TransactionTypePreAuth currentSession:self cardDetails:cardDetails completion:completion];
+    controller.paymentToken = paymentToken;
     [self initiateAndShow:controller];
 }
 

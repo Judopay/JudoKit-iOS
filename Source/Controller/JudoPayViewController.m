@@ -66,7 +66,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong, readwrite) JPAmount *amount;
 @property (nonatomic, strong, readwrite) NSString *judoId;
 @property (nonatomic, strong, readwrite) JPReference *reference;
-@property (nonatomic, strong, readwrite) JPPaymentToken *paymentToken;
 
 @property (nonatomic, strong) JudoShield *judoShield;
 @property (nonatomic, assign) CLLocationCoordinate2D currentLocation;
@@ -183,8 +182,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     
     NSString *payButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardButtonTitle : self.theme.paymentButtonTitle;
     
+    NSString *payNavBarButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardNavBarButtonTitle : self.theme.paymentButtonTitle;
+    
     [self.paymentButton addTarget:self action:@selector(payButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.paymentNavBarButton = [[UIBarButtonItem alloc] initWithTitle:payButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(payButtonAction:)];
+    self.paymentNavBarButton = [[UIBarButtonItem alloc] initWithTitle:payNavBarButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(payButtonAction:)];
     
     self.paymentNavBarButton.enabled = NO;
     
@@ -804,7 +805,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
             }
             [self.loadingView startAnimating];
             self.title = self.theme.authenticationTitle;
-            [self.pending3DSTransaction threeDSecureWithParameters:results completion:^(JPResponse * response, NSError * error) {
+            [self.pending3DSTransaction threeDSecureWithParameters:results receiptId:self.pending3DSReceiptId completion:^(JPResponse * response, NSError * error) {
                 [self.loadingView stopAnimating];
                 if (self.completionBlock) {
                     if (error) {

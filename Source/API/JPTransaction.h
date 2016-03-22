@@ -54,7 +54,7 @@
 
 - (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
-- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters completion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters receiptId:(nonnull NSString *)receiptId completion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 - (void)listWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 

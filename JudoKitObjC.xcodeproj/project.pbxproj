@@ -17,7 +17,6 @@
 		3B4EB3A81C981EA7006265A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4EB3A61C981EA7006265A0 /* Main.storyboard */; };
 		3B4EB3AA1C981EA7006265A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4EB3A91C981EA7006265A0 /* Assets.xcassets */; };
 		3B4EB3AD1C981EA7006265A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4EB3AB1C981EA7006265A0 /* LaunchScreen.storyboard */; };
-		3B4EB3B81C981EA7006265A0 /* JudoKitObjCExampleAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3B71C981EA7006265A0 /* JudoKitObjCExampleAppUITests.m */; };
 		3B4EB3C21C981ED2006265A0 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6912D91C96BA3400367660 /* JudoShield.framework */; };
 		3B4EB3C31C981ED2006265A0 /* JudoShield.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6912D91C96BA3400367660 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B4EB3C41C981ED2006265A0 /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
@@ -112,6 +111,12 @@
 		3B704A9F1C89F1D600376773 /* PostCodeInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A9D1C89F1D600376773 /* PostCodeInputField.m */; };
 		3B704AA21C89F1E800376773 /* BillingCountryInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704AA01C89F1E800376773 /* BillingCountryInputField.h */; };
 		3B704AA31C89F1E800376773 /* BillingCountryInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704AA11C89F1E800376773 /* BillingCountryInputField.m */; };
+		3B7836191CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836131CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift */; };
+		3B78361A1CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836141CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift */; };
+		3B78361B1CA1638900A7DCDE /* JudoKitMaestroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836151CA1638900A7DCDE /* JudoKitMaestroTests.swift */; };
+		3B78361C1CA1638900A7DCDE /* JudoKitPaymentDeclinedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836161CA1638900A7DCDE /* JudoKitPaymentDeclinedTests.swift */; };
+		3B78361D1CA1638900A7DCDE /* JudoKitPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836171CA1638900A7DCDE /* JudoKitPaymentTests.swift */; };
+		3B78361E1CA1638900A7DCDE /* JudoKitTokenPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7836181CA1638900A7DCDE /* JudoKitTokenPaymentTests.swift */; };
 		3B97119B1C76353E00E9A347 /* JPAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B9711981C761B9700E9A347 /* JPAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD353C11C77557F0045658A /* JPTransactionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353C21C77557F0045658A /* JPTransactionData.m */; };
@@ -180,7 +185,6 @@
 		3B4EB3AC1C981EA7006265A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4EB3AE1C981EA7006265A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4EB3B31C981EA7006265A0 /* JudoKitObjCExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKitObjCExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4EB3B71C981EA7006265A0 /* JudoKitObjCExampleAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JudoKitObjCExampleAppUITests.m; sourceTree = "<group>"; };
 		3B4EB3B91C981EA7006265A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4EB3E51C982A25006265A0 /* AuthenticationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationTests.swift; sourceTree = "<group>"; };
 		3B4EB3E61C982A25006265A0 /* CollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTests.swift; sourceTree = "<group>"; };
@@ -279,6 +283,13 @@
 		3B704A9D1C89F1D600376773 /* PostCodeInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCodeInputField.m; path = View/InputFields/PostCodeInputField.m; sourceTree = "<group>"; };
 		3B704AA01C89F1E800376773 /* BillingCountryInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BillingCountryInputField.h; path = View/InputFields/BillingCountryInputField.h; sourceTree = "<group>"; };
 		3B704AA11C89F1E800376773 /* BillingCountryInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BillingCountryInputField.m; path = View/InputFields/BillingCountryInputField.m; sourceTree = "<group>"; };
+		3B7836121CA1638900A7DCDE /* JudoKitObjCExampleAppUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitObjCExampleAppUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B7836131CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKit3DSPaymentTests.swift; sourceTree = "<group>"; };
+		3B7836141CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitAVSPaymentTests.swift; sourceTree = "<group>"; };
+		3B7836151CA1638900A7DCDE /* JudoKitMaestroTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitMaestroTests.swift; sourceTree = "<group>"; };
+		3B7836161CA1638900A7DCDE /* JudoKitPaymentDeclinedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentDeclinedTests.swift; sourceTree = "<group>"; };
+		3B7836171CA1638900A7DCDE /* JudoKitPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentTests.swift; sourceTree = "<group>"; };
+		3B7836181CA1638900A7DCDE /* JudoKitTokenPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitTokenPaymentTests.swift; sourceTree = "<group>"; };
 		3B9711981C761B9700E9A347 /* JPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPAddress.h; path = Model/JPAddress.h; sourceTree = "<group>"; };
 		3B9711991C761B9700E9A347 /* JPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPAddress.m; path = Model/JPAddress.m; sourceTree = "<group>"; };
 		3BD353C11C77557F0045658A /* JPTransactionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = JPTransactionData.h; path = Model/JPTransactionData.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -363,8 +374,14 @@
 		3B4EB3B61C981EA7006265A0 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				3B4EB3B71C981EA7006265A0 /* JudoKitObjCExampleAppUITests.m */,
+				3B7836131CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift */,
+				3B7836141CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift */,
+				3B7836151CA1638900A7DCDE /* JudoKitMaestroTests.swift */,
+				3B7836161CA1638900A7DCDE /* JudoKitPaymentDeclinedTests.swift */,
+				3B7836171CA1638900A7DCDE /* JudoKitPaymentTests.swift */,
+				3B7836181CA1638900A7DCDE /* JudoKitTokenPaymentTests.swift */,
 				3B4EB3B91C981EA7006265A0 /* Info.plist */,
+				3B7836121CA1638900A7DCDE /* JudoKitObjCExampleAppUITests-Bridging-Header.h */,
 			);
 			name = UITests;
 			path = JudoKitObjCExampleAppUITests;
@@ -711,6 +728,7 @@
 		3B678B4D1C6CE5190001DC2F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
@@ -818,7 +836,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B4EB3B81C981EA7006265A0 /* JudoKitObjCExampleAppUITests.m in Sources */,
+				3B78361C1CA1638900A7DCDE /* JudoKitPaymentDeclinedTests.swift in Sources */,
+				3B78361D1CA1638900A7DCDE /* JudoKitPaymentTests.swift in Sources */,
+				3B78361E1CA1638900A7DCDE /* JudoKitTokenPaymentTests.swift in Sources */,
+				3B78361B1CA1638900A7DCDE /* JudoKitMaestroTests.swift in Sources */,
+				3B78361A1CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift in Sources */,
+				3B7836191CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,11 +1000,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = JudoKitObjCExampleAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitObjCExampleAppUITests/JudoKitObjCExampleAppUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_TARGET_NAME = JudoKitObjCExampleApp;
 			};
 			name = Debug;
@@ -990,11 +1016,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = JudoKitObjCExampleAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitObjCExampleAppUITests/JudoKitObjCExampleAppUITests-Bridging-Header.h";
 				TEST_TARGET_NAME = JudoKitObjCExampleApp;
 			};
 			name = Release;

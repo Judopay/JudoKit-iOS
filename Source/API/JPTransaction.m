@@ -109,9 +109,9 @@
     return nil;
 }
 
-- (void)threeDSecureWithParameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
     
-    [self.apiSession PUT:[NSString stringWithFormat:@"transactions/%@", parameters[@"receiptID"]]
+    [self.apiSession PUT:[NSString stringWithFormat:@"transactions/%@", receiptId]
               parameters:parameters
               completion:completion];
     
