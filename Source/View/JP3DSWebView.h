@@ -24,8 +24,19 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  A UIWebView subclass that is configured to detect the execution of a 3DS validation page.
+ */
 @interface JP3DSWebView : UIWebView
 
+/**
+ *  This method initiates the webview to load the 3DS website.
+ *
+ *  @param payload the payload that contains the 3DS information to be loaded
+ *  @param error   error that gets set when payload contains faulty information
+ *
+ *  @return the receiptId of the transaction
+ */
 - (NSString * _Nullable)load3DSWithPayload:(nonnull NSDictionary *)payload error:(NSError * _Nullable * _Nullable)error;
 
 @end

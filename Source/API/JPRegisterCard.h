@@ -24,6 +24,9 @@
 
 #import "JPTransaction.h"
 
+/**
+ *  When you want to register a card, you create a RegisterCard object and start adding the necessary information. This transaction only supports one kind of registration. You have to do this using a full set of card details.
+ */
 @interface JPRegisterCard : JPTransaction
 
 @end

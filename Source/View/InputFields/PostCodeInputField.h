@@ -24,8 +24,14 @@
 
 #import "JPInputField.h"
 
+/**
+ *  The PostCodeInputField is an input field configured to detect, validate and present post codes of various countries.
+ */
 @interface PostCodeInputField : JPInputField
 
+/**
+ *  The currently selected billing country
+ */
 @property (nonatomic, assign) BillingCountry billingCountry;
 
 @end

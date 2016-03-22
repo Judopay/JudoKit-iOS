@@ -24,6 +24,9 @@
 
 #import "JPTransactionProcess.h"
 
+/**
+ *  Refunding a successful payment is easy, simply identify the original receipt ID for the payment and the amount you wish to refund. When we've received this request, we check to ensure there is a sufficient balance to process the refund and then process the request accordingly. Here is an example to how you can make a Refund with the SDK.
+ */
 @interface JPRefund : JPTransactionProcess
 
 @end

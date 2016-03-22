@@ -26,13 +26,30 @@
 
 @class JPTheme;
 
+/**
+ *  The LoadingView is a convenience class that is configured to show a block with a activityIndicator and a description text
+ */
 @interface LoadingView : UIView
 
+/**
+ *  The label that shows a description text
+ */
 @property (nonatomic, strong, readonly) UILabel *actionLabel;
 
+/**
+ *  The current theme
+ */
 @property (nonatomic, strong) JPTheme *theme;
 
+
+/**
+ *  Method to start the animation of the activityIndicator and make the view visible
+ */
 - (void)startAnimating;
+
+/**
+ *  Method to stop the animation of the activityIndicator and make the view invisible
+ */
 - (void)stopAnimating;
 
 @end

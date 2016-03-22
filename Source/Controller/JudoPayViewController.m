@@ -179,9 +179,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.threeDSWebView.delegate = self;
     
     // Button Actions
-    
-    NSString *payButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardButtonTitle : self.theme.paymentButtonTitle;
-    
     NSString *payNavBarButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardNavBarButtonTitle : self.theme.paymentButtonTitle;
     
     [self.paymentButton addTarget:self action:@selector(payButtonAction:) forControlEvents:UIControlEventTouchUpInside];

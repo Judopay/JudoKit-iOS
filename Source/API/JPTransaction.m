@@ -124,7 +124,7 @@
 - (void)listWithPagination:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
     NSString *path = self.transactionPath;
     if (pagination) {
-        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, pagination.offset, pagination.sort];
+        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
     }
     [self.apiSession GET:path parameters:nil completion:completion];
 }

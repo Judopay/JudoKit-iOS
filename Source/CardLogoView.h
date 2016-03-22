@@ -25,20 +25,57 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/**
+ *  Card Logo Type enum
+ */
 typedef NS_ENUM(NSUInteger, CardLogoType) {
+    /**
+     *  Visa card logo
+     */
     CardLogoTypeVisa,
+    /**
+     *  MasterCard card logo
+     */
     CardLogoTypeMasterCard,
+    /**
+     *  AMEX card logo
+     */
     CardLogoTypeAMEX,
+    /**
+     *  Maestro card logo
+     */
     CardLogoTypeMaestro,
+    /**
+     *  CID logo
+     */
     CardLogoTypeCID,
+    /**
+     *  CVC logo
+     */
     CardLogoTypeCVC,
+    /**
+     *  Unknown placeholder logo
+     */
     CardLogoTypeUnknown
 };
 
+/**
+ *  The CardLogoView that shows a given card logo on a view
+ */
 @interface CardLogoView : UIView
 
+/**
+ *  Set a type for the current CardLogoView
+ */
 @property (nonatomic, assign, readonly) CardLogoType type;
 
-- (instancetype)initWithType:(CardLogoType)type;
+/**
+ *  Designated initializer for creating a logo connected to cards
+ *
+ *  @param type CardLogoType
+ *
+ *  @return a CardLogoView object
+ */
+- (nonnull instancetype)initWithType:(CardLogoType)type;
 
 @end

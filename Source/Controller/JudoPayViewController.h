@@ -27,20 +27,62 @@
 
 @class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView, JPResponse;
 
+/**
+ *  the JudoPayViewController is the one solution build to guide a user through the journey of entering their card details.
+ */
 @interface JudoPayViewController : UIViewController
 
+/**
+ *  the current JudoKit Session
+ */
 @property (nonatomic, strong) JudoKit * _Nullable judoKitSession;
 
+/**
+ *  the theme of the current session
+ */
 @property (nonatomic, strong) JPTheme * _Nullable theme;
 
+/**
+ *  The transactionType of the current journey
+ */
 @property (nonatomic, assign) TransactionType type;
 
+
+/**
+ *  The amount and currency to process, amount to two decimal places and currency in string
+ */
 @property (nonatomic, strong, readonly) JPAmount * _Nonnull amount;
+
+/**
+ *  The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull judoId;
+
+/**
+ *  Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
+ */
 @property (nonatomic, strong, readonly) JPReference * _Nonnull reference;
 
+
+/**
+ *  Card token and Consumer token
+ */
 @property (nonatomic, strong) JPPaymentToken * _Nullable paymentToken;
 
+
+/**
+ *  Initializer to start a payment journey
+ *
+ *  @param judoId      The judoID of the recipient
+ *  @param amount      An amount and currency for the transaction
+ *  @param reference   A Reference for the transaction
+ *  @param type        The type of the transaction
+ *  @param session     The current judo apiSession
+ *  @param cardDetails An object containing all card information - default: nil
+ *  @param completion  Completion block called when transaction has been finished
+ *
+ *  @return a JPayViewController object for presentation on a view stack
+ */
 - (nonnull instancetype)initWithJudoId:(nonnull NSString *)judoId amount:(nullable JPAmount *)amount reference:(nonnull JPReference *)reference transaction:(TransactionType)type currentSession:(nonnull JudoKit *)session cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

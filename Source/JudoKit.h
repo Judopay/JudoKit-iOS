@@ -44,9 +44,9 @@
 
 @interface JudoKit : NSObject
 
-@property (nonatomic, strong, readonly) JPSession * __nonnull apiSession;
+@property (nonatomic, strong, readonly) JPSession * _Nonnull apiSession;
 
-@property (nonatomic, strong) JPTheme * __nonnull theme;
+@property (nonatomic, strong) JPTheme * _Nonnull theme;
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token secret:(nonnull NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 

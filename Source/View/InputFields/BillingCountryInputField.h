@@ -24,6 +24,9 @@
 
 #import "JPInputField.h"
 
+/**
+ *  The BillingCountryInputField is an input field configured to select a billing country out of a selected set of countries that we currently support.
+ */
 @interface BillingCountryInputField : JPInputField
 
 @end

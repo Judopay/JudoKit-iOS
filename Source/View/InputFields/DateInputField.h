@@ -24,8 +24,14 @@
 
 #import "JPInputField.h"
 
+/**
+ *  The DateInputField is an input field configured to detect, validate and dates that are set to define a start or end date of various types of credit cards.
+ */
 @interface DateInputField : JPInputField
 
+/**
+ *  Boolean stating whether input field should identify as a start or end date
+ */
 @property (nonatomic, assign) BOOL isStartDate;
 
 @end

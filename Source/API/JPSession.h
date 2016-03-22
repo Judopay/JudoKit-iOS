@@ -28,19 +28,57 @@
 
 typedef void (^JudoCompletionBlock)(JPResponse * _Nullable, NSError * _Nullable);
 
+/**
+ *  The Session class is a wrapper for all REST API calls
+ */
 @interface JPSession : UIViewController
 
-@property (nonatomic, strong, readonly) NSString * __nonnull endpoint;
+/**
+ *  The endpoint for REST API calls to the judo API
+ */
+@property (nonatomic, strong, readonly) NSString * _Nonnull endpoint;
+
+/**
+ *  Token and secret are saved in the authorizationHeader for authentication of REST API calls
+ */
 @property (nonatomic, strong, readonly) NSString * _Nullable authorizationHeader;
 
+/**
+ *  identifying whether developers are using their own UI or the Judo Out of the box UI
+ */
 @property (nonatomic, assign) BOOL uiClientMode;
 
+/**
+ *  Set the app to sandboxed mode
+ */
 @property (nonatomic, assign) BOOL sandboxed;
 
+
+/**
+ *  POST Helper Method for accessing the judo REST API
+ *
+ *  @param path       the path
+ *  @param parameters information that is set in the HTTP Body
+ *  @param completion completion callblack block with the results
+ */
 - (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
+/**
+ *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
+ *
+ *  @param path       the path
+ *  @param parameters information that is set in the HTTP Body
+ *  @param completion completion callblack block with the results
+ */
 - (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
+/**
+ *  GET Helper Method for accessing the judo REST API
+ *
+ *  @param path       the path
+ *  @param parameters information that is set in the HTTP Body
+ *  @param completion completion callblack block with the results
+ */
 - (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
 
 @end

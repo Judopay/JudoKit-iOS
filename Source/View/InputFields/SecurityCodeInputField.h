@@ -26,12 +26,19 @@
 
 #import "JPCardDetails.h"
 
+/**
+ *  The SecurityCodeInputField is an input field configured to detect, validate and present security numbers of various types of credit cards.
+ */
 @interface SecurityCodeInputField : JPInputField
 
+/**
+ *  The card network for the security input field
+ */
 @property (nonatomic, assign) CardNetwork cardNetwork;
 
+/**
+ *  if it is a token payment, a different hint label text should appear
+ */
 @property (nonatomic, assign) BOOL isTokenPayment;
-
-@property (nonatomic, strong) NSString *floatingTitle;
 
 @end

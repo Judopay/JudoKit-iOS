@@ -24,6 +24,9 @@
 
 #import "JPTransactionProcess.h"
 
+/**
+ *  A Collection transaction is the counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer's card, the Collection initiates the transfer of those reserved funds into your judo account.
+ */
 @interface JPCollection : JPTransactionProcess
 
 @end

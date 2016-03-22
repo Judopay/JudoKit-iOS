@@ -26,6 +26,9 @@
 
 @class JPResponse;
 
+/**
+ *  When you want to process a payment transaction, you create a Payment object and start adding the necessary information. This transaction supports two types of Payments. You can process payments using a full set of card details, or by referencing a previously processed transaction.
+ */
 @interface JPPayment : JPTransaction
 
 @end

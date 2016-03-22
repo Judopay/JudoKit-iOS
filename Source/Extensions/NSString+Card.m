@@ -217,7 +217,7 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
 - (BOOL)isNumeric {
     NSString *regexPattern = @"^[0-9]*$";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
-    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
+    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)].count;
 }
 
 - (BOOL)isAlphaNumeric {

@@ -24,6 +24,9 @@
 
 #import "JPTransaction.h"
 
+/**
+ *  When you want to process a Pre-authorization, you create a Pre-auth object and start adding the necessary information. This Transaction supports two types of Pre-auths. You can process Pre-auths using a full set of card details, or by referencing a previously processed transaction.
+ */
 @interface JPPreAuth : JPTransaction
 
 @end

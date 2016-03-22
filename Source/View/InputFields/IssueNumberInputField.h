@@ -24,6 +24,9 @@
 
 #import "JPInputField.h"
 
+/**
+ *  The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for Maestro cards.
+ */
 @interface IssueNumberInputField : JPInputField
 
 @end

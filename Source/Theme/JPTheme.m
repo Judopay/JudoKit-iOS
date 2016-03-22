@@ -24,11 +24,13 @@
 
 #import "JPTheme.h"
 
-#import "UIColor+Judo.h"
-
 #import "JPCardDetails.h"
 
+#import "UIColor+Judo.h"
+
 @implementation JPTheme
+
+#pragma mark - Configuration
 
 - (NSArray *)acceptedCardNetworks {
     if (!_acceptedCardNetworks) {
@@ -37,12 +39,7 @@
     return _acceptedCardNetworks;
 }
 
-- (UIColor *)tintColor {
-    if (!_tintColor) {
-        _tintColor = [UIColor colorWithRed:30/255.0f green:120/255.0f blue:160/255.0f alpha:1.0f];
-    }
-    return _tintColor;
-}
+#pragma mark - Strings
 
 - (NSString *)paymentButtonTitle {
     if (!_paymentButtonTitle) {
@@ -135,18 +132,20 @@
 	return _verifying3DSRegisterCardTitle;
 }
 
-- (CGFloat)inputFieldHeight {
-    if (_inputFieldHeight == 0) {
-        _inputFieldHeight = 48;
-    }
-    return _inputFieldHeight;
-}
-
 - (NSString *)securityMessageString {
 	if (!_securityMessageString) {
 		_securityMessageString = @"Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers.";
 	}
 	return _securityMessageString;
+}
+
+#pragma mark - Sizes
+
+- (CGFloat)inputFieldHeight {
+    if (_inputFieldHeight == 0) {
+        _inputFieldHeight = 48;
+    }
+    return _inputFieldHeight;
 }
 
 - (CGFloat)securityMessageTextSize {
@@ -157,6 +156,13 @@
 }
 
 #pragma mark - Colors
+
+- (UIColor *)tintColor {
+    if (!_tintColor) {
+        _tintColor = [UIColor colorWithRed:30/255.0f green:120/255.0f blue:160/255.0f alpha:1.0f];
+    }
+    return _tintColor;
+}
 
 - (UIColor *)judoDarkGrayColor {
     UIColor *dgc = [UIColor colorWithRed:75/255.0f green:75/255.0f blue:75/255.0f alpha:1.0f];

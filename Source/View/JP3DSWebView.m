@@ -70,7 +70,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     request.HTTPMethod = @"POST";
-    [request setValue:[NSString stringWithFormat:@"%li", postData.length] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"%li", (unsigned long)postData.length] forHTTPHeaderField:@"Content-Length"];
     request.HTTPBody = postData;
     
     [self loadRequest:request];

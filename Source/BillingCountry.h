@@ -22,9 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+/**
+ *  BillingCountry enum to simplify identifying a billing country for a given card
+ */
 typedef NS_ENUM(NSUInteger, BillingCountry) {
+    /**
+     *  United Kingdom
+     */
     BillingCountryUK,
+    /**
+     *  United States of America
+     */
     BillingCountryUSA,
+    /**
+     *  Canada
+     */
     BillingCountryCanada,
+    /**
+     *  Other
+     */
     BillingCountryOther
 };

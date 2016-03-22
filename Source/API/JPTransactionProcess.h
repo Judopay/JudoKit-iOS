@@ -28,18 +28,51 @@
 @class JPResponse;
 @class JPSession;
 
+/**
+ *  Superclass Helper for Collection, Void and Refund
+ */
 @interface JPTransactionProcess : NSObject
 
-@property (nonatomic, strong, readonly) NSString * __nonnull receiptId;
-@property (nonatomic, strong, readonly) JPAmount * __nonnull amount;
-@property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
+/**
+ *  The receipt ID for a collection, void or refund
+ */
+@property (nonatomic, strong, readonly) NSString * _Nonnull receiptId;
 
+/**
+ *  The amount of the collection, void or refund
+ */
+@property (nonatomic, strong, readonly) JPAmount * _Nonnull amount;
+
+/**
+ *  The payment reference String for a collection, void or refund
+ */
+@property (nonatomic, strong, readonly) NSString * _Nonnull paymentReference;
+
+/**
+ *  Helper method for subclasses to be able to access the dynamic path value
+ */
 @property (nonatomic, strong, readonly) NSString * _Nullable transactionProcessingPath;
 
+/**
+ *  the current api session variable
+ */
 @property (nonatomic, strong) JPSession * _Nullable apiSession;
 
+/**
+ *  Starting point and a reactive method to create a collection, void or refund
+ *
+ *  @param receiptId the receiptID identifying the transaction you wish to collect, void or refund - has to be luhn-valid
+ *  @param amount    The amount to process
+ *
+ *  @return a JPTransactionProcess instance
+ */
 - (nonnull instancetype)initWithReceiptId:(nonnull NSString *)receiptId amount:(nonnull JPAmount *)amount;
 
+/**
+ *  Completion caller - this method will automatically trigger a Session Call to the judo REST API and execute the request based on the information that were set in the previous methods
+ *
+ *  @param completion a completion block that is called when the request finishes
+ */
 - (void)sendWithCompletion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

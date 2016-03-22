@@ -26,8 +26,8 @@
 
 @interface JPReference : NSObject
 
-@property (nonatomic, strong, readonly) NSString * __nonnull consumerReference;
-@property (nonatomic, strong, readonly) NSString * __nonnull paymentReference;
+@property (nonatomic, strong, readonly) NSString * _Nonnull consumerReference;
+@property (nonatomic, strong, readonly) NSString * _Nonnull paymentReference;
 @property (nonatomic, strong) NSDictionary<NSString *, NSObject *> * _Nullable metaData;
 
 - (nonnull instancetype)initWithConsumerReference:(nonnull NSString *)ref;

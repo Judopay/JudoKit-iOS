@@ -24,6 +24,9 @@
 
 #import "JPTransactionProcess.h"
 
+/**
+ *  A Void transaction is next to a collection the second counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer's card, the Collection initiates the transfer of those reserved funds into your judo account and the Void transaction cancels the previously executed pre-Authorization.
+ */
 @interface JPVoid : JPTransactionProcess
 
 @end

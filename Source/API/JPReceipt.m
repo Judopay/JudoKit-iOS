@@ -56,7 +56,7 @@
 }
 
 - (void)listWithPagination:(JPPagination *)pagination completion:(void(^)(JPResponse *, NSError *))completion {
-    NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li&sort=%@", pagination.pageSize, pagination.offset, pagination.sort];
+    NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, pagination.offset, pagination.sort];
     
     [self.apiSession GET:path parameters:nil completion:completion];
 }

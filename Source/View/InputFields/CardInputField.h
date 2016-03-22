@@ -26,10 +26,19 @@
 
 #import "JPCardDetails.h"
 
+/**
+ *  The CardInputField is an input field configured to detect, validate and present card numbers of various types of credit cards.
+ */
 @interface CardInputField : JPInputField
 
+/**
+ *  The card network that was detected in this field
+ */
 @property (nonatomic, assign) CardNetwork cardNetwork;
 
+/**
+ *  if it is a token payment, different validation criteria apply
+ */
 @property (nonatomic, assign) BOOL isTokenPayment;
 
 @end

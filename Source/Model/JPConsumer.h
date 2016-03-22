@@ -10,8 +10,8 @@
 
 @interface JPConsumer : NSObject
 
-@property (nonatomic, strong) NSString * __nonnull consumerToken;
-@property (nonatomic, strong) NSString * __nonnull consumerReference;
+@property (nonatomic, strong) NSString * _Nonnull consumerToken;
+@property (nonatomic, strong) NSString * _Nonnull consumerReference;
 
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 

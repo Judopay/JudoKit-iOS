@@ -26,10 +26,10 @@
 
 @interface JPPagination : NSObject
 
-@property (nonatomic, strong, readonly) NSString * __nonnull sort;
+@property (nonatomic, strong, readonly) NSString * _Nonnull sort;
 @property (nonatomic, assign, readonly) NSInteger pageSize;
 @property (nonatomic, assign, readonly) NSInteger offset;
 
-+ (nonnull instancetype)paginationWithOffset:(NSNumber * __nonnull)offset pageSize:(NSNumber * __nonnull)pageSize sort:(NSString * __nonnull)sort;
++ (nonnull instancetype)paginationWithOffset:(NSNumber * _Nonnull)offset pageSize:(NSNumber * _Nonnull)pageSize sort:(NSString * _Nonnull)sort;
 
 @end
