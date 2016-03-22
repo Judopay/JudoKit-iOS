@@ -24,16 +24,50 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  the Reference object is supposed to simplify storing reference data like consumer, payment references and metadata dictionary that can hold an arbitrary set of key value based information
+ */
 @interface JPReference : NSObject
 
+/**
+ *  Your reference for this consumer
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull consumerReference;
+
+/**
+ *  Your reference for this payment
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull paymentReference;
+
+/**
+ *  An object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
+ */
 @property (nonatomic, strong) NSDictionary<NSString *, NSObject *> * _Nullable metaData;
 
+
+/**
+ *  initializer that will generate a unique payment reference
+ *
+ *  @param ref The consumer reference for a JPReference
+ *
+ *  @return a JPReference object
+ */
 - (nonnull instancetype)initWithConsumerReference:(nonnull NSString *)ref;
 
+/**
+ *  Convenient initializer that will generate a unique payment reference
+ *
+ *  @param ref The consumer reference for a JPReference
+ *
+ *  @return a JPReference object
+ */
 + (nonnull instancetype)consumerReference:(nonnull NSString *)ref;
 
+/**
+ *  Helper method that creates a randomly generated Payment reference string
+ *
+ *  @return a random string that can act as a payment reference for any kind of transaction with the judo API
+ */
 + (nullable NSString *)generatePaymentReference;
 
 @end

@@ -24,13 +24,40 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Amount objects store information about an amount and the corresponding currency for a transaction
+ */
 @interface JPAmount : NSObject
 
+/**
+ *  The amount to process, to two decimal places
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull amount;
+
+/**
+ *  The currency ISO Code - GBP is default
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull currency;
 
+
+/**
+ *  Convenient initializer for amount
+ *
+ *  @param amount   a string with the value of an amount to transact
+ *  @param currency the currency of the amount to transact
+ *
+ *  @return a JPAmount object
+ */
 + (nonnull instancetype)amount:(nonnull NSString *)amount currency:(nonnull NSString *)currency;
 
+/**
+ *  Initializer for amount
+ *
+ *  @param amount   a string with the value of an amount to transact
+ *  @param currency the currency of the amount to transact
+ *
+ *  @return a JPAmount object
+ */
 - (nonnull instancetype)initWithAmount:(nonnull NSString *)amount currency:(nonnull NSString *)currency;
 
 @end

@@ -24,12 +24,36 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  class to save state of a paginated response
+ */
 @interface JPPagination : NSObject
 
+/**
+ *  "time-descending" or "time-ascending"
+ */
 @property (nonatomic, strong, readonly) NSString * _Nonnull sort;
+
+/**
+ *  the page size of the paginated response
+ */
 @property (nonatomic, assign, readonly) NSInteger pageSize;
+
+/**
+ *  the offset of the paginated response
+ */
 @property (nonatomic, assign, readonly) NSInteger offset;
 
+
+/**
+ *  convenient initializer for a JPPagination object
+ *
+ *  @param offset   the offset
+ *  @param pageSize the pagesize
+ *  @param sort     the sorting
+ *
+ *  @return a instance of JPPagination with the given parameters
+ */
 + (nonnull instancetype)paginationWithOffset:(NSNumber * _Nonnull)offset pageSize:(NSNumber * _Nonnull)pageSize sort:(NSString * _Nonnull)sort;
 
 @end
