@@ -147,6 +147,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     } completion:nil];
 }
 
+#pragma mark - Initialization
+
 - (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type currentSession:(JudoKit *)session cardDetails:(JPCardDetails *)cardDetails completion:(JudoCompletionBlock)completion {
     self = [super init];
     if (self) {
@@ -166,6 +168,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
     return self;
 }
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -226,116 +230,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self.cardInputField.textField becomeFirstResponder];
     }
 }
-
-- (void)payButtonAction:(id)sender {
-    if (!self.reference || !self.amount || !self.judoId) {
-        if (self.completionBlock) {
-            self.completionBlock(nil, [NSError judoParameterError]);
-        }
-        return; // BAIL
-    }
-    
-    if (_isMakingTransaction) {
-        return; // BAIL
-    }
-    
-    _isMakingTransaction = YES;
-    self.paymentNavBarButton.enabled = NO;
-    
-    [self.securityCodeInputField.textField resignFirstResponder];
-    [self.postCodeInputField.textField resignFirstResponder];
-    
-    [self.loadingView startAnimating];
-    
-    JPTransaction *transaction = [self.judoKitSession transactionForType:self.type judoId:self.judoId amount:self.amount reference:self.reference];
-    
-    if (self.paymentToken) {
-        self.paymentToken.secureCode = self.securityCodeInputField.textField.text;
-        [transaction setPaymentToken:self.paymentToken];
-    } else {
-        JPAddress *address = nil;
-        if (self.theme.avsEnabled) {
-            if (self.postCodeInputField.textField.text) {
-                address = [JPAddress new];
-                address.postCode = self.postCodeInputField.textField.text;
-                address.billingCountry = self.billingCountryInputField.textField.text;
-            }
-        }
-        
-        NSString *issueNumber = nil;
-        NSString *startDate = nil;
-        
-        if (self.cardInputField.cardNetwork == CardNetworkMaestro) {
-            issueNumber = self.issueNumberInputField.textField.text;
-            startDate = self.startDateInputField.textField.text;
-        }
-        
-        JPCard *card = [[JPCard alloc] initWithCardNumber:[self.cardInputField.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""]
-                                               expiryDate:self.expiryDateInputField.textField.text
-                                               secureCode:self.securityCodeInputField.textField.text];
-        
-        card.cardAddress = address;
-        
-        card.issueNumber = issueNumber;
-        card.startDate = startDate;
-        
-        [transaction setCard:card];
-    }
-    
-    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
-        [transaction setLocation:self.currentLocation];
-    }
-    
-    if (self.judoShield.deviceSignal) {
-        [transaction setDeviceSignal:self.judoShield.deviceSignal];
-    }
-    
-    self.pending3DSTransaction = transaction;
-    
-    [transaction sendWithCompletion:^(JPResponse * response, NSError * error) {
-        if (error) {
-            if (error.domain == JudoErrorDomain && error.code == JudoError3DSRequest) {
-                if (!error.userInfo) {
-                    if (self.completionBlock) {
-                        self.completionBlock(nil, [NSError judoResponseParseError]);
-                        return; // BAIL
-                    }
-                }
-                
-                NSError *load3DSerror = nil;
-                
-                self.pending3DSReceiptId = [self.threeDSWebView load3DSWithPayload:error.userInfo error:&load3DSerror];
-                
-                if (load3DSerror && self.completionBlock) {
-                    self.completionBlock(nil, load3DSerror);
-                    [self.loadingView stopAnimating];
-                    return; // BAIL
-                }
-                
-                self.loadingView.actionLabel.text = self.theme.redirecting3DSTitle;
-                self.title = self.theme.authenticationTitle;
-                [self paymentEnabled:NO];
-                
-            } else if (self.completionBlock) {
-                self.completionBlock(nil, error);
-            }
-        } else if (response) {
-            if (self.completionBlock) {
-                self.completionBlock(response, nil);
-                [self.loadingView stopAnimating];
-            }
-        }
-    }];
-    
-}
-
-- (void)doneButtonAction:(id)sender {
-    if (self.completionBlock) {
-        self.completionBlock(nil, [NSError judoUserDidCancelError]);
-    }
-}
-
-#pragma mark - View Lifecycle
 
 - (void)setupView {
     
@@ -449,6 +343,117 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.cardInputField.isTokenPayment = YES;
         self.cardInputField.userInteractionEnabled = NO;
         self.expiryDateInputField.userInteractionEnabled = NO;
+    }
+}
+
+#pragma mark - Actions
+
+
+- (void)payButtonAction:(id)sender {
+    if (!self.reference || !self.amount || !self.judoId) {
+        if (self.completionBlock) {
+            self.completionBlock(nil, [NSError judoParameterError]);
+        }
+        return; // BAIL
+    }
+    
+    if (_isMakingTransaction) {
+        return; // BAIL
+    }
+    
+    _isMakingTransaction = YES;
+    self.paymentNavBarButton.enabled = NO;
+    
+    [self.securityCodeInputField.textField resignFirstResponder];
+    [self.postCodeInputField.textField resignFirstResponder];
+    
+    [self.loadingView startAnimating];
+    
+    JPTransaction *transaction = [self.judoKitSession transactionForType:self.type judoId:self.judoId amount:self.amount reference:self.reference];
+    
+    if (self.paymentToken) {
+        self.paymentToken.secureCode = self.securityCodeInputField.textField.text;
+        [transaction setPaymentToken:self.paymentToken];
+    } else {
+        JPAddress *address = nil;
+        if (self.theme.avsEnabled) {
+            if (self.postCodeInputField.textField.text) {
+                address = [JPAddress new];
+                address.postCode = self.postCodeInputField.textField.text;
+                address.billingCountry = self.billingCountryInputField.textField.text;
+            }
+        }
+        
+        NSString *issueNumber = nil;
+        NSString *startDate = nil;
+        
+        if (self.cardInputField.cardNetwork == CardNetworkMaestro) {
+            issueNumber = self.issueNumberInputField.textField.text;
+            startDate = self.startDateInputField.textField.text;
+        }
+        
+        JPCard *card = [[JPCard alloc] initWithCardNumber:[self.cardInputField.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""]
+                                               expiryDate:self.expiryDateInputField.textField.text
+                                               secureCode:self.securityCodeInputField.textField.text];
+        
+        card.cardAddress = address;
+        
+        card.issueNumber = issueNumber;
+        card.startDate = startDate;
+        
+        [transaction setCard:card];
+    }
+    
+    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
+        [transaction setLocation:self.currentLocation];
+    }
+    
+    if (self.judoShield.deviceSignal) {
+        [transaction setDeviceSignal:self.judoShield.deviceSignal];
+    }
+    
+    self.pending3DSTransaction = transaction;
+    
+    [transaction sendWithCompletion:^(JPResponse * response, NSError * error) {
+        if (error) {
+            if (error.domain == JudoErrorDomain && error.code == JudoError3DSRequest) {
+                if (!error.userInfo) {
+                    if (self.completionBlock) {
+                        self.completionBlock(nil, [NSError judoResponseParseError]);
+                        return; // BAIL
+                    }
+                }
+                
+                NSError *load3DSerror = nil;
+                
+                self.pending3DSReceiptId = [self.threeDSWebView load3DSWithPayload:error.userInfo error:&load3DSerror];
+                
+                if (load3DSerror && self.completionBlock) {
+                    self.completionBlock(nil, load3DSerror);
+                    [self.loadingView stopAnimating];
+                    return; // BAIL
+                }
+                
+                self.loadingView.actionLabel.text = self.theme.redirecting3DSTitle;
+                self.title = self.theme.authenticationTitle;
+                [self paymentEnabled:NO];
+                
+            } else if (self.completionBlock) {
+                self.completionBlock(nil, error);
+            }
+        } else if (response) {
+            if (self.completionBlock) {
+                self.completionBlock(response, nil);
+                [self.loadingView stopAnimating];
+            }
+        }
+    }];
+    
+}
+
+- (void)doneButtonAction:(id)sender {
+    if (self.completionBlock) {
+        self.completionBlock(nil, [NSError judoUserDidCancelError]);
     }
 }
 
