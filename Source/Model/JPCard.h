@@ -26,17 +26,53 @@
 
 @class JPAddress;
 
+/**
+ *  Card objects store all the necessary card information for making transactions
+ */
 @interface JPCard : NSObject
 
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) NSString * _Nullable cardNumber;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) NSString * _Nullable expiryDate;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) NSString * _Nullable secureCode;
 
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) NSString * _Nullable startDate;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) NSString * _Nullable issueNumber;
 
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, strong) JPAddress * _Nullable cardAddress;
 
+
+/**
+ *  <#Description#>
+ *
+ *  @param cardNumber <#cardNumber description#>
+ *  @param expiryDate <#expiryDate description#>
+ *  @param secureCode <#secureCode description#>
+ *
+ *  @return <#return value description#>
+ */
 - (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryDate:(nonnull NSString *)expiryDate secureCode:(nonnull NSString *)secureCode;
 
 @end

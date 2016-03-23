@@ -24,89 +24,198 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  The CardNetwork enum depicts the Card Network type of a given Card object
+ */
 typedef NS_ENUM(NSUInteger, CardNetwork) {
-    /// Unknown
+    /**
+     * Unknown
+     */
     CardNetworkUnknown = 0,
-    /// Visa Card Network
+    /**
+     * Visa Card Network
+     */
     CardNetworkVisa = 1,
-    /// MasterCard Network
+    /**
+     * MasterCard Network
+     */
     CardNetworkMasterCard = 2,
-    /// Visa Electron Network
+    /**
+     * Visa Electron Network
+     */
     CardNetworkVisaElectron = 3,
-    /// Switch Network
+    /**
+     * Switch Network
+     */
     CardNetworkSwitch = 4,
-    /// Solo Network
+    /**
+     * Solo Network
+     */
     CardNetworkSolo = 5,
-    /// Laser Network
+    /**
+     * Laser Network
+     */
     CardNetworkLaser = 6,
-    /// China UnionPay Network
+    /**
+     * China UnionPay Network
+     */
     CardNetworkChinaUnionPay = 7,
-    /// American Express Card Network
+    /**
+     * American Express Card Network
+     */
     CardNetworkAMEX = 8,
-    /// JCB Network
+    /**
+     * JCB Network
+     */
     CardNetworkJCB = 9,
-    /// Maestro Card Network
+    /**
+     * Maestro Card Network
+     */
     CardNetworkMaestro = 10,
-    /// Visa Debit Card Network
+    /**
+     * Visa Debit Card Network
+     */
     CardNetworkVisaDebit = 11,
-    /// MasterCard Network
+    /**
+     * MasterCard Network
+     */
     CardNetworkMasterCardDebit = 12,
-    /// Visa Purchasing Network
+    /**
+     * Visa Purchasing Network
+     */
     CardNetworkVisaPurchasing = 13,
-    /// Discover Network
+    /**
+     * Discover Network
+     */
     CardNetworkDiscover = 14,
-    /// Carnet Network
+    /**
+     * Carnet Network
+     */
     CardNetworkCarnet = 15,
-    /// Carte Bancaire Network
+    /**
+     * Carte Bancaire Network
+     */
     CardNetworkCarteBancaire = 16,
-    /// Diners Club Network
+    /**
+     * Diners Club Network
+     */
     CardNetworkDinersClub = 17,
-    /// Elo Network
+    /**
+     * Elo Network
+     */
     CardNetworkElo = 18,
-    /// Farmers Card Network
+    /**
+     * Farmers Card Network
+     */
     CardNetworkFarmersCard = 19,
-    /// Soriana Network
+    /**
+     * Soriana Network
+     */
     CardNetworkSoriana = 20,
-    /// Private Label Card Network
+    /**
+     * Private Label Card Network
+     */
     CardNetworkPrivateLabelCard = 21,
-    /// Q Card Network
+    /**
+     * Q Card Network
+     */
     CardNetworkQCard = 22,
-    /// Style Network
+    /**
+     * Style Network
+     */
     CardNetworkStyle = 23,
-    /// True Rewards Network
+    /**
+     * True Rewards Network
+     */
     CardNetworkTrueRewards = 24,
-    /// UATP Network
+    /**
+     * UATP Network
+     */
     CardNetworkUATP = 25,
-    /// Bank Card Network
+    /**
+     * Bank Card Network
+     */
     CardNetworkBankCard = 26,
-    /// Banamex Costco Network
+    /**
+     * Banamex Costco Network
+     */
     CardNetworkBanamex_Costco = 27,
-    /// InterPayment Network
+    /**
+     * InterPayment Network
+     */
     CardNetworkInterPayment = 28,
-    /// InstaPayment Network
+    /**
+     * InstaPayment Network
+     */
     CardNetworkInstaPayment = 29,
-    /// Dankort Network
+    /**
+     * Dankort Network
+     */
     CardNetworkDankort = 30
 };
 
+
+/**
+ *  The CardDetails object stores information that is returned from a successful payment or pre-auth. This class also implements the `NSCoding` protocol to enable serialization for persistency
+ */
 @interface JPCardDetails : NSObject
-/// The last four digits of the card used for this transaction
+
+/**
+*  The last four digits of the card used for this transaction
+*/
 @property (nonatomic, strong) NSString * _Nullable cardLastFour;
-/// Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
+
+/**
+ *  Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
+ */
 @property (nonatomic, strong) NSString * _Nullable endDate;
-/// Can be used to charge future payments against this card
+
+/**
+ *  Can be used to charge future payments against this card
+ */
 @property (nonatomic, strong) NSString * _Nullable cardToken;
-/// The card network
+
+/**
+ *  The card network
+ */
 @property (nonatomic, assign) CardNetwork cardNetwork;
-/// The card number if available
+
+/**
+ *  The card number if available
+ */
 @property (nonatomic, strong) NSString * _Nullable cardNumber;
 
+
+/**
+ *  Designated initializer for Card Details
+ *
+ *  @param dictionary all parameters as a dictionary
+ *
+ *  @return a JPCardDetails object
+ */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
+/**
+ *  Get a formatted string with the right whitespacing for a certain card type
+ *
+ *  @return a string with the last four digits with the right format
+ */
 - (nullable NSString *)formattedCardLastFour;
 
+/**
+ *  Get a formatted string with the right slash for a date
+ *
+ *  @return a string with the date as shown on the credit card with the right format
+ */
 - (nullable NSString *)formattedExpiryDate;
 
+/**
+ *  the title for a given card network
+ *
+ *  @param network the network
+ *
+ *  @return a title string
+ */
 + (nonnull NSString *)titleForCardNetwork:(CardNetwork)network;
 
 @end

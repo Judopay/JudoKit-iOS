@@ -24,11 +24,29 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Consumer stores information about a reference and a consumer token to be used in any kind of token transaction.
+ */
 @interface JPConsumer : NSObject
 
+/**
+ *  Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
+ */
 @property (nonatomic, strong) NSString * _Nonnull consumerToken;
+
+/**
+ *  Your reference for this Consumer as you sent in your request.
+ */
 @property (nonatomic, strong) NSString * _Nonnull consumerReference;
 
+
+/**
+ *  Designated initializer
+ *
+ *  @param dictionary the consumer dictionary which was return from the judo REST API
+ *
+ *  @return a JPConsumer object
+ */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

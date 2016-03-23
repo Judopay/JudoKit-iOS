@@ -24,23 +24,71 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  The Address object stores information around the address that is related to a card
+ */
 @interface JPAddress : NSObject
 
+/**
+ *  Line one of the address
+ */
 @property (nonatomic, strong) NSString * _Nullable line1;
+
+/**
+ *  Line two of the address
+ */
 @property (nonatomic, strong) NSString * __nullable line2;
+
+/**
+ *  Line three of the address
+ */
 @property (nonatomic, strong) NSString * __nullable line3;
+
+/**
+ *  Post code of the address
+ */
 @property (nonatomic, strong) NSString * __nullable postCode;
+
+/**
+ *  Town of the address
+ */
 @property (nonatomic, strong) NSString * __nullable town;
+
+/**
+ *  Billing country of the address
+ */
 @property (nonatomic, strong) NSString * __nullable billingCountry;
 
+/**
+ *  dictionary representation of the receiver
+ */
 @property (nonatomic, strong, readonly) NSDictionary * __nullable dictionaryRepresentation;
 
+
+/**
+ *  Designated Initializer
+ *
+ *  @param line1    line one
+ *  @param line2    line two
+ *  @param line3    line three
+ *  @param postCode post code
+ *  @param town     town
+ *
+ *  @return a JPAddress object
+ */
 - (nonnull instancetype)initWithLine1:(nullable NSString *)line1
                                 line2:(nullable NSString *)line2
                                 line3:(nullable NSString *)line3
                              postCode:(nullable NSString *)postCode
                                  town:(nullable NSString *)town;
 
+/**
+ *  Initializer
+ *
+ *  @param dictionary a dictionary containing all the values
+ *
+ *  @return a JPAddress object
+ */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

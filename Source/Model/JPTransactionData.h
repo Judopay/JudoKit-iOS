@@ -26,58 +26,144 @@
 
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken;
 
-
+/**
+ *  Type of Transaction
+ */
 typedef NS_ENUM(NSUInteger, TransactionType) {
+    /**
+     *  A payment transaction
+     */
     TransactionTypePayment,
+    /**
+     *   A pre-auth Transaction
+     */
     TransactionTypePreAuth,
+    /**
+     *   A refund transaction
+     */
     TransactionTypeRefund,
+    /**
+     *  Register a card
+     */
     TransactionTypeRegisterCard
 };
 
-
+/**
+ *  Result of a Transaction
+ */
 typedef NS_ENUM(NSUInteger, TransactionResult) {
+    /**
+     *  Successful transaction
+     */
     TransactionResultSuccess,
+    /**
+     *  Declined transaction
+     */
     TransactionResultDeclined,
+    /**
+     *  Something went wrong
+     */
     TransactionResultError
 };
 
 
+/**
+ *  TransactionData is an object that references all information in correspondance with a Transaction with the judo API
+ */
 @interface JPTransactionData : NSObject
 
+/**
+ *  Our reference for this transaction. Keep track of this as it's needed to process refunds or collections later
+ */
 @property (nonatomic, strong) NSString * _Nonnull receiptId;
-/// Your original reference for this payment
+
+/**
+ *  Your original reference for this payment
+ */
 @property (nonatomic, strong) NSString * _Nonnull paymentReference;
-/// The type of Transaction, either "Payment" or "Refund"
+
+/**
+ *  The type of Transaction, either "Payment" or "Refund"
+ */
 @property (nonatomic, assign) TransactionType type;
-/// Date and time of the Transaction including time zone offset
+
+/**
+ *  Date and time of the Transaction including time zone offset
+ */
 @property (nonatomic, strong) NSString * _Nonnull createdAt;
-/// The result of this transactions, this will either be "Success" or "Declined"
+
+/**
+ *  The result of this transactions, this will either be "Success" or "Declined"
+ */
 @property (nonatomic, assign) TransactionResult result;
-/// A message detailing the result.
+
+/**
+ *  A message detailing the result.
+ */
 @property (nonatomic, strong) NSString * _Nullable message;
-/// The number (e.g. "123-456" or "654321") identifying the Merchant to whom payment has been made
+
+/**
+ *  The number (e.g. "123-456" or "654321") identifying the Merchant to whom payment has been made
+ */
 @property (nonatomic, strong) NSString * _Nonnull judoId;
-/// The trading name of the Merchant to whom payment has been made
+
+/**
+ *  The trading name of the Merchant to whom payment has been made
+ */
 @property (nonatomic, strong) NSString * _Nonnull merchantName;
-/// How the Merchant will appear on the Consumers statement
+
+/**
+ *  How the Merchant will appear on the Consumers statement
+ */
 @property (nonatomic, strong) NSString * _Nonnull appearsOnStatementAs;
-/// If present this will show the total value of refunds made against the original payment
+
+/**
+ *  If present this will show the total value of refunds made against the original payment
+ */
 @property (nonatomic, strong) JPAmount * _Nullable refunds;
-/// This is the original value of this transaction before refunds
+
+/**
+ *  This is the original value of this transaction before refunds
+ */
 @property (nonatomic, strong) JPAmount * _Nullable originalAmount;
-/// This will show the remaining balance of the transaction after refunds. You cannot refund more than the original payment
+
+/**
+ *  This will show the remaining balance of the transaction after refunds. You cannot refund more than the original payment
+ */
 @property (nonatomic, strong) JPAmount * _Nullable netAmount;
-/// This is the value of this transaction (if refunds available it is the amount after refunds)
+
+/**
+ *  This is the value of this transaction (if refunds available it is the amount after refunds)
+ */
 @property (nonatomic, strong) JPAmount * _Nonnull amount;
-/// Information about the card used in this transaction
+
+/**
+ *  Information about the card used in this transaction
+ */
 @property (nonatomic, strong) JPCardDetails * _Nullable cardDetails;
-/// Details of the Consumer for use in repeat payments
+
+/**
+ *  Details of the Consumer for use in repeat payments
+ */
 @property (nonatomic, strong) JPConsumer * _Nonnull consumer;
-/// Raw data of the received dictionary
+
+/**
+ *  Raw data of the received dictionary
+ */
 @property (nonatomic, strong) NSDictionary * _Nonnull rawData;
 
+/**
+ *  the payment token which is generated from available information
+ */
 @property (nonatomic, strong, readonly) JPPaymentToken * _Nonnull paymentToken;
 
+/**
+ *  Create a JPTransactionData object from a dictionary
+ *
+ *  @param dictionary the dictionary
+ *
+ *  @return a JPTransactionData object
+ */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end
