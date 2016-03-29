@@ -44,6 +44,8 @@
         return YES;
     }
     
+    newString = [newString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
     if (!newString.isNumeric) {
         return NO;
     }

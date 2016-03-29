@@ -32,12 +32,12 @@
 /**
  *  An array of accepted card networks
  */
-@property (nonatomic, strong) NSArray *acceptedCardNetworks;
+@property (nonatomic, strong) NSArray<NSNumber *> * _Nonnull acceptedCardNetworks;
 
 /**
  *  A tint color that is used to generate a theme for the judo payment form
  */
-@property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIColor * _Nonnull tintColor;
 
 /**
  *  Set the address verification service to true to prompt the user to input his country and post code information
@@ -54,71 +54,71 @@
 /**
  *  the title for the payment button
  */
-@property (nonatomic, strong) NSString *paymentButtonTitle;
+@property (nonatomic, strong) NSString * _Nonnull paymentButtonTitle;
 
 /**
  *  the title for the button when registering a card
  */
-@property (nonatomic, strong) NSString *registerCardButtonTitle;
+@property (nonatomic, strong) NSString * _Nonnull registerCardButtonTitle;
 
 /**
  *  the title for the back button of the navigation controller
  */
-@property (nonatomic, strong) NSString *registerCardNavBarButtonTitle;
+@property (nonatomic, strong) NSString * _Nonnull registerCardNavBarButtonTitle;
 
 /**
  *  the title for the back button
  */
-@property (nonatomic, strong) NSString *backButtonTitle;
+@property (nonatomic, strong) NSString * _Nonnull backButtonTitle;
 
 #pragma mark - Titles
 
 /**
  *  the title for a payment
  */
-@property (nonatomic, strong) NSString *paymentTitle;
+@property (nonatomic, strong) NSString * _Nonnull paymentTitle;
 
 /**
  *  the title for a card registration
  */
-@property (nonatomic, strong) NSString *registerCardTitle;
+@property (nonatomic, strong) NSString * _Nonnull registerCardTitle;
 
 /**
  *  the title for a refund
  */
-@property (nonatomic, strong) NSString *refundTitle;
+@property (nonatomic, strong) NSString * _Nonnull refundTitle;
 
 /**
  *  the title for an authentication
  */
-@property (nonatomic, strong) NSString *authenticationTitle;
+@property (nonatomic, strong) NSString * _Nonnull authenticationTitle;
 
 #pragma mark - Loading
 
 /**
  *  when a register card transaction is currently running
  */
-@property (nonatomic, strong) NSString *loadingIndicatorRegisterCardTitle;
+@property (nonatomic, strong) NSString * _Nonnull loadingIndicatorRegisterCardTitle;
 
 /**
  *  the title of the loading indicator during a transaction
  */
-@property (nonatomic, strong) NSString *loadingIndicatorProcessingTitle;
+@property (nonatomic, strong) NSString * _Nonnull loadingIndicatorProcessingTitle;
 
 /**
  *  the title of the loading indicator during a redirect to a 3DS webview
  */
-@property (nonatomic, strong) NSString *redirecting3DSTitle;
+@property (nonatomic, strong) NSString * _Nonnull redirecting3DSTitle;
 
 /**
  *  the title of the loading indicator during the verification of the transaction
  */
-@property (nonatomic, strong) NSString *verifying3DSPaymentTitle;
+@property (nonatomic, strong) NSString * _Nonnull verifying3DSPaymentTitle;
 
 /**
  *  the title of the loading indicator during the verification of the card registration
  */
-@property (nonatomic, strong) NSString *verifying3DSRegisterCardTitle;
+@property (nonatomic, strong) NSString * _Nonnull verifying3DSRegisterCardTitle;
 
 #pragma mark - Input fields
 
@@ -132,7 +132,7 @@
 /**
  *  the message that is shown below the input fields the ensure safety when entering card information
  */
-@property (nonatomic, strong) NSString *securityMessageString;
+@property (nonatomic, strong) NSString * _Nonnull securityMessageString;
 
 /**
  *  the text size of the security message
@@ -146,76 +146,76 @@
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoDarkGrayColor;
+- (nonnull UIColor *)judoDarkGrayColor;
 
 /**
  *  Dark gray color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoInputFieldTextColor;
+- (nonnull UIColor *)judoInputFieldTextColor;
 
 /**
  *  Light gray color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoLightGrayColor;
+- (nonnull UIColor *)judoLightGrayColor;
 
 /**
  *  Light gray color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoInputFieldBorderColor;
+- (nonnull UIColor *)judoInputFieldBorderColor;
 
 /**
  *  Gray color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoContentViewBackgroundColor;
+- (nonnull UIColor *)judoContentViewBackgroundColor;
 
 /**
  *  Button color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoButtonColor;
+- (nonnull UIColor *)judoButtonColor;
 
 /**
  *  Button title color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoButtonTitleColor;
+- (nonnull UIColor *)judoButtonTitleColor;
 
 /**
  *  Background color of the loadingView
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoLoadingBackgroundColor;
+- (nonnull UIColor *)judoLoadingBackgroundColor;
 
 /**
  *  Red color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoRedColor;
+- (nonnull UIColor *)judoRedColor;
 
 /**
  *  Loading block color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoLoadingBlockViewColor;
+- (nonnull UIColor *)judoLoadingBlockViewColor;
 
 /**
  *  Input field background color
  *
  *  @return A UIColor object
  */
-- (UIColor *)judoInputFieldBackgroundColor;
+- (nonnull UIColor *)judoInputFieldBackgroundColor;
 
 @end
