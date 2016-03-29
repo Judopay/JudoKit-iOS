@@ -5,34 +5,34 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
-# judoKit ObjC Native SDK for iOS
+# judoKit Objective-C iOS SDK
 
-This is the official judo iOS SDK written in Objective C. It is built using [JudoShield](https://github.com/judopay/judoshield)) with additional tools to enable easy integration of payments into your app. While the JudoKitObjC Framework has Swift annotations, we highly recommend using the original [JudoKit](https://github.com/judopay/JudoKit) which is written in Swift.
+This is the official judoKit iOS SDK written in Objective-C. It incorporates our mobile specific security toolkit, [judoShield](https://github.com/judopay/judoshield), with additional modules to enable easy native integration of payments. While the JudoKitObjC Framework has Swift annotations, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit) which is written in Swift.
 
 ##### **\*\*\*Due to industry-wide security updates, versions below 6.0 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
 
 ### What is this project for?
 
-judoKit is a framework for creating easy payments inside your app with [judoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
+judoKit is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
 ## ~~Integration~~
 
 ### Sign up to judo's platform
 
 - To use judo's SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token. 
-- the SDK has to be integrated in your project using one of the following methods:
+- the SDK has to be integrated into your project using one of the following methods:
 
 #### ~~CocoaPods~~
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
-CocoaPods 0.39 supports Swift and embedded frameworks. You can install it with the following command:
+- You can install CocoaPods with the following command:
 
 ```bash
 $ gem install cocoapods
 ```
 
-add judo to your `Podfile` to integrate it into your Xcode project:
+- Add judo to your `Podfile` to integrate it into your Xcode project:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -42,19 +42,19 @@ use_frameworks!
 pod 'JudoKitObjC', '~> 6.0'
 ```
 
-Then, run the following command:
+- Then, run the following command:
 
 ```bash
 $ pod install
 ```
 
-Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file
+- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file
 
 #### ~~Carthage~~
 
 [Carthage](https://github.com/Carthage/Carthage) - decentralized dependency management.
 
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+- You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
 
 ```bash
 $ brew update
@@ -67,20 +67,20 @@ $ brew install carthage
 github "JudoPay/JudoKitObjC" >= 6.0
 ```
 
-- execute the following command in your project folder. This should clone the project and build the judoKit scheme.
+- Execute the following command in your project folder. This should clone the project and build the judoKit scheme:
 
 ```bash
 $ carthage bootstrap
 ```
 
-- On your application targets’ “General” settings tab, in the “Embedded Binaries" section, drag and drop `Judo.framework` and `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
-- On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
+- On your application targets’ 'General' settings tab, in the 'Embedded Binaries' section, drag and drop `Judo.framework` and `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
+- On your application targets’ 'Build Phases' settings tab, click the '+' icon and choose 'New Run Script Phase'. Create a Run Script with the following contents:
 
 ```sh
 /usr/local/bin/carthage copy-frameworks
 ```
 
-and add the paths to the frameworks you want to use under “Input Files”, e.g.:
+- Then add the paths to the frameworks you want to use under 'Input Files', e.g.:
 
 ```
 $(SRCROOT)/Carthage/Build/iOS/JudoKit.framework
@@ -100,55 +100,52 @@ You can integrate judo into your project manually if you prefer not to use depen
 $ git submodule add https://github.com/JudoPay/JudoKitObjC
 ```
 
-- as judoKit has submodules you need to initialize them as well by cd-ing into the `JudoKit` folder and executing the following command:
+- As judoKit has submodules, you need to initialize them as well by cd-ing into the `JudoKitObjC` folder and executing the following command:
 
 ```bash
 $ cd JudoKitObjC
 $ git submodule update --init --recursive
 ```
 - Open your project and select your application in the Project Navigator (blue project icon).
-- Drag and drop the `JudoKit.xcodeproj` project file inside the JudoKit folder into your project (just below the blue project icon inside Xcode).
-- Drag and drop the `Judo.xcodeproj` project file inside the JudoKit/Judo-Swift folder into your project (just below the blue project icon inside Xcode).
-- Navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
-- In the tab bar at the top of that window, open the "General" panel.
+- Drag and drop the `JudoKit.xcodeproj` project file inside the judoKit folder into your project (just below the blue project icon inside Xcode).
+- Navigate to the target configuration window and select the application target under the 'Targets' heading in the sidebar.
+- In the tab bar at the top of that window, open the 'General' panel.
 - Click on the '+' button in 'Embedded Binaries' section.
-- Click on 'Add Other...' and Navigate to the JudoKit/JudoShield/Framework Folder and add JudoShield.Framework.
-- Click on the same '+' button and add `JudoKit.framework` under the JudoKit project from the `Products` folder and `Judo.framework` from the Judo project under the `Products` folder **make sure not to add the Judo.framework file from the JudoKit project, these two have to be from each of the projects product folder**.
-- In the project navigator, click on the `+` button under the "Linked Frameworks and Libraries" section.
+- Click on 'Add Other...' and navigate to the `JudoKit/JudoShield/Framework` Folder and add `JudoShield.framework`.
+- Click on the same '+' button and add `JudoKit.framework` under the judoKit project from the `Products` folder.
+- In the project navigator, click on the '+' button under the 'Linked Frameworks and Libraries' section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented.
-- Open the "Build Settings" panel.
-- Search for 'Framework Search Paths' and add `$(PROJECT_DIR)/JudoKit/JudoShield/Framework`.
-- Search for 'Runpath Search Paths' and make sure it contains '@executable_path/Frameworks'.
-
+- Open the 'Build Settings' panel.
+- Search for `Framework Search Paths` and add `$(PROJECT_DIR)/JudoKit/JudoShield/Framework`.
+- Search for `Runpath Search Paths` and make sure it contains `@executable_path/Frameworks`.
 
 ### Further setup
 
 - Add `#import "JudoKitObjC.h"` to the top of the file where you want to use the SDK.
 
-- You set your key and secret here when initializing the Session.
+- You can set your key and secret here when initializing the Session:
 
 ```objc
 // initialize the SDK by setting it up with a token and a secret
 self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
 ```
 
-- To instruct the SDK to communicate with the sandbox, include the following lines in the ViewController where the payment should be initiated
+- To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
 
 ```objc
 // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
 self.judoKitSession.apiSession.sandboxed = YES;
 ```
 
-When you are ready to go live you can remove this line.
+- When you are ready to go live you can remove this line.
 
-
-#### Make a simple payment
+#### Make a simple Payment
 
 ```obj
   // TODO:
 ```
 
-#### Make a simple pre-authorization
+#### Make a simple Pre-authorization
 
 ```obj
   // TODO:
@@ -161,13 +158,13 @@ When you are ready to go live you can remove this line.
   // TODO:
 ```
 
-#### Make a repeat payment
+#### Make a repeat Payment
 
 ```obj
   // TODO:
 ```
 
-#### Make a repeat pre-authorization
+#### Make a repeat Pre-authorization
 
 ```obj
   // TODO:
@@ -175,21 +172,21 @@ When you are ready to go live you can remove this line.
 
 ## Card acceptance configuration
 
-judoKit is capable of detecting and accepting a huge array of Card Networks. An array of card networks defines a specific acceptance signature. This is used as shown below:
+judoKit is capable of detecting and accepting a huge array of Card Networks. An array of Card Networks defines a specific acceptance signature. This is used as shown below.
 
-The default value for accepted networks are Visa and MasterCard.
+The default value for accepted Card Networks are Visa and MasterCard:
 
 ```obj
 _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
 ```
 
-In case you want to add the capability of accepting AMEX you need to add this as following:
+In case you want to add the capability of accepting AMEX you need to add the following:
 
 ```objc
 self.judoKitSession.theme.acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
 ```
 
-Any other card configuration that is available can be added for the UI to accept the card. **BE AWARE** you do need to configure your account with Judo Payments for any other Card Type payments to be processed successfully.
+Any other card configuration that is available can be added for the UI to accept the specific Card Networks. **BE AWARE** you do need to configure your account with judo for any other Card Networks transactions to be processed successfully.
 
 ## Customizing payments page theme
 
@@ -197,11 +194,11 @@ Any other card configuration that is available can be added for the UI to accept
 ![lighttheme2](http://judopay.github.io/JudoKit/ressources/lighttheme2.png "Light Theme Example Image")
 ![darktheme1](http://judopay.github.io/JudoKit/ressources/darktheme2.png "Dark Theme Example Image")
 
-judoKit comes with our new customisable, stacked UI.
+judoKit comes with our new customizable, stacked UI.
 
 ### Theme class
 
-The following parameters can be accessed through `JudoKit.theme`
+The following parameters can be accessed through `JudoKit.theme`.
 
 #### Colors
 
@@ -238,7 +235,7 @@ The following parameters can be accessed through `JudoKit.theme`
 @property (nonatomic, assign) BOOL avsEnabled;
 
 /**
- *  a boolean indicating whether a security message should be shown below the input
+ *  A boolean indicating whether a security message should be shown below the input
  */
 @property (nonatomic, assign) BOOL showSecurityMessage;
 ```
@@ -247,22 +244,22 @@ The following parameters can be accessed through `JudoKit.theme`
 
 ```objc
 /**
- *  the title for the payment button
+ *  The title for the payment button
  */
 @property (nonatomic, strong) NSString * _Nonnull paymentButtonTitle;
 
 /**
- *  the title for the button when registering a card
+ *  The title for the button when registering a card
  */
 @property (nonatomic, strong) NSString * _Nonnull registerCardButtonTitle;
 
 /**
- *  the title for the back button of the navigation controller
+ *  The title for the back button of the navigation controller
  */
 @property (nonatomic, strong) NSString * _Nonnull registerCardNavBarButtonTitle;
 
 /**
- *  the title for the back button
+ *  The title for the back button
  */
 @property (nonatomic, strong) NSString * _Nonnull backButtonTitle;
 ```
@@ -271,22 +268,22 @@ The following parameters can be accessed through `JudoKit.theme`
 
 ```objc
 /**
- *  the title for a payment
+ *  The title for a payment
  */
 @property (nonatomic, strong) NSString * _Nonnull paymentTitle;
 
 /**
- *  the title for a card registration
+ *  The title for a card registration
  */
 @property (nonatomic, strong) NSString * _Nonnull registerCardTitle;
 
 /**
- *  the title for a refund
+ *  The title for a refund
  */
 @property (nonatomic, strong) NSString * _Nonnull refundTitle;
 
 /**
- *  the title for an authentication
+ *  The title for an authentication
  */
 @property (nonatomic, strong) NSString * _Nonnull authenticationTitle;
 ```
@@ -295,27 +292,27 @@ The following parameters can be accessed through `JudoKit.theme`
 
 ```objc
 /**
- *  when a register card transaction is currently running
+ *  When a register card transaction is currently running
  */
 @property (nonatomic, strong) NSString * _Nonnull loadingIndicatorRegisterCardTitle;
 
 /**
- *  the title of the loading indicator during a transaction
+ *  The title of the loading indicator during a transaction
  */
 @property (nonatomic, strong) NSString * _Nonnull loadingIndicatorProcessingTitle;
 
 /**
- *  the title of the loading indicator during a redirect to a 3DS webview
+ *  The title of the loading indicator during a redirect to a 3DS webview
  */
 @property (nonatomic, strong) NSString * _Nonnull redirecting3DSTitle;
 
 /**
- *  the title of the loading indicator during the verification of the transaction
+ *  The title of the loading indicator during the verification of the transaction
  */
 @property (nonatomic, strong) NSString * _Nonnull verifying3DSPaymentTitle;
 
 /**
- *  the title of the loading indicator during the verification of the card registration
+ *  The title of the loading indicator during the verification of the card registration
  */
 @property (nonatomic, strong) NSString * _Nonnull verifying3DSRegisterCardTitle;
 
@@ -325,7 +322,7 @@ The following parameters can be accessed through `JudoKit.theme`
 
 ```objc
 /**
- *  the height of the input fields
+ *  The height of the input fields
  */
 @property (nonatomic, assign) CGFloat inputFieldHeight;
 ```
@@ -334,12 +331,12 @@ The following parameters can be accessed through `JudoKit.theme`
 
 ```objc
 /**
- *  the message that is shown below the input fields the ensure safety when entering card information
+ *  The message that is shown below the input fields the ensure safety when entering card information
  */
 @property (nonatomic, strong) NSString * _Nonnull securityMessageString;
 
 /**
- *  the text size of the security message
+ *  The text size of the security message
  */
 @property (nonatomic, assign) CGFloat securityMessageTextSize;
 ```
