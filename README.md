@@ -73,7 +73,7 @@ github "JudoPay/JudoKitObjC" >= 6.0
 $ carthage bootstrap
 ```
 
-- On your application targets’ 'General' settings tab, in the 'Embedded Binaries' section, drag and drop `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
+- On your application targets’ 'General' settings tab, in the 'Embedded Binaries' section, drag and drop `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the `Carthage/Checkouts` folder on disk.
 - On your application targets’ 'Build Phases' settings tab, click the '+' icon and choose 'New Run Script Phase'. Create a Run Script with the following contents:
 
 ```sh
@@ -106,7 +106,7 @@ $ cd JudoKitObjC
 $ git submodule update --init --recursive
 ```
 - Open your project and select your application in the Project Navigator (blue project icon).
-- Drag and drop the `JudoKitObjC.xcodeproj` project file inside the judoKit folder into your project (just below the blue project icon inside Xcode).
+- Drag and drop the `JudoKitObjC.xcodeproj` project file inside the `judoKit` folder into your project (just below the blue project icon inside Xcode).
 - Navigate to the target configuration window and select the application target under the 'Targets' heading in the sidebar.
 - In the tab bar at the top of that window, open the 'General' panel.
 - Click on the '+' button in 'Embedded Binaries' section.
@@ -122,7 +122,7 @@ $ git submodule update --init --recursive
 
 - Add `#import "JudoKitObjC.h"` to the top of the file where you want to use the SDK.
 
-- You can set your key and secret here when initializing the Session:
+- You can set your key and secret here when initializing the session:
 
 ```objc
 // initialize the SDK by setting it up with a token and a secret
@@ -173,21 +173,21 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 judoKit is capable of detecting and accepting a huge array of Card Networks. An array of Card Networks defines a specific acceptance signature. This is used as shown below.
 
-The default value for accepted Card Networks are Visa and MasterCard:
+- The default value for accepted Card Networks are Visa and MasterCard:
 
 ```obj
 _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
 ```
 
-In case you want to add the capability of accepting AMEX you need to add the following:
+- In case you want to add the capability of accepting AMEX you need to add the following:
 
 ```objc
 self.judoKitSession.theme.acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
 ```
 
-Any other card configuration that is available can be added for the UI to accept the specific Card Networks. **BE AWARE** you do need to configure your account with judo for any other Card Networks transactions to be processed successfully.
+- Any other card configuration that is available can be added for the UI to accept the specific Card Networks. **BE AWARE** you do need to configure your account with judo for any other Card Network transactions to be processed successfully.
 
-## Customizing payments page theme
+## Customizing payment page theme
 
 ![lighttheme1](http://judopay.github.io/JudoKit/ressources/lighttheme1.png "Light Theme Example Image")
 ![lighttheme2](http://judopay.github.io/JudoKit/ressources/lighttheme2.png "Light Theme Example Image")
