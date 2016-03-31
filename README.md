@@ -140,33 +140,108 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 #### Make a simple Payment
 
-```obj
-  // TODO:
+```objc
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+    
+    [self.judoKitSession invokePayment:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+        if (error || response.items.count == 0) {
+            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+	            // handle error
+            }
+        } else {
+        	// handle success
+        }
+    }];
 ```
 
 #### Make a simple Pre-authorization
 
-```obj
-  // TODO:
+```objc
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+
+    [self.judoKitSession invokePreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+        if (error || response.items.count == 0) {
+            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+	            // handle error
+            }
+        } else {
+        	// handle success
+        }
+    }];
 ```
 
 
 #### Register a card
 
-```obj
-  // TODO:
+```objc
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+    
+    [self.judoKitSession invokeRegisterCard:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        if (error && response.items.count == 0) {
+            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+            	// handle error
+            }
+        }
+        JPTransactionData *tData = response.items[0];
+        if (tData.cardDetails) {
+        	// save card details and payment token for further use
+            self.cardDetails = tData.cardDetails;
+            self.payToken = tData.paymentToken;
+        }
+    }];
 ```
 
 #### Make a repeat Payment
 
-```obj
-  // TODO:
+```objc
+    if (self.cardDetails) {
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+
+        [self.judoKitSession invokeTokenPayment:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
+        	if (error || response.items.count == 0) {
+            	if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                	[self dismissViewControllerAnimated:YES completion:nil];
+            	} else {
+	            	// handle error
+            	}
+        	} else {
+    	    	// handle success
+	        }
+        }];
+        
+    } else {
+    	// handle card details and payment token not present
+    }
 ```
 
 #### Make a repeat Pre-authorization
 
-```obj
-  // TODO:
+```objc
+    if (self.cardDetails) {
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
+
+        [self.judoKitSession invokeTokenPreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
+        	if (error || response.items.count == 0) {
+            	if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                	[self dismissViewControllerAnimated:YES completion:nil];
+            	} else {
+	            	// handle error
+            	}
+        	} else {
+    	    	// handle success
+	        }
+        }];
+        
+    } else {
+    	// handle card details and payment token not present
+    }
 ```
 
 ## Card acceptance configuration
