@@ -164,10 +164,6 @@ static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
     return [NSString stringWithFormat:@"Billing %@", [self descriptionForBillingCountry:self.billingCountry]];
 }
 
-//- (NSString *)hintLabelText {
- //   return @"Enter";
-//}
-
 - (CGFloat)titleWidth {
     return 120.0f;
 }
