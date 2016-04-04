@@ -195,6 +195,8 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
  */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
+- (nonnull instancetype)initWithCardNumber:(nonnull NSString *)cardNumber expiryMonth:(NSInteger)month expiryYear:(NSInteger)year;
+
 /**
  *  Get a formatted string with the right whitespacing for a certain card type
  *

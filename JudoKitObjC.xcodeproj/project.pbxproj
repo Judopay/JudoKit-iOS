@@ -45,7 +45,7 @@
 		3B5362A71C7CBE4A00CEBAE2 /* JP3DSWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362A51C7CBE4A00CEBAE2 /* JP3DSWebView.m */; };
 		3B5AFC091C9079E600DABB4C /* NSString+TextDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5AFC071C9079E600DABB4C /* NSString+TextDirection.h */; };
 		3B5AFC0A1C9079E600DABB4C /* NSString+TextDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AFC081C9079E600DABB4C /* NSString+TextDirection.m */; };
-		3B5AFC0D1C90925300DABB4C /* CardLogoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5AFC0B1C90925300DABB4C /* CardLogoView.h */; };
+		3B5AFC0D1C90925300DABB4C /* CardLogoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5AFC0B1C90925300DABB4C /* CardLogoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B5AFC0E1C90925300DABB4C /* CardLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AFC0C1C90925300DABB4C /* CardLogoView.m */; };
 		3B678B5A1C6CE5190001DC2F /* JudoKitObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678B591C6CE5190001DC2F /* JudoKitObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B678B611C6CE5190001DC2F /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
@@ -97,11 +97,11 @@
 		3B69D5E91C99A7550075FFD8 /* NSDate+Judo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B69D5E71C99A7550075FFD8 /* NSDate+Judo.m */; };
 		3B704A861C89F16500376773 /* FloatingTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A841C89F16500376773 /* FloatingTextField.h */; };
 		3B704A871C89F16500376773 /* FloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A851C89F16500376773 /* FloatingTextField.m */; };
-		3B704A8A1C89F18000376773 /* JPInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A881C89F18000376773 /* JPInputField.h */; };
+		3B704A8A1C89F18000376773 /* JPInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A881C89F18000376773 /* JPInputField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B704A8B1C89F18000376773 /* JPInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A891C89F18000376773 /* JPInputField.m */; };
 		3B704A8E1C89F19800376773 /* IssueNumberInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A8C1C89F19800376773 /* IssueNumberInputField.h */; };
 		3B704A8F1C89F19800376773 /* IssueNumberInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A8D1C89F19800376773 /* IssueNumberInputField.m */; };
-		3B704A921C89F1A800376773 /* CardInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A901C89F1A800376773 /* CardInputField.h */; };
+		3B704A921C89F1A800376773 /* CardInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A901C89F1A800376773 /* CardInputField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B704A931C89F1A800376773 /* CardInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A911C89F1A800376773 /* CardInputField.m */; };
 		3B704A961C89F1B700376773 /* DateInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B704A941C89F1B700376773 /* DateInputField.h */; };
 		3B704A971C89F1B700376773 /* DateInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B704A951C89F1B700376773 /* DateInputField.m */; };
@@ -126,6 +126,7 @@
 		3BD353CC1C77803F0045658A /* JPCardDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD353CA1C77803F0045658A /* JPCardDetails.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		70F102E51CB281AB006EEC48 /* BillingCountry.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5AFC0F1C9184F700DABB4C /* BillingCountry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA7DF5B31C7B7A8300652A1F /* JPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711991C761B9700E9A347 /* JPAddress.m */; };
 /* End PBXBuildFile section */
 
@@ -642,6 +643,7 @@
 				3B704A861C89F16500376773 /* FloatingTextField.h in Headers */,
 				3B678B771C6CE7770001DC2F /* JPSession.h in Headers */,
 				3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */,
+				70F102E51CB281AB006EEC48 /* BillingCountry.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
