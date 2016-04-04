@@ -67,13 +67,13 @@ $ brew install carthage
 github "JudoPay/JudoKitObjC" >= 6.0
 ```
 
-- Execute the following command in your project folder. This should clone the project and build the judoKit scheme:
+- Execute the following command in your project folder. This should clone the project and build the `JudoKitObjC` scheme:
 
 ```bash
 $ carthage bootstrap
 ```
 
-- On your application targets’ 'General' settings tab, in the 'Embedded Binaries' section, drag and drop `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the `Carthage/Checkouts` folder on disk.
+- On your application targets’ 'General' settings tab, in the 'Embedded Binaries' section, drag and drop `JudoKitObjC.framework` from the Carthage/Build folder and `JudoShield.framework` from the `Carthage/Checkouts` folder on disk.
 - On your application targets’ 'Build Phases' settings tab, click the '+' icon and choose 'New Run Script Phase'. Create a Run Script with the following contents:
 
 ```sh
@@ -83,7 +83,7 @@ $ carthage bootstrap
 - Then add the paths to the frameworks you want to use under 'Input Files', e.g.:
 
 ```
-$(SRCROOT)/Carthage/Build/iOS/JudoKit.framework
+$(SRCROOT)/Carthage/Build/iOS/JudoKitObjC.framework
 $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 ```
 
@@ -99,19 +99,25 @@ You can integrate judo into your project manually if you prefer not to use depen
 $ git submodule add https://github.com/JudoPay/JudoKitObjC
 ```
 
-- As judoKit has submodules, you need to initialize them as well by cd-ing into the `JudoKitObjC` folder and executing the following command:
+- As judoKit has submodules, you need to initialize them as well by cd-ing into the `JudoKitObjC` folder 
 
 ```bash
 $ cd JudoKitObjC
+```
+
+- and executing the following command:
+
+```bash
 $ git submodule update --init --recursive
 ```
+
 - Open your project and select your application in the Project Navigator (blue project icon).
-- Drag and drop the `JudoKitObjC.xcodeproj` project file inside the `judoKit` folder into your project (just below the blue project icon inside Xcode).
+- Drag and drop the `JudoKitObjC.xcodeproj` project file inside the `JudoKitObjC` folder into your project (just below the blue project icon inside Xcode).
 - Navigate to the target configuration window and select the application target under the 'Targets' heading in the sidebar.
 - In the tab bar at the top of that window, open the 'General' panel.
 - Click on the '+' button in 'Embedded Binaries' section.
-- Click on 'Add Other...' and navigate to the `JudoKit/JudoShield/Framework` Folder and add `JudoShield.framework`.
-- Click on the same '+' button and add `JudoKitObjC.framework` under the judoKit project from the `Products` folder.
+- Click on 'Add Other...' and navigate to the `JudoKitObjC/JudoShield/Framework` Folder and add `JudoShield.framework`.
+- Click on the same '+' button and add `JudoKitObjC.framework` under the JudoKitObjC project from the `Products` folder.
 - In the project navigator, click on the '+' button under the 'Linked Frameworks and Libraries' section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented.
 - Open the 'Build Settings' panel.
@@ -272,7 +278,7 @@ judoKit comes with our new customizable, stacked UI.
 
 ### Theme class
 
-The following parameters can be accessed through `JudoKit.theme`.
+The following parameters can be accessed through `judoKitSession.theme`.
 
 #### Colors
 
