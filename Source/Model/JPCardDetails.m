@@ -24,6 +24,12 @@
 
 #import "JPCardDetails.h"
 
+@interface JPCardDetails ()
+
+@property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;
+
+@end
+
 @implementation JPCardDetails
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -36,6 +42,20 @@
         self.cardNetwork = ((NSNumber *)dictionary[@"cardType"]).integerValue;
 	}
 	return self;
+}
+
+- (instancetype)initWithCardNumber:(NSString *)cardNumber expiryMonth:(NSInteger)month expiryYear:(NSInteger)year {
+    self = [super init];
+    if (self) {
+        NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comp = [NSDateComponents new];
+        comp.year = year;
+        comp.month = month;
+        NSDate *expiryDate = [calendar dateFromComponents:comp];
+        self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+        self.cardNumber = cardNumber;
+    }
+    return self;
 }
 
 - (nullable NSString *)formattedCardLastFour {
@@ -136,5 +156,16 @@
             return @"Dankort Network";
     }
 }
+
+#pragma mark - Lazy Loading
+
+- (NSDateFormatter *)expiryDateFormatter {
+    if (!_expiryDateFormatter) {
+        _expiryDateFormatter = [NSDateFormatter new];
+        _expiryDateFormatter.dateFormat = @"MM/yy";
+    }
+    return _expiryDateFormatter;
+}
+
 
 @end
