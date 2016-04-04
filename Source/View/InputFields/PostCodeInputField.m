@@ -72,9 +72,9 @@ static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
     case BillingCountryUSA:
         return @"ZIP code";
     case BillingCountryCanada:
-        return @"Postal code";
+        return @"postal code";
     default:
-        return @"Postcode";
+        return @"postcode";
     }
 }
 
@@ -163,6 +163,10 @@ static NSString * const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
 - (NSString *)title {
     return [NSString stringWithFormat:@"Billing %@", [self descriptionForBillingCountry:self.billingCountry]];
 }
+
+//- (NSString *)hintLabelText {
+ //   return @"Enter";
+//}
 
 - (CGFloat)titleWidth {
     return 120.0f;
