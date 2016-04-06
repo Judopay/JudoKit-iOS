@@ -59,7 +59,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 @property (nonatomic, strong) UIView *tableFooterView;
 @property (nonatomic, strong) JudoKit *judoKitSession;
-
+Ø
 @end
 
 @implementation ViewController
