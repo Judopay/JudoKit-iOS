@@ -30,7 +30,7 @@ let secret = "<#YOUR SECRET#>"
 
 class JudoTestCase: XCTestCase {
     
-    let myJudoID = "100963875"
+    let myJudoID = "100000009"
     
     let judo = JudoKit(token: token, secret: secret)
     
