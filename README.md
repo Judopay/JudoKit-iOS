@@ -257,7 +257,7 @@ judoKit is capable of detecting and accepting a huge array of Card Networks. An 
 - The default value for accepted Card Networks are Visa and MasterCard:
 
 ```obj
-_acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
+_acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard), @(CardNetworkAMEX), @(CardNetworkMaestro)];
 ```
 
 - In case you want to add the capability of accepting AMEX you need to add the following:
