@@ -25,12 +25,12 @@
 import XCTest
 @testable import JudoKitObjC
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
+let token = "3x2dQPx5HiyD1zir"
+let secret = "17aad220942556910e6c461bfb79b2c2d294a3de3c35c2f5484ba4d5dddadb93"
 
 class JudoTestCase: XCTestCase {
     
-    let myJudoID = "100000009"
+    let myJudoID = "100963875"
     
     let judo = JudoKit(token: token, secret: secret)
     
