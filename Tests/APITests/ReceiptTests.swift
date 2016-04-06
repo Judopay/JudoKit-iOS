@@ -28,22 +28,42 @@ import XCTest
 class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
-        // Given
-        let receiptID = "3374881"
+
+        let initialPayment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        
+        initialPayment.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
-        judo.receipt(receiptID).sendWithCompletion({ (dict, error) -> () in
+        initialPayment.sendWithCompletion({ (response, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
-            expectation.fulfill()
+            
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.items?.first)
+            let receiptID = response?.items?.first?.receiptId as String!
+            
+            // Given i have a valid receiptID
+            XCTAssertNotNil(receiptID, "Null receiptID");
+            XCTAssertTrue(receiptID?.characters.count != 0, "Empty receiptID")
+            XCTAssertNotNil(initialPayment)
+            XCTAssertEqual(initialPayment.judoId, self.myJudoID)
+            
+            let payment = self.judo.paymentWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
+            XCTAssertNotNil(payment)
+            
+            self.judo.receipt(receiptID).sendWithCompletion({ (dict, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                expectation.fulfill()
+            })
         })
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
         
     }
-    
     
     func testJudoTransactionAllReceipts() {
         // Given
