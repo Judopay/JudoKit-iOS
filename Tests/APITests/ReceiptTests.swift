@@ -29,13 +29,13 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
 
-        let initilPayment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let initialPayment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
         
-        initilPayment.card = validVisaTestCard
+        initialPayment.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
-        initilPayment.sendWithCompletion({ (response, error) -> () in
+        initialPayment.sendWithCompletion({ (response, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
@@ -46,13 +46,11 @@ class ReceiptTests: JudoTestCase {
             
             // Given i have a valid receiptID
             XCTAssertNotNil(receiptID, "Null receiptID");
-            XCTAssertTrue(receiptID != "", "Empty receiptID")
-            XCTAssertNotNil(initilPayment)
-            XCTAssertEqual(initilPayment.judoId, self.myJudoID)
+            XCTAssertTrue(receiptID?.characters.count != 0, "Empty receiptID")
+            XCTAssertNotNil(initialPayment)
+            XCTAssertEqual(initialPayment.judoId, self.myJudoID)
             
-            let references = JPReference(consumerReference: "consumer0053252")
-            let amount = JPAmount(amount: "30", currency: "GBP")
-            let payment = self.judo.paymentWithJudoId(self.myJudoID, amount: amount, reference: references)
+            let payment = self.judo.paymentWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
             XCTAssertNotNil(payment)
             
             self.judo.receipt(receiptID).sendWithCompletion({ (dict, error) -> () in
