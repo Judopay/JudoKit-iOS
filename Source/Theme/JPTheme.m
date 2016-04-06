@@ -34,7 +34,7 @@
 
 - (NSArray *)acceptedCardNetworks {
     if (!_acceptedCardNetworks) {
-        _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
+        _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard), @(CardNetworkAMEX), @(CardNetworkMaestro)];
     }
     return _acceptedCardNetworks;
 }
