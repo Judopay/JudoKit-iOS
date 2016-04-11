@@ -119,7 +119,7 @@
             });
             return; // BAIL
         }
-        
+
         // check if response data is available
         if (!data) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,7 +134,7 @@
         __block NSError *jsonError = nil;
         
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-        
+
         if (jsonError || !responseJSON) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {

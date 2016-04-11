@@ -27,11 +27,26 @@
 
 NSString * const JudoErrorDomain = @"com.judo.error";
 
+NSString * const UnableToProcessRequestErrorDesc = @"Sorry, we're currently unable to process this request.";
+
+NSString * const ErrorRequestFailed = @"The request responded without data";
+NSString * const ErrorPaymentMethodMissing = @"The payment method (card details, token or PKPayment) has not been set for a transaction that requires it (custom UI)";
+NSString * const ErrorAmountMissing = @"The amount has not been set for a transaction that requires it (custom UI)";
+NSString * const ErrorReferenceMissing = @"The reference has not been set for a transaction that requires it (custom UI)";
+NSString * const ErrorResponseParseError = @"An error with a response from the backend API";
+NSString * const ErrorUserDidCancel = @"Received when user cancels the payment journey";
+NSString * const ErrorParameterError = @"A parameter entered into the dictionary (request body to Judo API) is not set";
+NSString * const ErrorFailed3DSRequest = @"After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page";
+
+NSString * const Error3DSRequest = @"Error when routing to 3DS";
+NSString * const ErrorUnderlyingError = @"An error in the iOS system with an enclosed underlying error";
+NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the backend returned declined";
+
 @implementation NSError (Judo)
 
 + (NSError *)judoRequestFailedError {
-    // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:@{}];
+    // TODO: userInfo,
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorRequestFailed]];
 }
 
 + (NSError *)judoJSONSerializationFailedWithError:(NSError *)error {
@@ -45,17 +60,17 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 
 + (NSError *)judoAmountMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorAmountMissing]];
 }
 
 + (NSError *)judoPaymentMethodMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorPaymentMethodMissing]];
 }
 
 + (NSError *)judoReferenceMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorReferenceMissing]];
 }
 
 + (NSError *)judoDuplicateTransactionError {
@@ -65,9 +80,9 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 
 + (NSError *)judo3DSRequestFailedErrorWithUnderlyingError:(NSError *)underlyingError {
     if (underlyingError) {
-        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:@{NSUnderlyingErrorKey:underlyingError}];
+        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest currentDict:@{NSUnderlyingErrorKey:underlyingError}]];
     }
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest]];
 }
 
 + (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data {
@@ -75,7 +90,9 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 }
 
 + (NSError *)judoErrorFromDictionary:(NSDictionary *)dict {
-    return [NSError errorWithDomain:JudoErrorDomain code:[dict[@"code"] integerValue] userInfo:dict];
+    NSString *messageFromDict = dict[@"message"];
+    NSString *errorMessage = messageFromDict != nil ? messageFromDict : UnableToProcessRequestErrorDesc;
+    return [NSError errorWithDomain:JudoErrorDomain code:[dict[@"code"] integerValue] userInfo:[self userDataDictWithDescription:errorMessage failureReason:nil currentDict:dict]];
 }
 
 + (NSError *)judoErrorFromError:(NSError *)error {
@@ -83,11 +100,11 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 }
 
 + (NSError *)judoUserDidCancelError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUserDidCancel userInfo:nil];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUserDidCancel userInfo:[self userDataDictWithDescription:nil failureReason:ErrorUserDidCancel]];
 }
 
 + (NSError *)judoParameterError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:nil];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorParameterError]];
 }
 
 + (NSError *)judoInvalidCardNumberError {
@@ -95,7 +112,7 @@ NSString * const JudoErrorDomain = @"com.judo.error";
 }
 
 + (NSError *)judoResponseParseError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:@{}];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorResponseParseError]];
 }
 
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
@@ -108,6 +125,21 @@ NSString * const JudoErrorDomain = @"com.judo.error";
     } else {
         return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorInputMismatchError userInfo:nil];
     }
+}
+
++ (NSDictionary *)userDataDictWithDescription:(NSString*)description failureReason:(NSString*)failureReason {
+    return @{NSLocalizedDescriptionKey:description, NSLocalizedFailureReasonErrorKey:failureReason};
+}
+
++ (NSDictionary *)userDataDictWithDescription:(NSString *)description failureReason:(NSString *)failureReason currentDict:(NSDictionary *)currentDict {
+    NSMutableDictionary *mutableDict = [currentDict mutableCopy];
+    if (description) {
+        mutableDict[NSLocalizedDescriptionKey] = description;
+    }
+    if (failureReason) {
+        mutableDict[NSLocalizedFailureReasonErrorKey] = failureReason;
+    }
+    return [mutableDict copy];
 }
 
 @end
