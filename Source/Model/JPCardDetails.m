@@ -30,7 +30,7 @@
 
 @end
 
-@implementation JPCardDetails
+@implementation JPCardDetails : NSObject
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
 	self = [super init];
@@ -56,6 +56,24 @@
         self.cardNumber = cardNumber;
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    if (self = [super init]) {
+        self.cardLastFour = (NSString*)[decoder decodeObjectForKey:@"cardLastFour"];
+        self.endDate = (NSString*)[decoder decodeObjectForKey:@"endDate"];
+        self.cardToken = (NSString*)[decoder decodeObjectForKey:@"cardToken"];
+        self.cardNetwork = [decoder decodeInt64ForKey:@"cardNetwork"];
+        self.cardNumber = nil;
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.cardLastFour forKey:@"cardLastFour"];
+    [encoder encodeObject:self.endDate forKey:@"endDate"];
+    [encoder encodeObject:self.cardToken forKey:@"cardToken"];
+    [encoder encodeInt64:self.cardNetwork forKey:@"cardNetwork"];
 }
 
 - (nullable NSString *)formattedCardLastFour {
