@@ -30,7 +30,7 @@
 
 @end
 
-@implementation JPCardDetails : NSObject
+@implementation JPCardDetails
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
 	self = [super init];
