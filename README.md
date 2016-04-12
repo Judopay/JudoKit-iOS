@@ -277,17 +277,60 @@ The following parameters can be accessed through `judoKitSession.theme`.
 #### Colors
 
 ```objc
-- (nonnull UIColor *)judoDarkGrayColor;
-- (nonnull UIColor *)judoInputFieldTextColor;
-- (nonnull UIColor *)judoLightGrayColor;
-- (nonnull UIColor *)judoInputFieldBorderColor;
-- (nonnull UIColor *)judoContentViewBackgroundColor;
-- (nonnull UIColor *)judoButtonColor;
-- (nonnull UIColor *)judoButtonTitleColor;
-- (nonnull UIColor *)judoLoadingBackgroundColor;
-- (nonnull UIColor *)judoRedColor;
-- (nonnull UIColor *)judoLoadingBlockViewColor;
-- (nonnull UIColor *)judoInputFieldBackgroundColor;
+/**
+ *  Dark gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoDarkGrayColor;
+
+/**
+ *  Dark gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldTextColor;
+
+/**
+ *  Light gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLightGrayColor;
+
+/**
+ *  Light gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBorderColor;
+
+/**
+ *  Gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoContentViewBackgroundColor;
+
+/**
+ *  Button color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonColor;
+
+/**
+ *  Button title color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonTitleColor;
+
+/**
+ *  Background color of the loadingView
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBackgroundColor;
+
+/**
+ *  Red color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoRedColor;
+
+/**
+ *  Loading block color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBlockViewColor;
+
+/**
+ *  Input field background color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBackgroundColor;
 ```
 
 #### General settings
