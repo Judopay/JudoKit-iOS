@@ -128,9 +128,14 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 }
 
 + (NSDictionary *)userDataDictWithDescription:(NSString*)description failureReason:(NSString*)failureReason {
-    NSString *errorDescription = (description) ? description : @"";
-    NSString *failureDescription = (failureReason) ? failureReason : @"";
-    return @{NSLocalizedDescriptionKey:errorDescription, NSLocalizedFailureReasonErrorKey:failureDescription};
+    NSMutableDictionary *mutableDict = [NSMutableDictionary new];
+    if (description) {
+        mutableDict[NSLocalizedDescriptionKey] = description;
+    }
+    if (failureReason) {
+        mutableDict[NSLocalizedFailureReasonErrorKey] = failureReason;
+    }
+    return [mutableDict copy];
 }
 
 + (NSDictionary *)userDataDictWithDescription:(NSString *)description failureReason:(NSString *)failureReason currentDict:(NSDictionary *)currentDict {
