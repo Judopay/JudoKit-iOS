@@ -252,21 +252,15 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 ## Card acceptance configuration
 
-judoKit is capable of detecting and accepting a huge array of Card Networks. An array of Card Networks defines a specific acceptance signature. This is used as shown below.
+judoKit is capable of detecting and accepting a huge array of Card Networks. An array of Card Networks defines a specific acceptance signature. This is used as shown below:
 
-- The default value for accepted Card Networks are Visa and MasterCard:
+- The default values for accepted Card Networks are Amex, Visa, MasterCard and Maestro:
 
-```obj
+```objc
 _acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard), @(CardNetworkAMEX), @(CardNetworkMaestro)];
 ```
 
-- In case you want to add the capability of accepting AMEX you need to add the following:
-
-```objc
-self.judoKitSession.theme.acceptedCardNetworks = @[@(CardNetworkVisa), @(CardNetworkMasterCard)];
-```
-
-- Any other card configuration that is available can be added for the UI to accept the specific Card Networks. **BE AWARE** you do need to configure your account with judo for any other Card Network transactions to be processed successfully.
+- Any other card configuration that is available can be added, so the UI can accept the specific Card Network desired. **BE AWARE** you do need contact judo to configure your account for any other Card Network transactions to be processed successfully.
 
 ## Customizing payment page theme
 
