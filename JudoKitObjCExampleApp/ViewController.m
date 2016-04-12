@@ -28,8 +28,8 @@
 #import "JudoKitObjC.h"
 
 #pragma warning "set your own token and secret to see testing results"
-static NSString * const token   = @"<#YOUR TOKEN#>";
-static NSString * const secret  = @"<#YOUR SECRET#>";
+static NSString * const token   = @"IyGSVaX95rLnHezA";
+static NSString * const secret  = @"5966138d04096fc7dec26aa774fbca631bf1a52e2e7c8374b14d1666960dc5f8";
 
 typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentPayment,
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentTokenPreAuth
 };
 
-static NSString * const judoID              = @"<#YOUR JUDO-ID#>";
+static NSString * const judoID              = @"100040708";
 static NSString * const tokenPayReference   = @"<#YOUR REFERENCE#>";
 
 static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
@@ -73,7 +73,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     self.currentCurrency = @"GBP";
     
     // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-    self.judoKitSession.apiSession.sandboxed = YES;
+//    self.judoKitSession.apiSession.sandboxed = YES;
     
     self.judoKitSession.theme.showSecurityMessage = YES;
     
