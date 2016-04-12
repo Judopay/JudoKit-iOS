@@ -180,8 +180,6 @@
 
 - (void)initiateAndShow:(JudoPayViewController *)viewController {
     viewController.theme = self.theme;
-//    viewController.view.cardInputField.textField.text = cardDetails.cardNumber;
-//    viewController.view.expiryDateInputField.textField.text = cardDetails.formattedExpiryDate;
     [self showViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
 }
 
