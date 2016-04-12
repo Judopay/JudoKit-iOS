@@ -35,7 +35,7 @@
 		3B4EB4001C982A25006265A0 /* TokenPreAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3F11C982A25006265A0 /* TokenPreAuthTests.swift */; };
 		3B4EB4011C982A25006265A0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3F21C982A25006265A0 /* TransactionTests.swift */; };
 		3B4EB4021C982A25006265A0 /* VoidTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3F31C982A25006265A0 /* VoidTransactionTests.swift */; };
-		3B5362951C7CBD3F00CEBAE2 /* JudoPayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362931C7CBD3F00CEBAE2 /* JudoPayViewController.h */; };
+		3B5362951C7CBD3F00CEBAE2 /* JudoPayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362931C7CBD3F00CEBAE2 /* JudoPayViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B5362961C7CBD3F00CEBAE2 /* JudoPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362941C7CBD3F00CEBAE2 /* JudoPayViewController.m */; };
 		3B53629A1C7CBD7000CEBAE2 /* HintLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5362981C7CBD7000CEBAE2 /* HintLabel.h */; };
 		3B53629B1C7CBD7000CEBAE2 /* HintLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5362991C7CBD7000CEBAE2 /* HintLabel.m */; };
