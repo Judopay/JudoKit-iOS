@@ -180,6 +180,7 @@
 
 - (void)initiateAndShow:(JudoPayViewController *)viewController {
     viewController.theme = self.theme;
+    self.activeViewController = viewController;
     [self showViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
 }
 
