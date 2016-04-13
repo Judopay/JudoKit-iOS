@@ -221,13 +221,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.theme.backButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
     self.navigationItem.rightBarButtonItem = self.paymentNavBarButton;
     
-    self.navigationController.navigationBar.tintColor = self.theme.judoDarkGrayColor;
+    self.navigationController.navigationBar.tintColor = self.theme.judoTextColor;
     
     if (![self.theme.tintColor colorMode]) {
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     }
     
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.theme.judoTextColor};
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -673,9 +673,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         _securityMessageLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _securityMessageLabel.numberOfLines = 0;
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"Secure server: " attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:self.theme.securityMessageTextSize]}];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"Secure server: " attributes:@{NSForegroundColorAttributeName:self.theme.judoTextColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:self.theme.securityMessageTextSize]}];
         
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:self.theme.securityMessageString attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor, NSFontAttributeName:[UIFont systemFontOfSize:self.theme.securityMessageTextSize]}]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:self.theme.securityMessageString attributes:@{NSForegroundColorAttributeName:self.theme.judoTextColor, NSFontAttributeName:[UIFont systemFontOfSize:self.theme.securityMessageTextSize]}]];
         
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.alignment = NSTextAlignmentJustified;
@@ -717,7 +717,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - JudoPayInputDelegate
 
 - (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error {
-    [input errorAnimation:(error.code != JudoErrorInvalidCardNumberError)];
+    [input errorAnimation:(error.code == JudoErrorInvalidCardNumberError)];
     if (error.userInfo[NSLocalizedDescriptionKey]) {
         [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
     }

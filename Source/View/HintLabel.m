@@ -33,7 +33,7 @@
 }
 
 - (void)showHint:(NSString *)hint {
-    self.hintText = [[NSAttributedString alloc] initWithString:hint attributes:@{NSForegroundColorAttributeName:self.theme.judoDarkGrayColor}];
+    self.hintText = [[NSAttributedString alloc] initWithString:hint attributes:@{NSForegroundColorAttributeName:self.theme.judoTextColor}];
     if (self.alertText == nil) {
         [self addAnimation];
         

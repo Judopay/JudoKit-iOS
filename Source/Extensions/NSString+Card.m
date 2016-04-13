@@ -59,9 +59,28 @@ static NSString const * discoverPrefixes = @"65,6011,644,645,646,647,648,649,622
     // make sure to only check for the allowed networks
     CardNetwork network = self.cardNetwork;
     
+    BOOL networkAccepted = NO;
+    
+    for (NSNumber *networkNumber in networks) {
+        if (network == networkNumber.integerValue) {
+            networkAccepted = YES;
+            break;
+        }
+    }
+    
+    if (!networkAccepted && network != CardNetworkUnknown) {
+        *error = [NSError judoInputMismatchErrorWithMessage:[NSString stringWithFormat:@"We do not accept %@", [JPCardDetails titleForCardNetwork:network]]];
+        return nil;
+    }
+    
     // Only try to format if a specific card number has been recognized
     if (network == CardNetworkUnknown) {
         return strippedString;
+    }
+    
+    if (network == CardNetworkAMEX && strippedString.length > 15) {
+        *error = [NSError judoInputMismatchErrorWithMessage:@"Check card number"];
+        return nil;
     }
     
     NSString *patternString = [self patternStringFromString:strippedString withCardNetwork:network];

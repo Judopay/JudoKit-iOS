@@ -164,9 +164,9 @@
     return _tintColor;
 }
 
-- (UIColor *)judoDarkGrayColor {
-    if (_judoDarkGrayColor) {
-        return _judoDarkGrayColor;
+- (UIColor *)judoTextColor {
+    if (_judoTextColor) {
+        return _judoTextColor;
     }
     UIColor *dgc = [UIColor colorWithRed:75/255.0f green:75/255.0f blue:75/255.0f alpha:1.0f];
     if ([self.tintColor colorMode]) {
@@ -180,9 +180,9 @@
     return _judoInputFieldTextColor ? _judoInputFieldTextColor : [UIColor colorWithRed:75/255.0f green:75/255.0f blue:75/255.0f alpha:1.0f];
 }
 
-- (UIColor *)judoLightGrayColor {
-    if (_judoLightGrayColor) {
-        return _judoLightGrayColor;
+- (UIColor *)judoPlaceholderTextColor {
+    if (_judoPlaceholderTextColor) {
+        return _judoPlaceholderTextColor;
     }
     UIColor *lgc = [UIColor colorWithRed:180/255.0f green:180/255.0f blue:180/255.0f alpha:1.0];
     if ([self.tintColor colorMode]) {
@@ -231,8 +231,8 @@
     }
 }
 
-- (UIColor *)judoRedColor {
-    return _judoRedColor ? _judoRedColor : [UIColor colorWithRed:235/255.0f green:55/255.0f blue:45/255.0f alpha:1.0];
+- (UIColor *)judoErrorColor {
+    return _judoErrorColor ? _judoErrorColor : [UIColor colorWithRed:235/255.0f green:55/255.0f blue:45/255.0f alpha:1.0];
 }
 
 - (UIColor *)judoLoadingBlockViewColor {

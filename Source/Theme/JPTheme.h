@@ -142,52 +142,52 @@
 #pragma mark - Colors
 
 /**
- *  Dark gray color
+ *  The default text color
  */
-@property (nonatomic, strong) UIColor * _Nonnull judoDarkGrayColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoTextColor;
 
 /**
- *  Dark gray color
+ *  The color that is used for active input fields
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoInputFieldTextColor;
 
 /**
- *  Light gray color
+ *  The color that is used for the placeholders of the input fields
  */
-@property (nonatomic, strong) UIColor * _Nonnull judoLightGrayColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoPlaceholderTextColor;
 
 /**
- *  Light gray color
+ *  The color that is used for the border color of the input fields
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBorderColor;
 
 /**
- *  Gray color
+ *  The background color of the contentView
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoContentViewBackgroundColor;
 
 /**
- *  Button color
+ *  The button color
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoButtonColor;
 
 /**
- *  Button title color
+ *  The title color of the button
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoButtonTitleColor;
 
 /**
- *  Background color of the loadingView
+ *  The background color of the loadingView
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoLoadingBackgroundColor;
 
 /**
- *  Red color
+ *  The color that is used when an error occurs during entry
  */
-@property (nonatomic, strong) UIColor * _Nonnull judoRedColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoErrorColor;
 
 /**
- *  Loading block color
+ *  The color of the block that is shown when something is loading
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoLoadingBlockViewColor;
 

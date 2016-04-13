@@ -33,9 +33,17 @@
 #import "JPTheme.h"
 #import "CardLogoView.h"
 
+@interface CardInputField ()
+
+@property (nonatomic, strong) UITextRange *currentTextRange;
+
+@end
+
 @implementation CardInputField
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    self.currentTextRange = textField.selectedTextRange;
     
     NSString *oldString = textField.text;
     NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
@@ -103,7 +111,7 @@
 }
 
 - (NSAttributedString *)placeholder {
-    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoLightGrayColor}];
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoPlaceholderTextColor}];
 }
 
 - (BOOL)containsLogo {

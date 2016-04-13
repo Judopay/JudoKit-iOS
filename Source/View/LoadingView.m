@@ -65,7 +65,7 @@
     
     self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor;
     self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    self.actionLabel.textColor = self.theme.judoDarkGrayColor;
+    self.actionLabel.textColor = self.theme.judoTextColor;
     
     self.blockView.clipsToBounds = true;
     self.blockView.layer.cornerRadius = 5.0f;
@@ -105,7 +105,7 @@
     _theme = theme;
     self.backgroundColor = self.theme.judoLoadingBackgroundColor;
     self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor;
-    self.actionLabel.textColor = self.theme.judoDarkGrayColor;
+    self.actionLabel.textColor = self.theme.judoTextColor;
 }
 
 #pragma mark - Lazy Loading
