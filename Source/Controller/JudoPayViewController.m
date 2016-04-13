@@ -717,7 +717,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - JudoPayInputDelegate
 
 - (void)cardInput:(CardInputField *)input didFailWithError:(NSError *)error {
-    [input errorAnimation:(error.code != JudoErrorInvalidCardNumberError)];
+    [input errorAnimation:(error.code == JudoErrorInvalidCardNumberError)];
     if (error.userInfo[NSLocalizedDescriptionKey]) {
         [self showAlertOnHintLabel:error.userInfo[NSLocalizedDescriptionKey]];
     }
