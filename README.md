@@ -126,24 +126,6 @@ $ git submodule update --init --recursive
 
 ### [Further setup](https://github.com/JudoPay/JudoKitObjC/wiki/Making-a-Payment#setup)
 
-- Add `#import "JudoKitObjC.h"` to the top of the file where you want to use the SDK.
-
-- You can set your key and secret here when initializing the session:
-
-```objc
-// initialize the SDK by setting it up with a token and a secret
-self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
-```
-
-- To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
-
-```objc
-// setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-self.judoKitSession.apiSession.sandboxed = YES;
-```
-
-- When you are ready to go live you can remove this line.
-
 #### Make a simple Payment
 
 ```objc
