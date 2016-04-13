@@ -11,6 +11,7 @@ import XCTest
 class ErrorMessageContentsTests: JudoTestCase {
     
     let UnableToProcessRequestErrorDesc = "Sorry, we're currently unable to process this request.";
+    let UnableToProcessRequestErrorTitle = "Unable to process";
     
     let ErrorRequestFailed = "The request responded without data";
     let ErrorPaymentMethodMissing = "The payment method (card details, token or PKPayment) has not been set for a transaction that requires it (custom UI)";
@@ -21,6 +22,8 @@ class ErrorMessageContentsTests: JudoTestCase {
     let ErrorParameterError = "A parameter entered into the dictionary (request body to Judo API) is not set";
     let ErrorFailed3DSRequest = "After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page";
     
+    let JPErrorTitleKey = "JPErrorTitleKey";
+    
     let Error3DSRequest = "Error when routing to 3DS";
     let ErrorUnderlyingError = "An error in the iOS system with an enclosed underlying error";
     let ErrorTransactionDeclined = "A transaction that was sent to the backend returned declined";
@@ -30,9 +33,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitkeKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorRequestFailed);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorRequestFailed)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorPaymentMethodMissing() {
@@ -40,9 +45,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorPaymentMethodMissing);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorPaymentMethodMissing)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorAmountMissing() {
@@ -50,9 +57,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorAmountMissing);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorAmountMissing)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorReferenceMissing() {
@@ -60,9 +69,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorReferenceMissing);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorReferenceMissing)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorResponseParseError() {
@@ -70,9 +81,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorResponseParseError);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorResponseParseError)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorUserDidCancel() {
@@ -80,9 +93,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, "");
-        XCTAssertEqual(devDescription, self.ErrorUserDidCancel);
+        XCTAssertEqual(errorDescription, nil);
+        XCTAssertEqual(devDescription, self.ErrorUserDidCancel)
+        XCTAssertEqual(errorTitle, nil)
     }
     
     func test_ErrorParameterError() {
@@ -90,9 +105,11 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorParameterError);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorParameterError)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
     
     func test_ErrorFailed3DSRequest() {
@@ -100,8 +117,10 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
         
-        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc);
-        XCTAssertEqual(devDescription, self.ErrorFailed3DSRequest);
+        XCTAssertEqual(errorDescription, self.UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, self.ErrorFailed3DSRequest)
+        XCTAssertEqual(errorTitle, self.UnableToProcessRequestErrorTitle)
     }
 }

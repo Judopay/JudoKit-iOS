@@ -28,6 +28,9 @@
 NSString * const JudoErrorDomain = @"com.judo.error";
 
 NSString * const UnableToProcessRequestErrorDesc = @"Sorry, we're currently unable to process this request.";
+NSString * const UnableToProcessRequestErrorTitle = @"Unable to process";
+
+NSString * const JPErrorTitleKey = @"JPErrorTitleKey";
 
 NSString * const ErrorRequestFailed = @"The request responded without data";
 NSString * const ErrorPaymentMethodMissing = @"The payment method (card details, token or PKPayment) has not been set for a transaction that requires it (custom UI)";
@@ -46,7 +49,7 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 
 + (NSError *)judoRequestFailedError {
     // TODO: userInfo,
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorRequestFailed]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorRequestFailed title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoJSONSerializationFailedWithError:(NSError *)error {
@@ -60,17 +63,17 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 
 + (NSError *)judoAmountMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorAmountMissing]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorAmountMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoPaymentMethodMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorPaymentMethodMissing]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorPaymentMethodMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoReferenceMissingError {
     // TODO: userInfo
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorReferenceMissing]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorReferenceMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoDuplicateTransactionError {
@@ -80,9 +83,9 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 
 + (NSError *)judo3DSRequestFailedErrorWithUnderlyingError:(NSError *)underlyingError {
     if (underlyingError) {
-        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest currentDict:@{NSUnderlyingErrorKey:underlyingError}]];
+        return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest title:UnableToProcessRequestErrorTitle currentDict:@{NSUnderlyingErrorKey:underlyingError}]];
     }
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorFailed3DSRequest userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorFailed3DSRequest title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data {
@@ -92,7 +95,7 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 + (NSError *)judoErrorFromDictionary:(NSDictionary *)dict {
     NSString *messageFromDict = dict[@"message"];
     NSString *errorMessage = messageFromDict != nil ? messageFromDict : UnableToProcessRequestErrorDesc;
-    return [NSError errorWithDomain:JudoErrorDomain code:[dict[@"code"] integerValue] userInfo:[self userDataDictWithDescription:errorMessage failureReason:nil currentDict:dict]];
+    return [NSError errorWithDomain:JudoErrorDomain code:[dict[@"code"] integerValue] userInfo:[self userDataDictWithDescription:errorMessage failureReason:nil title:UnableToProcessRequestErrorTitle currentDict:dict]];
 }
 
 + (NSError *)judoErrorFromError:(NSError *)error {
@@ -100,11 +103,11 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 }
 
 + (NSError *)judoUserDidCancelError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUserDidCancel userInfo:[self userDataDictWithDescription:nil failureReason:ErrorUserDidCancel]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorUserDidCancel userInfo:[self userDataDictWithDescription:nil failureReason:ErrorUserDidCancel title:nil]];
 }
 
 + (NSError *)judoParameterError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorParameterError]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorParameterError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorParameterError title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoInvalidCardNumberError {
@@ -112,7 +115,7 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 }
 
 + (NSError *)judoResponseParseError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorResponseParseError]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorResponseParseError userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorResponseParseError title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
@@ -127,18 +130,12 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
     }
 }
 
-+ (NSDictionary *)userDataDictWithDescription:(NSString*)description failureReason:(NSString*)failureReason {
-    NSMutableDictionary *mutableDict = [NSMutableDictionary new];
-    if (description) {
-        mutableDict[NSLocalizedDescriptionKey] = description;
-    }
-    if (failureReason) {
-        mutableDict[NSLocalizedFailureReasonErrorKey] = failureReason;
-    }
-    return [mutableDict copy];
++ (NSDictionary *)userDataDictWithDescription:(NSString*)description failureReason:(NSString*)failureReason title:(NSString*)title{
+    NSDictionary *newDict = [NSDictionary new];
+    return [self userDataDictWithDescription:description failureReason:failureReason title:title currentDict:newDict];
 }
 
-+ (NSDictionary *)userDataDictWithDescription:(NSString *)description failureReason:(NSString *)failureReason currentDict:(NSDictionary *)currentDict {
++ (NSDictionary *)userDataDictWithDescription:(NSString *)description failureReason:(NSString *)failureReason title:(NSString*)title currentDict:(NSDictionary *)currentDict {
     NSMutableDictionary *mutableDict = [currentDict mutableCopy];
     if (description) {
         mutableDict[NSLocalizedDescriptionKey] = description;
@@ -146,6 +143,12 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
     if (failureReason) {
         mutableDict[NSLocalizedFailureReasonErrorKey] = failureReason;
     }
+    
+    if(title)
+    {
+        mutableDict[JPErrorTitleKey] = title;
+    }
+    
     return [mutableDict copy];
 }
 
