@@ -147,6 +147,27 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     } completion:nil];
 }
 
+- (void)keyboardWillChangeFrame:(NSNotification *)note {
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+        return; // BAIL
+    }
+    
+    UIViewAnimationCurve animationCurve = [note.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    CGFloat animationDuration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGRect keyboardRect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    _currentKeyboardHeight = keyboardRect.size.height;
+    
+    self.keyboardHeightConstraint.constant = -1 * keyboardRect.size.height + (_paymentEnabled ? 0 : self.paymentButton.bounds.size.height);
+    
+    [self.paymentButton setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:animationDuration delay:0.0 options:animationOptionsWithCurve(animationCurve) animations:^{
+        [self.paymentButton layoutIfNeeded];
+    } completion:nil];
+}
+
 #pragma mark - Initialization
 
 - (instancetype)initWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference transaction:(TransactionType)type currentSession:(JudoKit *)session cardDetails:(JPCardDetails *)cardDetails completion:(JudoCompletionBlock)completion {
@@ -165,8 +186,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
 
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - View Lifecycle
@@ -189,6 +215,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.paymentNavBarButton = [[UIBarButtonItem alloc] initWithTitle:payNavBarButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(payButtonAction:)];
     
     self.paymentNavBarButton.enabled = NO;
+    
+    [self.paymentNavBarButton setTintColor:self.theme.tintColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.theme.backButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
     self.navigationItem.rightBarButtonItem = self.paymentNavBarButton;

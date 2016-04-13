@@ -143,79 +143,57 @@
 
 /**
  *  Dark gray color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoDarkGrayColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoDarkGrayColor;
 
 /**
  *  Dark gray color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoInputFieldTextColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldTextColor;
 
 /**
  *  Light gray color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoLightGrayColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoLightGrayColor;
 
 /**
  *  Light gray color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoInputFieldBorderColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBorderColor;
 
 /**
  *  Gray color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoContentViewBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoContentViewBackgroundColor;
 
 /**
  *  Button color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoButtonColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonColor;
 
 /**
  *  Button title color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoButtonTitleColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonTitleColor;
 
 /**
  *  Background color of the loadingView
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoLoadingBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBackgroundColor;
 
 /**
  *  Red color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoRedColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoRedColor;
 
 /**
  *  Loading block color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoLoadingBlockViewColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBlockViewColor;
 
 /**
  *  Input field background color
- *
- *  @return A UIColor object
  */
-- (nonnull UIColor *)judoInputFieldBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBackgroundColor;
 
 @end

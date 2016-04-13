@@ -124,25 +124,7 @@ $ git submodule update --init --recursive
 - Search for `Framework Search Paths` and add `$(PROJECT_DIR)/JudoKit/JudoShield/Framework`.
 - Search for `Runpath Search Paths` and make sure it contains `@executable_path/Frameworks`.
 
-### Further setup
-
-- Add `#import "JudoKitObjC.h"` to the top of the file where you want to use the SDK.
-
-- You can set your key and secret here when initializing the session:
-
-```objc
-// initialize the SDK by setting it up with a token and a secret
-self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
-```
-
-- To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
-
-```objc
-// setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-self.judoKitSession.apiSession.sandboxed = YES;
-```
-
-- When you are ready to go live you can remove this line.
+### [Further setup](https://github.com/JudoPay/JudoKitObjC/wiki/Making-a-Payment#setup)
 
 #### Make a simple Payment
 
@@ -277,17 +259,60 @@ The following parameters can be accessed through `judoKitSession.theme`.
 #### Colors
 
 ```objc
-- (nonnull UIColor *)judoDarkGrayColor;
-- (nonnull UIColor *)judoInputFieldTextColor;
-- (nonnull UIColor *)judoLightGrayColor;
-- (nonnull UIColor *)judoInputFieldBorderColor;
-- (nonnull UIColor *)judoContentViewBackgroundColor;
-- (nonnull UIColor *)judoButtonColor;
-- (nonnull UIColor *)judoButtonTitleColor;
-- (nonnull UIColor *)judoLoadingBackgroundColor;
-- (nonnull UIColor *)judoRedColor;
-- (nonnull UIColor *)judoLoadingBlockViewColor;
-- (nonnull UIColor *)judoInputFieldBackgroundColor;
+/**
+ *  Dark gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoDarkGrayColor;
+
+/**
+ *  Dark gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldTextColor;
+
+/**
+ *  Light gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLightGrayColor;
+
+/**
+ *  Light gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBorderColor;
+
+/**
+ *  Gray color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoContentViewBackgroundColor;
+
+/**
+ *  Button color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonColor;
+
+/**
+ *  Button title color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoButtonTitleColor;
+
+/**
+ *  Background color of the loadingView
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBackgroundColor;
+
+/**
+ *  Red color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoRedColor;
+
+/**
+ *  Loading block color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoLoadingBlockViewColor;
+
+/**
+ *  Input field background color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBackgroundColor;
 ```
 
 #### General settings

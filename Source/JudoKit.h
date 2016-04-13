@@ -28,6 +28,8 @@
 
 @class JPSession;
 
+@class JudoPayViewController;
+
 @class JPPayment, JPPreAuth, JPRegisterCard, JPTransaction;
 @class JPCollection, JPVoid, JPRefund;
 @class JPReceipt;
@@ -56,6 +58,11 @@
  *  the theme of any judoSession
  */
 @property (nonatomic, strong) JPTheme * _Nonnull theme;
+
+/**
+ *  the currently active and visible viewController instance
+ */
+@property (nonatomic, weak) JudoPayViewController * _Nullable activeViewController;
 
 
 /**

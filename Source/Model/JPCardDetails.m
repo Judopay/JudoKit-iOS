@@ -60,10 +60,10 @@
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
-        self.cardLastFour = (NSString*)[decoder decodeObjectForKey:@"cardLastFour"];
-        self.endDate = (NSString*)[decoder decodeObjectForKey:@"endDate"];
-        self.cardToken = (NSString*)[decoder decodeObjectForKey:@"cardToken"];
-        self.cardNetwork = [decoder decodeInt64ForKey:@"cardNetwork"];
+        self.cardLastFour = [decoder decodeObjectForKey:@"cardLastFour"];
+        self.endDate = [decoder decodeObjectForKey:@"endDate"];
+        self.cardToken = [decoder decodeObjectForKey:@"cardToken"];
+        self.cardNetwork = [decoder decodeIntegerForKey:@"cardNetwork"];
         self.cardNumber = nil;
     }
     return self;
