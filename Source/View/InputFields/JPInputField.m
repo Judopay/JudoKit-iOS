@@ -117,7 +117,7 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             self.redBlock.frame = CGRectMake(0, self.bounds.size.height - 4, self.bounds.size.width, 4.0);
-            self.textField.textColor = self.theme.judoRedColor;
+            self.textField.textColor = self.theme.judoErrorColor;
         } completion:blockAnimation];
     } else {
         blockAnimation(YES);
@@ -141,7 +141,7 @@
     if (self.redBlock.bounds.origin.y < self.bounds.size.height) {
         [UIView animateWithDuration:0.4 animations:^{
             self.redBlock.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 4.0f);
-            self.textField.textColor = self.theme.judoDarkGrayColor;
+            self.textField.textColor = self.theme.judoTextColor;
         } completion:^(BOOL finished) {
             [self layoutIfNeeded];
         }];
@@ -208,7 +208,7 @@
 - (UIView *)redBlock {
     if (!_redBlock) {
         _redBlock = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 48.0f, 0.0f, 0.0f)];
-        _redBlock.backgroundColor = self.theme.judoRedColor;
+        _redBlock.backgroundColor = self.theme.judoErrorColor;
     }
     return _redBlock;
 }
