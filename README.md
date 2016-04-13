@@ -1,3 +1,21 @@
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/JudoKitObjC.svg)](https://img.shields.io/cocoapods/v/JudoKitObjC.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
+[![Platform](https://img.shields.io/cocoapods/p/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
+[![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
+[![Build Status](https://travis-ci.org/JudoPay/JudoKitObjC.svg)](http://travis-ci.org/JudoPay/JudoKitObjC)
+
+# judoKit Objective-C iOS SDK
+
+This is the official judoKit iOS SDK written in Objective-C. It incorporates our mobile specific security toolkit, [judoShield](https://github.com/judopay/judoshield), with additional modules to enable easy native integration of payments. While the JudoKitObjC Framework has Swift annotations, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit) which is written in Swift.
+
+##### **\*\*\*Due to industry-wide security updates, versions below 6.0 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
+
+### What is this project for?
+
+judoKit is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
+
+
 ## Integration
 
 - [CocoaPods](https://github.com/JudoPay/JudoKitObjC/wiki/CocoaPods)
