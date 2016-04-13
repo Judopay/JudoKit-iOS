@@ -124,7 +124,7 @@ $ git submodule update --init --recursive
 - Search for `Framework Search Paths` and add `$(PROJECT_DIR)/JudoKit/JudoShield/Framework`.
 - Search for `Runpath Search Paths` and make sure it contains `@executable_path/Frameworks`.
 
-### Further setup
+### (Further setup)[https://github.com/JudoPay/JudoKitObjC/wiki/Making-a-Payment#setup]
 
 - Add `#import "JudoKitObjC.h"` to the top of the file where you want to use the SDK.
 
