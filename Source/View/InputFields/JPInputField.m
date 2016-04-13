@@ -134,7 +134,8 @@
 }
 
 - (void)setActive:(BOOL)active {
-    self.textField.alpha = active ? 1.0 : 0.5;
+    self.textField.alpha = active ? 1.0f : 0.5f;
+    self.logoContainerView.alpha = active ? 1.0f : 0.5f;
 }
 
 - (void)dismissError {
