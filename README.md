@@ -26,6 +26,8 @@ judoKit is a framework for integrating easy, fast and secure payments inside you
 
 - [Initial Setup](https://github.com/JudoPay/JudoKitObjC/wiki/Initial-Setup)
 - [Configuration](https://github.com/JudoPay/JudoKitObjC/wiki/Configuration)
+- [UI Customization](https://github.com/JudoPay/JudoKitObjC/wiki/UI-Customization)
+- [Theme reference](https://github.com/JudoPay/JudoKitObjC/wiki/Theme-reference)
 
 ## Making a Transaction
 
