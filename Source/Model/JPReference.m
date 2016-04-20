@@ -48,9 +48,16 @@
 }
 
 + (NSString *)generatePaymentReference {
+    NSDateFormatter __block *dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+    });
+    
     NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
-    return [[NSString stringWithFormat:@"%@%@", uuidString, [NSDate date]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
+    return [[NSString stringWithFormat:@"%@%@", uuidString, [dateFormatter stringFromDate:[NSDate date]]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];
 }
 
 @end
