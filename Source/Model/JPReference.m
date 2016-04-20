@@ -48,7 +48,7 @@
 }
 
 + (NSString *)generatePaymentReference {
-    NSDateFormatter __block *dateFormatter;
+    static NSDateFormatter *dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dateFormatter = [NSDateFormatter new];
