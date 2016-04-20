@@ -13,7 +13,7 @@ This is the official judoKit iOS SDK written in Objective-C. It incorporates our
 
 ### What is this project for?
 
-judoKit is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
+judoKit is a framework for integrating easy, fast and secure payments in your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
 
 ## Integration
