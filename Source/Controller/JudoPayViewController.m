@@ -48,7 +48,6 @@
 #import "JPAddress.h"
 
 @import CoreLocation;
-@import JudoShield;
 
 static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCurve curve) {
     UIViewAnimationOptions opt = (UIViewAnimationOptions)curve;
@@ -67,8 +66,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong, readwrite) NSString *judoId;
 @property (nonatomic, strong, readwrite) JPReference *reference;
 
-@property (nonatomic, strong) JudoShield *judoShield;
-@property (nonatomic, assign) CLLocationCoordinate2D currentLocation;
 @property (nonatomic, strong) JPTransaction *pending3DSTransaction;
 @property (nonatomic, strong) NSString *pending3DSReceiptId;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
@@ -243,14 +240,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self.judoShield locationWithCompletion:^(CLLocationCoordinate2D coordinate, NSError * _Nullable error) {
-        if (error) {
-            // silently fail
-        } else if (CLLocationCoordinate2DIsValid(coordinate)) {
-            self.currentLocation = coordinate;
-        }
-    }];
     
     if (self.cardInputField.textField.text.length) {
         [self.securityCodeInputField.textField becomeFirstResponder];
@@ -430,14 +419,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         card.startDate = startDate;
         
         [transaction setCard:card];
-    }
-    
-    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
-        [transaction setLocation:self.currentLocation];
-    }
-    
-    if (self.judoShield.deviceSignal) {
-        [transaction setDeviceSignal:self.judoShield.deviceSignal];
     }
     
     self.pending3DSTransaction = transaction;
