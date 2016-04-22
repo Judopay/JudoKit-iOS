@@ -24,6 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
+@import CoreLocation;
+
 @class JPAmount;
 @class JPResponse;
 @class JPSession;
@@ -47,6 +49,16 @@
  *  The payment reference String for a collection, void or refund
  */
 @property (nonatomic, strong, readonly) NSString * _Nonnull paymentReference;
+
+/**
+ *  Location coordinate for fraud prevention in this transaction
+ */
+@property (nonatomic, assign) CLLocationCoordinate2D location;
+
+/**
+ *  Device identification for this transaction
+ */
+@property (nonatomic, strong) NSDictionary * _Nullable deviceSignal;
 
 /**
  *  Helper method for subclasses to be able to access the dynamic path value

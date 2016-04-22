@@ -24,6 +24,8 @@
 
 #import "JudoKit.h"
 
+#import <JudoShield/JudoShield.h>
+
 #import "JPSession.h"
 #import "JPPayment.h"
 #import "JPPreAuth.h"
@@ -52,6 +54,10 @@
 
 @property (nonatomic, strong, readwrite) JPSession *apiSession;
 
+// deviceDNA for fraud prevention
+@property (nonatomic, strong) JudoShield *judoShield;
+@property (nonatomic, assign) CLLocationCoordinate2D currentLocation;
+
 @end
 
 @implementation JudoKit
@@ -70,6 +76,15 @@
         self.apiSession = [JPSession new];
         
         [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
+        
+        [self.judoShield locationWithCompletion:^(CLLocationCoordinate2D coordinate, NSError * _Nullable error) {
+            if (error) {
+                // silently fail
+            } else if (CLLocationCoordinate2DIsValid(coordinate)) {
+                self.currentLocation = coordinate;
+            }
+        }];
+        
     }
     return self;
 }
@@ -112,6 +127,15 @@
     transaction.amount = amount;
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
+    
+    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
+        [transaction setLocation:self.currentLocation];
+    }
+    
+    if (self.judoShield.deviceSignal) {
+        [transaction setDeviceSignal:self.judoShield.deviceSignal];
+    }
+    
     return transaction;
 }
 
@@ -148,6 +172,15 @@
 - (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount {
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
+    
+    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
+        [transactionProc setLocation:self.currentLocation];
+    }
+    
+    if (self.judoShield.deviceSignal) {
+        [transactionProc setDeviceSignal:self.judoShield.deviceSignal];
+    }
+    
     return transactionProc;
 }
 
@@ -197,6 +230,13 @@
 		_theme = [JPTheme new];
 	}
 	return _theme;
+}
+
+- (JudoShield *)judoShield {
+    if (_judoShield) {
+        _judoShield = [JudoShield new];
+    }
+    return _judoShield;
 }
 
 @end
