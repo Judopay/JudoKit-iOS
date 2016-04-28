@@ -20,9 +20,7 @@ judoKit is a framework for integrating easy, fast and secure payments in your ap
 
 ## Getting started
 
-#### Integration
-
-##### CocoaPods
+### Integrating CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
@@ -49,7 +47,7 @@ $ pod install
 
 - Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file
 
-#### Initial setup
+### Initial setup
 
 - Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
 
@@ -69,7 +67,7 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 - When you are ready to go live you can remove this line.
 
-#### Invoking a payment screen
+### Invoking a payment screen
 
 ```objc
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
