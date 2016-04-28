@@ -250,7 +250,7 @@
 }
 
 - (JudoShield *)judoShield {
-    if (_judoShield) {
+    if (!_judoShield) {
         _judoShield = [JudoShield new];
     }
     return _judoShield;
