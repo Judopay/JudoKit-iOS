@@ -1298,6 +1298,7 @@
 				700523F51CC7882900CC916D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
