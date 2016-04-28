@@ -219,7 +219,24 @@
 
 - (void)showViewController:(UIViewController *)vc {
     vc.modalPresentationStyle = UIModalPresentationFormSheet;
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:vc animated:YES completion:nil];
+    
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    
+    while (rootViewController.presentedViewController) {
+        rootViewController = rootViewController.presentedViewController;
+        
+        if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController *) rootViewController;
+            rootViewController = navigationController.viewControllers.lastObject;
+        }
+        
+        if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+            UITabBarController *tabBarController = (UITabBarController *) rootViewController;
+            rootViewController = tabBarController.selectedViewController;
+        }
+    }
+    
+    [rootViewController presentViewController:vc animated:YES completion:nil];
 }
 
 
