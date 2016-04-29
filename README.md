@@ -17,6 +17,9 @@ Use our UI components for a seamless user experience for card data capture. Mini
 
 judoKit is a framework for integrating easy, fast and secure payments in your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
+## Requirements
+
+This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
 
