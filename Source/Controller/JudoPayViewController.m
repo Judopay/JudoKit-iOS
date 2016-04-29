@@ -366,6 +366,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.cardInputField.isTokenPayment = self.isTokenPayment;
         self.cardInputField.userInteractionEnabled = NO;
         self.expiryDateInputField.userInteractionEnabled = NO;
+        self.cardInputField.textField.secureTextEntry = NO;
     }
 }
 
