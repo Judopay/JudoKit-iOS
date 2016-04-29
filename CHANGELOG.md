@@ -9,9 +9,13 @@ All notable changes to this project will be documented in this file.
 ## [6.0.2](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.0.2)
 TBA
 
+#### Changed
+- Injected card information is now shown with masking the card number.
+
 #### Fixed
 - An issue where deleting the slash in a date input field would result in unexpected behavior.
 - An issue where the sdk would assume a token payment when card details were be injected (eg. by card scanning).
+- An issue where injected card info would not appear correctly.
 
 ---
 

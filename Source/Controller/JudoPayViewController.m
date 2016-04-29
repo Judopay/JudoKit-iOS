@@ -244,7 +244,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [super viewDidAppear:animated];
     
     if (self.cardInputField.textField.text.length) {
-        [self.securityCodeInputField.textField becomeFirstResponder];
+        if (self.cardInputField.cardNetwork == CardNetworkMaestro) {
+            [self.startDateInputField.textField becomeFirstResponder];
+        } else {
+            [self.securityCodeInputField.textField becomeFirstResponder];
+        }
     } else {
         [self.cardInputField.textField becomeFirstResponder];
     }
@@ -411,7 +415,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
             startDate = self.startDateInputField.textField.text;
         }
         
-        JPCard *card = [[JPCard alloc] initWithCardNumber:[self.cardInputField.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""]
+        NSString *cardNumberString = self.cardDetails.cardNumber;
+        
+        if (!cardNumberString) {
+            cardNumberString = [self.cardInputField.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+        
+        JPCard *card = [[JPCard alloc] initWithCardNumber:cardNumberString
                                                expiryDate:self.expiryDateInputField.textField.text
                                                secureCode:self.securityCodeInputField.textField.text];
         
@@ -776,7 +786,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 - (void)judoPayInputDidChangeText:(JPInputField *)input {
     [self showHintAfterDefaultDelay:input];
     BOOL allFieldsValid = NO;
-    allFieldsValid = self.cardInputField.isValid && self.expiryDateInputField.isValid && self.securityCodeInputField.isValid;
+    allFieldsValid = (self.cardDetails.cardNumber.isCardNumberValid || self.cardInputField.isValid) && self.expiryDateInputField.isValid && self.securityCodeInputField.isValid;
     if (self.theme.avsEnabled) {
         allFieldsValid = allFieldsValid && self.postCodeInputField.isValid && self.billingCountryInputField.isValid;
     }

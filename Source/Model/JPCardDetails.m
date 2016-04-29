@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
+#import "NSString+Card.h"
 
 @interface JPCardDetails ()
 
@@ -76,9 +77,18 @@
     [encoder encodeInt64:self.cardNetwork forKey:@"cardNetwork"];
 }
 
+- (CardNetwork)cardNetwork {
+    if (_cardNetwork == CardNetworkUnknown && self.cardNumber) {
+        _cardNetwork = self.cardNumber.cardNetwork;
+    }
+    return _cardNetwork;
+}
+
 - (nullable NSString *)formattedCardLastFour {
-    if (!self.cardLastFour) {
+    if (!self.cardLastFour && !self.cardNumber) {
         return nil;
+    } else if (self.cardNumber) {
+        self.cardLastFour = [self.cardNumber substringFromIndex:self.cardNumber.length - 4];
     }
     
     switch (self.cardNetwork) {
