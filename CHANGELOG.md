@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 ## [6.0.2](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.0.2)
 TBA
 
+#### Added
+- UI Test for Maestro token payment.
+
 #### Changed
 - Injected card information is now shown with masking the card number.
 
