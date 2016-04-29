@@ -62,6 +62,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     CGFloat _currentKeyboardHeight;
 }
 
+@property (nonatomic, readonly) BOOL isTokenPayment;
+
 @property (nonatomic, strong, readwrite) JPAmount *amount;
 @property (nonatomic, strong, readwrite) NSString *judoId;
 @property (nonatomic, strong, readwrite) JPReference *reference;
@@ -356,8 +358,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.cardInputField.textField.text = formattedLastFour;
         self.expiryDateInputField.textField.text = formattedExpiryDate;
         [self updateInputFieldsWithNetwork:[self.cardDetails cardNetwork]];
-        self.securityCodeInputField.isTokenPayment = YES;
-        self.cardInputField.isTokenPayment = YES;
+        self.securityCodeInputField.isTokenPayment = self.isTokenPayment;
+        self.cardInputField.isTokenPayment = self.isTokenPayment;
         self.cardInputField.userInteractionEnabled = NO;
         self.expiryDateInputField.userInteractionEnabled = NO;
     }
@@ -558,6 +560,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 }
 
 #pragma mark - Lazy Loading
+
+- (BOOL)isTokenPayment {
+    return self.paymentToken;
+}
 
 - (UIScrollView *)contentView {
     if (!_contentView) {
