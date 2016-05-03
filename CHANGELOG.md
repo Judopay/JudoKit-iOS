@@ -11,6 +11,7 @@ TBA
 
 #### Added
 - UI Test for Maestro token payment.
+- A feature to initiate input into card and security card textfields with the Apple keyboard instead of 3rd party keyboard providers to ensure user security.
 
 #### Changed
 - Injected card information is now shown with masking the card number.

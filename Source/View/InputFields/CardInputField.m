@@ -33,6 +33,12 @@
 #import "JPTheme.h"
 #import "CardLogoView.h"
 
+@interface JPInputField ()
+
+- (void)setupView;
+
+@end
+
 @interface CardInputField ()
 
 @property (nonatomic, strong) UITextRange *currentTextRange;
@@ -41,9 +47,18 @@
 
 @implementation CardInputField
 
+- (void)setupView {
+    self.textField.secureTextEntry = YES;
+    [super setupView];
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     self.currentTextRange = textField.selectedTextRange;
+    
+    if (string.length > 0 && self.textField.secureTextEntry) {
+        self.textField.secureTextEntry = NO;
+    }
     
     NSString *oldString = textField.text;
     NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
