@@ -30,12 +30,27 @@
 
 #import "NSString+Card.h"
 
+@interface JPInputField ()
+
+- (void)setupView;
+
+@end
+
 @implementation SecurityCodeInputField
+
+- (void)setupView {
+    self.textField.secureTextEntry = YES;
+    [super setupView];
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if (self.textField != textField) {
         return YES;
+    }
+    
+    if (string.length > 0 && self.textField.secureTextEntry) {
+        self.textField.secureTextEntry = NO;
     }
     
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
