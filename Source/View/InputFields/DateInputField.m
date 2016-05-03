@@ -57,19 +57,23 @@
         return [newString isEqualToString:@"0"] || [newString isEqualToString:@"1"];
     } else if (newString.length == 2) {
         
-        if (string.length == 0) {
-            return YES;
-        }
-        
-        if (!string.isNumeric) {
+        if (string.length != 0) {
+            if (string.length == 0) {
+                return YES;
+            }
+            
+            if (!string.isNumeric) {
+                return NO;
+            }
+            
+            if ([newString integerValue] <= 0 || [newString integerValue] > 12) {
+                return NO;
+            }
+            
+            self.textField.text = [newString stringByAppendingString:@"/"];
             return NO;
         }
-        
-        if ([newString integerValue] <= 0 || [newString integerValue] > 12) {
-            return NO;
-        }
-        
-        self.textField.text = [newString stringByAppendingString:@"/"];
+        self.textField.text = [newString substringToIndex:1];
         return NO;
         
     } else if (newString.length == 3) {
