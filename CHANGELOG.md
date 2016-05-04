@@ -12,9 +12,11 @@ TBA
 #### Added
 - UI Test for Maestro token payment.
 - A feature to initiate input into card and security card textfields with the Apple keyboard instead of 3rd party keyboard providers to ensure user security.
+- UI and Integration tests for dedup.
 
 #### Changed
 - Injected card information is now shown with masking the card number.
+- Camel case for 'ID'.
 
 #### Fixed
 - An issue where deleting the slash in a date input field would result in unexpected behavior.
