@@ -32,7 +32,7 @@ class VoidTransactionTests: JudoTestCase {
         let expectation = self.expectationWithDescription("payment expectation")
         
         // Given I have made a pre-authorisation
-        let preAuth = judo.preAuthWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let preAuth = judo.preAuthWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         preAuth.card = validVisaTestCard
         
         preAuth.sendWithCompletion({ (response, error) -> () in
@@ -70,7 +70,7 @@ class VoidTransactionTests: JudoTestCase {
         })
         
         XCTAssertNotNil(preAuth)
-        XCTAssertEqual(preAuth.judoId, myJudoID)
+        XCTAssertEqual(preAuth.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
         

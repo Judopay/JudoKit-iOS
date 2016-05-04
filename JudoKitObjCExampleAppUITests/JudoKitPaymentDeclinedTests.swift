@@ -44,22 +44,22 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         super.tearDown()
     }
     
-    func testVISAPayment() {
+    func testVISAPaymentDeclined() {
         
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("4221690000004963")
+        elementsQuery.secureTextFields["Card number"].typeText("4221690000004963")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CVV2"]
+        let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("125")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["OK"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
@@ -68,22 +68,22 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         button.tap()
     }
     
-    func testMasterCardPayment() {
+    func testMasterCardPaymentDeclined() {
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        let cardNumberTextField = elementsQuery.textFields["Card number"]
+        let cardNumberTextField = elementsQuery.secureTextFields["Card number"]
         cardNumberTextField.typeText("5100000000009074")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvc2TextField = elementsQuery.textFields["CVC2"]
+        let cvc2TextField = elementsQuery.secureTextFields["CVC2"]
         cvc2TextField.typeText("915")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["OK"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
@@ -92,22 +92,22 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         button.tap()
     }
     
-    func testAMEXPayment() {
+    func testAMEXPaymentDeclined() {
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        let cardNumberTextField = elementsQuery.textFields["Card number"]
+        let cardNumberTextField = elementsQuery.secureTextFields["Card number"]
         cardNumberTextField.typeText("340000150358074")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cidTextField = elementsQuery.textFields["CID"]
+        let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("7654")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["OK"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)

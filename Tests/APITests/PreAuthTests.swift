@@ -29,7 +29,7 @@ class PreAuthTests: JudoTestCase {
     
     func testJudoMakeValidPreAuth() {
         // Given I have a Pre-authorization
-        let payment = judo.preAuthWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.preAuthWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         
         // When I provide all the required fields
         payment.card = validVisaTestCard
@@ -47,7 +47,7 @@ class PreAuthTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -55,7 +55,7 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakePreAuthWithoutAmount() {
         // Given I have a Pre-authorization
         // When I do not provide an amount
-        let payment = judo.preAuthWithJudoId(myJudoID, amount: invalidAmount, reference: validReference)
+        let payment = judo.preAuthWithJudoId(myJudoId, amount: invalidAmount, reference: validReference)
         
         payment.card = validVisaTestCard
         
@@ -71,7 +71,7 @@ class PreAuthTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -80,7 +80,7 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakePreAuthWithoutCurrency() {
         // Given I have a Pre-authorization
         // When I do not provide a currency
-        let payment = judo.preAuthWithJudoId(myJudoID, amount: invalidCurrencyAmount, reference: validReference)
+        let payment = judo.preAuthWithJudoId(myJudoId, amount: invalidCurrencyAmount, reference: validReference)
         
         payment.card = validVisaTestCard
         
@@ -96,7 +96,7 @@ class PreAuthTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -105,7 +105,7 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakePreAuthWithoutReference() {
         // Given I have a Pre-authorization
         // When I do not provide a consumer reference
-        let payment = judo.preAuthWithJudoId(myJudoID, amount: oneGBPAmount, reference: invalidReference)
+        let payment = judo.preAuthWithJudoId(myJudoId, amount: oneGBPAmount, reference: invalidReference)
         
         payment.card = validVisaTestCard
         
@@ -121,7 +121,7 @@ class PreAuthTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

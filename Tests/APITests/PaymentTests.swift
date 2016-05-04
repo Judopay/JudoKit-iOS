@@ -31,14 +31,14 @@ class PaymentTests: JudoTestCase {
     func testPayment() {
         let references = JPReference(consumerReference: "consumer0053252")
         let amount = JPAmount(amount: "30", currency: "GBP")
-        let payment = judo.paymentWithJudoId(myJudoID, amount: amount, reference: references)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: amount, reference: references)
         XCTAssertNotNil(payment)
     }
     
     
     func testJudoMakeValidPayment() {
         // Given I have a Payment
-        let payment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         
         // When I provide all the required fields
         payment.card = validVisaTestCard
@@ -56,7 +56,7 @@ class PaymentTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -64,7 +64,7 @@ class PaymentTests: JudoTestCase {
     func testJudoMakePaymentWithoutAmount() {
         // Given I have a Payment
         // When I do not provide an amount
-        let payment = judo.paymentWithJudoId(myJudoID, amount: invalidAmount, reference: validReference)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: invalidAmount, reference: validReference)
         
         payment.card = validVisaTestCard
         
@@ -80,7 +80,7 @@ class PaymentTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -89,7 +89,7 @@ class PaymentTests: JudoTestCase {
     func testJudoMakePaymentWithoutCurrency() {
         // Given I have a Payment
         // When I do not provide a currency
-        let payment = judo.paymentWithJudoId(myJudoID, amount: invalidCurrencyAmount, reference: validReference)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: invalidCurrencyAmount, reference: validReference)
         
         payment.card = validVisaTestCard
         
@@ -105,7 +105,7 @@ class PaymentTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -114,7 +114,7 @@ class PaymentTests: JudoTestCase {
     func testJudoMakePaymentWithoutReference() {
         // Given I have a Payment
         // When I do not provide a consumer reference
-        let payment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: invalidReference)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: invalidReference)
         
         payment.card = validVisaTestCard
         
@@ -130,7 +130,7 @@ class PaymentTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
