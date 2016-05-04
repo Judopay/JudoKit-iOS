@@ -32,7 +32,7 @@ class RefundTests: JudoTestCase {
         let expectation = self.expectationWithDescription("payment expectation")
         
         // Given I have made a payment
-        let preAuth = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let preAuth = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         preAuth.card = validVisaTestCard
         
         preAuth.sendWithCompletion({ (response, error) -> () in
@@ -69,7 +69,7 @@ class RefundTests: JudoTestCase {
         })
         
         XCTAssertNotNil(preAuth)
-        XCTAssertEqual(preAuth.judoId, myJudoID)
+        XCTAssertEqual(preAuth.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
         

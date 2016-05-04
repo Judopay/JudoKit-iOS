@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentTokenPreAuth
 };
 
-static NSString * const judoID              = @"<#YOUR JUDO-ID#>";
+static NSString * const judoId              = @"<#YOUR JUDO-ID#>";
 static NSString * const tokenPayReference   = @"<#YOUR REFERENCE#>";
 
 static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
@@ -199,7 +199,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
     
     
-    [self.judoKitSession invokePayment:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+    [self.judoKitSession invokePayment:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
             if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -226,7 +226,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)preAuthOperation {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
 
-    [self.judoKitSession invokePreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+    [self.judoKitSession invokePreAuth:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
             if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -253,7 +253,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)createCardTokenOperation {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
     
-    [self.judoKitSession invokeRegisterCard:judoID amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+    [self.judoKitSession invokeRegisterCard:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
@@ -276,7 +276,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
 
-        [self.judoKitSession invokeTokenPayment:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
+        [self.judoKitSession invokeTokenPayment:judoId amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
                 if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                     [self dismissViewControllerAnimated:YES completion:nil];
@@ -310,7 +310,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
 
-        [self.judoKitSession invokeTokenPreAuth:judoID amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
+        [self.judoKitSession invokeTokenPreAuth:judoId amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
                 if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                     [self dismissViewControllerAnimated:YES completion:nil];

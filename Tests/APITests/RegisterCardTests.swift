@@ -30,14 +30,14 @@ class RegisterCardTests: JudoTestCase {
     
     
     func testRegisterCard() {
-        let payment = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: validReference)
         XCTAssertNotNil(payment)
     }
     
     
     func testJudoMakeValidRegisterCard() {
         // Given I have a Register Card
-        let payment = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: validReference)
+        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: validReference)
         
         // When I provide all the required fields
         payment.card = validVisaTestCard
@@ -55,7 +55,7 @@ class RegisterCardTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -64,7 +64,7 @@ class RegisterCardTests: JudoTestCase {
     func testJudoMakePaymentWithoutReference() {
         // Given I have a Register Card
         // When I do not provide a consumer reference
-        let payment = judo.registerCardWithJudoId(myJudoID, amount: nil, reference: invalidReference)
+        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: invalidReference)
         
         payment.card = validVisaTestCard
         
@@ -80,7 +80,7 @@ class RegisterCardTests: JudoTestCase {
         })
         
         XCTAssertNotNil(payment)
-        XCTAssertEqual(payment.judoId, myJudoID)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

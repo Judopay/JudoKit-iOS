@@ -120,7 +120,7 @@ class AuthenticationTests: JudoTestCase {
     func testValidTransaction() {
         // Given I have a Transaction
         // And I have a valid judo ID
-        let payment = judo.paymentWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         payment.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("testValidTransaction")

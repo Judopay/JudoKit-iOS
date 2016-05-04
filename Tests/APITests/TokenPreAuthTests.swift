@@ -30,7 +30,7 @@ class TokenPreAuthTests: JudoTestCase {
     func testJudoMakeValidTokenPreAuth() {
         // Given I have an SDK
         // When I provide the required fields
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
@@ -52,7 +52,7 @@ class TokenPreAuthTests: JudoTestCase {
                 payToken.secureCode = self.validVisaTestCard.secureCode
                 
                 // Then I should be able to make a token Pre-authorization
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (data, error) -> () in
                     if let error = error {
@@ -63,7 +63,7 @@ class TokenPreAuthTests: JudoTestCase {
             }
         })
         XCTAssertNotNil(registerCard)
-        XCTAssertEqual(registerCard.judoId, myJudoID)
+        XCTAssertEqual(registerCard.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -71,7 +71,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutToken() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
@@ -82,7 +82,7 @@ class TokenPreAuthTests: JudoTestCase {
             } else {
                 
                 // When I do not provide a card token
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
                 preAuth.sendWithCompletion({ (data, error) -> () in
                     // Then I should receive an error
                     XCTAssertEqual(error!.code, Int(JudoError.ErrorPaymentMethodMissing.rawValue))
@@ -91,7 +91,7 @@ class TokenPreAuthTests: JudoTestCase {
             }
         })
         XCTAssertNotNil(registerCard)
-        XCTAssertEqual(registerCard.judoId, myJudoID)
+        XCTAssertEqual(registerCard.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -99,7 +99,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutReference() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
@@ -120,7 +120,7 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide a consumer reference
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.oneGBPAmount, reference: self.invalidReference)
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (response, error) -> () in
                     XCTAssertNil(response)
@@ -132,7 +132,7 @@ class TokenPreAuthTests: JudoTestCase {
             }
         })
         XCTAssertNotNil(registerCard)
-        XCTAssertEqual(registerCard.judoId, myJudoID)
+        XCTAssertEqual(registerCard.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
@@ -140,7 +140,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutAmount() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoID, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectationWithDescription("token payment expectation")
@@ -161,7 +161,7 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide an amount
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoID, amount: self.invalidCurrencyAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (response, error) -> () in
                     XCTAssertNil(response)
@@ -174,7 +174,7 @@ class TokenPreAuthTests: JudoTestCase {
         })
         // Then
         XCTAssertNotNil(registerCard)
-        XCTAssertEqual(registerCard.judoId, myJudoID)
+        XCTAssertEqual(registerCard.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

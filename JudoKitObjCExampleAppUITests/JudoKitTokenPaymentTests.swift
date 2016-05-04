@@ -21,10 +21,11 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+
 import XCTest
 
 class JudoKitTokenPaymentTests: XCTestCase {
-        
+    
     override func setUp() {
         super.setUp()
         
@@ -49,12 +50,12 @@ class JudoKitTokenPaymentTests: XCTestCase {
         tablesQuery.staticTexts["to be stored for future transactions"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("4976000000003436")
+        elementsQuery.secureTextFields["Card number"].typeText("4976000000003436")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CVV2"]
+        let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
         
         app.buttons["Add card"].tap()
@@ -66,7 +67,9 @@ class JudoKitTokenPaymentTests: XCTestCase {
         waitForExpectationsWithTimeout(15, handler: nil)
         
         tableQuery.tap()
-        cvv2TextField.typeText("452")
+        
+        let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
+        cvv2TextField2.typeText("452")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
@@ -74,7 +77,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(195, handler: nil)
+        waitForExpectationsWithTimeout(15, handler: nil)
         
         button.tap()
     }
@@ -85,7 +88,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         tablesQuery.staticTexts["to be stored for future transactions"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("6759000000005462")
+        elementsQuery.secureTextFields["Card number"].typeText("6759000000005462")
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
@@ -95,7 +98,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         expiryDateTextField.tap()
         expiryDateTextField.typeText("1220")
         
-        let cvvTextField = elementsQuery.textFields["CVV"]
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("789")
         
         app.buttons["Add card"].tap()
@@ -112,7 +115,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         startDateTextField2.tap()
         startDateTextField2.typeText("0107")
         
-        let cvvTextField2 = elementsQuery.textFields["CVV"]
+        let cvvTextField2 = elementsQuery.secureTextFields["CVV"]
         cvvTextField2.tap()
         cvvTextField2.typeText("789")
         
@@ -126,5 +129,4 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         button.tap()
     }
-    
 }
