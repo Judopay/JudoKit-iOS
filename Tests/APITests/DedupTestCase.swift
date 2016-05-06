@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 import XCTest
-@testable import JudoKit
+@testable import JudoKitObjC
 
 class DedupTestCase: JudoTestCase {
 
@@ -49,7 +49,7 @@ class DedupTestCase: JudoTestCase {
                     XCTFail("api call failed with error: \(error)")
                 }
                 XCTAssertNotNil(response)
-                XCTAssertNotNil(response?.first)
+                XCTAssertNotNil(response?.items?.first)
                 expectation.fulfill()
             })
             
@@ -63,39 +63,30 @@ class DedupTestCase: JudoTestCase {
     
     
     func testJudoMakeDeclinedDedupPayment() {
-        do {
-            // Given I have a Payment
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+        // Given I have a Payment
+        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        
+        // When I provide all the required fields
+        payment.card = validVisaTestCard
+        
+        // Then I should be able to make a payment
+        let expectation = self.expectationWithDescription("payment expectation")
+        
+        payment.sendWithCompletion({ (response, error) -> () in
             
-            // When I provide all the required fields
-            payment.card(validVisaTestCard)
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            }
             
-            // Then I should be able to make a payment
-            let expectation = self.expectationWithDescription("payment expectation")
-            
-            try payment.completion({ (response, error) -> () in
-                
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                }
-                
-                do {
-                    try payment.completion({ (response, error) in
-                        XCTFail("api call should have thrown an error")
-                    })
-                    XCTFail("api call should have thrown an error")
-                } catch {
-                    XCTAssertNotNil(error)
-                    expectation.fulfill()
-                }
-                
+            payment.sendWithCompletion({ (response, error) in
+                XCTAssertEqual(Int(JudoError.ErrorDuplicateTransaction.rawValue), error?.code)
+                expectation.fulfill()
             })
             
-            XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoId, myJudoId)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
+        })
+        
+        XCTAssertNotNil(payment)
+        XCTAssertEqual(payment.judoId, myJudoId)
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }

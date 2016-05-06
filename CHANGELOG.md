@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## [6.0.2](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.0.2)
-TBA
+Released on 2016-05-06
 
 #### Added
 - UI Test for Maestro token payment.
@@ -18,10 +18,16 @@ TBA
 - Injected card information is now shown with masking the card number.
 - Camel case for 'ID'.
 
+#### Removed
+- Unused code
+- TODO flags
+
 #### Fixed
 - An issue where deleting the slash in a date input field would result in unexpected behavior.
 - An issue where the sdk would assume a token payment when card details were be injected (eg. by card scanning).
 - An issue where injected card info would not appear correctly.
+- An issue where the wrong error was returned for multiple payments with identical payment reference.
+- Some issues with the UI and integration tests around deduplication.
 
 ---
 

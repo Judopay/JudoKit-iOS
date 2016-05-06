@@ -59,7 +59,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         cvv2TextField.typeText("125")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["Home"]
+        let button = app.buttons["OK"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
@@ -83,7 +83,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         cvc2TextField.typeText("915")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["Home"]
+        let button = app.buttons["OK"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
@@ -107,7 +107,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         cidTextField.typeText("7654")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
-        let button = app.buttons["Home"]
+        let button = app.buttons["OK"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)

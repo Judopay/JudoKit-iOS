@@ -48,7 +48,6 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 @implementation NSError (Judo)
 
 + (NSError *)judoRequestFailedError {
-    // TODO: userInfo,
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorRequestFailed title:UnableToProcessRequestErrorTitle]];
 }
 
@@ -57,27 +56,22 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 }
 
 + (NSError *)judoJudoIdMissingError {
-    // TODO: userInfo
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJudoIdMissing userInfo:@{}];
 }
 
 + (NSError *)judoAmountMissingError {
-    // TODO: userInfo
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorAmountMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorAmountMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoPaymentMethodMissingError {
-    // TODO: userInfo
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorPaymentMethodMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorPaymentMethodMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoReferenceMissingError {
-    // TODO: userInfo
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorReferenceMissing userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorReferenceMissing title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoDuplicateTransactionError {
-    // TODO: userInfo
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorDuplicateTransaction userInfo:@{}];
 }
 

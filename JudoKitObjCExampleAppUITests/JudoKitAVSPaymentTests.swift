@@ -64,7 +64,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
         
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+        let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("TR148PA")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         let button = app.buttons["Home"]
@@ -96,7 +96,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVC2"]
         cvv2TextField.typeText("524")
         
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+        let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("S205EJ")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         let button = app.buttons["Home"]
@@ -128,7 +128,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("3469")
         
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+        let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("NW67BB")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
