@@ -429,10 +429,10 @@
 				3B704A911C89F1A800376773 /* CardInputField.m */,
 				3B704A941C89F1B700376773 /* DateInputField.h */,
 				3B704A951C89F1B700376773 /* DateInputField.m */,
-				3B704A8C1C89F19800376773 /* IssueNumberInputField.h */,
-				3B704A8D1C89F19800376773 /* IssueNumberInputField.m */,
 				3B704A981C89F1C700376773 /* SecurityCodeInputField.h */,
 				3B704A991C89F1C700376773 /* SecurityCodeInputField.m */,
+				3B704A8C1C89F19800376773 /* IssueNumberInputField.h */,
+				3B704A8D1C89F19800376773 /* IssueNumberInputField.m */,
 				3B704A9C1C89F1D600376773 /* PostCodeInputField.h */,
 				3B704A9D1C89F1D600376773 /* PostCodeInputField.m */,
 				3B704AA01C89F1E800376773 /* BillingCountryInputField.h */,
@@ -468,12 +468,12 @@
 		3B678B581C6CE5190001DC2F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3B6991531C8DD841006ED1FB /* Theme */,
-				3B5362921C7CBD2100CEBAE2 /* Controller */,
-				3B678B741C6CE68D0001DC2F /* View */,
-				3B678B731C6CE6500001DC2F /* Extensions */,
 				3B678B711C6CE6190001DC2F /* API */,
 				3B678B701C6CE5F70001DC2F /* Model */,
+				3B678B741C6CE68D0001DC2F /* View */,
+				3B5362921C7CBD2100CEBAE2 /* Controller */,
+				3B678B731C6CE6500001DC2F /* Extensions */,
+				3B6991531C8DD841006ED1FB /* Theme */,
 				3B678B591C6CE5190001DC2F /* JudoKitObjC.h */,
 				3B678B5B1C6CE5190001DC2F /* Info.plist */,
 				3B678BC71C735AB80001DC2F /* JudoKit.h */,
@@ -496,26 +496,26 @@
 		3B678B701C6CE5F70001DC2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */,
-				3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */,
-				3B678B811C6DE2850001DC2F /* JPResponse.h */,
-				3B678B821C6DE2850001DC2F /* JPResponse.m */,
-				3B678B891C6DF9D00001DC2F /* JPAmount.h */,
-				3B678B8A1C6DF9D00001DC2F /* JPAmount.m */,
-				3B678B8D1C6DFF340001DC2F /* JPReference.h */,
-				3B678B8E1C6DFF340001DC2F /* JPReference.m */,
-				3B678B931C6E282B0001DC2F /* JPCard.h */,
-				3B678B941C6E282B0001DC2F /* JPCard.m */,
-				3B678B971C71D9D60001DC2F /* JPPaymentToken.h */,
-				3B678B981C71D9D60001DC2F /* JPPaymentToken.m */,
 				3B9711981C761B9700E9A347 /* JPAddress.h */,
 				3B9711991C761B9700E9A347 /* JPAddress.m */,
-				3BD353C11C77557F0045658A /* JPTransactionData.h */,
-				3BD353C21C77557F0045658A /* JPTransactionData.m */,
-				3BD353C51C7774780045658A /* JPConsumer.h */,
-				3BD353C61C7774780045658A /* JPConsumer.m */,
+				3B678B891C6DF9D00001DC2F /* JPAmount.h */,
+				3B678B8A1C6DF9D00001DC2F /* JPAmount.m */,
+				3B678B931C6E282B0001DC2F /* JPCard.h */,
+				3B678B941C6E282B0001DC2F /* JPCard.m */,
 				3BD353C91C77803F0045658A /* JPCardDetails.h */,
 				3BD353CA1C77803F0045658A /* JPCardDetails.m */,
+				3BD353C51C7774780045658A /* JPConsumer.h */,
+				3BD353C61C7774780045658A /* JPConsumer.m */,
+				3B678B7D1C6DE0FA0001DC2F /* JPPagination.h */,
+				3B678B7E1C6DE0FA0001DC2F /* JPPagination.m */,
+				3B678B971C71D9D60001DC2F /* JPPaymentToken.h */,
+				3B678B981C71D9D60001DC2F /* JPPaymentToken.m */,
+				3B678B8D1C6DFF340001DC2F /* JPReference.h */,
+				3B678B8E1C6DFF340001DC2F /* JPReference.m */,
+				3B678B811C6DE2850001DC2F /* JPResponse.h */,
+				3B678B821C6DE2850001DC2F /* JPResponse.m */,
+				3BD353C11C77557F0045658A /* JPTransactionData.h */,
+				3BD353C21C77557F0045658A /* JPTransactionData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -523,26 +523,26 @@
 		3B678B711C6CE6190001DC2F /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3B678BA71C7327040001DC2F /* JPCollection.h */,
-				3B678BA81C7327040001DC2F /* JPCollection.m */,
-				3B678B9B1C7326C00001DC2F /* JPPayment.h */,
-				3B678B9C1C7326C00001DC2F /* JPPayment.m */,
-				3B678B9F1C7326D30001DC2F /* JPPreAuth.h */,
-				3B678BA01C7326D30001DC2F /* JPPreAuth.m */,
-				3B678BB31C7327410001DC2F /* JPReceipt.h */,
-				3B678BB41C7327410001DC2F /* JPReceipt.m */,
-				3B678BAB1C7327160001DC2F /* JPRefund.h */,
-				3B678BAC1C7327160001DC2F /* JPRefund.m */,
-				3B678BA31C7326F10001DC2F /* JPRegisterCard.h */,
-				3B678BA41C7326F10001DC2F /* JPRegisterCard.m */,
 				3B678B751C6CE7770001DC2F /* JPSession.h */,
 				3B678B761C6CE7770001DC2F /* JPSession.m */,
 				3B678B851C6DF6130001DC2F /* JPTransaction.h */,
 				3B678B861C6DF6130001DC2F /* JPTransaction.m */,
-				3B678BAF1C7327270001DC2F /* JPVoid.h */,
-				3B678BB01C7327270001DC2F /* JPVoid.m */,
+				3B678B9B1C7326C00001DC2F /* JPPayment.h */,
+				3B678B9C1C7326C00001DC2F /* JPPayment.m */,
+				3B678B9F1C7326D30001DC2F /* JPPreAuth.h */,
+				3B678BA01C7326D30001DC2F /* JPPreAuth.m */,
+				3B678BA31C7326F10001DC2F /* JPRegisterCard.h */,
+				3B678BA41C7326F10001DC2F /* JPRegisterCard.m */,
 				3B678BB71C7331280001DC2F /* JPTransactionProcess.h */,
 				3B678BB81C7331280001DC2F /* JPTransactionProcess.m */,
+				3B678BA71C7327040001DC2F /* JPCollection.h */,
+				3B678BA81C7327040001DC2F /* JPCollection.m */,
+				3B678BAF1C7327270001DC2F /* JPVoid.h */,
+				3B678BB01C7327270001DC2F /* JPVoid.m */,
+				3B678BAB1C7327160001DC2F /* JPRefund.h */,
+				3B678BAC1C7327160001DC2F /* JPRefund.m */,
+				3B678BB31C7327410001DC2F /* JPReceipt.h */,
+				3B678BB41C7327410001DC2F /* JPReceipt.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -550,20 +550,20 @@
 		3B678B731C6CE6500001DC2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3B678B791C6DD8800001DC2F /* NSError+Judo.h */,
-				3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */,
-				3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */,
-				3B6991621C8F26FE006ED1FB /* NSTimer+Blocks.m */,
-				3B5AFC071C9079E600DABB4C /* NSString+TextDirection.h */,
-				3B5AFC081C9079E600DABB4C /* NSString+TextDirection.m */,
 				3B6912CF1C93179100367660 /* NSArray+Prefix.h */,
 				3B6912D01C93179100367660 /* NSArray+Prefix.m */,
-				3B6912DC1C96BFED00367660 /* NSString+Card.h */,
-				3B6912DD1C96BFED00367660 /* NSString+Card.m */,
-				3B4EB38F1C981511006265A0 /* UIColor+Judo.h */,
-				3B4EB3901C981511006265A0 /* UIColor+Judo.m */,
 				3B69D5E61C99A7550075FFD8 /* NSDate+Judo.h */,
 				3B69D5E71C99A7550075FFD8 /* NSDate+Judo.m */,
+				3B678B791C6DD8800001DC2F /* NSError+Judo.h */,
+				3B678B7A1C6DD8800001DC2F /* NSError+Judo.m */,
+				3B6912DC1C96BFED00367660 /* NSString+Card.h */,
+				3B6912DD1C96BFED00367660 /* NSString+Card.m */,
+				3B5AFC071C9079E600DABB4C /* NSString+TextDirection.h */,
+				3B5AFC081C9079E600DABB4C /* NSString+TextDirection.m */,
+				3B6991611C8F26FE006ED1FB /* NSTimer+Blocks.h */,
+				3B6991621C8F26FE006ED1FB /* NSTimer+Blocks.m */,
+				3B4EB38F1C981511006265A0 /* UIColor+Judo.h */,
+				3B4EB3901C981511006265A0 /* UIColor+Judo.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -571,15 +571,15 @@
 		3B678B741C6CE68D0001DC2F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B5362B01C7CBE9B00CEBAE2 /* InputFields */,
 				3B5AFC0B1C90925300DABB4C /* CardLogoView.h */,
 				3B5AFC0C1C90925300DABB4C /* CardLogoView.m */,
-				3B5362B01C7CBE9B00CEBAE2 /* InputFields */,
 				3B5362981C7CBD7000CEBAE2 /* HintLabel.h */,
 				3B5362991C7CBD7000CEBAE2 /* HintLabel.m */,
-				3B5362A01C7CBD9000CEBAE2 /* LoadingView.h */,
-				3B5362A11C7CBD9000CEBAE2 /* LoadingView.m */,
 				3B5362A41C7CBE4A00CEBAE2 /* JP3DSWebView.h */,
 				3B5362A51C7CBE4A00CEBAE2 /* JP3DSWebView.m */,
+				3B5362A01C7CBD9000CEBAE2 /* LoadingView.h */,
+				3B5362A11C7CBD9000CEBAE2 /* LoadingView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -599,6 +599,7 @@
 				3B4EB3E51C982A25006265A0 /* AuthenticationTests.swift */,
 				3B4EB3E61C982A25006265A0 /* CollectionTests.swift */,
 				3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */,
+				703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */,
 				3B4EB3E71C982A25006265A0 /* JudoTestCase.swift */,
 				3B4EB3E81C982A25006265A0 /* JudoTests.swift */,
 				3B4EB3E91C982A25006265A0 /* ListTests.swift */,
@@ -611,7 +612,6 @@
 				3B4EB3F11C982A25006265A0 /* TokenPreAuthTests.swift */,
 				3B4EB3F21C982A25006265A0 /* TransactionTests.swift */,
 				3B4EB3F31C982A25006265A0 /* VoidTransactionTests.swift */,
-				703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */,
 			);
 			path = APITests;
 			sourceTree = "<group>";
