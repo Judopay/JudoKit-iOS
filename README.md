@@ -5,17 +5,13 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKitObjC.svg)](http://travis-ci.org/JudoPay/JudoKitObjC)
 
-# judoKit Objective-C iOS SDK
+# Judo Objective-C SDK for iOS
 
-This is the official judoKit iOS SDK written in Objective-C. It incorporates our mobile specific security toolkit, [judoShield](https://github.com/judopay/judoshield), with additional modules to enable easy native integration of payments. If you are integrating your app in swift, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit).
+The judo Objective-C SDK is a framework for integrating easy, fast and secure payments inside your app with judo. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in swift, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit).
 
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
 ##### **\*\*\*Due to industry-wide security updates, versions below 6.0 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
-
-### What is this project for?
-
-judoKit is a framework for integrating easy, fast and secure payments in your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
 ## Requirements
 
@@ -54,7 +50,7 @@ $ pod install
 
 - Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
 
-- You can set your key and secret here when initializing the session:
+- You can set your token and secret here when initializing the session:
 
 ```objc
 // initialize the SDK by setting it up with a token and a secret
@@ -90,4 +86,4 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 ## Next steps
 
-JudoKit supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/).
+Judo's Objective-C SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/).
