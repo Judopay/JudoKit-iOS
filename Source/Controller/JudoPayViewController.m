@@ -573,7 +573,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - Lazy Loading
 
 - (BOOL)isTokenPayment {
-    return self.paymentToken;
+    return self.paymentToken != nil;
 }
 
 - (UIScrollView *)contentView {
