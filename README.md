@@ -86,4 +86,4 @@ self.judoKitSession.apiSession.sandboxed = YES;
 
 ## Next steps
 
-Judo's Objective-C SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/).
+Judo's Objective-C SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/) or [API reference](https://judopay.github.io/JudoKitObjC).
