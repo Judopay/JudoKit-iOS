@@ -40,7 +40,7 @@ class DedupTestCase: JudoTestCase {
                 XCTFail("api call failed with error: \(error)")
             }
             
-            let payment2 = self.judo.paymentWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: JPReference(consumerReference: "consumer reference"))
+            let payment2 = self.judo.paymentWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: JPReference(consumerReference: "consumer reference"))
             
             payment2.card = self.validVisaTestCard
             

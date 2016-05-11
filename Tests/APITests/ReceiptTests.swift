@@ -48,9 +48,9 @@ class ReceiptTests: JudoTestCase {
             XCTAssertNotNil(receiptId, "Null receiptId");
             XCTAssertTrue(receiptId?.characters.count != 0, "Empty receiptId")
             XCTAssertNotNil(initialPayment)
-            XCTAssertEqual(initialPayment.judoId, self.myJudoId)
+            XCTAssertEqual(initialPayment.judoId, myJudoId)
             
-            let payment = self.judo.paymentWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+            let payment = self.judo.paymentWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
             XCTAssertNotNil(payment)
             
             self.judo.receipt(receiptId).sendWithCompletion({ (dict, error) -> () in
