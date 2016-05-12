@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/cocoapods/l/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
 [![Platform](https://img.shields.io/cocoapods/p/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
-[![Build Status](https://travis-ci.org/JudoPay/JudoKitObjC.svg)](http://travis-ci.org/JudoPay/JudoKitObjC)
 
 # Judo Objective-C SDK for iOS
 

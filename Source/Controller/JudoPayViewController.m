@@ -346,8 +346,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     
     self.securityMessageTopConstraint = [NSLayoutConstraint constraintWithItem:self.securityMessageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.hintLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0f];
     
-    // -self.hintLabel.bounds.size.height
-    
     self.securityMessageLabel.hidden = !self.theme.showSecurityMessage;
     
     [self.startDateInputField addConstraint:self.maestroFieldsHeightConstraint];
