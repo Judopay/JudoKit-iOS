@@ -361,6 +361,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self updateInputFieldsWithNetwork:self.cardDetails.cardNetwork];
         self.cardInputField.textField.text = self.isTokenPayment ? formattedLastFour : self.cardDetails.cardNumber;
         self.expiryDateInputField.textField.text = formattedExpiryDate;
+        self.cardInputField.textField.alpha = self.isTokenPayment ? 0.5f : 1.0f;
+        self.expiryDateInputField.textField.alpha = self.isTokenPayment ? 0.5f : 1.0f;
         [self updateInputFieldsWithNetwork:[self.cardDetails cardNetwork]];
         self.securityCodeInputField.isTokenPayment = self.isTokenPayment;
         self.cardInputField.isTokenPayment = self.isTokenPayment;
