@@ -1,6 +1,6 @@
 //
 //  CardDetailsSetTests.swift
-//  JudoKit
+//  JudoKitObjCTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -26,8 +26,9 @@ import XCTest
 
 @testable import JudoKitObjC
 
-class CardDetailsSetTests : JudoTestCase{
-    func testCardDetailsMustBePresent(){
+class CardDetailsSetTests : JudoTestCase {
+    
+    func testCardDetailsMustBePresent() {
         let cardDetails = getCardDetails()
         
         let jpvc = getJudoPayViewController(cardDetails, paymentToken: nil)
@@ -39,7 +40,7 @@ class CardDetailsSetTests : JudoTestCase{
         XCTAssertEqual("12/20", expiryDateInputField.textField.text)
     }
     
-    func testCardDetailsMustBeMasked(){
+    func testCardDetailsMustBeMasked() {
         let cardDetails = getCardDetails()
         let paymentToken = getPaymentToken()
         
@@ -52,7 +53,7 @@ class CardDetailsSetTests : JudoTestCase{
         XCTAssertEqual("12/20", expiryDateInputField.textField.text)
     }
     
-    func testCardDetailsMustBeNotPresent(){
+    func testCardDetailsMustBeNotPresent() {
         let paymentToken = getPaymentToken()
         
         let jpvc = getJudoPayViewController(nil, paymentToken: paymentToken)
