@@ -25,7 +25,7 @@
 #import <UIKit/UIKit.h>
 #import "JPTransactionData.h"
 
-@class JudoKit, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView, JPResponse;
+@class JudoKit, JPTransaction, JPTheme, JPAmount, JPReference, JPPaymentToken, JudoPayView, JPResponse;
 
 /**
  *  the JudoPayViewController is the one solution build to guide a user through the journey of entering their card details.
@@ -46,6 +46,11 @@
  *  The transactionType of the current journey
  */
 @property (nonatomic, assign) TransactionType type;
+
+/**
+ *  the object that holds information about the transaction
+ */
+@property (nonatomic, strong, readonly) JPTransaction * _Nonnull transaction;
 
 
 /**
