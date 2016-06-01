@@ -68,7 +68,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong, readwrite) NSString *judoId;
 @property (nonatomic, strong, readwrite) JPReference *reference;
 
-@property (nonatomic, strong) JPTransaction *pending3DSTransaction;
 @property (nonatomic, strong) NSString *pending3DSReceiptId;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 
@@ -91,6 +90,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong, readwrite) JP3DSWebView *threeDSWebView;
 
 @property (nonatomic, assign, readwrite) TransactionType transactionType;
+
+@property (nonatomic, strong, readwrite) JPTransaction *transaction;
 
 @property (nonatomic, strong, readwrite) CardInputField *cardInputField;
 @property (nonatomic, strong, readwrite) DateInputField *expiryDateInputField;
@@ -181,12 +182,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.completionBlock = completion;
         self.cardDetails = cardDetails;
         self.transactionType = type;
+        self.transaction = [self.judoKitSession transactionForType:type judoId:judoId amount:amount reference:reference];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
-
+    
     return self;
 }
 
@@ -393,11 +395,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     
     [self.loadingView startAnimating];
     
-    JPTransaction *transaction = [self.judoKitSession transactionForType:self.type judoId:self.judoId amount:self.amount reference:self.reference];
-    
     if (self.paymentToken) {
         self.paymentToken.secureCode = self.securityCodeInputField.textField.text;
-        [transaction setPaymentToken:self.paymentToken];
+        [self.transaction setPaymentToken:self.paymentToken];
     } else {
         JPAddress *address = nil;
         if (self.theme.avsEnabled) {
@@ -431,12 +431,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         card.issueNumber = issueNumber;
         card.startDate = startDate;
         
-        [transaction setCard:card];
+        [self.transaction setCard:card];
     }
     
-    self.pending3DSTransaction = transaction;
-    
-    [transaction sendWithCompletion:^(JPResponse * response, NSError * error) {
+    [self.transaction sendWithCompletion:^(JPResponse * response, NSError * error) {
         if (error) {
             if (error.domain == JudoErrorDomain && error.code == JudoError3DSRequest) {
                 if (!error.userInfo) {
@@ -833,7 +831,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
             }
             [self.loadingView startAnimating];
             self.title = self.theme.authenticationTitle;
-            [self.pending3DSTransaction threeDSecureWithParameters:results receiptId:self.pending3DSReceiptId completion:^(JPResponse * response, NSError * error) {
+            [self.transaction threeDSecureWithParameters:results receiptId:self.pending3DSReceiptId completion:^(JPResponse * response, NSError * error) {
                 [self.loadingView stopAnimating];
                 if (self.completionBlock) {
                     if (error) {

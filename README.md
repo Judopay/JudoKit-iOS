@@ -34,7 +34,7 @@ $ gem install cocoapods
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-pod 'JudoKitObjC', '~> 6.0'
+pod 'JudoKitObjC', '~> 6.1'
 ```
 
 - Then, run the following command:
