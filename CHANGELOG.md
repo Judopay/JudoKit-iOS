@@ -11,8 +11,8 @@ Released on 2016-06-02
 
 #### Changed
 - Injected card details are not masked and can be changed by the user
-- Transaction gets created at initialization to enable adding and removing custom information
-- Static accessor version number instead of polling due to issue with CocoaPods
+- Transaction gets created at initialization to enable adding and removing of custom information.
+- Statically accessible version number instead of polling for bundle due to an issue with CocoaPods.
 
 ---
 
