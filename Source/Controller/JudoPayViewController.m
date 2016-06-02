@@ -359,7 +359,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         NSString *formattedLastFour = [self.cardDetails formattedCardLastFour];
         NSString *formattedExpiryDate = [self.cardDetails formattedExpiryDate];
         [self updateInputFieldsWithNetwork:self.cardDetails.cardNetwork];
-        self.cardInputField.textField.text = self.isTokenPayment ? formattedLastFour : self.cardDetails.cardNumber;
+        self.cardInputField.textField.text = self.isTokenPayment ? formattedLastFour : [self.cardDetails.cardNumber cardPresentationStringWithAcceptedNetworks:self.theme.acceptedCardNetworks error:nil];
         self.expiryDateInputField.textField.text = formattedExpiryDate;
         self.cardInputField.textField.alpha = self.isTokenPayment ? 0.5f : 1.0f;
         self.expiryDateInputField.textField.alpha = self.isTokenPayment ? 0.5f : 1.0f;

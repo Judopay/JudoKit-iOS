@@ -2,17 +2,17 @@
 All notable changes to this project will be documented in this file.
 'judoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602) | [6.1.0](#610)
+- `6.1.x` Releases - [6.1.0](#610)
+- `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.x` Releases and below are related to the [judo-ObjC SDK](https://github.com/JudoPay/Judo-ObjC)
 
-
 ## [6.1.0](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.1.0)
-TBD
+Released on 2016-06-02
 
 #### Changed
-- Injected card details are not masked and are manipulatable
-- Transaction gets created at initialization to enable adding and removing custom information
-- Static accessor version number instead of polling due to issue with CocoaPods
+- Injected card details are not masked and can be changed by the user
+- Transaction gets created at initialization to enable adding and removing of custom information.
+- Statically accessible version number instead of polling for bundle due to an issue with CocoaPods.
 
 ---
 
