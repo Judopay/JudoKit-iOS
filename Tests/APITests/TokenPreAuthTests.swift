@@ -1,6 +1,6 @@
 //
 //  PreAuthTests.swift
-//  JudoTests
+//  JudoKitObjCTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -52,7 +52,7 @@ class TokenPreAuthTests: JudoTestCase {
                 payToken.secureCode = self.validVisaTestCard.secureCode
                 
                 // Then I should be able to make a token Pre-authorization
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (data, error) -> () in
                     if let error = error {
@@ -82,7 +82,7 @@ class TokenPreAuthTests: JudoTestCase {
             } else {
                 
                 // When I do not provide a card token
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
                 preAuth.sendWithCompletion({ (data, error) -> () in
                     // Then I should receive an error
                     XCTAssertEqual(error!.code, Int(JudoError.ErrorPaymentMethodMissing.rawValue))
@@ -120,7 +120,7 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide a consumer reference
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference)
+                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (response, error) -> () in
                     XCTAssertNil(response)
@@ -161,7 +161,7 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide an amount
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(self.myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
                 preAuth.sendWithCompletion({ (response, error) -> () in
                     XCTAssertNil(response)

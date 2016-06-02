@@ -27,6 +27,7 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "NSError+Judo.h"
+#import "JudoKit.h"
 
 @interface JPSession ()
 
@@ -81,13 +82,8 @@
     [request addValue:@"5.0.0" forHTTPHeaderField:@"API-Version"];
     
     // Adds the version and lang of the SDK to the header
-    NSBundle *currentBundle = [NSBundle bundleWithIdentifier:@"com.judopay.JudoKitObjC"];
-    NSString *version = currentBundle.infoDictionary[@"CFBundleShortVersionString"];
-    
-    if (version) {
-        [request addValue:@"iOS-Version/\(version) lang/(ObjC)" forHTTPHeaderField:@"User-Agent"];
-        [request addValue:@"iOSObjC-\(version)" forHTTPHeaderField:@"Sdk-Version"];
-    }
+    [request addValue:[NSString stringWithFormat:@"iOS-Version/(%@) lang/(ObjC)", JudoKitVersion] forHTTPHeaderField:@"User-Agent"];
+    [request addValue:[NSString stringWithFormat:@"iOSObjC-(%@)", JudoKitVersion] forHTTPHeaderField:@"Sdk-Version"];
     
     NSString *uiClientModeString = @"Judo-SDK";
     
@@ -96,7 +92,6 @@
     }
     
     [request addValue:uiClientModeString forHTTPHeaderField:@"UI-Client-Mode"];
-
     
     // Check if token and secret have been set
     NSAssert(self.authorizationHeader, @"token and secret not set");

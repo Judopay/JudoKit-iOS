@@ -1,6 +1,6 @@
 //
-//  JudoTestCase.swift
-//  JudoKitObjCTests
+//  JudoPayViewControllerTestable.h
+//  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,32 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
-@testable import JudoKitObjC
+@import JudoKitObjC;
 
-class JudoTestCase: XCTestCase {
-    
-    let judo = JudoKit(token: token, secret: secret)
-    
-    let validVisaTestCard = JPCard(cardNumber: "4976000000003436", expiryDate: "12/20", secureCode: "452")
-    let declinedVisaTestCard = JPCard(cardNumber: "4221690000004963", expiryDate: "12/20", secureCode: "125")
-    
-    let oneGBPAmount = JPAmount(amount: "1.00", currency: "GBP")
-    let invalidAmount = JPAmount(amount: "", currency: "GBP")
-    let invalidCurrencyAmount = JPAmount(amount: "1.00", currency: "")
-    
-    let validReference = JPReference(consumerReference: "consumer reference")
-    
-    let invalidReference = JPReference(consumerReference: "")
-    
-    override func setUp() {
-        super.setUp()
-        judo.apiSession.sandboxed = true
-    }
-    
-    override func tearDown() {
-        judo.apiSession.sandboxed = false
-        super.tearDown()
-    }
-    
-}
+@interface JudoPayViewController ()
+
+@property (nonatomic, strong) CardInputField *cardInputField;
+@property (nonatomic, strong) DateInputField *expiryDateInputField;
+
+@end
+

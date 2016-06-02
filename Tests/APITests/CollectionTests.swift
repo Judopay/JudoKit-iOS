@@ -1,6 +1,6 @@
 //
 //  CollectionTests.swift
-//  JudoTests
+//  JudoKitObjCTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
