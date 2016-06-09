@@ -176,6 +176,18 @@
     }
 }
 
+- (UIColor *)judoNavigationBarTitleColor {
+    if (_judoNavigationBarTitleColor) {
+        return _judoNavigationBarTitleColor;
+    }
+    UIColor *dgc = [UIColor colorWithRed:75/255.0f green:75/255.0f blue:75/255.0f alpha:1.0f];
+    if ([self.tintColor colorMode]) {
+        return dgc;
+    } else {
+        return [dgc inverseColor];
+    }
+}
+
 - (UIColor *)judoInputFieldTextColor {
     return _judoInputFieldTextColor ? _judoInputFieldTextColor : [UIColor colorWithRed:75/255.0f green:75/255.0f blue:75/255.0f alpha:1.0f];
 }
