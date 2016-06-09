@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 ## [6.2.1](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.1)
 TBD
 
-#### Changed
+#### Added
 - Added a navigation bar title color to the Theme object.
 
 ---
