@@ -228,7 +228,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     }
     
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.theme.judoTextColor};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.theme.judoNavigationBarTitleColor};
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -147,6 +147,11 @@
 @property (nonatomic, strong) UIColor * _Nonnull judoTextColor;
 
 /**
+ *  The default navigation bar title color
+ */
+@property (nonatomic, strong) UIColor * _Nonnull judoNavigationBarTitleColor;
+
+/**
  *  The color that is used for active input fields
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoInputFieldTextColor;
