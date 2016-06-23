@@ -44,6 +44,7 @@ extern NSString * const JudoErrorDomain;
 + (NSError *)judoParameterError;
 + (NSError *)judoResponseParseError;
 + (NSError *)judoInvalidCardNumberError;
++ (NSError *)judoJailbrokenDeviceDisallowedError;
 + (NSError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
 
 + (NSError *)judoErrorFromTransactionData:(JPTransactionData *)data;
@@ -72,6 +73,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorParameterError,
     JudoErrorResponseParseError,
     JudoErrorInvalidCardNumberError,
+    JudoJailbrokenDeviceDisallowed,
     
     JudoErrorGeneral_Error = 0,
     JudoErrorGeneral_Model_Error = 1,

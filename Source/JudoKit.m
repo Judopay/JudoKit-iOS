@@ -67,7 +67,7 @@
  
  - returns: true if device is jailbroken
  */
-- (bool)isCurrentDeviceJailbroken{
+- (BOOL)isCurrentDeviceJailbroken {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     return [fileManager fileExistsAtPath:@"/private/var/lib/apt/"];
 }
@@ -83,6 +83,11 @@
         //if !allowJailbrokenDevices && isCurrentDeviceJailbroken() {
           //  throw JudoError(.JailbrokenDeviceDisallowedError)
        //}
+        
+        // Check if device is jailbroken and SDK was set to restrict access
+        if (!jailbrokenDevicesAllowed && [self isCurrentDeviceJailbroken]) {
+            
+        }
         
         NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];

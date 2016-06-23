@@ -40,12 +40,17 @@ NSString * const ErrorResponseParseError = @"An error with a response from the b
 NSString * const ErrorUserDidCancel = @"Received when user cancels the payment journey";
 NSString * const ErrorParameterError = @"A parameter entered into the dictionary (request body to Judo API) is not set";
 NSString * const ErrorFailed3DSRequest = @"After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page";
+NSString * const JailbrokenDeviceDisallowed = @"The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session";
 
 NSString * const Error3DSRequest = @"Error when routing to 3DS";
 NSString * const ErrorUnderlyingError = @"An error in the iOS system with an enclosed underlying error";
 NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the backend returned declined";
 
 @implementation NSError (Judo)
+
++ (NSError *)judoJailbrokenDeviceDisallowedError {
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoJailbrokenDeviceDisallowed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:JailbrokenDeviceDisallowed title:UnableToProcessRequestErrorTitle]];
+}
 
 + (NSError *)judoRequestFailedError {
     return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorRequestFailed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:ErrorRequestFailed title:UnableToProcessRequestErrorTitle]];
