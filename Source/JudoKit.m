@@ -62,6 +62,16 @@
 
 @implementation JudoKit
 
+/**
+ A method that checks if the device it is currently running on is jailbroken or not
+ 
+ - returns: true if device is jailbroken
+ */
+- (bool)isCurrentDeviceJailbroken{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [fileManager fileExistsAtPath:@"/private/var/lib/apt/"];
+}
+
 - (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret {
     return [self initWithToken:token secret:secret allowJailbrokenDevices:YES];
 }
@@ -69,6 +79,11 @@
 - (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
     self = [super init];
     if (self) {
+        // Check if device is jailbroken and SDK was set to restrict access
+        //if !allowJailbrokenDevices && isCurrentDeviceJailbroken() {
+          //  throw JudoError(.JailbrokenDeviceDisallowedError)
+       //}
+        
         NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
         NSString *base64String = [plainData base64EncodedStringWithOptions:0];
