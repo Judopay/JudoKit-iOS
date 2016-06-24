@@ -49,7 +49,7 @@ NSString * const ErrorTransactionDeclined = @"A transaction that was sent to the
 @implementation NSError (Judo)
 
 + (NSError *)judoJailbrokenDeviceDisallowedError {
-    return [NSError errorWithDomain:JudoErrorDomain code:JudoJailbrokenDeviceDisallowed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:JailbrokenDeviceDisallowed title:UnableToProcessRequestErrorTitle]];
+    return [NSError errorWithDomain:JudoErrorDomain code:JudoErrorJailbrokenDeviceDisallowed userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc failureReason:JailbrokenDeviceDisallowed title:UnableToProcessRequestErrorTitle]];
 }
 
 + (NSError *)judoRequestFailedError {

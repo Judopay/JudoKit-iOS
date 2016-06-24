@@ -80,7 +80,7 @@
     if (self) {
         
         // Check if device is jailbroken and SDK was set to restrict access.
-        //Self is returned here without setting the token and secret. This will fail later.
+        // self is returned here without setting the token and secret. When the transaction is attempted it will fail citing unset credentials.
         if (!jailbrokenDevicesAllowed && [self isCurrentDeviceJailbroken]) {
             return self;
         }
