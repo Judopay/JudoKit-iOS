@@ -19,6 +19,7 @@ let ErrorResponseParseError = "An error with a response from the backend API"
 let ErrorUserDidCancel = "Received when user cancels the payment journey"
 let ErrorParameterError = "A parameter entered into the dictionary (request body to Judo API) is not set"
 let ErrorFailed3DSRequest = "After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page"
+let ErrorJailbrokenDeviceDisallowed = "The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session";
 
 let JPErrorTitleKey = "JPErrorTitleKey"
 
@@ -121,6 +122,18 @@ class ErrorMessageContentsTests: JudoTestCase {
         
         XCTAssertEqual(errorDescription, UnableToProcessRequestErrorDesc)
         XCTAssertEqual(devDescription, ErrorFailed3DSRequest)
+        XCTAssertEqual(errorTitle, UnableToProcessRequestErrorTitle)
+    }
+    
+    func test_JailbrokenDeviceDisallowedError() {
+        let actual = NSError.judoJailbrokenDeviceDisallowedError();
+        
+        let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
+        let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
+        
+        XCTAssertEqual(errorDescription, UnableToProcessRequestErrorDesc)
+        XCTAssertEqual(devDescription, ErrorJailbrokenDeviceDisallowed)
         XCTAssertEqual(errorTitle, UnableToProcessRequestErrorTitle)
     }
 }
