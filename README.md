@@ -18,33 +18,6 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
 
-### Integrating CocoaPods
-
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
-
-- You can install CocoaPods with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-- Add judo to your `Podfile` to integrate it into your Xcode project:
-
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-
-pod 'JudoKitObjC', '~> 6.1'
-```
-
-- Then, run the following command:
-
-```bash
-$ pod install
-```
-
-- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file
-
 ### Initial setup
 
 - Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
