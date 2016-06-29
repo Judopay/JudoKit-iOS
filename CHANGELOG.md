@@ -13,7 +13,6 @@ Released on 2016-06-29
 #### Added
 - Added a navigation bar title color to the Theme object.
 - SDK now detects if device is jailbroken.
----
 
 ## [6.1.0](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.1.0)
 Released on 2016-06-02
