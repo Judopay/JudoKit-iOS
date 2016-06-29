@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - `5.x` Releases and below are related to the [judo-ObjC SDK](https://github.com/JudoPay/Judo-ObjC)
 
 ## [6.2.1](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.1)
-TBD
+Released on 2016-06-29
 
 #### Added
 - Added a navigation bar title color to the Theme object.
