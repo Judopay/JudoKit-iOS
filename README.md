@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 
-# Judo Objective-C SDK for iOS
+# Judo Objective-C SDK
 
 The judo Objective-C SDK is a framework for integrating easy, fast and secure payments inside your app with judo. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in swift, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit).
 
@@ -18,27 +18,29 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
 
-### Initial setup
+#### 1. Integration
 
-- Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
+Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
 
-- You can set your token and secret here when initializing the session:
+#### 2. Setup
+
+You can set your token and secret here when initializing the session:
 
 ```objc
 // initialize the SDK by setting it up with a token and a secret
 self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
 ```
 
-- To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
+To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
 
 ```objc
 // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
 self.judoKitSession.apiSession.sandboxed = YES;
 ```
 
-- When you are ready to go live you can remove this line.
+When you are ready to go live you can remove this line.
 
-### Invoking a payment screen
+#### 3. Make a payment
 
 ```objc
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"25.0" currency:@"GBP"];
