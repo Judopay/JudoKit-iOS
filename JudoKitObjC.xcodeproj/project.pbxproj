@@ -324,6 +324,7 @@
 		702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailsSetTests.swift; sourceTree = "<group>"; };
 		702804371CE9F7A100150B21 /* JudoPayViewControllerTestable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoPayViewControllerTestable.h; sourceTree = "<group>"; };
 		703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageContentsTests.swift; sourceTree = "<group>"; };
+		70ADDC911D5B54410043D55F /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +374,7 @@
 		3B4EB3991C981EA7006265A0 /* JudoKitObjCExampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				70ADDC911D5B54410043D55F /* ExampleAppCredentials.h */,
 				3B4EB39D1C981EA7006265A0 /* AppDelegate.h */,
 				3B4EB39E1C981EA7006265A0 /* AppDelegate.m */,
 				3B4EB3A01C981EA7006265A0 /* ViewController.h */,
