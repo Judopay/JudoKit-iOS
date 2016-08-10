@@ -92,7 +92,7 @@ class ReceiptTests: JudoTestCase {
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
-                XCTAssertEqual(dict!.items?.count, 5)
+                XCTAssertEqual(dict!.items?.count, 4)
                 XCTAssertEqual(dict!.pagination!.offset, 8)
             }
             expectation.fulfill()
