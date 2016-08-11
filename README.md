@@ -22,7 +22,7 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
 
-If you are integrating using Cocoapods:
+If you are integrating using Cocoapods, follow the steps below (if your integration is based on Carthage, then visit https://github.com/JudoPay/JudoKitObjC/wiki/Carthage. If you are integrating the SDK manually then follow the guide here https://github.com/JudoPay/JudoKitObjC/wiki/Manual-integration):
 
 - You can install CocoaPods with the following command:
 
