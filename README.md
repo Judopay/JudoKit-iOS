@@ -22,6 +22,39 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 Add `#import <JudoKitObjC/JudoKitObjC.h>` to the top of the file where you want to use the SDK.
 
+If you are integrating using Cocoapods:
+
+- You can install CocoaPods with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+- Add judo to your `Podfile` to integrate it into your Xcode project:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+pod 'JudoKitObjC', '~> 6.2'
+```
+
+- Then, run the following command:
+
+```bash
+$ pod install
+```
+
+- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
+
+- In your Xcode environment, go to your `Project Navigator` (blue project icon) called `Pods`, select the `JudoKitObjC` target and open the tab called `Build Phases`.
+- Add a new `Run Script Phase` and drag it above the `Compile Sources` build phase.
+- In the shell script, paste the following line:
+
+```bash
+sh "${SRCROOT}/JudoShield/Framework/strip-frameworks.sh"
+```
+
 #### 2. Setup
 
 You can set your token and secret here when initializing the session:
