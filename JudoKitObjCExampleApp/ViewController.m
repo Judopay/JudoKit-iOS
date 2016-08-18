@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentTokenPreAuth
 };
 
+
 static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate> {
