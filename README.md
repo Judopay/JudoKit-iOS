@@ -45,7 +45,7 @@ pod 'JudoKitObjC', '~> 6.2'
 $ pod install
 ```
 
-- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
+- Please make sure to always **use the newly generated `.xcworkspace`** file not the projects `.xcodeproj` file.
 
 - In your Xcode environment, go to your `Project Navigator` (blue project icon) called `Pods`, select the `JudoKitObjC` target and open the tab called `Build Phases`.
 - Add a new `Run Script Phase` and drag it above the `Compile Sources` build phase.
