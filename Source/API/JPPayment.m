@@ -26,7 +26,7 @@
 
 #import "JPSession.h"
 
-static NSString * const kPaymentPathKey             = @"transactions/payments";
+static NSString * const kPaymentPathKey = @"transactions/payments";
 
 @interface JPTransaction ()
 
