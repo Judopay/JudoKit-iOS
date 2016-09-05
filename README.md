@@ -47,6 +47,17 @@ $ pod install
 
 - Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
 
+- Comment out the lines 84-89 in the strip-frameworks.sh script, located in /JudoShield/Framework/:
+
+```bash
+if [[ "$stripped" != "" ]]; then
+    echo "Stripped $file of architectures:$stripped"
+    if [ "${CODE_SIGNING_REQUIRED}" == "YES" ]; then
+        code_sign "${file}"
+    fi
+fi
+```
+
 - In your Xcode environment, go to your `Project Navigator` (blue project icon) called `Pods`, select the `JudoKitObjC` target and open the tab called `Build Phases`.
 - Add a new `Run Script Phase` and drag it above the `Compile Sources` build phase.
 - In the shell script, paste the following line:
