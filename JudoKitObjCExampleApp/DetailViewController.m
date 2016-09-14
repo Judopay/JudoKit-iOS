@@ -59,7 +59,7 @@
     [super viewWillAppear:animated];
     if (self.transactionData) {
         self.numberFormatter.currencyCode = self.transactionData.amount.currency;
-        self.amountLabel.text = [self.numberFormatter stringFromNumber:@([self.transactionData.amount.amount integerValue])];
+        self.amountLabel.text = [self.numberFormatter stringFromNumber:@([self.transactionData.amount.amount floatValue])];
     }
 }
 

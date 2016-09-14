@@ -45,7 +45,7 @@ pod 'JudoKitObjC', '~> 6.2'
 $ pod install
 ```
 
-- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
+- Please make sure to always **use the newly generated `.xcworkspace`** file not the projects `.xcodeproj` file.
 
 - Comment out the lines 84-89 in the strip-frameworks.sh script, located in /JudoShield/Framework/:
 

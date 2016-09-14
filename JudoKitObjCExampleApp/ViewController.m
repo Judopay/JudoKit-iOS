@@ -24,12 +24,9 @@
 
 #import "ViewController.h"
 #import "DetailViewController.h"
+#import "ExampleAppCredentials.h"
 
 #import "JudoKitObjC.h"
-
-#pragma warning "set your own token and secret to see testing results"
-static NSString * const token   = @"<#YOUR TOKEN#>";
-static NSString * const secret  = @"<#YOUR SECRET#>";
 
 typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentPayment,
@@ -39,8 +36,6 @@ typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentTokenPreAuth
 };
 
-static NSString * const judoId              = @"<#YOUR JUDO-ID#>";
-static NSString * const tokenPayReference   = @"<#YOUR REFERENCE#>";
 
 static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
 
