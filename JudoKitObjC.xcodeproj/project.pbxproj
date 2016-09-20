@@ -777,7 +777,6 @@
 					};
 					3B678B551C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 95V535S6TQ;
 					};
 					3B678B5F1C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
