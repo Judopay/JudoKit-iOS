@@ -7,6 +7,19 @@ All notable changes to this project will be documented in this file.
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.x` Releases and below are related to the [judo-ObjC SDK](https://github.com/JudoPay/Judo-ObjC)
 
+## [6.2.3](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.3)
+Released on 2016-09-20
+
+#### Added
+- Latest version of JudoShield
+
+## [6.2.2](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.2)
+Released on 2016-09-14
+
+#### Added
+- Latest version of JudoShield
+- Minor bug fixes.
+
 ## [6.2.1](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.1)
 Released on 2016-06-29
 
