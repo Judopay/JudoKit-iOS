@@ -28,23 +28,23 @@ import XCTest
 class DedupTestCase: JudoTestCase {
 
     func testJudoMakeSuccesfulDedupPayment() {
-        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.payment(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         
         payment.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
-        payment.sendWithCompletion({ (response, error) -> () in
+        payment.send(completion: { (response, error) -> () in
             
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
             
-            let payment2 = self.judo.paymentWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: JPReference(consumerReference: "consumer reference"))
+            let payment2 = self.judo.payment(withJudoId: myJudoId, amount: self.oneGBPAmount, reference: JPReference(consumerReference: "consumer reference"))
             
             payment2.card = self.validVisaTestCard
             
-            payment2.sendWithCompletion({ (response, error) in
+            payment2.send(completion: { (response, error) in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
@@ -58,28 +58,28 @@ class DedupTestCase: JudoTestCase {
         XCTAssertNotNil(payment)
         XCTAssertEqual(payment.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
     func testJudoMakeDeclinedDedupPayment() {
         // Given I have a Payment
-        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.payment(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         
         // When I provide all the required fields
         payment.card = validVisaTestCard
         
         // Then I should be able to make a payment
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
-        payment.sendWithCompletion({ (response, error) -> () in
+        payment.send(completion: { (response, error) -> () in
             
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
             
-            payment.sendWithCompletion({ (response, error) in
-                XCTAssertEqual(Int(JudoError.ErrorDuplicateTransaction.rawValue), error?.code)
+            payment.send(completion: { (response, error) in
+                XCTAssertEqual(Int(JudoError.errorDuplicateTransaction.rawValue), error?._code)
                 expectation.fulfill()
             })
             
@@ -88,7 +88,7 @@ class DedupTestCase: JudoTestCase {
         XCTAssertNotNil(payment)
         XCTAssertEqual(payment.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
 
 }

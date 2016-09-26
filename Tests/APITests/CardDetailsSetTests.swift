@@ -36,8 +36,8 @@ class CardDetailsSetTests : JudoTestCase {
         let cardInputField = jpvc.cardInputField
         let expiryDateInputField = jpvc.expiryDateInputField
         
-        XCTAssertEqual("4976 0000 0000 3436", cardInputField.textField.text)
-        XCTAssertEqual("12/20", expiryDateInputField.textField.text)
+        XCTAssertEqual("4976 0000 0000 3436", cardInputField?.textField.text)
+        XCTAssertEqual("12/20", expiryDateInputField?.textField.text)
     }
     
     func testCardDetailsMustBeMasked() {
@@ -49,8 +49,8 @@ class CardDetailsSetTests : JudoTestCase {
         let cardInputField = jpvc.cardInputField
         let expiryDateInputField = jpvc.expiryDateInputField
         
-        XCTAssertEqual("**** **** **** 3436", cardInputField.textField.text)
-        XCTAssertEqual("12/20", expiryDateInputField.textField.text)
+        XCTAssertEqual("**** **** **** 3436", cardInputField?.textField.text)
+        XCTAssertEqual("12/20", expiryDateInputField?.textField.text)
     }
     
     func testCardDetailsMustBeNotPresent() {
@@ -61,20 +61,20 @@ class CardDetailsSetTests : JudoTestCase {
         let cardInputField = jpvc.cardInputField
         let expiryDateInputField = jpvc.expiryDateInputField
         
-        XCTAssertEqual("", cardInputField.textField.text)
-        XCTAssertEqual("", expiryDateInputField.textField.text)
+        XCTAssertEqual("", cardInputField?.textField.text)
+        XCTAssertEqual("", expiryDateInputField?.textField.text)
     }
     
-    private func getCardDetails() -> JPCardDetails {
+    fileprivate func getCardDetails() -> JPCardDetails {
         return JPCardDetails(cardNumber: "4976000000003436", expiryMonth: 12, expiryYear: 20)
     }
     
-    private func getPaymentToken() -> JPPaymentToken {
+    fileprivate func getPaymentToken() -> JPPaymentToken {
         return JPPaymentToken(consumerToken: "MY CONSUMER TOKEN", cardToken: "MY CARD TOKEN")
     }
     
-    private func getJudoPayViewController(cardDetails: JPCardDetails?, paymentToken: JPPaymentToken?) -> JudoPayViewController {
-        let vc = JudoPayViewController(judoId: myJudoId, amount: oneGBPAmount, reference: validReference, transaction: .Payment, currentSession: judo, cardDetails: cardDetails) { (_, _) in }
+    fileprivate func getJudoPayViewController(_ cardDetails: JPCardDetails?, paymentToken: JPPaymentToken?) -> JudoPayViewController {
+        let vc = JudoPayViewController(judoId: myJudoId, amount: oneGBPAmount, reference: validReference, transaction: .payment, currentSession: judo, cardDetails: cardDetails) { (_, _) in }
         vc.paymentToken = paymentToken
         vc.theme = JPTheme()
         _ = vc.view

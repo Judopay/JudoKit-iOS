@@ -780,6 +780,7 @@
 					};
 					3B678B5F1C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					700523F31CC7882800CC916D = {
 						CreatedOnToolsVersion = 7.3;
@@ -1234,6 +1235,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1246,6 +1248,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

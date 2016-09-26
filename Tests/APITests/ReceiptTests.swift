@@ -29,13 +29,13 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
 
-        let initialPayment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let initialPayment = judo.payment(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         
         initialPayment.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("receipt fetch expectation")
+        let expectation = self.expectation(description: "receipt fetch expectation")
         
-        initialPayment.sendWithCompletion({ (response, error) -> () in
+        initialPayment.send(completion: { (response, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
@@ -50,10 +50,10 @@ class ReceiptTests: JudoTestCase {
             XCTAssertNotNil(initialPayment)
             XCTAssertEqual(initialPayment.judoId, myJudoId)
             
-            let payment = self.judo.paymentWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+            let payment = self.judo.payment(withJudoId: myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
             XCTAssertNotNil(payment)
             
-            self.judo.receipt(receiptId).sendWithCompletion({ (dict, error) -> () in
+            self.judo.receipt(receiptId).send(completion: { (dict, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
@@ -61,22 +61,22 @@ class ReceiptTests: JudoTestCase {
             })
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
         
     }
     
     func testJudoTransactionAllReceipts() {
         // Given
-        let expectation = self.expectationWithDescription("all receipts fetch expectation")
+        let expectation = self.expectation(description: "all receipts fetch expectation")
         
-        judo.receipt(nil).sendWithCompletion({ (dict, error) -> () in
+        judo.receipt(nil).send(completion: { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
         
     }
     
@@ -84,11 +84,11 @@ class ReceiptTests: JudoTestCase {
     func testJudoTransactionReceiptWithPagination() {
         // Given
         let page = JPPagination(offset: 8, pageSize: 4, sort: "time-ascending")
-        let expectation = self.expectationWithDescription("all receipts fetch expectation")
+        let expectation = self.expectation(description: "all receipts fetch expectation")
         
         let receipt = judo.receipt(nil)
         
-        receipt.listWithPagination(page) { (dict, error) -> () in
+        receipt.list(with: page) { (dict, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
@@ -98,7 +98,7 @@ class ReceiptTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
 }
