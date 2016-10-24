@@ -149,7 +149,7 @@
     }
     
     if (self.judoShield.deviceSignal) {
-        [transaction setDeviceSignal:self.judoShield.deviceSignal];
+        [transaction setDeviceSignal:self.judoShield.encryptedDeviceSignal];
     }
     
     return transaction;
@@ -194,7 +194,7 @@
     }
     
     if (self.judoShield.deviceSignal) {
-        [transactionProc setDeviceSignal:self.judoShield.deviceSignal];
+        [transactionProc setDeviceSignal:self.judoShield.encryptedDeviceSignal];
     }
     
     return transactionProc;
