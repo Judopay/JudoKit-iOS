@@ -46,13 +46,12 @@ $ pod install
 ```
 
 - Please make sure to always **use the newly generated `.xcworkspace`** file not the projects `.xcodeproj` file.
-
 - In your Xcode environment, go to your `Project Navigator` (blue project icon) called `Pods`, select the `JudoKitObjC` target and open the tab called `Build Phases`.
 - Add a new `Run Script Phase` and drag it above the `Compile Sources` build phase.
 - In the shell script, paste the following line:
 
 ```bash
-sh "${SRCROOT}/JudoShield/Framework/strip-frameworks.sh"
+sh "${SRCROOT}/JudoShield/Framework/strip-frameworks-cocoapods.sh"
 ```
 
 #### 2. Setup
@@ -90,6 +89,7 @@ When you are ready to go live you can remove this line.
         }
     }];
 ```
+**Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 
 ## Next steps
 
