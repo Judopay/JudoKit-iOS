@@ -191,7 +191,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 #pragma mark - Operations
 
 - (void)paymentOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
     
     
     [self.judoKitSession invokePayment:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
@@ -219,7 +219,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)preAuthOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
 
     [self.judoKitSession invokePreAuth:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
@@ -246,7 +246,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)createCardTokenOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
     
     [self.judoKitSession invokeRegisterCard:judoId amount:amount consumerReference:@"consRef" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -269,7 +269,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPaymentOperation {
     if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
 
         [self.judoKitSession invokeTokenPayment:judoId amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
@@ -303,7 +303,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPreAuthOperation {
     if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.20" currency:self.currentCurrency];
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
 
         [self.judoKitSession invokeTokenPreAuth:judoId amount:amount consumerReference:@"consRef" cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
