@@ -194,7 +194,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
     
     
-    [self.judoKitSession invokePayment:judoId amount:amount consumerReference:reference cardDetails:nil completion:^(JPResponse * response, NSError * error) {
+    [self.judoKitSession invokePayment:judoId amount:amount consumerReference:@"consumerreference" cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
             if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                 [self dismissViewControllerAnimated:YES completion:nil];
