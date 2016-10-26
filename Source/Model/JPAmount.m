@@ -34,7 +34,7 @@
 @implementation JPAmount
 
 + (instancetype)amount:(NSString *)amount currency:(NSString *)currency {
-    return [[JPAmount alloc] initWithAmount:amount currency:amount];
+    return [[JPAmount alloc] initWithAmount:amount currency:currency];
 }
 
 - (instancetype)initWithAmount:(NSString *)amount currency:(NSString *)currency {
