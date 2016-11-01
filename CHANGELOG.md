@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'judoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.2.x` Releases - [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.4](#624)
+- `6.2.x` Releases - [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.4](#624) | [6.2.5](#625)
 - `6.1.x` Releases - [6.1.0](#610)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.x` Releases and below are related to the [judo-ObjC SDK](https://github.com/JudoPay/Judo-ObjC)
