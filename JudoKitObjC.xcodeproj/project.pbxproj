@@ -145,6 +145,7 @@
 		702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */; };
 		703EDB981CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */; };
 		7053F68E1D912B3100DDE952 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6912D91C96BA3400367660 /* JudoShield.framework */; };
+		709F325F1D9983420096DE81 /* JudoShield.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B6912D91C96BA3400367660 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70F102E51CB281AB006EEC48 /* BillingCountry.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B5AFC0F1C9184F700DABB4C /* BillingCountry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA7DF5B31C7B7A8300652A1F /* JPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9711991C761B9700E9A347 /* JPAddress.m */; };
 /* End PBXBuildFile section */
@@ -184,6 +185,16 @@
 				3B4EB3C51C981ED2006265A0 /* JudoKitObjC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		709F325E1D9983230096DE81 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				709F325F1D9983420096DE81 /* JudoShield.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -325,6 +336,7 @@
 		702804371CE9F7A100150B21 /* JudoPayViewControllerTestable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoPayViewControllerTestable.h; sourceTree = "<group>"; };
 		703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageContentsTests.swift; sourceTree = "<group>"; };
 		70ADDC911D5B54410043D55F /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
+		70D7F4D81DC10121002C0EC1 /* JudoKitObjCExampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JudoKitObjCExampleApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +386,7 @@
 		3B4EB3991C981EA7006265A0 /* JudoKitObjCExampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				70D7F4D81DC10121002C0EC1 /* JudoKitObjCExampleApp.entitlements */,
 				70ADDC911D5B54410043D55F /* ExampleAppCredentials.h */,
 				3B4EB39D1C981EA7006265A0 /* AppDelegate.h */,
 				3B4EB39E1C981EA7006265A0 /* AppDelegate.m */,
@@ -746,6 +759,7 @@
 				3B678B5C1C6CE5190001DC2F /* Sources */,
 				3B678B5D1C6CE5190001DC2F /* Frameworks */,
 				3B678B5E1C6CE5190001DC2F /* Resources */,
+				709F325E1D9983230096DE81 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -763,16 +777,22 @@
 		3B678B4D1C6CE5190001DC2F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0720;
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
 					3B4EB3971C981EA7006265A0 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 95V535S6TQ;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
+						};
 					};
 					3B4EB3B21C981EA7006265A0 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = 3B4EB3971C981EA7006265A0;
 					};
 					3B678B551C6CE5190001DC2F = {
@@ -780,6 +800,7 @@
 					};
 					3B678B5F1C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					700523F31CC7882800CC916D = {
 						CreatedOnToolsVersion = 7.3;
@@ -1025,7 +1046,7 @@
 					"$(PROJECT_DIR)/JudoShield/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1045,7 +1066,7 @@
 					"$(PROJECT_DIR)/JudoShield/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1066,6 +1087,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitObjCExampleAppUITests/JudoKitObjCExampleAppUITests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = JudoKitObjCExampleApp;
 			};
 			name = Debug;
@@ -1081,6 +1103,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitObjCExampleAppUITests/JudoKitObjCExampleAppUITests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = JudoKitObjCExampleApp;
 			};
 			name = Release;
@@ -1098,8 +1121,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1145,8 +1170,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1166,6 +1193,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1178,7 +1206,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1204,7 +1232,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1234,6 +1262,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1246,6 +1276,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

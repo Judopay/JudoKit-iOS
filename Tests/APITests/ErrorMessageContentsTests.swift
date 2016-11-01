@@ -30,7 +30,7 @@ let ErrorTransactionDeclined = "A transaction that was sent to the backend retur
 class ErrorMessageContentsTests: JudoTestCase {
     
     func test_ErrorRequestFailed() {
-        let actual = NSError.judoRequestFailedError();
+        let actual = NSError.judoRequestFailedError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -42,7 +42,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorPaymentMethodMissing() {
-        let actual = NSError.judoPaymentMethodMissingError();
+        let actual = NSError.judoPaymentMethodMissingError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -54,7 +54,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorAmountMissing() {
-        let actual = NSError.judoAmountMissingError();
+        let actual = NSError.judoAmountMissingError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -66,7 +66,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorReferenceMissing() {
-        let actual = NSError.judoReferenceMissingError();
+        let actual = NSError.judoReferenceMissingError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -78,7 +78,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorResponseParseError() {
-        let actual = NSError.judoResponseParseError();
+        let actual = NSError.judoResponseParseError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -90,7 +90,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorUserDidCancel() {
-        let actual = NSError.judoUserDidCancelError();
+        let actual = NSError.judoUserDidCancelError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -102,11 +102,11 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorParameterError() {
-        let actual = NSError.judoParameterError();
+        let actual = NSError.judoParameterError() as NSError
         
-        let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
-        let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
-        let errorTitle = actual.userInfo[JPErrorTitleKey] as? String
+        let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as! String
+        let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as! String
+        let errorTitle = actual.userInfo[JPErrorTitleKey] as! String
         
         XCTAssertEqual(errorDescription, UnableToProcessRequestErrorDesc)
         XCTAssertEqual(devDescription, ErrorParameterError)
@@ -114,7 +114,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_ErrorFailed3DSRequest() {
-        let actual = NSError.judo3DSRequestFailedErrorWithUnderlyingError(nil);
+        let actual = NSError.judo3DSRequestFailedError(withUnderlyingError: nil) as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String
@@ -126,7 +126,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func test_JailbrokenDeviceDisallowedError() {
-        let actual = NSError.judoJailbrokenDeviceDisallowedError();
+        let actual = NSError.judoJailbrokenDeviceDisallowedError() as NSError
         
         let errorDescription = actual.userInfo[NSLocalizedDescriptionKey] as? String
         let devDescription = actual.userInfo[NSLocalizedFailureReasonErrorKey] as? String

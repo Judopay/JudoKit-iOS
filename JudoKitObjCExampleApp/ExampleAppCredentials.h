@@ -28,8 +28,7 @@
 
 static NSString * const token   = @"<#YOUR TOKEN#>";
 static NSString * const secret  = @"<#YOUR SECRET#>";
-static NSString * const judoId              = @"<#YOUR JUDOID#>";
-static NSString * const tokenPayReference   = @"<#YOUR REFERENCE#>";
+static NSString * const judoId  = @"<#YOUR JUDOID#>";
 
 @interface ExampleAppCredentials : NSObject
 

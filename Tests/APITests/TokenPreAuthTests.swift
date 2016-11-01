@@ -30,12 +30,12 @@ class TokenPreAuthTests: JudoTestCase {
     func testJudoMakeValidTokenPreAuth() {
         // Given I have an SDK
         // When I provide the required fields
-        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("token payment expectation")
+        let expectation = self.expectation(description: "token payment expectation")
         
-        registerCard.sendWithCompletion({ (data, error) -> () in
+        registerCard.send(completion: { (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
@@ -52,9 +52,9 @@ class TokenPreAuthTests: JudoTestCase {
                 payToken.secureCode = self.validVisaTestCard.secureCode
                 
                 // Then I should be able to make a token Pre-authorization
-                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuth(withJudoId: myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
-                preAuth.sendWithCompletion({ (data, error) -> () in
+                preAuth.send(completion: { (data, error) -> () in
                     if let error = error {
                         XCTFail("api call failed with error: \(error)")
                     }
@@ -65,27 +65,27 @@ class TokenPreAuthTests: JudoTestCase {
         XCTAssertNotNil(registerCard)
         XCTAssertEqual(registerCard.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutToken() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("token payment expectation")
+        let expectation = self.expectation(description: "token payment expectation")
         
-        registerCard.sendWithCompletion({ (data, error) -> () in
+        registerCard.send(completion: { (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
                 
                 // When I do not provide a card token
-                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
-                preAuth.sendWithCompletion({ (data, error) -> () in
+                let preAuth = self.judo.preAuth(withJudoId: myJudoId, amount: self.oneGBPAmount, reference: self.validReference)
+                preAuth.send(completion: { (data, error) -> () in
                     // Then I should receive an error
-                    XCTAssertEqual(error!.code, Int(JudoError.ErrorPaymentMethodMissing.rawValue))
+                    XCTAssertEqual(error!._code, Int(JudoError.errorPaymentMethodMissing.rawValue))
                     expectation.fulfill()
                 })
             }
@@ -93,18 +93,18 @@ class TokenPreAuthTests: JudoTestCase {
         XCTAssertNotNil(registerCard)
         XCTAssertEqual(registerCard.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutReference() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("token payment expectation")
+        let expectation = self.expectation(description: "token payment expectation")
         
-        registerCard.sendWithCompletion({ (data, error) -> () in
+        registerCard.send(completion: { (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
@@ -120,12 +120,12 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide a consumer reference
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference)
+                let preAuth = self.judo.preAuth(withJudoId: myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference)
                 preAuth.paymentToken = payToken
-                preAuth.sendWithCompletion({ (response, error) -> () in
+                preAuth.send(completion: { (response, error) -> () in
                     XCTAssertNil(response)
                     XCTAssertNotNil(error)
-                    XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+                    XCTAssertEqual(error!._code, Int(JudoError.errorGeneral_Model_Error.rawValue))
                     
                     expectation.fulfill()
                 })
@@ -134,18 +134,18 @@ class TokenPreAuthTests: JudoTestCase {
         XCTAssertNotNil(registerCard)
         XCTAssertEqual(registerCard.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
     func testJudoMakeTokenPreAuthWithoutAmount() {
         // Given I have an SDK
-        let registerCard = judo.registerCardWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         registerCard.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("token payment expectation")
+        let expectation = self.expectation(description: "token payment expectation")
         
-        registerCard.sendWithCompletion({ (data, error) -> () in
+        registerCard.send(completion: { (data, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             } else {
@@ -161,12 +161,12 @@ class TokenPreAuthTests: JudoTestCase {
                 
                 // When I do not provide an amount
                 // Then I should receive an error
-                let preAuth = self.judo.preAuthWithJudoId(myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference)
+                let preAuth = self.judo.preAuth(withJudoId: myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference)
                 preAuth.paymentToken = payToken
-                preAuth.sendWithCompletion({ (response, error) -> () in
+                preAuth.send(completion: { (response, error) -> () in
                     XCTAssertNil(response)
                     XCTAssertNotNil(error)
-                    XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+                    XCTAssertEqual(error!._code, Int(JudoError.errorGeneral_Model_Error.rawValue))
                     
                     expectation.fulfill()
                 })
@@ -176,7 +176,7 @@ class TokenPreAuthTests: JudoTestCase {
         XCTAssertNotNil(registerCard)
         XCTAssertEqual(registerCard.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
 }

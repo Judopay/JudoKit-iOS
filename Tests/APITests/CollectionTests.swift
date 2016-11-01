@@ -29,13 +29,13 @@ class CollectionTests: JudoTestCase {
     
     func testCollection() {
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         // Given I have made a pre-authorisation
-        let preAuth = judo.preAuthWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let preAuth = judo.preAuth(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         preAuth.card = validVisaTestCard
         
-        preAuth.sendWithCompletion { (response, error) in
+        preAuth.send { (response, error) in
             
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
@@ -53,8 +53,8 @@ class CollectionTests: JudoTestCase {
             }
             
             // When I perform a collection
-            let collection = self.judo.collectionWithReceiptId(receiptId, amount: amount)
-            collection.sendWithCompletion({ (response, error) -> () in
+            let collection = self.judo.collection(withReceiptId: receiptId, amount: amount)
+            collection.send(completion: { (response, error) -> () in
                 // Then I receive a successful response
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
@@ -73,7 +73,7 @@ class CollectionTests: JudoTestCase {
         XCTAssertNotNil(preAuth)
         XCTAssertEqual(preAuth.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
         
     }
     

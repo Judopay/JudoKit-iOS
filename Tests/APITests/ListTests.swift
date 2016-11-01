@@ -28,7 +28,7 @@ import XCTest
 class ListTests: JudoTestCase {
     
     func testJudoListPayments() {
-        let expectation = self.expectationWithDescription("list all payments expectation")
+        let expectation = self.expectation(description: "list all payments expectation")
         
         self.judo.list(JPPayment.self, paginated: nil, completion: { (response, error) in
             if let error = error {
@@ -37,16 +37,16 @@ class ListTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     func testJudoPaginatedListPayments() {
         // Given
         let offset = 3
         let pageSize = 5
-        let pagination = JPPagination(offset: offset, pageSize: pageSize, sort: "time-descending")
+        let pagination = JPPagination(offset: NSNumber(value: offset), pageSize: NSNumber(value: pageSize), sort: "time-descending")
         
-        let expectation = self.expectationWithDescription("list all payments for given pagination")
+        let expectation = self.expectation(description: "list all payments for given pagination")
         
         // When
         self.judo.list(JPPayment.self, paginated: pagination, completion: { (response, error) in
@@ -60,13 +60,13 @@ class ListTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
     func testJudoListPreAuths() {
         
-        let expectation = self.expectationWithDescription("list all preauths expectation")
+        let expectation = self.expectation(description: "list all preauths expectation")
         
         self.judo.list(JPPreAuth.self, paginated: nil, completion: { (response, error) in
             if let error = error {
@@ -75,7 +75,7 @@ class ListTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
 }
