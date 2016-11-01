@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.x` Releases and below are related to the [judo-ObjC SDK](https://github.com/JudoPay/Judo-ObjC)
 
+## [6.2.5](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.5)
+Released on 2016-11-01
+
+#### Added
+- SDK now supports Xcode8 and Swift 3
+
 ## [6.2.4](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.4)
 Released on 2016-10-25
 
