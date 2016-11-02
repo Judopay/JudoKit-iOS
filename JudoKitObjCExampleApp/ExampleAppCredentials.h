@@ -26,10 +26,9 @@
 
 #pragma warning "set your own token and secret to see testing results"
 
+static NSString * const judoId  = @"<#YOUR JUDOID#>";
 static NSString * const token   = @"<#YOUR TOKEN#>";
 static NSString * const secret  = @"<#YOUR SECRET#>";
-static NSString * const judoId              = @"<#YOUR JUDOID#>";
-static NSString * const tokenPayReference   = @"<#YOUR REFERENCE#>";
 
 @interface ExampleAppCredentials : NSObject
 

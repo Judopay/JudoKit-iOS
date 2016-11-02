@@ -29,13 +29,13 @@ class VoidTransactionTests: JudoTestCase {
     
     func testVoidTransaction() {
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         // Given I have made a pre-authorisation
-        let preAuth = judo.preAuthWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let preAuth = judo.preAuth(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         preAuth.card = validVisaTestCard
         
-        preAuth.sendWithCompletion({ (response, error) -> () in
+        preAuth.send(completion: { (response, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
                 expectation.fulfill()
@@ -52,9 +52,9 @@ class VoidTransactionTests: JudoTestCase {
             }
             
             // When I perform a void
-            let collection = self.judo.voidWithReceiptId(receiptId, amount: amount)
+            let collection = self.judo.void(withReceiptId: receiptId, amount: amount)
             
-            collection.sendWithCompletion({ (response, error) -> () in
+            collection.send(completion: { (response, error) -> () in
                 // Then I receive a successful response
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
@@ -72,7 +72,7 @@ class VoidTransactionTests: JudoTestCase {
         XCTAssertNotNil(preAuth)
         XCTAssertEqual(preAuth.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
         
     }
 

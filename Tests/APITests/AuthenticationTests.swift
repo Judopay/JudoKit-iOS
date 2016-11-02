@@ -39,7 +39,7 @@ class AuthenticationTests: JudoTestCase {
         let myJudoSession = JudoKit(token: myToken, secret: mySecret)
         
         // Then I can make a request
-        let request = myJudoSession.transactionForType(.Payment, judoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
+        let request = myJudoSession.transaction(for: .payment, judoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
         
         XCTAssertNotNil(request)
     }
@@ -54,19 +54,19 @@ class AuthenticationTests: JudoTestCase {
         
         let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretNoPaymentMethod")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretNoPaymentMethod")
         
         // When I make a transaction
-        let payment = myInvalidJudoSession.paymentWithJudoId(myLuhnValidJudoId, amount: JPAmount(amount: "1.00", currency: "GBP"), reference: JPReference(consumerReference: "reference"))
+        let payment = myInvalidJudoSession.payment(withJudoId: myLuhnValidJudoId, amount: JPAmount(amount: "1.00", currency: "GBP"), reference: JPReference(consumerReference: "reference"))
         
         payment.card = self.validVisaTestCard
         
-        payment.sendWithCompletion { (response, error) in
-            XCTAssertEqual(error!.code, Int(JudoError.ErrorAuthenticationFailure.rawValue))
+        payment.send { (response, error) in
+            XCTAssertEqual(error!._code, Int(JudoError.errorAuthenticationFailure.rawValue))
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
         
     }
     
@@ -80,19 +80,19 @@ class AuthenticationTests: JudoTestCase {
         
         let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretValidCard")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretValidCard")
         
         // When I make a transaction
-        let payment = myInvalidJudoSession.paymentWithJudoId(myLuhnValidJudoId, amount: JPAmount(amount: "1.00", currency: "GBP"), reference: JPReference(consumerReference: "reference"))
+        let payment = myInvalidJudoSession.payment(withJudoId: myLuhnValidJudoId, amount: JPAmount(amount: "1.00", currency: "GBP"), reference: JPReference(consumerReference: "reference"))
         payment.card = validVisaTestCard
         
-        payment.sendWithCompletion { (response, error) in
+        payment.send { (response, error) in
             // Then an error is returned
-            XCTAssertEqual(error!.code, Int(JudoError.ErrorAuthenticationFailure.rawValue))
+            XCTAssertEqual(error!._code, Int(JudoError.errorAuthenticationFailure.rawValue))
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
@@ -101,32 +101,32 @@ class AuthenticationTests: JudoTestCase {
         // And I have invalid token and secret
         let myLuhnValidJudoId = "1000009"
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretValidCard")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretValidCard")
         
         // When I make a transaction
-        let payment = judo.paymentWithJudoId(myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.payment(withJudoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
         payment.card = validVisaTestCard
         
-        payment.sendWithCompletion { (response, error) in
+        payment.send { (response, error) in
             // Then an error is returned
-            XCTAssertEqual(error!.code, Int(JudoError.ErrorAccountLocationNotFound.rawValue))
+            XCTAssertEqual(error!._code, Int(JudoError.errorAccountLocationNotFound.rawValue))
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
     func testValidTransaction() {
         // Given I have a Transaction
         // And I have a valid judo ID
-        let payment = judo.paymentWithJudoId(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let payment = judo.payment(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
         payment.card = validVisaTestCard
         
-        let expectation = self.expectationWithDescription("testValidTransaction")
+        let expectation = self.expectation(description: "testValidTransaction")
         
         // When I submit any valid transaction with the valid judo ID
-        payment.sendWithCompletion { (response, error) in
+        payment.send { (response, error) in
             
             // Then I receive a valid transaction response
             XCTAssertNotNil(response)
@@ -138,7 +138,7 @@ class AuthenticationTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
 }

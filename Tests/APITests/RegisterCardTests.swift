@@ -30,22 +30,22 @@ class RegisterCardTests: JudoTestCase {
     
     
     func testRegisterCard() {
-        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: validReference)
+        let payment = judo.registerCard(withJudoId: myJudoId, amount: nil, reference: validReference)
         XCTAssertNotNil(payment)
     }
     
     
     func testJudoMakeValidRegisterCard() {
         // Given I have a Register Card
-        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: validReference)
+        let payment = judo.registerCard(withJudoId: myJudoId, amount: nil, reference: validReference)
         
         // When I provide all the required fields
         payment.card = validVisaTestCard
         
         // Then I should be able to register a card
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
-        payment.sendWithCompletion({ (response, error) -> () in
+        payment.send(completion: { (response, error) -> () in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
@@ -57,24 +57,24 @@ class RegisterCardTests: JudoTestCase {
         XCTAssertNotNil(payment)
         XCTAssertEqual(payment.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
     func testJudoMakePaymentWithoutReference() {
         // Given I have a Register Card
         // When I do not provide a consumer reference
-        let payment = judo.registerCardWithJudoId(myJudoId, amount: nil, reference: invalidReference)
+        let payment = judo.registerCard(withJudoId: myJudoId, amount: nil, reference: invalidReference)
         
         payment.card = validVisaTestCard
         
         // Then I should receive an error
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
-        payment.sendWithCompletion({ (response, error) -> () in
+        payment.send(completion: { (response, error) -> () in
             XCTAssertNil(response)
             XCTAssertNotNil(error)
-            XCTAssertEqual(error!.code, Int(JudoError.ErrorGeneral_Model_Error.rawValue))
+            XCTAssertEqual(error!._code, Int(JudoError.errorGeneral_Model_Error.rawValue))
             
             expectation.fulfill()
         })
@@ -82,7 +82,7 @@ class RegisterCardTests: JudoTestCase {
         XCTAssertNotNil(payment)
         XCTAssertEqual(payment.judoId, myJudoId)
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
