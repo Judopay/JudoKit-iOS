@@ -252,19 +252,6 @@
     self.parameters[@"pkPayment"] = @{@"token":tokenDict};
 }
 
-- (CLLocationCoordinate2D)location {
-    if (self.parameters[@"consumerLocation"]) {
-        NSNumber *lat = self.parameters[@"consumerLocation.latitude"];
-        NSNumber *lon = self.parameters[@"consumerLocation.longitude"];
-        return CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
-    }
-    return CLLocationCoordinate2DMake(LONG_MAX, LONG_MAX);
-}
-
-- (void)setLocation:(CLLocationCoordinate2D)location {
-    self.parameters[@"consumerLocation"] = @{@"latitude":@(location.latitude), @"longitude":@(location.longitude)};
-}
-
 - (NSString *)mobileNumber {
     return self.parameters[@"mobileNumber"];
 }

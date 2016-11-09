@@ -56,7 +56,6 @@
 
 // deviceDNA for fraud prevention
 @property (nonatomic, strong) JudoShield *judoShield;
-@property (nonatomic, assign) CLLocationCoordinate2D currentLocation;
 
 @end
 
@@ -92,14 +91,6 @@
         self.apiSession = [JPSession new];
         
         [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
-        
-        [self.judoShield locationWithCompletion:^(CLLocationCoordinate2D coordinate, NSError * _Nullable error) {
-            if (error) {
-                // silently fail
-            } else if (CLLocationCoordinate2DIsValid(coordinate)) {
-                self.currentLocation = coordinate;
-            }
-        }];
         
     }
     return self;
@@ -144,12 +135,10 @@
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     
-    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
-        [transaction setLocation:self.currentLocation];
-    }
+    NSDictionary *deviceSignals = self.judoShield.deviceSignal;
     
-    if (self.judoShield.deviceSignal) {
-        [transaction setDeviceSignal:self.judoShield.encryptedDeviceSignal];
+    if (deviceSignals) {
+        [transaction setDeviceSignal:deviceSignals];
     }
     
     return transaction;
@@ -189,12 +178,10 @@
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     
-    if (CLLocationCoordinate2DIsValid(self.currentLocation)) {
-        [transactionProc setLocation:self.currentLocation];
-    }
+    NSDictionary *deviceSignals = self.judoShield.deviceSignal;
     
-    if (self.judoShield.deviceSignal) {
-        [transactionProc setDeviceSignal:self.judoShield.encryptedDeviceSignal];
+    if (deviceSignals) {
+        [transactionProc setDeviceSignal:deviceSignals];
     }
     
     return transactionProc;
