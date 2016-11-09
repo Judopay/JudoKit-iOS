@@ -135,7 +135,7 @@
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     
-    NSDictionary *deviceSignals = self.judoShield.deviceSignal;
+    NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
     
     if (deviceSignals) {
         [transaction setDeviceSignal:deviceSignals];
@@ -178,7 +178,7 @@
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     
-    NSDictionary *deviceSignals = self.judoShield.deviceSignal;
+    NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
     
     if (deviceSignals) {
         [transactionProc setDeviceSignal:deviceSignals];
