@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import <CoreLocation/CoreLocation.h>
+
 #import "ViewController.h"
 #import "DetailViewController.h"
 #import "ExampleAppCredentials.h"
@@ -43,6 +45,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 @interface ViewController () <PKPaymentAuthorizationViewControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
     UIAlertController *_alertController;
+    
+    
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -61,12 +65,19 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 @property BOOL isApplePayPayment;
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     
     // initialize the SDK by setting it up with a token and a secret
     self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
