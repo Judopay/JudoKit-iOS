@@ -110,27 +110,24 @@
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
     
     //Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion] ?: @""];
+    [userAgentParts addObject:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion]];
     
     //Model
-    [userAgentParts addObject:device.model ?: @""];
+    [userAgentParts addObject:[self valueOrEmpty:device.model]];
     
     //Operating system
-    [userAgentParts addObject:[NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion] ?: @""];
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", [self valueOrEmpty:device.systemName], [self valueOrEmpty:device.systemVersion]]];
     
-    //App Name
-    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"CFBundleName"] ?: @""];
-    
-    //App Version
-    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @""];
+    //App Name and version
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", [self valueOrEmpty:[mainBundle objectForInfoDictionaryKey:@"CFBundleName"]], [self valueOrEmpty:[mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]]];
     
     //Platform running on (simulator or device)
-    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"DTPlatformName"] ?: @""];
+    [userAgentParts addObject:[self valueOrEmpty:[mainBundle objectForInfoDictionaryKey:@"DTPlatformName"]]];
     
     NSMutableString *userAgent = [NSMutableString new];
     
     for (NSString *value in userAgentParts) {
-        if (value.length > 0) {
+        if (value.length > 0 && ![value isEqualToString:@"/"]) {
             [userAgent appendString:@" "];
             NSString *replaceSpaces = [value stringByReplacingOccurrencesOfString:@" " withString:@""];
             [userAgent appendString:replaceSpaces];
@@ -138,6 +135,10 @@
     }
     
     return userAgent;
+}
+
+- (NSString *)valueOrEmpty:(NSString *)value {
+    return value ?: @"";
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JudoCompletionBlock)completion {
