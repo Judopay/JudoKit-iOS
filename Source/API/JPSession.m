@@ -81,14 +81,9 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request addValue:@"5.0.0" forHTTPHeaderField:@"API-Version"];
     
-    NSDictionary *xxx = [[NSBundle mainBundle] infoDictionary];
-    
-    for (NSString *key in xxx) {
-        NSLog(@"%@ => %@", key, xxx[key]);
-    }
     
     // Adds the version and lang of the SDK to the header
-    [request addValue:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion] forHTTPHeaderField:@"User-Agent"];
+    [request addValue:[self getUserAgent] forHTTPHeaderField:@"User-Agent"];
 
     NSString *uiClientModeString = @"Judo-SDK";
     
@@ -105,6 +100,44 @@
     [request addValue:self.authorizationHeader forHTTPHeaderField:@"Authorization"];
 
     return request;
+}
+
+- (NSString *)getUserAgent {
+    
+    UIDevice *device = [UIDevice currentDevice];
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    
+    NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
+    
+    //Base user agent
+    [userAgentParts addObject:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion] ?: @""];
+    
+    //Model
+    [userAgentParts addObject:device.model ?: @""];
+    
+    //Operating system
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion] ?: @""];
+    
+    //App Name
+    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"CFBundleName"] ?: @""];
+    
+    //App Version
+    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @""];
+    
+    //Platform running on (simulator or device)
+    [userAgentParts addObject:[mainBundle objectForInfoDictionaryKey:@"DTPlatformName"] ?: @""];
+    
+    NSMutableString *userAgent = [NSMutableString new];
+    
+    for (NSString *value in userAgentParts) {
+        if (value.length > 0) {
+            [userAgent appendString:@" "];
+            NSString *replaceSpaces = [value stringByReplacingOccurrencesOfString:@" " withString:@""];
+            [userAgent appendString:replaceSpaces];
+        }
+    }
+    
+    return userAgent;
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JudoCompletionBlock)completion {
