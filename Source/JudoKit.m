@@ -24,8 +24,7 @@
 
 #import "JudoKit.h"
 
-#import <JudoShield/JudoShield.h>
-#import <DeviceDNA/DeviceDNA.h>
+#import <DeviceDNA/LegacyDeviceDNA.h>
 
 #import "JPSession.h"
 #import "JPPayment.h"
@@ -56,8 +55,7 @@
 @property (nonatomic, strong, readwrite) JPSession *apiSession;
 
 // deviceDNA for fraud prevention
-@property (nonatomic, strong) JudoShield *judoShield;
-@property (nonatomic, strong) DeviceDNA *deviceDNA;
+@property (nonatomic, strong) LegacyDeviceDNA *deviceDNA;
 
 @property (nonatomic, strong) NSString *deviceIdentifier;
     
@@ -139,16 +137,9 @@
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     
-    [self.deviceDNA identifyDevice:^(NSString * _Nullable deviceIdentifier, NSError * _Nullable error) {
-        NSMutableDictionary *allSignals = [NSMutableDictionary new];
-        
-        [allSignals setValue:deviceIdentifier forKey:@"deviceIdentifier"];
-        
-        NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
-        
-        if (deviceSignals) {
-            [allSignals addEntriesFromDictionary:deviceSignals];
-            [transaction setDeviceSignal:[allSignals copy]];
+    [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
+        if (device) {
+            [transaction setDeviceSignal:device];
         }
     }];
     
@@ -189,16 +180,9 @@
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     
-    [self.deviceDNA identifyDevice:^(NSString * _Nullable deviceIdentifier, NSError * _Nullable error) {
-        NSMutableDictionary *allSignals = [NSMutableDictionary new];
-        
-        [allSignals setValue:deviceIdentifier forKey:@"deviceIdentifier"];
-        
-        NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
-        
-        if (deviceSignals) {
-            [allSignals addEntriesFromDictionary:deviceSignals];
-            [transactionProc setDeviceSignal:[allSignals copy]];
+    [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
+        if (device) {
+            [transactionProc setDeviceSignal:device];
         }
     }];
     
@@ -270,16 +254,9 @@
 	return _theme;
 }
 
-- (JudoShield *)judoShield {
-    if (!_judoShield) {
-        _judoShield = [JudoShield new];
-    }
-    return _judoShield;
-}
-
-- (DeviceDNA *)deviceDNA {
+- (LegacyDeviceDNA *)deviceDNA {
     if (!_deviceDNA) {
-        _deviceDNA = [DeviceDNA new];
+        _deviceDNA = [LegacyDeviceDNA new];
     }
     return _deviceDNA;
 }
