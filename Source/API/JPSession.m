@@ -137,10 +137,6 @@
     return [userAgentParts componentsJoinedByString:@" "];
 }
 
-- (NSString *)valueOrEmpty:(NSString *)value {
-    return value ?: @"";
-}
-
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JudoCompletionBlock)completion {
     return [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
