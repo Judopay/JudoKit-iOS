@@ -25,6 +25,7 @@
 #import "JudoKit.h"
 
 #import <JudoShield/JudoShield.h>
+#import <DeviceDNA/DeviceDNA.h>
 
 #import "JPSession.h"
 #import "JPPayment.h"
@@ -56,7 +57,10 @@
 
 // deviceDNA for fraud prevention
 @property (nonatomic, strong) JudoShield *judoShield;
+@property (nonatomic, strong) DeviceDNA *deviceDNA;
 
+@property (nonatomic, strong) NSString *deviceIdentifier;
+    
 @end
 
 @implementation JudoKit
@@ -135,11 +139,18 @@
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     
-    NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
-    
-    if (deviceSignals) {
-        [transaction setDeviceSignal:deviceSignals];
-    }
+    [self.deviceDNA identifyDevice:^(NSString * _Nullable deviceIdentifier, NSError * _Nullable error) {
+        NSMutableDictionary *allSignals = [NSMutableDictionary new];
+        
+        [allSignals setValue:deviceIdentifier forKey:@"deviceIdentifier"];
+        
+        NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
+        
+        if (deviceSignals) {
+            [allSignals addEntriesFromDictionary:deviceSignals];
+            [transaction setDeviceSignal:[allSignals copy]];
+        }
+    }];
     
     return transaction;
 }
@@ -178,11 +189,18 @@
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     
-    NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
-    
-    if (deviceSignals) {
-        [transactionProc setDeviceSignal:deviceSignals];
-    }
+    [self.deviceDNA identifyDevice:^(NSString * _Nullable deviceIdentifier, NSError * _Nullable error) {
+        NSMutableDictionary *allSignals = [NSMutableDictionary new];
+        
+        [allSignals setValue:deviceIdentifier forKey:@"deviceIdentifier"];
+        
+        NSDictionary *deviceSignals = self.judoShield.encryptedDeviceSignal;
+        
+        if (deviceSignals) {
+            [allSignals addEntriesFromDictionary:deviceSignals];
+            [transactionProc setDeviceSignal:[allSignals copy]];
+        }
+    }];
     
     return transactionProc;
 }
@@ -257,6 +275,13 @@
         _judoShield = [JudoShield new];
     }
     return _judoShield;
+}
+
+- (DeviceDNA *)deviceDNA {
+    if (!_deviceDNA) {
+        _deviceDNA = [DeviceDNA new];
+    }
+    return _deviceDNA;
 }
 
 @end

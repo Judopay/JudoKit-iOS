@@ -141,6 +141,9 @@
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 		3BFD9A971CD9FFDC00B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */; };
 		3BFD9A991CDA008E00B8385D /* DedupTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */; };
+		701050BB1E1E90FB0001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
+		701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
+		701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		702804361CE9C96D00150B21 /* CardDetailsSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */; };
 		702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */; };
 		703EDB981CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */; };
@@ -182,6 +185,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3B4EB3C31C981ED2006265A0 /* JudoShield.framework in Embed Frameworks */,
+				701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */,
 				3B4EB3C51C981ED2006265A0 /* JudoKitObjC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -331,6 +335,7 @@
 		3BD353CA1C77803F0045658A /* JPCardDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCardDetails.m; path = Model/JPCardDetails.m; sourceTree = "<group>"; };
 		3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitUIDedupTests.swift; sourceTree = "<group>"; };
 		3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DedupTestCase.swift; sourceTree = "<group>"; };
+		701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoTestCaseConfig.swift; sourceTree = "<group>"; };
 		702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailsSetTests.swift; sourceTree = "<group>"; };
 		702804371CE9F7A100150B21 /* JudoPayViewControllerTestable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoPayViewControllerTestable.h; sourceTree = "<group>"; };
@@ -345,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B4EB3C21C981ED2006265A0 /* JudoShield.framework in Frameworks */,
+				701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */,
 				3B4EB3C41C981ED2006265A0 /* JudoKitObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +366,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				701050BB1E1E90FB0001ED87 /* DeviceDNA.framework in Frameworks */,
 				7053F68E1D912B3100DDE952 /* JudoShield.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +472,7 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
+				701050B91E1E90D70001ED87 /* DeviceDNA */,
 				3B678B581C6CE5190001DC2F /* Source */,
 				3B678B641C6CE5190001DC2F /* Tests */,
 				3B4EB3931C981E4C006265A0 /* JudoShield */,
@@ -505,6 +513,7 @@
 		3B678B641C6CE5190001DC2F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				701050B81E1E90C70001ED87 /* DeviceDNA */,
 				3B9711831C7618C000E9A347 /* APITests */,
 				3B678B651C6CE5190001DC2F /* JudoKitObjCTests.m */,
 				3B678B671C6CE5190001DC2F /* Info.plist */,
@@ -637,6 +646,22 @@
 				702804371CE9F7A100150B21 /* JudoPayViewControllerTestable.h */,
 			);
 			path = APITests;
+			sourceTree = "<group>";
+		};
+		701050B81E1E90C70001ED87 /* DeviceDNA */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DeviceDNA;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		701050B91E1E90D70001ED87 /* DeviceDNA */ = {
+			isa = PBXGroup;
+			children = (
+				701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */,
+			);
+			name = DeviceDNA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1044,6 +1069,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1064,6 +1090,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1214,6 +1241,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1240,6 +1268,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
