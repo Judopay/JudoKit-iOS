@@ -86,6 +86,9 @@
             return self;
         }
         
+        Credentials *credentials = [[Credentials alloc] initWithToken:token secret:secret];
+        self.deviceDNA = [[LegacyDeviceDNA alloc] initWithCredentials:credentials];
+        
         NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
         NSString *base64String = [plainData base64EncodedStringWithOptions:0];
@@ -138,7 +141,7 @@
     transaction.apiSession = self.apiSession;
     
     [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device) {
+        if (device && !error) {
             [transaction setDeviceSignal:device];
         }
     }];
@@ -181,7 +184,7 @@
     transactionProc.apiSession = self.apiSession;
     
     [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device) {
+        if (device && !error) {
             [transactionProc setDeviceSignal:device];
         }
     }];
@@ -252,13 +255,6 @@
 		_theme = [JPTheme new];
 	}
 	return _theme;
-}
-
-- (LegacyDeviceDNA *)deviceDNA {
-    if (!_deviceDNA) {
-        _deviceDNA = [LegacyDeviceDNA new];
-    }
-    return _deviceDNA;
 }
 
 @end
