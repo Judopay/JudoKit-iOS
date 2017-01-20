@@ -141,7 +141,7 @@
     transaction.apiSession = self.apiSession;
     
     [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device && !error) {
+        if (device) {
             [transaction setDeviceSignal:device];
         }
     }];
@@ -184,7 +184,7 @@
     transactionProc.apiSession = self.apiSession;
     
     [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device && !error) {
+        if (device) {
             [transactionProc setDeviceSignal:device];
         }
     }];
