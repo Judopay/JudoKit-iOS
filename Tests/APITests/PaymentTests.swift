@@ -62,7 +62,7 @@ class PaymentTests: JudoTestCase {
     
     func testJudoMakePaymentWithSingaporeDollar() {
         // Given I have a Payment
-        let amount = JPAmount(amount: "1.79", currency: "SGD")
+        let amount = JPAmount(amount: "17.72", currency: "SGD")
         let payment = judo.payment(withJudoId: myJudoId, amount: amount, reference: validReference)
         
         // When I provide all the required fields
