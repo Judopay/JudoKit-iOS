@@ -26,7 +26,7 @@
 
 #import "JPTransactionData.h"
 
-static NSString * __nonnull const JudoKitVersion = @"6.2.8";
+static NSString * __nonnull const JudoKitVersion = @"6.2.9";
 
 @class JPSession;
 
