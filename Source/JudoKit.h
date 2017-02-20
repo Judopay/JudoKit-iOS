@@ -25,10 +25,9 @@
 #import <Foundation/Foundation.h>
 
 #import "JPTransactionData.h"
+#import "JPSession.h"
 
 static NSString * __nonnull const JudoKitVersion = @"6.2.9";
-
-@class JPSession;
 
 @class JudoPayViewController;
 
@@ -66,6 +65,15 @@ static NSString * __nonnull const JudoKitVersion = @"6.2.9";
  */
 @property (nonatomic, weak) JudoPayViewController * _Nullable activeViewController;
 
+/**
+ *  designated initializer of JudoKit
+ *
+ *  @param transaction              the Class that conforms to JPTransaction
+ *  @param completion               a completion block that is called when the request finishes
+ *
+ */
+- (void)sendWithCompletion:(nonnull JPTransaction *)transaction
+                completion:(nonnull JudoCompletionBlock)completion;
 
 /**
  *  designated initializer of JudoKit

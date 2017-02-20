@@ -434,7 +434,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self.transaction setCard:card];
     }
     
-    [self.transaction sendWithCompletion:^(JPResponse * response, NSError * error) {
+    [self.judoKitSession sendWithCompletion:self.transaction completion:^(JPResponse * response, NSError * error) {
         if (error) {
             if (error.domain == JudoErrorDomain && error.code == JudoError3DSRequest) {
                 if (!error.userInfo) {
