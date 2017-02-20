@@ -24,7 +24,7 @@
 
 #import "JudoKit.h"
 
-#import <DeviceDNA/LegacyDeviceDNA.h>
+#import <DeviceDNA/DeviceDNA.h>
 
 #import "JPSession.h"
 #import "JPPayment.h"
@@ -55,7 +55,7 @@
 @property (nonatomic, strong, readwrite) JPSession *apiSession;
 
 // deviceDNA for fraud prevention
-@property (nonatomic, strong) LegacyDeviceDNA *deviceDNA;
+@property (nonatomic, strong) DeviceDNA *deviceDNA;
 
 @property (nonatomic, strong) NSString *deviceIdentifier;
     
@@ -87,7 +87,7 @@
         }
         
         Credentials *credentials = [[Credentials alloc] initWithToken:token secret:secret];
-        self.deviceDNA = [[LegacyDeviceDNA alloc] initWithCredentials:credentials];
+        self.deviceDNA = [[DeviceDNA alloc] initWithCredentials:credentials];
         
         NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
@@ -99,6 +99,23 @@
         
     }
     return self;
+}
+
+- (void)sendWithCompletion:(nonnull JPTransaction *)transaction completion:(nonnull JudoCompletionBlock)completion {
+    NSDictionary *signals = [transaction deviceSignal];
+    
+    if (signals) {
+        [transaction sendWithCompletion:completion];
+    }
+    else {
+        [self.deviceDNA getDeviceSignals:^(NSDictionary<NSString *,NSString *> * _Nullable device, NSError * _Nullable error) {
+            if (device) {
+                [transaction setDeviceSignal:device];
+            }
+            
+            [transaction sendWithCompletion:completion];
+        }];
+    }
 }
 
 - (void)invokePayment:(NSString *)judoId amount:(JPAmount *)amount consumerReference:(NSString *)reference cardDetails:(JPCardDetails *)cardDetails completion:(void (^)(JPResponse *, NSError *))completion {
@@ -167,12 +184,6 @@
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
     
-    [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device) {
-            [transaction setDeviceSignal:device];
-        }
-    }];
-    
     return transaction;
 }
 
@@ -210,12 +221,6 @@
     JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
     transactionProc.apiSession = self.apiSession;
     
-    [self.deviceDNA getEncryptedDeviceSignalsWithDeviceIdentifier:^(NSDictionary * _Nullable device, NSError * _Nullable error) {
-        if (device) {
-            [transactionProc setDeviceSignal:device];
-        }
-    }];
-    
     return transactionProc;
 }
 
@@ -248,6 +253,13 @@
 
 - (void)initiateAndShow:(JudoPayViewController *)viewController {
     viewController.theme = self.theme;
+    
+    [self.deviceDNA getDeviceSignals:^(NSDictionary<NSString *,NSString *> * _Nullable device, NSError * _Nullable error) {
+        if (device) {
+            viewController.transaction.deviceSignal = device;
+        }
+    }];
+    
     self.activeViewController = viewController;
     [self showViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
 }
