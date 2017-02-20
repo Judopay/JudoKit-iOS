@@ -68,7 +68,7 @@ class RegisterCardTests: JudoTestCase {
         // Then I should be able to register a card
         let expectation = self.expectation(description: "payment expectation")
         
-        judo.send(withCompletion: payment) { (response, error) in
+        judo.send(withCompletion: payment, completion: { (response, error) in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
