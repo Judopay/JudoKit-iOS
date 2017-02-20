@@ -71,7 +71,6 @@ static NSString * __nonnull const JudoKitVersion = @"6.2.9";
  *  @param transaction              the Class that conforms to JPTransaction
  *  @param completion               a completion block that is called when the request finishes
  *
- *  @return a new instance of JudoKit
  */
 - (void)sendWithCompletion:(nonnull JPTransaction *)transaction
                 completion:(nonnull JudoCompletionBlock)completion;
