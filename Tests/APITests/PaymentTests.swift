@@ -45,14 +45,39 @@ class PaymentTests: JudoTestCase {
         // Then I should be able to make a payment
         let expectation = self.expectation(description: "payment expectation")
         
-        payment.send(completion: { (response, error) -> () in
+        payment.send { (response, error) in
             if let error = error {
                 XCTFail("api call failed with error: \(error)")
             }
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.items?.first)
             expectation.fulfill()
-        })
+        }
+        
+        XCTAssertNotNil(payment)
+        XCTAssertEqual(payment.judoId, myJudoId)
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testJudoMakeValidPaymentWithDeviceSignals() {
+        // Given I have a Payment
+        let payment = judo.payment(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        
+        // When I provide all the required fields
+        payment.card = validVisaTestCard
+        
+        // Then I should be able to make a payment
+        let expectation = self.expectation(description: "payment expectation")
+        
+        judo.send(withCompletion: payment) { (response, error) in
+            if let error = error {
+                XCTFail("api call failed with error: \(error)")
+            }
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.items?.first)
+            expectation.fulfill()
+        }
         
         XCTAssertNotNil(payment)
         XCTAssertEqual(payment.judoId, myJudoId)
