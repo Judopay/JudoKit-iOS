@@ -29,7 +29,7 @@
 #import "NSError+Judo.h"
 #import "JudoKit.h"
 
-#define SUNBOX_CERT @"judopay-sandbox.com"
+#define SANDBOX_CERT @"judopay-sandbox.com"
 #define RELEASE_CERT @"gw1.judopay.com"
 
 @interface JPSession () <NSURLSessionDelegate>
@@ -252,7 +252,7 @@
     // Get local and remote cert data
     NSData *remoteCertificateData = CFBridgingRelease(SecCertificateCopyData(certificate));
     NSData *localCertificate = [NSData dataWithContentsOfFile:[self pathToCert]];
-    
+
     // The pinnning check
     if ([remoteCertificateData isEqualToData:localCertificate] && certificateIsValid) {
         NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
@@ -274,9 +274,9 @@
 
 - (NSString *)pathToCert {
     if (self.sandboxed) {
-        return [[NSBundle mainBundle]pathForResource:SUNBOX_CERT ofType:@"cer"];
+        return [[NSBundle bundleWithIdentifier:@"com.judopay.JudoKitObjC"]pathForResource:SANDBOX_CERT ofType:@"cer"];
     } else {
-        return [[NSBundle mainBundle]pathForResource:RELEASE_CERT ofType:@"cer"];
+        return [[NSBundle bundleWithIdentifier:@"com.judopay.JudoKitObjC"]pathForResource:RELEASE_CERT ofType:@"cer"];
     }
 }
 

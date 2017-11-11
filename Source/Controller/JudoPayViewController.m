@@ -481,7 +481,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     }];
 }
 
-- (void)toggleAVSVisibility:(BOOL)isVisible completion:(void (^)())completion {
+- (void)toggleAVSVisibility:(BOOL)isVisible completion:(void (^)(void))completion {
     self.avsFieldsHeightConstraint.constant = isVisible ? self.theme.inputFieldHeight : 0;
     [self.billingCountryInputField setNeedsUpdateConstraints];
     [self.postCodeInputField setNeedsUpdateConstraints];
