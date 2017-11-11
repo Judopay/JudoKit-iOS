@@ -35,6 +35,7 @@
 #import "JPAddress.h"
 #import "JPResponse.h"
 #import "JPPagination.h"
+#import "JPVCOResult.h"
 
 #import "NSError+Judo.h"
 
@@ -47,6 +48,7 @@
 
 @interface JPTransaction () {
     PKPayment *_pkPayment;
+    JPVCOResult *_vcoResult;
 }
 
 @property (nonatomic, strong) NSString *currentTransactionReference;
@@ -91,7 +93,7 @@
         return [NSError judoJudoIdMissingError];
     }
     
-    if (!self.card && !self.paymentToken && !self.pkPayment) {
+    if (!self.card && !self.paymentToken && !self.pkPayment && !self.vcoResult) {
         return [NSError judoPaymentMethodMissingError];
     }
     
@@ -250,6 +252,18 @@
                                                                   error:error];
     
     self.parameters[@"pkPayment"] = @{@"token":tokenDict};
+}
+
+- (JPVCOResult *)vcoResult {
+    return _vcoResult;
+}
+
+- (void)setVCOResult:(JPVCOResult *)vcoResult {
+    _vcoResult = vcoResult;
+    self.parameters[@"wallet"] = @{@"callid": vcoResult.callId,
+                                   @"encryptedKey": vcoResult.encryptedKey,
+                                   @"encryptedPaymentData": vcoResult.encryptedPaymentData
+                                    };
 }
 
 - (NSString *)mobileNumber {

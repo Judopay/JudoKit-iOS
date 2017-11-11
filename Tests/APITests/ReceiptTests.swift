@@ -46,7 +46,7 @@ class ReceiptTests: JudoTestCase {
             
             // Given i have a valid receiptID
             XCTAssertNotNil(receiptId, "Null receiptId");
-            XCTAssertTrue(receiptId?.characters.count != 0, "Empty receiptId")
+            XCTAssertTrue(receiptId?.count != 0, "Empty receiptId")
             XCTAssertNotNil(initialPayment)
             XCTAssertEqual(initialPayment.judoId, myJudoId)
             
