@@ -26,7 +26,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <PassKit/PassKit.h>
 
-@class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference;
+@class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult;
 
 /**
  *  Superclass Helper for Payment, Pre-auth and RegisterCard
@@ -70,6 +70,10 @@
  */
 @property (nonatomic, strong, readonly) PKPayment * _Nullable pkPayment;
 
+/**
+ *  The VCOPaymentDetails object for Visa Checkout payment
+ */
+@property (nonatomic, strong, readonly) JPVCOResult * _Nullable vcoResult;
 
 /**
  *  Location coordinate for fraud prevention in this transaction
@@ -106,6 +110,15 @@
  *  @param error     an error if the PKPayment object was faulty
  */
 - (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing _Nullable * _Nullable)error;
+
+
+/**
+ *  set the VCOResult object
+ *
+ *  @param vcoResult the VCOResult object that was returned from the Visa Checkout SDK
+ */
+- (void)setVCOResult:(nonnull JPVCOResult *)vcoResult;
+
 
 /**
  *  Helper method that checks if the transaction is valid

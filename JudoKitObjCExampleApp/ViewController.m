@@ -233,8 +233,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
@@ -260,8 +260,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
@@ -288,8 +288,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             return; // BAIL
         }
         JPTransactionData *tData = response.items[0];
@@ -310,8 +310,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                     [self dismissViewControllerAnimated:YES completion:nil];
                     return; // BAIL
                 }
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+                [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
@@ -344,8 +344,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                     [self dismissViewControllerAnimated:YES completion:nil];
                     return; // BAIL
                 }
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+                [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
             }
@@ -440,10 +440,10 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
             }
             
             completion(PKPaymentAuthorizationStatusFailure);
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:^{
-                [self presentViewController:_alertController animated:YES completion:nil];
+                [self presentViewController:self->_alertController animated:YES completion:nil];
             }];
             return; // BAIL
         }

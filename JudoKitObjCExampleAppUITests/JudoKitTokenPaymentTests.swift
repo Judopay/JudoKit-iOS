@@ -68,7 +68,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         tableQuery.tap()
         
-        let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
+        let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
         cvv2TextField2.typeText("452")
         
         app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
@@ -92,7 +92,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
-        startDateTextField.typeText("0108")
+        startDateTextField.typeText("0110")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
@@ -113,7 +113,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         let startDateTextField2 = elementsQuery.textFields["Start date"]
         startDateTextField2.tap()
-        startDateTextField2.typeText("0108")
+        startDateTextField2.typeText("0110")
         
         let cvvTextField2 = elementsQuery.secureTextFields["CVV"]
         cvvTextField2.tap()
