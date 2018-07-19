@@ -42,7 +42,7 @@ class ReceiptTests: JudoTestCase {
             
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.items?.first)
-            let receiptId = response?.items?.first?.receiptId as String!
+            let receiptId = response?.items?.first?.receiptId as String?
             
             // Given i have a valid receiptID
             XCTAssertNotNil(receiptId, "Null receiptId");
