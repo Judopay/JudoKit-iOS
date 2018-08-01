@@ -28,18 +28,44 @@
 #import "JPTransactionData.h"
 #import "NSError+Judo.h"
 #import "JudoKit.h"
-
-#define SANDBOX_CERT @"judopay-sandbox.com"
-#define RELEASE_CERT @"gw1.judopay.com"
+#import <TrustKit/TrustKit.h>
 
 @interface JPSession () <NSURLSessionDelegate>
 
 @property (nonatomic, strong, readwrite) NSString *endpoint;
 @property (nonatomic, strong, readwrite) NSString *authorizationHeader;
+@property (nonatomic, strong, readwrite) TrustKit *trustKit;
 
 @end
 
 @implementation JPSession
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        NSDictionary *trustKitConfig =
+        @{
+          kTSKPinnedDomains : @{
+                  @"judopay-sandbox.com" : @{
+                          kTSKPublicKeyHashes : @[
+                                  @"mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
+                                  @"SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
+                                  ],
+                          kTSKIncludeSubdomains : @YES
+                          },
+                  @"gw1.judopay.com" : @{
+                          kTSKPublicKeyHashes : @[
+                                  @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+                                  @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
+                                  ],
+                          kTSKIncludeSubdomains : @YES
+                          }
+                  }};
+
+        self.trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
+    }
+    return self;
+}
 
 #pragma mark - REST API
 
@@ -234,31 +260,13 @@
 #pragma mark - URLSession SSL pinning
 
 -(void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-    
-    // Get remote certificate
-    SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
-    SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
-    
-    // Set SSL policies for domain name check
-    NSMutableArray *policies = [NSMutableArray array];
-    [policies addObject:(__bridge_transfer id)SecPolicyCreateSSL(true, (__bridge CFStringRef)challenge.protectionSpace.host)];
-    SecTrustSetPolicies(serverTrust, (__bridge CFArrayRef)policies);
-    
-    // Evaluate server certificate
-    SecTrustResultType result;
-    SecTrustEvaluate(serverTrust, &result);
-    BOOL certificateIsValid = (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed);
-    
-    // Get local and remote cert data
-    NSData *remoteCertificateData = CFBridgingRelease(SecCertificateCopyData(certificate));
-    NSData *localCertificate = [NSData dataWithContentsOfFile:[self pathToCert]];
 
-    // The pinnning check
-    if ([remoteCertificateData isEqualToData:localCertificate] && certificateIsValid) {
-        NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
-        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-    } else {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+    TSKPinningValidator *pinningValidator = [self.trustKit pinningValidator];
+    // Pass the authentication challenge to the validator; if the validation fails, the connection will be blocked
+    if (![pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {
+        // TrustKit did not handle this challenge: perhaps it was not for server trust
+        // or the domain was not pinned. Fall back to the default behavior
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     }
 }
 
@@ -269,14 +277,6 @@
         return @"https://gw1.judopay-sandbox.com/";
     } else {
         return @"https://gw1.judopay.com/";
-    }
-}
-
-- (NSString *)pathToCert {
-    if (self.sandboxed) {
-        return [[NSBundle bundleWithIdentifier:@"com.judopay.JudoKitObjC"]pathForResource:SANDBOX_CERT ofType:@"cer"];
-    } else {
-        return [[NSBundle bundleWithIdentifier:@"com.judopay.JudoKitObjC"]pathForResource:RELEASE_CERT ofType:@"cer"];
     }
 }
 

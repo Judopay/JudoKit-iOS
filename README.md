@@ -4,17 +4,17 @@
 [![Platform](https://img.shields.io/cocoapods/p/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 
-# Judo Objective-C SDK
+# Judopay Objective-C SDK
 
-The judo Objective-C SDK is a framework for integrating easy, fast and secure payments inside your app with judo. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in swift, we highly recommend using the original [judoKit](https://github.com/judopay/JudoKit).
+The Judopay Objective-C SDK is a framework for integrating easy, fast and secure payments inside your app with Judopay. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in swift, we highly recommend using [JudoKit](https://github.com/Judopay/JudoKit).
 
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
-##### **\*\*\*Due to industry-wide security updates, versions below 6.0 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
-
 ## Requirements
 
-Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to be support Xcode 7.3.1 and Swift 2.2.
+- Versions >= 7.0 require Xcode 9 and Swift 4.
+- Versions >= 6.2.5 require Xcode 8 and Swift 3.
+- Version 6.2.4 is the last version to be support Xcode 7.3.1 and Swift 2.2.
 
 ## Getting started
 
@@ -30,13 +30,12 @@ If you are integrating using Cocoapods, follow the steps below (if your integrat
 $ gem install cocoapods
 ```
 
-- Add judo to your `Podfile` to integrate it into your Xcode project:
+- Add JudoKitObjC to your `Podfile` to integrate it into your Xcode project:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 
-pod 'JudoKitObjC', '~> 6.2'
+pod 'JudoKitObjC', '~> 7.1'
 ```
 
 - Then, run the following command:
@@ -93,4 +92,4 @@ When you are ready to go live you can remove this line.
 
 ## Next steps
 
-Judo's Objective-C SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/) or [API reference](https://judopay.github.io/JudoKitObjC).
+Judo's Objective-C SDK supports a range of customization options. For more information on using Judopay for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKitObjC/wiki/) or [API reference](https://judopay.github.io/JudoKitObjC).
