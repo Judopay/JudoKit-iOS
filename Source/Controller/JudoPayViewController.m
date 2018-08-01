@@ -208,7 +208,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.threeDSWebView.delegate = self;
     
     // Button Actions
-    NSString *payNavBarButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardNavBarButtonTitle : self.theme.paymentButtonTitle;
+    NSString *payNavBarButtonTitle = (self.transactionType == TransactionTypeRegisterCard || self.transactionType == TransactionTypeSaveCard) ? self.theme.registerCardNavBarButtonTitle : self.theme.paymentButtonTitle;
     
     [self.paymentButton addTarget:self action:@selector(payButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.paymentNavBarButton = [[UIBarButtonItem alloc] initWithTitle:payNavBarButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(payButtonAction:)];
@@ -259,9 +259,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     // Themes (needs to be set before setting up subviews
     self.loadingView.theme = self.theme;
     
-    NSString *paymentButtonTitle = self.transactionType == TransactionTypeRegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle;
+    NSString *paymentButtonTitle = (self.transactionType == TransactionTypeRegisterCard || self.transactionType == TransactionTypeSaveCard) ? self.theme.registerCardTitle : self.theme.paymentButtonTitle;
     
-    self.loadingView.actionLabel.text = self.transactionType == TransactionTypeRegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle;
+    self.loadingView.actionLabel.text = (self.transactionType == TransactionTypeRegisterCard || self.transactionType == TransactionTypeSaveCard) ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle;
     
     [self.paymentButton setTitle:paymentButtonTitle forState:UIControlStateNormal];
     
@@ -366,7 +366,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 
 - (void)payButtonAction:(id)sender {
-    if (!self.reference || !self.amount || !self.judoId) {
+    if (!self.reference || !self.judoId) {
         if (self.completionBlock) {
             self.completionBlock(nil, [NSError judoParameterError]);
         }
@@ -684,6 +684,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         case TransactionTypePreAuth:
             return self.theme.paymentTitle;
         case TransactionTypeRegisterCard:
+            return self.theme.registerCardTitle;
+        case TransactionTypeSaveCard:
             return self.theme.registerCardTitle;
         case TransactionTypeRefund:
             return self.theme.refundTitle;

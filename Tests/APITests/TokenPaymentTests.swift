@@ -30,7 +30,7 @@ class TokenPaymentTests: JudoTestCase {
     func testJudoMakeValidTokenPayment() {
         // Given I have an SDK
         // When I provide the required fields
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         
         registerCard.card = validVisaTestCard
         
@@ -72,7 +72,7 @@ class TokenPaymentTests: JudoTestCase {
     
     func testJudoMakeTokenPaymentWithoutToken() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")
@@ -99,7 +99,7 @@ class TokenPaymentTests: JudoTestCase {
     
     func testJudoMakeTokenPaymentWithoutReference() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")
@@ -140,7 +140,7 @@ class TokenPaymentTests: JudoTestCase {
     
     func testJudoMakeTokenPaymentWithoutAmount() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")

@@ -45,7 +45,11 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
     /**
      *  Register a card
      */
-    TransactionTypeRegisterCard
+    TransactionTypeRegisterCard,
+    /**
+     *  Save a card
+     */
+    TransactionTypeSaveCard
 };
 
 /**
@@ -135,7 +139,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
 /**
  *  This is the value of this transaction (if refunds available it is the amount after refunds)
  */
-@property (nonatomic, strong) JPAmount * _Nonnull amount;
+@property (nonatomic, strong) JPAmount * _Nullable amount;
 
 /**
  *  Information about the card used in this transaction

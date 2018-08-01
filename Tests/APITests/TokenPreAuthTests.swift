@@ -30,7 +30,7 @@ class TokenPreAuthTests: JudoTestCase {
     func testJudoMakeValidTokenPreAuth() {
         // Given I have an SDK
         // When I provide the required fields
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")
@@ -71,7 +71,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutToken() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")
@@ -99,7 +99,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutReference() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")
@@ -140,7 +140,7 @@ class TokenPreAuthTests: JudoTestCase {
     
     func testJudoMakeTokenPreAuthWithoutAmount() {
         // Given I have an SDK
-        let registerCard = judo.registerCard(withJudoId: myJudoId, amount: oneGBPAmount, reference: validReference)
+        let registerCard = judo.registerCard(withJudoId: myJudoId, reference: validReference)
         registerCard.card = validVisaTestCard
         
         let expectation = self.expectation(description: "token payment expectation")

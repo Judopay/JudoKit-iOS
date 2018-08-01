@@ -29,7 +29,7 @@
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult;
 
 /**
- *  Superclass Helper for Payment, Pre-auth and RegisterCard
+ *  Superclass Helper for Payment, Pre-auth, RegisterCard and SaveCard
  */
 @interface JPTransaction : NSObject
 
@@ -52,7 +52,7 @@
 /**
  *  The amount and currency of the transaction
  */
-@property (nonatomic, strong) JPAmount * _Nonnull amount;
+@property (nonatomic, strong) JPAmount * _Nullable amount;
 
 
 /**
