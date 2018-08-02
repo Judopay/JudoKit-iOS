@@ -27,6 +27,7 @@
 #import "JPSession.h"
 
 #import "JPRegisterCard.h"
+#import "JPSaveCard.h"
 
 #import "JPAmount.h"
 #import "JPReference.h"
@@ -101,7 +102,7 @@
         return [NSError judoReferenceMissingError];
     }
     
-    if (![self isKindOfClass:[JPRegisterCard class]] && !self.amount) {
+    if (![self isKindOfClass:[JPRegisterCard class]] && ![self isKindOfClass:[JPSaveCard class]] && !self.amount) {
         return [NSError judoAmountMissingError];
     }
     

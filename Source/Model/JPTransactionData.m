@@ -50,7 +50,9 @@
         
         self.netAmount = dictionary[@"netAmount"];
         NSString *amount = dictionary[@"amount"];
-        self.amount = [[JPAmount alloc] initWithAmount:amount currency:currency];
+        if (amount != nil) {
+            self.amount = [[JPAmount alloc] initWithAmount:amount currency:currency];
+        }
         NSDictionary *cardDetailsDictionary = dictionary[@"cardDetails"];
         if (cardDetailsDictionary) {
             self.cardDetails = [[JPCardDetails alloc] initWithDictionary:cardDetailsDictionary];
@@ -77,6 +79,8 @@
         return TransactionTypePreAuth;
     } else if ([typeString isEqualToString:@"RegisterCard"]) {
         return TransactionTypeRegisterCard;
+    } else if ([typeString isEqualToString:@"Save"]) {
+        return TransactionTypeSaveCard;
     }
     return TransactionTypeRefund;
 }

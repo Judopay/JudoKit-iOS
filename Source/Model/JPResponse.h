@@ -28,7 +28,7 @@
 @class JPTransactionData;
 
 /**
- *   Response object is created out of the JSON response of the judo API for seamless handling of values returned in any call. The response object can hold multiple transaction objects and supports pagination if available. In most cases (successful Payment, Pre-auth or RegisterCard operation) a Response object will hold one TransactionData object. Supporting CollectionType protocol, you can access the elements by subscripting `let transactionData = response[0]` or using the available variable `response.first` as a more readable approach.
+ *   Response object is created out of the JSON response of the judo API for seamless handling of values returned in any call. The response object can hold multiple transaction objects and supports pagination if available. In most cases (successful Payment, Pre-auth, RegisterCard or SaveCard operation) a Response object will hold one TransactionData object. Supporting CollectionType protocol, you can access the elements by subscripting `let transactionData = response[0]` or using the available variable `response.first` as a more readable approach.
  */
 @interface JPResponse : NSObject
 
