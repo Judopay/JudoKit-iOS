@@ -1,4 +1,4 @@
-# JudoKit Objective-C SDK changelog
+# Judopay Objective-C SDK changelog
 
 For the latest SDK changes, please see the [Github release page](https://github.com/Judopay/JudoKitObjC/releases).
 

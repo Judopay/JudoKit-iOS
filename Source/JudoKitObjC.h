@@ -37,6 +37,7 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPReceipt.h>
 #import <JudoKitObjC/JPRefund.h>
 #import <JudoKitObjC/JPRegisterCard.h>
+#import <JudoKitObjC/JPSaveCard.h>
 #import <JudoKitObjC/JPTransaction.h>
 #import <JudoKitObjC/JPVoid.h>
 #import <JudoKitObjC/JPTransactionProcess.h>
