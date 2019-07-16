@@ -155,6 +155,8 @@
 		44AF432522DBD491008A4839 /* JudoPaymentMethodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */; };
 		44B81DDA22D7480700FE048D /* UIView+SafeAnchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 44B81DD822D7480700FE048D /* UIView+SafeAnchors.h */; };
 		44B81DDB22D7480700FE048D /* UIView+SafeAnchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B81DD922D7480700FE048D /* UIView+SafeAnchors.m */; };
+		44F5E0D622DDF1FB0001160D /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */; };
+		44F5E0D722DDF1FB0001160D /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		701050BB1E1E90FB0001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -285,6 +287,13 @@
 			remoteGlobalIDString = EE3E77712149D4830085551F;
 			remoteInfo = ZappMerchantLibFramework;
 		};
+		44F5E0D822DDF1FB0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EE3E77702149D4830085551F;
+			remoteInfo = ZappMerchantLibFramework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -295,6 +304,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */,
+				44F5E0D722DDF1FB0001160D /* ZappMerchantLib.framework in Embed Frameworks */,
 				1577945721108B90007BD3E1 /* TrustKit.framework in Embed Frameworks */,
 				3B4EB3C51C981ED2006265A0 /* JudoKitObjC.framework in Embed Frameworks */,
 			);
@@ -473,6 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */,
+				44F5E0D622DDF1FB0001160D /* ZappMerchantLib.framework in Frameworks */,
 				1577945621108B90007BD3E1 /* TrustKit.framework in Frameworks */,
 				3B4EB3C41C981ED2006265A0 /* JudoKitObjC.framework in Frameworks */,
 			);
@@ -904,6 +915,7 @@
 			dependencies = (
 				3B4EB3C11C981EC4006265A0 /* PBXTargetDependency */,
 				1577945921108B90007BD3E1 /* PBXTargetDependency */,
+				44F5E0D922DDF1FB0001160D /* PBXTargetDependency */,
 			);
 			name = JudoKitObjCExampleApp;
 			productName = JudoKitObjCExampleApp;
@@ -1324,6 +1336,11 @@
 			isa = PBXTargetDependency;
 			target = 3B678B551C6CE5190001DC2F /* JudoKitObjC */;
 			targetProxy = 3B678B621C6CE5190001DC2F /* PBXContainerItemProxy */;
+		};
+		44F5E0D922DDF1FB0001160D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ZappMerchantLibFramework;
+			targetProxy = 44F5E0D822DDF1FB0001160D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

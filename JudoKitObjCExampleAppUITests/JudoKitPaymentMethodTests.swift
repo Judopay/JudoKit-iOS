@@ -32,10 +32,6 @@ class JudoKitPaymentMethodTests: XCTestCase {
         XCUIApplication().launch()
     }
 
-    override func tearDown() {
-        super.tearDown()
-    }
-
     func testTappingOnPaymentMethodNavigatesToPaymentMethodScreen() {
         let app = XCUIApplication()
         let tablesQuery = app.tables
@@ -112,15 +108,8 @@ class JudoKitPaymentMethodTests: XCTestCase {
 
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        app.children(matching: .window)
-                .element(boundBy: 0)
-                .children(matching: .other)
-                .element
-                .children(matching: .other)
-                .element
-                .children(matching: .other)
-                .element
-                .buttons["Pay"].tap()
+
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
 
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")

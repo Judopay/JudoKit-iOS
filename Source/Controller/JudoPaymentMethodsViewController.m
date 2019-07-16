@@ -141,16 +141,12 @@
         [self.stackView addArrangedSubview:pbbaButton];
     }
 
-    if (self.viewModel.paymentMethods & PaymentMethodApplePay) {
+    if (self.viewModel.paymentMethods & PaymentMethodApplePay && [PKPaymentAuthorizationViewController canMakePayments]) {
         PKPaymentButton *applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
         [applePayButton setTag:PaymentMethodApplePay];
         [applePayButton addTarget:self
                            action:@selector(paymentMethodButtonDidTap:)
                  forControlEvents:UIControlEventTouchUpInside];
-
-        if (@available(iOS 12.0, *)) {
-            applePayButton.cornerRadius = self.theme.buttonCornerRadius;
-        }
 
         [[applePayButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight] setActive:YES];
         [self.stackView addArrangedSubview:applePayButton];

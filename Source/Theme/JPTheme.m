@@ -28,6 +28,15 @@
 
 @implementation JPTheme
 
+- (instancetype)init {
+    if (self = [super init]) {
+        // defaults
+        _buttonCornerRadius = 4;
+    }
+
+    return self;
+}
+
 #pragma mark - Configuration
 
 - (NSArray *)acceptedCardNetworks {
@@ -263,22 +272,15 @@
 
 #pragma marks - Payment Methods
 
-- (CGFloat)buttonCornerRadius {
-    if (_buttonCornerRadius == 0) {
-        _buttonCornerRadius = 4;
-    }
-    return _buttonCornerRadius;
-}
-
 - (CGFloat)buttonHeight {
-    if (_buttonHeight == 0) {
+    if (_buttonHeight <= 0) {
         _buttonHeight = 50;
     }
     return _buttonHeight;
 }
 
 - (CGFloat)buttonsSpacing {
-    if (_buttonsSpacing == 0) {
+    if (_buttonsSpacing <= 0) {
         _buttonsSpacing = 24;
     }
     return _buttonsSpacing;
