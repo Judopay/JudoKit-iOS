@@ -37,6 +37,11 @@
                BlueprintName = "JudoKitObjCExampleAppUITests"
                ReferencedContainer = "container:JudoKitObjC.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "JudoKit3DSPaymentTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.m
+//  JudoPaymentMethodsViewController.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIColor+Judo.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIColor (Judo)
+@class JPTheme, JudoKit, JPResponse, JudoPaymentMethodsViewModel;
 
-- (UIColor *)inverseColor {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
-}
+@interface JudoPaymentMethodsViewController : UIViewController
 
-- (CGFloat)greyScale {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return (0.299 * r + 0.587 * g + 0.114 * b);
-}
+/**
+ *  Device identification for the transaction
+ */
+@property(nonatomic, strong) NSDictionary *_Nullable deviceSignal;
 
-- (BOOL)colorMode {
-    return self.greyScale < 0.5;
-}
-
-- (UIImage *)asImage {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, self.CGColor);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
+/**
+ *  Designated Initializer for the JudoPaymentMethodsViewController and its subclasses
+ *
+ *  @param theme            The current theme
+ *  @param viewModel        The view configuration model
+ *  @param currentSession   The current judo apiSession
+ *  @param completion       Completion block called when transaction has been finished
+ *
+ *  @return a JudoPaymentMethodsViewController instance
+ */
+- (instancetype _Nonnull)initWithTheme:(nonnull JPTheme *)theme
+                             viewModel:(nonnull JudoPaymentMethodsViewModel *)viewModel
+                        currentSession:(nonnull JudoKit *)session
+                         andCompletion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
 @end

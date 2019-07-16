@@ -35,45 +35,42 @@
 /**
  *  the current JudoKit Session
  */
-@property (nonatomic, strong) JudoKit * _Nullable judoKitSession;
+@property(nonatomic, strong) JudoKit *_Nullable judoKitSession;
 
 /**
  *  the theme of the current session
  */
-@property (nonatomic, strong) JPTheme * _Nullable theme;
+@property(nonatomic, strong) JPTheme *_Nullable theme;
 
 /**
  *  The transactionType of the current journey
  */
-@property (nonatomic, assign) TransactionType type;
+@property(nonatomic, assign) TransactionType type;
 
 /**
  *  the object that holds information about the transaction
  */
-@property (nonatomic, strong, readonly) JPTransaction * _Nonnull transaction;
-
+@property(nonatomic, strong, readonly) JPTransaction *_Nonnull transaction;
 
 /**
  *  The amount and currency to process, amount to two decimal places and currency in string
  */
-@property (nonatomic, strong, readonly) JPAmount * _Nonnull amount;
+@property(nonatomic, strong, readonly) JPAmount *_Nonnull amount;
 
 /**
  *  The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
  */
-@property (nonatomic, strong, readonly) NSString * _Nonnull judoId;
+@property(nonatomic, strong, readonly) NSString *_Nonnull judoId;
 
 /**
  *  Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
  */
-@property (nonatomic, strong, readonly) JPReference * _Nonnull reference;
-
+@property(nonatomic, strong, readonly) JPReference *_Nonnull reference;
 
 /**
  *  Card token and Consumer token
  */
-@property (nonatomic, strong) JPPaymentToken * _Nullable paymentToken;
-
+@property(nonatomic, strong) JPPaymentToken *_Nullable paymentToken;
 
 /**
  *  Initializer to start a payment journey
@@ -88,6 +85,12 @@
  *
  *  @return a JPayViewController object for presentation on a view stack
  */
-- (nonnull instancetype)initWithJudoId:(nonnull NSString *)judoId amount:(nullable JPAmount *)amount reference:(nonnull JPReference *)reference transaction:(TransactionType)type currentSession:(nonnull JudoKit *)session cardDetails:(nullable JPCardDetails *)cardDetails completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+- (nonnull instancetype)initWithJudoId:(nonnull NSString *)judoId
+                                amount:(nullable JPAmount *)amount
+                             reference:(nonnull JPReference *)reference
+                           transaction:(TransactionType)type
+                        currentSession:(nonnull JudoKit *)session
+                           cardDetails:(nullable JPCardDetails *)cardDetails
+                            completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
 
 @end
