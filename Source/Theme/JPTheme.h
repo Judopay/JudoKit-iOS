@@ -207,7 +207,7 @@
 /**
  *  Buttons corner radius
  */
-@property (nonatomic, assign) CGFloat buttonBorderRadius;
+@property (nonatomic, assign) CGFloat buttonCornerRadius;
 
 /**
  *  The height of the buttons

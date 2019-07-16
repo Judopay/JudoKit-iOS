@@ -263,11 +263,11 @@
 
 #pragma marks - Payment Methods
 
-- (CGFloat)buttonBorderRadius {
-    if (_buttonBorderRadius == 0) {
-        _buttonBorderRadius = 4;
+- (CGFloat)buttonCornerRadius {
+    if (_buttonCornerRadius == 0) {
+        _buttonCornerRadius = 4;
     }
-    return _buttonBorderRadius;
+    return _buttonCornerRadius;
 }
 
 - (CGFloat)buttonHeight {

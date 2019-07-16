@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'DeviceDNA'
   s.dependency 'TrustKit'
+  s.dependency 'ZappMerchantLib', :git => 'https://github.com/Judopay/ZappMerchantLib-R2-iOS.git', :branch => 'feature/carthage_support'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
   s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }

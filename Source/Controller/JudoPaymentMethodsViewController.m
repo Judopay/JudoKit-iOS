@@ -23,8 +23,10 @@
 //  SOFTWARE.
 
 #import "JudoPaymentMethodsViewController.h"
-#import "UIView+SafeAnchors.h"
+#import <ZappMerchantLib/ZappMerchantLib.h>
 #import <PassKit/PassKit.h>
+
+#import "UIView+SafeAnchors.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
 #import "JudoPayViewController.h"
@@ -35,7 +37,7 @@
 #import "UIViewController+JPTheme.h"
 #import "JudoPaymentMethodsViewModel.h"
 
-@interface JudoPaymentMethodsViewController ()
+@interface JudoPaymentMethodsViewController () <PBBAButtonDelegate>
 
 @property(nonatomic, strong) UIStackView *stackView;
 @property(nonatomic, strong) JPTheme *theme;
@@ -124,14 +126,19 @@
 
         cardPaymentButton.translatesAutoresizingMaskIntoConstraints = NO;
         [[cardPaymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight] setActive:YES];
-        [cardPaymentButton.layer setCornerRadius:self.theme.buttonBorderRadius];
+        [cardPaymentButton.layer setCornerRadius:self.theme.buttonCornerRadius];
         [cardPaymentButton setClipsToBounds:YES];
 
         [self.stackView addArrangedSubview:cardPaymentButton];
     }
 
-    if (self.viewModel.paymentMethods & PaymentMethodBankApp) {
-        // To be implemented
+    if (self.viewModel.paymentMethods & PaymentMethodBankApp && PBBAAppUtils.isCFIAppAvailable) {
+        PBBAButton *pbbaButton = [[PBBAButton alloc] initWithFrame: CGRectZero];
+        pbbaButton.delegate = self;
+        pbbaButton.cornerRadius = self.theme.buttonCornerRadius;
+
+        [[pbbaButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight] setActive:YES];
+        [self.stackView addArrangedSubview:pbbaButton];
     }
 
     if (self.viewModel.paymentMethods & PaymentMethodApplePay) {
@@ -140,6 +147,10 @@
         [applePayButton addTarget:self
                            action:@selector(paymentMethodButtonDidTap:)
                  forControlEvents:UIControlEventTouchUpInside];
+
+        if (@available(iOS 12.0, *)) {
+            applePayButton.cornerRadius = self.theme.buttonCornerRadius;
+        }
 
         [[applePayButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight] setActive:YES];
         [self.stackView addArrangedSubview:applePayButton];
@@ -150,10 +161,6 @@
     switch (button.tag) {
         case PaymentMethodCard:
             [self onCardPaymentButtonDidTap];
-            break;
-
-        case PaymentMethodBankApp:
-            [self onPayByBankButtonDidTap];
             break;
 
         case PaymentMethodApplePay:
@@ -190,12 +197,13 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)onPayByBankButtonDidTap {
+- (void)onApplePayButtonDidTap {
 
 }
 
-- (void)onApplePayButtonDidTap {
-
+#pragma mark - PBBAButtonDelegate
+- (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
+    return YES;
 }
 
 - (void)backButtonAction:(id)sender {
