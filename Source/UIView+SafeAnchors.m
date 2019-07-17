@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.m
+//  UIView+SafeAnchors.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,43 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIColor+Judo.h"
+#import "UIView+SafeAnchors.h"
 
-@implementation UIColor (Judo)
+@implementation UIView (SafeAnchors)
 
-- (UIColor *)inverseColor {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.topAnchor;
+    }
+    return self.topAnchor;
 }
 
-- (CGFloat)greyScale {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return (0.299 * r + 0.587 * g + 0.114 * b);
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.leftAnchor;
+    }
+    return self.leftAnchor;
 }
 
-- (BOOL)colorMode {
-    return self.greyScale < 0.5;
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.rightAnchor;
+    }
+    return self.rightAnchor;
 }
 
-- (UIImage *)asImage {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, self.CGColor);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.bottomAnchor;
+    }
+    return self.bottomAnchor;
+}
+
+- (UIEdgeInsets)safeAreaEdgeInsets {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaInsets;
+    }
+    return UIEdgeInsetsZero;
 }
 
 @end

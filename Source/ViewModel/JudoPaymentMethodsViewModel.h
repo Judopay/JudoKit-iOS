@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.m
+//  JudoPaymentMethodsViewModel.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIColor+Judo.h"
+#import <Foundation/Foundation.h>
+#import "PaymentMethods.h"
 
-@implementation UIColor (Judo)
+@class JPAmount, JPCardDetails, JPReference;
 
-- (UIColor *)inverseColor {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
-}
+@interface JudoPaymentMethodsViewModel : NSObject
 
-- (CGFloat)greyScale {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return (0.299 * r + 0.587 * g + 0.114 * b);
-}
+@property (nonatomic, strong, readonly) NSString * _Nonnull judoId;
+@property (nonatomic, strong, readonly) JPAmount * _Nonnull amount;
+@property (nonatomic, strong, readonly) JPReference * _Nonnull reference;
+@property (nonatomic, strong, readonly) JPCardDetails * _Nullable cardDetails;
 
-- (BOOL)colorMode {
-    return self.greyScale < 0.5;
-}
+@property (readonly) PaymentMethods paymentMethods;
 
-- (UIImage *)asImage {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, self.CGColor);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
+-(instancetype _Nonnull)initWithJudoId: (nonnull NSString *)judoId
+                                amount: (nonnull JPAmount *)amount
+                     consumerReference: (nonnull JPReference *)reference
+                        paymentMethods: (PaymentMethods)methods
+                           cardDetails: (nullable JPCardDetails *)cardDetails;
 @end

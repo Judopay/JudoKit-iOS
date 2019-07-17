@@ -201,4 +201,27 @@
  */
 @property (nonatomic, strong) UIColor * _Nonnull judoInputFieldBackgroundColor;
 
+
+#pragma marks - Payment Methods
+
+/**
+ *  Buttons corner radius
+ */
+@property (nonatomic, assign) CGFloat buttonCornerRadius;
+
+/**
+ *  The height of the buttons
+ */
+@property (nonatomic, assign) CGFloat buttonHeight;
+
+/**
+ *  The padding between buttons and left/right edge of the screen
+ */
+@property (nonatomic, assign) CGFloat buttonsSpacing;
+
+/**
+ * The font to be used by buttons
+ */
+@property (nonatomic, strong) UIFont * _Nonnull buttonFont;
+
 @end

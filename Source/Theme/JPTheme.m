@@ -23,12 +23,19 @@
 //  SOFTWARE.
 
 #import "JPTheme.h"
-
 #import "JPCardDetails.h"
-
 #import "UIColor+Judo.h"
 
 @implementation JPTheme
+
+- (instancetype)init {
+    if (self = [super init]) {
+        // defaults
+        _buttonCornerRadius = 4;
+    }
+
+    return self;
+}
 
 #pragma mark - Configuration
 
@@ -260,6 +267,30 @@
 
 - (UIColor *)judoInputFieldBackgroundColor {
     return _judoInputFieldBackgroundColor? _judoInputFieldBackgroundColor : _judoContentViewBackgroundColor;
+}
+
+
+#pragma marks - Payment Methods
+
+- (CGFloat)buttonHeight {
+    if (_buttonHeight <= 0) {
+        _buttonHeight = 50;
+    }
+    return _buttonHeight;
+}
+
+- (CGFloat)buttonsSpacing {
+    if (_buttonsSpacing <= 0) {
+        _buttonsSpacing = 24;
+    }
+    return _buttonsSpacing;
+}
+
+- (UIFont *)buttonFont {
+    if (!_buttonFont) {
+        _buttonFont = [UIFont boldSystemFontOfSize: 22.0];
+    }
+    return _buttonFont;
 }
 
 @end

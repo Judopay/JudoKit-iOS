@@ -28,6 +28,8 @@
 
 - (nonnull UIColor *)inverseColor;
 
+- (nonnull UIImage *)asImage;
+
 - (CGFloat)greyScale;
 
 - (BOOL)colorMode;

@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.m
+//  PaymentMethods.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIColor+Judo.h"
-
-@implementation UIColor (Judo)
-
-- (UIColor *)inverseColor {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
-}
-
-- (CGFloat)greyScale {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return (0.299 * r + 0.587 * g + 0.114 * b);
-}
-
-- (BOOL)colorMode {
-    return self.greyScale < 0.5;
-}
-
-- (UIImage *)asImage {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, self.CGColor);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-@end
+/**
+ *  Payment methods
+ */
+typedef NS_OPTIONS(NSUInteger, PaymentMethods) {
+    PaymentMethodNone = 0,
+    PaymentMethodCard = 1 << 0,
+    PaymentMethodBankApp = 1 << 1,
+    PaymentMethodApplePay = 1 << 2,
+    PaymentMethodsAll = PaymentMethodCard | PaymentMethodBankApp | PaymentMethodApplePay
+};

@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.m
+//  UIViewController+JPTheme.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "UIViewController+JPTheme.h"
+#import "JPTheme.h"
 #import "UIColor+Judo.h"
 
-@implementation UIColor (Judo)
+@implementation UIViewController (JPTheme)
 
-- (UIColor *)inverseColor {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return [UIColor colorWithRed:1 - r green:1 - g blue:1 - b alpha:a];
-}
+- (void)applyTheme:(JPTheme *)theme {
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
 
-- (CGFloat)greyScale {
-    CGFloat r;
-    CGFloat g;
-    CGFloat b;
-    CGFloat a;
-    [self getRed:&r green:&g blue:&b alpha:&a];
-    return (0.299 * r + 0.587 * g + 0.114 * b);
-}
+    if (![theme.tintColor colorMode]) {
+        navigationBar.barStyle = UIBarStyleBlack;
+    }
 
-- (BOOL)colorMode {
-    return self.greyScale < 0.5;
-}
+    navigationBar.tintColor = theme.judoTextColor;
+    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: theme.judoNavigationBarTitleColor};
 
-- (UIImage *)asImage {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, self.CGColor);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
 }
 
 @end

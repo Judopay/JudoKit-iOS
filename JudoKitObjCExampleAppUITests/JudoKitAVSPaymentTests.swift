@@ -66,7 +66,8 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("TR148PA")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
+
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
@@ -98,7 +99,8 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("S205EJ")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
+
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
@@ -131,7 +133,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let postCodeTextField = elementsQuery.textFields["Billing postcode"]
         postCodeTextField.typeText("NW67BB")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")

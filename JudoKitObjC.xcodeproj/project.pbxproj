@@ -145,6 +145,18 @@
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 		3BFD9A971CD9FFDC00B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */; };
 		3BFD9A991CDA008E00B8385D /* DedupTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */; };
+		447CBD4822DC844800C1C9E1 /* UIViewController+JPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 447CBD4622DC844800C1C9E1 /* UIViewController+JPTheme.h */; };
+		447CBD4922DC844800C1C9E1 /* UIViewController+JPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 447CBD4722DC844800C1C9E1 /* UIViewController+JPTheme.m */; };
+		447CBD5822DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 447CBD5622DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.h */; };
+		447CBD5922DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 447CBD5722DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m */; };
+		447CBD5D22DCA93600C1C9E1 /* PaymentMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 447CBD5C22DCA93600C1C9E1 /* PaymentMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		447CBD6022DCAD0800C1C9E1 /* JudoKitPaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CBD5E22DCAC6300C1C9E1 /* JudoKitPaymentMethodTests.swift */; };
+		44AF432422DBD491008A4839 /* JudoPaymentMethodsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44AF432522DBD491008A4839 /* JudoPaymentMethodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */; };
+		44B81DDA22D7480700FE048D /* UIView+SafeAnchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 44B81DD822D7480700FE048D /* UIView+SafeAnchors.h */; };
+		44B81DDB22D7480700FE048D /* UIView+SafeAnchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B81DD922D7480700FE048D /* UIView+SafeAnchors.m */; };
+		44F5E0D622DDF1FB0001160D /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */; };
+		44F5E0D722DDF1FB0001160D /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		701050BB1E1E90FB0001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -240,6 +252,48 @@
 			remoteGlobalIDString = 3B678B551C6CE5190001DC2F;
 			remoteInfo = JudoKitObjC;
 		};
+		44F5E0C322DDD18B0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A76635CC188D3AB300D6C26C;
+			remoteInfo = ZappMerchantLib;
+		};
+		44F5E0C522DDD18B0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CD8F887B1BB5A0A400E754B6;
+			remoteInfo = ZappMerchantLibExportHeaders;
+		};
+		44F5E0C722DDD18B0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A76635DC188D3AB300D6C26C;
+			remoteInfo = ZappMerchantLibTests;
+		};
+		44F5E0C922DDD18B0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDC4373918D305F5004DBB05;
+			remoteInfo = ZappMerchantLibResources;
+		};
+		44F5E0CB22DDD18B0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE3E77712149D4830085551F;
+			remoteInfo = ZappMerchantLibFramework;
+		};
+		44F5E0D822DDF1FB0001160D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EE3E77702149D4830085551F;
+			remoteInfo = ZappMerchantLibFramework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -250,6 +304,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */,
+				44F5E0D722DDF1FB0001160D /* ZappMerchantLib.framework in Embed Frameworks */,
 				1577945721108B90007BD3E1 /* TrustKit.framework in Embed Frameworks */,
 				3B4EB3C51C981ED2006265A0 /* JudoKitObjC.framework in Embed Frameworks */,
 			);
@@ -402,6 +457,17 @@
 		3BD353CA1C77803F0045658A /* JPCardDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCardDetails.m; path = Model/JPCardDetails.m; sourceTree = "<group>"; };
 		3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitUIDedupTests.swift; sourceTree = "<group>"; };
 		3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DedupTestCase.swift; sourceTree = "<group>"; };
+		447CBD4622DC844800C1C9E1 /* UIViewController+JPTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIViewController+JPTheme.h"; path = "Extensions/UIViewController+JPTheme.h"; sourceTree = "<group>"; };
+		447CBD4722DC844800C1C9E1 /* UIViewController+JPTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+JPTheme.m"; path = "Extensions/UIViewController+JPTheme.m"; sourceTree = "<group>"; };
+		447CBD5622DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JudoPaymentMethodsViewModel.h; path = ViewModel/JudoPaymentMethodsViewModel.h; sourceTree = "<group>"; };
+		447CBD5722DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JudoPaymentMethodsViewModel.m; path = ViewModel/JudoPaymentMethodsViewModel.m; sourceTree = "<group>"; };
+		447CBD5C22DCA93600C1C9E1 /* PaymentMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethods.h; sourceTree = "<group>"; };
+		447CBD5E22DCAC6300C1C9E1 /* JudoKitPaymentMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentMethodTests.swift; sourceTree = "<group>"; };
+		44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JudoPaymentMethodsViewController.h; path = Controller/JudoPaymentMethodsViewController.h; sourceTree = "<group>"; };
+		44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JudoPaymentMethodsViewController.m; path = Controller/JudoPaymentMethodsViewController.m; sourceTree = "<group>"; };
+		44B81DD822D7480700FE048D /* UIView+SafeAnchors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAnchors.h"; sourceTree = "<group>"; };
+		44B81DD922D7480700FE048D /* UIView+SafeAnchors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAnchors.m"; sourceTree = "<group>"; };
+		44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZappMerchantLib.xcodeproj; path = ZappMerchantLib/ZappMerchantLib.xcodeproj; sourceTree = "<group>"; };
 		701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoTestCaseConfig.swift; sourceTree = "<group>"; };
 		702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailsSetTests.swift; sourceTree = "<group>"; };
@@ -417,6 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */,
+				44F5E0D622DDF1FB0001160D /* ZappMerchantLib.framework in Frameworks */,
 				1577945621108B90007BD3E1 /* TrustKit.framework in Frameworks */,
 				3B4EB3C41C981ED2006265A0 /* JudoKitObjC.framework in Frameworks */,
 			);
@@ -512,6 +579,7 @@
 				3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */,
 				3B4EB3B91C981EA7006265A0 /* Info.plist */,
 				3B7836121CA1638900A7DCDE /* JudoKitObjCExampleAppUITests-Bridging-Header.h */,
+				447CBD5E22DCAC6300C1C9E1 /* JudoKitPaymentMethodTests.swift */,
 			);
 			name = UITests;
 			path = JudoKitObjCExampleAppUITests;
@@ -522,6 +590,8 @@
 			children = (
 				3B5362931C7CBD3F00CEBAE2 /* JudoPayViewController.h */,
 				3B5362941C7CBD3F00CEBAE2 /* JudoPayViewController.m */,
+				44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */,
+				44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -553,6 +623,7 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
+				44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */,
 				1577943921108303007BD3E1 /* TrustKit.xcodeproj */,
 				701050B91E1E90D70001ED87 /* DeviceDNA */,
 				3B678B581C6CE5190001DC2F /* Source */,
@@ -578,6 +649,7 @@
 		3B678B581C6CE5190001DC2F /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				447CBD5522DCA81700C1C9E1 /* ViewModel */,
 				3B678B711C6CE6190001DC2F /* API */,
 				3B678B701C6CE5F70001DC2F /* Model */,
 				3B678B741C6CE68D0001DC2F /* View */,
@@ -628,6 +700,7 @@
 				3BD353C21C77557F0045658A /* JPTransactionData.m */,
 				15CFC9E81FB7371300430D31 /* JPVCOResult.h */,
 				15CFC9EA1FB738E600430D31 /* JPVCOResult.m */,
+				447CBD5C22DCA93600C1C9E1 /* PaymentMethods.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -678,6 +751,10 @@
 				3B6991621C8F26FE006ED1FB /* NSTimer+Blocks.m */,
 				3B4EB38F1C981511006265A0 /* UIColor+Judo.h */,
 				3B4EB3901C981511006265A0 /* UIColor+Judo.m */,
+				44B81DD822D7480700FE048D /* UIView+SafeAnchors.h */,
+				44B81DD922D7480700FE048D /* UIView+SafeAnchors.m */,
+				447CBD4622DC844800C1C9E1 /* UIViewController+JPTheme.h */,
+				447CBD4722DC844800C1C9E1 /* UIViewController+JPTheme.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -732,6 +809,27 @@
 			path = APITests;
 			sourceTree = "<group>";
 		};
+		447CBD5522DCA81700C1C9E1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				447CBD5622DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.h */,
+				447CBD5722DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		44F5E0B322DDD18B0001160D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44F5E0C422DDD18B0001160D /* libZappMerchantLib.a */,
+				44F5E0C622DDD18B0001160D /* libZappMerchantLibExportHeaders.a */,
+				44F5E0C822DDD18B0001160D /* ZappMerchantLibTests.xctest */,
+				44F5E0CA22DDD18B0001160D /* ZappMerchantLibResources.bundle */,
+				44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		701050B91E1E90D70001ED87 /* DeviceDNA */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,18 +847,22 @@
 			files = (
 				3B678BA91C7327040001DC2F /* JPCollection.h in Headers */,
 				3B678B7F1C6DE0FA0001DC2F /* JPPagination.h in Headers */,
+				447CBD5D22DCA93600C1C9E1 /* PaymentMethods.h in Headers */,
 				3B678B8B1C6DF9D00001DC2F /* JPAmount.h in Headers */,
 				3B678BB91C7331280001DC2F /* JPTransactionProcess.h in Headers */,
 				3B678B5A1C6CE5190001DC2F /* JudoKitObjC.h in Headers */,
+				447CBD4822DC844800C1C9E1 /* UIViewController+JPTheme.h in Headers */,
 				3B5362951C7CBD3F00CEBAE2 /* JudoPayViewController.h in Headers */,
 				3B5AFC091C9079E600DABB4C /* NSString+TextDirection.h in Headers */,
 				3B678B951C6E282B0001DC2F /* JPCard.h in Headers */,
 				3B5362A21C7CBD9000CEBAE2 /* LoadingView.h in Headers */,
 				3B678B831C6DE2850001DC2F /* JPResponse.h in Headers */,
+				447CBD5822DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.h in Headers */,
 				3B678B991C71D9D60001DC2F /* JPPaymentToken.h in Headers */,
 				3B97119B1C76353E00E9A347 /* JPAddress.h in Headers */,
 				3B5362A61C7CBE4A00CEBAE2 /* JP3DSWebView.h in Headers */,
 				3B4EB3911C981511006265A0 /* UIColor+Judo.h in Headers */,
+				44B81DDA22D7480700FE048D /* UIView+SafeAnchors.h in Headers */,
 				3BD353C31C77557F0045658A /* JPTransactionData.h in Headers */,
 				3B6991561C8DD85B006ED1FB /* JPTheme.h in Headers */,
 				3B5AFC0D1C90925300DABB4C /* CardLogoView.h in Headers */,
@@ -768,6 +870,7 @@
 				3B678B8F1C6DFF340001DC2F /* JPReference.h in Headers */,
 				3B704A8E1C89F19800376773 /* IssueNumberInputField.h in Headers */,
 				3B704A9E1C89F1D600376773 /* PostCodeInputField.h in Headers */,
+				44AF432422DBD491008A4839 /* JudoPaymentMethodsViewController.h in Headers */,
 				3B678BA51C7326F10001DC2F /* JPRegisterCard.h in Headers */,
 				3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */,
 				3B704A8A1C89F18000376773 /* JPInputField.h in Headers */,
@@ -812,6 +915,7 @@
 			dependencies = (
 				3B4EB3C11C981EC4006265A0 /* PBXTargetDependency */,
 				1577945921108B90007BD3E1 /* PBXTargetDependency */,
+				44F5E0D922DDF1FB0001160D /* PBXTargetDependency */,
 			);
 			name = JudoKitObjCExampleApp;
 			productName = JudoKitObjCExampleApp;
@@ -928,6 +1032,10 @@
 					ProductGroup = 1577943A21108303007BD3E1 /* Products */;
 					ProjectRef = 1577943921108303007BD3E1 /* TrustKit.xcodeproj */;
 				},
+				{
+					ProductGroup = 44F5E0B322DDD18B0001160D /* Products */;
+					ProjectRef = 44F5E0B222DDD18B0001160D /* ZappMerchantLib.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -995,6 +1103,41 @@
 			fileType = wrapper.framework;
 			path = TrustKit.framework;
 			remoteRef = 1577945221108303007BD3E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F5E0C422DDD18B0001160D /* libZappMerchantLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libZappMerchantLib.a;
+			remoteRef = 44F5E0C322DDD18B0001160D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F5E0C622DDD18B0001160D /* libZappMerchantLibExportHeaders.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libZappMerchantLibExportHeaders.a;
+			remoteRef = 44F5E0C522DDD18B0001160D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F5E0C822DDD18B0001160D /* ZappMerchantLibTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZappMerchantLibTests.xctest;
+			remoteRef = 44F5E0C722DDD18B0001160D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F5E0CA22DDD18B0001160D /* ZappMerchantLibResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZappMerchantLibResources.bundle;
+			remoteRef = 44F5E0C922DDD18B0001160D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F5E0CC22DDD18B0001160D /* ZappMerchantLib.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ZappMerchantLib.framework;
+			remoteRef = 44F5E0CB22DDD18B0001160D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1085,6 +1228,7 @@
 				3BFD9A971CD9FFDC00B8385D /* JudoKitUIDedupTests.swift in Sources */,
 				3B78361B1CA1638900A7DCDE /* JudoKitMaestroTests.swift in Sources */,
 				3B78361A1CA1638900A7DCDE /* JudoKitAVSPaymentTests.swift in Sources */,
+				447CBD6022DCAD0800C1C9E1 /* JudoKitPaymentMethodTests.swift in Sources */,
 				3B7836191CA1638900A7DCDE /* JudoKit3DSPaymentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1106,6 +1250,7 @@
 				3B678B9A1C71D9D60001DC2F /* JPPaymentToken.m in Sources */,
 				3B704A971C89F1B700376773 /* DateInputField.m in Sources */,
 				3BD353C81C7774780045658A /* JPConsumer.m in Sources */,
+				44B81DDB22D7480700FE048D /* UIView+SafeAnchors.m in Sources */,
 				3B704A9F1C89F1D600376773 /* PostCodeInputField.m in Sources */,
 				3B678BA61C7326F10001DC2F /* JPRegisterCard.m in Sources */,
 				3B5AFC0A1C9079E600DABB4C /* NSString+TextDirection.m in Sources */,
@@ -1113,6 +1258,7 @@
 				3B5AFC0E1C90925300DABB4C /* CardLogoView.m in Sources */,
 				3B704A8B1C89F18000376773 /* JPInputField.m in Sources */,
 				3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */,
+				447CBD5922DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m in Sources */,
 				3B678B901C6DFF340001DC2F /* JPReference.m in Sources */,
 				3B678BAE1C7327160001DC2F /* JPRefund.m in Sources */,
 				3B678B881C6DF6130001DC2F /* JPTransaction.m in Sources */,
@@ -1127,8 +1273,10 @@
 				3B6912DF1C96BFED00367660 /* NSString+Card.m in Sources */,
 				3B678BB61C7327410001DC2F /* JPReceipt.m in Sources */,
 				3B678BAA1C7327040001DC2F /* JPCollection.m in Sources */,
+				44AF432522DBD491008A4839 /* JudoPaymentMethodsViewController.m in Sources */,
 				3B5362961C7CBD3F00CEBAE2 /* JudoPayViewController.m in Sources */,
 				1577945B2110C8B9007BD3E1 /* JPSaveCard.m in Sources */,
+				447CBD4922DC844800C1C9E1 /* UIViewController+JPTheme.m in Sources */,
 				3B704A9B1C89F1C700376773 /* SecurityCodeInputField.m in Sources */,
 				3B6991641C8F26FE006ED1FB /* NSTimer+Blocks.m in Sources */,
 				3B678B8C1C6DF9D00001DC2F /* JPAmount.m in Sources */,
@@ -1189,6 +1337,11 @@
 			target = 3B678B551C6CE5190001DC2F /* JudoKitObjC */;
 			targetProxy = 3B678B621C6CE5190001DC2F /* PBXContainerItemProxy */;
 		};
+		44F5E0D922DDF1FB0001160D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ZappMerchantLibFramework;
+			targetProxy = 44F5E0D822DDF1FB0001160D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1224,7 +1377,7 @@
 					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1246,7 +1399,7 @@
 					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = JudoKitObjCExampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1262,7 +1415,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = JudoKitObjCExampleAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1279,7 +1432,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = JudoKitObjCExampleAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitObjCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1336,7 +1489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1387,7 +1540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1414,7 +1567,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/DeviceDNA/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1441,7 +1594,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/DeviceDNA/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
