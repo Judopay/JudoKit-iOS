@@ -106,8 +106,8 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *
  *  @param judoId               The judoID of the merchant to receive the payment
  *  @param amount               The amount and currency of the payment (default is GBP)
- *  @param consumerReference    The consumer reference for this transaction
- *  @param paymentMethods       The payment methods to be shown
+ *  @param reference            The consumer reference for this transaction
+ *  @param methods              The payment methods to be shown
  *  @param cardDetails          The card details to present in the input fields
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
@@ -123,7 +123,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *
  *  @param judoId               The judoID of the merchant to receive the payment
  *  @param amount               The amount and currency of the payment (default is GBP)
- *  @param consumerReference    The consumer reference for this transaction
+ *  @param reference            The consumer reference for this transaction
  *  @param cardDetails          The card details to present in the input fields
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
@@ -153,7 +153,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *
  *  @param judoId               The judoID of the merchant to receive the pre-auth
  *  @param amount               The amount and currency of the pre-auth (default is GBP)
- *  @param consumerReference    The consumer reference for this transaction
+ *  @param reference            The consumer reference for this transaction
  *  @param cardDetails          The card details to present in the input fields
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
@@ -182,7 +182,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *  This method will invoke the Judo UI on the top UIViewController instance of the Applications window. When the form has been successfully filled, the button will invoke a card registration with the judo API and respond in a completion block
  *
  *  @param judoId               The judoID of the merchant
- *  @param consumerReference    The consumer reference for this transaction
+ *  @param reference            The consumer reference for this transaction
  *  @param cardDetails          The card details to present in the input fields
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
@@ -208,7 +208,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *  This method will save a card with the judo API and respond in a completion block
  *
  *  @param judoId               The judoID of the merchant
- *  @param consumerReference    The consumer reference
+ *  @param reference            The consumer reference
  *  @param cardDetails          The card details to be saved
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
@@ -235,7 +235,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *
  *  @param judoId               The judoID of the merchant to receive the token payment
  *  @param amount               The amount and currency of the payment (default is GBP)
- *  @param consumerReference    The consumer reference for this transaction
+ *  @param reference            The consumer reference for this transaction
  *  @param cardDetails          The card details to present in the input fields
  *  @param paymentToken         The consumer and card token to make a token payment with
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
@@ -269,7 +269,7 @@ static NSString *__nonnull const JudoKitVersion = @"7.1.0";
  *
  *  @param judoId               The judoID of the merchant to receive the token pre-auth
  *  @param amount               The amount and currency of the pre-auth (default is GBP)
- *  @param consumerReference    The consumer reference for this transaction
+ *  @param reference            The consumer reference for this transaction
  *  @param cardDetails          The card details to present in the input fields
  *  @param paymentToken         The consumer and card token to make a token payment with
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError

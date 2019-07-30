@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPEnhancedPaymentDetail.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,36 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import "JPEnhancedPaymentDetail.h"
+#import "JPSDKInfo.h"
+#import "JPConsumerDevice.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@implementation JPEnhancedPaymentDetail
 
-@implementation JPPayment
+static NSString * const kSDKInfoKey = @"SDK_INFO";
+static NSString * const kConsumerDeviceKey = @"ConsumerDevice";
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
+- (instancetype)initWithSdkInfo:(JPSDKInfo *)sdkInfo
+                 consumerDevice:(JPConsumerDevice *)consumerDevice {
+    if (self = [super init]) {
+        _sdkInfo = sdkInfo;
+        _consumerDevice = consumerDevice;
+    }
+    return self;
+}
+
++ (instancetype)detailWithSdkInfo:(JPSDKInfo *)sdkInfo
+                   consumerDevice:(JPConsumerDevice *)consumerDevice {
+    return [[self alloc] initWithSdkInfo:sdkInfo
+                          consumerDevice:consumerDevice];
+}
+
+#pragma mark - JPDictionaryConvertible
+- (NSDictionary *)toDictionary {
+    return @{
+             kSDKInfoKey: [self.sdkInfo toDictionary],
+             kConsumerDeviceKey: [self.consumerDevice toDictionary]
+             };
 }
 
 @end

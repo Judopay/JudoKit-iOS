@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPSDKInfo.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import "JPSDKInfo.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@implementation JPSDKInfo
 
-@implementation JPPayment
+static NSString * const kVersionKey = @"Version";
+static NSString * const kNameKey = @"Name";
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
+- (instancetype)initWithVersion:(NSString *)version name:(NSString *)name {
+    if (self = [super init]) {
+        _version = version;
+        _name = name;
+    }
+    return self;
+}
+
++ (instancetype)infoWithVersion:(NSString *)version name:(NSString *)name {
+    return [[self alloc] initWithVersion:version name:name];
+}
+
+#pragma mark - JPDictionaryConvertible
+- (NSDictionary *)toDictionary {
+    return @{
+             kVersionKey : self.version,
+             kNameKey: self.name
+             };
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPTransactionEnricher.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import <Foundation/Foundation.h>
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@class JPTransaction;
 
-@implementation JPPayment
+@interface JPTransactionEnricher : NSObject
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
-}
+- (nonnull instancetype)initWithToken:(nonnull NSString *)token
+                               secret:(nonnull NSString *)secret;
+
+- (void)enrichTransaction:(nonnull JPTransaction *)transaction
+           withCompletion:(nonnull void(^)(void))completion;
 
 @end

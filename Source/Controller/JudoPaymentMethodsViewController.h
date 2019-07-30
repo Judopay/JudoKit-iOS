@@ -29,16 +29,11 @@
 @interface JudoPaymentMethodsViewController : UIViewController
 
 /**
- *  Device identification for the transaction
- */
-@property(nonatomic, strong) NSDictionary *_Nullable deviceSignal;
-
-/**
  *  Designated Initializer for the JudoPaymentMethodsViewController and its subclasses
  *
  *  @param theme            The current theme
  *  @param viewModel        The view configuration model
- *  @param currentSession   The current judo apiSession
+ *  @param session          The current judo apiSession
  *  @param completion       Completion block called when transaction has been finished
  *
  *  @return a JudoPaymentMethodsViewController instance

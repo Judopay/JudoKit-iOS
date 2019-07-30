@@ -29,6 +29,7 @@
 #import "NSError+Judo.h"
 #import "JudoKit.h"
 #import <TrustKit/TrustKit.h>
+#import "Functions.h"
 
 @interface JPSession () <NSURLSessionDelegate>
 
@@ -69,15 +70,20 @@
 
 #pragma mark - REST API
 
-- (void)apiCall:(NSString *)HTTPMethod path:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)apiCall:(NSString *)HTTPMethod
+           path:(NSString *)path
+     parameters:(NSDictionary *)parameters
+     completion:(JudoCompletionBlock)completion {
+
     NSMutableURLRequest *request = [self judoRequest:[NSString stringWithFormat:@"%@%@", self.endpoint, path]];
     
     request.HTTPMethod = HTTPMethod;
     
     if (parameters) {
         NSError *error = nil;
-        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&error];
-        
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:parameters
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, error);
@@ -110,9 +116,8 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request addValue:@"5.0.0" forHTTPHeaderField:@"API-Version"];
     
-    
     // Adds the version and lang of the SDK to the header
-    [request addValue:[self getUserAgent] forHTTPHeaderField:@"User-Agent"];
+    [request addValue: getUserAgent() forHTTPHeaderField:@"User-Agent"];
 
     NSString *uiClientModeString = @"Judo-SDK";
     
@@ -129,41 +134,6 @@
     [request addValue:self.authorizationHeader forHTTPHeaderField:@"Authorization"];
 
     return request;
-}
-
-- (NSString *)getUserAgent {
-    
-    UIDevice *device = [UIDevice currentDevice];
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    
-    NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
-    
-    //Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion]];
-    
-    //Model
-    [userAgentParts addObject:device.model];
-    
-    //Operating system
-    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", device.systemName, device.systemVersion]];
-    
-    NSString *appName = [mainBundle objectForInfoDictionaryKey:@"CFBundleName"];
-    NSString *appVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    
-    if (appName && appVersion) {
-        //App Name and version
-        NSString *appNameMinusSpaces = [appName stringByReplacingOccurrencesOfString:@" " withString:@""];
-        [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appNameMinusSpaces, appVersion]];
-    }
-    
-    NSString *platformName = [mainBundle objectForInfoDictionaryKey:@"DTPlatformName"];
-    
-    if (platformName) {
-        //Platform running on (simulator or device)
-        [userAgentParts addObject:platformName];
-    }
-    
-    return [userAgentParts componentsJoinedByString:@" "];
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JudoCompletionBlock)completion {

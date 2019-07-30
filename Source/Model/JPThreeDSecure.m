@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPThreeDSecure.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import "JPThreeDSecure.h"
+#import "JPBrowser.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@implementation JPThreeDSecure
 
-@implementation JPPayment
+static NSString * const kBrowserKey = @"Browser";
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
+- (instancetype)initWithBrowser:(JPBrowser *)browser {
+    self = [super init];
+    if (self) {
+        _browser = browser;
+    }
+
+    return self;
+}
+
++ (instancetype)secureWithBrowser:(JPBrowser *)browser {
+    return [[self alloc] initWithBrowser:browser];
+}
+
+#pragma mark - JPDictionaryConvertible
+- (NSDictionary *)toDictionary {
+    return @{
+             kBrowserKey: [self.browser toDictionary]
+             };
 }
 
 @end

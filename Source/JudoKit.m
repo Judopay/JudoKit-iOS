@@ -43,8 +43,8 @@
 #import "DateInputField.h"
 #import "FloatingTextField.h"
 #import "JudoPaymentMethodsViewModel.h"
-
 #import "JPTheme.h"
+#import "JPTransactionEnricher.h"
 
 @interface JPSession ()
 @property(nonatomic, strong, readwrite) NSString *authorizationHeader;
@@ -52,7 +52,7 @@
 
 @interface JudoKit ()
 @property(nonatomic, strong, readwrite) JPSession *apiSession;
-@property(nonatomic, strong) DeviceDNA *deviceDNA; // for fraud prevention
+@property(nonatomic, strong) JPTransactionEnricher *enricher;
 @property(nonatomic, strong) NSString *deviceIdentifier;
 @end
 
@@ -82,13 +82,11 @@
             return self;
         }
 
-        Credentials *credentials = [[Credentials alloc] initWithToken:token secret:secret];
-        self.deviceDNA = [[DeviceDNA alloc] initWithCredentials:credentials];
-
         NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
         NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
         NSString *base64String = [plainData base64EncodedStringWithOptions:0];
 
+        self.enricher = [[JPTransactionEnricher alloc] initWithToken:token secret:secret];
         self.apiSession = [JPSession new];
         [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
     }
@@ -97,19 +95,7 @@
 }
 
 - (void)sendWithCompletion:(nonnull JPTransaction *)transaction completion:(nonnull JudoCompletionBlock)completion {
-    NSDictionary *signals = [transaction deviceSignal];
-
-    if (signals) {
-        [transaction sendWithCompletion:completion];
-    } else {
-        [self.deviceDNA
-                getDeviceSignals:^(NSDictionary<NSString *, NSString *> *_Nullable device, NSError *_Nullable error) {
-                    if (device) {
-                        [transaction setDeviceSignal:device];
-                    }
-                    [transaction sendWithCompletion:completion];
-                }];
-    }
+    [transaction sendWithCompletion:completion];
 }
 
 - (void)invokePayment:(nonnull NSString *)judoId
@@ -119,7 +105,7 @@
           cardDetails:(nullable JPCardDetails *)cardDetails
            completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion {
 
-    JudoPaymentMethodsViewModel *viewModel =
+        JudoPaymentMethodsViewModel *viewModel =
             [[JudoPaymentMethodsViewModel alloc] initWithJudoId:judoId
                                                          amount:amount
                                               consumerReference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -130,13 +116,6 @@
                                                                                                      viewModel:viewModel
                                                                                                 currentSession:self
                                                                                                  andCompletion:completion];
-
-    [self.deviceDNA getDeviceSignals:^(NSDictionary<NSString *, NSString *> *_Nullable device, NSError *_Nullable error) {
-        if (device) {
-            viewController.deviceSignal = device;
-        }
-    }];
-
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
@@ -329,12 +308,6 @@
     viewController.theme = self.theme;
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    [self.deviceDNA getDeviceSignals:^(NSDictionary<NSString *, NSString *> *_Nullable device, NSError *_Nullable error) {
-        if (device) {
-            viewController.transaction.deviceSignal = device;
-        }
-    }];
-
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.activeViewController = viewController;
     [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
@@ -349,7 +322,8 @@
     transaction.amount = amount;
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
-
+    transaction.enricher = self.enricher;
+    
     return transaction;
 }
 
