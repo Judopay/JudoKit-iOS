@@ -60,3 +60,4 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/CardLogoView.h>
 #import <JudoKitObjC/JPVCOResult.h>
 #import <JudoKitObjC/PaymentMethods.h>
+#import <JudoKitObjC/JPEnhancedPaymentDetail.h>

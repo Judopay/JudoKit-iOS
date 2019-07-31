@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPBrowser.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import <UIKit/UIKit.h>
+#import "JPDictionaryConvertible.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@interface JPBrowser : NSObject <JPDictionaryConvertible>
+@property(nonatomic, strong, readonly) NSString *_Nullable acceptHeader;
+@property(nonatomic, strong, readonly) NSTimeZone *_Nullable timeZone;
+@property(nonatomic, strong, readonly) NSString *_Nullable userAgent;
+@property(nonatomic, strong, readonly) NSString *_Nullable language;
 
-@implementation JPPayment
+@property(nonatomic, strong, readonly) NSString *_Nullable javaEnabled;
+@property(nonatomic, strong, readonly) NSString *_Nullable javascriptEnabled;
+@property(nonatomic, strong, readonly) NSString *_Nullable colorDepth;
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
-}
+@property(nonatomic, readonly) CGSize screenSize;
+
+- (nonnull instancetype)init;
 
 @end

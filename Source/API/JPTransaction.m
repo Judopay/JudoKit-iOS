@@ -23,12 +23,9 @@
 //  SOFTWARE.
 
 #import "JPTransaction.h"
-
 #import "JPSession.h"
-
 #import "JPRegisterCard.h"
 #import "JPSaveCard.h"
-
 #import "JPAmount.h"
 #import "JPReference.h"
 #import "JPCard.h"
@@ -37,6 +34,8 @@
 #import "JPResponse.h"
 #import "JPPagination.h"
 #import "JPVCOResult.h"
+#import "JPEnhancedPaymentDetail.h"
+#import "JPTransactionEnricher.h"
 
 #import "NSError+Judo.h"
 
@@ -53,9 +52,7 @@
 }
 
 @property (nonatomic, strong) NSString *currentTransactionReference;
-
 @property (nonatomic, assign) BOOL initialRecurringPayment;
-
 @property (nonatomic, strong) NSMutableDictionary *parameters;
 
 @end
@@ -85,8 +82,9 @@
     
     self.currentTransactionReference = self.reference.paymentReference;
     
-    [self.apiSession POST:self.transactionPath parameters:self.parameters completion:completion];
-    
+    [self.enricher enrichTransaction:self withCompletion:^ {
+        [self.apiSession POST:self.transactionPath parameters:self.parameters completion:completion];
+    }];
 }
 
 - (NSError *)validateTransaction {
@@ -113,11 +111,9 @@
 }
 
 - (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
-    
     [self.apiSession PUT:[NSString stringWithFormat:@"transactions/%@", receiptId]
               parameters:parameters
               completion:completion];
-    
 }
 
 - (void)listWithCompletion:(JudoCompletionBlock)completion {
@@ -297,6 +293,13 @@
 
 - (void)setInitialRecurringPayment:(BOOL)initialRecurringPayment {
     self.parameters[@"initialRecurringPayment"] = [NSNumber numberWithBool:initialRecurringPayment];
+}
+
+- (void)setPaymentDetail:(JPEnhancedPaymentDetail *)paymentDetail {
+    _paymentDetail = paymentDetail;
+    
+    NSDictionary *dict = [paymentDetail toDictionary];
+    self.parameters[@"EnhancedPaymentDetail"] = dict;
 }
 
 #pragma mark - TransactionPath

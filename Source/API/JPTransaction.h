@@ -26,7 +26,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <PassKit/PassKit.h>
 
-@class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult;
+@class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
+JPTransactionEnricher;
 
 /**
  *  Superclass Helper for Payment, Pre-auth, RegisterCard and SaveCard
@@ -37,7 +38,6 @@
  *  path variable made for subclassing to identify the api path
  */
 @property (nonatomic, strong, readonly) NSString * _Nullable transactionPath;
-
 
 /**
  *  The judo ID for the transaction
@@ -53,7 +53,6 @@
  *  The amount and currency of the transaction
  */
 @property (nonatomic, strong) JPAmount * _Nullable amount;
-
 
 /**
  *  The card info of the transaction
@@ -85,7 +84,6 @@
  */
 @property (nonatomic, strong) NSDictionary * _Nullable deviceSignal;
 
-
 /**
  *  Mobile number of the entity initiating the transaction
  */
@@ -96,12 +94,14 @@
  */
 @property (nonatomic, strong) NSString * _Nullable emailAddress;
 
-
 /**
  *  The current Session to access the Judo API
  */
 @property (nonatomic, strong) JPSession * _Nullable apiSession;
 
+@property (nonatomic, strong) JPTransactionEnricher * _Nullable enricher;
+
+@property (nonatomic, strong) JPEnhancedPaymentDetail * _Nullable paymentDetail;
 
 /**
  *  set the PKPayment object
@@ -111,14 +111,12 @@
  */
 - (void)setPkPayment:(nonnull PKPayment *)pkPayment error:(NSError * __autoreleasing _Nullable * _Nullable)error;
 
-
 /**
  *  set the VCOResult object
  *
  *  @param vcoResult the VCOResult object that was returned from the Visa Checkout SDK
  */
 - (void)setVCOResult:(nonnull JPVCOResult *)vcoResult;
-
 
 /**
  *  Helper method that checks if the transaction is valid
@@ -141,7 +139,9 @@
  *  @param receiptId  the receipt for the given Transaction
  *  @param completion a completion block that is called when the request finishes
  */
-- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters receiptId:(nonnull NSString *)receiptId completion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
+                         receiptId:(nonnull NSString *)receiptId
+                        completion:(nonnull void (^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 /**
  *  This method will return a list of transactions, filtered to just show the payment or preAuth transactions. The method will show the first 10 items in a Time Descending order. See [List all transactions](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/#transactions>) for more information.
@@ -156,6 +156,7 @@
  *  @param pagination The offset, number of items and order in which to return the items
  *  @param completion a completion block that is called when the request finishes
  */
-- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
+- (void)listWithPagination:(nullable JPPagination *)pagination
+                completion:(nonnull void(^)(JPResponse * _Nullable, NSError * _Nullable))completion;
 
 @end

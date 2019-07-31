@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  JPClientDetails.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,33 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import "JPClientDetails.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
+@implementation JPClientDetails
 
-@implementation JPPayment
+static NSString * const kClientDetailsKey = @"key";
+static NSString * const kClientDetailsValueKey = @"value";
 
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
+- (instancetype)initWithKey:(NSString *)key value:(NSString *)value {
+    if (self = [super init]) {
+        _key = key;
+        _value = value;
+    }
+    return self;
+}
+
++ (nonnull instancetype)detailsWithDictionary:(nonnull NSDictionary *)dictionary {
+    NSString *key = dictionary[@"key"];
+    NSString *value = dictionary[@"value"];
+    return [[self alloc] initWithKey:key value:value];
+}
+
+#pragma mark - JPDictionaryConvertible
+- (NSDictionary *)toDictionary {
+    return @{
+             kClientDetailsKey: self.key,
+             kClientDetailsValueKey: self.value
+             };
 }
 
 @end

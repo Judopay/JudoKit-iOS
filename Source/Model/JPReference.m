@@ -35,7 +35,7 @@
 @implementation JPReference
 
 + (instancetype)consumerReference:(NSString *)ref {
-    return [[JPReference alloc] initWithConsumerReference:ref];;
+    return [[JPReference alloc] initWithConsumerReference:ref];
 }
 
 - (instancetype)initWithConsumerReference:(NSString *)ref {

@@ -1,8 +1,8 @@
 //
-//  JPPayment.m
+//  CLLocation+JPDictionaryConvertible.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPayment.h"
+#import <CoreLocation/CoreLocation.h>
+#import "JPDictionaryConvertible.h"
 
-static NSString * const kPaymentPathKey = @"transactions/payments";
-
-@implementation JPPayment
-
-- (NSString *)transactionPath {
-    return kPaymentPathKey;
-}
+@interface CLLocation (JPDictionaryConvertible) <JPDictionaryConvertible>
 
 @end
+

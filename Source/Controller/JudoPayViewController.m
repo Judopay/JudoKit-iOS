@@ -46,6 +46,7 @@
 #import "JPCard.h"
 #import "JPAddress.h"
 #import "UIView+SafeAnchors.h"
+#import "Functions.h"
 
 @import CoreLocation;
 
@@ -206,6 +207,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                            selector:@selector(keyboardWillChangeFrame:)
                                name:UIKeyboardWillShowNotification
                              object:nil];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:getUserAgent(), @"UserAgent", nil];
+    [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
+    [NSUserDefaults.standardUserDefaults synchronize];
+
     return self;
 }
 

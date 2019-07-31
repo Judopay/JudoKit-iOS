@@ -95,6 +95,7 @@
     UILabel *headingLabel = [[UILabel alloc] init];
     headingLabel.translatesAutoresizingMaskIntoConstraints = NO;
     headingLabel.numberOfLines = 0;
+    headingLabel.textAlignment = NSTextAlignmentCenter;
     headingLabel.textColor = self.theme.judoTextColor;
     headingLabel.text = @"Please select from one of the payment methods listed below:";
 
@@ -189,7 +190,6 @@
                                               cardDetails:self.viewModel.cardDetails
                                                completion:completion];
     viewController.theme = self.theme;
-    viewController.transaction.deviceSignal = self.deviceSignal;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @class JPResponse;
 
@@ -31,7 +31,7 @@ typedef void (^JudoCompletionBlock)(JPResponse * _Nullable, NSError * _Nullable)
 /**
  *  The Session class is a wrapper for all REST API calls
  */
-@interface JPSession : UIViewController
+@interface JPSession : NSObject
 
 /**
  *  The endpoint for REST API calls to the judo API
