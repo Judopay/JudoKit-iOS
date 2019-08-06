@@ -73,24 +73,24 @@
 
 - (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
     self = [super init];
-
-    if (self) {
-        // Check if device is jailbroken and SDK was set to restrict access.
-        // self is returned here without setting the token and secret.
-        // When the transaction is attempted it will fail citing unset credentials.
-        if (!jailbrokenDevicesAllowed && [self isCurrentDeviceJailbroken]) {
-            return self;
-        }
-
-        NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
-        NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
-        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
-
-        self.enricher = [[JPTransactionEnricher alloc] initWithToken:token secret:secret];
-        self.apiSession = [JPSession new];
-        [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
+    
+    if (!self) return self;
+    
+    // Check if device is jailbroken and SDK was set to restrict access.
+    // self is returned here without setting the token and secret.
+    // When the transaction is attempted it will fail citing unset credentials.
+    if (!jailbrokenDevicesAllowed && [self isCurrentDeviceJailbroken]) {
+        return self;
     }
-
+    
+    NSString *plainString = [NSString stringWithFormat:@"%@:%@", token, secret];
+    NSData *plainData = [plainString dataUsingEncoding:NSISOLatin1StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    
+    self.enricher = [[JPTransactionEnricher alloc] initWithToken:token secret:secret];
+    self.apiSession = [JPSession new];
+    [self.apiSession setAuthorizationHeader:[NSString stringWithFormat:@"Basic %@", base64String]];
+    
     return self;
 }
 
@@ -98,20 +98,169 @@
     [transaction sendWithCompletion:completion];
 }
 
+- (void)presentPaymentViewControllerWithJudoId:(NSString *)judoId
+                                        amount:(JPAmount *)amount
+                                     reference:(JPReference *)reference
+                                   transaction:(TransactionType)type
+                                   cardDetails:(JPCardDetails *)cardDetails
+                                  paymentToken:(JPPaymentToken *)paymentToken
+                                    completion:(JudoCompletionBlock)completion {
+    
+    JudoPayViewController *viewController = [[JudoPayViewController alloc] initWithJudoId:judoId
+                                                                                   amount:amount
+                                                                                reference:reference
+                                                                              transaction:type
+                                                                           currentSession:self
+                                                                              cardDetails:cardDetails
+                                                                               completion:completion];
+    viewController.paymentToken = paymentToken;
+    viewController.theme = self.theme;
+    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.activeViewController = viewController;
+    [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (JPTransaction *)transactionForTypeClass:(Class)type
+                                    judoId:(NSString *)judoId
+                                    amount:(nullable JPAmount *)amount
+                                 reference:(nonnull JPReference *)reference {
+    JPTransaction *transaction = [type new];
+    transaction.judoId = judoId;
+    transaction.amount = amount;
+    transaction.reference = reference;
+    transaction.apiSession = self.apiSession;
+    transaction.enricher = self.enricher;
+    
+    return transaction;
+}
+
+- (JPTransaction *)transactionForType:(TransactionType)type
+                               judoId:(NSString *)judoId
+                               amount:(JPAmount *)amount
+                            reference:(JPReference *)reference {
+    Class transactionTypeClass;
+    
+    switch (type) {
+        case TransactionTypePayment:
+            transactionTypeClass = JPPayment.class;
+            break;
+            
+        case TransactionTypePreAuth:
+            transactionTypeClass = JPPreAuth.class;
+            break;
+            
+        case TransactionTypeRegisterCard:
+            transactionTypeClass = JPRegisterCard.class;
+            break;
+            
+        case TransactionTypeSaveCard:
+            transactionTypeClass = JPSaveCard.class;
+            break;
+            
+        default:
+            return nil;
+    }
+    
+    return [self transactionForTypeClass:transactionTypeClass judoId:judoId amount:amount reference:reference];
+}
+
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    return (JPPayment *) [self transactionForTypeClass:JPPayment.class judoId:judoId amount:amount reference:reference];
+}
+
+- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
+    return (JPPreAuth *) [self transactionForTypeClass:JPPreAuth.class judoId:judoId amount:amount reference:reference];
+}
+
+- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
+    return (JPRegisterCard *) [self transactionForTypeClass:JPRegisterCard.class judoId:judoId amount:nil reference:reference];
+}
+
+- (JPSaveCard *)saveCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
+    return (JPSaveCard *) [self transactionForTypeClass:JPSaveCard.class judoId:judoId amount:nil reference:reference];
+}
+
+- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
+    transactionProc.apiSession = self.apiSession;
+    return transactionProc;
+}
+
+- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPCollection *) [self transactionProcessForType:JPCollection.class receiptId:receiptId amount:amount];
+}
+
+- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPVoid *) [self transactionProcessForType:JPVoid.class receiptId:receiptId amount:amount];
+}
+
+- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
+    return (JPRefund *) [self transactionProcessForType:JPRefund.class receiptId:receiptId amount:amount];
+}
+
+- (JPReceipt *)receipt:(NSString *)receiptId {
+    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
+    receipt.apiSession = self.apiSession;
+    return receipt;
+}
+
+- (void)list:(Class)type paginated:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
+    JPTransaction *transaction = [type new];
+    transaction.apiSession = self.apiSession;
+    [transaction listWithPagination:pagination completion:completion];
+}
+
+#pragma mark - Helper methods
+
+- (UIViewController *)topMostViewController {
+    UIViewController *topViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+    
+    while (topViewController.presentedViewController) {
+        topViewController = topViewController.presentedViewController;
+        
+        if ([topViewController isKindOfClass:UINavigationController.class]) {
+            UINavigationController *navigationController = (UINavigationController *) topViewController;
+            topViewController = navigationController.viewControllers.lastObject;
+        }
+        
+        if ([topViewController isKindOfClass:UITabBarController.class]) {
+            UITabBarController *tabBarController = (UITabBarController *) topViewController;
+            topViewController = tabBarController.selectedViewController;
+        }
+    }
+    return topViewController;
+}
+
+#pragma mark - Getters
+
+- (JPTheme *)theme {
+    if (!_theme) {
+        _theme = [JPTheme new];
+    }
+    return _theme;
+}
+
+@end
+
+
+@implementation JudoKit (Invokers)
+
 - (void)invokePayment:(nonnull NSString *)judoId
                amount:(nonnull JPAmount *)amount
     consumerReference:(nonnull NSString *)reference
        paymentMethods:(PaymentMethods)methods
           cardDetails:(nullable JPCardDetails *)cardDetails
            completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion {
-
-        JudoPaymentMethodsViewModel *viewModel =
-            [[JudoPaymentMethodsViewModel alloc] initWithJudoId:judoId
-                                                         amount:amount
-                                              consumerReference:[[JPReference alloc] initWithConsumerReference:reference]
-                                                 paymentMethods:methods
-                                                    cardDetails:cardDetails];
-
+    
+    JudoPaymentMethodsViewModel *viewModel =
+    [[JudoPaymentMethodsViewModel alloc] initWithJudoId:judoId
+                                                 amount:amount
+                                      consumerReference:[[JPReference alloc] initWithConsumerReference:reference]
+                                         paymentMethods:methods
+                                            cardDetails:cardDetails];
+    
     JudoPaymentMethodsViewController *viewController = [[JudoPaymentMethodsViewController alloc] initWithTheme:self.theme
                                                                                                      viewModel:viewModel
                                                                                                 currentSession:self
@@ -287,150 +436,6 @@
                                      cardDetails:cardDetails
                                     paymentToken:paymentToken
                                       completion:completion];
-}
-
-- (void)presentPaymentViewControllerWithJudoId:(NSString *)judoId
-                                        amount:(JPAmount *)amount
-                                     reference:(JPReference *)reference
-                                   transaction:(TransactionType)type
-                                   cardDetails:(JPCardDetails *)cardDetails
-                                  paymentToken:(JPPaymentToken *)paymentToken
-                                    completion:(JudoCompletionBlock)completion {
-
-    JudoPayViewController *viewController = [[JudoPayViewController alloc] initWithJudoId:judoId
-                                                                                   amount:amount
-                                                                                reference:reference
-                                                                              transaction:type
-                                                                           currentSession:self
-                                                                              cardDetails:cardDetails
-                                                                               completion:completion];
-    viewController.paymentToken = paymentToken;
-    viewController.theme = self.theme;
-    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.activeViewController = viewController;
-    [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
-}
-
-- (JPTransaction *)transactionForTypeClass:(Class)type
-                                    judoId:(NSString *)judoId
-                                    amount:(nullable JPAmount *)amount
-                                 reference:(nonnull JPReference *)reference {
-    JPTransaction *transaction = [type new];
-    transaction.judoId = judoId;
-    transaction.amount = amount;
-    transaction.reference = reference;
-    transaction.apiSession = self.apiSession;
-    transaction.enricher = self.enricher;
-    
-    return transaction;
-}
-
-- (JPTransaction *)transactionForType:(TransactionType)type
-                               judoId:(NSString *)judoId
-                               amount:(JPAmount *)amount
-                            reference:(JPReference *)reference {
-    Class transactionTypeClass;
-
-    switch (type) {
-        case TransactionTypePayment:
-            transactionTypeClass = JPPayment.class;
-            break;
-
-        case TransactionTypePreAuth:
-            transactionTypeClass = JPPreAuth.class;
-            break;
-
-        case TransactionTypeRegisterCard:
-            transactionTypeClass = JPRegisterCard.class;
-            break;
-
-        case TransactionTypeSaveCard:
-            transactionTypeClass = JPSaveCard.class;
-            break;
-
-        default:
-            return nil;
-    }
-
-    return [self transactionForTypeClass:transactionTypeClass judoId:judoId amount:amount reference:reference];
-}
-
-- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
-    return (JPPayment *) [self transactionForTypeClass:JPPayment.class judoId:judoId amount:amount reference:reference];
-}
-
-- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
-    return (JPPreAuth *) [self transactionForTypeClass:JPPreAuth.class judoId:judoId amount:amount reference:reference];
-}
-
-- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
-    return (JPRegisterCard *) [self transactionForTypeClass:JPRegisterCard.class judoId:judoId amount:nil reference:reference];
-}
-
-- (JPSaveCard *)saveCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
-    return (JPSaveCard *) [self transactionForTypeClass:JPSaveCard.class judoId:judoId amount:nil reference:reference];
-}
-
-- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
-    transactionProc.apiSession = self.apiSession;
-    return transactionProc;
-}
-
-- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPCollection *) [self transactionProcessForType:JPCollection.class receiptId:receiptId amount:amount];
-}
-
-- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPVoid *) [self transactionProcessForType:JPVoid.class receiptId:receiptId amount:amount];
-}
-
-- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPRefund *) [self transactionProcessForType:JPRefund.class receiptId:receiptId amount:amount];
-}
-
-- (JPReceipt *)receipt:(NSString *)receiptId {
-    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
-    receipt.apiSession = self.apiSession;
-    return receipt;
-}
-
-- (void)list:(Class)type paginated:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
-    JPTransaction *transaction = [type new];
-    transaction.apiSession = self.apiSession;
-    [transaction listWithPagination:pagination completion:completion];
-}
-
-#pragma mark - Helper methods
-
-- (UIViewController *)topMostViewController {
-    UIViewController *topViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
-
-    while (topViewController.presentedViewController) {
-        topViewController = topViewController.presentedViewController;
-
-        if ([topViewController isKindOfClass:UINavigationController.class]) {
-            UINavigationController *navigationController = (UINavigationController *) topViewController;
-            topViewController = navigationController.viewControllers.lastObject;
-        }
-
-        if ([topViewController isKindOfClass:UITabBarController.class]) {
-            UITabBarController *tabBarController = (UITabBarController *) topViewController;
-            topViewController = tabBarController.selectedViewController;
-        }
-    }
-    return topViewController;
-}
-
-#pragma mark - Getters
-
-- (JPTheme *)theme {
-    if (!_theme) {
-        _theme = [JPTheme new];
-    }
-    return _theme;
 }
 
 @end
