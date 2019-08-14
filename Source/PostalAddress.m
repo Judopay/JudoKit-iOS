@@ -1,6 +1,6 @@
 //
-//  ExampleAppCredentials.m
-//  JudoKitObjCExample
+//  PostalAddress.m
+//  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,15 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "PostalAddress.h"
 
-#pragma warning "set your own token and secret to see testing results"
+@implementation PostalAddress
 
-static NSString * const judoId  = @"<#YOUR JUDOID#>";
-static NSString * const token   = @"<#YOUR TOKEN#>";
-static NSString * const secret  = @"<#YOUR SECRET#>";
-static NSString * const merchantId  = @"<#YOUR MERCHANT ID#>";
+- (instancetype)initWithSteet:(NSString *)street
+                         city:(NSString *)city
+                        state:(NSString *)state
+                   postalCode:(NSString *)postalCode
+                      country:(NSString *)country
+                      isoCode:(NSString *)isoCode
+        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
+                  sublocality:(nullable NSString *)sublocality {
 
-@interface ExampleAppCredentials : NSObject
+    if (self = [super init]) {
+        self.street = street;
+        self.city = city;
+        self.state = state;
+        self.postalCode = postalCode;
+        self.country = country;
+        self.isoCode = isoCode;
+        self.subAdministrativeArea = subAdministrativeArea;
+        self.sublocality = sublocality;
+    }
+
+    return self;
+}
 
 @end

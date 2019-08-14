@@ -1,6 +1,6 @@
 //
-//  ExampleAppCredentials.m
-//  JudoKitObjCExample
+//  ApplePayWrappers.m
+//  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,15 +22,48 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "ApplePayWrappers.h"
 
-#pragma warning "set your own token and secret to see testing results"
+#pragma mark - PaymentSummaryItem
 
-static NSString * const judoId  = @"<#YOUR JUDOID#>";
-static NSString * const token   = @"<#YOUR TOKEN#>";
-static NSString * const secret  = @"<#YOUR SECRET#>";
-static NSString * const merchantId  = @"<#YOUR MERCHANT ID#>";
+@implementation PaymentSummaryItem
 
-@interface ExampleAppCredentials : NSObject
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                         type:(PaymentSummaryItemType)type {
+
+    if (self = [super init]) {
+        self.label = label;
+        self.amount = amount;
+        self.type = type;
+    }
+
+    return self;
+}
+
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount {
+
+    return [self initWithLabel:label
+                        amount:amount
+                          type:PaymentSummaryItemTypeFinal];
+}
+
+@end
+
+#pragma mark - PaymentShippingMethod
+
+@implementation PaymentShippingMethod
+
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                         andDetail:(NSString *)detail {
+
+    if (self = [super init]) {
+        self.identifier = identifier;
+        self.detail = detail;
+    }
+
+    return self;
+}
 
 @end
