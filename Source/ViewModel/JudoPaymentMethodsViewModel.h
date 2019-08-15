@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "ApplePayConfiguration.h"
 #import "PaymentMethods.h"
 #import <Foundation/Foundation.h>
 
@@ -33,6 +34,7 @@
 @property (nonatomic, strong, readonly) JPAmount *_Nonnull amount;
 @property (nonatomic, strong, readonly) JPReference *_Nonnull reference;
 @property (nonatomic, strong, readonly) JPCardDetails *_Nullable cardDetails;
+@property (nonatomic, strong, readonly) ApplePayConfiguration *_Nullable applePayConfiguration;
 
 @property (readonly) PaymentMethods paymentMethods;
 
@@ -40,5 +42,6 @@
                                  amount:(nonnull JPAmount *)amount
                       consumerReference:(nonnull JPReference *)reference
                          paymentMethods:(PaymentMethods)methods
+                  applePayConfiguration:(nullable ApplePayConfiguration *)applePayConfiguration
                             cardDetails:(nullable JPCardDetails *)cardDetails;
 @end
