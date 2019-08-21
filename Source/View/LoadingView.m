@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "LoadingView.h"
-
 #import "JPTheme.h"
 
 @interface LoadingView ()

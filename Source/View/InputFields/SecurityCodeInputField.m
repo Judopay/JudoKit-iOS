@@ -26,6 +26,7 @@
 #import "CardLogoView.h"
 #import "FloatingTextField.h"
 #import "JPTheme.h"
+#import "NSString+Localize.h"
 #import "NSString+Validation.h"
 
 @interface JPInputField ()
@@ -108,9 +109,9 @@
 
 - (NSString *)hintLabelText {
     if (self.isTokenPayment) {
-        return @"Re-enter security code";
+        return @"please_reenter_the_card_security_code".localized;
     }
-    return @"Security code";
+    return @"security_code".localized;
 }
 
 - (NSInteger)securityCodeLengthForCardNetwork:(CardNetwork)network {
