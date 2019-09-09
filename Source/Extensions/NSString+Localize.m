@@ -23,13 +23,18 @@
 //  SOFTWARE.
 
 #import "NSString+Localize.h"
+#import "NSBundle+Additions.h"
 #import <Foundation/Foundation.h>
 
 @implementation NSString (Manipulation)
-
+    
 - (nonnull NSString *)localized {
-    NSBundle *bundle = [NSBundle bundleForClass:[JPTheme class]];
-    return NSLocalizedStringFromTableInBundle(self, nil, bundle, nil);
+    
+    if (NSBundle.stringsBundle != nil) {
+        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
+    }
+    
+    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
 }
-
+    
 @end
