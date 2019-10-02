@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPReference.h"
-#import "NSString+Card.h"
+#import "NSString+Manipulation.h"
 
 @interface JPReference ()
 
@@ -35,7 +35,7 @@
 @implementation JPReference
 
 + (instancetype)consumerReference:(NSString *)ref {
-    return [[JPReference alloc] initWithConsumerReference:ref];;
+    return [[JPReference alloc] initWithConsumerReference:ref];
 }
 
 - (instancetype)initWithConsumerReference:(NSString *)ref {
@@ -63,7 +63,7 @@
         dateFormatter = [NSDateFormatter new];
         [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
     });
-    
+
     NSString *uuidString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-+ :"];
     return [[NSString stringWithFormat:@"%@%@", uuidString, [dateFormatter stringFromDate:[NSDate date]]] stringByReplacingCharactersInSet:invalidCharacterSet withString:@""];

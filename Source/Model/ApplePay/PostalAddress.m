@@ -1,5 +1,5 @@
 //
-//  BillingCountry.h
+//  PostalAddress.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,24 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-/**
- *  BillingCountry enum to simplify identifying a billing country for a given card
- */
-typedef NS_ENUM(NSUInteger, BillingCountry) {
-    /**
-     *  United Kingdom
-     */
-    BillingCountryUK,
-    /**
-     *  United States of America
-     */
-    BillingCountryUSA,
-    /**
-     *  Canada
-     */
-    BillingCountryCanada,
-    /**
-     *  Other
-     */
-    BillingCountryOther
-};
+#import "PostalAddress.h"
+
+@implementation PostalAddress
+
+- (instancetype)initWithSteet:(NSString *)street
+                         city:(NSString *)city
+                        state:(NSString *)state
+                   postalCode:(NSString *)postalCode
+                      country:(NSString *)country
+                      isoCode:(NSString *)isoCode
+        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
+                  sublocality:(nullable NSString *)sublocality {
+
+    if (self = [super init]) {
+        self.street = street;
+        self.city = city;
+        self.state = state;
+        self.postalCode = postalCode;
+        self.country = country;
+        self.isoCode = isoCode;
+        self.subAdministrativeArea = subAdministrativeArea;
+        self.sublocality = sublocality;
+    }
+
+    return self;
+}
+
+@end

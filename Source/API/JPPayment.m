@@ -24,15 +24,7 @@
 
 #import "JPPayment.h"
 
-#import "JPSession.h"
-
-static NSString * const kPaymentPathKey = @"transactions/payments";
-
-@interface JPTransaction ()
-
-@property (nonatomic, strong) NSMutableDictionary *parameters;
-
-@end
+static NSString *const kPaymentPathKey = @"transactions/payments";
 
 @implementation JPPayment
 

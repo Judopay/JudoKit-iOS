@@ -23,19 +23,18 @@
 //  SOFTWARE.
 
 #import "JPTransaction.h"
-
-#import "JPSession.h"
-
-#import "JPRegisterCard.h"
-#import "JPSaveCard.h"
-
-#import "JPAmount.h"
-#import "JPReference.h"
-#import "JPCard.h"
-#import "JPPaymentToken.h"
 #import "JPAddress.h"
-#import "JPResponse.h"
+#import "JPAmount.h"
+#import "JPCard.h"
+#import "JPEnhancedPaymentDetail.h"
 #import "JPPagination.h"
+#import "JPPaymentToken.h"
+#import "JPReference.h"
+#import "JPRegisterCard.h"
+#import "JPResponse.h"
+#import "JPSaveCard.h"
+#import "JPSession.h"
+#import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
 #import "NSError+Judo.h"
@@ -47,17 +46,14 @@
 
 @end
 
-@interface JPTransaction () {
-    PKPayment *_pkPayment;
-    JPVCOResult *_vcoResult;
-}
+@interface JPTransaction ()
 
 @property (nonatomic, strong) NSString *currentTransactionReference;
-
 @property (nonatomic, assign) BOOL initialRecurringPayment;
-
 @property (nonatomic, strong) NSMutableDictionary *parameters;
 
+@property (nonatomic, strong) PKPayment *pkPayment;
+@property (nonatomic, strong) JPVCOResult *vcoResult;
 @end
 
 @implementation JPTransaction
@@ -71,53 +67,54 @@
 }
 
 - (void)sendWithCompletion:(JudoCompletionBlock)completion {
-    
+
     if (!completion) {
-        return; // BAIL
+        return;
     }
-    
+
     NSError *validationError = [self validateTransaction];
-    
+
     if (validationError) {
         completion(nil, validationError);
-        return; // BAIL
+        return;
     }
-    
+
     self.currentTransactionReference = self.reference.paymentReference;
     
-    [self.apiSession POST:self.transactionPath parameters:self.parameters completion:completion];
-    
+    [self.enricher enrichTransaction:self
+                      withCompletion:^{
+                          [self.apiSession POST:self.transactionPath parameters:self.parameters completion:completion];
+                      }];
 }
 
-- (NSError *)validateTransaction {
+- (NSError *)validateTransaction { //!OCLINT
     if (!self.judoId) {
         return [NSError judoJudoIdMissingError];
     }
-    
+
     if (!self.card && !self.paymentToken && !self.pkPayment && !self.vcoResult) {
         return [NSError judoPaymentMethodMissingError];
     }
-    
+
     if (!self.reference) {
         return [NSError judoReferenceMissingError];
     }
-    
-    if (![self isKindOfClass:[JPRegisterCard class]] && ![self isKindOfClass:[JPSaveCard class]] && !self.amount) {
+
+    if (![self isKindOfClass:JPRegisterCard.class] && ![self isKindOfClass:JPSaveCard.class] && !self.amount) {
         return [NSError judoAmountMissingError];
     }
-    
+
     if (self.reference.paymentReference == self.currentTransactionReference) {
         return [NSError judoDuplicateTransactionError];
     }
+
     return nil;
 }
 
 - (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
-    
     [self.apiSession PUT:[NSString stringWithFormat:@"transactions/%@", receiptId]
               parameters:parameters
               completion:completion];
-    
 }
 
 - (void)listWithCompletion:(JudoCompletionBlock)completion {
@@ -179,12 +176,12 @@
         card.cardNumber = self.parameters[@"cardNumber"];
         card.expiryDate = self.parameters[@"expiryDate"];
         card.secureCode = self.parameters[@"cv2"];
-        
+
         card.startDate = self.parameters[@"startDate"];
         card.issueNumber = self.parameters[@"issueNumber"];
-        
+
         card.cardAddress = [[JPAddress alloc] initWithDictionary:self.parameters[@"cardAddress"]];
-        
+
         return card;
     }
     return nil;
@@ -200,14 +197,14 @@
     if (card.secureCode) {
         self.parameters[@"cv2"] = card.secureCode;
     }
-    
+
     if (card.startDate) {
         self.parameters[@"startDate"] = card.startDate;
     }
     if (card.issueNumber) {
         self.parameters[@"issueNumber"] = card.issueNumber;
     }
-    
+
     if (card.cardAddress) {
         self.parameters[@"cardAddress"] = card.cardAddress.dictionaryRepresentation;
     }
@@ -235,11 +232,13 @@
     return _pkPayment;
 }
 
-- (void)setPkPayment:(PKPayment *)pkPayment error:(NSError *__autoreleasing *)error {
-    _pkPayment = pkPayment;
-    
+- (int)setPkPayment:(PKPayment *)pkPayment
+              error:(NSError *__autoreleasing *)error {
+
+    self.pkPayment = pkPayment;
+
     NSMutableDictionary *tokenDict = [NSMutableDictionary dictionary];
-    
+
     if (pkPayment.token.paymentMethod) {
         tokenDict[@"paymentInstrumentName"] = pkPayment.token.paymentMethod.displayName;
         tokenDict[@"paymentNetwork"] = pkPayment.token.paymentMethod.network;
@@ -247,12 +246,42 @@
         tokenDict[@"paymentInstrumentName"] = pkPayment.token.paymentInstrumentName;
         tokenDict[@"paymentNetwork"] = pkPayment.token.paymentNetwork;
     }
-    
+
     tokenDict[@"paymentData"] = [NSJSONSerialization JSONObjectWithData:pkPayment.token.paymentData
                                                                 options:NSJSONReadingAllowFragments
                                                                   error:error];
-    
-    self.parameters[@"pkPayment"] = @{@"token":tokenDict};
+
+    self.parameters[@"pkPayment"] = @{@"token" : tokenDict};
+    [self handleApplePayMetadataFromPKPayment:pkPayment];
+
+    return error ? 1 : 0;
+}
+
+- (void)handleApplePayMetadataFromPKPayment:(PKPayment *)pkPayment {
+
+    NSString *emailAddress = pkPayment.billingContact.emailAddress;
+    NSString *phoneNumber = pkPayment.billingContact.phoneNumber.stringValue;
+
+    if (emailAddress != nil) {
+        self.parameters[@"emailAddress"] = emailAddress;
+    }
+
+    if (phoneNumber != nil) {
+        self.parameters[@"mobileNumber"] = phoneNumber;
+    }
+
+    NSMutableDictionary *cardAddress = [NSMutableDictionary new];
+
+    cardAddress[@"address1"] = pkPayment.billingContact.postalAddress.street;
+    cardAddress[@"city"] = pkPayment.billingContact.postalAddress.city;
+    cardAddress[@"postCode"] = pkPayment.billingContact.postalAddress.postalCode;
+    cardAddress[@"countryCode"] = pkPayment.billingContact.postalAddress.ISOCountryCode;
+
+    cardAddress[@"line1"] = pkPayment.billingContact.postalAddress.street;
+    cardAddress[@"line2"] = pkPayment.billingContact.postalAddress.city;
+    cardAddress[@"line3"] = pkPayment.billingContact.postalAddress.postalCode;
+
+    self.parameters[@"cardAddress"] = cardAddress;
 }
 
 - (JPVCOResult *)vcoResult {
@@ -260,11 +289,10 @@
 }
 
 - (void)setVCOResult:(JPVCOResult *)vcoResult {
-    _vcoResult = vcoResult;
-    self.parameters[@"wallet"] = @{@"callid": vcoResult.callId,
-                                   @"encryptedKey": vcoResult.encryptedKey,
-                                   @"encryptedPaymentData": vcoResult.encryptedPaymentData
-                                    };
+    self.vcoResult = vcoResult;
+    self.parameters[@"wallet"] = @{@"callid" : vcoResult.callId,
+                                   @"encryptedKey" : vcoResult.encryptedKey,
+                                   @"encryptedPaymentData" : vcoResult.encryptedPaymentData};
 }
 
 - (NSString *)mobileNumber {
@@ -292,11 +320,18 @@
 }
 
 - (BOOL)initialRecurringPayment {
-    return ((NSNumber*)self.parameters[@"initialRecurringPayment"]).boolValue;
+    return ((NSNumber *)self.parameters[@"initialRecurringPayment"]).boolValue;
 }
 
 - (void)setInitialRecurringPayment:(BOOL)initialRecurringPayment {
     self.parameters[@"initialRecurringPayment"] = [NSNumber numberWithBool:initialRecurringPayment];
+}
+
+- (void)setPaymentDetail:(JPEnhancedPaymentDetail *)paymentDetail {
+    _paymentDetail = paymentDetail;
+
+    NSDictionary *dict = [paymentDetail toDictionary];
+    self.parameters[@"EnhancedPaymentDetail"] = dict;
 }
 
 #pragma mark - TransactionPath

@@ -23,25 +23,26 @@
 //  SOFTWARE.
 
 #import "IssueNumberInputField.h"
-#import "NSString+Card.h"
 #import "FloatingTextField.h"
 #import "JPTheme.h"
+#import "NSString+Localize.h"
+#import "NSString+Validation.h"
 
 @implementation IssueNumberInputField
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
+
     NSString *oldString = textField.text;
     NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
-    
+
     if (!newString.length) {
         return YES;
     }
-    
+
     if (!newString.isNumeric) {
         return NO;
     }
-    
+
     return [newString isNumeric] && newString.length <= 3;
 }
 
@@ -53,22 +54,22 @@
 
 - (void)textFieldDidChangeValue:(UITextField *)textField {
     [super textFieldDidChangeValue:textField];
-    
+
     [self didChangeInputText];
-    
+
     [self.delegate issueNumberInputDidEnterCode:self withIssueNumber:self.textField.text];
 }
 
 - (NSAttributedString *)placeholder {
-    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:[self.theme judoPlaceholderTextColor]}];
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName : [self.theme judoPlaceholderTextColor]}];
 }
 
 - (NSString *)title {
-    return @"Issue number";
+    return @"issue_number_label".localized;
 }
 
 - (NSString *)hintLabelText {
-    return @"Issue number on front of card";
+    return @"issue_number_front_of_card".localized;
 }
 
 @end

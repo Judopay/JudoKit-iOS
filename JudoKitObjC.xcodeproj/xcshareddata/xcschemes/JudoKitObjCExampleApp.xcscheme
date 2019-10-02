@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -35,6 +35,21 @@
                BlueprintIdentifier = "3B4EB3B21C981EA7006265A0"
                BuildableName = "JudoKitObjCExampleAppUITests.xctest"
                BlueprintName = "JudoKitObjCExampleAppUITests"
+               ReferencedContainer = "container:JudoKitObjC.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "JudoKit3DSPaymentTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3B678B5F1C6CE5190001DC2F"
+               BuildableName = "JudoKitObjCTests.xctest"
+               BlueprintName = "JudoKitObjCTests"
                ReferencedContainer = "container:JudoKitObjC.xcodeproj">
             </BuildableReference>
          </TestableReference>

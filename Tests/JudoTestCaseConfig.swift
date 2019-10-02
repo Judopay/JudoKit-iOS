@@ -24,6 +24,6 @@
 
 import Foundation
 
-let myJudoId = "<#YOUR JUDOID#>"
+let myJudoId = "<#YOUR JUDO ID#>"
 let token = "<#YOUR TOKEN#>"
 let secret = "<#YOUR SECRET#>"

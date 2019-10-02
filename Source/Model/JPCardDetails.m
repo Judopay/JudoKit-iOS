@@ -26,28 +26,26 @@
 #import "NSString+Card.h"
 
 @interface JPCardDetails ()
-
 @property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;
-
 @end
 
 @implementation JPCardDetails
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-	self = [super init];
-	if (self) {
+    if (self = [super init]) {
         self.cardLastFour = dictionary[@"cardLastfour"];
         self.endDate = dictionary[@"endDate"];
         self.cardToken = dictionary[@"cardToken"];
         self.cardNumber = dictionary[@"cardNumber"];
         self.cardNetwork = ((NSNumber *)dictionary[@"cardType"]).integerValue;
-	}
-	return self;
+    }
+    return self;
 }
 
-- (instancetype)initWithCardNumber:(NSString *)cardNumber expiryMonth:(NSInteger)month expiryYear:(NSInteger)year {
-    self = [super init];
-    if (self) {
+- (instancetype)initWithCardNumber:(NSString *)cardNumber
+                       expiryMonth:(NSInteger)month
+                        expiryYear:(NSInteger)year {
+    if (self = [super init]) {
         NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *comp = [NSDateComponents new];
         comp.year = year;
@@ -90,99 +88,29 @@
     } else if (self.cardNumber) {
         self.cardLastFour = [self.cardNumber substringFromIndex:self.cardNumber.length - 4];
     }
-    
-    switch (self.cardNetwork) {
-        case CardNetworkAMEX:
-            return [NSString stringWithFormat:@"**** ****** *%@", self.cardLastFour];
-            break;
-        case CardNetworkUnknown:
-            return [NSString stringWithFormat:@"**** %@", self.cardLastFour];
-            break;
-        default:
-            return [NSString stringWithFormat:@"**** **** **** %@", self.cardLastFour];
-            break;
+
+    if (self.cardNetwork == CardNetworkAMEX) {
+        return [NSString stringWithFormat:@"**** ****** *%@", self.cardLastFour];
     }
-    
+
+    if (self.cardNetwork == CardNetworkUnknown) {
+        return [NSString stringWithFormat:@"**** %@", self.cardLastFour];
+    }
+
+    return [NSString stringWithFormat:@"**** **** **** %@", self.cardLastFour];
 }
 
 - (nullable NSString *)formattedExpiryDate {
     if (!self.endDate) {
         return nil;
     }
-    
+
     if (self.endDate.length == 4) {
         NSString *prefix = [self.endDate substringToIndex:2];
         NSString *suffix = [self.endDate substringFromIndex:2];
         return [NSString stringWithFormat:@"%@/%@", prefix, suffix];
     }
     return self.endDate;
-}
-
-+ (nonnull NSString *)titleForCardNetwork:(CardNetwork)network {
-    switch (network) {
-        case CardNetworkUnknown:
-        return @"Unknown Card Network";
-        case CardNetworkVisa:
-        return @"Visa";
-        case CardNetworkMasterCard:
-        return @"Mastercard";
-        case CardNetworkVisaElectron:
-        return @"Visa Electron";
-        case CardNetworkSwitch:
-        return @"Switch";
-        case CardNetworkSolo:
-        return @"Solo";
-        case CardNetworkLaser:
-        return @"Laser";
-        case CardNetworkChinaUnionPay:
-        return @"China UnionPay";
-        case CardNetworkAMEX:
-        return @"AmEx";
-        case CardNetworkJCB:
-        return @"JCB";
-        case CardNetworkMaestro:
-        return @"Maestro";
-        case CardNetworkVisaDebit:
-        return @"Visa Debit";
-        case CardNetworkMasterCardDebit:
-        return @"Mastercard Debit";
-        case CardNetworkVisaPurchasing:
-        return @"Visa Purchasing";
-        case CardNetworkDiscover:
-        return @"Discover";
-        case CardNetworkCarnet:
-        return @"Carnet";
-        case CardNetworkCarteBancaire:
-        return @"Carte Bancaire";
-        case CardNetworkDinersClub:
-        return @"Diners Club";
-        case CardNetworkElo:
-        return @"Elo";
-        case CardNetworkFarmersCard:
-        return @"Farmers Card";
-        case CardNetworkSoriana:
-        return @"Soriana";
-        case CardNetworkPrivateLabelCard:
-        return @"Private Label";
-        case CardNetworkQCard:
-        return @"Q Card";
-        case CardNetworkStyle:
-        return @"Style";
-        case CardNetworkTrueRewards:
-        return @"True Rewards";
-        case CardNetworkUATP:
-        return @"UATP";
-        case CardNetworkBankCard:
-        return @"Bank Card";
-        case CardNetworkBanamex_Costco:
-        return @"Banamex Costco";
-        case CardNetworkInterPayment:
-        return @"InterPayment";
-        case CardNetworkInstaPayment:
-        return @"InstaPayment";
-        case CardNetworkDankort:
-        return @"Dankort";
-    }
 }
 
 #pragma mark - Lazy Loading
@@ -194,6 +122,5 @@
     }
     return _expiryDateFormatter;
 }
-
 
 @end

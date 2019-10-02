@@ -59,7 +59,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
         cvv2TextField2.typeText("452")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -107,7 +107,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         cvvTextField2.tap()
         cvvTextField2.typeText("789")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -145,7 +145,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
         cvv2TextField2.typeText("452")
 
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
 
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -193,7 +193,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         cvvTextField2.tap()
         cvvTextField2.typeText("789")
 
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.buttons.matching(identifier: "Pay").element(boundBy: 1).tap()
 
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")

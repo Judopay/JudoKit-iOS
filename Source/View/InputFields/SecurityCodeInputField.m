@@ -23,12 +23,11 @@
 //  SOFTWARE.
 
 #import "SecurityCodeInputField.h"
-
-#import "FloatingTextField.h"
 #import "CardLogoView.h"
+#import "FloatingTextField.h"
 #import "JPTheme.h"
-
-#import "NSString+Card.h"
+#import "NSString+Localize.h"
+#import "NSString+Validation.h"
 
 @interface JPInputField ()
 
@@ -44,21 +43,21 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
+
     if (self.textField != textField) {
         return YES;
     }
-    
+
     if (string.length > 0 && self.textField.secureTextEntry) {
         self.textField.secureTextEntry = NO;
     }
-    
+
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    
+
     if (newString.length == 0) {
         return YES;
     }
-    
+
     return newString.isNumeric && newString.length <= [self securityCodeLengthForCardNetwork:self.cardNetwork];
 }
 
@@ -70,14 +69,14 @@
 
 - (void)textFieldDidChangeValue:(UITextField *)textField {
     [super textFieldDidChangeValue:textField];
-    
+
     [self didChangeInputText];
-    
+
     [self.delegate judoPayInput:self didValidate:self.textField.text.length == [self securityCodeLengthForCardNetwork:self.cardNetwork]];
 }
 
 - (NSAttributedString *)placeholder {
-    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName:self.theme.judoPlaceholderTextColor}];
+    return [[NSAttributedString alloc] initWithString:self.title attributes:@{NSForegroundColorAttributeName : self.theme.judoPlaceholderTextColor}];
 }
 
 - (BOOL)containsLogo {
@@ -110,17 +109,16 @@
 
 - (NSString *)hintLabelText {
     if (self.isTokenPayment) {
-        return @"Re-enter security code";
+        return @"please_reenter_the_card_security_code".localized;
     }
-    return @"Security code";
+    return @"security_code".localized;
 }
 
 - (NSInteger)securityCodeLengthForCardNetwork:(CardNetwork)network {
     if (network == CardNetworkAMEX) {
         return 4;
-    } else {
-        return 3;
     }
+    return 3;
 }
 
 @end

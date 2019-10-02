@@ -28,19 +28,16 @@
 @implementation JP3DSWebView
 
 - (instancetype)init {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         [self setupView];
-	}
-	return self;
+    }
+    return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-	self = [super initWithFrame:CGRectZero];
-	if (self) {
-        
-	}
-	return self;
+    self = [super initWithFrame:CGRectZero];
+    return self;
 }
 
 - (void)setupView {
@@ -49,34 +46,35 @@
 }
 
 - (NSString *)load3DSWithPayload:(NSDictionary *)payload error:(NSError **)error {
-    
+
     NSCharacterSet *allowedCharSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
-    
+
     NSString *urlString = payload[@"acsUrl"];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSString *md = payload[@"md"];
+    NSString *mdParameter = payload[@"md"];
     NSString *receiptId = payload[@"receiptId"];
     NSString *paReqString = payload[@"paReq"];
     NSString *paReqStringEscaped = [paReqString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
     NSString *termUrlString = [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
-    
-    if (!url || !md || !receiptId || !paReqString || !paReqStringEscaped || !termUrlString) {
-        *error = [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil];
+
+    if (!url || !mdParameter || !receiptId || !paReqString || !paReqStringEscaped || !termUrlString) {
+        if (error != NULL) {
+            *error = [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil];
+        }
         return nil;
     }
-    
-    NSData *postData = [[NSString stringWithFormat:@"MD=%@&PaReq=%@&TermUrl=%@", md, paReqStringEscaped, termUrlString] dataUsingEncoding:NSUTF8StringEncoding];
-    
+
+    NSData *postData = [[NSString stringWithFormat:@"MD=%@&PaReq=%@&TermUrl=%@", mdParameter, paReqStringEscaped, termUrlString] dataUsingEncoding:NSUTF8StringEncoding];
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    
+
     request.HTTPMethod = @"POST";
     [request setValue:[NSString stringWithFormat:@"%li", (unsigned long)postData.length] forHTTPHeaderField:@"Content-Length"];
     request.HTTPBody = postData;
-    
+
     [self loadRequest:request];
-    
+
     return receiptId;
-    
 }
 
 @end
