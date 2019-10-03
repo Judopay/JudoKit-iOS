@@ -155,34 +155,59 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
 };
 
 /**
- *  The CardDetails object stores information that is returned from a successful payment or pre-auth. This class also implements the `NSCoding` protocol to enable serialization for persistency
+ * The CardDetails object stores information that is returned from a successful payment or pre-auth. This class also implements the `NSCoding` protocol to enable serialization for persistency
  */
 @interface JPCardDetails : NSObject <NSCoding>
 
 /**
-*  The last four digits of the card used for this transaction
-*/
+ * The last four digits of the card used for this transaction
+ */
 @property (nonatomic, strong) NSString *_Nullable cardLastFour;
 
 /**
- *  Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
+ * Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
  */
 @property (nonatomic, strong) NSString *_Nullable endDate;
 
 /**
- *  Can be used to charge future payments against this card
+ * Can be used to charge future payments against this card
  */
 @property (nonatomic, strong) NSString *_Nullable cardToken;
 
 /**
- *  The card network
+ * The card network
  */
 @property (nonatomic, assign) CardNetwork cardNetwork;
 
 /**
- *  The card number if available
+ * The card number if available
  */
 @property (nonatomic, strong) NSString *_Nullable cardNumber;
+
+/**
+ * Gets the bank the card was issued from.
+ */
+@property (nonatomic, strong) NSString *_Nullable bank;
+
+/**
+ * Gets the category of the card.
+ */
+@property (nonatomic, strong) NSString *_Nullable cardCategory;
+
+/**
+ * Gets the country the card was issued from in ISO 3166-1 alpha-2 format (2 chararacters)
+ */
+@property (nonatomic, strong) NSString *_Nullable cardCountry;
+
+/**
+ * Gets or sets the funding type of the card.
+ */
+@property (nonatomic, strong) NSString *_Nullable cardFunding;
+
+/**
+ * Gets or sets the scheme of the card.
+ */
+@property (nonatomic, strong) NSString *_Nullable cardScheme;
 
 /**
  *  Designated initializer for Card Details
