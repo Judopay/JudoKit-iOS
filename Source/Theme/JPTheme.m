@@ -164,20 +164,19 @@
 }
 
 #pragma mark - Colors
-
 - (UIColor *)tintColor {
-    if (!_tintColor) {
-        _tintColor = [UIColor colorWithRed:30 / 255.0f green:120 / 255.0f blue:160 / 255.0f alpha:1.0f];
+    if (_tintColor) {
+        return _tintColor;
     }
-    return _tintColor;
+    return [UIColor defaultTintColor];
 }
 
 - (UIColor *)judoTextColor {
     if (_judoTextColor) {
         return _judoTextColor;
     }
-    UIColor *dgc = [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
+    UIColor *dgc = [UIColor thunder];
+    if ([self.tintColor isDarkColor]) {
         return dgc;
     }
     return [dgc inverseColor];
@@ -187,38 +186,46 @@
     if (_judoNavigationBarTitleColor) {
         return _judoNavigationBarTitleColor;
     }
-    UIColor *dgc = [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
+    UIColor *dgc = [UIColor thunder];
+    if ([self.tintColor isDarkColor]) {
         return dgc;
     }
     return [dgc inverseColor];
 }
 
 - (UIColor *)judoInputFieldTextColor {
-    return _judoInputFieldTextColor ? _judoInputFieldTextColor : [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
+    if (_judoInputFieldTextColor) {
+        return _judoInputFieldTextColor;
+    }
+    UIColor *color = [UIColor darkGrayColor];
+    if ([self.tintColor isDarkColor]) {
+        return color;
+    }
+    return [color inverseColor];
 }
 
 - (UIColor *)judoPlaceholderTextColor {
     if (_judoPlaceholderTextColor) {
         return _judoPlaceholderTextColor;
     }
-    UIColor *lgc = [UIColor colorWithRed:180 / 255.0f green:180 / 255.0f blue:180 / 255.0f alpha:1.0];
-    if ([self.tintColor colorMode]) {
+    UIColor *lgc = [UIColor magnesium];
+    if ([self.tintColor isDarkColor]) {
         return lgc;
     }
     return [lgc inverseColor];
 }
 
 - (UIColor *)judoInputFieldBorderColor {
-    return _judoInputFieldBorderColor ? _judoInputFieldBorderColor : [UIColor colorWithRed:180 / 255.0f green:180 / 255.0f blue:180 / 255.0f alpha:1.0f];
+    return _judoInputFieldBorderColor ? _judoInputFieldBorderColor : [UIColor magnesium];
 }
 
 - (UIColor *)judoContentViewBackgroundColor {
     if (_judoContentViewBackgroundColor) {
         return _judoContentViewBackgroundColor;
     }
-    UIColor *bgc = [UIColor colorWithRed:245 / 255.0f green:245 / 255.0f blue:245 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
+
+    UIColor *bgc = [UIColor zircon];
+    if ([self.tintColor isDarkColor]) {
         return bgc;
     }
     return [bgc inverseColor];
@@ -232,29 +239,29 @@
     if (_judoButtonTitleColor) {
         return _judoButtonTitleColor;
     }
-    return [self.tintColor colorMode] ? [UIColor whiteColor] : [UIColor blackColor];
+    return [self.tintColor isDarkColor] ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 - (UIColor *)judoLoadingBackgroundColor {
     if (_judoLoadingBackgroundColor) {
         return _judoLoadingBackgroundColor;
     }
-    UIColor *lbc = [UIColor colorWithRed:210 / 255.0f green:210 / 255.0f blue:210 / 255.0f alpha:0.8f];
-    if ([self.tintColor colorMode]) {
+    UIColor *lbc = [UIColor lightGray];
+    if ([self.tintColor isDarkColor]) {
         return lbc;
     }
     return [lbc inverseColor];
 }
 
 - (UIColor *)judoErrorColor {
-    return _judoErrorColor ? _judoErrorColor : [UIColor colorWithRed:235 / 255.0f green:55 / 255.0f blue:45 / 255.0f alpha:1.0];
+    return _judoErrorColor ? _judoErrorColor : [UIColor cgRed];
 }
 
 - (UIColor *)judoLoadingBlockViewColor {
     if (_judoLoadingBlockViewColor) {
         return _judoLoadingBlockViewColor;
     }
-    if ([self.tintColor colorMode]) {
+    if ([self.tintColor isDarkColor]) {
         return [UIColor whiteColor];
     }
     return [UIColor blackColor];

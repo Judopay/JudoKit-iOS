@@ -1,6 +1,6 @@
 //
-//  NSString+Manipulation.h
-//  JudoKitObjC
+//  SettingsViewController.h
+//  JudoKitObjCExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,19 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Localize.h"
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@implementation NSString (Manipulation)
+NS_ASSUME_NONNULL_BEGIN
 
-- (nonnull NSString *)localized {
+@class SettingsViewController, Settings;
 
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
-    }
-
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
-}
-
+@protocol SettingsViewControllerDelegate <NSObject>
+- (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings;
 @end
+
+@interface SettingsViewController : UIViewController
+@property (nonatomic, weak) id <SettingsViewControllerDelegate> delegate;
+- (instancetype)initWithSettings:(Settings *)settings;
+@end
+
+NS_ASSUME_NONNULL_END

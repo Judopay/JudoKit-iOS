@@ -1,8 +1,8 @@
 //
-//  NSString+Manipulation.h
-//  JudoKitObjC
+//  MainViewController.h
+//  JudoKitObjCExample
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Localize.h"
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@implementation NSString (Manipulation)
-
-- (nonnull NSString *)localized {
-
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
-    }
-
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
-}
+@interface MainViewController : UIViewController
 
 @end
+

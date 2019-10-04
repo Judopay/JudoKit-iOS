@@ -32,6 +32,20 @@
 
 - (CGFloat)greyScale;
 
-- (BOOL)colorMode;
+- (BOOL)isDarkColor;
+
++ (UIColor *_Nonnull)jellyBean;
+
++ (UIColor *_Nonnull)thunder;
+
++ (UIColor *_Nonnull)magnesium;
+
++ (UIColor *_Nonnull)zircon;
+
++ (UIColor *_Nonnull)lightGray;
+
++ (UIColor *_Nonnull)cgRed;
+
++ (UIColor *_Nonnull)defaultTintColor;
 
 @end

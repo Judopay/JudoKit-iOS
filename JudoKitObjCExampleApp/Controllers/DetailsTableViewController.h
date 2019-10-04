@@ -1,8 +1,8 @@
 //
-//  ViewController.h
+//  DetailsTableViewController.h
 //  JudoKitObjCExample
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,32 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface DetailsRow: NSObject
+@property (nonatomic, strong) NSString *_Nullable title;
+@property (nonatomic, strong) NSString *_Nullable value;
+
+- (nonnull instancetype)initWithTitle:(nonnull NSString *)title
+                                value:(nonnull NSString *)value;
+
++ (nonnull instancetype)withTitle:(nonnull NSString *)title andValue:(nonnull NSString *)value;
 
 @end
 
+@interface DetailsSection: NSObject
+@property (nonatomic, strong) NSString *_Nullable title;
+@property (nonatomic, strong) NSArray<DetailsRow *> *rows;
+
+- (nonnull instancetype)initWithTitle:(nonnull NSString *)title
+                                 rows:(nonnull NSArray<DetailsRow *> *)rows;
+@end
+
+@interface DetailsTableViewController : UITableViewController
+@property (nonatomic, strong) NSArray<DetailsSection *> *data;
+
+- (instancetype _Nonnull)initWithData:(nonnull NSArray<DetailsSection *> *)data
+                             andTitle:(NSString *)title;
+@end
+
+NS_ASSUME_NONNULL_END
