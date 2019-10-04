@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull instancetype)initWithTitle:(nonnull NSString *)title
                                 value:(nonnull NSString *)value;
 
-+ (nonnull instancetype)rowWithTitle:(nonnull NSString *)title value:(nonnull NSString *)value;
++ (nonnull instancetype)withTitle:(nonnull NSString *)title andValue:(nonnull NSString *)value;
 
 @end
 

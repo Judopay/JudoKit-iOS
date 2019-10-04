@@ -34,7 +34,7 @@
     return self;
 }
 
-+ (nonnull instancetype)rowWithTitle:(nonnull NSString *)title value:(nonnull NSString *)value {
++ (nonnull instancetype)withTitle:(nonnull NSString *)title andValue:(nonnull NSString *)value {
     return [[DetailsRow alloc] initWithTitle:title value:value];
 }
 
@@ -94,6 +94,7 @@
     }
     
     DetailsRow *row = self.data[indexPath.section].rows[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = row.title;
     cell.detailTextLabel.text = row.value;
     cell.detailTextLabel.numberOfLines = 0;
@@ -104,10 +105,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
-}
-
-- (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)dismiss:(id)sender {

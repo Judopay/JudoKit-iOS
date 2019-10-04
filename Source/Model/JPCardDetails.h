@@ -185,27 +185,37 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
 @property (nonatomic, strong) NSString *_Nullable cardNumber;
 
 /**
- * Gets the bank the card was issued from.
+ * The bank the card was issued from.
+ *
+ * Possible values are Credit Industriel Et Commercial, Barclays, Bank of America
  */
 @property (nonatomic, strong) NSString *_Nullable bank;
 
 /**
- * Gets the category of the card.
+ * The category of the card.
+ *
+ * Possible values are Corporate, Classic, Platinum
  */
 @property (nonatomic, strong) NSString *_Nullable cardCategory;
 
 /**
- * Gets the country the card was issued from in ISO 3166-1 alpha-2 format (2 chararacters)
+ * The country the card was issued from in ISO 3166-1 alpha-2 format (2 chararacters)
+ *
+ * Possible values are UK, FR, DE, etc
  */
 @property (nonatomic, strong) NSString *_Nullable cardCountry;
 
 /**
- * Gets or sets the funding type of the card.
+ * The funding type of the card.
+ *
+ * Possible values are Debit, Credit, etc
  */
 @property (nonatomic, strong) NSString *_Nullable cardFunding;
 
 /**
- * Gets or sets the scheme of the card.
+ * The scheme of the card.
+ *
+ * Possible values are Visa, Mastercard, etc
  */
 @property (nonatomic, strong) NSString *_Nullable cardScheme;
 

@@ -99,15 +99,15 @@
     }
 
     NSArray<DetailsRow *> *rows = @[
-    [DetailsRow rowWithTitle:@"CardLastFour" value: cardDetails.cardLastFour],
-    [DetailsRow rowWithTitle:@"EndDate" value: cardDetails.endDate],
-    [DetailsRow rowWithTitle:@"CardToken" value: cardDetails.cardToken],
-    [DetailsRow rowWithTitle:@"CardType" value: [NSString stringWithFormat:@"%lu", (unsigned long)cardDetails.cardNetwork]],
-    [DetailsRow rowWithTitle:@"Bank" value: cardDetails.bank],
-    [DetailsRow rowWithTitle:@"CardCategory" value: cardDetails.cardCategory],
-    [DetailsRow rowWithTitle:@"CardCountry" value: cardDetails.cardCountry],
-    [DetailsRow rowWithTitle:@"CardFunding" value: cardDetails.cardFunding],
-    [DetailsRow rowWithTitle:@"CardScheme" value: cardDetails.cardScheme]
+    [DetailsRow withTitle:@"Card last 4 digits" andValue: cardDetails.cardLastFour],
+    [DetailsRow withTitle:@"End date" andValue: cardDetails.endDate],
+    [DetailsRow withTitle:@"Card token" andValue: cardDetails.cardToken],
+    [DetailsRow withTitle:@"Card type" andValue: [NSString stringWithFormat:@"%lu", (unsigned long)cardDetails.cardNetwork]],
+    [DetailsRow withTitle:@"Bank" andValue: cardDetails.bank],
+    [DetailsRow withTitle:@"Card category" andValue: cardDetails.cardCategory],
+    [DetailsRow withTitle:@"Card country" andValue: cardDetails.cardCountry],
+    [DetailsRow withTitle:@"Card funding" andValue: cardDetails.cardFunding],
+    [DetailsRow withTitle:@"Card scheme" andValue: cardDetails.cardScheme]
     ];
     
     NSArray<DetailsSection *> *sections = @[[[DetailsSection alloc] initWithTitle:@"Card Details" rows: rows]];
