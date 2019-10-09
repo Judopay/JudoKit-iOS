@@ -30,7 +30,7 @@
 #import "ExampleAppCredentials.h"
 #import "ApplePayConfiguration.h"
 #import "SettingsViewController.h"
-#import "Option.h"
+#import "DemoFeature.h"
 #import "Settings.h"
 #import "HalfHeightPresentationController.h"
 
@@ -49,7 +49,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 @property (nonatomic, nonnull, strong) NSString *reference;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) NSArray <Option *> *options;
+@property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 
 @end
@@ -74,7 +74,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     self.reference = @"judoPay-sample-app-objc";
     
     self.settings = [Settings defaultSettings];
-    self.options = [Option defaultOptions];
+    self.features = [DemoFeature defaultFeatures];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -108,13 +108,13 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.options.count;
+    return self.features.count;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-    Option *option = self.options[indexPath.row];
+    DemoFeature *option = self.features[indexPath.row];
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
     return cell;
@@ -123,45 +123,45 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 #pragma mark - UITableViewDelegate
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Option *option = self.options[indexPath.row];
-    switch (option.type) {
-        case OptionTypePayment:
+    DemoFeature *feature = self.features[indexPath.row];
+    switch (feature.type) {
+        case DemoFeatureTypePayment:
             [self paymentOperation];
             break;
 
-        case OptionTypePreAuth:
+        case DemoFeatureTypePreAuth:
             [self preAuthOperation];
             break;
 
-        case OptionTypeCreateCardToken:
+        case DemoFeatureTypeCreateCardToken:
             [self createCardTokenOperation];
             break;
 
-        case OptionTypeSaveCard:
+        case DemoFeatureTypeSaveCard:
             [self saveCardOperation];
             break;
 
-        case OptionTypeRepeatPayment:
+        case DemoFeatureTypeRepeatPayment:
             [self tokenPaymentOperation];
             break;
 
-        case OptionTypeTokenPreAuth:
+        case DemoFeatureTypeTokenPreAuth:
             [self tokenPreAuthOperation];
             break;
 
-        case OptionTypeApplePayPayment:
+        case DemoFeatureTypeApplePayPayment:
             [self applePayPaymentOperation];
             break;
 
-        case OptionTypeApplePayPreAuth:
+        case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
 
-        case OptionTypePaymentMethods:
+        case DemoFeatureTypePaymentMethods:
             [self paymentMethodOption];
             break;
 
-        case OptionTypeStandaloneApplePayButton:
+        case DemoFeatureTypeStandaloneApplePayButton:
             [self standaloneApplePayButton];
 
         default:

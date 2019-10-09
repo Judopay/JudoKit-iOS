@@ -175,44 +175,44 @@
     if (_judoTextColor) {
         return _judoTextColor;
     }
-    UIColor *dgc = [UIColor thunder];
+    UIColor *textColor = [UIColor thunder];
     if ([self.tintColor isDarkColor]) {
-        return dgc;
+        return textColor;
     }
-    return [dgc inverseColor];
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoNavigationBarTitleColor {
     if (_judoNavigationBarTitleColor) {
         return _judoNavigationBarTitleColor;
     }
-    UIColor *dgc = [UIColor thunder];
+    UIColor *navigationBarTintColor = [UIColor thunder];
     if ([self.tintColor isDarkColor]) {
-        return dgc;
+        return navigationBarTintColor;
     }
-    return [dgc inverseColor];
+    return [navigationBarTintColor inverseColor];
 }
 
 - (UIColor *)judoInputFieldTextColor {
     if (_judoInputFieldTextColor) {
         return _judoInputFieldTextColor;
     }
-    UIColor *color = [UIColor darkGrayColor];
+    UIColor *textColor = [UIColor darkGrayColor];
     if ([self.tintColor isDarkColor]) {
-        return color;
+        return textColor;
     }
-    return [color inverseColor];
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoPlaceholderTextColor {
     if (_judoPlaceholderTextColor) {
         return _judoPlaceholderTextColor;
     }
-    UIColor *lgc = [UIColor magnesium];
+    UIColor *textColor = [UIColor magnesium];
     if ([self.tintColor isDarkColor]) {
-        return lgc;
+        return textColor;
     }
-    return [lgc inverseColor];
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoInputFieldBorderColor {
@@ -224,11 +224,11 @@
         return _judoContentViewBackgroundColor;
     }
 
-    UIColor *bgc = [UIColor zircon];
+    UIColor *backgroundColor = [UIColor zircon];
     if ([self.tintColor isDarkColor]) {
-        return bgc;
+        return backgroundColor;
     }
-    return [bgc inverseColor];
+    return [backgroundColor inverseColor];
 }
 
 - (UIColor *)judoButtonColor {
@@ -246,11 +246,11 @@
     if (_judoLoadingBackgroundColor) {
         return _judoLoadingBackgroundColor;
     }
-    UIColor *lbc = [UIColor lightGray];
+    UIColor *loadingBackgroundColor = [UIColor lightGray];
     if ([self.tintColor isDarkColor]) {
-        return lbc;
+        return loadingBackgroundColor;
     }
-    return [lbc inverseColor];
+    return [loadingBackgroundColor inverseColor];
 }
 
 - (UIColor *)judoErrorColor {

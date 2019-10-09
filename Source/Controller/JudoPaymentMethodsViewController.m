@@ -136,12 +136,12 @@
     }
 
     if (self.viewModel.paymentMethods & PaymentMethodApplePay && [PKPaymentAuthorizationViewController canMakePayments]) {
-        PKPaymentButtonStyle buttonStype = PKPaymentButtonStyleBlack;
+        PKPaymentButtonStyle buttonStyle = PKPaymentButtonStyleBlack;
         if ([UIApplication isUserInterfaceStyleDark] || [self.view.backgroundColor isDarkColor]) {
-            buttonStype = PKPaymentButtonStyleWhite;
+            buttonStyle = PKPaymentButtonStyleWhite;
         }
 
-        PKPaymentButton *applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:buttonStype];
+        PKPaymentButton *applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:buttonStyle];
         [applePayButton setTag:PaymentMethodApplePay];
         [applePayButton addTarget:self
                            action:@selector(paymentMethodButtonDidTap:)
