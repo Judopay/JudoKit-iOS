@@ -1,5 +1,5 @@
 //
-//  UIViewController+JPTheme.m
+//  UIApplication+Additions.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,23 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "UIColor+Judo.h"
-#import "UIViewController+JPTheme.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIViewController (JPTheme)
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+@interface UIApplication (Additions)
 
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
-    }
-
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
-}
++ (BOOL)isUserInterfaceStyleDark;
 
 @end
+
+NS_ASSUME_NONNULL_END

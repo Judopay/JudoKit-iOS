@@ -34,6 +34,7 @@
 #import "JudoPaymentMethodsViewModel.h"
 #import "NSError+Judo.h"
 #import "NSString+Localize.h"
+#import "UIApplication+Additions.h"
 #import "UIColor+Judo.h"
 #import "UIView+SafeAnchors.h"
 #import "UIViewController+JPTheme.h"
@@ -135,7 +136,12 @@
     }
 
     if (self.viewModel.paymentMethods & PaymentMethodApplePay && [PKPaymentAuthorizationViewController canMakePayments]) {
-        PKPaymentButton *applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
+        PKPaymentButtonStyle buttonStyle = PKPaymentButtonStyleBlack;
+        if ([UIApplication isUserInterfaceStyleDark] || [self.view.backgroundColor isDarkColor]) {
+            buttonStyle = PKPaymentButtonStyleWhite;
+        }
+
+        PKPaymentButton *applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:buttonStyle];
         [applePayButton setTag:PaymentMethodApplePay];
         [applePayButton addTarget:self
                            action:@selector(paymentMethodButtonDidTap:)

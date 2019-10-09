@@ -1,8 +1,8 @@
 //
-//  UIViewController+JPTheme.m
-//  JudoKitObjC
+//  MainViewController.h
+//  JudoKitObjCExample
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "UIColor+Judo.h"
-#import "UIViewController+JPTheme.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIViewController (JPTheme)
-
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
-    }
-
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
-}
+@interface MainViewController : UIViewController
 
 @end
+

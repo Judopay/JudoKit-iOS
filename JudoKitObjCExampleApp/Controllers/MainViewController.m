@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  MainViewController.m
 //  JudoKitObjCExample
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -25,48 +25,36 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "ApplePayButtonViewController.h"
-#import "ViewController.h"
+#import "MainViewController.h"
 #import "DetailViewController.h"
 #import "ExampleAppCredentials.h"
 #import "ApplePayConfiguration.h"
+#import "SettingsViewController.h"
+#import "DemoFeature.h"
+#import "Settings.h"
+#import "HalfHeightPresentationController.h"
 
 #import "JudoKitObjC.h"
 
-typedef NS_ENUM(NSUInteger, TableViewContent) {
-    TableViewContentPayment,
-    TableViewContentPreAuth,
-    TableViewContentCreateCardToken,
-    TableViewContentSaveCard,
-    TableViewContentRepeatPayment,
-    TableViewContentTokenPreAuth,
-    TableViewContentApplePayPayment,
-    TableViewContentApplePayPreAuth,
-    TableViewContentPaymentMethods,
-    TableViewApplePayButton
-};
-
 static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate> {
+@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, SettingsViewControllerDelegate, UIViewControllerTransitioningDelegate> {
     UIAlertController *_alertController;
 }
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) IBOutlet NSLayoutConstraint *settingsViewBottomConstraint;
-@property (nonatomic, strong) NSString *currentCurrency;
-
 @property (nonatomic, strong) JPCardDetails *cardDetails;
 @property (nonatomic, strong) JPPaymentToken *payToken;
-
-@property (nonatomic, strong) UIView *tableFooterView;
 @property (nonatomic, strong) JudoKit *judoKitSession;
 
 @property (nonatomic, nonnull, strong) NSString *reference;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
+@property (strong, nonatomic) NSArray <DemoFeature *> *features;
+@property (strong, nonatomic) Settings *settings;
+
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,16 +67,14 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     // initialize the SDK by setting it up with a token and a secret
     self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
     
-    self.currentCurrency = @"GBP";
-    
-    self.reference = [self getSampleConsumerReference];
-    
     // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
     self.judoKitSession.apiSession.sandboxed = YES;
     self.judoKitSession.theme.showSecurityMessage = YES;
+
+    self.reference = @"judoPay-sample-app-objc";
     
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = self.tableFooterView;
+    self.settings = [Settings defaultSettings];
+    self.features = [DemoFeature defaultFeatures];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,157 +87,83 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 #pragma mark - Actions
 
+- (void)setSettings:(Settings *)settings {
+    _settings = settings;
+    self.judoKitSession.theme.avsEnabled = settings.isAVSEnabled;
+}
+
+- (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings {
+    self.settings = settings;
+}
+
 - (IBAction)settingsButtonHandler:(id)sender {
-    if (self.settingsViewBottomConstraint.constant != 0) {
-        [self.view layoutIfNeeded];
-        self.settingsViewBottomConstraint.constant = 0.0f;
-        [UIView animateWithDuration:.5f animations:^{
-            self.tableView.alpha = 0.2f;
-            [self.view layoutIfNeeded];
-        }];
-    }
-}
-
-- (IBAction)settingsButtonDismissHandler:(id)sender {
-    if (self.settingsViewBottomConstraint.constant == 0) {
-        [self.view layoutIfNeeded];
-        self.settingsViewBottomConstraint.constant = -350.0f;
-        [UIView animateWithDuration:.5f animations:^{
-            self.tableView.alpha = 1.0f;
-            [self.view layoutIfNeeded];
-        }];
-    }
-}
-
-- (IBAction)segmentedControlValueChange:(UISegmentedControl *)segmentedControl {
-    self.currentCurrency = [segmentedControl titleForSegmentAtIndex:segmentedControl.selectedSegmentIndex];
-}
-
-- (IBAction)AVSValueChanged:(UISwitch *)theSwitch {
-    self.judoKitSession.theme.avsEnabled = theSwitch.on;
+    
+    SettingsViewController *svc = [[SettingsViewController alloc] initWithSettings:self.settings];
+    svc.delegate = self;
+    svc.modalPresentationStyle = UIModalPresentationCustom;
+    svc.transitioningDelegate = self;
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.features.count;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-    
-    NSString *tvText;
-    NSString *tvDetailText;
-    
-    switch (indexPath.row) {
-        case TableViewContentPayment:
-            tvText = @"Payment";
-            tvDetailText = @"with default settings";
-            break;
-            
-        case TableViewContentPreAuth:
-            tvText = @"PreAuth";
-            tvDetailText = @"to reserve funds on a card";
-            break;
-            
-        case TableViewContentCreateCardToken:
-            tvText = @"Register card";
-            tvDetailText = @"to be stored for future transactions";
-            break;
-            
-        case TableViewContentSaveCard:
-            tvText = @"Save card";
-            tvDetailText = @"to be stored for future transactions";
-            break;
-            
-        case TableViewContentRepeatPayment:
-            tvText = @"Token payment";
-            tvDetailText = @"with a stored card token";
-            break;
-            
-        case TableViewContentTokenPreAuth:
-            tvText = @"Token preAuth";
-            tvDetailText = @"with a stored card token";
-            break;
-            
-        case TableViewContentApplePayPayment:
-            tvText = @"Apple Pay payment";
-            tvDetailText = @"with a wallet card";
-            break;
-            
-        case TableViewContentApplePayPreAuth:
-            tvText = @"Apple Pay preAuth";
-            tvDetailText = @"with a wallet card";
-            break;
-            
-        case TableViewContentPaymentMethods:
-            tvText = @"Payment Method";
-            tvDetailText = @"with default payment methods";
-            break;
-        case TableViewApplePayButton:
-            tvText = @"Apple Pay Button";
-            tvDetailText = @"Standalone ApplePay Button";
-            break;
-            
-        default:
-            break;
-    }
-    
-    cell.textLabel.text = tvText;
-    cell.detailTextLabel.text = tvDetailText;
+    DemoFeature *option = self.features[indexPath.row];
+    cell.textLabel.text = option.title;
+    cell.detailTextLabel.text = option.details;
     return cell;
 }
 
-
 #pragma mark - UITableViewDelegate
-
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    TableViewContent type = indexPath.row;
-    
-    switch (type) {
-        case TableViewContentPayment:
+    DemoFeature *feature = self.features[indexPath.row];
+    switch (feature.type) {
+        case DemoFeatureTypePayment:
             [self paymentOperation];
             break;
-            
-        case TableViewContentPreAuth:
+
+        case DemoFeatureTypePreAuth:
             [self preAuthOperation];
             break;
-            
-        case TableViewContentCreateCardToken:
+
+        case DemoFeatureTypeCreateCardToken:
             [self createCardTokenOperation];
             break;
-            
-        case TableViewContentSaveCard:
+
+        case DemoFeatureTypeSaveCard:
             [self saveCardOperation];
             break;
-            
-        case TableViewContentRepeatPayment:
+
+        case DemoFeatureTypeRepeatPayment:
             [self tokenPaymentOperation];
             break;
-            
-        case TableViewContentTokenPreAuth:
+
+        case DemoFeatureTypeTokenPreAuth:
             [self tokenPreAuthOperation];
             break;
-            
-        case TableViewContentApplePayPayment:
+
+        case DemoFeatureTypeApplePayPayment:
             [self applePayPaymentOperation];
             break;
-            
-        case TableViewContentApplePayPreAuth:
+
+        case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-            
-        case TableViewContentPaymentMethods:
+
+        case DemoFeatureTypePaymentMethods:
             [self paymentMethodOption];
             break;
-            
-        case TableViewApplePayButton:
+
+        case DemoFeatureTypeStandaloneApplePayButton:
             [self standaloneApplePayButton];
-            
+
         default:
             break;
     }
@@ -265,7 +177,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)paymentMethodOption {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     
     ApplePayConfiguration *configuration = [self applePayConfigurationWithType:TransactionTypePayment];
     
@@ -273,7 +185,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                                 amount:amount
                      consumerReference:self.reference
                         paymentMethods:PaymentMethodsAll
-               applePayConfiguratation: configuration
+               applePayConfiguratation:configuration
                            cardDetails:nil
                             completion:^(JPResponse * response, NSError * error) {
                                 if (error || response.items.count == 0) {
@@ -281,9 +193,10 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                                         [self dismissViewControllerAnimated:YES completion:nil];
                                         return;
                                     }
-                                    self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                                    [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                    
+                                    [self dismissViewControllerAnimated:YES completion:^{
+                                        [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+                                    }];
                                     return;
                                 }
                                 JPTransactionData *tData = response.items[0];
@@ -300,7 +213,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)paymentOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     
     [self.judoKitSession invokePayment:judoId amount:amount consumerReference:self.reference cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
@@ -309,9 +222,9 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 return;
             }
             
-            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+            }];
             return;
         }
         JPTransactionData *tData = response.items[0];
@@ -328,7 +241,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)preAuthOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     
     [self.judoKitSession invokePreAuth:judoId amount:amount consumerReference:self.reference cardDetails:nil completion:^(JPResponse * response, NSError * error) {
         if (error || response.items.count == 0) {
@@ -336,9 +249,10 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return;
             }
-            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+            }];
             return;
         }
         JPTransactionData *tData = response.items[0];
@@ -362,8 +276,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return;
             }
-            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
             return;
         }
         JPTransactionData *tData = response.items[0];
@@ -383,8 +296,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return;
             }
-            self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-            [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
             return;
         }
         
@@ -398,7 +310,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPaymentOperation {
     if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
         
         [self.judoKitSession invokeTokenPayment:judoId amount:amount consumerReference:self.reference cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
@@ -406,9 +318,9 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                     [self dismissViewControllerAnimated:YES completion:nil];
                     return;
                 }
-                self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+                }];
                 return;
             }
             JPTransactionData *tData = response.items[0];
@@ -432,7 +344,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPreAuthOperation {
     if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.currentCurrency];
+        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
         
         [self.judoKitSession invokeTokenPreAuth:judoId amount:amount consumerReference:self.reference cardDetails:self.cardDetails paymentToken:self.payToken completion:^(JPResponse * response, NSError * error) {
             if (error || response.items.count == 0) {
@@ -440,9 +352,9 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                     [self dismissViewControllerAnimated:YES completion:nil];
                     return;
                 }
-                self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+                }];
                 return;
             }
             JPTransactionData *tData = response.items[0];
@@ -472,7 +384,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     [self initApplePaySleveWithTransactionType:TransactionTypePreAuth];
 }
 
-- (void)initApplePaySleveWithTransactionType: (TransactionType)transactionType {
+- (void)initApplePaySleveWithTransactionType:(TransactionType)transactionType {
     
     ApplePayConfiguration *configuration = [self applePayConfigurationWithType:transactionType];
     
@@ -485,15 +397,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                                                           return;
                                                       }
                                                       
-                                                      self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.userInfo[NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
-                                                      
-                                                      [self->_alertController addAction:[UIAlertAction
-                                                                                         actionWithTitle:@"OK"
-                                                                                         style:UIAlertActionStyleCancel
-                                                                                         handler:nil]];
-                                                      
                                                       [self dismissViewControllerAnimated:YES completion:^{
-                                                          [self presentViewController:self->_alertController animated:YES completion:nil];
+                                                          [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
                                                       }];
                                                       return;
                                                   }
@@ -510,26 +415,15 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                                                   
                                               }];
 }
+
+- (void)presentErrorWithMessage:(NSString *)message {
+    self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:self->_alertController animated:YES completion:nil];
+}
+
 #pragma mark - Lazy Loading
-
-- (UIView *)tableFooterView {
-    if (_tableFooterView == nil) {
-        _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, self.view.bounds.size.width - 30, 50)];
-        label.numberOfLines = 2;
-        label.text = @"To view test card details:\nSign in to judo and go to Developer/Tools.";
-        label.font = [UIFont systemFontOfSize:12.0f];
-        label.textColor = [UIColor grayColor];
-        [_tableFooterView addSubview:label];
-    }
-    return _tableFooterView;
-}
-
-- (NSString *)getSampleConsumerReference {
-    return @"judoPay-sample-app-objc";
-}
-
-- (ApplePayConfiguration *)applePayConfigurationWithType: (TransactionType)transactionType {
+- (ApplePayConfiguration *)applePayConfigurationWithType:(TransactionType)transactionType {
     
     NSArray *items = @[
                        [[PaymentSummaryItem alloc] initWithLabel:@"Item 1"
@@ -543,7 +437,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     ApplePayConfiguration *configuration = [[ApplePayConfiguration alloc] initWithJudoId:judoId
                                                                                reference:self.reference
                                                                               merchantId:merchantId
-                                                                                currency:self.currentCurrency
+                                                                                currency:self.settings.currency
                                                                              countryCode:@"GB"
                                                                      paymentSummaryItems:items];
     
@@ -554,6 +448,13 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     configuration.returnedContactInfo = ReturnedInfoAll;
     
     return configuration;
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
+                                                      presentingViewController:(UIViewController *)presenting
+                                                          sourceViewController:(UIViewController *)source {
+    return [[HalfHeightPresentationController alloc] initWithPresentedViewController:presented
+                                                            presentingViewController:presenting];
 }
 
 @end

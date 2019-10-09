@@ -206,7 +206,7 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Tej-8O-Edw" secondAttribute="bottom" constant="30" id="0jv-F6-aqu"/>
                 <constraint firstItem="Tej-8O-Edw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Imh-Wt-3Gg"/>

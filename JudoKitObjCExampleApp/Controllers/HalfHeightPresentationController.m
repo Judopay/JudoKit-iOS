@@ -1,6 +1,6 @@
 //
-//  UIViewController+JPTheme.m
-//  JudoKitObjC
+//  HalfHeightPresentationController.m
+//  JudoKitObjCExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,23 +22,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "UIColor+Judo.h"
-#import "UIViewController+JPTheme.h"
+#import "HalfHeightPresentationController.h"
 
-@implementation UIViewController (JPTheme)
+@implementation HalfHeightPresentationController
 
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
+- (CGRect)frameOfPresentedViewInContainerView {
+    if (!self.containerView) {
+        return CGRectZero;
     }
+    
+    CGSize size = self.containerView.bounds.size;
+    CGSize targetSize = CGSizeMake(size.width, UILayoutFittingCompressedSize.height);
+    
+    [self.presentedView setNeedsLayout];
+    [self.presentedView layoutIfNeeded];
+    
+    CGFloat computedHeight = [self.presentedView systemLayoutSizeFittingSize:targetSize].height;
+    computedHeight = MIN(computedHeight, size.height);
+    
+    return CGRectMake(0.f, size.height - computedHeight, size.width, computedHeight);
+}
 
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
+- (BOOL)shouldPresentInFullscreen {
+    return NO;
 }
 
 @end

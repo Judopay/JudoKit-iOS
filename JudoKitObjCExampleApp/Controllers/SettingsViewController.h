@@ -1,6 +1,6 @@
 //
-//  UIViewController+JPTheme.m
-//  JudoKitObjC
+//  SettingsViewController.h
+//  JudoKitObjCExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,23 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "UIColor+Judo.h"
-#import "UIViewController+JPTheme.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIViewController (JPTheme)
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+@class SettingsViewController, Settings;
 
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
-    }
-
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
-}
-
+@protocol SettingsViewControllerDelegate <NSObject>
+- (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings;
 @end
+
+@interface SettingsViewController : UIViewController
+@property (nonatomic, weak) id <SettingsViewControllerDelegate> delegate;
+- (instancetype)initWithSettings:(Settings *)settings;
+@end
+
+NS_ASSUME_NONNULL_END
