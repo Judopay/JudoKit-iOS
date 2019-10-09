@@ -30,7 +30,7 @@
 #import "JudoPaymentMethodsViewController.h"
 #import "PaymentMethods.h"
 
-static NSString *__nonnull const JudoKitVersion = @"8.0.0";
+static NSString *__nonnull const JudoKitVersion = @"8.0.1";
 
 @class JudoPayViewController;
 @class ApplePayConfiguration;
@@ -67,7 +67,7 @@ static NSString *__nonnull const JudoKitVersion = @"8.0.0";
 /**
  *  The currently active and visible viewController instance
  */
-@property (nonatomic, weak) JudoPayViewController *_Nullable activeViewController;
+@property (nonatomic, weak) UIViewController *_Nullable activeViewController;
 
 /**
  *  Designated initializer of JudoKit

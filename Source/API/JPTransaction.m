@@ -242,9 +242,6 @@
     if (pkPayment.token.paymentMethod) {
         tokenDict[@"paymentInstrumentName"] = pkPayment.token.paymentMethod.displayName;
         tokenDict[@"paymentNetwork"] = pkPayment.token.paymentMethod.network;
-    } else {
-        tokenDict[@"paymentInstrumentName"] = pkPayment.token.paymentInstrumentName;
-        tokenDict[@"paymentNetwork"] = pkPayment.token.paymentNetwork;
     }
 
     tokenDict[@"paymentData"] = [NSJSONSerialization JSONObjectWithData:pkPayment.token.paymentData
