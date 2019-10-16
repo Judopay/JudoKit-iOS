@@ -15,11 +15,11 @@ class MainViewController: UITableViewController {
     }
 
     var testPaymentApplePayConfiguration: ApplePayConfiguration {
-        return applePayConfigurationWith(transactionType: .payment, currency: settings.currency)
+        return applePayConfiguration(with: .payment, currency: settings.currency)
     }
 
     var testPreAuthApplePayConfiguration: ApplePayConfiguration {
-        return applePayConfigurationWith(transactionType: .preAuth, currency: settings.currency)
+        return applePayConfiguration(with: .preAuth, currency: settings.currency)
     }
 
     override func viewDidLoad() {
@@ -48,6 +48,7 @@ class MainViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let feature = defaultFeatures[indexPath.row]
         perform(feature.action)
     }

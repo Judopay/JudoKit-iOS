@@ -7,8 +7,8 @@ extension MainViewController {
         judoKit?.invokePayment(judoId,
                                amount: testAmount,
                                consumerReference: MainViewController.consumerReference,
-                               cardDetails: nil) { response, error in
-            self.transactionData = self.handle(response, error: error)
+                               cardDetails: nil) { [weak self] response, error in
+            self?.transactionData = self?.handle(response, error: error)
         }
     }
 
@@ -16,30 +16,30 @@ extension MainViewController {
         judoKit?.invokePreAuth(judoId,
                                amount: testAmount,
                                consumerReference: MainViewController.consumerReference,
-                               cardDetails: nil) { response, error in
-                                   self.transactionData = self.handle(response, error: error)
+                               cardDetails: nil) { [weak self] response, error in
+                                   self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func createCardToken() {
         judoKit?.invokeRegisterCard(judoId,
                                 consumerReference: MainViewController.consumerReference,
-                                cardDetails: nil) { response, error in
-                                 self.transactionData = self.handle(response, error: error)
+                                cardDetails: nil) { [weak self] response, error in
+                                 self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func saveCard() {
         judoKit?.invokeSaveCard(judoId,
                                 consumerReference: MainViewController.consumerReference,
-                                cardDetails: nil) { response, error in
-                                 self.transactionData = self.handle(response, error: error)
+                                cardDetails: nil) { [weak self] response, error in
+                                 self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func repeatPayment() {
         guard let cardDetails = transactionData?.cardDetails, let paymentToken = transactionData?.paymentToken else {
-            presentAllertWithTitle("Error", message: "you need to create a card token before you can do a pre auth")
+            presentAlert(with: "Error", message: "you need to create a card token before you can do a pre auth")
             return
         }
 
@@ -47,14 +47,14 @@ extension MainViewController {
                                     amount: testAmount,
                                     consumerReference: MainViewController.consumerReference,
                                     cardDetails: cardDetails,
-                                    paymentToken: paymentToken) { response, error in
-                                               self.transactionData = self.handle(response, error: error)
+                                    paymentToken: paymentToken) { [weak self] response, error in
+                                               self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func tokenPreAuth() {
         guard let cardDetails = transactionData?.cardDetails, let paymentToken = transactionData?.paymentToken else {
-            presentAllertWithTitle("Error", message: "you need to create a card token before you can do a pre auth")
+            presentAlert(with: "Error", message: "you need to create a card token before you can do a pre auth")
             return
         }
 
@@ -62,20 +62,20 @@ extension MainViewController {
                                     amount: testAmount,
                                     consumerReference: MainViewController.consumerReference,
                                     cardDetails: cardDetails,
-                                    paymentToken: paymentToken) { response, error in
-                                               self.transactionData = self.handle(response, error: error)
+                                    paymentToken: paymentToken) { [weak self] response, error in
+                                               self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func applePayPayment() {
-        judoKit?.invokeApplePay(with: testPaymentApplePayConfiguration) { response, error in
-            self.transactionData = self.handle(response, error: error)
+        judoKit?.invokeApplePay(with: testPaymentApplePayConfiguration) { [weak self] response, error in
+            self?.transactionData = self?.handle(response, error: error)
         }
     }
 
     @objc func applePayPreAuth() {
-        judoKit?.invokeApplePay(with: testPreAuthApplePayConfiguration) { response, error in
-            self.transactionData = self.handle(response, error: error)
+        judoKit?.invokeApplePay(with: testPreAuthApplePayConfiguration) { [weak self] response, error in
+            self?.transactionData = self?.handle(response, error: error)
         }
     }
 
@@ -85,8 +85,8 @@ extension MainViewController {
                                consumerReference: MainViewController.consumerReference,
                                paymentMethods: .methodsAll,
                                applePayConfiguratation: testPaymentApplePayConfiguration,
-                               cardDetails: nil) { response, error in
-                                self.transactionData = self.handle(response, error: error)
+                               cardDetails: nil) { [weak self] response, error in
+                                self?.transactionData = self?.handle(response, error: error)
                                }
     }
 

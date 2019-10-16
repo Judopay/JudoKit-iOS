@@ -36,7 +36,7 @@ class StandaloneApplePayViewController: UIViewController {
     }
 
     @objc func performApplePay() {
-        let configuration = applePayConfigurationWith(transactionType: .payment, currency: currency)
+        let configuration = applePayConfiguration(with: .payment, currency: currency)
 
         judoKit?.invokeApplePay(with: configuration, completion: { (response, error) in
             if let judoError = error as NSError? {

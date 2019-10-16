@@ -1,7 +1,7 @@
 import Foundation
 import JudoKitObjC
 
-func applePayConfigurationWith(transactionType type: TransactionType, currency: String) -> ApplePayConfiguration {
+func applePayConfiguration(with transactionType: TransactionType, currency: String) -> ApplePayConfiguration {
     let items = [
     PaymentSummaryItem(label: "Item 1", amount: 0.01),
     PaymentSummaryItem(label: "Item 2", amount: 0.02),
@@ -14,7 +14,7 @@ func applePayConfigurationWith(transactionType type: TransactionType, currency: 
                                               currency: currency,
                                               countryCode: "GB",
                                               paymentSummaryItems: items)
-    configuration.transactionType = type
+    configuration.transactionType = transactionType
     configuration.requiredShippingContactFields = .all
     configuration.requiredBillingContactFields = .all
     configuration.returnedContactInfo = .all
