@@ -204,6 +204,28 @@
 		44DA43F022F82FE500C34231 /* NSString+Manipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44DA43EE22F82FE500C34231 /* NSString+Manipulation.m */; };
 		44DA43F922F8D9F500C34231 /* JPTheme+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 44DA43F722F8D9F500C34231 /* JPTheme+Additions.h */; };
 		44DA43FA22F8D9F500C34231 /* JPTheme+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44DA43F822F8D9F500C34231 /* JPTheme+Additions.m */; };
+		44E21CCE235602B600A7DC66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB0235602B500A7DC66 /* Assets.xcassets */; };
+		44E21CCF235602B600A7DC66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB2235602B500A7DC66 /* LaunchScreen.storyboard */; };
+		44E21CD0235602B600A7DC66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB4235602B500A7DC66 /* Main.storyboard */; };
+		44E21CD1235602B600A7DC66 /* Error+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB7235602B500A7DC66 /* Error+Additions.swift */; };
+		44E21CD2235602B600A7DC66 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */; };
+		44E21CD3235602B600A7DC66 /* MainViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */; };
+		44E21CD4235602B600A7DC66 /* JPResponse+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */; };
+		44E21CD6235602B600A7DC66 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBC235602B500A7DC66 /* Formatters.swift */; };
+		44E21CD7235602B600A7DC66 /* HalfHeightPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */; };
+		44E21CD8235602B600A7DC66 /* DetailsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBF235602B500A7DC66 /* DetailsTableViewSection.swift */; };
+		44E21CD9235602B600A7DC66 /* DemoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC0235602B500A7DC66 /* DemoFeature.swift */; };
+		44E21CDA235602B600A7DC66 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC1235602B500A7DC66 /* Settings.swift */; };
+		44E21CDB235602B600A7DC66 /* DetailsTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */; };
+		44E21CDC235602B600A7DC66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC3235602B500A7DC66 /* AppDelegate.swift */; };
+		44E21CDD235602B600A7DC66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC5235602B600A7DC66 /* SceneDelegate.swift */; };
+		44E21CDF235602B600A7DC66 /* HalfSizePresentationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC8235602B600A7DC66 /* HalfSizePresentationSegue.swift */; };
+		44E21CE0235602B600A7DC66 /* StandaloneApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */; };
+		44E21CE1235602B600A7DC66 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */; };
+		44E21CE2235602B600A7DC66 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCC235602B600A7DC66 /* MainViewController.swift */; };
+		44E21CE3235602B600A7DC66 /* ResponseDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */; };
+		44E21CE4235603EA00A7DC66 /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
+		44E21CE6235609AF00A7DC66 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CE5235609AF00A7DC66 /* Functions.swift */; };
 		44E3A0FD2349591C0042C9EC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E3A0FB2349591C0042C9EC /* SettingsViewController.m */; };
 		44E3A0FE2349591C0042C9EC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */; };
 		44E3A10423498ADB0042C9EC /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E3A10323498ADB0042C9EC /* DemoFeature.m */; };
@@ -537,6 +559,31 @@
 		44DA43EE22F82FE500C34231 /* NSString+Manipulation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSString+Manipulation.m"; path = "Extensions/NSString+Manipulation.m"; sourceTree = "<group>"; };
 		44DA43F722F8D9F500C34231 /* JPTheme+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "JPTheme+Additions.h"; path = "Extensions/JPTheme+Additions.h"; sourceTree = "<group>"; };
 		44DA43F822F8D9F500C34231 /* JPTheme+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "JPTheme+Additions.m"; path = "Extensions/JPTheme+Additions.m"; sourceTree = "<group>"; };
+		44E21C812355F79000A7DC66 /* JudoKitSwiftExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitSwiftExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		44E21C912355F79200A7DC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44E21CAF235602B500A7DC66 /* JudoKitSwiftExampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitSwiftExampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		44E21CB0235602B500A7DC66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44E21CB3235602B500A7DC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		44E21CB5235602B500A7DC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		44E21CB7235602B500A7DC66 /* Error+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Additions.swift"; sourceTree = "<group>"; };
+		44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
+		44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+Actions.swift"; sourceTree = "<group>"; };
+		44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JPResponse+Additions.swift"; sourceTree = "<group>"; };
+		44E21CBC235602B500A7DC66 /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHeightPresentationController.swift; sourceTree = "<group>"; };
+		44E21CBF235602B500A7DC66 /* DetailsTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsTableViewSection.swift; sourceTree = "<group>"; };
+		44E21CC0235602B500A7DC66 /* DemoFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFeature.swift; sourceTree = "<group>"; };
+		44E21CC1235602B500A7DC66 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsTableViewRow.swift; sourceTree = "<group>"; };
+		44E21CC3235602B500A7DC66 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		44E21CC4235602B600A7DC66 /* JudoKitSwiftExample.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = JudoKitSwiftExample.entitlements; sourceTree = "<group>"; };
+		44E21CC5235602B600A7DC66 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		44E21CC8235602B600A7DC66 /* HalfSizePresentationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationSegue.swift; sourceTree = "<group>"; };
+		44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandaloneApplePayViewController.swift; sourceTree = "<group>"; };
+		44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		44E21CCC235602B600A7DC66 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDetailsTableViewController.swift; sourceTree = "<group>"; };
+		44E21CE5235609AF00A7DC66 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		44E3A0FA2349591C0042C9EC /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		44E3A0FB2349591C0042C9EC /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
@@ -598,6 +645,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B678B611C6CE5190001DC2F /* JudoKitObjC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E21C7E2355F79000A7DC66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E21CE4235603EA00A7DC66 /* JudoKitObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +812,7 @@
 				3B678B581C6CE5190001DC2F /* Source */,
 				3B678B641C6CE5190001DC2F /* Tests */,
 				3B4EB3991C981EA7006265A0 /* JudoKitObjCExampleApp */,
+				44E21C822355F79000A7DC66 /* JudoKitSwiftExampleApp */,
 				3B4EB3B61C981EA7006265A0 /* UITests */,
 				3B678B571C6CE5190001DC2F /* Products */,
 				15779454211085A9007BD3E1 /* Frameworks */,
@@ -770,6 +826,7 @@
 				3B678B601C6CE5190001DC2F /* JudoKitObjCTests.xctest */,
 				3B4EB3981C981EA7006265A0 /* JudoKitObjCExampleApp.app */,
 				3B4EB3B31C981EA7006265A0 /* JudoKitObjCExampleAppUITests.xctest */,
+				44E21C812355F79000A7DC66 /* JudoKitSwiftExampleApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1008,6 +1065,77 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+		44E21C822355F79000A7DC66 /* JudoKitSwiftExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CB0235602B500A7DC66 /* Assets.xcassets */,
+				44E21CB1235602B500A7DC66 /* Base.lproj */,
+				44E21CC9235602B600A7DC66 /* ViewControllers */,
+				44E21CBE235602B500A7DC66 /* Models */,
+				44E21CC7235602B600A7DC66 /* Segues */,
+				44E21CB6235602B500A7DC66 /* Extensions */,
+				44E21C912355F79200A7DC66 /* Info.plist */,
+				44E21CC4235602B600A7DC66 /* JudoKitSwiftExample.entitlements */,
+				44E21CC3235602B500A7DC66 /* AppDelegate.swift */,
+				44E21CBC235602B500A7DC66 /* Formatters.swift */,
+				44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */,
+				44E21CC5235602B600A7DC66 /* SceneDelegate.swift */,
+				44E21CAF235602B500A7DC66 /* JudoKitSwiftExampleApp-Bridging-Header.h */,
+			);
+			path = JudoKitSwiftExampleApp;
+			sourceTree = "<group>";
+		};
+		44E21CB1235602B500A7DC66 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CB2235602B500A7DC66 /* LaunchScreen.storyboard */,
+				44E21CB4235602B500A7DC66 /* Main.storyboard */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		44E21CB6235602B500A7DC66 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CB7235602B500A7DC66 /* Error+Additions.swift */,
+				44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */,
+				44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */,
+				44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */,
+				44E21CE5235609AF00A7DC66 /* Functions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44E21CBE235602B500A7DC66 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CBF235602B500A7DC66 /* DetailsTableViewSection.swift */,
+				44E21CC0235602B500A7DC66 /* DemoFeature.swift */,
+				44E21CC1235602B500A7DC66 /* Settings.swift */,
+				44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44E21CC7235602B600A7DC66 /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CC8235602B600A7DC66 /* HalfSizePresentationSegue.swift */,
+			);
+			path = Segues;
+			sourceTree = "<group>";
+		};
+		44E21CC9235602B600A7DC66 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */,
+				44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */,
+				44E21CCC235602B600A7DC66 /* MainViewController.swift */,
+				44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		44E3A10123498ACE0042C9EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,13 +1327,30 @@
 			productReference = 3B678B601C6CE5190001DC2F /* JudoKitObjCTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		44E21C802355F79000A7DC66 /* JudoKitSwiftExampleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44E21C9B2355F79200A7DC66 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExampleApp" */;
+			buildPhases = (
+				44E21C7D2355F79000A7DC66 /* Sources */,
+				44E21C7E2355F79000A7DC66 /* Frameworks */,
+				44E21C7F2355F79000A7DC66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JudoKitSwiftExampleApp;
+			productName = JudoKitSwiftExampleApp;
+			productReference = 44E21C812355F79000A7DC66 /* JudoKitSwiftExampleApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3B678B4D1C6CE5190001DC2F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
@@ -1234,6 +1379,12 @@
 						DevelopmentTeam = 2354U295GD;
 						LastSwiftMigration = 0910;
 						TestTargetID = 3B4EB3971C981EA7006265A0;
+					};
+					44E21C802355F79000A7DC66 = {
+						CreatedOnToolsVersion = 11.0;
+						DevelopmentTeam = 95V535S6TQ;
+						LastSwiftMigration = 1100;
+						ProvisioningStyle = Automatic;
 					};
 					700523F31CC7882800CC916D = {
 						CreatedOnToolsVersion = 7.3;
@@ -1269,6 +1420,7 @@
 				3B4EB3971C981EA7006265A0 /* JudoKitObjCExampleApp */,
 				3B4EB3B21C981EA7006265A0 /* JudoKitObjCExampleAppUITests */,
 				700523F31CC7882800CC916D /* Documentation */,
+				44E21C802355F79000A7DC66 /* JudoKitSwiftExampleApp */,
 			);
 		};
 /* End PBXProject section */
@@ -1365,6 +1517,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E21C7F2355F79000A7DC66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E21CD0235602B600A7DC66 /* Main.storyboard in Resources */,
+				44E21CCE235602B600A7DC66 /* Assets.xcassets in Resources */,
+				44E21CCF235602B600A7DC66 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1538,6 +1700,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44E21C7D2355F79000A7DC66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E21CDC235602B600A7DC66 /* AppDelegate.swift in Sources */,
+				44E21CD6235602B600A7DC66 /* Formatters.swift in Sources */,
+				44E21CD1235602B600A7DC66 /* Error+Additions.swift in Sources */,
+				44E21CDF235602B600A7DC66 /* HalfSizePresentationSegue.swift in Sources */,
+				44E21CE0235602B600A7DC66 /* StandaloneApplePayViewController.swift in Sources */,
+				44E21CE1235602B600A7DC66 /* SettingsTableViewController.swift in Sources */,
+				44E21CDB235602B600A7DC66 /* DetailsTableViewRow.swift in Sources */,
+				44E21CD3235602B600A7DC66 /* MainViewController+Actions.swift in Sources */,
+				44E21CDA235602B600A7DC66 /* Settings.swift in Sources */,
+				44E21CD2235602B600A7DC66 /* UIViewController+Additions.swift in Sources */,
+				44E21CE6235609AF00A7DC66 /* Functions.swift in Sources */,
+				44E21CDD235602B600A7DC66 /* SceneDelegate.swift in Sources */,
+				44E21CD4235602B600A7DC66 /* JPResponse+Additions.swift in Sources */,
+				44E21CD8235602B600A7DC66 /* DetailsTableViewSection.swift in Sources */,
+				44E21CE3235602B600A7DC66 /* ResponseDetailsTableViewController.swift in Sources */,
+				44E21CE2235602B600A7DC66 /* MainViewController.swift in Sources */,
+				44E21CD9235602B600A7DC66 /* DemoFeature.swift in Sources */,
+				44E21CD7235602B600A7DC66 /* HalfHeightPresentationController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1583,6 +1770,22 @@
 				3B4EB3AC1C981EA7006265A0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44E21CB2235602B500A7DC66 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44E21CB3235602B500A7DC66 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44E21CB4235602B500A7DC66 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44E21CB5235602B500A7DC66 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		829330FE230AF0F900689DC4 /* Localizable.strings */ = {
@@ -1882,6 +2085,61 @@
 			};
 			name = Release;
 		};
+		44E21C922355F79200A7DC66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95V535S6TQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JudoKitSwiftExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.judokit.swift-integration.JudoKitSwiftExampleApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitSwiftExampleApp/JudoKitSwiftExampleApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		44E21C932355F79200A7DC66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95V535S6TQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JudoKitSwiftExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.judokit.swift-integration.JudoKitSwiftExampleApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKitSwiftExampleApp/JudoKitSwiftExampleApp-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		700523F41CC7882900CC916D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1940,6 +2198,15 @@
 			buildConfigurations = (
 				3B678B6E1C6CE5190001DC2F /* Debug */,
 				3B678B6F1C6CE5190001DC2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44E21C9B2355F79200A7DC66 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44E21C922355F79200A7DC66 /* Debug */,
+				44E21C932355F79200A7DC66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
