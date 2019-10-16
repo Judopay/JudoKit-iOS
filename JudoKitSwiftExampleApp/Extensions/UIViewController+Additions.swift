@@ -21,7 +21,7 @@ extension UIViewController {
         }
 
         dismiss(animated: true) {
-            self.presentAllertWithTitle("Error", message: error.judoMessage)
+            self.presentAlert(with: "Error", message: error.judoMessage)
         }
     }
 
@@ -33,7 +33,7 @@ extension UIViewController {
         }
     }
 
-    func presentAllertWithTitle(_ title: String, message: String) {
+    func presentAlert(with title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)

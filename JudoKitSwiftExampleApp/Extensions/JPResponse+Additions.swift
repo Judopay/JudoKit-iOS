@@ -46,18 +46,18 @@ extension JPResponse {
 
         if let billingInformation = billingInfo {
             data.append(DetailsTableViewSection(title: "Billing Details",
-                                                 rows: constactDetailsRows(from: billingInformation)))
+                                                 rows: contactDetailsRows(from: billingInformation)))
         }
 
         if let shippingInformation = shippingInfo {
             data.append(DetailsTableViewSection(title: "Shipping Details",
-                                                 rows: constactDetailsRows(from: shippingInformation)))
+                                                 rows: contactDetailsRows(from: shippingInformation)))
         }
 
         return data
     }
 
-    private func constactDetailsRows(from contact: ContactInformation) -> [DetailsTableViewRow] {
+    private func contactDetailsRows(from contact: ContactInformation) -> [DetailsTableViewRow] {
 
         var nameComponents: [String] = []
         var addressComponents: [String] = []

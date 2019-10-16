@@ -216,7 +216,6 @@
 		44E21CDA235602B600A7DC66 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC1235602B500A7DC66 /* Settings.swift */; };
 		44E21CDB235602B600A7DC66 /* DetailsTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */; };
 		44E21CDC235602B600A7DC66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC3235602B500A7DC66 /* AppDelegate.swift */; };
-		44E21CDD235602B600A7DC66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC5235602B600A7DC66 /* SceneDelegate.swift */; };
 		44E21CDF235602B600A7DC66 /* HalfSizePresentationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC8235602B600A7DC66 /* HalfSizePresentationSegue.swift */; };
 		44E21CE0235602B600A7DC66 /* StandaloneApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */; };
 		44E21CE1235602B600A7DC66 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */; };
@@ -573,7 +572,6 @@
 		44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsTableViewRow.swift; sourceTree = "<group>"; };
 		44E21CC3235602B500A7DC66 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44E21CC4235602B600A7DC66 /* JudoKitSwiftExample.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = JudoKitSwiftExample.entitlements; sourceTree = "<group>"; };
-		44E21CC5235602B600A7DC66 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		44E21CC8235602B600A7DC66 /* HalfSizePresentationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationSegue.swift; sourceTree = "<group>"; };
 		44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandaloneApplePayViewController.swift; sourceTree = "<group>"; };
 		44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -1073,7 +1071,6 @@
 				44E21CC3235602B500A7DC66 /* AppDelegate.swift */,
 				44E21CBC235602B500A7DC66 /* Formatters.swift */,
 				44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */,
-				44E21CC5235602B600A7DC66 /* SceneDelegate.swift */,
 				44E21CAF235602B500A7DC66 /* JudoKitSwiftExampleApp-Bridging-Header.h */,
 			);
 			path = JudoKitSwiftExampleApp;
@@ -1707,7 +1704,6 @@
 				44E21CDA235602B600A7DC66 /* Settings.swift in Sources */,
 				44E21CD2235602B600A7DC66 /* UIViewController+Additions.swift in Sources */,
 				44E21CE6235609AF00A7DC66 /* Functions.swift in Sources */,
-				44E21CDD235602B600A7DC66 /* SceneDelegate.swift in Sources */,
 				44E21CD4235602B600A7DC66 /* JPResponse+Additions.swift in Sources */,
 				44E21CD8235602B600A7DC66 /* DetailsTableViewSection.swift in Sources */,
 				44E21CE3235602B600A7DC66 /* ResponseDetailsTableViewController.swift in Sources */,
