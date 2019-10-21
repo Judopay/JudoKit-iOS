@@ -2,5 +2,5 @@ import Foundation
 
 struct Settings {
     let isAVSEnabled: Bool
-    let currency: String
+    let currency: Currency
 }

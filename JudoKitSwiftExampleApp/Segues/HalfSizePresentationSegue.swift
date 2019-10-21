@@ -8,9 +8,9 @@ class HalfSizePresentationSegue: UIStoryboardSegue, UIViewControllerTransitionin
         source.navigationController?.present(destination, animated: true, completion: nil)
     }
 
-        func presentationController(forPresented presented: UIViewController,
-                                    presenting: UIViewController?,
-                                    source: UIViewController) -> UIPresentationController? {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
         return HalfHeightPresentationController(presentedViewController: presented, presenting: presenting)
     }
 
