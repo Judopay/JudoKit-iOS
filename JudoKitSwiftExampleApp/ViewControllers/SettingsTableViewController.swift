@@ -23,16 +23,17 @@ class SettingsTableViewController: UITableViewController {
         avsSwitch.isOn = settings.isAVSEnabled
 
         let range = 0..<currencySegmentedControl.numberOfSegments
-        let index = range.map { (index) -> String in
+        let index = range.map { index in
             return self.currencySegmentedControl.titleForSegment(at: index) ?? ""
-        }.firstIndex(of: settings.currency)
+        }.firstIndex(of: settings.currency.rawValue)
 
         currencySegmentedControl.selectedSegmentIndex = index ?? 0
     }
 
     @IBAction func dismiss(_ sender: Any) {
         let index = currencySegmentedControl.selectedSegmentIndex
-        let currency = currencySegmentedControl.titleForSegment(at: index) ?? "GBP"
+        let currencyCode = currencySegmentedControl.titleForSegment(at: index)
+        let currency = Currency.allCases.first(where: { $0.rawValue == currencyCode }) ?? Currency.GBP
         let settings = Settings(isAVSEnabled: avsSwitch.isOn, currency: currency)
 
         dismiss(animated: true) {

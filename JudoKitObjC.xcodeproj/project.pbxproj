@@ -168,6 +168,10 @@
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 		3BFD9A971CD9FFDC00B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */; };
 		3BFD9A991CDA008E00B8385D /* DedupTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */; };
+		4412DADC235DB5FF0077C3EA /* TransactionDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412DADB235DB5FF0077C3EA /* TransactionDetailsTableViewController.swift */; };
+		4412DADE235DD1820077C3EA /* ExampleAppCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412DADD235DD1820077C3EA /* ExampleAppCredentials.swift */; };
+		4412DAE0235DD45F0077C3EA /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412DADF235DD45F0077C3EA /* Currency.swift */; };
+		4412DAE2235DDB9D0077C3EA /* DemoFeatureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412DAE1235DDB9D0077C3EA /* DemoFeatureType.swift */; };
 		442511D6234B8BFC00225FC4 /* UIApplication+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 442511D4234B8BFC00225FC4 /* UIApplication+Additions.h */; };
 		442511D7234B8BFC00225FC4 /* UIApplication+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 442511D5234B8BFC00225FC4 /* UIApplication+Additions.m */; };
 		44290B0722F051B00088F827 /* JPTransactionEnricher.h in Headers */ = {isa = PBXBuildFile; fileRef = 44290B0522F051B00088F827 /* JPTransactionEnricher.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -207,11 +211,7 @@
 		44E21CCE235602B600A7DC66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB0235602B500A7DC66 /* Assets.xcassets */; };
 		44E21CCF235602B600A7DC66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB2235602B500A7DC66 /* LaunchScreen.storyboard */; };
 		44E21CD0235602B600A7DC66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E21CB4235602B500A7DC66 /* Main.storyboard */; };
-		44E21CD1235602B600A7DC66 /* Error+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB7235602B500A7DC66 /* Error+Additions.swift */; };
-		44E21CD2235602B600A7DC66 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */; };
-		44E21CD3235602B600A7DC66 /* MainViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */; };
-		44E21CD4235602B600A7DC66 /* JPResponse+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */; };
-		44E21CD6235602B600A7DC66 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBC235602B500A7DC66 /* Formatters.swift */; };
+		44E21CD1235602B600A7DC66 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CB7235602B500A7DC66 /* NSError.swift */; };
 		44E21CD7235602B600A7DC66 /* HalfHeightPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */; };
 		44E21CD8235602B600A7DC66 /* DetailsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CBF235602B500A7DC66 /* DetailsTableViewSection.swift */; };
 		44E21CD9235602B600A7DC66 /* DemoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CC0235602B500A7DC66 /* DemoFeature.swift */; };
@@ -222,9 +222,7 @@
 		44E21CE0235602B600A7DC66 /* StandaloneApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */; };
 		44E21CE1235602B600A7DC66 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */; };
 		44E21CE2235602B600A7DC66 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCC235602B600A7DC66 /* MainViewController.swift */; };
-		44E21CE3235602B600A7DC66 /* ResponseDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */; };
 		44E21CE4235603EA00A7DC66 /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
-		44E21CE6235609AF00A7DC66 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E21CE5235609AF00A7DC66 /* Functions.swift */; };
 		44E3A0FD2349591C0042C9EC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E3A0FB2349591C0042C9EC /* SettingsViewController.m */; };
 		44E3A0FE2349591C0042C9EC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */; };
 		44E3A10423498ADB0042C9EC /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E3A10323498ADB0042C9EC /* DemoFeature.m */; };
@@ -521,6 +519,10 @@
 		3BD353CA1C77803F0045658A /* JPCardDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCardDetails.m; path = Model/JPCardDetails.m; sourceTree = "<group>"; };
 		3BFD9A961CD9FFDC00B8385D /* JudoKitUIDedupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitUIDedupTests.swift; sourceTree = "<group>"; };
 		3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DedupTestCase.swift; sourceTree = "<group>"; };
+		4412DADB235DB5FF0077C3EA /* TransactionDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsTableViewController.swift; sourceTree = "<group>"; };
+		4412DADD235DD1820077C3EA /* ExampleAppCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleAppCredentials.swift; sourceTree = "<group>"; };
+		4412DADF235DD45F0077C3EA /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		4412DAE1235DDB9D0077C3EA /* DemoFeatureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFeatureType.swift; sourceTree = "<group>"; };
 		442511D4234B8BFC00225FC4 /* UIApplication+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIApplication+Additions.h"; path = "Extensions/UIApplication+Additions.h"; sourceTree = "<group>"; };
 		442511D5234B8BFC00225FC4 /* UIApplication+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+Additions.m"; path = "Extensions/UIApplication+Additions.m"; sourceTree = "<group>"; };
 		44290B0522F051B00088F827 /* JPTransactionEnricher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTransactionEnricher.h; path = API/JPTransactionEnricher.h; sourceTree = "<group>"; };
@@ -564,11 +566,7 @@
 		44E21CB0235602B500A7DC66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44E21CB3235602B500A7DC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44E21CB5235602B500A7DC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
-		44E21CB7235602B500A7DC66 /* Error+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Additions.swift"; sourceTree = "<group>"; };
-		44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
-		44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+Actions.swift"; sourceTree = "<group>"; };
-		44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JPResponse+Additions.swift"; sourceTree = "<group>"; };
-		44E21CBC235602B500A7DC66 /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		44E21CB7235602B500A7DC66 /* NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSError.swift; sourceTree = "<group>"; };
 		44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHeightPresentationController.swift; sourceTree = "<group>"; };
 		44E21CBF235602B500A7DC66 /* DetailsTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsTableViewSection.swift; sourceTree = "<group>"; };
 		44E21CC0235602B500A7DC66 /* DemoFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFeature.swift; sourceTree = "<group>"; };
@@ -580,8 +578,6 @@
 		44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandaloneApplePayViewController.swift; sourceTree = "<group>"; };
 		44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		44E21CCC235602B600A7DC66 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDetailsTableViewController.swift; sourceTree = "<group>"; };
-		44E21CE5235609AF00A7DC66 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		44E3A0FA2349591C0042C9EC /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		44E3A0FB2349591C0042C9EC /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
@@ -1075,9 +1071,9 @@
 				44E21C912355F79200A7DC66 /* Info.plist */,
 				44E21CC4235602B600A7DC66 /* JudoKitSwiftExample.entitlements */,
 				44E21CC3235602B500A7DC66 /* AppDelegate.swift */,
-				44E21CBC235602B500A7DC66 /* Formatters.swift */,
 				44E21CBD235602B500A7DC66 /* HalfHeightPresentationController.swift */,
 				44E21CAF235602B500A7DC66 /* JudoKitSwiftExampleApp-Bridging-Header.h */,
+				4412DADD235DD1820077C3EA /* ExampleAppCredentials.swift */,
 			);
 			path = JudoKitSwiftExampleApp;
 			sourceTree = "<group>";
@@ -1094,11 +1090,7 @@
 		44E21CB6235602B500A7DC66 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				44E21CB7235602B500A7DC66 /* Error+Additions.swift */,
-				44E21CB8235602B500A7DC66 /* UIViewController+Additions.swift */,
-				44E21CB9235602B500A7DC66 /* MainViewController+Actions.swift */,
-				44E21CBA235602B500A7DC66 /* JPResponse+Additions.swift */,
-				44E21CE5235609AF00A7DC66 /* Functions.swift */,
+				44E21CB7235602B500A7DC66 /* NSError.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1110,6 +1102,8 @@
 				44E21CC0235602B500A7DC66 /* DemoFeature.swift */,
 				44E21CC1235602B500A7DC66 /* Settings.swift */,
 				44E21CC2235602B500A7DC66 /* DetailsTableViewRow.swift */,
+				4412DADF235DD45F0077C3EA /* Currency.swift */,
+				4412DAE1235DDB9D0077C3EA /* DemoFeatureType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1125,10 +1119,10 @@
 		44E21CC9235602B600A7DC66 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4412DADB235DB5FF0077C3EA /* TransactionDetailsTableViewController.swift */,
 				44E21CCA235602B600A7DC66 /* StandaloneApplePayViewController.swift */,
 				44E21CCB235602B600A7DC66 /* SettingsTableViewController.swift */,
 				44E21CCC235602B600A7DC66 /* MainViewController.swift */,
-				44E21CCD235602B600A7DC66 /* ResponseDetailsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1702,21 +1696,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				44E21CDC235602B600A7DC66 /* AppDelegate.swift in Sources */,
-				44E21CD6235602B600A7DC66 /* Formatters.swift in Sources */,
-				44E21CD1235602B600A7DC66 /* Error+Additions.swift in Sources */,
+				4412DADC235DB5FF0077C3EA /* TransactionDetailsTableViewController.swift in Sources */,
+				44E21CD1235602B600A7DC66 /* NSError.swift in Sources */,
 				44E21CDF235602B600A7DC66 /* HalfSizePresentationSegue.swift in Sources */,
 				44E21CE0235602B600A7DC66 /* StandaloneApplePayViewController.swift in Sources */,
 				44E21CE1235602B600A7DC66 /* SettingsTableViewController.swift in Sources */,
 				44E21CDB235602B600A7DC66 /* DetailsTableViewRow.swift in Sources */,
-				44E21CD3235602B600A7DC66 /* MainViewController+Actions.swift in Sources */,
 				44E21CDA235602B600A7DC66 /* Settings.swift in Sources */,
-				44E21CD2235602B600A7DC66 /* UIViewController+Additions.swift in Sources */,
-				44E21CE6235609AF00A7DC66 /* Functions.swift in Sources */,
-				44E21CD4235602B600A7DC66 /* JPResponse+Additions.swift in Sources */,
 				44E21CD8235602B600A7DC66 /* DetailsTableViewSection.swift in Sources */,
-				44E21CE3235602B600A7DC66 /* ResponseDetailsTableViewController.swift in Sources */,
+				4412DAE2235DDB9D0077C3EA /* DemoFeatureType.swift in Sources */,
 				44E21CE2235602B600A7DC66 /* MainViewController.swift in Sources */,
+				4412DADE235DD1820077C3EA /* ExampleAppCredentials.swift in Sources */,
 				44E21CD9235602B600A7DC66 /* DemoFeature.swift in Sources */,
+				4412DAE0235DD45F0077C3EA /* Currency.swift in Sources */,
 				44E21CD7235602B600A7DC66 /* HalfHeightPresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

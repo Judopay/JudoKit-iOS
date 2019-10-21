@@ -16,15 +16,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="0ZV-aM-78V">
-                            <rect key="frame" x="0.0" y="112" width="414" height="27"/>
+                            <rect key="frame" x="0.0" y="145.5" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAe-hq-3qE">
-                                    <rect key="frame" x="20" y="8" width="374" height="94"/>
+                                    <rect key="frame" x="20" y="8" width="374" height="0.0"/>
                                     <string key="text">To view test card details:
 Sign in to judo and go to Developer/Tools.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -93,8 +93,8 @@ Sign in to judo and go to Developer/Tools.</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ufF-ue-vOa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="sectionIndexBackgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle="SECURITY" id="WLO-cf-Xvg">
                                 <cells>
@@ -189,21 +189,37 @@ Sign in to judo and go to Developer/Tools.</string>
                     <view key="view" contentMode="scaleToFill" id="Aq7-Xt-wQH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Pay is not available on this device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6b-aV-aBa">
+                                <rect key="frame" x="18" y="440.5" width="378" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="L6b-aV-aBa" firstAttribute="leading" secondItem="Z7C-zJ-UB3" secondAttribute="leading" constant="18" id="3TW-nP-WkI"/>
+                            <constraint firstItem="Z7C-zJ-UB3" firstAttribute="trailing" secondItem="L6b-aV-aBa" secondAttribute="trailing" constant="18" id="9yv-aB-lZE"/>
+                            <constraint firstItem="L6b-aV-aBa" firstAttribute="centerY" secondItem="Z7C-zJ-UB3" secondAttribute="centerY" id="ca2-ec-BY4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Z7C-zJ-UB3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Apple Pay Button" id="JZi-DH-kdz">
                         <barButtonItem key="backBarButtonItem" title="Back" image="arrow.left" catalog="system" id="djE-J8-LyW"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="placeholderLabel" destination="L6b-aV-aBa" id="zpS-PN-Pne"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RRX-Jc-FXd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2830" y="1353"/>
         </scene>
-        <!--Details Table View Controller-->
+        <!--Transaction Details Table View Controller-->
         <scene sceneID="oMt-p5-f5h">
             <objects>
-                <tableViewController storyboardIdentifier="detailsTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3cb-WY-67T" customClass="DetailsTableViewController" customModule="JudoKitSwiftExampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="detailsTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3cb-WY-67T" customClass="TransactionDetailsTableViewController" customModule="JudoKitSwiftExampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="vYM-8G-TpS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

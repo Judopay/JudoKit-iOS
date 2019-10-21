@@ -12,7 +12,7 @@ class HalfHeightPresentationController: UIPresentationController {
         }
 
         let size = containerView.bounds
-        let computedHeight =  size.height / 2
+        let computedHeight = size.height / 2
 
         return CGRect(x: 0, y: size.height - computedHeight, width: size.width, height: computedHeight)
     }

@@ -4,39 +4,47 @@ import JudoKitObjC
 
 class StandaloneApplePayViewController: UIViewController {
 
-    var currency = "GBP"
+    var currency: Currency = .GBP
     var judoKit: JudoKit?
+
+    @IBOutlet weak var placeholderLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var subview: UIView
-
         if PKPaymentAuthorizationViewController.canMakePayments() {
+            self.placeholderLabel.isHidden = true
+
             let style: PKPaymentButtonStyle = self.traitCollection.userInterfaceStyle == .dark ? .white : .black
             let button = PKPaymentButton(paymentButtonType: .plain, paymentButtonStyle: style)
             button.addTarget(self, action: #selector(performApplePay), for: .touchUpInside)
 
-            subview = button
-        } else {
-            let label = UILabel(frame: .zero)
-            label.font = UIFont(name: "Helvetica", size: 16)
-            label.text = "Apple Pay is not available on this device"
-            label.numberOfLines = 0
-            label.textColor = UIColor.secondaryLabel
+            view.addSubview(button)
 
-            subview = label
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         }
-
-        view.addSubview(subview)
-
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        subview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 
     @objc func performApplePay() {
-        let configuration = applePayConfiguration(with: .payment, currency: currency)
+        let items = [
+            PaymentSummaryItem(label: "Item 1", amount: 0.01),
+            PaymentSummaryItem(label: "Item 2", amount: 0.02),
+            PaymentSummaryItem(label: "Item 3", amount: 0.03)
+        ]
+
+        let configuration = ApplePayConfiguration(judoId: judoId,
+                                                  reference: "judopay-sample-app",
+                                                  merchantId: merchantId,
+                                                  currency: currency.rawValue,
+                                                  countryCode: "GB",
+                                                  paymentSummaryItems: items)
+
+        configuration.transactionType = .payment
+        configuration.requiredShippingContactFields = .all
+        configuration.requiredBillingContactFields = .all
+        configuration.returnedContactInfo = .all
 
         judoKit?.invokeApplePay(with: configuration, completion: { (response, error) in
             if let judoError = error as NSError? {
@@ -45,10 +53,35 @@ class StandaloneApplePayViewController: UIViewController {
             }
 
             if let response = response, let items = response.items, items.count > 0 {
-                let detailsViewController = ResponseDetailsTableViewController(title: "Transaction details",
-                                                                                data: response.detailsTableData)
+                let detailsViewController = TransactionDetailsTableViewController(title: "Transaction details",
+                                                                                  response: response)
                 self.navigationController?.pushViewController(detailsViewController, animated: true)
             }
         })
+    }
+
+    func handle(error: NSError) {
+        if error.userDidCancelOperation {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+
+        dismiss(animated: true) {
+            self.presentAlert(with: "Error", message: error.judoMessage)
+        }
+    }
+
+    func presentAlert(with title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func handle(response: JPResponse) {
+        let detailsViewController = TransactionDetailsTableViewController(title: "Payment receipt",
+                                                                          response: response)
+        dismiss(animated: true) {
+            self.navigationController?.pushViewController(detailsViewController, animated: true)
+        }
     }
 }
