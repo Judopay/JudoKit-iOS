@@ -30,7 +30,7 @@
 #import "JudoPaymentMethodsViewController.h"
 #import "PaymentMethods.h"
 
-static NSString *__nonnull const JudoKitVersion = @"8.0.1";
+static NSString *__nonnull const JudoKitVersion = @"8.1.0";
 
 @class JudoPayViewController;
 @class ApplePayConfiguration;
