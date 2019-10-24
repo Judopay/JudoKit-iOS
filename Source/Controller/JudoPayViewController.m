@@ -125,6 +125,10 @@
                                                     judoId:judoId
                                                     amount:amount
                                                  reference:reference];
+        
+        NSDictionary *dictionary = @{@"UserAgent" : getUserAgent()};
+        [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
+        [NSUserDefaults.standardUserDefaults synchronize];
     }
     return self;
 }
