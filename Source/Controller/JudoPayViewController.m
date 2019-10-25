@@ -615,9 +615,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.paymentEnabled = enabled;
     self.paymentButton.hidden = !enabled;
 
-    self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + self.view.safeAreaEdgeInsets.bottom;
-
-    [self.paymentButton setNeedsUpdateConstraints];
+    if (_currentKeyboardHeight > 0) {
+        self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + self.view.safeAreaEdgeInsets.bottom;
+        [self.paymentButton setNeedsUpdateConstraints];
+    }
 
     [UIView animateWithDuration:0.25
                           delay:0.0
