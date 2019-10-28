@@ -53,6 +53,11 @@
 
 @import CoreLocation;
 
+static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCurve curve) {
+    UIViewAnimationOptions opt = (UIViewAnimationOptions)curve;
+    return opt << 16;
+}
+
 @interface JudoPayViewController () <WKNavigationDelegate, JudoPayInputDelegate>
 
 @property (nonatomic, assign) BOOL paymentEnabled;
@@ -72,16 +77,15 @@
 
 @property (nonatomic, strong, readwrite) UIScrollView *scrollView;
 
-@property (nonatomic, strong) NSLayoutConstraint *paymentButtonBottomConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *safeAreaBottomConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *keyboardHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *maestroFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *avsFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *securityMessageTopConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *paymentButtonHeightConstraint;
 
 @property (nonatomic, strong) UILabel *securityMessageLabel;
 
-@property (nonatomic, strong) UIButton *paymentButton;
-@property (nonatomic, strong) UIView *safeAreaView;
+@property (nonatomic, strong, readwrite) UIButton *paymentButton;
 @property (nonatomic, strong) UIBarButtonItem *paymentNavBarButton;
 
 @property (nonatomic, strong, readwrite) LoadingView *loadingView;
@@ -101,6 +105,80 @@
 @end
 
 @implementation JudoPayViewController
+
+#pragma mark - Keyboard notification configuration
+
+- (void)keyboardWillShow:(NSNotification *)note {
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
+        return;
+    }
+
+    UIViewAnimationCurve animationCurve = [note.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    CGFloat animationDuration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
+    CGRect keyboardRect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    self.currentKeyboardHeight = keyboardRect.size.height;
+
+    self.keyboardHeightConstraint.constant = -1 * keyboardRect.size.height + self.view.safeAreaEdgeInsets.bottom;
+
+    [self.paymentButton setNeedsUpdateConstraints];
+
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:animationOptionsWithCurve(animationCurve)
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
+        return;
+    }
+
+    UIViewAnimationCurve animationCurve = [note.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    CGFloat animationDuration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
+    self.currentKeyboardHeight = 0.0;
+
+    self.keyboardHeightConstraint.constant = 0;
+
+    [self.paymentButton setNeedsUpdateConstraints];
+
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:animationOptionsWithCurve(animationCurve)
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)note {
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+        return;
+    }
+
+    UIViewAnimationCurve animationCurve = [note.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    CGFloat animationDuration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect keyboardRect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    self.currentKeyboardHeight = keyboardRect.size.height;
+
+    self.keyboardHeightConstraint.constant = -1 * keyboardRect.size.height;
+
+    [self.paymentButton setNeedsUpdateConstraints];
+
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:animationOptionsWithCurve(animationCurve)
+                     animations:^{
+                         [self.paymentButton layoutIfNeeded];
+                     }
+                     completion:nil];
+}
 
 #pragma mark - Initialization
 
@@ -125,12 +203,34 @@
                                                     judoId:judoId
                                                     amount:amount
                                                  reference:reference];
-        
-        NSDictionary *dictionary = @{@"UserAgent" : getUserAgent()};
-        [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
-        [NSUserDefaults.standardUserDefaults synchronize];
     }
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(keyboardWillShow:)
+                               name:UIKeyboardWillShowNotification
+                             object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(keyboardWillHide:)
+                               name:UIKeyboardWillHideNotification
+                             object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(keyboardWillChangeFrame:)
+                               name:UIKeyboardWillShowNotification
+                             object:nil];
+
+    NSDictionary *dictionary = @{@"UserAgent" : getUserAgent()};
+    [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
+    [NSUserDefaults.standardUserDefaults synchronize];
+
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - View Lifecycle
@@ -176,8 +276,6 @@
         [self.cardInputField textFieldDidChangeValue:self.cardInputField.textField];
         [self.expiryDateInputField textFieldDidChangeValue:self.cardInputField.textField];
     }
-    
-    [self registerKeyboardObservers];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -192,13 +290,6 @@
     } else {
         [self.cardInputField.textField becomeFirstResponder];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self removeKeyboardObservers];
-    [self.view endEditing:YES];
-    
-    [super viewWillDisappear:animated];
 }
 
 - (void)setupView {
@@ -233,7 +324,6 @@
     [self.scrollView addSubview:self.postCodeInputField];
     [self.scrollView addSubview:self.securityMessageLabel];
 
-    [self.view addSubview:self.safeAreaView];
     [self.view addSubview:self.paymentButton];
     [self.view addSubview:self.threeDSWebView];
     [self.view addSubview:self.loadingView];
@@ -248,19 +338,14 @@
     self.postCodeInputField.delegate = self;
 
     // Layout Constraints
-    self.paymentButtonBottomConstraint = [self.paymentButton.bottomAnchor constraintEqualToAnchor:self.view.safeBottomAnchor];
-    self.safeAreaBottomConstraint = [self.safeAreaView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+    self.keyboardHeightConstraint = [self.paymentButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:0];
+    self.paymentButtonHeightConstraint = [self.paymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight];
     
     NSArray *constraints = @[
-        [self.paymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight],
+        self.paymentButtonHeightConstraint,
         [self.paymentButton.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
         [self.paymentButton.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
-        self.paymentButtonBottomConstraint,
-        
-        [self.safeAreaView.heightAnchor constraintEqualToConstant:self.theme.buttonHeight],
-        [self.safeAreaView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
-        [self.safeAreaView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
-        self.safeAreaBottomConstraint,
+        self.keyboardHeightConstraint,
 
         [self.scrollView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
         [self.scrollView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
@@ -268,7 +353,7 @@
         [self.loadingView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
         [self.loadingView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
         [self.loadingView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
-        [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.safeBottomAnchor],
+        [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -382,6 +467,22 @@
         self.expiryDateInputField.userInteractionEnabled = !self.isTokenPayment;
         self.cardInputField.textField.secureTextEntry = NO;
     }
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    
+    CGFloat bottomInset = 0.0;
+
+    if (@available(iOS 11.0, *)) {
+        bottomInset = self.view.safeAreaInsets.bottom;
+    } else {
+        bottomInset = self.bottomLayoutGuide.length;
+    }
+    
+    [self.paymentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, bottomInset, 0)];
+    self.paymentButtonHeightConstraint.constant = self.theme.buttonHeight + bottomInset;
+    [self.paymentButton setNeedsUpdateConstraints];
 }
 
 #pragma mark - Actions
@@ -532,7 +633,19 @@
 - (void)paymentEnabled:(BOOL)enabled {
     self.paymentEnabled = enabled;
     self.paymentButton.hidden = !enabled;
-    self.safeAreaView.hidden = !enabled;
+
+    if (_currentKeyboardHeight > 0) {
+        self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + self.view.safeAreaEdgeInsets.bottom;
+        [self.paymentButton setNeedsUpdateConstraints];
+    }
+
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:(enabled ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn)animations:^{
+                            [self.paymentButton layoutIfNeeded];
+                        }
+                     completion:nil];
+
     self.paymentNavBarButton.enabled = enabled;
 }
 
@@ -563,56 +676,6 @@
                      animations:^{
                          [self.scrollView layoutIfNeeded];
                      }];
-}
-
-#pragma mark - Keyboard-related logic
-
-- (void)registerKeyboardObservers {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillShow:)
-                               name:UIKeyboardWillShowNotification
-                             object:nil];
-    
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillHide:)
-                               name:UIKeyboardWillHideNotification
-                             object:nil];
-}
-
-- (void)removeKeyboardObservers {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    self.currentKeyboardHeight = keyboardSize.height;
-    
-    if (@available(iOS 11.0, *)) {
-        self.safeAreaBottomConstraint.constant -= keyboardSize.height;
-        self.paymentButtonBottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInsets.bottom ;
-    } else {
-        self.paymentButtonBottomConstraint.constant = -keyboardSize.height;
-        self.safeAreaBottomConstraint.constant = -keyboardSize.height;
-    }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-    }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    self.paymentButtonBottomConstraint.constant = 0;
-    self.safeAreaBottomConstraint.constant = 0;
-    self.currentKeyboardHeight = 0;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
-    }];
 }
 
 #pragma mark - Lazy Loading
@@ -725,15 +788,6 @@
         [_paymentButton setTitleColor:self.theme.judoButtonTitleColor forState:UIControlStateNormal];
     }
     return _paymentButton;
-}
-
-- (UIView *)safeAreaView {
-    if (!_safeAreaView) {
-        _safeAreaView = [UIView new];
-        _safeAreaView.translatesAutoresizingMaskIntoConstraints = NO;
-        _safeAreaView.backgroundColor = self.theme.judoButtonColor;
-    }
-    return _safeAreaView;
 }
 
 #pragma mark - JudoPayInputDelegate
