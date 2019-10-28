@@ -1,6 +1,6 @@
 //
-//  NSString+Manipulation.h
-//  JudoKitObjC
+//  HalfHeightPresentationController.h
+//  JudoKitObjCExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,19 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Localize.h"
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@implementation NSString (Manipulation)
+NS_ASSUME_NONNULL_BEGIN
 
-- (nonnull NSString *)localized {
-
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
-    }
-
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
-}
+@interface HalfHeightPresentationController : UIPresentationController
 
 @end
+
+NS_ASSUME_NONNULL_END

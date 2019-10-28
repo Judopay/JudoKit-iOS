@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "UIApplication+Additions.h"
 #import "UIColor+Judo.h"
 
 @implementation UIColor (Judo)
@@ -44,7 +45,7 @@
     return 0.299 * red + 0.587 * green + 0.114 * blue;
 }
 
-- (BOOL)colorMode {
+- (BOOL)isDarkColor {
     return self.greyScale < 0.5;
 }
 
@@ -57,6 +58,41 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
++ (UIColor *)jellyBean {
+    return [UIColor colorWithRed:30 / 255.0f green:120 / 255.0f blue:160 / 255.0f alpha:1.0f];
+}
+
++ (UIColor *)hippieBlue {
+    return [UIColor colorWithRed:0.34 green:0.59 blue:0.69 alpha:1.00];
+}
+
++ (UIColor *)thunder {
+    return [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
+}
+
++ (UIColor *)magnesium {
+    return [UIColor colorWithRed:180 / 255.0f green:180 / 255.0f blue:180 / 255.0f alpha:1.0];
+}
+
++ (UIColor *)zircon {
+    return [UIColor colorWithRed:245 / 255.0f green:245 / 255.0f blue:245 / 255.0f alpha:1.0f];
+}
+
++ (UIColor *)lightGray {
+    return [UIColor colorWithRed:210 / 255.0f green:210 / 255.0f blue:210 / 255.0f alpha:0.8f];
+}
+
++ (UIColor *)cgRed {
+    return [UIColor colorWithRed:235 / 255.0f green:55 / 255.0f blue:45 / 255.0f alpha:1.0];
+}
+
++ (UIColor *)defaultTintColor {
+    if ([UIApplication isUserInterfaceStyleDark]) {
+        return [UIColor hippieBlue];
+    }
+    return [UIColor jellyBean];
 }
 
 @end

@@ -31,7 +31,7 @@
 - (void)applyTheme:(JPTheme *)theme {
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
 
-    if (![theme.tintColor colorMode]) {
+    if (![theme.tintColor isDarkColor]) {
         navigationBar.barStyle = UIBarStyleBlack;
     }
 

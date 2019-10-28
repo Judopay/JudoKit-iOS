@@ -1,5 +1,5 @@
 //
-//  NSString+Manipulation.h
+//  UIApplication+Additions.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,19 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Localize.h"
-#import <Foundation/Foundation.h>
+#import "UIApplication+Additions.h"
 
-@implementation NSString (Manipulation)
+@implementation UIApplication (Additions)
 
-- (nonnull NSString *)localized {
-
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
++ (BOOL)isUserInterfaceStyleDark {
+    if (@available(iOS 13.0, *)) {
+        UITraitCollection *currentTraitCollection = UIApplication.sharedApplication.keyWindow.traitCollection;
+        return currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
     }
-
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
+    return false;
 }
 
 @end

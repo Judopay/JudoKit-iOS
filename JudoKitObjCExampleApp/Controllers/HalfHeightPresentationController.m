@@ -1,6 +1,6 @@
 //
-//  NSString+Manipulation.h
-//  JudoKitObjC
+//  HalfHeightPresentationController.m
+//  JudoKitObjCExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,19 +22,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Localize.h"
-#import <Foundation/Foundation.h>
+#import "HalfHeightPresentationController.h"
 
-@implementation NSString (Manipulation)
+@implementation HalfHeightPresentationController
 
-- (nonnull NSString *)localized {
-
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
+- (CGRect)frameOfPresentedViewInContainerView {
+    if (!self.containerView) {
+        return CGRectZero;
     }
+    
+    CGSize size = self.containerView.bounds.size;
+    CGSize targetSize = CGSizeMake(size.width, UILayoutFittingCompressedSize.height);
+    
+    [self.presentedView setNeedsLayout];
+    [self.presentedView layoutIfNeeded];
+    
+    CGFloat computedHeight = [self.presentedView systemLayoutSizeFittingSize:targetSize].height;
+    computedHeight = MIN(computedHeight, size.height);
+    
+    return CGRectMake(0.f, size.height - computedHeight, size.width, computedHeight);
+}
 
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
+- (BOOL)shouldPresentInFullscreen {
+    return NO;
 }
 
 @end

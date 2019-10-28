@@ -164,64 +164,71 @@
 }
 
 #pragma mark - Colors
-
 - (UIColor *)tintColor {
-    if (!_tintColor) {
-        _tintColor = [UIColor colorWithRed:30 / 255.0f green:120 / 255.0f blue:160 / 255.0f alpha:1.0f];
+    if (_tintColor) {
+        return _tintColor;
     }
-    return _tintColor;
+    return [UIColor defaultTintColor];
 }
 
 - (UIColor *)judoTextColor {
     if (_judoTextColor) {
         return _judoTextColor;
     }
-    UIColor *dgc = [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
-        return dgc;
+    UIColor *textColor = [UIColor thunder];
+    if ([self.tintColor isDarkColor]) {
+        return textColor;
     }
-    return [dgc inverseColor];
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoNavigationBarTitleColor {
     if (_judoNavigationBarTitleColor) {
         return _judoNavigationBarTitleColor;
     }
-    UIColor *dgc = [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
-        return dgc;
+    UIColor *navigationBarTintColor = [UIColor thunder];
+    if ([self.tintColor isDarkColor]) {
+        return navigationBarTintColor;
     }
-    return [dgc inverseColor];
+    return [navigationBarTintColor inverseColor];
 }
 
 - (UIColor *)judoInputFieldTextColor {
-    return _judoInputFieldTextColor ? _judoInputFieldTextColor : [UIColor colorWithRed:75 / 255.0f green:75 / 255.0f blue:75 / 255.0f alpha:1.0f];
+    if (_judoInputFieldTextColor) {
+        return _judoInputFieldTextColor;
+    }
+    UIColor *textColor = [UIColor darkGrayColor];
+    if ([self.tintColor isDarkColor]) {
+        return textColor;
+    }
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoPlaceholderTextColor {
     if (_judoPlaceholderTextColor) {
         return _judoPlaceholderTextColor;
     }
-    UIColor *lgc = [UIColor colorWithRed:180 / 255.0f green:180 / 255.0f blue:180 / 255.0f alpha:1.0];
-    if ([self.tintColor colorMode]) {
-        return lgc;
+    UIColor *textColor = [UIColor magnesium];
+    if ([self.tintColor isDarkColor]) {
+        return textColor;
     }
-    return [lgc inverseColor];
+    return [textColor inverseColor];
 }
 
 - (UIColor *)judoInputFieldBorderColor {
-    return _judoInputFieldBorderColor ? _judoInputFieldBorderColor : [UIColor colorWithRed:180 / 255.0f green:180 / 255.0f blue:180 / 255.0f alpha:1.0f];
+    return _judoInputFieldBorderColor ? _judoInputFieldBorderColor : [UIColor magnesium];
 }
 
 - (UIColor *)judoContentViewBackgroundColor {
     if (_judoContentViewBackgroundColor) {
         return _judoContentViewBackgroundColor;
     }
-    UIColor *bgc = [UIColor colorWithRed:245 / 255.0f green:245 / 255.0f blue:245 / 255.0f alpha:1.0f];
-    if ([self.tintColor colorMode]) {
-        return bgc;
+
+    UIColor *backgroundColor = [UIColor zircon];
+    if ([self.tintColor isDarkColor]) {
+        return backgroundColor;
     }
-    return [bgc inverseColor];
+    return [backgroundColor inverseColor];
 }
 
 - (UIColor *)judoButtonColor {
@@ -232,29 +239,29 @@
     if (_judoButtonTitleColor) {
         return _judoButtonTitleColor;
     }
-    return [self.tintColor colorMode] ? [UIColor whiteColor] : [UIColor blackColor];
+    return [self.tintColor isDarkColor] ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 - (UIColor *)judoLoadingBackgroundColor {
     if (_judoLoadingBackgroundColor) {
         return _judoLoadingBackgroundColor;
     }
-    UIColor *lbc = [UIColor colorWithRed:210 / 255.0f green:210 / 255.0f blue:210 / 255.0f alpha:0.8f];
-    if ([self.tintColor colorMode]) {
-        return lbc;
+    UIColor *loadingBackgroundColor = [UIColor lightGray];
+    if ([self.tintColor isDarkColor]) {
+        return loadingBackgroundColor;
     }
-    return [lbc inverseColor];
+    return [loadingBackgroundColor inverseColor];
 }
 
 - (UIColor *)judoErrorColor {
-    return _judoErrorColor ? _judoErrorColor : [UIColor colorWithRed:235 / 255.0f green:55 / 255.0f blue:45 / 255.0f alpha:1.0];
+    return _judoErrorColor ? _judoErrorColor : [UIColor cgRed];
 }
 
 - (UIColor *)judoLoadingBlockViewColor {
     if (_judoLoadingBlockViewColor) {
         return _judoLoadingBlockViewColor;
     }
-    if ([self.tintColor colorMode]) {
+    if ([self.tintColor isDarkColor]) {
         return [UIColor whiteColor];
     }
     return [UIColor blackColor];

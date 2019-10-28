@@ -81,6 +81,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @property (nonatomic, strong) NSLayoutConstraint *maestroFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *avsFieldsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *securityMessageTopConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *paymentButtonHeightConstraint;
 
 @property (nonatomic, strong) UILabel *securityMessageLabel;
 
@@ -127,7 +128,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                           delay:0.0
                         options:animationOptionsWithCurve(animationCurve)
                      animations:^{
-                         [self.paymentButton layoutIfNeeded];
+                         [self.view layoutIfNeeded];
                      }
                      completion:nil];
 }
@@ -150,7 +151,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                           delay:0.0
                         options:animationOptionsWithCurve(animationCurve)
                      animations:^{
-                         [self.paymentButton layoutIfNeeded];
+                         [self.view layoutIfNeeded];
                      }
                      completion:nil];
 }
@@ -337,9 +338,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.postCodeInputField.delegate = self;
 
     // Layout Constraints
-    self.keyboardHeightConstraint = [self.paymentButton.bottomAnchor constraintEqualToAnchor:self.view.safeBottomAnchor constant:0];
+    self.keyboardHeightConstraint = [self.paymentButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:0];
+    self.paymentButtonHeightConstraint = [self.paymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight];
+    
     NSArray *constraints = @[
-        [self.paymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight],
+        self.paymentButtonHeightConstraint,
         [self.paymentButton.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
         [self.paymentButton.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
         self.keyboardHeightConstraint,
@@ -350,7 +353,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self.loadingView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
         [self.loadingView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
         [self.loadingView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
-        [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.safeBottomAnchor],
+        [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -464,6 +467,22 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         self.expiryDateInputField.userInteractionEnabled = !self.isTokenPayment;
         self.cardInputField.textField.secureTextEntry = NO;
     }
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    
+    CGFloat bottomInset = 0.0;
+
+    if (@available(iOS 11.0, *)) {
+        bottomInset = self.view.safeAreaInsets.bottom;
+    } else {
+        bottomInset = self.bottomLayoutGuide.length;
+    }
+    
+    [self.paymentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, bottomInset, 0)];
+    self.paymentButtonHeightConstraint.constant = self.theme.buttonHeight + bottomInset;
+    [self.paymentButton setNeedsUpdateConstraints];
 }
 
 #pragma mark - Actions
@@ -615,9 +634,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     self.paymentEnabled = enabled;
     self.paymentButton.hidden = !enabled;
 
-    self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + self.view.safeAreaEdgeInsets.bottom;
-
-    [self.paymentButton setNeedsUpdateConstraints];
+    if (_currentKeyboardHeight > 0) {
+        self.keyboardHeightConstraint.constant = -_currentKeyboardHeight + self.view.safeAreaEdgeInsets.bottom;
+        [self.paymentButton setNeedsUpdateConstraints];
+    }
 
     [UIView animateWithDuration:0.25
                           delay:0.0
@@ -857,7 +877,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 #pragma mark - WKNavigation Delegate Methods
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    
+
     NSString *urlString = navigationAction.request.URL.absoluteString;
 
     if ([urlString rangeOfString:@"Parse3DS"].location == NSNotFound) {
@@ -909,14 +929,13 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         completion:^(BOOL finished) {
             [self.threeDSWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         }];
-    
+
     decisionHandler(WKNavigationActionPolicyCancel);
     return;
-    
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    
+
     CGFloat alphaVal = 1.0f;
     if ([webView.URL.absoluteString isEqualToString:@"about:blank"]) {
         alphaVal = 0.0f;
