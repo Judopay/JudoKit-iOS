@@ -37,8 +37,6 @@
 		302291B0231012E000EC79CB /* MockJPTransactionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DB511D23100E6B00B73D66 /* MockJPTransactionData.json */; };
 		305D7AAB23681BF200C49DEA /* JPCheckCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 305D7AA923681BF200C49DEA /* JPCheckCard.h */; };
 		305D7AAC23681BF200C49DEA /* JPCheckCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 305D7AAA23681BF200C49DEA /* JPCheckCard.m */; };
-		306BCECD2355F0F7008540E7 /* IDEALBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 306BCECC2355F0F7008540E7 /* IDEALBank.m */; };
-		306BCECF2355FC9F008540E7 /* IDEALBank.h in Headers */ = {isa = PBXBuildFile; fileRef = 306BCECE2355FC9E008540E7 /* IDEALBank.h */; };
 		30B851C4236C5AA6005DCA7C /* JudoKitCheckCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B851A4236C55E5005DCA7C /* JudoKitCheckCardTests.swift */; };
 		30B851C7236C5AD4005DCA7C /* JPPrimaryAccountDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B851C5236C5AD4005DCA7C /* JPPrimaryAccountDetails.h */; };
 		30B851C8236C5AD4005DCA7C /* JPPrimaryAccountDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B851C6236C5AD4005DCA7C /* JPPrimaryAccountDetails.m */; };
@@ -381,8 +379,6 @@
 		302291AD23100F9E00EC79CB /* UIView+SafeAnchors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SafeAnchors.h"; path = "Extensions/UIView+SafeAnchors.h"; sourceTree = "<group>"; };
 		305D7AA923681BF200C49DEA /* JPCheckCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JPCheckCard.h; path = API/JPCheckCard.h; sourceTree = "<group>"; };
 		305D7AAA23681BF200C49DEA /* JPCheckCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JPCheckCard.m; path = API/JPCheckCard.m; sourceTree = "<group>"; };
-		306BCECC2355F0F7008540E7 /* IDEALBank.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IDEALBank.m; path = Model/IDEALBank.m; sourceTree = "<group>"; };
-		306BCECE2355FC9E008540E7 /* IDEALBank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IDEALBank.h; path = Model/IDEALBank.h; sourceTree = "<group>"; };
 		30B851A4236C55E5005DCA7C /* JudoKitCheckCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitCheckCardTests.swift; sourceTree = "<group>"; };
 		30B851C5236C5AD4005DCA7C /* JPPrimaryAccountDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPPrimaryAccountDetails.h; path = Model/JPPrimaryAccountDetails.h; sourceTree = "<group>"; };
 		30B851C6236C5AD4005DCA7C /* JPPrimaryAccountDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPPrimaryAccountDetails.m; path = Model/JPPrimaryAccountDetails.m; sourceTree = "<group>"; };
@@ -876,8 +872,6 @@
 				30B851C6236C5AD4005DCA7C /* JPPrimaryAccountDetails.m */,
 				30DB50F823100E1C00B73D66 /* ApplePay */,
 				30DB511323100E5200B73D66 /* BillingCountry.h */,
-				306BCECE2355FC9E008540E7 /* IDEALBank.h */,
-				306BCECC2355F0F7008540E7 /* IDEALBank.m */,
 				3B9711981C761B9700E9A347 /* JPAddress.h */,
 				3B9711991C761B9700E9A347 /* JPAddress.m */,
 				3B678B891C6DF9D00001DC2F /* JPAmount.h */,
@@ -1211,7 +1205,6 @@
 				82933102230AF3B300689DC4 /* NSString+Localize.h in Headers */,
 				44290B2022F051F60088F827 /* JPConsumerDevice.h in Headers */,
 				3B704A9E1C89F1D600376773 /* PostCodeInputField.h in Headers */,
-				306BCECF2355FC9F008540E7 /* IDEALBank.h in Headers */,
 				44AF432422DBD491008A4839 /* JudoPaymentMethodsViewController.h in Headers */,
 				44290B1C22F051F60088F827 /* JPClientDetails.h in Headers */,
 				30DB511523100E5200B73D66 /* JudoKitObjC.h in Headers */,
@@ -1622,7 +1615,6 @@
 				3B678B841C6DE2850001DC2F /* JPResponse.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				3B6912D21C93179100367660 /* NSArray+Prefix.m in Sources */,
-				306BCECD2355F0F7008540E7 /* IDEALBank.m in Sources */,
 				44290B2322F051F60088F827 /* JPSDKInfo.m in Sources */,
 				30DB512123100E6B00B73D66 /* Functions.m in Sources */,
 				3B69D5E91C99A7550075FFD8 /* NSDate+Judo.m in Sources */,
