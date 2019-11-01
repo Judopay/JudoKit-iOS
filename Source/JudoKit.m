@@ -32,6 +32,7 @@
 #import "DateInputField.h"
 #import "FloatingTextField.h"
 #import "JPCollection.h"
+#import "JPCheckCard.h"
 #import "JPInputField.h"
 #import "JPPayment.h"
 #import "JPPreAuth.h"
@@ -170,6 +171,10 @@
         case TransactionTypeSaveCard:
             transactionTypeClass = JPSaveCard.class;
             break;
+            
+        case TransactionTypeCheckCard:
+            transactionTypeClass = JPCheckCard.class;
+            break;
 
         default:
             return nil;
@@ -188,6 +193,13 @@
 
 - (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
     return (JPRegisterCard *)[self transactionForTypeClass:JPRegisterCard.class judoId:judoId amount:nil reference:reference];
+}
+
+- (JPCheckCard *)checkCardWithJudoId:(NSString *)judoId currency:(NSString *)currency reference:(JPReference *)reference {
+    return (JPCheckCard *)[self transactionForTypeClass:JPRegisterCard.class
+                                                 judoId:judoId
+                                                 amount:currency ? [JPAmount amount:@"0.0" currency:currency] : nil
+                                              reference:reference];
 }
 
 - (JPSaveCard *)saveCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
@@ -333,6 +345,20 @@
                                           amount:nil
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
                                      transaction:TransactionTypeRegisterCard
+                                     cardDetails:cardDetails
+                                    paymentToken:nil
+                                      completion:completion];
+}
+
+- (void)invokeCheckCard:(NSString *)judoId
+               currency:(NSString *)currency
+              reference:(JPReference *)reference
+            cardDetails:(JPCardDetails *)cardDetails
+             completion:(void (^)(JPResponse * _Nullable, NSError * _Nullable))completion {
+    [self presentPaymentViewControllerWithJudoId:judoId
+                                          amount:currency ? [JPAmount amount:@"0.0" currency:currency] : nil
+                                       reference:reference
+                                     transaction:TransactionTypeCheckCard
                                      cardDetails:cardDetails
                                     paymentToken:nil
                                       completion:completion];
