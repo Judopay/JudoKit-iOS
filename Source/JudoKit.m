@@ -36,6 +36,7 @@
 #import "JPInputField.h"
 #import "JPPayment.h"
 #import "JPPreAuth.h"
+#import "JPPrimaryAccountDetails.h"
 #import "JPReceipt.h"
 #import "JPReference.h"
 #import "JPRefund.h"
@@ -50,9 +51,6 @@
 #import "JudoPayViewController.h"
 #import "JudoPaymentMethodsViewModel.h"
 #import "NSError+Judo.h"
-
-#import "ApplePayConfiguration.h"
-#import "ApplePayManager.h"
 
 @interface JPSession ()
 @property (nonatomic, strong, readwrite) NSString *authorizationHeader;
@@ -83,7 +81,10 @@
     return [self initWithToken:token secret:secret allowJailbrokenDevices:YES];
 }
 
-- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
+- (instancetype)initWithToken:(NSString *)token
+                       secret:(NSString *)secret
+       allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
+    
     self = [super init];
 
     if (!self)
@@ -107,7 +108,9 @@
     return self;
 }
 
-- (void)sendWithCompletion:(nonnull JPTransaction *)transaction completion:(nonnull JudoCompletionBlock)completion {
+- (void)sendWithCompletion:(nonnull JPTransaction *)transaction
+                completion:(nonnull JudoCompletionBlock)completion {
+    
     [transaction sendWithCompletion:completion];
 }
 
@@ -126,6 +129,9 @@
                                                                            currentSession:self
                                                                               cardDetails:cardDetails
                                                                                completion:completion];
+    
+    
+    viewController.primaryAccountDetails = self.primaryAccountDetails;
     viewController.paymentToken = paymentToken;
     viewController.theme = self.theme;
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -139,11 +145,13 @@
                                     judoId:(NSString *)judoId
                                     amount:(nullable JPAmount *)amount
                                  reference:(nonnull JPReference *)reference {
+    
     JPTransaction *transaction = [type new];
     transaction.judoId = judoId;
     transaction.amount = amount;
     transaction.reference = reference;
     transaction.apiSession = self.apiSession;
+    transaction.primaryAccountDetails = self.primaryAccountDetails;
     transaction.enricher = self.enricher;
 
     return transaction;
@@ -153,6 +161,7 @@
                                judoId:(NSString *)judoId
                                amount:(JPAmount *)amount
                             reference:(JPReference *)reference {
+    
     Class transactionTypeClass;
 
     switch (type) {
@@ -180,48 +189,92 @@
             return nil;
     }
 
-    return [self transactionForTypeClass:transactionTypeClass judoId:judoId amount:amount reference:reference];
+    return [self transactionForTypeClass:transactionTypeClass
+                                  judoId:judoId
+                                  amount:amount
+                               reference:reference];
 }
 
-- (JPPayment *)paymentWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
-    return (JPPayment *)[self transactionForTypeClass:JPPayment.class judoId:judoId amount:amount reference:reference];
+- (JPPayment *)paymentWithJudoId:(NSString *)judoId
+                          amount:(JPAmount *)amount
+                       reference:(JPReference *)reference {
+    
+    return (JPPayment *)[self transactionForTypeClass:JPPayment.class
+                                               judoId:judoId
+                                               amount:amount
+                                            reference:reference];
 }
 
-- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId amount:(JPAmount *)amount reference:(JPReference *)reference {
-    return (JPPreAuth *)[self transactionForTypeClass:JPPreAuth.class judoId:judoId amount:amount reference:reference];
+- (JPPreAuth *)preAuthWithJudoId:(NSString *)judoId
+                          amount:(JPAmount *)amount
+                       reference:(JPReference *)reference {
+    
+    return (JPPreAuth *)[self transactionForTypeClass:JPPreAuth.class
+                                               judoId:judoId
+                                               amount:amount
+                                            reference:reference];
 }
 
-- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
-    return (JPRegisterCard *)[self transactionForTypeClass:JPRegisterCard.class judoId:judoId amount:nil reference:reference];
+- (JPRegisterCard *)registerCardWithJudoId:(NSString *)judoId
+                                 reference:(JPReference *)reference {
+    
+    return (JPRegisterCard *)[self transactionForTypeClass:JPRegisterCard.class
+                                                    judoId:judoId
+                                                    amount:nil
+                                                 reference:reference];
 }
 
-- (JPCheckCard *)checkCardWithJudoId:(NSString *)judoId currency:(NSString *)currency reference:(JPReference *)reference {
+- (JPCheckCard *)checkCardWithJudoId:(NSString *)judoId
+                            currency:(NSString *)currency
+                           reference:(JPReference *)reference {
+    
     return (JPCheckCard *)[self transactionForTypeClass:JPRegisterCard.class
                                                  judoId:judoId
                                                  amount:currency ? [JPAmount amount:@"0.0" currency:currency] : nil
                                               reference:reference];
 }
 
-- (JPSaveCard *)saveCardWithJudoId:(NSString *)judoId reference:(JPReference *)reference {
-    return (JPSaveCard *)[self transactionForTypeClass:JPSaveCard.class judoId:judoId amount:nil reference:reference];
+- (JPSaveCard *)saveCardWithJudoId:(NSString *)judoId
+                         reference:(JPReference *)reference {
+    return (JPSaveCard *)[self transactionForTypeClass:JPSaveCard.class
+                                                judoId:judoId
+                                                amount:nil
+                                             reference:reference];
 }
 
-- (JPTransactionProcess *)transactionProcessForType:(Class)type receiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId amount:amount];
+- (JPTransactionProcess *)transactionProcessForType:(Class)type
+                                          receiptId:(NSString *)receiptId
+                                             amount:(JPAmount *)amount {
+    
+    JPTransactionProcess *transactionProc = [[type alloc] initWithReceiptId:receiptId
+                                                                     amount:amount];
+    
     transactionProc.apiSession = self.apiSession;
     return transactionProc;
 }
 
-- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPCollection *)[self transactionProcessForType:JPCollection.class receiptId:receiptId amount:amount];
+- (JPCollection *)collectionWithReceiptId:(NSString *)receiptId
+                                   amount:(JPAmount *)amount {
+    
+    return (JPCollection *)[self transactionProcessForType:JPCollection.class
+                                                 receiptId:receiptId
+                                                    amount:amount];
 }
 
-- (JPVoid *)voidWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPVoid *)[self transactionProcessForType:JPVoid.class receiptId:receiptId amount:amount];
+- (JPVoid *)voidWithReceiptId:(NSString *)receiptId
+                       amount:(JPAmount *)amount {
+    
+    return (JPVoid *)[self transactionProcessForType:JPVoid.class
+                                           receiptId:receiptId
+                                              amount:amount];
 }
 
-- (JPRefund *)refundWithReceiptId:(NSString *)receiptId amount:(JPAmount *)amount {
-    return (JPRefund *)[self transactionProcessForType:JPRefund.class receiptId:receiptId amount:amount];
+- (JPRefund *)refundWithReceiptId:(NSString *)receiptId
+                           amount:(JPAmount *)amount {
+    
+    return (JPRefund *)[self transactionProcessForType:JPRefund.class
+                                             receiptId:receiptId
+                                                amount:amount];
 }
 
 - (JPReceipt *)receipt:(NSString *)receiptId {
@@ -230,7 +283,10 @@
     return receipt;
 }
 
-- (void)list:(Class)type paginated:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
+- (void)list:(Class)type
+   paginated:(JPPagination *)pagination
+  completion:(JudoCompletionBlock)completion {
+    
     JPTransaction *transaction = [type new];
     transaction.apiSession = self.apiSession;
     [transaction listWithPagination:pagination completion:completion];
@@ -282,6 +338,7 @@
                                                                                           amount:amount
                                                                                consumerReference:[[JPReference alloc] initWithConsumerReference:reference]
                                                                                   paymentMethods:methods
+                                                                           primaryAccountDetails:self.primaryAccountDetails
                                                                            applePayConfiguration:applePayConfigs
                                                                                      cardDetails:cardDetails];
 
@@ -300,6 +357,7 @@
     consumerReference:(NSString *)reference
           cardDetails:(JPCardDetails *)cardDetails
            completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -314,6 +372,7 @@
             reference:(JPReference *)reference
           cardDetails:(JPCardDetails *)cardDetails
            completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:reference
@@ -328,6 +387,7 @@
     consumerReference:(NSString *)reference
           cardDetails:(JPCardDetails *)cardDetails
            completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -341,6 +401,7 @@
          consumerReference:(NSString *)reference
                cardDetails:(JPCardDetails *)cardDetails
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:nil
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -368,6 +429,7 @@
      consumerReference:(NSString *)reference
            cardDetails:(JPCardDetails *)cardDetails
             completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:nil
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -383,6 +445,7 @@
                cardDetails:(JPCardDetails *)cardDetails
               paymentToken:(JPPaymentToken *)paymentToken
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -398,6 +461,7 @@
                cardDetails:(JPCardDetails *)cardDetails
               paymentToken:(JPPaymentToken *)paymentToken
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:[[JPReference alloc] initWithConsumerReference:reference]
@@ -412,6 +476,7 @@
             reference:(JPReference *)reference
           cardDetails:(JPCardDetails *)cardDetails
            completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:reference
@@ -425,6 +490,7 @@
                  reference:(JPReference *)reference
                cardDetails:(JPCardDetails *)cardDetails
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:nil
                                        reference:reference
@@ -438,6 +504,7 @@
              reference:(JPReference *)reference
            cardDetails:(JPCardDetails *)cardDetails
             completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:nil
                                        reference:reference
@@ -453,6 +520,7 @@
                cardDetails:(JPCardDetails *)cardDetails
               paymentToken:(JPPaymentToken *)paymentToken
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:reference
@@ -468,6 +536,7 @@
                cardDetails:(JPCardDetails *)cardDetails
               paymentToken:(JPPaymentToken *)paymentToken
                 completion:(void (^)(JPResponse *, NSError *))completion {
+    
     [self presentPaymentViewControllerWithJudoId:judoId
                                           amount:amount
                                        reference:reference

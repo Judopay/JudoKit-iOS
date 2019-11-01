@@ -30,6 +30,7 @@
 #import "JPEnhancedPaymentDetail.h"
 #import "JPPagination.h"
 #import "JPPaymentToken.h"
+#import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
 #import "JPRegisterCard.h"
 #import "JPResponse.h"
@@ -212,6 +213,18 @@
     if (card.cardAddress) {
         self.parameters[@"cardAddress"] = card.cardAddress.dictionaryRepresentation;
     }
+}
+
+- (JPPrimaryAccountDetails *)primaryAccountDetails {
+    if (self.parameters[@"primaryAccountDetails"]) {
+        NSDictionary *dictionary = self.parameters[@"primaryAccountDetails"];
+        return [JPPrimaryAccountDetails detailsFromDictionary:dictionary];
+    }
+    return nil;
+}
+
+- (void)setPrimaryAccountDetails:(JPPrimaryAccountDetails *)primaryAccountDetails {
+    self.parameters[@"primaryAccountDetails"] = primaryAccountDetails.toDictionary;
 }
 
 - (JPPaymentToken *)paymentToken {
