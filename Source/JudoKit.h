@@ -49,6 +49,8 @@ static NSString *__nonnull const JudoKitVersion = @"8.0.1";
 @class JPPagination;
 @class JPResponse;
 
+@class JPPrimaryAccountDetails;
+
 /**
  *  Entry point for interacting with judoKit
  */
@@ -63,6 +65,11 @@ static NSString *__nonnull const JudoKitVersion = @"8.0.1";
  *  The theme of any judoSession
  */
 @property (nonatomic, strong) JPTheme *_Nonnull theme;
+
+/**
+ * Optional primary account details, such as the name, account number, date of birth and post code
+ */
+@property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
 
 /**
  *  The currently active and visible viewController instance
