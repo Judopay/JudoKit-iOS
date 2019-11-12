@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.h
+//  IDEALBankTableViewCell.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +24,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Judo)
+@class IDEALBank;
 
-- (nonnull UIColor *)inverseColor;
+/**
+ * A custom UITableViewCell used for displaying the iDEAL bank logo
+ */
+@interface IDEALBankTableViewCell : UITableViewCell
 
-- (nonnull UIImage *)asImage;
-
-- (CGFloat)greyScale;
-
-- (BOOL)isDarkColor;
-
-+ (UIColor *_Nonnull)jellyBean;
-
-+ (UIColor *_Nonnull)thunder;
-
-+ (UIColor *_Nonnull)magnesium;
-
-+ (UIColor *_Nonnull)zircon;
-
-+ (UIColor *_Nonnull)lightGray;
-
-+ (UIColor *_Nonnull)cgRed;
-
-+ (UIColor *_Nonnull)idealPurple;
-
-+ (UIColor *_Nonnull)defaultTintColor;
+/**
+ *  A method for customizing the IDEALBankTableViewCell's logo image based on a bank model
+ *
+ *  @param bank - an iDEAL bank model used for getting the bank identifier code
+ */
+- (void)configureWithBank:(IDEALBank *)bank;
 
 @end

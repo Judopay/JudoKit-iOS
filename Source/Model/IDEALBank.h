@@ -28,6 +28,7 @@
  *  Enumeration of all available iDEAL banks
  */
 typedef NS_ENUM(NSUInteger, IDEALBankType) {
+    IDEALBankNone,
     IDEALBankRabobank,
     IDEALBankABN,
     IDEALBankVanLanschotBankiers,
@@ -48,6 +49,11 @@ typedef NS_ENUM(NSUInteger, IDEALBankType) {
 @interface IDEALBank : NSObject
 
 /**
+ *  The type of the iDEAL bank
+ */
+@property IDEALBankType type;
+
+/**
  *  The title of the iDEAL bank
  */
 @property (nonatomic, strong) NSString *_Nonnull title;
@@ -56,6 +62,15 @@ typedef NS_ENUM(NSUInteger, IDEALBankType) {
  *  The bank identifier code for the iDEAL bank
  */
 @property (nonatomic, strong) NSString *_Nonnull bankIdentifierCode;
+
+/**
+ *  Create an IDEALBank instance based on a specified type
+ *
+ *  @param type - one of the predefined iDEALBank types
+ *
+ *  @return an IDEALBank instance
+ */
++ (nonnull instancetype)bankWithType:(IDEALBankType)type;
 
 /**
  *  Create an IDEALBank instance based on a specified type

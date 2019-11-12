@@ -1,5 +1,5 @@
 //
-//  NSBundle+Additions.m
+//  IDEALBankTableViewCell.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,40 +22,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JudoKit.h"
-#import "NSBundle+Additions.h"
+#import "IDEALBank.h"
+#import "IDEALBankTableViewCell.h"
+#import "NSString+Localize.h"
 
-@implementation NSBundle (Additions)
+@interface IDEALBankTableViewCell()
 
-+ (instancetype)frameworkBundle {
-    static NSBundle *bundle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:[JudoKit class]];
-    });
-    return bundle;
+@property (weak, nonatomic) IBOutlet UIImageView *bankLogoImageView;
+
+@end
+
+@implementation IDEALBankTableViewCell
+
+- (void)configureWithBank:(IDEALBank *)bank {
+    
+    NSBundle *bundle = [NSBundle bundleForClass:IDEALBankTableViewCell.class];
+    
+    NSString *iconBundlePath = [bundle pathForResource:@"icons" ofType:@"bundle"];
+    NSBundle *iconBundle = [NSBundle bundleWithPath:iconBundlePath];
+    
+    NSString *iconName = [NSString stringWithFormat:@"logo-%@", bank.bankIdentifierCode];
+    NSString *iconFilePath = [iconBundle pathForResource:iconName ofType:@"png"];
+    
+    self.bankLogoImageView.image =[UIImage imageWithContentsOfFile:iconFilePath];
+    self.bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    self.bankLogoImageView.isAccessibilityElement = YES;
+    self.bankLogoImageView.accessibilityLabel = bank.title;
+    self.bankLogoImageView.accessibilityHint = [NSString stringWithFormat:@"select_bank".localized, bank.title];
 }
 
-+ (instancetype)iconsBundle {
-    static NSBundle *bundle;
-    static NSBundle *iconsBundle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:[JudoKit class]];
-        NSString *iconBundlePath = [bundle pathForResource:@"icons" ofType:@"bundle"];
-        iconsBundle = [NSBundle bundleWithPath:iconBundlePath];
-    });
-    return iconsBundle;
-}
-
-+ (instancetype)stringsBundle {
-    static NSBundle *bundle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKitObjC"
-                                                               ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:podPath];
-    });
-    return bundle;
-}
 @end

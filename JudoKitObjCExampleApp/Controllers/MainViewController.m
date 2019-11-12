@@ -33,11 +33,11 @@
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "HalfHeightPresentationController.h"
+#import "IDEALFormViewController.h"
 #import "JPPrimaryAccountDetails.h"
-
 #import "JudoKitObjC.h"
 
-static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableviewcellidentifier";
+static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
 
 @interface MainViewController () <UITableViewDataSource, UITableViewDelegate, SettingsViewControllerDelegate, UIViewControllerTransitioningDelegate> {
     UIAlertController *_alertController;
@@ -164,6 +164,10 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
         case DemoFeatureTypePaymentMethods:
             [self paymentMethodOption];
+            break;
+            
+        case DemoFeatureTypeIDEALTransaction:
+            [self idealTransactionOperation];
             break;
 
         case DemoFeatureTypeStandaloneApplePayButton:
@@ -393,6 +397,23 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+}
+
+- (void)idealTransactionOperation {
+    [self.judoKitSession invokeIDEALPaymentWithCompletion:^(JPResponse *response, NSError *error) {
+        if (error || response.items.count == 0) {
+            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
+            }];
+            return;
+        }
+        
+        // TODO: Handle response / error
+    }];
 }
 
 - (void)tokenPreAuthOperation {

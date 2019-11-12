@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.h
+//  IDEALBankSelectionTableViewController.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +24,31 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Judo)
+@class IDEALBank;
 
-- (nonnull UIColor *)inverseColor;
+/**
+ * A delegate protocol related to the bank selection logic
+ */
+@protocol IDEALBankSelectionDelegate <NSObject>
 
-- (nonnull UIImage *)asImage;
-
-- (CGFloat)greyScale;
-
-- (BOOL)isDarkColor;
-
-+ (UIColor *_Nonnull)jellyBean;
-
-+ (UIColor *_Nonnull)thunder;
-
-+ (UIColor *_Nonnull)magnesium;
-
-+ (UIColor *_Nonnull)zircon;
-
-+ (UIColor *_Nonnull)lightGray;
-
-+ (UIColor *_Nonnull)cgRed;
-
-+ (UIColor *_Nonnull)idealPurple;
-
-+ (UIColor *_Nonnull)defaultTintColor;
+/**
+ * A delegate method that is called when a bank from the iDEAL bank list is selected
+ *
+ * @param bank - the iDEAL bank model containing the bank title and identifier code
+ */
+- (void)didSelectBank:(nonnull IDEALBank *)bank;
 
 @end
+
+/**
+ * A custom implementation of the UITableViewController used for displaying the list of iDEAL banks
+ */
+@interface IDEALBankSelectionTableViewController : UITableViewController
+
+/**
+ * An object conforming to the IDEALBankSelectionDelegate that will capture the bank selection event
+ */
+@property (nonatomic, weak) id<IDEALBankSelectionDelegate> _Nullable delegate;
+
+@end
+
