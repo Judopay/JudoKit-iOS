@@ -340,7 +340,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     // Layout Constraints
     self.keyboardHeightConstraint = [self.paymentButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:0];
     self.paymentButtonHeightConstraint = [self.paymentButton.heightAnchor constraintEqualToConstant:self.theme.buttonHeight];
-    
+
     NSArray *constraints = @[
         self.paymentButtonHeightConstraint,
         [self.paymentButton.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
@@ -471,7 +471,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (void)viewSafeAreaInsetsDidChange {
     [super viewSafeAreaInsetsDidChange];
-    
+
     CGFloat bottomInset = 0.0;
 
     if (@available(iOS 11.0, *)) {
@@ -479,7 +479,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     } else {
         bottomInset = self.bottomLayoutGuide.length;
     }
-    
+
     [self.paymentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, bottomInset, 0)];
     self.paymentButtonHeightConstraint.constant = self.theme.buttonHeight + bottomInset;
     [self.paymentButton setNeedsUpdateConstraints];
@@ -876,6 +876,78 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 #pragma mark - WKNavigation Delegate Methods
 
+- (void)handleRedirectForWebView:(WKWebView *)webView
+                     redirectURL:(NSString *)redirectURL
+                 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSMutableString *javascriptCode = [NSMutableString new];
+
+        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
+        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
+        [javascriptCode appendString:@"[paRes, md]"];
+
+        [webView evaluateJavaScript:javascriptCode
+                  completionHandler:^(NSArray *response, NSError *error) {
+                      NSDictionary *responseDictionary = [self mapToDictionaryWithResponse:response];
+                      [self setLoadingViewTitleForTransactionType:self.transactionType];
+                      [self handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
+                  }];
+    });
+}
+
+- (void)handleACSFormWithResponse:(NSDictionary *)response
+                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+    if (!self.pending3DSReceiptId) {
+        if (self.completionBlock) {
+            self.completionBlock(nil, [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil]);
+        }
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+
+    [self.loadingView startAnimating];
+    self.title = self.theme.authenticationTitle;
+
+    [self.transaction threeDSecureWithParameters:response
+                                       receiptId:self.pending3DSReceiptId
+                                      completion:^(JPResponse *response, NSError *error) {
+                                          [self.loadingView stopAnimating];
+
+                                          if (self.completionBlock) {
+                                              if (response) {
+                                                  self.completionBlock(response, nil);
+                                                  decisionHandler(WKNavigationActionPolicyAllow);
+
+                                              } else {
+                                                  NSError *judoError = error ? error : NSError.judoResponseParseError;
+                                                  self.completionBlock(nil, judoError);
+                                                  decisionHandler(WKNavigationActionPolicyCancel);
+                                              }
+                                          }
+                                      }];
+}
+
+- (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {
+
+    if (response.count != 2)
+        return nil;
+
+    return @{
+        @"PaRes" : response[0],
+        @"MD" : [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"]
+    };
+}
+
+- (void)setLoadingViewTitleForTransactionType:(TransactionType)transactionType {
+    if (transactionType == TransactionTypeRegisterCard) {
+        self.loadingView.actionLabel.text = self.theme.verifying3DSRegisterCardTitle;
+    } else {
+        self.loadingView.actionLabel.text = self.theme.verifying3DSPaymentTitle;
+    }
+}
+
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     NSString *urlString = navigationAction.request.URL.absoluteString;
@@ -885,56 +957,20 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         return;
     }
 
-    NSString *bodyString = [[NSString alloc] initWithData:navigationAction.request.HTTPBody encoding:NSUTF8StringEncoding];
-    if (!bodyString) {
-        if (self.completionBlock) {
-            self.completionBlock(nil, [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil]);
-        }
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    }
-
-    NSDictionary *results = [bodyString extractURLComponentsQueryItems];
-
-    if (self.pending3DSReceiptId) {
-        if (self.transactionType == TransactionTypeRegisterCard) {
-            self.loadingView.actionLabel.text = self.theme.verifying3DSRegisterCardTitle;
-        } else {
-            self.loadingView.actionLabel.text = self.theme.verifying3DSPaymentTitle;
-        }
-
-        [self.loadingView startAnimating];
-        self.title = self.theme.authenticationTitle;
-        [self.transaction threeDSecureWithParameters:results
-                                           receiptId:self.pending3DSReceiptId
-                                          completion:^(JPResponse *response, NSError *error) {
-                                              [self.loadingView stopAnimating];
-                                              if (self.completionBlock) {
-                                                  if (response) {
-                                                      self.completionBlock(response, nil);
-                                                  } else {
-                                                      NSError *judoError = error ? error : [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil];
-                                                      self.completionBlock(nil, judoError);
-                                                  }
-                                              }
-                                          }];
-    } else {
-        if (self.completionBlock) {
-            self.completionBlock(nil, [NSError judo3DSRequestFailedErrorWithUnderlyingError:nil]);
-        }
-    }
-
-    [UIView animateWithDuration:0.3
-        animations:^{ self.threeDSWebView.alpha = 0.0f; }
-        completion:^(BOOL finished) {
-            [self.threeDSWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-        }];
-
-    decisionHandler(WKNavigationActionPolicyCancel);
+    [self handleRedirectForWebView:webView redirectURL:urlString decisionHandler:decisionHandler];
     return;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+
+    NSMutableString *scriptContent = [NSMutableString stringWithString:@"const meta = document.createElement('meta');"];
+    [scriptContent appendString:@"meta.name='viewport';"];
+    [scriptContent appendString:@"meta.content='width=device-width';"];
+    [scriptContent appendString:@"const head = document.getElementsByTagName('head')[0];"];
+    [scriptContent appendString:@"head.appendChild(meta);"];
+    [scriptContent appendString:@"meta.name"];
+
+    [_threeDSWebView evaluateJavaScript:scriptContent completionHandler:nil];
 
     CGFloat alphaVal = 1.0f;
     if ([webView.URL.absoluteString isEqualToString:@"about:blank"]) {
