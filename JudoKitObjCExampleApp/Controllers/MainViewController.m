@@ -196,6 +196,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                         paymentMethods:PaymentMethodsAll
                applePayConfiguratation:configuration
                            cardDetails:nil
+                    redirectCompletion:nil
                             completion:^(JPResponse * response, NSError * error) {
                                 if (error || response.items.count == 0) {
                                     if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
@@ -400,7 +401,13 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (void)idealTransactionOperation {
-    [self.judoKitSession invokeIDEALPaymentWithCompletion:^(JPResponse *response, NSError *error) {
+    
+    [self.judoKitSession invokeIDEALPaymentWithJudoId:judoId
+                                               amount:0.01
+                                            reference:[JPReference consumerReference:self.reference]
+                                   redirectCompletion:nil
+                                           completion:^(JPResponse *response, NSError *error) {
+
         if (error || response.items.count == 0) {
             if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -412,7 +419,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             return;
         }
         
-        // TODO: Handle response / error
+        // TODO: Handle response
     }];
 }
 
