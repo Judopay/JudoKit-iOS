@@ -35,6 +35,7 @@
 #import "HalfHeightPresentationController.h"
 #import "IDEALFormViewController.h"
 #import "JPPrimaryAccountDetails.h"
+
 #import "JudoKitObjC.h"
 
 static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
