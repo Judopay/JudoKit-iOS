@@ -354,6 +354,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self.loadingView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
         [self.loadingView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
         [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+        
+        [self.threeDSWebView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
+        [self.threeDSWebView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
+        [self.threeDSWebView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
+        [self.threeDSWebView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -882,7 +887,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSMutableString *javascriptCode = [NSMutableString new];
-
         [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
         [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
         [javascriptCode appendString:@"[paRes, md]"];
@@ -971,7 +975,19 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [scriptContent appendString:@"meta.name"];
 
     [_threeDSWebView evaluateJavaScript:scriptContent completionHandler:nil];
-
+    
+    NSMutableString *removePaResFieldScript = [NSMutableString stringWithString:@"const paResField = document.getElementById('pnPaRESPanel');"];
+    [removePaResFieldScript appendString:@"paResField.parentElement.removeChild(paResField);"];
+    [removePaResFieldScript appendString:@"paResField.name"];
+    
+    [_threeDSWebView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
+    
+    NSMutableString *removePaResButtonScript = [NSMutableString stringWithString:@"const paResButton = document.getElementsByClassName('FormInput')[1];"];
+    [removePaResButtonScript appendString:@"paResButton.parentElement.removeChild(paResButton);"];
+    [removePaResButtonScript appendString:@"paResButton.name"];
+    
+    [_threeDSWebView evaluateJavaScript:removePaResButtonScript completionHandler:nil];
+    
     CGFloat alphaVal = 1.0f;
     if ([webView.URL.absoluteString isEqualToString:@"about:blank"]) {
         alphaVal = 0.0f;
