@@ -29,11 +29,19 @@
 
 @interface IDEALBankTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *bankLogoImageView;
+@property (strong, nonatomic) UIImageView *bankLogoImageView;
 
 @end
 
 @implementation IDEALBankTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setupViews];
+    }
+    return self;
+}
 
 - (void)configureWithBank:(IDEALBank *)bank {
 
@@ -41,11 +49,36 @@
     NSString *iconFilePath = [NSBundle.iconsBundle pathForResource:iconName ofType:@"png"];
 
     self.bankLogoImageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
-    self.bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    self.bankLogoImageView.isAccessibilityElement = YES;
     self.bankLogoImageView.accessibilityLabel = bank.title;
     self.bankLogoImageView.accessibilityHint = [NSString stringWithFormat:@"select_bank".localized, bank.title];
+}
+
+- (void)setupViews {
+
+    [self addSubview:self.bankLogoImageView];
+
+    NSArray *constraints = @[
+        [self.bankLogoImageView.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                         constant:15.0],
+        [self.bankLogoImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+                                                            constant:-15.0],
+        [self.bankLogoImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+                                                             constant:20.0],
+        [self.bankLogoImageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+                                                              constant:-20.0],
+    ];
+
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+- (UIImageView *)bankLogoImageView {
+    if (!_bankLogoImageView) {
+        _bankLogoImageView = [UIImageView new];
+        _bankLogoImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _bankLogoImageView.isAccessibilityElement = YES;
+        _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _bankLogoImageView;
 }
 
 @end

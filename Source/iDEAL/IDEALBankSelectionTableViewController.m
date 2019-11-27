@@ -50,9 +50,8 @@ NSString *const bankCellIdentifier = @"IDEALBankTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSBundle *bundle = [NSBundle bundleForClass:IDEALBank.class];
-    UINib *nib = [UINib nibWithNibName:bankCellIdentifier bundle:bundle];
-    [self.tableView registerNib:nib forCellReuseIdentifier:bankCellIdentifier];
+    [self.tableView registerClass:IDEALBankTableViewCell.class
+           forCellReuseIdentifier:bankCellIdentifier];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

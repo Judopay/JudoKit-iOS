@@ -51,7 +51,6 @@
 		306BCF1E23570F86008540E7 /* IDEALBankSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 306BCF1C23570F86008540E7 /* IDEALBankSelectionTableViewController.m */; };
 		30C2215523588D6E000D6E3A /* IDEALBankTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */; };
 		30C2215623588D6E000D6E3A /* IDEALBankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */; };
-		30C2215723588D6E000D6E3A /* IDEALBankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C2215423588D6E000D6E3A /* IDEALBankTableViewCell.xib */; };
 		30C22178235DC518000D6E3A /* icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30C22170235DC518000D6E3A /* icons.bundle */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
 		30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */; };
@@ -394,7 +393,6 @@
 		306BCF1C23570F86008540E7 /* IDEALBankSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDEALBankSelectionTableViewController.m; sourceTree = "<group>"; };
 		30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEALBankTableViewCell.h; sourceTree = "<group>"; };
 		30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDEALBankTableViewCell.m; sourceTree = "<group>"; };
-		30C2215423588D6E000D6E3A /* IDEALBankTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IDEALBankTableViewCell.xib; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitIDEALTransactionTests.swift; sourceTree = "<group>"; };
 		30D088F2238D735A00480C9E /* IDEALManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDEALManagerTests.swift; sourceTree = "<group>"; };
@@ -693,7 +691,6 @@
 			children = (
 				30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */,
 				30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */,
-				30C2215423588D6E000D6E3A /* IDEALBankTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1455,7 +1452,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30C22178235DC518000D6E3A /* icons.bundle in Resources */,
-				30C2215723588D6E000D6E3A /* IDEALBankTableViewCell.xib in Resources */,
 				302291B0231012E000EC79CB /* MockJPTransactionData.json in Resources */,
 				829330FC230AF0F900689DC4 /* Localizable.strings in Resources */,
 			);
