@@ -982,7 +982,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
     [_threeDSWebView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
 
-    NSMutableString *removePaResButtonScript = [NSMutableString stringWithString:@"const paResButton = document.getElementsByClassName('FormInput')[1];"];
+    NSMutableString *removePaResButtonScript = [NSMutableString stringWithString:@"const paResButton = document.getElementById('ACSMainContent').getElementsByClassName('FormInput')[1];"];
     [removePaResButtonScript appendString:@"paResButton.parentElement.removeChild(paResButton);"];
     [removePaResButtonScript appendString:@"paResButton.name"];
 
