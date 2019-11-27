@@ -354,6 +354,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [self.loadingView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
         [self.loadingView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
         [self.loadingView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+
+        [self.threeDSWebView.leftAnchor constraintEqualToAnchor:self.view.safeLeftAnchor],
+        [self.threeDSWebView.rightAnchor constraintEqualToAnchor:self.view.safeRightAnchor],
+        [self.threeDSWebView.topAnchor constraintEqualToAnchor:self.view.safeTopAnchor],
+        [self.threeDSWebView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -971,6 +976,12 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [scriptContent appendString:@"meta.name"];
 
     [_threeDSWebView evaluateJavaScript:scriptContent completionHandler:nil];
+
+    NSMutableString *removePaResFieldScript = [NSMutableString stringWithString:@"const paResField = document.getElementById('pnPaRESPanel');"];
+    [removePaResFieldScript appendString:@"paResField.parentElement.removeChild(paResField);"];
+    [removePaResFieldScript appendString:@"paResField.name"];
+
+    [_threeDSWebView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
 
     CGFloat alphaVal = 1.0f;
     if ([webView.URL.absoluteString isEqualToString:@"about:blank"]) {
