@@ -54,6 +54,8 @@
 		30C2215723588D6E000D6E3A /* IDEALBankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C2215423588D6E000D6E3A /* IDEALBankTableViewCell.xib */; };
 		30C22178235DC518000D6E3A /* icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30C22170235DC518000D6E3A /* icons.bundle */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
+		30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */; };
+		30D088F8238D73AF00480C9E /* IDEALManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F2238D735A00480C9E /* IDEALManagerTests.swift */; };
 		30D185542301B4A90097F85F /* ApplePayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D185522301B3FD0097F85F /* ApplePayTests.swift */; };
 		30DB510123100E1C00B73D66 /* ContactInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DB50F923100E1C00B73D66 /* ContactInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30DB510223100E1C00B73D66 /* PostalAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DB50FA23100E1C00B73D66 /* PostalAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -395,6 +397,8 @@
 		30C2215423588D6E000D6E3A /* IDEALBankTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IDEALBankTableViewCell.xib; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitIDEALTransactionTests.swift; sourceTree = "<group>"; };
+		30D088F2238D735A00480C9E /* IDEALManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDEALManagerTests.swift; sourceTree = "<group>"; };
+		30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCodeValidationTests.swift; sourceTree = "<group>"; };
 		30D185522301B3FD0097F85F /* ApplePayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayTests.swift; sourceTree = "<group>"; };
 		30DB50F923100E1C00B73D66 /* ContactInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInformation.h; sourceTree = "<group>"; };
 		30DB50FA23100E1C00B73D66 /* PostalAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalAddress.h; sourceTree = "<group>"; };
@@ -1034,6 +1038,8 @@
 		3B9711831C7618C000E9A347 /* APITests */ = {
 			isa = PBXGroup;
 			children = (
+				30D088F2238D735A00480C9E /* IDEALManagerTests.swift */,
+				30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */,
 				30D185522301B3FD0097F85F /* ApplePayTests.swift */,
 				3B4EB3E51C982A25006265A0 /* AuthenticationTests.swift */,
 				702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */,
@@ -1318,7 +1324,7 @@
 					3B678B551C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
-						LastSwiftMigration = 1110;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
 					3B678B5F1C6CE5190001DC2F = {
@@ -1632,12 +1638,14 @@
 				3B4EB3FC1C982A25006265A0 /* RefundTests.swift in Sources */,
 				3B4EB3F41C982A25006265A0 /* AuthenticationTests.swift in Sources */,
 				44FFE3A722F04FD100E42F2D /* TransactionEnricherTests.swift in Sources */,
+				30D088F8238D73AF00480C9E /* IDEALManagerTests.swift in Sources */,
 				703EDB981CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift in Sources */,
 				3BFD9A991CDA008E00B8385D /* DedupTestCase.swift in Sources */,
 				3B4EB3FD1C982A25006265A0 /* RegisterCardTests.swift in Sources */,
 				3B4EB3F61C982A25006265A0 /* JudoTestCase.swift in Sources */,
 				3B4EB3F81C982A25006265A0 /* ListTests.swift in Sources */,
 				3B4EB3F91C982A25006265A0 /* PaymentTests.swift in Sources */,
+				30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */,
 				3B4EB4001C982A25006265A0 /* TokenPreAuthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
