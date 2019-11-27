@@ -892,10 +892,6 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
         [javascriptCode appendString:@"[paRes, md]"];
 
-        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
-        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
-        [javascriptCode appendString:@"[paRes, md]"];
-
         [webView evaluateJavaScript:javascriptCode
                   completionHandler:^(NSArray *response, NSError *error) {
                       NSDictionary *responseDictionary = [self mapToDictionaryWithResponse:response];
