@@ -887,6 +887,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSMutableString *javascriptCode = [NSMutableString new];
+
+        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
+        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
+        [javascriptCode appendString:@"[paRes, md]"];
+
         [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
         [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
         [javascriptCode appendString:@"[paRes, md]"];
