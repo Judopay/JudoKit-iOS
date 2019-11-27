@@ -60,6 +60,7 @@
 @property (nonatomic, strong) NSString *checksum;
 @property (nonatomic, strong) NSString *redirectUrl;
 
+@property (nonatomic, strong) NSTimer *delayTimer;
 @property (nonatomic, strong) IDEALService *idealService;
 @property (nonatomic, strong) IDEALBankSelectionTableViewController *bankSelectionController;
 
@@ -134,7 +135,7 @@
 }
 
 - (void)onPayButtonTap:(id)sender {
-
+    [self.view endEditing:YES];
     self.idealService.accountHolderName = self.nameInputField.textField.text;
     [self.idealService redirectURLForIDEALBank:self.selectedBank
                                     completion:^(NSString *redirectUrl, NSString *orderId, NSError *error) {
@@ -152,7 +153,7 @@
 }
 
 - (void)displayPaymentElementsIfNeeded {
-    BOOL shouldDisplay = (self.selectedBank != nil && self.nameInputField.textField.text.length > 0);
+    BOOL shouldDisplay = (self.selectedBank != nil && self.nameInputField.textField.text.length > 2);
     [self shouldDisplayPaymentElements:shouldDisplay];
 }
 
@@ -186,11 +187,25 @@
 #pragma mark - Private methods
 
 - (void)startPollingStatus {
+    self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:30.0
+                                                      repeats:NO
+                                                        block:^(NSTimer *_Nonnull timer) {
+                                                            [self.transactionStatusView changeStatusTo:IDEALStatusPendingDelay andSubtitle:nil];
+                                                        }];
 
     [self.idealService pollTransactionStatusForOrderId:self.orderId
                                               checksum:self.checksum
                                             completion:^(JPResponse *response, NSError *error) {
+                                                [self.delayTimer invalidate];
+                                                if (error && error.localizedDescription == NSError.judoRequestTimeoutError.localizedDescription) {
+                                                    [self.transactionStatusView changeStatusTo:IDEALStatusTimeout andSubtitle:nil];
+                                                    self.completionBlock(nil, NSError.judoRequestTimeoutError);
+                                                    return;
+                                                }
+
                                                 if (error) {
+                                                    [self.transactionStatusView changeStatusTo:IDEALStatusError
+                                                                                   andSubtitle:error.localizedDescription];
                                                     self.completionBlock(nil, error);
                                                     return;
                                                 }
@@ -198,7 +213,8 @@
                                                 JPOrderDetails *orderDetails = response.items.firstObject.orderDetails;
                                                 IDEALStatus orderStatus = [self orderStatusFromStatusString:orderDetails.orderStatus];
 
-                                                [self.transactionStatusView changeStatusTo:orderStatus];
+                                                [self.transactionStatusView changeStatusTo:orderStatus
+                                                                               andSubtitle:nil];
                                             }];
 }
 
@@ -431,7 +447,10 @@
 
 - (TransactionStatusView *)transactionStatusView {
     if (!_transactionStatusView) {
-        _transactionStatusView = [TransactionStatusView viewWithStatus:IDEALStatusPending andTheme:self.theme];
+        _transactionStatusView = [TransactionStatusView viewWithStatus:IDEALStatusPending
+                                                              subtitle:nil
+                                                              andTheme:self.theme];
+
         _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
         _transactionStatusView.backgroundColor = self.theme.judoLoadingBlockViewColor;
         _transactionStatusView.delegate = self;
@@ -546,9 +565,15 @@
 
 @implementation IDEALFormViewController (TransactionViewDelegate)
 
-- (void)statusViewRetryButtonDidTap:(TransactionStatusView *)statusView {
-    [self.transactionStatusView changeStatusTo:IDEALStatusPending];
-    [self startPollingStatus];
+- (void)statusView:(TransactionStatusView *)statusView buttonDidTapWithRetry:(BOOL)shouldRetry {
+
+    if (shouldRetry) {
+        [self.transactionStatusView changeStatusTo:IDEALStatusPending andSubtitle:nil];
+        [self startPollingStatus];
+        return;
+    }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
