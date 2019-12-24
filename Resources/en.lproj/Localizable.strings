@@ -22,6 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+//General
+"ok" = "OK";
+"error" = "Error";
+"cancel" = "Cancel";
+
+//Add Card
+"scan_card" = "SCAN CARD";
+"card_number" = "Card Number";
+"cardholder_name" = "Cardholder Name";
+"expiry_date" = "MM/YY";
+"country" = "Country";
+"postal_code" = "Postcode";
+"secure_code" = "CVV";
+"add_card_button" = "ADD CARD";
+"invalid_expiry_date_value" = "Invalid date value entered";
+"invalid_postcode" = "Invalid postcode entered";
+"invalid_zip_code" = "Invalid ZIP code entered";
+
 //CardInputField
 "card_number_label" = "Card number";
 "long_card_number" = "Long card number";
@@ -48,10 +66,10 @@
 "billing_postal_code" = "Billing postal code";
 
 //BillingCountryInputField
-"united_kingdom" = "UK";
-"united_states" = "USA";
-"canada" = "Canada";
-"other_country" = "Other";
+"country_uk" = "UK";
+"country_usa" = "USA";
+"country_canada" = "Canada";
+"country_other" = "Other";
 
 //IDEALFormViewController
 "ideal_transaction" = "iDEAL Transaction";
@@ -117,5 +135,5 @@
 "redirecting" = "Redirecting...";
 "verifying_payment" = "Verifying payment";
 "verifying_card" = "Verifying card";
-"secure_server_transmission" = " Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers.";
+"secure_server_transmission" = "Your card details are encrypted using SSL before transmission to our secure payment service provider.";
 

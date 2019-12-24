@@ -1,8 +1,8 @@
 //
-//  UIViewController+JPTheme.m
+//  RoundedCornerView.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "UIColor+Judo.h"
-#import "UIViewController+JPTheme.h"
+#import "RoundedCornerView.h"
+#import "UIView+Additions.h"
 
-@implementation UIViewController (JPTheme)
+@interface RoundedCornerView ()
+@property (nonatomic, assign) CGFloat radius;
+@property (nonatomic, assign) UIRectCorner corners;
+@end
 
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+@implementation RoundedCornerView
 
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
+- (instancetype)initWithRadius:(CGFloat)radius
+                    forCorners:(UIRectCorner)corners {
+    if (self = [super init]) {
+        self.radius = radius;
+        self.corners = corners;
     }
+    return self;
+}
 
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self roundCorners:self.corners withRadius:self.radius];
 }
 
 @end

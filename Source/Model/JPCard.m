@@ -31,10 +31,15 @@
 
 @implementation JPCard
 
-- (instancetype)initWithCardNumber:(NSString *)cardNumber expiryDate:(NSString *)expiryDate secureCode:(NSString *)secureCode {
+- (instancetype)initWithCardNumber:(NSString *)cardNumber
+                    cardholderName:(NSString *)cardholderName
+                        expiryDate:(NSString *)expiryDate
+                        secureCode:(NSString *)secureCode {
+
     self = [super init];
     if (self) {
         self.cardNumber = cardNumber;
+        self.cardholderName = cardholderName;
         self.expiryDate = expiryDate;
         self.secureCode = secureCode;
     }

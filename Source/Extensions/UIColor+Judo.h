@@ -34,6 +34,8 @@
 
 - (BOOL)isDarkColor;
 
++ (UIColor *_Nonnull)colorFromHex:(int)hex;
+
 + (UIColor *_Nonnull)jellyBean;
 
 + (UIColor *_Nonnull)thunder;
@@ -51,5 +53,21 @@
 + (UIColor *_Nonnull)idealPurple;
 
 + (UIColor *_Nonnull)defaultTintColor;
+
++ (UIColor *_Nonnull)jpGrayColor;
+
++ (UIColor *_Nonnull)jpDarkGrayColor;
+
++ (UIColor *_Nonnull)jpLightGrayColor;
+
++ (UIColor *_Nonnull)jpDarkColor;
+
++ (UIColor *_Nonnull)jpErrorColor;
+
++ (UIColor *_Nonnull)jpPlaceholderColor;
+
++ (UIColor *_Nonnull)jpTextColor;
+
++ (UIColor *_Nonnull)jpTextFieldBackgroundColor;
 
 @end

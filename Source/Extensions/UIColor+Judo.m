@@ -60,6 +60,13 @@
     return image;
 }
 
++ (UIColor *)colorFromHex:(int)hex {
+    return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16)) / 255.0
+                           green:((float)((hex & 0x00FF00) >> 8)) / 255.0
+                            blue:((float)((hex & 0x0000FF) >> 0)) / 255.0
+                           alpha:1.0];
+}
+
 + (UIColor *)jellyBean {
     return [UIColor colorWithRed:30 / 255.0f green:120 / 255.0f blue:160 / 255.0f alpha:1.0f];
 }
@@ -96,11 +103,43 @@
     return [UIColor colorWithRed:188 / 255.0f green:41 / 255.0f blue:101 / 255.0f alpha:1.0];
 }
 
++ (UIColor *)jpGrayColor {
+    return [UIColor colorFromHex:0x999999];
+}
+
++ (UIColor *)jpDarkGrayColor {
+    return [UIColor colorFromHex:0x262626];
+}
+
++ (UIColor *)jpLightGrayColor {
+    return [UIColor colorFromHex:0xF6F6F6];
+}
+
++ (UIColor *)jpDarkColor {
+    return [UIColor colorFromHex:0x262626];
+}
+
 + (UIColor *)defaultTintColor {
     if ([UIApplication isUserInterfaceStyleDark]) {
         return [UIColor hippieBlue];
     }
     return [UIColor jellyBean];
+}
+
++ (UIColor *)jpErrorColor {
+    return [UIColor colorWithRed:226 / 255.0f green:25 / 225.0 blue:0.0 alpha:1.0];
+}
+
++ (UIColor *)jpPlaceholderColor {
+    return [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1.0];
+}
+
++ (UIColor *)jpTextColor {
+    return [UIColor colorWithRed:38 / 255.0f green:38 / 225.0 blue:38 / 255.0 alpha:1.0];
+}
+
++ (UIColor *)jpTextFieldBackgroundColor {
+    return [UIColor colorWithRed:246 / 255.0f green:246 / 255.0f blue:246 / 255.0f alpha:1.0];
 }
 
 @end

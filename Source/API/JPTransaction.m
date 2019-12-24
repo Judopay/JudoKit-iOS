@@ -108,10 +108,6 @@
         return [NSError judoAmountMissingError];
     }
 
-    if (self.reference.paymentReference == self.currentTransactionReference) {
-        return [NSError judoDuplicateTransactionError];
-    }
-
     return nil;
 }
 

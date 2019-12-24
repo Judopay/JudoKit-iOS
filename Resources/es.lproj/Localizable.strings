@@ -22,6 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+//General
+"ok" = "OK";
+"error" = "Error";
+"cancel" = "Cancelar";
+
+//Add Card
+"scan_card" = "TARJETA DE ESCANEO";
+"card_number" = "Número de tarjeta";
+"cardholder_name" = "Nombre del titular";
+"expiry_date" = "MM/YY";
+"country" = "País";
+"postal_code" = "Código postal";
+"secure_code" = "CVV";
+"add_card_button" = "AGREGAR TARJETA";
+"invalid_expiry_date_value" = "Valor de fecha inválido ingresado";
+"invalid_postcode" = "Código postal no válido ingresado";
+"invalid_zip_code" = "Código postal no válido ingresado";
 
 //CardInputField
 "card_number_label" = "Número de tarjeta";
@@ -49,10 +66,10 @@
 "billing_postal_code" = "Código postal";
 
 //BillingCountryInputField
-"united_kingdom" = "Reino Unido";
-"united_states" = "Estados Unidos";
-"canada" = "Canadá";
-"other_country" = "Otro";
+"country_uk" = "Reino Unido";
+"country_usa" = "Estados Unidos";
+"country_canada" = "Canadá";
+"country_other" = "Otro";
 
 //IDEALFormViewController
 "ideal_transaction" = "Transacción iDEAL";

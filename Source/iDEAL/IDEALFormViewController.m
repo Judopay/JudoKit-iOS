@@ -39,8 +39,9 @@
 #import "NSString+Localize.h"
 #import "TransactionStatusView.h"
 #import "UIColor+Judo.h"
+#import "UIImage+Icons.h"
 #import "UIView+SafeAnchors.h"
-#import "UIViewController+JPTheme.h"
+#import "UIViewController+Additions.h"
 
 @interface IDEALFormViewController ()
 
@@ -460,25 +461,6 @@
 
 #pragma mark - Keyboard handling logic
 
-- (void)registerKeyboardObservers {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillShow:)
-                               name:UIKeyboardWillShowNotification
-                             object:nil];
-
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillHide:)
-                               name:UIKeyboardWillHideNotification
-                             object:nil];
-}
-
-- (void)removeKeyboardObservers {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter removeObserver:self];
-}
-
 - (void)keyboardWillShow:(NSNotification *)notification {
 
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -547,16 +529,10 @@
     self.selectedBank = bank;
     [self displayPaymentElementsIfNeeded];
     self.selectedBankLabelView.hidden = NO;
-    NSBundle *bundle = [NSBundle bundleForClass:IDEALFormViewController.class];
-
-    NSString *iconBundlePath = [bundle pathForResource:@"icons" ofType:@"bundle"];
-    NSBundle *iconBundle = [NSBundle bundleWithPath:iconBundlePath];
 
     NSString *iconName = [NSString stringWithFormat:@"logo-%@", bank.bankIdentifierCode];
-    NSString *iconFilePath = [iconBundle pathForResource:iconName ofType:@"png"];
-
     self.bankSelectionCell.textLabel.text = nil;
-    self.bankSelectionCell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
+    self.bankSelectionCell.imageView.image = [UIImage imageWithIconName:iconName];
 
     [NSUserDefaults.standardUserDefaults setInteger:bank.type forKey:@"iDEALBankType"];
 }
