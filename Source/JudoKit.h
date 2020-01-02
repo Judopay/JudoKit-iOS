@@ -259,18 +259,13 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
  *  @param amount               The amount and currency of the payment (default is GBP)
  *  @param reference            The consumer reference for this transaction
  *  @param methods              The payment methods to be shown
- *  @param cardDetails          The card details to present in the input fields
- *  @param delegate             An optional delegate parameter that, once implemented, will allow you to capture the IDEAL redirect response data
  *  @param completion           The completion handler which will respond with a JPResponse object or an NSError
  */
 - (void)invokePayment:(nonnull NSString *)judoId
-                     amount:(nonnull JPAmount *)amount
-          consumerReference:(nonnull NSString *)reference
-             paymentMethods:(PaymentMethods)methods
-    applePayConfiguratation:(nullable ApplePayConfiguration *)applePayConfigs
-                cardDetails:(nullable JPCardDetails *)cardDetails
-         redirectCompletion:(nullable IDEALRedirectCompletion)redirectCompletion
-                 completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
+               amount:(nonnull JPAmount *)amount
+    consumerReference:(nonnull NSString *)reference
+       paymentMethods:(PaymentMethods)methods
+           completion:(nonnull JudoCompletionBlock)completion;
 
 /**
  *  This method will invoke the Judo UI on the top UIViewController instance of the Application window. When the form has been successfully filled, the button will invoke a payment with the judo API and respond in a completion block

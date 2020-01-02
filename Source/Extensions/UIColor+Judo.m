@@ -95,28 +95,8 @@
     return [UIColor colorWithRed:235 / 255.0f green:55 / 255.0f blue:45 / 255.0f alpha:1.0];
 }
 
-+ (UIColor *)errorRed {
-    return [UIColor colorWithRed:206 / 255.0f green:80 / 255.0f blue:65 / 255.0f alpha:1.0];
-}
-
 + (UIColor *)idealPurple {
     return [UIColor colorWithRed:188 / 255.0f green:41 / 255.0f blue:101 / 255.0f alpha:1.0];
-}
-
-+ (UIColor *)jpGrayColor {
-    return [UIColor colorFromHex:0x999999];
-}
-
-+ (UIColor *)jpDarkGrayColor {
-    return [UIColor colorFromHex:0x262626];
-}
-
-+ (UIColor *)jpLightGrayColor {
-    return [UIColor colorFromHex:0xF6F6F6];
-}
-
-+ (UIColor *)jpDarkColor {
-    return [UIColor colorFromHex:0x262626];
 }
 
 + (UIColor *)defaultTintColor {
@@ -127,23 +107,27 @@
 }
 
 + (UIColor *)jpErrorColor {
-    return [UIColor colorWithRed:226 / 255.0f green:25 / 225.0 blue:0.0 alpha:1.0];
+    return [UIColor colorFromHex:0xE21900];
 }
 
 + (UIColor *)jpPlaceholderColor {
-    return [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1.0];
+    return [UIColor colorFromHex:0xE5E5E5];
 }
 
 + (UIColor *)jpTextColor {
-    return [UIColor colorWithRed:38 / 255.0f green:38 / 225.0 blue:38 / 255.0 alpha:1.0];
+    return [UIColor colorFromHex:0x262626];
+}
+
++ (UIColor *)jpSubtitleColor {
+    return [UIColor colorFromHex:0x999999];
 }
 
 + (UIColor *)jpTextFieldBackgroundColor {
-    return [UIColor colorWithRed:246 / 255.0f green:246 / 255.0f blue:246 / 255.0f alpha:1.0];
+    return [UIColor colorFromHex:0xF6F6F6];
 }
 
 + (UIColor *)jpContentBackgroundColor {
-    return [UIColor colorWithRed:238 / 255.0f green:238 / 255.0f blue:238 / 255.0f alpha:1.0];
+    return [UIColor colorFromHex:0xEEEEEE];
 }
 
 @end

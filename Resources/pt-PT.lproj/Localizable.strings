@@ -40,6 +40,12 @@
 "invalid_postcode" = "Código postal inválido inserido";
 "invalid_zip_code" = "Código postal inválido inserido";
 
+//Payment Method Screen
+"card_subtitle" = "%@ Ending %@";
+"no_connected_cards" = "You didn't connect any cards yet";
+"connected_cards" = "Connected cards";
+"edit_capitalized" = "EDIT";
+
 //CardInputField
 "card_number_label" = "Número do Cartão";
 "long_card_number" = "Número grande do cartão";

@@ -52,7 +52,13 @@
 + (UIFont *)largeTitleFont;
 
 /**
+ * The font for prominent subtitles (San Francisco Semibold - 10)
+ */
++ (UIFont *)semiboldSubtitleFont;
+
+/**
  * The font for small text messages (San Francisco Regular - 11.3)
  */
-+ (UIFont *)subtitleTextFont;
++ (UIFont *)subtitleFont;
+
 @end

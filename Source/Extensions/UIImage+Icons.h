@@ -23,6 +23,7 @@
 //  SOFTWARE.
 //
 
+#import "JPCardNetwork.h"
 #import <UIKit/UIKit.h>
 
 @interface UIImage (Icons)
@@ -35,5 +36,14 @@
  * @return a configured UIImage instance
  */
 + (UIImage *)imageWithIconName:(NSString *)iconName;
+
+/**
+ * Initializes an UIImage based on a card network
+ *
+ * @param cardNetwork - a value describing the Card Network
+ *
+ * @return a configured UIImage instance
+ */
++ (UIImage *)imageForCardNetwork:(CardNetwork)cardNetwork;
 
 @end

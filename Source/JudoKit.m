@@ -337,17 +337,23 @@
 @implementation JudoKit (Invokers)
 
 - (void)invokePayment:(nonnull NSString *)judoId
-                     amount:(nonnull JPAmount *)amount
-          consumerReference:(nonnull NSString *)reference
-             paymentMethods:(PaymentMethods)methods
-    applePayConfiguratation:(nullable ApplePayConfiguration *)applePayConfigs
-                cardDetails:(nullable JPCardDetails *)cardDetails
-         redirectCompletion:(nullable IDEALRedirectCompletion)redirectCompletion
-                 completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion {
+               amount:(nonnull JPAmount *)amount
+    consumerReference:(nonnull NSString *)reference
+       paymentMethods:(PaymentMethods)methods
+           completion:(nonnull JudoCompletionBlock)completion {
 
-    JPPaymentMethodsViewController *viewController = [[JPPaymentMethodsBuilderImpl new] buildModule];
-    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    JPPaymentMethodsViewController *viewController;
+    viewController = [[JPPaymentMethodsBuilderImpl new] buildModuleWithJudoID:judoId
+                                                                      session:self
+                                                        transitioningDelegate:self.transitioningDelegate
+                                                                       amount:amount
+                                                            consumerReference:reference
+                                                            completionHandler:completion];
+
+    UINavigationController *navigationController;
+    navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+
     self.activeViewController = viewController;
     [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
 }
