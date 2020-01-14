@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethodsView.h
+//  NSString+Additions.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,30 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "NSBundle+Additions.h"
+#import "NSString+Additions.h"
+#import <Foundation/Foundation.h>
 
-@class JPPaymentMethodsHeaderView;
+@implementation NSString (Manipulation)
 
-@interface JPPaymentMethodsView : UIView
+- (nonnull NSString *)localized {
+    if (NSBundle.stringsBundle != nil) {
+        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
+    }
+    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
+}
 
-/**
- * The header view displaying the card information
- */
-@property (nonatomic, strong) JPPaymentMethodsHeaderView *headerView;
-
-/**
- * The table view displaying the card selection list
- */
-@property (nonatomic, strong) UITableView *tableView;
-
-/**
- * The 'Powered by Judo' headline that is displayed on the bottom of the view
- */
-@property (nonatomic, strong) UIImageView *judoHeadlineImageView;
-
-/**
- * The judo headline height constraint that is set to 0 if the headline is hidden and 20 otherwise
- */
-@property (nonatomic, strong) NSLayoutConstraint *judoHeadlineHeightConstraint;
+- (NSString *)toCurrencySymbol {
+    return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
+}
 
 @end

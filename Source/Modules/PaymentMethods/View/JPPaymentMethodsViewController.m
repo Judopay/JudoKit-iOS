@@ -24,12 +24,13 @@
 
 #import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
+#import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsSelectionCell.h"
 #import "JPPaymentMethodsView.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIImage+Icons.h"
 #import "UIColor+Judo.h"
+#import "UIImage+Icons.h"
 
 @interface JPPaymentMethodsViewController ()
 
@@ -61,12 +62,12 @@
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageWithIconName:@"back-icon"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
-    
+
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     [backBarButton.customView.heightAnchor constraintEqualToConstant:22.0].active = YES;
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
-    
+
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
 }
@@ -79,7 +80,9 @@
 
 - (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel {
     self.viewModel = viewModel;
-    
+
+    [self.paymentMethodsView.headerView configureWithViewModel:viewModel.headerModel];
+
     self.paymentMethodsView.judoHeadlineImageView.hidden = !viewModel.shouldDisplayHeadline;
     self.paymentMethodsView.judoHeadlineHeightConstraint.constant = viewModel.shouldDisplayHeadline ? 20.0 : 0.0;
 
@@ -95,7 +98,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat yValue = -scrollView.contentOffset.y;
-    CGFloat height = MIN(MAX(yValue, 295), 400);
+    CGFloat height = MIN(MAX(yValue, 350), 400);
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
 }

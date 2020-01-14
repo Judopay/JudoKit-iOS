@@ -23,10 +23,11 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsView.h"
-#import "UIView+Additions.h"
+#import "JPPaymentMethodsHeaderView.h"
 #import "UIColor+Judo.h"
-#import "UIView+SafeAnchors.h"
 #import "UIImage+Icons.h"
+#import "UIView+Additions.h"
+#import "UIView+SafeAnchors.h"
 
 @implementation JPPaymentMethodsView
 
@@ -70,10 +71,10 @@
     [self.tableView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor].active = YES;
     [self.tableView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor].active = YES;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.judoHeadlineImageView.topAnchor].active = YES;
-    
+
     self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:20.0f];
     self.judoHeadlineHeightConstraint.active = YES;
-    
+
     [self.judoHeadlineImageView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor].active = YES;
     [self.judoHeadlineImageView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor].active = YES;
     [self.judoHeadlineImageView.bottomAnchor constraintEqualToAnchor:self.safeBottomAnchor].active = YES;
@@ -81,11 +82,10 @@
 
 #pragma mark - Lazy properties
 
-- (UIView *)headerView {
+- (JPPaymentMethodsHeaderView *)headerView {
     if (!_headerView) {
-        _headerView = [UIView new];
+        _headerView = [JPPaymentMethodsHeaderView new];
         _headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 400);
-        _headerView.backgroundColor = UIColor.jpContentBackgroundColor;
     }
     return _headerView;
 }
@@ -95,7 +95,7 @@
         _tableView = [UITableView new];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(320, 0, 0, 0);
     }
     return _tableView;
 }

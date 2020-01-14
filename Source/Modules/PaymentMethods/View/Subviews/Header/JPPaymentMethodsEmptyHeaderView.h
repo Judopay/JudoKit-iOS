@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethodsView.h
+//  JPPaymentMethodsEmptyHeaderView.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -24,28 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class JPPaymentMethodsHeaderView;
-
-@interface JPPaymentMethodsView : UIView
+@class JPPaymentMethodsHeaderModel;
 
 /**
- * The header view displaying the card information
+ * A view that describes the header when no card is being selected
  */
-@property (nonatomic, strong) JPPaymentMethodsHeaderView *headerView;
-
-/**
- * The table view displaying the card selection list
- */
-@property (nonatomic, strong) UITableView *tableView;
-
-/**
- * The 'Powered by Judo' headline that is displayed on the bottom of the view
- */
-@property (nonatomic, strong) UIImageView *judoHeadlineImageView;
-
-/**
- * The judo headline height constraint that is set to 0 if the headline is hidden and 20 otherwise
- */
-@property (nonatomic, strong) NSLayoutConstraint *judoHeadlineHeightConstraint;
-
+@interface JPPaymentMethodsEmptyHeaderView : UIView
 @end
