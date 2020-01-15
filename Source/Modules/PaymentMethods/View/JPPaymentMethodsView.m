@@ -28,6 +28,7 @@
 #import "UIImage+Icons.h"
 #import "UIView+Additions.h"
 #import "UIView+SafeAnchors.h"
+#import "Functions.h"
 
 @implementation JPPaymentMethodsView
 
@@ -62,7 +63,8 @@
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
     [self addSubview:self.tableView];
-    [self addSubview:self.headerView];
+    self.headerView.clipsToBounds = YES;
+    [self insertSubview:self.headerView aboveSubview:self.tableView];
     [self addSubview:self.judoHeadlineImageView];
 }
 
@@ -85,7 +87,7 @@
 - (JPPaymentMethodsHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [JPPaymentMethodsHeaderView new];
-        _headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 400);
+        _headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 400 * getWidthAspectRatio());
     }
     return _headerView;
 }
@@ -95,7 +97,8 @@
         _tableView = [UITableView new];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(320, 0, 0, 0);
+        _tableView.backgroundColor = UIColor.clearColor;
+        _tableView.contentInset = UIEdgeInsetsMake(320 * getWidthAspectRatio(), 0, 0, 0);
     }
     return _tableView;
 }
