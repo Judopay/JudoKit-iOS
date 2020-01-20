@@ -119,7 +119,26 @@
 }
 
 - (void)handleScanCardButtonTap {
-    [self.router navigateToScanCamera];
+#if TARGET_OS_SIMULATOR
+    [self.view displayCameraSimulatorAlert];
+#else
+    [self.interactor handleCameraPermissionsWithCompletion:^(AVAuthorizationStatus authorizationStatus) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (authorizationStatus) {
+                case AVAuthorizationStatusDenied:
+                    [self.view displayCameraPermissionsAlert];
+                    break;
+
+                case AVAuthorizationStatusAuthorized:
+                    [self.router navigateToScanCamera];
+                    break;
+
+                default:
+                    [self.view displayCameraRestrictionAlert];
+            }
+        });
+    }];
+#endif
 }
 
 - (void)updateViewModelWithScanCardResult:(PayCardsRecognizerResult *)result {

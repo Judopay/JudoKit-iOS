@@ -24,6 +24,8 @@
 
 #import "JPSession.h"
 #import "JPValidationResult.h"
+
+#import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
 @class JPCard, JPCardValidationService, JPTransactionService, JPCountry, JPAddCardViewModel;
@@ -36,6 +38,13 @@
  *  @return YES if the merchant has set AVS as enabled and NO if otherwise
  */
 - (BOOL)isAVSEnabled;
+
+/**
+ * A method that handles camera permissions requests
+ *
+ * @param completion - the completion handler that returns a boolean value describing the permission result
+ */
+- (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion;
 
 /**
  *  A method for executing the save / register card transaction

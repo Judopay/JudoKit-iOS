@@ -57,6 +57,21 @@
  */
 - (void)didFinishAddingCard;
 
+/**
+ * A method that triggers an UIAlertViewController with the option of navigating to Settings
+ */
+- (void)displayCameraPermissionsAlert;
+
+/**
+ * A method that triggers an UIAlertViewController with the restricted camera message
+ */
+- (void)displayCameraRestrictionAlert;
+
+/**
+ * A method that triggers an UIAlertViewController with the camera denied message due to simulator usage
+ */
+- (void)displayCameraSimulatorAlert;
+
 @end
 
 #pragma mark - JPAddCardViewController

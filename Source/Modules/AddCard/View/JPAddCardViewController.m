@@ -29,6 +29,7 @@
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
 #import "LoadingButton.h"
+#import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface JPAddCardViewController ()
@@ -100,6 +101,49 @@
 
 - (void)didFinishAddingCard {
     [self.delegate didFinishAddingCard];
+}
+
+- (UIAlertController *)alertControllerWithTitle:(NSString *)title andMessage:(NSString *)message {
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
+                                                                        message:message
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm".localized
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:nil];
+
+    [controller addAction:confirmAction];
+    return controller;
+}
+
+- (void)displayCameraPermissionsAlert {
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
+                                                        andMessage:@"scan_card_no_permission_message".localized];
+
+    UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *_Nonnull action) {
+                                                                   [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                                                                                    options:@{}
+                                                                                          completionHandler:nil];
+                                                               }];
+
+    [controller addAction:goToSettingsAction];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)displayCameraRestrictionAlert {
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title".localized
+                                                        andMessage:@"scan_card_restricted_message".localized];
+
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)displayCameraSimulatorAlert {
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title".localized
+                                                        andMessage:nil];
+
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark - Layout setup
