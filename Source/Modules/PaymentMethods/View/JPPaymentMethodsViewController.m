@@ -24,14 +24,17 @@
 
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
+#import "JPAddCardButton.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsSelectionCell.h"
 #import "JPPaymentMethodsView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "NSString+Additions.h"
 #import "UIColor+Judo.h"
 #import "UIImage+Icons.h"
+#import "UIViewController+Additions.h"
 
 @interface JPPaymentMethodsViewController ()
 
@@ -49,6 +52,18 @@
     self.view = self.paymentMethodsView;
     [self configureView];
     [self.presenter viewModelNeedsUpdate];
+}
+
+#pragma mark - User Actions
+
+- (void)onBackButtonTap {
+    [self.presenter handleBackButtonTap];
+}
+
+- (void)onPayButtonTap {
+    [self.paymentMethodsView.headerView.payButton startLoading];
+    self.paymentMethodsView.userInteractionEnabled = NO;
+    [self.presenter handlePayButtonTap];
 }
 
 #pragma mark - Layout Setup
@@ -69,12 +84,12 @@
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
+    [self.paymentMethodsView.headerView.payButton addTarget:self
+                                                     action:@selector(onPayButtonTap)
+                                           forControlEvents:UIControlEventTouchUpInside];
+
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
-}
-
-- (void)onBackButtonTap {
-    [self.presenter handleBackButtonTap];
 }
 
 #pragma mark - Protocol Conformance
@@ -93,6 +108,13 @@
     }
 
     [self.paymentMethodsView.tableView reloadData];
+}
+
+- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
+    [self.paymentMethodsView.headerView.payButton stopLoading];
+    self.paymentMethodsView.userInteractionEnabled = YES;
+    [self triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
+    [super displayAlertWithTitle:title andError:error];
 }
 
 #pragma mark - UIScrollViewDelegate

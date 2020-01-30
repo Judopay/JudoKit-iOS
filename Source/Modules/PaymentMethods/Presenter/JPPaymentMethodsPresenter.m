@@ -67,8 +67,35 @@
     }
 }
 
+#pragma mark - Action Handlers
+
+- (void)handleAddCardButtonTap {
+    [self.router navigateToAddCardModule];
+}
+
 - (void)handleBackButtonTap {
     [self.router dismissViewController];
+}
+
+- (void)handlePayButtonTap {
+    [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
+                                   andCompletion:^(JPResponse *response, NSError *error) {
+                                       if (error) {
+                                           [self handlePaymentError:error];
+                                           return;
+                                       }
+                                       [self handlePaymentResponse:response];
+                                   }];
+}
+
+- (void)handlePaymentResponse:(JPResponse *)response {
+    [self.router completeTransactionWithResponse:response andError:nil];
+    [self.router dismissViewController];
+}
+
+- (void)handlePaymentError:(NSError *)error {
+    [self.router completeTransactionWithResponse:nil andError:error];
+    [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
 }
 
 #pragma mark - Helper methods
@@ -133,10 +160,13 @@
     return cardModel;
 }
 
-#pragma mark - Action Handlers
-
-- (void)handleAddCardButtonTap {
-    [self.router navigateToAddCardModule];
+- (JPStoredCardDetails *)selectedCard {
+    for (JPStoredCardDetails *card in [self.interactor getStoredCardDetails]) {
+        if (card.isSelected) {
+            return card;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - Lazy properties

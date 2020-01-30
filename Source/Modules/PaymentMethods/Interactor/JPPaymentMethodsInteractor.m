@@ -25,18 +25,26 @@
 #import "JPPaymentMethodsInteractor.h"
 #import "JPAmount.h"
 #import "JPCardStorage.h"
+#import "JPPaymentToken.h"
 #import "JPTheme.h"
+#import "JPTransaction.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
+@property (nonatomic, strong) JPTransaction *transaction;
+@property (nonatomic, strong) JPReference *reference;
 @property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) JPAmount *amount;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
 
-- (instancetype)initWithTheme:(JPTheme *)theme
-                    andAmount:(JPAmount *)amount {
+- (instancetype)initWithTransaction:(JPTransaction *)transaction
+                          reference:(JPReference *)reference
+                              theme:(JPTheme *)theme
+                          andAmount:(JPAmount *)amount {
     if (self = [super init]) {
+        self.transaction = transaction;
+        self.reference = reference;
         self.theme = theme;
         self.amount = amount;
     }
@@ -70,6 +78,16 @@
 
 - (JPAmount *)getAmount {
     return self.amount;
+}
+
+- (void)paymentTransactionWithToken:(NSString *)token
+                      andCompletion:(JudoCompletionBlock)completion {
+
+    JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:self.reference.consumerReference
+                                                                       cardToken:token];
+
+    [self.transaction setPaymentToken:paymentToken];
+    [self.transaction sendWithCompletion:completion];
 }
 
 @end

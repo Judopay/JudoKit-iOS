@@ -36,19 +36,46 @@
 
 @implementation JPPaymentMethodsBuilderImpl
 
+- (JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(NSString *)judoId
+                                                         session:(JudoKit *)session
+                                           transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
+                                                          amount:(JPAmount *)amount
+                                                       reference:(JPReference *)reference
+                                               completionHandler:(JudoCompletionBlock)completion {
+    return [self buildModuleWithJudoID:judoId
+                               session:session
+                 transitioningDelegate:transitioningDelegate
+                                amount:amount
+                             reference:reference
+                       transactionType:TransactionTypePayment
+                     completionHandler:completion];
+}
+
+- (JPPaymentMethodsViewController *)buildPreAuthModuleWithJudoID:(NSString *)judoId
+                                                         session:(JudoKit *)session
+                                           transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
+                                                          amount:(JPAmount *)amount
+                                                       reference:(JPReference *)reference
+                                               completionHandler:(JudoCompletionBlock)completion {
+    return [self buildModuleWithJudoID:judoId
+                               session:session
+                 transitioningDelegate:transitioningDelegate
+                                amount:amount
+                             reference:reference
+                       transactionType:TransactionTypePreAuth
+                     completionHandler:completion];
+}
+
 - (JPPaymentMethodsViewController *)buildModuleWithJudoID:(NSString *)judoId
                                                   session:(JudoKit *)session
                                     transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
                                                    amount:(JPAmount *)amount
-                                        consumerReference:(NSString *)consumerReference
+                                                reference:(JPReference *)reference
+                                          transactionType:(TransactionType)transactionType
                                         completionHandler:(JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
     JPPaymentMethodsPresenterImpl *presenter = [JPPaymentMethodsPresenterImpl new];
-    JPPaymentMethodsInteractorImpl *interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithTheme:session.theme
-                                                                                             andAmount:amount];
-
-    JPReference *reference = [JPReference consumerReference:consumerReference];
 
     JPTransaction *addCardTransaction = [session transactionForType:TransactionTypeSaveCard
                                                              judoId:judoId
@@ -60,6 +87,17 @@
                                                transitioningDelegate:transitioningDelegate
                                                                theme:session.theme
                                                           completion:completion];
+
+    JPTransaction *transaction = [session transactionForType:transactionType
+                                                      judoId:judoId
+                                                      amount:amount
+                                                   reference:reference];
+
+    JPPaymentMethodsInteractorImpl *interactor;
+    interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithTransaction:transaction
+                                                                   reference:reference
+                                                                       theme:session.theme
+                                                                   andAmount:amount];
 
     presenter.view = viewController;
     presenter.interactor = interactor;

@@ -26,10 +26,13 @@
 #import "JPAddCardInteractor.h"
 #import "JPAddCardRouter.h"
 #import "JPAddCardViewController.h"
+#import "NSError+Judo.h"
 
 #import "JPAddress.h"
 #import "JPCard.h"
 #import "JPCountry.h"
+#import "JPResponse.h"
+#import "JPTransactionData.h"
 #import "NSString+Additions.h"
 
 @interface JPAddCardPresenterImpl ()
@@ -112,7 +115,15 @@
                    return;
                }
 
-               [weakSelf.interactor updateKeychainWithCardModel:weakSelf.addCardViewModel];
+               NSString *token = response.items.firstObject.cardDetails.cardToken;
+
+               if (!token) {
+                   [weakSelf.view updateViewWithError:NSError.judoTokenMissingError];
+                   return;
+               }
+
+               [weakSelf.interactor updateKeychainWithCardModel:weakSelf.addCardViewModel
+                                                       andToken:token];
                [weakSelf.router dismissViewController];
                [weakSelf.view didFinishAddingCard];
            }];

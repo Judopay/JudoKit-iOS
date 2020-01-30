@@ -39,6 +39,14 @@
  */
 - (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel;
 
+/**
+ * Convenience method for displaying alert controllers based on a specified error with an optional title
+ *
+ * @param title - an optional NSString that defines the title of the alert
+ * @param error - an NSError instance describing the current error
+ */
+- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error;
+
 @end
 
 #pragma mark - JPPaymentMethodsViewController

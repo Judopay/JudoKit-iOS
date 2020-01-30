@@ -169,6 +169,10 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             [self paymentMethodOption];
             break;
             
+        case DemoFeatureTypePreAuthMethods:
+            [self preAuthMethodOption];
+            break;
+            
         case DemoFeatureTypeIDEALTransaction:
             [self idealTransactionOperation];
             break;
@@ -191,33 +195,25 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)paymentMethodOption {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
         
-    [self.judoKitSession invokePayment:judoId
-                                amount:amount
-                     consumerReference:self.reference
-                        paymentMethods:PaymentMethodsAll
-                            completion:^(JPResponse * response, NSError * error) {
-                                if (error || response.items.count == 0) {
-                                    if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                                        [self dismissViewControllerAnimated:YES completion:nil];
-                                        return;
-                                    }
-                                    
-                                    [self dismissViewControllerAnimated:YES completion:^{
-                                        [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-                                    }];
-                                    return;
-                                }
-                                JPTransactionData *tData = response.items[0];
-                                if (tData.cardDetails) {
-                                    self.cardDetails = tData.cardDetails;
-                                    self.payToken = tData.paymentToken;
-                                }
-                                DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-                                viewController.transactionData = tData;
-                                [self dismissViewControllerAnimated:YES completion:^{
-                                    [self.navigationController pushViewController:viewController animated:YES];
+    [self.judoKitSession invokePaymentMethodSelection:judoId
+                                               amount:amount
+                                            reference:[JPReference consumerReference:self.reference]
+                                       paymentMethods:PaymentMethodsAll
+                                           completion:^(JPResponse * response, NSError * error) {
+                                    //Handle response / error
                                 }];
-                            }];
+}
+
+- (void)preAuthMethodOption {
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
+        
+    [self.judoKitSession invokePreAuthMethodSelection:judoId
+                                               amount:amount
+                                            reference:[JPReference consumerReference:self.reference]
+                                       paymentMethods:PaymentMethodsAll
+                                           completion:^(JPResponse * response, NSError * error) {
+                                    //Handle response / error
+                                }];
 }
 
 - (void)paymentOperation {
