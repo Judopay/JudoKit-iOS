@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetails.h"
 #import "JPSession.h"
 #import "JPValidationResult.h"
 
@@ -134,11 +135,13 @@
  *
  *  @param cardValidationService - a JPCardValidationService instance for validating the card details
  *  @param transactionService - a JPTransactionService instance for handling the transaction
+ *  @param networks - the supported card networks
  *  @param completion - a JudoCompletionBlock that returns once the transaction finishes
  *
  *  @return an instance of JPAddCardInteractorImpl
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
+                        supportedCardNetworks:(CardNetwork)networks
                                    completion:(JudoCompletionBlock)completion;
 @end

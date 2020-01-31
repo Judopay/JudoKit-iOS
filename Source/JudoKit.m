@@ -340,6 +340,7 @@
                               amount:(nonnull JPAmount *)amount
                            reference:(nonnull JPReference *)reference
                       paymentMethods:(PaymentMethods)methods
+               supportedCardNetworks:(CardNetwork)networks
                           completion:(nonnull JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController;
@@ -348,6 +349,7 @@
                                                                transitioningDelegate:self.transitioningDelegate
                                                                               amount:amount
                                                                            reference:reference
+                                                               supportedCardNetworks:networks
                                                                    completionHandler:completion];
 
     UINavigationController *navigationController;
@@ -362,6 +364,7 @@
                               amount:(nonnull JPAmount *)amount
                            reference:(nonnull JPReference *)reference
                       paymentMethods:(PaymentMethods)methods
+               supportedCardNetworks:(CardNetwork)networks
                           completion:(nonnull JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController;
@@ -370,6 +373,7 @@
                                                                transitioningDelegate:self.transitioningDelegate
                                                                               amount:amount
                                                                            reference:reference
+                                                               supportedCardNetworks:networks
                                                                    completionHandler:completion];
 
     UINavigationController *navigationController;
@@ -568,6 +572,7 @@
 
     JPAddCardViewController *controller = [[JPAddCardBuilderImpl new] buildModuleWithTransaction:transaction
                                                                                            theme:self.theme
+                                                                           supportedCardNetworks:CardNetworksAll
                                                                                       completion:completion];
 
     controller.modalPresentationStyle = UIModalPresentationCustom;

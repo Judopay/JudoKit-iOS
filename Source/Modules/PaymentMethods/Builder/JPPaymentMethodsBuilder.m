@@ -41,6 +41,7 @@
                                            transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
+                                           supportedCardNetworks:(CardNetwork)networks
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -48,6 +49,7 @@
                                 amount:amount
                              reference:reference
                        transactionType:TransactionTypePayment
+                 supportedCardNetworks:networks
                      completionHandler:completion];
 }
 
@@ -56,6 +58,7 @@
                                            transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
+                                           supportedCardNetworks:(CardNetwork)networks
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -63,6 +66,7 @@
                                 amount:amount
                              reference:reference
                        transactionType:TransactionTypePreAuth
+                 supportedCardNetworks:networks
                      completionHandler:completion];
 }
 
@@ -72,6 +76,7 @@
                                                    amount:(JPAmount *)amount
                                                 reference:(JPReference *)reference
                                           transactionType:(TransactionType)transactionType
+                                    supportedCardNetworks:(CardNetwork)networks
                                         completionHandler:(JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
@@ -86,6 +91,7 @@
     router = [[JPPaymentMethodsRouterImpl alloc] initWithTransaction:addCardTransaction
                                                transitioningDelegate:transitioningDelegate
                                                                theme:session.theme
+                                               supportedCardNetworks:networks
                                                           completion:completion];
 
     JPTransaction *transaction = [session transactionForType:transactionType

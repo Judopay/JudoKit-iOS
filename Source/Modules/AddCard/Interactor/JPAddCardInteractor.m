@@ -37,6 +37,7 @@
 @interface JPAddCardInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
+@property (nonatomic, assign) CardNetwork cardNetworks;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @end
 
@@ -46,11 +47,13 @@
 
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
+                        supportedCardNetworks:(CardNetwork)networks
                                    completion:(JudoCompletionBlock)completion {
 
     if (self = [super init]) {
         self.cardValidationService = cardValidationService;
         self.transactionService = transactionService;
+        self.cardNetworks = networks;
         self.completionHandler = completion;
     }
     return self;
@@ -106,7 +109,8 @@
 }
 
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input {
-    return [self.cardValidationService validateCardNumberInput:input];
+    return [self.cardValidationService validateCardNumberInput:input
+                                          forSupportedNetworks:self.cardNetworks];
 }
 
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input {

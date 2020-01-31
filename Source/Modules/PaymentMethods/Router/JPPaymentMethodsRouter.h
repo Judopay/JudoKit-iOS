@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetails.h"
 #import "JPSession.h"
 #import <Foundation/Foundation.h>
 
@@ -59,11 +60,13 @@
  * @param transaction - a reference to the Save Card transaction needed to call the Add Card screen
  * @param transitioningDelegate - the custom transitioning delegate for the Add Card presentation animation
  * @param theme - the JPTheme reference that is used for customizing the Add Card flow
+ * @param networks - the supported card networks
  * @param completion - the response/error completion handler returned after a backend request
  */
 - (nonnull instancetype)initWithTransaction:(JPTransaction *_Nonnull)transaction
                       transitioningDelegate:(SliderTransitioningDelegate *_Nonnull)transitioningDelegate
                                       theme:(JPTheme *_Nonnull)theme
+                      supportedCardNetworks:(CardNetwork)networks
                                  completion:(JudoCompletionBlock _Nonnull)completion;
 
 @end

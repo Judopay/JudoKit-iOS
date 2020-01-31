@@ -43,7 +43,22 @@
 
 #pragma mark - Public Methods
 
-- (JPValidationResult *)validateCardNumberInput:(NSString *)input {
+- (BOOL)isInputSupported:(NSString *)input
+    forSupportedNetworks:(CardNetwork)supportedCardNetworks {
+
+    if (input.cardNetwork == CardNetworkUnknown && input.length == 16) {
+        return NO;
+    }
+
+    if (supportedCardNetworks == CardNetworksAll || input.cardNetwork == CardNetworkUnknown) {
+        return YES;
+    }
+
+    return input.cardNetwork & supportedCardNetworks;
+}
+
+- (JPValidationResult *)validateCardNumberInput:(NSString *)input
+                           forSupportedNetworks:(CardNetwork)networks {
 
     NSError *error;
     NSString *presentationString = [input cardPresentationStringWithAcceptedNetworks:self.acceptedCardNetworks
@@ -52,7 +67,24 @@
     NSString *trimmedString = [input stringByReplacingOccurrencesOfString:@" "
                                                                withString:@""];
 
-    if (input.cardNetwork == CardNetworkAMEX || input.cardNetwork == CardNetworkUATP) {
+    BOOL isErrorPresent = self.lastCardNumberValidationResult.errorMessage != nil;
+    BOOL isAddingCharacter = input.length > self.lastCardNumberValidationResult.formattedInput.length;
+
+    if (isErrorPresent && isAddingCharacter) {
+        return self.lastCardNumberValidationResult;
+    }
+
+    if (![self isInputSupported:input forSupportedNetworks:networks]) {
+        error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
+        self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:NO
+                                                                          inputAllowed:YES
+                                                                          errorMessage:error.localizedDescription
+                                                                        formattedInput:presentationString];
+        self.lastCardNumberValidationResult.cardNetwork = input.cardNetwork;
+        return self.lastCardNumberValidationResult;
+    }
+
+    if (input.cardNetwork == CardNetworkAMEX) {
         if (trimmedString.length > 15) {
             return self.lastCardNumberValidationResult;
         }
@@ -72,7 +104,7 @@
         return self.lastCardNumberValidationResult;
     }
 
-    if (input.cardNetwork == CardNetworkAMEX || input.cardNetwork == CardNetworkUATP) {
+    if (input.cardNetwork == CardNetworkAMEX) {
         if (trimmedString.length == 15) {
             error = NSError.judoInvalidCardNumberError;
         }
@@ -134,6 +166,14 @@
 
     JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:self.lastCardNumberValidationResult.cardNetwork];
 
+    if (cardNetwork == CardNetworkUnknown) {
+        self.lastSecureCodeValidationResult = [JPValidationResult validationWithResult:input.length == 3
+                                                                          inputAllowed:input.length <= 3
+                                                                          errorMessage:nil
+                                                                        formattedInput:input];
+        return self.lastSecureCodeValidationResult;
+    }
+    
     if (input.length > cardNetwork.securityCodeLength) {
         return self.lastSecureCodeValidationResult;
     }

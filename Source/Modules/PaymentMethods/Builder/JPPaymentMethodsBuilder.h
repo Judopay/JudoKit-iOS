@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetails.h"
 #import "JPReference.h"
 #import "JPSession.h"
 #import <Foundation/Foundation.h>
@@ -39,6 +40,7 @@
  * @param transitioningDelegate - a transitioning delegate needed for the custom Add Card transition animation
  * @param amount - the amount of the transaction
  * @param reference - the reference for this transaction
+ * @param networks   The supported card networks
  * @param completionHandler - a response/error completion handler returned to the merchant
  */
 - (JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(NSString *)judoId
@@ -46,6 +48,7 @@
                                            transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
+                                           supportedCardNetworks:(CardNetwork)networks
                                                completionHandler:(JudoCompletionBlock)completion;
 
 /**
@@ -56,6 +59,7 @@
  * @param transitioningDelegate - a transitioning delegate needed for the custom Add Card transition animation
  * @param amount - the amount of the transaction
  * @param reference - the reference for this transaction
+ * @param networks   The supported card networks
  * @param completionHandler - a response/error completion handler returned to the merchant
  */
 - (JPPaymentMethodsViewController *)buildPreAuthModuleWithJudoID:(NSString *)judoId
@@ -63,8 +67,8 @@
                                            transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
+                                           supportedCardNetworks:(CardNetwork)networks
                                                completionHandler:(JudoCompletionBlock)completion;
-
 @end
 
 @interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>
