@@ -159,6 +159,9 @@
         cardListModel = (JPPaymentMethodsCardListModel *)model;
         [cell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
         return cell;
+    } else if ([model isKindOfClass:JPPaymentMethodsCardHeaderModel.class]) {
+        JPPaymentMethodsCardListHeaderCell *headerCell = (JPPaymentMethodsCardListHeaderCell *)cell;
+        headerCell.delegate = self;
     }
 
     [cell configureWithViewModel:model];
@@ -178,12 +181,36 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     JPPaymentMethodsModel *model = self.viewModel.items[indexPath.section];
-
     if (![model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
         return;
     }
-
     [self.presenter didSelectCardAtIndex:indexPath.row];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    JPPaymentMethodsModel *model = self.viewModel.items[indexPath.section];
+    return [model isKindOfClass:JPPaymentMethodsCardListModel.class];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"delete_card_alert_title".localized
+                                                                             message:@"delete_card_alert_message".localized
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel".localized
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"delete".localized
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *_Nonnull action) {
+                                                             [self.presenter deleteCardWithIndex:indexPath.row];
+                                                             [self.presenter viewModelNeedsUpdate];
+                                                         }];
+
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
@@ -194,6 +221,22 @@
 
 - (void)didFinishAddingCard {
     [self.presenter viewModelNeedsUpdate];
+    [self.paymentMethodsView.tableView setEditing:NO animated:YES];
+    [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
+}
+
+@end
+
+@implementation JPPaymentMethodsViewController (EditCardsDelegate)
+
+- (void)didTapActionButton {
+    BOOL isEditing = self.paymentMethodsView.tableView.isEditing == YES;
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.presenter changeHeaderButtonTitle:!isEditing];
+    }];
+    [self.paymentMethodsView.tableView setEditing:!isEditing animated:YES];
+    [CATransaction commit];
 }
 
 @end
