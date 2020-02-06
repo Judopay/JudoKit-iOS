@@ -52,7 +52,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self registerKeyboardObservers];
-    [self.addCardView.cardNumberTextField becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -118,8 +117,9 @@
 }
 
 - (void)displayCameraPermissionsAlert {
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
-                                                        andMessage:@"scan_card_no_permission_message".localized];
+                                                        andMessage:[NSString stringWithFormat:@"scan_card_no_permission_message".localized, appName]];
 
     UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
                                                                  style:UIAlertActionStyleDefault
@@ -145,6 +145,10 @@
                                                         andMessage:nil];
 
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)changeFocusToSecurityCodeField {
+    [self.addCardView.secureCodeTextField becomeFirstResponder];
 }
 
 #pragma mark - Layout setup
