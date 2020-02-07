@@ -27,6 +27,11 @@ typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
 @property (nonatomic, strong, readonly) NSString *iconName;
 
 /**
+ * The type of the payment method
+ */
+@property (nonatomic, assign, readonly) JPPaymentMethodType type;
+
+/**
  * A pre-defined initializer that describes the card payment method
  */
 + (instancetype)card;

@@ -41,7 +41,11 @@
 @property (nonatomic, strong) JPPaymentMethodsCardHeaderModel *cardHeaderModel;
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
+@property (nonatomic, strong) JPPaymentMethodsIDEALBankListModel *iDealBankListModel;
+@property (nonatomic, strong)JPPaymentMethodsApplePayModel *applePayModel;
 @property (nonatomic, strong) JPAddCardButtonViewModel *paymentButtonModel;
+
+@property (nonatomic, assign) int previousIndex;
 @end
 
 @implementation JPPaymentMethodsPresenterImpl
@@ -113,6 +117,15 @@
     [self.view configureWithViewModel:self.viewModel];
 }
 
+- (void)changePaymentMethodToIndex:(int)index {
+    AnimationType animationType = (index < self.previousIndex) ? AnimationTypeRightToLeft : AnimationTypeLeftToRight;
+    self.previousIndex = index;
+    
+    self.paymentSelectionModel.selectedPaymentMethod = index;
+    [self updateViewModelWithAnimationType:animationType];
+    [self.view configureWithViewModel:self.viewModel];
+}
+
 #pragma mark - Helper methods
 
 - (void)updateViewModelWithAnimationType:(AnimationType)animationType {
@@ -122,6 +135,11 @@
     [self prepareHeaderModel];
     self.viewModel.headerModel.animationType = animationType;
 
+    [self preparePaymentMethodModels];
+}
+
+- (void)preparePaymentMethodModels {
+    
     NSArray *paymentMethods = [self.interactor getPaymentMethods];
     
     if (paymentMethods.count > 1) {
@@ -129,6 +147,23 @@
         [self.viewModel.items addObject:self.paymentSelectionModel];
     }
 
+    int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
+    JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
+    
+    if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
+        [self prepareCardListModels];
+    }
+    
+    if (selectedPaymentMethod.type == JPPaymentMethodTypeIDeal) {
+        [self.viewModel.items addObject:self.iDealBankListModel];
+    }
+    
+    if (selectedPaymentMethod.type == JPPaymentMethodTypeApplePay) {
+        [self.viewModel.items addObject:self.applePayModel];
+    }
+}
+
+- (void)prepareCardListModels {
     NSArray<JPStoredCardDetails *> *cardDetailsArray = [self.interactor getStoredCardDetails];
 
     if (cardDetailsArray.count == 0) {
@@ -206,6 +241,22 @@
         _headerModel.amount = [JPAmount amount:@"0.0" currency:@"GBP"];
     }
     return _headerModel;
+}
+
+- (JPPaymentMethodsIDEALBankListModel *)iDealBankListModel {
+    if (!_iDealBankListModel) {
+        _iDealBankListModel = [JPPaymentMethodsIDEALBankListModel new];
+        _iDealBankListModel.identifier = @"JPPaymentMethodsCell";
+    }
+    return _iDealBankListModel;
+}
+
+- (JPPaymentMethodsApplePayModel *)applePayModel {
+    if (!_applePayModel) {
+        _applePayModel = [JPPaymentMethodsApplePayModel new];
+        _applePayModel.identifier = @"JPPaymentMethodsCell";
+    }
+    return _applePayModel;
 }
 
 - (JPPaymentMethodsSelectionModel *)paymentSelectionModel {

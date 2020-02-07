@@ -23,16 +23,9 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsSelectionCell.h"
-#import "JPSectionView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "UIImage+Icons.h"
 #import "UIView+Additions.h"
-
-@interface JPPaymentMethodsSelectionCell ()
-
-@property (nonatomic, strong) JPSectionView *sectionView;
-
-@end
 
 @implementation JPPaymentMethodsSelectionCell
 

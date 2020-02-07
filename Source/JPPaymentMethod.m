@@ -43,6 +43,7 @@
                 _iconName = @"apple-pay-icon";
                 break;
         }
+        _type = type;
     }
     return self;
 }

@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * An array of available payment methods
  */
-@property (nonatomic, strong) NSArray <JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) NSArray <JPPaymentMethod *> *_Nullable paymentMethods;
 
 @end
 
@@ -171,6 +171,12 @@ typedef NS_ENUM(NSInteger, AnimationType) {
  */
 @property (nonatomic, strong) NSMutableArray<JPPaymentMethodsCardModel *> *_Nullable cardModels;
 
+@end
+
+@interface JPPaymentMethodsIDEALBankListModel : JPPaymentMethodsModel
+@end
+
+@interface JPPaymentMethodsApplePayModel : JPPaymentMethodsModel
 @end
 
 #pragma mark - JPPaymentMethodsHeaderModel

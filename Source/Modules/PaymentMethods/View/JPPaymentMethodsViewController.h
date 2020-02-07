@@ -24,6 +24,7 @@
 
 #import "JPAddCardViewController.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
+#import "JPSectionView.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
@@ -83,4 +84,10 @@
  * A JPPaymentMethodsViewController extension that adopts the Header View delegate methods
  */
 @interface JPPaymentMethodsViewController (EditCardsDelegate) <JPPaymentMethodsCardListHeaderCellDelegate>
+@end
+
+/**
+ * A JPPaymentMethodsViewController extension that adopts the JPSectionView delegate methods
+ */
+@interface JPPaymentMethodsViewController (JPSectionViewDelegate) <JPSectionViewDelegate>
 @end
