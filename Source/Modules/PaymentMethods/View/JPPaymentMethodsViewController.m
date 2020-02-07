@@ -51,7 +51,11 @@
     self.paymentMethodsView = [JPPaymentMethodsView new];
     self.view = self.paymentMethodsView;
     [self configureView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self.presenter viewModelNeedsUpdate];
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - User Actions

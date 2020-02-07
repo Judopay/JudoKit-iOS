@@ -68,13 +68,19 @@
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
     [self addSubview:self.cardView];
-    [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor constant:100.0 * getWidthAspectRatio()].active = YES;
-    [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-30.0 * getWidthAspectRatio()].active = YES;
-    [self.cardView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
-    [self.cardView.widthAnchor constraintEqualToAnchor:self.cardView.heightAnchor multiplier:1.715].active = YES;
+    
+    CGFloat topConstant = 100.0 * getWidthAspectRatio();
+    CGFloat bottomConstant = -30.0 * getWidthAspectRatio();
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor constant:topConstant],
+        [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:bottomConstant],
+        [self.cardView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+        [self.cardView.widthAnchor constraintEqualToAnchor:self.cardView.heightAnchor multiplier:1.715],
+    ]];
 }
 
-#pragma mark - ANIMATIONS
+#pragma mark - Animations
 
 - (void)animateCardChangeTransitionWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     switch (viewModel.animationType) {
@@ -82,7 +88,7 @@
             [self animateBottomToTopCardChangeWithViewModel:viewModel];
             break;
         case AnimationTypeLeftToRight:
-            [self animateRightToLeftCardChangeWithViewModel:viewModel];
+            [self animateLeftToRightCardChangeWithViewModel:viewModel];
             break;
         case AnimationTypeRightToLeft:
             [self animateRightToLeftCardChangeWithViewModel:viewModel];
@@ -90,118 +96,131 @@
         case AnimationTypeSetup:
             [self.cardView configureWithViewModel:viewModel];
             [self animateCardSetup];
-        default:
+        case AnimationTypeNone:
             break;
     }
-}
-
-- (void)prepareForAnimations {
-    self.cardView = [JPCardView new];
-    self.cardView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.cardView.layer.shadowColor = UIColor.lightGrayColor.CGColor;
-    self.cardView.layer.shadowRadius = 1.0;
-    self.cardView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.cardView.layer.shadowOpacity = 1.0;
 }
 
 - (void)animateCardSetup {
     self.cardView.transform = CGAffineTransformMakeTranslation(0.0, 100.0);
     self.cardView.alpha = 0.0;
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.cardView.alpha = 1.0;
-                         self.cardView.transform = CGAffineTransformIdentity;
-                     }];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.cardView.alpha = 1.0;
+        self.cardView.transform = CGAffineTransformIdentity;
+    }];
 }
 
 - (void)animateBottomToTopCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    __block JPCardView *toRemoveCardView = self.cardView;
-    [self prepareForAnimations];
-    [self.cardView configureWithViewModel:viewModel];
-    [self setupViews];
-
-    CGAffineTransform cardViewInitialTranslation = CGAffineTransformMakeTranslation(0.0, (self.cardView.frame.size.height + self.frame.size.width) + 130);
-    CGAffineTransform cardViewInitialScale = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
-    self.cardView.transform = CGAffineTransformConcat(cardViewInitialTranslation, cardViewInitialScale);
-    [self layoutIfNeeded];
-    [UIView animateWithDuration:0.5
-        animations:^{
-            toRemoveCardView.alpha = 0.4;
-            CGAffineTransform cardViewTranslation = CGAffineTransformMakeTranslation(0.0, 0.0);
-            CGAffineTransform cardViewScale = CGAffineTransformMakeScale(1, 1);
-            self.cardView.transform = CGAffineTransformConcat(cardViewTranslation, cardViewScale);
-
-            CGAffineTransform toRemovecardViewTranslation = CGAffineTransformMakeTranslation(0.0, toRemoveCardView.frame.size.height * 2);
-            CGAffineTransform toRemovecardViewScale = CGAffineTransformMakeScale(0.3, 0.3);
-            toRemoveCardView.transform = CGAffineTransformConcat(toRemovecardViewTranslation, toRemovecardViewScale);
-        }
-        completion:^(BOOL finished) {
-            [toRemoveCardView removeFromSuperview];
-        }];
+    JPCardView *oldCardView = self.cardView;
+    
+    CGPoint oldPosition = CGPointMake(0.0f, (self.cardView.frame.size.height + self.frame.size.width / 2));
+    CGPoint newPosition = CGPointMake(0.0f, oldCardView.frame.size.height * 2);
+    
+    [self transitionCard:oldCardView
+           withViewModel:viewModel
+            fromPosition:oldPosition
+              toPosition:newPosition];
 }
 
 - (void)animateRightToLeftCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    __block JPCardView *toRemoveCardView = self.cardView;
-    [self prepareForAnimations];
-    [self.cardView configureWithViewModel:viewModel];
-    [self setupViews];
-    CGAffineTransform cardViewInitialTranslation = CGAffineTransformMakeTranslation(self.frame.size.width * 2, 0.0);
-    CGAffineTransform cardViewInitialScale = CGAffineTransformMakeScale(0.5, 0.5);
-    self.cardView.transform = CGAffineTransformConcat(cardViewInitialTranslation, cardViewInitialScale);
-    [self layoutIfNeeded];
-    [UIView animateWithDuration:0.5
-        animations:^{
-            toRemoveCardView.alpha = 0.6;
-            CGAffineTransform cardViewTranslation = CGAffineTransformMakeTranslation(0.0, 0.0);
-            CGAffineTransform cardViewScale = CGAffineTransformMakeScale(1, 1);
-            self.cardView.transform = CGAffineTransformConcat(cardViewTranslation, cardViewScale);
-
-            CGAffineTransform toRemovecardViewTranslation = CGAffineTransformMakeTranslation(-self.frame.size.width - 30, 0.0);
-            CGAffineTransform toRemovecardViewScale = CGAffineTransformMakeScale(0.3, 0.3);
-            toRemoveCardView.transform = CGAffineTransformConcat(toRemovecardViewTranslation, toRemovecardViewScale);
-        }
-        completion:^(BOOL finished) {
-            [toRemoveCardView removeFromSuperview];
-        }];
+    JPCardView *oldCardView = self.cardView;
+    
+    CGPoint oldPosition = CGPointMake(-self.frame.size.width * 2, 0.0f);
+    CGPoint newPosition = CGPointMake(self.frame.size.width - 30, 0.0f);
+    
+    [self transitionCard:oldCardView
+           withViewModel:viewModel
+            fromPosition:oldPosition
+              toPosition:newPosition];
 }
 
 - (void)animateLeftToRightCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    __block JPCardView *toRemoveCardView = self.cardView;
-    [self prepareForAnimations];
+    JPCardView *oldCardView = self.cardView;
+    
+    CGPoint oldPosition = CGPointMake(self.frame.size.width * 2, 0.0f);
+    CGPoint newPosition = CGPointMake(-self.frame.size.width - 30, 0.0f);
+    
+    [self transitionCard:oldCardView
+           withViewModel:viewModel
+            fromPosition:oldPosition
+              toPosition:newPosition];
+}
+
+#pragma mark - Helper Methods
+
+- (void)prepareNewCardViewWithModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    self.cardView = [self createCardView];
     [self.cardView configureWithViewModel:viewModel];
     [self setupViews];
-    CGAffineTransform cardViewInitialTranslation = CGAffineTransformMakeTranslation(-self.frame.size.width * 2, 0.0);
-    CGAffineTransform cardViewInitialScale = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
-    self.cardView.transform = CGAffineTransformConcat(cardViewInitialTranslation, cardViewInitialScale);
-    [self layoutIfNeeded];
-    [UIView animateWithDuration:0.5
-        animations:^{
-            toRemoveCardView.alpha = 0.6;
-            CGAffineTransform cardViewTranslation = CGAffineTransformMakeTranslation(0.0, 0.0);
-            CGAffineTransform cardViewScale = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-            self.cardView.transform = CGAffineTransformConcat(cardViewTranslation, cardViewScale);
+}
 
-            CGAffineTransform toRemovecardViewTranslation = CGAffineTransformMakeTranslation(self.frame.size.width - 30, 0.0);
-            CGAffineTransform toRemovecardViewScale = CGAffineTransformScale(CGAffineTransformIdentity, 0.3, 0.3);
-            toRemoveCardView.transform = CGAffineTransformConcat(toRemovecardViewTranslation, toRemovecardViewScale);
-        }
-        completion:^(BOOL finished) {
-            [toRemoveCardView removeFromSuperview];
-        }];
+- (void)setInitialTransformationWithXPosition:(CGFloat)xPosition
+                                 andYPosition:(CGFloat)yPosition {
+    
+    CGAffineTransform translation = CGAffineTransformMakeTranslation(xPosition, yPosition);
+    CGAffineTransform scale = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
+    
+    self.cardView.transform = CGAffineTransformConcat(translation, scale);
+    [self layoutIfNeeded];
+}
+
+- (void)transitionCard:(JPCardView *)cardView
+         withViewModel:(JPPaymentMethodsHeaderModel *)viewModel
+          fromPosition:(CGPoint)oldPosition
+            toPosition:(CGPoint)newPosition {
+    
+    [self prepareNewCardViewWithModel:viewModel];
+    [self setInitialTransformationWithXPosition:oldPosition.x andYPosition:oldPosition.y];
+    [self transitionFromCardView:cardView toXPosition:newPosition.x andYPosition:newPosition.y];
+}
+
+- (void)transitionFromCardView:(JPCardView *)cardView
+                   toXPosition:(CGFloat)xPosition
+                  andYPosition:(CGFloat)yPosition {
+    [UIView animateWithDuration:0.5
+                     animations:^{
+        [self transformOldCardView:cardView withXPosition:xPosition andYPosition:yPosition];
+        [self transformNewCardView:self.cardView];
+    }
+    completion:^(BOOL finished) {
+        [cardView removeFromSuperview];
+    }];
+}
+
+- (void)transformNewCardView:(JPCardView *)cardView {
+        CGAffineTransform translation = CGAffineTransformMakeTranslation(0.0, 0.0);
+        CGAffineTransform scale = CGAffineTransformMakeScale(1, 1);
+        cardView.transform = CGAffineTransformConcat(translation, scale);
+}
+
+- (void)transformOldCardView:(JPCardView *)cardView
+               withXPosition:(CGFloat)xPosition
+                andYPosition:(CGFloat)yPosition {
+    
+        CGAffineTransform translation = CGAffineTransformMakeTranslation(xPosition, yPosition);
+        CGAffineTransform scale = CGAffineTransformMakeScale(0.6, 0.6);
+
+        cardView.transform = CGAffineTransformConcat(translation, scale);
+        cardView.alpha = 0.0;
 }
 
 #pragma mark - Lazy Properties
 
 - (JPCardView *)cardView {
     if (!_cardView) {
-        _cardView = [JPCardView new];
-        _cardView.translatesAutoresizingMaskIntoConstraints = NO;
-        _cardView.layer.shadowColor = UIColor.lightGrayColor.CGColor;
-        _cardView.layer.shadowRadius = 1.0;
-        _cardView.layer.shadowOffset = CGSizeMake(0, 1);
-        _cardView.layer.shadowOpacity = 1.0;
+        _cardView = [self createCardView];
     }
     return _cardView;
+}
+
+- (JPCardView *)createCardView {
+    JPCardView *updatedCardView = [JPCardView new];
+    updatedCardView.translatesAutoresizingMaskIntoConstraints = NO;
+    updatedCardView.layer.shadowColor = UIColor.blackColor.CGColor;
+    updatedCardView.layer.shadowRadius = 10.0;
+    updatedCardView.layer.shadowOffset = CGSizeMake(0, 4);
+    updatedCardView.layer.shadowOpacity = 0.7;
+    return updatedCardView;
 }
 
 @end

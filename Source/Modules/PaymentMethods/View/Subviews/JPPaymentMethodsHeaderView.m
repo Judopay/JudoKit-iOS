@@ -54,6 +54,13 @@
 
 @implementation JPPaymentMethodsHeaderView
 
+static const CGFloat maxHeaderHeight = 408.0f;
+static const CGFloat minHeaderHeight = 294.0f;
+static const CGFloat paymentStackViewHeight = 46.0f; //20 bottom 10 top
+static const CGFloat bottomHeight = 76.0f;
+static const CGFloat paymentStackViewPadding = 24.0f;
+
+
 #pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -80,6 +87,7 @@
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    
     self.amountValueLabel.text = [NSString stringWithFormat:@"%@%@",
                                                             viewModel.amount.currency.toCurrencySymbol,
                                                             viewModel.amount.amount];
