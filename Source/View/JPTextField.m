@@ -125,7 +125,7 @@
         [_floatingTextField placeholderWithText:@""
                                           color:UIColor.jpGrayColor
                                         andFont:UIFont.headlineLight];
-        
+
         _floatingTextField.delegate = self;
     }
     return _floatingTextField;

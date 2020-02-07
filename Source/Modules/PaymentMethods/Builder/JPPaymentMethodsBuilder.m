@@ -42,7 +42,7 @@
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
                                            supportedCardNetworks:(CardNetwork)networks
-                                                  paymentMethods:(NSArray <JPPaymentMethod *> *)methods
+                                                  paymentMethods:(NSArray<JPPaymentMethod *> *)methods
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -61,7 +61,7 @@
                                                           amount:(JPAmount *)amount
                                                        reference:(JPReference *)reference
                                            supportedCardNetworks:(CardNetwork)networks
-                                                  paymentMethods:(NSArray <JPPaymentMethod *> *)methods
+                                                  paymentMethods:(NSArray<JPPaymentMethod *> *)methods
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -81,7 +81,7 @@
                                                 reference:(JPReference *)reference
                                           transactionType:(TransactionType)transactionType
                                     supportedCardNetworks:(CardNetwork)networks
-                                           paymentMethods:(NSArray <JPPaymentMethod *> *)methods
+                                           paymentMethods:(NSArray<JPPaymentMethod *> *)methods
                                         completionHandler:(JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];

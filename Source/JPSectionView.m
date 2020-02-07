@@ -71,7 +71,7 @@ static const CGFloat horizontalPadding = 24.0f;
 
     CGFloat scrollViewWidth = [self contentWidthForStackView:stackView];
     self.contentWidth += scrollViewWidth;
-    
+
     if (self.contentWidth <= UIScreen.mainScreen.bounds.size.width) {
         [self layoutUnscrollableContent];
         return;
@@ -125,16 +125,16 @@ static const CGFloat horizontalPadding = 24.0f;
     CGFloat height = sectionHeight - (selectorPadding * 2);
 
     CGFloat xPosition = selectorPadding;
-    
+
     if (self.contentWidth <= UIScreen.mainScreen.bounds.size.width) {
         xPosition += horizontalPadding;
     }
-    
+
     if (self.mainStackView.subviews.count == 2) {
         xPosition += horizontalPadding;
         width += horizontalPadding * 2 + selectorPadding / 2;
     }
-    
+
     self.selectorView.frame = CGRectMake(xPosition, selectorPadding, width, height);
 }
 
@@ -190,7 +190,7 @@ static const CGFloat horizontalPadding = 24.0f;
             longCharacterStrings++;
         }
     }
-    
+
     CGFloat xPosition = view.frame.origin.x + selectorPadding;
     CGFloat yPosition = selectorPadding;
     CGFloat width = view.bounds.size.width + horizontalPadding * 2 - selectorPadding * 2;
@@ -199,22 +199,24 @@ static const CGFloat horizontalPadding = 24.0f;
     if (self.scrollView.contentSize.width <= UIScreen.mainScreen.bounds.size.width) {
         xPosition += horizontalPadding;
     }
-    
+
     if (self.mainStackView.subviews.count == 2) {
         xPosition += horizontalPadding;
         width += horizontalPadding * 2 + selectorPadding / 2;
         xPosition -= horizontalPadding / 2 * longCharacterStrings;
     }
 
-    [UIView animateWithDuration:0.3 animations:^{
-        self.selectorView.frame = CGRectMake(xPosition, yPosition, width, height);
-    }];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.selectorView.frame = CGRectMake(xPosition, yPosition, width, height);
+                     }];
 }
 
 - (void)view:(UIView *)view shouldHide:(BOOL)shouldHide {
-    [UIView animateWithDuration:0.3 animations:^{
-        view.hidden = shouldHide;
-    }];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         view.hidden = shouldHide;
+                     }];
 }
 
 - (void)hideLabelsExceptLabel:(UILabel *)selectedLabel {
@@ -307,7 +309,7 @@ static const CGFloat horizontalPadding = 24.0f;
 - (CGFloat)calculateBackgroundWidth {
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
     CGFloat backgroundViewWidth = screenWidth - (horizontalPadding * 2);
-    
+
     if (self.mainStackView.subviews.count == 2) {
         backgroundViewWidth = screenWidth - (horizontalPadding * 4);
         [self appendLongTextWidthForContentWidth:backgroundViewWidth];
@@ -318,7 +320,7 @@ static const CGFloat horizontalPadding = 24.0f;
 - (CGFloat)calculateMainStackViewWidth {
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
     CGFloat mainStackViewWidth = screenWidth - (horizontalPadding * 2) - 50;
-    
+
     if (self.mainStackView.subviews.count == 2) {
         mainStackViewWidth = screenWidth - (horizontalPadding * 6) - 50;
         [self appendLongTextWidthForContentWidth:mainStackViewWidth];
@@ -343,7 +345,7 @@ static const CGFloat horizontalPadding = 24.0f;
 
     CGFloat mainStackViewWidth = [self calculateMainStackViewWidth];
     CGFloat backgroundViewWidth = [self calculateBackgroundWidth];
-    
+
     self.backgroundView.frame = CGRectMake(0, 0, backgroundViewWidth, sectionHeight);
     self.backgroundView.center = CGPointMake(screenWidth / 2, self.backgroundView.center.y);
 
@@ -354,7 +356,7 @@ static const CGFloat horizontalPadding = 24.0f;
 }
 
 - (void)layoutScrollableContent {
-    
+
     self.scrollView.contentSize = CGSizeMake(self.contentWidth, sectionHeight);
     self.scrollView.contentOffset = CGPointMake(-horizontalPadding, 0);
     self.scrollView.contentInset = UIEdgeInsetsMake(0, horizontalPadding, 0, horizontalPadding);

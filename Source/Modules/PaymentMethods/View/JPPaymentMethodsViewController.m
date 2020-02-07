@@ -106,23 +106,23 @@
         [self.paymentMethodsView.tableView registerClass:NSClassFromString(item.identifier)
                                   forCellReuseIdentifier:item.identifier];
     }
-    
+
     [self handlePaymentMethodChangeBehaviorForViewModel:viewModel];
 }
 
 - (void)handlePaymentMethodChangeBehaviorForViewModel:(JPPaymentMethodsViewModel *)viewModel {
     [self.paymentMethodsView.tableView beginUpdates];
-    
+
     NSRange oldRange = NSMakeRange(1, self.paymentMethodsView.tableView.numberOfSections - 1);
-    NSIndexSet *oldIndexSet = [NSIndexSet indexSetWithIndexesInRange: oldRange];
-    
+    NSIndexSet *oldIndexSet = [NSIndexSet indexSetWithIndexesInRange:oldRange];
+
     NSRange newRange = NSMakeRange(1, viewModel.items.count - 1);
     NSIndexSet *newIndexSet = [NSIndexSet indexSetWithIndexesInRange:newRange];
-    
+
     UITableViewRowAnimation fadeAnimation = UITableViewRowAnimationFade;
     [self.paymentMethodsView.tableView deleteSections:oldIndexSet withRowAnimation:fadeAnimation];
     [self.paymentMethodsView.tableView insertSections:newIndexSet withRowAnimation:fadeAnimation];
-    
+
     [self.paymentMethodsView.tableView endUpdates];
 }
 
@@ -176,12 +176,12 @@
         [cell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
         return cell;
     }
-    
+
     if ([model isKindOfClass:JPPaymentMethodsCardHeaderModel.class]) {
         JPPaymentMethodsCardListHeaderCell *headerCell = (JPPaymentMethodsCardListHeaderCell *)cell;
         headerCell.delegate = self;
     }
-    
+
     if ([model isKindOfClass:JPPaymentMethodsSelectionModel.class]) {
         JPPaymentMethodsSelectionCell *selectionCell = (JPPaymentMethodsSelectionCell *)cell;
         selectionCell.sectionView.delegate = self;

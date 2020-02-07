@@ -80,10 +80,11 @@
 - (void)configureWithViewModel:(JPPaymentMethodsModel *)viewModel {
 
     JPPaymentMethodsSelectionModel *selectionModel = (JPPaymentMethodsSelectionModel *)viewModel;
-    if (selectionModel == nil) return;
-    
+    if (selectionModel == nil)
+        return;
+
     [self.sectionView removeSections];
-    
+
     for (JPPaymentMethod *paymentMethod in selectionModel.paymentMethods) {
         UIImage *image = [UIImage imageWithIconName:paymentMethod.iconName];
         [self.sectionView addSectionWithImage:image andTitle:paymentMethod.title];

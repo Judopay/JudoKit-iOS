@@ -42,7 +42,7 @@
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
 @property (nonatomic, strong) JPPaymentMethodsIDEALBankListModel *iDealBankListModel;
-@property (nonatomic, strong)JPPaymentMethodsApplePayModel *applePayModel;
+@property (nonatomic, strong) JPPaymentMethodsApplePayModel *applePayModel;
 @property (nonatomic, strong) JPAddCardButtonViewModel *paymentButtonModel;
 
 @property (nonatomic, assign) int previousIndex;
@@ -120,7 +120,7 @@
 - (void)changePaymentMethodToIndex:(int)index {
     AnimationType animationType = (index < self.previousIndex) ? AnimationTypeRightToLeft : AnimationTypeLeftToRight;
     self.previousIndex = index;
-    
+
     self.paymentSelectionModel.selectedPaymentMethod = index;
     [self updateViewModelWithAnimationType:animationType];
     [self.view configureWithViewModel:self.viewModel];
@@ -139,9 +139,9 @@
 }
 
 - (void)preparePaymentMethodModels {
-    
+
     NSArray *paymentMethods = [self.interactor getPaymentMethods];
-    
+
     if (paymentMethods.count > 1) {
         self.paymentSelectionModel.paymentMethods = paymentMethods;
         [self.viewModel.items addObject:self.paymentSelectionModel];
@@ -149,15 +149,15 @@
 
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
-    
+
     if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
         [self prepareCardListModels];
     }
-    
+
     if (selectedPaymentMethod.type == JPPaymentMethodTypeIDeal) {
         [self.viewModel.items addObject:self.iDealBankListModel];
     }
-    
+
     if (selectedPaymentMethod.type == JPPaymentMethodTypeApplePay) {
         [self.viewModel.items addObject:self.applePayModel];
     }

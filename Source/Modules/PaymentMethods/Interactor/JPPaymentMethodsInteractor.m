@@ -42,7 +42,7 @@
 - (instancetype)initWithTransaction:(JPTransaction *)transaction
                           reference:(JPReference *)reference
                               theme:(JPTheme *)theme
-                     paymentMethods:(NSArray <JPPaymentMethod *> *)methods
+                     paymentMethods:(NSArray<JPPaymentMethod *> *)methods
                           andAmount:(JPAmount *)amount {
     if (self = [super init]) {
         self.transaction = transaction;
@@ -84,7 +84,7 @@
 }
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
-    NSArray *defaultPaymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
+    NSArray *defaultPaymentMethods = @[ JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay ];
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 

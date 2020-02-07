@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
+#import "JPPaymentMethod.h"
 #import "JPReference.h"
 #import "JPSession.h"
-#import "JPPaymentMethod.h"
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
@@ -46,13 +46,13 @@
  * @param completionHandler - a response/error completion handler returned to the merchant
  */
 - (nonnull JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(nonnull NSString *)judoId
-                                                         session:(nonnull JudoKit *)session
-                                           transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
-                                                          amount:(nonnull JPAmount *)amount
-                                                       reference:(nonnull JPReference *)reference
-                                           supportedCardNetworks:(CardNetwork)networks
-                                                  paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-                                               completionHandler:(nonnull JudoCompletionBlock)completion;
+                                                                 session:(nonnull JudoKit *)session
+                                                   transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
+                                                                  amount:(nonnull JPAmount *)amount
+                                                               reference:(nonnull JPReference *)reference
+                                                   supportedCardNetworks:(CardNetwork)networks
+                                                          paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
+                                                       completionHandler:(nonnull JudoCompletionBlock)completion;
 
 /**
  * A method that builds the configured JPPaymentMethodsViewController for a PreAuth transaction

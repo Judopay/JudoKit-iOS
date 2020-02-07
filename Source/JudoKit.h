@@ -27,10 +27,10 @@
 
 #import "IDEALService.h"
 #import "JPCardDetails.h"
+#import "JPPaymentMethod.h"
 #import "JPSession.h"
 #import "JPTransactionData.h"
 #import "JudoPaymentMethodsViewController.h"
-#import "JPPaymentMethod.h"
 
 static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 

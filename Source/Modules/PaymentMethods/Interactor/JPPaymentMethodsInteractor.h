@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPPaymentMethod.h"
 #import "JPReference.h"
 #import "JPSession.h"
-#import "JPPaymentMethod.h"
 #import <Foundation/Foundation.h>
 
 @class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction;
@@ -56,7 +56,7 @@
 /**
  * A method that returns the available payment methods
  */
-- (NSArray <JPPaymentMethod *> *)getPaymentMethods;
+- (NSArray<JPPaymentMethod *> *)getPaymentMethods;
 
 /**
  * Sends a payment transaction based on a stored card token
@@ -89,7 +89,7 @@
 - (instancetype)initWithTransaction:(JPTransaction *)transaction
                           reference:(JPReference *)reference
                               theme:(JPTheme *)theme
-                     paymentMethods:(NSArray <JPPaymentMethod *> *)methods
+                     paymentMethods:(NSArray<JPPaymentMethod *> *)methods
                           andAmount:(JPAmount *)amount;
 
 @end
