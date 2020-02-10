@@ -68,15 +68,18 @@
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
     [self addSubview:self.cardView];
-    
+
     CGFloat topConstant = 100.0 * getWidthAspectRatio();
     CGFloat bottomConstant = -10.0 * getWidthAspectRatio();
-    
+
     [NSLayoutConstraint activateConstraints:@[
-        [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor constant:topConstant],
-        [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:bottomConstant],
+        [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                constant:topConstant],
+        [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+                                                   constant:bottomConstant],
         [self.cardView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-        [self.cardView.widthAnchor constraintEqualToAnchor:self.cardView.heightAnchor multiplier:1.715],
+        [self.cardView.widthAnchor constraintEqualToAnchor:self.cardView.heightAnchor
+                                                multiplier:1.715],
     ]];
 }
 
@@ -104,18 +107,19 @@
 - (void)animateCardSetup {
     self.cardView.transform = CGAffineTransformMakeTranslation(0.0, 100.0);
     self.cardView.alpha = 0.0;
-    [UIView animateWithDuration:0.3 animations:^{
-        self.cardView.alpha = 1.0;
-        self.cardView.transform = CGAffineTransformIdentity;
-    }];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.cardView.alpha = 1.0;
+                         self.cardView.transform = CGAffineTransformIdentity;
+                     }];
 }
 
 - (void)animateBottomToTopCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
-    
+
     CGPoint oldPosition = CGPointMake(0.0f, (self.cardView.frame.size.height + self.frame.size.width / 2));
     CGPoint newPosition = CGPointMake(0.0f, oldCardView.frame.size.height * 2);
-    
+
     [self transitionCard:oldCardView
            withViewModel:viewModel
             fromPosition:oldPosition
@@ -124,10 +128,10 @@
 
 - (void)animateRightToLeftCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
-    
+
     CGPoint oldPosition = CGPointMake(-self.frame.size.width * 2, 0.0f);
     CGPoint newPosition = CGPointMake(self.frame.size.width - 30, 0.0f);
-    
+
     [self transitionCard:oldCardView
            withViewModel:viewModel
             fromPosition:oldPosition
@@ -136,10 +140,10 @@
 
 - (void)animateLeftToRightCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
-    
+
     CGPoint oldPosition = CGPointMake(self.frame.size.width * 2, 0.0f);
     CGPoint newPosition = CGPointMake(-self.frame.size.width - 30, 0.0f);
-    
+
     [self transitionCard:oldCardView
            withViewModel:viewModel
             fromPosition:oldPosition
@@ -156,10 +160,10 @@
 
 - (void)setInitialTransformationWithXPosition:(CGFloat)xPosition
                                  andYPosition:(CGFloat)yPosition {
-    
+
     CGAffineTransform translation = CGAffineTransformMakeTranslation(xPosition, yPosition);
     CGAffineTransform scale = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
-    
+
     self.cardView.transform = CGAffineTransformConcat(translation, scale);
     [self layoutIfNeeded];
 }
@@ -168,7 +172,7 @@
          withViewModel:(JPPaymentMethodsHeaderModel *)viewModel
           fromPosition:(CGPoint)oldPosition
             toPosition:(CGPoint)newPosition {
-    
+
     [self prepareNewCardViewWithModel:viewModel];
     [self setInitialTransformationWithXPosition:oldPosition.x andYPosition:oldPosition.y];
     [self transitionFromCardView:cardView toXPosition:newPosition.x andYPosition:newPosition.y];
@@ -178,30 +182,30 @@
                    toXPosition:(CGFloat)xPosition
                   andYPosition:(CGFloat)yPosition {
     [UIView animateWithDuration:0.5
-                     animations:^{
-        [self transformOldCardView:cardView withXPosition:xPosition andYPosition:yPosition];
-        [self transformNewCardView:self.cardView];
-    }
-    completion:^(BOOL finished) {
-        [cardView removeFromSuperview];
-    }];
+        animations:^{
+            [self transformOldCardView:cardView withXPosition:xPosition andYPosition:yPosition];
+            [self transformNewCardView:self.cardView];
+        }
+        completion:^(BOOL finished) {
+            [cardView removeFromSuperview];
+        }];
 }
 
 - (void)transformNewCardView:(JPCardView *)cardView {
-        CGAffineTransform translation = CGAffineTransformMakeTranslation(0.0, 0.0);
-        CGAffineTransform scale = CGAffineTransformMakeScale(1, 1);
-        cardView.transform = CGAffineTransformConcat(translation, scale);
+    CGAffineTransform translation = CGAffineTransformMakeTranslation(0.0, 0.0);
+    CGAffineTransform scale = CGAffineTransformMakeScale(1, 1);
+    cardView.transform = CGAffineTransformConcat(translation, scale);
 }
 
 - (void)transformOldCardView:(JPCardView *)cardView
                withXPosition:(CGFloat)xPosition
                 andYPosition:(CGFloat)yPosition {
-    
-        CGAffineTransform translation = CGAffineTransformMakeTranslation(xPosition, yPosition);
-        CGAffineTransform scale = CGAffineTransformMakeScale(0.6, 0.6);
 
-        cardView.transform = CGAffineTransformConcat(translation, scale);
-        cardView.alpha = 0.0;
+    CGAffineTransform translation = CGAffineTransformMakeTranslation(xPosition, yPosition);
+    CGAffineTransform scale = CGAffineTransformMakeScale(0.6, 0.6);
+
+    cardView.transform = CGAffineTransformConcat(translation, scale);
+    cardView.alpha = 0.0;
 }
 
 #pragma mark - Lazy Properties

@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardView.h"
+#import "Functions.h"
 #import "JPCardNetwork.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "UIColor+Judo.h"
@@ -30,7 +31,6 @@
 #import "UIImage+Icons.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "Functions.h"
 
 @interface JPCardView ()
 
@@ -70,7 +70,7 @@
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    
+
     self.titleLabel.text = viewModel.cardModel.cardTitle;
     self.expiryDateLabel.text = viewModel.cardModel.cardExpiryDate;
 
@@ -125,9 +125,9 @@
         _contentView.clipsToBounds = YES;
         _contentView.layer.cornerRadius = 10.0;
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        _contentView.backgroundColor = [UIColor colorWithRed:128/255.0
-                                                       green:140/255.0
-                                                        blue:92/255.0
+        _contentView.backgroundColor = [UIColor colorWithRed:128 / 255.0
+                                                       green:140 / 255.0
+                                                        blue:92 / 255.0
                                                        alpha:1.0];
     }
     return _contentView;
@@ -139,9 +139,9 @@
     gradient.frame = CGRectMake(0, 0, 400, 250);
     gradient.startPoint = CGPointZero;
     gradient.endPoint = CGPointMake(1, 1);
-    UIColor *colorOne = [UIColor colorWithRed:34.0/255.0 green:211/255.0 blue:198/255.0 alpha:1.0];
-    UIColor *colorTwo = [UIColor colorWithRed:145/255.0 green:72.0/255.0 blue:203/255.0 alpha:1.0];
-    gradient.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
+    UIColor *colorOne = [UIColor colorWithRed:34.0 / 255.0 green:211 / 255.0 blue:198 / 255.0 alpha:1.0];
+    UIColor *colorTwo = [UIColor colorWithRed:145 / 255.0 green:72.0 / 255.0 blue:203 / 255.0 alpha:1.0];
+    gradient.colors = @[ (id)colorOne.CGColor, (id)colorTwo.CGColor ];
     [view.layer insertSublayer:gradient atIndex:0];
 }
 

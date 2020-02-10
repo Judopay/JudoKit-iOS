@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsHeaderView.h"
+#import "Functions.h"
 #import "JPAddCardButton.h"
 #import "JPAmount.h"
 #import "JPPaymentMethodsViewModel.h"
@@ -32,7 +33,6 @@
 #import "UIImage+Icons.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "Functions.h"
 
 #import "JPPaymentMethodsCardHeaderView.h"
 #import "JPPaymentMethodsEmptyHeaderView.h"
@@ -85,7 +85,7 @@ static const CGFloat bottomHeight = 86.0f;
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    
+
     self.amountValueLabel.text = [NSString stringWithFormat:@"%@%@",
                                                             viewModel.amount.currency.toCurrencySymbol,
                                                             viewModel.amount.amount];
@@ -95,7 +95,7 @@ static const CGFloat bottomHeight = 86.0f;
     self.emptyHeaderView.transform = CGAffineTransformMakeTranslation(0, 100);
     self.emptyHeaderView.alpha = 0.0;
     self.backgroundImageView.alpha = 0.0;
-    
+
     [self.emptyHeaderView removeFromSuperview];
     [self.cardHeaderView removeFromSuperview];
 
@@ -106,12 +106,13 @@ static const CGFloat bottomHeight = 86.0f;
         self.backgroundImageView.image = [UIImage imageWithResourceName:@"gradient-background"];
         [self displayCardHeaderViewWithViewModel:viewModel];
     }
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.emptyHeaderView.transform = CGAffineTransformIdentity;
-        self.emptyHeaderView.alpha = 1.0;
-        self.backgroundImageView.alpha = 1.0;
-    }];
+
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.emptyHeaderView.transform = CGAffineTransformIdentity;
+                         self.emptyHeaderView.alpha = 1.0;
+                         self.backgroundImageView.alpha = 1.0;
+                     }];
 }
 
 - (void)displayEmptyHeaderView {
@@ -140,7 +141,7 @@ static const CGFloat bottomHeight = 86.0f;
 
 - (void)setupBottomView {
     [self addSubview:self.bottomView];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.bottomView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         [self.bottomView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
@@ -173,13 +174,13 @@ static const CGFloat bottomHeight = 86.0f;
     [self.paymentStackView addArrangedSubview:self.amountStackView];
     [self.paymentStackView addArrangedSubview:self.payButton];
     self.paymentStackView.distribution = UIStackViewDistributionFillEqually;
-    
+
     [self.bottomView addSubview:self.paymentStackView];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.payButton.widthAnchor constraintEqualToConstant:200.0f]
     ]];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.leadingAnchor
                                                             constant:24.0],
@@ -208,11 +209,11 @@ static const CGFloat bottomHeight = 86.0f;
         _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, bottomHeight);
-               
+
         UIColor *clearWhite = [UIColor.whiteColor colorWithAlphaComponent:0.0];
-        gradient.colors = @[(id)clearWhite.CGColor, (id)UIColor.whiteColor.CGColor];
-        gradient.locations = @[@0.0, @0.3];
-               
+        gradient.colors = @[ (id)clearWhite.CGColor, (id)UIColor.whiteColor.CGColor ];
+        gradient.locations = @[ @0.0, @0.3 ];
+
         [_bottomView.layer insertSublayer:gradient atIndex:0];
     }
     return _bottomView;
