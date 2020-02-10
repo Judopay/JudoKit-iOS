@@ -65,8 +65,7 @@
     self.sectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor
-                                                   constant:25.0f],
+        [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [self.sectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
                                                       constant:-25.0f],
         [self.sectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],

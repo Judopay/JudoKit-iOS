@@ -70,7 +70,7 @@
     [self addSubview:self.cardView];
     
     CGFloat topConstant = 100.0 * getWidthAspectRatio();
-    CGFloat bottomConstant = -30.0 * getWidthAspectRatio();
+    CGFloat bottomConstant = -10.0 * getWidthAspectRatio();
     
     [NSLayoutConstraint activateConstraints:@[
         [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor constant:topConstant],

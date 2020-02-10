@@ -32,6 +32,7 @@
 #import "UIImage+Icons.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
+#import "Functions.h"
 
 #import "JPPaymentMethodsCardHeaderView.h"
 #import "JPPaymentMethodsEmptyHeaderView.h"
@@ -39,6 +40,8 @@
 @interface JPPaymentMethodsHeaderView ()
 
 @property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UIView *bottomView;
+
 @property (nonatomic, strong) JPPaymentMethodsEmptyHeaderView *emptyHeaderView;
 @property (nonatomic, strong) JPPaymentMethodsCardHeaderView *cardHeaderView;
 
@@ -48,18 +51,13 @@
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @property (nonatomic, strong) UIStackView *amountStackView;
-@property (nonatomic, strong) UIStackView *mainStackView;
+@property (nonatomic, strong) UIStackView *paymentStackView;
 
 @end
 
 @implementation JPPaymentMethodsHeaderView
 
-static const CGFloat maxHeaderHeight = 408.0f;
-static const CGFloat minHeaderHeight = 294.0f;
-static const CGFloat paymentStackViewHeight = 46.0f; //20 bottom 10 top
-static const CGFloat bottomHeight = 76.0f;
-static const CGFloat paymentStackViewPadding = 24.0f;
-
+static const CGFloat bottomHeight = 86.0f;
 
 #pragma mark - Initializers
 
@@ -94,6 +92,10 @@ static const CGFloat paymentStackViewPadding = 24.0f;
 
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
 
+    self.emptyHeaderView.transform = CGAffineTransformMakeTranslation(0, 100);
+    self.emptyHeaderView.alpha = 0.0;
+    self.backgroundImageView.alpha = 0.0;
+    
     [self.emptyHeaderView removeFromSuperview];
     [self.cardHeaderView removeFromSuperview];
 
@@ -104,6 +106,12 @@ static const CGFloat paymentStackViewPadding = 24.0f;
         self.backgroundImageView.image = [UIImage imageWithResourceName:@"gradient-background"];
         [self displayCardHeaderViewWithViewModel:viewModel];
     }
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.emptyHeaderView.transform = CGAffineTransformIdentity;
+        self.emptyHeaderView.alpha = 1.0;
+        self.backgroundImageView.alpha = 1.0;
+    }];
 }
 
 - (void)displayEmptyHeaderView {
@@ -116,62 +124,72 @@ static const CGFloat paymentStackViewPadding = 24.0f;
     [self.cardHeaderView pinToView:self.topView withPadding:0.0];
     [self.cardHeaderView configureWithViewModel:viewModel];
 
-    [self insertSubview:self.mainStackView aboveSubview:self.topView];
+    [self insertSubview:self.bottomView aboveSubview:self.topView];
 }
 
 #pragma mark - Layout Setup
 
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
+    [self setupBackgroundImageView];
+    [self setupBottomView];
+    [self setupTopView];
+    [self setupAmountStackView];
+    [self setupPaymentStackView];
+}
 
-    [self insertSubview:self.backgroundImageView belowSubview:self.mainStackView];
-    [self setupBackgroundImageViewConstraints];
+- (void)setupBottomView {
+    [self addSubview:self.bottomView];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.bottomView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [self.bottomView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [self.bottomView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.bottomView.heightAnchor constraintEqualToConstant:bottomHeight]
+    ]];
+}
 
-    [self setupPaymentStackViews];
-    [self setupStackViewConstraints];
-
+- (void)setupTopView {
     [self addSubview:self.topView];
-    [self setupGeneralConstraints];
-    [self setupPaymentStackViewBackground];
+    [NSLayoutConstraint activateConstraints:@[
+        [self.topView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [self.topView.bottomAnchor constraintEqualToAnchor:self.bottomView.topAnchor],
+        [self.topView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [self.topView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+    ]];
 }
 
-- (void)setupPaymentStackViews {
-    [self.amountStackView addArrangedSubview:self.amountPrefixLabel];
-    [self.amountStackView addArrangedSubview:self.amountValueLabel];
-
-    [self.mainStackView addArrangedSubview:self.amountStackView];
-    [self.mainStackView addArrangedSubview:self.payButton];
-
-    [self insertSubview:self.mainStackView aboveSubview:self.topView];
-}
-
-- (void)setupPaymentStackViewBackground {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 50)];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = bgView.bounds;
-    gradient.colors = @[ (id)[UIColor colorWithWhite:1 alpha:0].CGColor, (id)[UIColor colorWithWhite:1 alpha:1].CGColor ];
-    gradient.locations = @[ @0.0, @0.2 ];
-    [bgView.layer insertSublayer:gradient atIndex:1];
-    [self.mainStackView insertSubview:bgView atIndex:0];
-}
-
-#pragma mark - Constraints Setup
-
-- (void)setupBackgroundImageViewConstraints {
+- (void)setupBackgroundImageView {
+    [self addSubview:self.backgroundImageView];
     [self.backgroundImageView pinToView:self withPadding:0.0];
 }
 
-- (void)setupGeneralConstraints {
-    [self.payButton.widthAnchor constraintEqualToConstant:200.0].active = YES;
-    [self.topView pinToAnchors:AnchorTypeTop | AnchorTypeLeading | AnchorTypeTrailing forView:self];
-    [self.topView.bottomAnchor constraintEqualToAnchor:self.mainStackView.topAnchor].active = YES;
+- (void)setupAmountStackView {
+    [self.amountStackView addArrangedSubview:self.amountPrefixLabel];
+    [self.amountStackView addArrangedSubview:self.amountValueLabel];
 }
 
-- (void)setupStackViewConstraints {
-    [self.mainStackView.heightAnchor constraintEqualToConstant:46.0].active = YES;
-    [self.mainStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [self.mainStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:24.0].active = YES;
-    [self.mainStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-24.0].active = YES;
+- (void)setupPaymentStackView {
+    [self.paymentStackView addArrangedSubview:self.amountStackView];
+    [self.paymentStackView addArrangedSubview:self.payButton];
+    self.paymentStackView.distribution = UIStackViewDistributionFillEqually;
+    
+    [self.bottomView addSubview:self.paymentStackView];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.payButton.widthAnchor constraintEqualToConstant:200.0f]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.leadingAnchor
+                                                            constant:24.0],
+        [self.paymentStackView.trailingAnchor constraintEqualToAnchor:self.bottomView.trailingAnchor
+                                                             constant:-24.0],
+        [self.paymentStackView.topAnchor constraintEqualToAnchor:self.bottomView.topAnchor
+                                                        constant:20.0],
+        [self.paymentStackView.bottomAnchor constraintEqualToAnchor:self.bottomView.bottomAnchor
+                                                           constant:-20.0],
+    ]];
 }
 
 #pragma mark - Lazy Properties
@@ -182,6 +200,37 @@ static const CGFloat paymentStackViewPadding = 24.0f;
         _topView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _topView;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [UIView new];
+        _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, bottomHeight);
+               
+        UIColor *clearWhite = [UIColor.whiteColor colorWithAlphaComponent:0.0];
+        gradient.colors = @[(id)clearWhite.CGColor, (id)UIColor.whiteColor.CGColor];
+        gradient.locations = @[@0.0, @0.3];
+               
+        [_bottomView.layer insertSublayer:gradient atIndex:0];
+    }
+    return _bottomView;
+}
+
+- (UIStackView *)amountStackView {
+    if (!_amountStackView) {
+        _amountStackView = [UIStackView verticalStackViewWithSpacing:0.0];
+        _amountStackView.alignment = NSLayoutAttributeLeading;
+    }
+    return _amountStackView;
+}
+
+- (UIStackView *)paymentStackView {
+    if (!_paymentStackView) {
+        _paymentStackView = [UIStackView horizontalStackViewWithSpacing:0.0];
+    }
+    return _paymentStackView;
 }
 
 - (JPPaymentMethodsEmptyHeaderView *)emptyHeaderView {
@@ -245,21 +294,6 @@ static const CGFloat paymentStackViewPadding = 24.0f;
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _backgroundImageView;
-}
-
-- (UIStackView *)amountStackView {
-    if (!_amountStackView) {
-        _amountStackView = [UIStackView verticalStackViewWithSpacing:0.0];
-        _amountStackView.alignment = NSLayoutAttributeLeading;
-    }
-    return _amountStackView;
-}
-
-- (UIStackView *)mainStackView {
-    if (!_mainStackView) {
-        _mainStackView = [UIStackView horizontalStackViewWithSpacing:0.0];
-    }
-    return _mainStackView;
 }
 
 @end

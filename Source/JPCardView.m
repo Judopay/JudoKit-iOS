@@ -30,6 +30,7 @@
 #import "UIImage+Icons.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
+#import "Functions.h"
 
 @interface JPCardView ()
 
@@ -93,7 +94,7 @@
     [bottomStackView addArrangedSubview:self.cardNumberLabel];
     [bottomStackView addArrangedSubview:self.expiryDateLabel];
 
-    UIStackView *cardTitleStackView = [UIStackView verticalStackViewWithSpacing:24];
+    UIStackView *cardTitleStackView = [UIStackView verticalStackViewWithSpacing:24 * getWidthAspectRatio()];
     [cardTitleStackView addArrangedSubview:self.titleLabel];
     [cardTitleStackView addArrangedSubview:bottomStackView];
 
@@ -106,11 +107,11 @@
     [mainStackView addArrangedSubview:[UIView new]];
     [mainStackView addArrangedSubview:cardTitleStackView];
 
-    [self.logoImageView.widthAnchor constraintEqualToConstant:50.0].active = YES;
-    [self.logoImageView.heightAnchor constraintEqualToConstant:30.0].active = YES;
+    [self.logoImageView.widthAnchor constraintEqualToConstant:50.0 * getWidthAspectRatio()].active = YES;
+    [self.logoImageView.heightAnchor constraintEqualToConstant:30.0 * getWidthAspectRatio()].active = YES;
 
     [self.contentView addSubview:mainStackView];
-    [mainStackView pinToView:self.contentView withPadding:28.0];
+    [mainStackView pinToView:self.contentView withPadding:28.0 * getWidthAspectRatio()];
 
     [self addSubview:self.contentView];
     [self.contentView pinToView:self withPadding:0.0];
@@ -148,7 +149,7 @@
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = UIFont.title;
+        _titleLabel.font = [UIFont systemFontOfSize:18.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
         _titleLabel.textColor = UIColor.whiteColor;
     }
     return _titleLabel;
@@ -158,7 +159,7 @@
     if (!_cardNumberLabel) {
         _cardNumberLabel = [UILabel new];
         _cardNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _cardNumberLabel.font = UIFont.bodyBold;
+        _cardNumberLabel.font = [UIFont systemFontOfSize:16.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
         _cardNumberLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _cardNumberLabel;
@@ -169,7 +170,7 @@
         _expiryDateLabel = [UILabel new];
         _expiryDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _expiryDateLabel.textAlignment = NSTextAlignmentRight;
-        _expiryDateLabel.font = UIFont.bodyBold;
+        _expiryDateLabel.font = [UIFont systemFontOfSize:16.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
         _expiryDateLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _expiryDateLabel;
