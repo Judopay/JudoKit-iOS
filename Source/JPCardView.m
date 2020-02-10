@@ -125,10 +125,6 @@
         _contentView.clipsToBounds = YES;
         _contentView.layer.cornerRadius = 10.0;
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        _contentView.backgroundColor = [UIColor colorWithRed:128 / 255.0
-                                                       green:140 / 255.0
-                                                        blue:92 / 255.0
-                                                       alpha:1.0];
     }
     return _contentView;
 }
@@ -149,7 +145,7 @@
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = [UIFont systemFontOfSize:18.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
+        _titleLabel.font = UIFont.title;
         _titleLabel.textColor = UIColor.whiteColor;
     }
     return _titleLabel;
@@ -159,7 +155,7 @@
     if (!_cardNumberLabel) {
         _cardNumberLabel = [UILabel new];
         _cardNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _cardNumberLabel.font = [UIFont systemFontOfSize:16.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
+        _cardNumberLabel.font = UIFont.bodyBold;
         _cardNumberLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _cardNumberLabel;
@@ -170,7 +166,7 @@
         _expiryDateLabel = [UILabel new];
         _expiryDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _expiryDateLabel.textAlignment = NSTextAlignmentRight;
-        _expiryDateLabel.font = [UIFont systemFontOfSize:16.0 * getWidthAspectRatio() weight:UIFontWeightSemibold];
+        _expiryDateLabel.font = UIFont.bodyBold;
         _expiryDateLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _expiryDateLabel;

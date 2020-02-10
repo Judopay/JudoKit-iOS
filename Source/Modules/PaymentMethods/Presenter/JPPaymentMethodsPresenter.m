@@ -150,16 +150,21 @@
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
 
-    if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
-        [self prepareCardListModels];
-    }
+    switch (selectedPaymentMethod.type) {
+        case JPPaymentMethodTypeCard:
+            [self prepareCardListModels];
+            break;
 
-    if (selectedPaymentMethod.type == JPPaymentMethodTypeIDeal) {
-        [self.viewModel.items addObject:self.iDealBankListModel];
-    }
+        case JPPaymentMethodTypeIDeal:
+            [self.viewModel.items addObject:self.iDealBankListModel];
+            break;
 
-    if (selectedPaymentMethod.type == JPPaymentMethodTypeApplePay) {
-        [self.viewModel.items addObject:self.applePayModel];
+        case JPPaymentMethodTypeApplePay:
+            [self.viewModel.items addObject:self.applePayModel];
+            break;
+
+        default:
+            break;
     }
 }
 
