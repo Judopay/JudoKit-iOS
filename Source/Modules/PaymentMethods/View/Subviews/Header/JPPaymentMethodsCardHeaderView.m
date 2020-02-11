@@ -220,10 +220,10 @@
 - (JPCardView *)createCardView {
     JPCardView *updatedCardView = [JPCardView new];
     updatedCardView.translatesAutoresizingMaskIntoConstraints = NO;
-    updatedCardView.layer.shadowColor = UIColor.blackColor.CGColor;
+    updatedCardView.layer.shadowColor = UIColor.grayColor.CGColor;
     updatedCardView.layer.shadowRadius = 10.0;
     updatedCardView.layer.shadowOffset = CGSizeMake(0, 4);
-    updatedCardView.layer.shadowOpacity = 0.7;
+    updatedCardView.layer.shadowOpacity = 1.0;
     return updatedCardView;
 }
 

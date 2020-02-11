@@ -22,9 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardView.h"
+#import "JPCardPaymentMethodView.h"
 #import "Functions.h"
-#import "JPCardNetwork.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "UIColor+Judo.h"
 #import "UIFont+Additions.h"
@@ -32,9 +31,8 @@
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
 
-@interface JPCardView ()
+@interface JPCardPaymentMethodView ()
 
-@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIImageView *logoImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *expiryDateLabel;
@@ -42,7 +40,7 @@
 
 @end
 
-@implementation JPCardView
+@implementation JPCardPaymentMethodView
 
 #pragma mark - Initializers
 
@@ -83,7 +81,6 @@
                                                            viewModel.cardModel.cardNumberLastFour];
 
     self.logoImageView.image = [UIImage imageForCardNetwork:viewModel.cardModel.cardNetwork];
-    [self applyGradientsToView:self.contentView];
 }
 
 #pragma mark - Layout Setup
@@ -110,27 +107,15 @@
     [self.logoImageView.widthAnchor constraintEqualToConstant:50.0 * getWidthAspectRatio()].active = YES;
     [self.logoImageView.heightAnchor constraintEqualToConstant:30.0 * getWidthAspectRatio()].active = YES;
 
-    [self.contentView addSubview:mainStackView];
-    [mainStackView pinToView:self.contentView withPadding:28.0 * getWidthAspectRatio()];
-
-    [self addSubview:self.contentView];
-    [self.contentView pinToView:self withPadding:0.0];
+    [self addSubview:mainStackView];
+    [mainStackView pinToView:self withPadding:28.0 * getWidthAspectRatio()];
+    [self applyGradients];
 }
 
 #pragma mark - Lazy Properties
 
-- (UIView *)contentView {
-    if (!_contentView) {
-        _contentView = [UIView new];
-        _contentView.clipsToBounds = YES;
-        _contentView.layer.cornerRadius = 10.0;
-        _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _contentView;
-}
-
-- (void)applyGradientsToView:(UIView *)view {
-    [view layoutIfNeeded];
+- (void)applyGradients {
+    [self layoutIfNeeded];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectMake(0, 0, 400, 250);
     gradient.startPoint = CGPointZero;
@@ -138,7 +123,7 @@
     UIColor *colorOne = [UIColor colorWithRed:34.0 / 255.0 green:211 / 255.0 blue:198 / 255.0 alpha:1.0];
     UIColor *colorTwo = [UIColor colorWithRed:145 / 255.0 green:72.0 / 255.0 blue:203 / 255.0 alpha:1.0];
     gradient.colors = @[ (id)colorOne.CGColor, (id)colorTwo.CGColor ];
-    [view.layer insertSublayer:gradient atIndex:0];
+    [self.layer insertSublayer:gradient atIndex:0];
 }
 
 - (UILabel *)titleLabel {

@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethodsHeaderView.h
+//  JPCardView.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -23,24 +23,13 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import <PassKit/PassKit.h>
 
-@class JPPaymentMethodsHeaderModel, JPAddCardButton;
+@class JPPaymentMethodsHeaderModel;
 
-@interface JPPaymentMethodsHeaderView : UIView
-
-/**
- * The Pay button that triggers the payment flow
- */
-@property (nonatomic, strong) JPAddCardButton *payButton;
+@interface JPCardPaymentMethodView : UIView
 
 /**
- * The Apple Pay branded button that triggers the Apple Pay flow
- */
-@property (nonatomic, strong) PKPaymentButton *applePayButton;
-
-/**
- * A method that configures the header of the payment method screen based on a view model
+ * A method that configures the custom card view based on a view model
  */
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel;
 

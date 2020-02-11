@@ -85,39 +85,56 @@ static const CGFloat bottomHeight = 86.0f;
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    [self configureTopHeaderWithViewModel:viewModel];
+    [self configureBottomHeaderWithViewModel:viewModel];
+}
 
-    self.amountValueLabel.text = [NSString stringWithFormat:@"%@%@",
-                                                            viewModel.amount.currency.toCurrencySymbol,
-                                                            viewModel.amount.amount];
+- (void)configureTopHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    [self removePreviousTopHeader];
+    
+    if (viewModel.cardModel == nil) {
+        self.backgroundImageView.image = [UIImage imageWithResourceName:@"no-cards"];
+        [self displayEmptyHeaderView];
+        return;
+    }
+    
+    self.backgroundImageView.image = [UIImage imageWithResourceName:@"gradient-background"];
+    [self displayCardHeaderViewWithViewModel:viewModel];
+}
 
+- (void)configureBottomHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    [self configureAmountWithViewModel:viewModel];
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
+    self.payButton.hidden = (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay);
+    self.applePayButton.hidden = !self.payButton.isHidden;
+}
 
+- (void)configureAmountWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    self.amountValueLabel.text = [NSString stringWithFormat:@"%@%@",
+                                  viewModel.amount.currency.toCurrencySymbol,
+                                  viewModel.amount.amount];
+}
+
+#pragma mark - Helper methods
+
+- (void)removePreviousTopHeader {
     self.emptyHeaderView.transform = CGAffineTransformMakeTranslation(0, 100);
     self.emptyHeaderView.alpha = 0.0;
     self.backgroundImageView.alpha = 0.0;
 
     [self.emptyHeaderView removeFromSuperview];
     [self.cardHeaderView removeFromSuperview];
-
-    if (viewModel.cardModel == nil) {
-        self.backgroundImageView.image = [UIImage imageWithResourceName:@"no-cards"];
-        [self displayEmptyHeaderView];
-    } else {
-        self.backgroundImageView.image = [UIImage imageWithResourceName:@"gradient-background"];
-        [self displayCardHeaderViewWithViewModel:viewModel];
-    }
-
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         self.emptyHeaderView.transform = CGAffineTransformIdentity;
-                         self.emptyHeaderView.alpha = 1.0;
-                         self.backgroundImageView.alpha = 1.0;
-                     }];
 }
 
 - (void)displayEmptyHeaderView {
     [self.topView addSubview:self.emptyHeaderView];
     [self.emptyHeaderView pinToView:self.topView withPadding:0.0];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+        self.emptyHeaderView.transform = CGAffineTransformIdentity;
+        self.emptyHeaderView.alpha = 1.0;
+        self.backgroundImageView.alpha = 1.0;
+    }];
 }
 
 - (void)displayCardHeaderViewWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
@@ -168,17 +185,20 @@ static const CGFloat bottomHeight = 86.0f;
 - (void)setupAmountStackView {
     [self.amountStackView addArrangedSubview:self.amountPrefixLabel];
     [self.amountStackView addArrangedSubview:self.amountValueLabel];
+    self.amountStackView.alignment = UIStackViewAlignmentLeading;
 }
 
 - (void)setupPaymentStackView {
     [self.paymentStackView addArrangedSubview:self.amountStackView];
     [self.paymentStackView addArrangedSubview:self.payButton];
+    [self.paymentStackView addArrangedSubview:self.applePayButton];
     self.paymentStackView.distribution = UIStackViewDistributionFillEqually;
 
     [self.bottomView addSubview:self.paymentStackView];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.payButton.widthAnchor constraintEqualToConstant:200.0f]
+        [self.payButton.widthAnchor constraintEqualToConstant:200.0f],
+        [self.applePayButton.widthAnchor constraintEqualToConstant: 200.0f]
     ]];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -285,6 +305,14 @@ static const CGFloat bottomHeight = 86.0f;
         [_payButton setClipsToBounds:YES];
     }
     return _payButton;
+}
+
+- (PKPaymentButton *)applePayButton {
+    if (!_applePayButton) {
+        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp
+                                                    style:PKPaymentButtonStyleBlack];
+    }
+    return _applePayButton;
 }
 
 - (UIImageView *)backgroundImageView {

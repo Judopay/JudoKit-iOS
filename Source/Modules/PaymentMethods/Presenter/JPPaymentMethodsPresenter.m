@@ -118,10 +118,16 @@
 }
 
 - (void)changePaymentMethodToIndex:(int)index {
-    AnimationType animationType = (index < self.previousIndex) ? AnimationTypeRightToLeft : AnimationTypeLeftToRight;
+    AnimationType animationType = AnimationTypeLeftToRight;
+    
+    if (index < self.previousIndex) {
+        animationType = AnimationTypeRightToLeft;
+    }
+    
     self.previousIndex = index;
 
     self.paymentSelectionModel.selectedPaymentMethod = index;
+    
     [self updateViewModelWithAnimationType:animationType];
     [self.view configureWithViewModel:self.viewModel];
 }
@@ -134,7 +140,6 @@
 
     [self prepareHeaderModel];
     self.viewModel.headerModel.animationType = animationType;
-
     [self preparePaymentMethodModels];
 }
 
@@ -149,6 +154,7 @@
 
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
+    self.viewModel.headerModel.paymentMethodType = selectedPaymentMethod.type;
 
     switch (selectedPaymentMethod.type) {
         case JPPaymentMethodTypeCard:

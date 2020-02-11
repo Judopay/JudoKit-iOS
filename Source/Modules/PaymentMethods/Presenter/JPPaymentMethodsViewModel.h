@@ -199,10 +199,11 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 @property (nonatomic, strong) JPPaymentMethodsCardModel *_Nullable cardModel;
 
 /**
-* Card appearance animation type
-*/
-
+ * Card appearance animation type
+ */
 @property (nonatomic, assign) AnimationType animationType;
+
+@property (nonatomic, assign) JPPaymentMethodType paymentMethodType;
 
 @end
 

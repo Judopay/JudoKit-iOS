@@ -316,6 +316,10 @@
 		5214A7C2239997AD00283B81 /* SliderTransitioningDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5214A7B7239997AD00283B81 /* SliderTransitioningDelegate.h */; };
 		52374F3723A163FD000F1340 /* UIFont+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52374F3523A163FD000F1340 /* UIFont+Additions.h */; };
 		52374F3823A163FD000F1340 /* UIFont+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52374F3623A163FD000F1340 /* UIFont+Additions.m */; };
+		5273AF1423F30730008C6D89 /* JPCardPaymentMethodView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5273AF1223F30730008C6D89 /* JPCardPaymentMethodView.h */; };
+		5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */; };
+		5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */; };
+		5273AF1A23F31027008C6D89 /* JPOtherPaymentMethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5273AF1823F31027008C6D89 /* JPOtherPaymentMethodView.m */; };
 		5280171223929BB500D2AFDB /* UIImage+Icons.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280171023929BB500D2AFDB /* UIImage+Icons.h */; };
 		5280171323929BB500D2AFDB /* UIImage+Icons.m in Sources */ = {isa = PBXBuildFile; fileRef = 5280171123929BB500D2AFDB /* UIImage+Icons.m */; };
 		5280171623929E8E00D2AFDB /* UIStackView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280171423929E8E00D2AFDB /* UIStackView+Additions.h */; };
@@ -782,6 +786,10 @@
 		5214A7B7239997AD00283B81 /* SliderTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderTransitioningDelegate.h; sourceTree = "<group>"; };
 		52374F3523A163FD000F1340 /* UIFont+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIFont+Additions.h"; path = "Extensions/UIFont+Additions.h"; sourceTree = "<group>"; };
 		52374F3623A163FD000F1340 /* UIFont+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIFont+Additions.m"; path = "Extensions/UIFont+Additions.m"; sourceTree = "<group>"; };
+		5273AF1223F30730008C6D89 /* JPCardPaymentMethodView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardPaymentMethodView.h; sourceTree = "<group>"; };
+		5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCardPaymentMethodView.m; sourceTree = "<group>"; };
+		5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPOtherPaymentMethodView.h; sourceTree = "<group>"; };
+		5273AF1823F31027008C6D89 /* JPOtherPaymentMethodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOtherPaymentMethodView.m; sourceTree = "<group>"; };
 		5280171023929BB500D2AFDB /* UIImage+Icons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+Icons.h"; path = "Extensions/UIImage+Icons.h"; sourceTree = "<group>"; };
 		5280171123929BB500D2AFDB /* UIImage+Icons.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Icons.m"; path = "Extensions/UIImage+Icons.m"; sourceTree = "<group>"; };
 		5280171423929E8E00D2AFDB /* UIStackView+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIStackView+Additions.h"; path = "Extensions/UIStackView+Additions.h"; sourceTree = "<group>"; };
@@ -1064,6 +1072,7 @@
 		30D61D3A23BB741A004E5CEE /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				5273AF0A23F306D4008C6D89 /* CardView */,
 				529CCB8323BE8A8700A8DBDD /* Header */,
 				30D61DF423BE3A45004E5CEE /* Cells */,
 				30D61DE323BE3976004E5CEE /* JPPaymentMethodsHeaderView.h */,
@@ -1540,8 +1549,6 @@
 				30D08937238FD00800480C9E /* RoundedCornerView.m */,
 				30D6C5C223956BD700172303 /* LoadingButton.h */,
 				30D6C5C323956BD700172303 /* LoadingButton.m */,
-				529CCB9323BE91CA00A8DBDD /* JPCardView.h */,
-				529CCB9423BE91CA00A8DBDD /* JPCardView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1636,6 +1643,19 @@
 				5214A7B7239997AD00283B81 /* SliderTransitioningDelegate.h */,
 			);
 			path = Presentations;
+			sourceTree = "<group>";
+		};
+		5273AF0A23F306D4008C6D89 /* CardView */ = {
+			isa = PBXGroup;
+			children = (
+				529CCB9323BE91CA00A8DBDD /* JPCardView.h */,
+				529CCB9423BE91CA00A8DBDD /* JPCardView.m */,
+				5273AF1223F30730008C6D89 /* JPCardPaymentMethodView.h */,
+				5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */,
+				5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */,
+				5273AF1823F31027008C6D89 /* JPOtherPaymentMethodView.m */,
+			);
+			path = CardView;
 			sourceTree = "<group>";
 		};
 		529CCB8323BE8A8700A8DBDD /* Header */ = {
@@ -1757,6 +1777,7 @@
 				309CC95723CCB025000F7737 /* JPScanCardViewController.h in Headers */,
 				30D08924238FB59C00480C9E /* JPAddCardInteractor.h in Headers */,
 				30D61D6523BB741A004E5CEE /* JPPaymentMethodsCell.h in Headers */,
+				5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */,
 				30D61D5C23BB741A004E5CEE /* JPPaymentMethodsEmptyCardListCell.h in Headers */,
 				529CCB9523BE91CA00A8DBDD /* JPCardView.h in Headers */,
 				3B704A8A1C89F18000376773 /* JPInputField.h in Headers */,
@@ -1783,6 +1804,7 @@
 				30F1B4A6237C3C5A00CE676A /* JPOrderDetails.h in Headers */,
 				3BD353C71C7774780045658A /* JPConsumer.h in Headers */,
 				3B704A961C89F1B700376773 /* DateInputField.h in Headers */,
+				5273AF1423F30730008C6D89 /* JPCardPaymentMethodView.h in Headers */,
 				30D61D5723BB741A004E5CEE /* JPPaymentMethodsViewModel.h in Headers */,
 				3B678BA11C7326D30001DC2F /* JPPreAuth.h in Headers */,
 				3B6912D11C93179100367660 /* NSArray+Prefix.h in Headers */,
@@ -2285,6 +2307,7 @@
 				30D08925238FB59C00480C9E /* JPAddCardInteractor.m in Sources */,
 				3B704A971C89F1B700376773 /* DateInputField.m in Sources */,
 				3BD353C81C7774780045658A /* JPConsumer.m in Sources */,
+				5273AF1A23F31027008C6D89 /* JPOtherPaymentMethodView.m in Sources */,
 				3B704A9F1C89F1D600376773 /* PostCodeInputField.m in Sources */,
 				5214A7C0239997AD00283B81 /* SliderTransitioningDelegate.m in Sources */,
 				44290B2622F051F60088F827 /* JPBrowser.m in Sources */,
@@ -2305,6 +2328,7 @@
 				3BD353C41C77557F0045658A /* JPTransactionData.m in Sources */,
 				30B6408323EAEC5900DD8549 /* JPPaymentMethod.m in Sources */,
 				30472ABB23A0F13400279A87 /* JPAddCardButton.m in Sources */,
+				5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */,
 				44340F1822F4531200B36D65 /* JPCardNetwork.m in Sources */,
 				306BCF1E23570F86008540E7 /* IDEALBankSelectionTableViewController.m in Sources */,
 				447CBD5922DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m in Sources */,
