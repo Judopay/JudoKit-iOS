@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * An array of available payment methods
  */
-@property (nonatomic, strong) NSArray <JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) NSArray <JPPaymentMethod *> * _Nonnull paymentMethods;
 
 @end
 
