@@ -104,6 +104,8 @@
 
 - (void)deleteCardWithIndex:(NSInteger)index {
     [self.interactor deleteCardWithIndex:index];
+    [self.interactor setLastAddedCardAsSelected];
+    [self.cardListModel.cardModels removeObjectAtIndex:index];
     self.viewModel.headerModel.cardModel = nil;
 }
 
@@ -118,10 +120,20 @@
 }
 
 - (void)changePaymentMethodToIndex:(int)index {
+    
+    if (index == self.previousIndex) {
+        return;
+    }
+    
     AnimationType animationType = AnimationTypeLeftToRight;
     
     if (index < self.previousIndex) {
         animationType = AnimationTypeRightToLeft;
+    }
+        
+    JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousIndex];
+    if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
+        animationType = AnimationTypeSetup;
     }
     
     self.previousIndex = index;
@@ -130,6 +142,10 @@
     
     [self updateViewModelWithAnimationType:animationType];
     [self.view configureWithViewModel:self.viewModel];
+}
+
+- (void)setLastAddedCardAsSelected {
+    [self.interactor setLastAddedCardAsSelected];
 }
 
 #pragma mark - Helper methods

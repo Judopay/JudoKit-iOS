@@ -247,6 +247,7 @@
 @implementation JPPaymentMethodsViewController (AddCardDelegate)
 
 - (void)didFinishAddingCard {
+    [self.presenter setLastAddedCardAsSelected];
     [self.presenter viewModelNeedsUpdate];
     [self.paymentMethodsView.tableView setEditing:NO animated:YES];
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];

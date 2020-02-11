@@ -92,7 +92,7 @@ static const CGFloat bottomHeight = 86.0f;
 - (void)configureTopHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     [self removePreviousTopHeader];
     
-    if (viewModel.cardModel == nil) {
+    if (viewModel.cardModel == nil && viewModel.paymentMethodType == JPPaymentMethodTypeCard) {
         self.backgroundImageView.image = [UIImage imageWithResourceName:@"no-cards"];
         [self displayEmptyHeaderView];
         return;

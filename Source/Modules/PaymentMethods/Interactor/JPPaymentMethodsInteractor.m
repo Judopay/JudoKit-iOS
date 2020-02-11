@@ -79,6 +79,11 @@
     return [self.theme displayJudoHeadline];
 }
 
+- (void)setLastAddedCardAsSelected {
+    NSArray *storedCards = [JPCardStorage.sharedInstance getStoredCardDetails];
+    [JPCardStorage.sharedInstance setCardAsSelectedAtIndex:storedCards.count - 1];
+}
+
 - (JPAmount *)getAmount {
     return self.amount;
 }

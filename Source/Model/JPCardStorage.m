@@ -85,4 +85,11 @@
     return [JPKeychainService deleteObjectForKey:@"storedCards"];
 }
 
+- (void)setCardAsSelectedAtIndex:(NSInteger)index {
+    for (JPStoredCardDetails *storedCard in self.storedCards) {
+        storedCard.isSelected = NO;
+    }
+    self.storedCards[index].isSelected = YES;
+}
+
 @end

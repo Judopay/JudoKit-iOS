@@ -71,6 +71,11 @@
  */
 - (void)changePaymentMethodToIndex:(int)index;
 
+/**
+ * A method that sets the latest added card as selected
+ */
+- (void)setLastAddedCardAsSelected;
+
 @end
 
 @interface JPPaymentMethodsPresenterImpl : NSObject <JPPaymentMethodsPresenter>

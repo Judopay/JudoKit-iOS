@@ -61,4 +61,9 @@
 */
 - (void)deleteCardWithIndex:(NSInteger)index;
 
+/**
+ * A method that sets a card as selected based on an index
+ */
+- (void)setCardAsSelectedAtIndex:(NSInteger)index;
+
 @end
