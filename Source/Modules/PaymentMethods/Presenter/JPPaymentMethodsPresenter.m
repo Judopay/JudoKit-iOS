@@ -103,10 +103,17 @@
 }
 
 - (void)deleteCardWithIndex:(NSInteger)index {
+    
+    NSArray *storedCards = [self.interactor getStoredCardDetails];
+    JPStoredCardDetails *selectedCard = storedCards[index];
+    
     [self.interactor deleteCardWithIndex:index];
-    [self.interactor setLastAddedCardAsSelected];
     [self.cardListModel.cardModels removeObjectAtIndex:index];
     self.viewModel.headerModel.cardModel = nil;
+    
+    if (selectedCard.isSelected && storedCards.count - 1 > 0) {
+        [self.interactor setCardAsSelectedAtInded:0];
+    }
 }
 
 - (void)changeHeaderButtonTitle:(BOOL)isEditing {
@@ -145,7 +152,8 @@
 }
 
 - (void)setLastAddedCardAsSelected {
-    [self.interactor setLastAddedCardAsSelected];
+    NSArray *cards = [self.interactor getStoredCardDetails];
+    [self.interactor setCardAsSelectedAtInded:cards.count - 1];
 }
 
 #pragma mark - Helper methods

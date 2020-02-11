@@ -72,9 +72,9 @@
 - (void)deleteCardWithIndex:(NSInteger)index;
 
 /**
- * A method that sets the latest added card as selected
+ * A method that sets a card as selected based on an index
  */
-- (void)setLastAddedCardAsSelected;
+- (void)setCardAsSelectedAtInded:(NSInteger)index;
 
 @end
 
