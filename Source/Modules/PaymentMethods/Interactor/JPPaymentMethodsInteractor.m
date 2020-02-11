@@ -28,6 +28,7 @@
 #import "JPPaymentToken.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
+#import "ApplePayManager.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, strong) JPTransaction *transaction;
@@ -35,6 +36,8 @@
 @property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) JPAmount *amount;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) ApplePayManager *applePayManager;
+@property (nonatomic, strong) ApplePayConfiguration *applePayConfiguration;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -43,12 +46,14 @@
                           reference:(JPReference *)reference
                               theme:(JPTheme *)theme
                      paymentMethods:(NSArray<JPPaymentMethod *> *)methods
+              applePayConfiguration:(ApplePayConfiguration *)configuration
                           andAmount:(JPAmount *)amount {
     if (self = [super init]) {
         self.transaction = transaction;
         self.reference = reference;
         self.theme = theme;
         self.paymentMethods = methods;
+        self.applePayConfiguration = configuration;
         self.amount = amount;
     }
     return self;
@@ -88,8 +93,28 @@
 }
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
-    NSArray *defaultPaymentMethods = @[ JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay ];
+    NSMutableArray *defaultPaymentMethods;
+    defaultPaymentMethods= [NSMutableArray arrayWithArray:@[JPPaymentMethod.card, JPPaymentMethod.iDeal]];
+    
+    if ([self.applePayManager isApplePaySupported]) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
+    } else {
+        [self removeApplePayFromPaymentMethods];
+    }
+    
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
+}
+
+- (void)removeApplePayFromPaymentMethods {
+    if (self.paymentMethods.count == 0) return;
+    NSMutableArray *paymentMethods = (NSMutableArray *)self.paymentMethods;
+    
+    [paymentMethods enumerateObjectsWithOptions:NSEnumerationReverse
+                                     usingBlock:^(JPPaymentMethod *method, NSUInteger idx, BOOL *stop) {
+        if (method.type == JPPaymentMethodTypeApplePay) {
+            [paymentMethods removeObject:method];
+        }
+    }];
 }
 
 - (void)paymentTransactionWithToken:(NSString *)token
@@ -105,6 +130,17 @@
 - (void)deleteCardWithIndex:(NSInteger)index {
 
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
+}
+
+- (bool)isApplePaySetUp {
+    return [self.applePayManager isApplePaySetUp];
+}
+
+- (ApplePayManager *)applePayManager {
+    if (!_applePayManager) {
+        _applePayManager = [[ApplePayManager alloc] initWithConfiguration:self.applePayConfiguration];
+    }
+    return _applePayManager;
 }
 
 @end

@@ -34,6 +34,8 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
 
+#import "ApplePayConfiguration.h"
+
 @implementation JPPaymentMethodsBuilderImpl
 
 - (JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(NSString *)judoId
@@ -43,6 +45,7 @@
                                                        reference:(JPReference *)reference
                                            supportedCardNetworks:(CardNetwork)networks
                                                   paymentMethods:(NSArray<JPPaymentMethod *> *)methods
+                                           applePayConfiguration:(ApplePayConfiguration *)configuration
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -52,6 +55,7 @@
                        transactionType:TransactionTypePayment
                  supportedCardNetworks:networks
                         paymentMethods:methods
+                 applePayConfiguration:configuration
                      completionHandler:completion];
 }
 
@@ -62,6 +66,7 @@
                                                        reference:(JPReference *)reference
                                            supportedCardNetworks:(CardNetwork)networks
                                                   paymentMethods:(NSArray<JPPaymentMethod *> *)methods
+                                           applePayConfiguration:(ApplePayConfiguration *)configuration
                                                completionHandler:(JudoCompletionBlock)completion {
     return [self buildModuleWithJudoID:judoId
                                session:session
@@ -71,6 +76,7 @@
                        transactionType:TransactionTypePreAuth
                  supportedCardNetworks:networks
                         paymentMethods:methods
+                 applePayConfiguration:configuration
                      completionHandler:completion];
 }
 
@@ -82,6 +88,7 @@
                                           transactionType:(TransactionType)transactionType
                                     supportedCardNetworks:(CardNetwork)networks
                                            paymentMethods:(NSArray<JPPaymentMethod *> *)methods
+                                    applePayConfiguration:(ApplePayConfiguration *)configuration
                                         completionHandler:(JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
@@ -109,6 +116,7 @@
                                                                    reference:reference
                                                                        theme:session.theme
                                                               paymentMethods:methods
+                                                       applePayConfiguration:configuration
                                                                    andAmount:amount];
 
     presenter.view = viewController;

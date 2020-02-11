@@ -341,6 +341,7 @@
                            reference:(nonnull JPReference *)reference
                       paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
                supportedCardNetworks:(CardNetwork)networks
+               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
                           completion:(nonnull JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController;
@@ -351,6 +352,7 @@
                                                                            reference:reference
                                                                supportedCardNetworks:networks
                                                                       paymentMethods:methods
+                                                               applePayConfiguration:configuration
                                                                    completionHandler:completion];
 
     UINavigationController *navigationController;
@@ -366,6 +368,7 @@
                            reference:(nonnull JPReference *)reference
                       paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
                supportedCardNetworks:(CardNetwork)networks
+               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
                           completion:(nonnull JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController;
@@ -376,6 +379,7 @@
                                                                            reference:reference
                                                                supportedCardNetworks:networks
                                                                       paymentMethods:methods
+                                                               applePayConfiguration:configuration
                                                                    completionHandler:completion];
 
     UINavigationController *navigationController;

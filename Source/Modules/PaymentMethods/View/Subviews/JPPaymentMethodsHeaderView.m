@@ -103,10 +103,27 @@ static const CGFloat bottomHeight = 86.0f;
 }
 
 - (void)configureBottomHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    
+    for (UIView *view in self.paymentStackView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    [self.paymentStackView addArrangedSubview:self.amountStackView];
     [self configureAmountWithViewModel:viewModel];
+    
+    if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
+        
+        PKPaymentButtonType type;
+        type = viewModel.isApplePaySetUp ? PKPaymentButtonTypeBuy : PKPaymentButtonTypeSetUp;
+        
+        self.applePayButton = [self applePayButtonWithType:type];
+        
+        [self.paymentStackView addArrangedSubview:self.applePayButton];
+        return;
+    }
+    
+    [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
-    self.payButton.hidden = (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay);
-    self.applePayButton.hidden = !self.payButton.isHidden;
 }
 
 - (void)configureAmountWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
@@ -189,11 +206,7 @@ static const CGFloat bottomHeight = 86.0f;
 }
 
 - (void)setupPaymentStackView {
-    [self.paymentStackView addArrangedSubview:self.amountStackView];
-    [self.paymentStackView addArrangedSubview:self.payButton];
-    [self.paymentStackView addArrangedSubview:self.applePayButton];
     self.paymentStackView.distribution = UIStackViewDistributionFillEqually;
-
     [self.bottomView addSubview:self.paymentStackView];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -309,10 +322,14 @@ static const CGFloat bottomHeight = 86.0f;
 
 - (PKPaymentButton *)applePayButton {
     if (!_applePayButton) {
-        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp
-                                                    style:PKPaymentButtonStyleBlack];
+        _applePayButton = [self applePayButtonWithType:PKPaymentButtonTypeSetUp];
     }
     return _applePayButton;
+}
+
+- (PKPaymentButton *)applePayButtonWithType:(PKPaymentButtonType)type {
+    return [PKPaymentButton buttonWithType:type
+                                     style:PKPaymentButtonStyleBlack];
 }
 
 - (UIImageView *)backgroundImageView {

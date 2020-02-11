@@ -40,6 +40,14 @@
     return self;
 }
 
+- (bool)isApplePaySupported {
+    return [PKPaymentAuthorizationController canMakePayments];
+}
+
+- (bool)isApplePaySetUp {
+    return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:self.pkPaymentNetworks];
+}
+
 #pragma mark - Generated objects based on configuration
 
 - (JPAmount *)jpAmount {
@@ -181,9 +189,6 @@
         case CardNetworkAMEX:
             return PKPaymentNetworkAmex;
 
-        case CardNetworkCarteBancaire:
-            return PKPaymentNetworkCarteBancaire;
-
         case CardNetworkChinaUnionPay:
             return PKPaymentNetworkChinaUnionPay;
 
@@ -207,11 +212,6 @@
         case CardNetworkMaestro:
             if (@available(iOS 12.0, *)) {
                 return PKPaymentNetworkMaestro;
-            }
-
-        case CardNetworkElo:
-            if (@available(iOS 12.1.1, *)) {
-                return PKPaymentNetworkElo;
             }
 
         default:

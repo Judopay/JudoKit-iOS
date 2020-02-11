@@ -173,12 +173,6 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 
 @end
 
-@interface JPPaymentMethodsIDEALBankListModel : JPPaymentMethodsModel
-@end
-
-@interface JPPaymentMethodsApplePayModel : JPPaymentMethodsModel
-@end
-
 #pragma mark - JPPaymentMethodsHeaderModel
 
 @interface JPPaymentMethodsHeaderModel : NSObject
@@ -203,7 +197,15 @@ typedef NS_ENUM(NSInteger, AnimationType) {
  */
 @property (nonatomic, assign) AnimationType animationType;
 
+/**
+ * The currently selected payment method type
+ */
 @property (nonatomic, assign) JPPaymentMethodType paymentMethodType;
+
+/**
+ * A boolean value that returns YES if Apple Pay is set up
+ */
+@property (nonatomic, assign) bool isApplePaySetUp;
 
 @end
 

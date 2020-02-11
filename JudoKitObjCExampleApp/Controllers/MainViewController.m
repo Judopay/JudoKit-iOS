@@ -200,6 +200,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                             reference:[JPReference consumerReference:self.reference]
                                        paymentMethods:nil
                                 supportedCardNetworks:CardNetworksAll
+                                applePayConfiguration:[self applePayConfigurationWithType:TransactionTypePayment]
                                            completion:^(JPResponse * response, NSError * error) {
                                     //Handle response / error
                                 }];
@@ -213,6 +214,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                             reference:[JPReference consumerReference:self.reference]
                                        paymentMethods:nil
                                 supportedCardNetworks:CardNetworksAll
+                                applePayConfiguration:[self applePayConfigurationWithType:TransactionTypePreAuth]
                                            completion:^(JPResponse * response, NSError * error) {
                                     //Handle response / error
                                 }];
@@ -514,7 +516,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                                                 currency:self.settings.currency
                                                                              countryCode:@"GB"
                                                                      paymentSummaryItems:items];
-    
     
     configuration.transactionType = transactionType;
     configuration.requiredShippingContactFields = ContactFieldAll;

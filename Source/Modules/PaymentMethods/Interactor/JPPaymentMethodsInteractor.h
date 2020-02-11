@@ -27,6 +27,7 @@
 #import "JPSession.h"
 #import <Foundation/Foundation.h>
 
+@class ApplePayConfiguration;
 @class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction;
 
 @protocol JPPaymentMethodsInteractor
@@ -76,6 +77,11 @@
  */
 - (void)setCardAsSelectedAtInded:(NSInteger)index;
 
+/**
+ * A boolean value that returns YES if Apple Pay is set up on the device
+ */
+- (bool)isApplePaySetUp;
+
 @end
 
 @interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor>
@@ -87,6 +93,7 @@
  * @param reference - the reference needed for the transaction
  * @param theme - an instance of JPTheme that is used to configure the payment methods flow
  * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
+ * @param configuration - an instance of ApplePayConfiguration that describes the Apple Pay flow
  * @param amount - the amount of the transaction
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
@@ -95,6 +102,7 @@
                           reference:(JPReference *)reference
                               theme:(JPTheme *)theme
                      paymentMethods:(NSArray<JPPaymentMethod *> *)methods
+              applePayConfiguration:(ApplePayConfiguration *)configuration
                           andAmount:(JPAmount *)amount;
 
 @end

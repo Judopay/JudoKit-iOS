@@ -39,12 +39,6 @@
 @implementation JPPaymentMethodsCardListModel
 @end
 
-@implementation JPPaymentMethodsIDEALBankListModel
-@end
-
-@implementation JPPaymentMethodsApplePayModel
-@end
-
 @implementation JPPaymentMethodsEmptyListModel
 @end
 

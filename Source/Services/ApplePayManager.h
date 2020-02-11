@@ -46,6 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithConfiguration:(ApplePayConfiguration *)configuration;
 
 /**
+ * A boolean value that returns YES is the device supports Apple Pay
+ */
+- (bool)isApplePaySupported;
+
+/**
+ * A boolean value that returns YES if Apple Pay is set up on the device
+ */
+- (bool)isApplePaySetUp;
+
+/**
  * A helper getter that generates a JPAmount object based on the last PaymentSummaryItem element
  * defined in the ApplePayConfiguration. Needed as a parameter for JPTransaction.
  */

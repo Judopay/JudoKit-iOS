@@ -41,8 +41,6 @@
 @property (nonatomic, strong) JPPaymentMethodsCardHeaderModel *cardHeaderModel;
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
-@property (nonatomic, strong) JPPaymentMethodsIDEALBankListModel *iDealBankListModel;
-@property (nonatomic, strong) JPPaymentMethodsApplePayModel *applePayModel;
 @property (nonatomic, strong) JPAddCardButtonViewModel *paymentButtonModel;
 
 @property (nonatomic, assign) int previousIndex;
@@ -178,23 +176,12 @@
 
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
+    
     self.viewModel.headerModel.paymentMethodType = selectedPaymentMethod.type;
+    self.viewModel.headerModel.isApplePaySetUp = [self.interactor isApplePaySetUp];
 
-    switch (selectedPaymentMethod.type) {
-        case JPPaymentMethodTypeCard:
-            [self prepareCardListModels];
-            break;
-
-        case JPPaymentMethodTypeIDeal:
-            [self.viewModel.items addObject:self.iDealBankListModel];
-            break;
-
-        case JPPaymentMethodTypeApplePay:
-            [self.viewModel.items addObject:self.applePayModel];
-            break;
-
-        default:
-            break;
+    if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
+        [self prepareCardListModels];
     }
 }
 
@@ -276,22 +263,6 @@
         _headerModel.amount = [JPAmount amount:@"0.0" currency:@"GBP"];
     }
     return _headerModel;
-}
-
-- (JPPaymentMethodsIDEALBankListModel *)iDealBankListModel {
-    if (!_iDealBankListModel) {
-        _iDealBankListModel = [JPPaymentMethodsIDEALBankListModel new];
-        _iDealBankListModel.identifier = @"JPPaymentMethodsCell";
-    }
-    return _iDealBankListModel;
-}
-
-- (JPPaymentMethodsApplePayModel *)applePayModel {
-    if (!_applePayModel) {
-        _applePayModel = [JPPaymentMethodsApplePayModel new];
-        _applePayModel.identifier = @"JPPaymentMethodsCell";
-    }
-    return _applePayModel;
 }
 
 - (JPPaymentMethodsSelectionModel *)paymentSelectionModel {
