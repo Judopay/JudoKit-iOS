@@ -68,7 +68,7 @@
 		30B6406123E9992400DD8549 /* JPSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B6405F23E9992400DD8549 /* JPSectionView.m */; };
 		30B6408223EAEC5900DD8549 /* JPPaymentMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B6407923EAEC5900DD8549 /* JPPaymentMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30B6408323EAEC5900DD8549 /* JPPaymentMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B6408123EAEC5900DD8549 /* JPPaymentMethod.m */; };
-		30B640C923F3FD2B00DD8549 /* JPConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B640C723F3FD2B00DD8549 /* JPConfiguration.h */; };
+		30B640C923F3FD2B00DD8549 /* JPConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B640C723F3FD2B00DD8549 /* JPConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30B640CA23F3FD2B00DD8549 /* JPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B640C823F3FD2B00DD8549 /* JPConfiguration.m */; };
 		30C2215523588D6E000D6E3A /* IDEALBankTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */; };
 		30C2215623588D6E000D6E3A /* IDEALBankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */; };

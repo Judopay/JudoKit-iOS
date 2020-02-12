@@ -26,7 +26,17 @@
 #import "JPAmount.h"
 #import "JPReference.h"
 #import "JPPaymentMethod.h"
-#import "ApplePayConfiguration.h"
+
+@interface JPConfiguration ()
+
+@property (nonatomic, strong) NSString *_Nonnull judoId;
+@property (nonatomic, strong) JPAmount *_Nonnull amount;
+@property (nonatomic, strong) JPReference *_Nonnull reference;
+@property (nonatomic, strong) JudoCompletionBlock _Nonnull completion;
+@property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) ApplePayConfiguration *applePayConfiguration;
+
+@end
 
 @implementation JPConfiguration
 
@@ -34,21 +44,45 @@
                         amount:(nonnull JPAmount *)amount
                      reference:(nonnull JPReference *)reference
                     completion:(nonnull JudoCompletionBlock)completion {
-    
+    if (self = [super init]) {
+        self.judoId = judoId;
+        self.amount = amount;
+        self.reference = reference;
+        self.completion = completion;
+    }
+    return self;
 }
 
 - (void)addPaymentMethods:(NSArray<JPPaymentMethod *> *)methods {
-    
+    self.paymentMethods = methods;
 }
 
-- (void)addSupportedCardNetworks:(CardNetwork)network {
-    
+- (void)addSupportedCardNetworks:(CardNetwork)networks {
+    self.cardNetworks = networks;
 }
 
 - (void)configureApplePayWithMerchantId:(NSString *)merchantId
                             countryCode:(NSString *)countryCode
                     paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items {
     
+    self.applePayConfiguration = [[ApplePayConfiguration alloc] initWithJudoId:self.judoId
+                                                                     reference:self.reference.consumerReference
+                                                                    merchantId:merchantId
+                                                                      currency:self.amount.currency
+                                                                   countryCode:countryCode
+                                                           paymentSummaryItems:items];
+}
+
+- (void)setRequiredBillingContactFields:(ContactField)billingFields {
+    self.applePayConfiguration.requiredBillingContactFields = billingFields;
+}
+
+- (void)setRequiredShippingContactFields:(ContactField)shippingFields {
+    self.applePayConfiguration.requiredShippingContactFields = shippingFields;
+}
+
+- (void)setReturnedContactInfo:(ReturnedInfo)returnedInfo {
+    self.applePayConfiguration.returnedContactInfo = returnedInfo;
 }
 
 @end

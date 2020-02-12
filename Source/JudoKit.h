@@ -31,6 +31,7 @@
 #import "JPSession.h"
 #import "JPTransactionData.h"
 #import "JudoPaymentMethodsViewController.h"
+#import "JPConfiguration.h"
 
 static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 
@@ -256,40 +257,16 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 /**
  *  This method will invoke the Payment Method screen which allows you to select your preferred payment method to complete a Payment transaction.
  *
- *  @param judoId               The judoID of the merchant to receive the payment
- *  @param amount               The amount and currency of the payment (default is GBP)
- *  @param reference         The reference for this transaction
- *  @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                              Setting nil will present the payment method screen with the default payment methods;
- *  @param networks           The supported card networks
- *  @param configuration   An instance of ApplePayConfiguration used to configure the Apple Pay flow
- *  @param completion       The completion handler which will respond with a JPResponse object or an NSError
+ *  @param configuration - an instance of JPConfiguration that is used to setup the payment flow
  */
-- (void)invokePaymentMethodSelection:(nonnull NSString *)judoId
-                              amount:(nonnull JPAmount *)amount
-                           reference:(nonnull JPReference *)reference
-                      paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-               supportedCardNetworks:(CardNetwork)networks
-               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
-                          completion:(nonnull JudoCompletionBlock)completion;
+- (void)invokePaymentMethodSelectionWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
- *  This method will invoke the Payment Method screen which allows you to select your preferred payment method to complete a PreAuth transaction.
+ *  This method will invoke the Payment Method screen which allows you to select your preferred payment method to complete a Payment transaction.
  *
- *  @param judoId               The judoID of the merchant to receive the payment
- *  @param amount               The amount and currency of the payment (default is GBP)
- *  @param reference        The reference for this transaction
- *  @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                              Setting nil will present the payment method screen with the default payment methods;
- *  @param networks          The supported card networks
- *  @param configuration   An instance of ApplePayConfiguration used to configure the Apple Pay flow
- *  @param completion      The completion handler which will respond with a JPResponse object or an NSError
+ *  @param configuration - an instance of JPConfiguration that is used to setup the payment flow
  */
-- (void)invokePreAuthMethodSelection:(nonnull NSString *)judoId
-                              amount:(nonnull JPAmount *)amount
-                           reference:(nonnull JPReference *)reference
-                      paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-               supportedCardNetworks:(CardNetwork)networks
-               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
-                          completion:(nonnull JudoCompletionBlock)completion;
+- (void)invokePreAuthMethodSelectionWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
  *  This method will invoke the Judo UI on the top UIViewController instance of the Application window. When the form has been successfully filled, the button will invoke a payment with the judo API and respond in a completion block

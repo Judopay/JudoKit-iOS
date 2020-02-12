@@ -25,27 +25,38 @@
 #import <Foundation/Foundation.h>
 #import "JPSession.h"
 #import "JPCardNetwork.h"
+#import "ApplePayConfiguration.h"
 
 @class JPAmount, JPReference, JPPaymentMethod, PaymentSummaryItem;
 
 @interface JPConfiguration : NSObject
 
 @property (nonatomic, strong, readonly) NSString *_Nonnull judoId;
+@property (nonatomic, assign) TransactionType transactionType;
 @property (nonatomic, strong, readonly) JPAmount *_Nonnull amount;
 @property (nonatomic, strong, readonly) JPReference *_Nonnull reference;
 @property (nonatomic, strong, readonly) JudoCompletionBlock _Nonnull completion;
+@property (nonatomic, strong, readonly) NSArray<JPPaymentMethod *> *_Nullable paymentMethods;
+@property (nonatomic, assign) CardNetwork cardNetworks;
+@property (nonatomic, strong, readonly) ApplePayConfiguration *_Nullable applePayConfiguration;
 
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
-                        amount:(nonnull JPAmount *)amount
-                     reference:(nonnull JPReference *)reference
-                    completion:(nonnull JudoCompletionBlock)completion;
+                                amount:(nonnull JPAmount *)amount
+                             reference:(nonnull JPReference *)reference
+                            completion:(nonnull JudoCompletionBlock)completion;
 
-- (void)addPaymentMethods:(NSArray<JPPaymentMethod *> *)methods;
+- (void)addPaymentMethods:(nonnull NSArray<JPPaymentMethod *> *)methods;
 
 - (void)addSupportedCardNetworks:(CardNetwork)network;
 
-- (void)configureApplePayWithMerchantId:(NSString *)merchantId
-                            countryCode:(NSString *)countryCode
-                    paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items;
+- (void)configureApplePayWithMerchantId:(nonnull NSString *)merchantId
+                            countryCode:(nonnull NSString *)countryCode
+                    paymentSummaryItems:(nonnull NSArray<PaymentSummaryItem *> *)items;
+
+- (void)setRequiredBillingContactFields:(ContactField)billingFields;
+
+- (void)setRequiredShippingContactFields:(ContactField)shippingFields;
+
+- (void)setReturnedContactInfo:(ReturnedInfo)returnedInfo;
 
 @end

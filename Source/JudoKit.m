@@ -336,24 +336,19 @@
 
 @implementation JudoKit (Invokers)
 
-- (void)invokePaymentMethodSelection:(nonnull NSString *)judoId
-                              amount:(nonnull JPAmount *)amount
-                           reference:(nonnull JPReference *)reference
-                      paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-               supportedCardNetworks:(CardNetwork)networks
-               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
-                          completion:(nonnull JudoCompletionBlock)completion {
+- (void)invokePaymentMethodSelectionWithConfiguration:(JPConfiguration *)configuration {
 
     JPPaymentMethodsViewController *viewController;
-    viewController = [[JPPaymentMethodsBuilderImpl new] buildPaymentModuleWithJudoID:judoId
+    configuration.applePayConfiguration.transactionType = TransactionTypePayment;
+    viewController = [[JPPaymentMethodsBuilderImpl new] buildPaymentModuleWithJudoID:configuration.judoId
                                                                              session:self
                                                                transitioningDelegate:self.transitioningDelegate
-                                                                              amount:amount
-                                                                           reference:reference
-                                                               supportedCardNetworks:networks
-                                                                      paymentMethods:methods
-                                                               applePayConfiguration:configuration
-                                                                   completionHandler:completion];
+                                                                              amount:configuration.amount
+                                                                           reference:configuration.reference
+                                                               supportedCardNetworks:configuration.cardNetworks
+                                                                      paymentMethods:configuration.paymentMethods
+                                                               applePayConfiguration:configuration.applePayConfiguration
+                                                                   completionHandler:configuration.completion];
 
     UINavigationController *navigationController;
     navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -363,24 +358,19 @@
     [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (void)invokePreAuthMethodSelection:(nonnull NSString *)judoId
-                              amount:(nonnull JPAmount *)amount
-                           reference:(nonnull JPReference *)reference
-                      paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-               supportedCardNetworks:(CardNetwork)networks
-               applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
-                          completion:(nonnull JudoCompletionBlock)completion {
+- (void)invokePreAuthMethodSelectionWithConfiguration:(JPConfiguration *)configuration {
 
     JPPaymentMethodsViewController *viewController;
-    viewController = [[JPPaymentMethodsBuilderImpl new] buildPreAuthModuleWithJudoID:judoId
+    configuration.applePayConfiguration.transactionType = TransactionTypePreAuth;
+    viewController = [[JPPaymentMethodsBuilderImpl new] buildPreAuthModuleWithJudoID:configuration.judoId
                                                                              session:self
                                                                transitioningDelegate:self.transitioningDelegate
-                                                                              amount:amount
-                                                                           reference:reference
-                                                               supportedCardNetworks:networks
-                                                                      paymentMethods:methods
-                                                               applePayConfiguration:configuration
-                                                                   completionHandler:completion];
+                                                                              amount:configuration.amount
+                                                                           reference:configuration.reference
+                                                               supportedCardNetworks:configuration.cardNetworks
+                                                                      paymentMethods:configuration.paymentMethods
+                                                               applePayConfiguration:configuration.applePayConfiguration
+                                                                   completionHandler:configuration.completion];
 
     UINavigationController *navigationController;
     navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

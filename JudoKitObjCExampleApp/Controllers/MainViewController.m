@@ -194,30 +194,32 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
 - (void)paymentMethodOption {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
+    JPReference *reference = [JPReference consumerReference:self.reference];
+    
+    JPConfiguration *configuration;
+    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
+                                                     amount:amount
+                                                  reference:reference
+                                                 completion:^(JPResponse *response, NSError *error) {
         
-    [self.judoKitSession invokePaymentMethodSelection:judoId
-                                               amount:amount
-                                            reference:[JPReference consumerReference:self.reference]
-                                       paymentMethods:nil
-                                supportedCardNetworks:CardNetworksAll
-                                applePayConfiguration:[self applePayConfigurationWithType:TransactionTypePayment]
-                                           completion:^(JPResponse * response, NSError * error) {
-                                    //Handle response / error
-                                }];
+    }];
+    
+    [self.judoKitSession invokePaymentMethodSelectionWithConfiguration:configuration];
 }
 
 - (void)preAuthMethodOption {
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
+    JPReference *reference = [JPReference consumerReference:self.reference];
+    
+    JPConfiguration *configuration;
+    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
+                                                     amount:amount
+                                                  reference:reference
+                                                 completion:^(JPResponse *response, NSError *error) {
         
-    [self.judoKitSession invokePreAuthMethodSelection:judoId
-                                               amount:amount
-                                            reference:[JPReference consumerReference:self.reference]
-                                       paymentMethods:nil
-                                supportedCardNetworks:CardNetworksAll
-                                applePayConfiguration:[self applePayConfigurationWithType:TransactionTypePreAuth]
-                                           completion:^(JPResponse * response, NSError * error) {
-                                    //Handle response / error
-                                }];
+    }];
+        
+    [self.judoKitSession invokePreAuthMethodSelectionWithConfiguration:configuration];
 }
 
 - (void)paymentOperation {
