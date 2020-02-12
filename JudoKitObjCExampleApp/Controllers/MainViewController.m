@@ -193,33 +193,11 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (void)paymentMethodOption {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
-    JPReference *reference = [JPReference consumerReference:self.reference];
-    
-    JPConfiguration *configuration;
-    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
-                                                     amount:amount
-                                                  reference:reference
-                                                 completion:^(JPResponse *response, NSError *error) {
-        
-    }];
-    
-    [self.judoKitSession invokePaymentMethodSelectionWithConfiguration:configuration];
+    [self.judoKitSession invokePaymentMethodSelectionWithConfiguration:self.configuration];
 }
 
 - (void)preAuthMethodOption {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
-    JPReference *reference = [JPReference consumerReference:self.reference];
-    
-    JPConfiguration *configuration;
-    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
-                                                     amount:amount
-                                                  reference:reference
-                                                 completion:^(JPResponse *response, NSError *error) {
-        
-    }];
-        
-    [self.judoKitSession invokePreAuthMethodSelectionWithConfiguration:configuration];
+    [self.judoKitSession invokePreAuthMethodSelectionWithConfiguration:self.configuration];
 }
 
 - (void)paymentOperation {
@@ -532,6 +510,32 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                           sourceViewController:(UIViewController *)source {
     return [[HalfHeightPresentationController alloc] initWithPresentedViewController:presented
                                                             presentingViewController:presenting];
+}
+
+- (JPConfiguration *)configuration {
+    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
+    JPReference *reference = [JPReference consumerReference:self.reference];
+    
+    JPConfiguration *configuration;
+    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
+                                                     amount:amount
+                                                  reference:reference
+                                                 completion:^(JPResponse *response, NSError *error) {
+        
+    }];
+    
+    [configuration addPaymentMethods:@[JPPaymentMethod.card, JPPaymentMethod.applePay]];
+    [configuration addSupportedCardNetworks:CardNetworkVisa];
+    
+    [configuration configureApplePayWithMerchantId:merchantId countryCode:@"GB" paymentSummaryItems:@[
+        [[PaymentSummaryItem alloc] initWithLabel:@"Total" amount:[NSDecimalNumber decimalNumberWithString:amount.amount]],
+    ]];
+    
+    [configuration setRequiredBillingContactFields:ContactFieldAll];
+    [configuration setRequiredShippingContactFields:ContactFieldAll];
+    [configuration setReturnedContactInfo:ReturnedInfoAll];
+    
+    return configuration;
 }
 
 @end

@@ -53,7 +53,7 @@
                                                                reference:(nonnull JPReference *)reference
                                                    supportedCardNetworks:(CardNetwork)networks
                                                           paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-                                                   applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
+                                                   applePayConfiguration:(nullable ApplePayConfiguration *)configuration
                                                        completionHandler:(nonnull JudoCompletionBlock)completion;
 
 /**
@@ -76,7 +76,7 @@
                                                                reference:(nonnull JPReference *)reference
                                                    supportedCardNetworks:(CardNetwork)networks
                                                           paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-                                                   applePayConfiguration:(nonnull ApplePayConfiguration *)configuration
+                                                   applePayConfiguration:(nullable ApplePayConfiguration *)configuration
                                                        completionHandler:(nonnull JudoCompletionBlock)completion;
 @end
 

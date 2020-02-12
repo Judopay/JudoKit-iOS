@@ -137,7 +137,7 @@
 }
 
 - (ApplePayManager *)applePayManager {
-    if (!_applePayManager) {
+    if (!_applePayManager && self.applePayConfiguration) {
         _applePayManager = [[ApplePayManager alloc] initWithConfiguration:self.applePayConfiguration];
     }
     return _applePayManager;
