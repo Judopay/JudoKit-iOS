@@ -68,6 +68,8 @@
 		30B6406123E9992400DD8549 /* JPSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B6405F23E9992400DD8549 /* JPSectionView.m */; };
 		30B6408223EAEC5900DD8549 /* JPPaymentMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B6407923EAEC5900DD8549 /* JPPaymentMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30B6408323EAEC5900DD8549 /* JPPaymentMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B6408123EAEC5900DD8549 /* JPPaymentMethod.m */; };
+		30B640C923F3FD2B00DD8549 /* JPConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 30B640C723F3FD2B00DD8549 /* JPConfiguration.h */; };
+		30B640CA23F3FD2B00DD8549 /* JPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B640C823F3FD2B00DD8549 /* JPConfiguration.m */; };
 		30C2215523588D6E000D6E3A /* IDEALBankTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */; };
 		30C2215623588D6E000D6E3A /* IDEALBankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
@@ -518,6 +520,8 @@
 		30B6405F23E9992400DD8549 /* JPSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSectionView.m; sourceTree = "<group>"; };
 		30B6407923EAEC5900DD8549 /* JPPaymentMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethod.h; sourceTree = "<group>"; };
 		30B6408123EAEC5900DD8549 /* JPPaymentMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethod.m; sourceTree = "<group>"; };
+		30B640C723F3FD2B00DD8549 /* JPConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JPConfiguration.h; path = Model/JPConfiguration.h; sourceTree = "<group>"; };
+		30B640C823F3FD2B00DD8549 /* JPConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JPConfiguration.m; path = Model/JPConfiguration.m; sourceTree = "<group>"; };
 		30C2215223588D6E000D6E3A /* IDEALBankTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEALBankTableViewCell.h; sourceTree = "<group>"; };
 		30C2215323588D6E000D6E3A /* IDEALBankTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDEALBankTableViewCell.m; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
@@ -1439,6 +1443,8 @@
 				15CFC9EA1FB738E600430D31 /* JPVCOResult.m */,
 				30DB511123100E5100B73D66 /* JudoKitObjC.h */,
 				30DB511423100E5200B73D66 /* PaymentMethods.h */,
+				30B640C723F3FD2B00DD8549 /* JPConfiguration.h */,
+				30B640C823F3FD2B00DD8549 /* JPConfiguration.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1773,6 +1779,7 @@
 				302291AF23100F9E00EC79CB /* UIView+SafeAnchors.h in Headers */,
 				3B678B871C6DF6130001DC2F /* JPTransaction.h in Headers */,
 				302181CA23264C5300F6BE77 /* NSBundle+Additions.h in Headers */,
+				30B640C923F3FD2B00DD8549 /* JPConfiguration.h in Headers */,
 				44290B1A22F051F60088F827 /* JPDictionaryConvertible.h in Headers */,
 				309CC95723CCB025000F7737 /* JPScanCardViewController.h in Headers */,
 				30D08924238FB59C00480C9E /* JPAddCardInteractor.h in Headers */,
@@ -2354,6 +2361,7 @@
 				3B678BBA1C7331280001DC2F /* JPTransactionProcess.m in Sources */,
 				529CCB8E23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m in Sources */,
 				3B704A8F1C89F19800376773 /* IssueNumberInputField.m in Sources */,
+				30B640CA23F3FD2B00DD8549 /* JPConfiguration.m in Sources */,
 				30CFA5A62397D45400329B04 /* JPTransactionService.m in Sources */,
 				30C2215623588D6E000D6E3A /* IDEALBankTableViewCell.m in Sources */,
 				30D6C5C523956BD700172303 /* LoadingButton.m in Sources */,
