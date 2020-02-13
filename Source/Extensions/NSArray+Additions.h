@@ -1,8 +1,8 @@
 //
-//  JPTheme+Additions.h
+//  NSArray+Additions.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,12 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "JPTransactionData.h"
 #import <Foundation/Foundation.h>
 
-@interface JPTheme (Additions)
+@interface NSArray (Additions)
 
-- (nonnull NSString *)titleForTransactionWithType:(TransactionType)transactionType;
+- (BOOL)containsPrefix:(NSString *)prefix;
 
 @end

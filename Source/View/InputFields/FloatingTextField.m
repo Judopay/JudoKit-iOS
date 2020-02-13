@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "FloatingTextField.h"
-#import "NSString+TextDirection.h"
+#import "NSString+Additions.h"
 #import <math.h>
 
 static CGFloat const kFloatingLabelShowAnimationDuration = 0.3f;

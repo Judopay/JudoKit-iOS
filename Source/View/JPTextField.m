@@ -8,7 +8,7 @@
 
 #import "JPTextField.h"
 #import "JPFloatingTextField.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UITextField+Additions.h"
 

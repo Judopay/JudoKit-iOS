@@ -29,7 +29,7 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JudoKit.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 #import <TrustKit/TrustKit.h>
 

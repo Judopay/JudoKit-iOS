@@ -41,7 +41,7 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param color - the border color
  * @param width - the border width
  */
-- (void)setBorderWithColor:(UIColor *)color
+- (void)setBorderWithColor:(nonnull UIColor *)color
                   andWidth:(CGFloat)width;
 
 /**
@@ -51,7 +51,7 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param width - the border width
  * @param cornerRadius - the border's corner radius
  */
-- (void)setBorderWithColor:(UIColor *)color
+- (void)setBorderWithColor:(nonnull UIColor *)color
                      width:(CGFloat)width
            andCornerRadius:(CGFloat)cornerRadius;
 
@@ -69,7 +69,7 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param view - the view to achor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToView:(UIView *)view withPadding:(CGFloat)padding;
+- (void)pinToView:(nonnull UIView *)view withPadding:(CGFloat)padding;
 
 /**
  * Constraints the view to the superview only for specific anchors
@@ -77,7 +77,7 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param anchors - the anchor values to be constrained to
  * @param view - the view to anchor to
  */
-- (void)pinToAnchors:(AnchorType)anchors forView:(UIView *)view;
+- (void)pinToAnchors:(AnchorType)anchors forView:(nonnull UIView *)view;
 
 /**
  * Constraints the view to the superview only for specific anchors with padding
@@ -86,6 +86,18 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param view - the view to anchor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToAnchors:(AnchorType)anchors forView:(UIView *)view withPadding:(CGFloat)padding;
+- (void)pinToAnchors:(AnchorType)anchors
+             forView:(nonnull UIView *)view
+         withPadding:(CGFloat)padding;
+
+- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor;
+
+- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor;
+
+- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor;
+
+- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor;
+
+- (UIEdgeInsets)safeAreaEdgeInsets;
 
 @end

@@ -24,7 +24,7 @@
 
 #import "TransactionStatusView.h"
 #import "NSString+Additions.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 
 @interface TransactionStatusView ()
 

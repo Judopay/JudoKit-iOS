@@ -25,7 +25,7 @@
 #import "JPTransactionService.h"
 #import "JPCard.h"
 #import "JPTransaction.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPTransaction *transaction;

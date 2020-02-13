@@ -122,7 +122,7 @@
 "select_payment_method" = "Please select from one of the payment methods listed below:";
 "card_payment" = "Card Payment";
 
-//NSError+Judo
+//NSError+Additions
 "unable_to_process_request_error_desc" = "Sorry, we're currently unable to process this request.";
 "unable_to_process_request_error_title" = "Unable to process";
 "error_request_failed" = "The request responded without data";

@@ -1,8 +1,8 @@
 //
-//  CLLocation+JPDictionaryConvertible.m
+//  NSArray+Additions.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "CLLocation+JPDictionaryConvertible.h"
+#import "NSArray+Additions.h"
 
-@implementation CLLocation (JPDictionaryConvertible)
+@implementation NSArray (Additions)
 
-static NSString *const kLatitudeKey = @"latitude";
-static NSString *const kLongitudeKey = @"longitude";
+- (BOOL)containsPrefix:(NSString *)prefix {
+    __block BOOL result = NO;
 
-#pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
-    return @{
-        kLatitudeKey : @(self.coordinate.latitude),
-        kLongitudeKey : @(self.coordinate.longitude)
-    };
+    [self enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([prefix hasPrefix:obj]) {
+            *stop = YES;
+            result = YES;
+        }
+    }];
+
+    return result;
 }
 
 @end

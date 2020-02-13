@@ -28,8 +28,8 @@
 
 + (BOOL)isUserInterfaceStyleDark {
     if (@available(iOS 13.0, *)) {
-        UITraitCollection *currentTraitCollection = UIApplication.sharedApplication.keyWindow.traitCollection;
-        return currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+        UITraitCollection *traitCollection = UIApplication.sharedApplication.keyWindow.traitCollection;
+        return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
     }
     return false;
 }

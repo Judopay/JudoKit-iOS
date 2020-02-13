@@ -1,5 +1,5 @@
 //
-//  NSError+Judo.m
+//  NSError+Additions.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -24,7 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPTransactionData.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
@@ -52,7 +52,7 @@ NSString *const Error3DSRequest = @"error_3DS_request";
 NSString *const ErrorUnderlyingError = @"error_underlying_error";
 NSString *const ErrorTransactionDeclined = @"error_transaction_declined";
 
-@implementation NSError (Judo)
+@implementation NSError (Additions)
 
 + (NSError *)judoJailbrokenDeviceDisallowedError {
     return [NSError errorWithDomain:JudoErrorDomain

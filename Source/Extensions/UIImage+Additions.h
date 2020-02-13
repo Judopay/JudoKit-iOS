@@ -1,8 +1,8 @@
 //
-//  UIColor+Judo.h
+//  UIImage+Additions.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,43 +21,38 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
+#import "JPCardNetwork.h"
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Judo)
+@interface UIImage (Additions)
 
-- (nonnull UIColor *)inverseColor;
+/**
+ * Initializes an UIImage based on a icon name contained in the icons bundle
+ *
+ * @param iconName - a string describing the icon name in the icons bundle
+ *
+ * @return a configured UIImage instance
+ */
++ (UIImage *)imageWithIconName:(NSString *)iconName;
 
-- (nonnull UIImage *)asImage;
+/**
+ * Initializes an UIImage based on a resource name contained in the resources bundle
+ *
+ * @param resourceName - a string describing the resource name in the resources bundle
+ *
+ * @return a configured UIImage instance
+ */
++ (UIImage *)imageWithResourceName:(NSString *)resourceName;
 
-- (CGFloat)greyScale;
-
-- (BOOL)isDarkColor;
-
-+ (UIColor *_Nonnull)colorFromHex:(int)hex;
-
-+ (UIColor *_Nonnull)thunder;
-
-+ (UIColor *_Nonnull)magnesium;
-
-+ (UIColor *_Nonnull)zircon;
-
-+ (UIColor *_Nonnull)lightGray;
-
-+ (UIColor *_Nonnull)cgRed;
-
-+ (UIColor *_Nonnull)idealPurple;
-
-+ (UIColor *_Nonnull)defaultTintColor;
-
-+ (UIColor *_Nonnull)jpBlackColor;
-
-+ (UIColor *_Nonnull)jpRedColor;
-
-+ (UIColor *_Nonnull)jpDarkGrayColor;
-
-+ (UIColor *_Nonnull)jpGrayColor;
-
-+ (UIColor *_Nonnull)jpLightGrayColor;
+/**
+ * Initializes an UIImage based on a card network
+ *
+ * @param network - a value describing the Card Network
+ *
+ * @return a configured UIImage instance
+ */
++ (UIImage *)imageForCardNetwork:(CardNetwork)network;
 
 @end

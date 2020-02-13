@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPCard.h"
-#import "NSArray+Prefix.h"
 
 @interface JPCard ()
 

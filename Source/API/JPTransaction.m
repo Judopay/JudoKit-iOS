@@ -39,7 +39,7 @@
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 @interface JPReference ()
 

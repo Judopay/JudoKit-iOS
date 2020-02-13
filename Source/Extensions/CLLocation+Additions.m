@@ -1,5 +1,5 @@
 //
-//  UIView+SafeAnchors.h
+//  CLLocation+Additions.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,18 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "CLLocation+Additions.h"
 
-@interface UIView (SafeAnchors)
+@implementation CLLocation (Additions)
 
-- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor;
+static NSString *const kLatitudeKey = @"latitude";
+static NSString *const kLongitudeKey = @"longitude";
 
-- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor;
-
-- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor;
-
-- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor;
-
-- (UIEdgeInsets)safeAreaEdgeInsets;
+#pragma mark - JPDictionaryConvertible
+- (NSDictionary *)toDictionary {
+    return @{
+        kLatitudeKey : @(self.coordinate.latitude),
+        kLongitudeKey : @(self.coordinate.longitude)
+    };
+}
 
 @end

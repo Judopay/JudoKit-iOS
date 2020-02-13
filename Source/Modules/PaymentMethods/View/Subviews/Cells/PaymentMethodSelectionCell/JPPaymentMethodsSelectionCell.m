@@ -24,7 +24,7 @@
 
 #import "JPPaymentMethodsSelectionCell.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIImage+Icons.h"
+#import "UIImage+Additions.h"
 #import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsSelectionCell

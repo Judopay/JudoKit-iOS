@@ -1,5 +1,5 @@
 //
-//  NSString+Manipulation.h
+//  CLLocation+Additions.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,18 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JPDictionaryConvertible.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface NSString (Manipulation)
-
-/*
- * Helper method that removes all occurences of characters defined in a given set
- */
-- (nullable NSString *)stringByReplacingCharactersInSet:(nonnull NSCharacterSet *)charSet
-                                             withString:(nonnull NSString *)aString;
-
-- (nonnull NSString *)stringByRemovingWhitespaces;
-- (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern;
-- (nonnull NSDictionary<NSString *, NSString *> *)extractURLComponentsQueryItems;
+@interface CLLocation (Additions) <JPDictionaryConvertible>
 
 @end

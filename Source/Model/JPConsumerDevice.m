@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPConsumerDevice.h"
-#import "CLLocation+JPDictionaryConvertible.h"
+#import "CLLocation+Additions.h"
 #import "JPClientDetails.h"
 #import "JPThreeDSecure.h"
 

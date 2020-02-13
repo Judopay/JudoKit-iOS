@@ -93,4 +93,40 @@
     }
 }
 
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.topAnchor;
+    }
+    return self.topAnchor;
+}
+
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.leftAnchor;
+    }
+    return self.leftAnchor;
+}
+
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.rightAnchor;
+    }
+    return self.rightAnchor;
+}
+
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaLayoutGuide.bottomAnchor;
+    }
+    return self.bottomAnchor;
+}
+
+- (UIEdgeInsets)safeAreaEdgeInsets {
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaInsets;
+    }
+    return UIEdgeInsetsZero;
+}
+
+
 @end

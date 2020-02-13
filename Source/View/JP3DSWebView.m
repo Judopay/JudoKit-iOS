@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JP3DSWebView.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 @implementation JP3DSWebView
 

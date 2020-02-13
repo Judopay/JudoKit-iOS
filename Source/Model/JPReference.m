@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPReference.h"
-#import "NSString+Manipulation.h"
+#import "NSString+Additions.h"
 
 @interface JPReference ()
 

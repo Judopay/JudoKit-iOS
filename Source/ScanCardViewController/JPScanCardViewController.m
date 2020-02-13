@@ -25,9 +25,9 @@
 #import "JPScanCardViewController.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
-#import "UIImage+Icons.h"
+#import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
-#import "UIView+SafeAnchors.h"
+#import "UIView+Additions.h"
 
 @interface JPScanCardViewController ()
 @property (nonatomic, strong) PayCardsRecognizer *recognizer;

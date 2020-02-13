@@ -1,5 +1,5 @@
 //
-//  UIColor+Judo.m
+//  UIColor+Additions.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "UIApplication+Additions.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 
 @implementation UIColor (Judo)
 

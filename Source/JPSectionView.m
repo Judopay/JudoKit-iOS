@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPSectionView.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 
 @interface JPSectionView ()

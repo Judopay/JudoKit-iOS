@@ -23,17 +23,36 @@
 //  SOFTWARE.
 
 #import "JPTheme.h"
+#import "JPCardNetwork.h"
 #import <Foundation/Foundation.h>
 
-@interface NSString (Additions)
-/**
- * Returns the localized version of the string
- */
-- (nonnull NSString *)localized;
+typedef NS_ENUM(NSUInteger, JPTextDirection) {
+    JPTextDirectionNeutral = 0,
 
-/**
- * Returns the currency symbol for the currency code string
- */
+    JPTextDirectionLeftToRight,
+
+    JPTextDirectionRightToLeft,
+};
+
+
+@interface NSString (Additions)
+
+@property (nonatomic, assign, readonly) BOOL isNumeric;
+@property (nonatomic, assign, readonly) BOOL isAlphaNumeric;
+@property (nonatomic, assign, readonly) BOOL isLuhnValid;
+@property (nonatomic, assign, readonly) CardNetwork cardNetwork;
+@property (nonatomic, assign, readonly) BOOL isCardNumberValid;
+
+- (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks
+                                                            error:(NSError *_Nullable *_Nullable)error;
+- (nonnull NSString *)localized;
 - (nullable NSString *)toCurrencySymbol;
+- (nullable NSString *)stringByReplacingCharactersInSet:(nonnull NSCharacterSet *)charSet
+                                             withString:(nonnull NSString *)aString;
+
+- (nonnull NSString *)stringByRemovingWhitespaces;
+- (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern;
+- (nonnull NSDictionary<NSString *, NSString *> *)extractURLComponentsQueryItems;
+- (JPTextDirection)getBaseDirection;
 
 @end

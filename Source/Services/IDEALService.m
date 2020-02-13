@@ -29,7 +29,7 @@
 #import "JPResponse.h"
 #import "JPSession.h"
 #import "JPTransactionData.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 @interface IDEALService ()
 

@@ -32,7 +32,7 @@
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 @interface JPAddCardInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;

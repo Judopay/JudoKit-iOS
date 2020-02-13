@@ -32,8 +32,8 @@
 #import "JPPaymentMethodsView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "NSString+Additions.h"
-#import "UIColor+Judo.h"
-#import "UIImage+Icons.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface JPPaymentMethodsViewController ()

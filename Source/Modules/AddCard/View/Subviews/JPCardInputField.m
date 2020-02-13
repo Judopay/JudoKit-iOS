@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardInputField.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 
 @implementation JPCardInputField

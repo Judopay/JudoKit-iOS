@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
-#import "NSString+Card.h"
+#import "NSString+Additions.h"
 
 @interface JPCardDetails ()
 @property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;

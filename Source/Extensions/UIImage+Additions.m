@@ -1,5 +1,5 @@
 //
-//  UIImage+Icons.h
+//  UIImage+Additions.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -24,9 +24,9 @@
 //
 
 #import "NSBundle+Additions.h"
-#import "UIImage+Icons.h"
+#import "UIImage+Additions.h"
 
-@implementation UIImage (Icons)
+@implementation UIImage (Additions)
 
 + (UIImage *)imageWithIconName:(NSString *)iconName {
     return [UIImage imageNamed:iconName inBundle:NSBundle.iconsBundle compatibleWithTraitCollection:nil];

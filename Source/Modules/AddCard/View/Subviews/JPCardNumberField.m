@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPCardNumberField.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
-#import "UIImage+Icons.h"
+#import "UIImage+Additions.h"
 
 @interface JPCardNumberField ()
 @property (nonatomic, strong) UIImageView *cardLogoImageView;

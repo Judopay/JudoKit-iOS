@@ -24,9 +24,11 @@
 
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
+#import "JPCardNetwork.h"
+#import "NSError+Additions.h"
 #import <Foundation/Foundation.h>
 
-@implementation NSString (Manipulation)
+@implementation NSString (Additions)
 
 - (nonnull NSString *)localized {
     if (NSBundle.stringsBundle != nil) {
@@ -38,5 +40,176 @@
 - (NSString *)toCurrencySymbol {
     return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
 }
+
+- (NSString *)cardPresentationStringWithAcceptedNetworks:(NSArray *)networks
+                                                   error:(NSError **)error {
+    // strip whitespaces
+    NSString *strippedString = [self stringByRemovingWhitespaces];
+
+    // check if count is between 0 and 16
+    if (strippedString.length == 0) {
+        return @"";
+    }
+
+    CardNetwork network = strippedString.cardNetwork;
+    BOOL isValidCardNumber = [self isValidCardNumber:strippedString
+                                          forNetwork:network
+                                    acceptedNetworks:networks
+                                               error:error];
+
+    if (!isValidCardNumber) {
+        return nil;
+    }
+
+    // Only try to format if a specific card number has been recognized
+    if (network == CardNetworkUnknown) {
+        return strippedString;
+    }
+
+    JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:network];
+    NSString *pattern = [JPCardNetwork defaultNumberPattern];
+
+    if (cardNetwork) {
+        pattern = cardNetwork.numberPattern;
+    }
+
+    return [strippedString formatWithPattern:pattern];
+}
+
+- (CardNetwork)cardNetwork {
+    return [JPCardNetwork cardNetworkForCardNumber:self];
+}
+
+- (BOOL)isCardNumberValid {
+    NSString *strippedSelf = [self stringByRemovingWhitespaces];
+
+    if ([strippedSelf rangeOfString:@"."].location != NSNotFound || !strippedSelf.isLuhnValid) {
+        return false;
+    }
+
+    CardNetwork network = self.cardNetwork;
+    if (network == CardNetworkAMEX) {
+        return strippedSelf.length == 15;
+    }
+
+    return strippedSelf.length == 16;
+}
+
+- (BOOL)isValidCardNumber:(NSString *)number
+               forNetwork:(CardNetwork)network
+         acceptedNetworks:(NSArray *)networks
+                    error:(NSError **)error {
+
+    if (number.length > 16 || ![number isNumeric]) {
+        if (error != NULL) {
+            *error = [NSError judoInputMismatchErrorWithMessage:@"check_card_number".localized];
+        }
+        return NO;
+    }
+
+    if (network == CardNetworkAMEX && number.length > 15) {
+        if (error != NULL) {
+            *error = [NSError judoInputMismatchErrorWithMessage:@"check_card_number".localized];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
+- (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
+    NSMutableString *string = [NSMutableString stringWithCapacity:self.length];
+    for (NSUInteger index = 0; index < self.length; ++index) {
+        unichar character = [self characterAtIndex:index];
+        if ([charSet characterIsMember:character]) {
+            [string appendString:aString];
+        } else {
+            [string appendFormat:@"%C", character];
+        }
+    }
+    return string;
+}
+
+- (NSString *)stringByRemovingWhitespaces {
+    return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+}
+
+- (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern {
+    const char *patternString = pattern.UTF8String;
+    NSString *returnString = @"";
+    NSInteger patternIndex = 0;
+
+    for (int i = 0; i < self.length; i++) {
+        const char element = patternString[patternIndex];
+
+        if (element == 'X') {
+            char num = [self characterAtIndex:i];
+            returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@"%c", num]];
+        } else {
+            char num = [self characterAtIndex:i];
+            returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@" %c", num]];
+            patternIndex++;
+        }
+
+        patternIndex++;
+    }
+
+    return returnString;
+}
+
+- (nonnull NSDictionary<NSString *, NSString *> *)extractURLComponentsQueryItems {
+    NSMutableDictionary *results = [NSMutableDictionary dictionary];
+
+    for (NSString *pair in [self componentsSeparatedByString:@"&"]) {
+        if ([pair rangeOfString:@"="].location != NSNotFound) {
+            NSArray *components = [pair componentsSeparatedByString:@"="];
+            NSString *key = [components firstObject];
+            NSString *value = [[components lastObject] stringByRemovingPercentEncoding];
+
+            results[key] = value;
+        }
+    }
+
+    return results;
+}
+
+- (JPTextDirection)getBaseDirection {
+    return JPTextDirectionLeftToRight;
+}
+
+- (BOOL)isNumeric {
+    NSString *regexPattern = @"^[0-9]*$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
+    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)].count;
+}
+
+- (BOOL)isAlphaNumeric {
+    NSCharacterSet *nonAlphaNumeric = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+    return [self rangeOfCharacterFromSet:nonAlphaNumeric].location == NSNotFound;
+}
+
+- (BOOL)isLuhnValid {
+    NSUInteger total = 0;
+    NSUInteger len = [self length];
+
+    for (NSUInteger index = len; index > 0;) {
+        BOOL odd = (len - index) & 1;
+        --index;
+        unichar character = [self characterAtIndex:index];
+        if (character < '0' || character > '9')
+            continue;
+        character -= '0';
+        if (odd)
+            character *= 2;
+        if (character >= 10) {
+            total += 1;
+            character -= 10;
+        }
+        total += character;
+    }
+
+    return (total % 10) == 0;
+}
+
 
 @end

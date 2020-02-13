@@ -25,7 +25,7 @@
 
 #import "JPtheme.h"
 #import "NSString+Additions.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIViewController+Additions.h"
 
 @implementation UIViewController (Additions)

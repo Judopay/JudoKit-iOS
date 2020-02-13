@@ -35,12 +35,12 @@
 #import "JPResponse.h"
 #import "JPTheme.h"
 #import "JPTransactionData.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 #import "NSString+Additions.h"
 #import "TransactionStatusView.h"
-#import "UIColor+Judo.h"
-#import "UIImage+Icons.h"
-#import "UIView+SafeAnchors.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
+#import "UIView+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface IDEALFormViewController ()

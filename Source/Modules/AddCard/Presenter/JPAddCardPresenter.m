@@ -26,7 +26,7 @@
 #import "JPAddCardInteractor.h"
 #import "JPAddCardRouter.h"
 #import "JPAddCardViewController.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 #import "JPAddress.h"
 #import "JPCard.h"

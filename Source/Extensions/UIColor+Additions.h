@@ -1,8 +1,8 @@
 //
-//  CLLocation+JPDictionaryConvertible.h
+//  UIColor+Additions.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,42 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPDictionaryConvertible.h"
-#import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
 
-@interface CLLocation (JPDictionaryConvertible) <JPDictionaryConvertible>
+@interface UIColor (Additions)
+
+- (nonnull UIColor *)inverseColor;
+
+- (nonnull UIImage *)asImage;
+
+- (CGFloat)greyScale;
+
+- (BOOL)isDarkColor;
+
++ (UIColor *_Nonnull)colorFromHex:(int)hex;
+
++ (UIColor *_Nonnull)thunder;
+
++ (UIColor *_Nonnull)magnesium;
+
++ (UIColor *_Nonnull)zircon;
+
++ (UIColor *_Nonnull)lightGray;
+
++ (UIColor *_Nonnull)cgRed;
+
++ (UIColor *_Nonnull)idealPurple;
+
++ (UIColor *_Nonnull)defaultTintColor;
+
++ (UIColor *_Nonnull)jpBlackColor;
+
++ (UIColor *_Nonnull)jpRedColor;
+
++ (UIColor *_Nonnull)jpDarkGrayColor;
+
++ (UIColor *_Nonnull)jpGrayColor;
+
++ (UIColor *_Nonnull)jpLightGrayColor;
 
 @end

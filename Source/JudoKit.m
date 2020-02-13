@@ -47,7 +47,7 @@
 #import "JPTransactionData.h"
 #import "JPTransactionEnricher.h"
 #import "JPVoid.h"
-#import "NSError+Judo.h"
+#import "NSError+Additions.h"
 
 #import "JPAddCardBuilder.h"
 #import "JPAddCardViewController.h"

@@ -25,10 +25,9 @@
 #import "JPPaymentMethodsView.h"
 #import "Functions.h"
 #import "JPPaymentMethodsHeaderView.h"
-#import "UIColor+Judo.h"
-#import "UIImage+Icons.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
 #import "UIView+Additions.h"
-#import "UIView+SafeAnchors.h"
 
 @implementation JPPaymentMethodsView
 
