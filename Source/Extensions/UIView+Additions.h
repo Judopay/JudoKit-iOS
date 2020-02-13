@@ -90,14 +90,29 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
              forView:(nonnull UIView *)view
          withPadding:(CGFloat)padding;
 
+/**
+ * A method which returns the safe top area anchor
+ */
 - (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor;
 
+/**
+ * A method which returns the safe top area anchor
+ */
 - (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor;
 
+/**
+ * A method which returns the safe top area anchor
+ */
 - (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor;
 
+/**
+ * A method which returns the safe top area anchor
+ */
 - (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor;
 
+/**
+ * A method which returns the safe area insets
+ */
 - (UIEdgeInsets)safeAreaEdgeInsets;
 
 @end

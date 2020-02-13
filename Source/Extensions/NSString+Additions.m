@@ -43,10 +43,9 @@
 
 - (NSString *)cardPresentationStringWithAcceptedNetworks:(NSArray *)networks
                                                    error:(NSError **)error {
-    // strip whitespaces
+    
     NSString *strippedString = [self stringByRemovingWhitespaces];
 
-    // check if count is between 0 and 16
     if (strippedString.length == 0) {
         return @"";
     }
@@ -61,7 +60,6 @@
         return nil;
     }
 
-    // Only try to format if a specific card number has been recognized
     if (network == CardNetworkUnknown) {
         return strippedString;
     }
@@ -157,35 +155,10 @@
     return returnString;
 }
 
-- (nonnull NSDictionary<NSString *, NSString *> *)extractURLComponentsQueryItems {
-    NSMutableDictionary *results = [NSMutableDictionary dictionary];
-
-    for (NSString *pair in [self componentsSeparatedByString:@"&"]) {
-        if ([pair rangeOfString:@"="].location != NSNotFound) {
-            NSArray *components = [pair componentsSeparatedByString:@"="];
-            NSString *key = [components firstObject];
-            NSString *value = [[components lastObject] stringByRemovingPercentEncoding];
-
-            results[key] = value;
-        }
-    }
-
-    return results;
-}
-
-- (JPTextDirection)getBaseDirection {
-    return JPTextDirectionLeftToRight;
-}
-
 - (BOOL)isNumeric {
     NSString *regexPattern = @"^[0-9]*$";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
     return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)].count;
-}
-
-- (BOOL)isAlphaNumeric {
-    NSCharacterSet *nonAlphaNumeric = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
-    return [self rangeOfCharacterFromSet:nonAlphaNumeric].location == NSNotFound;
 }
 
 - (BOOL)isLuhnValid {
@@ -210,6 +183,5 @@
 
     return (total % 10) == 0;
 }
-
 
 @end

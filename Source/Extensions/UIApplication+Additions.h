@@ -24,12 +24,11 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface UIApplication (Additions)
 
+/**
+ * A method for identifying if the device is currently in dark mode
+ */
 + (BOOL)isUserInterfaceStyleDark;
 
 @end
-
-NS_ASSUME_NONNULL_END

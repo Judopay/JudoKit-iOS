@@ -26,38 +26,44 @@
 
 @interface UIColor (Additions)
 
+/**
+ * A method which returns the inversed color
+ */
 - (nonnull UIColor *)inverseColor;
 
+/**
+ * A method which converts the color into an UIImage instance
+ */
 - (nonnull UIImage *)asImage;
 
-- (CGFloat)greyScale;
-
-- (BOOL)isDarkColor;
-
+/**
+ * A method which returns an UIImage based on a HEX value
+ */
 + (UIColor *_Nonnull)colorFromHex:(int)hex;
 
-+ (UIColor *_Nonnull)thunder;
-
-+ (UIColor *_Nonnull)magnesium;
-
-+ (UIColor *_Nonnull)zircon;
-
-+ (UIColor *_Nonnull)lightGray;
-
-+ (UIColor *_Nonnull)cgRed;
-
-+ (UIColor *_Nonnull)idealPurple;
-
-+ (UIColor *_Nonnull)defaultTintColor;
-
+/**
+ * The black color value (0x262626) used in the application
+ */
 + (UIColor *_Nonnull)jpBlackColor;
 
-+ (UIColor *_Nonnull)jpRedColor;
-
+/**
+ * The dark gray color value (0x999999) used in the application
+ */
 + (UIColor *_Nonnull)jpDarkGrayColor;
 
+/**
+ * The gray color value (0xE5E5E5) used in the application
+ */
 + (UIColor *_Nonnull)jpGrayColor;
 
+/**
+ * The light gray color value (0xF6F6F6) used in the application
+ */
 + (UIColor *_Nonnull)jpLightGrayColor;
+
+/**
+ * The red color value (0xE21900) used in the application
+ */
++ (UIColor *_Nonnull)jpRedColor;
 
 @end

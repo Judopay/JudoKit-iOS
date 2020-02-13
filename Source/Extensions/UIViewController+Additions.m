@@ -30,19 +30,6 @@
 
 @implementation UIViewController (Additions)
 
-- (void)applyTheme:(JPTheme *)theme {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-
-    if (![theme.tintColor isDarkColor]) {
-        navigationBar.barStyle = UIBarStyleBlack;
-    }
-
-    navigationBar.tintColor = theme.judoTextColor;
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : theme.judoNavigationBarTitleColor};
-
-    self.view.backgroundColor = [theme judoContentViewBackgroundColor];
-}
-
 - (void)connectButton:(UIButton *)button withSelector:(SEL)selector {
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }

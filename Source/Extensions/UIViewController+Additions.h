@@ -30,13 +30,6 @@
 @interface UIViewController (Additions)
 
 /**
- * A method that applies a JPTheme to a specified view
- *
- * @param theme - an instance of a JPTheme object used for theming
- */
-- (void)applyTheme:(JPTheme *)theme;
-
-/**
  * Convenience method for connecting a button with a specified selector
  *
  * @param button - the target button

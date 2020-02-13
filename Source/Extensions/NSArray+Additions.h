@@ -26,6 +26,11 @@
 
 @interface NSArray (Additions)
 
+/**
+ * A method that returns YES if any NSString in the array contains the prefix
+ *
+ * @param prefix - an NSString describing the prefix
+ */
 - (BOOL)containsPrefix:(NSString *)prefix;
 
 @end

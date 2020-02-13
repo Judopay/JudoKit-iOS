@@ -30,11 +30,13 @@
                       color:(UIColor *)color
                     andFont:(UIFont *)font {
 
+    NSDictionary *attributes = @{
+        NSForegroundColorAttributeName : color,
+        NSFontAttributeName : font
+    };
+    
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:text
-                                                                 attributes:@{
-                                                                     NSForegroundColorAttributeName : color,
-                                                                     NSFontAttributeName : font
-                                                                 }];
+                                                                 attributes:attributes];
 }
 
 @end

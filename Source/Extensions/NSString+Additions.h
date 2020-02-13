@@ -26,33 +26,55 @@
 #import "JPCardNetwork.h"
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPTextDirection) {
-    JPTextDirectionNeutral = 0,
-
-    JPTextDirectionLeftToRight,
-
-    JPTextDirectionRightToLeft,
-};
-
-
 @interface NSString (Additions)
 
-@property (nonatomic, assign, readonly) BOOL isNumeric;
-@property (nonatomic, assign, readonly) BOOL isAlphaNumeric;
-@property (nonatomic, assign, readonly) BOOL isLuhnValid;
+/**
+ * A method which returns the card network from the string
+ */
 @property (nonatomic, assign, readonly) CardNetwork cardNetwork;
+
+/**
+ * A method which returns YES if the string represents a valid card number
+ */
 @property (nonatomic, assign, readonly) BOOL isCardNumberValid;
 
+/**
+ * A method that returns a formatted card number from the input
+ *
+ * @param networks - an array of supported card networks.
+ * If the card number is not part of these networks, the method will return nil instead.
+ *
+ * @param error - a pointer to an NSError which stores information about the possible error
+ */
 - (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks
                                                             error:(NSError *_Nullable *_Nullable)error;
+/**
+ * Returns the localized string based on the input key
+ */
 - (nonnull NSString *)localized;
+
+/**
+ * Converts ISO 4217 currency codes into their symbolic equivalent
+ */
 - (nullable NSString *)toCurrencySymbol;
+
+/**
+ * A method which replaces each character in the set with a specified string
+ *
+ * @param charSet - the character set to be replaced
+ * @param aString - the string to replace the characters in the set
+ */
 - (nullable NSString *)stringByReplacingCharactersInSet:(nonnull NSCharacterSet *)charSet
                                              withString:(nonnull NSString *)aString;
 
+/**
+ * A method which returns an instance of the NSString without any whitespaces
+ */
 - (nonnull NSString *)stringByRemovingWhitespaces;
+
+/**
+ * A method which formats the string based on a specified pattern
+ */
 - (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern;
-- (nonnull NSDictionary<NSString *, NSString *> *)extractURLComponentsQueryItems;
-- (JPTextDirection)getBaseDirection;
 
 @end

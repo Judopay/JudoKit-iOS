@@ -28,10 +28,8 @@
 
 #import "ApplePayConfiguration.h"
 #import "ApplePayManager.h"
-#import "FloatingTextField.h"
 #import "JPCheckCard.h"
 #import "JPCollection.h"
-#import "JPInputField.h"
 #import "JPPayment.h"
 #import "JPPreAuth.h"
 #import "JPPrimaryAccountDetails.h"

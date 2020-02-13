@@ -27,4 +27,9 @@
 
 @interface CLLocation (Additions) <JPDictionaryConvertible>
 
+/**
+ * A method which represents the current location coordinates as a dictionary
+ */
+- (NSDictionary *)toDictionary;
+
 @end

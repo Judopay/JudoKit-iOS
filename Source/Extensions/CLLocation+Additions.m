@@ -29,7 +29,6 @@
 static NSString *const kLatitudeKey = @"latitude";
 static NSString *const kLongitudeKey = @"longitude";
 
-#pragma mark - JPDictionaryConvertible
 - (NSDictionary *)toDictionary {
     return @{
         kLatitudeKey : @(self.coordinate.latitude),

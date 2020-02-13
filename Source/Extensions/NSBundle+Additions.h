@@ -24,8 +24,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 /**
  * An NSBundle extension that offers additional convenience initializers
  */
@@ -52,5 +50,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)resourcesBundle;
 
 @end
-
-NS_ASSUME_NONNULL_END

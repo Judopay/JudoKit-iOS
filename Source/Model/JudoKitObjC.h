@@ -44,7 +44,6 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPConsumer.h>
 #import <JudoKitObjC/JPConsumerDevice.h>
 #import <JudoKitObjC/JPEnhancedPaymentDetail.h>
-#import <JudoKitObjC/JPInputField.h>
 #import <JudoKitObjC/JPPagination.h>
 #import <JudoKitObjC/JPPayment.h>
 #import <JudoKitObjC/JPPaymentToken.h>
@@ -67,3 +66,4 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JudoKit.h>
 #import <JudoKitObjC/NSError+Additions.h>
 #import <JudoKitObjC/PaymentMethods.h>
+#import <JudoKitObjC/BillingCountry.h>
