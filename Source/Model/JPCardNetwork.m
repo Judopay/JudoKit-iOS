@@ -56,34 +56,12 @@
             @(CardNetworkUnknown) : @"Unknown Card Network",
             @(CardNetworkVisa) : @"Visa",
             @(CardNetworkMasterCard) : @"Mastercard",
-            @(CardNetworkVisaElectron) : @"Visa Electron",
-            @(CardNetworkSwitch) : @"Switch",
-            @(CardNetworkSolo) : @"Solo",
-            @(CardNetworkLaser) : @"Laser",
             @(CardNetworkChinaUnionPay) : @"China UnionPay",
             @(CardNetworkAMEX) : @"AmEx",
             @(CardNetworkJCB) : @"JCB",
             @(CardNetworkMaestro) : @"Maestro",
-            @(CardNetworkVisaDebit) : @"Visa Debit",
-            @(CardNetworkMasterCardDebit) : @"Mastercard Debit",
-            @(CardNetworkVisaPurchasing) : @"Visa Purchasing",
             @(CardNetworkDiscover) : @"Discover",
-            @(CardNetworkCarnet) : @"Carnet",
-            @(CardNetworkCarteBancaire) : @"Carte Bancaire",
             @(CardNetworkDinersClub) : @"Diners Club",
-            @(CardNetworkElo) : @"Elo",
-            @(CardNetworkFarmersCard) : @"Farmers Card",
-            @(CardNetworkSoriana) : @"Soriana",
-            @(CardNetworkPrivateLabelCard) : @"Private Label",
-            @(CardNetworkQCard) : @"Q Card",
-            @(CardNetworkStyle) : @"Style",
-            @(CardNetworkTrueRewards) : @"True Rewards",
-            @(CardNetworkUATP) : @"UATP",
-            @(CardNetworkBankCard) : @"Bank Card",
-            @(CardNetworkBanamex_Costco) : @"Banamex Costco",
-            @(CardNetworkInterPayment) : @"InterPayment",
-            @(CardNetworkInstaPayment) : @"InstaPayment",
-            @(CardNetworkDankort) : @"Dankort"
         };
     });
 
@@ -97,15 +75,6 @@
         _networks = @[
             [JPCardNetwork networkWith:CardNetworkVisa
                         numberPrefixes:kVisaPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkUATP
-                        numberPrefixes:kUATPPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkDankort
-                        numberPrefixes:kDankortPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkInterPayment
-                        numberPrefixes:kInterPaymentPrefixes],
 
             [JPCardNetwork networkWith:CardNetworkChinaUnionPay
                         numberPrefixes:kChinaUnionPayPrefixes],
@@ -122,9 +91,6 @@
                         numberPrefixes:kDinersClubPrefixes
                     securityCodeLength:3
                          numberPattern:kDinersClubPattern],
-
-            [JPCardNetwork networkWith:CardNetworkInstaPayment
-                        numberPrefixes:kInstaPaymentPrefixes],
 
             [JPCardNetwork networkWith:CardNetworkJCB
                         numberPrefixes:kJCBPrefixes],

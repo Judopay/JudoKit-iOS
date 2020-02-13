@@ -110,7 +110,7 @@
 
         NSUInteger cardNumberLength = 16;
 
-        if (network == CardNetworkAMEX || network == CardNetworkUATP) {
+        if (network == CardNetworkAMEX) {
             cardNumberLength = 15;
         }
 
@@ -147,12 +147,8 @@
 + (CardLogoType)cardLogoTypeForNetworkType:(CardNetwork)network {
     switch (network) {
         case CardNetworkVisa:
-        case CardNetworkVisaDebit:
-        case CardNetworkVisaElectron:
-        case CardNetworkVisaPurchasing:
             return CardLogoTypeVisa;
         case CardNetworkMasterCard:
-        case CardNetworkMasterCardDebit:
             return CardLogoTypeMasterCard;
         case CardNetworkAMEX:
             return CardLogoTypeAMEX;

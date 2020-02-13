@@ -521,15 +521,19 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                      amount:amount
                                                   reference:reference
                                                  completion:^(JPResponse *response, NSError *error) {
-        
+        //TODO: Handle response / error
     }];
     
     [configuration addPaymentMethods:@[JPPaymentMethod.card, JPPaymentMethod.applePay]];
     [configuration addSupportedCardNetworks:CardNetworkVisa];
     
-    [configuration configureApplePayWithMerchantId:merchantId countryCode:@"GB" paymentSummaryItems:@[
-        [[PaymentSummaryItem alloc] initWithLabel:@"Total" amount:[NSDecimalNumber decimalNumberWithString:amount.amount]],
-    ]];
+    NSDecimalNumber *totalAmount = [NSDecimalNumber decimalNumberWithString:amount.amount];
+    PaymentSummaryItem *total = [[PaymentSummaryItem alloc] initWithLabel:@"Total"
+                                                                   amount:totalAmount];
+
+    [configuration configureApplePayWithMerchantId:merchantId
+                                       countryCode:@"GB"
+                               paymentSummaryItems:@[total]];
     
     [configuration setRequiredBillingContactFields:ContactFieldAll];
     [configuration setRequiredShippingContactFields:ContactFieldAll];

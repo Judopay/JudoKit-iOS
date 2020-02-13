@@ -204,11 +204,6 @@
         case CardNetworkVisa:
             return PKPaymentNetworkVisa;
 
-        case CardNetworkVisaElectron:
-            if (@available(iOS 12.0, *)) {
-                return PKPaymentNetworkElectron;
-            }
-
         case CardNetworkMaestro:
             if (@available(iOS 12.0, *)) {
                 return PKPaymentNetworkMaestro;

@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
      */
     CardNetworkUnknown = 0,
     /**
-     * Visa Card Network
+     * Visa Network
      */
     CardNetworkVisa = 1 << 0,
     /**
@@ -41,119 +41,31 @@ typedef NS_ENUM(NSUInteger, CardNetwork) {
      */
     CardNetworkMasterCard = 1 << 1,
     /**
-     * Visa Electron Network
+     * Maestro Network
      */
-    CardNetworkVisaElectron = 1 << 2,
+    CardNetworkMaestro = 1 << 2,
     /**
-     * Switch Network
+     * American Express Network
      */
-    CardNetworkSwitch = 1 << 3,
+    CardNetworkAMEX = 1 << 3,
     /**
-     * Solo Network
+     * China Union Pay Network
      */
-    CardNetworkSolo = 1 << 4,
-    /**
-     * Laser Network
-     */
-    CardNetworkLaser = 1 << 5,
-    /**
-     * China UnionPay Network
-     */
-    CardNetworkChinaUnionPay = 1 << 6,
-    /**
-     * American Express Card Network
-     */
-    CardNetworkAMEX = 1 << 7,
+    CardNetworkChinaUnionPay = 1 << 4,
     /**
      * JCB Network
      */
-    CardNetworkJCB = 1 << 8,
-    /**
-     * Maestro Card Network
-     */
-    CardNetworkMaestro = 1 << 9,
-    /**
-     * Visa Debit Card Network
-     */
-    CardNetworkVisaDebit = 1 << 10,
-    /**
-     * MasterCard Network
-     */
-    CardNetworkMasterCardDebit = 1 << 11,
-    /**
-     * Visa Purchasing Network
-     */
-    CardNetworkVisaPurchasing = 1 << 12,
+    CardNetworkJCB = 1 << 5,
     /**
      * Discover Network
      */
-    CardNetworkDiscover = 1 << 13,
-    /**
-     * Carnet Network
-     */
-    CardNetworkCarnet = 1 << 14,
-    /**
-     * Carte Bancaire Network
-     */
-    CardNetworkCarteBancaire = 1 << 15,
+    CardNetworkDiscover = 1 << 6,
     /**
      * Diners Club Network
      */
-    CardNetworkDinersClub = 1 << 16,
+    CardNetworkDinersClub = 1 << 7,
     /**
-     * Elo Network
-     */
-    CardNetworkElo = 1 << 17,
-    /**
-     * Farmers Card Network
-     */
-    CardNetworkFarmersCard = 1 << 18,
-    /**
-     * Soriana Network
-     */
-    CardNetworkSoriana = 1 << 19,
-    /**
-     * Private Label Card Network
-     */
-    CardNetworkPrivateLabelCard = 1 << 20,
-    /**
-     * Q Card Network
-     */
-    CardNetworkQCard = 1 << 21,
-    /**
-     * Style Network
-     */
-    CardNetworkStyle = 1 << 22,
-    /**
-     * True Rewards Network
-     */
-    CardNetworkTrueRewards = 1 << 23,
-    /**
-     * UATP Network
-     */
-    CardNetworkUATP = 1 << 24,
-    /**
-     * Bank Card Network
-     */
-    CardNetworkBankCard = 1 << 25,
-    /**
-     * Banamex Costco Network
-     */
-    CardNetworkBanamex_Costco = 1 << 26,
-    /**
-     * InterPayment Network
-     */
-    CardNetworkInterPayment = 1 << 27,
-    /**
-     * InstaPayment Network
-     */
-    CardNetworkInstaPayment = 1 << 28,
-    /**
-     * Dankort Network
-     */
-    CardNetworkDankort = 1 << 29,
-    /**
-     * All Cards
+     * All card networks
      */
     CardNetworksAll,
 };

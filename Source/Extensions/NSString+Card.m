@@ -80,7 +80,7 @@
     }
 
     CardNetwork network = self.cardNetwork;
-    if (network == CardNetworkUATP || network == CardNetworkAMEX) {
+    if (network == CardNetworkAMEX) {
         return strippedSelf.length == 15;
     }
 
