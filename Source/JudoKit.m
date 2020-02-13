@@ -49,7 +49,6 @@
 #import "JPTransactionData.h"
 #import "JPTransactionEnricher.h"
 #import "JPVoid.h"
-#import "JudoPayViewController.h"
 #import "NSError+Judo.h"
 
 #import "JPAddCardBuilder.h"
@@ -132,22 +131,6 @@
                                   paymentToken:(JPPaymentToken *)paymentToken
                                     completion:(JudoCompletionBlock)completion {
 
-    JudoPayViewController *viewController = [[JudoPayViewController alloc] initWithJudoId:judoId
-                                                                                   amount:amount
-                                                                                reference:reference
-                                                                              transaction:type
-                                                                           currentSession:self
-                                                                              cardDetails:cardDetails
-                                                                               completion:completion];
-
-    viewController.primaryAccountDetails = self.primaryAccountDetails;
-    viewController.paymentToken = paymentToken;
-    viewController.theme = self.theme;
-    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.activeViewController = viewController;
-    [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (JPTransaction *)transactionForTypeClass:(Class)type
