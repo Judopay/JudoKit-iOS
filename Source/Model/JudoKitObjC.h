@@ -32,8 +32,6 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 
 #import <JudoKitObjC/ApplePayConfiguration.h>
 #import <JudoKitObjC/ApplePayManager.h>
-#import <JudoKitObjC/CardInputField.h>
-#import <JudoKitObjC/CardLogoView.h>
 #import <JudoKitObjC/JPAddress.h>
 #import <JudoKitObjC/JPAmount.h>
 #import <JudoKitObjC/JPBrowser.h>
