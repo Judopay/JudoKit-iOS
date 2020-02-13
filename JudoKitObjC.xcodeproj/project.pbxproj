@@ -298,8 +298,6 @@
 		447CBD5922DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 447CBD5722DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m */; };
 		447CBD6022DCAD0800C1C9E1 /* JudoKitPaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CBD5E22DCAC6300C1C9E1 /* JudoKitPaymentMethodTests.swift */; };
 		44AA450C23469F2800F3FE09 /* JudoKitCardDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AA450A23469D7000F3FE09 /* JudoKitCardDetailsTests.swift */; };
-		44AF432422DBD491008A4839 /* JudoPaymentMethodsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		44AF432522DBD491008A4839 /* JudoPaymentMethodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */; };
 		44DA43DD22F82B9300C34231 /* NSString+Validation.h in Headers */ = {isa = PBXBuildFile; fileRef = 44DA43DC22F82B9300C34231 /* NSString+Validation.h */; };
 		44DA43EC22F82BD700C34231 /* NSString+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44DA43EB22F82BD700C34231 /* NSString+Validation.m */; };
 		44DA43EF22F82FE500C34231 /* NSString+Manipulation.h in Headers */ = {isa = PBXBuildFile; fileRef = 44DA43ED22F82FE500C34231 /* NSString+Manipulation.h */; };
@@ -763,8 +761,6 @@
 		447CBD5722DCA84A00C1C9E1 /* JudoPaymentMethodsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JudoPaymentMethodsViewModel.m; path = ViewModel/JudoPaymentMethodsViewModel.m; sourceTree = "<group>"; };
 		447CBD5E22DCAC6300C1C9E1 /* JudoKitPaymentMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentMethodTests.swift; sourceTree = "<group>"; };
 		44AA450A23469D7000F3FE09 /* JudoKitCardDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitCardDetailsTests.swift; sourceTree = "<group>"; };
-		44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JudoPaymentMethodsViewController.h; path = Controller/JudoPaymentMethodsViewController.h; sourceTree = "<group>"; };
-		44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JudoPaymentMethodsViewController.m; path = Controller/JudoPaymentMethodsViewController.m; sourceTree = "<group>"; };
 		44DA43DC22F82B9300C34231 /* NSString+Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Validation.h"; path = "Extensions/NSString+Validation.h"; sourceTree = "<group>"; };
 		44DA43EB22F82BD700C34231 /* NSString+Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSString+Validation.m"; path = "Extensions/NSString+Validation.m"; sourceTree = "<group>"; };
 		44DA43ED22F82FE500C34231 /* NSString+Manipulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Manipulation.h"; path = "Extensions/NSString+Manipulation.h"; sourceTree = "<group>"; };
@@ -1260,8 +1256,6 @@
 			isa = PBXGroup;
 			children = (
 				306BCF1523570475008540E7 /* iDEAL */,
-				44AF432222DBD491008A4839 /* JudoPaymentMethodsViewController.h */,
-				44AF432322DBD491008A4839 /* JudoPaymentMethodsViewController.m */,
 				3B5362931C7CBD3F00CEBAE2 /* JudoPayViewController.h */,
 				3B5362941C7CBD3F00CEBAE2 /* JudoPayViewController.m */,
 			);
@@ -1733,7 +1727,6 @@
 				30D0892C238FB9B400480C9E /* JPAddCardViewController.h in Headers */,
 				30D08928238FB95700480C9E /* JPAddCardPresenter.h in Headers */,
 				52AE7F422358D34200F41C5B /* IDEALFormViewController.h in Headers */,
-				44AF432422DBD491008A4839 /* JudoPaymentMethodsViewController.h in Headers */,
 				30D61D6823BB741A004E5CEE /* JPPaymentMethodsView.h in Headers */,
 				30CFA5A82397D45400329B04 /* JPCardValidationService.h in Headers */,
 				44290B1C22F051F60088F827 /* JPClientDetails.h in Headers */,
@@ -2231,7 +2224,6 @@
 				30CB2BE723B4E1DC00D392FF /* JPKeychainService.m in Sources */,
 				3B678BAA1C7327040001DC2F /* JPCollection.m in Sources */,
 				30D61D5623BB741A004E5CEE /* JPPaymentMethodsPresenter.m in Sources */,
-				44AF432522DBD491008A4839 /* JudoPaymentMethodsViewController.m in Sources */,
 				3B5362961C7CBD3F00CEBAE2 /* JudoPayViewController.m in Sources */,
 				30D61D6E23BB741A004E5CEE /* JPPaymentMethodsRouter.m in Sources */,
 				1577945B2110C8B9007BD3E1 /* JPSaveCard.m in Sources */,
