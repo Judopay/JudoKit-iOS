@@ -643,32 +643,14 @@
     NSError *error;
     [transaction setPkPayment:payment error:&error];
 
-#ifndef DEBUG
     if (error) {
         self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
         completion(PKPaymentAuthorizationStatusFailure);
         return;
     }
-#endif
 
     [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
 
-#ifdef DEBUG
-        response = self.mockJPResponse;
-        error = nil;
-
-        if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
-            response.billingInfo = [self.manager contactInformationFromPaymentContact:payment.billingContact];
-        }
-
-        if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
-            response.shippingInfo = [self.manager contactInformationFromPaymentContact:payment.shippingContact];
-        }
-
-        self.completionBlock(response, error);
-
-        completion(PKPaymentAuthorizationStatusSuccess);
-#else
             if (error || response.items.count == 0) {
                 self.completionBlock(response, error);
                 completion(PKPaymentAuthorizationStatusFailure);
@@ -685,26 +667,11 @@
 
             self.completionBlock(response, error);
             completion(PKPaymentAuthorizationStatusSuccess);
-#endif
     }];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (JPResponse *)mockJPResponse {
-
-    NSString *path = [[NSBundle bundleForClass:JudoKit.class] pathForResource:@"MockJPTransactionData" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *transactionDataDictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                              options:kNilOptions
-                                                                                error:nil];
-
-    JPResponse *response = [JPResponse new];
-    [response appendItem:transactionDataDictionary];
-
-    return response;
 }
 
 @end
