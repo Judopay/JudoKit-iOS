@@ -481,8 +481,8 @@
 		3004021F23A283500098DF02 /* JPCardInputField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JPCardInputField.m; path = Modules/AddCard/View/Subviews/JPCardInputField.m; sourceTree = "<group>"; };
 		300654A5237AA91900097955 /* JPCheckCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPCheckCard.h; path = API/JPCheckCard.h; sourceTree = "<group>"; };
 		300654AD237AA91900097955 /* JPCheckCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPCheckCard.m; path = API/JPCheckCard.m; sourceTree = "<group>"; };
-		300654B0237AA92A00097955 /* JPPrimaryAccountDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPPrimaryAccountDetails.h; path = Source/Model/JPPrimaryAccountDetails.h; sourceTree = SOURCE_ROOT; };
-		300654B1237AA92A00097955 /* JPPrimaryAccountDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPPrimaryAccountDetails.m; path = Source/Model/JPPrimaryAccountDetails.m; sourceTree = SOURCE_ROOT; };
+		300654B0237AA92A00097955 /* JPPrimaryAccountDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPPrimaryAccountDetails.h; path = Source/JPPrimaryAccountDetails.h; sourceTree = SOURCE_ROOT; };
+		300654B1237AA92A00097955 /* JPPrimaryAccountDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPPrimaryAccountDetails.m; path = Source/JPPrimaryAccountDetails.m; sourceTree = SOURCE_ROOT; };
 		300654B6237AB7D000097955 /* IDEALService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDEALService.m; sourceTree = "<group>"; };
 		300654BE237AB7D000097955 /* IDEALService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEALService.h; sourceTree = "<group>"; };
 		302181C823264C5300F6BE77 /* NSBundle+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSBundle+Additions.h"; path = "Extensions/NSBundle+Additions.h"; sourceTree = "<group>"; };
@@ -1171,15 +1171,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		30DB511C23100E6B00B73D66 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				300654B0237AA92A00097955 /* JPPrimaryAccountDetails.h */,
-				300654B1237AA92A00097955 /* JPPrimaryAccountDetails.m */,
-			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,14 +1307,11 @@
 				3B678B5B1C6CE5190001DC2F /* Info.plist */,
 				3B678BC71C735AB80001DC2F /* JudoKit.h */,
 				3B678BC81C735AB80001DC2F /* JudoKit.m */,
-				30DB511C23100E6B00B73D66 /* Mocks */,
 				3B678B701C6CE5F70001DC2F /* Model */,
 				30D08910238FB4CD00480C9E /* Modules */,
 				5214A7B3239997AD00283B81 /* Presentations */,
 				30DB511E23100E6B00B73D66 /* Services */,
-				3B6991531C8DD841006ED1FB /* Theme */,
 				3B678B741C6CE68D0001DC2F /* View */,
-				447CBD5522DCA81700C1C9E1 /* ViewModel */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1342,6 +1330,10 @@
 		3B678B701C6CE5F70001DC2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3B6991541C8DD85B006ED1FB /* JPTheme.h */,
+				3B6991551C8DD85B006ED1FB /* JPTheme.m */,
+				300654B0237AA92A00097955 /* JPPrimaryAccountDetails.h */,
+				300654B1237AA92A00097955 /* JPPrimaryAccountDetails.m */,
 				30B6407923EAEC5900DD8549 /* JPPaymentMethod.h */,
 				30B6408123EAEC5900DD8549 /* JPPaymentMethod.m */,
 				30DB50F823100E1C00B73D66 /* ApplePay */,
@@ -1514,15 +1506,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		3B6991531C8DD841006ED1FB /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				3B6991541C8DD85B006ED1FB /* JPTheme.h */,
-				3B6991551C8DD85B006ED1FB /* JPTheme.m */,
-			);
-			name = Theme;
-			sourceTree = "<group>";
-		};
 		3B9711831C7618C000E9A347 /* APITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1573,13 +1556,6 @@
 				44E3A10923498D150042C9EC /* HalfHeightPresentationController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		447CBD5522DCA81700C1C9E1 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		44E3A10123498ACE0042C9EC /* Models */ = {
