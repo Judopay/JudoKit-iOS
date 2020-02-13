@@ -201,67 +201,11 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (void)paymentOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     
-    [self.judoKitSession invokePayment:judoId
-                                amount:amount
-                     consumerReference:self.reference
-                           cardDetails:nil
-                            completion:^(JPResponse * response, NSError * error) {
-        if (error || response.items.count == 0) {
-            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                return;
-            }
-            
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-            }];
-            return;
-        }
-        JPTransactionData *tData = response.items[0];
-        if (tData.cardDetails) {
-            self.cardDetails = tData.cardDetails;
-            self.payToken = tData.paymentToken;
-        }
-        DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-        viewController.transactionData = tData;
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.navigationController pushViewController:viewController animated:YES];
-        }];
-    }];
 }
 
 - (void)preAuthOperation {
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     
-    [self.judoKitSession invokePreAuth:judoId
-                                amount:amount
-                     consumerReference:self.reference
-                           cardDetails:nil
-                            completion:^(JPResponse * response, NSError * error) {
-        if (error || response.items.count == 0) {
-            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                return;
-            }
-            
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-            }];
-            return;
-        }
-        JPTransactionData *tData = response.items[0];
-        if (tData.cardDetails) {
-            self.cardDetails = tData.cardDetails;
-            self.payToken = tData.paymentToken;
-        }
-        DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-        viewController.transactionData = tData;
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.navigationController pushViewController:viewController animated:YES];
-        }];
-    }];
 }
 
 - (void)createCardTokenOperation {
@@ -341,43 +285,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (void)tokenPaymentOperation {
-    if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
-        
-        [self.judoKitSession invokeTokenPayment:judoId
-                                         amount:amount
-                              consumerReference:self.reference
-                                    cardDetails:self.cardDetails
-                                   paymentToken:self.payToken
-                                     completion:^(JPResponse * response, NSError * error) {
-            
-            if (error || response.items.count == 0) {
-                if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                    return;
-                }
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-                }];
-                return;
-            }
-            JPTransactionData *tData = response.items[0];
-            if (tData.cardDetails) {
-                self.cardDetails = tData.cardDetails;
-                self.payToken = tData.paymentToken;
-            }
-            DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-            viewController.transactionData = tData;
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self.navigationController pushViewController:viewController animated:YES];
-            }];
-        }];
-        
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"you need to create a card token before you can do a pre auth" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+
 }
 
 - (void)idealTransactionOperation {
@@ -393,43 +301,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (void)tokenPreAuthOperation {
-    if (self.cardDetails) {
-        JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
-        
-        [self.judoKitSession invokeTokenPreAuth:judoId
-                                         amount:amount
-                              consumerReference:self.reference
-                                    cardDetails:self.cardDetails
-                                   paymentToken:self.payToken
-                                     completion:^(JPResponse * response, NSError * error) {
-            
-            if (error || response.items.count == 0) {
-                if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                    return;
-                }
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-                }];
-                return;
-            }
-            JPTransactionData *tData = response.items[0];
-            if (tData.cardDetails) {
-                self.cardDetails = tData.cardDetails;
-                self.payToken = tData.paymentToken;
-            }
-            DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-            viewController.transactionData = tData;
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self.navigationController pushViewController:viewController animated:YES];
-            }];
-        }];
-        
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"you need to create a card token before you can do a pre auth" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+
 }
 
 - (void)applePayPaymentOperation {

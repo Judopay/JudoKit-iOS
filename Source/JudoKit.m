@@ -123,16 +123,6 @@
     [transaction sendWithCompletion:completion];
 }
 
-- (void)presentPaymentViewControllerWithJudoId:(NSString *)judoId
-                                        amount:(JPAmount *)amount
-                                     reference:(JPReference *)reference
-                                   transaction:(TransactionType)type
-                                   cardDetails:(JPCardDetails *)cardDetails
-                                  paymentToken:(JPPaymentToken *)paymentToken
-                                    completion:(JudoCompletionBlock)completion {
-
-}
-
 - (JPTransaction *)transactionForTypeClass:(Class)type
                                     judoId:(NSString *)judoId
                                     amount:(nullable JPAmount *)amount
@@ -362,51 +352,6 @@
     [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (void)invokePayment:(NSString *)judoId
-               amount:(JPAmount *)amount
-    consumerReference:(NSString *)reference
-          cardDetails:(JPCardDetails *)cardDetails
-           completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:[[JPReference alloc] initWithConsumerReference:reference]
-                                     transaction:TransactionTypePayment
-                                     cardDetails:cardDetails
-                                    paymentToken:nil
-                                      completion:completion];
-}
-
-- (void)invokePayment:(NSString *)judoId
-               amount:(JPAmount *)amount
-            reference:(JPReference *)reference
-          cardDetails:(JPCardDetails *)cardDetails
-           completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:reference
-                                     transaction:TransactionTypePayment
-                                     cardDetails:cardDetails
-                                    paymentToken:nil
-                                      completion:completion];
-}
-
-- (void)invokePreAuth:(NSString *)judoId
-               amount:(JPAmount *)amount
-    consumerReference:(NSString *)reference
-          cardDetails:(JPCardDetails *)cardDetails
-           completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:[[JPReference alloc] initWithConsumerReference:reference]
-                                     transaction:TransactionTypePreAuth
-                                     cardDetails:cardDetails
-                                    paymentToken:nil
-                                      completion:completion];
-}
-
 - (void)invokeRegisterCard:(NSString *)judoId
          consumerReference:(NSString *)reference
                 completion:(void (^)(JPResponse *, NSError *))completion {
@@ -439,53 +384,6 @@
                          completion:completion];
 }
 
-- (void)invokeTokenPayment:(NSString *)judoId
-                    amount:(JPAmount *)amount
-         consumerReference:(NSString *)reference
-               cardDetails:(JPCardDetails *)cardDetails
-              paymentToken:(JPPaymentToken *)paymentToken
-                completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:[[JPReference alloc] initWithConsumerReference:reference]
-                                     transaction:TransactionTypePayment
-                                     cardDetails:cardDetails
-                                    paymentToken:paymentToken
-                                      completion:completion];
-}
-
-- (void)invokeTokenPreAuth:(NSString *)judoId
-                    amount:(JPAmount *)amount
-         consumerReference:(NSString *)reference
-               cardDetails:(JPCardDetails *)cardDetails
-              paymentToken:(JPPaymentToken *)paymentToken
-                completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:[[JPReference alloc] initWithConsumerReference:reference]
-                                     transaction:TransactionTypePreAuth
-                                     cardDetails:cardDetails
-                                    paymentToken:paymentToken
-                                      completion:completion];
-}
-
-- (void)invokePreAuth:(NSString *)judoId
-               amount:(JPAmount *)amount
-            reference:(JPReference *)reference
-          cardDetails:(JPCardDetails *)cardDetails
-           completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:reference
-                                     transaction:TransactionTypePreAuth
-                                     cardDetails:cardDetails
-                                    paymentToken:nil
-                                      completion:completion];
-}
-
 - (void)invokeRegisterCard:(NSString *)judoId
                  reference:(JPReference *)reference
                 completion:(void (^)(JPResponse *, NSError *))completion {
@@ -504,38 +402,6 @@
                              judoId:judoId
                           reference:reference
                          completion:completion];
-}
-
-- (void)invokeTokenPayment:(NSString *)judoId
-                    amount:(JPAmount *)amount
-                 reference:(JPReference *)reference
-               cardDetails:(JPCardDetails *)cardDetails
-              paymentToken:(JPPaymentToken *)paymentToken
-                completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:reference
-                                     transaction:TransactionTypePayment
-                                     cardDetails:cardDetails
-                                    paymentToken:paymentToken
-                                      completion:completion];
-}
-
-- (void)invokeTokenPreAuth:(NSString *)judoId
-                    amount:(JPAmount *)amount
-                 reference:(JPReference *)reference
-               cardDetails:(JPCardDetails *)cardDetails
-              paymentToken:(JPPaymentToken *)paymentToken
-                completion:(void (^)(JPResponse *, NSError *))completion {
-
-    [self presentPaymentViewControllerWithJudoId:judoId
-                                          amount:amount
-                                       reference:reference
-                                     transaction:TransactionTypePreAuth
-                                     cardDetails:cardDetails
-                                    paymentToken:paymentToken
-                                      completion:completion];
 }
 
 - (void)invokeAddCardForTypeClass:(Class)type
