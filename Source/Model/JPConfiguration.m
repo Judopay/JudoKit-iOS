@@ -24,8 +24,8 @@
 
 #import "JPConfiguration.h"
 #import "JPAmount.h"
-#import "JPReference.h"
 #import "JPPaymentMethod.h"
+#import "JPReference.h"
 
 @interface JPConfiguration ()
 
@@ -64,7 +64,7 @@
 - (void)configureApplePayWithMerchantId:(NSString *)merchantId
                             countryCode:(NSString *)countryCode
                     paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items {
-    
+
     self.applePayConfiguration = [[ApplePayConfiguration alloc] initWithJudoId:self.judoId
                                                                      reference:self.reference.consumerReference
                                                                     merchantId:merchantId

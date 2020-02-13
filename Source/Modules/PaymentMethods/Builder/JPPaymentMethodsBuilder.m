@@ -114,7 +114,7 @@
     JPPaymentMethodsInteractorImpl *interactor;
     interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithTransaction:transaction
                                                                    reference:reference
-                                                                       theme:session.theme
+                                                                     session:session
                                                               paymentMethods:methods
                                                        applePayConfiguration:configuration
                                                                    andAmount:amount];

@@ -23,17 +23,18 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsInteractor.h"
+#import "ApplePayManager.h"
 #import "JPAmount.h"
 #import "JPCardStorage.h"
 #import "JPPaymentToken.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
-#import "ApplePayManager.h"
+#import "JudoKit.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, strong) JPTransaction *transaction;
 @property (nonatomic, strong) JPReference *reference;
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong) JudoKit *session;
 @property (nonatomic, strong) JPAmount *amount;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @property (nonatomic, strong) ApplePayManager *applePayManager;
@@ -44,14 +45,14 @@
 
 - (instancetype)initWithTransaction:(JPTransaction *)transaction
                           reference:(JPReference *)reference
-                              theme:(JPTheme *)theme
+                            session:(JudoKit *)session
                      paymentMethods:(NSArray<JPPaymentMethod *> *)methods
               applePayConfiguration:(ApplePayConfiguration *)configuration
                           andAmount:(JPAmount *)amount {
     if (self = [super init]) {
         self.transaction = transaction;
         self.reference = reference;
-        self.theme = theme;
+        self.session = session;
         self.paymentMethods = methods;
         self.applePayConfiguration = configuration;
         self.amount = amount;
@@ -81,7 +82,7 @@
 }
 
 - (BOOL)shouldDisplayJudoHeadline {
-    return [self.theme displayJudoHeadline];
+    return [self.session.theme displayJudoHeadline];
 }
 
 - (void)setCardAsSelectedAtInded:(NSInteger)index {
@@ -94,27 +95,28 @@
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
     NSMutableArray *defaultPaymentMethods;
-    defaultPaymentMethods= [NSMutableArray arrayWithArray:@[JPPaymentMethod.card, JPPaymentMethod.iDeal]];
-    
+    defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card, JPPaymentMethod.iDeal ]];
+
     if ([self.applePayManager isApplePaySupported]) {
         [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
     } else {
         [self removeApplePayFromPaymentMethods];
     }
-    
+
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 
 - (void)removeApplePayFromPaymentMethods {
-    if (self.paymentMethods.count == 0) return;
+    if (self.paymentMethods.count == 0)
+        return;
     NSMutableArray *paymentMethods = (NSMutableArray *)self.paymentMethods;
-    
+
     [paymentMethods enumerateObjectsWithOptions:NSEnumerationReverse
                                      usingBlock:^(JPPaymentMethod *method, NSUInteger idx, BOOL *stop) {
-        if (method.type == JPPaymentMethodTypeApplePay) {
-            [paymentMethods removeObject:method];
-        }
-    }];
+                                         if (method.type == JPPaymentMethodTypeApplePay) {
+                                             [paymentMethods removeObject:method];
+                                         }
+                                     }];
 }
 
 - (void)paymentTransactionWithToken:(NSString *)token
@@ -125,6 +127,11 @@
 
     [self.transaction setPaymentToken:paymentToken];
     [self.transaction sendWithCompletion:completion];
+}
+
+- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
+    [self.session invokeApplePayWithConfiguration:self.applePayConfiguration
+                                       completion:completion];
 }
 
 - (void)deleteCardWithIndex:(NSInteger)index {

@@ -90,6 +90,16 @@
                                    }];
 }
 
+- (void)handleApplePayButtonTap {
+    [self.interactor startApplePayWithCompletion:^(JPResponse *response, NSError *error) {
+        if (error) {
+            [self handlePaymentError:error];
+            return;
+        }
+        [self handlePaymentResponse:response];
+    }];
+}
+
 - (void)handlePaymentResponse:(JPResponse *)response {
     [self.router completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
@@ -101,14 +111,14 @@
 }
 
 - (void)deleteCardWithIndex:(NSInteger)index {
-    
+
     NSArray *storedCards = [self.interactor getStoredCardDetails];
     JPStoredCardDetails *selectedCard = storedCards[index];
-    
+
     [self.interactor deleteCardWithIndex:index];
     [self.cardListModel.cardModels removeObjectAtIndex:index];
     self.viewModel.headerModel.cardModel = nil;
-    
+
     if (selectedCard.isSelected && storedCards.count - 1 > 0) {
         [self.interactor setCardAsSelectedAtInded:0];
     }
@@ -125,26 +135,26 @@
 }
 
 - (void)changePaymentMethodToIndex:(int)index {
-    
+
     if (index == self.previousIndex) {
         return;
     }
-    
+
     AnimationType animationType = AnimationTypeLeftToRight;
-    
+
     if (index < self.previousIndex) {
         animationType = AnimationTypeRightToLeft;
     }
-        
+
     JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousIndex];
     if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
         animationType = AnimationTypeSetup;
     }
-    
+
     self.previousIndex = index;
 
     self.paymentSelectionModel.selectedPaymentMethod = index;
-    
+
     [self updateViewModelWithAnimationType:animationType];
     [self.view configureWithViewModel:self.viewModel];
 }
@@ -176,7 +186,7 @@
 
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
-    
+
     self.viewModel.headerModel.paymentMethodType = selectedPaymentMethod.type;
     self.viewModel.headerModel.isApplePaySetUp = [self.interactor isApplePaySetUp];
 

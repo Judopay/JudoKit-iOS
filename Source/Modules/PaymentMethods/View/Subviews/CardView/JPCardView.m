@@ -25,9 +25,9 @@
 #import "JPCardView.h"
 #import "Functions.h"
 #import "JPCardNetwork.h"
-#import "JPPaymentMethodsViewModel.h"
 #import "JPCardPaymentMethodView.h"
 #import "JPOtherPaymentMethodView.h"
+#import "JPPaymentMethodsViewModel.h"
 #import "UIColor+Judo.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Icons.h"
@@ -71,14 +71,14 @@
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     [self clearContentViewSubviews];
-    
+
     switch (viewModel.paymentMethodType) {
         case JPPaymentMethodTypeCard:
             [self.contentView addSubview:self.cardPaymentView];
             [self.cardPaymentView pinToView:self.contentView withPadding:0.0];
             [self.cardPaymentView configureWithViewModel:viewModel];
             break;
-            
+
         default:
             [self.contentView addSubview:self.otherPaymentView];
             [self.otherPaymentView pinToView:self.contentView withPadding:0.0];

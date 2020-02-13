@@ -70,6 +70,10 @@
     [self.presenter handlePayButtonTap];
 }
 
+- (void)onApplePayButtonTap {
+    [self.presenter handleApplePayButtonTap];
+}
+
 #pragma mark - Layout Setup
 
 - (void)configureView {
@@ -88,12 +92,18 @@
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
+    self.paymentMethodsView.tableView.delegate = self;
+    self.paymentMethodsView.tableView.dataSource = self;
+}
+
+- (void)configureTargets {
     [self.paymentMethodsView.headerView.payButton addTarget:self
                                                      action:@selector(onPayButtonTap)
                                            forControlEvents:UIControlEventTouchUpInside];
 
-    self.paymentMethodsView.tableView.delegate = self;
-    self.paymentMethodsView.tableView.dataSource = self;
+    [self.paymentMethodsView.headerView.applePayButton addTarget:self
+                                                          action:@selector(onApplePayButtonTap)
+                                                forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Protocol Conformance
@@ -112,6 +122,7 @@
     }
 
     [self handlePaymentMethodChangeBehaviorForViewModel:viewModel];
+    [self configureTargets];
 }
 
 - (void)handlePaymentMethodChangeBehaviorForViewModel:(JPPaymentMethodsViewModel *)viewModel {

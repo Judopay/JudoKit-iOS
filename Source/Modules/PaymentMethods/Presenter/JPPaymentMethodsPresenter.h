@@ -51,6 +51,11 @@
 - (void)handlePayButtonTap;
 
 /**
+ * A method that is called when the Apple Pay button is tapped. It handles the Apple Pay payment / pre-auth transaction.
+ */
+- (void)handleApplePayButtonTap;
+
+/**
  * A method for deleting a specific card details from the keychain by its index
  *
  * @param index - Card's index in cards list

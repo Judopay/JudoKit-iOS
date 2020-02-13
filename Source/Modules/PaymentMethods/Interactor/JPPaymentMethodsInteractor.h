@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 @class ApplePayConfiguration;
-@class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction;
+@class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction, JudoKit;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -66,6 +66,11 @@
                       andCompletion:(JudoCompletionBlock)completion;
 
 /**
+ * Starts the Apple Pay payment / preAuth flow
+ */
+- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion;
+
+/**
  * A method for deleting a specific card details from the keychain by its index
  *
  * @param index - Card's index in cards list
@@ -91,7 +96,7 @@
  *
  * @param transaction - an instance describing the JPTransaction details
  * @param reference - the reference needed for the transaction
- * @param theme - an instance of JPTheme that is used to configure the payment methods flow
+ * @param session - the current instance of the JudoKit session
  * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
  * @param configuration - an instance of ApplePayConfiguration that describes the Apple Pay flow
  * @param amount - the amount of the transaction
@@ -100,7 +105,7 @@
  */
 - (instancetype)initWithTransaction:(JPTransaction *)transaction
                           reference:(JPReference *)reference
-                              theme:(JPTheme *)theme
+                            session:(JudoKit *)session
                      paymentMethods:(NSArray<JPPaymentMethod *> *)methods
               applePayConfiguration:(ApplePayConfiguration *)configuration
                           andAmount:(JPAmount *)amount;

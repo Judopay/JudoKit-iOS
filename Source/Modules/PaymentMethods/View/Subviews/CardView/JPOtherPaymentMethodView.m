@@ -75,16 +75,16 @@
 #pragma mark - Layout Setup
 
 - (void)setupViews {
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.logoImageView.heightAnchor constraintEqualToConstant:31.0],
         [self.logoImageView.widthAnchor constraintEqualToConstant:74.0],
     ]];
-    
+
     UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:0.0];
     [bottomStackView addArrangedSubview:self.logoImageView];
     [bottomStackView addArrangedSubview:[UIView new]];
-    
+
     UIStackView *mainStackView = [UIStackView verticalStackViewWithSpacing:0.0];
     [mainStackView addArrangedSubview:self.titleLabel];
     [mainStackView addArrangedSubview:[UIView new]];

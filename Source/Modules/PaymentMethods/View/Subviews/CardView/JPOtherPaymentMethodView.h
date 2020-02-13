@@ -34,4 +34,3 @@
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel;
 
 @end
-
