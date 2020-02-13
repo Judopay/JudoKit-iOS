@@ -38,6 +38,7 @@
  *
  *  @return the receiptId of the transaction
  */
-- (NSString *_Nullable)load3DSWithPayload:(nonnull NSDictionary *)payload error:(NSError *_Nullable *_Nullable)error;
+- (NSString *_Nullable)load3DSWithPayload:(nonnull NSDictionary *)payload
+                                    error:(NSError *_Nullable *_Nullable)error;
 
 @end

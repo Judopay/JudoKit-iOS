@@ -326,22 +326,6 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
              reference:(nonnull JPReference *)reference
             completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
 
-/**
- *  This method will invoke the iDEAL transaction form on the top UIViewController instance of the Applications window. The iDEAL transaction form allows the
- *  merchant to set a name and select from one of the available iDEAL banks to complete the transaction.
- *
- *  @param judoId           The judoID of the merchant to receive the token pre-auth
- *  @param amount           The amount expressed as a double (currency is limited to EUR)
- *  @param reference     Holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information up to 1024 characters
- *  @param redirectCompletion        A completion block that can be optionally set to return back the redirect response for iDEAL transactions
- *  @param completion   The completion handler which will respond with a JPResponse object or an NSError
- */
-- (void)invokeIDEALPaymentWithJudoId:(nonnull NSString *)judoId
-                              amount:(double)amount
-                           reference:(nonnull JPReference *)reference
-                  redirectCompletion:(nullable IDEALRedirectCompletion)redirectCompletion
-                          completion:(nonnull JudoCompletionBlock)completion;
-
 @end
 
 @interface JudoKit (ApplePay) <PKPaymentAuthorizationViewControllerDelegate>

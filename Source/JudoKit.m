@@ -29,7 +29,6 @@
 #import "ApplePayConfiguration.h"
 #import "ApplePayManager.h"
 #import "FloatingTextField.h"
-#import "IDEALFormViewController.h"
 #import "JPCheckCard.h"
 #import "JPCollection.h"
 #import "JPInputField.h"
@@ -420,28 +419,6 @@
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
     [self.topMostViewController presentViewController:controller animated:YES completion:nil];
-}
-
-- (void)invokeIDEALPaymentWithJudoId:(NSString *)judoId
-                              amount:(double)amount
-                           reference:(JPReference *)reference
-                  redirectCompletion:(IDEALRedirectCompletion)redirectCompletion
-                          completion:(JudoCompletionBlock)completion {
-
-    IDEALFormViewController *controller = [[IDEALFormViewController alloc] initWithJudoId:judoId
-                                                                                    theme:self.theme
-                                                                                   amount:amount
-                                                                                reference:reference
-                                                                                  session:self.apiSession
-                                                                          paymentMetadata:self.paymentMetadata
-                                                                       redirectCompletion:redirectCompletion
-                                                                               completion:completion];
-
-    controller.modalPresentationStyle = UIModalPresentationFormSheet;
-
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    self.activeViewController = controller;
-    [self.topMostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

@@ -10,7 +10,6 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
     DemoFeatureTypeApplePayPreAuth,
     DemoFeatureTypePaymentMethods,
     DemoFeatureTypePreAuthMethods,
-    DemoFeatureTypeIDEALTransaction,
 };
 
 @interface DemoFeature : NSObject

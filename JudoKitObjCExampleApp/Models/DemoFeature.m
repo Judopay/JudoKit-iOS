@@ -34,9 +34,6 @@
         [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods
                                title:@"PreAuth Methods"
                              details:@"with default preauth methods"],
-        [DemoFeature featureWithType:DemoFeatureTypeIDEALTransaction
-                               title:@"iDEAL Transaction"
-                             details:@"for custom bank transactions"],
     ];
 }
 @end

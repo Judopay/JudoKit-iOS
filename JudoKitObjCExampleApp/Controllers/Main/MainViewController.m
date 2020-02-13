@@ -29,7 +29,6 @@
 #import "ExampleAppCredentials.h"
 #import "ApplePayConfiguration.h"
 #import "SettingsViewController.h"
-#import "IDEALFormViewController.h"
 #import "HalfHeightPresentationController.h"
 
 #import "DemoFeature.h"
@@ -156,10 +155,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
         case DemoFeatureTypePreAuthMethods:
             [self preAuthMethodOption];
             break;
-            
-        case DemoFeatureTypeIDEALTransaction:
-            [self idealTransactionOperation];
-            break;
 
         default:
             break;
@@ -249,18 +244,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
         [self dismissViewControllerAnimated:YES completion:^{
             [self.navigationController pushViewController:viewController animated:YES];
         }];
-    }];
-}
-
-- (void)idealTransactionOperation {
-    
-    [self.judoKitSession invokeIDEALPaymentWithJudoId:judoId
-                                               amount:0.01
-                                            reference:[JPReference consumerReference:self.reference]
-                                   redirectCompletion:nil
-                                           completion:^(JPResponse *response, NSError *error) {
-
-        // TODO: Handle response / error
     }];
 }
 
