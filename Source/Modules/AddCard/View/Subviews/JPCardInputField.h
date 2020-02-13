@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPAddCardViewModel.h"
-#import "JPTextField.h"
+#import "JPInputField.h"
 
 /**
- * A custom implementation of the JPTextField class used for displaying card details input
+ * A custom implementation of the JPInputField class used for displaying card details input
  */
-@interface JPCardInputField : JPTextField
+@interface JPCardInputField : JPInputField
 
 /**
  * A method that configures the text field based on a specified view model

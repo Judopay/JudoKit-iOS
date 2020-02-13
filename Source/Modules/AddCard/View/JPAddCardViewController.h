@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPAddCardViewModel.h"
-#import "JPTextField.h"
+#import "JPInputField.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPAddCardPresenter;
@@ -104,5 +104,5 @@
 /**
  * An extension that conforms to the InputFieldDelegate used for handling the credit card input
  */
-@interface JPAddCardViewController (InputFieldDelegate) <JPTextFieldDelegate>
+@interface JPAddCardViewController (InputFieldDelegate) <JPInputFieldDelegate>
 @end

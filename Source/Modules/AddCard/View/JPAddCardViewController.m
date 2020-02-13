@@ -237,7 +237,7 @@
 
 @implementation JPAddCardViewController (InputFieldDelegate)
 
-- (BOOL)textField:(JPTextField *)inputField shouldChangeText:(NSString *)text {
+- (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
     [self.presenter handleInputChange:text forType:inputField.type];
     return NO;
 }

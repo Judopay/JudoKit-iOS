@@ -48,9 +48,9 @@
 		30472A9E23A0E43300279A87 /* JPAddCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30472A9C23A0E43200279A87 /* JPAddCardView.m */; };
 		30472A9F23A0E43300279A87 /* JPAddCardView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30472A9D23A0E43200279A87 /* JPAddCardView.h */; };
 		30472AA423A0E45700279A87 /* JPFloatingTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 30472AA023A0E45600279A87 /* JPFloatingTextField.h */; };
-		30472AA523A0E45700279A87 /* JPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 30472AA123A0E45700279A87 /* JPTextField.m */; };
+		30472AA523A0E45700279A87 /* JPInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 30472AA123A0E45700279A87 /* JPInputField.m */; };
 		30472AA623A0E45700279A87 /* JPFloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 30472AA223A0E45700279A87 /* JPFloatingTextField.m */; };
-		30472AA723A0E45700279A87 /* JPTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 30472AA323A0E45700279A87 /* JPTextField.h */; };
+		30472AA723A0E45700279A87 /* JPInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 30472AA323A0E45700279A87 /* JPInputField.h */; };
 		30472ABA23A0F13400279A87 /* JPAddCardButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 30472AB823A0F13400279A87 /* JPAddCardButton.h */; };
 		30472ABB23A0F13400279A87 /* JPAddCardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 30472AB923A0F13400279A87 /* JPAddCardButton.m */; };
 		306BCECD2355F0F7008540E7 /* IDEALBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 306BCECC2355F0F7008540E7 /* IDEALBank.m */; };
@@ -448,9 +448,9 @@
 		30472A9C23A0E43200279A87 /* JPAddCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPAddCardView.m; path = Modules/AddCard/View/JPAddCardView.m; sourceTree = "<group>"; };
 		30472A9D23A0E43200279A87 /* JPAddCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPAddCardView.h; path = Modules/AddCard/View/JPAddCardView.h; sourceTree = "<group>"; };
 		30472AA023A0E45600279A87 /* JPFloatingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPFloatingTextField.h; path = View/JPFloatingTextField.h; sourceTree = "<group>"; };
-		30472AA123A0E45700279A87 /* JPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPTextField.m; path = View/JPTextField.m; sourceTree = "<group>"; };
+		30472AA123A0E45700279A87 /* JPInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPInputField.m; path = View/JPInputField.m; sourceTree = "<group>"; };
 		30472AA223A0E45700279A87 /* JPFloatingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPFloatingTextField.m; path = View/JPFloatingTextField.m; sourceTree = "<group>"; };
-		30472AA323A0E45700279A87 /* JPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPTextField.h; path = View/JPTextField.h; sourceTree = "<group>"; };
+		30472AA323A0E45700279A87 /* JPInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPInputField.h; path = View/JPInputField.h; sourceTree = "<group>"; };
 		30472AB823A0F13400279A87 /* JPAddCardButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JPAddCardButton.h; path = Modules/AddCard/View/Subviews/JPAddCardButton.h; sourceTree = "<group>"; };
 		30472AB923A0F13400279A87 /* JPAddCardButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JPAddCardButton.m; path = Modules/AddCard/View/Subviews/JPAddCardButton.m; sourceTree = "<group>"; };
 		306BCECC2355F0F7008540E7 /* IDEALBank.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IDEALBank.m; path = Model/IDEALBank.m; sourceTree = "<group>"; };
@@ -1429,8 +1429,8 @@
 		52552C5723F5C8B300541EF6 /* InputField */ = {
 			isa = PBXGroup;
 			children = (
-				30472AA123A0E45700279A87 /* JPTextField.m */,
-				30472AA323A0E45700279A87 /* JPTextField.h */,
+				30472AA123A0E45700279A87 /* JPInputField.m */,
+				30472AA323A0E45700279A87 /* JPInputField.h */,
 			);
 			name = InputField;
 			sourceTree = "<group>";
@@ -1703,7 +1703,7 @@
 				30DB512223100E6B00B73D66 /* Functions.h in Headers */,
 				1577945D2110C8CF007BD3E1 /* JPSaveCard.h in Headers */,
 				3B678BB11C7327270001DC2F /* JPVoid.h in Headers */,
-				30472AA723A0E45700279A87 /* JPTextField.h in Headers */,
+				30472AA723A0E45700279A87 /* JPInputField.h in Headers */,
 				30D61D6B23BB741A004E5CEE /* JPPaymentMethodsBuilder.h in Headers */,
 				3B678BB51C7327410001DC2F /* JPReceipt.h in Headers */,
 				30DB511623100E5200B73D66 /* JPConstants.h in Headers */,
@@ -2061,7 +2061,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30472AA523A0E45700279A87 /* JPTextField.m in Sources */,
+				30472AA523A0E45700279A87 /* JPInputField.m in Sources */,
 				3B678B9E1C7326C00001DC2F /* JPPayment.m in Sources */,
 				30CB2BF223B4E82100D392FF /* JPStoredCardDetails.m in Sources */,
 				30DB510623100E1C00B73D66 /* ContactInformation.m in Sources */,

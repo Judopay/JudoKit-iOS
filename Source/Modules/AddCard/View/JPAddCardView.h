@@ -25,7 +25,7 @@
 #import <UIKit/UIKit.h>
 
 @class JPAddCardViewModel;
-@class LoadingButton, JPTextField, JPCardNumberField, JPCardInputField, JPAddCardButton;
+@class LoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPAddCardButton;
 
 @interface JPAddCardView : UIView
 
