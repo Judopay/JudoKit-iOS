@@ -3,19 +3,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DemoFeatureType) {
-    DemoFeatureTypePayment,
-    DemoFeatureTypePreAuth,
     DemoFeatureTypeCreateCardToken,
     DemoFeatureTypeSaveCard,
     DemoFeatureTypeCheckCard,
-    DemoFeatureTypeRepeatPayment,
-    DemoFeatureTypeTokenPreAuth,
     DemoFeatureTypeApplePayPayment,
     DemoFeatureTypeApplePayPreAuth,
     DemoFeatureTypePaymentMethods,
     DemoFeatureTypePreAuthMethods,
     DemoFeatureTypeIDEALTransaction,
-    DemoFeatureTypeStandaloneApplePayButton
 };
 
 @interface DemoFeature : NSObject

@@ -129,13 +129,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
     switch (feature.type) {
-        case DemoFeatureTypePayment:
-            [self paymentOperation];
-            break;
-
-        case DemoFeatureTypePreAuth:
-            [self preAuthOperation];
-            break;
 
         case DemoFeatureTypeCreateCardToken:
             [self createCardTokenOperation];
@@ -147,14 +140,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             
         case DemoFeatureTypeCheckCard:
             [self checkCardOperation];
-            break;
-
-        case DemoFeatureTypeRepeatPayment:
-            [self tokenPaymentOperation];
-            break;
-
-        case DemoFeatureTypeTokenPreAuth:
-            [self tokenPreAuthOperation];
             break;
 
         case DemoFeatureTypeApplePayPayment:
@@ -177,9 +162,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             [self idealTransactionOperation];
             break;
 
-        case DemoFeatureTypeStandaloneApplePayButton:
-            [self standaloneApplePayButton];
-
         default:
             break;
     }
@@ -187,25 +169,12 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
 #pragma mark - Operations
 
-- (void)standaloneApplePayButton {
-    ApplePayButtonViewController *standaloneApplePayButtonVC = [[ApplePayButtonViewController alloc] initWithCurrentSession: self.judoKitSession];
-    [self.navigationController pushViewController:standaloneApplePayButtonVC animated:YES];
-}
-
 - (void)paymentMethodOption {
     [self.judoKitSession invokePaymentMethodSelectionWithConfiguration:self.configuration];
 }
 
 - (void)preAuthMethodOption {
     [self.judoKitSession invokePreAuthMethodSelectionWithConfiguration:self.configuration];
-}
-
-- (void)paymentOperation {
-    
-}
-
-- (void)preAuthOperation {
-    
 }
 
 - (void)createCardTokenOperation {
@@ -284,10 +253,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     }];
 }
 
-- (void)tokenPaymentOperation {
-
-}
-
 - (void)idealTransactionOperation {
     
     [self.judoKitSession invokeIDEALPaymentWithJudoId:judoId
@@ -298,10 +263,6 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
         // TODO: Handle response / error
     }];
-}
-
-- (void)tokenPreAuthOperation {
-
 }
 
 - (void)applePayPaymentOperation {
