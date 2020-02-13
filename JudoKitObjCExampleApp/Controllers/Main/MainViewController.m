@@ -24,17 +24,16 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-#import "ApplePayButtonViewController.h"
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "ExampleAppCredentials.h"
 #import "ApplePayConfiguration.h"
 #import "SettingsViewController.h"
+#import "IDEALFormViewController.h"
+#import "HalfHeightPresentationController.h"
+
 #import "DemoFeature.h"
 #import "Settings.h"
-#import "HalfHeightPresentationController.h"
-#import "IDEALFormViewController.h"
-#import "JPPrimaryAccountDetails.h"
 
 #import "JudoKitObjC.h"
 

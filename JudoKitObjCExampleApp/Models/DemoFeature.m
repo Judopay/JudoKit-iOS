@@ -13,14 +13,30 @@
 
 + (NSArray <DemoFeature *> *)defaultFeatures {
     return @[
-        [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken title:@"Register card" details: @"to be stored for future transactions"],
-        [DemoFeature featureWithType:DemoFeatureTypeCheckCard title:@"Check card" details:@"to validate a card"],
-        [DemoFeature featureWithType:DemoFeatureTypeSaveCard title:@"Save card" details: @"to be stored for future transactions"],
-        [DemoFeature featureWithType:DemoFeatureTypeApplePayPayment title:@"Apple Pay payment" details: @"with a wallet card"],
-        [DemoFeature featureWithType:DemoFeatureTypeApplePayPreAuth title:@"Apple Pay preAuth" details: @"with a wallet card"],
-        [DemoFeature featureWithType:DemoFeatureTypePaymentMethods title: @"Payment Method" details: @"with default payment methods"],
-        [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods title:@"PreAuth Methods" details:@"with default preauth methods"],
-        [DemoFeature featureWithType:DemoFeatureTypeIDEALTransaction title:@"iDEAL Transaction" details:@"for custom bank transactions"],
+        [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
+                               title:@"Register card"
+                             details: @"to be stored for future transactions"],
+        [DemoFeature featureWithType:DemoFeatureTypeCheckCard
+                               title:@"Check card"
+                             details:@"to validate a card"],
+        [DemoFeature featureWithType:DemoFeatureTypeSaveCard
+                               title:@"Save card"
+                             details: @"to be stored for future transactions"],
+        [DemoFeature featureWithType:DemoFeatureTypeApplePayPayment
+                               title:@"Apple Pay payment"
+                             details: @"with a wallet card"],
+        [DemoFeature featureWithType:DemoFeatureTypeApplePayPreAuth
+                               title:@"Apple Pay preAuth"
+                             details: @"with a wallet card"],
+        [DemoFeature featureWithType:DemoFeatureTypePaymentMethods
+                               title: @"Payment Method"
+                             details: @"with default payment methods"],
+        [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods
+                               title:@"PreAuth Methods"
+                             details:@"with default preauth methods"],
+        [DemoFeature featureWithType:DemoFeatureTypeIDEALTransaction
+                               title:@"iDEAL Transaction"
+                             details:@"for custom bank transactions"],
     ];
 }
 @end

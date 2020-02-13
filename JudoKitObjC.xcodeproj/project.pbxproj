@@ -340,7 +340,6 @@
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
 		82933102230AF3B300689DC4 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 82933101230AF3B300689DC4 /* NSString+Additions.h */; };
 		82933104230AF4FB00689DC4 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 82933103230AF4FB00689DC4 /* NSString+Additions.m */; };
-		8296A5E82302ED3E00E369C1 /* ApplePayButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8296A5E72302ED3E00E369C1 /* ApplePayButtonViewController.m */; };
 		BB43039423F1646400023736 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43039323F1646400023736 /* PayCardsRecognizer.framework */; };
 		BB43039523F1646400023736 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43039323F1646400023736 /* PayCardsRecognizer.framework */; };
 		BB43039623F1649B00023736 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BB43039323F1646400023736 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -808,8 +807,6 @@
 		82933107230C3C8800689DC4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933108230C3C9200689DC4 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		82933109230C3C9A00689DC4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8296A5E62302ED3E00E369C1 /* ApplePayButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplePayButtonViewController.h; sourceTree = "<group>"; };
-		8296A5E72302ED3E00E369C1 /* ApplePayButtonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplePayButtonViewController.m; sourceTree = "<group>"; };
 		BB43039323F1646400023736 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = PayCardsRecognizer/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1534,20 +1531,9 @@
 		441B9AED23495050006BA543 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				44637AC7234B9107009E191E /* DetailsTableViewController.h */,
-				44637AC6234B9107009E191E /* DetailsTableViewController.m */,
-				3B4EB3A01C981EA7006265A0 /* MainViewController.h */,
-				3B4EB3A11C981EA7006265A0 /* MainViewController.m */,
-				3B4EB3A31C981EA7006265A0 /* DetailViewController.h */,
-				3B4EB3A41C981EA7006265A0 /* DetailViewController.m */,
-				3B35F63F1C98626400DBAF59 /* DetailViewController.xib */,
-				8296A5E62302ED3E00E369C1 /* ApplePayButtonViewController.h */,
-				8296A5E72302ED3E00E369C1 /* ApplePayButtonViewController.m */,
-				44E3A0FA2349591C0042C9EC /* SettingsViewController.h */,
-				44E3A0FB2349591C0042C9EC /* SettingsViewController.m */,
-				44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */,
-				44E3A10823498D150042C9EC /* HalfHeightPresentationController.h */,
-				44E3A10923498D150042C9EC /* HalfHeightPresentationController.m */,
+				52552C4423F5C5FE00541EF6 /* Settings */,
+				52552C4323F5C5F300541EF6 /* Details */,
+				52552C4223F5C5E800541EF6 /* Main */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1572,6 +1558,39 @@
 				5214A7B7239997AD00283B81 /* SliderTransitioningDelegate.h */,
 			);
 			path = Presentations;
+			sourceTree = "<group>";
+		};
+		52552C4223F5C5E800541EF6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3B4EB3A01C981EA7006265A0 /* MainViewController.h */,
+				3B4EB3A11C981EA7006265A0 /* MainViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		52552C4323F5C5F300541EF6 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				44637AC7234B9107009E191E /* DetailsTableViewController.h */,
+				44637AC6234B9107009E191E /* DetailsTableViewController.m */,
+				3B4EB3A31C981EA7006265A0 /* DetailViewController.h */,
+				3B4EB3A41C981EA7006265A0 /* DetailViewController.m */,
+				3B35F63F1C98626400DBAF59 /* DetailViewController.xib */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		52552C4423F5C5FE00541EF6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				44E3A10823498D150042C9EC /* HalfHeightPresentationController.h */,
+				44E3A10923498D150042C9EC /* HalfHeightPresentationController.m */,
+				44E3A0FA2349591C0042C9EC /* SettingsViewController.h */,
+				44E3A0FB2349591C0042C9EC /* SettingsViewController.m */,
+				44E3A0FC2349591C0042C9EC /* SettingsViewController.xib */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		5273AF0A23F306D4008C6D89 /* CardView */ = {
@@ -2050,7 +2069,6 @@
 				44E3A10A23498D150042C9EC /* HalfHeightPresentationController.m in Sources */,
 				3B4EB39C1C981EA7006265A0 /* main.m in Sources */,
 				3B4EB3A51C981EA7006265A0 /* DetailViewController.m in Sources */,
-				8296A5E82302ED3E00E369C1 /* ApplePayButtonViewController.m in Sources */,
 				44E3A10723498B770042C9EC /* Settings.m in Sources */,
 				44E3A0FD2349591C0042C9EC /* SettingsViewController.m in Sources */,
 			);
