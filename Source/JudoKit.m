@@ -50,7 +50,6 @@
 #import "JPTransactionEnricher.h"
 #import "JPVoid.h"
 #import "JudoPayViewController.h"
-#import "JudoPaymentMethodsViewModel.h"
 #import "NSError+Judo.h"
 
 #import "JPAddCardBuilder.h"
