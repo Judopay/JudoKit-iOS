@@ -79,7 +79,7 @@
 - (void)configureWithViewModel:(JPPaymentMethodsModel *)viewModel {
 
     JPPaymentMethodsSelectionModel *selectionModel = (JPPaymentMethodsSelectionModel *)viewModel;
-    if (selectionModel == nil)
+    if (!selectionModel)
         return;
 
     [self.sectionView removeSections];
