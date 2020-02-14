@@ -29,8 +29,6 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 /**
  * Object responsible for generating the PKPaymentAuthorizationViewController
  * based on the ApplePayConfiguration object set at initialization, while also
@@ -43,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param configuration - responsible for configuring the PKPaymentRequest object.
  */
-- (instancetype)initWithConfiguration:(ApplePayConfiguration *)configuration;
+- (nonnull instancetype)initWithConfiguration:(nonnull ApplePayConfiguration *)configuration;
 
 /**
  * A boolean value that returns YES is the device supports Apple Pay
@@ -59,13 +57,13 @@ NS_ASSUME_NONNULL_BEGIN
  * A helper getter that generates a JPAmount object based on the last PaymentSummaryItem element
  * defined in the ApplePayConfiguration. Needed as a parameter for JPTransaction.
  */
-- (JPAmount *)jpAmount;
+- (nonnull JPAmount *)jpAmount;
 
 /**
  * A helper getter that generates a JPReference object based on the consumer reference
  * defined in the ApplePayConfiguration. Needed as a parameter for JPTransaction.
  */
-- (JPReference *)jpReference;
+- (nonnull JPReference *)jpReference;
 
 /**
  * A helper method that converts a PKContact object into a ContactInformation object
@@ -82,5 +80,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable PKPaymentAuthorizationViewController *)pkPaymentAuthorizationViewController;
 
 @end
-
-NS_ASSUME_NONNULL_END

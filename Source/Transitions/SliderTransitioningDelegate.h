@@ -24,6 +24,8 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * A class that adopts the UIViewControllerTransitioningDelegate protocol, used for implementing custom transitions between UIViewControllers.
+ */
 @interface SliderTransitioningDelegate : NSObject <UIViewControllerTransitioningDelegate>
-
 @end

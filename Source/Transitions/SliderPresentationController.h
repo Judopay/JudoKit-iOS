@@ -24,6 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * A class that inherits the UIPresentationController used to present a UIViewController on top of another, without dismissing the previous one.
+ * Useful for UIViewController's that have a semi-transparent background.
+ */
 @interface SliderPresentationController : UIPresentationController
 
 @end
