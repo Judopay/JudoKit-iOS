@@ -3,6 +3,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DemoFeatureType) {
+    DemoFeatureTypePayment,
+    DemoFeatureTypePreAuth,
     DemoFeatureTypeCreateCardToken,
     DemoFeatureTypeSaveCard,
     DemoFeatureTypeCheckCard,

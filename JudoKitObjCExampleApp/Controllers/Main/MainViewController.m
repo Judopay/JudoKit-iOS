@@ -68,7 +68,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
     
     // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-    self.judoKitSession.apiSession.sandboxed = YES;
+    self.judoKitSession.isSandboxed = YES;
 
     self.reference = @"judoPay-sample-app-objc";
     
@@ -88,8 +88,8 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
 - (void)setSettings:(Settings *)settings {
     _settings = settings;
-    self.judoKitSession.theme.avsEnabled = settings.isAVSEnabled;
-    self.judoKitSession.theme.displayJudoHeadline = YES;
+    //TODO: Handle this as a property
+    self.configuration.isAVSEnabled = settings.isAVSEnabled;
 }
 
 - (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings {
@@ -125,166 +125,54 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
+        
     switch (feature.type) {
-
+            
+        case DemoFeatureTypePayment:
+            [self invokeTransactionWithType:TransactionTypePayment];
+            break;
+            
+        case DemoFeatureTypePreAuth:
+            [self invokeTransactionWithType:TransactionTypePreAuth];
+            break;
+            
         case DemoFeatureTypeCreateCardToken:
-            [self createCardTokenOperation];
+            [self invokeTransactionWithType:TransactionTypeRegisterCard];
             break;
 
         case DemoFeatureTypeSaveCard:
-            [self saveCardOperation];
+            [self invokeTransactionWithType:TransactionTypeSaveCard];
             break;
             
         case DemoFeatureTypeCheckCard:
-            [self checkCardOperation];
+            [self invokeTransactionWithType:TransactionTypeCheckCard];
             break;
 
         case DemoFeatureTypeApplePayPayment:
-            [self applePayPaymentOperation];
             break;
 
         case DemoFeatureTypeApplePayPreAuth:
-            [self applePayPreAuthOperation];
             break;
 
         case DemoFeatureTypePaymentMethods:
-            [self paymentMethodOption];
             break;
             
         case DemoFeatureTypePreAuthMethods:
-            [self preAuthMethodOption];
             break;
 
         default:
             break;
     }
 }
+    
+
+- (void)invokeTransactionWithType:(TransactionType)type {
+    [self.judoKitSession invokeTransactionWithType:type
+                                     configuration:self.configuration
+                                        completion:nil];
+}
 
 #pragma mark - Operations
-
-- (void)paymentMethodOption {
-    [self.judoKitSession invokePaymentMethodSelectionWithConfiguration:self.configuration];
-}
-
-- (void)preAuthMethodOption {
-    [self.judoKitSession invokePreAuthMethodSelectionWithConfiguration:self.configuration];
-}
-
-- (void)createCardTokenOperation {
-    [self.judoKitSession invokeRegisterCard:judoId
-                          consumerReference:self.reference
-                                 completion:^(JPResponse * response, NSError * error) {
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        if (error && response.items.count == 0) {
-            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                return;
-            }
-            [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-            return;
-        }
-        JPTransactionData *tData = response.items[0];
-        if (tData.cardDetails) {
-            self.cardDetails = tData.cardDetails;
-            self.payToken = tData.paymentToken;
-        }
-    }];
-}
-
-- (void)saveCardOperation {
-    [self.judoKitSession invokeSaveCard:judoId
-                      consumerReference:self.reference
-                             completion:^(JPResponse * response, NSError * error) {
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        if (error && response.items.count == 0) {
-            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                return;
-            }
-            [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-            return;
-        }
-        
-        JPTransactionData *tData = response.items[0];
-        if (tData.cardDetails) {
-            self.cardDetails = tData.cardDetails;
-            self.payToken = tData.paymentToken;
-        }
-    }];
-}
-
-- (void)checkCardOperation {
-    [self.judoKitSession invokeCheckCard:judoId
-                                currency:nil
-                               reference:[[JPReference alloc] initWithConsumerReference:self.reference]
-                             cardDetails:nil
-                              completion:^(JPResponse *response, NSError *error) {
-        if (error || response.items.count == 0) {
-            if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                return;
-            }
-            
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-            }];
-            return;
-        }
-        JPTransactionData *tData = response.items[0];
-        if (tData.cardDetails) {
-            self.cardDetails = tData.cardDetails;
-            self.payToken = tData.paymentToken;
-        }
-        DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-        viewController.transactionData = tData;
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.navigationController pushViewController:viewController animated:YES];
-        }];
-    }];
-}
-
-- (void)applePayPaymentOperation {
-    [self initApplePaySleveWithTransactionType:TransactionTypePayment];
-}
-
-- (void)applePayPreAuthOperation {
-    [self initApplePaySleveWithTransactionType:TransactionTypePreAuth];
-}
-
-- (void)initApplePaySleveWithTransactionType:(TransactionType)transactionType {
-    
-    ApplePayConfiguration *configuration = [self applePayConfigurationWithType:transactionType];
-    
-    [self.judoKitSession invokeApplePayWithConfiguration:configuration
-                                              completion:^(JPResponse *_Nullable response, NSError *_Nullable error) {
-                                                  
-                                                  if (error || response.items.count == 0) {
-                                                      if (error.domain == JudoErrorDomain && error.code == JudoErrorUserDidCancel) {
-                                                          [self dismissViewControllerAnimated:YES completion:nil];
-                                                          return;
-                                                      }
-                                                      
-                                                      [self dismissViewControllerAnimated:YES completion:^{
-                                                          [self presentErrorWithMessage: error.userInfo[NSLocalizedDescriptionKey]];
-                                                      }];
-                                                      return;
-                                                  }
-                                                  
-                                                  DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-                                                  
-                                                  viewController.transactionData = response.items.firstObject;
-                                                  viewController.billingInformation = response.billingInfo;
-                                                  viewController.shippingInformation = response.shippingInfo;
-                                                  
-                                                  [self dismissViewControllerAnimated:YES completion:^{
-                                                      [self.navigationController pushViewController:viewController animated:YES];
-                                                  }];
-                                                  
-                                              }];
-}
 
 - (void)presentErrorWithMessage:(NSString *)message {
     self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -333,13 +221,10 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     JPConfiguration *configuration;
     configuration = [[JPConfiguration alloc] initWithJudoID:judoId
                                                      amount:amount
-                                                  reference:reference
-                                                 completion:^(JPResponse *response, NSError *error) {
-        //TODO: Handle response / error
-    }];
+                                                  reference:reference];
     
-    [configuration addPaymentMethods:@[JPPaymentMethod.card, JPPaymentMethod.applePay]];
-    [configuration addSupportedCardNetworks:CardNetworkVisa];
+    configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.applePay];
+    configuration.supportedCardNetworks = CardNetworkVisa;
     
     NSDecimalNumber *totalAmount = [NSDecimalNumber decimalNumberWithString:amount.amount];
     PaymentSummaryItem *total = [[PaymentSummaryItem alloc] initWithLabel:@"Total"

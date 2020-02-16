@@ -1,5 +1,5 @@
 //
-//  JudoKitAddCardTests.swift
+//  JudoKitTransactionTests.swift
 //  JudoKitSwiftExample
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -24,7 +24,7 @@
 
 import XCTest
 
-class JudoKitAddCardTests: XCTestCase {
+class JudoKitTransactionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -32,7 +32,7 @@ class JudoKitAddCardTests: XCTestCase {
         XCUIApplication().launch()
     }
     
-    func test_OnSaveCardTap_DisplayAddCardFlow() {
+    func test_OnSaveCardTap_DisplayTransactionFlow() {
         let app = XCUIApplication()
         app.tables.staticTexts["Save card"].tap()
         
@@ -45,7 +45,7 @@ class JudoKitAddCardTests: XCTestCase {
         XCTAssertFalse(app.buttons["ADD CARD"].isEnabled)
     }
     
-    func test_OnInvalidCardDetails_DisableAddCardButton() {
+    func test_OnInvalidCardDetails_DisableTransactionButton() {
         let app = XCUIApplication()
         app.tables.staticTexts["Save card"].tap()
         
@@ -64,7 +64,7 @@ class JudoKitAddCardTests: XCTestCase {
         XCTAssertFalse(app.buttons["ADD CARD"].isEnabled)
     }
     
-    func test_OnValidCardDetails_EnableAddCardButton() {
+    func test_OnValidCardDetails_EnableTransactionButton() {
         let app = XCUIApplication()
         app.tables.staticTexts["Save card"].tap()
         
@@ -83,7 +83,7 @@ class JudoKitAddCardTests: XCTestCase {
         XCTAssertTrue(app.buttons["ADD CARD"].isEnabled)
     }
     
-    func test_OnCancelButtonTap_DismissAddCardView() {
+    func test_OnCancelButtonTap_DismissTransactionView() {
         let app = XCUIApplication()
         app.tables.staticTexts["Save card"].tap()
         app.buttons["Cancel"].tap()

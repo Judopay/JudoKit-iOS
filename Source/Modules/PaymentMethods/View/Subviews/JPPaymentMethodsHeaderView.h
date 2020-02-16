@@ -25,14 +25,14 @@
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
 
-@class JPPaymentMethodsHeaderModel, JPAddCardButton;
+@class JPPaymentMethodsHeaderModel, JPTransactionButton;
 
 @interface JPPaymentMethodsHeaderView : UIView
 
 /**
  * The Pay button that triggers the payment flow
  */
-@property (nonatomic, strong) JPAddCardButton *payButton;
+@property (nonatomic, strong) JPTransactionButton *payButton;
 
 /**
  * The Apple Pay branded button that triggers the Apple Pay flow

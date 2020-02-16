@@ -23,20 +23,19 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsRouter.h"
-#import "JPAddCardBuilder.h"
-#import "JPAddCardViewController.h"
+#import "JPTransactionBuilder.h"
+#import "JPTransactionViewController.h"
 #import "JPPaymentMethodsViewController.h"
 
-#import "JPTheme.h"
+#import "JPConfiguration.h"
 #import "JPTransaction.h"
 #import "SliderTransitioningDelegate.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
-@property (nonatomic, strong) JPTransaction *transaction;
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
-@property (nonatomic, assign) CardNetwork cardNetworks;
 @property (nonatomic, strong) SliderTransitioningDelegate *transitioningDelegate;
 
 @end
@@ -45,16 +44,14 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithTransaction:(JPTransaction *)transaction
-              transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
-                              theme:(JPTheme *)theme
-              supportedCardNetworks:(CardNetwork)networks
-                         completion:(JudoCompletionBlock)completion {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                   transactionService:(JPTransactionService *)transactionService
+                transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
+                           completion:(JudoCompletionBlock)completion {
     if (self = [super init]) {
-        self.transaction = transaction;
-        self.theme = theme;
+        self.configuration = configuration;
+        self.transactionService = transactionService;
         self.transitioningDelegate = transitioningDelegate;
-        self.cardNetworks = networks;
         self.completionHandler = completion;
     }
     return self;
@@ -62,13 +59,12 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToAddCardModule {
+- (void)navigateToTransactionModule {
 
-    JPAddCardViewController *controller;
-    controller = [[JPAddCardBuilderImpl new] buildModuleWithTransaction:self.transaction
-                                                                  theme:self.theme
-                                                  supportedCardNetworks:self.cardNetworks
-                                                             completion:self.completionHandler];
+    JPTransactionViewController *controller;
+    controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
+                                                               configuration:self.configuration
+                                                                  completion:self.completionHandler];
 
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;

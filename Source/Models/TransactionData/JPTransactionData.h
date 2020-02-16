@@ -23,60 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPTransaction.h"
 
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken, JPOrderDetails;
-
-/**
- *  Type of Transaction
- */
-typedef NS_ENUM(NSUInteger, TransactionType) {
-    /**
-     *  A payment transaction
-     */
-    TransactionTypePayment,
-    /**
-     *   A pre-auth Transaction
-     */
-    TransactionTypePreAuth,
-    /**
-     *   A refund transaction
-     */
-    TransactionTypeRefund,
-    /**
-     *  Register a card
-     */
-    TransactionTypeRegisterCard,
-    /**
-     *  Check a card
-     */
-    TransactionTypeCheckCard,
-    /**
-     *  Save a card
-     */
-    TransactionTypeSaveCard,
-    /**
-     *  Make an iDEAL transaction
-     */
-    TransactionTypeIDEAL
-};
-
-/**
- *  Result of a Transaction
- */
-typedef NS_ENUM(NSUInteger, TransactionResult) {
-    /**
-     *  Successful transaction
-     */
-    TransactionResultSuccess,
-    /**
-     *  Declined transaction
-     */
-    TransactionResultDeclined,
-    /**
-     *  Something went wrong
-     */
-    TransactionResultError
-};
 
 /**
  *  TransactionData is an object that references all information in correspondance with a Transaction with the judo API

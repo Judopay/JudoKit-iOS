@@ -23,61 +23,22 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
+#import "JPTransaction.h"
 #import "JPPaymentMethod.h"
 #import "JPReference.h"
 #import "JPSession.h"
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class ApplePayConfiguration, JudoKit, JPTheme, JPAmount, SliderTransitioningDelegate;
+@class JPConfiguration, JPTransactionService, SliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 
-/**
- * A method that builds the configured JPPaymentMethodsViewController for a Payment transaction
- *
- * @param judoId - the Judo ID of the merchant
- * @param session - the current JudoKit session needed for creating transactions
- * @param transitioningDelegate - a transitioning delegate needed for the custom Add Card transition animation
- * @param amount - the amount of the transaction
- * @param reference - the reference for this transaction
- * @param networks   The supported card networks
- * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
- * @param configuration - an instance of ApplePayConfiguration used to initialize the Apple Pay flow
- * @param completionHandler - a response/error completion handler returned to the merchant
- */
-- (nonnull JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(nonnull NSString *)judoId
-                                                                 session:(nonnull JudoKit *)session
-                                                   transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
-                                                                  amount:(nonnull JPAmount *)amount
-                                                               reference:(nonnull JPReference *)reference
-                                                   supportedCardNetworks:(CardNetwork)networks
-                                                          paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-                                                   applePayConfiguration:(nullable ApplePayConfiguration *)configuration
-                                                       completionHandler:(nonnull JudoCompletionBlock)completion;
-
-/**
- * A method that builds the configured JPPaymentMethodsViewController for a PreAuth transaction
- *
- * @param judoId - the Judo ID of the merchant
- * @param session - the current JudoKit session needed for creating transactions
- * @param transitioningDelegate - a transitioning delegate needed for the custom Add Card transition animation
- * @param amount - the amount of the transaction
- * @param reference - the reference for this transaction
- * @param networks   The supported card networks
- * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
- * @param configuration - an instance of ApplePayConfiguration used to initialize the Apple Pay flow
- * @param completionHandler - a response/error completion handler returned to the merchant
- */
-- (nonnull JPPaymentMethodsViewController *)buildPreAuthModuleWithJudoID:(nonnull NSString *)judoId
-                                                                 session:(nonnull JudoKit *)session
-                                                   transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
-                                                                  amount:(nonnull JPAmount *)amount
-                                                               reference:(nonnull JPReference *)reference
-                                                   supportedCardNetworks:(CardNetwork)networks
-                                                          paymentMethods:(nullable NSArray<JPPaymentMethod *> *)methods
-                                                   applePayConfiguration:(nullable ApplePayConfiguration *)configuration
-                                                       completionHandler:(nonnull JudoCompletionBlock)completion;
+- (nonnull JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
+                                                  configuration:(nonnull JPConfiguration *)configuration
+                                             transactionService:(nonnull JPTransactionService *)transactionService
+                                          transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
+                                              completionHandler:(nullable JudoCompletionBlock)completion;
 @end
 
 @interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>

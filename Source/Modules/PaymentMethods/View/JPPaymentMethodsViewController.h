@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAddCardViewController.h"
+#import "JPTransactionViewController.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPSectionView.h"
 #import <UIKit/UIKit.h>
@@ -56,7 +56,7 @@
 @interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
 
 /**
- * A strong reference to a presenter object that adopts the JPAddCardPresenter protocol
+ * A strong reference to a presenter object that adopts the JPTransactionPresenter protocol
  */
 @property (nonatomic, strong) id<JPPaymentMethodsPresenter> presenter;
 
@@ -77,7 +77,7 @@
 /**
  * A JPPaymentMethodsViewController extension that adopts the Add Card delegate methods
  */
-@interface JPPaymentMethodsViewController (AddCardDelegate) <JPAddCardViewDelegate>
+@interface JPPaymentMethodsViewController (TransactionDelegate) <JPTransactionViewDelegate>
 @end
 
 /**

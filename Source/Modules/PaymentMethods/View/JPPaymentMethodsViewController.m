@@ -24,7 +24,7 @@
 
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
-#import "JPAddCardButton.h"
+#import "JPTransactionButton.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -112,9 +112,6 @@
     self.viewModel = viewModel;
 
     [self.paymentMethodsView.headerView configureWithViewModel:viewModel.headerModel];
-
-    self.paymentMethodsView.judoHeadlineImageView.hidden = !viewModel.shouldDisplayHeadline;
-    self.paymentMethodsView.judoHeadlineHeightConstraint.constant = viewModel.shouldDisplayHeadline ? 20.0 : 0.0;
 
     for (JPPaymentMethodsModel *item in viewModel.items) {
         [self.paymentMethodsView.tableView registerClass:NSClassFromString(item.identifier)
@@ -253,9 +250,9 @@
 
 @end
 
-#pragma mark - JPAddCardViewDelegate
+#pragma mark - JPTransactionViewDelegate
 
-@implementation JPPaymentMethodsViewController (AddCardDelegate)
+@implementation JPPaymentMethodsViewController (TransactionDelegate)
 
 - (void)didFinishAddingCard {
     [self.presenter setLastAddedCardAsSelected];

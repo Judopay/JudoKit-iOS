@@ -34,7 +34,7 @@
 @property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *addCardButton;
-@property (nonatomic, copy) void (^onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^onTransactionButtonTapHandler)(void);
 @end
 
 @implementation JPPaymentMethodsEmptyCardListCell
@@ -63,13 +63,13 @@
     self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 0);
     self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
 
-    self.onAddCardButtonTapHandler = emptyViewModel.onAddCardButtonTapHandler;
+    self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
 }
 
 #pragma mark - User actions
 
-- (void)onAddCardButtonTap {
-    self.onAddCardButtonTapHandler();
+- (void)onTransactionButtonTap {
+    self.onTransactionButtonTapHandler();
 }
 
 #pragma mark - Layout setup
@@ -112,7 +112,7 @@
         _addCardButton.titleLabel.font = UIFont.bodyBold;
 
         [self.addCardButton addTarget:self
-                               action:@selector(onAddCardButtonTap)
+                               action:@selector(onTransactionButtonTap)
                      forControlEvents:UIControlEventTouchUpInside];
     }
     return _addCardButton;

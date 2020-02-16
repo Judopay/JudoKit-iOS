@@ -116,6 +116,8 @@
 //JudoPayViewController
 "secure_server" = "Secure server: ";
 "pay" = "Pay";
+"check_card" = "Check Card";
+"add_card" = "Add Card";
 
 //JudoPaymentMethodsViewController
 "payment_method" = "Payment Method";
@@ -157,7 +159,6 @@
 "back" = "Back";
 "payment" = "Payment";
 "refund" = "Refund";
-"check_card" = "Check card";
 "authentication" = "Authentication";
 "adding_card" = "Adding card...";
 "processing_payment" = "Processing payment...";

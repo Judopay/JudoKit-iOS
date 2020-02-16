@@ -24,34 +24,107 @@
 
 #import "JPTransactionService.h"
 #import "JPCard.h"
-#import "JPTransaction.h"
+#import "JPTransactionEnricher.h"
 #import "NSError+Additions.h"
 
 @interface JPTransactionService ()
-@property (nonatomic, strong) JPTransaction *transaction;
+@property (nonatomic, strong) JPSession *session;
+@property (nonatomic, strong) JPTransactionEnricher *enricher;
 @end
 
 @implementation JPTransactionService
 
-- (instancetype)initWithAVSEnabled:(BOOL)avsEnabled
-                       transaction:(JPTransaction *)transaction {
+//---------------------------------------------------------------------------
+#pragma mark - Initializers
+//---------------------------------------------------------------------------
 
+- (instancetype)initWithToken:(NSString *)token
+                    andSecret:(NSString *)secret {
     if (self = [super init]) {
-        self.avsEnabled = avsEnabled;
-        self.transaction = transaction;
+        [self setupSessionWithToken:token andSecret:secret];
+        [self setupTransactionEnricherWithToken:token andSecret:secret];
     }
     return self;
 }
 
-- (void)addCard:(JPCard *)card completionHandler:(JudoCompletionBlock)completionHandler {
+//---------------------------------------------------------------------------
+#pragma mark - Setup methods
+//---------------------------------------------------------------------------
 
-    if (!self.transaction.apiSession) {
-        completionHandler(nil, NSError.judoParameterError);
-        return;
+- (void)setupTransactionEnricherWithToken:(NSString *)token
+                                andSecret:(NSString *)secret {
+    self.enricher = [[JPTransactionEnricher alloc] initWithToken:token
+                                                          secret:secret];
+}
+
+- (void)setupSessionWithToken:(NSString *)token
+                    andSecret:(NSString *)secret {
+    
+    NSString *formattedString = [NSString stringWithFormat:@"%@:%@", token, secret];
+    NSData *encodedStringData = [formattedString dataUsingEncoding:NSISOLatin1StringEncoding];
+    NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
+    
+    NSString *authorizationHeader = [NSString stringWithFormat:@"Basic %@", base64String];
+    self.session = [JPSession sessionWithAuthorizationHeader:authorizationHeader];
+}
+
+//---------------------------------------------------------------------------
+#pragma mark - Public methods
+//---------------------------------------------------------------------------
+
+- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration
+                                     completion:(JudoCompletionBlock)completion {
+    
+    if (configuration.receiptId) {
+        return [self receiptTransactionWithConfiguration:configuration completion:completion];
     }
+    
+    JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
+    
+    transaction.judoId = configuration.judoId;
+    transaction.amount = configuration.amount;
+    transaction.reference = configuration.reference;
+    transaction.primaryAccountDetails = configuration.primaryAccountDetails;
+    transaction.apiSession = self.session;
+    transaction.enricher = self.enricher;
+    
+    return transaction;
+}
 
-    [self.transaction setCard:card];
-    [self.transaction sendWithCompletion:completionHandler];
+- (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration
+                                            completion:(JudoCompletionBlock)completion {
+    
+    JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType
+                                                          receiptId:configuration.receiptId
+                                                             amount:configuration.amount];
+    transaction.apiSession = self.session;
+    transaction.enricher = self.enricher;
+    
+    return transaction;
+}
+
+- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId {
+    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
+    receipt.apiSession = self.session;
+    return receipt;
+}
+
+- (void)listTransactionsOfType:(TransactionType)type
+                     paginated:(JPPagination *)pagination
+                    completion:(JudoCompletionBlock)completion {
+
+    JPTransaction *transaction = [JPTransaction transactionWithType:type];
+    transaction.apiSession = self.session;
+    [transaction listWithPagination:pagination completion:completion];
+}
+
+//---------------------------------------------------------------------------
+#pragma mark - Setters
+//---------------------------------------------------------------------------
+
+- (void)setIsSandboxed:(BOOL)isSandboxed {
+    _isSandboxed = isSandboxed;
+    self.session.sandboxed = isSandboxed;
 }
 
 @end

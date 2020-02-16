@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsPresenter.h"
-#import "JPAddCardViewModel.h"
+#import "JPTransactionViewModel.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
 #import "JPPaymentMethodsInteractor.h"
@@ -41,7 +41,7 @@
 @property (nonatomic, strong) JPPaymentMethodsCardHeaderModel *cardHeaderModel;
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
-@property (nonatomic, strong) JPAddCardButtonViewModel *paymentButtonModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *paymentButtonModel;
 
 @property (nonatomic, assign) int previousIndex;
 @end
@@ -71,8 +71,8 @@
 
 #pragma mark - Action Handlers
 
-- (void)handleAddCardButtonTap {
-    [self.router navigateToAddCardModule];
+- (void)handleTransactionButtonTap {
+    [self.router navigateToTransactionModule];
 }
 
 - (void)handleBackButtonTap {
@@ -168,7 +168,6 @@
 
 - (void)updateViewModelWithAnimationType:(AnimationType)animationType {
     [self.viewModel.items removeAllObjects];
-    self.viewModel.shouldDisplayHeadline = [self.interactor shouldDisplayJudoHeadline];
 
     [self prepareHeaderModel];
     self.viewModel.headerModel.animationType = animationType;
@@ -261,7 +260,6 @@
 - (JPPaymentMethodsViewModel *)viewModel {
     if (!_viewModel) {
         _viewModel = [JPPaymentMethodsViewModel new];
-        _viewModel.shouldDisplayHeadline = NO;
         _viewModel.items = [NSMutableArray new];
     }
     return _viewModel;
@@ -292,8 +290,8 @@
         _emptyListModel.addCardButtonIconName = @"plus-icon";
 
         __weak typeof(self) weakSelf = self;
-        _emptyListModel.onAddCardButtonTapHandler = ^{
-            [weakSelf handleAddCardButtonTap];
+        _emptyListModel.onTransactionButtonTapHandler = ^{
+            [weakSelf handleTransactionButtonTap];
         };
     }
     return _emptyListModel;
@@ -317,8 +315,8 @@
         _cardFooterModel.identifier = @"JPPaymentMethodsCardListFooterCell";
 
         __weak typeof(self) weakSelf = self;
-        _cardFooterModel.onAddCardButtonTapHandler = ^{
-            [weakSelf handleAddCardButtonTap];
+        _cardFooterModel.onTransactionButtonTapHandler = ^{
+            [weakSelf handleTransactionButtonTap];
         };
     }
     return _cardFooterModel;
@@ -338,9 +336,9 @@
     return cardModel;
 }
 
-- (JPAddCardButtonViewModel *)paymentButtonModel {
+- (JPTransactionButtonViewModel *)paymentButtonModel {
     if (!_paymentButtonModel) {
-        _paymentButtonModel = [JPAddCardButtonViewModel new];
+        _paymentButtonModel = [JPTransactionButtonViewModel new];
         _paymentButtonModel.title = @"pay_now_capitalized".localized;
         _paymentButtonModel.isEnabled = NO;
     }

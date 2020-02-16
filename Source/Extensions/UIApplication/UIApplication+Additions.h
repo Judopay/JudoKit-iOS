@@ -31,4 +31,7 @@
  */
 + (BOOL)isUserInterfaceStyleDark;
 
++ (BOOL)isCurrentDeviceJailbroken;
+
++ (UIViewController *)topMostViewController;
 @end

@@ -27,7 +27,7 @@
 #import <Foundation/Foundation.h>
 
 //TODO: Rename the button to a more generic type
-@class JPAmount, JPAddCardButtonViewModel;
+@class JPAmount, JPTransactionButtonViewModel;
 
 #pragma mark - JPPaymentMethodsModel
 
@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The action handler of the Add Card button that handles the tap events
  */
-@property (nonatomic, copy) void (^_Nullable onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^_Nullable onTransactionButtonTapHandler)(void);
 
 @end
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The action handler of the Add Card button displayed below the card selection list
  */
-@property (nonatomic, copy) void (^_Nullable onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^_Nullable onTransactionButtonTapHandler)(void);
 
 @end
 
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The payment button model
  */
-@property (nonatomic, strong) JPAddCardButtonViewModel *_Nonnull payButtonModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull payButtonModel;
 
 /**
  * The currently selected card model
@@ -212,11 +212,6 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 #pragma mark - JPPaymentMethodsCardListModel
 
 @interface JPPaymentMethodsViewModel : NSObject
-
-/**
- * A property that is set to YES if the 'Powered by Judo' headline should be displayed;
- */
-@property (nonatomic, assign) BOOL shouldDisplayHeadline;
 
 /**
  * A property that defines the way the Payment Method header behaves

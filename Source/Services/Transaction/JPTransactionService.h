@@ -26,26 +26,36 @@
 
 #import "JPSession.h"
 #import "JPTransaction.h"
+#import "JPConfiguration.h"
+#import "JPReceipt.h"
 
 @interface JPTransactionService : NSObject
 
-@property (nonatomic, assign) BOOL avsEnabled;
+//---------------------------------------------------------------------------
+#pragma mark - Properties
+//---------------------------------------------------------------------------
 
-/**
- * Instantiates a JPTransactionService based on a specific JPTransaction object
- *
- * @param avsEnabled - if set to YES, sends the address information as well
- * @param transaction - the JPTransaction object that describes the current transaction
- */
-- (instancetype)initWithAVSEnabled:(BOOL)avsEnabled
-                       transaction:(JPTransaction *)transaction;
+@property (nonatomic, assign) BOOL isSandboxed;
+@property (nonatomic, assign) TransactionType transactionType;
 
-/**
- * A method that sends a save / register card request based on the card details provided
- *
- * @param card - an instance of JPCard that contains the card details
- * @param completionHandler - a response / error completion handler that is returned when the transaction finishes
- */
-- (void)addCard:(JPCard *)card completionHandler:(JudoCompletionBlock)completionHandler;
+//---------------------------------------------------------------------------
+#pragma mark - Initializers
+//---------------------------------------------------------------------------
+
+- (instancetype)initWithToken:(NSString *)token
+                    andSecret:(NSString *)secret;
+    
+//---------------------------------------------------------------------------
+#pragma mark - Public Methods
+//---------------------------------------------------------------------------
+
+- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration
+                                     completion:(JudoCompletionBlock)completion;
+
+- (void)listTransactionsOfType:(TransactionType)type
+                     paginated:(JPPagination *)pagination
+                    completion:(JudoCompletionBlock)completion;
+
+- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId;
 
 @end

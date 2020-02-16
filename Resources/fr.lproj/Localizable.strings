@@ -118,11 +118,8 @@
 //JudoPayViewController
 "secure_server" = "Secure server: ";
 "pay" = "Pay";
-
-//JudoPaymentMethodsViewController
-"payment_method" = "Payment Method";
-"select_payment_method" = "Please select from one of the payment methods listed below:";
-"card_payment" = "Card Payment";
+"check_card" = "Check Card";
+"add_card" = "Add Card";
 
 //NSError+Additions
 "unable_to_process_request_error_desc" = "Sorry, we're currently unable to process this request.";
@@ -159,7 +156,6 @@
 "back" = "Back";
 "payment" = "Payment";
 "refund" = "Refund";
-"check_card" = "Check card";
 "authentication" = "Authentication";
 "adding_card" = "Adding card...";
 "processing_payment" = "Processing payment...";

@@ -22,13 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPaymentMethod.h"
-#import "JPReference.h"
 #import "JPSession.h"
+#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
 
-@class ApplePayConfiguration;
-@class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction, JudoKit;
+@class JPConfiguration, JPTransactionService, JPStoredCardDetails;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -43,11 +41,6 @@
  * A method that updates the selected state of a card stored in the keychain
  */
 - (void)selectCardAtIndex:(NSInteger)index;
-
-/**
- * A method that returns YES if the 'Powered by Judo' headline should be displayed
- */
-- (BOOL)shouldDisplayJudoHeadline;
 
 /**
  * A method that returns the amount passed from the builder
@@ -103,11 +96,9 @@
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
-- (instancetype)initWithTransaction:(JPTransaction *)transaction
-                          reference:(JPReference *)reference
-                            session:(JudoKit *)session
-                     paymentMethods:(NSArray<JPPaymentMethod *> *)methods
-              applePayConfiguration:(ApplePayConfiguration *)configuration
-                          andAmount:(JPAmount *)amount;
+- (instancetype)initWithMode:(TransactionMode)mode
+               configuration:(JPConfiguration *)configuration
+          transactionService:(JPTransactionService *)transactionService
+                  completion:(JudoCompletionBlock)completion;
 
 @end

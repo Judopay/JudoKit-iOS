@@ -24,7 +24,7 @@
 
 #import "JPPaymentMethodsHeaderView.h"
 #import "Functions.h"
-#import "JPAddCardButton.h"
+#import "JPTransactionButton.h"
 #import "JPAmount.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "NSString+Additions.h"
@@ -308,9 +308,9 @@ static const CGFloat bottomHeight = 86.0f;
     return _amountPrefixLabel;
 }
 
-- (JPAddCardButton *)payButton {
+- (JPTransactionButton *)payButton {
     if (!_payButton) {
-        _payButton = [JPAddCardButton new];
+        _payButton = [JPTransactionButton new];
         _payButton.translatesAutoresizingMaskIntoConstraints = NO;
         _payButton.layer.cornerRadius = 4.0f;
         _payButton.titleLabel.font = UIFont.headline;

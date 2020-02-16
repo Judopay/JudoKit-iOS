@@ -33,6 +33,10 @@ typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, NSError *_Nullable);
  */
 @interface JPSession : NSObject
 
++ (nonnull instancetype)sessionWithAuthorizationHeader:(nonnull NSString *)header;
+
+- (nonnull instancetype)initWithAuthorizationHeader:(nonnull NSString *)header;
+
 /**
  *  The endpoint for REST API calls to the judo API
  */

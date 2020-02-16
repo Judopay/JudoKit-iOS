@@ -25,41 +25,50 @@
 #import "JPConfiguration.h"
 #import "JPAmount.h"
 #import "JPPaymentMethod.h"
+#import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
 
 @interface JPConfiguration ()
 
-@property (nonatomic, strong) NSString *_Nonnull judoId;
+@property (nonatomic, strong) NSString *_Nullable judoId;
+@property (nonatomic, strong) NSString *_Nullable receiptId;
 @property (nonatomic, strong) JPAmount *_Nonnull amount;
 @property (nonatomic, strong) JPReference *_Nonnull reference;
-@property (nonatomic, strong) JudoCompletionBlock _Nonnull completion;
-@property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @property (nonatomic, strong) ApplePayConfiguration *applePayConfiguration;
 
 @end
 
 @implementation JPConfiguration
 
+//---------------------------------------------------------------------------
+#pragma mark - Initializers
+//---------------------------------------------------------------------------
+
 - (instancetype)initWithJudoID:(nonnull NSString *)judoId
                         amount:(nonnull JPAmount *)amount
-                     reference:(nonnull JPReference *)reference
-                    completion:(nonnull JudoCompletionBlock)completion {
+                     reference:(nonnull JPReference *)reference {
     if (self = [super init]) {
         self.judoId = judoId;
         self.amount = amount;
         self.reference = reference;
-        self.completion = completion;
     }
     return self;
 }
 
-- (void)addPaymentMethods:(NSArray<JPPaymentMethod *> *)methods {
-    self.paymentMethods = methods;
+- (instancetype)initWithReceiptId:(nonnull NSString *)receiptId
+                           amount:(nonnull JPAmount *)amount
+                        reference:(nonnull JPReference *)reference {
+    if (self = [super init]) {
+        self.receiptId = receiptId;
+        self.amount = amount;
+        self.reference = reference;
+    }
+    return self;
 }
 
-- (void)addSupportedCardNetworks:(CardNetwork)networks {
-    self.cardNetworks = networks;
-}
+//---------------------------------------------------------------------------
+#pragma mark - Apple Pay required configuration
+//---------------------------------------------------------------------------
 
 - (void)configureApplePayWithMerchantId:(NSString *)merchantId
                             countryCode:(NSString *)countryCode
@@ -72,6 +81,10 @@
                                                                    countryCode:countryCode
                                                            paymentSummaryItems:items];
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - Apple Pay optional configuration
+//---------------------------------------------------------------------------
 
 - (void)setRequiredBillingContactFields:(ContactField)billingFields {
     self.applePayConfiguration.requiredBillingContactFields = billingFields;

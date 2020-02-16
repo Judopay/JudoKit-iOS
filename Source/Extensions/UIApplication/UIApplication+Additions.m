@@ -34,4 +34,27 @@
     return false;
 }
 
++ (BOOL)isCurrentDeviceJailbroken {
+    return [NSFileManager.defaultManager fileExistsAtPath:@"/private/var/lib/apt/"];
+}
+
++ (UIViewController *)topMostViewController {
+    UIViewController *topViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+
+    while (topViewController.presentedViewController) {
+        topViewController = topViewController.presentedViewController;
+
+        if ([topViewController isKindOfClass:UINavigationController.class]) {
+            UINavigationController *navigationController = (UINavigationController *)topViewController;
+            topViewController = navigationController.viewControllers.lastObject;
+        }
+
+        if ([topViewController isKindOfClass:UITabBarController.class]) {
+            UITabBarController *tabBarController = (UITabBarController *)topViewController;
+            topViewController = tabBarController.selectedViewController;
+        }
+    }
+    return topViewController;
+}
+
 @end

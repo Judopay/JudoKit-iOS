@@ -60,12 +60,20 @@ static NSString *const HTTPMethodPUT = @"PUT";
 
 @implementation JPSession
 
-- (instancetype)init {
-    self = [super init];
++ (instancetype)sessionWithAuthorizationHeader:(NSString *)header {
+    return [[JPSession alloc] initWithAuthorizationHeader:header];
+}
 
-    if (!self)
-        return self;
+- (instancetype)initWithAuthorizationHeader:(NSString *)header {
+    if (self = [super init]) {
+        [self setupTrustKit];
+        [self setupReachability];
+        self.authorizationHeader = header;
+    }
+    return self;
+}
 
+- (void)setupTrustKit {
     NSDictionary *trustKitConfig =
         @{
             kTSKPinnedDomains : @{
@@ -87,13 +95,11 @@ static NSString *const HTTPMethodPUT = @"PUT";
         };
 
     self.trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
+}
 
+- (void)setupReachability {
     NSURL *requestURL = [NSURL URLWithString:self.endpoint];
     self.reachability = [JPReachability reachabilityWithURL:requestURL];
-
-    _iDealEndpoint = @"https://api.judopay.com/";
-
-    return self;
 }
 
 #pragma mark - REST API
@@ -274,6 +280,10 @@ static NSString *const HTTPMethodPUT = @"PUT";
     }
 
     return @"https://gw1.judopay.com/";
+}
+
+- (NSString *)iDealEndpoint {
+    return @"https://api.judopay.com/";
 }
 
 @end

@@ -26,33 +26,39 @@
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPCard.h"
-#import "JPCheckCard.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPPagination.h"
 #import "JPPaymentToken.h"
 #import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
-#import "JPRegisterCard.h"
 #import "JPResponse.h"
-#import "JPSaveCard.h"
 #import "JPSession.h"
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
-
 #import "NSError+Additions.h"
 
-@interface JPReference ()
+static NSString *const kPaymentPathKey = @"transactions/payments";
+static NSString *const kPreauthPathKey = @"transactions/preauths";
+static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+static NSString *const kCollectionPathKey = @"/transactions/collections";
+static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
+static NSString *const kSaveCardPathKey = @"transactions/savecard";
+static NSString *const kRegisterCardPathKey = @"transactions/registercard";
+static NSString *const kRefundPathKey = @"/transactions/refunds";
 
+
+@interface JPReference ()
 @property (nonatomic, strong, readwrite) NSString *paymentReference;
 @property (nonatomic, strong, readwrite) NSString *consumerReference;
-
 @end
 
 @interface JPTransaction ()
 
+@property (nonatomic, assign) TransactionType transactionType;
 @property (nonatomic, strong) NSString *currentTransactionReference;
 @property (nonatomic, assign) BOOL initialRecurringPayment;
 @property (nonatomic, strong) NSMutableDictionary *parameters;
+@property (nonatomic, strong) NSString *transactionPath;
 
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;
@@ -60,13 +66,83 @@
 
 @implementation JPTransaction
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
+//---------------------------------------------------------------------------
+#pragma mark - Initializers
+//---------------------------------------------------------------------------
+
++ (instancetype)transactionWithType:(TransactionType)type {
+    return [[JPTransaction alloc] initWithType:type];
+}
+
++ (instancetype)transactionWithType:(TransactionType)type
+                          receiptId:(NSString *)receiptId
+                             amount:(JPAmount *)amount {
+    return [[JPTransaction alloc] initWithType:type
+                                     receiptId:receiptId
+                                        amount:amount];
+}
+
+- (instancetype)initWithType:(TransactionType)type {
+    if (self = [super init]) {
+        self.transactionType = type;
         self.parameters = [NSMutableDictionary dictionary];
+        self.transactionPath = [self transactionPathForType:type];
     }
     return self;
 }
+
+- (instancetype)initWithType:(TransactionType)type
+                   receiptId:(NSString *)receiptId
+                      amount:(JPAmount *)amount {
+    self = [super init];
+    if (self) {
+        self.parameters = [NSMutableDictionary dictionary];
+        self.parameters[@"receiptId"] = receiptId;
+        self.parameters[@"amount"] = amount.amount;
+        self.parameters[@"currency"] = amount.currency;
+        self.parameters[@"yourPaymentReference"] = [JPReference generatePaymentReference];
+    }
+    return self;
+}
+
+//---------------------------------------------------------------------------
+#pragma mark - Setup methods
+//---------------------------------------------------------------------------
+
+- (NSString *)transactionPathForType:(TransactionType)type {
+    switch (type) {
+        case TransactionTypePayment:
+            return kPaymentPathKey;
+    
+        case TransactionTypePreAuth:
+            return kPreauthPathKey;
+            
+        case TransactionTypeRegisterCard:
+            return kRegisterCardPathKey;
+        
+        case TransactionTypeSaveCard:
+            return kSaveCardPathKey;
+            
+        case TransactionTypeCheckCard:
+            return kCheckCardPathKey;
+            
+        case TransactionTypeRefund:
+            return kRefundPathKey;
+            
+        case TransactionTypeCollection:
+            return kCollectionPathKey;
+            
+        case TransactionTypeVoid:
+            return kVoidTransactionPathKey;
+            
+        default:
+            return nil;
+    }
+}
+
+//---------------------------------------------------------------------------
+#pragma mark - Public methods
+//---------------------------------------------------------------------------
 
 - (void)sendWithCompletion:(JudoCompletionBlock)completion {
 
@@ -91,7 +167,11 @@
                       }];
 }
 
-- (NSError *)validateTransaction { //!OCLINT
+//---------------------------------------------------------------------------
+#pragma mark - Card validation
+//---------------------------------------------------------------------------
+
+- (NSError *)validateTransaction {
     if (!self.judoId) {
         return [NSError judoJudoIdMissingError];
     }
@@ -104,12 +184,19 @@
         return [NSError judoReferenceMissingError];
     }
 
-    if (![self isKindOfClass:JPRegisterCard.class] && ![self isKindOfClass:JPCheckCard.class] && ![self isKindOfClass:JPSaveCard.class] && !self.amount) {
+    BOOL isRegisterCard = (self.transactionType == TransactionTypeRegisterCard);
+    BOOL isCheckCard = (self.transactionType == TransactionTypeCheckCard);
+    BOOL isSaveCard = (self.transactionType == TransactionTypeSaveCard);
+    if (!isRegisterCard && !isCheckCard && !isSaveCard && !self.amount) {
         return [NSError judoAmountMissingError];
     }
 
     return nil;
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - 3D Secure logic
+//---------------------------------------------------------------------------
 
 - (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
 
@@ -119,6 +206,10 @@
               parameters:parameters
               completion:completion];
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - Transaction list methods
+//---------------------------------------------------------------------------
 
 - (void)listWithCompletion:(JudoCompletionBlock)completion {
     [self listWithPagination:nil completion:completion];
@@ -133,7 +224,9 @@
     [self.apiSession GET:fullURL parameters:nil completion:completion];
 }
 
-#pragma mark - getters and setters
+//---------------------------------------------------------------------------
+#pragma mark - Getters & setters
+//---------------------------------------------------------------------------
 
 - (NSString *)judoId {
     return self.parameters[@"judoId"];
@@ -345,12 +438,6 @@
 
     NSDictionary *dict = [paymentDetail toDictionary];
     self.parameters[@"EnhancedPaymentDetail"] = dict;
-}
-
-#pragma mark - TransactionPath
-
-- (NSString *)transactionPath {
-    return @"/";
 }
 
 @end

@@ -13,6 +13,12 @@
 
 + (NSArray <DemoFeature *> *)defaultFeatures {
     return @[
+        [DemoFeature featureWithType:DemoFeatureTypePayment
+                               title:@"Pay with card"
+                             details:@"by entering card details"],
+        [DemoFeature featureWithType:DemoFeatureTypePreAuth
+                               title:@"PreAuth with card"
+                             details:@"by entering card details"],
         [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
                                title:@"Register card"
                              details: @"to be stored for future transactions"],
