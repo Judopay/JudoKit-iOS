@@ -32,6 +32,7 @@
 #import "JPPaymentToken.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
+#import "JPThreeDSecureService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completion;
 @property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPThreeDSecureService *threeDSecureService;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -156,6 +158,7 @@
     
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.paymentToken = paymentToken;
+    self.threeDSecureService.transaction = transaction;
     [transaction sendWithCompletion:completion];
 }
 
@@ -183,12 +186,25 @@
     return [self.applePayService isApplePaySetUp];
 }
 
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion {
+    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
+                                                         completion:completion];
+}
+
 - (JPApplePayService *)applePayService {
     if (!_applePayService && self.configuration.applePayConfiguration) {
         _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration.applePayConfiguration
                                                          transactionService:self.transactionService];
     }
     return _applePayService;
+}
+
+- (JPThreeDSecureService *)threeDSecureService {
+    if (!_threeDSecureService) {
+        _threeDSecureService = [JPThreeDSecureService new];
+    }
+    return _threeDSecureService;
 }
 
 @end

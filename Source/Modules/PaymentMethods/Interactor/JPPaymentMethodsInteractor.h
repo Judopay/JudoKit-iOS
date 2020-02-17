@@ -80,6 +80,9 @@
  */
 - (bool)isApplePaySetUp;
 
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion;
+
 @end
 
 @interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor>

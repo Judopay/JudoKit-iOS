@@ -168,12 +168,13 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             break;
     }
 }
-    
 
 - (void)invokeTransactionWithType:(TransactionType)type {
     [self.judoKitSession invokeTransactionWithType:type
                                      configuration:self.configuration
-                                        completion:nil];
+                                        completion:^(JPResponse *response, NSError *error) {
+        //TODO: Handle response / error
+    }];
 }
 
 - (void)invokeApplePayWithMode:(TransactionMode)mode {
@@ -187,7 +188,9 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode {
     [self.judoKitSession invokePaymentMethodScreenWithMode:mode
                                              configuration:self.configuration
-                                                completion:nil];
+                                                completion:^(JPResponse *response, NSError *error) {
+            //TODO: Handle response / error
+    }];
 }
 
 #pragma mark - Operations

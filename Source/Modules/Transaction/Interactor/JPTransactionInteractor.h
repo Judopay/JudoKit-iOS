@@ -33,21 +33,15 @@
 @class JPTransactionViewModel;
 
 @protocol JPTransactionInteractor
-
-/**
- *  A method for checking if AVS is enabled
- *
- *  @return YES if the merchant has set AVS as enabled and NO if otherwise
- */
 - (BOOL)isAVSEnabled;
-
-
 - (TransactionType)transactionType;
-
-
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion;
-
 - (NSArray<NSString *> *)getSelectableCountryNames;
+
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion;
+
+- (void)completeTransactionWithResponse:(JPResponse *)response error:(NSError *)error;
 
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input;
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input;

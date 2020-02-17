@@ -128,23 +128,56 @@
     __weak typeof(self) weakSelf = self;
     [self.interactor sendTransactionWithCard:card
            completionHandler:^(JPResponse *response, NSError *error) {
-               if (error) {
-                   [weakSelf.view updateViewWithError:error];
-                   return;
-               }
+        
+        if (error) {
+            [weakSelf handleError:error];
+            return;
+        }
+         
+        [weakSelf handleResponse:response];
+    }];
+}
 
-               NSString *token = response.items.firstObject.cardDetails.cardToken;
+- (void)handleError:(NSError *)error {
+    if (error.code == JudoError3DSRequest) {
+        [self handle3DSecureTransactionFromError:error];
+        return;
+    }
+    [self.view updateViewWithError:error];
+    [self.interactor completeTransactionWithResponse:nil error:error];
+}
 
-               if (!token) {
-                   [weakSelf.view updateViewWithError:NSError.judoTokenMissingError];
-                   return;
-               }
+- (void)handle3DSecureTransactionFromError:(NSError *)error {
+    __weak typeof(self) weakSelf = self;
+    [self.interactor handle3DSecureTransactionFromError:error
+                                             completion:^(JPResponse *response, NSError *error) {
+        if (error) {
+            [weakSelf handleError:error];
+            return;
+        }
+        
+        [weakSelf handleResponse:response];
+    }];
+}
 
-               [weakSelf.interactor updateKeychainWithCardModel:weakSelf.addCardViewModel
-                                                       andToken:token];
-               [weakSelf.router dismissViewController];
-               [weakSelf.view didFinishAddingCard];
-           }];
+- (void)handleResponse:(JPResponse *)response {
+    
+    if (self.interactor.transactionType == TransactionTypeSaveCard) {
+        NSString *token = response.items.firstObject.cardDetails.cardToken;
+
+        if (!token) {
+            [self.view updateViewWithError:NSError.judoTokenMissingError];
+            return;
+        }
+
+        [self.interactor updateKeychainWithCardModel:self.addCardViewModel
+                                            andToken:token];
+    }
+    
+    [self.interactor completeTransactionWithResponse:response
+                                               error:nil];
+    [self.router dismissViewController];
+    [self.view didFinishAddingCard];
 }
 
 //---------------------------------------------------------------------------

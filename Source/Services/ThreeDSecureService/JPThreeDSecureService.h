@@ -1,8 +1,8 @@
 //
-//  JP3DSWebView.h
+//  JPThreeDSecureService.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
+#import <Foundation/Foundation.h>
+#import "JPTransaction.h"
+#import "JPSession.h"
 
-/**
- *  A WKWebView subclass that is configured to detect the execution of a 3DS validation page.
- */
-@interface JP3DSWebView : WKWebView
+@interface JPThreeDSecureService : NSObject
 
-/**
- *  This method initiates the webview to load the 3DS website.
- *
- *  @param payload the payload that contains the 3DS information to be loaded
- *  @param error   error that gets set when payload contains faulty information
- *
- *  @return the receiptId of the transaction
- */
-- (NSString *_Nullable)load3DSWithPayload:(nonnull NSDictionary *)payload
-                                    error:(NSError *_Nullable *_Nullable)error;
+@property (nonatomic, strong) JPTransaction *transaction;
+
+- (void)invoke3DSecureViewControllerWithError:(NSError *)error
+                                   completion:(JudoCompletionBlock)completion;
 
 @end
+

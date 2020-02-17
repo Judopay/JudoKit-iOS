@@ -33,12 +33,14 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
 #import "NSError+Additions.h"
+#import "JPThreeDSecureService.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPThreeDSecureService *threeDSecureService;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -86,7 +88,12 @@
               completionHandler:(JudoCompletionBlock)completionHandler {
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.card = card;
+    self.threeDSecureService.transaction = transaction;
     [transaction sendWithCompletion:completionHandler];
+}
+
+- (void)completeTransactionWithResponse:(JPResponse *)response error:(NSError *)error {
+    if (self.completionHandler) self.completionHandler(response, error);
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
@@ -103,6 +110,12 @@
                                                                                 cardToken:token];
 
     [JPCardStorage.sharedInstance addCardDetails:storedCardDetails];
+}
+
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion {
+    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
+                                                         completion:completion];
 }
 
 - (NSArray<NSString *> *)getSelectableCountryNames {
@@ -137,6 +150,13 @@
 
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
     return [self.cardValidationService validatePostalCodeInput:input];
+}
+
+- (JPThreeDSecureService *)threeDSecureService {
+    if (!_threeDSecureService) {
+        _threeDSecureService = [JPThreeDSecureService new];
+    }
+    return _threeDSecureService;
 }
 
 @end
