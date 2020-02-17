@@ -27,7 +27,7 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "ExampleAppCredentials.h"
-#import "ApplePayConfiguration.h"
+#import "JPApplePayConfiguration.h"
 #import "SettingsViewController.h"
 #import "HalfHeightPresentationController.h"
 
@@ -149,15 +149,19 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
             break;
 
         case DemoFeatureTypeApplePayPayment:
+            [self invokeApplePayWithMode:TransactionModePayment];
             break;
 
         case DemoFeatureTypeApplePayPreAuth:
+            [self invokeApplePayWithMode:TransactionModePreAuth];
             break;
 
         case DemoFeatureTypePaymentMethods:
+            [self invokePaymentMethodScreenWithMode:TransactionModePayment];
             break;
             
         case DemoFeatureTypePreAuthMethods:
+            [self invokePaymentMethodScreenWithMode:TransactionModePreAuth];
             break;
 
         default:
@@ -172,6 +176,18 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                         completion:nil];
 }
 
+- (void)invokeApplePayWithMode:(TransactionMode)mode {
+    [self.judoKitSession invokeApplePayWithMode:mode
+                                  configuration:self.configuration.applePayConfiguration
+                                     completion:nil];
+}
+
+- (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode {
+    [self.judoKitSession invokePaymentMethodScreenWithMode:mode
+                                             configuration:self.configuration
+                                                completion:nil];
+}
+
 #pragma mark - Operations
 
 - (void)presentErrorWithMessage:(NSString *)message {
@@ -181,7 +197,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 #pragma mark - Lazy Loading
-- (ApplePayConfiguration *)applePayConfigurationWithType:(TransactionType)transactionType {
+- (JPApplePayConfiguration *)applePayConfigurationWithType:(TransactionType)transactionType {
     
     NSArray *items = @[
                        [[PaymentSummaryItem alloc] initWithLabel:@"Item 1"
@@ -192,14 +208,13 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                           amount:[NSDecimalNumber decimalNumberWithString:@"0.03"]]
                        ];
     
-    ApplePayConfiguration *configuration = [[ApplePayConfiguration alloc] initWithJudoId:judoId
+    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithJudoId:judoId
                                                                                reference:self.reference
                                                                               merchantId:merchantId
                                                                                 currency:self.settings.currency
                                                                              countryCode:@"GB"
                                                                      paymentSummaryItems:items];
     
-    configuration.transactionType = transactionType;
     configuration.requiredShippingContactFields = ContactFieldAll;
     configuration.requiredBillingContactFields = ContactFieldAll;
     configuration.returnedContactInfo = ReturnedInfoAll;

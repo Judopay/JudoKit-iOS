@@ -1,5 +1,5 @@
 //
-//  ApplePayConfiguration.h
+//  JPApplePayConfiguration.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ApplePayWrappers.h"
+#import "JPApplePayWrappers.h"
 #import "JPCardDetails.h"
 #import "JPTransaction.h"
 #import <Foundation/Foundation.h>
@@ -34,19 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
  * for a successful initialization of the PKPaymentAuthorizationViewController,
  * and serves as the only method for modifying the payment request parameters.
  */
-@interface ApplePayConfiguration : NSObject
+@interface JPApplePayConfiguration : NSObject
 
 /**
  * [REQUIRED] The JudoPay ID parameter
  */
 @property (nonatomic, strong) NSString *_Nonnull judoId;
-
-/**
- * [DEFAULT] The type of the transaction. Can be either Payment or PreAuth.
- *           Defaults to TransactionTypePayment. If different type is selected than
- *           those specified, will default to payment.
- */
-@property (nonatomic, assign) TransactionType transactionType;
 
 /**
  * [REQUIRED] The payment reference number
@@ -80,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * [NOTE: Maestro is only available starting with iOS 12.0]
  */
-@property (nonatomic, strong) NSArray<NSNumber *> *supportedCardNetworks;
+@property (nonatomic, assign) CardNetwork supportedCardNetworks;
 
 /**
  * [DEFAULT] A bitmask of the payment processing protocols and card types that you support.

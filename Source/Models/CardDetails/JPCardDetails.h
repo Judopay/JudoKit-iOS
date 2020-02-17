@@ -27,7 +27,7 @@
 /**
  *  The CardNetwork enum depicts the Card Network type of a given Card object
  */
-typedef NS_ENUM(NSUInteger, CardNetwork) {
+typedef NS_OPTIONS(NSUInteger, CardNetwork) {
     /**
      * Unknown
      */

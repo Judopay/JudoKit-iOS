@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ApplePayConfiguration.h"
+#import "JPApplePayConfiguration.h"
 #import "JPCardNetwork.h"
 #import "JPSession.h"
 #import "JPTransaction.h"
@@ -39,7 +39,7 @@
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *_Nullable paymentMethods;
 @property (nonatomic, assign) CardNetwork supportedCardNetworks;
 @property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
-@property (nonatomic, strong, readonly) ApplePayConfiguration *_Nullable applePayConfiguration;
+@property (nonatomic, strong, readonly) JPApplePayConfiguration *_Nullable applePayConfiguration;
 
 //---------------------------------------------------------------------------
 #pragma mark - Initializer

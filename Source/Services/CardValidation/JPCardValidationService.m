@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardValidationService.h"
-#import "BillingCountry.h"
+#import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPValidationResult.h"
 #import "NSError+Additions.h"
@@ -35,7 +35,7 @@
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastSecureCodeValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastPostalCodeValidationResult;
-@property (nonatomic, strong) NSString *selectedBillingCountry;
+@property (nonatomic, strong) NSString *selectedJPBillingCountry;
 @end
 
 @implementation JPCardValidationService
@@ -185,7 +185,7 @@
 }
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {
-    self.selectedBillingCountry = input;
+    self.selectedJPBillingCountry = input;
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
                                        errorMessage:nil
@@ -194,19 +194,19 @@
 
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
 
-    if ([self.selectedBillingCountry isEqualToString:@"country_usa".localized]) {
+    if ([self.selectedJPBillingCountry isEqualToString:@"country_usa".localized]) {
         return [self validateUSAPostalCodeInput:input];
     }
 
-    if ([self.selectedBillingCountry isEqualToString:@"country_uk".localized]) {
+    if ([self.selectedJPBillingCountry isEqualToString:@"country_uk".localized]) {
         return [self validateUKPostalCodeInput:input];
     }
 
-    if ([self.selectedBillingCountry isEqualToString:@"country_canada".localized]) {
+    if ([self.selectedJPBillingCountry isEqualToString:@"country_canada".localized]) {
         return [self validateCanadaPostalCodeInput:input];
     }
 
-    if ([self.selectedBillingCountry isEqualToString:@"country_other".localized]) {
+    if ([self.selectedJPBillingCountry isEqualToString:@"country_other".localized]) {
         return [self validateOtherPostalCodeInput:input];
     }
 

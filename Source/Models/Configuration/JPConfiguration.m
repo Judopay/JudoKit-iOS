@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSString *_Nullable receiptId;
 @property (nonatomic, strong) JPAmount *_Nonnull amount;
 @property (nonatomic, strong) JPReference *_Nonnull reference;
-@property (nonatomic, strong) ApplePayConfiguration *applePayConfiguration;
+@property (nonatomic, strong) JPApplePayConfiguration *applePayConfiguration;
 
 @end
 
@@ -74,7 +74,7 @@
                             countryCode:(NSString *)countryCode
                     paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items {
 
-    self.applePayConfiguration = [[ApplePayConfiguration alloc] initWithJudoId:self.judoId
+    self.applePayConfiguration = [[JPApplePayConfiguration alloc] initWithJudoId:self.judoId
                                                                      reference:self.reference.consumerReference
                                                                     merchantId:merchantId
                                                                       currency:self.amount.currency

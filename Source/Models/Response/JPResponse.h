@@ -26,7 +26,7 @@
 
 @class JPPagination;
 @class JPTransactionData;
-@class ContactInformation;
+@class JPContactInformation;
 
 /**
  *   Response object is created out of the JSON response of the judo API for seamless handling of values returned in any call. The response object can hold multiple transaction objects and supports pagination if available. In most cases (successful Payment, Pre-auth, RegisterCard or SaveCard operation) a Response object will hold one TransactionData object. Supporting CollectionType protocol, you can access the elements by subscripting `let transactionData = response[0]` or using the available variable `response.first` as a more readable approach.
@@ -46,12 +46,12 @@
 /**
  * Billing contact information returned from ApplePay
  */
-@property (nonatomic, strong) ContactInformation *_Nullable billingInfo;
+@property (nonatomic, strong) JPContactInformation *_Nullable billingInfo;
 
 /**
  * Shipping contact information returned from ApplePay
  */
-@property (nonatomic, strong) ContactInformation *_Nullable shippingInfo;
+@property (nonatomic, strong) JPContactInformation *_Nullable shippingInfo;
 
 /**
  *  Initialize a Response object with pagination if available

@@ -1,5 +1,5 @@
 //
-//  SliderPresentationController.h
+//  JPSliderTransitioningDelegate.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -25,9 +25,7 @@
 #import <UIKit/UIKit.h>
 
 /**
- * A class that inherits the UIPresentationController used to present a UIViewController on top of another, without dismissing the previous one.
- * Useful for UIViewController's that have a semi-transparent background.
+ * A class that adopts the UIViewControllerTransitioningDelegate protocol, used for implementing custom transitions between UIViewControllers.
  */
-@interface SliderPresentationController : UIPresentationController
-
+@interface JPSliderTransitioningDelegate : NSObject <UIViewControllerTransitioningDelegate>
 @end

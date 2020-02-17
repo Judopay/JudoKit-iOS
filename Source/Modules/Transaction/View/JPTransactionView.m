@@ -27,9 +27,9 @@
 #import "JPTransactionViewModel.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
-#import "LoadingButton.h"
+#import "JPLoadingButton.h"
 #import "NSString+Additions.h"
-#import "RoundedCornerView.h"
+#import "JPRoundedCornerView.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
@@ -39,7 +39,7 @@
 
 @interface JPTransactionView ()
 
-@property (nonatomic, strong) RoundedCornerView *bottomSlider;
+@property (nonatomic, strong) JPRoundedCornerView *bottomSlider;
 @property (nonatomic, strong) UIStackView *mainStackView;
 @property (nonatomic, strong) UIImageView *lockImageView;
 @property (nonatomic, strong) UILabel *securityMessageLabel;
@@ -180,7 +180,7 @@
 - (UIView *)bottomSlider {
     if (!_bottomSlider) {
         UIRectCorner corners = UIRectCornerTopRight | UIRectCornerTopLeft;
-        _bottomSlider = [[RoundedCornerView alloc] initWithRadius:10.0 forCorners:corners];
+        _bottomSlider = [[JPRoundedCornerView alloc] initWithRadius:10.0 forCorners:corners];
         _bottomSlider.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomSlider.backgroundColor = UIColor.whiteColor;
     }

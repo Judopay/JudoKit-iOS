@@ -30,14 +30,14 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPConfiguration, JPTransactionService, SliderTransitioningDelegate;
+@class JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 
-- (nonnull JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (nonnull JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
                                                   configuration:(nonnull JPConfiguration *)configuration
                                              transactionService:(nonnull JPTransactionService *)transactionService
-                                          transitioningDelegate:(nonnull SliderTransitioningDelegate *)transitioningDelegate
+                                          transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
                                               completionHandler:(nullable JudoCompletionBlock)completion;
 @end
 

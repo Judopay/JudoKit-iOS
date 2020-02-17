@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "DetailViewController.h"
-#import "ContactInformation.h"
+#import "JPContactInformation.h"
 #import "DetailsTableViewController.h"
 
 @import JudoKitObjC;

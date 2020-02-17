@@ -1,8 +1,8 @@
 //
-//  ApplePayWrappers.m
+//  JPIDealBank.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,51 +22,42 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ApplePayWrappers.h"
+#import "JPIDealBank.h"
+#import <Foundation/Foundation.h>
 
-#pragma mark - PaymentSummaryItem
+@implementation JPIDealBank
 
-@implementation PaymentSummaryItem
++ (instancetype)bankWithType:(JPIDealBankType)type {
+    return [[JPIDealBank alloc] initWithType:type];
+}
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                         type:(PaymentSummaryItemType)type {
-
+- (instancetype)initWithType:(JPIDealBankType)type {
     if (self = [super init]) {
-        self.label = label;
-        self.amount = amount;
+        self.title = [self titleForType:type];
+        self.bankIdentifierCode = [self bankIdentifierCodeForType:type];
         self.type = type;
     }
-
     return self;
 }
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount {
+- (NSString *)titleForType:(JPIDealBankType)type {
+    NSArray *bankNames = @[
+        @"None", @"Rabobank", @"ABN AMRO", @"Van Lanschot Bankiers",
+        @"Triodos Bank", @"ING Bank", @"SNS Bank", @"ASN", @"RegioBank",
+        @"Knab", @"Bunq", @"Moneyou", @"Handelsbanken"
+    ];
 
-    return [self initWithLabel:label
-                        amount:amount
-                          type:PaymentSummaryItemTypeFinal];
+    return bankNames[type];
 }
 
-@end
+- (NSString *)bankIdentifierCodeForType:(JPIDealBankType)type {
+    NSArray *bankIdentifierCodes = @[
+        @"None", @"RABONL2U", @"ABNANL2A", @"FVLBNL22", @"TRIONL2U",
+        @"INGBNL2A", @"SNSBNL2A", @"ASNBNL21", @"RBRBNL21", @"KNABNL2H",
+        @"BUNQNL2A", @"MOYONL21", @"HANDNL2A"
+    ];
 
-#pragma mark - PaymentShippingMethod
-
-@implementation PaymentShippingMethod
-
-- (instancetype)initWithIdentifier:(NSString *)identifier
-                            detail:(NSString *)detail
-                             label:(nonnull NSString *)label
-                            amount:(nonnull NSDecimalNumber *)amount
-                              type:(PaymentSummaryItemType)type {
-
-    if (self = [super initWithLabel:label amount:amount type:type]) {
-        self.identifier = identifier;
-        self.detail = detail;
-    }
-
-    return self;
+    return bankIdentifierCodes[type];
 }
 
 @end

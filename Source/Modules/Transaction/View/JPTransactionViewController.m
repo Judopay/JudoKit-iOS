@@ -28,7 +28,7 @@
 #import "JPTransactionView.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
-#import "LoadingButton.h"
+#import "JPLoadingButton.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 

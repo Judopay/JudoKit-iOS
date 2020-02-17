@@ -32,7 +32,7 @@
 
 static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 
-@interface JudoKit : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+@interface JudoKit : NSObject
 
 @property (nonatomic, assign) BOOL isSandboxed;
 
@@ -52,15 +52,14 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 //---------------------------------------------------------------------------
 
 - (nonnull JPTransaction *)transactionWithType:(TransactionType)type
-                         configuration:(nonnull JPConfiguration *)configuration
-                            completion:(nullable JudoCompletionBlock)completion;
+                         configuration:(nonnull JPConfiguration *)configuration;
 
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(nonnull JPConfiguration *)configuration
                        completion:(nullable JudoCompletionBlock)completion;
 
 - (void)invokeApplePayWithMode:(TransactionMode)mode
-                 configuration:(nonnull ApplePayConfiguration *)configuration
+                 configuration:(nonnull JPApplePayConfiguration *)configuration
                     completion:(nullable JudoCompletionBlock)completion;
 
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode

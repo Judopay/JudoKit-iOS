@@ -1,5 +1,5 @@
 //
-//  ApplePayConfiguration.m
+//  JPApplePayConfiguration.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ApplePayConfiguration.h"
+#import "JPApplePayConfiguration.h"
 
-@implementation ApplePayConfiguration
+@implementation JPApplePayConfiguration
 
 #pragma mark - Initializers
 
@@ -60,17 +60,11 @@
 
 #pragma mark - Helper methods
 
-- (void)setupDefaults {
-    self.transactionType = TransactionTypePayment;
+- (void)setupDefaults { 
     self.merchantCapabilities = MerchantCapability3DS;
     self.shippingType = ShippingTypeShipping;
     self.returnedContactInfo = ReturnedInfoBillingContacts;
-    self.supportedCardNetworks = @[ @(CardNetworkVisa), @(CardNetworkMasterCard), @(CardNetworkAMEX) ];
-
-    // Adds Maestro to the list of available card networks if iOS 12 or above
-    if (@available(iOS 12.0, *)) {
-        self.supportedCardNetworks = [self.supportedCardNetworks arrayByAddingObject:@(CardNetworkMaestro)];
-    }
+    self.supportedCardNetworks = CardNetworkVisa | CardNetworkMasterCard | CardNetworkAMEX | CardNetworkMaestro;
 }
 
 @end

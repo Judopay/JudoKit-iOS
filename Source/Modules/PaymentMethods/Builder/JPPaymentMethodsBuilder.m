@@ -34,14 +34,14 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
 
-#import "ApplePayConfiguration.h"
+#import "JPApplePayConfiguration.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
-- (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
-                                  transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
+                                  transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JudoCompletionBlock)completion {
     
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];

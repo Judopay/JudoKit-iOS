@@ -25,7 +25,7 @@
 #import <UIKit/UIKit.h>
 
 @class JPTransactionViewModel;
-@class LoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton;
+@class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton;
 
 @interface JPTransactionView : UIView
 

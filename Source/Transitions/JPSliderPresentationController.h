@@ -1,5 +1,5 @@
 //
-//  JPTransactionButton.h
+//  JPSliderPresentationController.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,16 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewModel.h"
-#import "JPLoadingButton.h"
+#import <UIKit/UIKit.h>
 
 /**
- * A custom implementation of the JPLoadingButton used for displaying the Add Card button
+ * A class that inherits the UIPresentationController used to present a UIViewController on top of another, without dismissing the previous one.
+ * Useful for UIViewController's that have a semi-transparent background.
  */
-@interface JPTransactionButton : JPLoadingButton
+@interface JPSliderPresentationController : UIPresentationController
 
-/**
- * A method that configures the text field based on a specified view model
- */
-- (void)configureWithViewModel:(JPTransactionButtonViewModel *)viewModel;
 @end

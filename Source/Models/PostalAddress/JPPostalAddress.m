@@ -1,8 +1,8 @@
 //
-//  SliderTransitioningDelegate.h
+//  JPPostalAddress.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPPostalAddress.h"
 
-/**
- * A class that adopts the UIViewControllerTransitioningDelegate protocol, used for implementing custom transitions between UIViewControllers.
- */
-@interface SliderTransitioningDelegate : NSObject <UIViewControllerTransitioningDelegate>
+@implementation JPPostalAddress
+
+- (instancetype)initWithSteet:(NSString *)street
+                         city:(NSString *)city
+                        state:(NSString *)state
+                   postalCode:(NSString *)postalCode
+                      country:(NSString *)country
+                      isoCode:(NSString *)isoCode
+        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
+                  sublocality:(nullable NSString *)sublocality {
+
+    if (self = [super init]) {
+        self.street = street;
+        self.city = city;
+        self.state = state;
+        self.postalCode = postalCode;
+        self.country = country;
+        self.isoCode = isoCode;
+        self.subAdministrativeArea = subAdministrativeArea;
+        self.sublocality = sublocality;
+    }
+
+    return self;
+}
+
 @end

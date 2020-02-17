@@ -29,14 +29,14 @@
 
 #import "JPConfiguration.h"
 #import "JPTransaction.h"
-#import "SliderTransitioningDelegate.h"
+#import "JPSliderTransitioningDelegate.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
-@property (nonatomic, strong) SliderTransitioningDelegate *transitioningDelegate;
+@property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
 @end
 
@@ -46,7 +46,7 @@
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                    transactionService:(JPTransactionService *)transactionService
-                transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
+                transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                            completion:(JudoCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;

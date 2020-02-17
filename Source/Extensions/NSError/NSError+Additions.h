@@ -43,7 +43,7 @@ extern NSString * _Nonnull const JudoErrorDomain;
 + (nonnull NSError *)judoUserDidCancelError;
 + (nonnull NSError *)judoParameterError;
 + (nonnull NSError *)judoInternetConnectionError;
-+ (nonnull NSError *)judoApplePayConfigurationError;
++ (nonnull NSError *)judoJPApplePayConfigurationError;
 + (nonnull NSError *)judoResponseParseError;
 + (nonnull NSError *)judoMissingChecksumError;
 + (nonnull NSError *)judoRequestTimeoutError;
@@ -75,7 +75,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorUserDidCancel,
     JudoErrorParameterError,
     JudoErrorResponseParseError,
-    JudoErrorInvalidApplePayConfiguration,
+    JudoErrorInvalidJPApplePayConfiguration,
     JudoErrorInvalidCardNumberError,
     JudoErrorUnsupportedCardNetwork,
     JudoErrorJailbrokenDeviceDisallowed,

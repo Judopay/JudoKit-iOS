@@ -1,5 +1,5 @@
 //
-//  LoadingButton.m
+//  JPLoadingButton.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,15 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "LoadingButton.h"
+#import "JPLoadingButton.h"
 #import "UIView+Additions.h"
 
-@interface LoadingButton ()
+@interface JPLoadingButton ()
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSString *buttonTitle;
 @end
 
-@implementation LoadingButton
+@implementation JPLoadingButton
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {

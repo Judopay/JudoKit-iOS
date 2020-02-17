@@ -30,56 +30,56 @@ class PostCodeValidationTests: XCTestCase {
     func test_OnValidUKPostcode_ReturnTrue() {
         
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.UK
+        postcodeInputField.billingCountry = JPBillingCountry.UK
         postcodeInputField.textField.text = "FK208QT"
         XCTAssertTrue(postcodeInputField.isValid)
     }
     
     func test_OnInvalidUKPostcode_ReturnFalse() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.UK
+        postcodeInputField.billingCountry = JPBillingCountry.UK
         postcodeInputField.textField.text = "ABCDEF"
         XCTAssertFalse(postcodeInputField.isValid)
     }
     
     func test_OnValidCanadaPostcode_ReturnTrue() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.canada
+        postcodeInputField.billingCountry = JPBillingCountry.canada
         postcodeInputField.textField.text = "K1A0B1"
         XCTAssertTrue(postcodeInputField.isValid)
     }
     
     func test_OnInvalidCanadaPostcode_ReturnFalse() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.canada
+        postcodeInputField.billingCountry = JPBillingCountry.canada
         postcodeInputField.textField.text = "Z1AD11"
         XCTAssertFalse(postcodeInputField.isValid)
     }
     
     func test_OnValidUSPostcode_ReturnTrue() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.USA
+        postcodeInputField.billingCountry = JPBillingCountry.USA
         postcodeInputField.textField.text = "85055"
         XCTAssertTrue(postcodeInputField.isValid)
     }
     
     func test_OnInvalidUSPostcode_ReturnFalse() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.USA
+        postcodeInputField.billingCountry = JPBillingCountry.USA
         postcodeInputField.textField.text = "ABC123"
         XCTAssertFalse(postcodeInputField.isValid)
     }
     
     func test_OnValidOtherPostcode_ReturnTrue() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.other
+        postcodeInputField.billingCountry = JPBillingCountry.other
         postcodeInputField.textField.text = "123456"
         XCTAssertTrue(postcodeInputField.isValid)
     }
     
     func test_OnInvalidOtherPostcode_ReturnFalse() {
         let postcodeInputField = PostCodeInputField()
-        postcodeInputField.billingCountry = BillingCountry.other
+        postcodeInputField.billingCountry = JPBillingCountry.other
         postcodeInputField.textField.text = "A12345"
         XCTAssertFalse(postcodeInputField.isValid)
     }

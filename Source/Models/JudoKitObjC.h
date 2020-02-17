@@ -30,8 +30,8 @@ FOUNDATION_EXPORT double JudoKitObjCVersionNumber;
 //! Project version string for JudoKitObjC.
 FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 
-#import <JudoKitObjC/ApplePayConfiguration.h>
-#import <JudoKitObjC/ApplePayManager.h>
+#import <JudoKitObjC/JPApplePayConfiguration.h>
+#import <JudoKitObjC/JPApplePayService.h>
 #import <JudoKitObjC/JPAddress.h>
 #import <JudoKitObjC/JPAmount.h>
 #import <JudoKitObjC/JPBrowser.h>
@@ -57,10 +57,10 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPVCOResult.h>
 #import <JudoKitObjC/JudoKit.h>
 #import <JudoKitObjC/NSError+Additions.h>
-#import <JudoKitObjC/PaymentMethods.h>
-#import <JudoKitObjC/BillingCountry.h>
-#import <JudoKitObjC/IDEALBank.h>
-#import <JudoKitObjC/IDEALService.h>
+#import <JudoKitObjC/JPPaymentMethods.h>
+#import <JudoKitObjC/JPBillingCountry.h>
+#import <JudoKitObjC/JPIDealBank.h>
+#import <JudoKitObjC/JPIDealService.h>
 #import <JudoKitObjC/JPCardStorage.h>
 #import <JudoKitObjC/JPCountry.h>
 #import <JudoKitObjC/JPOrderDetails.h>
@@ -68,4 +68,6 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPReachability.h>
 #import <JudoKitObjC/JPStoredCardDetails.h>
 #import <JudoKitObjC/JPTransactionEnricher.h>
+#import <JudoKitObjC/JPTransactionService.h>
 #import <JudoKitObjC/JPValidationResult.h>
+#import <JudoKitObjC/JPContactInformation.h>

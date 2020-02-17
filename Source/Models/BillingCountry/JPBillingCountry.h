@@ -1,8 +1,8 @@
 //
-//  IDEALBank.m
+//  JPBillingCountry.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,42 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "IDEALBank.h"
 #import <Foundation/Foundation.h>
 
-@implementation IDEALBank
+/**
+ *  JPBillingCountry enum to simplify identifying a billing country for a given card
+ */
 
-+ (instancetype)bankWithType:(IDEALBankType)type {
-    return [[IDEALBank alloc] initWithType:type];
-}
-
-- (instancetype)initWithType:(IDEALBankType)type {
-    if (self = [super init]) {
-        self.title = [self titleForType:type];
-        self.bankIdentifierCode = [self bankIdentifierCodeForType:type];
-        self.type = type;
-    }
-    return self;
-}
-
-- (NSString *)titleForType:(IDEALBankType)type {
-    NSArray *bankNames = @[
-        @"None", @"Rabobank", @"ABN AMRO", @"Van Lanschot Bankiers",
-        @"Triodos Bank", @"ING Bank", @"SNS Bank", @"ASN", @"RegioBank",
-        @"Knab", @"Bunq", @"Moneyou", @"Handelsbanken"
-    ];
-
-    return bankNames[type];
-}
-
-- (NSString *)bankIdentifierCodeForType:(IDEALBankType)type {
-    NSArray *bankIdentifierCodes = @[
-        @"None", @"RABONL2U", @"ABNANL2A", @"FVLBNL22", @"TRIONL2U",
-        @"INGBNL2A", @"SNSBNL2A", @"ASNBNL21", @"RBRBNL21", @"KNABNL2H",
-        @"BUNQNL2A", @"MOYONL21", @"HANDNL2A"
-    ];
-
-    return bankIdentifierCodes[type];
-}
-
-@end
+typedef NS_ENUM(NSUInteger, JPBillingCountry) {
+    /**
+     *  United Kingdom
+     */
+    JPBillingCountryUK,
+    /**
+     *  United States of America
+     */
+    JPBillingCountryUSA,
+    /**
+     *  Canada
+     */
+    JPBillingCountryCanada,
+    /**
+     *  Other
+     */
+    JPBillingCountryOther
+};

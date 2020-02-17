@@ -1,8 +1,8 @@
 //
-//  RoundedCornerView.h
+//  JPLoadingButton.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,17 +24,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RoundedCornerView : UIView
+@interface JPLoadingButton : UIButton
 
 /**
- * Initializes a UIView object with rounded corners
- *
- * @param radius - a CGFloat value describing the corner radius value
- * @param corners - a UIRectCorner value that describes the corners the radius applies to
- *
- * @return a configured UIView instance
+ * A method that hides the title and displays an animated activity spinner
  */
-- (instancetype)initWithRadius:(CGFloat)radius
-                    forCorners:(UIRectCorner)corners;
+- (void)startLoading;
+
+/**
+ * A method that hides the activity spinner and displays the previous title
+ */
+- (void)stopLoading;
 
 @end

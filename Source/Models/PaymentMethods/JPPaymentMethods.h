@@ -1,8 +1,8 @@
 //
-//  BillingCountry.h
+//  JPPaymentMethods.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,24 +25,12 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  BillingCountry enum to simplify identifying a billing country for a given card
+ *  Payment methods
  */
-
-typedef NS_ENUM(NSUInteger, BillingCountry) {
-    /**
-     *  United Kingdom
-     */
-    BillingCountryUK,
-    /**
-     *  United States of America
-     */
-    BillingCountryUSA,
-    /**
-     *  Canada
-     */
-    BillingCountryCanada,
-    /**
-     *  Other
-     */
-    BillingCountryOther
+typedef NS_OPTIONS(NSUInteger, JPPaymentMethods) {
+    JPPaymentMethodNone = 0,
+    JPPaymentMethodCard = 1 << 0,
+    JPPaymentMethodApplePay = 1 << 1,
+    JPPaymentMethodIDeal = 1 << 2,
+    JPPaymentMethodsAll = JPPaymentMethodCard | JPPaymentMethodApplePay | JPPaymentMethodIDeal
 };

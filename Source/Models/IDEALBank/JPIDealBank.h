@@ -1,5 +1,5 @@
 //
-//  IDEALBank.h
+//  JPIDealBank.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -27,31 +27,31 @@
 /**
  *  Enumeration of all available iDEAL banks
  */
-typedef NS_ENUM(NSUInteger, IDEALBankType) {
-    IDEALBankNone,
-    IDEALBankRabobank,
-    IDEALBankABN,
-    IDEALBankVanLanschotBankiers,
-    IDEALBankTriodos,
-    IDEALBankING,
-    IDEALBankSNS,
-    IDEALBankASN,
-    IDEALBankRegio,
-    IDEALBankKnab,
-    IDEALBankBunq,
-    IDEALBankMoneyou,
-    IDEALBankHandelsbanken
+typedef NS_ENUM(NSUInteger, JPIDealBankType) {
+    JPIDealBankNone,
+    JPIDealBankRabobank,
+    JPIDealBankABN,
+    JPIDealBankVanLanschotBankiers,
+    JPIDealBankTriodos,
+    JPIDealBankING,
+    JPIDealBankSNS,
+    JPIDealBankASN,
+    JPIDealBankRegio,
+    JPIDealBankKnab,
+    JPIDealBankBunq,
+    JPIDealBankMoneyou,
+    JPIDealBankHandelsbanken
 };
 
 /**
- *  An IDEALBank object responsible for obtaining iDEAL bank information
+ *  An JPIDealBank object responsible for obtaining iDEAL bank information
  */
-@interface IDEALBank : NSObject
+@interface JPIDealBank : NSObject
 
 /**
  *  The type of the iDEAL bank
  */
-@property IDEALBankType type;
+@property JPIDealBankType type;
 
 /**
  *  The title of the iDEAL bank
@@ -64,21 +64,21 @@ typedef NS_ENUM(NSUInteger, IDEALBankType) {
 @property (nonatomic, strong) NSString *_Nonnull bankIdentifierCode;
 
 /**
- *  Create an IDEALBank instance based on a specified type
+ *  Create an JPIDealBank instance based on a specified type
  *
  *  @param type - one of the predefined iDEALBank types
  *
- *  @return an IDEALBank instance
+ *  @return an JPIDealBank instance
  */
-+ (nonnull instancetype)bankWithType:(IDEALBankType)type;
++ (nonnull instancetype)bankWithType:(JPIDealBankType)type;
 
 /**
- *  Create an IDEALBank instance based on a specified type
+ *  Create an JPIDealBank instance based on a specified type
  *
  *  @param type - one of the predefined iDEALBank types
  *
- *  @return an IDEALBank instance
+ *  @return an JPIDealBank instance
  */
-- (nonnull instancetype)initWithType:(IDEALBankType)type;
+- (nonnull instancetype)initWithType:(JPIDealBankType)type;
 
 @end

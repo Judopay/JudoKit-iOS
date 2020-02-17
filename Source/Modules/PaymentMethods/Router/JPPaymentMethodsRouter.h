@@ -27,7 +27,7 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPTransactionService, JPConfiguration, SliderTransitioningDelegate;
+@class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsRouter
 /**
@@ -57,7 +57,7 @@
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                            transactionService:(nonnull JPTransactionService *)transactionService
-                        transitioningDelegate:(SliderTransitioningDelegate *_Nonnull)transitioningDelegate
+                        transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate
                                    completion:(JudoCompletionBlock _Nonnull)completion;
 
 @end

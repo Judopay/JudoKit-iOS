@@ -49,8 +49,7 @@
 #pragma mark - Public Methods
 //---------------------------------------------------------------------------
 
-- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration
-                                     completion:(JudoCompletionBlock)completion;
+- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration;
 
 - (void)listTransactionsOfType:(TransactionType)type
                      paginated:(JPPagination *)pagination

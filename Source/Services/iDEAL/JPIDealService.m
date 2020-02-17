@@ -1,5 +1,5 @@
 //
-//  IDEALService.m
+//  JPIDealService.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "IDEALService.h"
-#import "IDEALBank.h"
+#import "JPIDealService.h"
+#import "JPIDealBank.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
@@ -31,7 +31,7 @@
 #import "JPTransactionData.h"
 #import "NSError+Additions.h"
 
-@interface IDEALService ()
+@interface JPIDealService ()
 
 @property (nonatomic, strong) NSString *judoId;
 @property (nonatomic, assign) double amount;
@@ -44,7 +44,7 @@
 
 @end
 
-@implementation IDEALService
+@implementation JPIDealService
 
 static NSString *redirectEndpoint = @"order/bank/sale";
 static NSString *statusEndpoint = @"order/bank/statusrequest";
@@ -69,13 +69,13 @@ static NSString *statusEndpoint = @"order/bank/statusrequest";
     return self;
 }
 
-- (void)redirectURLForIDEALBank:(IDEALBank *)iDealBank
+- (void)redirectURLForJPIDealBank:(JPIDealBank *)iDealBank
                      completion:(JudoRedirectCompletion)completion {
 
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.iDealEndpoint, redirectEndpoint];
 
     [self.session POST:fullURL
-            parameters:[self parametersForIDEALBank:iDealBank]
+            parameters:[self parametersForJPIDealBank:iDealBank]
             completion:^(JPResponse *response, NSError *error) {
                 JPTransactionData *data = response.items.firstObject;
 
@@ -145,7 +145,7 @@ static NSString *statusEndpoint = @"order/bank/statusrequest";
     [self.timer invalidate];
 }
 
-- (NSDictionary *)parametersForIDEALBank:(IDEALBank *)iDEALBank {
+- (NSDictionary *)parametersForJPIDealBank:(JPIDealBank *)iDEALBank {
 
     NSNumber *amount = [NSNumber numberWithDouble:self.amount];
     NSString *trimmedPaymentReference = [self.reference.paymentReference substringToIndex:39];

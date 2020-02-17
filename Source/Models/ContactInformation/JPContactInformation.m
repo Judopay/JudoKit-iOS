@@ -1,5 +1,5 @@
 //
-//  ContactInformation.m
+//  JPContactInformation.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,14 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ContactInformation.h"
+#import "JPContactInformation.h"
 
-@implementation ContactInformation
+@implementation JPContactInformation
 
 - (instancetype)initWithEmailAddress:(NSString *)emailAddress
                                 name:(NSPersonNameComponents *)name
                          phoneNumber:(NSString *)phoneNumber
-                       postalAddress:(PostalAddress *)postalAddress {
+                       postalAddress:(JPPostalAddress *)postalAddress {
 
     if (self = [super init]) {
         self.emailAddress = emailAddress;
@@ -57,7 +57,7 @@
     }
 
     if (self.postalAddress) {
-        [contactString appendFormat:@"Postal Address: %@\n", [self addressStringFromPostalAddress:self.postalAddress]];
+        [contactString appendFormat:@"Postal Address: %@\n", [self addressStringFromJPPostalAddress:self.postalAddress]];
     }
 
     return contactString;
@@ -89,7 +89,7 @@
     return nameString;
 }
 
-- (NSString *)addressStringFromPostalAddress:(PostalAddress *)postalAddress {
+- (NSString *)addressStringFromJPPostalAddress:(JPPostalAddress *)postalAddress {
     NSMutableString *postalString = [NSMutableString new];
 
     if (postalAddress.street) {

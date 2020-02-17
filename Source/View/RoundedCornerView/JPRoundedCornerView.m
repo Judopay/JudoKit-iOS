@@ -1,8 +1,8 @@
 //
-//  SliderTransitioningDelegate.m
+//  JPRoundedCornerView.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +22,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "SliderTransitioningDelegate.h"
-#import "SliderPresentationController.h"
+#import "JPRoundedCornerView.h"
+#import "UIView+Additions.h"
 
-@implementation SliderTransitioningDelegate
+@interface JPRoundedCornerView ()
+@property (nonatomic, assign) CGFloat radius;
+@property (nonatomic, assign) UIRectCorner corners;
+@end
 
-- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
-                                                      presentingViewController:(UIViewController *)presenting
-                                                          sourceViewController:(UIViewController *)source {
-    return [[SliderPresentationController alloc] initWithPresentedViewController:presented
-                                                        presentingViewController:presenting];
+@implementation JPRoundedCornerView
+
+- (instancetype)initWithRadius:(CGFloat)radius
+                    forCorners:(UIRectCorner)corners {
+    if (self = [super init]) {
+        self.radius = radius;
+        self.corners = corners;
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self roundCorners:self.corners withRadius:self.radius];
 }
 
 @end

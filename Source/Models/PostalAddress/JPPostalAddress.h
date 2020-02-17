@@ -1,5 +1,5 @@
 //
-//  PostalAddress.h
+//  JPPostalAddress.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The representation of the postal address for a contact
  */
-@interface PostalAddress : NSObject
+@interface JPPostalAddress : NSObject
 
 /**
  * The street name in a postal address.

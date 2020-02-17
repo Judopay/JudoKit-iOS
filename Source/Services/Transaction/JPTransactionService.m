@@ -72,11 +72,10 @@
 #pragma mark - Public methods
 //---------------------------------------------------------------------------
 
-- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration
-                                     completion:(JudoCompletionBlock)completion {
+- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
     
     if (configuration.receiptId) {
-        return [self receiptTransactionWithConfiguration:configuration completion:completion];
+        return [self receiptTransactionWithConfiguration:configuration];
     }
     
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
@@ -91,8 +90,7 @@
     return transaction;
 }
 
-- (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration
-                                            completion:(JudoCompletionBlock)completion {
+- (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration {
     
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType
                                                           receiptId:configuration.receiptId

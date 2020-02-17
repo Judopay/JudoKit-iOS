@@ -1,5 +1,5 @@
 //
-//  RoundedCornerView.m
+//  JPApplePayWrappers.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,28 +22,51 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RoundedCornerView.h"
-#import "UIView+Additions.h"
+#import "JPApplePayWrappers.h"
 
-@interface RoundedCornerView ()
-@property (nonatomic, assign) CGFloat radius;
-@property (nonatomic, assign) UIRectCorner corners;
-@end
+#pragma mark - PaymentSummaryItem
 
-@implementation RoundedCornerView
+@implementation PaymentSummaryItem
 
-- (instancetype)initWithRadius:(CGFloat)radius
-                    forCorners:(UIRectCorner)corners {
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                         type:(PaymentSummaryItemType)type {
+
     if (self = [super init]) {
-        self.radius = radius;
-        self.corners = corners;
+        self.label = label;
+        self.amount = amount;
+        self.type = type;
     }
+
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self roundCorners:self.corners withRadius:self.radius];
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount {
+
+    return [self initWithLabel:label
+                        amount:amount
+                          type:PaymentSummaryItemTypeFinal];
+}
+
+@end
+
+#pragma mark - PaymentShippingMethod
+
+@implementation PaymentShippingMethod
+
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                            detail:(NSString *)detail
+                             label:(nonnull NSString *)label
+                            amount:(nonnull NSDecimalNumber *)amount
+                              type:(PaymentSummaryItemType)type {
+
+    if (self = [super initWithLabel:label amount:amount type:type]) {
+        self.identifier = identifier;
+        self.detail = detail;
+    }
+
+    return self;
 }
 
 @end

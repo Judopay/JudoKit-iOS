@@ -1,5 +1,5 @@
 //
-//  IDEALService.h
+//  JPIDealService.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -25,7 +25,7 @@
 #import "JPSession.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, IDEALBank, IDEALService, JPResponse;
+@class JPAmount, JPReference, JPIDealBank, JPIDealService, JPResponse;
 
 typedef NS_ENUM(NSUInteger, IDEALStatus) {
     IDEALStatusSuccess,
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, IDEALStatus) {
     IDEALStatusError
 };
 
-@interface IDEALService : NSObject
+@interface JPIDealService : NSObject
 
 typedef void (^IDEALRedirectCompletion)(JPResponse *_Nullable);
 typedef void (^JudoRedirectCompletion)(NSString *_Nullable, NSString *_Nullable, NSError *_Nullable);
@@ -47,7 +47,7 @@ typedef void (^JudoRedirectCompletion)(NSString *_Nullable, NSString *_Nullable,
 @property (nonatomic, strong) NSString *_Nullable accountHolderName;
 
 /**
- * Creates an instance of an IDEALService object
+ * Creates an instance of an JPIDealService object
  *
  * @param judoId           The Judo ID of the merchant to receive the iDeal transaction
  * @param amount           The amount expressed as a double value (currency is always EUR)
@@ -66,10 +66,10 @@ typedef void (^JudoRedirectCompletion)(NSString *_Nullable, NSString *_Nullable,
 /**
  * Method used for returning a redirect URL based on the specified iDEAL bank
  *
- * @param iDealBank    An instance of IDEALBank that holds the iDEAL's bank name and identifier code
+ * @param iDealBank    An instance of JPIDealBank that holds the iDEAL's bank name and identifier code
  * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
-- (void)redirectURLForIDEALBank:(nonnull IDEALBank *)iDealBank
+- (void)redirectURLForJPIDealBank:(nonnull JPIDealBank *)iDealBank
                      completion:(nonnull JudoRedirectCompletion)completion;
 
 /**

@@ -5,6 +5,6 @@
 #import "JudoPayViewControllerTestable.h"
 #import "FloatingTextField.h"
 #import "DateInputField.h"
-#import "IDEALService.h"
-#import "IDEALBank.h"
+#import "JPIDealService.h"
+#import "JPIDealBank.h"
 #import "PostCodeInputField.h"

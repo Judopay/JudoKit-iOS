@@ -1,5 +1,5 @@
 //
-//  PaymentMethods.h
+//  JPSliderTransitioningDelegate.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,15 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JPSliderTransitioningDelegate.h"
+#import "JPSliderPresentationController.h"
 
-/**
- *  Payment methods
- */
-typedef NS_OPTIONS(NSUInteger, PaymentMethods) {
-    PaymentMethodNone = 0,
-    PaymentMethodCard = 1 << 0,
-    PaymentMethodApplePay = 1 << 1,
-    PaymentMethodIDEAL = 1 << 2,
-    PaymentMethodsAll = PaymentMethodCard | PaymentMethodApplePay | PaymentMethodIDEAL
-};
+@implementation JPSliderTransitioningDelegate
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
+                                                      presentingViewController:(UIViewController *)presenting
+                                                          sourceViewController:(UIViewController *)source {
+    return [[JPSliderPresentationController alloc] initWithPresentedViewController:presented
+                                                        presentingViewController:presenting];
+}
+
+@end

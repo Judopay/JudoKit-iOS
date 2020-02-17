@@ -1,5 +1,5 @@
 //
-//  ApplePayManager.m
+//  JPApplePayService.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,23 +22,52 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ApplePayManager.h"
-#import "ApplePayWrappers.h"
+#import "JPApplePayService.h"
+#import "JPApplePayWrappers.h"
+#import "JPPostalAddress.h"
+#import "JPContactInformation.h"
+#import "UIApplication+Additions.h"
+#import "NSError+Additions.h"
+#import "JPResponse.h"
 
-@interface ApplePayManager ()
-@property ApplePayConfiguration *configuration;
+@interface JPApplePayService ()
+@property (nonatomic, assign) TransactionMode transactionMode;
+@property (nonatomic, strong) JPApplePayConfiguration *configuration;
+@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @end
 
-@implementation ApplePayManager
+@implementation JPApplePayService
 
+//---------------------------------------------------------------------------
 #pragma mark - Initializers
+//---------------------------------------------------------------------------
 
-- (instancetype)initWithConfiguration:(ApplePayConfiguration *)configuration {
+- (instancetype)initWithConfiguration:(JPApplePayConfiguration *)configuration
+                   transactionService:(JPTransactionService *)transactionService {
     if (self = [super init]) {
         self.configuration = configuration;
+        self.transactionService = transactionService;
     }
     return self;
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - Public method
+//---------------------------------------------------------------------------
+
+- (void)invokeApplePayWithMode:(TransactionMode)mode
+                    completion:(JudoCompletionBlock)completion {
+    self.transactionMode = mode;
+    self.completionBlock = completion;
+    [UIApplication.topMostViewController presentViewController:self.pkPaymentAuthorizationViewController
+                                                      animated:YES
+                                                    completion:nil];
+}
+
+//---------------------------------------------------------------------------
+#pragma mark - Apple Pay setup methods
+//---------------------------------------------------------------------------
 
 - (bool)isApplePaySupported {
     return [PKPaymentAuthorizationController canMakePayments];
@@ -48,19 +77,9 @@
     return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:self.pkPaymentNetworks];
 }
 
-#pragma mark - Generated objects based on configuration
-
-- (JPAmount *)jpAmount {
-
-    PaymentSummaryItem *lastSummaryItem = self.configuration.paymentSummaryItems.lastObject;
-
-    return [[JPAmount alloc] initWithAmount:lastSummaryItem.amount.stringValue
-                                   currency:self.configuration.currency];
-}
-
-- (JPReference *)jpReference {
-    return [[JPReference alloc] initWithConsumerReference:self.configuration.reference];
-}
+//---------------------------------------------------------------------------
+#pragma mark - Makes a PKPaymentAuthorizationViewController based on a request
+//---------------------------------------------------------------------------
 
 - (PKPaymentAuthorizationViewController *)pkPaymentAuthorizationViewController {
 
@@ -68,9 +87,14 @@
 
     viewController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:self.pkPaymentRequest];
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    viewController.delegate = self;
 
     return viewController;
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - Makes a PKPaymentRequest from the JPApplePayConfiguration object
+//---------------------------------------------------------------------------
 
 - (PKPaymentRequest *)pkPaymentRequest {
 
@@ -87,7 +111,6 @@
     ContactField requiredShippingContactFields = self.configuration.requiredShippingContactFields;
     ContactField requiredBillingContactFields = self.configuration.requiredBillingContactFields;
 
-    // For devices prior to iOS 11.0, PKAddressField properties will be set instead of PKContactField
     if (@available(iOS 11.0, *)) {
 
         NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
@@ -109,6 +132,10 @@
     return paymentRequest;
 }
 
+//---------------------------------------------------------------------------
+#pragma mark - Maps MerchantCapability to PKMerchantCapability
+//---------------------------------------------------------------------------
+
 - (PKMerchantCapability)pkMerchantCapabilities {
     switch (self.configuration.merchantCapabilities) {
         case MerchantCapability3DS:
@@ -122,6 +149,10 @@
     }
 }
 
+//---------------------------------------------------------------------------
+#pragma mark - Maps ShippingType to PKShippingType
+//---------------------------------------------------------------------------
+
 - (PKShippingType)pkShippingType {
     switch (self.configuration.shippingType) {
         case ShippingTypeShipping:
@@ -134,6 +165,10 @@
             return PKShippingTypeServicePickup;
     }
 }
+
+//---------------------------------------------------------------------------
+#pragma mark - Maps PaymentShippingMethod to PKShippingMethod
+//---------------------------------------------------------------------------
 
 - (NSArray<PKShippingMethod *> *)pkShippingMethods {
     NSMutableArray *pkShippingMethods = [NSMutableArray new];
@@ -151,14 +186,16 @@
     return pkShippingMethods;
 }
 
+//---------------------------------------------------------------------------
+#pragma mark - Maps PaymentSummaryItem to PKSummaryItem
+//---------------------------------------------------------------------------
+
 - (NSArray<PKPaymentSummaryItem *> *)pkPaymentSummaryItems {
 
     NSMutableArray<PKPaymentSummaryItem *> *pkPaymentSummaryItems = [NSMutableArray new];
 
     for (PaymentSummaryItem *item in self.configuration.paymentSummaryItems) {
-
         PKPaymentSummaryItemType summaryItemType = [self pkSummaryItemTypeFromType:item.type];
-
         [pkPaymentSummaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:item.label
                                                                              amount:item.amount
                                                                                type:summaryItemType]];
@@ -167,60 +204,60 @@
     return pkPaymentSummaryItems;
 }
 
+//---------------------------------------------------------------------------
+#pragma mark - Maps CardNetwork to PKPaymentNetwork array
+//---------------------------------------------------------------------------
+
 - (NSArray<PKPaymentNetwork> *)pkPaymentNetworks {
 
     NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [[NSMutableArray alloc] init];
 
-    for (NSNumber *cardNetwork in self.configuration.supportedCardNetworks) {
-        PKPaymentNetwork network = [self pkPaymentNetworkForCardNetwork:cardNetwork.intValue];
-        if (network)
-            [pkPaymentNetworks addObject:network];
+    CardNetwork cardNetworks = self.configuration.supportedCardNetworks;
+    
+    if (cardNetworks && CardNetworkVisa) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
     }
-
+    
+    if (cardNetworks & CardNetworkAMEX) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
+    }
+    
+    if (cardNetworks & CardNetworkMasterCard) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
+    }
+    
+    if (cardNetworks & CardNetworkMaestro) {
+        if (@available(iOS 12.0, *)) {
+            [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
+        }
+    }
+    
+    if (cardNetworks & CardNetworkJCB) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
+    }
+    
+    if (cardNetworks & CardNetworkDiscover) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
+    }
+    
+    if (cardNetworks & CardNetworkChinaUnionPay) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
+    }
+    
     return pkPaymentNetworks;
 }
 
-#pragma mark - Conversions to PassKit objects
-
-- (nullable PKPaymentNetwork)pkPaymentNetworkForCardNetwork:(CardNetwork)network { //!OCLINT
-
-    switch (network) {
-
-        case CardNetworkAMEX:
-            return PKPaymentNetworkAmex;
-
-        case CardNetworkChinaUnionPay:
-            return PKPaymentNetworkChinaUnionPay;
-
-        case CardNetworkDiscover:
-            return PKPaymentNetworkDiscover;
-
-        case CardNetworkJCB:
-            return PKPaymentNetworkJCB;
-
-        case CardNetworkMasterCard:
-            return PKPaymentNetworkMasterCard;
-
-        case CardNetworkVisa:
-            return PKPaymentNetworkVisa;
-
-        case CardNetworkMaestro:
-            if (@available(iOS 12.0, *)) {
-                return PKPaymentNetworkMaestro;
-            }
-
-        default:
-            return nil;
-    }
-}
+//---------------------------------------------------------------------------
+#pragma mark - Maps MerchantCapability to PKMerchantCapability
+//---------------------------------------------------------------------------
 
 - (NSSet<PKContactField> *)pkContactFieldsFromFields:(ContactField)contactFields {
 
     NSMutableSet *pkContactFields = [NSMutableSet new];
 
-    if (@available(iOS 11.0, *)) { //!OCLINT (remove OCLINT warning regarding early exit)
+    if (@available(iOS 11.0, *)) {
 
-        if (contactFields & ContactFieldPostalAddress) {
+        if (contactFields & ContactFieldJPPostalAddress) {
             [pkContactFields addObject:PKContactFieldPostalAddress];
         }
 
@@ -252,12 +289,12 @@
     return (PKAddressField)contactFields;
 }
 
-- (nullable ContactInformation *)contactInformationFromPaymentContact:(nullable PKContact *)contact {
+- (nullable JPContactInformation *)contactInformationFromPaymentContact:(nullable PKContact *)contact {
 
     if (!contact)
         return nil;
 
-    PostalAddress *postalAddress = [[PostalAddress alloc] initWithSteet:contact.postalAddress.street
+    JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithSteet:contact.postalAddress.street
                                                                    city:contact.postalAddress.city
                                                                   state:contact.postalAddress.state
                                                              postalCode:contact.postalAddress.postalCode
@@ -266,10 +303,55 @@
                                                   subAdministrativeArea:contact.postalAddress.subAdministrativeArea
                                                             sublocality:contact.postalAddress.subLocality];
 
-    return [[ContactInformation alloc] initWithEmailAddress:contact.emailAddress
+    return [[JPContactInformation alloc] initWithEmailAddress:contact.emailAddress
                                                        name:contact.name
                                                 phoneNumber:contact.phoneNumber.stringValue
                                               postalAddress:postalAddress];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+
+    JPConfiguration *configuration = [JPConfiguration new];
+    
+    TransactionType type = (self.transactionMode == TransactionModePreAuth) ? TransactionTypePreAuth : TransactionTypePayment;
+    self.transactionService.transactionType = type;
+    
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:configuration];
+    
+    NSError *error;
+    [transaction setPkPayment:payment error:&error];
+
+    if (error) {
+        self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
+        completion(PKPaymentAuthorizationStatusFailure);
+        return;
+    }
+
+    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
+
+            if (error || response.items.count == 0) {
+                self.completionBlock(response, error);
+                completion(PKPaymentAuthorizationStatusFailure);
+                return;
+            }
+
+            if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
+                response.billingInfo = [self contactInformationFromPaymentContact:payment.billingContact];
+            }
+
+            if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
+                response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
+            }
+
+            self.completionBlock(response, error);
+            completion(PKPaymentAuthorizationStatusSuccess);
+    }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  ApplePayWrappers.h
+//  JPApplePayWrappers.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -62,11 +62,11 @@ typedef NS_ENUM(NSInteger, PaymentShippingType) {
  */
 typedef NS_OPTIONS(NSInteger, ContactField) {
     ContactFieldNone = 0,
-    ContactFieldPostalAddress = 1 << 0,
+    ContactFieldJPPostalAddress = 1 << 0,
     ContactFieldPhone = 1 << 1,
     ContactFieldEmail = 1 << 2,
     ContactFieldName = 1 << 3,
-    ContactFieldAll = (ContactFieldPostalAddress | ContactFieldPhone | ContactFieldEmail | ContactFieldName)
+    ContactFieldAll = (ContactFieldJPPostalAddress | ContactFieldPhone | ContactFieldEmail | ContactFieldName)
 };
 
 /**
@@ -81,7 +81,7 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
 };
 
 /**
- * An object used in ApplePayConfiguration to specify the purchase items, price
+ * An object used in JPApplePayConfiguration to specify the purchase items, price
  * and payment type, either final or pending (ex: taxi fares)
  */
 @interface PaymentSummaryItem : NSObject

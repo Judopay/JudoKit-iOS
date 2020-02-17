@@ -1,5 +1,5 @@
 //
-//  PostalAddress.m
+//  JPApplePayService.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -22,31 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "PostalAddress.h"
+#import "JPApplePayConfiguration.h"
+#import "JPTransactionService.h"
+#import "JPSession.h"
 
-@implementation PostalAddress
+#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
-- (instancetype)initWithSteet:(NSString *)street
-                         city:(NSString *)city
-                        state:(NSString *)state
-                   postalCode:(NSString *)postalCode
-                      country:(NSString *)country
-                      isoCode:(NSString *)isoCode
-        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
-                  sublocality:(nullable NSString *)sublocality {
+@interface JPApplePayService : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
-    if (self = [super init]) {
-        self.street = street;
-        self.city = city;
-        self.state = state;
-        self.postalCode = postalCode;
-        self.country = country;
-        self.isoCode = isoCode;
-        self.subAdministrativeArea = subAdministrativeArea;
-        self.sublocality = sublocality;
-    }
+- (nonnull instancetype)initWithConfiguration:(nonnull JPApplePayConfiguration *)configuration
+                           transactionService:(nonnull JPTransactionService *)transactionService;
 
-    return self;
-}
-
+- (bool)isApplePaySupported;
+- (bool)isApplePaySetUp;
+- (void)invokeApplePayWithMode:(TransactionMode)mode
+                    completion:(nullable JudoCompletionBlock)completion;
 @end

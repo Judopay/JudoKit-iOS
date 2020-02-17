@@ -1,5 +1,5 @@
 //
-//  SliderPresentationController.m
+//  JPSliderPresentationController.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "SliderPresentationController.h"
+#import "JPSliderPresentationController.h"
 
-@interface SliderPresentationController ()
+@interface JPSliderPresentationController ()
 @property (nonatomic, strong) UIView *dimmingView;
 @end
 
-@implementation SliderPresentationController
+@implementation JPSliderPresentationController
 
 - (void)presentationTransitionWillBegin {
     [self addDimmingView];

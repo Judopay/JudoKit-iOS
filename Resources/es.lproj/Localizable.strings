@@ -91,7 +91,7 @@
 "billing_zip_code" = "Código postal";
 "billing_postal_code" = "Código postal";
 
-//BillingCountryInputField
+//JPBillingCountryInputField
 "country_uk" = "Reino Unido";
 "country_usa" = "Estados Unidos";
 "country_canada" = "Canadá";

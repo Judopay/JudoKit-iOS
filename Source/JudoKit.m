@@ -24,12 +24,14 @@
 
 #import "JudoKit.h"
 #import "JPTransactionEnricher.h"
-#import "ApplePayManager.h"
+#import "JPApplePayService.h"
 #import "JPConfiguration.h"
-#import "SliderTransitioningDelegate.h"
+#import "JPSliderTransitioningDelegate.h"
 #import "JPTransactionService.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
+#import "JPPaymentMethodsViewController.h"
+#import "JPPaymentMethodsBuilder.h"
 #import "JPTransaction.h"
 #import "JPReceipt.h"
 #import "NSError+Additions.h"
@@ -39,11 +41,11 @@
 
 @interface JudoKit ()
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) ApplePayManager *manager;
-@property (nonatomic, strong) ApplePayConfiguration *configuration;
+@property (nonatomic, strong) JPApplePayService *applePayManager;
+@property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) PKPaymentAuthorizationViewController *viewController;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
-@property (nonatomic, strong) SliderTransitioningDelegate *transitioningDelegate;
+@property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @end
 
 @implementation JudoKit
@@ -76,15 +78,11 @@
 #pragma mark - Public methods
 //---------------------------------------------------------------------------
 
-//TODO: Further investigate this
-
 - (JPTransaction *)transactionWithType:(TransactionType)type
-                         configuration:(JPConfiguration *)configuration
-                            completion:(JudoCompletionBlock)completion {
+                         configuration:(JPConfiguration *)configuration {
     
     self.transactionService.transactionType = type;
-    return [self.transactionService transactionWithConfiguration:configuration
-                                                      completion:completion];
+    return [self.transactionService transactionWithConfiguration:configuration];
 }
 
 - (void)invokeTransactionWithType:(TransactionType)type
@@ -105,15 +103,28 @@
 }
 
 - (void)invokeApplePayWithMode:(TransactionMode)mode
-                 configuration:(ApplePayConfiguration *)configuration
+                 configuration:(JPApplePayConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
-    //TODO: Invoke Apple Pay
+    self.applePayManager = [[JPApplePayService alloc] initWithConfiguration:configuration
+                                                       transactionService:self.transactionService];
+    [self.applePayManager invokeApplePayWithMode:mode completion:completion];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JudoCompletionBlock)completion {
-    //TODO: Invoke Payment Method Screen
+    UIViewController *controller;
+    controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode configuration:configuration
+                                               transactionService:self.transactionService
+                                            transitioningDelegate:self.transitioningDelegate
+                                                completionHandler:completion];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    navController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    [UIApplication.topMostViewController presentViewController:navController
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 - (void)listTransactionsOfType:(TransactionType)type
@@ -132,9 +143,9 @@
 #pragma mark - Lazy properties
 //---------------------------------------------------------------------------
 
-- (SliderTransitioningDelegate *)transitioningDelegate {
+- (JPSliderTransitioningDelegate *)transitioningDelegate {
     if (!_transitioningDelegate) {
-        _transitioningDelegate = [SliderTransitioningDelegate new];
+        _transitioningDelegate = [JPSliderTransitioningDelegate new];
     }
     return _transitioningDelegate;
 }
@@ -142,57 +153,6 @@
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;
     self.transactionService.isSandboxed = isSandboxed;
-}
-
-//---------------------------------------------------------------------------
-#pragma mark - PKPaymentAuthorizationViewControllerDelegate methods
-//---------------------------------------------------------------------------
-
-//TODO: Consider moving logic to Apple Pay services
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-                       didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
-
-    JPTransaction *transaction;
-
-    if (self.configuration.transactionType == TransactionTypePreAuth) {
-        //TODO: Make a preAuth transaction
-    } else {
-        //TODO: Make a payment transaction
-    }
-
-    NSError *error;
-    [transaction setPkPayment:payment error:&error];
-
-    if (error) {
-        self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
-        completion(PKPaymentAuthorizationStatusFailure);
-        return;
-    }
-
-    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
-
-            if (error || response.items.count == 0) {
-                self.completionBlock(response, error);
-                completion(PKPaymentAuthorizationStatusFailure);
-                return;
-            }
-
-            if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
-                response.billingInfo = [self.manager contactInformationFromPaymentContact:payment.billingContact];
-            }
-
-            if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
-                response.shippingInfo = [self.manager contactInformationFromPaymentContact:payment.shippingContact];
-            }
-
-            self.completionBlock(response, error);
-            completion(PKPaymentAuthorizationStatusSuccess);
-    }];
-}
-
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

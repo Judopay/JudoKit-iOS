@@ -91,7 +91,7 @@
  * @param reference - the reference needed for the transaction
  * @param session - the current instance of the JudoKit session
  * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
- * @param configuration - an instance of ApplePayConfiguration that describes the Apple Pay flow
+ * @param configuration - an instance of JPApplePayConfiguration that describes the Apple Pay flow
  * @param amount - the amount of the transaction
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
