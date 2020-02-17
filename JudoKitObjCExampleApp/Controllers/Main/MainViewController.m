@@ -242,7 +242,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                   reference:reference];
     
     // OPTIONAL PARAMETERS
-    configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.applePay];
+    configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
     configuration.supportedCardNetworks = CardNetworkVisa;
     
     
@@ -259,12 +259,12 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     
     // APPLE PAY SPECIFIC STUFF
     configuration.applePayConfiguration = [self applePayConfigurationWithType:TransactionTypePayment];
-    configuration.applePayConfiguration.supportedCardNetworks = configuration.supportedCardNetworks;
+    configuration.applePayConfiguration.supportedCardNetworks = CardNetworkChinaUnionPay;
     configuration.applePayConfiguration.shippingType = ShippingTypeShipping;
     configuration.applePayConfiguration.shippingMethods = @[];
-    configuration.applePayConfiguration.requiredBillingContactFields = ContactFieldNone;
-    configuration.applePayConfiguration.requiredShippingContactFields = ContactFieldNone;
-    configuration.applePayConfiguration.returnedContactInfo = ReturnedInfoNone;
+    configuration.applePayConfiguration.requiredBillingContactFields = ContactFieldAll;
+    configuration.applePayConfiguration.requiredShippingContactFields = ContactFieldAll;
+    configuration.applePayConfiguration.returnedContactInfo = ReturnedInfoAll;
     
     return configuration;
 }

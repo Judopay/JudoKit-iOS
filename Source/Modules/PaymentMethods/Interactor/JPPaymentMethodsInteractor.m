@@ -57,8 +57,6 @@
         self.configuration = configuration;
         self.transactionService = transactionService;
         self.completion = completion;
-        self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration.applePayConfiguration
-                                                             transactionService:transactionService];
     }
     return self;
 }
@@ -132,14 +130,16 @@
 - (void)removeApplePayFromPaymentMethods {
     if (self.configuration.paymentMethods.count == 0)
         return;
-    NSMutableArray *paymentMethods = (NSMutableArray *)self.configuration.paymentMethods;
 
-    [paymentMethods enumerateObjectsWithOptions:NSEnumerationReverse
-                                     usingBlock:^(JPPaymentMethod *method, NSUInteger idx, BOOL *stop) {
-                                         if (method.type == JPPaymentMethodTypeApplePay) {
-                                             [paymentMethods removeObject:method];
-                                         }
-                                     }];
+    NSMutableArray * tempArray = [self.configuration.paymentMethods mutableCopy];
+
+    for (JPPaymentMethod *method in self.configuration.paymentMethods){
+        if (method.type == JPPaymentMethodTypeApplePay) {
+            [tempArray removeObject: method];
+        }
+    }
+
+    self.configuration.paymentMethods = tempArray;
 }
 
 //---------------------------------------------------------------------------
@@ -181,6 +181,14 @@
 
 - (bool)isApplePaySetUp {
     return [self.applePayService isApplePaySetUp];
+}
+
+- (JPApplePayService *)applePayService {
+    if (!_applePayService && self.configuration.applePayConfiguration) {
+        _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration.applePayConfiguration
+                                                         transactionService:self.transactionService];
+    }
+    return _applePayService;
 }
 
 @end
