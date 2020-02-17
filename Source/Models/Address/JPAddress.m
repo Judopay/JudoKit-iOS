@@ -26,7 +26,11 @@
 
 @implementation JPAddress
 
-- (instancetype)initWithLine1:(NSString *)line1 line2:(NSString *)line2 line3:(NSString *)line3 postCode:(NSString *)postCode town:(NSString *)town {
+- (instancetype)initWithLine1:(NSString *)line1
+                        line2:(NSString *)line2
+                        line3:(NSString *)line3
+                     postCode:(NSString *)postCode
+                         town:(NSString *)town {
     self = [super init];
     if (self) {
         self.line1 = line1;
@@ -61,6 +65,9 @@
     if (dictionary[@"town"]) {
         self.town = dictionary[@"town"];
     }
+    if (dictionary[@"billingCountry"]) {
+        self.billingCountry = dictionary[@"billingCountry"];
+    }
 }
 
 - (NSDictionary *)dictionaryRepresentation {
@@ -79,6 +86,9 @@
     }
     if (self.town) {
         dictionary[@"town"] = self.town;
+    }
+    if (self.billingCountry) {
+        dictionary[@"billingCountry"] = self.billingCountry;
     }
     return [dictionary copy];
 }

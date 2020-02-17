@@ -31,12 +31,14 @@
 #import "JPApplePayService.h"
 #import "JPPaymentToken.h"
 #import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completion;
+@property (nonatomic, strong) JPApplePayService *applePayService;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -55,6 +57,8 @@
         self.configuration = configuration;
         self.transactionService = transactionService;
         self.completion = completion;
+        self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration.applePayConfiguration
+                                                             transactionService:transactionService];
     }
     return self;
 }
@@ -112,11 +116,11 @@
     NSMutableArray *defaultPaymentMethods;
     defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card, JPPaymentMethod.iDeal ]];
 
-//    if ([self.applePayManager isApplePaySupported]) {
-//        [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
-//    } else {
-//        [self removeApplePayFromPaymentMethods];
-//    }
+    if ([self.applePayService isApplePaySupported]) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
+    } else {
+        [self removeApplePayFromPaymentMethods];
+    }
 
     return (self.configuration.paymentMethods.count != 0) ? self.configuration.paymentMethods : defaultPaymentMethods;
 }
@@ -144,13 +148,15 @@
 
 - (void)paymentTransactionWithToken:(NSString *)token
                       andCompletion:(JudoCompletionBlock)completion {
-
+    BOOL isPreAuth = (self.transactionMode == TransactionTypePreAuth);
+    self.transactionService.transactionType = isPreAuth ? TransactionTypePreAuth : TransactionModePayment;
     NSString *consumerReference = self.configuration.reference.consumerReference;
     JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
-
-//    [self.transaction setPaymentToken:paymentToken];
-//    [self.transaction sendWithCompletion:completion];
+    
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    transaction.paymentToken = paymentToken;
+    [transaction sendWithCompletion:completion];
 }
 
 //---------------------------------------------------------------------------
@@ -158,7 +164,7 @@
 //---------------------------------------------------------------------------
 
 - (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
-    //TODO: Add apple pay
+    [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
 //---------------------------------------------------------------------------
@@ -166,7 +172,6 @@
 //---------------------------------------------------------------------------
 
 - (void)deleteCardWithIndex:(NSInteger)index {
-
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
 }
 
@@ -175,19 +180,7 @@
 //---------------------------------------------------------------------------
 
 - (bool)isApplePaySetUp {
-    return NO;
-//    return [self.applePayManager isApplePaySetUp];
+    return [self.applePayService isApplePaySetUp];
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Getter
-//---------------------------------------------------------------------------
-
-//- (JPApplePayService *)applePayManager {
-//    if (!_applePayManager && self.applePayConfiguration) {
-//        _applePayManager = [[JPApplePayService alloc] initWithConfiguration:self.applePayConfiguration];
-//    }
-//    return _applePayManager;
-//}
 
 @end

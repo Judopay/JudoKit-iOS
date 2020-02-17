@@ -26,6 +26,7 @@
 #import "JPCardNetwork.h"
 #import "JPSession.h"
 #import "JPTransaction.h"
+#import "JPUIConfiguration.h"
 #import <Foundation/Foundation.h>
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, PaymentSummaryItem;
@@ -35,11 +36,13 @@
 @property (nonatomic, strong, readonly) NSString *_Nullable receiptId;
 @property (nonatomic, strong, readonly) JPAmount *_Nonnull amount;
 @property (nonatomic, strong, readonly) JPReference *_Nonnull reference;
-@property (nonatomic, assign) BOOL isAVSEnabled;
+
+@property (nonatomic, strong) JPUIConfiguration *_Nonnull uiConfiguration;
+
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *_Nullable paymentMethods;
 @property (nonatomic, assign) CardNetwork supportedCardNetworks;
 @property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
-@property (nonatomic, strong, readonly) JPApplePayConfiguration *_Nullable applePayConfiguration;
+@property (nonatomic, strong) JPApplePayConfiguration *_Nullable applePayConfiguration;
 
 //---------------------------------------------------------------------------
 #pragma mark - Initializer
@@ -48,6 +51,9 @@
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
                                 amount:(nonnull JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
+
+- (nonnull instancetype)initWithReceiptID:(nonnull NSString *)receiptId
+                                   amount:(nonnull JPAmount *)amount;
 
 //---------------------------------------------------------------------------
 #pragma mark - Apple Pay Configuration

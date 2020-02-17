@@ -159,6 +159,8 @@
 		3000734223FA9C590099F3C5 /* JPReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000734023FA9C590099F3C5 /* JPReceipt.m */; };
 		3000734623FA9C6D0099F3C5 /* JPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000734423FA9C6D0099F3C5 /* JPReachability.m */; };
 		3000734723FA9C6D0099F3C5 /* JPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000734523FA9C6D0099F3C5 /* JPReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3000735123FACF540099F3C5 /* JPUIConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000734F23FACF540099F3C5 /* JPUIConfiguration.m */; };
+		3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000735023FACF540099F3C5 /* JPUIConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30472A11239E886500279A87 /* JudoKitAddCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30472A10239E886500279A87 /* JudoKitAddCardTests.swift */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
 		30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */; };
@@ -540,6 +542,8 @@
 		3000734023FA9C590099F3C5 /* JPReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPReceipt.m; sourceTree = "<group>"; };
 		3000734423FA9C6D0099F3C5 /* JPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPReachability.m; sourceTree = "<group>"; };
 		3000734523FA9C6D0099F3C5 /* JPReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPReachability.h; sourceTree = "<group>"; };
+		3000734F23FACF540099F3C5 /* JPUIConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPUIConfiguration.m; sourceTree = "<group>"; };
+		3000735023FACF540099F3C5 /* JPUIConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUIConfiguration.h; sourceTree = "<group>"; };
 		30472A10239E886500279A87 /* JudoKitAddCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitAddCardTests.swift; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitIDEALTransactionTests.swift; sourceTree = "<group>"; };
@@ -1046,6 +1050,7 @@
 				3000732523FA9C1C0099F3C5 /* Transaction */,
 				3000725923F6AB540099F3C5 /* TransactionData */,
 				3000732B23FA9C1C0099F3C5 /* TransactionEnricher */,
+				3000734E23FACF540099F3C5 /* UIConfiguration */,
 				3000726523F6AB540099F3C5 /* ValidationResult */,
 				300072B723F6AB560099F3C5 /* VCOResult */,
 			);
@@ -1415,6 +1420,15 @@
 				3000734523FA9C6D0099F3C5 /* JPReachability.h */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		3000734E23FACF540099F3C5 /* UIConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				3000734F23FACF540099F3C5 /* JPUIConfiguration.m */,
+				3000735023FACF540099F3C5 /* JPUIConfiguration.h */,
+			);
+			path = UIConfiguration;
 			sourceTree = "<group>";
 		};
 		30D08910238FB4CD00480C9E /* Modules */ = {
@@ -2001,6 +2015,7 @@
 				30006F9D23F6993A0099F3C5 /* UIStackView+Additions.h in Headers */,
 				300072C723F6AB560099F3C5 /* JPBrowser.h in Headers */,
 				30D61D6523BB741A004E5CEE /* JPPaymentMethodsCell.h in Headers */,
+				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
 				3000734123FA9C590099F3C5 /* JPReceipt.h in Headers */,
 				300072D823F6AB560099F3C5 /* JPPaymentToken.h in Headers */,
@@ -2430,6 +2445,7 @@
 				30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */,
 				30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */,
 				3000732023FA9BBD0099F3C5 /* JPPostalAddress.m in Sources */,
+				3000735123FACF540099F3C5 /* JPUIConfiguration.m in Sources */,
 				30006F9C23F6993A0099F3C5 /* UIStackView+Additions.m in Sources */,
 				30D61D6C23BB741A004E5CEE /* JPPaymentMethodsInteractor.m in Sources */,
 				3000732123FA9BBD0099F3C5 /* JPApplePayConfiguration.m in Sources */,

@@ -1,8 +1,8 @@
 //
-//  AppDelegate.m
-//  JudoKitObjCExample
+//  JPUIConfiguration.h
+//  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AppDelegate.h"
-#import "JPCardStorage.h"
+#import <Foundation/Foundation.h>
 
-@import JudoKitObjC;
-
-@interface AppDelegate ()
-
-@end
-
-@implementation AppDelegate
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-        
-    NSDictionary *environment = NSProcessInfo.processInfo.environment;
-    if ([environment[@"UITEST"] isEqualToString:@"1"]) {
-        [JPCardStorage.sharedInstance deleteCardDetails];
-    }
-    
-    return YES;
-}
-
+@interface JPUIConfiguration : NSObject
+@property (nonatomic, assign) BOOL isAVSEnabled;
 @end

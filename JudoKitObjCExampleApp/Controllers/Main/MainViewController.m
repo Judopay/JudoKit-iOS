@@ -89,7 +89,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)setSettings:(Settings *)settings {
     _settings = settings;
     //TODO: Handle this as a property
-    self.configuration.isAVSEnabled = settings.isAVSEnabled;
+    self.configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled;
 }
 
 - (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings {
@@ -179,7 +179,9 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)invokeApplePayWithMode:(TransactionMode)mode {
     [self.judoKitSession invokeApplePayWithMode:mode
                                   configuration:self.configuration.applePayConfiguration
-                                     completion:nil];
+                                     completion:^(JPResponse *response, NSError *error) {
+        //TODO: Handle response / error
+    }];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode {
@@ -208,12 +210,10 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
                                                           amount:[NSDecimalNumber decimalNumberWithString:@"0.03"]]
                        ];
     
-    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithJudoId:judoId
-                                                                               reference:self.reference
-                                                                              merchantId:merchantId
-                                                                                currency:self.settings.currency
-                                                                             countryCode:@"GB"
-                                                                     paymentSummaryItems:items];
+    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:merchantId
+                                                                                        currency:self.settings.currency
+                                                                                     countryCode:@"GB"
+                                                                             paymentSummaryItems:items];
     
     configuration.requiredShippingContactFields = ContactFieldAll;
     configuration.requiredBillingContactFields = ContactFieldAll;
@@ -230,28 +230,41 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 }
 
 - (JPConfiguration *)configuration {
+    
+    // REQUIRED PARAMETERS
     JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
     JPReference *reference = [JPReference consumerReference:self.reference];
     
+    // INITIALIZATION
     JPConfiguration *configuration;
     configuration = [[JPConfiguration alloc] initWithJudoID:judoId
                                                      amount:amount
                                                   reference:reference];
     
+    // OPTIONAL PARAMETERS
     configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.applePay];
     configuration.supportedCardNetworks = CardNetworkVisa;
     
-    NSDecimalNumber *totalAmount = [NSDecimalNumber decimalNumberWithString:amount.amount];
-    PaymentSummaryItem *total = [[PaymentSummaryItem alloc] initWithLabel:@"Total"
-                                                                   amount:totalAmount];
-
-    [configuration configureApplePayWithMerchantId:merchantId
-                                       countryCode:@"GB"
-                               paymentSummaryItems:@[total]];
     
-    [configuration setRequiredBillingContactFields:ContactFieldAll];
-    [configuration setRequiredShippingContactFields:ContactFieldAll];
-    [configuration setReturnedContactInfo:ReturnedInfoAll];
+    JPPrimaryAccountDetails *primaryAccountDetails = [JPPrimaryAccountDetails new];
+    primaryAccountDetails.name = @"Example Name";
+    primaryAccountDetails.accountNumber = @"Example Account Number";
+    primaryAccountDetails.dateOfBirth = @"Example Date";
+    primaryAccountDetails.postCode = @"Example Post Code";
+    
+    configuration.primaryAccountDetails = primaryAccountDetails;
+    
+    // UI Specific Configuration
+    configuration.uiConfiguration.isAVSEnabled = NO;
+    
+    // APPLE PAY SPECIFIC STUFF
+    configuration.applePayConfiguration = [self applePayConfigurationWithType:TransactionTypePayment];
+    configuration.applePayConfiguration.supportedCardNetworks = configuration.supportedCardNetworks;
+    configuration.applePayConfiguration.shippingType = ShippingTypeShipping;
+    configuration.applePayConfiguration.shippingMethods = @[];
+    configuration.applePayConfiguration.requiredBillingContactFields = ContactFieldNone;
+    configuration.applePayConfiguration.requiredShippingContactFields = ContactFieldNone;
+    configuration.applePayConfiguration.returnedContactInfo = ReturnedInfoNone;
     
     return configuration;
 }

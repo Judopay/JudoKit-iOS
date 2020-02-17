@@ -37,19 +37,15 @@
     return self;
 }
 
-- (instancetype)initWithJudoId:(NSString *)judoId
-                     reference:(NSString *)reference
-                    merchantId:(NSString *)merchantId
-                      currency:(NSString *)currency
-                   countryCode:(NSString *)countryCode
-           paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)paymentSummaryItems {
+- (instancetype)initWithMerchantId:(NSString *)merchantId
+                          currency:(NSString *)currency
+                       countryCode:(NSString *)countryCode
+               paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)paymentSummaryItems {
 
     if (self = [super init]) {
         [self setupDefaults];
     }
 
-    self.judoId = judoId;
-    self.reference = reference;
     self.merchantId = merchantId;
     self.currency = currency;
     self.countryCode = countryCode;

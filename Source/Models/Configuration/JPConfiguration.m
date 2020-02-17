@@ -34,7 +34,6 @@
 @property (nonatomic, strong) NSString *_Nullable receiptId;
 @property (nonatomic, strong) JPAmount *_Nonnull amount;
 @property (nonatomic, strong) JPReference *_Nonnull reference;
-@property (nonatomic, strong) JPApplePayConfiguration *applePayConfiguration;
 
 @end
 
@@ -55,13 +54,11 @@
     return self;
 }
 
-- (instancetype)initWithReceiptId:(nonnull NSString *)receiptId
-                           amount:(nonnull JPAmount *)amount
-                        reference:(nonnull JPReference *)reference {
+- (instancetype)initWithReceiptID:(nonnull NSString *)receiptId
+                           amount:(nonnull JPAmount *)amount {
     if (self = [super init]) {
         self.receiptId = receiptId;
         self.amount = amount;
-        self.reference = reference;
     }
     return self;
 }
@@ -74,12 +71,10 @@
                             countryCode:(NSString *)countryCode
                     paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items {
 
-    self.applePayConfiguration = [[JPApplePayConfiguration alloc] initWithJudoId:self.judoId
-                                                                     reference:self.reference.consumerReference
-                                                                    merchantId:merchantId
-                                                                      currency:self.amount.currency
-                                                                   countryCode:countryCode
-                                                           paymentSummaryItems:items];
+    self.applePayConfiguration = [[JPApplePayConfiguration alloc] initWithMerchantId:merchantId
+                                                                            currency:self.amount.currency
+                                                                         countryCode:countryCode
+                                                                 paymentSummaryItems:items];
 }
 
 //---------------------------------------------------------------------------
@@ -96,6 +91,13 @@
 
 - (void)setReturnedContactInfo:(ReturnedInfo)returnedInfo {
     self.applePayConfiguration.returnedContactInfo = returnedInfo;
+}
+
+- (JPUIConfiguration *)uiConfiguration {
+    if (!_uiConfiguration) {
+        _uiConfiguration = [JPUIConfiguration new];
+    }
+    return _uiConfiguration;
 }
 
 @end

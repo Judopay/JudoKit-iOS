@@ -126,7 +126,7 @@
     JPCard *card = [self cardFromViewModel:self.addCardViewModel];
 
     __weak typeof(self) weakSelf = self;
-    [self.interactor addCard:card
+    [self.interactor sendTransactionWithCard:card
            completionHandler:^(JPResponse *response, NSError *error) {
                if (error) {
                    [weakSelf.view updateViewWithError:error];

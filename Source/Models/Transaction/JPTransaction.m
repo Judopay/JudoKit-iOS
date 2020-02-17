@@ -268,11 +268,18 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 }
 
 - (JPCard *)card {
-    if (self.parameters[@"cardNumber"] && self.parameters[@"expiryDate"] && self.parameters[@"cv2"]) {
+    
+    NSString *cardNumber = self.parameters[@"cardNumber"];
+    NSString *cardholderName = self.parameters[@"cardholderName"];
+    NSString *expiryDate = self.parameters[@"expiryDate"];
+    NSString *cv2 = self.parameters[@"cv2"];
+    
+    if (cardNumber && expiryDate && cv2) {
         JPCard *card = [JPCard new];
-        card.cardNumber = self.parameters[@"cardNumber"];
-        card.expiryDate = self.parameters[@"expiryDate"];
-        card.secureCode = self.parameters[@"cv2"];
+        card.cardNumber = cardNumber;
+        card.cardholderName = cardholderName;
+        card.expiryDate = expiryDate;
+        card.secureCode = cv2;
 
         card.startDate = self.parameters[@"startDate"];
         card.issueNumber = self.parameters[@"issueNumber"];
@@ -288,6 +295,11 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     if (card.cardNumber) {
         self.parameters[@"cardNumber"] = card.cardNumber;
     }
+    
+    if (card.cardholderName) {
+        self.parameters[@"carholderName"] = card.cardholderName;
+    }
+    
     if (card.expiryDate) {
         self.parameters[@"expiryDate"] = card.expiryDate;
     }

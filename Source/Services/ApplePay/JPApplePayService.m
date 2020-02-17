@@ -323,7 +323,7 @@
     NSError *error;
     [transaction setPkPayment:payment error:&error];
 
-    if (error) {
+    if (error && self.completionBlock) {
         self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
         completion(PKPaymentAuthorizationStatusFailure);
         return;
@@ -332,7 +332,7 @@
     [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
 
             if (error || response.items.count == 0) {
-                self.completionBlock(response, error);
+                if (self.completionBlock) self.completionBlock(response, error);
                 completion(PKPaymentAuthorizationStatusFailure);
                 return;
             }
@@ -345,7 +345,7 @@
                 response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
             }
 
-            self.completionBlock(response, error);
+            if (self.completionBlock) self.completionBlock(response, error);
             completion(PKPaymentAuthorizationStatusSuccess);
     }];
 }

@@ -37,16 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JPApplePayConfiguration : NSObject
 
 /**
- * [REQUIRED] The JudoPay ID parameter
- */
-@property (nonatomic, strong) NSString *_Nonnull judoId;
-
-/**
- * [REQUIRED] The payment reference number
- */
-@property (nonatomic, strong) NSString *_Nonnull reference;
-
-/**
  * [REQUIRED] The merchant identifier that is the one specified in the app's entitlements
  */
 @property (nonatomic, strong) NSString *_Nonnull merchantId;
@@ -112,19 +102,15 @@ NS_ASSUME_NONNULL_BEGIN
  * Designated initializer necesary for the bare minimum configuration of a PKPaymentRequest object.
  * Will use the default property values for the configuration of its other parameters.
  *
- * @param judoId              - The JudoPay ID parameter
- * @param reference           - The payment reference number
  * @param merchantId          - The merchant identifier that is the one specified in the app's entitlements
  * @param currency            - The three-letter ISO 4217 currency code used for the payment request
  * @param countryCode         - The two-letter ISO 3166 country code where the payment will be processed
  * @param paymentSummaryItems - An array of items that summarize the amount of the payment (total, shipping, tax, etc.)
  */
-- (instancetype)initWithJudoId:(NSString *)judoId
-                     reference:(NSString *)reference
-                    merchantId:(NSString *)merchantId
-                      currency:(NSString *)currency
-                   countryCode:(NSString *)countryCode
-           paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)paymentSummaryItems;
+- (instancetype)initWithMerchantId:(NSString *)merchantId
+                          currency:(NSString *)currency
+                       countryCode:(NSString *)countryCode
+               paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)paymentSummaryItems;
 
 @end
 

@@ -44,89 +44,21 @@
 
 - (TransactionType)transactionType;
 
-/**
- * A method that handles camera permissions requests
- *
- * @param completion - the completion handler that returns a boolean value describing the permission result
- */
+
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion;
 
-/**
- *  A method for executing the save / register card transaction
- *
- *  @param card - an instance of JPCard that contains the card details
- *  @param completion - a response / error completion block that is returned after thee transaction finishes
- */
-- (void)addCard:(JPCard *)card completionHandler:(JudoCompletionBlock)completionHandler;
-
-/**
- *  A method that returns all countries selectable for AVS
- *
- *  @return a list of country names
- */
 - (NSArray<NSString *> *)getSelectableCountryNames;
 
-/**
- *  A method for validating the card number
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input;
-
-/**
- *  A method for validating the cardholder name
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input;
-
-/**
- *  A method for validating the expiry date
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input;
-
-/**
- *  A method for validating the secure code
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validateSecureCodeInput:(NSString *)input;
-
-/**
- *  A method for validating the country
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validateCountryInput:(NSString *)input;
-
-/**
- *  A method for validating the postal code
- *
- *  @param input - an input string
- *
- *  @return an instance of JPValidationResult that contains the validation status
- */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-/**
- *  Method that stores card details in the keychain
- *
- *  @param viewModel - the card details view model
- *  @param token - the token associated with the card
- *
- */
+- (void)sendTransactionWithCard:(JPCard *)card
+              completionHandler:(JudoCompletionBlock)completionHandler;
+
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel
                            andToken:(NSString *)token;
 

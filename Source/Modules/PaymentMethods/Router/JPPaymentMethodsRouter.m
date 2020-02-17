@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
+#import "JPTransactionService.h"
 #import "JPPaymentMethodsViewController.h"
 
 #import "JPConfiguration.h"
@@ -60,7 +61,7 @@
 #pragma mark - Protocol Conformance
 
 - (void)navigateToTransactionModule {
-
+    self.transactionService.transactionType = TransactionTypeSaveCard;
     JPTransactionViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:self.configuration
@@ -78,7 +79,7 @@
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
                                andError:(NSError *)error {
-    self.completionHandler(response, error);
+    if (self.completionHandler) self.completionHandler(response, error);
 }
 
 @end

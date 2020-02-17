@@ -106,7 +106,7 @@
                  configuration:(JPApplePayConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
     self.applePayManager = [[JPApplePayService alloc] initWithConfiguration:configuration
-                                                       transactionService:self.transactionService];
+                                                         transactionService:self.transactionService];
     [self.applePayManager invokeApplePayWithMode:mode completion:completion];
 }
 
@@ -114,7 +114,8 @@
                             configuration:(JPConfiguration *)configuration
                                completion:(JudoCompletionBlock)completion {
     UIViewController *controller;
-    controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode configuration:configuration
+    controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
+                                                    configuration:configuration
                                                transactionService:self.transactionService
                                             transitioningDelegate:self.transitioningDelegate
                                                 completionHandler:completion];

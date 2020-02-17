@@ -62,7 +62,7 @@
 #pragma mark - Interactor Protocol Methods
 
 - (BOOL)isAVSEnabled {
-    return self.configuration.isAVSEnabled;
+    return self.configuration.uiConfiguration.isAVSEnabled;
 }
 
 - (TransactionType)transactionType {
@@ -82,9 +82,11 @@
     }
 }
 
-- (void)addCard:(JPCard *)card completionHandler:(JudoCompletionBlock)completionHandler {
-    self.completionHandler = completionHandler;
-    //[self.transactionService addCard:card completionHandler:completionHandler];
+- (void)sendTransactionWithCard:(JPCard *)card
+              completionHandler:(JudoCompletionBlock)completionHandler {
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    transaction.card = card;
+    [transaction sendWithCompletion:completionHandler];
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
