@@ -24,9 +24,9 @@
 
 #import "JPPaymentMethodsHeaderView.h"
 #import "Functions.h"
-#import "JPTransactionButton.h"
 #import "JPAmount.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTransactionButton.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"

@@ -30,7 +30,8 @@
     JPTransactionEnricher, JPPrimaryAccountDetails;
 
 typedef NS_ENUM(NSInteger, TransactionMode) {
-    TransactionModePayment, TransactionModePreAuth,
+    TransactionModePayment,
+    TransactionModePreAuth,
 };
 
 typedef NS_ENUM(NSUInteger, TransactionType) {

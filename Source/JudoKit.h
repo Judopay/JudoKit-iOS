@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <PassKit/PassKit.h>
-#import "JPTransaction.h"
 #import "JPConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPReceipt.h"
 #import "JPSession.h"
+#import "JPTransaction.h"
+#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
 static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 
@@ -45,14 +45,14 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
                 allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
 - (nullable instancetype)initWithToken:(nonnull NSString *)token
-                               secret:(nonnull NSString *)secret;
+                                secret:(nonnull NSString *)secret;
 
 //---------------------------------------------------------------------------
 #pragma mark - Public methods
 //---------------------------------------------------------------------------
 
 - (nonnull JPTransaction *)transactionWithType:(TransactionType)type
-                         configuration:(nonnull JPConfiguration *)configuration;
+                                 configuration:(nonnull JPConfiguration *)configuration;
 
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(nonnull JPConfiguration *)configuration

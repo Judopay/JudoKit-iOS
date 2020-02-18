@@ -23,16 +23,15 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsInteractor.h"
-#import "JPConfiguration.h"
-#import "JPTransactionService.h"
-#import "JPCardStorage.h"
-#import "JPReference.h"
-#import "JPPaymentMethod.h"
-#import "JPApplePayService.h"
-#import "JPPaymentToken.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
+#import "JPCardStorage.h"
+#import "JPConfiguration.h"
+#import "JPPaymentMethod.h"
+#import "JPPaymentToken.h"
+#import "JPReference.h"
 #import "JPThreeDSecureService.h"
+#import "JPTransactionService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
@@ -53,7 +52,7 @@
                configuration:(JPConfiguration *)configuration
           transactionService:(JPTransactionService *)transactionService
                   completion:(JudoCompletionBlock)completion {
-    
+
     if (self = [super init]) {
         self.transactionMode = mode;
         self.configuration = configuration;
@@ -133,11 +132,11 @@
     if (self.configuration.paymentMethods.count == 0)
         return;
 
-    NSMutableArray * tempArray = [self.configuration.paymentMethods mutableCopy];
+    NSMutableArray *tempArray = [self.configuration.paymentMethods mutableCopy];
 
-    for (JPPaymentMethod *method in self.configuration.paymentMethods){
+    for (JPPaymentMethod *method in self.configuration.paymentMethods) {
         if (method.type == JPPaymentMethodTypeApplePay) {
-            [tempArray removeObject: method];
+            [tempArray removeObject:method];
         }
     }
 
@@ -155,7 +154,7 @@
     NSString *consumerReference = self.configuration.reference.consumerReference;
     JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
-    
+
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.paymentToken = paymentToken;
     self.threeDSecureService.transaction = transaction;

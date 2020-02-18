@@ -46,7 +46,6 @@ static NSString *const kSaveCardPathKey = @"transactions/savecard";
 static NSString *const kRegisterCardPathKey = @"transactions/registercard";
 static NSString *const kRefundPathKey = @"/transactions/refunds";
 
-
 @interface JPReference ()
 @property (nonatomic, strong, readwrite) NSString *paymentReference;
 @property (nonatomic, strong, readwrite) NSString *consumerReference;
@@ -113,28 +112,28 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     switch (type) {
         case TransactionTypePayment:
             return kPaymentPathKey;
-    
+
         case TransactionTypePreAuth:
             return kPreauthPathKey;
-            
+
         case TransactionTypeRegisterCard:
             return kRegisterCardPathKey;
-        
+
         case TransactionTypeSaveCard:
             return kSaveCardPathKey;
-            
+
         case TransactionTypeCheckCard:
             return kCheckCardPathKey;
-            
+
         case TransactionTypeRefund:
             return kRefundPathKey;
-            
+
         case TransactionTypeCollection:
             return kCollectionPathKey;
-            
+
         case TransactionTypeVoid:
             return kVoidTransactionPathKey;
-            
+
         default:
             return nil;
     }
@@ -268,12 +267,12 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 }
 
 - (JPCard *)card {
-    
+
     NSString *cardNumber = self.parameters[@"cardNumber"];
     NSString *cardholderName = self.parameters[@"cardholderName"];
     NSString *expiryDate = self.parameters[@"expiryDate"];
     NSString *cv2 = self.parameters[@"cv2"];
-    
+
     if (cardNumber && expiryDate && cv2) {
         JPCard *card = [JPCard new];
         card.cardNumber = cardNumber;
@@ -295,11 +294,11 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     if (card.cardNumber) {
         self.parameters[@"cardNumber"] = card.cardNumber;
     }
-    
+
     if (card.cardholderName) {
         self.parameters[@"carholderName"] = card.cardholderName;
     }
-    
+
     if (card.expiryDate) {
         self.parameters[@"expiryDate"] = card.expiryDate;
     }

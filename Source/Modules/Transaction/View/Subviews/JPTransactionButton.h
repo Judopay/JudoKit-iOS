@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewModel.h"
 #import "JPLoadingButton.h"
+#import "JPTransactionViewModel.h"
 
 /**
  * A custom implementation of the JPLoadingButton used for displaying the Add Card button

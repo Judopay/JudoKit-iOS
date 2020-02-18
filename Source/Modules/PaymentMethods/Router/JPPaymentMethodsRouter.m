@@ -23,14 +23,14 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsRouter.h"
-#import "JPTransactionBuilder.h"
-#import "JPTransactionViewController.h"
-#import "JPTransactionService.h"
 #import "JPPaymentMethodsViewController.h"
+#import "JPTransactionBuilder.h"
+#import "JPTransactionService.h"
+#import "JPTransactionViewController.h"
 
 #import "JPConfiguration.h"
-#import "JPTransaction.h"
 #import "JPSliderTransitioningDelegate.h"
+#import "JPTransaction.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
@@ -79,7 +79,8 @@
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
                                andError:(NSError *)error {
-    if (self.completionHandler) self.completionHandler(response, error);
+    if (self.completionHandler)
+        self.completionHandler(response, error);
 }
 
 @end

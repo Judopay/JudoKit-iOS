@@ -30,20 +30,20 @@
 
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
                                    completion:(JudoCompletionBlock)completion {
-    
+
     NSDictionary *payload = error.userInfo;
     NSString *md = payload[@"md"];
     NSString *paReq = payload[@"paReq"];
     NSString *receiptId = payload[@"receiptId"];
     NSString *acsUrlString = payload[@"acsUrl"];
     NSURL *acsUrl = [NSURL URLWithString:acsUrlString];
-    
+
     JPThreeDSViewController *controller = [[JPThreeDSViewController alloc] initWithPaReq:paReq
                                                                                       md:md
                                                                                receiptId:receiptId
                                                                                   acsURL:acsUrl
                                                                               completion:completion];
-    
+
     controller.transaction = self.transaction;
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES

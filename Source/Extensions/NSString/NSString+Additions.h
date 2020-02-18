@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
 #import "JPCardNetwork.h"
+#import "JPTheme.h"
 #import <Foundation/Foundation.h>
 
 @interface NSString (Additions)

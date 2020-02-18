@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPTransactionView.h"
-#import "JPTransactionButton.h"
-#import "JPTransactionViewModel.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
 #import "JPLoadingButton.h"
-#import "NSString+Additions.h"
 #import "JPRoundedCornerView.h"
+#import "JPTransactionButton.h"
+#import "JPTransactionViewModel.h"
+#import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"

@@ -27,7 +27,7 @@
 
 @class JPTransactionData;
 
-extern NSString * _Nonnull const JudoErrorDomain;
+extern NSString *_Nonnull const JudoErrorDomain;
 
 @interface NSError (Additions)
 

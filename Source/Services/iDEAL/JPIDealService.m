@@ -70,7 +70,7 @@ static NSString *statusEndpoint = @"order/bank/statusrequest";
 }
 
 - (void)redirectURLForJPIDealBank:(JPIDealBank *)iDealBank
-                     completion:(JudoRedirectCompletion)completion {
+                       completion:(JudoRedirectCompletion)completion {
 
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.iDealEndpoint, redirectEndpoint];
 

@@ -34,7 +34,7 @@
         NSForegroundColorAttributeName : color,
         NSFontAttributeName : font
     };
-    
+
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:text
                                                                  attributes:attributes];
 }

@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewController.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPSectionView.h"
+#import "JPTransactionViewController.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;

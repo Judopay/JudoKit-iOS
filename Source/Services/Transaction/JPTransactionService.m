@@ -59,11 +59,11 @@
 
 - (void)setupSessionWithToken:(NSString *)token
                     andSecret:(NSString *)secret {
-    
+
     NSString *formattedString = [NSString stringWithFormat:@"%@:%@", token, secret];
     NSData *encodedStringData = [formattedString dataUsingEncoding:NSISOLatin1StringEncoding];
     NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
-    
+
     NSString *authorizationHeader = [NSString stringWithFormat:@"Basic %@", base64String];
     self.session = [JPSession sessionWithAuthorizationHeader:authorizationHeader];
 }
@@ -73,31 +73,31 @@
 //---------------------------------------------------------------------------
 
 - (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
-    
+
     if (configuration.receiptId) {
         return [self receiptTransactionWithConfiguration:configuration];
     }
-    
+
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
-    
+
     transaction.judoId = configuration.judoId;
     transaction.amount = configuration.amount;
     transaction.reference = configuration.reference;
     transaction.primaryAccountDetails = configuration.primaryAccountDetails;
     transaction.apiSession = self.session;
     transaction.enricher = self.enricher;
-    
+
     return transaction;
 }
 
 - (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration {
-    
+
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType
                                                           receiptId:configuration.receiptId
                                                              amount:configuration.amount];
     transaction.apiSession = self.session;
     transaction.enricher = self.enricher;
-    
+
     return transaction;
 }
 

@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPTransaction.h"
 #import "JPSession.h"
+#import "JPTransaction.h"
+#import <Foundation/Foundation.h>
 
 @interface JPThreeDSecureService : NSObject
 
@@ -34,4 +34,3 @@
                                    completion:(JudoCompletionBlock)completion;
 
 @end
-
