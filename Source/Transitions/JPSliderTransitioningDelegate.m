@@ -31,7 +31,7 @@
                                                       presentingViewController:(UIViewController *)presenting
                                                           sourceViewController:(UIViewController *)source {
     return [[JPSliderPresentationController alloc] initWithPresentedViewController:presented
-                                                        presentingViewController:presenting];
+                                                          presentingViewController:presenting];
 }
 
 @end

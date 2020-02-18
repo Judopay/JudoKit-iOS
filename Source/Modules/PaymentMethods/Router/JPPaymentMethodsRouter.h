@@ -54,7 +54,6 @@
 @interface JPPaymentMethodsRouterImpl : NSObject <JPPaymentMethodsRouter>
 @property (nonatomic, weak) JPPaymentMethodsViewController *_Nullable viewController;
 
-
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                            transactionService:(nonnull JPTransactionService *)transactionService
                         transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate

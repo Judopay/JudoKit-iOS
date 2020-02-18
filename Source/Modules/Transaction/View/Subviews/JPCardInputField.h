@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewModel.h"
 #import "JPInputField.h"
+#import "JPTransactionViewModel.h"
 
 /**
  * A custom implementation of the JPInputField class used for displaying card details input

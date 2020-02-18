@@ -43,7 +43,7 @@
                                      transactionService:(JPTransactionService *)transactionService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JudoCompletionBlock)completion {
-    
+
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
     JPPaymentMethodsPresenterImpl *presenter = [JPPaymentMethodsPresenterImpl new];
 
@@ -52,22 +52,20 @@
                                                     transactionService:transactionService
                                                  transitioningDelegate:transitioningDelegate
                                                             completion:completion];
-        
+
     JPPaymentMethodsInteractorImpl *interactor;
     interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithMode:mode
                                                         configuration:configuration
                                                    transactionService:transactionService
                                                            completion:completion];
-    
-        presenter.view = viewController;
-        presenter.interactor = interactor;
-        presenter.router = router;
-        router.viewController = viewController;
-        viewController.presenter = presenter;
 
-        return viewController;
-    
-    
+    presenter.view = viewController;
+    presenter.interactor = interactor;
+    presenter.router = router;
+    router.viewController = viewController;
+    viewController.presenter = presenter;
+
+    return viewController;
 }
 
 @end

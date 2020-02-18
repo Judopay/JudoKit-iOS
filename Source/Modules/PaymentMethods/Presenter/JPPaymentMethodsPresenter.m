@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsPresenter.h"
-#import "JPTransactionViewModel.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
 #import "JPPaymentMethodsInteractor.h"
@@ -31,8 +30,9 @@
 #import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPStoredCardDetails.h"
-#import "NSString+Additions.h"
+#import "JPTransactionViewModel.h"
 #import "NSError+Additions.h"
+#import "NSString+Additions.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -107,12 +107,12 @@
 }
 
 - (void)handlePaymentError:(NSError *)error {
-    
+
     if (error.code == JudoError3DSRequest) {
         [self handle3DSecureTransactionWithError:error];
         return;
     }
-    
+
     [self.router completeTransactionWithResponse:nil andError:error];
     [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
 }
@@ -120,12 +120,12 @@
 - (void)handle3DSecureTransactionWithError:(NSError *)error {
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, NSError *error) {
-        if (error) {
-            [self handlePaymentError:error];
-            return;
-        }
-        [self handlePaymentResponse:response];
-    }];
+                                                 if (error) {
+                                                     [self handlePaymentError:error];
+                                                     return;
+                                                 }
+                                                 [self handlePaymentResponse:response];
+                                             }];
 }
 
 - (void)deleteCardWithIndex:(NSInteger)index {

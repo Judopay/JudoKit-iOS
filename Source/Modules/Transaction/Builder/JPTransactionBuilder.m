@@ -23,11 +23,11 @@
 //  SOFTWARE.
 
 #import "JPTransactionBuilder.h"
+#import "JPCardValidationService.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-#import "JPCardValidationService.h"
 
 #import "JPConfiguration.h"
 #import "JPTransactionService.h"
@@ -35,16 +35,17 @@
 @implementation JPTransactionBuilderImpl
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
-                                                     configuration:(JPConfiguration *)configuration completion:(JudoCompletionBlock)completion {
-    
+                                                     configuration:(JPConfiguration *)configuration
+                                                        completion:(JudoCompletionBlock)completion {
+
     JPCardValidationService *cardValidationService = [JPCardValidationService new];
-    
+
     JPTransactionInteractorImpl *interactor;
     interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                  transactionService:transactionService
                                                                       configuration:configuration
                                                                          completion:completion];
-    
+
     JPTransactionViewController *viewController = [JPTransactionViewController new];
     JPTransactionPresenterImpl *presenter = [JPTransactionPresenterImpl new];
     JPTransactionRouterImpl *router = [JPTransactionRouterImpl new];
@@ -59,7 +60,6 @@
     viewController.presenter = presenter;
 
     return viewController;
-    
 }
 
 @end

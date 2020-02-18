@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTransactionInteractor.h"
-#import "JPTransactionViewModel.h"
+#import "JP3DSService.h"
 #import "JPCard.h"
 #import "JPCardStorage.h"
 #import "JPCardValidationService.h"
@@ -32,8 +32,8 @@
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
+#import "JPTransactionViewModel.h"
 #import "NSError+Additions.h"
-#import "JP3DSService.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
@@ -93,7 +93,8 @@
 }
 
 - (void)completeTransactionWithResponse:(JPResponse *)response error:(NSError *)error {
-    if (self.completionHandler) self.completionHandler(response, error);
+    if (self.completionHandler)
+        self.completionHandler(response, error);
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {

@@ -24,10 +24,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JPSession.h"
-#import "JPTransaction.h"
 #import "JPConfiguration.h"
 #import "JPReceipt.h"
+#import "JPSession.h"
+#import "JPTransaction.h"
 
 @interface JPTransactionService : NSObject
 
@@ -44,7 +44,7 @@
 
 - (instancetype)initWithToken:(NSString *)token
                     andSecret:(NSString *)secret;
-    
+
 //---------------------------------------------------------------------------
 #pragma mark - Public Methods
 //---------------------------------------------------------------------------

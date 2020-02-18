@@ -24,11 +24,11 @@
 
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
-#import "JPPostalAddress.h"
 #import "JPContactInformation.h"
-#import "UIApplication+Additions.h"
-#import "NSError+Additions.h"
+#import "JPPostalAddress.h"
 #import "JPResponse.h"
+#import "NSError+Additions.h"
+#import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
 @property (nonatomic, assign) TransactionMode transactionMode;
@@ -213,37 +213,37 @@
     NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [[NSMutableArray alloc] init];
 
     CardNetwork cardNetworks = self.configuration.supportedCardNetworks;
-    
+
     if (cardNetworks && CardNetworkVisa) {
         [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
     }
-    
+
     if (cardNetworks & CardNetworkAMEX) {
         [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
     }
-    
+
     if (cardNetworks & CardNetworkMasterCard) {
         [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
     }
-    
+
     if (cardNetworks & CardNetworkMaestro) {
         if (@available(iOS 12.0, *)) {
             [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
         }
     }
-    
+
     if (cardNetworks & CardNetworkJCB) {
         [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
     }
-    
+
     if (cardNetworks & CardNetworkDiscover) {
         [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
     }
-    
+
     if (cardNetworks & CardNetworkChinaUnionPay) {
         [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
     }
-    
+
     return pkPaymentNetworks;
 }
 
@@ -295,18 +295,18 @@
         return nil;
 
     JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithSteet:contact.postalAddress.street
-                                                                   city:contact.postalAddress.city
-                                                                  state:contact.postalAddress.state
-                                                             postalCode:contact.postalAddress.postalCode
-                                                                country:contact.postalAddress.country
-                                                                isoCode:contact.postalAddress.ISOCountryCode
-                                                  subAdministrativeArea:contact.postalAddress.subAdministrativeArea
-                                                            sublocality:contact.postalAddress.subLocality];
+                                                                       city:contact.postalAddress.city
+                                                                      state:contact.postalAddress.state
+                                                                 postalCode:contact.postalAddress.postalCode
+                                                                    country:contact.postalAddress.country
+                                                                    isoCode:contact.postalAddress.ISOCountryCode
+                                                      subAdministrativeArea:contact.postalAddress.subAdministrativeArea
+                                                                sublocality:contact.postalAddress.subLocality];
 
     return [[JPContactInformation alloc] initWithEmailAddress:contact.emailAddress
-                                                       name:contact.name
-                                                phoneNumber:contact.phoneNumber.stringValue
-                                              postalAddress:postalAddress];
+                                                         name:contact.name
+                                                  phoneNumber:contact.phoneNumber.stringValue
+                                                postalAddress:postalAddress];
 }
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
@@ -314,12 +314,12 @@
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion {
 
     JPConfiguration *configuration = [JPConfiguration new];
-    
+
     TransactionType type = (self.transactionMode == TransactionModePreAuth) ? TransactionTypePreAuth : TransactionTypePayment;
     self.transactionService.transactionType = type;
-    
+
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:configuration];
-    
+
     NSError *error;
     [transaction setPkPayment:payment error:&error];
 
@@ -330,23 +330,24 @@
     }
 
     [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
+        if (error || response.items.count == 0) {
+            if (self.completionBlock)
+                self.completionBlock(response, error);
+            completion(PKPaymentAuthorizationStatusFailure);
+            return;
+        }
 
-            if (error || response.items.count == 0) {
-                if (self.completionBlock) self.completionBlock(response, error);
-                completion(PKPaymentAuthorizationStatusFailure);
-                return;
-            }
+        if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
+            response.billingInfo = [self contactInformationFromPaymentContact:payment.billingContact];
+        }
 
-            if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
-                response.billingInfo = [self contactInformationFromPaymentContact:payment.billingContact];
-            }
+        if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
+            response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
+        }
 
-            if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
-                response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
-            }
-
-            if (self.completionBlock) self.completionBlock(response, error);
-            completion(PKPaymentAuthorizationStatusSuccess);
+        if (self.completionBlock)
+            self.completionBlock(response, error);
+        completion(PKPaymentAuthorizationStatusSuccess);
     }];
 }
 

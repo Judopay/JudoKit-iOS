@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
-#import "JPTransaction.h"
 #import "JPPaymentMethod.h"
 #import "JPReference.h"
 #import "JPSession.h"
+#import "JPTransaction.h"
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;

@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JP3DSConfiguration.h"
+#import "JPSession.h"
+#import "JPTransaction.h"
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import "JPTransaction.h"
-#import "JPSession.h"
-#import "JP3DSConfiguration.h"
 
 @interface JP3DSViewController : UIViewController <WKNavigationDelegate>
 

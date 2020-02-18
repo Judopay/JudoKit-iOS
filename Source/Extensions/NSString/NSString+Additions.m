@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "NSBundle+Additions.h"
-#import "NSString+Additions.h"
 #import "JPCardNetwork.h"
+#import "NSBundle+Additions.h"
 #import "NSError+Additions.h"
+#import "NSString+Additions.h"
 #import <Foundation/Foundation.h>
 
 @implementation NSString (Additions)
@@ -43,7 +43,7 @@
 
 - (NSString *)cardPresentationStringWithAcceptedNetworks:(NSArray *)networks
                                                    error:(NSError **)error {
-    
+
     NSString *strippedString = [self stringByRemovingWhitespaces];
 
     if (strippedString.length == 0) {

@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPApplePayConfiguration.h"
-#import "JPTransactionService.h"
 #import "JPSession.h"
+#import "JPTransactionService.h"
 
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>

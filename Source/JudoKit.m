@@ -23,20 +23,20 @@
 //  SOFTWARE.
 
 #import "JudoKit.h"
-#import "JPTransactionEnricher.h"
 #import "JPApplePayService.h"
 #import "JPConfiguration.h"
-#import "JPSliderTransitioningDelegate.h"
-#import "JPTransactionService.h"
-#import "JPTransactionBuilder.h"
-#import "JPTransactionViewController.h"
-#import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsBuilder.h"
-#import "JPTransaction.h"
+#import "JPPaymentMethodsViewController.h"
 #import "JPReceipt.h"
-#import "NSError+Additions.h"
 #import "JPResponse.h"
+#import "JPSliderTransitioningDelegate.h"
 #import "JPTheme.h"
+#import "JPTransaction.h"
+#import "JPTransactionBuilder.h"
+#import "JPTransactionEnricher.h"
+#import "JPTransactionService.h"
+#import "JPTransactionViewController.h"
+#import "NSError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
@@ -70,7 +70,7 @@
                                                                     andSecret:secret];
         return self;
     }
-    
+
     return nil;
 }
 
@@ -80,7 +80,7 @@
 
 - (JPTransaction *)transactionWithType:(TransactionType)type
                          configuration:(JPConfiguration *)configuration {
-    
+
     self.transactionService.transactionType = type;
     return [self.transactionService transactionWithConfiguration:configuration];
 }
@@ -88,9 +88,9 @@
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JudoCompletionBlock)completion {
-    
+
     self.transactionService.transactionType = type;
-    
+
     UIViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:configuration
@@ -119,10 +119,10 @@
                                                transactionService:self.transactionService
                                             transitioningDelegate:self.transitioningDelegate
                                                 completionHandler:completion];
-    
+
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
+
     [UIApplication.topMostViewController presentViewController:navController
                                                       animated:YES
                                                     completion:nil];

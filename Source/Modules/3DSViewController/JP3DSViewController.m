@@ -60,7 +60,7 @@
 
 #pragma mark - Public methods
 
--(void)start3DSecureTransaction {
+- (void)start3DSecureTransaction {
     if (self.configuration.acsURL && self.configuration.mdValue && self.configuration.paReqValue && self.encodedPaReq && self.terminationURL) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.configuration.acsURL];
         request.HTTPMethod = @"POST";
@@ -105,34 +105,35 @@
     return;
 }
 
-- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     self.completionBlock(nil, error);
 }
 
--(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     self.completionBlock(nil, error);
 }
 
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     NSMutableString *scriptContent = [NSMutableString stringWithString:@"const meta = document.createElement('meta');"];
     [scriptContent appendString:@"meta.name='viewport';"];
     [scriptContent appendString:@"meta.content='width=device-width';"];
     [scriptContent appendString:@"const head = document.getElementsByTagName('head')[0];"];
     [scriptContent appendString:@"head.appendChild(meta);"];
     [scriptContent appendString:@"meta.name"];
-    
-    [self.webView evaluateJavaScript:scriptContent completionHandler:^(id response, NSError * error) {
-          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             NSString *metaSizingContent= @"meta.content = 'width=' + document.documentElement.scrollWidth + ', maximum-scale=1.0'";
-              [self->_webView evaluateJavaScript:metaSizingContent completionHandler:nil];
-          });
-      }];
 
-      NSMutableString *removePaResFieldScript = [NSMutableString stringWithString:@"const paResField = document.getElementById('pnPaRESPanel');"];
-      [removePaResFieldScript appendString:@"paResField.parentElement.removeChild(paResField);"];
-      [removePaResFieldScript appendString:@"paResField.name"];
+    [self.webView evaluateJavaScript:scriptContent
+                   completionHandler:^(id response, NSError *error) {
+                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                           NSString *metaSizingContent = @"meta.content = 'width=' + document.documentElement.scrollWidth + ', maximum-scale=1.0'";
+                           [self->_webView evaluateJavaScript:metaSizingContent completionHandler:nil];
+                       });
+                   }];
 
-      [self.webView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
+    NSMutableString *removePaResFieldScript = [NSMutableString stringWithString:@"const paResField = document.getElementById('pnPaRESPanel');"];
+    [removePaResFieldScript appendString:@"paResField.parentElement.removeChild(paResField);"];
+    [removePaResFieldScript appendString:@"paResField.name"];
+
+    [self.webView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
 }
 
 #pragma mark - Helper methods
@@ -160,16 +161,15 @@
     [self.transaction threeDSecureWithParameters:response
                                        receiptId:self.configuration.receiptId
                                       completion:^(JPResponse *response, NSError *error) {
-                                              if (error) {
-                                                  decisionHandler(WKNavigationActionPolicyCancel);
-                                              } else {
-                                                  decisionHandler(WKNavigationActionPolicyAllow);
-                                              }
-                                        [self dismissViewControllerAnimated:YES completion:nil];
-                                        self.completionBlock(response, error);
+                                          if (error) {
+                                              decisionHandler(WKNavigationActionPolicyCancel);
+                                          } else {
+                                              decisionHandler(WKNavigationActionPolicyAllow);
+                                          }
+                                          [self dismissViewControllerAnimated:YES completion:nil];
+                                          self.completionBlock(response, error);
                                       }];
 }
-
 
 - (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {
 
@@ -186,7 +186,7 @@
 
 - (WKWebView *)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame: CGRectZero];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
         _webView.translatesAutoresizingMaskIntoConstraints = NO;
         _webView.backgroundColor = UIColor.whiteColor;
         _webView.navigationDelegate = self;

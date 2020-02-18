@@ -70,7 +70,7 @@ typedef void (^JudoRedirectCompletion)(NSString *_Nullable, NSString *_Nullable,
  * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
 - (void)redirectURLForJPIDealBank:(nonnull JPIDealBank *)iDealBank
-                     completion:(nonnull JudoRedirectCompletion)completion;
+                       completion:(nonnull JudoRedirectCompletion)completion;
 
 /**
  * Method used for returning a redirect URL based on the specified iDEAL bank

@@ -56,7 +56,7 @@
 
 #pragma mark - Helper methods
 
-- (void)setupDefaults { 
+- (void)setupDefaults {
     self.merchantCapabilities = MerchantCapability3DS;
     self.shippingType = ShippingTypeShipping;
     self.returnedContactInfo = ReturnedInfoBillingContacts;

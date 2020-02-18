@@ -23,20 +23,20 @@
 //  SOFTWARE.
 
 #import "JP3DSService.h"
-#import "JP3DSViewController.h"
 #import "JP3DSConfiguration.h"
+#import "JP3DSViewController.h"
 #import "UIApplication+Additions.h"
 
 @implementation JP3DSService
 
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
                                    completion:(JudoCompletionBlock)completion {
-    
+
     JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
-    
+
     JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration
-                                                                                      completion:completion];
-    
+                                                                              completion:completion];
+
     controller.transaction = self.transaction;
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES

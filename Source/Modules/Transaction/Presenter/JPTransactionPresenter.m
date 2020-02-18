@@ -68,10 +68,10 @@
 //---------------------------------------------------------------------------
 
 - (void)prepareInitialViewModel {
-    
+
     TransactionType type = self.interactor.transactionType;
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
-    
+
     self.addCardViewModel.shouldDisplayAVSFields = [self.interactor isAVSEnabled];
     self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number".localized;
     self.addCardViewModel.cardholderNameViewModel.placeholder = @"cardholder_name".localized;
@@ -127,15 +127,14 @@
 
     __weak typeof(self) weakSelf = self;
     [self.interactor sendTransactionWithCard:card
-           completionHandler:^(JPResponse *response, NSError *error) {
-        
-        if (error) {
-            [weakSelf handleError:error];
-            return;
-        }
-         
-        [weakSelf handleResponse:response];
-    }];
+                           completionHandler:^(JPResponse *response, NSError *error) {
+                               if (error) {
+                                   [weakSelf handleError:error];
+                                   return;
+                               }
+
+                               [weakSelf handleResponse:response];
+                           }];
 }
 
 - (void)handleError:(NSError *)error {
@@ -151,17 +150,17 @@
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, NSError *error) {
-        if (error) {
-            [weakSelf handleError:error];
-            return;
-        }
-        
-        [weakSelf handleResponse:response];
-    }];
+                                                 if (error) {
+                                                     [weakSelf handleError:error];
+                                                     return;
+                                                 }
+
+                                                 [weakSelf handleResponse:response];
+                                             }];
 }
 
 - (void)handleResponse:(JPResponse *)response {
-    
+
     if (self.interactor.transactionType == TransactionTypeSaveCard) {
         NSString *token = response.items.firstObject.cardDetails.cardToken;
 
@@ -173,7 +172,7 @@
         [self.interactor updateKeychainWithCardModel:self.addCardViewModel
                                             andToken:token];
     }
-    
+
     [self.interactor completeTransactionWithResponse:response
                                                error:nil];
     [self.router dismissViewController];
@@ -244,15 +243,14 @@
         case TransactionTypePayment:
         case TransactionTypePreAuth:
             return @"pay".localized;
-            
-        
+
         case TransactionTypeSaveCard:
         case TransactionTypeRegisterCard:
             return @"add_card".localized;
-            
+
         case TransactionTypeCheckCard:
             return @"check_card".localized;
-            
+
         default:
             return nil;
     }
