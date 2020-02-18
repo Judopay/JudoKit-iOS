@@ -41,7 +41,7 @@
 
 @interface JudoKit ()
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JPApplePayService *applePayManager;
+@property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) PKPaymentAuthorizationViewController *viewController;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
@@ -105,9 +105,9 @@
 - (void)invokeApplePayWithMode:(TransactionMode)mode
                  configuration:(JPApplePayConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
-    self.applePayManager = [[JPApplePayService alloc] initWithConfiguration:configuration
+    self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
-    [self.applePayManager invokeApplePayWithMode:mode completion:completion];
+    [self.applePayService invokeApplePayWithMode:mode completion:completion];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
