@@ -1,5 +1,5 @@
 //
-//  JPThreeDSViewController.m
+//  JP3DSViewController.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,70 +22,75 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPThreeDSViewController.h"
+#import "JP3DSViewController.h"
 #import "UIView+Additions.h"
 
-@interface JPThreeDSViewController ()
-@property (nonatomic, strong) NSString *paReq;
-@property (nonatomic, strong) NSString *md;
-@property (nonatomic, strong) NSURL *acsURL;
-@property (nonatomic, strong) NSString *receiptId;
+@interface JP3DSViewController ()
+@property (nonatomic, strong) JP3DSConfiguration *configuration;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @property (nonatomic, strong) WKWebView *webView;
 @end
 
-@implementation JPThreeDSViewController
+@implementation JP3DSViewController
 
-- (instancetype)initWithPaReq:(NSString *)paReq
-                           md:(NSString *)md
-                    receiptId:(NSString *)receiptId
-                       acsURL:(NSURL *)acsURL
-                   completion:(JudoCompletionBlock)completion {
+#pragma mark - Initializers
+
+- (instancetype)initWithConfiguration:(JP3DSConfiguration *)configuration
+                           completion:(JudoCompletionBlock)completion {
     if (self = [super init]) {
-        self.paReq = paReq;
-        self.md = md;
-        self.receiptId = receiptId;
-        self.acsURL = acsURL;
+        self.configuration = configuration;
         self.completionBlock = completion;
     }
     return self;
 }
 
-
-//------------------------------------------------
-#pragma mark - Initializers
-//------------------------------------------------
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [self setupViews];
     [self start3DSecureTransaction];
 }
 
-//------------------------------------------------
 #pragma mark - Setup methods
-//------------------------------------------------
 
 - (void)setupViews {
     [self.view addSubview:self.webView];
     [self.webView pinToView:self.view withPadding:0.0];
 }
 
+#pragma mark - Public methods
+
 -(void)start3DSecureTransaction {
-    
-    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
-    NSString *paReqStringEscaped = [self.paReq stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-    NSString *termUrlString = [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-    
-    if (self.acsURL && self.md && self.paReq && paReqStringEscaped && termUrlString) {
-        NSData *postData = [[NSString stringWithFormat:@"MD=%@&PaReq=%@&TermUrl=%@", self.md, paReqStringEscaped, termUrlString] dataUsingEncoding:NSUTF8StringEncoding];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.acsURL];
+    if (self.configuration.acsURL && self.configuration.mdValue && self.configuration.paReqValue && self.encodedPaReq && self.terminationURL) {
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.configuration.acsURL];
         request.HTTPMethod = @"POST";
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%li", (unsigned long)postData.length] forHTTPHeaderField:@"Content-Length"];
-        request.HTTPBody = postData;
+        [request setValue:[NSString stringWithFormat:@"%li", (unsigned long)self.httpBody.length] forHTTPHeaderField:@"Content-Length"];
+        request.HTTPBody = self.httpBody;
         [self.webView loadRequest:request];
     }
 }
+
+#pragma mark - Getters
+
+- (NSString *)encodedPaReq {
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
+    return [self.configuration.paReqValue stringByAddingPercentEncodingWithAllowedCharacters:charSet];
+}
+
+- (NSString *)terminationURL {
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
+    return [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:charSet];
+}
+
+- (NSData *)httpBody {
+    NSString *mdValue = self.configuration.mdValue;
+    NSString *format = @"MD=%@&PaReq=%@&TermUrl=%@";
+    NSString *bodyString = [NSString stringWithFormat:format, mdValue, self.encodedPaReq, self.terminationURL];
+    return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+#pragma mark - WKWebView delegate methods
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
@@ -99,52 +104,6 @@
     [self handleRedirectForWebView:webView redirectURL:urlString decisionHandler:decisionHandler];
     return;
 }
-
-
-- (void)handleRedirectForWebView:(WKWebView *)webView
-                     redirectURL:(NSString *)redirectURL
-                 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSMutableString *javascriptCode = [NSMutableString new];
-        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
-        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
-        [javascriptCode appendString:@"[paRes, md]"];
-        [webView evaluateJavaScript:javascriptCode
-                  completionHandler:^(NSArray *response, NSError *error) {
-                      NSDictionary *responseDictionary = [self mapToDictionaryWithResponse:response];
-                      [self handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
-                  }];
-    });
-}
-
-- (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {
-
-    if (response.count != 2)
-        return nil;
-
-    return @{
-        @"PaRes" : response[0],
-        @"MD" : [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"]
-    };
-}
-
-- (void)handleACSFormWithResponse:(NSDictionary *)response
-                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
-    [self.transaction threeDSecureWithParameters:response
-                                       receiptId:self.receiptId
-                                      completion:^(JPResponse *response, NSError *error) {
-                                              if (error) {
-                                                  decisionHandler(WKNavigationActionPolicyCancel);
-                                              } else {
-                                                  decisionHandler(WKNavigationActionPolicyAllow);
-                                                  [self dismissViewControllerAnimated:YES completion:nil];
-                                              }
-                                        self.completionBlock(response, error);
-                                      }];
-}
-
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     self.completionBlock(nil, error);
@@ -176,6 +135,54 @@
       [self.webView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
 }
 
+#pragma mark - Helper methods
+
+- (void)handleRedirectForWebView:(WKWebView *)webView
+                     redirectURL:(NSString *)redirectURL
+                 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSMutableString *javascriptCode = [NSMutableString new];
+        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
+        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
+        [javascriptCode appendString:@"[paRes, md]"];
+        [webView evaluateJavaScript:javascriptCode
+                  completionHandler:^(NSArray *response, NSError *error) {
+                      NSDictionary *responseDictionary = [self mapToDictionaryWithResponse:response];
+                      [self handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
+                  }];
+    });
+}
+
+- (void)handleACSFormWithResponse:(NSDictionary *)response
+                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+    [self.transaction threeDSecureWithParameters:response
+                                       receiptId:self.configuration.receiptId
+                                      completion:^(JPResponse *response, NSError *error) {
+                                              if (error) {
+                                                  decisionHandler(WKNavigationActionPolicyCancel);
+                                              } else {
+                                                  decisionHandler(WKNavigationActionPolicyAllow);
+                                              }
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                        self.completionBlock(response, error);
+                                      }];
+}
+
+
+- (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {
+
+    if (response.count != 2)
+        return nil;
+
+    return @{
+        @"PaRes" : response[0],
+        @"MD" : [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"]
+    };
+}
+
+#pragma mark - Lazy properties
 
 - (WKWebView *)webView {
     if (!_webView) {

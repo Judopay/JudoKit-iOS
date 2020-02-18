@@ -33,14 +33,14 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
 #import "NSError+Additions.h"
-#import "JPThreeDSecureService.h"
+#import "JP3DSService.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JPThreeDSecureService *threeDSecureService;
+@property (nonatomic, strong) JP3DSService *threeDSecureService;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -152,9 +152,9 @@
     return [self.cardValidationService validatePostalCodeInput:input];
 }
 
-- (JPThreeDSecureService *)threeDSecureService {
+- (JP3DSService *)threeDSecureService {
     if (!_threeDSecureService) {
-        _threeDSecureService = [JPThreeDSecureService new];
+        _threeDSecureService = [JP3DSService new];
     }
     return _threeDSecureService;
 }

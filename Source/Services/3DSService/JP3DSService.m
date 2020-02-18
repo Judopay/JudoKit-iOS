@@ -1,5 +1,5 @@
 //
-//  JPThreeDSViewController.h
+//  JP3DSService.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,19 +22,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
-#import "JPTransaction.h"
-#import "JPSession.h"
+#import "JP3DSService.h"
+#import "JP3DSViewController.h"
+#import "JP3DSConfiguration.h"
+#import "UIApplication+Additions.h"
 
-@interface JPThreeDSViewController : UIViewController <WKNavigationDelegate>
+@implementation JP3DSService
 
-@property (nonatomic, strong) JPTransaction *transaction;
-
-- (instancetype)initWithPaReq:(NSString *)paReq
-                           md:(NSString *)md
-                    receiptId:(NSString *)receiptId
-                       acsURL:(NSURL *)acsURL
-                   completion:(JudoCompletionBlock)completion;
+- (void)invoke3DSecureViewControllerWithError:(NSError *)error
+                                   completion:(JudoCompletionBlock)completion {
+    
+    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+    
+    JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration
+                                                                                      completion:completion];
+    
+    controller.transaction = self.transaction;
+    [UIApplication.topMostViewController presentViewController:controller
+                                                      animated:YES
+                                                    completion:nil];
+}
 
 @end

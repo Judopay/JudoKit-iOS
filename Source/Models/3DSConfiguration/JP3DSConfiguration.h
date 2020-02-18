@@ -1,5 +1,5 @@
 //
-//  JPThreeDSecureService.h
+//  JP3DSConfiguration.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,15 +23,43 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "JPTransaction.h"
-#import "JPSession.h"
 
-@interface JPThreeDSecureService : NSObject
+@interface JP3DSConfiguration : NSObject
 
-@property (nonatomic, strong) JPTransaction *transaction;
+/**
+ * The PaReq value obtained from the NSError's payload
+ */
+@property (nonatomic, strong, readonly) NSString *_Nonnull paReqValue;
 
-- (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JudoCompletionBlock)completion;
+/**
+ * The MD value obtained from the NSError's payload
+ */
+@property (nonatomic, strong, readonly) NSString *_Nonnull mdValue;
+
+/**
+ * The Receipt ID obtained from the NSError's payload
+ */
+@property (nonatomic, strong, readonly) NSString *_Nonnull receiptId;
+
+/**
+ * The ACS URL obtained from the NSError's payload
+ */
+@property (nonatomic, strong, readonly) NSURL *_Nonnull acsURL;
+
+/**
+ * Designated initializer that creates a configured instance of JP3DSConfiguration based on a 3D Secure NSError
+ *
+ * @param error - an instance of a 3D Secure NSError
+ * @returns - a configured instance of JP3DSConfiguration
+ */
++ (nonnull instancetype)configurationWithError:(nonnull NSError *)error;
+
+/**
+ * Designated initializer that creates a configured instance of JP3DSConfiguration based on a 3D Secure NSError
+ *
+ * @param error - an instance of a 3D Secure NSError
+ * @returns - a configured instance of JP3DSConfiguration
+ */
+- (nonnull instancetype)initWithError:(nonnull NSError *)error;
 
 @end
-

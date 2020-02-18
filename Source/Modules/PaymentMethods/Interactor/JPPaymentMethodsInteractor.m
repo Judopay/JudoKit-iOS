@@ -32,7 +32,7 @@
 #import "JPPaymentToken.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
-#import "JPThreeDSecureService.h"
+#import "JP3DSService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
@@ -40,7 +40,7 @@
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completion;
 @property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPThreeDSecureService *threeDSecureService;
+@property (nonatomic, strong) JP3DSService *threeDSecureService;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -200,9 +200,9 @@
     return _applePayService;
 }
 
-- (JPThreeDSecureService *)threeDSecureService {
+- (JP3DSService *)threeDSecureService {
     if (!_threeDSecureService) {
-        _threeDSecureService = [JPThreeDSecureService new];
+        _threeDSecureService = [JP3DSService new];
     }
     return _threeDSecureService;
 }

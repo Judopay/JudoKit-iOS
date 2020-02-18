@@ -71,3 +71,5 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPTransactionService.h>
 #import <JudoKitObjC/JPValidationResult.h>
 #import <JudoKitObjC/JPContactInformation.h>
+#import <JudoKitObjC/JP3DSService.h>
+#import <JudoKitObjC/JP3DSViewController.h>
