@@ -47,9 +47,7 @@
 
 @implementation JPTransactionPresenterImpl
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializer
-//---------------------------------------------------------------------------
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -63,9 +61,7 @@
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Protocol methods
-//---------------------------------------------------------------------------
 
 - (void)prepareInitialViewModel {
 
@@ -86,9 +82,7 @@
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Input Handler
-//---------------------------------------------------------------------------
 
 - (void)handleInputChange:(NSString *)input forType:(JPInputType)type {
 
@@ -118,9 +112,7 @@
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Transaction Button Tap
-//---------------------------------------------------------------------------
 
 - (void)handleTransactionButtonTap {
     JPCard *card = [self cardFromViewModel:self.addCardViewModel];
@@ -179,9 +171,7 @@
     [self.view didFinishAddingCard];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Scan Card Tap
-//---------------------------------------------------------------------------
 
 - (void)handleScanCardButtonTap {
 #if TARGET_OS_SIMULATOR
@@ -210,9 +200,7 @@
     }];
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Scan Card results
-//---------------------------------------------------------------------------
+#pragma mark - Helper methods
 
 - (void)updateViewModelWithScanCardResult:(PayCardsRecognizerResult *)result {
 
@@ -233,10 +221,6 @@
     [self updateTransactionButtonModelIfNeeded];
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Helper methods
-//---------------------------------------------------------------------------
 
 - (NSString *)transactionButtonTitleForType:(TransactionType)type {
     switch (type) {
@@ -361,9 +345,7 @@
     return card;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Lazy properties
-//---------------------------------------------------------------------------
 
 - (JPTransactionViewModel *)addCardViewModel {
     if (!_addCardViewModel) {

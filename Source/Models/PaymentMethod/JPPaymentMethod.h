@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
     JPPaymentMethodTypeCard,
     JPPaymentMethodTypeIDeal,
-    JPPaymentMethodTypeApplePay
+    JPPaymentMethodTypeApplePay,
+    JPPaymentMethodTypeAmazonPay,
 };
 
 @interface JPPaymentMethod : NSObject
@@ -45,6 +46,8 @@ typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
  * A pre-defined initializer that describes the Apple Pay payment method
  */
 + (instancetype)applePay;
+
++ (instancetype)amazonPay;
 
 /**
  * An initializer that creates a JPPaymentMethod instance based on a pre-defined type

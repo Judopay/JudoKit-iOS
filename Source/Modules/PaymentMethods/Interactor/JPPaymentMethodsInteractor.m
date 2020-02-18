@@ -44,9 +44,7 @@
 
 @implementation JPPaymentMethodsInteractorImpl
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 - (instancetype)initWithMode:(TransactionMode)mode
                configuration:(JPConfiguration *)configuration
@@ -62,17 +60,13 @@
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Get stored cards
-//---------------------------------------------------------------------------
 
 - (NSArray<JPStoredCardDetails *> *)getStoredCardDetails {
     return [JPCardStorage.sharedInstance getStoredCardDetails];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Select card at index
-//---------------------------------------------------------------------------
 
 - (void)selectCardAtIndex:(NSInteger)index {
 
@@ -91,29 +85,23 @@
     }
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Set card as selected at index
-//---------------------------------------------------------------------------
 
 - (void)setCardAsSelectedAtInded:(NSInteger)index {
     [JPCardStorage.sharedInstance setCardAsSelectedAtIndex:index];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Get JPAmount
-//---------------------------------------------------------------------------
 
 - (JPAmount *)getAmount {
     return self.configuration.amount;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Get payment methods
-//---------------------------------------------------------------------------
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
     NSMutableArray *defaultPaymentMethods;
-    defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card, JPPaymentMethod.iDeal ]];
+    defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card ]];
 
     if ([self.applePayService isApplePaySupported]) {
         [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
@@ -124,9 +112,7 @@
     return (self.configuration.paymentMethods.count != 0) ? self.configuration.paymentMethods : defaultPaymentMethods;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Remove Apple Pay from payment methods
-//---------------------------------------------------------------------------
 
 - (void)removeApplePayFromPaymentMethods {
     if (self.configuration.paymentMethods.count == 0)
@@ -143,9 +129,7 @@
     self.configuration.paymentMethods = tempArray;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Payment transaction
-//---------------------------------------------------------------------------
 
 - (void)paymentTransactionWithToken:(NSString *)token
                       andCompletion:(JudoCompletionBlock)completion {
@@ -161,25 +145,19 @@
     [transaction sendWithCompletion:completion];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Apple Pay payment
-//---------------------------------------------------------------------------
 
 - (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
     [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Delete card at index
-//---------------------------------------------------------------------------
 
 - (void)deleteCardWithIndex:(NSInteger)index {
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Is Apple Pay ready
-//---------------------------------------------------------------------------
 
 - (bool)isApplePaySetUp {
     return [self.applePayService isApplePaySetUp];

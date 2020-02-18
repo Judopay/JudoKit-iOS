@@ -32,6 +32,8 @@
 
 @implementation JPLoadingButton
 
+#pragma mark - Initializers
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self setupActivityIndicator];
@@ -53,10 +55,14 @@
     return self;
 }
 
+#pragma mark - Setup methods
+
 - (void)setupActivityIndicator {
     [self addSubview:self.activityIndicator];
     [self.activityIndicator pinToView:self withPadding:0.0];
 }
+
+#pragma mark - Public methods
 
 - (void)startLoading {
     self.buttonTitle = self.titleLabel.text;
@@ -68,6 +74,8 @@
     [self setTitle:self.buttonTitle forState:UIControlStateNormal];
     [self.activityIndicator stopAnimating];
 }
+
+#pragma mark - Lazy properties
 
 - (UIActivityIndicatorView *)activityIndicator {
     if (!_activityIndicator) {

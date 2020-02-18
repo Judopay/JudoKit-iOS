@@ -25,6 +25,10 @@
     return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeApplePay];
 }
 
++ (instancetype)amazonPay {
+    return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeAmazonPay];
+}
+
 - (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type {
     if (self = [super init]) {
         switch (type) {
@@ -41,6 +45,10 @@
             case JPPaymentMethodTypeApplePay:
                 _title = nil;
                 _iconName = @"apple-pay-icon";
+                break;
+            case JPPaymentMethodTypeAmazonPay:
+                _title = @"Amazon Pay";
+                _iconName = @"amazon-pay-icon";
                 break;
         }
         _type = type;

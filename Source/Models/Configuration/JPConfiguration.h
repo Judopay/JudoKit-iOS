@@ -31,6 +31,8 @@
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, PaymentSummaryItem;
 
+//TODO: DOCUMENT THIS
+
 @interface JPConfiguration : NSObject
 @property (nonatomic, strong, readonly) NSString *_Nullable judoId;
 @property (nonatomic, strong, readonly) NSString *_Nullable receiptId;
@@ -44,10 +46,6 @@
 @property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
 @property (nonatomic, strong) JPApplePayConfiguration *_Nullable applePayConfiguration;
 
-//---------------------------------------------------------------------------
-#pragma mark - Initializer
-//---------------------------------------------------------------------------
-
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
                                 amount:(nonnull JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
@@ -55,17 +53,9 @@
 - (nonnull instancetype)initWithReceiptID:(nonnull NSString *)receiptId
                                    amount:(nonnull JPAmount *)amount;
 
-//---------------------------------------------------------------------------
-#pragma mark - Apple Pay Configuration
-//---------------------------------------------------------------------------
-
 - (void)configureApplePayWithMerchantId:(nonnull NSString *)merchantId
                             countryCode:(nonnull NSString *)countryCode
                     paymentSummaryItems:(nonnull NSArray<PaymentSummaryItem *> *)items;
-
-//---------------------------------------------------------------------------
-#pragma mark - Apple Pay Additional Fields
-//---------------------------------------------------------------------------
 
 - (void)setRequiredBillingContactFields:(ContactField)billingFields;
 - (void)setRequiredShippingContactFields:(ContactField)shippingFields;

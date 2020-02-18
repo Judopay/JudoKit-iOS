@@ -39,9 +39,7 @@
 
 @implementation JPConfiguration
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 - (instancetype)initWithJudoID:(nonnull NSString *)judoId
                         amount:(nonnull JPAmount *)amount
@@ -63,9 +61,7 @@
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Apple Pay required configuration
-//---------------------------------------------------------------------------
 
 - (void)configureApplePayWithMerchantId:(NSString *)merchantId
                             countryCode:(NSString *)countryCode
@@ -77,9 +73,7 @@
                                                                  paymentSummaryItems:items];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Apple Pay optional configuration
-//---------------------------------------------------------------------------
 
 - (void)setRequiredBillingContactFields:(ContactField)billingFields {
     self.applePayConfiguration.requiredBillingContactFields = billingFields;

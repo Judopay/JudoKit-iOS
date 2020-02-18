@@ -34,9 +34,7 @@
 
 @implementation JPTransactionService
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 - (instancetype)initWithToken:(NSString *)token
                     andSecret:(NSString *)secret {
@@ -47,9 +45,7 @@
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Setup methods
-//---------------------------------------------------------------------------
 
 - (void)setupTransactionEnricherWithToken:(NSString *)token
                                 andSecret:(NSString *)secret {
@@ -68,9 +64,7 @@
     self.session = [JPSession sessionWithAuthorizationHeader:authorizationHeader];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Public methods
-//---------------------------------------------------------------------------
 
 - (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
 
@@ -116,9 +110,7 @@
     [transaction listWithPagination:pagination completion:completion];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Setters
-//---------------------------------------------------------------------------
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;

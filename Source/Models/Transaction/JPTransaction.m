@@ -65,9 +65,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @implementation JPTransaction
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 + (instancetype)transactionWithType:(TransactionType)type {
     return [[JPTransaction alloc] initWithType:type];
@@ -104,9 +102,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Setup methods
-//---------------------------------------------------------------------------
 
 - (NSString *)transactionPathForType:(TransactionType)type {
     switch (type) {
@@ -139,9 +135,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     }
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Public methods
-//---------------------------------------------------------------------------
 
 - (void)sendWithCompletion:(JudoCompletionBlock)completion {
 
@@ -166,9 +160,29 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
                       }];
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Card validation
-//---------------------------------------------------------------------------
+- (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
+
+    NSString *fullURL = [NSString stringWithFormat:@"%@transactions/%@", self.apiSession.endpoint, receiptId];
+
+    [self.apiSession PUT:fullURL
+              parameters:parameters
+              completion:completion];
+}
+
+- (void)listWithCompletion:(JudoCompletionBlock)completion {
+    [self listWithPagination:nil completion:completion];
+}
+
+- (void)listWithPagination:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
+    NSString *path = self.transactionPath;
+    if (pagination) {
+        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
+    }
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.endpoint, path];
+    [self.apiSession GET:fullURL parameters:nil completion:completion];
+}
+
+#pragma mark - Helper methods
 
 - (NSError *)validateTransaction {
     if (!self.judoId) {
@@ -193,39 +207,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     return nil;
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - 3D Secure logic
-//---------------------------------------------------------------------------
-
-- (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
-
-    NSString *fullURL = [NSString stringWithFormat:@"%@transactions/%@", self.apiSession.endpoint, receiptId];
-
-    [self.apiSession PUT:fullURL
-              parameters:parameters
-              completion:completion];
-}
-
-//---------------------------------------------------------------------------
-#pragma mark - Transaction list methods
-//---------------------------------------------------------------------------
-
-- (void)listWithCompletion:(JudoCompletionBlock)completion {
-    [self listWithPagination:nil completion:completion];
-}
-
-- (void)listWithPagination:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
-    NSString *path = self.transactionPath;
-    if (pagination) {
-        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
-    }
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.endpoint, path];
-    [self.apiSession GET:fullURL parameters:nil completion:completion];
-}
-
-//---------------------------------------------------------------------------
 #pragma mark - Getters & setters
-//---------------------------------------------------------------------------
 
 - (NSString *)judoId {
     return self.parameters[@"judoId"];

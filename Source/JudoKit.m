@@ -43,16 +43,13 @@
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
-@property (nonatomic, strong) PKPaymentAuthorizationViewController *viewController;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @end
 
 @implementation JudoKit
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 - (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret {
     return [self initWithToken:token secret:secret allowJailbrokenDevices:YES];
@@ -74,9 +71,7 @@
     return nil;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Public methods
-//---------------------------------------------------------------------------
 
 - (JPTransaction *)transactionWithType:(TransactionType)type
                          configuration:(JPConfiguration *)configuration {
@@ -140,9 +135,7 @@
     return [self.transactionService receiptForReceiptId:receiptId];
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Lazy properties
-//---------------------------------------------------------------------------
+#pragma mark - Getters & Setters
 
 - (JPSliderTransitioningDelegate *)transitioningDelegate {
     if (!_transitioningDelegate) {

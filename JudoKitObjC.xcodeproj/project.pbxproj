@@ -818,8 +818,8 @@
 		30006F4523F698A20099F3C5 /* LoadingButton */ = {
 			isa = PBXGroup;
 			children = (
-				30006F4623F698A20099F3C5 /* JPLoadingButton.m */,
 				30006F4723F698A20099F3C5 /* JPLoadingButton.h */,
+				30006F4623F698A20099F3C5 /* JPLoadingButton.m */,
 			);
 			name = LoadingButton;
 			path = View/LoadingButton;
@@ -858,8 +858,8 @@
 		30006F5423F698A20099F3C5 /* InputField */ = {
 			isa = PBXGroup;
 			children = (
-				30006F5523F698A20099F3C5 /* JPInputField.m */,
 				30006F5623F698A20099F3C5 /* JPInputField.h */,
+				30006F5523F698A20099F3C5 /* JPInputField.m */,
 			);
 			name = InputField;
 			path = View/InputField;
@@ -1449,8 +1449,8 @@
 		3000737E23FBED640099F3C5 /* 3DSViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3000737F23FBED640099F3C5 /* JP3DSViewController.m */,
 				3000738023FBED640099F3C5 /* JP3DSViewController.h */,
+				3000737F23FBED640099F3C5 /* JP3DSViewController.m */,
 			);
 			name = 3DSViewController;
 			path = Modules/3DSViewController;

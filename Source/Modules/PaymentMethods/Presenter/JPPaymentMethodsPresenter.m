@@ -195,9 +195,9 @@
 - (void)preparePaymentMethodModels {
 
     NSArray *paymentMethods = [self.interactor getPaymentMethods];
+    self.paymentSelectionModel.paymentMethods = paymentMethods;
 
     if (paymentMethods.count > 1) {
-        self.paymentSelectionModel.paymentMethods = paymentMethods;
         [self.viewModel.items addObject:self.paymentSelectionModel];
     }
 

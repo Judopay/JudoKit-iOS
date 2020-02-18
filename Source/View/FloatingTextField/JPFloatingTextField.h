@@ -27,16 +27,16 @@
 @interface JPFloatingTextField : UITextField
 
 /**
- * A method that displays the floating label above the text field's input text
+ * A method that displays the floating label above the text field's input text.
  *
- * @param text - the text of the floating label
- * @param color - the color of the floating label
+ * @param text - the text of the floating label.
+ * @param color - the color of the floating label.
  */
 - (void)displayFloatingLabelWithText:(NSString *)text
                                color:(UIColor *)color;
 
 /**
- * A method which hides the floating label above the text field's input text
+ * A method which hides the floating label above the text field's input text.
  */
 - (void)hideFloatingLabel;
 

@@ -39,9 +39,7 @@
 
 @implementation JPApplePayService
 
-//---------------------------------------------------------------------------
 #pragma mark - Initializers
-//---------------------------------------------------------------------------
 
 - (instancetype)initWithConfiguration:(JPApplePayConfiguration *)configuration
                    transactionService:(JPTransactionService *)transactionService {
@@ -52,9 +50,7 @@
     return self;
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Public method
-//---------------------------------------------------------------------------
 
 - (void)invokeApplePayWithMode:(TransactionMode)mode
                     completion:(JudoCompletionBlock)completion {
@@ -65,9 +61,7 @@
                                                     completion:nil];
 }
 
-//---------------------------------------------------------------------------
 #pragma mark - Apple Pay setup methods
-//---------------------------------------------------------------------------
 
 - (bool)isApplePaySupported {
     return [PKPaymentAuthorizationController canMakePayments];
@@ -77,9 +71,55 @@
     return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:self.pkPaymentNetworks];
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Makes a PKPaymentAuthorizationViewController based on a request
-//---------------------------------------------------------------------------
+#pragma mark - PKPaymentAuthorizationViewController delegate methods
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+
+    JPConfiguration *configuration = [JPConfiguration new];
+
+    TransactionType type = (self.transactionMode == TransactionModePreAuth) ? TransactionTypePreAuth : TransactionTypePayment;
+    self.transactionService.transactionType = type;
+
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:configuration];
+
+    NSError *error;
+    [transaction setPkPayment:payment error:&error];
+
+    if (error && self.completionBlock) {
+        self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
+        completion(PKPaymentAuthorizationStatusFailure);
+        return;
+    }
+
+    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
+        if (error || response.items.count == 0) {
+            if (self.completionBlock)
+                self.completionBlock(response, error);
+            completion(PKPaymentAuthorizationStatusFailure);
+            return;
+        }
+
+        if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
+            response.billingInfo = [self contactInformationFromPaymentContact:payment.billingContact];
+        }
+
+        if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
+            response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
+        }
+
+        if (self.completionBlock)
+            self.completionBlock(response, error);
+        completion(PKPaymentAuthorizationStatusSuccess);
+    }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Getters
 
 - (PKPaymentAuthorizationViewController *)pkPaymentAuthorizationViewController {
 
@@ -91,10 +131,6 @@
 
     return viewController;
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Makes a PKPaymentRequest from the JPApplePayConfiguration object
-//---------------------------------------------------------------------------
 
 - (PKPaymentRequest *)pkPaymentRequest {
 
@@ -132,10 +168,6 @@
     return paymentRequest;
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Maps MerchantCapability to PKMerchantCapability
-//---------------------------------------------------------------------------
-
 - (PKMerchantCapability)pkMerchantCapabilities {
     switch (self.configuration.merchantCapabilities) {
         case MerchantCapability3DS:
@@ -149,10 +181,6 @@
     }
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Maps ShippingType to PKShippingType
-//---------------------------------------------------------------------------
-
 - (PKShippingType)pkShippingType {
     switch (self.configuration.shippingType) {
         case ShippingTypeShipping:
@@ -165,10 +193,6 @@
             return PKShippingTypeServicePickup;
     }
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Maps PaymentShippingMethod to PKShippingMethod
-//---------------------------------------------------------------------------
 
 - (NSArray<PKShippingMethod *> *)pkShippingMethods {
     NSMutableArray *pkShippingMethods = [NSMutableArray new];
@@ -186,10 +210,6 @@
     return pkShippingMethods;
 }
 
-//---------------------------------------------------------------------------
-#pragma mark - Maps PaymentSummaryItem to PKSummaryItem
-//---------------------------------------------------------------------------
-
 - (NSArray<PKPaymentSummaryItem *> *)pkPaymentSummaryItems {
 
     NSMutableArray<PKPaymentSummaryItem *> *pkPaymentSummaryItems = [NSMutableArray new];
@@ -203,10 +223,6 @@
 
     return pkPaymentSummaryItems;
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Maps CardNetwork to PKPaymentNetwork array
-//---------------------------------------------------------------------------
 
 - (NSArray<PKPaymentNetwork> *)pkPaymentNetworks {
 
@@ -246,10 +262,6 @@
 
     return pkPaymentNetworks;
 }
-
-//---------------------------------------------------------------------------
-#pragma mark - Maps MerchantCapability to PKMerchantCapability
-//---------------------------------------------------------------------------
 
 - (NSSet<PKContactField> *)pkContactFieldsFromFields:(ContactField)contactFields {
 
@@ -307,52 +319,6 @@
                                                          name:contact.name
                                                   phoneNumber:contact.phoneNumber.stringValue
                                                 postalAddress:postalAddress];
-}
-
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-                       didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
-
-    JPConfiguration *configuration = [JPConfiguration new];
-
-    TransactionType type = (self.transactionMode == TransactionModePreAuth) ? TransactionTypePreAuth : TransactionTypePayment;
-    self.transactionService.transactionType = type;
-
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:configuration];
-
-    NSError *error;
-    [transaction setPkPayment:payment error:&error];
-
-    if (error && self.completionBlock) {
-        self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
-        completion(PKPaymentAuthorizationStatusFailure);
-        return;
-    }
-
-    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
-        if (error || response.items.count == 0) {
-            if (self.completionBlock)
-                self.completionBlock(response, error);
-            completion(PKPaymentAuthorizationStatusFailure);
-            return;
-        }
-
-        if (self.configuration.returnedContactInfo & ReturnedInfoBillingContacts) {
-            response.billingInfo = [self contactInformationFromPaymentContact:payment.billingContact];
-        }
-
-        if (self.configuration.returnedContactInfo & ReturnedInfoShippingContacts) {
-            response.shippingInfo = [self contactInformationFromPaymentContact:payment.shippingContact];
-        }
-
-        if (self.completionBlock)
-            self.completionBlock(response, error);
-        completion(PKPaymentAuthorizationStatusSuccess);
-    }];
-}
-
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

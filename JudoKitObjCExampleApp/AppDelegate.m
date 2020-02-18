@@ -34,12 +34,10 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-        
     NSDictionary *environment = NSProcessInfo.processInfo.environment;
     if ([environment[@"UITEST"] isEqualToString:@"1"]) {
         [JPCardStorage.sharedInstance deleteCardDetails];
     }
-    
     return YES;
 }
 
