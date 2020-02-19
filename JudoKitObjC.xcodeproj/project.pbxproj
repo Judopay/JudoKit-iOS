@@ -165,6 +165,8 @@
 		3000738223FBED640099F3C5 /* JP3DSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738023FBED640099F3C5 /* JP3DSViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000738B23FBEDC80099F3C5 /* JP3DSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738923FBEDC80099F3C5 /* JP3DSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000738C23FBEDC80099F3C5 /* JP3DSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000738A23FBEDC80099F3C5 /* JP3DSService.m */; };
+		30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221BC523FD7E4D00BF2823 /* JPLoadingView.h */; };
+		30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221BC623FD7E4D00BF2823 /* JPLoadingView.m */; };
 		30472A11239E886500279A87 /* JudoKitAddCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30472A10239E886500279A87 /* JudoKitAddCardTests.swift */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
 		30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */; };
@@ -552,6 +554,8 @@
 		3000738023FBED640099F3C5 /* JP3DSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JP3DSViewController.h; sourceTree = "<group>"; };
 		3000738923FBEDC80099F3C5 /* JP3DSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JP3DSService.h; sourceTree = "<group>"; };
 		3000738A23FBEDC80099F3C5 /* JP3DSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JP3DSService.m; sourceTree = "<group>"; };
+		30221BC523FD7E4D00BF2823 /* JPLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPLoadingView.h; sourceTree = "<group>"; };
+		30221BC623FD7E4D00BF2823 /* JPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPLoadingView.m; sourceTree = "<group>"; };
 		30472A10239E886500279A87 /* JudoKitAddCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitAddCardTests.swift; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitIDEALTransactionTests.swift; sourceTree = "<group>"; };
@@ -1465,6 +1469,16 @@
 			path = 3DSService;
 			sourceTree = "<group>";
 		};
+		30221BC423FD7E4D00BF2823 /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				30221BC523FD7E4D00BF2823 /* JPLoadingView.h */,
+				30221BC623FD7E4D00BF2823 /* JPLoadingView.m */,
+			);
+			name = LoadingView;
+			path = View/LoadingView;
+			sourceTree = "<group>";
+		};
 		30D08910238FB4CD00480C9E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -1767,6 +1781,7 @@
 		3B678B741C6CE68D0001DC2F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30221BC423FD7E4D00BF2823 /* LoadingView */,
 				30006F4823F698A20099F3C5 /* FloatingTextField */,
 				30006F5423F698A20099F3C5 /* InputField */,
 				30006F4523F698A20099F3C5 /* LoadingButton */,
@@ -2042,6 +2057,7 @@
 				300072CB23F6AB560099F3C5 /* JPDictionaryConvertible.h in Headers */,
 				300072EC23F6AB560099F3C5 /* JPPagination.h in Headers */,
 				30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */,
+				30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */,
 				300072F123F6AB560099F3C5 /* JPConsumer.h in Headers */,
 				30006F5923F698A20099F3C5 /* JPFloatingTextField.h in Headers */,
 				300072DD23F6AB560099F3C5 /* JPConstants.h in Headers */,
@@ -2472,6 +2488,7 @@
 				300072ED23F6AB560099F3C5 /* JPPagination.m in Sources */,
 				30006F3223F697B60099F3C5 /* JPApplePayService.m in Sources */,
 				52B74DA223F98B4C009FE38C /* JPTransactionRouter.m in Sources */,
+				30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */,
 				300072C023F6AB560099F3C5 /* JPCardStorage.m in Sources */,
 				3000734223FA9C590099F3C5 /* JPReceipt.m in Sources */,
 				5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */,
