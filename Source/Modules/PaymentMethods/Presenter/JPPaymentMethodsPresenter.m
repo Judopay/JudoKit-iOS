@@ -260,8 +260,13 @@
     cardModel.cardExpiryDate = cardDetails.expiryDate;
     cardModel.isDefaultCard = cardDetails.isDefault;
     cardModel.isSelected = cardDetails.isSelected;
+    cardModel.cardExpirationStatus = [self determineCardExpirationStatusWithDate:cardDetails.expiryDate];
 
     return cardModel;
+}
+
+-(ExpirationStatus)determineCardExpirationStatusWithDate:(NSString*)expirationDate{
+    return CardExpired;
 }
 
 - (JPStoredCardDetails *)selectedCard {

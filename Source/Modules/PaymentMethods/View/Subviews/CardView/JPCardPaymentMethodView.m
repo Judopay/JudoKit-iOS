@@ -81,6 +81,17 @@
                                                            viewModel.cardModel.cardNumberLastFour];
 
     self.logoImageView.image = [UIImage imageForCardNetwork:viewModel.cardModel.cardNetwork];
+    switch (viewModel.cardModel.cardExpirationStatus) {
+        case CardNotExpired:
+            
+            break;
+        case CardExpired:
+            [self setCardAsExpired];
+            break;
+        case CardExpiresSoon:
+            [self setCardAsExpiresSoon];
+            break;
+    }
 }
 
 #pragma mark - Layout Setup
@@ -110,6 +121,17 @@
     [self addSubview:mainStackView];
     [mainStackView pinToView:self withPadding:28.0 * getWidthAspectRatio()];
 }
+
+
+-(void)setCardAsExpired{
+    self.backgroundColor = [UIColor jpGrayColor];
+    self.expiryDateLabel.textColor = [UIColor jpRedColor];
+    self.expiryDateLabel.numberOfLines = 2;
+    self.expiryDateLabel.text = [NSString stringWithFormat:@"%@ \r %@", @"Expired", self.expiryDateLabel.text];
+    
+}
+
+-(void)setCardAsExpiresSoon{}
 
 #pragma mark - Lazy Properties
 
