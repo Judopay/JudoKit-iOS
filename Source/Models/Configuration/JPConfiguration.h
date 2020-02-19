@@ -29,7 +29,7 @@
 #import "JPUIConfiguration.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, PaymentSummaryItem;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem;
 
 @interface JPConfiguration : NSObject
 

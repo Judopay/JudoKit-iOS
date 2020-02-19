@@ -40,7 +40,7 @@
 - (instancetype)initWithMerchantId:(NSString *)merchantId
                           currency:(NSString *)currency
                        countryCode:(NSString *)countryCode
-               paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)paymentSummaryItems {
+               paymentSummaryItems:(NSArray<JPPaymentSummaryItem *> *)JPPaymentSummaryItems {
 
     if (self = [super init]) {
         [self setupDefaults];
@@ -49,7 +49,7 @@
     self.merchantId = merchantId;
     self.currency = currency;
     self.countryCode = countryCode;
-    self.paymentSummaryItems = paymentSummaryItems;
+    self.JPPaymentSummaryItems = JPPaymentSummaryItems;
 
     return self;
 }

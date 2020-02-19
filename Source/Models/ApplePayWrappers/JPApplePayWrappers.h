@@ -39,11 +39,11 @@ typedef NS_ENUM(NSInteger, MerchantCapability) {
 
 /**
  * Lists the available payment summary item types.
- * Default is PaymentSummaryItemTypeFinal.
+ * Default is JPPaymentSummaryItemTypeFinal.
  */
-typedef NS_ENUM(NSInteger, PaymentSummaryItemType) {
-    PaymentSummaryItemTypeFinal,
-    PaymentSummaryItemTypePending
+typedef NS_ENUM(NSInteger, JPPaymentSummaryItemType) {
+    JPPaymentSummaryItemTypeFinal,
+    JPPaymentSummaryItemTypePending
 };
 
 /**
@@ -84,7 +84,7 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
  * An object used in JPApplePayConfiguration to specify the purchase items, price
  * and payment type, either final or pending (ex: taxi fares)
  */
-@interface PaymentSummaryItem : NSObject
+@interface JPPaymentSummaryItem : NSObject
 
 /**
  * The title of the purchased item
@@ -98,9 +98,29 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
 
 /**
  * The type of the payment (final or pending)
- * Defaults to PaymentSummaryItemTypeFinal
+ * Defaults to JPPaymentSummaryItemTypeFinal
  */
-@property (nonatomic, assign) PaymentSummaryItemType type;
+@property (nonatomic, assign) JPPaymentSummaryItemType type;
+
+/**
+ * Convenience initializer that sets payment type to JPPaymentSummaryItemTypeFinal by default
+ *
+ * @param label  - title of the item
+ * @param amount - amount to be payed for this item
+ */
++ (instancetype)itemWithLabel:(nonnull NSString *)label
+                       amount:(nonnull NSDecimalNumber *)amount;
+
+/**
+ * Designated initializer
+ *
+ * @param label  - title of the item
+ * @param amount - amount to be payed for this item
+ * @param type   - payment type for this item (final / pending)
+ */
++ (instancetype)itemWithLabel:(nonnull NSString *)label
+                       amount:(nonnull NSDecimalNumber *)amount
+                         type:(JPPaymentSummaryItemType)type;
 
 /**
  * Designated initializer
@@ -111,10 +131,10 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
  */
 - (instancetype)initWithLabel:(nonnull NSString *)label
                        amount:(nonnull NSDecimalNumber *)amount
-                         type:(PaymentSummaryItemType)type;
+                         type:(JPPaymentSummaryItemType)type;
 
 /**
- * Convenience initializer that sets payment type to PaymentSummaryItemTypeFinal by default
+ * Convenience initializer that sets payment type to JPPaymentSummaryItemTypeFinal by default
  *
  * @param label  - title of the item
  * @param amount - amount to be payed for this item
@@ -126,9 +146,9 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
 
 /**
  * Defines a shipping method for delivering physical goods.
- * Inherits from PaymentSummaryItem
+ * Inherits from JPPaymentSummaryItem
  */
-@interface PaymentShippingMethod : PaymentSummaryItem
+@interface PaymentShippingMethod : JPPaymentSummaryItem
 
 /**
  * Identifier for the shipping method, used by the app.
@@ -153,7 +173,7 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
                             detail:(nonnull NSString *)detail
                              label:(nonnull NSString *)label
                             amount:(nonnull NSDecimalNumber *)amount
-                              type:(PaymentSummaryItemType)type;
+                              type:(JPPaymentSummaryItemType)type;
 
 @end
 

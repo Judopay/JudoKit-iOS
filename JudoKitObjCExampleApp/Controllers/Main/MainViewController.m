@@ -30,25 +30,23 @@
 #import "JPApplePayConfiguration.h"
 #import "SettingsViewController.h"
 #import "HalfHeightPresentationController.h"
-
 #import "DemoFeature.h"
 #import "Settings.h"
-
 #import "JudoKitObjC.h"
 
 static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
+static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, SettingsViewControllerDelegate, UIViewControllerTransitioningDelegate> {
-    UIAlertController *_alertController;
-}
+@interface MainViewController ()
 
+@property (nonatomic, strong) JPAmount *amount;
+@property (nonatomic, strong) JPReference *reference;
 @property (nonatomic, strong) JPCardDetails *cardDetails;
 @property (nonatomic, strong) JPPaymentToken *payToken;
 @property (nonatomic, strong) JudoKit *judoKitSession;
-
-@property (nonatomic, nonnull, strong) NSString *reference;
+@property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, strong) JPApplePayConfiguration *applePayConfiguration;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 
@@ -56,54 +54,229 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
 @implementation MainViewController
 
+# pragma mark - View lifecycle
+
 - (void)viewDidLoad {
+    [self initializeJudoSDK];
+    [self requestLocationPermissions];
     [super viewDidLoad];
-    
-    self.locationManager = [[CLLocationManager alloc] init];
-    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    
-    // initialize the SDK by setting it up with a token and a secret
+}
+
+#pragma mark - Setup methods
+
+- (void)initializeJudoSDK {
     self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
-    
-    // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
     self.judoKitSession.isSandboxed = YES;
-
-    self.reference = @"judoPay-sample-app-objc";
-    
-    self.settings = [Settings defaultSettings];
-    self.features = [DemoFeature defaultFeatures];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (_alertController) {
-        [self presentViewController:_alertController animated:YES completion:nil];
-        _alertController = nil;
+- (void)requestLocationPermissions {
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager requestWhenInUseAuthorization];
+}
+
+#pragma mark - SDK Features
+
+- (void)paymentOperation {
+    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+                                     configuration:self.configuration
+                                        completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)preAuthOperation {
+    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+                                     configuration:self.configuration
+                                        completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)createCardTokenOperation {
+    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+                                     configuration:self.configuration
+                                        completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)checkCardOperation {
+    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+                                     configuration:self.configuration
+                                        completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)saveCardOperation {
+    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+                                     configuration:self.configuration
+                                        completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)applePayPaymentOperation {
+    [self.judoKitSession invokeApplePayWithMode:TransactionModePayment
+                                  configuration:self.applePayConfiguration
+                                     completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)applePayPreAuthOperation {
+    [self.judoKitSession invokeApplePayWithMode:TransactionModePreAuth
+                                  configuration:self.applePayConfiguration
+                                     completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)paymentMethodOperation {
+    [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePayment
+                                             configuration:self.configuration
+                                                completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+- (void)preAuthMethodOperation {
+    [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePreAuth
+                                             configuration:self.configuration
+                                                completion:^(JPResponse *response, NSError *error) {
+        [self handleCallbackWithResponse:response andError:error];
+    }];
+}
+
+#pragma mark - Helper methods
+
+- (void)handleCallbackWithResponse:(JPResponse *)response
+                          andError:(NSError *)error {
+    if (error) {
+        [self handleError:error];
+        return;
+    }
+
+    [self handleResponse:response];
+}
+
+- (void)handleError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (error.code != JudoErrorUserDidCancel) {
+        [self presentErrorWithMessage:error.localizedDescription];
     }
 }
 
-#pragma mark - Actions
+- (void)handleResponse:(JPResponse *)response {
+    JPTransactionData *transactionData = response.items.firstObject;
 
-- (void)setSettings:(Settings *)settings {
-    _settings = settings;
-    //TODO: Handle this as a property
-    self.configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled;
+    if (!transactionData) {
+        [self presentErrorWithMessage:@"Callback returned empty response"];
+        return;
+    }
+
+    if (transactionData.cardDetails) {
+        self.cardDetails = transactionData.cardDetails;
+        self.payToken = transactionData.paymentToken;
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self presentDetailsViewControllerWithTransactionData:transactionData];
+    }];
 }
 
-- (void)settingsViewController:(SettingsViewController *)viewController didUpdateSettings:(Settings *)settings {
-    self.settings = settings;
+- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    viewController.transactionData = transactionData;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (IBAction)settingsButtonHandler:(id)sender {
+- (void)presentErrorWithMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
+                                                      presentingViewController:(UIViewController *)presenting
+                                                          sourceViewController:(UIViewController *)source {
+    return [[HalfHeightPresentationController alloc] initWithPresentedViewController:presented
+                                                            presentingViewController:presenting];
+}
+
+#pragma mark - Lazy properties
+
+- (JPConfiguration *)configuration {
+    if (!_configuration) {
+        _configuration = [[JPConfiguration alloc] initWithJudoID:judoId
+                                                          amount:self.amount
+                                                       reference:self.reference];
+        
+        _configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
+        _configuration.supportedCardNetworks = CardNetworkVisa | CardNetworkMasterCard | CardNetworkAMEX;
+        _configuration.applePayConfiguration = self.applePayConfiguration;
+    }
+    return _configuration;
+}
+
+- (JPApplePayConfiguration *)applePayConfiguration {
     
-    SettingsViewController *svc = [[SettingsViewController alloc] initWithSettings:self.settings];
-    svc.delegate = self;
-    svc.modalPresentationStyle = UIModalPresentationCustom;
-    svc.transitioningDelegate = self;
-    [self presentViewController:svc animated:YES completion:nil];
+    NSDecimalNumber *itemOnePrice = [NSDecimalNumber decimalNumberWithString:@"0.01"];
+    NSDecimalNumber *itemTwoPrice = [NSDecimalNumber decimalNumberWithString:@"0.02"];
+    NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:@"0.03"];
+    
+    NSArray *items = @[[JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
+                       [JPPaymentSummaryItem itemWithLabel:@"Item 2" amount:itemTwoPrice],
+                       [JPPaymentSummaryItem itemWithLabel:@"Tim Apple" amount:totalPrice]];
+ 
+    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:merchantId
+                                                                                        currency:self.settings.currency
+                                                                                     countryCode:@"GB"
+                                                                             paymentSummaryItems:items];
+    configuration.requiredShippingContactFields = ContactFieldAll;
+    configuration.requiredBillingContactFields = ContactFieldAll;
+    configuration.returnedContactInfo = ReturnedInfoAll;
+
+    return configuration;
 }
+
+- (JPAmount *)amount {
+    if (!_amount) {
+        _amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
+    }
+    return _amount;
+}
+
+- (JPReference *)reference {
+    if (!_reference) {
+        _reference = [JPReference consumerReference:kConsumerReference];
+    }
+    return _reference;
+}
+
+- (Settings *)settings {
+    if (!_settings) {
+        _settings = Settings.defaultSettings;
+    }
+    return _settings;
+}
+
+- (NSArray<DemoFeature *> *)features {
+    if (!_features) {
+        _features = DemoFeature.defaultFeatures;
+    }
+    return _features;
+}
+
+@end
+
+@implementation MainViewController (TableViewDelegates)
 
 #pragma mark - UITableViewDataSource
 
@@ -113,6 +286,7 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
     DemoFeature *option = self.features[indexPath.row];
     cell.textLabel.text = option.title;
@@ -125,151 +299,61 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
-        
     switch (feature.type) {
-            
         case DemoFeatureTypePayment:
-            [self invokeTransactionWithType:TransactionTypePayment];
+            [self paymentOperation];
             break;
-            
+
         case DemoFeatureTypePreAuth:
-            [self invokeTransactionWithType:TransactionTypePreAuth];
+            [self preAuthOperation];
             break;
-            
+
         case DemoFeatureTypeCreateCardToken:
-            [self invokeTransactionWithType:TransactionTypeRegisterCard];
+            [self createCardTokenOperation];
             break;
 
         case DemoFeatureTypeSaveCard:
-            [self invokeTransactionWithType:TransactionTypeSaveCard];
+            [self saveCardOperation];
             break;
-            
+
         case DemoFeatureTypeCheckCard:
-            [self invokeTransactionWithType:TransactionTypeCheckCard];
+            [self checkCardOperation];
             break;
 
         case DemoFeatureTypeApplePayPayment:
-            [self invokeApplePayWithMode:TransactionModePayment];
+            [self applePayPaymentOperation];
             break;
 
         case DemoFeatureTypeApplePayPreAuth:
-            [self invokeApplePayWithMode:TransactionModePreAuth];
+            [self applePayPreAuthOperation];
             break;
 
         case DemoFeatureTypePaymentMethods:
-            [self invokePaymentMethodScreenWithMode:TransactionModePayment];
-            break;
-            
-        case DemoFeatureTypePreAuthMethods:
-            [self invokePaymentMethodScreenWithMode:TransactionModePreAuth];
+            [self paymentMethodOperation];
             break;
 
-        default:
+        case DemoFeatureTypePreAuthMethods:
+            [self preAuthMethodOperation];
             break;
     }
 }
 
-- (void)invokeTransactionWithType:(TransactionType)type {
-    [self.judoKitSession invokeTransactionWithType:type
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
-        //TODO: Handle response / error
-    }];
+@end
+
+@implementation MainViewController (Settings)
+
+- (void)settingsViewController:(SettingsViewController *)viewController
+             didUpdateSettings:(Settings *)settings {
+    self.settings = settings;
+   self.configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled;
 }
 
-- (void)invokeApplePayWithMode:(TransactionMode)mode {
-    [self.judoKitSession invokeApplePayWithMode:mode
-                                  configuration:self.configuration.applePayConfiguration
-                                     completion:^(JPResponse *response, NSError *error) {
-        //TODO: Handle response / error
-    }];
-}
-
-- (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode {
-    [self.judoKitSession invokePaymentMethodScreenWithMode:mode
-                                             configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
-            //TODO: Handle response / error
-    }];
-}
-
-#pragma mark - Operations
-
-- (void)presentErrorWithMessage:(NSString *)message {
-    self->_alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self->_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:self->_alertController animated:YES completion:nil];
-}
-
-#pragma mark - Lazy Loading
-- (JPApplePayConfiguration *)applePayConfigurationWithType:(TransactionType)transactionType {
-    
-    NSArray *items = @[
-                       [[PaymentSummaryItem alloc] initWithLabel:@"Item 1"
-                                                          amount:[NSDecimalNumber decimalNumberWithString:@"0.01"]],
-                       [[PaymentSummaryItem alloc] initWithLabel:@"Item 2"
-                                                          amount:[NSDecimalNumber decimalNumberWithString:@"0.02"]],
-                       [[PaymentSummaryItem alloc] initWithLabel:@"Tim Apple"
-                                                          amount:[NSDecimalNumber decimalNumberWithString:@"0.03"]]
-                       ];
-    
-    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:merchantId
-                                                                                        currency:self.settings.currency
-                                                                                     countryCode:@"GB"
-                                                                             paymentSummaryItems:items];
-    
-    configuration.requiredShippingContactFields = ContactFieldAll;
-    configuration.requiredBillingContactFields = ContactFieldAll;
-    configuration.returnedContactInfo = ReturnedInfoAll;
-    
-    return configuration;
-}
-
-- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
-                                                      presentingViewController:(UIViewController *)presenting
-                                                          sourceViewController:(UIViewController *)source {
-    return [[HalfHeightPresentationController alloc] initWithPresentedViewController:presented
-                                                            presentingViewController:presenting];
-}
-
-- (JPConfiguration *)configuration {
-    
-    // REQUIRED PARAMETERS
-    JPAmount *amount = [[JPAmount alloc] initWithAmount:@"0.01" currency:self.settings.currency];
-    JPReference *reference = [JPReference consumerReference:self.reference];
-    
-    // INITIALIZATION
-    JPConfiguration *configuration;
-    configuration = [[JPConfiguration alloc] initWithJudoID:judoId
-                                                     amount:amount
-                                                  reference:reference];
-    
-    // OPTIONAL PARAMETERS
-    configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
-    configuration.supportedCardNetworks = CardNetworkVisa;
-    
-    
-    JPPrimaryAccountDetails *primaryAccountDetails = [JPPrimaryAccountDetails new];
-    primaryAccountDetails.name = @"Example Name";
-    primaryAccountDetails.accountNumber = @"Example Account Number";
-    primaryAccountDetails.dateOfBirth = @"Example Date";
-    primaryAccountDetails.postCode = @"Example Post Code";
-    
-    configuration.primaryAccountDetails = primaryAccountDetails;
-    
-    // UI Specific Configuration
-    configuration.uiConfiguration.isAVSEnabled = NO;
-    
-    // APPLE PAY SPECIFIC STUFF
-    configuration.applePayConfiguration = [self applePayConfigurationWithType:TransactionTypePayment];
-    configuration.applePayConfiguration.supportedCardNetworks = CardNetworkChinaUnionPay;
-    configuration.applePayConfiguration.shippingType = ShippingTypeShipping;
-    configuration.applePayConfiguration.shippingMethods = @[];
-    configuration.applePayConfiguration.requiredBillingContactFields = ContactFieldAll;
-    configuration.applePayConfiguration.requiredShippingContactFields = ContactFieldAll;
-    configuration.applePayConfiguration.returnedContactInfo = ReturnedInfoAll;
-    
-    return configuration;
+- (IBAction)settingsButtonHandler:(id)sender {
+    SettingsViewController *svc = [[SettingsViewController alloc] initWithSettings:self.settings];
+    svc.delegate = self;
+    svc.modalPresentationStyle = UIModalPresentationCustom;
+    svc.transitioningDelegate = self;
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 @end

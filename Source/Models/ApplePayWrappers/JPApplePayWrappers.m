@@ -24,13 +24,28 @@
 
 #import "JPApplePayWrappers.h"
 
-#pragma mark - PaymentSummaryItem
+#pragma mark - JPPaymentSummaryItem
 
-@implementation PaymentSummaryItem
+@implementation JPPaymentSummaryItem
+
++ (instancetype)itemWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount {
+    return [[JPPaymentSummaryItem alloc] initWithLabel:label
+                                              amount:amount];
+}
+
++ (instancetype)itemWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                         type:(JPPaymentSummaryItemType)type {
+    
+    return [[JPPaymentSummaryItem alloc] initWithLabel:label
+                                              amount:amount
+                                                type:type];
+}
 
 - (instancetype)initWithLabel:(NSString *)label
                        amount:(NSDecimalNumber *)amount
-                         type:(PaymentSummaryItemType)type {
+                         type:(JPPaymentSummaryItemType)type {
 
     if (self = [super init]) {
         self.label = label;
@@ -46,7 +61,7 @@
 
     return [self initWithLabel:label
                         amount:amount
-                          type:PaymentSummaryItemTypeFinal];
+                          type:JPPaymentSummaryItemTypeFinal];
 }
 
 @end
@@ -59,7 +74,7 @@
                             detail:(NSString *)detail
                              label:(nonnull NSString *)label
                             amount:(nonnull NSDecimalNumber *)amount
-                              type:(PaymentSummaryItemType)type {
+                              type:(JPPaymentSummaryItemType)type {
 
     if (self = [super initWithLabel:label amount:amount type:type]) {
         self.identifier = identifier;

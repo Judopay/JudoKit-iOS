@@ -212,16 +212,16 @@
 
 - (NSArray<PKPaymentSummaryItem *> *)pkPaymentSummaryItems {
 
-    NSMutableArray<PKPaymentSummaryItem *> *pkPaymentSummaryItems = [NSMutableArray new];
+    NSMutableArray<PKPaymentSummaryItem *> *pkJPPaymentSummaryItems = [NSMutableArray new];
 
-    for (PaymentSummaryItem *item in self.configuration.paymentSummaryItems) {
+    for (JPPaymentSummaryItem *item in self.configuration.JPPaymentSummaryItems) {
         PKPaymentSummaryItemType summaryItemType = [self pkSummaryItemTypeFromType:item.type];
-        [pkPaymentSummaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:item.label
-                                                                             amount:item.amount
-                                                                               type:summaryItemType]];
+        [pkJPPaymentSummaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:item.label
+                                                                               amount:item.amount
+                                                                                 type:summaryItemType]];
     }
 
-    return pkPaymentSummaryItems;
+    return pkJPPaymentSummaryItems;
 }
 
 - (NSArray<PKPaymentNetwork> *)pkPaymentNetworks {
@@ -289,8 +289,8 @@
     return pkContactFields;
 }
 
-- (PKPaymentSummaryItemType)pkSummaryItemTypeFromType:(PaymentSummaryItemType)type {
-    if (type == PaymentSummaryItemTypeFinal) {
+- (PKPaymentSummaryItemType)pkSummaryItemTypeFromType:(JPPaymentSummaryItemType)type {
+    if (type == JPPaymentSummaryItemTypeFinal) {
         return PKPaymentSummaryItemTypeFinal;
     }
 
