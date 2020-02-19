@@ -24,6 +24,8 @@
 
 #import "JP3DSViewController.h"
 #import "UIView+Additions.h"
+#import "UIColor+Additions.h"
+#import "NSError+Additions.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;
@@ -56,6 +58,25 @@
 - (void)setupViews {
     [self.view addSubview:self.webView];
     [self.webView pinToView:self.view withPadding:0.0];
+    [self setupNavigationItems];
+}
+
+- (void)setupNavigationItems {
+    self.navigationItem.title = @"3D Secure Check";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss"
+                                                                             style:UIBarButtonItemStyleDone
+                                                                            target:self
+                                                                            action:@selector(onDismissTap)];
+    
+    NSDictionary *titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+    self.navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
+    self.navigationItem.leftBarButtonItem.tintColor = UIColor.whiteColor;
+    self.navigationController.navigationBar.backgroundColor = UIColor.jpBlackColor;
+}
+
+- (void)onDismissTap {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.completionBlock(nil, NSError.judoUserDidCancelError);
 }
 
 #pragma mark - Public methods
