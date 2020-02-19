@@ -1,8 +1,8 @@
 //
-//  UIFont.m
+//  NSLayoutConstraint+Additions.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIFont+Additions.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIFont (Additions)
+@interface NSLayoutConstraint (Additions)
 
-+ (UIFont *)largeTitle {
-    return [UIFont systemFontOfSize:24.0 weight:UIFontWeightSemibold];
-}
-
-+ (UIFont *)title {
-    return [UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold];
-}
-
-+ (UIFont *)headline {
-    return [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
-}
-
-+ (UIFont *)headlineLight {
-    return [UIFont systemFontOfSize:16.0];
-}
-
-+ (UIFont *)body {
-    return [UIFont systemFontOfSize:14.0];
-}
-
-+ (UIFont *)bodyBold {
-    return [UIFont systemFontOfSize:14.0 weight:UIFontWeightSemibold];
-}
-
-+ (UIFont *)caption {
-    return [UIFont systemFontOfSize:10.0];
-}
-
-+ (UIFont *)captionBold {
-    return [UIFont systemFontOfSize:10.0 weight:UIFontWeightSemibold];
-}
+/**
+ * A method that activates an array of NSLayoutConstraints with a specified priority.
+ *
+ * @param constraints - an array of NSLayoutConstraints that are to be activated
+ * @param priority - a UILayoutPriority value that sets the priority of the constraints
+ */
++ (void)activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints
+               withPriority:(UILayoutPriority)priority;
 
 @end

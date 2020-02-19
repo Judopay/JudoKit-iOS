@@ -1,8 +1,8 @@
 //
-//  UIFont.m
+//  JPLoadingView.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIFont+Additions.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIFont (Additions)
+@interface JPLoadingView : UIView
 
-+ (UIFont *)largeTitle {
-    return [UIFont systemFontOfSize:24.0 weight:UIFontWeightSemibold];
-}
+/**
+ * The optional UILabel that contains the title string
+ */
+@property (nonatomic, strong) UILabel *titleLabel;
 
-+ (UIFont *)title {
-    return [UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold];
-}
+/**
+ * Designated initializer that configures the JPLoadingView instance with an optional title
+ *
+ * @param title - an optional NSString representing the title label displayed below the activity indicator
+ *
+ * @returns a configured instance of JPLoadingView
+ */
+- (instancetype)initWithTitle:(NSString *)title;
 
-+ (UIFont *)headline {
-    return [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
-}
+/**
+ * A method that displays the loading view with an animated activity indicator and an optional title
+ */
+- (void)startLoading;
 
-+ (UIFont *)headlineLight {
-    return [UIFont systemFontOfSize:16.0];
-}
-
-+ (UIFont *)body {
-    return [UIFont systemFontOfSize:14.0];
-}
-
-+ (UIFont *)bodyBold {
-    return [UIFont systemFontOfSize:14.0 weight:UIFontWeightSemibold];
-}
-
-+ (UIFont *)caption {
-    return [UIFont systemFontOfSize:10.0];
-}
-
-+ (UIFont *)captionBold {
-    return [UIFont systemFontOfSize:10.0 weight:UIFontWeightSemibold];
-}
+/**
+ * A method that hides the loading view
+ */
+- (void)stopLoading;
 
 @end

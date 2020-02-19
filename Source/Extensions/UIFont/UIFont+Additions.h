@@ -61,4 +61,9 @@
  */
 + (nonnull UIFont *)caption;
 
+/**
+ * The  bold version of the caption font (San Francisco Regular Semibold - 10)
+ */
++ (nonnull UIFont *)captionBold;
+
 @end

@@ -167,7 +167,6 @@ typedef NS_ENUM(NSInteger, ExpirationStatus) {
  */
 @property (nonatomic, assign) BOOL isSelected;
 
-
 /**
 * A value that specifies card expiration staus
 */

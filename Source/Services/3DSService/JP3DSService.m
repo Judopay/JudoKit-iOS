@@ -29,10 +29,6 @@
 
 @implementation JP3DSService
 
-- (void)didDismiss {
-    
-}
-
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
                                    completion:(JudoCompletionBlock)completion {
 
@@ -41,7 +37,7 @@
     JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration
                                                                               completion:completion];
     controller.transaction = self.transaction;
-    
+
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 

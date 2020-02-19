@@ -234,7 +234,9 @@
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         if (cardDetails.isSelected) {
             self.headerModel.cardModel = [self cardModelFromStoredCardDetails:cardDetails];
-            self.headerModel.payButtonModel.isEnabled = YES;
+            if (self.headerModel.cardModel.cardExpirationStatus != CardExpired) {
+                self.headerModel.payButtonModel.isEnabled = YES;
+            }
         }
     }
 
@@ -261,12 +263,23 @@
     cardModel.isDefaultCard = cardDetails.isDefault;
     cardModel.isSelected = cardDetails.isSelected;
     cardModel.cardExpirationStatus = [self determineCardExpirationStatusWithDate:cardDetails.expiryDate];
-
     return cardModel;
 }
 
--(ExpirationStatus)determineCardExpirationStatusWithDate:(NSString*)expirationDate{
-    return CardExpired;
+- (ExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    [dateFormater setDateFormat:@"MM/yy"];
+    NSDate *cardExpirationDate = [dateFormater dateFromString:expirationDate];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *currentDate = [NSDate date];
+    NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:currentDate options:0];
+    if ([cardExpirationDate compare:dateInTwoMonths] == NSOrderedAscending) {
+        if ([cardExpirationDate compare:currentDate] == NSOrderedAscending) {
+            return CardExpired;
+        }
+        return CardExpiresSoon;
+    }
+    return CardNotExpired;
 }
 
 - (JPStoredCardDetails *)selectedCard {

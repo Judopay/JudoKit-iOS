@@ -25,6 +25,7 @@
 #import "JPCardPaymentMethodView.h"
 #import "Functions.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
@@ -81,16 +82,8 @@
                                                            viewModel.cardModel.cardNumberLastFour];
 
     self.logoImageView.image = [UIImage imageForCardNetwork:viewModel.cardModel.cardNetwork];
-    switch (viewModel.cardModel.cardExpirationStatus) {
-        case CardNotExpired:
-            
-            break;
-        case CardExpired:
-            [self setCardAsExpired];
-            break;
-        case CardExpiresSoon:
-            [self setCardAsExpiresSoon];
-            break;
+    if (viewModel.cardModel.cardExpirationStatus == CardExpired) {
+        [self setCardAsExpired];
     }
 }
 
@@ -122,17 +115,16 @@
     [mainStackView pinToView:self withPadding:28.0 * getWidthAspectRatio()];
 }
 
-
--(void)setCardAsExpired{
+- (void)setCardAsExpired {
     self.backgroundColor = [UIColor jpGrayColor];
     self.expiryDateLabel.textColor = [UIColor jpRedColor];
     self.expiryDateLabel.numberOfLines = 2;
-    self.expiryDateLabel.text = [NSString stringWithFormat:@"%@ \r %@", @"Expired", self.expiryDateLabel.text];
-    
+    NSDictionary *attrDict = @{NSFontAttributeName : UIFont.caption};
+    NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", @"expired".localized, @"\r"] attributes:attrDict];
+    NSAttributedString *expiryDate = [[NSAttributedString alloc] initWithString:self.expiryDateLabel.text];
+    [expiredText appendAttributedString:expiryDate];
+    self.expiryDateLabel.attributedText = expiredText;
 }
-
--(void)setCardAsExpiresSoon{}
-
 #pragma mark - Lazy Properties
 
 - (UILabel *)titleLabel {

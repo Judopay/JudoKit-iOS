@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsCardCell.h"
 #import "JPCardNetwork.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
@@ -78,9 +79,14 @@
     JPPaymentMethodsCardModel *cardModel = (JPPaymentMethodsCardModel *)viewModel;
     self.titleLabel.text = cardModel.cardTitle;
 
-    self.subtitleLabel.text = [NSString stringWithFormat:@"card_subtitle".localized,
-                                                         [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork],
-                                                         cardModel.cardNumberLastFour];
+    NSString *subtitleText = [NSString stringWithFormat:@"card_subtitle".localized,
+                                                        [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork],
+                                                        cardModel.cardNumberLastFour];
+
+    NSMutableAttributedString *subtitleLabelText = [[NSMutableAttributedString alloc] initWithString:subtitleText];
+    NSRange range = NSMakeRange(subtitleText.length - 4, 4);
+    [subtitleLabelText addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:range];
+    self.subtitleLabel.attributedText = subtitleLabelText;
 
     self.iconImageView.image = [UIImage imageForCardNetwork:cardModel.cardNetwork];
 
@@ -91,6 +97,17 @@
     accessoryImageView.contentMode = UIViewContentModeScaleAspectFit;
     accessoryImageView.frame = CGRectMake(0, 0, 24, 24);
     self.accessoryView = accessoryImageView;
+
+    switch (cardModel.cardExpirationStatus) {
+        case CardNotExpired:
+            break;
+        case CardExpired:
+            [self setCardAsExpired];
+            break;
+        case CardExpiresSoon:
+            [self setCardAsExpiresSoon];
+            break;
+    }
 }
 
 #pragma mark - Layout Setup
@@ -110,8 +127,40 @@
     [horizontalStackView addArrangedSubview:verticalStackView];
 
     [self.contentView addSubview:horizontalStackView];
-    [horizontalStackView pinToAnchors:AnchorTypeTop | AnchorTypeBottom forView:self.contentView withPadding:13.0f];
-    [horizontalStackView pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing forView:self.contentView withPadding:24.0f];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [horizontalStackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
+                                                      constant:13],
+        [horizontalStackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
+                                                         constant:-13],
+        [horizontalStackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
+                                                          constant:24],
+        [horizontalStackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
+                                                           constant:-24],
+    ]
+                               withPriority:999];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [self.iconContainerView.heightAnchor constraintEqualToConstant:36.0f],
+        [self.iconContainerView.widthAnchor constraintEqualToConstant:52.0f],
+    ]];
+}
+
+- (void)setCardAsExpired {
+    NSMutableAttributedString *isExpiredText = [[NSMutableAttributedString alloc] initWithString:@"is_expired".localized];
+    NSRange range = NSMakeRange(isExpiredText.length - @"expired".localized.length, @"expired".localized.length);
+    [isExpiredText addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:range];
+    NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
+    [subtitleText appendAttributedString:isExpiredText];
+    self.subtitleLabel.attributedText = subtitleText;
+    self.subtitleLabel.textColor = [UIColor jpRedColor];
+}
+
+- (void)setCardAsExpiresSoon {
+    NSAttributedString *willExpireText = [[NSAttributedString alloc] initWithString:@"will_expire_soon".localized];
+    NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
+    [subtitleText appendAttributedString:willExpireText];
+    self.subtitleLabel.attributedText = subtitleText;
 }
 
 #pragma mark - Lazy instantiated properties
@@ -123,8 +172,6 @@
         _iconContainerView.layer.borderColor = [UIColor colorFromHex:0xF5F5F6].CGColor;
         _iconContainerView.layer.borderWidth = 1.0f;
         _iconContainerView.layer.cornerRadius = 2.4f;
-        [_iconContainerView.heightAnchor constraintEqualToConstant:36.0f].active = YES;
-        [_iconContainerView.widthAnchor constraintEqualToConstant:52.0f].active = YES;
     }
     return _iconContainerView;
 }
