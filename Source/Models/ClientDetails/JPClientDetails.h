@@ -27,12 +27,34 @@
 
 @interface JPClientDetails : NSObject <JPDictionaryConvertible>
 
+/**
+ * An NSSting property describing the key of a JPClientDetails instance
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable key;
+
+/**
+ * An NSSting property describing the value of a JPClientDetails instance
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable value;
 
+/**
+ * Designated initializer based on a key and a value NSString object
+ *
+ * @param key - an instance of NSString describing the key
+ * @param value - an instance of NSString describing the value
+ *
+ * @returns a configured instance of JPClientDetails
+ */
 - (nonnull instancetype)initWithKey:(nonnull NSString *)key
                               value:(nonnull NSString *)value;
 
+/**
+ * Designated initializer based on a NSDictionary object
+ *
+ * @param dictionary - an instance of NSDictionary describing JPClientDetails instance
+ *
+ * @returns a configured instance of JPClientDetails
+ */
 + (nonnull instancetype)detailsWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

@@ -35,7 +35,8 @@
  * @param button - the target button
  * @param selector - the selector attributed to the button
  */
-- (void)connectButton:(UIButton *)button withSelector:(SEL)selector;
+- (void)connectButton:(nonnull UIButton *)button
+         withSelector:(nonnull SEL)selector;
 
 /**
  * Convenience method for adding tap gesture recognizers to views
@@ -43,14 +44,15 @@
  * @param view - the target view
  * @param selector - the selector attributed to the tap gesture
  */
-- (void)addTapGestureForView:(UIView *)view withSelector:(SEL)selector;
+- (void)addTapGestureForView:(nonnull UIView *)view
+                withSelector:(nonnull SEL)selector;
 
 /**
  * Convenience method for displaying alert controllers based on a specified error
  *
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithError:(NSError *)error;
+- (void)displayAlertWithError:(nonnull NSError *)error;
 
 /**
  * Method that triggers haptic feedback based on a specified feedback type
@@ -63,7 +65,8 @@
  * @param title - an optional NSString that defines the title of the alert
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error;
+- (void)displayAlertWithTitle:(nullable NSString *)title
+                     andError:(nonnull NSError *)error;
 
 /**
  * A convenience method for quickly registering keyboard observers
@@ -78,11 +81,11 @@
 /**
  * Methods that have to be overriden by the view controller with custom showing behaviour
  */
-- (void)keyboardWillShow:(NSNotification *)notification;
+- (void)keyboardWillShow:(nonnull NSNotification *)notification;
 
 /**
  * Methods that have to be overriden by the view controller with custom hiding behaviour
  */
-- (void)keyboardWillHide:(NSNotification *)notification;
+- (void)keyboardWillHide:(nonnull NSNotification *)notification;
 
 @end

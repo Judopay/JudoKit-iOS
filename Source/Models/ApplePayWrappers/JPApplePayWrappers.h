@@ -89,12 +89,12 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
 /**
  * The title of the purchased item
  */
-@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *_Nonnull label;
 
 /**
  * The amount to be payed for this specific item
  */
-@property (nonatomic, strong) NSDecimalNumber *amount;
+@property (nonatomic, strong) NSDecimalNumber *_Nonnull amount;
 
 /**
  * The type of the payment (final or pending)
@@ -109,8 +109,8 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
  * @param amount - amount to be payed for this item
  * @param type   - payment type for this item (final / pending)
  */
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
+- (instancetype)initWithLabel:(nonnull NSString *)label
+                       amount:(nonnull NSDecimalNumber *)amount
                          type:(PaymentSummaryItemType)type;
 
 /**
@@ -119,8 +119,8 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
  * @param label  - title of the item
  * @param amount - amount to be payed for this item
  */
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount;
+- (instancetype)initWithLabel:(nonnull NSString *)label
+                       amount:(nonnull NSDecimalNumber *)amount;
 
 @end
 
@@ -133,26 +133,26 @@ typedef NS_OPTIONS(NSInteger, ReturnedInfo) {
 /**
  * Identifier for the shipping method, used by the app.
  */
-@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *_Nonnull identifier;
 
 /**
  * A user-readable description of the shipping method.
  */
-@property (nonatomic, strong) NSString *detail;
+@property (nonatomic, strong) NSString *_Nonnull detail;
 
 /**
  * Designated initializer
  *
  * @param identifier - identifier for the shipping method, used by the app.
- * @param detail     - a user-readable description of the shipping method.
+ * @param detail  - a user-readable description of the shipping method.
  * @param label  - title of the item
  * @param amount - amount to be payed for this item
  * @param type   - payment type for this item (final / pending)
  */
-- (instancetype)initWithIdentifier:(NSString *)identifier
-                            detail:(NSString *)detail
-                             label:(NSString *)label
-                            amount:(NSDecimalNumber *)amount
+- (instancetype)initWithIdentifier:(nonnull NSString *)identifier
+                            detail:(nonnull NSString *)detail
+                             label:(nonnull NSString *)label
+                            amount:(nonnull NSDecimalNumber *)amount
                               type:(PaymentSummaryItemType)type;
 
 @end

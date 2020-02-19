@@ -26,12 +26,12 @@
 #import "JPKeychainService.h"
 
 @interface JPCardStorage ()
-
 @property (nonatomic, strong) NSMutableArray<JPStoredCardDetails *> *storedCards;
-
 @end
 
 @implementation JPCardStorage
+
+#pragma mark - Initializers
 
 + (instancetype)sharedInstance {
     static JPCardStorage *sharedInstance = nil;
@@ -55,6 +55,8 @@
     }
     return self;
 }
+
+#pragma mark - Public methods
 
 - (NSMutableArray<JPStoredCardDetails *> *)getStoredCardDetails {
     return self.storedCards.copy;

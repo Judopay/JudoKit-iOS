@@ -29,12 +29,10 @@
 #import "JPReference.h"
 
 @interface JPConfiguration ()
-
 @property (nonatomic, strong) NSString *_Nullable judoId;
 @property (nonatomic, strong) NSString *_Nullable receiptId;
 @property (nonatomic, strong) JPAmount *_Nonnull amount;
 @property (nonatomic, strong) JPReference *_Nonnull reference;
-
 @end
 
 @implementation JPConfiguration
@@ -61,31 +59,7 @@
     return self;
 }
 
-#pragma mark - Apple Pay required configuration
-
-- (void)configureApplePayWithMerchantId:(NSString *)merchantId
-                            countryCode:(NSString *)countryCode
-                    paymentSummaryItems:(NSArray<PaymentSummaryItem *> *)items {
-
-    self.applePayConfiguration = [[JPApplePayConfiguration alloc] initWithMerchantId:merchantId
-                                                                            currency:self.amount.currency
-                                                                         countryCode:countryCode
-                                                                 paymentSummaryItems:items];
-}
-
-#pragma mark - Apple Pay optional configuration
-
-- (void)setRequiredBillingContactFields:(ContactField)billingFields {
-    self.applePayConfiguration.requiredBillingContactFields = billingFields;
-}
-
-- (void)setRequiredShippingContactFields:(ContactField)shippingFields {
-    self.applePayConfiguration.requiredShippingContactFields = shippingFields;
-}
-
-- (void)setReturnedContactInfo:(ReturnedInfo)returnedInfo {
-    self.applePayConfiguration.returnedContactInfo = returnedInfo;
-}
+#pragma mark - Lazy properties
 
 - (JPUIConfiguration *)uiConfiguration {
     if (!_uiConfiguration) {

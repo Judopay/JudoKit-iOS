@@ -35,7 +35,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (UIImage *)imageWithIconName:(NSString *)iconName;
++ (nonnull UIImage *)imageWithIconName:(nonnull NSString *)iconName;
 
 /**
  * Initializes an UIImage based on a resource name contained in the resources bundle
@@ -44,7 +44,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (UIImage *)imageWithResourceName:(NSString *)resourceName;
++ (nonnull UIImage *)imageWithResourceName:(nonnull NSString *)resourceName;
 
 /**
  * Initializes an UIImage based on a card network
@@ -53,6 +53,6 @@
  *
  * @return a configured UIImage instance
  */
-+ (UIImage *)imageForCardNetwork:(CardNetwork)network;
++ (nonnull UIImage *)imageForCardNetwork:(CardNetwork)network;
 
 @end

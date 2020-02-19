@@ -28,15 +28,11 @@
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
-
 NSString *const UnableToProcessRequestErrorDesc = @"unable_to_process_request_error_desc";
 NSString *const UnableToProcessRequestErrorTitle = @"unable_to_process_request_error_title";
-
 NSString *const ErrorUnsupportedCardNetworkTitle = @"error_unsupported_card_network_title";
 NSString *const ErrorUnsupportedCardNetworkDescription = @"error_unsupported_card_network_desc";
-
 NSString *const JPErrorTitleKey = @"JPErrorTitleKey";
-
 NSString *const ErrorRequestFailed = @"error_request_failed";
 NSString *const ErrorPaymentMethodMissing = @"error_payment_method_missing";
 NSString *const ErrorAmountMissing = @"error_amount_missing";
@@ -47,7 +43,6 @@ NSString *const ErrorUserDidCancel = @"error_user_did_cancel";
 NSString *const ErrorParameterError = @"error_parameter_error";
 NSString *const ErrorFailed3DSRequest = @"error_failed_3DS_request";
 NSString *const ErrorJailbrokenDeviceDisallowed = @"error_jailbroken_device_disallowed";
-
 NSString *const Error3DSRequest = @"error_3DS_request";
 NSString *const ErrorUnderlyingError = @"error_underlying_error";
 NSString *const ErrorTransactionDeclined = @"error_transaction_declined";

@@ -29,7 +29,6 @@
 
 /**
  * The shared JPCardStorage instance
- *
  */
 + (instancetype)sharedInstance;
 
@@ -55,10 +54,10 @@
 - (BOOL)deleteCardDetails;
 
 /**
-* A method for deleting a specific card details from the keychain by its index
-*
-* @param index - Card's index in cards list
-*/
+ * A method for deleting a specific card details from the keychain by its index
+ *
+ * @param index - Card's index in cards list
+ */
 - (void)deleteCardWithIndex:(NSInteger)index;
 
 /**

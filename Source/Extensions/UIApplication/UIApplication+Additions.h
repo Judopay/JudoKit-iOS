@@ -31,7 +31,14 @@
  */
 + (BOOL)isUserInterfaceStyleDark;
 
+/**
+ * A method for identifying if the current device is jailbroken
+ */
 + (BOOL)isCurrentDeviceJailbroken;
 
+/**
+ * A method that returns the top most instance of UIViewController displayed on the screen
+ */
 + (UIViewController *)topMostViewController;
+
 @end

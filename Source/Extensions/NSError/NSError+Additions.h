@@ -79,7 +79,6 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorInvalidCardNumberError,
     JudoErrorUnsupportedCardNetwork,
     JudoErrorJailbrokenDeviceDisallowed,
-
     JudoErrorGeneral_Error = 0,
     JudoErrorGeneral_Model_Error = 1,
     JudoErrorUnauthorized = 7,

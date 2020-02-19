@@ -26,17 +26,45 @@
 #import <UIKit/UIKit.h>
 
 @interface JPBrowser : NSObject <JPDictionaryConvertible>
+
+/**
+ * An instance of NSString describing the accepted header
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable acceptHeader;
+
+/**
+ * An instance of NSTimeZone describing the time zone
+ */
 @property (nonatomic, strong, readonly) NSTimeZone *_Nullable timeZone;
+
+/**
+ * An instance of NSString describing the user agent
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable userAgent;
+
+/**
+ * An instance of NSString describing the language
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable language;
 
+/**
+ * An instance of NSString describing if the browser has Java enabled
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable javaEnabled;
+
+/**
+ * An instance of NSString describing if the browser has Javascript enabled
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable javascriptEnabled;
+
+/**
+ * An instance of NSString describing the color depth of the device
+ */
 @property (nonatomic, strong, readonly) NSString *_Nullable colorDepth;
 
+/**
+ * An instance of CGSize describing the screen size of the device
+ */
 @property (nonatomic, readonly) CGSize screenSize;
-
-- (nonnull instancetype)init;
 
 @end

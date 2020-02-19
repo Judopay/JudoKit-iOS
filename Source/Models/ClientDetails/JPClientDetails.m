@@ -29,6 +29,8 @@
 static NSString *const kClientDetailsKey = @"key";
 static NSString *const kClientDetailsValueKey = @"value";
 
+#pragma mark - Initializers
+
 - (instancetype)initWithKey:(NSString *)key value:(NSString *)value {
     if (self = [super init]) {
         _key = key;
@@ -44,6 +46,7 @@ static NSString *const kClientDetailsValueKey = @"value";
 }
 
 #pragma mark - JPDictionaryConvertible
+
 - (NSDictionary *)toDictionary {
     return @{
         kClientDetailsKey : self.key,

@@ -29,36 +29,36 @@
 /**
  * The font used for prominent UI elements (San Francisco Semibold - 24)
  */
-+ (UIFont *)largeTitle;
++ (nonnull UIFont *)largeTitle;
 
 /**
  * The font used for smaller prominent UI elements (San Francisco Semibold - 18)
  */
-+ (UIFont *)title;
++ (nonnull UIFont *)title;
 
 /**
  * The headline font (San Francisco Semibold - 16)
 */
-+ (UIFont *)headline;
++ (nonnull UIFont *)headline;
 
 /**
  * The headline light font (San Francisco Regular - 16)
  */
-+ (UIFont *)headlineLight;
++ (nonnull UIFont *)headlineLight;
 
 /**
  * Body font (San Francisco Regular - 14)
  */
-+ (UIFont *)body;
++ (nonnull UIFont *)body;
 
 /**
  * The bold version of the body font (San Francisco Semibold - 14)
  */
-+ (UIFont *)bodyBold;
++ (nonnull UIFont *)bodyBold;
 
 /**
  * The caption font (San Francisco Regular - 10)
  */
-+ (UIFont *)caption;
++ (nonnull UIFont *)caption;
 
 @end

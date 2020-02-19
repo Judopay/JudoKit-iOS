@@ -61,7 +61,8 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param corners - rectangle corner values that have to be rounded
  * @param radius - the radius for rounding the corners
  */
-- (void)roundCorners:(UIRectCorner)corners withRadius:(CGFloat)radius;
+- (void)roundCorners:(UIRectCorner)corners
+          withRadius:(CGFloat)radius;
 
 /**
  * Constraints the view to the superview with a specified padding
@@ -69,7 +70,8 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param view - the view to achor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToView:(nonnull UIView *)view withPadding:(CGFloat)padding;
+- (void)pinToView:(nonnull UIView *)view
+      withPadding:(CGFloat)padding;
 
 /**
  * Constraints the view to the superview only for specific anchors
@@ -77,7 +79,8 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
  * @param anchors - the anchor values to be constrained to
  * @param view - the view to anchor to
  */
-- (void)pinToAnchors:(AnchorType)anchors forView:(nonnull UIView *)view;
+- (void)pinToAnchors:(AnchorType)anchors
+             forView:(nonnull UIView *)view;
 
 /**
  * Constraints the view to the superview only for specific anchors with padding
