@@ -167,6 +167,8 @@
 		3000738C23FBEDC80099F3C5 /* JP3DSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000738A23FBEDC80099F3C5 /* JP3DSService.m */; };
 		30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221BC523FD7E4D00BF2823 /* JPLoadingView.h */; };
 		30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221BC623FD7E4D00BF2823 /* JPLoadingView.m */; };
+		30221C1023FE617300BF2823 /* NSLayoutConstraint+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C0E23FE617300BF2823 /* NSLayoutConstraint+Additions.m */; };
+		30221C1123FE617300BF2823 /* NSLayoutConstraint+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C0F23FE617300BF2823 /* NSLayoutConstraint+Additions.h */; };
 		30472A11239E886500279A87 /* JudoKitAddCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30472A10239E886500279A87 /* JudoKitAddCardTests.swift */; };
 		30C22199235EF771000D6E3A /* JudoKitIDEALTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */; };
 		30D088F7238D73A900480C9E /* PostCodeValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D088F3238D735A00480C9E /* PostCodeValidationTests.swift */; };
@@ -556,6 +558,8 @@
 		3000738A23FBEDC80099F3C5 /* JP3DSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JP3DSService.m; sourceTree = "<group>"; };
 		30221BC523FD7E4D00BF2823 /* JPLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPLoadingView.h; sourceTree = "<group>"; };
 		30221BC623FD7E4D00BF2823 /* JPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPLoadingView.m; sourceTree = "<group>"; };
+		30221C0E23FE617300BF2823 /* NSLayoutConstraint+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Additions.m"; sourceTree = "<group>"; };
+		30221C0F23FE617300BF2823 /* NSLayoutConstraint+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+Additions.h"; sourceTree = "<group>"; };
 		30472A10239E886500279A87 /* JudoKitAddCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitAddCardTests.swift; sourceTree = "<group>"; };
 		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30C22190235EF754000D6E3A /* JudoKitIDEALTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitIDEALTransactionTests.swift; sourceTree = "<group>"; };
@@ -872,8 +876,8 @@
 		30006F6323F699390099F3C5 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				30006F6423F699390099F3C5 /* UIView+Additions.m */,
 				30006F6523F699390099F3C5 /* UIView+Additions.h */,
+				30006F6423F699390099F3C5 /* UIView+Additions.m */,
 			);
 			name = UIView;
 			path = Extensions/UIView;
@@ -1479,6 +1483,16 @@
 			path = View/LoadingView;
 			sourceTree = "<group>";
 		};
+		30221C0D23FE617300BF2823 /* NSLayoutConstraint */ = {
+			isa = PBXGroup;
+			children = (
+				30221C0E23FE617300BF2823 /* NSLayoutConstraint+Additions.m */,
+				30221C0F23FE617300BF2823 /* NSLayoutConstraint+Additions.h */,
+			);
+			name = NSLayoutConstraint;
+			path = Extensions/NSLayoutConstraint;
+			sourceTree = "<group>";
+		};
 		30D08910238FB4CD00480C9E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -1765,6 +1779,7 @@
 				30006F7523F6993A0099F3C5 /* NSArray */,
 				30006F8123F6993A0099F3C5 /* NSBundle */,
 				30006F7223F6993A0099F3C5 /* NSError */,
+				30221C0D23FE617300BF2823 /* NSLayoutConstraint */,
 				30006F6C23F6993A0099F3C5 /* NSString */,
 				30006F7B23F6993A0099F3C5 /* UIApplication */,
 				30006F6923F6993A0099F3C5 /* UIColor */,
@@ -2062,6 +2077,7 @@
 				30006F5923F698A20099F3C5 /* JPFloatingTextField.h in Headers */,
 				300072DD23F6AB560099F3C5 /* JPConstants.h in Headers */,
 				300072FC23F6AB560099F3C5 /* JPEnhancedPaymentDetail.h in Headers */,
+				30221C1123FE617300BF2823 /* NSLayoutConstraint+Additions.h in Headers */,
 				30D61D6823BB741A004E5CEE /* JPPaymentMethodsView.h in Headers */,
 				30006F6223F698A20099F3C5 /* JPInputField.h in Headers */,
 				300072E123F6AB560099F3C5 /* JPAddress.h in Headers */,
@@ -2480,6 +2496,7 @@
 				30006F3823F697B60099F3C5 /* JPIDealService.m in Sources */,
 				3000733423FA9C1C0099F3C5 /* JPSession.m in Sources */,
 				300072C823F6AB560099F3C5 /* JPBrowser.m in Sources */,
+				30221C1023FE617300BF2823 /* NSLayoutConstraint+Additions.m in Sources */,
 				30006FA323F6993A0099F3C5 /* CLLocation+Additions.m in Sources */,
 				52B74D9023F98B4C009FE38C /* JPTransactionPresenter.m in Sources */,
 				30006FA023F6993A0099F3C5 /* UIFont+Additions.m in Sources */,
