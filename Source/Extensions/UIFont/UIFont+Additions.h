@@ -27,42 +27,42 @@
 @interface UIFont (Additions)
 
 /**
- * The font used for prominent UI elements of size 24
+ * The font used for prominent UI elements of size 24 and weight semibold
  */
 + (nonnull UIFont *)largeTitle;
 
 /**
- * The font used for smaller prominent UI elements  of size 18
+ * The font used for smaller prominent UI elements  of size 18 and weight semibold
  */
 + (nonnull UIFont *)title;
 
 /**
- * The headline font of size 16
+ * The headline font of size 16 and weight semibold
 */
 + (nonnull UIFont *)headline;
 
 /**
- * The headline light font of size 16
+ * The headline light font of size 16 and weight regular
  */
 + (nonnull UIFont *)headlineLight;
 
 /**
- * Body font of size 14
+ * Body font of size 14 and weight regular
  */
 + (nonnull UIFont *)body;
 
 /**
- * The bold version of the body font of size 14
+ * The bold version of the body font of size 14 and weight semibold
  */
 + (nonnull UIFont *)bodyBold;
 
 /**
- * The caption font of size 10
+ * The caption font of size 10 and weight regular
  */
 + (nonnull UIFont *)caption;
 
 /**
- * The  bold version of the caption font  of size 10
+ * The bold version of the caption font of size 10 and weight semibold
  */
 + (nonnull UIFont *)captionBold;
 

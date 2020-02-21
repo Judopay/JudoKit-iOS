@@ -30,8 +30,7 @@ import Foundation
     
     func configure(with viewModel: JPPaymentMethodsViewModel!) {
         for card in viewModel.items!{
-            if (type(of: card) == JPPaymentMethodsCardListModel.self){
-                let cardList = card as! JPPaymentMethodsCardListModel
+            if let cardList = card as? JPPaymentMethodsCardListModel {
                 cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
             }
         }

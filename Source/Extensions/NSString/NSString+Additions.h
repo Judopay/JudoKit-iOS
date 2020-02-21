@@ -83,6 +83,6 @@
  * @return - a  NSMutableAttributedString where provided word is bold
  *
 */
--(NSMutableAttributedString *_Nonnull)withBoldText:(NSString *_Nonnull)word;
+- (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring;
 
 @end

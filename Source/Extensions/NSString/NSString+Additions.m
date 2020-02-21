@@ -185,11 +185,11 @@
     return (total % 10) == 0;
 }
 
--(NSMutableAttributedString *)withBoldText:(NSString *)word {
+-(nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self];
-    NSRange wordRange = [self rangeOfString:word];
-    if (wordRange.location != NSNotFound) {
-        [attributedString addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:wordRange];
+    NSRange substringRange = [self rangeOfString:substring];
+    if (substringRange.location != NSNotFound) {
+        [attributedString addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:substringRange];
     }
     return attributedString;
 }

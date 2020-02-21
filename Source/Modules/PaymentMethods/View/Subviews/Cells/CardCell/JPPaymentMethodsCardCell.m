@@ -161,7 +161,7 @@
     }
     
     NSString *isExpiredString = [NSString stringWithFormat:@"%@%@", @" ", expirationStatus];
-    NSMutableAttributedString *isExpiredText = [isExpiredString withBoldText:boldWord];
+    NSMutableAttributedString *isExpiredText = [isExpiredString attributedStringWithBoldSubstring:boldWord];
     NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
     [subtitleText appendAttributedString:isExpiredText];
     self.subtitleLabel.attributedText = subtitleText;
