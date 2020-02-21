@@ -79,7 +79,7 @@
 
 /**
  * A method which makes a word in string bold
- * @param word - the word to be made bold
+ * @param substring - the substring to be made bold
  * @return - a  NSMutableAttributedString where provided word is bold
  *
 */
