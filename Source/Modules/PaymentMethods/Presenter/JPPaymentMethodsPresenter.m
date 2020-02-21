@@ -33,6 +33,7 @@
 #import "JPTransactionViewModel.h"
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
+#import "JPConstants.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -382,7 +383,7 @@
 - (NSDateFormatter *)dateFormater {
     if (!_dateFormater) {
         _dateFormater = [[NSDateFormatter alloc] init];
-        [_dateFormater setDateFormat:@"MM/yy"];
+        [_dateFormater setDateFormat:kMonthYearDateFormat];
     }
     return _dateFormater;
 }

@@ -35,7 +35,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         let notExpiredDate = calendar.date(byAdding: .month, value: 3, to: todaysDate)!
 
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = ("MM/yy")
+        dateFormater.dateFormat = (kMonthYearDateFormat)
         
         let expiresSoonDateAsString = dateFormater.string(from: dateInTwoMonths)
         let expiredDateAsString = dateFormater.string(from: expiredDate)

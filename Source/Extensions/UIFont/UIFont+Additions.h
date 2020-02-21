@@ -27,42 +27,42 @@
 @interface UIFont (Additions)
 
 /**
- * The font used for prominent UI elements (San Francisco Semibold - 24)
+ * The font used for prominent UI elements of size 24
  */
 + (nonnull UIFont *)largeTitle;
 
 /**
- * The font used for smaller prominent UI elements (San Francisco Semibold - 18)
+ * The font used for smaller prominent UI elements  of size 18
  */
 + (nonnull UIFont *)title;
 
 /**
- * The headline font (San Francisco Semibold - 16)
+ * The headline font of size 16
 */
 + (nonnull UIFont *)headline;
 
 /**
- * The headline light font (San Francisco Regular - 16)
+ * The headline light font of size 16
  */
 + (nonnull UIFont *)headlineLight;
 
 /**
- * Body font (San Francisco Regular - 14)
+ * Body font of size 14
  */
 + (nonnull UIFont *)body;
 
 /**
- * The bold version of the body font (San Francisco Semibold - 14)
+ * The bold version of the body font of size 14
  */
 + (nonnull UIFont *)bodyBold;
 
 /**
- * The caption font (San Francisco Regular - 10)
+ * The caption font of size 10
  */
 + (nonnull UIFont *)caption;
 
 /**
- * The  bold version of the caption font (San Francisco Regular Semibold - 10)
+ * The  bold version of the caption font  of size 10
  */
 + (nonnull UIFont *)captionBold;
 

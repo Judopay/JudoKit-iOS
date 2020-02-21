@@ -27,6 +27,7 @@
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
 #import <Foundation/Foundation.h>
+#import "UIFont+Additions.h"
 
 @implementation NSString (Additions)
 
@@ -182,6 +183,15 @@
     }
 
     return (total % 10) == 0;
+}
+
+-(NSMutableAttributedString *)withBoldText:(NSString *)word {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self];
+    NSRange wordRange = [self rangeOfString:word];
+    if (wordRange.location != NSNotFound) {
+        [attributedString addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:wordRange];
+    }
+    return attributedString;
 }
 
 @end
