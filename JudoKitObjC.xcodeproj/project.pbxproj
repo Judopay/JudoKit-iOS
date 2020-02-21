@@ -264,9 +264,9 @@
 		701050BC1E1E91040001ED87 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		701050BD1E1E91040001ED87 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */; };
-		827AF4EC23FECBEF009ECC9C /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF4E023FECBEA009ECC9C /* JPPaymentMethodsTest.swift */; };
-		827AF4ED23FECBF5009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF4DD23FECBEA009ECC9C /* JPPaymentMethodsViewControllerMock.swift */; };
-		827AF4EF23FECBF5009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF4DF23FECBEA009ECC9C /* JPPaymentMethodsInteractorMock.swift */; };
+		827AF51923FFD294009ECC9C /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF50D23FFD257009ECC9C /* JPPaymentMethodsTest.swift */; };
+		827AF51A23FFD299009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF50A23FFD257009ECC9C /* JPPaymentMethodsViewControllerMock.swift */; };
+		827AF51B23FFD299009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF50C23FFD257009ECC9C /* JPPaymentMethodsInteractorMock.swift */; };
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
 		BB43039423F1646400023736 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43039323F1646400023736 /* PayCardsRecognizer.framework */; };
 		BB43039523F1646400023736 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43039323F1646400023736 /* PayCardsRecognizer.framework */; };
@@ -675,9 +675,9 @@
 		703EDB971CB7FD5F00ACF0B5 /* ErrorMessageContentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageContentsTests.swift; sourceTree = "<group>"; };
 		70ADDC911D5B54410043D55F /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		70D7F4D81DC10121002C0EC1 /* JudoKitObjCExampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JudoKitObjCExampleApp.entitlements; sourceTree = "<group>"; };
-		827AF4DD23FECBEA009ECC9C /* JPPaymentMethodsViewControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsViewControllerMock.swift; sourceTree = "<group>"; };
-		827AF4DF23FECBEA009ECC9C /* JPPaymentMethodsInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsInteractorMock.swift; sourceTree = "<group>"; };
-		827AF4E023FECBEA009ECC9C /* JPPaymentMethodsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsTest.swift; sourceTree = "<group>"; };
+		827AF50A23FFD257009ECC9C /* JPPaymentMethodsViewControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsViewControllerMock.swift; sourceTree = "<group>"; };
+		827AF50C23FFD257009ECC9C /* JPPaymentMethodsInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsInteractorMock.swift; sourceTree = "<group>"; };
+		827AF50D23FFD257009ECC9C /* JPPaymentMethodsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsTest.swift; sourceTree = "<group>"; };
 		829330FD230AF0F900689DC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933105230C3C7300689DC4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933106230C3C7C00689DC4 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1747,7 +1747,7 @@
 		3B678B641C6CE5190001DC2F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				827AF4DA23FECBE9009ECC9C /* Modules */,
+				827AF50723FFD257009ECC9C /* Modules */,
 				3B9711831C7618C000E9A347 /* APITests */,
 				3B678B671C6CE5190001DC2F /* Info.plist */,
 				702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */,
@@ -2001,28 +2001,28 @@
 			name = DeviceDNA;
 			sourceTree = "<group>";
 		};
-		827AF4DA23FECBE9009ECC9C /* Modules */ = {
+		827AF50723FFD257009ECC9C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				827AF4DB23FECBEA009ECC9C /* PaymentMethods */,
+				827AF50823FFD257009ECC9C /* PaymentMethods */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		827AF4DB23FECBEA009ECC9C /* PaymentMethods */ = {
+		827AF50823FFD257009ECC9C /* PaymentMethods */ = {
 			isa = PBXGroup;
 			children = (
-				827AF4DC23FECBEA009ECC9C /* Mocks */,
-				827AF4E023FECBEA009ECC9C /* JPPaymentMethodsTest.swift */,
+				827AF50923FFD257009ECC9C /* Mocks */,
+				827AF50D23FFD257009ECC9C /* JPPaymentMethodsTest.swift */,
 			);
 			path = PaymentMethods;
 			sourceTree = "<group>";
 		};
-		827AF4DC23FECBEA009ECC9C /* Mocks */ = {
+		827AF50923FFD257009ECC9C /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				827AF4DD23FECBEA009ECC9C /* JPPaymentMethodsViewControllerMock.swift */,
-				827AF4DF23FECBEA009ECC9C /* JPPaymentMethodsInteractorMock.swift */,
+				827AF50A23FFD257009ECC9C /* JPPaymentMethodsViewControllerMock.swift */,
+				827AF50C23FFD257009ECC9C /* JPPaymentMethodsInteractorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2570,10 +2570,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827AF4EF23FECBF5009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */,
+				827AF51B23FFD299009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */,
-				827AF4EC23FECBEF009ECC9C /* JPPaymentMethodsTest.swift in Sources */,
-				827AF4ED23FECBF5009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */,
+				827AF51923FFD294009ECC9C /* JPPaymentMethodsTest.swift in Sources */,
+				827AF51A23FFD299009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

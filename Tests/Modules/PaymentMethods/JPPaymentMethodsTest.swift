@@ -27,7 +27,6 @@ import XCTest
 
 class JPPaymentMethodsTest: XCTestCase {
     
-    
     func testExpirationDateHandling() {
         let presenter = JPPaymentMethodsPresenterImpl()
         let viewController = JPPaymentMethodsViewControllerMock()

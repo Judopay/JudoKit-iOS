@@ -43,6 +43,8 @@
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
 @property (nonatomic, strong) JPTransactionButtonViewModel *paymentButtonModel;
+@property (nonatomic, strong) NSDateFormatter *dateFormater;
+@property (nonatomic, strong) NSDate *currentDate;
 
 @property (nonatomic, assign) int previousIndex;
 @end
@@ -234,9 +236,8 @@
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         if (cardDetails.isSelected) {
             self.headerModel.cardModel = [self cardModelFromStoredCardDetails:cardDetails];
-            if (self.headerModel.cardModel.cardExpirationStatus != CardExpired) {
-                self.headerModel.payButtonModel.isEnabled = YES;
-            }
+            BOOL isCardExpired = self.headerModel.cardModel.cardExpirationStatus != CardExpired;
+            self.headerModel.payButtonModel.isEnabled = isCardExpired;
         }
     }
 
@@ -267,14 +268,11 @@
 }
 
 - (ExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
-    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-    [dateFormater setDateFormat:@"MM/yy"];
-    NSDate *cardExpirationDate = [dateFormater dateFromString:expirationDate];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *currentDate = [NSDate date];
-    NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:currentDate options:0];
+    NSDate *cardExpirationDate = [self.dateFormater dateFromString:expirationDate];
+    NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:self.currentDate options:0];
     if ([cardExpirationDate compare:dateInTwoMonths] == NSOrderedAscending) {
-        if ([cardExpirationDate compare:currentDate] == NSOrderedAscending) {
+        if ([cardExpirationDate compare:self.currentDate] == NSOrderedAscending) {
             return CardExpired;
         }
         return CardExpiresSoon;
@@ -379,6 +377,21 @@
         _paymentButtonModel.isEnabled = NO;
     }
     return _paymentButtonModel;
+}
+
+- (NSDateFormatter *)dateFormater {
+    if (!_dateFormater) {
+        _dateFormater = [[NSDateFormatter alloc] init];
+        [_dateFormater setDateFormat:@"MM/yy"];
+    }
+    return _dateFormater;
+}
+
+- (NSDate *)currentDate {
+    if (!_currentDate) {
+        _currentDate = [NSDate date];
+    }
+    return _currentDate;
 }
 
 @end

@@ -147,17 +147,21 @@
 }
 
 - (void)setCardAsExpired {
-    NSMutableAttributedString *isExpiredText = [[NSMutableAttributedString alloc] initWithString:@"is_expired".localized];
+    NSString *isExpiredString = [NSString stringWithFormat:@"%@%@", @" ", @"is_expired".localized];
+    NSMutableAttributedString *isExpiredText = [[NSMutableAttributedString alloc] initWithString:isExpiredString];
     NSRange range = NSMakeRange(isExpiredText.length - @"expired".localized.length, @"expired".localized.length);
     [isExpiredText addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:range];
     NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
     [subtitleText appendAttributedString:isExpiredText];
     self.subtitleLabel.attributedText = subtitleText;
-    self.subtitleLabel.textColor = [UIColor jpRedColor];
+    self.subtitleLabel.textColor = UIColor.jpRedColor;
 }
 
 - (void)setCardAsExpiresSoon {
-    NSAttributedString *willExpireText = [[NSAttributedString alloc] initWithString:@"will_expire_soon".localized];
+    NSString *willExpireString = [NSString stringWithFormat:@"%@%@", @" ", @"will_expire_soon".localized];
+    NSMutableAttributedString *willExpireText = [[NSMutableAttributedString alloc] initWithString:willExpireString];
+    NSRange range = NSMakeRange(willExpireString.length - @"expire_soon".localized.length, @"expire_soon".localized.length);
+    [willExpireText addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:range];
     NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
     [subtitleText appendAttributedString:willExpireText];
     self.subtitleLabel.attributedText = subtitleText;

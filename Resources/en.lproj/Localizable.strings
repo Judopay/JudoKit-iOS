@@ -66,8 +66,9 @@
 "delete_card_alert_title" = "Delete Card ?";
 "delete_card_alert_message" = "Are you sure you want to delete this card from your wallet?";
 "expired" = "Expired";
-"is_expired" = " is Expired";
-"will_expire_soon" = " will expire soon";
+"is_expired" = "is Expired";
+"will_expire_soon" = "will expire soon";
+"expire_soon" = "expire soon";
 
 //CardInputField
 "card_number_label" = "Card number";

@@ -116,11 +116,12 @@
 }
 
 - (void)setCardAsExpired {
-    self.backgroundColor = [UIColor jpGrayColor];
-    self.expiryDateLabel.textColor = [UIColor jpRedColor];
+    self.backgroundColor = UIColor.jpGrayColor;
+    self.expiryDateLabel.textColor = UIColor.jpRedColor;
     self.expiryDateLabel.numberOfLines = 2;
     NSDictionary *attrDict = @{NSFontAttributeName : UIFont.caption};
-    NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", @"expired".localized, @"\r"] attributes:attrDict];
+    NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"expired".localized, @"\r"];
+    NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:expiredString attributes:attrDict];
     NSAttributedString *expiryDate = [[NSAttributedString alloc] initWithString:self.expiryDateLabel.text];
     [expiredText appendAttributedString:expiryDate];
     self.expiryDateLabel.attributedText = expiredText;
