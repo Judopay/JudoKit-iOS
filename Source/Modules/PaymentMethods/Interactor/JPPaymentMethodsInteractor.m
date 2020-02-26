@@ -85,6 +85,13 @@
     }
 }
 
+
+#pragma mark - Set cart at index as default
+
+- (void)setCardAsDefaultAtIndex:(NSInteger)index {
+    [JPCardStorage.sharedInstance setCardAsDefaultAtIndex:index];
+}
+
 #pragma mark - Set card as selected at index
 
 - (void)setCardAsSelectedAtInded:(NSInteger)index {

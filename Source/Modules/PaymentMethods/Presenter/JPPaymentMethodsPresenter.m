@@ -105,6 +105,8 @@
 }
 
 - (void)handlePaymentResponse:(JPResponse *)response {
+    NSInteger selectedCardIndex = [self indexOfSelectdCard];
+    [self.interactor setCardAsDefaultAtIndex: selectedCardIndex];
     [self.router completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
 }
@@ -288,6 +290,17 @@
         }
     }
     return nil;
+}
+
+-(NSInteger)indexOfSelectdCard {
+    NSInteger cardIndex = 0;
+    for (JPStoredCardDetails *card in [self.interactor getStoredCardDetails]) {
+           if (card.isSelected) {
+               return cardIndex;
+           }
+        cardIndex++;
+       }
+       return -1;
 }
 
 #pragma mark - Lazy properties

@@ -75,6 +75,13 @@
  */
 - (void)setCardAsSelectedAtInded:(NSInteger)index;
 
+
+/**
+* A method that sets a card as default based on an index
+*/
+- (void)setCardAsDefaultAtIndex:(NSInteger)index;
+
+
 /**
  * A boolean value that returns YES if Apple Pay is set up on the device
  */

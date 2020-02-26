@@ -25,6 +25,10 @@
 import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+    func setCardAsDefaultAt(_ index: Int) {
+        print("card at index", index , "is selected");
+    }
+    
     func getStoredCardDetails() -> [JPStoredCardDetails]! {
         
         let calendar = Calendar.current

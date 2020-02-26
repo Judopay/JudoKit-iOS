@@ -65,4 +65,10 @@
  */
 - (void)setCardAsSelectedAtIndex:(NSInteger)index;
 
+/**
+* A method that sets a card as default based on an index
+*/
+- (void)setCardAsDefaultAtIndex:(NSInteger)index;
+
+
 @end

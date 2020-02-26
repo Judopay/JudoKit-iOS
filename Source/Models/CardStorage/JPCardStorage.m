@@ -94,4 +94,30 @@
     self.storedCards[index].isSelected = YES;
 }
 
+- (void)setCardAsDefaultAtIndex:(NSInteger)index {
+    for (JPStoredCardDetails *card in self.storedCards) {
+           card.isDefault = NO;
+       }
+    self.storedCards[index].isDefault = YES;
+    [self reorderCards];
+}
+
+#pragma mark - Helper Methods
+
+-(void)reorderCards{
+    NSInteger defaultCardIndex = 0;
+    JPStoredCardDetails *defaultCard;
+    for (JPStoredCardDetails *card in self.storedCards) {
+        if(card.isDefault) {
+            defaultCard = card;
+            break;
+        }
+        defaultCardIndex++;
+    }
+    if (defaultCardIndex>=0 && defaultCard) {
+        [self.storedCards removeObjectAtIndex:defaultCardIndex];
+        [self.storedCards insertObject:defaultCard atIndex:0];
+    }
+}
+
 @end
