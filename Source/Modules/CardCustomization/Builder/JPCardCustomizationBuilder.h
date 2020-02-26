@@ -22,19 +22,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardCustomizationViewController.h"
+#import <Foundation/Foundation.h>
 
 @protocol JPCardCustomizationBuilder
 
 /**
- * A method that build the Card Customization module
+ * A method that build the Card Customization module based on the selected card index
+ *
+ * @param index - the index of the selected card in the payment method screen
+ *
+ * @returns a configured instance of JPCardCustomizationViewController
  */
-- (JPCardCustomizationViewController *)buildModule;
++ (JPCardCustomizationViewController *)buildModuleWithCardIndex:(NSUInteger)index;
 
 @end
 
 @interface JPCardCustomizationBuilderImpl : NSObject <JPCardCustomizationBuilder>
 
 @end
-

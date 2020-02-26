@@ -22,12 +22,45 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardPattern.h"
 #import <Foundation/Foundation.h>
 
+@class JPStoredCardDetails;
+
 @protocol JPCardCustomizationInteractor
+
+/**
+ * A method that returns the details about the selected card
+ *
+ * @returns a configured instance of JPStoredCardDetails
+ */
+- (nonnull JPStoredCardDetails *)cardDetails;
+
+/**
+ * A method which updates the pattern type of the selected card in the JPCardStorage
+ *
+ * @param type - the JPCardPatternType value identifying the card
+ */
+- (void)updateStoredCardPatternWithType:(JPCardPatternType)type;
+
+/**
+ * A method that updates the stored card's title based on a provided input string
+ *
+ * @param input - the input string serving as the card's title
+ */
+- (void)updateStoredCardTitleWithInput:(nonnull NSString *)input;
 
 @end
 
 @interface JPCardCustomizationInteractorImpl : NSObject <JPCardCustomizationInteractor>
+
+/**
+ * Designated initializer that takes the card index to access it in the keychain storage
+ *
+ * @param index - the index of the card
+ *
+ * @returns a configured instance of JPCardCustomizationInteractorImpl
+ */
+- (nonnull instancetype)initWithCardIndex:(NSUInteger)index;
 
 @end

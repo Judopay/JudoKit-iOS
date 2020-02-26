@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
+#import "JPConstants.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
@@ -33,7 +34,6 @@
 #import "JPTransactionViewModel.h"
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
-#import "JPConstants.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -56,21 +56,33 @@
 
 - (void)viewModelNeedsUpdate {
     [self updateViewModelWithAnimationType:AnimationTypeSetup];
-    [self.view configureWithViewModel:self.viewModel];
+    [self.view configureWithViewModel:self.viewModel
+                  shouldAnimateChange:NO];
 }
 
-- (void)viewModelNeedsUpdateWithAnimationType:(AnimationType)animationType {
+- (void)viewModelNeedsUpdateWithAnimationType:(AnimationType)animationType
+                          shouldAnimateChange:(BOOL)shouldAnimate {
+
     [self updateViewModelWithAnimationType:animationType];
-    [self.view configureWithViewModel:self.viewModel];
+    [self.view configureWithViewModel:self.viewModel
+                  shouldAnimateChange:shouldAnimate];
 }
 
-- (void)didSelectCardAtIndex:(NSInteger)index {
-    [self.interactor selectCardAtIndex:index];
-    if (self.headerModel.cardModel) {
-        [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop];
-    } else {
-        [self viewModelNeedsUpdateWithAnimationType:AnimationTypeSetup];
+- (void)didSelectCardAtIndex:(NSUInteger)index
+               isEditingMode:(BOOL)isEditing {
+
+    if (isEditing) {
+        [self.router navigateToCardCustomizationWithIndex:index];
+        return;
     }
+
+    [self.interactor selectCardAtIndex:index];
+
+    AnimationType animationType;
+    animationType = self.headerModel.cardModel ? AnimationTypeBottomToTop : AnimationTypeSetup;
+
+    [self viewModelNeedsUpdateWithAnimationType:animationType
+                            shouldAnimateChange:YES];
 }
 
 #pragma mark - Action Handlers
@@ -86,22 +98,74 @@
 - (void)handlePayButtonTap {
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                    andCompletion:^(JPResponse *response, NSError *error) {
-                                       if (error) {
-                                           [self handlePaymentError:error];
-                                           return;
-                                       }
-                                       [self handlePaymentResponse:response];
+                                       [self handleCallbackWithResponse:response
+                                                               andError:error];
                                    }];
 }
 
 - (void)handleApplePayButtonTap {
     [self.interactor startApplePayWithCompletion:^(JPResponse *response, NSError *error) {
-        if (error) {
-            [self handlePaymentError:error];
-            return;
-        }
-        [self handlePaymentResponse:response];
+        [self handleCallbackWithResponse:response
+                                andError:error];
     }];
+}
+
+- (void)deleteCardWithIndex:(NSUInteger)index {
+    NSArray *storedCards = [self.interactor getStoredCardDetails];
+    JPStoredCardDetails *selectedCard = storedCards[index];
+
+    [self.interactor deleteCardWithIndex:index];
+    [self.cardListModel.cardModels removeObjectAtIndex:index];
+    self.viewModel.headerModel.cardModel = nil;
+
+    if (selectedCard.isSelected && storedCards.count - 1 > 0) {
+        [self.interactor setCardAsSelectedAtInded:0];
+    }
+    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop
+                            shouldAnimateChange:YES];
+}
+
+- (void)changeHeaderButtonTitle:(BOOL)isEditing {
+    NSString *title = isEditing ? @"done_capitalized" : @"edit_capitalized";
+    self.cardHeaderModel.editButtonTitle = title.localized;
+
+    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeNone
+                            shouldAnimateChange:NO];
+}
+
+- (void)changePaymentMethodToIndex:(int)index {
+
+    if (index == self.previousIndex) {
+        return;
+    }
+
+    AnimationType animationType = AnimationTypeLeftToRight;
+
+    if (index < self.previousIndex) {
+        animationType = AnimationTypeRightToLeft;
+    }
+
+    JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousIndex];
+    if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
+        animationType = AnimationTypeSetup;
+    }
+
+    self.previousIndex = index;
+    self.paymentSelectionModel.selectedPaymentMethod = index;
+
+    [self viewModelNeedsUpdateWithAnimationType:animationType
+                            shouldAnimateChange:YES];
+}
+
+#pragma mark - Helper methods
+
+- (void)handleCallbackWithResponse:(JPResponse *)response
+                          andError:(NSError *)error {
+    if (error) {
+        [self handlePaymentError:error];
+        return;
+    }
+    [self handlePaymentResponse:response];
 }
 
 - (void)handlePaymentResponse:(JPResponse *)response {
@@ -123,69 +187,15 @@
 - (void)handle3DSecureTransactionWithError:(NSError *)error {
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, NSError *error) {
-                                                 if (error) {
-                                                     [self handlePaymentError:error];
-                                                     return;
-                                                 }
-                                                 [self handlePaymentResponse:response];
+                                                 [self handleCallbackWithResponse:response
+                                                                         andError:error];
                                              }];
-}
-
-- (void)deleteCardWithIndex:(NSInteger)index {
-
-    NSArray *storedCards = [self.interactor getStoredCardDetails];
-    JPStoredCardDetails *selectedCard = storedCards[index];
-
-    [self.interactor deleteCardWithIndex:index];
-    [self.cardListModel.cardModels removeObjectAtIndex:index];
-    self.viewModel.headerModel.cardModel = nil;
-
-    if (selectedCard.isSelected && storedCards.count - 1 > 0) {
-        [self.interactor setCardAsSelectedAtInded:0];
-    }
-}
-
-- (void)changeHeaderButtonTitle:(BOOL)isEditing {
-    if (isEditing) {
-        self.cardHeaderModel.editButtonTitle = [@"done_capitalized" localized];
-    } else {
-        self.cardHeaderModel.editButtonTitle = [@"edit_capitalized" localized];
-    }
-    [self updateViewModelWithAnimationType:AnimationTypeNone];
-    [self.view configureWithViewModel:self.viewModel];
-}
-
-- (void)changePaymentMethodToIndex:(int)index {
-
-    if (index == self.previousIndex) {
-        return;
-    }
-
-    AnimationType animationType = AnimationTypeLeftToRight;
-
-    if (index < self.previousIndex) {
-        animationType = AnimationTypeRightToLeft;
-    }
-
-    JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousIndex];
-    if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
-        animationType = AnimationTypeSetup;
-    }
-
-    self.previousIndex = index;
-
-    self.paymentSelectionModel.selectedPaymentMethod = index;
-
-    [self updateViewModelWithAnimationType:animationType];
-    [self.view configureWithViewModel:self.viewModel];
 }
 
 - (void)setLastAddedCardAsSelected {
     NSArray *cards = [self.interactor getStoredCardDetails];
     [self.interactor setCardAsSelectedAtInded:cards.count - 1];
 }
-
-#pragma mark - Helper methods
 
 - (void)updateViewModelWithAnimationType:(AnimationType)animationType {
     [self.viewModel.items removeAllObjects];
@@ -255,20 +265,18 @@
 
 - (JPPaymentMethodsCardModel *)cardModelFromStoredCardDetails:(JPStoredCardDetails *)cardDetails {
     JPPaymentMethodsCardModel *cardModel = [JPPaymentMethodsCardModel new];
-
-    //TODO: Replace with actual card name once card editing is available
-    cardModel.cardTitle = @"Card for shopping";
-
+    cardModel.cardTitle = cardDetails.cardTitle;
     cardModel.cardNetwork = cardDetails.cardNetwork;
     cardModel.cardNumberLastFour = cardDetails.cardLastFour;
     cardModel.cardExpiryDate = cardDetails.expiryDate;
+    cardModel.cardPatternType = cardDetails.patternType;
     cardModel.isDefaultCard = cardDetails.isDefault;
     cardModel.isSelected = cardDetails.isSelected;
     cardModel.cardExpirationStatus = [self determineCardExpirationStatusWithDate:cardDetails.expiryDate];
     return cardModel;
 }
 
-- (ExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
+- (CardExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *cardExpirationDate = [self.dateFormater dateFromString:expirationDate];
     NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:self.currentDate options:0];

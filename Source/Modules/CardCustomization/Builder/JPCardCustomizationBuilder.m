@@ -29,13 +29,13 @@
 
 @implementation JPCardCustomizationBuilderImpl
 
-- (JPCardCustomizationViewController *)buildModule {
-    
++ (JPCardCustomizationViewController *)buildModuleWithCardIndex:(NSUInteger)index {
+
     JPCardCustomizationViewController *viewController = [JPCardCustomizationViewController new];
-    JPCardCustomizationInteractorImpl *interactor = [JPCardCustomizationInteractorImpl new];
+    JPCardCustomizationInteractorImpl *interactor = [[JPCardCustomizationInteractorImpl alloc] initWithCardIndex:index];
     JPCardCustomizationPresenterImpl *presenter = [JPCardCustomizationPresenterImpl new];
     JPCardCustomizationRouterImpl *router = [JPCardCustomizationRouterImpl new];
-    
+
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;
@@ -43,7 +43,7 @@
     router.viewController = viewController;
 
     viewController.presenter = presenter;
-    
+
     return viewController;
 }
 

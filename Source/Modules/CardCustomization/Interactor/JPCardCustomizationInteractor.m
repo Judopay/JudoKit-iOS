@@ -23,7 +23,41 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizationInteractor.h"
+#import "JPCardStorage.h"
+
+@interface JPCardCustomizationInteractorImpl ()
+@property (nonatomic, assign) NSUInteger cardIndex;
+@end
 
 @implementation JPCardCustomizationInteractorImpl
+
+#pragma mark - Initializers
+
+- (instancetype)initWithCardIndex:(NSUInteger)index {
+    if (self = [super init]) {
+        self.cardIndex = index;
+    }
+    return self;
+}
+
+#pragma mark - Protocol methods
+
+- (JPStoredCardDetails *)cardDetails {
+    return [JPCardStorage.sharedInstance fetchStoredCardDetailsAtIndex:self.cardIndex];
+}
+
+- (void)updateStoredCardPatternWithType:(JPCardPatternType)type {
+    JPStoredCardDetails *cardDetails = self.cardDetails;
+    cardDetails.patternType = type;
+    [JPCardStorage.sharedInstance updateCardDetails:cardDetails
+                                            atIndex:self.cardIndex];
+}
+
+- (void)updateStoredCardTitleWithInput:(NSString *)input {
+    JPStoredCardDetails *cardDetails = self.cardDetails;
+    cardDetails.cardTitle = input;
+    [JPCardStorage.sharedInstance updateCardDetails:cardDetails
+                                            atIndex:self.cardIndex];
+}
 
 @end
