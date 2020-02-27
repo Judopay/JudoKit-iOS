@@ -26,8 +26,8 @@
 #import "NSBundle+Additions.h"
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
-#import <Foundation/Foundation.h>
 #import "UIFont+Additions.h"
+#import <Foundation/Foundation.h>
 
 @implementation NSString (Additions)
 
@@ -136,7 +136,7 @@
 - (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern {
     const char *patternString = pattern.UTF8String;
     NSString *returnString = @"";
-    NSInteger patternIndex = 0;
+    NSUInteger patternIndex = 0;
 
     for (int i = 0; i < self.length; i++) {
         const char element = patternString[patternIndex];
@@ -185,8 +185,8 @@
     return (total % 10) == 0;
 }
 
--(nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self];
+- (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self];
     NSRange substringRange = [self rangeOfString:substring];
     if (substringRange.location != NSNotFound) {
         [attributedString addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:substringRange];

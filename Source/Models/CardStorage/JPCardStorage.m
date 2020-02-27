@@ -58,8 +58,12 @@
 
 #pragma mark - Public methods
 
-- (NSMutableArray<JPStoredCardDetails *> *)getStoredCardDetails {
+- (NSMutableArray<JPStoredCardDetails *> *)fetchStoredCardDetails {
     return self.storedCards.copy;
+}
+
+- (JPStoredCardDetails *)fetchStoredCardDetailsAtIndex:(NSUInteger)index {
+    return self.storedCards[index];
 }
 
 - (NSArray *)convertStoredCardsToArray {
@@ -76,7 +80,14 @@
     [JPKeychainService saveObject:cardDetailsArray forKey:@"storedCards"];
 }
 
-- (void)deleteCardWithIndex:(NSInteger)index {
+- (void)insertCardDetails:(JPStoredCardDetails *)cardDetails
+                  atIndex:(NSUInteger)index {
+    [self.storedCards insertObject:cardDetails atIndex:index];
+    NSArray *cardDetailsArray = [self convertStoredCardsToArray];
+    [JPKeychainService saveObject:cardDetailsArray forKey:@"storedCards"];
+}
+
+- (void)deleteCardWithIndex:(NSUInteger)index {
     [self.storedCards removeObjectAtIndex:index];
     NSArray *cardDetailsArray = [self convertStoredCardsToArray];
     [JPKeychainService saveObject:cardDetailsArray forKey:@"storedCards"];
@@ -87,7 +98,13 @@
     return [JPKeychainService deleteObjectForKey:@"storedCards"];
 }
 
-- (void)setCardAsSelectedAtIndex:(NSInteger)index {
+- (void)updateCardDetails:(JPStoredCardDetails *)cardDetails
+                  atIndex:(NSUInteger)index {
+    [self deleteCardWithIndex:index];
+    [self insertCardDetails:cardDetails atIndex:index];
+}
+
+- (void)setCardAsSelectedAtIndex:(NSUInteger)index {
     for (JPStoredCardDetails *storedCard in self.storedCards) {
         storedCard.isSelected = NO;
     }

@@ -37,7 +37,14 @@
  *
  * @returns An array of JPStoredCardDetails objects
  */
-- (NSMutableArray<JPStoredCardDetails *> *)getStoredCardDetails;
+- (NSMutableArray<JPStoredCardDetails *> *)fetchStoredCardDetails;
+
+/**
+ * A method for fetching the stored card details from a specified index
+ *
+ * @param index - the index of the stored card details
+ */
+- (JPStoredCardDetails *)fetchStoredCardDetailsAtIndex:(NSUInteger)index;
 
 /**
  * A method for adding new card details objects into the keychain
@@ -45,6 +52,15 @@
  * @param cardDetails - An instance of JPStoredCardDetails that describes the card details
  */
 - (void)addCardDetails:(JPStoredCardDetails *)cardDetails;
+
+/**
+ * A method for inserting card details at a specified index
+ *
+ * @param cardDetails - an instance of JPStoredCardDetails containing card information
+ * @param index - the index where to insert the card details
+ */
+- (void)insertCardDetails:(JPStoredCardDetails *)cardDetails
+                  atIndex:(NSUInteger)index;
 
 /**
  * A method for deleting the existing card details from the keychain
@@ -56,14 +72,22 @@
 /**
  * A method for deleting a specific card details from the keychain by its index
  *
- * @param index - Card's index in cards list
+ * @param index - the card's index in the list
  */
-- (void)deleteCardWithIndex:(NSInteger)index;
+- (void)deleteCardWithIndex:(NSUInteger)index;
+
+/**
+ * A method for updating a card in the storage based on a provided index
+ *
+ * @param index - the index of the card in the list
+ */
+- (void)updateCardDetails:(JPStoredCardDetails *)cardDetails
+                  atIndex:(NSUInteger)index;
 
 /**
  * A method that sets a card as selected based on an index
  */
-- (void)setCardAsSelectedAtIndex:(NSInteger)index;
+- (void)setCardAsSelectedAtIndex:(NSUInteger)index;
 
 /**
 * A method that sets a card as default based on an index

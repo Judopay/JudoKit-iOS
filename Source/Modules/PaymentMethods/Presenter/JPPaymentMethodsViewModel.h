@@ -23,15 +23,15 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
+#import "JPCardPattern.h"
 #import "JPPaymentMethod.h"
 #import <Foundation/Foundation.h>
 
-//TODO: Rename the button to a more generic type
 @class JPAmount, JPTransactionButtonViewModel;
 
 #pragma mark - JPPaymentMethodsModel
 
-typedef NS_ENUM(NSInteger, AnimationType) {
+typedef NS_ENUM(NSUInteger, AnimationType) {
     AnimationTypeNone,
     AnimationTypeSetup,
     AnimationTypeLeftToRight,
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
     AnimationTypeBottomToTop
 };
 
-typedef NS_ENUM(NSInteger, ExpirationStatus) {
+typedef NS_ENUM(NSUInteger, CardExpirationStatus) {
     CardNotExpired,
     CardExpired,
     CardExpiresSoon
@@ -158,6 +158,11 @@ typedef NS_ENUM(NSInteger, ExpirationStatus) {
 @property (nonatomic, strong) NSString *_Nullable cardExpiryDate;
 
 /**
+ * The card's pattern type
+ */
+@property (nonatomic, assign) JPCardPatternType cardPatternType;
+
+/**
  * A value that specifies if the card is set as the default credit card of the user
  */
 @property (nonatomic, assign) BOOL isDefaultCard;
@@ -170,7 +175,7 @@ typedef NS_ENUM(NSInteger, ExpirationStatus) {
 /**
 * A value that specifies card expiration staus
 */
-@property (nonatomic, assign) ExpirationStatus cardExpirationStatus;
+@property (nonatomic, assign) CardExpirationStatus cardExpirationStatus;
 
 @end
 

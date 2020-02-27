@@ -37,8 +37,12 @@
 /**
  * A method called once a card was selected from the list. This method updates the view model for that specific card
  * and changes its isSelected state.
+ *
+ * @param index - the index of the card that has been selected
+ * @param isEditing - a boolean property that specifies if the card should be edited
  */
-- (void)didSelectCardAtIndex:(NSInteger)index;
+- (void)didSelectCardAtIndex:(NSUInteger)index
+               isEditingMode:(BOOL)isEditing;
 
 /**
  * A method that is called when the Back button is tapped. It handles the view dismissal flow
@@ -60,7 +64,7 @@
  *
  * @param index - Card's index in cards list
  */
-- (void)deleteCardWithIndex:(NSInteger)index;
+- (void)deleteCardWithIndex:(NSUInteger)index;
 
 /**
  * A method for chaging card header button title acording to edit status of the card list

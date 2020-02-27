@@ -24,7 +24,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_OPTIONS(NSInteger, AnchorType) {
+typedef NS_OPTIONS(NSUInteger, AnchorType) {
     AnchorTypeNone = 0,
     AnchorTypeTop = 1 << 0,
     AnchorTypeBottom = 1 << 1,
@@ -92,6 +92,11 @@ typedef NS_OPTIONS(NSInteger, AnchorType) {
 - (void)pinToAnchors:(AnchorType)anchors
              forView:(nonnull UIView *)view
          withPadding:(CGFloat)padding;
+
+/**
+ * A method for removing all subviews from a view
+ */
+- (void)removeAllSubviews;
 
 /**
  * A method which returns the safe top area anchor
