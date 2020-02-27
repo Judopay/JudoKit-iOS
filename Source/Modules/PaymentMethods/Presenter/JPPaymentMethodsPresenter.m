@@ -111,7 +111,6 @@
     }];
 }
 
-<<<<<<< HEAD
 - (void)handlePaymentResponse:(JPResponse *)response {
     NSInteger selectedCardIndex = [self indexOfSelectdCard];
     [self.interactor setCardAsDefaultAtIndex: selectedCardIndex];
@@ -141,11 +140,7 @@
                                              }];
 }
 
-- (void)deleteCardWithIndex:(NSInteger)index {
-
-=======
 - (void)deleteCardWithIndex:(NSUInteger)index {
->>>>>>> feature/cleanup
     NSArray *storedCards = [self.interactor getStoredCardDetails];
     JPStoredCardDetails *selectedCard = storedCards[index];
 
@@ -201,30 +196,6 @@
         return;
     }
     [self handlePaymentResponse:response];
-}
-
-- (void)handlePaymentResponse:(JPResponse *)response {
-    [self.router completeTransactionWithResponse:response andError:nil];
-    [self.router dismissViewController];
-}
-
-- (void)handlePaymentError:(NSError *)error {
-
-    if (error.code == JudoError3DSRequest) {
-        [self handle3DSecureTransactionWithError:error];
-        return;
-    }
-
-    [self.router completeTransactionWithResponse:nil andError:error];
-    [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
-}
-
-- (void)handle3DSecureTransactionWithError:(NSError *)error {
-    [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, NSError *error) {
-                                                 [self handleCallbackWithResponse:response
-                                                                         andError:error];
-                                             }];
 }
 
 - (void)setLastAddedCardAsSelected {
@@ -311,11 +282,7 @@
     return cardModel;
 }
 
-<<<<<<< HEAD
-- (ExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
-=======
 - (CardExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
->>>>>>> feature/cleanup
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *cardExpirationDate = [self.dateFormater dateFromString:expirationDate];
     NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:self.currentDate options:0];
