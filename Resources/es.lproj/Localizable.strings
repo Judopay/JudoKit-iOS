@@ -65,6 +65,10 @@
 "card_transaction_unsuccesful_error" = "Card transaction unsuccessful - please try again";
 "card_transaction_unsuccesful_error" = "Card transaction unsuccessful - please try again";
 "delete_card_alert_title" = "Delete Card ?";
+"expired" = "Expired";
+"is_expired" = "is Expired";
+"will_expire_soon" = "will expire soon";
+"expire_soon" = "expire soon";
 
 //CardInputField
 "card_number_label" = "Número de tarjeta";
@@ -91,7 +95,7 @@
 "billing_zip_code" = "Código postal";
 "billing_postal_code" = "Código postal";
 
-//BillingCountryInputField
+//JPBillingCountryInputField
 "country_uk" = "Reino Unido";
 "country_usa" = "Estados Unidos";
 "country_canada" = "Canadá";
@@ -115,7 +119,9 @@
 
 //JudoPayViewController
 "secure_server" = "Servidor seguro:";
-"pay" = "Pagar";
+"pay" = "Pay";
+"check_card" = "Check Card";
+"add_card" = "Add Card";
 
 //JudoPaymentMethodsViewController
 
@@ -123,7 +129,7 @@
 "select_payment_method" = "Por favor, seleccione uno de los siguientes métodos de pago:";
 "card_payment" = "Pago con tarjeta";
 
-//NSError+Judo
+//NSError+Additions
 "unable_to_process_request_error_desc" = "Lo sentimos, actualmente no podemos procesar esta solicitud.";
 "unable_to_process_request_error_title" = "No se puede procesar";
 "error_request_failed" = "La solicitud respondió sin datos.";
@@ -158,7 +164,6 @@
 "back" = "Atrás";
 "payment" = "Pago";
 "refund" = "Reembolso";
-"check_card" = "Revisa la tarjeta";
 "authentication" = "Autenticación";
 "adding_card" = "Añadiendo tarjeta...";
 "processing_payment" = "Procesando pago";
@@ -167,3 +172,17 @@
 "verifying_card" = "Verificando tarjeta";
 "secure_server_transmission" = " Los detalles de su tarjeta son encriptados usando SSL antes de su transmisión a nuestro procesador de pagos seguro. No se almacenarán en su dispositivo ni en nuestros servidores.";
 
+//Customize Card
+"customize_card" = "Customize Card";
+"enter_card_title" = "Enter a card title...";
+"card_title_length_warning" = "Card Name cannot be longer than 28 characters";
+"default_visa_card_title" = "My VISA Card";
+"default_mastercard_card_title" = "My MasterCard Card";
+"default_maestro_card_title" = "My Maestro Card";
+"default_amex_card_title" = "My American Express Card";
+"default_jcb_card_title" = "My JCB Card";
+"default_chinaunionpay_card_title" = "My China Union Pay Card";
+"default_discover_card_title" = "My Discover Card";
+"default_dinnersclub_card_title" = "My Dinners Club Card";
+"save_as_default" = "Save as default payment method";
+"save" = "Save";

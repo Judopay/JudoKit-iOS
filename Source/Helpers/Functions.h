@@ -24,6 +24,17 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * A method which returns the width aspect ratio (compared to an iPhone XR)
+ */
 double getWidthAspectRatio(void);
+
+/**
+ * A method which returns general information about the platform and operating system the app runs on
+ */
 NSString *getUserAgent(void);
+
+/**
+ * A method which returns the IP address of the device
+ */
 NSString *getIPAddress(void);

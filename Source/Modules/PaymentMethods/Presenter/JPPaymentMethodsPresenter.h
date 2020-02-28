@@ -37,8 +37,12 @@
 /**
  * A method called once a card was selected from the list. This method updates the view model for that specific card
  * and changes its isSelected state.
+ *
+ * @param index - the index of the card that has been selected
+ * @param isEditing - a boolean property that specifies if the card should be edited
  */
-- (void)didSelectCardAtIndex:(NSInteger)index;
+- (void)didSelectCardAtIndex:(NSUInteger)index
+               isEditingMode:(BOOL)isEditing;
 
 /**
  * A method that is called when the Back button is tapped. It handles the view dismissal flow
@@ -51,18 +55,35 @@
 - (void)handlePayButtonTap;
 
 /**
-* A method for deleting a specific card details from the keychain by its index
-*
-* @param index - Card's index in cards list
-*/
-- (void)deleteCardWithIndex:(NSInteger)index;
+ * A method that is called when the Apple Pay button is tapped. It handles the Apple Pay payment / pre-auth transaction.
+ */
+- (void)handleApplePayButtonTap;
 
 /**
-* A method for chaging card header button title acording to edit status of the card list
-*
-* @param isEditing - card list edit status
-*/
+ * A method for deleting a specific card details from the keychain by its index
+ *
+ * @param index - Card's index in cards list
+ */
+- (void)deleteCardWithIndex:(NSUInteger)index;
+
+/**
+ * A method for chaging card header button title acording to edit status of the card list
+ *
+ * @param isEditing - card list edit status
+ */
 - (void)changeHeaderButtonTitle:(BOOL)isEditing;
+
+/**
+ * A method that handles payment method change events
+ *
+ * @param index - the index of the newly selected payment method
+ */
+- (void)changePaymentMethodToIndex:(int)index;
+
+/**
+ * A method that sets the latest added card as selected
+ */
+- (void)setLastAddedCardAsSelected;
 
 @end
 

@@ -46,7 +46,7 @@ class JudoKitPaymentMethodsTests: XCTestCase {
         XCTAssertFalse(app.buttons["PAY NOW"].isEnabled)
     }
 
-    func test_OnSuccessfulAddCard_DisplayCardInList() {
+    func test_OnSuccessfulTransaction_DisplayCardInList() {
         let app = XCUIApplication();
         app.tables.staticTexts["Payment Method"].tap();
         app.buttons["ADD CARD"].tap();

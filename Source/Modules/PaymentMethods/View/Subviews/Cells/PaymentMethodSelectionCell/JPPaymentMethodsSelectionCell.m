@@ -23,16 +23,10 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsSelectionCell.h"
-#import "JPSectionView.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIImage+Icons.h"
+#import "NSLayoutConstraint+Additions.h"
+#import "UIImage+Additions.h"
 #import "UIView+Additions.h"
-
-@interface JPPaymentMethodsSelectionCell ()
-
-@property (nonatomic, strong) JPSectionView *sectionView;
-
-@end
 
 @implementation JPPaymentMethodsSelectionCell
 
@@ -72,14 +66,14 @@
     self.sectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor
-                                                   constant:25.0f],
+        [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [self.sectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
                                                       constant:-25.0f],
         [self.sectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.sectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [self.sectionView.heightAnchor constraintEqualToConstant:64]
-    ]];
+    ]
+                               withPriority:999];
 }
 
 #pragma mark - View model configuration
@@ -87,10 +81,11 @@
 - (void)configureWithViewModel:(JPPaymentMethodsModel *)viewModel {
 
     JPPaymentMethodsSelectionModel *selectionModel = (JPPaymentMethodsSelectionModel *)viewModel;
-    if (selectionModel == nil) return;
-    
+    if (!selectionModel)
+        return;
+
     [self.sectionView removeSections];
-    
+
     for (JPPaymentMethod *paymentMethod in selectionModel.paymentMethods) {
         UIImage *image = [UIImage imageWithIconName:paymentMethod.iconName];
         [self.sectionView addSectionWithImage:image andTitle:paymentMethod.title];

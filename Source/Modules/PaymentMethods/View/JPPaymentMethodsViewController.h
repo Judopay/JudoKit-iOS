@@ -22,8 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAddCardViewController.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
+#import "JPSectionView.h"
+#import "JPTransactionViewController.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
@@ -38,7 +39,8 @@
  *
  * @param viewModel - a view model detailing the layout details
  */
-- (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel;
+- (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel
+           shouldAnimateChange:(BOOL)shouldAnimate;
 
 /**
  * Convenience method for displaying alert controllers based on a specified error with an optional title
@@ -55,7 +57,7 @@
 @interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
 
 /**
- * A strong reference to a presenter object that adopts the JPAddCardPresenter protocol
+ * A strong reference to a presenter object that adopts the JPTransactionPresenter protocol
  */
 @property (nonatomic, strong) id<JPPaymentMethodsPresenter> presenter;
 
@@ -76,11 +78,17 @@
 /**
  * A JPPaymentMethodsViewController extension that adopts the Add Card delegate methods
  */
-@interface JPPaymentMethodsViewController (AddCardDelegate) <JPAddCardViewDelegate>
+@interface JPPaymentMethodsViewController (TransactionDelegate) <JPTransactionViewDelegate>
 @end
 
 /**
  * A JPPaymentMethodsViewController extension that adopts the Header View delegate methods
  */
 @interface JPPaymentMethodsViewController (EditCardsDelegate) <JPPaymentMethodsCardListHeaderCellDelegate>
+@end
+
+/**
+ * A JPPaymentMethodsViewController extension that adopts the JPSectionView delegate methods
+ */
+@interface JPPaymentMethodsViewController (JPSectionViewDelegate) <JPSectionViewDelegate>
 @end

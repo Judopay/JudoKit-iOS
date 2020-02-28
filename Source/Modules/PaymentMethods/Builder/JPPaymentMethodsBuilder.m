@@ -34,82 +34,30 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
 
+#import "JPApplePayConfiguration.h"
+
 @implementation JPPaymentMethodsBuilderImpl
 
-- (JPPaymentMethodsViewController *)buildPaymentModuleWithJudoID:(NSString *)judoId
-                                                         session:(JudoKit *)session
-                                           transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
-                                                          amount:(JPAmount *)amount
-                                                       reference:(JPReference *)reference
-                                           supportedCardNetworks:(CardNetwork)networks
-                                                  paymentMethods:(NSArray <JPPaymentMethod *> *)methods
-                                               completionHandler:(JudoCompletionBlock)completion {
-    return [self buildModuleWithJudoID:judoId
-                               session:session
-                 transitioningDelegate:transitioningDelegate
-                                amount:amount
-                             reference:reference
-                       transactionType:TransactionTypePayment
-                 supportedCardNetworks:networks
-                        paymentMethods:methods
-                     completionHandler:completion];
-}
-
-- (JPPaymentMethodsViewController *)buildPreAuthModuleWithJudoID:(NSString *)judoId
-                                                         session:(JudoKit *)session
-                                           transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
-                                                          amount:(JPAmount *)amount
-                                                       reference:(JPReference *)reference
-                                           supportedCardNetworks:(CardNetwork)networks
-                                                  paymentMethods:(NSArray <JPPaymentMethod *> *)methods
-                                               completionHandler:(JudoCompletionBlock)completion {
-    return [self buildModuleWithJudoID:judoId
-                               session:session
-                 transitioningDelegate:transitioningDelegate
-                                amount:amount
-                             reference:reference
-                       transactionType:TransactionTypePreAuth
-                 supportedCardNetworks:networks
-                        paymentMethods:methods
-                     completionHandler:completion];
-}
-
-- (JPPaymentMethodsViewController *)buildModuleWithJudoID:(NSString *)judoId
-                                                  session:(JudoKit *)session
-                                    transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
-                                                   amount:(JPAmount *)amount
-                                                reference:(JPReference *)reference
-                                          transactionType:(TransactionType)transactionType
-                                    supportedCardNetworks:(CardNetwork)networks
-                                           paymentMethods:(NSArray <JPPaymentMethod *> *)methods
-                                        completionHandler:(JudoCompletionBlock)completion {
++ (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
+                                          configuration:(JPConfiguration *)configuration
+                                     transactionService:(JPTransactionService *)transactionService
+                                  transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
+                                      completionHandler:(JudoCompletionBlock)completion {
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
     JPPaymentMethodsPresenterImpl *presenter = [JPPaymentMethodsPresenterImpl new];
 
-    JPTransaction *addCardTransaction = [session transactionForType:TransactionTypeSaveCard
-                                                             judoId:judoId
-                                                             amount:amount
-                                                          reference:reference];
-
     JPPaymentMethodsRouterImpl *router;
-    router = [[JPPaymentMethodsRouterImpl alloc] initWithTransaction:addCardTransaction
-                                               transitioningDelegate:transitioningDelegate
-                                                               theme:session.theme
-                                               supportedCardNetworks:networks
-                                                          completion:completion];
-
-    JPTransaction *transaction = [session transactionForType:transactionType
-                                                      judoId:judoId
-                                                      amount:amount
-                                                   reference:reference];
+    router = [[JPPaymentMethodsRouterImpl alloc] initWithConfiguration:configuration
+                                                    transactionService:transactionService
+                                                 transitioningDelegate:transitioningDelegate
+                                                            completion:completion];
 
     JPPaymentMethodsInteractorImpl *interactor;
-    interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithTransaction:transaction
-                                                                   reference:reference
-                                                                       theme:session.theme
-                                                              paymentMethods:methods
-                                                                   andAmount:amount];
+    interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithMode:mode
+                                                        configuration:configuration
+                                                   transactionService:transactionService
+                                                           completion:completion];
 
     presenter.view = viewController;
     presenter.interactor = interactor;

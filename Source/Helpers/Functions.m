@@ -29,7 +29,7 @@
 
 #import "Functions.h"
 #import "JudoKit.h"
-#import "NSString+Manipulation.h"
+#import "NSString+Additions.h"
 
 double getWidthAspectRatio() {
     return UIScreen.mainScreen.bounds.size.width / 414;

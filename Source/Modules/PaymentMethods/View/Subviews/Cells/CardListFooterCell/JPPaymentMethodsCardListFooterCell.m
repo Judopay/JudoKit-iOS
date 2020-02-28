@@ -24,13 +24,13 @@
 
 #import "JPPaymentMethodsCardListFooterCell.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
-#import "UIImage+Icons.h"
+#import "UIImage+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPPaymentMethodsCardListFooterCell ()
-@property (nonatomic, copy) void (^onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^onTransactionButtonTapHandler)(void);
 @end
 
 @implementation JPPaymentMethodsCardListFooterCell
@@ -88,11 +88,11 @@
     self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 0);
     self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
 
-    self.onAddCardButtonTapHandler = footerModel.onAddCardButtonTapHandler;
+    self.onTransactionButtonTapHandler = footerModel.onTransactionButtonTapHandler;
 }
 
-- (void)onAddCardButtonTap {
-    self.onAddCardButtonTapHandler();
+- (void)onTransactionButtonTap {
+    self.onTransactionButtonTapHandler();
 }
 
 #pragma mark - Layout Setup
@@ -114,7 +114,7 @@
         _addCardButton.titleLabel.font = UIFont.bodyBold;
 
         [self.addCardButton addTarget:self
-                               action:@selector(onAddCardButtonTap)
+                               action:@selector(onTransactionButtonTap)
                      forControlEvents:UIControlEventTouchUpInside];
     }
     return _addCardButton;

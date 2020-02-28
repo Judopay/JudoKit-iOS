@@ -24,16 +24,16 @@
 
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
-#import "JPAddCardButton.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsSelectionCell.h"
 #import "JPPaymentMethodsView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTransactionButton.h"
 #import "NSString+Additions.h"
-#import "UIColor+Judo.h"
-#import "UIImage+Icons.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface JPPaymentMethodsViewController ()
@@ -51,7 +51,11 @@
     self.paymentMethodsView = [JPPaymentMethodsView new];
     self.view = self.paymentMethodsView;
     [self configureView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self.presenter viewModelNeedsUpdate];
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - User Actions
@@ -64,6 +68,10 @@
     [self.paymentMethodsView.headerView.payButton startLoading];
     self.paymentMethodsView.userInteractionEnabled = NO;
     [self.presenter handlePayButtonTap];
+}
+
+- (void)onApplePayButtonTap {
+    [self.presenter handleApplePayButtonTap];
 }
 
 #pragma mark - Layout Setup
@@ -84,30 +92,59 @@
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
-    [self.paymentMethodsView.headerView.payButton addTarget:self
-                                                     action:@selector(onPayButtonTap)
-                                           forControlEvents:UIControlEventTouchUpInside];
-
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
 }
 
+- (void)configureTargets {
+    [self.paymentMethodsView.headerView.payButton addTarget:self
+                                                     action:@selector(onPayButtonTap)
+                                           forControlEvents:UIControlEventTouchUpInside];
+
+    [self.paymentMethodsView.headerView.applePayButton addTarget:self
+                                                          action:@selector(onApplePayButtonTap)
+                                                forControlEvents:UIControlEventTouchUpInside];
+}
+
 #pragma mark - Protocol Conformance
 
-- (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel {
+- (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel
+           shouldAnimateChange:(BOOL)shouldAnimate {
     self.viewModel = viewModel;
 
     [self.paymentMethodsView.headerView configureWithViewModel:viewModel.headerModel];
-
-    self.paymentMethodsView.judoHeadlineImageView.hidden = !viewModel.shouldDisplayHeadline;
-    self.paymentMethodsView.judoHeadlineHeightConstraint.constant = viewModel.shouldDisplayHeadline ? 20.0 : 0.0;
 
     for (JPPaymentMethodsModel *item in viewModel.items) {
         [self.paymentMethodsView.tableView registerClass:NSClassFromString(item.identifier)
                                   forCellReuseIdentifier:item.identifier];
     }
 
-    [self.paymentMethodsView.tableView reloadData];
+    [self handlePaymentMethodChangeBehaviorForViewModel:viewModel
+                                    shouldAnimateChange:shouldAnimate];
+    [self configureTargets];
+}
+
+- (void)handlePaymentMethodChangeBehaviorForViewModel:(JPPaymentMethodsViewModel *)viewModel
+                                  shouldAnimateChange:(BOOL)shouldAnimate {
+
+    if (!shouldAnimate) {
+        [self.paymentMethodsView.tableView reloadData];
+        return;
+    }
+
+    [self.paymentMethodsView.tableView beginUpdates];
+
+    NSRange oldRange = NSMakeRange(1, self.paymentMethodsView.tableView.numberOfSections - 1);
+    NSIndexSet *oldIndexSet = [NSIndexSet indexSetWithIndexesInRange:oldRange];
+
+    NSRange newRange = NSMakeRange(1, viewModel.items.count - 1);
+    NSIndexSet *newIndexSet = [NSIndexSet indexSetWithIndexesInRange:newRange];
+
+    UITableViewRowAnimation fadeAnimation = UITableViewRowAnimationFade;
+    [self.paymentMethodsView.tableView deleteSections:oldIndexSet withRowAnimation:fadeAnimation];
+    [self.paymentMethodsView.tableView insertSections:newIndexSet withRowAnimation:fadeAnimation];
+
+    [self.paymentMethodsView.tableView endUpdates];
 }
 
 - (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
@@ -121,7 +158,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat yValue = -scrollView.contentOffset.y;
-    CGFloat height = MIN(MAX(yValue, 350 * getWidthAspectRatio()), 400 * getWidthAspectRatio());
+    CGFloat height = MIN(MAX(yValue, 370 * getWidthAspectRatio()), 418 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
 }
@@ -159,9 +196,16 @@
         cardListModel = (JPPaymentMethodsCardListModel *)model;
         [cell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
         return cell;
-    } else if ([model isKindOfClass:JPPaymentMethodsCardHeaderModel.class]) {
+    }
+
+    if ([model isKindOfClass:JPPaymentMethodsCardHeaderModel.class]) {
         JPPaymentMethodsCardListHeaderCell *headerCell = (JPPaymentMethodsCardListHeaderCell *)cell;
         headerCell.delegate = self;
+    }
+
+    if ([model isKindOfClass:JPPaymentMethodsSelectionModel.class]) {
+        JPPaymentMethodsSelectionCell *selectionCell = (JPPaymentMethodsSelectionCell *)cell;
+        selectionCell.sectionView.delegate = self;
     }
 
     [cell configureWithViewModel:model];
@@ -184,7 +228,12 @@
     if (![model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
         return;
     }
-    [self.presenter didSelectCardAtIndex:indexPath.row];
+
+    [self.presenter didSelectCardAtIndex:indexPath.row
+                           isEditingMode:tableView.isEditing];
+
+    [self.presenter changeHeaderButtonTitle:NO];
+    [self.paymentMethodsView.tableView setEditing:NO animated:NO];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,7 +254,6 @@
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
                                                              [self.presenter deleteCardWithIndex:indexPath.row];
-                                                             [self.presenter viewModelNeedsUpdate];
                                                          }];
 
     [alertController addAction:cancelAction];
@@ -215,11 +263,12 @@
 
 @end
 
-#pragma mark - JPAddCardViewDelegate
+#pragma mark - JPTransactionViewDelegate
 
-@implementation JPPaymentMethodsViewController (AddCardDelegate)
+@implementation JPPaymentMethodsViewController (TransactionDelegate)
 
 - (void)didFinishAddingCard {
+    [self.presenter setLastAddedCardAsSelected];
     [self.presenter viewModelNeedsUpdate];
     [self.paymentMethodsView.tableView setEditing:NO animated:YES];
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
@@ -237,6 +286,14 @@
     }];
     [self.paymentMethodsView.tableView setEditing:!isEditing animated:YES];
     [CATransaction commit];
+}
+
+@end
+
+@implementation JPPaymentMethodsViewController (JPSectionViewDelegate)
+
+- (void)sectionView:(JPSectionView *)sectionView didSelectSectionAtIndex:(int)index {
+    [self.presenter changePaymentMethodToIndex:index];
 }
 
 @end

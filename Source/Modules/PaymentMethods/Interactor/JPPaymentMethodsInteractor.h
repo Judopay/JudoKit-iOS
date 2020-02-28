@@ -22,12 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPReference.h"
 #import "JPSession.h"
-#import "JPPaymentMethod.h"
+#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
 
-@class JPStoredCardDetails, JPTheme, JPAmount, JPTransaction;
+@class JPConfiguration, JPTransactionService, JPStoredCardDetails;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -41,12 +40,7 @@
 /**
  * A method that updates the selected state of a card stored in the keychain
  */
-- (void)selectCardAtIndex:(NSInteger)index;
-
-/**
- * A method that returns YES if the 'Powered by Judo' headline should be displayed
- */
-- (BOOL)shouldDisplayJudoHeadline;
+- (void)selectCardAtIndex:(NSUInteger)index;
 
 /**
  * A method that returns the amount passed from the builder
@@ -56,7 +50,7 @@
 /**
  * A method that returns the available payment methods
  */
-- (NSArray <JPPaymentMethod *> *)getPaymentMethods;
+- (NSArray<JPPaymentMethod *> *)getPaymentMethods;
 
 /**
  * Sends a payment transaction based on a stored card token
@@ -65,11 +59,29 @@
                       andCompletion:(JudoCompletionBlock)completion;
 
 /**
-* A method for deleting a specific card details from the keychain by its index
-*
-* @param index - Card's index in cards list
-*/
-- (void)deleteCardWithIndex:(NSInteger)index;
+ * Starts the Apple Pay payment / preAuth flow
+ */
+- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion;
+
+/**
+ * A method for deleting a specific card details from the keychain by its index
+ *
+ * @param index - Card's index in cards list
+ */
+- (void)deleteCardWithIndex:(NSUInteger)index;
+
+/**
+ * A method that sets a card as selected based on an index
+ */
+- (void)setCardAsSelectedAtInded:(NSUInteger)index;
+
+/**
+ * A boolean value that returns YES if Apple Pay is set up on the device
+ */
+- (bool)isApplePaySetUp;
+
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion;
 
 @end
 
@@ -80,16 +92,16 @@
  *
  * @param transaction - an instance describing the JPTransaction details
  * @param reference - the reference needed for the transaction
- * @param theme - an instance of JPTheme that is used to configure the payment methods flow
+ * @param session - the current instance of the JudoKit session
  * @param methods             An optional array of selected payment methods. Payment methods will show according to the order in which they have been added.                                                                                                 Setting nil will present the payment method screen with the default payment methods;
+ * @param configuration - an instance of JPApplePayConfiguration that describes the Apple Pay flow
  * @param amount - the amount of the transaction
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
-- (instancetype)initWithTransaction:(JPTransaction *)transaction
-                          reference:(JPReference *)reference
-                              theme:(JPTheme *)theme
-                     paymentMethods:(NSArray <JPPaymentMethod *> *)methods
-                          andAmount:(JPAmount *)amount;
+- (instancetype)initWithMode:(TransactionMode)mode
+               configuration:(JPConfiguration *)configuration
+          transactionService:(JPTransactionService *)transactionService
+                  completion:(JudoCompletionBlock)completion;
 
 @end

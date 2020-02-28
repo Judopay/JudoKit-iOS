@@ -23,45 +23,55 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsInteractor.h"
-#import "JPAmount.h"
+#import "JP3DSService.h"
+#import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 #import "JPCardStorage.h"
+#import "JPConfiguration.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentToken.h"
-#import "JPTheme.h"
-#import "JPTransaction.h"
+#import "JPReference.h"
+#import "JPTransactionService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
-@property (nonatomic, strong) JPTransaction *transaction;
-@property (nonatomic, strong) JPReference *reference;
-@property (nonatomic, strong) JPTheme *theme;
-@property (nonatomic, strong) JPAmount *amount;
-@property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, assign) TransactionMode transactionMode;
+@property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JudoCompletionBlock completion;
+@property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JP3DSService *threeDSecureService;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
 
-- (instancetype)initWithTransaction:(JPTransaction *)transaction
-                          reference:(JPReference *)reference
-                              theme:(JPTheme *)theme
-                     paymentMethods:(NSArray <JPPaymentMethod *> *)methods
-                          andAmount:(JPAmount *)amount {
+#pragma mark - Initializers
+
+- (instancetype)initWithMode:(TransactionMode)mode
+               configuration:(JPConfiguration *)configuration
+          transactionService:(JPTransactionService *)transactionService
+                  completion:(JudoCompletionBlock)completion {
+
     if (self = [super init]) {
-        self.transaction = transaction;
-        self.reference = reference;
-        self.theme = theme;
-        self.paymentMethods = methods;
-        self.amount = amount;
+        self.transactionMode = mode;
+        self.configuration = configuration;
+        self.transactionService = transactionService;
+        self.completion = completion;
     }
     return self;
 }
 
+#pragma mark - Get stored cards
+
 - (NSArray<JPStoredCardDetails *> *)getStoredCardDetails {
-    return [JPCardStorage.sharedInstance getStoredCardDetails];
+    return [JPCardStorage.sharedInstance fetchStoredCardDetails];
 }
 
-- (void)selectCardAtIndex:(NSInteger)index {
+#pragma mark - Select card at index
+
+- (void)selectCardAtIndex:(NSUInteger)index {
 
     NSArray<JPStoredCardDetails *> *storedCardDetails;
-    storedCardDetails = [JPCardStorage.sharedInstance getStoredCardDetails];
+    storedCardDetails = [JPCardStorage.sharedInstance fetchStoredCardDetails];
 
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         cardDetails.isSelected = NO;
@@ -75,32 +85,103 @@
     }
 }
 
-- (BOOL)shouldDisplayJudoHeadline {
-    return [self.theme displayJudoHeadline];
+#pragma mark - Set card as selected at index
+
+- (void)setCardAsSelectedAtInded:(NSUInteger)index {
+    [JPCardStorage.sharedInstance setCardAsSelectedAtIndex:index];
 }
+
+#pragma mark - Get JPAmount
 
 - (JPAmount *)getAmount {
-    return self.amount;
+    return self.configuration.amount;
 }
 
+#pragma mark - Get payment methods
+
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
-    NSArray *defaultPaymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
-    return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
+    NSMutableArray *defaultPaymentMethods;
+    defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card ]];
+
+    if ([self.applePayService isApplePaySupported]) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
+    } else {
+        [self removeApplePayFromPaymentMethods];
+    }
+
+    return (self.configuration.paymentMethods.count != 0) ? self.configuration.paymentMethods : defaultPaymentMethods;
 }
+
+#pragma mark - Remove Apple Pay from payment methods
+
+- (void)removeApplePayFromPaymentMethods {
+    if (self.configuration.paymentMethods.count == 0)
+        return;
+
+    NSMutableArray *tempArray = [self.configuration.paymentMethods mutableCopy];
+
+    for (JPPaymentMethod *method in self.configuration.paymentMethods) {
+        if (method.type == JPPaymentMethodTypeApplePay) {
+            [tempArray removeObject:method];
+        }
+    }
+
+    self.configuration.paymentMethods = tempArray;
+}
+
+#pragma mark - Payment transaction
 
 - (void)paymentTransactionWithToken:(NSString *)token
                       andCompletion:(JudoCompletionBlock)completion {
-
-    JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:self.reference.consumerReference
+    BOOL isPreAuth = (self.transactionMode == TransactionTypePreAuth);
+    self.transactionService.transactionType = isPreAuth ? TransactionTypePreAuth : TransactionModePayment;
+    NSString *consumerReference = self.configuration.reference.consumerReference;
+    JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
 
-    [self.transaction setPaymentToken:paymentToken];
-    [self.transaction sendWithCompletion:completion];
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    transaction.paymentToken = paymentToken;
+    self.threeDSecureService.transaction = transaction;
+    [transaction sendWithCompletion:completion];
 }
 
-- (void)deleteCardWithIndex:(NSInteger)index {
+#pragma mark - Apple Pay payment
 
+- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
+    [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
+}
+
+#pragma mark - Delete card at index
+
+- (void)deleteCardWithIndex:(NSUInteger)index {
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
+}
+
+#pragma mark - Is Apple Pay ready
+
+- (bool)isApplePaySetUp {
+    return [self.applePayService isApplePaySetUp];
+}
+
+- (void)handle3DSecureTransactionFromError:(NSError *)error
+                                completion:(JudoCompletionBlock)completion {
+    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
+                                                         completion:completion];
+}
+
+- (JPApplePayService *)applePayService {
+    if (!_applePayService && self.configuration.applePayConfiguration) {
+        _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration.applePayConfiguration
+                                                         transactionService:self.transactionService];
+    }
+    return _applePayService;
+}
+
+- (JP3DSService *)threeDSecureService {
+    if (!_threeDSecureService) {
+        _threeDSecureService = [JP3DSService new];
+    }
+    return _threeDSecureService;
 }
 
 @end

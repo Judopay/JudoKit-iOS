@@ -23,21 +23,23 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsRouter.h"
-#import "JPAddCardBuilder.h"
-#import "JPAddCardViewController.h"
+#import "JPCardCustomizationBuilder.h"
+#import "JPCardCustomizationViewController.h"
 #import "JPPaymentMethodsViewController.h"
+#import "JPTransactionBuilder.h"
+#import "JPTransactionService.h"
+#import "JPTransactionViewController.h"
 
-#import "JPTheme.h"
+#import "JPConfiguration.h"
+#import "JPSliderTransitioningDelegate.h"
 #import "JPTransaction.h"
-#import "SliderTransitioningDelegate.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
-@property (nonatomic, strong) JPTransaction *transaction;
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
-@property (nonatomic, assign) CardNetwork cardNetworks;
-@property (nonatomic, strong) SliderTransitioningDelegate *transitioningDelegate;
+@property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
 @end
 
@@ -45,16 +47,14 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithTransaction:(JPTransaction *)transaction
-              transitioningDelegate:(SliderTransitioningDelegate *)transitioningDelegate
-                              theme:(JPTheme *)theme
-              supportedCardNetworks:(CardNetwork)networks
-                         completion:(JudoCompletionBlock)completion {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                   transactionService:(JPTransactionService *)transactionService
+                transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
+                           completion:(JudoCompletionBlock)completion {
     if (self = [super init]) {
-        self.transaction = transaction;
-        self.theme = theme;
+        self.configuration = configuration;
+        self.transactionService = transactionService;
         self.transitioningDelegate = transitioningDelegate;
-        self.cardNetworks = networks;
         self.completionHandler = completion;
     }
     return self;
@@ -62,18 +62,25 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToAddCardModule {
-
-    JPAddCardViewController *controller;
-    controller = [[JPAddCardBuilderImpl new] buildModuleWithTransaction:self.transaction
-                                                                  theme:self.theme
-                                                  supportedCardNetworks:self.cardNetworks
-                                                             completion:self.completionHandler];
+- (void)navigateToTransactionModule {
+    self.transactionService.transactionType = TransactionTypeSaveCard;
+    JPTransactionViewController *controller;
+    controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
+                                                               configuration:self.configuration
+                                                                  completion:nil];
 
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
     [self.viewController presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)navigateToCardCustomizationWithIndex:(NSUInteger)index {
+    JPCardCustomizationViewController *viewController;
+    viewController = [JPCardCustomizationBuilderImpl buildModuleWithCardIndex:index];
+
+    [self.viewController.navigationController pushViewController:viewController
+                                                        animated:YES];
 }
 
 - (void)dismissViewController {
@@ -82,7 +89,8 @@
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
                                andError:(NSError *)error {
-    self.completionHandler(response, error);
+    if (self.completionHandler)
+        self.completionHandler(response, error);
 }
 
 @end

@@ -25,10 +25,9 @@
 #import "JPPaymentMethodsView.h"
 #import "Functions.h"
 #import "JPPaymentMethodsHeaderView.h"
-#import "UIColor+Judo.h"
-#import "UIImage+Icons.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
 #import "UIView+Additions.h"
-#import "UIView+SafeAnchors.h"
 
 @implementation JPPaymentMethodsView
 
@@ -98,6 +97,7 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.backgroundColor = UIColor.clearColor;
+        _tableView.allowsSelectionDuringEditing = YES;
         _tableView.contentInset = UIEdgeInsetsMake(320 * getWidthAspectRatio(), 0, 0, 0);
     }
     return _tableView;

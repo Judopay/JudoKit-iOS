@@ -25,7 +25,7 @@
 #import "JPPaymentMethodsEmptyHeaderView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "NSString+Additions.h"
-#import "UIColor+Judo.h"
+#import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIStackView+Additions.h"
 
@@ -62,8 +62,7 @@
 #pragma mark - Layout Setup
 
 - (void)setupViews {
-    self.backgroundColor = UIColor.clearColor;
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:4.0];
+    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:8.0];
 
     [stackView addArrangedSubview:self.titleLabel];
     [stackView addArrangedSubview:self.textLabel];
@@ -72,7 +71,7 @@
 
     [stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:24].active = YES;
     [stackView.widthAnchor constraintEqualToConstant:227.0].active = YES;
-    [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:50].active = YES;
 }
 
 #pragma mark - Lazy Properties

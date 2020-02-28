@@ -26,26 +26,26 @@ import XCTest
 
 class ApplePayTests: JudoTestCase {
     
-    var configuration: ApplePayConfiguration!
-    var manager: ApplePayManager!
+    var configuration: JPApplePayConfiguration!
+    var manager: JPApplePayService!
     
     override func setUp() {
         super.setUp()
         
         let items = [
-            PaymentSummaryItem(label: "Item 1", amount: NSDecimalNumber(string: "0.01")),
-            PaymentSummaryItem(label: "Item 2", amount: NSDecimalNumber(string: "0.02")),
-            PaymentSummaryItem(label: "Tim Apple", amount: NSDecimalNumber(string: "0.03"))
+            JPPaymentSummaryItem(label: "Item 1", amount: NSDecimalNumber(string: "0.01")),
+            JPPaymentSummaryItem(label: "Item 2", amount: NSDecimalNumber(string: "0.02")),
+            JPPaymentSummaryItem(label: "Tim Apple", amount: NSDecimalNumber(string: "0.03"))
         ]
         
-        configuration = ApplePayConfiguration(judoId: myJudoId,
+        configuration = JPApplePayConfiguration(judoId: myJudoId,
                                               reference: "consumer reference",
                                               merchantId: "",
                                               currency: "GBP",
                                               countryCode: "GB",
-                                              paymentSummaryItems: items)
+                                              JPPaymentSummaryItems: items)
         
-        manager = ApplePayManager(configuration: configuration)
+        manager = JPApplePayService(configuration: configuration)
     }
     
     override func tearDown() {
@@ -56,12 +56,12 @@ class ApplePayTests: JudoTestCase {
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized
+     * GIVEN:  JPApplePayConfiguration is initialized
      *
      *  THEN:  default values for merchant capabilities, supported card networks, transaction type,
      *         shipping type and returned contact info must be set.
      */
-    func test_OnApplePayConfigurationInitialization_DefaultValuesAreRespected() {
+    func test_OnJPApplePayConfigurationInitialization_DefaultValuesAreRespected() {
         XCTAssertEqual(configuration.merchantCapabilities, MerchantCapability.capability3DS,
                        "Configuration's merchantCapabilities does not default to 3D Security")
         XCTAssertTrue(configuration.supportedCardNetworks.contains(NSNumber(value: CardNetwork.networkVisa.rawValue)),
@@ -85,9 +85,9 @@ class ApplePayTests: JudoTestCase {
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized correctly
+     * GIVEN:  JPApplePayConfiguration is initialized correctly
      *
-     *  THEN:  ApplePayManager should return a PKAuthorizationViewController object when calling
+     *  THEN:  JPApplePayService should return a PKAuthorizationViewController object when calling
      *         its "pkPaymentAuthorizationViewController" instance method
      */
     func test_OnValidConfiguration_ManagerReturnsValidPKAuthorizationViewController() {
@@ -98,21 +98,21 @@ class ApplePayTests: JudoTestCase {
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized incorrectly
+     * GIVEN:  JPApplePayConfiguration is initialized incorrectly
      *
-     *  THEN:  ApplePayManager should return nil when calling
+     *  THEN:  JPApplePayService should return nil when calling
      *         its "pkPaymentAuthorizationViewController" instance method
      */
     func test_OnInvalidConfiguration_ManagerReturnsNilPKAuthorizationViewController() {
-        configuration.paymentSummaryItems = [];
+        configuration.JPPaymentSummaryItems = [];
         XCTAssertNil(manager.pkPaymentAuthorizationViewController(),
                     "PKPaymentAuthorizationViewController must be nil on invalid configuration")
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized correctly
+     * GIVEN:  JPApplePayConfiguration is initialized correctly
      *
-     *  THEN:  ApplePayManager should return a valid JPAmount object when calling
+     *  THEN:  JPApplePayService should return a valid JPAmount object when calling
      *         its "jpAmount" instance method
      */
     func test_OnValidConfiguration_ManagerGeneratesCorrectJPAmount() {
@@ -125,22 +125,22 @@ class ApplePayTests: JudoTestCase {
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized incorrectly
+     * GIVEN:  JPApplePayConfiguration is initialized incorrectly
      *
-     *  THEN:  ApplePayManager should return a JPAmount object with empty amount
+     *  THEN:  JPApplePayService should return a JPAmount object with empty amount
      *         when calling its "jpAmount" instance method
      */
     func test_OnInvalidConfiguration_ManagerGeneratesEmptyJPAmount() {
-        configuration = ApplePayConfiguration()
-        manager = ApplePayManager(configuration: configuration)
+        configuration = JPApplePayConfiguration()
+        manager = JPApplePayService(configuration: configuration)
         XCTAssertEqual(manager.jpAmount().amount, "",
                         "JPAmount must have empty on incorrect configuration")
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized correctly
+     * GIVEN:  JPApplePayConfiguration is initialized correctly
      *
-     *  THEN:  ApplePayManager should return a valid JPReference object when calling
+     *  THEN:  JPApplePayService should return a valid JPReference object when calling
      *         its "jpReference" instance method
      */
     func test_OnValidConfiguration_ManagerGeneratesCorrectJPReference() {
@@ -149,24 +149,24 @@ class ApplePayTests: JudoTestCase {
     }
     
     /**
-     * GIVEN:  ApplePayConfiguration is initialized incorrectly
+     * GIVEN:  JPApplePayConfiguration is initialized incorrectly
      *
-     *  THEN:  ApplePayManager should return a JPReference object with empty consumerReference when
+     *  THEN:  JPApplePayService should return a JPReference object with empty consumerReference when
      *         calling its "jpReference" instance method
      */
     func test_OnInvalidConfiguration_ManagerGeneratesCorrectJPReference() {
-        configuration = ApplePayConfiguration()
-        manager = ApplePayManager(configuration: configuration)
+        configuration = JPApplePayConfiguration()
+        manager = JPApplePayService(configuration: configuration)
         XCTAssertEqual(manager.jpReference().consumerReference, "",
                        "JPReference must have empty consumerReference on incorrect configuration")
     }
     
     /**
-     * GIVEN:  ApplePayManager wants to convert a valid PKContact to ContactInformation
+     * GIVEN:  JPApplePayService wants to convert a valid PKContact to JPContactInformation
      *
-     *  THEN:  a ContactInformation object is returned with all PKContact properties set
+     *  THEN:  a JPContactInformation object is returned with all PKContact properties set
      */
-    func test_OnConversionFromPKContact_ReturnValidContactInformation() {
+    func test_OnConversionFromPKContact_ReturnValidJPContactInformation() {
         
         var name = PersonNameComponents()
         name.givenName = "Tim"
@@ -177,7 +177,7 @@ class ApplePayTests: JudoTestCase {
         pkContact.emailAddress = "tim.apple@email.com"
         
         let information = manager.contactInformation(fromPaymentContact: pkContact)
-        XCTAssertNotNil(information, "ContactInformation must not be nil")
+        XCTAssertNotNil(information, "JPContactInformation must not be nil")
         
         XCTAssertEqual(information?.name?.givenName, "Tim",
                        "Given name does not match the one specified in the PKContact object")

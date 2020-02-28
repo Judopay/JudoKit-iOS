@@ -27,6 +27,7 @@
 @implementation JPPaymentMethodsCell
 
 - (void)configureWithViewModel:(JPPaymentMethodsModel *)viewModel {
+    self.backgroundColor = UIColor.whiteColor;
     //TODO: Implement custom payment methods logic
 }
 

@@ -23,20 +23,26 @@
 //  SOFTWARE.
 
 #import "JPCardDetails.h"
+#import "JPCardPattern.h"
 #import "JPPaymentMethod.h"
 #import <Foundation/Foundation.h>
 
-//TODO: Rename the button to a more generic type
-@class JPAmount, JPAddCardButtonViewModel;
+@class JPAmount, JPTransactionButtonViewModel;
 
 #pragma mark - JPPaymentMethodsModel
 
-typedef NS_ENUM(NSInteger, AnimationType) {
+typedef NS_ENUM(NSUInteger, AnimationType) {
     AnimationTypeNone,
     AnimationTypeSetup,
     AnimationTypeLeftToRight,
     AnimationTypeRightToLeft,
     AnimationTypeBottomToTop
+};
+
+typedef NS_ENUM(NSUInteger, CardExpirationStatus) {
+    CardNotExpired,
+    CardExpired,
+    CardExpiresSoon
 };
 
 @interface JPPaymentMethodsModel : NSObject
@@ -60,7 +66,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * An array of available payment methods
  */
-@property (nonatomic, strong) NSArray <JPPaymentMethod *> * _Nonnull paymentMethods;
+@property (nonatomic, strong) NSArray<JPPaymentMethod *> *_Nullable paymentMethods;
 
 @end
 
@@ -86,7 +92,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The action handler of the Add Card button that handles the tap events
  */
-@property (nonatomic, copy) void (^_Nullable onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^_Nullable onTransactionButtonTapHandler)(void);
 
 @end
 
@@ -123,7 +129,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The action handler of the Add Card button displayed below the card selection list
  */
-@property (nonatomic, copy) void (^_Nullable onAddCardButtonTapHandler)(void);
+@property (nonatomic, copy) void (^_Nullable onTransactionButtonTapHandler)(void);
 
 @end
 
@@ -152,6 +158,11 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 @property (nonatomic, strong) NSString *_Nullable cardExpiryDate;
 
 /**
+ * The card's pattern type
+ */
+@property (nonatomic, assign) JPCardPatternType cardPatternType;
+
+/**
  * A value that specifies if the card is set as the default credit card of the user
  */
 @property (nonatomic, assign) BOOL isDefaultCard;
@@ -160,6 +171,11 @@ typedef NS_ENUM(NSInteger, AnimationType) {
  * A value that specifies if the card is currently selected
  */
 @property (nonatomic, assign) BOOL isSelected;
+
+/**
+* A value that specifies card expiration staus
+*/
+@property (nonatomic, assign) CardExpirationStatus cardExpirationStatus;
 
 @end
 
@@ -185,7 +201,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 /**
  * The payment button model
  */
-@property (nonatomic, strong) JPAddCardButtonViewModel *_Nonnull payButtonModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull payButtonModel;
 
 /**
  * The currently selected card model
@@ -193,21 +209,25 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 @property (nonatomic, strong) JPPaymentMethodsCardModel *_Nullable cardModel;
 
 /**
-* Card appearance animation type
-*/
-
+ * Card appearance animation type
+ */
 @property (nonatomic, assign) AnimationType animationType;
+
+/**
+ * The currently selected payment method type
+ */
+@property (nonatomic, assign) JPPaymentMethodType paymentMethodType;
+
+/**
+ * A boolean value that returns YES if Apple Pay is set up
+ */
+@property (nonatomic, assign) bool isApplePaySetUp;
 
 @end
 
 #pragma mark - JPPaymentMethodsCardListModel
 
 @interface JPPaymentMethodsViewModel : NSObject
-
-/**
- * A property that is set to YES if the 'Powered by Judo' headline should be displayed;
- */
-@property (nonatomic, assign) BOOL shouldDisplayHeadline;
 
 /**
  * A property that defines the way the Payment Method header behaves

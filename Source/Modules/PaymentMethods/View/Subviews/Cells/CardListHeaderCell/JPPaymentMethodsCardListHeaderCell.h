@@ -40,12 +40,12 @@
 /**
  * The title label of the header above the card list
  */
-@property (nonatomic, strong) UILabel * _Nonnull titleLabel;
+@property (nonatomic, strong) UILabel *_Nullable titleLabel;
 
 /**
  * The Edit button of the header above the card list
  */
-@property (nonatomic, strong) UIButton * _Nonnull actionButton;
+@property (nonatomic, strong) UIButton *_Nullable actionButton;
 
 /**
 *  The delegate that will handle action button logic

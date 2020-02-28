@@ -51,7 +51,7 @@ class JudoKitIDEALTransactionTests: XCTestCase {
         let app = XCUIApplication()
         app.tables.staticTexts["iDEAL Transaction"].tap()
         app.staticTexts["Select iDEAL bank"].tap()
-        let idealCells = app.tables.cells.containing(.cell, identifier: "IDEALBankCell")
+        let idealCells = app.tables.cells.containing(.cell, identifier: "JPIDealBankCell")
         XCTAssertEqual(idealCells.count, 12);
     }
     

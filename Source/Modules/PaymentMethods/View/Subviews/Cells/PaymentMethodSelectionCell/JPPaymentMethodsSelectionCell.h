@@ -23,7 +23,14 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsCell.h"
+#import "JPSectionView.h"
 #import <UIKit/UIKit.h>
 
 @interface JPPaymentMethodsSelectionCell : JPPaymentMethodsCell
+
+/**
+ * The JPSectionView instance that handles the payment method switching logic
+ */
+@property (nonatomic, strong) JPSectionView *sectionView;
+
 @end
