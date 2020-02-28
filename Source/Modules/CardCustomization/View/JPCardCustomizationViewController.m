@@ -32,6 +32,7 @@
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPCardCustomizationIsDefaultCell.h"
 
 @interface JPCardCustomizationViewController ()
 @property (nonatomic, strong) UIView *fadedView;
@@ -93,6 +94,7 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 - (void)reloadOnlySpecificCells {
     NSIndexPath *cardIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     NSIndexPath *saveIndexPath = [NSIndexPath indexPathForRow:self.viewModels.count - 1 inSection:0];
+
     [self.cardCustomizationView.tableView reloadRowsAtIndexPaths:@[ cardIndexPath, saveIndexPath ]
                                                 withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -202,6 +204,12 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:JPCardCustomizationIsDefaultCell.class]){
+        [self.presenter handleRadioButtonEvent];
+        }
+    }
 
 @end
 

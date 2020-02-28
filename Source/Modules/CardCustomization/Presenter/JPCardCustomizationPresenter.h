@@ -65,6 +65,11 @@
  * This method saves the applied changes in the keychain and dismisses the Card Customization screen.
  */
 - (void)handleSaveEvent;
+/**
+* A method that is triggered once the once the cell with that sets default cart is tapped by a user
+* This method changes selection state in viewModel and reloads the view with the new values.
+*/
+-(void)handleRadioButtonEvent;
 
 @end
 

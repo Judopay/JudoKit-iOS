@@ -60,4 +60,10 @@
                                             atIndex:self.cardIndex];
 }
 
+-(void)updateStoredCardDefaultWithValue:(BOOL)isDefualt{
+    if (isDefualt){
+    [JPCardStorage.sharedInstance setCardAsDefaultAtIndex:self.cardIndex];
+    }
+}
+
 @end
