@@ -27,8 +27,8 @@ class CardStorageTest: XCTestCase {
     
     func testSetCardAsDefaultAtIndex() {
         self.addTestCardsInStorage()
-        JPCardStorage.sharedInstance()?.setCardAsDefaultAt(2);
-        let storedCardsDetails:[JPStoredCardDetails] = JPCardStorage.sharedInstance()?.getStoredCardDetails() as! [JPStoredCardDetails]
+        JPCardStorage.sharedInstance()?.setCardDefaultState(true, at: 2);
+        let storedCardsDetails:[JPStoredCardDetails] = JPCardStorage.sharedInstance()?.fetchStoredCardDetails() as! [JPStoredCardDetails]
         let selectedCard = storedCardsDetails[0];
         XCTAssert(selectedCard.cardLastFour == "3333")
         XCTAssert(selectedCard.expiryDate == "23/23")
@@ -47,8 +47,5 @@ class CardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()!.add(secondStoredCard)
         JPCardStorage.sharedInstance()!.add(thirdStoredCard)
         JPCardStorage.sharedInstance()!.add(forthStoredCard)
-
-
     }
-    
 }

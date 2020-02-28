@@ -25,6 +25,34 @@
 import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+    func orderCards() {
+        
+    }
+    
+    func setLastUsedCardAt(_ index: UInt) {
+        
+    }
+    
+    func orederCards() {
+        
+    }
+    
+    func selectCard(at index: UInt) {
+        
+    }
+    
+    func deleteCard(with index: UInt) {
+        
+    }
+    
+    func setCardAsSelectedAtInded(_ index: UInt) {
+        
+    }
+    
+    func setCardAsDefaultAt(_ index: Int) {
+        
+    }
+    
     func getStoredCardDetails() -> [JPStoredCardDetails]! {
         
         let calendar = Calendar.current
@@ -47,10 +75,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
         return [validCard, expiresSoonCard, expirdCard]
     }
-    
-    func selectCard(at index: Int) {
-        
-    }
+
     
     func getAmount() -> JPAmount! {
         let amount = JPAmount("1.0", currency: "EUR");
@@ -68,14 +93,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     func startApplePay(completion: JudoCompletionBlock!) {
         let response = JPResponse()
         completion(response,nil)
-    }
-    
-    func deleteCard(with index: Int) {
-        
-    }
-    
-    func setCardAsSelectedAtInded(_ index: Int) {
-        
     }
     
     func isApplePaySetUp() -> Bool {

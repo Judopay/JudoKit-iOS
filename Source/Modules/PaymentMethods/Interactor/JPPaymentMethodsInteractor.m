@@ -99,7 +99,7 @@
 
 #pragma mark - Order cards
 
-- (void)orederCards {
+- (void)orderCards {
     [JPCardStorage.sharedInstance orderCards];
 }
 

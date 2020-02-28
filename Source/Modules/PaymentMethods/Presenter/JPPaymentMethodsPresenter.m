@@ -189,7 +189,7 @@
 }
 
 - (void)orderCards {
-    [self.interactor orederCards];
+    [self.interactor orderCards];
 }
 
 #pragma mark - Helper methods

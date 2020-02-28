@@ -97,7 +97,7 @@
 /**
  * A method that reorders cards so that the default card is always on top
 */
-- (void)orederCards;
+- (void)orderCards;
 
 @end
 
