@@ -34,7 +34,6 @@
 #import "JPTransactionViewModel.h"
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
-#import "JPConstants.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -63,7 +62,7 @@
 
 - (void)viewModelNeedsUpdateWithAnimationType:(AnimationType)animationType
                           shouldAnimateChange:(BOOL)shouldAnimate {
-
+    
     [self updateViewModelWithAnimationType:animationType];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:shouldAnimate];
@@ -71,17 +70,17 @@
 
 - (void)didSelectCardAtIndex:(NSUInteger)index
                isEditingMode:(BOOL)isEditing {
-
+    
     if (isEditing) {
         [self.router navigateToCardCustomizationWithIndex:index];
         return;
     }
-
+    
     [self.interactor selectCardAtIndex:index];
-
+    
     AnimationType animationType;
     animationType = self.headerModel.cardModel ? AnimationTypeBottomToTop : AnimationTypeSetup;
-
+    
     [self viewModelNeedsUpdateWithAnimationType:animationType
                             shouldAnimateChange:YES];
 }
@@ -99,9 +98,9 @@
 - (void)handlePayButtonTap {
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                    andCompletion:^(JPResponse *response, NSError *error) {
-                                       [self handleCallbackWithResponse:response
-                                                               andError:error];
-                                   }];
+        [self handleCallbackWithResponse:response
+                                andError:error];
+    }];
 }
 
 - (void)handleApplePayButtonTap {
@@ -112,19 +111,21 @@
 }
 
 - (void)handlePaymentResponse:(JPResponse *)response {
-    NSInteger selectedCardIndex = [self indexOfSelectdCard];
-    [self.interactor setCardAsDefaultAtIndex: selectedCardIndex];
+    NSInteger selectedCardIndex = [self indexOfSelectedCard];
+    if (selectedCardIndex>=0){
+        [self.interactor setLastUsedCardAtIndex:selectedCardIndex];
+    }
     [self.router completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
 }
 
 - (void)handlePaymentError:(NSError *)error {
-
+    
     if (error.code == JudoError3DSRequest) {
         [self handle3DSecureTransactionWithError:error];
         return;
     }
-
+    
     [self.router completeTransactionWithResponse:nil andError:error];
     [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
 }
@@ -132,22 +133,22 @@
 - (void)handle3DSecureTransactionWithError:(NSError *)error {
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, NSError *error) {
-                                                 if (error) {
-                                                     [self handlePaymentError:error];
-                                                     return;
-                                                 }
-                                                 [self handlePaymentResponse:response];
-                                             }];
+        if (error) {
+            [self handlePaymentError:error];
+            return;
+        }
+        [self handlePaymentResponse:response];
+    }];
 }
 
 - (void)deleteCardWithIndex:(NSUInteger)index {
     NSArray *storedCards = [self.interactor getStoredCardDetails];
     JPStoredCardDetails *selectedCard = storedCards[index];
-
+    
     [self.interactor deleteCardWithIndex:index];
     [self.cardListModel.cardModels removeObjectAtIndex:index];
     self.viewModel.headerModel.cardModel = nil;
-
+    
     if (selectedCard.isSelected && storedCards.count - 1 > 0) {
         [self.interactor setCardAsSelectedAtInded:0];
     }
@@ -158,33 +159,37 @@
 - (void)changeHeaderButtonTitle:(BOOL)isEditing {
     NSString *title = isEditing ? @"done_capitalized" : @"edit_capitalized";
     self.cardHeaderModel.editButtonTitle = title.localized;
-
+    
     [self viewModelNeedsUpdateWithAnimationType:AnimationTypeNone
                             shouldAnimateChange:NO];
 }
 
 - (void)changePaymentMethodToIndex:(int)index {
-
+    
     if (index == self.previousIndex) {
         return;
     }
-
+    
     AnimationType animationType = AnimationTypeLeftToRight;
-
+    
     if (index < self.previousIndex) {
         animationType = AnimationTypeRightToLeft;
     }
-
+    
     JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousIndex];
     if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
         animationType = AnimationTypeSetup;
     }
-
+    
     self.previousIndex = index;
     self.paymentSelectionModel.selectedPaymentMethod = index;
-
+    
     [self viewModelNeedsUpdateWithAnimationType:animationType
                             shouldAnimateChange:YES];
+}
+
+- (void)orderCards {
+    [self.interactor orederCards];
 }
 
 #pragma mark - Helper methods
@@ -205,27 +210,27 @@
 
 - (void)updateViewModelWithAnimationType:(AnimationType)animationType {
     [self.viewModel.items removeAllObjects];
-
+    
     [self prepareHeaderModel];
     self.viewModel.headerModel.animationType = animationType;
     [self preparePaymentMethodModels];
 }
 
 - (void)preparePaymentMethodModels {
-
+    
     NSArray *paymentMethods = [self.interactor getPaymentMethods];
     self.paymentSelectionModel.paymentMethods = paymentMethods;
-
+    
     if (paymentMethods.count > 1) {
         [self.viewModel.items addObject:self.paymentSelectionModel];
     }
-
+    
     int selectedPaymentIndex = self.paymentSelectionModel.selectedPaymentMethod;
     JPPaymentMethod *selectedPaymentMethod = self.paymentSelectionModel.paymentMethods[selectedPaymentIndex];
-
+    
     self.viewModel.headerModel.paymentMethodType = selectedPaymentMethod.type;
     self.viewModel.headerModel.isApplePaySetUp = [self.interactor isApplePaySetUp];
-
+    
     if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
         [self prepareCardListModels];
     }
@@ -233,7 +238,7 @@
 
 - (void)prepareCardListModels {
     NSArray<JPStoredCardDetails *> *cardDetailsArray = [self.interactor getStoredCardDetails];
-
+    
     if (cardDetailsArray.count == 0) {
         [self.viewModel.items addObject:self.emptyListModel];
     } else {
@@ -249,7 +254,7 @@
     self.headerModel.payButtonModel = self.paymentButtonModel;
     self.headerModel.payButtonModel.isEnabled = NO;
     NSArray *storedCardDetails = [self.interactor getStoredCardDetails];
-
+    
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         if (cardDetails.isSelected) {
             self.headerModel.cardModel = [self cardModelFromStoredCardDetails:cardDetails];
@@ -257,7 +262,7 @@
             self.headerModel.payButtonModel.isEnabled = isCardExpired;
         }
     }
-
+    
     self.viewModel.headerModel = self.headerModel;
 }
 
@@ -304,15 +309,15 @@
     return nil;
 }
 
--(NSInteger)indexOfSelectdCard {
+- (NSInteger)indexOfSelectedCard {
     NSInteger cardIndex = 0;
     for (JPStoredCardDetails *card in [self.interactor getStoredCardDetails]) {
-           if (card.isSelected) {
-               return cardIndex;
-           }
+        if (card.isSelected) {
+            return cardIndex;
+        }
         cardIndex++;
-       }
-       return -1;
+    }
+    return -1;
 }
 
 #pragma mark - Lazy properties
@@ -348,7 +353,7 @@
         _emptyListModel.title = @"no_connected_cards".localized;
         _emptyListModel.addCardButtonTitle = @"add_card_button".localized;
         _emptyListModel.addCardButtonIconName = @"plus-icon";
-
+        
         __weak typeof(self) weakSelf = self;
         _emptyListModel.onTransactionButtonTapHandler = ^{
             [weakSelf handleTransactionButtonTap];
@@ -373,7 +378,7 @@
         _cardFooterModel.addCardButtonTitle = @"add_card_button".localized;
         _cardFooterModel.addCardButtonIconName = @"plus-icon";
         _cardFooterModel.identifier = @"JPPaymentMethodsCardListFooterCell";
-
+        
         __weak typeof(self) weakSelf = self;
         _cardFooterModel.onTransactionButtonTapHandler = ^{
             [weakSelf handleTransactionButtonTap];

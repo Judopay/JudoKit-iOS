@@ -40,7 +40,6 @@
 @property (nonatomic, strong) JPCardCustomizationTextInputModel *textInputModel;
 @property (nonatomic, strong) JPCardCustomizationIsDefaultModel *isDefaultModel;
 @property (nonatomic, strong) JPCardCustomizationSubmitModel *submitModel;
-@property (nonatomic, assign) BOOL isSelectredCardDefault;
 @end
 
 @implementation JPCardCustomizationPresenterImpl
@@ -49,15 +48,13 @@
 
 - (void)prepareViewModel {
     JPStoredCardDetails *cardDetails = self.interactor.cardDetails;
-    
+
     self.titleModel.title = @"customize_card".localized;
     self.textInputModel.text = self.selectedCardTitle;
-    self.isDefaultModel.isDefault = self.isSelectredCardDefault;
     self.submitModel.isSaveEnabled = self.isSaveButtonEnabled;
-    
     [self updateHeaderModelWithCardDetails:cardDetails];
     [self setSelectedPatternModelForPatternType:self.selectedPatternType];
-    
+
     [self.view updateViewWithViewModels:self.viewModels
                 shouldPreserveResponder:self.shouldPreserveResponder];
 }
@@ -89,8 +86,7 @@
     [self.router navigateBack];
 }
 
--(void)handleRadioButtonEvent{
-    self.isSelectredCardDefault = !self.isDefaultModel.isDefault;
+- (void)handleToggleDefaultCardEvent {
     self.isDefaultModel.isDefault = !self.isDefaultModel.isDefault;
     [self.view updateViewWithViewModels:self.viewModels shouldPreserveResponder:NO];
     if (!self.submitModel.isSaveEnabled) {
@@ -122,7 +118,7 @@
     BOOL isSameTitle = ([self.selectedCardTitle isEqualToString:cardDetails.cardTitle]);
     BOOL isSamePattern = (self.selectedPatternType == cardDetails.patternType);
     BOOL isTitleEmpty = (self.selectedCardTitle.length == 0);
-    
+
     return !isTitleEmpty && (!isSameTitle || !isSamePattern);
 }
 
@@ -140,14 +136,6 @@
         _selectedCardTitle = self.interactor.cardDetails.cardTitle;
     }
     return _selectedCardTitle;
-}
-
--(BOOL)isSelectredCardDefault {
-    if(!_isSelectredCardDefault) {
-        JPStoredCardDetails *cardDetails = self.interactor.cardDetails;
-        _isSelectredCardDefault = cardDetails.isDefault;
-    }
-    return _isSelectredCardDefault;
 }
 
 - (NSArray *)viewModels {
@@ -198,6 +186,7 @@
     if (!_isDefaultModel) {
         _isDefaultModel = [JPCardCustomizationIsDefaultModel new];
         _isDefaultModel.identifier = @"JPCardCustomizationIsDefaultCell";
+        _isDefaultModel.isDefault = self.interactor.cardDetails.isDefault;
     }
     return _isDefaultModel;
 }

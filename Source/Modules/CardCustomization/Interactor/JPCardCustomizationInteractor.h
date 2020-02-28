@@ -51,11 +51,11 @@
 - (void)updateStoredCardTitleWithInput:(nonnull NSString *)input;
 
 /**
- * A method that updates the stored card's isDefault property based on a provided input string
+ * A method that updates the stored card's isDefault property based on a provided boolean value
  *
- * @param isDefualt - a boolean value that indicates if the card is selected as default card
+ * @param isDefault - a boolean value that indicates if the card is selected as default card
  */
--(void)updateStoredCardDefaultWithValue:(BOOL)isDefualt;
+- (void)updateStoredCardDefaultWithValue:(BOOL)isDefault;
 
 @end
 

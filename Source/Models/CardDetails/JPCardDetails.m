@@ -25,7 +25,6 @@
 #import "JPCardDetails.h"
 #import "JPConstants.h"
 #import "NSString+Additions.h"
-#import "JPConstants.h"
 
 @interface JPCardDetails ()
 @property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;

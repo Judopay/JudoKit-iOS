@@ -75,12 +75,16 @@
  */
 - (void)setCardAsSelectedAtInded:(NSUInteger)index;
 
+/**
+ * A method that sets a card as last used card to make a successfull payment
+ * @param index - the index of the card in the list
+*/
+- (void)setLastUsedCardAtIndex:(NSUInteger)index;
 
 /**
 * A method that sets a card as default based on an index
 */
 - (void)setCardAsDefaultAtIndex:(NSInteger)index;
-
 
 /**
  * A boolean value that returns YES if Apple Pay is set up on the device
@@ -89,6 +93,11 @@
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error
                                 completion:(JudoCompletionBlock)completion;
+
+/**
+ * A method that reorders cards so that the default card is always on top
+*/
+- (void)orederCards;
 
 @end
 

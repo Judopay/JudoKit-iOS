@@ -29,7 +29,6 @@
 #import "JPValidationResult.h"
 #import "NSError+Additions.h"
 #import "NSString+Additions.h"
-#import "JPConstants.h"
 
 @interface JPCardValidationService ()
 

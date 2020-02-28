@@ -67,6 +67,10 @@
  * A boolean property that describes if the card is currently selected
  */
 @property (nonatomic, assign) BOOL isSelected;
+/**
+ * A boolean property describing if the card is the one used in last successful card payment
+ */
+@property (nonatomic, assign) BOOL isLastUsed;
 
 /**
  * The designated initializer that creates a new instance with the last four digits, expiry date and card network set

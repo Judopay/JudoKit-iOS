@@ -116,7 +116,7 @@ const int kSubstringPatternOffset = 4;
 
     [self addSubview:self.backgroundImageView];
     [self.backgroundImageView pinToView:self withPadding:kCardDefaultStackViewsSpacing];
-    
+
     UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
     [bottomStackView addArrangedSubview:self.cardNumberLabel];
     [bottomStackView addArrangedSubview:self.expiryDateLabel];

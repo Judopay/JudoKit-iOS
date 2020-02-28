@@ -25,6 +25,7 @@
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationCell.h"
 #import "JPCardCustomizationHeaderCell.h"
+#import "JPCardCustomizationIsDefaultCell.h"
 #import "JPCardCustomizationPresenter.h"
 #import "JPCardCustomizationTextInputCell.h"
 #import "JPCardCustomizationView.h"
@@ -32,7 +33,6 @@
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
-#import "JPCardCustomizationIsDefaultCell.h"
 
 @interface JPCardCustomizationViewController ()
 @property (nonatomic, strong) UIView *fadedView;
@@ -205,11 +205,11 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
     return UITableViewAutomaticDimension;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:JPCardCustomizationIsDefaultCell.class]){
-        [self.presenter handleRadioButtonEvent];
-        }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:JPCardCustomizationIsDefaultCell.class]) {
+        [self.presenter handleToggleDefaultCardEvent];
     }
+}
 
 @end
 

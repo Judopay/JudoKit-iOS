@@ -111,30 +111,67 @@
     self.storedCards[index].isSelected = YES;
 }
 
-- (void)setCardAsDefaultAtIndex:(NSInteger)index {
+- (void)setCardDefaultState:(BOOL)isDefault atIndex:(NSUInteger)index {
     for (JPStoredCardDetails *card in self.storedCards) {
-           card.isDefault = NO;
-       }
-    self.storedCards[index].isDefault = YES;
-    [self reorderCards];
+        card.isDefault = NO;
+    }
+    self.storedCards[index].isDefault = isDefault;
+    [self orderCards];
 }
 
-#pragma mark - Helper Methods
+- (void)setLastUsedCardAtIndex:(NSUInteger)index {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        card.isLastUsed = NO;
+    }
+    self.storedCards[index].isLastUsed = YES;
+    [self orderCards];
+}
 
--(void)reorderCards{
+- (void)orderCards {
     NSInteger defaultCardIndex = 0;
     JPStoredCardDetails *defaultCard;
-    for (JPStoredCardDetails *card in self.storedCards) {
-        if(card.isDefault) {
-            defaultCard = card;
-            break;
+    if ([self hasDefaultCard]) {
+        for (JPStoredCardDetails *card in self.storedCards) {
+            if (card.isDefault) {
+                defaultCard = card;
+                break;
+            }
+            defaultCardIndex++;
         }
-        defaultCardIndex++;
+    } else {
+        for (JPStoredCardDetails *card in self.storedCards) {
+            if (card.isLastUsed) {
+                defaultCard = card;
+                break;
+            }
+            defaultCardIndex++;
+        }
     }
-    if (defaultCardIndex>=0 && defaultCard) {
+    if (defaultCardIndex >= 0 && defaultCard) {
         [self.storedCards removeObjectAtIndex:defaultCardIndex];
         [self.storedCards insertObject:defaultCard atIndex:0];
+        [self setCardAsSelectedAtIndex:0];
     }
+}
+
+#pragma mark - Helper methods
+
+- (BOOL)hasDefaultCard {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        if (card.isDefault) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)hasLastUsedCard {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        if (card.isLastUsed) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
