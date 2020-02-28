@@ -94,6 +94,11 @@
     self.floatingTextField.keyboardType = keyboardType;
 }
 
+- (void)setReturnType:(UIReturnKeyType)returnType {
+    _returnType = returnType;
+    self.floatingTextField.returnKeyType = returnType;
+}
+
 #pragma mark - User Actions
 
 - (void)displayErrorWithText:(NSString *)text {
@@ -162,6 +167,11 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [self.delegate inputField:self shouldChangeText:newString];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

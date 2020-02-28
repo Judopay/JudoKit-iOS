@@ -78,6 +78,11 @@
 @property (nonatomic, assign) UIKeyboardType keyboardType;
 
 /**
+ * A property that changes the keyboard's return type
+ */
+@property (nonatomic, assign) UIReturnKeyType returnType;
+
+/**
  * A reference to the object that adopts the JPInputFieldDelegate protocol
  */
 @property (nonatomic, weak) id<JPInputFieldDelegate> delegate;
