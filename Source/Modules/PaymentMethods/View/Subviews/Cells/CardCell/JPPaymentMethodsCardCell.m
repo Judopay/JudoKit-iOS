@@ -173,6 +173,7 @@ const float kCardSmallPadding = 3.0f;
 
     switch (status) {
         case CardNotExpired:
+            self.subtitleLabel.textColor = UIColor.jpDarkGrayColor;
             break;
         case CardExpired:
             expirationStatus = @"is_expired".localized;
