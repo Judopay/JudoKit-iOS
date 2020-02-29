@@ -58,6 +58,11 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.presenter orderCards];
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark - User Actions
 
 - (void)onBackButtonTap {

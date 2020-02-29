@@ -60,4 +60,8 @@
                                             atIndex:self.cardIndex];
 }
 
+- (void)updateStoredCardDefaultWithValue:(BOOL)isDefault {
+    [JPCardStorage.sharedInstance setCardDefaultState:isDefault atIndex:self.cardIndex];
+}
+
 @end

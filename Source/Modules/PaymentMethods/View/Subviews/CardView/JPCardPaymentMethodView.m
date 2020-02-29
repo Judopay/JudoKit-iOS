@@ -51,9 +51,7 @@ const float kCardLogoShadowOffset = 0.0f;
 const int kExpiryDateNumberOfLines = 2;
 const float kCardLogoSize = 50.0f;
 const float kCardMainStackViewPadding = 28.0f;
-const float kCardTitleLargeStackViewSpacing = 24.0f;
-const float kCardTitleMediumStackViewSpacing = 20.0f;
-const float kCardTitleSmallStackViewSpacing = 12.0f;
+const float kCardTitleStackViewSpacing = 24.0f;
 const float kCardDefaultStackViewsSpacing = 0.0f;
 const int kSubstringPatternOffset = 4;
 
@@ -118,12 +116,12 @@ const int kSubstringPatternOffset = 4;
 
     [self addSubview:self.backgroundImageView];
     [self.backgroundImageView pinToView:self withPadding:kCardDefaultStackViewsSpacing];
-    
+
     UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
     [bottomStackView addArrangedSubview:self.cardNumberLabel];
     [bottomStackView addArrangedSubview:self.expiryDateLabel];
 
-    UIStackView *cardTitleStackView = [UIStackView verticalStackViewWithSpacing: self.deviceAwareSpacing];
+    UIStackView *cardTitleStackView = [UIStackView verticalStackViewWithSpacing:kCardTitleStackViewSpacing * getWidthAspectRatio()];
     [cardTitleStackView addArrangedSubview:self.titleLabel];
     [cardTitleStackView addArrangedSubview:bottomStackView];
 
@@ -170,7 +168,7 @@ const int kSubstringPatternOffset = 4;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = self.deviceAwareTitleFont;
+        _titleLabel.font = UIFont.title;
         _titleLabel.textColor = UIColor.whiteColor;
     }
     return _titleLabel;
@@ -180,7 +178,7 @@ const int kSubstringPatternOffset = 4;
     if (!_cardNumberLabel) {
         _cardNumberLabel = [UILabel new];
         _cardNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _cardNumberLabel.font = self.deviceAwareBodyFont;
+        _cardNumberLabel.font = UIFont.bodyBold;
         _cardNumberLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _cardNumberLabel;
@@ -191,7 +189,7 @@ const int kSubstringPatternOffset = 4;
         _expiryDateLabel = [UILabel new];
         _expiryDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _expiryDateLabel.textAlignment = NSTextAlignmentRight;
-        _expiryDateLabel.font = self.deviceAwareBodyFont;
+        _expiryDateLabel.font = UIFont.bodyBold;
         _expiryDateLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _expiryDateLabel;
@@ -207,31 +205,6 @@ const int kSubstringPatternOffset = 4;
         _logoImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _logoImageView;
-}
-
-- (double)deviceAwareSpacing {
-    double ratio = getWidthAspectRatio();
-    
-    if (UIScreen.mainScreen.bounds.size.width > 375) {
-        return kCardTitleLargeStackViewSpacing * ratio;
-    }
-    
-    if (UIScreen.mainScreen.bounds.size.width > 320) {
-        return kCardTitleMediumStackViewSpacing * ratio;
-    }
-    return kCardTitleSmallStackViewSpacing * ratio;
-}
-
-- (UIFont *)deviceAwareTitleFont {
-    double ratio = getWidthAspectRatio();
-    return [UIFont systemFontOfSize:UIFont.title.pointSize * ratio
-                             weight:UIFont.title.weight * ratio];
-}
-
-- (UIFont *)deviceAwareBodyFont {
-    double ratio = getWidthAspectRatio();
-    return [UIFont systemFontOfSize:UIFont.bodyBold.pointSize * ratio
-                             weight:UIFont.bodyBold.weight * ratio];
 }
 
 @end

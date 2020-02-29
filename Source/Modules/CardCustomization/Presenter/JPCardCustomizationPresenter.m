@@ -51,9 +51,7 @@
 
     self.titleModel.title = @"customize_card".localized;
     self.textInputModel.text = self.selectedCardTitle;
-    self.isDefaultModel.isDefault = cardDetails.isDefault;
     self.submitModel.isSaveEnabled = self.isSaveButtonEnabled;
-
     [self updateHeaderModelWithCardDetails:cardDetails];
     [self setSelectedPatternModelForPatternType:self.selectedPatternType];
 
@@ -84,7 +82,16 @@
 - (void)handleSaveEvent {
     [self.interactor updateStoredCardTitleWithInput:self.selectedCardTitle];
     [self.interactor updateStoredCardPatternWithType:self.selectedPatternType];
+    [self.interactor updateStoredCardDefaultWithValue:self.isDefaultModel.isDefault];
     [self.router navigateBack];
+}
+
+- (void)handleToggleDefaultCardEvent {
+    self.isDefaultModel.isDefault = !self.isDefaultModel.isDefault;
+    [self.view updateViewWithViewModels:self.viewModels shouldPreserveResponder:NO];
+    if (!self.submitModel.isSaveEnabled) {
+        self.submitModel.isSaveEnabled = YES;
+    }
 }
 
 #pragma mark - Helper methods
@@ -179,6 +186,7 @@
     if (!_isDefaultModel) {
         _isDefaultModel = [JPCardCustomizationIsDefaultModel new];
         _isDefaultModel.identifier = @"JPCardCustomizationIsDefaultCell";
+        _isDefaultModel.isDefault = self.interactor.cardDetails.isDefault;
     }
     return _isDefaultModel;
 }

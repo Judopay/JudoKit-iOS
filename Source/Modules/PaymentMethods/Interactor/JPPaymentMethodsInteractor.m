@@ -85,10 +85,28 @@
     }
 }
 
+#pragma mark - Set card at index as default
+
+- (void)setCardAsDefaultAtIndex:(NSInteger)index {
+    [JPCardStorage.sharedInstance setCardDefaultState:YES atIndex:index];
+}
+
 #pragma mark - Set card as selected at index
 
 - (void)setCardAsSelectedAtInded:(NSUInteger)index {
     [JPCardStorage.sharedInstance setCardAsSelectedAtIndex:index];
+}
+
+#pragma mark - Order cards
+
+- (void)orderCards {
+    [JPCardStorage.sharedInstance orderCards];
+}
+
+#pragma mark - Set card last card used to maek a successfull payment at index
+
+- (void)setLastUsedCardAtIndex:(NSUInteger)index {
+    [JPCardStorage.sharedInstance setLastUsedCardAtIndex:index];
 }
 
 #pragma mark - Get JPAmount

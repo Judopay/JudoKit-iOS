@@ -86,7 +86,26 @@
 
 /**
  * A method that sets a card as selected based on an index
+ * @param index - the index of the card in the list
  */
 - (void)setCardAsSelectedAtIndex:(NSUInteger)index;
+
+/**
+ * A method that sets a card as last used card to make a successfull payment
+ * @param index - the index of the card in the list
+ */
+- (void)setLastUsedCardAtIndex:(NSUInteger)index;
+
+/**
+ * A method that sets a card as default based on an index
+ * @param isDefault - a boolean value that indicates the the default state to be set
+ * @param index - the index of the card in the list
+*/
+- (void)setCardDefaultState:(BOOL)isDefault atIndex:(NSUInteger)index;
+
+/**
+ * A method that reorders cards so that the default card is always on top
+*/
+- (void)orderCards;
 
 @end

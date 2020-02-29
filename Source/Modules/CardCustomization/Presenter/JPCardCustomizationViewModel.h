@@ -112,6 +112,11 @@
  */
 @property (nonatomic, assign) BOOL isDefault;
 
+/**
+* A boolean property that, if set to YES, describes the card as the last card used to pay
+*/
+@property (nonatomic, assign) BOOL isLastUsed;
+
 @end
 
 @interface JPCardCustomizationSubmitModel : JPCardCustomizationViewModel

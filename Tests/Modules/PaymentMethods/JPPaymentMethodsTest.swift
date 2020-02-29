@@ -34,8 +34,8 @@ class JPPaymentMethodsTest: XCTestCase {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .CardNotExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .CardExpiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .CardExpired)
+        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
+        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
+        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
     }
 }

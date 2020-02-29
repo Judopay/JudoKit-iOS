@@ -25,6 +25,7 @@
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationCell.h"
 #import "JPCardCustomizationHeaderCell.h"
+#import "JPCardCustomizationIsDefaultCell.h"
 #import "JPCardCustomizationPresenter.h"
 #import "JPCardCustomizationTextInputCell.h"
 #import "JPCardCustomizationView.h"
@@ -93,6 +94,7 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 - (void)reloadOnlySpecificCells {
     NSIndexPath *cardIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     NSIndexPath *saveIndexPath = [NSIndexPath indexPathForRow:self.viewModels.count - 1 inSection:0];
+
     [self.cardCustomizationView.tableView reloadRowsAtIndexPaths:@[ cardIndexPath, saveIndexPath ]
                                                 withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -201,6 +203,12 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:JPCardCustomizationIsDefaultCell.class]) {
+        [self.presenter handleToggleDefaultCardEvent];
+    }
 }
 
 @end

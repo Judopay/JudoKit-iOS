@@ -50,6 +50,13 @@
  */
 - (void)updateStoredCardTitleWithInput:(nonnull NSString *)input;
 
+/**
+ * A method that updates the stored card's isDefault property based on a provided boolean value
+ *
+ * @param isDefault - a boolean value that indicates if the card is selected as default card
+ */
+- (void)updateStoredCardDefaultWithValue:(BOOL)isDefault;
+
 @end
 
 @interface JPCardCustomizationInteractorImpl : NSObject <JPCardCustomizationInteractor>

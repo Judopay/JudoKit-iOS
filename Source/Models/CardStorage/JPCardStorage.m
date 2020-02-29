@@ -111,4 +111,67 @@
     self.storedCards[index].isSelected = YES;
 }
 
+- (void)setCardDefaultState:(BOOL)isDefault atIndex:(NSUInteger)index {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        card.isDefault = NO;
+    }
+    self.storedCards[index].isDefault = isDefault;
+    [self orderCards];
+}
+
+- (void)setLastUsedCardAtIndex:(NSUInteger)index {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        card.isLastUsed = NO;
+    }
+    self.storedCards[index].isLastUsed = YES;
+    [self orderCards];
+}
+
+- (void)orderCards {
+    NSInteger defaultCardIndex = 0;
+    JPStoredCardDetails *defaultCard;
+    if ([self hasDefaultCard]) {
+        for (JPStoredCardDetails *card in self.storedCards) {
+            if (card.isDefault) {
+                defaultCard = card;
+                break;
+            }
+            defaultCardIndex++;
+        }
+    } else {
+        for (JPStoredCardDetails *card in self.storedCards) {
+            if (card.isLastUsed) {
+                defaultCard = card;
+                break;
+            }
+            defaultCardIndex++;
+        }
+    }
+    if (defaultCardIndex >= 0 && defaultCard) {
+        [self.storedCards removeObjectAtIndex:defaultCardIndex];
+        [self.storedCards insertObject:defaultCard atIndex:0];
+        [self setCardAsSelectedAtIndex:0];
+    }
+}
+
+#pragma mark - Helper methods
+
+- (BOOL)hasDefaultCard {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        if (card.isDefault) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)hasLastUsedCard {
+    for (JPStoredCardDetails *card in self.storedCards) {
+        if (card.isLastUsed) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end
