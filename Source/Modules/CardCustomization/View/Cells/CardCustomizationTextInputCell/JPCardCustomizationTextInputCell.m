@@ -92,6 +92,7 @@ const float kInputFieldHeight = 44.0f;
         _inputField.translatesAutoresizingMaskIntoConstraints = NO;
         _inputField.font = UIFont.headlineLight;
         _inputField.textColor = UIColor.jpBlackColor;
+        _inputField.returnType = UIReturnKeyDone;
         [_inputField placeholderWithText:@"enter_card_title".localized
                                    color:UIColor.jpDarkGrayColor
                                  andFont:UIFont.headlineLight];
