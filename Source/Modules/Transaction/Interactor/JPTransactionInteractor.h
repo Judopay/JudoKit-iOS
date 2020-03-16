@@ -137,7 +137,7 @@
  * A method for sending a transaction to the Judo backend with specified card details
  *
  * @param card - the JPCard object which stores the card details
- * @param completion - the completion block with an optional JPResponse / NSError
+ * @param completionHandler - the completion block with an optional JPResponse / NSError
  */
 - (void)sendTransactionWithCard:(JPCard *)card
               completionHandler:(JudoCompletionBlock)completionHandler;
