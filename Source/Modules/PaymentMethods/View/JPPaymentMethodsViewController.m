@@ -331,7 +331,7 @@
 
 @implementation JPPaymentMethodsViewController (JPSectionViewDelegate)
 
-- (void)sectionView:(JPSectionView *)sectionView didSelectSectionAtIndex:(int)index {
+- (void)sectionView:(JPSectionView *)sectionView didSelectSectionAtIndex:(NSUInteger)index {
     [self.presenter changePaymentMethodToIndex:index];
 }
 
