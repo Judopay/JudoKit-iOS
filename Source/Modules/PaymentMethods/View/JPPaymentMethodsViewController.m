@@ -89,7 +89,13 @@
     self.navigationController.navigationBar.translucent = YES;
 
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageWithIconName:@"back-icon"] forState:UIControlStateNormal];
+    backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+    UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];
+    UIImage *customImage = self.uiConfiguration.theme.backButtonImage;
+    UIImage *backButtonImage = customImage ? customImage : defaultIcon;
+    [backButton setImage:backButtonImage forState:UIControlStateNormal];
+
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -117,6 +123,7 @@
            shouldAnimateChange:(BOOL)shouldAnimate {
     self.viewModel = viewModel;
 
+    [self.paymentMethodsView.headerView applyUIConfiguration:self.uiConfiguration];
     [self.paymentMethodsView.headerView configureWithViewModel:viewModel.headerModel];
 
     for (JPPaymentMethodsModel *item in viewModel.items) {
@@ -186,21 +193,48 @@
         return cardListModel.cardModels.count;
     }
 
+    if ([self.viewModel.items[section] isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
+        JPPaymentMethodsIDEALBankListModel *bankListModel;
+        bankListModel = (JPPaymentMethodsIDEALBankListModel *)self.viewModel.items[section];
+        return bankListModel.bankModels.count;
+    }
+
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     JPPaymentMethodsModel *model = self.viewModel.items[indexPath.section];
-    JPPaymentMethodsCell *cell = [tableView dequeueReusableCellWithIdentifier:model.identifier
-                                                                 forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:model.identifier
+                                                            forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    if ([model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
-        JPPaymentMethodsCardListModel *cardListModel;
-        cardListModel = (JPPaymentMethodsCardListModel *)model;
-        [cell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
-        return cell;
+    if ([cell conformsToProtocol:@protocol(JPThemable)]) {
+        UITableViewCell <JPThemable> *themableCell;
+        themableCell = (UITableViewCell <JPThemable> *)cell;
+
+        [themableCell applyTheme:self.uiConfiguration.theme];
+    }
+
+    if ([cell conformsToProtocol:@protocol(JPPaymentMethodConfigurable)]) {
+        UITableViewCell <JPPaymentMethodConfigurable> *paymentMethodCell;
+        paymentMethodCell = (UITableViewCell <JPPaymentMethodConfigurable> *)cell;
+
+        if ([model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
+            JPPaymentMethodsCardListModel *cardListModel;
+            cardListModel = (JPPaymentMethodsCardListModel *)model;
+            [paymentMethodCell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
+            return cell;
+        }
+
+        if ([model isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
+            JPPaymentMethodsIDEALBankListModel *bankListModel;
+            bankListModel = (JPPaymentMethodsIDEALBankListModel *)model;
+            [paymentMethodCell configureWithViewModel:(JPPaymentMethodsModel *)bankListModel.bankModels[indexPath.row]];
+            return cell;
+        }
+
+        [paymentMethodCell configureWithViewModel:model];
     }
 
     if ([model isKindOfClass:JPPaymentMethodsCardHeaderModel.class]) {
@@ -213,7 +247,6 @@
         selectionCell.sectionView.delegate = self;
     }
 
-    [cell configureWithViewModel:model];
     return cell;
 }
 
@@ -230,15 +263,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     JPPaymentMethodsModel *model = self.viewModel.items[indexPath.section];
-    if (![model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
-        return;
+    if ([model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
+        [self.presenter didSelectCardAtIndex:indexPath.row
+                               isEditingMode:tableView.isEditing];
+        [self.presenter changeHeaderButtonTitle:NO];
+        [self.paymentMethodsView.tableView setEditing:NO animated:NO];
     }
 
-    [self.presenter didSelectCardAtIndex:indexPath.row
-                           isEditingMode:tableView.isEditing];
-
-    [self.presenter changeHeaderButtonTitle:NO];
-    [self.paymentMethodsView.tableView setEditing:NO animated:NO];
+    if ([model isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
+        [self.presenter didSelectBankAtIndex:indexPath.row];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

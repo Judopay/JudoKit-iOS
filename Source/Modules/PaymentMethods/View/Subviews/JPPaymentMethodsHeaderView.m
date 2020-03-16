@@ -30,7 +30,6 @@
 #import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
@@ -54,13 +53,14 @@
 @property (nonatomic, strong) UIStackView *amountStackView;
 @property (nonatomic, strong) UIStackView *paymentStackView;
 
+@property (nonatomic, strong) JPTheme *theme;
+
 @end
 
 @implementation JPPaymentMethodsHeaderView
 
 #pragma mark - Constants
 
-const float kHeaderPayButtonCornerRadius = 4.0f;
 const float kHeaderBottomHeight = 86.0f;
 const float kHeaderAmountLabelMinScaleFactor = 0.5f;
 const float kHeaderDefaultStackViewSpacing = 0.0f;
@@ -95,6 +95,23 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     return self;
 }
 
+#pragma mark - Theming
+
+- (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration {
+    self.theme = uiConfiguration.theme;
+    self.amountPrefixLabel.font = uiConfiguration.theme.body;
+    self.amountPrefixLabel.textColor = uiConfiguration.theme.jpBlackColor;
+    self.amountValueLabel.font = uiConfiguration.theme.largeTitle;
+    self.amountValueLabel.textColor = uiConfiguration.theme.jpBlackColor;
+    self.payButton.titleLabel.font = uiConfiguration.theme.headline;
+    [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor.asImage forState:UIControlStateNormal];
+    [self.payButton setTitleColor:uiConfiguration.theme.buttonTitleColor forState:UIControlStateNormal];
+    self.payButton.layer.cornerRadius = uiConfiguration.theme.buttonCornerRadius;
+    [self.cardHeaderView applyTheme:uiConfiguration.theme];
+    [self.emptyHeaderView applyTheme:uiConfiguration.theme];
+    self.amountStackView.hidden = !uiConfiguration.shouldDisplayAmount;
+}
+
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
@@ -119,6 +136,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
 
     [self.paymentStackView removeAllSubviews];
     [self.paymentStackView addArrangedSubview:self.amountStackView];
+    [self.paymentStackView addArrangedSubview:[UIView new]];
     [self configureAmountWithViewModel:viewModel];
 
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
@@ -293,8 +311,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
 - (UILabel *)amountValueLabel {
     if (!_amountValueLabel) {
         _amountValueLabel = [UILabel new];
-        _amountValueLabel.font = UIFont.largeTitle;
-        _amountValueLabel.textColor = UIColor.jpBlackColor;
         _amountValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _amountValueLabel.adjustsFontSizeToFitWidth = YES;
         _amountValueLabel.minimumScaleFactor = kHeaderAmountLabelMinScaleFactor;
@@ -307,8 +323,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     if (!_amountPrefixLabel) {
         _amountPrefixLabel = [UILabel new];
         _amountPrefixLabel.text = @"you_will_pay".localized;
-        _amountPrefixLabel.font = UIFont.body;
-        _amountPrefixLabel.textColor = UIColor.jpBlackColor;
         _amountPrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _amountPrefixLabel.adjustsFontSizeToFitWidth = YES;
         _amountPrefixLabel.textAlignment = NSTextAlignmentCenter;
@@ -320,9 +334,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     if (!_payButton) {
         _payButton = [JPTransactionButton new];
         _payButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _payButton.layer.cornerRadius = kHeaderPayButtonCornerRadius;
-        _payButton.titleLabel.font = UIFont.headline;
-        [_payButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
         [_payButton setClipsToBounds:YES];
     }
     return _payButton;

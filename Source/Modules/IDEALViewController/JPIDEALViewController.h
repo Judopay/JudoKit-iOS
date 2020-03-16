@@ -1,5 +1,5 @@
 //
-//  JPCardCustomizationCell.h
+//  JPIDEALViewController.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,16 +23,35 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@class JPCardCustomizationViewModel;
+#import "JPConfiguration.h"
+#import "JPIDEALService.h"
+#import "JPTheme.h"
+#import "JPTransactionService.h"
 
-@interface JPCardCustomizationCell : UITableViewCell
+@interface JPIDEALViewController : UIViewController
 
 /**
- * A method that customizes the JPCardCustomizationCell with details from the view model
- *
- * @param viewModel - an instance of JPCardCustomizationViewModel containing the cell's data
+ * A reference to the JPTheme instance responsible for customizing the user interface
  */
-- (void)configureWithViewModel:(JPCardCustomizationViewModel *)viewModel;
+@property (nonatomic, strong) JPTheme *_Nullable theme;
+
+/**
+ * Initializer that creates a configured instance of JPIDEALViewController
+ *
+ * @param iDEALBank - the iDEAL bank that is selected to complete the transaction
+ * @param configuration - the JPConfiguration that configures the payment flow
+ * @param transactionService - the service responsible for Judo backend calls
+ * @param completion - the JPResponse / NSError completion block
+ */
+- (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
+                            configuration:(nonnull JPConfiguration *)configuration
+                       transactionService:(nonnull JPTransactionService *)transactionService
+                        completionHandler:(nullable JudoCompletionBlock)completion;
+
+@end
+
+@interface JPIDEALViewController (WKWebViewDelegate) <WKNavigationDelegate>
 
 @end

@@ -1,5 +1,5 @@
 //
-//  JPIDealService.m
+//  JPIDEALService.m
 //  JudoKitObjC
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -65,9 +65,16 @@ static const float kTimerDuration = 60.0f;
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank
                      completion:(JudoCompletionBlock)completion {
 
+    NSDictionary *parameters = [self parametersForIDEALBank:iDealBank];
+
+    if (!parameters) {
+        completion(nil, NSError.judoSiteIDMissingError);
+        return;
+    }
+
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:HTTPMethodPOST
-                                          parameters:[self parametersForIDEALBank:iDealBank]
+                                          parameters:parameters
                                           completion:^(JPResponse *response, NSError *error) {
                                               JPTransactionData *data = response.items.firstObject;
 
@@ -91,7 +98,6 @@ static const float kTimerDuration = 60.0f;
                                                        completion(nil, NSError.judoRequestTimeoutError);
                                                        return;
                                                    }];
-
     [self getStatusForOrderId:orderId checksum:checksum completion:completion];
 }
 
@@ -103,7 +109,8 @@ static const float kTimerDuration = 60.0f;
         return;
     }
 
-    [self.transactionService sendRequestWithEndpoint:kStatusRequestEndpoint
+    NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
+    [self.transactionService sendRequestWithEndpoint:statusEndpoint
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
@@ -132,6 +139,10 @@ static const float kTimerDuration = 60.0f;
 }
 
 - (NSDictionary *)parametersForIDEALBank:(JPIDEALBank *)iDEALBank {
+
+    if (!self.configuration.siteId) {
+        return nil;
+    }
 
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;

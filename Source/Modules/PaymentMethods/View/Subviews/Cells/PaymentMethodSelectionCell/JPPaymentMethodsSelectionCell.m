@@ -54,6 +54,12 @@
     return self;
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    [self.sectionView applyTheme:theme];
+}
+
 #pragma mark - Layout setup
 
 - (void)setupLayout {
@@ -67,8 +73,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.sectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
-                                                      constant:-25.0f],
+        [self.sectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         [self.sectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.sectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [self.sectionView.heightAnchor constraintEqualToConstant:64]
@@ -90,6 +95,10 @@
         UIImage *image = [UIImage imageWithIconName:paymentMethod.iconName];
         [self.sectionView addSectionWithImage:image andTitle:paymentMethod.title];
     }
+
+    if (selectionModel.selectedPaymentMethod == 0)
+        return;
+    [self.sectionView changeSelectedSectionToIndex:selectionModel.selectedPaymentMethod];
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  JPPaymentMethodsCell.h
+//  JPPaymentMethodConfigurable.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTheme.h"
 #import <UIKit/UIKit.h>
 
 @class JPPaymentMethodsModel;
 
-@interface JPPaymentMethodsCell : UITableViewCell
+@protocol JPPaymentMethodConfigurable
 
 /**
  * A method for configuring the view with a JPPaymentMethodsModel object
  */
-- (void)configureWithViewModel:(JPPaymentMethodsModel *)viewModel;
+- (void)configureWithViewModel:(nonnull JPPaymentMethodsModel *)viewModel;
 
 @end

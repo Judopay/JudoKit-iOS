@@ -55,6 +55,9 @@ extern NSString *_Nonnull const JudoErrorDomain;
 + (nonnull NSError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
 + (nonnull NSError *)judoErrorFromError:(nonnull NSError *)error;
 + (nonnull NSError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
++ (nonnull NSError *)judoInvalidIDEALCurrencyError;
++ (nonnull NSError *)judoApplePayNotSupportedError;
++ (nonnull NSError *)judoSiteIDMissingError;
 
 @end
 

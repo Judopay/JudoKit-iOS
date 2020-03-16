@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTheme.h"
 #import "JPTransactionViewModel.h"
 #import <UIKit/UIKit.h>
 
@@ -62,6 +63,21 @@
 @property (nonatomic, strong) UIFont *font;
 
 /**
+ * A property that sets the color of the placeholder
+ */
+@property (nonatomic, strong) UIColor *placeholderColor;
+
+/**
+ * A property that sets the font of the placeholder
+ */
+@property (nonatomic, strong) UIFont *placeholderFont;
+
+/**
+ * A property that sets the placeholder
+ */
+@property (nonatomic, strong) NSString *placeholder;
+
+/**
  * The input view of the input field.
  * Defaults to a keyboard, but can be set to any other type of UIView instance.
  */
@@ -88,15 +104,11 @@
 @property (nonatomic, weak) id<JPInputFieldDelegate> delegate;
 
 /**
- * Convenience method for setting an attributed placeholder
+ * A method used to apply a theme to the view
  *
- * @param text - the string contents of the placeholder
- * @param color - the color of the placeholder
- * @param font - the font of the placeholder
+ * @param theme - the JPTheme object used to configure the user interface
  */
-- (void)placeholderWithText:(NSString *)text
-                      color:(UIColor *)color
-                    andFont:(UIFont *)font;
+- (void)applyTheme:(JPTheme *)theme;
 
 /**
  * A method that displays an inline error above the input text.

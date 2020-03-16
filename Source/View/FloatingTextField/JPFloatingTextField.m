@@ -32,6 +32,15 @@
 
 @implementation JPFloatingTextField
 
+#pragma mark - Constants
+
+static const float kAnimationDuration = 0.3f;
+static const float kFontDecreaseValue = 2.0f;
+static const float kErrorFrameOffset = -4.0f;
+static const float kErrorTextOffset = 5.0f;
+static const float kStandardFrameOffset = 3.0f;
+static const float kErrorConstraintOffset = -15.0f;
+
 #pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -55,16 +64,28 @@
     return self;
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.floatingLabel.textColor = theme.jpRedColor;
+    self.floatingLabel.font = theme.caption;
+}
+
 #pragma mark - Methods
 
-- (void)displayFloatingLabelWithText:(NSString *)text color:(UIColor *)color {
+- (void)displayFloatingLabelWithText:(NSString *)text {
     self.floatingLabel.text = text;
-    self.floatingLabel.textColor = color;
-    [self transformToNewFontSize:14.0 frameOffset:-4 alphaValue:1.0 andConstraintConstant:-15.0];
+    [self transformToNewFontSize:self.placeholderFont.pointSize - kFontDecreaseValue
+                     frameOffset:kErrorFrameOffset
+                      alphaValue:1.0
+           andConstraintConstant:kErrorConstraintOffset];
 }
 
 - (void)hideFloatingLabel {
-    [self transformToNewFontSize:16.0 frameOffset:3 alphaValue:0.0 andConstraintConstant:0.0];
+    [self transformToNewFontSize:self.placeholderFont.pointSize
+                     frameOffset:kStandardFrameOffset
+                      alphaValue:0.0
+           andConstraintConstant:0.0];
 }
 
 #pragma mark - View layout
@@ -88,7 +109,7 @@
          andConstraintConstant:(CGFloat)constant {
 
     UIFont *oldFont = self.font;
-    self.font = [UIFont systemFontOfSize:fontSize];
+    self.font = [UIFont fontWithName:self.placeholderFont.familyName size:fontSize];
     CGFloat scale = oldFont.pointSize / self.font.pointSize;
 
     if (scale == 1) {
@@ -107,10 +128,10 @@
 
     self.floatingLabelCenterYConstraint.constant = constant;
 
-    CGFloat yOffset = (scale > 1) ? 5.0 : -5.0;
+    CGFloat yOffset = (scale > 1) ? kErrorTextOffset : -kErrorTextOffset;
     CGFloat yOrigin = newOrigin.y + yOffset;
 
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:kAnimationDuration
                      animations:^{
                          self.frame = CGRectMake(newOrigin.x, yOrigin, self.frame.size.width, self.frame.size.height);
                          self.transform = oldTransform;
@@ -125,12 +146,7 @@
     if (!_floatingLabel) {
         _floatingLabel = [UILabel new];
         _floatingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _floatingLabel.font = UIFont.caption;
         _floatingLabel.alpha = 0.0f;
-        _floatingLabel.textColor = [UIColor colorWithRed:226 / 255.0
-                                                   green:25 / 255.0
-                                                    blue:0 / 255.0
-                                                   alpha:1.0];
     }
     return _floatingLabel;
 }

@@ -29,6 +29,7 @@
 #import "UITextField+Additions.h"
 
 @interface JPInputField ()
+@property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) JPFloatingTextField *floatingTextField;
 @property (nonatomic, strong) UIStackView *stackView;
 @end
@@ -58,6 +59,17 @@
     return self;
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.theme = theme;
+    self.textColor = theme.jpBlackColor;
+    self.font = theme.headlineLight;
+    self.placeholderFont = theme.headlineLight;
+    self.placeholderColor = theme.jpDarkGrayColor;
+    [self.floatingTextField applyTheme:theme];
+}
+
 #pragma mark - Property setters
 
 - (void)setText:(NSString *)text {
@@ -75,8 +87,21 @@
     self.floatingTextField.font = font;
 }
 
-- (void)placeholderWithText:(NSString *)text color:(UIColor *)color andFont:(UIFont *)font {
-    [self.floatingTextField placeholderWithText:text color:color andFont:font];
+- (void)setPlaceholderFont:(UIFont *)placeholderFont {
+    _placeholderFont = placeholderFont;
+    self.floatingTextField.placeholderFont = placeholderFont;
+}
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    _placeholderColor = placeholderColor;
+    self.floatingTextField.placeholderColor = placeholderColor;
+}
+
+- (void)setPlaceholder:(NSString *)placeholder {
+    _placeholder = placeholder;
+    UIColor *color = self.placeholderColor ? self.placeholderColor : UIColor.jpRedColor;
+    UIFont *font = self.placeholderFont ? self.placeholderFont : UIFont.caption;
+    [self.floatingTextField placeholderWithText:placeholder color:color andFont:font];
 }
 
 - (void)setInputView:(UIView *)inputView {
@@ -102,9 +127,8 @@
 #pragma mark - User Actions
 
 - (void)displayErrorWithText:(NSString *)text {
-    self.floatingTextField.textColor = UIColor.jpRedColor;
-    [self.floatingTextField displayFloatingLabelWithText:text
-                                                   color:UIColor.jpRedColor];
+    self.floatingTextField.textColor = self.theme.jpRedColor;
+    [self.floatingTextField displayFloatingLabelWithText:text];
 }
 
 - (void)clearError {
@@ -142,11 +166,6 @@
         _floatingTextField = [JPFloatingTextField new];
         _floatingTextField.translatesAutoresizingMaskIntoConstraints = NO;
         _floatingTextField.font = UIFont.headlineLight;
-        _floatingTextField.textColor = UIColor.jpBlackColor;
-        [_floatingTextField placeholderWithText:@""
-                                          color:UIColor.jpGrayColor
-                                        andFont:UIFont.headlineLight];
-
         _floatingTextField.delegate = self;
     }
     return _floatingTextField;

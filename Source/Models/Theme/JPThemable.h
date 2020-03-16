@@ -1,5 +1,5 @@
 //
-//  JPCardCustomizationCell.m
+//  JPThemable.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,12 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardCustomizationCell.h"
+#import <Foundation/Foundation.h>
 
-@implementation JPCardCustomizationCell
+@class JPTheme;
 
-- (void)configureWithViewModel:(JPCardCustomizationViewModel *)viewModel {
-    //Override with custom implementation
-}
+@protocol JPThemable
+
+/**
+ * A method used to apply a theme to the view
+ *
+ * @param theme - the JPTheme object used to configure the user interface
+ */
+- (void)applyTheme:(nonnull JPTheme *)theme;
 
 @end

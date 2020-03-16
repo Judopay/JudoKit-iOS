@@ -73,7 +73,7 @@
 /**
  * A method that sets a card as selected based on an index
  */
-- (void)setCardAsSelectedAtInded:(NSUInteger)index;
+- (void)setCardAsSelectedAtIndex:(NSUInteger)index;
 
 /**
  * A method that sets a card as last used card to make a successfull payment
@@ -91,13 +91,24 @@
  */
 - (bool)isApplePaySetUp;
 
+/**
+ * A method that handles 3D Secure transactions
+ *
+ * @param error - the NSError object that triggers a 3D Secure transaction
+ * @param completion - the JPResponse / NSError completion block
+ */
 - (void)handle3DSecureTransactionFromError:(NSError *)error
                                 completion:(JudoCompletionBlock)completion;
 
 /**
  * A method that reorders cards so that the default card is always on top
-*/
+ */
 - (void)orderCards;
+
+/**
+ * A method which returns all the iDEAL bank types available
+ */
+- (NSArray *)getIDEALBankTypes;
 
 @end
 
@@ -106,9 +117,10 @@
 /**
  * A designated initializer that sets up the JPTheme object needed for view customization
  *
- * @param mode - a NS_Enum value that sets the transaction as either a Payment or a PreAuth
- * @param configuration - an instance of JPConfiguration that customizes the payment flow
- * @param completion - a completion block returning either a response or an error
+ * @param mode - the transaction mode value that can be set to either Payment or PreAuth
+ * @param configuration - reference to the JPConfiguration object used to configure the payment flow
+ * @param transactionService - the service used to handle Judo backend calls
+ * @param completion - a JPResponse / NSError completion block
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */

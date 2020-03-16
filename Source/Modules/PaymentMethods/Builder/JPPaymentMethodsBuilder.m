@@ -33,16 +33,41 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
+#import "NSError+Additions.h"
 
-#import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 
 @implementation JPPaymentMethodsBuilderImpl
+
+#pragma mark - Constants
+
+static NSString * const kEuroCurrency = @"EUR";
+
+#pragma mark - Public methods
 
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JudoCompletionBlock)completion {
+
+    for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
+        BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
+        BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
+        BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kEuroCurrency];
+        BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
+        BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
+
+        if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
+            completion(nil, NSError.judoInvalidIDEALCurrencyError);
+            return nil;
+        }
+
+        if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
+            completion(nil, NSError.judoApplePayNotSupportedError);
+            return nil;
+        }
+    }
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
     JPPaymentMethodsPresenterImpl *presenter = [JPPaymentMethodsPresenterImpl new];
@@ -62,8 +87,11 @@
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;
+
     router.viewController = viewController;
+
     viewController.presenter = presenter;
+    viewController.uiConfiguration = configuration.uiConfiguration;
 
     return viewController;
 }

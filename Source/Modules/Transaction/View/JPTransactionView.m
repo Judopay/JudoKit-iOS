@@ -31,7 +31,6 @@
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UITextField+Additions.h"
@@ -49,6 +48,22 @@
 @end
 
 @implementation JPTransactionView
+
+#pragma mark - Constants
+
+static const float kStandardSliderHeight = 365.0f;
+static const float kAVSSliderHeight = 410.0f;
+static const float kScanButtonCornerRadius = 4.0f;
+static const float kScanButtonBorderWidth = 1.0f;
+static const float kContentHorizontalPadding = 24.0f;
+static const float kContentVerticalPadding = 20.0f;
+static const float kScanCardHeight = 36.0f;
+static const float kInputFieldHeight = 44.0f;
+static const float kAddCardButtonHeight = 46.0f;
+static const float kLockImageWidth = 17.0f;
+static const float kSliderCornerRadius = 10.0f;
+static const float kTightContentSpacing = 8.0f;
+static const float kLooseContentSpacing = 16.0;
 
 #pragma mark - Initializers
 
@@ -76,10 +91,42 @@
     return self;
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.cancelButton.titleLabel.font = theme.bodyBold;
+    [self.cancelButton setTitleColor:theme.jpBlackColor
+                            forState:UIControlStateNormal];
+
+    self.scanCardButton.titleLabel.font = theme.bodyBold;
+    [self.scanCardButton setTitleColor:theme.jpBlackColor
+                              forState:UIControlStateNormal];
+    [self.scanCardButton setBorderWithColor:theme.jpBlackColor
+                                      width:kScanButtonBorderWidth
+                            andCornerRadius:kScanButtonCornerRadius];
+
+    self.addCardButton.titleLabel.font = theme.headline;
+    self.addCardButton.layer.cornerRadius = theme.buttonCornerRadius;
+    [self.addCardButton setBackgroundImage:theme.buttonColor.asImage
+                                  forState:UIControlStateNormal];
+    [self.addCardButton setTitleColor:theme.buttonTitleColor
+                             forState:UIControlStateNormal];
+
+    self.securityMessageLabel.font = theme.caption;
+    self.securityMessageLabel.textColor = theme.jpDarkGrayColor;
+
+    [self.cardNumberTextField applyTheme:theme];
+    [self.cardHolderTextField applyTheme:theme];
+    [self.cardExpiryTextField applyTheme:theme];
+    [self.secureCodeTextField applyTheme:theme];
+    [self.countryTextField applyTheme:theme];
+    [self.postcodeTextField applyTheme:theme];
+}
+
 #pragma mark - View model configuration
 
 - (void)configureWithViewModel:(JPTransactionViewModel *)viewModel {
-    self.sliderHeightConstraint.constant = 365.0f;
+    self.sliderHeightConstraint.constant = kStandardSliderHeight;
     [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
     [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
     [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
@@ -90,7 +137,7 @@
     self.postcodeTextField.hidden = !viewModel.shouldDisplayAVSFields;
 
     if (viewModel.shouldDisplayAVSFields) {
-        self.sliderHeightConstraint.constant = 410.0f;
+        self.sliderHeightConstraint.constant = kAVSSliderHeight;
         [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
         [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
     }
@@ -129,7 +176,7 @@
     [self.bottomSlider pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing forView:self];
 
     self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:365.0];
+    self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kStandardSliderHeight];
 
     self.bottomSliderConstraint.active = YES;
     self.sliderHeightConstraint.active = YES;
@@ -137,30 +184,26 @@
 
 - (void)setupMainStackViewConstraints {
 
-    [self.mainStackView pinToAnchors:AnchorTypeTop
+    [self.mainStackView pinToAnchors:AnchorTypeTop|AnchorTypeBottom
                              forView:self.bottomSlider
-                         withPadding:20.0];
+                         withPadding:kContentVerticalPadding];
 
     [self.mainStackView pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing
                              forView:self.bottomSlider
-                         withPadding:24.0];
-
-    [self.mainStackView pinToAnchors:AnchorTypeBottom
-                             forView:self.bottomSlider
-                         withPadding:32.0];
+                         withPadding:kContentHorizontalPadding];
 }
 
 - (void)setupContentsConstraints {
     NSArray *constraints = @[
-        [self.scanCardButton.heightAnchor constraintEqualToConstant:36.0],
-        [self.cardNumberTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.cardHolderTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.cardExpiryTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.secureCodeTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.countryTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.postcodeTextField.heightAnchor constraintEqualToConstant:44.0],
-        [self.addCardButton.heightAnchor constraintEqualToConstant:46.0],
-        [self.lockImageView.widthAnchor constraintEqualToConstant:17.0],
+        [self.scanCardButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
+        [self.cardNumberTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.cardHolderTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.cardExpiryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.secureCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+        [self.lockImageView.widthAnchor constraintEqualToConstant:kLockImageWidth],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -180,7 +223,8 @@
 - (UIView *)bottomSlider {
     if (!_bottomSlider) {
         UIRectCorner corners = UIRectCornerTopRight | UIRectCornerTopLeft;
-        _bottomSlider = [[JPRoundedCornerView alloc] initWithRadius:10.0 forCorners:corners];
+        _bottomSlider = [[JPRoundedCornerView alloc] initWithRadius:kSliderCornerRadius
+                                                         forCorners:corners];
         _bottomSlider.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomSlider.backgroundColor = UIColor.whiteColor;
     }
@@ -191,9 +235,7 @@
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _cancelButton.titleLabel.font = UIFont.bodyBold;
         [_cancelButton setTitle:@"cancel".localized forState:UIControlStateNormal];
-        [_cancelButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     }
     return _cancelButton;
 }
@@ -204,15 +246,9 @@
         _scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
 
         [_scanCardButton setTitle:@"scan_card".localized forState:UIControlStateNormal];
-        [_scanCardButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-        _scanCardButton.titleLabel.font = UIFont.bodyBold;
-
         [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"]
                          forState:UIControlStateNormal];
         _scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-        [_scanCardButton setBorderWithColor:UIColor.blackColor width:1.0f andCornerRadius:4.0f];
-
         _scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 0);
         _scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, -20, 5, 5);
     }
@@ -276,9 +312,7 @@
     if (!_addCardButton) {
         _addCardButton = [JPTransactionButton new];
         _addCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _addCardButton.titleLabel.font = UIFont.headline;
-        _addCardButton.layer.cornerRadius = 4.0f;
-        _addCardButton.backgroundColor = UIColor.jpBlackColor;
+        _addCardButton.clipsToBounds = YES;
     }
     return _addCardButton;
 }
@@ -289,26 +323,25 @@
         _lockImageView.contentMode = UIViewContentModeScaleAspectFit;
         _lockImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _lockImageView.image = [UIImage imageWithIconName:@"lock-icon"];
-        ;
     }
     return _lockImageView;
 }
 
 - (UILabel *)securityMessageLabel {
-    UILabel *label = [UILabel new];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.text = @"secure_server_transmission".localized;
-    label.numberOfLines = 0;
-    label.font = UIFont.caption;
-    label.textColor = UIColor.jpDarkGrayColor;
-    return label;
+    if (!_securityMessageLabel) {
+        _securityMessageLabel = [UILabel new];
+        _securityMessageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _securityMessageLabel.text = @"secure_server_transmission".localized;
+        _securityMessageLabel.numberOfLines = 0;
+    }
+    return _securityMessageLabel;
 }
 
 #pragma mark - Stack Views
 
 - (UIStackView *)mainStackView {
     if (!_mainStackView) {
-        _mainStackView = [UIStackView verticalStackViewWithSpacing:16.0];
+        _mainStackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
 
         [_mainStackView addArrangedSubview:self.topButtonStackView];
         [_mainStackView addArrangedSubview:self.inputFieldsStackView];
@@ -328,7 +361,7 @@
 }
 
 - (UIStackView *)additionalInputFieldsStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:8.0];
+    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
 
     [stackView addArrangedSubview:self.cardExpiryTextField];
@@ -338,7 +371,7 @@
 }
 
 - (UIStackView *)inputFieldsStackView {
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:8.0];
+    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
 
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
@@ -349,9 +382,8 @@
 }
 
 - (UIStackView *)avsStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:8.0];
+    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
-
     [stackView addArrangedSubview:self.countryTextField];
     [stackView addArrangedSubview:self.postcodeTextField];
 
@@ -359,14 +391,14 @@
 }
 
 - (UIStackView *)securityMessageStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:8.0];
+    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     [stackView addArrangedSubview:self.lockImageView];
     [stackView addArrangedSubview:self.securityMessageLabel];
     return stackView;
 }
 
 - (UIStackView *)buttonStackView {
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:16.0];
+    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
     [stackView addArrangedSubview:self.addCardButton];
     [stackView addArrangedSubview:self.securityMessageStackView];
     return stackView;

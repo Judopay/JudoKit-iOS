@@ -56,8 +56,10 @@
 
     router.viewController = viewController;
     router.presenter = presenter;
+    router.theme = configuration.uiConfiguration.theme;
 
     viewController.presenter = presenter;
+    viewController.theme = configuration.uiConfiguration.theme;
 
     return viewController;
 }

@@ -26,6 +26,8 @@
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "JPIDEALBank.h"
+#import "JPIDEALService.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
@@ -43,11 +45,14 @@
 @property (nonatomic, strong) JPPaymentMethodsCardHeaderModel *cardHeaderModel;
 @property (nonatomic, strong) JPPaymentMethodsCardFooterModel *cardFooterModel;
 @property (nonatomic, strong) JPPaymentMethodsCardListModel *cardListModel;
+@property (nonatomic, strong) JPPaymentMethodsIDEALBankListModel *bankListModel;
 @property (nonatomic, strong) JPTransactionButtonViewModel *paymentButtonModel;
+
 @property (nonatomic, strong) NSDateFormatter *dateFormater;
 @property (nonatomic, strong) NSDate *currentDate;
 
 @property (nonatomic, assign) int previousIndex;
+@property (nonatomic, assign) NSUInteger selectedBankIndex;
 @end
 
 @implementation JPPaymentMethodsPresenterImpl
@@ -85,6 +90,12 @@
                             shouldAnimateChange:YES];
 }
 
+- (void)didSelectBankAtIndex:(NSUInteger)index {
+    self.selectedBankIndex = index;
+    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop
+                            shouldAnimateChange:YES];
+}
+
 #pragma mark - Action Handlers
 
 - (void)handleTransactionButtonTap {
@@ -96,6 +107,21 @@
 }
 
 - (void)handlePayButtonTap {
+
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
+
+        NSArray *bankTypes = [self.interactor getIDEALBankTypes];
+        NSNumber *numberValue = bankTypes[self.selectedBankIndex];
+        JPIDEALBankType bankType = (JPIDEALBankType)numberValue.intValue;
+        JPIDEALBank *iDEALBank = [JPIDEALBank bankWithType:bankType];
+
+        [self.router navigateToIDEALModuleWithBank:iDEALBank
+                                     andCompletion:^(JPResponse *response, NSError *error) {
+                                         [self handleIDEALCallbackWithResponse:response andError:error];
+                                     }];
+        return;
+    }
+
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                    andCompletion:^(JPResponse *response, NSError *error) {
                                        [self handleCallbackWithResponse:response
@@ -150,7 +176,7 @@
     self.viewModel.headerModel.cardModel = nil;
 
     if (selectedCard.isSelected && storedCards.count - 1 > 0) {
-        [self.interactor setCardAsSelectedAtInded:0];
+        [self.interactor setCardAsSelectedAtIndex:0];
     }
     [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop
                             shouldAnimateChange:YES];
@@ -194,6 +220,16 @@
 
 #pragma mark - Helper methods
 
+- (void)handleIDEALCallbackWithResponse:(JPResponse *)response
+                               andError:(NSError *)error {
+    if (error) {
+        [self handlePaymentError:error];
+        return;
+    }
+    [self.router completeTransactionWithResponse:response andError:nil];
+    [self.router dismissViewController];
+}
+
 - (void)handleCallbackWithResponse:(JPResponse *)response
                           andError:(NSError *)error {
     if (error) {
@@ -205,7 +241,7 @@
 
 - (void)setLastAddedCardAsSelected {
     NSArray *cards = [self.interactor getStoredCardDetails];
-    [self.interactor setCardAsSelectedAtInded:cards.count - 1];
+    [self.interactor setCardAsSelectedAtIndex:cards.count - 1];
 }
 
 - (void)updateViewModelWithAnimationType:(AnimationType)animationType {
@@ -231,8 +267,15 @@
     self.viewModel.headerModel.paymentMethodType = selectedPaymentMethod.type;
     self.viewModel.headerModel.isApplePaySetUp = [self.interactor isApplePaySetUp];
 
-    if (selectedPaymentMethod.type == JPPaymentMethodTypeCard) {
-        [self prepareCardListModels];
+    switch (selectedPaymentMethod.type) {
+        case JPPaymentMethodTypeCard:
+            [self prepareCardListModels];
+            break;
+        case JPPaymentMethodTypeApplePay:
+            break;
+        case JPPaymentMethodTypeIDeal:
+            [self prepareIDEALBankListModel];
+            break;
     }
 }
 
@@ -249,6 +292,21 @@
     }
 }
 
+- (void)prepareIDEALBankListModel {
+    [self.bankListModel.bankModels removeAllObjects];
+    NSArray *iDEALBankTypes = [self.interactor getIDEALBankTypes];
+    for (NSNumber *type in iDEALBankTypes) {
+        JPPaymentMethodsIDEALBankModel *bankModel = [self iDEALBankModelForType:type.intValue];
+        [self.bankListModel.bankModels addObject:bankModel];
+    }
+
+    JPPaymentMethodsIDEALBankModel *bankModel = self.bankListModel.bankModels[self.selectedBankIndex];
+    bankModel.isSelected = YES;
+
+    [self.viewModel.items addObject:self.bankListModel];
+    self.headerModel.bankModel = bankModel;
+}
+
 - (void)prepareHeaderModel {
     self.headerModel.amount = [self.interactor getAmount];
     self.headerModel.payButtonModel = self.paymentButtonModel;
@@ -261,6 +319,10 @@
             BOOL isCardExpired = self.headerModel.cardModel.cardExpirationStatus != CardExpired;
             self.headerModel.payButtonModel.isEnabled = isCardExpired;
         }
+    }
+
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
+        self.headerModel.payButtonModel.isEnabled = YES;
     }
 
     self.viewModel.headerModel = self.headerModel;
@@ -318,6 +380,14 @@
         cardIndex++;
     }
     return -1;
+}
+
+- (JPPaymentMethodsIDEALBankModel *)iDEALBankModelForType:(JPIDEALBankType)type {
+    JPIDEALBank *bank = [JPIDEALBank bankWithType:type];
+    JPPaymentMethodsIDEALBankModel *bankModel = [JPPaymentMethodsIDEALBankModel new];
+    bankModel.bankTitle = bank.title;
+    bankModel.bankIconName = bank.iconName;
+    return bankModel;
 }
 
 #pragma mark - Lazy properties
@@ -408,6 +478,15 @@
         _paymentButtonModel.isEnabled = NO;
     }
     return _paymentButtonModel;
+}
+
+- (JPPaymentMethodsIDEALBankListModel *)bankListModel {
+    if (!_bankListModel) {
+        _bankListModel = [JPPaymentMethodsIDEALBankListModel new];
+        _bankListModel.bankModels = [NSMutableArray new];
+        _bankListModel.identifier = @"JPPaymentMethodsIDEALBankCell";
+    }
+    return _bankListModel;
 }
 
 - (NSDateFormatter *)dateFormater {

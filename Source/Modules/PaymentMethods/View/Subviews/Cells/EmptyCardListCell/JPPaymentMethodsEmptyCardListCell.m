@@ -24,8 +24,7 @@
 
 #import "JPPaymentMethodsEmptyCardListCell.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
+#import "NSLayoutConstraint+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
@@ -38,6 +37,17 @@
 @end
 
 @implementation JPPaymentMethodsEmptyCardListCell
+
+#pragma mark - Constants
+
+static const float kHorizontalImageEdgeInsets = 12.0f;
+static const float kLeadingTitleEdgeInset = -10.0f;
+static const float kStackViewSpacing = 16.0f;
+static const float kStackViewTopPadding = 60.0f;
+static const float kAddCardButtonHeight = 36.0f;
+static const float kAddCardBorderWidth = 1.0f;
+static const float kAddCardCornerRadius = 4.0f;
+static const int kConstraintPriority = 999;
 
 #pragma mark - View model configuration
 
@@ -60,8 +70,9 @@
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 0);
-    self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    CGFloat leadingInsets = kHorizontalImageEdgeInsets;
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(leadingInsets, 0, leadingInsets, 0);
+    self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, kLeadingTitleEdgeInset, 0, 0);
 
     self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
 }
@@ -72,11 +83,24 @@
     self.onTransactionButtonTapHandler();
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.titleLabel.font = theme.headline;
+    self.titleLabel.textColor = theme.jpBlackColor;
+    self.addCardButton.titleLabel.font = theme.bodyBold;
+    [self.addCardButton setBorderWithColor:theme.jpBlackColor
+                                     width:kAddCardBorderWidth
+                           andCornerRadius:kAddCardCornerRadius];
+    [self.addCardButton setTitleColor:theme.jpBlackColor
+                             forState:UIControlStateNormal];
+}
+
 #pragma mark - Layout setup
 
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
-    self.stackView = [UIStackView verticalStackViewWithSpacing:16.0f];
+    self.stackView = [UIStackView verticalStackViewWithSpacing:kStackViewSpacing];
     self.stackView.alignment = UIStackViewAlignmentCenter;
     [self.stackView addArrangedSubview:self.titleLabel];
     [self.stackView addArrangedSubview:self.addCardButton];
@@ -84,11 +108,16 @@
 }
 
 - (void)setupConstraints {
-    NSLayoutConstraint *heightConstraint = [self.addCardButton.heightAnchor constraintEqualToConstant:36.0f];
-    heightConstraint.priority = 999;
-    heightConstraint.active = YES;
+    NSArray *constraints = @[
+        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                 constant:kStackViewTopPadding],
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+    ];
 
-    [self.stackView pinToView:self withPadding:0.0f];
+    [NSLayoutConstraint activateConstraints:constraints withPriority:kConstraintPriority];
 }
 
 #pragma mark - Lazy properties
@@ -98,8 +127,6 @@
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = UIFont.headline;
-        _titleLabel.textColor = UIColor.jpBlackColor;
     }
     return _titleLabel;
 }
@@ -107,13 +134,9 @@
 - (UIButton *)addCardButton {
     if (!_addCardButton) {
         _addCardButton = [UIButton new];
-        [_addCardButton setBorderWithColor:UIColor.jpBlackColor width:1.0f andCornerRadius:4.0f];
-        [_addCardButton setTitleColor:UIColor.jpBlackColor forState:UIControlStateNormal];
-        _addCardButton.titleLabel.font = UIFont.bodyBold;
-
-        [self.addCardButton addTarget:self
-                               action:@selector(onTransactionButtonTap)
-                     forControlEvents:UIControlEventTouchUpInside];
+        [_addCardButton addTarget:self
+                           action:@selector(onTransactionButtonTap)
+                 forControlEvents:UIControlEventTouchUpInside];
     }
     return _addCardButton;
 }

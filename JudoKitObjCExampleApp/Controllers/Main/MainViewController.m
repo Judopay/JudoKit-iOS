@@ -151,12 +151,12 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 #pragma mark - Helper methods
 
 - (void)handleResponse:(JPResponse *)response {
-    JPTransactionData *transactionData = response.items.firstObject;
-
-    if (!transactionData) {
-        [self presentErrorWithMessage:@"Callback returned empty response"];
+    
+    if (!response) {
         return;
     }
+    
+    JPTransactionData *transactionData = response.items.firstObject;
 
     if (transactionData.cardDetails) {
         self.cardDetails = transactionData.cardDetails;
@@ -199,6 +199,8 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
         _configuration = [[JPConfiguration alloc] initWithJudoID:judoId
                                                           amount:self.amount
                                                        reference:self.reference];
+        
+        _configuration.siteId = siteId;
         
         _configuration.paymentMethods = @[JPPaymentMethod.card, JPPaymentMethod.iDeal, JPPaymentMethod.applePay];
         _configuration.supportedCardNetworks = CardNetworkVisa | CardNetworkMasterCard | CardNetworkAMEX;
@@ -328,7 +330,9 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 - (void)settingsViewController:(SettingsViewController *)viewController
              didUpdateSettings:(Settings *)settings {
     self.settings = settings;
-   self.configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled;
+    self.configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled;
+    self.configuration.amount = [JPAmount amount:self.configuration.amount.amount
+                                        currency:settings.currency];
 }
  
 - (IBAction)settingsButtonHandler:(id)sender {

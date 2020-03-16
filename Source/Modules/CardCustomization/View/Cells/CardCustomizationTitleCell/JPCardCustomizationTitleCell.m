@@ -22,10 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTheme.h"
 #import "JPCardCustomizationTitleCell.h"
 #import "JPCardCustomizationViewModel.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPCardCustomizationTitleCell ()
@@ -47,6 +46,13 @@ const float kTitleLabelVerticalPadding = 10.0f;
         [self setupViews];
     }
     return self;
+}
+
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.titleLabel.font = theme.largeTitle;
+    self.titleLabel.textColor = theme.jpBlackColor;
 }
 
 #pragma mark - View Model Configuration
@@ -80,8 +86,6 @@ const float kTitleLabelVerticalPadding = 10.0f;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = UIFont.largeTitle;
-        _titleLabel.textColor = UIColor.jpBlackColor;
     }
     return _titleLabel;
 }

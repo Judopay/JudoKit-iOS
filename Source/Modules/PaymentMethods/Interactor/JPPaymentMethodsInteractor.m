@@ -24,10 +24,12 @@
 
 #import "JPPaymentMethodsInteractor.h"
 #import "JP3DSService.h"
+#import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
 #import "JPCardStorage.h"
 #import "JPConfiguration.h"
+#import "JPIDEALBank.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentToken.h"
 #import "JPReference.h"
@@ -40,6 +42,7 @@
 @property (nonatomic, strong) JudoCompletionBlock completion;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
+@property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -56,6 +59,7 @@
         self.configuration = configuration;
         self.transactionService = transactionService;
         self.completion = completion;
+        self.paymentMethods = configuration.paymentMethods;
     }
     return self;
 }
@@ -92,7 +96,7 @@
 
 #pragma mark - Set card as selected at index
 
-- (void)setCardAsSelectedAtInded:(NSUInteger)index {
+- (void)setCardAsSelectedAtIndex:(NSUInteger)index {
     [JPCardStorage.sharedInstance setCardAsSelectedAtIndex:index];
 }
 
@@ -100,6 +104,15 @@
 
 - (void)orderCards {
     [JPCardStorage.sharedInstance orderCards];
+}
+
+- (NSArray *)getIDEALBankTypes {
+    return @[
+        @(JPIDEALBankING), @(JPIDEALBankABN), @(JPIDEALBankVanLanschotBankiers),
+        @(JPIDEALBankTriodos), @(JPIDEALBankRabobank), @(JPIDEALBankSNS),
+        @(JPIDEALBankASN), @(JPIDEALBankRegio), @(JPIDEALBankKnab),
+        @(JPIDEALBankBunq), @(JPIDEALBankMoneyou), @(JPIDEALBankHandelsbanken)
+    ];
 }
 
 #pragma mark - Set card last card used to maek a successfull payment at index
@@ -120,30 +133,34 @@
     NSMutableArray *defaultPaymentMethods;
     defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card ]];
 
-    if ([self.applePayService isApplePaySupported]) {
+    if ([JPApplePayService isApplePaySupported]) {
         [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
     } else {
-        [self removeApplePayFromPaymentMethods];
+        [self removePaymentMethodWithType:JPPaymentMethodTypeApplePay];
     }
 
-    return (self.configuration.paymentMethods.count != 0) ? self.configuration.paymentMethods : defaultPaymentMethods;
+    if (![self.configuration.amount.currency isEqualToString:@"EUR"]) {
+        [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
+    }
+
+    return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 
 #pragma mark - Remove Apple Pay from payment methods
 
-- (void)removeApplePayFromPaymentMethods {
-    if (self.configuration.paymentMethods.count == 0)
+- (void)removePaymentMethodWithType:(JPPaymentMethodType)type {
+    if (self.paymentMethods.count == 0)
         return;
 
-    NSMutableArray *tempArray = [self.configuration.paymentMethods mutableCopy];
+    NSMutableArray *tempArray = [self.paymentMethods mutableCopy];
 
-    for (JPPaymentMethod *method in self.configuration.paymentMethods) {
-        if (method.type == JPPaymentMethodTypeApplePay) {
+    for (JPPaymentMethod *method in self.paymentMethods) {
+        if (method.type == type) {
             [tempArray removeObject:method];
         }
     }
 
-    self.configuration.paymentMethods = tempArray;
+    self.paymentMethods = tempArray;
 }
 
 #pragma mark - Payment transaction

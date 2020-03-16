@@ -117,6 +117,11 @@
 "retry" = "Repetir";
 "close" = "Fechar";
 
+//Transaction Status View
+"transaction_pending" = "Transaction pending...";
+"transaction_delayed" = "This is taking longer than expected...";
+"transaction_timeout" = "Transaction timed out!";
+
 //JudoPayViewController
 "secure_server" = "Servidor de Segurança";
 "pay" = "Pay";
@@ -153,6 +158,9 @@
 "error_unsupported_card_network_desc" = "%@ is not supported";
 "error_unsupported_card_network_title" = "Card type is not supported";
 "error_token_missing" = "The card token could not be retrieved from the response";
+"error_invalid_ideal_currency" = "Cannot make iDEAL transactions with currencies different than EUR";
+"error_apple_pay_unsupported" = "Apple Pay is not supported on your device";
+"error_site_id_missing" = "Site ID is missing";
 
 //NSString+Card
 "check_card_number" = "Confirmar número do cartão";
@@ -186,3 +194,6 @@
 "default_dinnersclub_card_title" = "My Dinners Club Card";
 "save_as_default" = "Save as default payment method";
 "save" = "Save";
+
+//Payment Methods
+"apple_pay" = "Apple Pay";

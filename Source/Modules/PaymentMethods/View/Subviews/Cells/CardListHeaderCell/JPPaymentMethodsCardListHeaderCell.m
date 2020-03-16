@@ -24,11 +24,14 @@
 
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsCardListHeaderCell
+
+#pragma mark - Constants
+
+const float kCardListHeaderHorizontalPadding = 24.0f;
+const float kCardListHeaderCenterOffset = 10.0f;
 
 #pragma mark - Initializers
 
@@ -75,6 +78,15 @@
     [self.actionButton setTitle:headerModel.editButtonTitle forState:UIControlStateNormal];
 }
 
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.titleLabel.textColor = theme.jpBlackColor;
+    self.titleLabel.font = theme.headline;
+    self.actionButton.titleLabel.font = theme.bodyBold;
+    [self.actionButton setTitleColor:theme.jpBlackColor forState:UIControlStateNormal];
+}
+
 #pragma mark - Layout Setup
 
 - (void)setupViews {
@@ -82,11 +94,21 @@
     [self addSubview:self.titleLabel];
     [self addSubview:self.actionButton];
 
-    [self.titleLabel pinToAnchors:AnchorTypeLeading forView:self withPadding:24.0];
-    [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    [self.titleLabel pinToAnchors:AnchorTypeLeading
+                          forView:self
+                      withPadding:kCardListHeaderHorizontalPadding];
 
-    [self.actionButton pinToAnchors:AnchorTypeTrailing forView:self withPadding:24.0];
-    [self.actionButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    [self.actionButton pinToAnchors:AnchorTypeTrailing
+                            forView:self
+                        withPadding:kCardListHeaderHorizontalPadding];
+
+    [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor
+                                                  constant:kCardListHeaderCenterOffset]
+        .active = YES;
+
+    [self.actionButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor
+                                                    constant:kCardListHeaderCenterOffset]
+        .active = YES;
 }
 
 #pragma mark - Lazy instantiated properties
@@ -95,8 +117,6 @@
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.textColor = UIColor.jpBlackColor;
-        _titleLabel.font = UIFont.headline;
     }
     return _titleLabel;
 }
@@ -109,9 +129,9 @@
     if (!_actionButton) {
         _actionButton = [UIButton new];
         _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _actionButton.titleLabel.font = UIFont.bodyBold;
-        [_actionButton setTitleColor:UIColor.jpBlackColor forState:UIControlStateNormal];
-        [_actionButton addTarget:self action:@selector(didPressActionButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_actionButton addTarget:self
+                          action:@selector(didPressActionButton:)
+                forControlEvents:UIControlEventTouchUpInside];
     }
     return _actionButton;
 }

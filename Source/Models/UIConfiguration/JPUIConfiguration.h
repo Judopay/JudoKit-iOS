@@ -22,8 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTheme.h"
 #import <Foundation/Foundation.h>
 
 @interface JPUIConfiguration : NSObject
+
+/**
+ * A boolean property that defines if the amount should be displayed on the payment method screen
+ */
+@property (nonatomic, assign) BOOL shouldDisplayAmount;
+
+/**
+ * A boolean property that defines if AVS should be enabled during the payment flow
+ */
 @property (nonatomic, assign) BOOL isAVSEnabled;
+
+/**
+ * A reference to the JPTheme object that customizes the user interface
+ */
+@property (nonatomic, strong) JPTheme *theme;
+
 @end

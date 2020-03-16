@@ -25,10 +25,12 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
+#import "NSError+Additions.h"
 
 #import "JPConfiguration.h"
 #import "JPSliderTransitioningDelegate.h"
@@ -75,9 +77,30 @@
     [self.viewController presentViewController:controller animated:YES completion:nil];
 }
 
+- (void)navigateToIDEALModuleWithBank:(JPIDEALBank *)bank
+                        andCompletion:(JudoCompletionBlock)completion {
+
+    if (!self.configuration.siteId) {
+        completion(nil, NSError.judoParameterError);
+        return;
+    }
+
+    JPIDEALViewController *controller;
+    controller = [[JPIDEALViewController alloc] initWithIDEALBank:bank
+                                                    configuration:self.configuration
+                                               transactionService:self.transactionService
+                                                completionHandler:completion];
+
+    controller.theme = self.configuration.uiConfiguration.theme;
+    controller.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.viewController presentViewController:controller animated:YES completion:nil];
+}
+
 - (void)navigateToCardCustomizationWithIndex:(NSUInteger)index {
     JPCardCustomizationViewController *viewController;
-    viewController = [JPCardCustomizationBuilderImpl buildModuleWithCardIndex:index];
+    JPTheme *theme = self.configuration.uiConfiguration.theme;
+    viewController = [JPCardCustomizationBuilderImpl buildModuleWithCardIndex:index
+                                                                     andTheme:theme];
 
     [self.viewController.navigationController pushViewController:viewController
                                                         animated:YES];

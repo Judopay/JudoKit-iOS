@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPSectionView.h"
 #import "JPTransactionViewController.h"
+#import "JPUIConfiguration.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
@@ -38,8 +39,9 @@
  * A method that configures the view based on a passed view model
  *
  * @param viewModel - a view model detailing the layout details
+ * @param shouldAnimate - if set to NO, will propmt the table view to reloadData instead of animating insertions/deletions
  */
-- (void)configureWithViewModel:(JPPaymentMethodsViewModel *)viewModel
+- (void)configureWithViewModel:(nonnull JPPaymentMethodsViewModel *)viewModel
            shouldAnimateChange:(BOOL)shouldAnimate;
 
 /**
@@ -48,7 +50,8 @@
  * @param title - an optional NSString that defines the title of the alert
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error;
+- (void)displayAlertWithTitle:(nullable NSString *)title
+                     andError:(nonnull NSError *)error;
 
 @end
 
@@ -57,9 +60,14 @@
 @interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
 
 /**
+ * A reference to the JPUIConfiguration instance responsible for customizing the user interface
+ */
+@property (nonatomic, strong) JPUIConfiguration *_Nullable uiConfiguration;
+
+/**
  * A strong reference to a presenter object that adopts the JPTransactionPresenter protocol
  */
-@property (nonatomic, strong) id<JPPaymentMethodsPresenter> presenter;
+@property (nonatomic, strong) id<JPPaymentMethodsPresenter> _Nonnull presenter;
 
 @end
 

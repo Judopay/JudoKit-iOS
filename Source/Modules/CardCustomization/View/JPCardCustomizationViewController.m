@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizationViewController.h"
-#import "JPCardCustomizationCell.h"
 #import "JPCardCustomizationHeaderCell.h"
 #import "JPCardCustomizationIsDefaultCell.h"
 #import "JPCardCustomizationPresenter.h"
@@ -117,7 +116,10 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
     self.navigationController.navigationBar.translucent = YES;
 
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageWithIconName:@"back-icon"] forState:UIControlStateNormal];
+    UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];
+    UIImage *backButtonImage = self.theme.backButtonImage ? self.theme.backButtonImage : defaultIcon;
+    [backButton setImage:backButtonImage forState:UIControlStateNormal];
+    backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -170,9 +172,10 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     JPCardCustomizationViewModel *selectedModel = self.viewModels[indexPath.row];
-    JPCardCustomizationCell *cell = [tableView dequeueReusableCellWithIdentifier:selectedModel.identifier
-                                                                    forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:selectedModel.identifier
+                                                            forIndexPath:indexPath];
 
     if ([cell isKindOfClass:JPCardCustomizationPatternPickerCell.class]) {
         JPCardCustomizationPatternPickerCell *patternPickerCell;
@@ -192,8 +195,19 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
         submitCell.delegate = self;
     }
 
+    if ([cell conformsToProtocol:@protocol(JPThemable)]) {
+        UITableViewCell <JPThemable> *themableCell;
+        themableCell = (UITableViewCell <JPThemable> *)cell;
+        [themableCell applyTheme:self.theme];
+    }
+
+    if ([cell conformsToProtocol:@protocol(JPCardCustomizable)]) {
+        UITableViewCell <JPCardCustomizable> *customizableCell;
+        customizableCell = (UITableViewCell <JPCardCustomizable> *)cell;
+        [customizableCell configureWithViewModel:selectedModel];
+    }
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell configureWithViewModel:selectedModel];
     return cell;
 }
 

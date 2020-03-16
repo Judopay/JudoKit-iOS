@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPUIConfiguration.h"
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
 
@@ -38,6 +39,13 @@
  * The Apple Pay branded button that triggers the Apple Pay flow
  */
 @property (nonatomic, strong) PKPaymentButton *applePayButton;
+
+/**
+ * A method used to apply a theme to the view
+ *
+ * @param uiConfiguration - the JPUIConfiguration object used to configure the user interface
+ */
+- (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration;
 
 /**
  * A method that configures the header of the payment method screen based on a view model

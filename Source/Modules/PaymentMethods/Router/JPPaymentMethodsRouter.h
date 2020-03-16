@@ -27,13 +27,22 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate;
+@class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
 
 @protocol JPPaymentMethodsRouter
 /**
  * A method that opens up the Add Card view for entering new card details
  */
 - (void)navigateToTransactionModule;
+
+/**
+ * A method that displays the iDEAL bank web page in order to complete the transaction
+ *
+ * @param bank - the selected iDEAL bank
+ * @param completion - the JPResponse / NSError completion block
+ */
+- (void)navigateToIDEALModuleWithBank:(nonnull JPIDEALBank *)bank
+                        andCompletion:(nonnull JudoCompletionBlock)completion;
 
 /**
  * A method that opens the Card Customization view for customizing the card

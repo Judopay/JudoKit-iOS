@@ -26,8 +26,6 @@
 #import "Functions.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
@@ -39,6 +37,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *expiryDateLabel;
 @property (nonatomic, strong) UILabel *cardNumberLabel;
+@property (nonatomic, strong) JPTheme *theme;
 
 @end
 
@@ -76,6 +75,18 @@ const int kSubstringPatternOffset = 4;
         [self setupViews];
     }
     return self;
+}
+
+#pragma mark - Theming
+
+- (void)applyTheme:(JPTheme *)theme {
+    self.theme = theme;
+    self.titleLabel.textColor = theme.jpWhiteColor;
+    self.titleLabel.font = theme.title;
+    self.cardNumberLabel.font = theme.bodyBold;
+    self.cardNumberLabel.textColor = theme.jpLightGrayColor;
+    self.expiryDateLabel.font = theme.bodyBold;
+    self.expiryDateLabel.textColor = theme.jpLightGrayColor;
 }
 
 #pragma mark - View Model Configuration
@@ -142,10 +153,10 @@ const int kSubstringPatternOffset = 4;
 }
 
 - (void)setCardAsExpired {
-    self.backgroundColor = UIColor.jpDarkGrayColor;
-    self.expiryDateLabel.textColor = UIColor.jpRedColor;
+    self.backgroundColor = self.theme.jpDarkGrayColor;
+    self.expiryDateLabel.textColor = self.theme.jpRedColor;
     self.expiryDateLabel.numberOfLines = kExpiryDateNumberOfLines;
-    NSDictionary *attrDict = @{NSFontAttributeName : UIFont.caption};
+    NSDictionary *attrDict = @{NSFontAttributeName : self.theme.caption};
     NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"expired".localized, @"\r"];
     NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:expiredString attributes:attrDict];
     NSAttributedString *expiryDate = [[NSAttributedString alloc] initWithString:self.expiryDateLabel.text];
@@ -167,8 +178,6 @@ const int kSubstringPatternOffset = 4;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = UIFont.title;
-        _titleLabel.textColor = UIColor.whiteColor;
     }
     return _titleLabel;
 }
@@ -177,8 +186,6 @@ const int kSubstringPatternOffset = 4;
     if (!_cardNumberLabel) {
         _cardNumberLabel = [UILabel new];
         _cardNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _cardNumberLabel.font = UIFont.bodyBold;
-        _cardNumberLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _cardNumberLabel;
 }
@@ -188,8 +195,6 @@ const int kSubstringPatternOffset = 4;
         _expiryDateLabel = [UILabel new];
         _expiryDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _expiryDateLabel.textAlignment = NSTextAlignmentRight;
-        _expiryDateLabel.font = UIFont.bodyBold;
-        _expiryDateLabel.textColor = UIColor.jpLightGrayColor;
     }
     return _expiryDateLabel;
 }
