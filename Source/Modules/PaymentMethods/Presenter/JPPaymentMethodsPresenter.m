@@ -48,9 +48,6 @@
 @property (nonatomic, strong) JPPaymentMethodsIDEALBankListModel *bankListModel;
 @property (nonatomic, strong) JPTransactionButtonViewModel *paymentButtonModel;
 
-@property (nonatomic, strong) NSDateFormatter *dateFormater;
-@property (nonatomic, strong) NSDate *currentDate;
-
 @property (nonatomic, assign) NSUInteger previousIndex;
 @property (nonatomic, assign) NSUInteger selectedBankIndex;
 @end
@@ -345,21 +342,8 @@
     cardModel.cardPatternType = cardDetails.patternType;
     cardModel.isDefaultCard = cardDetails.isDefault;
     cardModel.isSelected = cardDetails.isSelected;
-    cardModel.cardExpirationStatus = [self determineCardExpirationStatusWithDate:cardDetails.expiryDate];
+    cardModel.cardExpirationStatus = cardDetails.expirationStatus;
     return cardModel;
-}
-
-- (CardExpirationStatus)determineCardExpirationStatusWithDate:(NSString *)expirationDate {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *cardExpirationDate = [self.dateFormater dateFromString:expirationDate];
-    NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:self.currentDate options:0];
-    if ([cardExpirationDate compare:dateInTwoMonths] == NSOrderedAscending) {
-        if ([cardExpirationDate compare:self.currentDate] == NSOrderedAscending) {
-            return CardExpired;
-        }
-        return CardExpiresSoon;
-    }
-    return CardNotExpired;
 }
 
 - (JPStoredCardDetails *)selectedCard {
@@ -487,21 +471,6 @@
         _bankListModel.identifier = @"JPPaymentMethodsIDEALBankCell";
     }
     return _bankListModel;
-}
-
-- (NSDateFormatter *)dateFormater {
-    if (!_dateFormater) {
-        _dateFormater = [[NSDateFormatter alloc] init];
-        [_dateFormater setDateFormat:kMonthYearDateFormat];
-    }
-    return _dateFormater;
-}
-
-- (NSDate *)currentDate {
-    if (!_currentDate) {
-        _currentDate = [NSDate date];
-    }
-    return _currentDate;
 }
 
 @end

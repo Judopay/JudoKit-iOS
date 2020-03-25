@@ -29,6 +29,7 @@
 #import "JPCardCustomizationViewModel.h"
 #import "JPStoredCardDetails.h"
 #import "NSString+Additions.h"
+#import "JPConstants.h"
 
 @interface JPCardCustomizationPresenterImpl ()
 @property (nonatomic, assign) BOOL shouldPreserveResponder;
@@ -102,6 +103,7 @@
     self.headerModel.cardNetwork = cardDetails.cardNetwork;
     self.headerModel.cardTitle = self.selectedCardTitle;
     self.headerModel.cardPatternType = self.selectedPatternType;
+    self.headerModel.expirationStatus = cardDetails.expirationStatus;
 }
 
 - (void)setSelectedPatternModelForPatternType:(JPCardPatternType)type {

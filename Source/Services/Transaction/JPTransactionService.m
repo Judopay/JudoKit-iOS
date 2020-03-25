@@ -25,6 +25,7 @@
 #import "JPTransactionService.h"
 #import "JPCard.h"
 #import "JPTransactionEnricher.h"
+#import "JPReference.h"
 #import "NSError+Additions.h"
 
 @interface JPTransactionService ()
