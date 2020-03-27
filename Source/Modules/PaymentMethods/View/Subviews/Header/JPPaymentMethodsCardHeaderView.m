@@ -115,10 +115,12 @@
 - (void)animateCardSetup {
     self.cardView.transform = CGAffineTransformMakeTranslation(0.0, 100.0);
     self.cardView.alpha = 0.0;
+
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3
                      animations:^{
-                         self.cardView.alpha = 1.0;
-                         self.cardView.transform = CGAffineTransformIdentity;
+                         weakSelf.cardView.alpha = 1.0;
+                         weakSelf.cardView.transform = CGAffineTransformIdentity;
                      }];
 }
 
@@ -190,10 +192,12 @@
 - (void)transitionFromCardView:(JPCardView *)cardView
                    toXPosition:(CGFloat)xPosition
                   andYPosition:(CGFloat)yPosition {
+
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5
         animations:^{
-            [self transformOldCardView:cardView withXPosition:xPosition andYPosition:yPosition];
-            [self transformNewCardView:self.cardView];
+            [weakSelf transformOldCardView:cardView withXPosition:xPosition andYPosition:yPosition];
+            [weakSelf transformNewCardView:weakSelf.cardView];
         }
         completion:^(BOOL finished) {
             [cardView removeFromSuperview];

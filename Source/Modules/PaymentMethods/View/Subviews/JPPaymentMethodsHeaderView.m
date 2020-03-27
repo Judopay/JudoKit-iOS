@@ -176,11 +176,13 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
 - (void)displayEmptyHeaderView {
     [self.topView addSubview:self.emptyHeaderView];
     [self.emptyHeaderView pinToView:self.topView withPadding:kHeaderDefaultPadding];
+
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.emptyHeaderView.transform = CGAffineTransformIdentity;
-                         self.emptyHeaderView.alpha = 1.0;
-                         self.backgroundImageView.alpha = 1.0;
+                         weakSelf.emptyHeaderView.transform = CGAffineTransformIdentity;
+                         weakSelf.emptyHeaderView.alpha = 1.0;
+                         weakSelf.backgroundImageView.alpha = 1.0;
                      }];
 }
 

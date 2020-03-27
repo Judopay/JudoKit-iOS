@@ -59,10 +59,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.recognizer startCamera];
-        [self.containerView bringSubviewToFront:self.labelStackView];
-        [self.containerView bringSubviewToFront:self.backButton];
+        [weakSelf.recognizer startCamera];
+        [weakSelf.containerView bringSubviewToFront:self.labelStackView];
+        [weakSelf.containerView bringSubviewToFront:self.backButton];
     });
 }
 

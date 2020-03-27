@@ -85,17 +85,20 @@ const float kPollingDelayTimer = 30.0;
 #pragma mark - iDEAL Logic
 
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDEALBank {
+
+    __weak typeof(self) weakSelf = self;
     [self.idealService redirectURLForIDEALBank:iDEALBank
                                     completion:^(JPResponse *response, NSError *error) {
+
                                         if (error) {
-                                            [self dismissViewControllerAnimated:YES
-                                                                     completion:^{
-                                                                         self.completionBlock(nil, error);
-                                                                     }];
+                                            [weakSelf dismissViewControllerAnimated:YES
+                                                                         completion:^{
+                                                                             weakSelf.completionBlock(nil, error);
+                                                                         }];
                                             return;
                                         }
 
-                                        [self handleRedirectResponse:response];
+                                        [weakSelf handleRedirectResponse:response];
                                     }];
 }
 
@@ -179,23 +182,25 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)startPolling {
+    __weak typeof(self) weakSelf = self;
     self.pollingTimer = [NSTimer scheduledTimerWithTimeInterval:kPollingDelayTimer
                                                         repeats:NO
                                                           block:^(NSTimer *_Nonnull timer) {
-                                                              [self.transactionStatusView changeToTransactionStatus:JPTransactionStatusPendingDelayed];
+                                                              [weakSelf.transactionStatusView changeToTransactionStatus:JPTransactionStatusPendingDelayed];
                                                           }];
 
     [self.idealService pollTransactionStatusForOrderId:self.orderID
                                               checksum:self.checksum
                                             completion:^(JPResponse *response, NSError *error) {
-                                                [self.pollingTimer invalidate];
+
+                                                [weakSelf.pollingTimer invalidate];
 
                                                 if (error) {
-                                                    [self handleError:error];
+                                                    [weakSelf handleError:error];
                                                     return;
                                                 }
 
-                                                [self handleResponse:response];
+                                                [weakSelf handleResponse:response];
                                             }];
 }
 

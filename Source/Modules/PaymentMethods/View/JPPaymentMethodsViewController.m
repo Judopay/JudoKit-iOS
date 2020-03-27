@@ -210,15 +210,15 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     if ([cell conformsToProtocol:@protocol(JPThemable)]) {
-        UITableViewCell <JPThemable> *themableCell;
-        themableCell = (UITableViewCell <JPThemable> *)cell;
+        UITableViewCell<JPThemable> *themableCell;
+        themableCell = (UITableViewCell<JPThemable> *)cell;
 
         [themableCell applyTheme:self.uiConfiguration.theme];
     }
 
     if ([cell conformsToProtocol:@protocol(JPPaymentMethodConfigurable)]) {
-        UITableViewCell <JPPaymentMethodConfigurable> *paymentMethodCell;
-        paymentMethodCell = (UITableViewCell <JPPaymentMethodConfigurable> *)cell;
+        UITableViewCell<JPPaymentMethodConfigurable> *paymentMethodCell;
+        paymentMethodCell = (UITableViewCell<JPPaymentMethodConfigurable> *)cell;
 
         if ([model isKindOfClass:JPPaymentMethodsCardListModel.class]) {
             JPPaymentMethodsCardListModel *cardListModel;
@@ -289,10 +289,11 @@
                                                            style:UIAlertActionStyleDefault
                                                          handler:nil];
 
+    __weak typeof(self) weakSelf = self;
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"delete".localized
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
-                                                             [self.presenter deleteCardWithIndex:indexPath.row];
+                                                             [weakSelf.presenter deleteCardWithIndex:indexPath.row];
                                                          }];
 
     [alertController addAction:cancelAction];
@@ -320,9 +321,12 @@
 - (void)didTapActionButton {
     BOOL isEditing = self.paymentMethodsView.tableView.isEditing == YES;
     [CATransaction begin];
+
+    __weak typeof(self) weakSelf = self;
     [CATransaction setCompletionBlock:^{
-        [self.presenter changeHeaderButtonTitle:!isEditing];
+        [weakSelf.presenter changeHeaderButtonTitle:!isEditing];
     }];
+
     [self.paymentMethodsView.tableView setEditing:!isEditing animated:YES];
     [CATransaction commit];
 }

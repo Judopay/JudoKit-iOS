@@ -168,6 +168,8 @@
                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     [self.loadingView startLoading];
+
+    __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSMutableString *javascriptCode = [NSMutableString new];
         [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
@@ -175,8 +177,8 @@
         [javascriptCode appendString:@"[paRes, md]"];
         [webView evaluateJavaScript:javascriptCode
                   completionHandler:^(NSArray *response, NSError *error) {
-                      NSDictionary *responseDictionary = [self mapToDictionaryWithResponse:response];
-                      [self handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
+                      NSDictionary *responseDictionary = [weakSelf mapToDictionaryWithResponse:response];
+                      [weakSelf handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
                   }];
     });
 }
@@ -184,17 +186,21 @@
 - (void)handleACSFormWithResponse:(NSDictionary *)response
                   decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
+    __weak typeof(self) weakSelf = self;
     [self.transaction threeDSecureWithParameters:response
                                        receiptId:self.configuration.receiptId
                                       completion:^(JPResponse *response, NSError *error) {
+
                                           if (error) {
                                               decisionHandler(WKNavigationActionPolicyCancel);
                                           } else {
                                               decisionHandler(WKNavigationActionPolicyAllow);
                                           }
-                                          [self.loadingView stopLoading];
-                                          [self dismissViewControllerAnimated:YES completion:nil];
-                                          self.completionBlock(response, error);
+
+                                          [weakSelf.loadingView stopLoading];
+                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
+
+                                          weakSelf.completionBlock(response, error);
                                       }];
 }
 

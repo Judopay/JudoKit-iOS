@@ -99,15 +99,16 @@
 
 - (void)enrichWithLocation:(CLLocation *)location {
 
+    __weak typeof(self) weakSelf = self;
     [self.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *error) {
-
         JPEnhancedPaymentDetail *detail;
-        detail = [self buildEnhancedPaymentDetail:device
-                                      andLocation:location];
+        detail = [weakSelf buildEnhancedPaymentDetail:device
+                                          andLocation:location];
 
-        [self.transaction setPaymentDetail:detail];
-        [self.transaction setDeviceSignal:device];
-        self.completionBlock();
+        [weakSelf.transaction setPaymentDetail:detail];
+        [weakSelf.transaction setDeviceSignal:device];
+
+        weakSelf.completionBlock();
     }];
 }
 
@@ -120,9 +121,9 @@
 
     JPConsumerDevice *consumerDevice;
     consumerDevice = [JPConsumerDevice deviceWithIpAddress:getIPAddress()
-                                                               clientDetails:clientDetails
-                                                                 geoLocation:location
-                                                                threeDSecure:threeDSecure];
+                                             clientDetails:clientDetails
+                                               geoLocation:location
+                                              threeDSecure:threeDSecure];
 
     JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:JudoKitVersion
                                                name:JudoKitName];
