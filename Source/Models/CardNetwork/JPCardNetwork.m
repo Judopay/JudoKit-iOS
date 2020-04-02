@@ -152,4 +152,21 @@
     }
 }
 
++ (NSString *)securityCodePlaceholder:(CardNetwork)networkType {
+    switch (networkType) {
+        case CardNetworkAMEX:
+            return kSecurityCodePlaceholderhAmex;
+        case CardNetworkVisa:
+            return kSecurityCodePlaceholderhVisa;
+        case CardNetworkMasterCard:
+            return kSecurityCodePlaceholderhMasterCard;
+        case CardNetworkChinaUnionPay:
+            return kSecurityCodePlaceholderhChinaUnionPay;
+        case CardNetworkJCB:
+            return kSecurityCodePlaceholderhJCB;
+        default:
+            return kSecurityCodePlaceholderDefault;
+    }
+}
+
 @end

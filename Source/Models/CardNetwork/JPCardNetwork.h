@@ -109,4 +109,9 @@
  */
 + (NSUInteger)securityCodeLength:(CardNetwork)networkType;
 
+/**
+ * String specifying the security code placeholder
+ */
++ (NSString *)securityCodePlaceholder:(CardNetwork)networkType;
+
 @end

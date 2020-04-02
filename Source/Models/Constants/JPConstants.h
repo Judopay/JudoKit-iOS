@@ -56,4 +56,11 @@ static NSString *const kFailureReasonUserAbort = @"USER_ABORT";
 static NSUInteger const kSecurityCodeLengthAmex = 4;
 static NSUInteger const kSecurityCodeLengthDefault = 3;
 
+static NSString *const kSecurityCodePlaceholderhAmex = @"CID";
+static NSString *const kSecurityCodePlaceholderhVisa = @"CVV2";
+static NSString *const kSecurityCodePlaceholderhMasterCard = @"CVC2";
+static NSString *const kSecurityCodePlaceholderhChinaUnionPay = @"CVN2";
+static NSString *const kSecurityCodePlaceholderhJCB = @"CAV2";
+static NSString *const kSecurityCodePlaceholderDefault = @"CVV";
+
 #endif /* JPConstants_h */

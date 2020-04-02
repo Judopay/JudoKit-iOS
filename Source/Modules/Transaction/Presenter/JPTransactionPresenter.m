@@ -264,10 +264,19 @@
     self.addCardViewModel.cardNumberViewModel.errorText = result.errorMessage;
     self.isCardNumberValid = result.isValid;
 
+    [self updateSecureCodeViewModelPlaceholderIfNeed:result.cardNetwork];
+
     if (result.isInputAllowed) {
         self.addCardViewModel.cardNumberViewModel.text = result.formattedInput;
         self.addCardViewModel.cardNumberViewModel.cardNetwork = result.cardNetwork;
         return;
+    }
+}
+
+- (void)updateSecureCodeViewModelPlaceholderIfNeed:(CardNetwork)cardNetwork {
+    if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
+        NSString *placeholder = [JPCardNetwork securityCodePlaceholder:cardNetwork];
+        self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
     }
 }
 
