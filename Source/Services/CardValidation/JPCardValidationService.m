@@ -34,7 +34,6 @@
 
 @property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
-@property (nonatomic, strong) JPValidationResult *lastSecureCodeValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastPostalCodeValidationResult;
 @property (nonatomic, strong) NSString *selectedJPBillingCountry;
 @end
@@ -46,7 +45,6 @@
 - (void)resetCardValidationResults {
     self.lastCardNumberValidationResult = nil;
     self.lastExpiryDateValidationResult = nil;
-    self.lastSecureCodeValidationResult = nil;
     self.lastPostalCodeValidationResult = nil;
 }
 
@@ -170,26 +168,11 @@
 }
 
 - (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
-
-    JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:self.lastCardNumberValidationResult.cardNetwork];
-
-    if (cardNetwork == CardNetworkUnknown) {
-        self.lastSecureCodeValidationResult = [JPValidationResult validationWithResult:input.length == 3
-                                                                          inputAllowed:input.length <= 3
-                                                                          errorMessage:nil
-                                                                        formattedInput:input];
-        return self.lastSecureCodeValidationResult;
-    }
-
-    if (input.length > cardNetwork.securityCodeLength) {
-        return self.lastSecureCodeValidationResult;
-    }
-
-    self.lastSecureCodeValidationResult = [JPValidationResult validationWithResult:input.length == cardNetwork.securityCodeLength
-                                                                      inputAllowed:input.length <= cardNetwork.securityCodeLength
-                                                                      errorMessage:nil
-                                                                    formattedInput:input];
-    return self.lastSecureCodeValidationResult;
+    NSUInteger securityCodeLength = [JPCardNetwork securityCodeLength: self.lastCardNumberValidationResult.cardNetwork];
+    return [JPValidationResult validationWithResult:input.length == securityCodeLength
+                                       inputAllowed:input.length <= securityCodeLength
+                                       errorMessage:nil
+                                     formattedInput:input];
 }
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {

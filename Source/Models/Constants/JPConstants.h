@@ -53,4 +53,7 @@ static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
 static NSString *const kFailureReasonUserAbort = @"USER_ABORT";
 
+static NSUInteger const kSecurityCodeLengthAmex = 4;
+static NSUInteger const kSecurityCodeLengthDefault = 3;
+
 #endif /* JPConstants_h */

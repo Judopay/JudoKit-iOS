@@ -38,11 +38,6 @@
 @property (nonatomic, assign) CardNetwork network;
 
 /**
- * An integer specifying the security code length for the current network
- */
-@property (nonatomic, assign) NSUInteger securityCodeLength;
-
-/**
  * An instance of NSString that returns the card format for the current network
  */
 @property (nonatomic, strong) NSString *numberPattern;
@@ -70,7 +65,6 @@
  */
 + (instancetype)networkWith:(CardNetwork)type
              numberPrefixes:(NSString *)prefixes
-         securityCodeLength:(NSUInteger)length
               numberPattern:(NSString *)pattern;
 
 /**
@@ -109,4 +103,10 @@
  * A getter that returns the default number pattern
  */
 + (NSString *)defaultNumberPattern;
+
+/**
+ * An integer specifying the security code length for the network type
+ */
++ (NSUInteger)securityCodeLength:(CardNetwork)networkType;
+
 @end
