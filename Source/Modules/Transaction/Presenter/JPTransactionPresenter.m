@@ -264,10 +264,19 @@
     self.addCardViewModel.cardNumberViewModel.errorText = result.errorMessage;
     self.isCardNumberValid = result.isValid;
 
+    [self updateSecureCodePlaceholderForNetworkType:result.cardNetwork];
+
     if (result.isInputAllowed) {
         self.addCardViewModel.cardNumberViewModel.text = result.formattedInput;
         self.addCardViewModel.cardNumberViewModel.cardNetwork = result.cardNetwork;
         return;
+    }
+}
+
+- (void)updateSecureCodePlaceholderForNetworkType:(CardNetwork)cardNetwork {
+    if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
+        NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
+        self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
     }
 }
 
@@ -301,11 +310,7 @@
     JPValidationResult *result = [self.interactor validateSecureCodeInput:input];
     self.addCardViewModel.secureCodeViewModel.errorText = result.errorMessage;
     self.isSecureCodeValid = result.isValid;
-
-    if (result.isInputAllowed) {
-        self.addCardViewModel.secureCodeViewModel.text = result.formattedInput;
-        return;
-    }
+    self.addCardViewModel.secureCodeViewModel.text = result.formattedInput;
 }
 
 - (void)updateCountryViewModelForInput:(NSString *)input {

@@ -27,23 +27,19 @@
 #import "NSArray+Additions.h"
 
 @implementation JPCardNetwork
-
 + (instancetype)networkWith:(CardNetwork)type
              numberPrefixes:(NSString *)prefixes {
     return [JPCardNetwork networkWith:type
                        numberPrefixes:prefixes
-                   securityCodeLength:3
                         numberPattern:[self defaultNumberPattern]];
 }
 
 + (instancetype)networkWith:(CardNetwork)type
              numberPrefixes:(NSString *)prefixes
-         securityCodeLength:(NSUInteger)length
               numberPattern:(NSString *)pattern {
     JPCardNetwork *network = [JPCardNetwork new];
     network.network = type;
     network.numberPrefixes = [prefixes componentsSeparatedByString:@","];
-    network.securityCodeLength = length;
     network.numberPattern = pattern;
     return network;
 }
@@ -81,7 +77,6 @@
 
             [JPCardNetwork networkWith:CardNetworkAMEX
                         numberPrefixes:kAMEXPrefixes
-                    securityCodeLength:4
                          numberPattern:kAMEXPattern],
 
             [JPCardNetwork networkWith:CardNetworkMaestro
@@ -89,7 +84,6 @@
 
             [JPCardNetwork networkWith:CardNetworkDinersClub
                         numberPrefixes:kDinersClubPrefixes
-                    securityCodeLength:3
                          numberPattern:kDinersClubPattern],
 
             [JPCardNetwork networkWith:CardNetworkJCB
@@ -147,6 +141,32 @@
         return names[key];
     }
     return names[@(CardNetworkUnknown)];
+}
+
++ (NSUInteger)secureCodeLengthForNetworkType:(CardNetwork)networkType {
+    switch (networkType) {
+        case CardNetworkAMEX:
+            return kSecurityCodeLengthAmex;
+        default:
+            return kSecurityCodeLengthDefault;
+    }
+}
+
++ (NSString *)secureCodePlaceholderForNetworkType:(CardNetwork)networkType {
+    switch (networkType) {
+        case CardNetworkAMEX:
+            return kSecurityCodePlaceholderhAmex;
+        case CardNetworkVisa:
+            return kSecurityCodePlaceholderhVisa;
+        case CardNetworkMasterCard:
+            return kSecurityCodePlaceholderhMasterCard;
+        case CardNetworkChinaUnionPay:
+            return kSecurityCodePlaceholderhChinaUnionPay;
+        case CardNetworkJCB:
+            return kSecurityCodePlaceholderhJCB;
+        default:
+            return kSecurityCodePlaceholderDefault;
+    }
 }
 
 @end
