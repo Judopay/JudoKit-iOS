@@ -63,4 +63,8 @@ static NSString *const kSecurityCodePlaceholderhChinaUnionPay = @"CVN2";
 static NSString *const kSecurityCodePlaceholderhJCB = @"CAV2";
 static NSString *const kSecurityCodePlaceholderDefault = @"CVV";
 
+static int const kJPCountryTypeUK = 826;
+static int const kJPCountryTypeUSA = 840;
+static int const kJPCountryTypeCanada = 124;
+
 #endif /* JPConstants_h */
