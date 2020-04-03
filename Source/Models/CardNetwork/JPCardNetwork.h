@@ -106,12 +106,20 @@
 
 /**
  * An integer specifying the security code length for the network type
+ *
+ * @param networkType - the card network type
+ *
+ * @returns the card network security code length;
  */
-+ (NSUInteger)securityCodeLength:(CardNetwork)networkType;
++ (NSUInteger)secureCodeLengthForNetworkType:(CardNetwork)networkType;
 
 /**
  * String specifying the security code placeholder
+ *
+ * @param networkType - the card network type
+ *
+ * @returns the card network security code placeholder;
  */
-+ (NSString *)securityCodePlaceholder:(CardNetwork)networkType;
++ (NSString *)secureCodePlaceholderForNetworkType:(CardNetwork)networkType;
 
 @end

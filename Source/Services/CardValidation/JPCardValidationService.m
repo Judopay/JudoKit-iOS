@@ -168,7 +168,7 @@
 }
 
 - (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
-    NSUInteger securityCodeLength = [JPCardNetwork securityCodeLength:self.lastCardNumberValidationResult.cardNetwork];
+    NSUInteger securityCodeLength = [JPCardNetwork secureCodeLengthForNetworkType:self.lastCardNumberValidationResult.cardNetwork];
     return [JPValidationResult validationWithResult:input.length == securityCodeLength
                                        inputAllowed:input.length <= securityCodeLength
                                        errorMessage:nil

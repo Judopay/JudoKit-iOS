@@ -143,7 +143,7 @@
     return names[@(CardNetworkUnknown)];
 }
 
-+ (NSUInteger)securityCodeLength:(CardNetwork)networkType {
++ (NSUInteger)secureCodeLengthForNetworkType:(CardNetwork)networkType {
     switch (networkType) {
         case CardNetworkAMEX:
             return kSecurityCodeLengthAmex;
@@ -152,7 +152,7 @@
     }
 }
 
-+ (NSString *)securityCodePlaceholder:(CardNetwork)networkType {
++ (NSString *)secureCodePlaceholderForNetworkType:(CardNetwork)networkType {
     switch (networkType) {
         case CardNetworkAMEX:
             return kSecurityCodePlaceholderhAmex;
