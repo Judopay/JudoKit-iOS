@@ -310,11 +310,7 @@
     JPValidationResult *result = [self.interactor validateSecureCodeInput:input];
     self.addCardViewModel.secureCodeViewModel.errorText = result.errorMessage;
     self.isSecureCodeValid = result.isValid;
-
-    if (result.isInputAllowed) {
-        self.addCardViewModel.secureCodeViewModel.text = result.formattedInput;
-        return;
-    }
+    self.addCardViewModel.secureCodeViewModel.text = result.formattedInput;
 }
 
 - (void)updateCountryViewModelForInput:(NSString *)input {

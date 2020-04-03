@@ -169,10 +169,12 @@
 
 - (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
     NSUInteger securityCodeLength = [JPCardNetwork secureCodeLengthForNetworkType:self.lastCardNumberValidationResult.cardNetwork];
-    return [JPValidationResult validationWithResult:input.length == securityCodeLength
-                                       inputAllowed:input.length <= securityCodeLength
+    NSString *formatedInput = [input substringToIndex:MIN(input.length, securityCodeLength)];
+    
+    return [JPValidationResult validationWithResult:formatedInput.length == securityCodeLength
+                                       inputAllowed:formatedInput.length <= securityCodeLength
                                        errorMessage:nil
-                                     formattedInput:input];
+                                     formattedInput:formatedInput];
 }
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {
