@@ -30,7 +30,7 @@
                         line2:(NSString *)line2
                         line3:(NSString *)line3
                          town:(NSString *)town
-               billingCountry:(NSString *)billingCountry
+                  countryCode:(NSNumber *)countryCode
                      postCode:(NSString *)postCode {
 
     if (self = [super init]) {
@@ -39,7 +39,7 @@
         self.line3 = line3;
         self.postCode = postCode;
         self.town = town;
-        self.billingCountry = billingCountry;
+        self.countryCode = countryCode;
     }
     return self;
 }
@@ -56,7 +56,7 @@
                                       line2:self.line2
                                       line3:self.line3
                                        town:self.town
-                             billingCountry:self.billingCountry
+                                countryCode:self.countryCode
                                    postCode:self.postCode];
 }
 
@@ -76,8 +76,8 @@
     if (dictionary[@"town"]) {
         self.town = dictionary[@"town"];
     }
-    if (dictionary[@"billingCountry"]) {
-        self.billingCountry = dictionary[@"billingCountry"];
+    if (dictionary[@"countryCode"]) {
+        self.countryCode = dictionary[@"countryCode"];
     }
 }
 
@@ -98,8 +98,9 @@
     if (self.town) {
         dictionary[@"town"] = self.town;
     }
-    if (self.billingCountry) {
-        dictionary[@"billingCountry"] = self.billingCountry;
+    
+    if (self.countryCode) {
+        dictionary[@"countryCode"] = self.countryCode;
     }
     return [dictionary copy];
 }

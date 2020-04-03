@@ -57,7 +57,7 @@
 /**
  *  Billing country of the address
  */
-@property (nonatomic, strong) NSString *_Nullable billingCountry;
+@property (nonatomic, strong) NSNumber *countryCode;
 
 /**
  *  dictionary representation of the receiver
@@ -71,7 +71,7 @@
  *  @param line2 - an optional secondary address line
  *  @param line3 - an optional third address line
  *  @param town - a string that represents the town name
- *  @param billingCountry - the billing country of the card
+ *  @param countryCode - the billing country code of the card
  *  @param postCode the postal code of the card
  *
  *  @return a JPAddress object
@@ -80,7 +80,7 @@
                                 line2:(nullable NSString *)line2
                                 line3:(nullable NSString *)line3
                                  town:(nullable NSString *)town
-                       billingCountry:(nullable NSString *)billingCountry
+                          countryCode:(nullable NSNumber *)countryCode
                              postCode:(nullable NSString *)postCode;
 
 /**

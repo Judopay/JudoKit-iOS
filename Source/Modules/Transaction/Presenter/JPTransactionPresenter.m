@@ -344,7 +344,7 @@
     card.cardAddress = configuredAddress ? configuredAddress : [JPAddress new];
 
     if ([self.interactor isAVSEnabled]) {
-        card.cardAddress.billingCountry = viewModel.countryPickerViewModel.text;
+        card.cardAddress.countryCode = [JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text] ;
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
     }
 
