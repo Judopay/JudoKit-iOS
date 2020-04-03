@@ -57,7 +57,7 @@
 /**
  *  Billing country of the address
  */
-@property (nonatomic, strong) NSNumber *countryCode;
+@property (nonatomic, strong) NSNumber *_Nullable countryCode;
 
 /**
  *  dictionary representation of the receiver

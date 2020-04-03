@@ -62,7 +62,7 @@
     if ([country isEqualToString:@"country_canada".localized]) {
         return [NSNumber numberWithInt:kJPCountryTypeCanada];
     }
-    return [NSNull new];
+    return nil;
 }
 
 @end

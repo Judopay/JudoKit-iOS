@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, JPCountryType) {
 - (instancetype)initWithType:(JPCountryType)countryType;
 
 /**
- * Get ISO country cody by country String
+ * Get ISO country code by country String
  *
  * @param country - country name, based on localization
  */
