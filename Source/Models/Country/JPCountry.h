@@ -50,4 +50,11 @@ typedef NS_ENUM(NSUInteger, JPCountryType) {
  * @param countryType - a JPCountryType value identifying the country
  */
 - (instancetype)initWithType:(JPCountryType)countryType;
+
+/**
+ * Get ISO country code by country String
+ *
+ * @param country - country name, based on localization
+ */
++ (NSNumber *)isoCodeForCountry:(NSString *)country;
 @end

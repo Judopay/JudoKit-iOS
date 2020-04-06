@@ -24,6 +24,7 @@
 
 #import "JPCountry.h"
 #import "NSString+Additions.h"
+#import "JPConstants.h"
 
 @implementation JPCountry
 
@@ -49,6 +50,19 @@
         case JPCountryTypeOther:
             return @"country_other".localized;
     }
+}
+
++ (NSNumber *)isoCodeForCountry:(NSString *)country {
+    if ([country isEqualToString:@"country_usa".localized]) {
+        return [NSNumber numberWithInt:kJPCountryNumericCodeUSA];
+    }
+    if ([country isEqualToString:@"country_uk".localized]) {
+        return [NSNumber numberWithInt:kJPCountryNumericCodeUK];
+    }
+    if ([country isEqualToString:@"country_canada".localized]) {
+        return [NSNumber numberWithInt:kJPCountryNumericCodeCanada];
+    }
+    return nil;
 }
 
 @end
