@@ -45,6 +45,8 @@
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
+@property (nonatomic, strong) id <ConfigurationValidationService> configurationValidationService;
+
 @end
 
 @implementation JudoKit
@@ -60,6 +62,7 @@
        allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
+    self.configurationValidationService = [JPConfigurationValidationService new];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
@@ -80,10 +83,19 @@
     return [self.transactionService transactionWithConfiguration:configuration];
 }
 
+- (BOOL)configurationIsNotValid:(JPConfiguration *)configuration
+                  completion:(JudoCompletionBlock)completion {
+    return [self.configurationValidationService validateTransactionWithConfiguration:configuration completion:completion];
+}
+
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JudoCompletionBlock)completion {
 
+    if ([self configurationIsNotValid:configuration completion:completion]) {
+        return;
+    }
+    
     self.transactionService.transactionType = type;
 
     UIViewController *controller;
