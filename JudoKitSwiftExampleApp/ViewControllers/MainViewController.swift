@@ -139,7 +139,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .payment,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -147,7 +147,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .preAuth,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -155,7 +155,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .registerCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -163,7 +163,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .saveCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -171,7 +171,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .checkCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -180,7 +180,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeApplePay(with: .payment,
                                      configuration: applePayConfigurations,
                                      completion: {[weak self] (response, error) in
-                                        self?.handle(response: response)
+                                        self?.handle(response: response, error: error)
         })
     }
     
@@ -188,7 +188,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeApplePay(with: .preAuth,
                                      configuration: applePayConfigurations,
                                      completion: {[weak self] (response, error) in
-                                        self?.handle(response: response)
+                                        self?.handle(response: response, error: error)
         })
     }
     
@@ -196,21 +196,26 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokePaymentMethodScreen(with: .payment,
                                                 configuration: configuration,
                                                 completion: {[weak self] (response, error) in
-                                                    self?.handle(response: response)
+                                                    self?.handle(response: response, error: error)
         })
     }
     
     @objc func navigateToPreAuthMethods() {
         self.judoKit?.invokePaymentMethodScreen(with: .preAuth,
                                                 configuration: configuration,
-                                                completion: {[weak self] (response, error) in
-                                                    self?.handle(response: response)
+                                                completion: {[unowned self] (response, error) in
+                                                    self.handle(response: response, error: error)
         })
     }
     
     // MARK: - Helper methods
     
-    func handle(response: JPResponse?) {
+    func handle(response: JPResponse?, error: Error?) {
+        if let error = error {
+            self.presentAlert(with: "Error", message: error.localizedDescription)
+            return
+        }
+        
         guard let response = response else {
             return
         }
