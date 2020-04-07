@@ -54,6 +54,7 @@ class MainViewController: UITableViewController {
         let configuration = JPConfiguration(judoID: judoId, amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
         configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled
+        configuration.applePayConfiguration = applePayConfigurations
         return configuration
     }
     
@@ -65,6 +66,8 @@ class MainViewController: UITableViewController {
                                                      currency: self.settings.currency.rawValue,
                                                      countryCode: "GB",
                                                      paymentSummaryItems: items)
+        configurations.requiredShippingContactFields = .all
+        configurations.shippingMethods = [PaymentShippingMethod(identifier: "shiping", detail: "details", label: "label", amount: 0.01, type: .final)]
         return configurations
     }
     
@@ -178,7 +181,7 @@ class MainViewController: UITableViewController {
     
     @objc func applePayPayment() {
         self.judoKit?.invokeApplePay(with: .payment,
-                                     configuration: applePayConfigurations,
+                                     configuration: configuration,
                                      completion: {[weak self] (response, error) in
                                         self?.handle(response: response, error: error)
         })
@@ -186,7 +189,7 @@ class MainViewController: UITableViewController {
     
     @objc func applePayPreAuth() {
         self.judoKit?.invokeApplePay(with: .preAuth,
-                                     configuration: applePayConfigurations,
+                                     configuration: configuration,
                                      completion: {[weak self] (response, error) in
                                         self?.handle(response: response, error: error)
         })

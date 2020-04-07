@@ -67,4 +67,8 @@ static int const kJPCountryNumericCodeUK = 826;
 static int const kJPCountryNumericCodeUSA = 840;
 static int const kJPCountryNumericCodeCanada = 124;
 
+static NSString *const kJudoErrorDomain = @"com.judo.error";
+
+static int const kMaximumLenghtForConsumerReference = 40;
+
 #endif /* JPConstants_h */

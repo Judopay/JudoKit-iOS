@@ -24,19 +24,24 @@
 
 #import <Foundation/Foundation.h>
 #import "JPSession.h"
-#import "NSError+Additions.h"
-#import "NSString+Additions.h"
+#import "JPConstants.h"
+#import "JPReference.h"
 #import "JPConfiguration.h"
 #import "JPAmount.h"
 
-@protocol ConfigurationValidationService
+@protocol JPConfigurationValidationService
 @required
-- (BOOL)validateTransactionWithConfiguration:(JPConfiguration *)configuration
+- (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
                                   completion:(JudoCompletionBlock)completion;
+
+- (BOOL)isAppleTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+                                  completion:(JudoCompletionBlock)completion;
+
 @end
 
 /**
  * A class that handles JPConfiguration validation
  */
-@interface JPConfigurationValidationService : NSObject<ConfigurationValidationService>
+@interface JPConfigurationValidationServiceImp : NSObject<JPConfigurationValidationService>
+@property (nonatomic, nonnull) NSArray *validAllCurrencies;
 @end

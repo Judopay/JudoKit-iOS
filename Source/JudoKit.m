@@ -45,7 +45,7 @@
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
-@property (nonatomic, strong) id <ConfigurationValidationService> configurationValidationService;
+@property (nonatomic, strong) id <JPConfigurationValidationService> configurationValidationService;
 
 @end
 
@@ -62,7 +62,7 @@
        allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
-    self.configurationValidationService = [JPConfigurationValidationService new];
+    self.configurationValidationService = [JPConfigurationValidationServiceImp new];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
@@ -85,7 +85,7 @@
 
 - (BOOL)configurationIsNotValid:(JPConfiguration *)configuration
                   completion:(JudoCompletionBlock)completion {
-    return [self.configurationValidationService validateTransactionWithConfiguration:configuration completion:completion];
+    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration completion:completion];
 }
 
 - (void)invokeTransactionWithType:(TransactionType)type
@@ -109,9 +109,19 @@
                                                     completion:nil];
 }
 
+- (BOOL)appleConfigurationIsNotValid:(JPConfiguration *)configuration
+                     completion:(JudoCompletionBlock)completion {
+    return [self.configurationValidationService isAppleTransactionNotValideWithConfiguration:configuration completion:completion];
+}
+
 - (void)invokeApplePayWithMode:(TransactionMode)mode
                  configuration:(JPConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
+    
+    if ([self appleConfigurationIsNotValid:configuration completion:completion]) {
+        return;
+    }
+    
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
