@@ -2,7 +2,7 @@
 //  JPConfigurationValidationService.m
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,27 +24,42 @@
 
 #import "JPConfigurationValidationService.h"
 
-typedef NS_ENUM(NSUInteger, ValidationError) {
+typedef NS_ENUM(NSUInteger, JPValidationError) {
     IllegalArgumentError,  // empty is null parameter
     IllegalStateError   // invalid parameter
 };
+
+@interface JPConfigurationValidationServiceImp()
+@property (nonatomic, nonnull) NSArray *validCurrencies;
+@end
 
 @implementation JPConfigurationValidationServiceImp
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _validAllCurrencies = @[@"USD", @"CAD", @"EUR", @"GBP"];
+        _validCurrencies = @[@"USD", @"CAD", @"EUR", @"GBP"];
     }
     return self;
 }
 
 - (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
-                                  completion:(JudoCompletionBlock)completion {
+                                transactionType:(JPValidationType)transactionType
+                                     completion:(JudoCompletionBlock)completion {
+    switch (transactionType) {
+        case DefaultTransaction:
+            return [self isTransactionNotValideWithConfiguration:configuration completion:completion];
+        case AppleTransaction:
+            return [self isAppleTransactionNotValideWithConfiguration:configuration completion:completion];
+    }
+}
+
+- (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+                                     completion:(JudoCompletionBlock)completion {
     NSError *error;
-    [self checkForValidCurency:configuration.amount.currency error: &error];
-    [self checkIfAmountIsnumber:configuration.amount.amount error: &error];
-    [self checkForJudoId:configuration error:&error];
+    [self checkForValidCurrency:configuration.amount.currency error: &error];
+    [self checkIfAmountIsNumber:configuration.amount.amount error: &error];
+    [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
     
     if (error) { completion(nil, error); }
@@ -53,22 +68,21 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
 }
 
 - (BOOL)isAppleTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
-                                       completion:(JudoCompletionBlock)completion {
+                                          completion:(JudoCompletionBlock)completion {
     NSError *error;
-    
-    [self checkForValidCurency:configuration.applePayConfiguration.currency error:&error];
+    [self checkForValidCurrency:configuration.applePayConfiguration.currency error:&error];
     [self checkForEmptyMerchantId:configuration.applePayConfiguration.merchantId error:&error];
     [self checkForValidCountryCode:configuration.applePayConfiguration.countryCode error:&error];
-    [self checkApplePaymentItems:configuration error:&error];
-    [self checkForShippingMethods:configuration error:&error];
-    [self checkForAppleConfig:configuration error:&error];
+    [self checkApplePaymentItemsLength:configuration error:&error];
+    [self checkForShippingMethodsLenght:configuration error:&error];
+    [self checkIfAppleConfigNonNull:configuration error:&error];
     
     if (error) { completion(nil, error); }
     
     return error ? true : false;
 }
 
-- (void)checkApplePaymentItems:(JPConfiguration *)configuration error:(NSError **)error {
+- (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.applePayConfiguration.paymentSummaryItems count] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                    code:IllegalArgumentError
@@ -76,7 +90,7 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
     }
 }
 
-- (void)checkForShippingMethods:(JPConfiguration *)configuration error:(NSError **)error {
+- (void)checkForShippingMethodsLenght:(JPConfiguration *)configuration error:(NSError **)error {
     if ((configuration.applePayConfiguration.requiredShippingContactFields != ContactFieldNone) &&
        ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
@@ -85,7 +99,7 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
     }
 }
 
-- (void)checkForJudoId:(JPConfiguration *)configuration error:(NSError **)error {
+- (void)checkForValidJudoId:(JPConfiguration *)configuration error:(NSError **)error {
     if (![configuration.judoId length]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                     code:IllegalArgumentError
@@ -93,12 +107,12 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
     }
 }
 
-- (void)checkForValidCurency:(NSString *)curency error:(NSError **)error {
+- (void)checkForValidCurrency:(NSString *)curency error:(NSError **)error {
     if ([curency length] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                     code:IllegalArgumentError
                                 userInfo:@{NSLocalizedDescriptionKey : @"Currency cannot be empty"}];
-    } else if (![_validAllCurrencies containsObject:curency]) {
+    } else if (![_validCurrencies containsObject:curency]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                     code:IllegalStateError
                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
@@ -121,7 +135,7 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
     }
 }
 
-- (void)checkForAppleConfig:(JPConfiguration *)configuration error:(NSError **)error {
+- (void)checkIfAppleConfigNonNull:(JPConfiguration *)configuration error:(NSError **)error {
     if (!configuration.applePayConfiguration) {
        *error = [NSError errorWithDomain:kJudoErrorDomain
                                     code:IllegalArgumentError
@@ -129,7 +143,7 @@ typedef NS_ENUM(NSUInteger, ValidationError) {
     }
 }
 
-- (void)checkIfAmountIsnumber:(NSString *)amount error:(NSError **)error {
+- (void)checkIfAmountIsNumber:(NSString *)amount error:(NSError **)error {
     NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
     formater.numberStyle = NSNumberFormatterDecimalStyle;
     if (![formater numberFromString: amount]) {

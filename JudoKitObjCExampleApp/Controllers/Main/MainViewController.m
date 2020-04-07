@@ -162,6 +162,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
         [self presentErrorWithMessage: error.localizedDescription];
+        return;
     }
     
     if (!response) {
@@ -240,8 +241,11 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     configuration.requiredShippingContactFields = ContactFieldAll;
     configuration.requiredBillingContactFields = ContactFieldAll;
     configuration.returnedContactInfo = ReturnedInfoAll;
-    configuration.shippingMethods = @[[[PaymentShippingMethod alloc] initWithIdentifier:@"method" detail:@"details" label:@"label" amount:totalPrice type:JPPaymentSummaryItemTypeFinal]];
-    
+    configuration.shippingMethods = @[[[PaymentShippingMethod alloc] initWithIdentifier:@"method"
+                                                                                 detail:@"details"
+                                                                                  label:@"label"
+                                                                                 amount:totalPrice
+                                                                                   type:JPPaymentSummaryItemTypeFinal]];
     return configuration;
 }
 

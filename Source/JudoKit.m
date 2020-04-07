@@ -85,7 +85,7 @@
 
 - (BOOL)configurationIsNotValid:(JPConfiguration *)configuration
                   completion:(JudoCompletionBlock)completion {
-    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration completion:completion];
+    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration transactionType: DefaultTransaction completion:completion];
 }
 
 - (void)invokeTransactionWithType:(TransactionType)type
@@ -111,7 +111,7 @@
 
 - (BOOL)appleConfigurationIsNotValid:(JPConfiguration *)configuration
                      completion:(JudoCompletionBlock)completion {
-    return [self.configurationValidationService isAppleTransactionNotValideWithConfiguration:configuration completion:completion];
+    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration transactionType: AppleTransaction completion:completion];
 }
 
 - (void)invokeApplePayWithMode:(TransactionMode)mode

@@ -56,7 +56,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     }
     
     func testInvalidCharacters() {
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .DefaultTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Amount should be a number")
         }
         XCTAssertTrue(isNotValid)
@@ -66,7 +66,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     func testEmptyCurrency() {
         amount = JPAmount("0.1", currency: "")
         configuration.amount = amount
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .DefaultTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Currency cannot be empty")
         }
         XCTAssertTrue(isNotValid)
@@ -74,7 +74,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     
     func testNilJudoId() {
         configuration = nil
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .DefaultTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "JudoId cannot be null or empty")
         }
         XCTAssertTrue(isNotValid)
@@ -84,7 +84,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
         setUp()
         let reference40Characters = String(repeating: "J", count: Int(kMaximumLenghtForConsumerReference + 1))
         configuration.reference = JPReference(consumerReference: reference40Characters)
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .DefaultTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Consumer Reference is invalied")
         }
         XCTAssertTrue(isNotValid)
@@ -93,13 +93,13 @@ class JPConfigurationValidationServiceTest: XCTestCase {
 //MARK: start testing apple validation rules
     func testAppleConfigIfValid() {
         initAppleConfig()
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration, completion: nil)
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction, completion: nil)
         XCTAssertFalse(isNotValid)
     }
     
     func testAppleConfigForNil() {
         configuration.applePayConfiguration = nil
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Apple Configuration is empty")
         }
         XCTAssertTrue(isNotValid)
@@ -108,7 +108,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     func testAppleConfigForPaymentSummaryItemsEmpty() {
         initAppleConfig()
         configuration.applePayConfiguration?.paymentSummaryItems.removeAll()
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Payment items couldn't be empty")
         }
         XCTAssertTrue(isNotValid)
@@ -118,7 +118,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
         initAppleConfig()
         configuration.applePayConfiguration?.requiredShippingContactFields = .postalAddress
         configuration.applePayConfiguration?.shippingMethods?.removeAll()
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Specify shipinng methonds")
         }
         XCTAssertTrue(isNotValid)
@@ -127,7 +127,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     func testAppleConfigForInvalidCountryCode() {
         initAppleConfig()
         configuration.applePayConfiguration?.countryCode = ""
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Country Code is invalid")
         }
         XCTAssertTrue(isNotValid)
@@ -136,7 +136,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     func testAppleConfigForInvalidMerchantId() {
         initAppleConfig()
         configuration.applePayConfiguration?.merchantId = ""
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Merchant Id cannot be empty")
         }
         XCTAssertTrue(isNotValid)
@@ -145,7 +145,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     func testAppleConfigForUnsuportedCurrency() {
         initAppleConfig()
         configuration.applePayConfiguration?.currency = "XYZ"
-        let isNotValid = configValidation.isAppleTransactionNotValide(with: configuration) { (response, errror) in
+        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .AppleTransaction) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Unsuported Currency")
         }
         XCTAssertTrue(isNotValid)

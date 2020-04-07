@@ -2,7 +2,7 @@
 //  JPConfigurationValidationService.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,19 +29,20 @@
 #import "JPConfiguration.h"
 #import "JPAmount.h"
 
+typedef NS_ENUM(NSUInteger, JPValidationType) {
+    DefaultTransaction,
+    AppleTransaction 
+};
+
 @protocol JPConfigurationValidationService
 @required
 - (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
-                                  completion:(JudoCompletionBlock)completion;
-
-- (BOOL)isAppleTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
-                                  completion:(JudoCompletionBlock)completion;
-
+                                transactionType:(JPValidationType)transactionType
+                                     completion:(JudoCompletionBlock)completion;
 @end
 
 /**
  * A class that handles JPConfiguration validation
  */
 @interface JPConfigurationValidationServiceImp : NSObject<JPConfigurationValidationService>
-@property (nonatomic, nonnull) NSArray *validAllCurrencies;
 @end
