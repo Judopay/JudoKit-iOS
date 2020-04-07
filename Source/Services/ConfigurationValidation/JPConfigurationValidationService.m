@@ -25,8 +25,8 @@
 #import "JPConfigurationValidationService.h"
 
 typedef NS_ENUM(NSUInteger, JPValidationError) {
-    IllegalArgumentError,  // empty is null parameter
-    IllegalStateError   // invalid parameter
+    JPValidationErrorIllegalArgument,  // empty is null parameter
+    JPValidationErrorIllegalState   // invalid parameter
 };
 
 @interface JPConfigurationValidationServiceImp()
@@ -47,9 +47,9 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
                                 transactionType:(JPValidationType)transactionType
                                      completion:(JudoCompletionBlock)completion {
     switch (transactionType) {
-        case DefaultTransaction:
+        case JPValidationTypeTransaction:
             return [self isTransactionNotValideWithConfiguration:configuration completion:completion];
-        case AppleTransaction:
+        case JPValidationTypeApplePay:
             return [self isAppleTransactionNotValideWithConfiguration:configuration completion:completion];
     }
 }
@@ -85,8 +85,8 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.applePayConfiguration.paymentSummaryItems count] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                   code:IllegalArgumentError
-                               userInfo:@{NSLocalizedDescriptionKey : @"Payment items couldn't be empty"}];
+                                     code:JPValidationErrorIllegalArgument
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Payment items couldn't be empty"}];
     }
 }
 
@@ -94,51 +94,51 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     if ((configuration.applePayConfiguration.requiredShippingContactFields != ContactFieldNone) &&
        ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                   code:IllegalArgumentError
-                               userInfo:@{NSLocalizedDescriptionKey : @"Specify shipinng methonds"}];
+                                     code:JPValidationErrorIllegalArgument
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Specify shipinng methonds"}];
     }
 }
 
 - (void)checkForValidJudoId:(JPConfiguration *)configuration error:(NSError **)error {
     if (![configuration.judoId length]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalArgumentError
-                                userInfo:@{NSLocalizedDescriptionKey : @"JudoId cannot be null or empty"}];
+                                     code:JPValidationErrorIllegalArgument
+                                 userInfo:@{NSLocalizedDescriptionKey : @"JudoId cannot be null or empty"}];
     }
 }
 
 - (void)checkForValidCurrency:(NSString *)curency error:(NSError **)error {
     if ([curency length] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalArgumentError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Currency cannot be empty"}];
-    } else if (![_validCurrencies containsObject:curency]) {
+                                     code:JPValidationErrorIllegalArgument
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Currency cannot be empty"}];
+    } else if (![self.validCurrencies containsObject:curency]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalStateError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
+                                     code:JPValidationErrorIllegalState
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
     }
 }
 
 - (void)checkForEmptyMerchantId:(NSString *)merchantId error:(NSError **)error {
         if ([merchantId length] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalArgumentError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Merchant Id cannot be empty"}];
+                                     code:JPValidationErrorIllegalArgument
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Merchant Id cannot be empty"}];
     }
 }
 
 - (void)checkForValidCountryCode:(NSString *)countryCode error:(NSError **)error {
     if ([countryCode length] != 2) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalStateError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Country Code is invalid"}];
+                                     code:JPValidationErrorIllegalState
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Country Code is invalid"}];
     }
 }
 
 - (void)checkIfAppleConfigNonNull:(JPConfiguration *)configuration error:(NSError **)error {
     if (!configuration.applePayConfiguration) {
        *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalArgumentError
+                                    code:JPValidationErrorIllegalArgument
                                 userInfo:@{NSLocalizedDescriptionKey : @"Apple Configuration is empty"}];
     }
 }
@@ -146,18 +146,18 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 - (void)checkIfAmountIsNumber:(NSString *)amount error:(NSError **)error {
     NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
     formater.numberStyle = NSNumberFormatterDecimalStyle;
-    if (![formater numberFromString: amount]) {
+    if (![formater numberFromString:amount]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalStateError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Amount should be a number"}];
+                                     code:JPValidationErrorIllegalState
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Amount should be a number"}];
     }
 }
 
 - (void)checkIfConsumerReferenceIsValid:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.reference.consumerReference length] > kMaximumLenghtForConsumerReference) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:IllegalStateError
-                                userInfo:@{NSLocalizedDescriptionKey : @"Consumer Reference is invalied"}];
+                                     code:JPValidationErrorIllegalState
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Consumer Reference is invalied"}];
     }
 }
 

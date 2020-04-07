@@ -30,8 +30,8 @@
 #import "JPAmount.h"
 
 typedef NS_ENUM(NSUInteger, JPValidationType) {
-    DefaultTransaction,
-    AppleTransaction 
+    JPValidationTypeTransaction,
+    JPValidationTypeApplePay 
 };
 
 @protocol JPConfigurationValidationService
