@@ -83,16 +83,17 @@
     return [self.transactionService transactionWithConfiguration:configuration];
 }
 
-- (BOOL)configurationIsNotValid:(JPConfiguration *)configuration
-                  completion:(JudoCompletionBlock)completion {
-    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration transactionType: JPValidationTypeTransaction completion:completion];
+- (BOOL)configurationIsValid:(JPConfiguration *)configuration
+                  completion:(JudoCompletionBlock)completion
+             transactionType:(JPValidationType)transactionType{
+    return [self.configurationValidationService isTransactionValideWithConfiguration:configuration transactionType: transactionType completion:completion];
 }
 
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JudoCompletionBlock)completion {
 
-    if ([self configurationIsNotValid:configuration completion:completion]) {
+    if (![self configurationIsValid:configuration completion:completion transactionType: JPValidationTypeTransaction]) {
         return;
     }
     
@@ -109,16 +110,11 @@
                                                     completion:nil];
 }
 
-- (BOOL)appleConfigurationIsNotValid:(JPConfiguration *)configuration
-                     completion:(JudoCompletionBlock)completion {
-    return [self.configurationValidationService isTransactionNotValideWithConfiguration:configuration transactionType: JPValidationTypeApplePay completion:completion];
-}
-
 - (void)invokeApplePayWithMode:(TransactionMode)mode
                  configuration:(JPConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
     
-    if ([self appleConfigurationIsNotValid:configuration completion:completion]) {
+    if (![self configurationIsValid:configuration completion:completion transactionType: JPValidationTypeApplePay]) {
         return;
     }
     

@@ -52,56 +52,56 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     }
     
     func testAppleConfigIfValid() {
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay, completion: nil)
-        XCTAssertFalse(isNotValid)
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay, completion: nil)
+        XCTAssertTrue(isValid)
     }
     
     func testAppleConfigForNil() {
         configuration.applePayConfiguration = nil
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Apple Configuration is empty")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
     
     func testAppleConfigForPaymentSummaryItemsEmpty() {
         configuration.applePayConfiguration?.paymentSummaryItems.removeAll()
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Payment items couldn't be empty")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
     
     func testAppleConfigForShipingMethods() {
         configuration.applePayConfiguration?.requiredShippingContactFields = .postalAddress
         configuration.applePayConfiguration?.shippingMethods?.removeAll()
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Specify shipinng methonds")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
     
     func testAppleConfigForInvalidCountryCode() {
         configuration.applePayConfiguration?.countryCode = ""
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Country Code is invalid")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
     
     func testAppleConfigForInvalidMerchantId() {
         configuration.applePayConfiguration?.merchantId = ""
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Merchant Id cannot be empty")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
     
     func testAppleConfigForUnsuportedCurrency() {
         configuration.applePayConfiguration?.currency = "XYZ"
-        let isNotValid = configValidation.isTransactionNotValide(with: configuration, transactionType: .applePay) { (response, errror) in
+        let isValid = configValidation.isTransactionValide(with: configuration, transactionType: .applePay) { (response, errror) in
             XCTAssertEqual(errror!.localizedDescription, "Unsuported Currency")
         }
-        XCTAssertTrue(isNotValid)
+        XCTAssertFalse(isValid)
     }
 }

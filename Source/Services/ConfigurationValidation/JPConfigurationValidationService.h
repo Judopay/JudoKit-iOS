@@ -31,12 +31,12 @@
 
 typedef NS_ENUM(NSUInteger, JPValidationType) {
     JPValidationTypeTransaction,
-    JPValidationTypeApplePay 
+    JPValidationTypeApplePay
 };
 
 @protocol JPConfigurationValidationService
 @required
-- (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+- (BOOL)isTransactionValideWithConfiguration:(JPConfiguration *)configuration
                                 transactionType:(JPValidationType)transactionType
                                      completion:(JudoCompletionBlock)completion;
 @end

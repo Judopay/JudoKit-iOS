@@ -43,18 +43,18 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     return self;
 }
 
-- (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+- (BOOL)isTransactionValideWithConfiguration:(JPConfiguration *)configuration
                                 transactionType:(JPValidationType)transactionType
                                      completion:(JudoCompletionBlock)completion {
     switch (transactionType) {
         case JPValidationTypeTransaction:
-            return [self isTransactionNotValideWithConfiguration:configuration completion:completion];
+            return [self isTransactionValideWithConfiguration:configuration completion:completion];
         case JPValidationTypeApplePay:
-            return [self isAppleTransactionNotValideWithConfiguration:configuration completion:completion];
+            return [self isAppleTransactionValideWithConfiguration:configuration completion:completion];
     }
 }
 
-- (BOOL)isTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+- (BOOL)isTransactionValideWithConfiguration:(JPConfiguration *)configuration
                                      completion:(JudoCompletionBlock)completion {
     NSError *error;
     [self checkForValidCurrency:configuration.amount.currency error: &error];
@@ -64,10 +64,10 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     
     if (error) { completion(nil, error); }
     
-    return error ? true : false;
+    return error ? false : true;
 }
 
-- (BOOL)isAppleTransactionNotValideWithConfiguration:(JPConfiguration *)configuration
+- (BOOL)isAppleTransactionValideWithConfiguration:(JPConfiguration *)configuration
                                           completion:(JudoCompletionBlock)completion {
     NSError *error;
     [self checkForValidCurrency:configuration.applePayConfiguration.currency error:&error];
@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     
     if (error) { completion(nil, error); }
     
-    return error ? true : false;
+    return error ? false : true;
 }
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
