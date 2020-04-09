@@ -81,7 +81,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                          [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -90,7 +90,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeTransactionWithType:TransactionTypePreAuth
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                          [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -99,7 +99,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeTransactionWithType:TransactionTypeRegisterCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                          [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -108,7 +108,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeTransactionWithType:TransactionTypeCheckCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                          [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -117,7 +117,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeTransactionWithType:TransactionTypeSaveCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                          [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -126,7 +126,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeApplePayWithMode:TransactionModePayment
                                   configuration:self.configuration
                                      completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                       [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -135,7 +135,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokeApplePayWithMode:TransactionModePreAuth
                                   configuration:self.configuration
                                      completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                       [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -144,7 +144,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePayment
                                              configuration:self.configuration
                                                 completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                                  [weakSelf handleResponse:response error:error];
     }];
 }
 
@@ -153,13 +153,17 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePreAuth
                                              configuration:self.configuration
                                                 completion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleResponse:response];
+                                  [weakSelf handleResponse:response error:error];
     }];
 }
 
 #pragma mark - Helper methods
 
-- (void)handleResponse:(JPResponse *)response {
+- (void)handleResponse:(JPResponse *)response error:(NSError *)error {
+    if (error) {
+        [self presentErrorWithMessage: error.localizedDescription];
+        return;
+    }
     
     if (!response) {
         return;
@@ -237,7 +241,11 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     configuration.requiredShippingContactFields = ContactFieldAll;
     configuration.requiredBillingContactFields = ContactFieldAll;
     configuration.returnedContactInfo = ReturnedInfoAll;
-
+    configuration.shippingMethods = @[[[PaymentShippingMethod alloc] initWithIdentifier:@"method"
+                                                                                 detail:@"details"
+                                                                                  label:@"label"
+                                                                                 amount:totalPrice
+                                                                                   type:JPPaymentSummaryItemTypeFinal]];
     return configuration;
 }
 

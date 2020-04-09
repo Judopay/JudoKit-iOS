@@ -54,6 +54,7 @@ class MainViewController: UITableViewController {
         let configuration = JPConfiguration(judoID: judoId, amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
         configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled
+        configuration.applePayConfiguration = applePayConfigurations
         return configuration
     }
     
@@ -65,6 +66,8 @@ class MainViewController: UITableViewController {
                                                      currency: self.settings.currency.rawValue,
                                                      countryCode: "GB",
                                                      paymentSummaryItems: items)
+        configurations.requiredShippingContactFields = .all
+        configurations.shippingMethods = [PaymentShippingMethod(identifier: "shiping", detail: "details", label: "label", amount: 0.01, type: .final)]
         return configurations
     }
     
@@ -139,7 +142,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .payment,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -147,7 +150,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .preAuth,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -155,7 +158,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .registerCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -163,7 +166,7 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .saveCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
@@ -171,24 +174,24 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokeTransaction(with: .checkCard,
                                         configuration: configuration,
                                         completion: {[weak self] (response, error) in
-                                            self?.handle(response: response)
+                                            self?.handle(response: response, error: error)
         })
     }
     
     
     @objc func applePayPayment() {
         self.judoKit?.invokeApplePay(with: .payment,
-                                     configuration: applePayConfigurations,
+                                     configuration: configuration,
                                      completion: {[weak self] (response, error) in
-                                        self?.handle(response: response)
+                                        self?.handle(response: response, error: error)
         })
     }
     
     @objc func applePayPreAuth() {
         self.judoKit?.invokeApplePay(with: .preAuth,
-                                     configuration: applePayConfigurations,
+                                     configuration: configuration,
                                      completion: {[weak self] (response, error) in
-                                        self?.handle(response: response)
+                                        self?.handle(response: response, error: error)
         })
     }
     
@@ -196,21 +199,26 @@ class MainViewController: UITableViewController {
         self.judoKit?.invokePaymentMethodScreen(with: .payment,
                                                 configuration: configuration,
                                                 completion: {[weak self] (response, error) in
-                                                    self?.handle(response: response)
+                                                    self?.handle(response: response, error: error)
         })
     }
     
     @objc func navigateToPreAuthMethods() {
         self.judoKit?.invokePaymentMethodScreen(with: .preAuth,
                                                 configuration: configuration,
-                                                completion: {[weak self] (response, error) in
-                                                    self?.handle(response: response)
+                                                completion: {[unowned self] (response, error) in
+                                                    self.handle(response: response, error: error)
         })
     }
     
     // MARK: - Helper methods
     
-    func handle(response: JPResponse?) {
+    func handle(response: JPResponse?, error: Error?) {
+        if let error = error {
+            self.presentAlert(with: "Error", message: error.localizedDescription)
+            return
+        }
+        
         guard let response = response else {
             return
         }
