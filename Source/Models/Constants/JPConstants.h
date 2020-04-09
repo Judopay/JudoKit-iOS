@@ -69,6 +69,6 @@ static int const kJPCountryNumericCodeCanada = 124;
 
 static NSString *const kJudoErrorDomain = @"com.judo.error";
 
-static int const kMaximumLenghtForConsumerReference = 40;
+static int const kMaximumLengthForConsumerReference = 40;
 
 #endif /* JPConstants_h */
