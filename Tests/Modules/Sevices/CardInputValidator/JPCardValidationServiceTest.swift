@@ -39,28 +39,33 @@ class JPCardValidationServiceTest: XCTestCase {
         interactor = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
     }
     
-    func testLuhnValideVisa() {
+    func testLuhnValidVisa() {
         let result = interactor.validateCardNumberInput("4929939187355598")
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnInValideVisa() {
+    func testLuhnInValidVisa() {
         let result = interactor.validateCardNumberInput("4129939187355598")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testLuhnValideMaster() {
+    func testValidCardWithSpecialCharacters() {
+        let result = interactor.validateCardNumberInput("41299391873555+!")
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    func testLuhnValidMaster() {
         let result = interactor.validateCardNumberInput("5454422955385717")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnInValideMaster() {
+    func testLuhnInValidMaster() {
         let result = interactor.validateCardNumberInput("5454452295585717")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testLuhnValideAmex() {
+    func testLuhnValidAmex() {
         let result = interactor.validateCardNumberInput("348570250878868")
         XCTAssertEqual(result!.formattedInput, "3485 702508 78868")
         XCTAssertTrue(result!.isValid)
@@ -72,7 +77,7 @@ class JPCardValidationServiceTest: XCTestCase {
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnInValideAmex() {
+    func testLuhnInValidAmex() {
         let result = interactor.validateCardNumberInput("348570250872868")
         XCTAssertFalse(result!.isValid)
     }
@@ -149,5 +154,17 @@ class JPCardValidationServiceTest: XCTestCase {
         configuration.supportedCardNetworks = [.networkVisa]
         let result = interactor.validateCardNumberInput("30260943491310")
         XCTAssertFalse(result!.isValid)
+    }
+    
+    func testUnsuportedErrorTypeFromConfig() {
+        configuration.supportedCardNetworks = [.networkVisa]
+        let result = interactor.validateCardNumberInput("30260943491310")
+        let cardNetworkString = JPCardNetwork.name(of: result!.cardNetwork)
+        XCTAssertEqual(result!.errorMessage!,  "\(cardNetworkString!) is not supported")
+    }
+    
+    func testErrorStringForInvalidCardNumber() {
+        let result = interactor.validateCardNumberInput("4129939187355598")
+        XCTAssertEqual(result!.errorMessage!,  "Check card number")
     }
 }

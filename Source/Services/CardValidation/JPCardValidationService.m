@@ -103,7 +103,7 @@ static int *const kOtherPostalCodeLength = 8;
     }
     
     if (cardNetwork) {
-        cardNumber = [[cardNumber stringByRemovingWhitespaces] formatWithPattern:cardNetwork.numberPattern];
+        cardNumber = [cardNumber formatWithPattern:cardNetwork.numberPattern];
     }
     
     self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0)
