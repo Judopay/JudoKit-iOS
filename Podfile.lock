@@ -1,0 +1,33 @@
+PODS:
+  - Mockingjay (2.0.1):
+    - Mockingjay/Core (= 2.0.1)
+    - Mockingjay/XCTest (= 2.0.1)
+  - Mockingjay/Core (2.0.1):
+    - URITemplate (~> 2.0)
+  - Mockingjay/XCTest (2.0.1):
+    - Mockingjay/Core
+  - PayCardsRecognizer (1.1.7)
+  - TrustKit (1.6.5)
+  - URITemplate (2.0.3)
+
+DEPENDENCIES:
+  - Mockingjay
+  - PayCardsRecognizer
+  - TrustKit
+
+SPEC REPOS:
+  trunk:
+    - Mockingjay
+    - PayCardsRecognizer
+    - TrustKit
+    - URITemplate
+
+SPEC CHECKSUMS:
+  Mockingjay: 11a621880d2887f1775bdcf824341eb68f218450
+  PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
+  TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
+  URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
+
+PODFILE CHECKSUM: 120237188e8a48c0f5abc97ad3216614f2298bc2
+
+COCOAPODS: 1.9.1
