@@ -67,4 +67,9 @@ static int const kJPCountryNumericCodeUK = 826;
 static int const kJPCountryNumericCodeUSA = 840;
 static int const kJPCountryNumericCodeCanada = 124;
 
+static int const kJPMaxAMEXCardLength = 15;
+static int const kJPMaxDinersClubCardLength = 14;
+static int const kJPMaxDefaultCardLength = 16;
+
+
 #endif /* JPConstants_h */

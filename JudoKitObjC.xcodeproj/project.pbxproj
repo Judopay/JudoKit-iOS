@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0709ECDF243E26AC0032879F /* JPCardValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
 		30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1C23F6971B0099F3C5 /* JPSliderTransitioningDelegate.m */; };
 		30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F1D23F6971B0099F3C5 /* JPSliderPresentationController.h */; };
@@ -29,7 +30,7 @@
 		30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2523F697B60099F3C5 /* JPApplePayService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3423F697B60099F3C5 /* JPKeychainService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2723F697B60099F3C5 /* JPKeychainService.h */; };
 		30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2823F697B60099F3C5 /* JPKeychainService.m */; };
-		30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2A23F697B60099F3C5 /* JPCardValidationService.h */; };
+		30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2A23F697B60099F3C5 /* JPCardValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2B23F697B60099F3C5 /* JPCardValidationService.m */; };
 		30006F3923F697B60099F3C5 /* JPIDEALService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2E23F697B60099F3C5 /* JPIDEALService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3A23F697B60099F3C5 /* JPTransactionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F3023F697B60099F3C5 /* JPTransactionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -326,7 +327,7 @@
 		52B74D9D23F98B4C009FE38C /* JPTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8623F98B4C009FE38C /* JPTransactionViewController.m */; };
 		52B74D9E23F98B4C009FE38C /* JPTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8823F98B4C009FE38C /* JPTransactionBuilder.m */; };
 		52B74D9F23F98B4C009FE38C /* JPTransactionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8923F98B4C009FE38C /* JPTransactionBuilder.h */; };
-		52B74DA023F98B4C009FE38C /* JPTransactionInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8B23F98B4C009FE38C /* JPTransactionInteractor.h */; };
+		52B74DA023F98B4C009FE38C /* JPTransactionInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8B23F98B4C009FE38C /* JPTransactionInteractor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52B74DA123F98B4C009FE38C /* JPTransactionInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8C23F98B4C009FE38C /* JPTransactionInteractor.m */; };
 		52B74DA223F98B4C009FE38C /* JPTransactionRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8E23F98B4C009FE38C /* JPTransactionRouter.m */; };
 		52B74DA323F98B4C009FE38C /* JPTransactionRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8F23F98B4C009FE38C /* JPTransactionRouter.h */; };
@@ -473,6 +474,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
 		1577943921108303007BD3E1 /* TrustKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TrustKit.xcodeproj; path = TrustKit/TrustKit.xcodeproj; sourceTree = "<group>"; };
 		1577946021121FFA007BD3E1 /* SaveCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardTests.swift; sourceTree = "<group>"; };
 		15CFC9EC1FB74A4200430D31 /* VCOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCOTests.swift; sourceTree = "<group>"; };
@@ -879,6 +881,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0709ECD1243E225B0032879F /* JPCardValidationService */ = {
+			isa = PBXGroup;
+			children = (
+				0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */,
+			);
+			path = JPCardValidationService;
+			sourceTree = "<group>";
+		};
 		1577943A21108303007BD3E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -2395,6 +2405,7 @@
 		827AF50723FFD257009ECC9C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0709ECD1243E225B0032879F /* JPCardValidationService */,
 				827AF50823FFD257009ECC9C /* PaymentMethods */,
 			);
 			path = Modules;
@@ -2684,7 +2695,7 @@
 					3B678B551C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
-						LastSwiftMigration = 1130;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					3B678B5F1C6CE5190001DC2F = {
@@ -3057,6 +3068,7 @@
 			files = (
 				827AF51B23FFD299009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */,
+				0709ECDF243E26AC0032879F /* JPCardValidationServiceTest.swift in Sources */,
 				827AF51923FFD294009ECC9C /* JPPaymentMethodsTest.swift in Sources */,
 				827AF51A23FFD299009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 			);
@@ -3169,7 +3181,7 @@
 				PRODUCT_NAME = JudoKitSwiftExampleApp;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3199,7 +3211,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitSwiftExampleApp;
 				PRODUCT_NAME = JudoKitSwiftExampleApp;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
