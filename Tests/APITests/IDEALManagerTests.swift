@@ -26,11 +26,11 @@ import XCTest
 
 class IDEALManagerTests: JudoTestCase {
     
-    private var idealManager: JPIDealService!
+    private var idealManager: JPIDEALService!
     
     override func setUp() {
         super.setUp()
-        idealManager = JPIDealService(judoId: myJudoId,
+        idealManager = JPIDEALService(judoId: myJudoId,
                                     amount: 0.01,
                                     reference: JPReference(consumerReference: "MYR3F3R3NC3"),
                                     session: judo.apiSession,

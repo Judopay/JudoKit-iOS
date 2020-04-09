@@ -52,7 +52,7 @@ class JPTransactionServiceTest: XCTestCase {
         })
     }
 
-    func testreceiptForReceiptId(){
+    func testReceiptForReceiptId(){
         let receipt = self.transactionService.receipt(forReceiptId: "123")
         XCTAssertEqual(receipt.receiptId, "123")
     }

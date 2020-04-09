@@ -362,9 +362,9 @@
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *const UKRegexString = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
+    NSString *const kUKRegexString = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
 
-    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:UKRegexString
+    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:kUKRegexString
                                                                              options:NSRegularExpressionAnchorsMatchLines
                                                                                error:nil];
     BOOL isValid = [ukRegex numberOfMatchesInString:input.uppercaseString
@@ -386,9 +386,9 @@
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *const USARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
+    NSString *const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
 
-    NSRegularExpression *usaRegex = [NSRegularExpression regularExpressionWithPattern:USARegexString
+    NSRegularExpression *usaRegex = [NSRegularExpression regularExpressionWithPattern:kUSARegexString
                                                                               options:NSRegularExpressionAnchorsMatchLines
                                                                                 error:nil];
 
@@ -407,12 +407,12 @@
 
 - (JPValidationResult *)validateCanadaPostalCodeInput:(NSString *)input {
 
-    if (input.length > 8) {
+    if (input.length > 7) {
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *const CanadaRegexString = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][\\s][0-9]";
-    NSRegularExpression *canadaRegex = [NSRegularExpression regularExpressionWithPattern:CanadaRegexString
+    NSString *const kCanadaRegexString = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][\\s][0-9]";
+    NSRegularExpression *canadaRegex = [NSRegularExpression regularExpressionWithPattern:kCanadaRegexString
                                                                                  options:NSRegularExpressionAnchorsMatchLines
                                                                                    error:nil];
 
@@ -420,10 +420,10 @@
                                                 options:NSMatchingWithoutAnchoringBounds
                                                   range:NSMakeRange(0, input.uppercaseString.length)] > 0;
 
-    NSString *errorMessage = (input.length == 8 && !isValid) ? @"invalid_postcode".localized : nil;
+    NSString *errorMessage = (input.length == 7 && !isValid) ? @"invalid_postcode".localized : nil;
 
     self.lastPostalCodeValidationResult = [JPValidationResult validationWithResult:isValid
-                                                                      inputAllowed:input.length < 9
+                                                                      inputAllowed:input.length < 8
                                                                       errorMessage:errorMessage
                                                                     formattedInput:input.uppercaseString];
 
