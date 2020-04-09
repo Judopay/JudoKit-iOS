@@ -72,69 +72,46 @@ static int *const kOtherPostalCodeLength = 8;
     return input.cardNetwork & supportedCardNetworks;
 }
 
+- (NSUInteger)getMaxCardLength:(JPCardNetwork *)cardNetwork {
+    switch (cardNetwork.network) {
+        case CardNetworkAMEX:
+            return kJPMaxAMEXCardLength;
+        case CardNetworkDinersClub:
+            return kJPMaxDinersClubCardLength;
+        default:
+            return kJPMaxDefaultCardLength;
+    }
+}
+
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input
                            forSupportedNetworks:(CardNetwork)networks {
-
     NSError *error;
-    NSString *presentationString = [input cardPresentationStringWithAcceptedNetworks:self.acceptedCardNetworks
-                                                                               error:&error];
-
-    NSString *trimmedString = [input stringByReplacingOccurrencesOfString:@" "
-                                                               withString:@""];
-
-    BOOL isErrorPresent = self.lastCardNumberValidationResult.errorMessage != nil;
-    BOOL isAddingCharacter = input.length > self.lastCardNumberValidationResult.formattedInput.length;
-
-    if (isErrorPresent && isAddingCharacter) {
-        return self.lastCardNumberValidationResult;
+    NSString *cardNumber = [input stringByRemovingWhitespaces];
+    JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:cardNumber.cardNetwork];
+    NSUInteger maxCardLength = [self getMaxCardLength:cardNetwork];
+    
+    if (cardNumber.length > maxCardLength) {
+        cardNumber = [cardNumber substringToIndex:maxCardLength];
     }
-
-    if (![self isInputSupported:input forSupportedNetworks:networks]) {
-        error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
-        self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:NO
-                                                                          inputAllowed:YES
-                                                                          errorMessage:error.localizedDescription
-                                                                        formattedInput:presentationString];
-        self.lastCardNumberValidationResult.cardNetwork = input.cardNetwork;
-        return self.lastCardNumberValidationResult;
-    }
-
-    if (input.cardNetwork == CardNetworkAMEX) {
-        if (trimmedString.length > kCardNetworkAMEXLength) {
-            return self.lastCardNumberValidationResult;
-        }
-    }
-
-    if (trimmedString.length > kCardLength) {
-        return self.lastCardNumberValidationResult;
-    }
-
-    if ([input isCardNumberValid]) {
-        self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:YES
-                                                                          inputAllowed:YES
-                                                                          errorMessage:nil
-                                                                        formattedInput:presentationString];
-
-        self.lastCardNumberValidationResult.cardNetwork = input.cardNetwork;
-        return self.lastCardNumberValidationResult;
-    }
-
-    if (input.cardNetwork == CardNetworkAMEX) {
-        if (trimmedString.length == kCardNetworkAMEXLength) {
-            error = NSError.judoInvalidCardNumberError;
-        }
-    }
-
-    if (trimmedString.length == kCardLength) {
+    
+    if ((cardNumber.length == maxCardLength) && (![cardNumber isCardNumberValid])) {
         error = NSError.judoInvalidCardNumberError;
     }
-
-    self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:NO
-                                                                      inputAllowed:(presentationString != nil)
-                                                                      errorMessage:error.localizedDescription
-                                                                    formattedInput:presentationString];
-
-    self.lastCardNumberValidationResult.cardNetwork = input.cardNetwork;
+    
+    if (![self isInputSupported:input forSupportedNetworks:networks]) {
+        error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
+    }
+    
+    if (cardNetwork) {
+        cardNumber = [[cardNumber stringByRemovingWhitespaces] formatWithPattern:cardNetwork.numberPattern];
+    }
+    
+    self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0)
+                                                                      inputAllowed:([input stringByRemovingWhitespaces].length <= maxCardLength)
+                                                                      errorMessage:error ? error.localizedDescription : nil
+                                                                    formattedInput:cardNumber];
+    
+    self.lastCardNumberValidationResult.cardNetwork = cardNumber.cardNetwork;
     return self.lastCardNumberValidationResult;
 }
 

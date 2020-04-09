@@ -26,6 +26,7 @@
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		070F1FF9243B5072005D8FAB /* JPConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */; };
+		0709ECDF243E26AC0032879F /* JPCardValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
 		30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1C23F6971B0099F3C5 /* JPSliderTransitioningDelegate.m */; };
 		30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F1D23F6971B0099F3C5 /* JPSliderPresentationController.h */; };
@@ -34,7 +35,7 @@
 		30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2523F697B60099F3C5 /* JPApplePayService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3423F697B60099F3C5 /* JPKeychainService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2723F697B60099F3C5 /* JPKeychainService.h */; };
 		30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2823F697B60099F3C5 /* JPKeychainService.m */; };
-		30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2A23F697B60099F3C5 /* JPCardValidationService.h */; };
+		30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2A23F697B60099F3C5 /* JPCardValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2B23F697B60099F3C5 /* JPCardValidationService.m */; };
 		30006F3923F697B60099F3C5 /* JPIDEALService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2E23F697B60099F3C5 /* JPIDEALService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F3A23F697B60099F3C5 /* JPTransactionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F3023F697B60099F3C5 /* JPTransactionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -320,7 +321,7 @@
 		52B74D9D23F98B4C009FE38C /* JPTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8623F98B4C009FE38C /* JPTransactionViewController.m */; };
 		52B74D9E23F98B4C009FE38C /* JPTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8823F98B4C009FE38C /* JPTransactionBuilder.m */; };
 		52B74D9F23F98B4C009FE38C /* JPTransactionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8923F98B4C009FE38C /* JPTransactionBuilder.h */; };
-		52B74DA023F98B4C009FE38C /* JPTransactionInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8B23F98B4C009FE38C /* JPTransactionInteractor.h */; };
+		52B74DA023F98B4C009FE38C /* JPTransactionInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8B23F98B4C009FE38C /* JPTransactionInteractor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52B74DA123F98B4C009FE38C /* JPTransactionInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8C23F98B4C009FE38C /* JPTransactionInteractor.m */; };
 		52B74DA223F98B4C009FE38C /* JPTransactionRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B74D8E23F98B4C009FE38C /* JPTransactionRouter.m */; };
 		52B74DA323F98B4C009FE38C /* JPTransactionRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B74D8F23F98B4C009FE38C /* JPTransactionRouter.h */; };
@@ -418,6 +419,8 @@
 		070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPConfigurationValidationService.m; sourceTree = "<group>"; };
 		070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
 		095B92D914C52E4B267E8838 /* Pods_JudoKitObjCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JudoKitObjCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
+		1577943921108303007BD3E1 /* TrustKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TrustKit.xcodeproj; path = TrustKit/TrustKit.xcodeproj; sourceTree = "<group>"; };
 		1577946021121FFA007BD3E1 /* SaveCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardTests.swift; sourceTree = "<group>"; };
 		15CFC9EC1FB74A4200430D31 /* VCOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCOTests.swift; sourceTree = "<group>"; };
 		19833B503C784098E3D6744F /* Pods-JudoKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JudoKitObjC.debug.xcconfig"; path = "Target Support Files/Pods-JudoKitObjC/Pods-JudoKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
@@ -834,7 +837,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		070F1FE9243B2391005D8FAB /* ConfigurationValidation */ = {
+		0709ECD1243E225B0032879F /* JPCardValidationService */ = {
+			isa = PBXGroup;
+			children = (
+				0709ECD2243E22C60032879F /* JPCardValidationServiceTest.swift */,
+			);
+			path = JPCardValidationService;
+			sourceTree = "<group>";
+		};
+		1577943A21108303007BD3E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */,
@@ -2674,7 +2685,7 @@
 					3B678B551C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
-						LastSwiftMigration = 1140;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					3B678B5F1C6CE5190001DC2F = {
@@ -3152,6 +3163,7 @@
 			files = (
 				827AF51B23FFD299009ECC9C /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				702804381CE9F9AC00150B21 /* JudoTestCaseConfig.swift in Sources */,
+				0709ECDF243E26AC0032879F /* JPCardValidationServiceTest.swift in Sources */,
 				827AF51923FFD294009ECC9C /* JPPaymentMethodsTest.swift in Sources */,
 				01CEFC06243F78D20062C948 /* JPTransactionServiceTest.swift in Sources */,
 				827AF51A23FFD299009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */,

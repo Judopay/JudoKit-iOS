@@ -39,16 +39,6 @@
 @property (nonatomic, assign, readonly) BOOL isCardNumberValid;
 
 /**
- * A method that returns a formatted card number from the input
- *
- * @param networks - an array of supported card networks.
- * If the card number is not part of these networks, the method will return nil instead.
- *
- * @param error - a pointer to an NSError which stores information about the possible error
- */
-- (nullable NSString *)cardPresentationStringWithAcceptedNetworks:(nonnull NSArray *)networks
-                                                            error:(NSError *_Nullable *_Nullable)error;
-/**
  * Returns the localized string based on the input key
  */
 - (nonnull NSString *)localized;

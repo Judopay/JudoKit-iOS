@@ -71,4 +71,8 @@ static NSString *const kJudoErrorDomain = @"com.judo.error";
 
 static int const kMaximumLengthForConsumerReference = 40;
 
+static int const kJPMaxAMEXCardLength = 15;
+static int const kJPMaxDinersClubCardLength = 14;
+static int const kJPMaxDefaultCardLength = 16;
+
 #endif /* JPConstants_h */
