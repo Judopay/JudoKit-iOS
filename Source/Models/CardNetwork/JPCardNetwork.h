@@ -28,58 +28,18 @@
 @interface JPCardNetwork : NSObject
 
 /**
- * An array of NSString objects containing a list of card prefixes.
- */
-@property (nonatomic, strong) NSArray<NSString *> *numberPrefixes;
-
-/**
  * The card network type
  */
 @property (nonatomic, assign) CardNetwork network;
-
-/**
- * An instance of NSString that returns the card format for the current network
- */
-@property (nonatomic, strong) NSString *numberPattern;
-
-/**
- * Designated initializer that returns a configured JPCardNetwork based on a type
- *
- * @param type - the card network type.
- * @param prefixes - an array of NSString instances containing a list of prefixes.
- *
- * @returns a configured instance of JPCardNetwork
- */
-+ (instancetype)networkWith:(CardNetwork)type
-             numberPrefixes:(NSString *)prefixes;
-
-/**
- * Designated initializer that returns a configured JPCardNetwork
- *
- * @param type - the card network type.
- * @param prefixes - an array of NSString instances containing a list of prefixes.
- * @param length - an unsigned integer that represents the length of the security code.
- * @param pattern - an NSString that describes the card number format.
- *
- * @returns a configured instance of JPCardNetwork
- */
-+ (instancetype)networkWith:(CardNetwork)type
-             numberPrefixes:(NSString *)prefixes
-              numberPattern:(NSString *)pattern;
 
 /**
  * Designated initializer that returns a configured JPCardNetwork based on a type
  *
  * @param networkType - the card network type.
  *
- * @returns a configured instance of JPCardNetwork
+ * @returns a pattern for networkType
  */
-+ (instancetype)cardNetworkWithType:(CardNetwork)networkType;
-
-/**
- * A getter that returns an array of supported card networks
- */
-+ (NSArray<JPCardNetwork *> *)supportedNetworks;
++ (NSString *)cardPatternForType:(CardNetwork)networkType;
 
 /**
  * A method that returns the name of the card network based on a specified network type
@@ -98,11 +58,6 @@
  * @returns one of the pre-defined card network types
  */
 + (CardNetwork)cardNetworkForCardNumber:(NSString *)cardNumber;
-
-/**
- * A getter that returns the default number pattern
- */
-+ (NSString *)defaultNumberPattern;
 
 /**
  * An integer specifying the security code length for the network type

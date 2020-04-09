@@ -61,7 +61,7 @@ static int *const kOtherPostalCodeLength = 8;
 - (BOOL)isInputSupported:(NSString *)input
     forSupportedNetworks:(CardNetwork)supportedCardNetworks {
 
-    if (input.cardNetwork == CardNetworkUnknown && input.length == 16) {
+    if (input.cardNetwork == CardNetworkUnknown && input.length == kJPMaxDefaultCardLength) {
         return NO;
     }
 
@@ -72,8 +72,8 @@ static int *const kOtherPostalCodeLength = 8;
     return input.cardNetwork & supportedCardNetworks;
 }
 
-- (NSUInteger)getMaxCardLength:(JPCardNetwork *)cardNetwork {
-    switch (cardNetwork.network) {
+- (NSUInteger)getMaxCardLength:(CardNetwork)cardNetwork {
+    switch (cardNetwork) {
         case CardNetworkAMEX:
             return kJPMaxAMEXCardLength;
         case CardNetworkDinersClub:
@@ -87,8 +87,8 @@ static int *const kOtherPostalCodeLength = 8;
                            forSupportedNetworks:(CardNetwork)networks {
     NSError *error;
     NSString *cardNumber = [input stringByRemovingWhitespaces];
-    JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:cardNumber.cardNetwork];
-    NSUInteger maxCardLength = [self getMaxCardLength:cardNetwork];
+    NSString *cardNetworkPatern = [JPCardNetwork cardPatternForType:cardNumber.cardNetwork];
+    NSUInteger maxCardLength = [self getMaxCardLength:cardNumber.cardNetwork];
     
     if (cardNumber.length > maxCardLength) {
         cardNumber = [cardNumber substringToIndex:maxCardLength];
@@ -98,13 +98,11 @@ static int *const kOtherPostalCodeLength = 8;
         error = NSError.judoInvalidCardNumberError;
     }
     
-    if (![self isInputSupported:input forSupportedNetworks:networks]) {
+    if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
         error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
     }
     
-    if (cardNetwork) {
-        cardNumber = [cardNumber formatWithPattern:cardNetwork.numberPattern];
-    }
+    cardNumber = [cardNumber formatWithPattern:cardNetworkPatern];
     
     self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0)
                                                                       inputAllowed:([input stringByRemovingWhitespaces].length <= maxCardLength)

@@ -27,22 +27,6 @@
 #import "NSArray+Additions.h"
 
 @implementation JPCardNetwork
-+ (instancetype)networkWith:(CardNetwork)type
-             numberPrefixes:(NSString *)prefixes {
-    return [JPCardNetwork networkWith:type
-                       numberPrefixes:prefixes
-                        numberPattern:[self defaultNumberPattern]];
-}
-
-+ (instancetype)networkWith:(CardNetwork)type
-             numberPrefixes:(NSString *)prefixes
-              numberPattern:(NSString *)pattern {
-    JPCardNetwork *network = [JPCardNetwork new];
-    network.network = type;
-    network.numberPrefixes = [prefixes componentsSeparatedByString:@","];
-    network.numberPattern = pattern;
-    return network;
-}
 
 + (NSDictionary<NSNumber *, NSString *> *)networkNames {
     static NSDictionary *_networkNames;
@@ -58,80 +42,72 @@
             @(CardNetworkMaestro) : @"Maestro",
             @(CardNetworkDiscover) : @"Discover",
             @(CardNetworkDinersClub) : @"Diners Club",
-        };
+            };
     });
-
+    
     return _networkNames;
 }
 
-+ (NSArray<JPCardNetwork *> *)supportedNetworks {
-    static NSArray *_networks;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _networks = @[
-            [JPCardNetwork networkWith:CardNetworkVisa
-                        numberPrefixes:kVisaPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkChinaUnionPay
-                        numberPrefixes:kChinaUnionPayPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkAMEX
-                        numberPrefixes:kAMEXPrefixes
-                         numberPattern:kAMEXPattern],
-
-            [JPCardNetwork networkWith:CardNetworkMaestro
-                        numberPrefixes:kMaestroPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkDinersClub
-                        numberPrefixes:kDinersClubPrefixes
-                         numberPattern:kDinersClubPattern],
-
-            [JPCardNetwork networkWith:CardNetworkJCB
-                        numberPrefixes:kJCBPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkMasterCard
-                        numberPrefixes:kMasterCardPrefixes],
-
-            [JPCardNetwork networkWith:CardNetworkDiscover
-                        numberPrefixes:kDiscoverPrefixes],
-        ];
-    });
-
-    return _networks;
++(BOOL)doesCardNumber:(NSString *)cardNumber matchRegex:(NSString *)regex {
+    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:regex
+                                                                             options:NSRegularExpressionAnchorsMatchLines
+                                                                               error:nil];
+    return [ukRegex numberOfMatchesInString:cardNumber
+                                    options:NSMatchingWithoutAnchoringBounds
+                                      range:NSMakeRange(0, cardNumber.length)] > 0;
 }
 
 + (CardNetwork)cardNetworkForCardNumber:(NSString *)cardNumber {
-    __block CardNetwork network = CardNetworkUnknown;
-    NSArray<JPCardNetwork *> *networks = [JPCardNetwork supportedNetworks];
-
-    [networks enumerateObjectsUsingBlock:^(JPCardNetwork *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj.numberPrefixes containsPrefix:cardNumber]) {
-            *stop = YES;
-            network = obj.network;
-            return;
-        }
-    }];
-
-    return network;
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexVisa]) {
+        return CardNetworkVisa;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexMasterCard]) {
+        return CardNetworkMasterCard;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexMaestro]) {
+        return CardNetworkMaestro;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexAmex]) {
+        return CardNetworkAMEX;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexDiscover]) {
+        return CardNetworkDiscover;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexDinersClub]) {
+        return CardNetworkDinersClub;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexJCB]) {
+        return CardNetworkJCB;
+    }
+    
+    if ([self doesCardNumber:cardNumber matchRegex:kRegexUnionPay]) {
+        return CardNetworkChinaUnionPay;
+    }
+    
+    return CardNetworkUnknown;
 }
 
-+ (JPCardNetwork *)cardNetworkWithType:(CardNetwork)networkType {
-    __block JPCardNetwork *network = nil;
-    NSArray<JPCardNetwork *> *networks = [JPCardNetwork supportedNetworks];
-
-    [networks enumerateObjectsUsingBlock:^(JPCardNetwork *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (obj.network == networkType) {
-            *stop = YES;
-            network = obj;
-            return;
-        }
-    }];
-
-    return network;
++ (NSString *)cardPatternForType:(CardNetwork)networkType {
+    switch (networkType) {
+        case CardNetworkVisa:
+            return kVISAPattern;
+        case CardNetworkAMEX:
+            return kAMEXPattern;
+        case CardNetworkDinersClub:
+            return kDinersClubPattern;
+        default:
+            return [self defaultNumberPattern];
+    }
 }
 
 + (NSString *)defaultNumberPattern {
-    return kVISAPattern;
+    return kDefaultPattern;
 }
 
 + (NSString *)nameOfCardNetwork:(CardNetwork)network {
