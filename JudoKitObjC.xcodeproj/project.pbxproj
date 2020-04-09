@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		0709ECBB243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */; };
+		0709ECF4243F1FA50032879F /* JPCardValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		070F1FF9243B5072005D8FAB /* JPConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */; };
@@ -477,6 +478,7 @@
 
 /* Begin PBXFileReference section */
 		0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAppleConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
+		0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
 		070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPConfigurationValidationService.h; sourceTree = "<group>"; };
 		070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPConfigurationValidationService.m; sourceTree = "<group>"; };
 		070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
@@ -885,6 +887,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0709ECE8243F1F530032879F /* ConfigurationValidator */ = {
+			isa = PBXGroup;
+			children = (
+				0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */,
+				070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */,
+			);
+			path = ConfigurationValidator;
+			sourceTree = "<group>";
+		};
+		0709ECF1243F1F680032879F /* CardInputValidator */ = {
+			isa = PBXGroup;
+			children = (
+				0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */,
+			);
+			path = CardInputValidator;
+			sourceTree = "<group>";
+		};
 		070F1FE9243B2391005D8FAB /* ConfigurationValidation */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,8 +916,8 @@
 		070F1FF6243B4FE7005D8FAB /* Sevices */ = {
 			isa = PBXGroup;
 			children = (
-				0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */,
-				070F1FF7243B5006005D8FAB /* JPConfigurationValidationServiceTest.swift */,
+				0709ECF1243F1F680032879F /* CardInputValidator */,
+				0709ECE8243F1F530032879F /* ConfigurationValidator */,
 			);
 			path = Sevices;
 			sourceTree = "<group>";
@@ -2710,7 +2729,7 @@
 					3B678B551C6CE5190001DC2F = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					3B678B5F1C6CE5190001DC2F = {
@@ -3086,6 +3105,7 @@
 				827AF51923FFD294009ECC9C /* JPPaymentMethodsTest.swift in Sources */,
 				827AF51A23FFD299009ECC9C /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 				070F1FF9243B5072005D8FAB /* JPConfigurationValidationServiceTest.swift in Sources */,
+				0709ECF4243F1FA50032879F /* JPCardValidationServiceTest.swift in Sources */,
 				0709ECBB243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

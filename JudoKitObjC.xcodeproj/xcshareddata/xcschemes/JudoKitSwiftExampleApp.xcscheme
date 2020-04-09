@@ -28,7 +28,28 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3B678B5F1C6CE5190001DC2F"
+               BuildableName = "JudoKitObjCTests.xctest"
+               BlueprintName = "JudoKitObjCTests"
+               ReferencedContainer = "container:JudoKitObjC.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "305836B82406779500B61167"
+            BuildableName = "JudoKitSwiftExampleApp.app"
+            BlueprintName = "JudoKitSwiftExampleApp"
+            ReferencedContainer = "container:JudoKitObjC.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -50,6 +71,8 @@
             ReferencedContainer = "container:JudoKitObjC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
