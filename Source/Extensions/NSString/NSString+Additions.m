@@ -48,9 +48,9 @@
 
 - (BOOL)isCardNumberValid {
     if ([self rangeOfString:@"."].location != NSNotFound || !self.isLuhnValid) {
-        return false;
+        return NO;
     }
-    return true;
+    return YES;
 }
 
 - (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
