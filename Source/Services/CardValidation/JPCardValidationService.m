@@ -42,13 +42,11 @@
 
 #pragma mark - Constants
 
-static int *const kCardNetworkAMEXLength = 15;
-static int *const kCardLength = 16;
-static int *const kCardHolderNameLength = 3;
-static int *const kUKPostalCodeLength = 8;
-static int *const kUSAPostalCodeLength = 5;
-static int *const kCanadaPostalCodeLength = 7;
-static int *const kOtherPostalCodeLength = 8;
+static int const kCardHolderNameLength = 3;
+static int const kUKPostalCodeLength = 8;
+static int const kUSAPostalCodeLength = 5;
+static int const kCanadaPostalCodeLength = 7;
+static int const kOtherPostalCodeLength = 8;
 
 #pragma mark - Public Methods
 
