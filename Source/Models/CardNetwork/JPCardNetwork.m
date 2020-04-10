@@ -42,13 +42,13 @@
             @(CardNetworkMaestro) : @"Maestro",
             @(CardNetworkDiscover) : @"Discover",
             @(CardNetworkDinersClub) : @"Diners Club",
-            };
+        };
     });
-    
+
     return _networkNames;
 }
 
-+(BOOL)doesCardNumber:(NSString *)cardNumber matchRegex:(NSString *)regex {
++ (BOOL)doesCardNumber:(NSString *)cardNumber matchRegex:(NSString *)regex {
     NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:regex
                                                                              options:NSRegularExpressionAnchorsMatchLines
                                                                                error:nil];
@@ -61,35 +61,35 @@
     if ([self doesCardNumber:cardNumber matchRegex:kRegexVisa]) {
         return CardNetworkVisa;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexMasterCard]) {
         return CardNetworkMasterCard;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexMaestro]) {
         return CardNetworkMaestro;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexAmex]) {
         return CardNetworkAMEX;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexDiscover]) {
         return CardNetworkDiscover;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexDinersClub]) {
         return CardNetworkDinersClub;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexJCB]) {
         return CardNetworkJCB;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegexUnionPay]) {
         return CardNetworkChinaUnionPay;
     }
-    
+
     return CardNetworkUnknown;
 }
 

@@ -275,6 +275,7 @@
 
 - (void)updateSecureCodePlaceholderForNetworkType:(CardNetwork)cardNetwork {
     if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
+        self.addCardViewModel.secureCodeViewModel.text = @"";
         NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
         self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
     }
@@ -344,7 +345,7 @@
     card.cardAddress = configuredAddress ? configuredAddress : [JPAddress new];
 
     if ([self.interactor isAVSEnabled]) {
-        card.cardAddress.countryCode = [JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text] ;
+        card.cardAddress.countryCode = [JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text];
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
     }
 

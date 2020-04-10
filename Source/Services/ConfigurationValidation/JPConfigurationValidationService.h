@@ -22,12 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPSession.h"
+#import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPReference.h"
-#import "JPConfiguration.h"
-#import "JPAmount.h"
+#import "JPSession.h"
+#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, JPValidationType) {
     JPValidationTypeTransaction,
@@ -44,5 +44,5 @@ typedef NS_ENUM(NSUInteger, JPValidationType) {
 /**
  * A class that handles JPConfiguration validation
  */
-@interface JPConfigurationValidationServiceImp : NSObject<JPConfigurationValidationService>
+@interface JPConfigurationValidationServiceImp : NSObject <JPConfigurationValidationService>
 @end

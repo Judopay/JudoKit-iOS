@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPConfiguration.h"
+#import "JPConfigurationValidationService.h"
 #import "JPPaymentMethod.h"
 #import "JPReceipt.h"
 #import "JPSession.h"
 #import "JPTransaction.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "JPConfigurationValidationService.h"
 
 static NSString *__nonnull const JudoKitName = @"iOS-ObjC";
 static NSString *__nonnull const JudoKitVersion = @"8.2.1";

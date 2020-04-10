@@ -26,7 +26,8 @@
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
 
-@protocol JPTransactionView, JPTransactionRouter, JPTransactionInteractor;
+@protocol JPTransactionView
+, JPTransactionRouter, JPTransactionInteractor;
 
 @protocol JPTransactionPresenter
 

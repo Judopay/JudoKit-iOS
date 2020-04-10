@@ -87,26 +87,26 @@ static int const kOtherPostalCodeLength = 8;
     NSString *cardNumber = [input stringByRemovingWhitespaces];
     NSString *cardNetworkPatern = [JPCardNetwork cardPatternForType:cardNumber.cardNetwork];
     NSUInteger maxCardLength = [self getMaxCardLength:cardNumber.cardNetwork];
-    
+
     if (cardNumber.length > maxCardLength) {
         cardNumber = [cardNumber substringToIndex:maxCardLength];
     }
-    
+
     if ((cardNumber.length == maxCardLength) && (![cardNumber isCardNumberValid])) {
         error = NSError.judoInvalidCardNumberError;
     }
-    
+
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
         error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
     }
-    
+
     cardNumber = [cardNumber formatWithPattern:cardNetworkPatern];
-    
+
     self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0)
                                                                       inputAllowed:([input stringByRemovingWhitespaces].length <= maxCardLength)
                                                                       errorMessage:error ? error.localizedDescription : nil
                                                                     formattedInput:cardNumber];
-    
+
     self.lastCardNumberValidationResult.cardNetwork = cardNumber.cardNetwork;
     return self.lastCardNumberValidationResult;
 }
@@ -153,7 +153,7 @@ static int const kOtherPostalCodeLength = 8;
 - (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
     NSUInteger securityCodeLength = [JPCardNetwork secureCodeLengthForNetworkType:self.lastCardNumberValidationResult.cardNetwork];
     NSString *formatedInput = [input substringToIndex:MIN(input.length, securityCodeLength)];
-    
+
     return [JPValidationResult validationWithResult:formatedInput.length == securityCodeLength
                                        inputAllowed:formatedInput.length <= securityCodeLength
                                        errorMessage:nil

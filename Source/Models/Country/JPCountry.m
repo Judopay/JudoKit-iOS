@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCountry.h"
-#import "NSString+Additions.h"
 #import "JPConstants.h"
+#import "NSString+Additions.h"
 
 @implementation JPCountry
 

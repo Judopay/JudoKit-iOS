@@ -190,7 +190,6 @@
     [self.transaction threeDSecureWithParameters:response
                                        receiptId:self.configuration.receiptId
                                       completion:^(JPResponse *response, NSError *error) {
-
                                           if (error) {
                                               decisionHandler(WKNavigationActionPolicyCancel);
                                           } else {
