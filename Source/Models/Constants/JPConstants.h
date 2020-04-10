@@ -42,8 +42,6 @@ static NSString *const kRegexDinersClub = @"^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}"
 static NSString *const kRegexJCB = @"^(35[2-8][0-9]).*?";
 static NSString *const kRegexUnionPay = @"^(62|81)\\d{0,14}";
 
-static NSString *const kChinaUnionPayPrefix = @"62";
-
 static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
 static NSString *const kFailureReasonUserAbort = @"USER_ABORT";
@@ -66,8 +64,8 @@ static NSString *const kJudoErrorDomain = @"com.judo.error";
 
 static int const kMaximumLengthForConsumerReference = 40;
 
-static int const kJPMaxAMEXCardLength = 15;
-static int const kJPMaxDinersClubCardLength = 14;
-static int const kJPMaxDefaultCardLength = 16;
+static int const kMaxAMEXCardLength = 15;
+static int const kMaxDinersClubCardLength = 14;
+static int const kMaxDefaultCardLength = 16;
 
 #endif /* JPConstants_h */

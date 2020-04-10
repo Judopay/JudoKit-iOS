@@ -47,10 +47,7 @@
 }
 
 - (BOOL)isCardNumberValid {
-    if ([self rangeOfString:@"."].location != NSNotFound || !self.isLuhnValid) {
-        return NO;
-    }
-    return YES;
+    return self.isLuhnValid;
 }
 
 - (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
