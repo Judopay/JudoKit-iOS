@@ -45,7 +45,7 @@
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) JudoCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
-@property (nonatomic, strong) id <JPConfigurationValidationService> configurationValidationService;
+@property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
 
 @end
 
@@ -85,7 +85,7 @@
 
 - (BOOL)configurationIsValid:(JPConfiguration *)configuration
                   completion:(JudoCompletionBlock)completion
-             transactionType:(JPValidationType)transactionType{
+             transactionType:(JPValidationType)transactionType {
     return [self.configurationValidationService isTransactionValidWithConfiguration:configuration
                                                                     transactionType:transactionType
                                                                          completion:completion];
@@ -100,7 +100,7 @@
                     transactionType:JPValidationTypeTransaction]) {
         return;
     }
-    
+
     self.transactionService.transactionType = type;
 
     UIViewController *controller;
@@ -117,13 +117,13 @@
 - (void)invokeApplePayWithMode:(TransactionMode)mode
                  configuration:(JPConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
-    
+
     if (![self configurationIsValid:configuration
                          completion:completion
                     transactionType:JPValidationTypeApplePay]) {
         return;
     }
-    
+
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];

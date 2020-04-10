@@ -89,7 +89,6 @@ const float kPollingDelayTimer = 30.0;
     __weak typeof(self) weakSelf = self;
     [self.idealService redirectURLForIDEALBank:iDEALBank
                                     completion:^(JPResponse *response, NSError *error) {
-
                                         if (error) {
                                             [weakSelf dismissViewControllerAnimated:YES
                                                                          completion:^{
@@ -192,7 +191,6 @@ const float kPollingDelayTimer = 30.0;
     [self.idealService pollTransactionStatusForOrderId:self.orderID
                                               checksum:self.checksum
                                             completion:^(JPResponse *response, NSError *error) {
-
                                                 [weakSelf.pollingTimer invalidate];
 
                                                 if (error) {

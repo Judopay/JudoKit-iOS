@@ -110,7 +110,7 @@
 - (void)handlePayButtonTap {
 
     __weak typeof(self) weakSelf = self;
-    
+
     if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
 
         NSArray *bankTypes = [self.interactor getIDEALBankTypes];
@@ -165,7 +165,6 @@
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, NSError *error) {
-
                                                  if (error) {
                                                      [weakSelf handlePaymentError:error];
                                                      return;

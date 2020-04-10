@@ -96,7 +96,6 @@ static const float kTimerDuration = 60.0f;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:NO
                                                    block:^(NSTimer *_Nonnull timer) {
-
                                                        weakSelf.didTimeout = true;
                                                        completion(nil, NSError.judoRequestTimeoutError);
                                                        return;
@@ -119,7 +118,6 @@ static const float kTimerDuration = 60.0f;
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
-
                                               if (error) {
                                                   completion(nil, error);
                                                   [weakSelf.timer invalidate];

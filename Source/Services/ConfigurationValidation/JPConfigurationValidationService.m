@@ -25,11 +25,11 @@
 #import "JPConfigurationValidationService.h"
 
 typedef NS_ENUM(NSUInteger, JPValidationError) {
-    JPValidationErrorMissingParameter,  // empty or null parameter
-    JPValidationErrorInvalidParameter   // invalid parameter
+    JPValidationErrorMissingParameter, // empty or null parameter
+    JPValidationErrorInvalidParameter  // invalid parameter
 };
 
-@interface JPConfigurationValidationServiceImp()
+@interface JPConfigurationValidationServiceImp ()
 @property (nonatomic, nonnull) NSArray *validCurrencies;
 @end
 
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 
 - (instancetype)init {
     if (self = [super init]) {
-        _validCurrencies = @[@"USD", @"CAD", @"EUR", @"GBP"];
+        _validCurrencies = @[ @"USD", @"CAD", @"EUR", @"GBP" ];
     }
     return self;
 }
@@ -56,13 +56,15 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 - (BOOL)isTransactionValidWithConfiguration:(JPConfiguration *)configuration
                                  completion:(JudoCompletionBlock)completion {
     NSError *error;
-    [self checkForValidCurrency:configuration.amount.currency error: &error];
-    [self checkIfAmountIsNumber:configuration.amount.amount error: &error];
+    [self checkForValidCurrency:configuration.amount.currency error:&error];
+    [self checkIfAmountIsNumber:configuration.amount.amount error:&error];
     [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
-    
-    if (error) { completion(nil, error); }
-    
+
+    if (error) {
+        completion(nil, error);
+    }
+
     return error ? false : true;
 }
 
@@ -75,9 +77,11 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     [self checkApplePaymentItemsLength:configuration error:&error];
     [self checkForShippingMethodsLength:configuration error:&error];
     [self checkIfAppleConfigNonNull:configuration error:&error];
-    
-    if (error) { completion(nil, error); }
-    
+
+    if (error) {
+        completion(nil, error);
+    }
+
     return error ? false : true;
 }
 
@@ -91,7 +95,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 
 - (void)checkForShippingMethodsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ((configuration.applePayConfiguration.requiredShippingContactFields != ContactFieldNone) &&
-       ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
+        ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"Specify shipinng methonds"}];
@@ -119,7 +123,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 }
 
 - (void)checkForEmptyMerchantId:(NSString *)merchantId error:(NSError **)error {
-        if ([merchantId length] == 0) {
+    if ([merchantId length] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"Merchant Id cannot be empty"}];
@@ -136,9 +140,9 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 
 - (void)checkIfAppleConfigNonNull:(JPConfiguration *)configuration error:(NSError **)error {
     if (!configuration.applePayConfiguration) {
-       *error = [NSError errorWithDomain:kJudoErrorDomain
-                                    code:JPValidationErrorMissingParameter
-                                userInfo:@{NSLocalizedDescriptionKey : @"Apple Configuration is empty"}];
+        *error = [NSError errorWithDomain:kJudoErrorDomain
+                                     code:JPValidationErrorMissingParameter
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Apple Configuration is empty"}];
     }
 }
 
