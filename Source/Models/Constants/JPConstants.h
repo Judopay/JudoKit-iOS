@@ -39,7 +39,7 @@ static NSString *const kRegexMaestro = @"^(?:5[0678]\\d{0,2}|6304|67\\d{0,2})\\d
 static NSString *const kRegexAmex = @"^3[47]\\d{0,13}";
 static NSString *const kRegexDiscover = @"^(?:6011|65\\d{0,2}|64[4-9]\\d?)\\d{0,12}";
 static NSString *const kRegexDinersClub = @"^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}";
-static NSString *const kRegexJCB = @"^(35[2-8][0-9]).*?";
+static NSString *const kRegexJCB = @"^(?:35\\d{0,2})\\d{0,12}";
 static NSString *const kRegexUnionPay = @"^(62|81)\\d{0,14}";
 
 static NSString *const kMonthYearDateFormat = @"MM/yy";
