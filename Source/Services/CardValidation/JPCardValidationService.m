@@ -40,6 +40,16 @@
 
 @implementation JPCardValidationService
 
+#pragma mark - Constants
+
+static int *const kCardNetworkAMEXLength = 15;
+static int *const kCardLength = 16;
+static int *const kCardHolderNameLength = 3;
+static int *const kUKPostalCodeLength = 8;
+static int *const kUSAPostalCodeLength = 5;
+static int *const kCanadaPostalCodeLength = 7;
+static int *const kOtherPostalCodeLength = 8;
+
 #pragma mark - Public Methods
 
 - (void)resetCardValidationResults {
@@ -90,12 +100,12 @@
     }
 
     if (input.cardNetwork == CardNetworkAMEX) {
-        if (trimmedString.length > 15) {
+        if (trimmedString.length > kCardNetworkAMEXLength) {
             return self.lastCardNumberValidationResult;
         }
     }
 
-    if (trimmedString.length > 16) {
+    if (trimmedString.length > kCardLength) {
         return self.lastCardNumberValidationResult;
     }
 
@@ -110,12 +120,12 @@
     }
 
     if (input.cardNetwork == CardNetworkAMEX) {
-        if (trimmedString.length == 15) {
+        if (trimmedString.length == kCardNetworkAMEXLength) {
             error = NSError.judoInvalidCardNumberError;
         }
     }
 
-    if (trimmedString.length == 16) {
+    if (trimmedString.length == kCardLength) {
         error = NSError.judoInvalidCardNumberError;
     }
 
@@ -129,7 +139,7 @@
 }
 
 - (JPValidationResult *)validateCarholderNameInput:(NSString *)input {
-    return [JPValidationResult validationWithResult:input.length > 3
+    return [JPValidationResult validationWithResult:input.length > kCardHolderNameLength
                                        inputAllowed:YES
                                        errorMessage:nil
                                      formattedInput:input];
@@ -358,23 +368,23 @@
 
 - (JPValidationResult *)validateUKPostalCodeInput:(NSString *)input {
 
-    if (input.length > 8) {
+    if (input.length > kUKPostalCodeLength) {
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *UKRegexString = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
+    NSString *const kUKRegexString = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
 
-    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:UKRegexString
+    NSRegularExpression *ukRegex = [NSRegularExpression regularExpressionWithPattern:kUKRegexString
                                                                              options:NSRegularExpressionAnchorsMatchLines
                                                                                error:nil];
     BOOL isValid = [ukRegex numberOfMatchesInString:input.uppercaseString
                                             options:NSMatchingWithoutAnchoringBounds
                                               range:NSMakeRange(0, input.uppercaseString.length)] > 0;
 
-    NSString *errorMessage = (input.length == 8 && !isValid) ? @"invalid_postcode".localized : nil;
+    NSString *errorMessage = (input.length == kUKPostalCodeLength && !isValid) ? @"invalid_postcode".localized : nil;
 
     self.lastPostalCodeValidationResult = [JPValidationResult validationWithResult:isValid
-                                                                      inputAllowed:input.length < 9
+                                                                      inputAllowed:input.length <= kUKPostalCodeLength
                                                                       errorMessage:errorMessage
                                                                     formattedInput:input.uppercaseString];
     return self.lastPostalCodeValidationResult;
@@ -382,13 +392,13 @@
 
 - (JPValidationResult *)validateUSAPostalCodeInput:(NSString *)input {
 
-    if (input.length > 5) {
+    if (input.length > kUSAPostalCodeLength) {
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *USARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
+    NSString *const kUSARegexString = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
 
-    NSRegularExpression *usaRegex = [NSRegularExpression regularExpressionWithPattern:USARegexString
+    NSRegularExpression *usaRegex = [NSRegularExpression regularExpressionWithPattern:kUSARegexString
                                                                               options:NSRegularExpressionAnchorsMatchLines
                                                                                 error:nil];
 
@@ -396,10 +406,10 @@
                                              options:NSMatchingWithoutAnchoringBounds
                                                range:NSMakeRange(0, input.uppercaseString.length)] > 0;
 
-    NSString *errorMessage = (input.length == 5 && !isValid) ? @"invalid_zip_code".localized : nil;
+    NSString *errorMessage = (input.length == kUSAPostalCodeLength && !isValid) ? @"invalid_zip_code".localized : nil;
 
     self.lastPostalCodeValidationResult = [JPValidationResult validationWithResult:isValid
-                                                                      inputAllowed:input.length < 6
+                                                                      inputAllowed:input.length <= kUSAPostalCodeLength
                                                                       errorMessage:errorMessage
                                                                     formattedInput:input.uppercaseString];
     return self.lastPostalCodeValidationResult;
@@ -407,12 +417,12 @@
 
 - (JPValidationResult *)validateCanadaPostalCodeInput:(NSString *)input {
 
-    if (input.length > 6) {
+    if (input.length > kCanadaPostalCodeLength) {
         return self.lastPostalCodeValidationResult;
     }
 
-    NSString *canadaRegexString = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]";
-    NSRegularExpression *canadaRegex = [NSRegularExpression regularExpressionWithPattern:canadaRegexString
+    NSString *const kCanadaRegexString = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][\\s][0-9]";
+    NSRegularExpression *canadaRegex = [NSRegularExpression regularExpressionWithPattern:kCanadaRegexString
                                                                                  options:NSRegularExpressionAnchorsMatchLines
                                                                                    error:nil];
 
@@ -420,10 +430,10 @@
                                                 options:NSMatchingWithoutAnchoringBounds
                                                   range:NSMakeRange(0, input.uppercaseString.length)] > 0;
 
-    NSString *errorMessage = (input.length == 6 && !isValid) ? @"invalid_postcode".localized : nil;
+    NSString *errorMessage = (input.length == kCanadaPostalCodeLength && !isValid) ? @"invalid_postcode".localized : nil;
 
     self.lastPostalCodeValidationResult = [JPValidationResult validationWithResult:isValid
-                                                                      inputAllowed:input.length < 7
+                                                                      inputAllowed:input.length <= kCanadaPostalCodeLength
                                                                       errorMessage:errorMessage
                                                                     formattedInput:input.uppercaseString];
 
@@ -432,7 +442,7 @@
 
 - (JPValidationResult *)validateOtherPostalCodeInput:(NSString *)input {
     self.lastPostalCodeValidationResult = [JPValidationResult validationWithResult:YES
-                                                                      inputAllowed:input.length < 9
+                                                                      inputAllowed:input.length <= kOtherPostalCodeLength
                                                                       errorMessage:nil
                                                                     formattedInput:input.uppercaseString];
     return self.lastPostalCodeValidationResult;

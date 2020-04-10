@@ -6,3 +6,5 @@
 #import "JPPaymentMethodsViewController.h";
 #import "JPPaymentMethodsInteractor.h";
 #import "JPPaymentMethodsViewModel.h"
+#import "JP3DSService.h"
+#import "JPCardValidationService.h"

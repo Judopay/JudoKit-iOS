@@ -49,11 +49,11 @@ class IDEALManagerTests: JudoTestCase {
      *
      * THEN: I should get back the order ID and the checksum
      */
-    func test_onJPIDEALBankSelection_ReturnRedirectURL() {
+    func test_onJPIDealBankSelection_ReturnRedirectURL() {
         
         let expectation = self.expectation(description: "redirectSuccesful")
         
-        idealManager.redirectURL(for: JPIDEALBank(type: .ABN)) { orderId, checksum, error in
+        idealManager.redirectURL(for: JPIDealBank(type: .ABN)) { orderId, checksum, error in
             XCTAssertFalse(orderId?.isEmpty ?? true)
             XCTAssertFalse(checksum?.isEmpty ?? true)
             XCTAssertNil(error)
