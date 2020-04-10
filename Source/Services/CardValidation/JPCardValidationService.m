@@ -51,7 +51,7 @@
 - (BOOL)isInputSupported:(NSString *)input
     forSupportedNetworks:(CardNetwork)supportedCardNetworks {
 
-    if (input.cardNetwork == CardNetworkUnknown && input.length == kJPMaxDefaultCardLength) {
+    if (input.cardNetwork == CardNetworkUnknown && input.length == kMaxDefaultCardLength) {
         return NO;
     }
 
@@ -65,11 +65,11 @@
 - (NSUInteger)getMaxCardLength:(CardNetwork)cardNetwork {
     switch (cardNetwork) {
         case CardNetworkAMEX:
-            return kJPMaxAMEXCardLength;
+            return kMaxAMEXCardLength;
         case CardNetworkDinersClub:
-            return kJPMaxDinersClubCardLength;
+            return kMaxDinersClubCardLength;
         default:
-            return kJPMaxDefaultCardLength;
+            return kMaxDefaultCardLength;
     }
 }
 
