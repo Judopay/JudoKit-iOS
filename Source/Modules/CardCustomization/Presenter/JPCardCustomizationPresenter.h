@@ -25,8 +25,7 @@
 #import "JPCardPattern.h"
 #import <Foundation/Foundation.h>
 
-@protocol JPCardCustomizationView
-, JPCardCustomizationRouter, JPCardCustomizationInteractor;
+@protocol JPCardCustomizationView, JPCardCustomizationRouter, JPCardCustomizationInteractor;
 
 @protocol JPCardCustomizationPresenter
 
