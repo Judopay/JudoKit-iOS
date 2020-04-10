@@ -42,78 +42,12 @@
     return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
 }
 
-- (NSString *)cardPresentationStringWithAcceptedNetworks:(NSArray *)networks
-                                                   error:(NSError **)error {
-
-    NSString *strippedString = [self stringByRemovingWhitespaces];
-
-    if (strippedString.length == 0) {
-        return @"";
-    }
-
-    CardNetwork network = strippedString.cardNetwork;
-    BOOL isValidCardNumber = [self isValidCardNumber:strippedString
-                                          forNetwork:network
-                                    acceptedNetworks:networks
-                                               error:error];
-
-    if (!isValidCardNumber) {
-        return nil;
-    }
-
-    if (network == CardNetworkUnknown) {
-        return strippedString;
-    }
-
-    JPCardNetwork *cardNetwork = [JPCardNetwork cardNetworkWithType:network];
-    NSString *pattern = [JPCardNetwork defaultNumberPattern];
-
-    if (cardNetwork) {
-        pattern = cardNetwork.numberPattern;
-    }
-
-    return [strippedString formatWithPattern:pattern];
-}
-
 - (CardNetwork)cardNetwork {
     return [JPCardNetwork cardNetworkForCardNumber:self];
 }
 
 - (BOOL)isCardNumberValid {
-    NSString *strippedSelf = [self stringByRemovingWhitespaces];
-
-    if ([strippedSelf rangeOfString:@"."].location != NSNotFound || !strippedSelf.isLuhnValid) {
-        return false;
-    }
-
-    CardNetwork network = self.cardNetwork;
-    if (network == CardNetworkAMEX) {
-        return strippedSelf.length == 15;
-    }
-
-    return strippedSelf.length == 16;
-}
-
-- (BOOL)isValidCardNumber:(NSString *)number
-               forNetwork:(CardNetwork)network
-         acceptedNetworks:(NSArray *)networks
-                    error:(NSError **)error {
-
-    if (number.length > 16 || ![number isNumeric]) {
-        if (error != NULL) {
-            *error = [NSError judoInputMismatchErrorWithMessage:@"check_card_number".localized];
-        }
-        return NO;
-    }
-
-    if (network == CardNetworkAMEX && number.length > 15) {
-        if (error != NULL) {
-            *error = [NSError judoInputMismatchErrorWithMessage:@"check_card_number".localized];
-        }
-        return NO;
-    }
-
-    return YES;
+    return self.isLuhnValid;
 }
 
 - (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
