@@ -100,9 +100,8 @@
     }
     if (self.countryCode) {
         dictionary[@"countryCode"] = self.countryCode;
-    } else {
-        dictionary[@"countryCode"] = [NSNull new];
     }
+    
     return [dictionary copy];
 }
 
