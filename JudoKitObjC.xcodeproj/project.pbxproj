@@ -344,6 +344,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		07D70A26244743290039D187 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B678B4D1C6CE5190001DC2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 305836B82406779500B61167;
+			remoteInfo = JudoKitSwiftExampleApp;
+		};
 		3058371D240678B700B61167 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3B678B4D1C6CE5190001DC2F /* Project object */;
@@ -2678,6 +2685,7 @@
 			dependencies = (
 				3B678B631C6CE5190001DC2F /* PBXTargetDependency */,
 				8209575522F869A500DF5515 /* PBXTargetDependency */,
+				07D70A27244743290039D187 /* PBXTargetDependency */,
 			);
 			name = JudoKitObjCTests;
 			productName = JudoKitObjCTests;
@@ -2723,7 +2731,7 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
 						LastSwiftMigration = 0910;
-						TestTargetID = 3B4EB3971C981EA7006265A0;
+						TestTargetID = 305836B82406779500B61167;
 					};
 					700523F31CC7882800CC916D = {
 						CreatedOnToolsVersion = 7.3;
@@ -3215,6 +3223,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		07D70A27244743290039D187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 305836B82406779500B61167 /* JudoKitSwiftExampleApp */;
+			targetProxy = 07D70A26244743290039D187 /* PBXContainerItemProxy */;
+		};
 		3058371E240678B700B61167 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3B678B551C6CE5190001DC2F /* JudoKitObjC */;
@@ -3630,7 +3643,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitObjCExampleApp.app/JudoKitObjCExampleApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitSwiftExampleApp.app/JudoKitSwiftExampleApp";
 			};
 			name = Debug;
 		};
@@ -3647,7 +3660,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitObjCExampleApp.app/JudoKitObjCExampleApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitSwiftExampleApp.app/JudoKitSwiftExampleApp";
 			};
 			name = Release;
 		};
