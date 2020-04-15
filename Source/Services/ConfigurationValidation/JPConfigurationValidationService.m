@@ -37,7 +37,13 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 
 - (instancetype)init {
     if (self = [super init]) {
-        _validCurrencies = @[ @"USD", @"CAD", @"EUR", @"GBP" ];
+        _validCurrencies = @[ @"AED", @"AUD", @"BRL",
+                              @"CAD", @"CHF", @"CZK",
+                              @"DKK", @"EUR", @"GBP",
+                              @"HKD", @"HUF", @"JPY",
+                              @"NOK", @"NZD", @"PLN",
+                              @"SEK", @"SGD", @"QAR",
+                              @"SAR", @"USD", @"ZAR" ];
     }
     return self;
 }
