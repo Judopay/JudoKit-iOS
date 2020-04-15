@@ -23,14 +23,9 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "SettingsViewController.h"
 
 @interface MainViewController : UIViewController
 @end
 
 @interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>
 @end
-
-@interface MainViewController (Settings) <SettingsViewControllerDelegate, UIViewControllerTransitioningDelegate>
-@end
-
