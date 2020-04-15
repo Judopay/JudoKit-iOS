@@ -24,21 +24,66 @@
 
 #import "AppDelegate.h"
 #import "JPCardStorage.h"
+#import "Settings.h"
+#import "ExampleAppCredentials.h"
 
 @import JudoKitObjC;
-
-@interface AppDelegate ()
-
-@end
+@import CocoaDebug;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Load settings defaults
+    [self registerDefaultsFromSettingsBundle];
+    
+    // Enable debug inspector
+    [CocoaDebug enable];
+    
+    // Cleanup local storage for UI tests
     NSDictionary *environment = NSProcessInfo.processInfo.environment;
     if ([environment[@"UITEST"] isEqualToString:@"1"]) {
         [JPCardStorage.sharedInstance deleteCardDetails];
     }
+    
     return YES;
+}
+
+- (void)registerDefaultsFromSettingsBundle {
+    NSString *settingsBundle = [NSBundle.mainBundle pathForResource:@"Settings" ofType:@"bundle"];
+    
+    if(!settingsBundle) {
+        return;
+    }
+    
+    NSString *stringsPath = [settingsBundle stringByAppendingPathComponent:@"Root.plist"];
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:stringsPath];
+    NSArray *preferences = settings[@"PreferenceSpecifiers"];
+    
+    NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
+    
+    NSDictionary *secretsMapping = @{
+        kJudoIdKey: judoId,
+        kSiteIdKey: siteId,
+        kTokenKey: token,
+        kSecretKey: secret,
+        kMerchantIdKey: merchantId,
+    };
+    
+    for(NSDictionary *preference in preferences) {
+        NSString *key = preference[@"Key"];
+        if (!key) {
+            continue;
+        }
+        
+        if([preference.allKeys containsObject:@"DefaultValue"]) {
+            defaultsToRegister[key] = preference[@"DefaultValue"];
+        } else if ([secretsMapping.allKeys containsObject:key]) {
+            defaultsToRegister[key] = secretsMapping[key];
+        }
+    }
+    
+    [NSUserDefaults.standardUserDefaults registerDefaults:defaultsToRegister];
 }
 
 @end

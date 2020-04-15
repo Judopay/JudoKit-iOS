@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,12 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5qm-lM-xVj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="64" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5qm-lM-xVj">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="44"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="LFy-5q-hl3">
-                                    <rect key="frame" x="0.0" y="100" width="375" height="64"/>
+                                    <rect key="frame" x="0.0" y="137.5" width="375" height="64"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lH7-Ad-RWE">
@@ -33,31 +33,32 @@
                                             <string key="text">To view test card details:
 Sign in to judo and go to Developer/Tools.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.judo.judopaysample.tableviewcellidentifier" textLabel="Sw2-DS-jRp" detailTextLabel="JwE-fr-ajh" style="IBUITableViewCellStyleSubtitle" id="fRt-3J-neQ">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.judo.judopaysample.tableviewcellidentifier" textLabel="Sw2-DS-jRp" detailTextLabel="JwE-fr-ajh" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="fRt-3J-neQ">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRt-3J-neQ" id="awB-Hl-Zff">
-                                            <rect key="frame" x="0.0" y="0.0" width="348.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sw2-DS-jRp">
-                                                    <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                                    <rect key="frame" x="15" y="14.5" width="30" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JwE-fr-ajh">
-                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                                    <rect key="frame" x="15" y="34" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -71,42 +72,53 @@ Sign in to judo and go to Developer/Tools.</string>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="VY1-CZ-GRt"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-cn-vh2">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5kw-ja-jGd"/>
-                                    <barButtonItem title="Settings" style="plain" id="dxq-f4-2T8">
-                                        <connections>
-                                            <action selector="settingsButtonHandler:" destination="BYZ-38-t0r" id="eav-M8-nb0"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DHd-7B-iLf"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Khg-cn-vh2" secondAttribute="bottom" id="C41-4Z-Bg7"/>
-                            <constraint firstAttribute="trailing" secondItem="Khg-cn-vh2" secondAttribute="trailing" id="Hho-Pe-2L4"/>
                             <constraint firstItem="5qm-lM-xVj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JZf-pT-2Yy"/>
                             <constraint firstAttribute="trailing" secondItem="5qm-lM-xVj" secondAttribute="trailing" id="LlU-PE-a8q"/>
                             <constraint firstItem="5qm-lM-xVj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="abU-GP-l0H"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5qm-lM-xVj" secondAttribute="bottom" id="hr6-T1-jWK"/>
-                            <constraint firstItem="Khg-cn-vh2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pgk-rE-QCx"/>
+                            <constraint firstAttribute="bottom" secondItem="5qm-lM-xVj" secondAttribute="bottom" id="hr6-T1-jWK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Judopay examples" id="zc7-jC-8dZ"/>
+                    <navigationItem key="navigationItem" title="Judopay examples" id="zc7-jC-8dZ">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" image="settings_black" id="OAR-Ow-eeI">
+                            <connections>
+                                <segue destination="c7c-i8-8h5" kind="show" id="Yn9-60-Z64"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="892" y="671"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="nYt-DK-Zkg">
+            <objects>
+                <tableViewController id="c7c-i8-8h5" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Kbv-zp-DcQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="c7c-i8-8h5" id="acK-vn-oPR"/>
+                            <outlet property="delegate" destination="c7c-i8-8h5" id="UDT-TL-n26"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="35Z-0g-PX8"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Sw-SK-Eef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="671"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="WRP-WT-Z66">
             <objects>
                 <navigationController id="bbn-UO-8s3" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="V0B-e7-3sq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="V0B-e7-3sq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -118,4 +130,7 @@ Sign in to judo and go to Developer/Tools.</string>
             <point key="canvasLocation" x="158" y="671"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="settings_black" width="27" height="27"/>
+    </resources>
 </document>
