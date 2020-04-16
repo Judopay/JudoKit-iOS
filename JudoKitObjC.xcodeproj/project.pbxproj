@@ -2731,7 +2731,7 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2354U295GD;
 						LastSwiftMigration = 0910;
-						TestTargetID = 305836B82406779500B61167;
+						TestTargetID = 3B4EB3971C981EA7006265A0;
 					};
 					700523F31CC7882800CC916D = {
 						CreatedOnToolsVersion = 7.3;
@@ -3643,7 +3643,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitSwiftExampleApp.app/JudoKitSwiftExampleApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Judopay demo.app/Judopay demo";
 			};
 			name = Debug;
 		};
@@ -3660,7 +3660,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/JudoKitObjCTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JudoKitSwiftExampleApp.app/JudoKitSwiftExampleApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Judopay demo.app/Judopay demo";
 			};
 			name = Release;
 		};

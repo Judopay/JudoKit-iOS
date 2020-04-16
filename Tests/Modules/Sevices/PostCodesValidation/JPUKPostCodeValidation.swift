@@ -26,57 +26,56 @@ import XCTest
 @testable import JudoKitObjC
 
 class JPUKPostCodeValidation: XCTestCase {
-    var configuration: JPConfiguration! = nil
     let validationService = JPCardValidationService()
-    var interactor: JPTransactionInteractor! = nil
-    lazy var reference = JPReference(consumerReference: "consumerReference")
-    
+    var sut: JPTransactionInteractor! = nil
+    let configuration = JPConfiguration(judoID: "judoId",
+                                        amount: JPAmount("0.01", currency: "GBR"),
+                                     reference: JPReference(consumerReference: "consumerReference"))
+
     override func setUp() {
-        let amount = JPAmount("0.01", currency: "GBR")
-        configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX, .networkDinersClub]
         validationService.validateCountryInput("UK")
-        interactor = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
     }
     
     func testValidCode_UK() {
-        let result = interactor.validatePostalCodeInput("EC1A 1BB")
+        let result = sut.validatePostalCodeInput("EC1A 1BB")
         XCTAssertTrue(result!.isValid)
     }
     
     func testValidCodeWithSpaces_UK() {
-        let result = interactor.validatePostalCodeInput("M1 1AE")
+        let result = sut.validatePostalCodeInput("M1 1AE")
         XCTAssertTrue(result!.isValid)
     }
     
     func testInValidRegexSpecialSymbols_UK() {
-        let result = interactor.validatePostalCodeInput("B33 8TH")
+        let result = sut.validatePostalCodeInput("B33 8TH")
         XCTAssertTrue(result!.isValid)
     }
     
     func testValidCodeWithSpacesWithoutSpaces_UK() {
-        let result = interactor.validatePostalCodeInput("M11AE")
+        let result = sut.validatePostalCodeInput("M11AE")
         XCTAssertTrue(result!.isValid)
     }
     
     func testInValidRegexSpecialSymbolsWithoutSpaces_UK() {
-        let result = interactor.validatePostalCodeInput("B338TH")
+        let result = sut.validatePostalCodeInput("B338TH")
         XCTAssertTrue(result!.isValid)
     }
     
     func testInValidErrorMessage_UK() {
-        let result = interactor.validatePostalCodeInput("1 ABCD")!
+        let result = sut.validatePostalCodeInput("1 ABCD")!
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }
     
     func testInValidCharacters_UK() {
-        let result = interactor.validatePostalCodeInput("B3@ 8TH")
+        let result = sut.validatePostalCodeInput("B3@ 8TH")
         XCTAssertFalse(result!.isValid)
     }
 
     func testEmptyCode_UK() {
-        let result = interactor.validatePostalCodeInput("")
+        let result = sut.validatePostalCodeInput("")
         XCTAssertFalse(result!.isValid)
     }
 }

@@ -86,8 +86,7 @@ static int const kCardHolderNameLength = 3;
 
     cardNumber = [cardNumber formatWithPattern:cardNetworkPatern];
 
-    self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0)
-                                                                      inputAllowed:([input stringByRemovingWhitespaces].length <= maxCardLength)
+    self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:(error == 0 && [cardNumber stringByRemovingWhitespaces].length == maxCardLength)                                                                       inputAllowed:([input stringByRemovingWhitespaces].length <= maxCardLength)
                                                                       errorMessage:error ? error.localizedDescription : nil
                                                                     formattedInput:cardNumber];
 

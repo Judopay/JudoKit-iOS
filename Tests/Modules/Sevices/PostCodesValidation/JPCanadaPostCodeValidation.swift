@@ -26,44 +26,43 @@ import XCTest
 @testable import JudoKitObjC
 
 class JPCanadaPostCodeValidation: XCTestCase {
-    var configuration: JPConfiguration! = nil
     let validationService = JPCardValidationService()
-    var interactor: JPTransactionInteractor! = nil
-    lazy var reference = JPReference(consumerReference: "consumerReference")
+    var sut: JPTransactionInteractor! = nil
+    let configuration = JPConfiguration(judoID: "judoId",
+                                        amount: JPAmount("0.01", currency: "GBR"),
+                                     reference: JPReference(consumerReference: "consumerReference"))
     
     override func setUp() {
-        let amount = JPAmount("0.01", currency: "GBR")
-        configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX, .networkDinersClub]
         validationService.validateCountryInput("Canada")
-        interactor = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
     }
     
     func testValidCode_Canada() {
-        let result = interactor.validatePostalCodeInput("A1A1A1")!
+        let result = sut.validatePostalCodeInput("A1A1A1")!
         XCTAssertEqual(result.formattedInput, "A1A 1A1")
         XCTAssertTrue(result.isValid)
     }
     
     func testValidCodeWithSpaces_Canada() {
-        let result = interactor.validatePostalCodeInput("A1A 1A1")!
+        let result = sut.validatePostalCodeInput("A1A 1A1")!
         XCTAssertEqual(result.formattedInput, "A1A 1A1")
         XCTAssertTrue(result.isValid)
     }
     
     func testInValidRegexSpecialSymbols_Canada() {
-        let result = interactor.validatePostalCodeInput("A1! 1A1")!
+        let result = sut.validatePostalCodeInput("A1! 1A1")!
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }
     
     func testEmptyCode_Canada() {
-        let result = interactor.validatePostalCodeInput("")
+        let result = sut.validatePostalCodeInput("")
         XCTAssertFalse(result!.isValid)
     }
     
     func testInValidRegexUndersScore_Canada() {
-        let result = interactor.validatePostalCodeInput("A11_1A1")!
+        let result = sut.validatePostalCodeInput("A11_1A1")!
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }
