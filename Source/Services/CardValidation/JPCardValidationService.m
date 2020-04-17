@@ -339,7 +339,7 @@ static int const kCardHolderNameLength = 3;
                                                                                error:nil];
     [ukRegex enumerateMatchesInString:inputClear
                               options:0 range:range
-                           usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)  {
+                           usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags __unused, BOOL *stop __unused)  {
         if (result != nil && result.numberOfRanges >= 3) {
             NSString *firstPart = [inputClear substringWithRange:[result rangeAtIndex:1]];
             NSString *secondPart = [inputClear substringWithRange:[result rangeAtIndex:2]];
@@ -374,7 +374,7 @@ static int const kCardHolderNameLength = 3;
         case JPBillingCountryUSA:
             [self maskAndCheckInputUSA:input isValid:isValid];
             break;
-        case JPBillingCountryOther:
+        default:
             break;
     }
 }
@@ -417,12 +417,10 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (NSString *)postCodeErrorForCountry:(JPBillingCountry)country {
-    switch (country) {
-        case JPBillingCountryUSA:
-            return @"invalid_zip_code".localized;
-        default:
-            return @"invalid_postcode".localized;
+    if (country == JPBillingCountryUSA) {
+        return @"invalid_zip_code".localized;
     }
+    return @"invalid_postcode".localized;
 }
 
 - (NSUInteger)postCodeMaxLengthForCountry:(JPBillingCountry)country {
@@ -435,6 +433,8 @@ static int const kCardHolderNameLength = 3;
             return kUSAPostalCodeMaxLength;
         case JPBillingCountryOther:
             return kOtherPostalCodeLength;
+        default:
+            break;
     }
 }
 
@@ -448,6 +448,8 @@ static int const kCardHolderNameLength = 3;
             return kUSAPostalCodeMinLength;
         case JPBillingCountryOther:
             return kOtherPostalCodeLength;
+        default:
+            break;
     }
 }
 
