@@ -325,6 +325,14 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     return self.features.count;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Features";
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return @"To view test card details:\nSign in to judo and go to Developer/Tools.";
+}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
