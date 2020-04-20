@@ -382,7 +382,7 @@
 			remoteGlobalIDString = 3B678B551C6CE5190001DC2F;
 			remoteInfo = JudoKitObjC;
 		};
-		8209575422F869A500DF5515 /* PBXContainerItemProxy */ = {
+		9AB324A524482208000E31A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3B678B4D1C6CE5190001DC2F /* Project object */;
 			proxyType = 1;
@@ -2709,9 +2709,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				9AB324A624482208000E31A9 /* PBXTargetDependency */,
 				3B678B631C6CE5190001DC2F /* PBXTargetDependency */,
 				8209575522F869A500DF5515 /* PBXTargetDependency */,
-				07D70A27244743290039D187 /* PBXTargetDependency */,
 			);
 			name = JudoKitObjCTests;
 			productName = JudoKitObjCTests;
@@ -3276,10 +3276,10 @@
 			target = 3B678B551C6CE5190001DC2F /* JudoKitObjC */;
 			targetProxy = 3B678B621C6CE5190001DC2F /* PBXContainerItemProxy */;
 		};
-		8209575522F869A500DF5515 /* PBXTargetDependency */ = {
+		9AB324A624482208000E31A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3B4EB3971C981EA7006265A0 /* JudoKitObjCExampleApp */;
-			targetProxy = 8209575422F869A500DF5515 /* PBXContainerItemProxy */;
+			targetProxy = 9AB324A524482208000E31A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3661,7 +3661,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D9CE246AEF4859CE4B852689 /* Pods-JudoKitObjCTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2354U295GD;
 				INFOPLIST_FILE = Tests/Info.plist;
@@ -3679,7 +3678,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35F7E92E8C322DB6DC1D5E25 /* Pods-JudoKitObjCTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2354U295GD;
 				INFOPLIST_FILE = Tests/Info.plist;
