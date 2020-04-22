@@ -1,0 +1,15 @@
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "35Z-0g-PX8"; */
+"35Z-0g-PX8.title" = "Settings";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "JwE-fr-ajh"; */
+"JwE-fr-ajh.text" = "Subtitle";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "OAR-Ow-eeI"; */
+"OAR-Ow-eeI.title" = "Settings";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Sw2-DS-jRp"; */
+"Sw2-DS-jRp.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Judopay examples"; ObjectID = "zc7-jC-8dZ"; */
+"zc7-jC-8dZ.title" = "Judopay examples";

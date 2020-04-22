@@ -1,0 +1,21 @@
+platform :ios, '10.3'
+
+target 'ObjectiveCExampleApp' do
+  use_frameworks!
+
+  # Pods for ObjectiveCExampleApp
+  pod 'JudoKitObjC', :path => '../../'
+
+  pod 'InAppSettingsKit'
+  pod 'CocoaDebug'
+
+  target 'ObjectiveCExampleAppTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ObjectiveCExampleAppUITests' do
+    # Pods for testing
+  end
+
+end
