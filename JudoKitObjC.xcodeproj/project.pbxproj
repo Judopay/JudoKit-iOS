@@ -243,6 +243,7 @@
 		3B678B611C6CE5190001DC2F /* JudoKitObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKitObjC.framework */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		449495A1245112D00050C6A0 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449495A0245112D00050C6A0 /* DeviceDNA.framework */; };
 		44A7C5A32450E7EF00C55A12 /* VoidTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3F31C982A25006265A0 /* VoidTransactionTests.swift */; };
 		44A7C5A42450E7F300C55A12 /* VCOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CFC9EC1FB74A4200430D31 /* VCOTests.swift */; };
 		44A7C5A52450E7F600C55A12 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB3F21C982A25006265A0 /* TransactionTests.swift */; };
@@ -267,8 +268,6 @@
 		44A7C5B82450E8C000C55A12 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B678B671C6CE5190001DC2F /* Info.plist */; };
 		44A7C5BA2450E9DE00C55A12 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A7C5B92450E9DD00C55A12 /* PayCardsRecognizer.framework */; };
 		44A7C5D62450EA3200C55A12 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A7C5C72450EA1400C55A12 /* TrustKit.framework */; };
-		44A7C5D72450EA3200C55A12 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44A7C5C72450EA1400C55A12 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		524B24AA242BC1A2007F01ED /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */; };
 		5273AF1423F30730008C6D89 /* JPCardPaymentMethodView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5273AF1223F30730008C6D89 /* JPCardPaymentMethodView.h */; };
 		5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */; };
 		5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */; };
@@ -385,13 +384,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		44A7C5D82450EA3200C55A12 /* Embed Frameworks */ = {
+		4494959F245112560050C6A0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44A7C5D72450EA3200C55A12 /* TrustKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,6 +651,7 @@
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
 		3BFD9A981CDA008E00B8385D /* DedupTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DedupTestCase.swift; sourceTree = "<group>"; };
+		449495A0245112D00050C6A0 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		44A7C5B92450E9DD00C55A12 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = PayCardsRecognizer/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		44A7C5BB2450EA1300C55A12 /* TrustKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TrustKit.xcodeproj; path = TrustKit/TrustKit.xcodeproj; sourceTree = "<group>"; };
 		44FFE3A622F04FD000E42F2D /* TransactionEnricherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEnricherTests.swift; sourceTree = "<group>"; };
@@ -697,7 +696,6 @@
 		52B74D8E23F98B4C009FE38C /* JPTransactionRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTransactionRouter.m; sourceTree = "<group>"; };
 		52B74D8F23F98B4C009FE38C /* JPTransactionRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionRouter.h; sourceTree = "<group>"; };
 		52EDC2DE2371BC2A00FEC9C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
-		701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		702804271CE3873A00150B21 /* JudoTestCaseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoTestCaseConfig.swift; sourceTree = "<group>"; };
 		702804351CE9C96D00150B21 /* CardDetailsSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailsSetTests.swift; sourceTree = "<group>"; };
 		702804371CE9F7A100150B21 /* JudoPayViewControllerTestable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoPayViewControllerTestable.h; sourceTree = "<group>"; };
@@ -720,8 +718,8 @@
 			files = (
 				44A7C5D62450EA3200C55A12 /* TrustKit.framework in Frameworks */,
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
+				449495A1245112D00050C6A0 /* DeviceDNA.framework in Frameworks */,
 				44A7C5BA2450E9DE00C55A12 /* PayCardsRecognizer.framework in Frameworks */,
-				524B24AA242BC1A2007F01ED /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1872,9 +1870,9 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
+				449495A0245112D00050C6A0 /* DeviceDNA.framework */,
 				44A7C5BB2450EA1300C55A12 /* TrustKit.xcodeproj */,
 				44A7C5B92450E9DD00C55A12 /* PayCardsRecognizer.framework */,
-				701050B91E1E90D70001ED87 /* DeviceDNA */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
 				52FBFB6A2325A3770096064C /* Resources */,
@@ -2157,14 +2155,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		701050B91E1E90D70001ED87 /* DeviceDNA */ = {
-			isa = PBXGroup;
-			children = (
-				701050BA1E1E90FB0001ED87 /* DeviceDNA.framework */,
-			);
-			name = DeviceDNA;
-			sourceTree = "<group>";
-		};
 		827AF50723FFD257009ECC9C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -2343,7 +2333,7 @@
 				3B678B521C6CE5190001DC2F /* Frameworks */,
 				3B678B531C6CE5190001DC2F /* Headers */,
 				3B678B541C6CE5190001DC2F /* Resources */,
-				44A7C5D82450EA3200C55A12 /* Embed Frameworks */,
+				4494959F245112560050C6A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
