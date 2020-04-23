@@ -39,12 +39,6 @@
     // Enable debug inspector
     [CocoaDebug enable];
     
-    // Cleanup local storage for UI tests
-    NSDictionary *environment = NSProcessInfo.processInfo.environment;
-    if ([environment[@"UITEST"] isEqualToString:@"1"]) {
-        [JPCardStorage.sharedInstance deleteCardDetails];
-    }
-    
     return YES;
 }
 
