@@ -32,3 +32,8 @@ Pods
 
 # Code coverage etc
 output
+
+# Carthage
+Carthage
+
+*.xcworkspace/
