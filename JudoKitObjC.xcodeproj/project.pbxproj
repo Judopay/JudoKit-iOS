@@ -2144,7 +2144,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B678B6A1C6CE5190001DC2F /* Build configuration list for PBXNativeTarget "JudoKitObjC" */;
 			buildPhases = (
-				3B6912DB1C96BA3800367660 /* ShellScript */,
 				3B678B511C6CE5190001DC2F /* Sources */,
 				3B678B521C6CE5190001DC2F /* Frameworks */,
 				3B678B531C6CE5190001DC2F /* Headers */,
@@ -2242,22 +2241,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3B6912DB1C96BA3800367660 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sh \"${PROJECT_DIR}/Carthage/Checkouts/DeviceDNA-iOS/Framework/strip-frameworks-cocoapods.sh\"\n\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B678B511C6CE5190001DC2F /* Sources */ = {
