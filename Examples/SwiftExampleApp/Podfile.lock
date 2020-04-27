@@ -1,0 +1,39 @@
+PODS:
+  - CocoaDebug (1.2.5)
+  - DeviceDNA (0.1.6)
+  - InAppSettingsKit (2.15)
+  - JudoKitObjC (8.2.1):
+    - DeviceDNA
+    - PayCardsRecognizer
+    - TrustKit
+  - PayCardsRecognizer (1.1.7)
+  - TrustKit (1.6.5)
+
+DEPENDENCIES:
+  - CocoaDebug
+  - InAppSettingsKit
+  - JudoKitObjC (from `../../`)
+
+SPEC REPOS:
+  trunk:
+    - CocoaDebug
+    - DeviceDNA
+    - InAppSettingsKit
+    - PayCardsRecognizer
+    - TrustKit
+
+EXTERNAL SOURCES:
+  JudoKitObjC:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  CocoaDebug: 7446061b7ec181a102ad7dfac4535a5adc824e6d
+  DeviceDNA: 06c4c1af198fc8b44711d10bed39e0a8638b490d
+  InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
+  JudoKitObjC: fc659a2d67db3ef22b18ef4014fb9005531bc048
+  PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
+  TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
+
+PODFILE CHECKSUM: 81a832fec42ac1196ae558ce778e775e19a63b03
+
+COCOAPODS: 1.9.1
