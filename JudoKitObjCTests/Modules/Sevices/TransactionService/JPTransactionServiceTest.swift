@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import XCTest
+@testable import JudoKitObjC
 
 class JPTransactionServiceTest: XCTestCase {
 
@@ -36,6 +37,7 @@ class JPTransactionServiceTest: XCTestCase {
 
     func testTransactionWithConfigurations() {
         let transaction = transactionService.transaction(with: self.transactionConfigurations)
+        
         XCTAssertEqual(transaction.amount!.amount, self.transactionAmmount.amount)
         XCTAssertEqual(transaction.amount!.currency, self.transactionAmmount.currency)
         XCTAssertEqual(transaction.reference!.consumerReference, self.transactionReference.consumerReference)

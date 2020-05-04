@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010A9D0F24601B680064316D /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
@@ -305,6 +306,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		010A9D0E24601B680064316D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		01AE3A232460236D0050952E /* JudoKitObjCTestsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitObjCTestsNew.swift; sourceTree = "<group>"; };
+		01AE3A252460236D0050952E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01CEFC1D244093C50062C948 /* CardStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStorageTest.swift; sourceTree = "<group>"; };
 		0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAppleConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
 		0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
@@ -591,6 +595,7 @@
 			files = (
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
 				072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */,
+				010A9D0F24601B680064316D /* OHHTTPStubs.framework in Frameworks */,
 				072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */,
 				072AFF452451E7C70038A417 /* DeviceDNA.framework in Frameworks */,
 			);
@@ -607,6 +612,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01AE3A222460236D0050952E /* JudoKitObjCTestsNew */ = {
+			isa = PBXGroup;
+			children = (
+				01AE3A232460236D0050952E /* JudoKitObjCTestsNew.swift */,
+				01AE3A252460236D0050952E /* Info.plist */,
+			);
+			path = JudoKitObjCTestsNew;
+			sourceTree = "<group>";
+		};
 		01CEFC1A244093A30062C948 /* CardStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +705,7 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				010A9D0E24601B680064316D /* OHHTTPStubs.framework */,
 				072AFF442451E7C70038A417 /* DeviceDNA.framework */,
 				072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */,
 				072AFF3A2451DE5E0038A417 /* TrustKit.framework */,
@@ -1737,6 +1752,7 @@
 			isa = PBXGroup;
 			children = (
 				4416C39E2451A4060002870C /* JudoKitObjCTests */,
+				01AE3A222460236D0050952E /* JudoKitObjCTestsNew */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
 				52FBFB6A2325A3770096064C /* Resources */,
@@ -2631,7 +2647,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKitObjCTests/Info.plist;
@@ -2664,7 +2680,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKitObjCTests/Info.plist;
