@@ -138,7 +138,7 @@
         return;
     }
     [self.view updateViewWithError:error];
-    [self.interactor completeTransactionWithResponse:nil error:error];
+    [self.interactor storeError:error];
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
@@ -202,6 +202,12 @@
             }
         });
     }];
+}
+
+- (void)handleCancelButtonTap {
+    [self.router dismissViewController];
+    [self.interactor completeTransactionWithResponse:nil
+                                               error:JPError.judoUserDidCancelError];
 }
 
 #pragma mark - Helper methods

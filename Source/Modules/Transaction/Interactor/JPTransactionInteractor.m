@@ -43,6 +43,7 @@
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
+@property (nonatomic, strong) NSMutableArray *storedErrors;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -53,7 +54,7 @@
                            transactionService:(JPTransactionService *)transactionService
                                 configuration:(JPConfiguration *)configuration
                                    completion:(JudoCompletionBlock)completion {
-
+    
     if (self = [super init]) {
         self.cardValidationService = cardValidationService;
         self.transactionService = transactionService;
@@ -79,12 +80,12 @@
 
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-
+    
     if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
                                  completionHandler:^(BOOL granted) {
-                                     completion(granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
-                                 }];
+            completion(granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
+        }];
     } else {
         completion(status);
     }
@@ -92,40 +93,51 @@
 
 - (void)sendTransactionWithCard:(JPCard *)card
               completionHandler:(JudoCompletionBlock)completionHandler {
-
+    
 #if DEBUG
     // TODO: Temporary duplicate transaction solution
     // Generates a new consumer reference for each Payment/PreAuth transaction
-
+    
     BOOL isPayment = (self.transactionService.transactionType == TransactionTypePayment);
     BOOL isPreAuth = (self.transactionService.transactionType == TransactionTypePreAuth);
-
+    
     if (isPayment || isPreAuth) {
         self.configuration.reference = [JPReference consumerReference:NSUUID.UUID.UUIDString];
     }
 #endif
-
+    
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.card = card;
-
+    
     self.threeDSecureService.transaction = transaction;
     [transaction sendWithCompletion:completionHandler];
 }
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
                                   error:(JPError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
+    
+    if (!self.completionHandler)
+        return;
+    
+    if (error == JPError.judoUserDidCancelError) {
+        error.details = self.storedErrors;
+    }
+    
+    self.completionHandler(response, error);
+}
+
+- (void)storeError:(NSError *)error {
+    [self.storedErrors addObject:error];
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
-
+    
     CardNetwork cardNetwork = viewModel.cardNumberViewModel.cardNetwork;
     NSString *cardNumberString = viewModel.cardNumberViewModel.text;
-
+    
     NSString *lastFour = [cardNumberString substringFromIndex:cardNumberString.length - 4];
     NSString *expiryDate = viewModel.expiryDateViewModel.text;
-
+    
     JPStoredCardDetails *storedCardDetails = [JPStoredCardDetails cardDetailsWithLastFour:lastFour
                                                                                expiryDate:expiryDate
                                                                               cardNetwork:cardNetwork
@@ -139,28 +151,28 @@
     switch (network) {
         case CardNetworkVisa:
             return @"default_visa_card_title".localized;
-
+            
         case CardNetworkAMEX:
             return @"default_amex_card_title".localized;
-
+            
         case CardNetworkMaestro:
             return @"default_maestro_card_title".localized;
-
+            
         case CardNetworkMasterCard:
             return @"default_mastercard_card_title".localized;
-
+            
         case CardNetworkChinaUnionPay:
             return @"default_chinaunionpay_card_title".localized;
-
+            
         case CardNetworkJCB:
             return @"default_jcb_card_title".localized;
-
+            
         case CardNetworkDiscover:
             return @"default_discover_card_title".localized;
-
+            
         case CardNetworkDinersClub:
             return @"default_dinnersclub_card_title".localized;
-
+            
         default:
             return @"";
     }
@@ -222,6 +234,13 @@
         return self.configuration.supportedCardNetworks;
     }
     return CardNetworkVisa | CardNetworkAMEX | CardNetworkMaestro | CardNetworkMasterCard;
+}
+
+- (NSMutableArray *)storedErrors {
+    if (!_storedErrors) {
+        _storedErrors = [NSMutableArray new];
+    }
+    return _storedErrors;
 }
 
 @end

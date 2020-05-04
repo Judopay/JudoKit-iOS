@@ -71,7 +71,7 @@
 }
 
 - (void)onCancelButtonTap {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.presenter handleCancelButtonTap];
 }
 
 - (void)onTransactionButtonTap {
