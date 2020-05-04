@@ -72,4 +72,4 @@ FOUNDATION_EXPORT const unsigned char JudoKitObjCVersionString[];
 #import <JudoKitObjC/JPVCOResult.h>
 #import <JudoKitObjC/JPValidationResult.h>
 #import <JudoKitObjC/JudoKit.h>
-#import <JudoKitObjC/NSError+Additions.h>
+#import <JudoKitObjC/JPError+Additions.h>

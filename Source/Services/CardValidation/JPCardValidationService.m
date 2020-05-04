@@ -27,7 +27,7 @@
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
 #import "JPValidationResult.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPCardValidationService ()
@@ -76,11 +76,11 @@ static int const kCardHolderNameLength = 3;
     }
 
     if ((cardNumber.length == maxCardLength) && (![cardNumber isCardNumberValid])) {
-        error = NSError.judoInvalidCardNumberError;
+        error = JPError.judoInvalidCardNumberError;
     }
 
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
-        error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
+        error = [JPError judoUnsupportedCardNetwork:input.cardNetwork];
     }
 
     cardNumber = [cardNumber formatWithPattern:cardNetworkPatern];

@@ -78,24 +78,4 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
                      parameters:(nullable NSDictionary *)parameters
                      completion:(nullable JudoCompletionBlock)completion;
 
-/**
- * A method which returns a list of transactions based on a specified type.
- *
- * @param type - the type of the transaction.
- * @param pagination - an instance of JPPagination which offers pagination details
- * @param completion - a completion block with an optinal JPResponse or NSError
- */
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(nullable JPPagination *)pagination
-                    completion:(nullable JudoCompletionBlock)completion;
-
-/**
- * A method which returns a instance of JPReceipt based on a specified receipt ID.
- *
- * @param receiptId - an instance of NSString that serves as the receipt ID of a transaction.
- *
- * @returns - a configured instance of JPReceipt.
- */
-- (nonnull JPReceipt *)receiptForReceiptId:(nonnull NSString *)receiptId;
-
 @end

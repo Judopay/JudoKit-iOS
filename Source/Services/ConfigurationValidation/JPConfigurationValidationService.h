@@ -22,28 +22,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAmount.h"
 #import "JPConfiguration.h"
-#import "JPConstants.h"
-#import "JPReference.h"
-#import "JPSession.h"
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPValidationType) {
-    JPValidationTypeTransaction,
-    JPValidationTypeApplePay
+typedef NS_ENUM(NSUInteger, JPValidationError) {
+    JPValidationErrorMissingParameter,
+    JPValidationErrorInvalidParameter
 };
 
 @protocol JPConfigurationValidationService
-@required
-- (BOOL)isTransactionValidWithConfiguration:(JPConfiguration *)configuration
-                             validationType:(JPValidationType)validationType
-                            transactionType:(TransactionType)transactionType
-                                 completion:(JudoCompletionBlock)completion;
+
+/**
+ * A method that validates the configuration and returns an optional JPError if the configuration fails
+ *
+ * @param configuration - an instance of JPConfiguration that contains all the payment configuration properties
+ * @param transactionType - the transaction type used to apply the correct validation rules
+ *
+ * @returns an optional instance of JPError containing the validation error details
+ */
+- (JPError *)validateConfiguration:(JPConfiguration *)configuration
+                forTransactionType:(TransactionType)transactionType;
+
+/**
+ * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails
+ *
+ * @param configuration - an instance of JPConfiguration that contains all the payment configuration properties
+ *
+ * @returns an optional instance of JPError containing the validation error details
+ */
+- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration;
+
 @end
 
 /**
- * A class that handles JPConfiguration validation
+ * A class that implements the JPConfigurationValidationService protocol
  */
 @interface JPConfigurationValidationServiceImp : NSObject <JPConfigurationValidationService>
+
 @end

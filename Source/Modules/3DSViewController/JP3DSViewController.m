@@ -22,9 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPError.h"
 #import "JP3DSViewController.h"
 #import "JPLoadingView.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
 
@@ -80,7 +81,7 @@
 
 - (void)onDismissTap {
     [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(nil, NSError.judoUserDidCancelError);
+    self.completionBlock(nil, JPError.judoUserDidCancelError);
 }
 
 #pragma mark - Public methods
@@ -131,11 +132,11 @@
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    self.completionBlock(nil, error);
+    self.completionBlock(nil, (JPError *)error);
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    self.completionBlock(nil, error);
+    self.completionBlock(nil, (JPError *)error);
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -189,7 +190,7 @@
     __weak typeof(self) weakSelf = self;
     [self.transaction threeDSecureWithParameters:response
                                        receiptId:self.configuration.receiptId
-                                      completion:^(JPResponse *response, NSError *error) {
+                                      completion:^(JPResponse *response, JPError *error) {
                                           if (error) {
                                               decisionHandler(WKNavigationActionPolicyCancel);
                                           } else {

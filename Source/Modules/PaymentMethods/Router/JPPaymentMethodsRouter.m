@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPError.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
@@ -30,7 +31,7 @@
 #import "JPTransactionBuilder.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 
 #import "JPConfiguration.h"
 #import "JPSliderTransitioningDelegate.h"
@@ -81,7 +82,7 @@
                         andCompletion:(JudoCompletionBlock)completion {
 
     if (!self.configuration.siteId) {
-        completion(nil, NSError.judoParameterError);
+        completion(nil, JPError.judoParameterError);
         return;
     }
 
@@ -111,7 +112,7 @@
 }
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(NSError *)error {
+                               andError:(JPError *)error {
     if (self.completionHandler)
         self.completionHandler(response, error);
 }

@@ -26,7 +26,7 @@
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 
 #import "JPAddress.h"
 #import "JPCard.h"
@@ -122,7 +122,7 @@
 
     __weak typeof(self) weakSelf = self;
     [self.interactor sendTransactionWithCard:card
-                           completionHandler:^(JPResponse *response, NSError *error) {
+                           completionHandler:^(JPResponse *response, JPError *error) {
                                if (error) {
                                    [weakSelf handleError:error];
                                    return;
@@ -132,7 +132,7 @@
                            }];
 }
 
-- (void)handleError:(NSError *)error {
+- (void)handleError:(JPError *)error {
     if (error.code == JudoError3DSRequest) {
         [self handle3DSecureTransactionFromError:error];
         return;
@@ -144,7 +144,7 @@
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, NSError *error) {
+                                             completion:^(JPResponse *response, JPError *error) {
                                                  if (error) {
                                                      [weakSelf handleError:error];
                                                      return;
@@ -160,7 +160,7 @@
         NSString *token = response.items.firstObject.cardDetails.cardToken;
 
         if (!token) {
-            [self.view updateViewWithError:NSError.judoTokenMissingError];
+            [self.view updateViewWithError:JPError.judoTokenMissingError];
             return;
         }
 

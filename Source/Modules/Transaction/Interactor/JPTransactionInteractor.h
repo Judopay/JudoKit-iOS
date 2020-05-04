@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPAddress.h"
+#import "JPError.h"
 #import "JPSession.h"
 #import "JPTransaction.h"
 #import "JPValidationResult.h"
@@ -75,10 +76,10 @@
  * A method for returning the transaction response / error to the merchant
  *
  * @param response - the JPResponse returned from the transaction
- * @param error - the NSError returned from the transaction
+ * @param error - the JPError returned from the transaction
  */
 - (void)completeTransactionWithResponse:(JPResponse *)response
-                                  error:(NSError *)error;
+                                  error:(JPError *)error;
 
 /**
  * A method for resetting the card validation results

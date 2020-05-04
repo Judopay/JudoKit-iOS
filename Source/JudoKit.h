@@ -108,25 +108,4 @@ static NSString *__nonnull const JudoKitVersion = @"8.2.1";
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
                                completion:(nullable JudoCompletionBlock)completion;
-
-/**
- * A method which displays a list of all transactions of a specified type.
- *
- * @param type - an instance of TransactionType that describes the type of the transaction.
- * @param pagination - an instance of JPPagination in which pagination preferences are specified.
- * @param completion - a completion block with an optional JPResponse object or an NSError.
- */
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(nullable JPPagination *)pagination
-                    completion:(nullable JudoCompletionBlock)completion;
-
-/**
- * A method which returns a instance of JPReceipt based on a specified receipt ID.
- *
- * @param receiptId - an instance of NSString that serves as the receipt ID of a transaction.
- *
- * @returns - a configured instance of JPReceipt.
- */
-- (nonnull JPReceipt *)receiptForReceiptId:(nonnull NSString *)receiptId;
-
 @end

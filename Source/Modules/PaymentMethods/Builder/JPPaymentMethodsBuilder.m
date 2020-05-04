@@ -34,7 +34,7 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 
 #import "JPApplePayService.h"
 
@@ -56,12 +56,12 @@
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
-            completion(nil, NSError.judoInvalidIDEALCurrencyError);
+            completion(nil, JPError.judoInvalidIDEALCurrencyError);
             return nil;
         }
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
-            completion(nil, NSError.judoApplePayNotSupportedError);
+            completion(nil, JPError.judoApplePayNotSupportedError);
             return nil;
         }
     }

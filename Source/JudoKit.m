@@ -36,7 +36,7 @@
 #import "JPTransactionEnricher.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
@@ -62,10 +62,10 @@
        allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
-    self.configurationValidationService = [JPConfigurationValidationServiceImp new];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
+        self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.transactionService = [[JPTransactionService alloc] initWithToken:token
                                                                     andSecret:secret];
         return self;
@@ -78,29 +78,19 @@
 
 - (JPTransaction *)transactionWithType:(TransactionType)type
                          configuration:(JPConfiguration *)configuration {
-
     self.transactionService.transactionType = type;
     return [self.transactionService transactionWithConfiguration:configuration];
-}
-
-- (BOOL)configurationIsValid:(JPConfiguration *)configuration
-              validationType:(JPValidationType)validationType
-             transactionType:(TransactionType)transactionType
-                  completion:(JudoCompletionBlock)completion {
-
-    return [self.configurationValidationService isTransactionValidWithConfiguration:configuration
-                                                                     validationType:validationType
-                                                                    transactionType:transactionType
-                                                                         completion:completion];
 }
 
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JudoCompletionBlock)completion {
-    if (![self configurationIsValid:configuration
-                     validationType:JPValidationTypeTransaction
-                    transactionType:type
-                         completion:completion]) {
+    
+    JPError *configurationError = [self.configurationValidationService validateConfiguration:configuration
+                                                                          forTransactionType:type];
+    
+    if (configurationError) {
+        completion(nil, configurationError);
         return;
     }
 
@@ -121,13 +111,13 @@
                  configuration:(JPConfiguration *)configuration
                     completion:(JudoCompletionBlock)completion {
 
-    if (![self configurationIsValid:configuration
-                     validationType:JPValidationTypeApplePay
-                    transactionType:TransactionTypeVoid
-                         completion:completion]) {
+    JPError *configurationError = [self.configurationValidationService valiadateApplePayConfiguration:configuration];
+
+    if (configurationError) {
+        completion(nil, configurationError);
         return;
     }
-
+    
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
@@ -136,6 +126,9 @@
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JudoCompletionBlock)completion {
+    
+    //TODO: No validation???
+    
     UIViewController *controller;
     controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                                     configuration:configuration
@@ -153,18 +146,6 @@
     [UIApplication.topMostViewController presentViewController:navController
                                                       animated:YES
                                                     completion:nil];
-}
-
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(JPPagination *)pagination
-                    completion:(JudoCompletionBlock)completion {
-    [self.transactionService listTransactionsOfType:type
-                                          paginated:pagination
-                                         completion:completion];
-}
-
-- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId {
-    return [self.transactionService receiptForReceiptId:receiptId];
 }
 
 #pragma mark - Getters & Setters

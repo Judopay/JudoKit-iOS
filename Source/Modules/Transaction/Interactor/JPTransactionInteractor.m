@@ -34,7 +34,7 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewModel.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPTransactionInteractorImpl ()
@@ -112,7 +112,8 @@
     [transaction sendWithCompletion:completionHandler];
 }
 
-- (void)completeTransactionWithResponse:(JPResponse *)response error:(NSError *)error {
+- (void)completeTransactionWithResponse:(JPResponse *)response
+                                  error:(JPError *)error {
     if (self.completionHandler)
         self.completionHandler(response, error);
 }

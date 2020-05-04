@@ -22,77 +22,44 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPConstants.h"
+#import "JPError+Additions.h"
+#import "JPApplePayConfiguration.h"
+#import "JPAmount.h"
+#import "JPReference.h"
 #import "JPConfigurationValidationService.h"
-
-typedef NS_ENUM(NSUInteger, JPValidationError) {
-    JPValidationErrorMissingParameter, // empty or null parameter
-    JPValidationErrorInvalidParameter  // invalid parameter
-};
-
-@interface JPConfigurationValidationServiceImp ()
-@property (nonatomic, nonnull) NSArray *validCurrencies;
-@end
 
 @implementation JPConfigurationValidationServiceImp
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _validCurrencies = @[ @"AED", @"AUD", @"BRL",
-                              @"CAD", @"CHF", @"CZK",
-                              @"DKK", @"EUR", @"GBP",
-                              @"HKD", @"HUF", @"JPY",
-                              @"NOK", @"NZD", @"PLN",
-                              @"SEK", @"SGD", @"QAR",
-                              @"SAR", @"USD", @"ZAR" ];
-    }
-    return self;
-}
+#pragma mark - Public methods
 
-- (BOOL)isTransactionValidWithConfiguration:(JPConfiguration *)configuration
-                             validationType:(JPValidationType)validationType
-                            transactionType:(TransactionType)transactionType
-                                 completion:(JudoCompletionBlock)completion {
-    switch (validationType) {
-        case JPValidationTypeTransaction:
-            return [self isTransactionValidWithConfiguration:configuration transactionType:transactionType completion:completion];
-        case JPValidationTypeApplePay:
-            return [self isAppleTransactionValidWithConfiguration:configuration completion:completion];
-        default:
-            return false;
-    }
-}
-
-- (BOOL)isTransactionValidWithConfiguration:(JPConfiguration *)configuration
-                            transactionType:(TransactionType)transactionType
-                                 completion:(JudoCompletionBlock)completion {
-    NSError *error;
+- (JPError *)validateConfiguration:(JPConfiguration *)configuration
+                forTransactionType:(TransactionType)transactionType {
+    
+    JPError *error;
+    
     [self checkAmount:configuration.amount transactionType:transactionType error:&error];
     [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
-
-    if (error) {
-        completion(nil, error);
-    }
-
-    return error ? false : true;
+    
+    return error;
 }
 
-- (BOOL)isAppleTransactionValidWithConfiguration:(JPConfiguration *)configuration
-                                      completion:(JudoCompletionBlock)completion {
-    NSError *error;
+- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration {
+    
+    JPError *error;
+    
     [self checkForValidCurrency:configuration.applePayConfiguration.currency error:&error];
     [self checkForEmptyMerchantId:configuration.applePayConfiguration.merchantId error:&error];
     [self checkForValidCountryCode:configuration.applePayConfiguration.countryCode error:&error];
     [self checkApplePaymentItemsLength:configuration error:&error];
     [self checkForShippingMethodsLength:configuration error:&error];
     [self checkIfAppleConfigNonNull:configuration error:&error];
-
-    if (error) {
-        completion(nil, error);
-    }
-
-    return error ? false : true;
+    
+    return error;
 }
+
+#pragma mark - Validation methods
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.applePayConfiguration.paymentSummaryItems count] == 0) {
@@ -177,11 +144,21 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
     BOOL isTypeSaveCard = transactionType == TransactionTypeSaveCard;
     BOOL isTypeRegisterCard = transactionType == TransactionTypeRegisterCard;
     BOOL isTypeChekCard = transactionType == TransactionTypeCheckCard;
-
+    
     if (!(isTypeChekCard || isTypeSaveCard || isTypeRegisterCard)) {
         [self checkForValidCurrency:amount.currency error:error];
         [self checkIfAmountIsNumber:amount.amount error:error];
     }
+}
+
+- (NSArray *)validCurrencies {
+    return @[ @"AED", @"AUD", @"BRL",
+              @"CAD", @"CHF", @"CZK",
+              @"DKK", @"EUR", @"GBP",
+              @"HKD", @"HUF", @"JPY",
+              @"NOK", @"NZD", @"PLN",
+              @"SEK", @"SGD", @"QAR",
+              @"SAR", @"USD", @"ZAR" ];
 }
 
 @end

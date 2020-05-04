@@ -1,8 +1,8 @@
 //
-//  NSError+Additions.h
+//  JPError+Additions.h
 //  JudoKitObjC
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPError.h"
 #import "JPCardNetwork.h"
 #import <Foundation/Foundation.h>
 
@@ -29,35 +30,35 @@
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
-@interface NSError (Additions)
+@interface JPError (Additions)
 
-+ (nonnull NSError *)judoRequestFailedError;
-+ (nonnull NSError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
-+ (nonnull NSError *)judoJudoIdMissingError;
-+ (nonnull NSError *)judoPaymentMethodMissingError;
-+ (nonnull NSError *)judoAmountMissingError;
-+ (nonnull NSError *)judoReferenceMissingError;
-+ (nonnull NSError *)judoTokenMissingError;
-+ (nonnull NSError *)judoDuplicateTransactionError;
-+ (nonnull NSError *)judo3DSRequestFailedErrorWithUnderlyingError:(nullable NSError *)underlyingError;
-+ (nonnull NSError *)judoUserDidCancelError;
-+ (nonnull NSError *)judoParameterError;
-+ (nonnull NSError *)judoInternetConnectionError;
-+ (nonnull NSError *)judoJPApplePayConfigurationError;
-+ (nonnull NSError *)judoResponseParseError;
-+ (nonnull NSError *)judoMissingChecksumError;
-+ (nonnull NSError *)judoRequestTimeoutError;
-+ (nonnull NSError *)judoInvalidCardNumberError;
-+ (nonnull NSError *)judoUnsupportedCardNetwork:(CardNetwork)network;
-+ (nonnull NSError *)judoJailbrokenDeviceDisallowedError;
-+ (nonnull NSError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
-+ (nonnull NSError *)judoErrorFromTransactionData:(nonnull JPTransactionData *)data;
-+ (nonnull NSError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
-+ (nonnull NSError *)judoErrorFromError:(nonnull NSError *)error;
-+ (nonnull NSError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
-+ (nonnull NSError *)judoInvalidIDEALCurrencyError;
-+ (nonnull NSError *)judoApplePayNotSupportedError;
-+ (nonnull NSError *)judoSiteIDMissingError;
++ (nonnull JPError *)judoRequestFailedError;
++ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
++ (nonnull JPError *)judoJudoIdMissingError;
++ (nonnull JPError *)judoPaymentMethodMissingError;
++ (nonnull JPError *)judoAmountMissingError;
++ (nonnull JPError *)judoReferenceMissingError;
++ (nonnull JPError *)judoTokenMissingError;
++ (nonnull JPError *)judoDuplicateTransactionError;
++ (nonnull JPError *)judo3DSRequestFailedErrorWithUnderlyingError:(nullable NSError *)underlyingError;
++ (nonnull JPError *)judoUserDidCancelError;
++ (nonnull JPError *)judoParameterError;
++ (nonnull JPError *)judoInternetConnectionError;
++ (nonnull JPError *)judoJPApplePayConfigurationError;
++ (nonnull JPError *)judoResponseParseError;
++ (nonnull JPError *)judoMissingChecksumError;
++ (nonnull JPError *)judoRequestTimeoutError;
++ (nonnull JPError *)judoInvalidCardNumberError;
++ (nonnull JPError *)judoUnsupportedCardNetwork:(CardNetwork)network;
++ (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
++ (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
++ (nonnull JPError *)judoErrorFromTransactionData:(nonnull JPTransactionData *)data;
++ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
++ (nonnull JPError *)judoErrorFromError:(nonnull NSError *)error;
++ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
++ (nonnull JPError *)judoInvalidIDEALCurrencyError;
++ (nonnull JPError *)judoApplePayNotSupportedError;
++ (nonnull JPError *)judoSiteIDMissingError;
 
 @end
 

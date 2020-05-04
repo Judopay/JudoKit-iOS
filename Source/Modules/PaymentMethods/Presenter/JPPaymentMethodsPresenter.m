@@ -34,7 +34,7 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
