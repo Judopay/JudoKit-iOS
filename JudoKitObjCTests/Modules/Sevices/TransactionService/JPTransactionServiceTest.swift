@@ -41,20 +41,4 @@ class JPTransactionServiceTest: XCTestCase {
         XCTAssertEqual(transaction.reference!.consumerReference, self.transactionReference.consumerReference)
         XCTAssertEqual(transaction.reference!.paymentReference, self.transactionReference.paymentReference)
     }
-
-    func testListTransactionsOfType() {
-        self.transactionService.listTransactions(of: .checkCard,
-                                                  paginated: JPPagination(offset: 1,
-                                                                          pageSize: 2,
-                                                                          sort: ""),
-                                                  completion: { (response, error) in
-                                                    XCTAssertNotNil(response)
-        })
-    }
-
-    func testReceiptForReceiptId(){
-        let receipt = self.transactionService.receipt(forReceiptId: "123")
-        XCTAssertEqual(receipt.receiptId, "123")
-    }
-
 }
