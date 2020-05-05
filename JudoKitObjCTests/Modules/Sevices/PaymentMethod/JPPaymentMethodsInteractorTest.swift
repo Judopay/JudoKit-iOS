@@ -26,22 +26,22 @@ import XCTest
 @testable import JudoKitObjC
 
 class JPPaymentMethodsInteractorTest: XCTestCase {
-    var paymentMethodsInteractor: JPPaymentMethodsInteractor!
+    var sut: JPPaymentMethodsInteractor!
     let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
-
+    
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
         let service = JPTransactionService()
-        paymentMethodsInteractor = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
+        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
     }
-
+    
     func testServerToServer()  {
         let completion: JudoCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
-        paymentMethodsInteractor.paymentTransaction(withToken: "", andCompletion: completion)
+        sut.paymentTransaction(withToken: "", andCompletion: completion)
     }
     
     func testServerToServerApple()  {
@@ -49,6 +49,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
-        paymentMethodsInteractor.startApplePay(completion: completion)
+        sut.startApplePay(completion: completion)
     }
 }
