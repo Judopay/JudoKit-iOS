@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import XCTest
+
 @testable import JudoKitObjC
 
 class JPTransactionServiceTest: XCTestCase {
@@ -34,7 +35,11 @@ class JPTransactionServiceTest: XCTestCase {
     lazy var transactionConfigurations = JPConfiguration(judoID: "JUDAID",
                                                          amount: self.transactionAmmount,
                                                          reference: self.transactionReference)
-
+    override func tearDown() {
+        HTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
+    
     func testTransactionWithConfigurations() {
         let transaction = transactionService.transaction(with: self.transactionConfigurations)
         
@@ -54,9 +59,62 @@ class JPTransactionServiceTest: XCTestCase {
         })
     }
 
-    func testReceiptForReceiptId(){
+    func testReceiptForReceiptId() {
         let receipt = self.transactionService.receipt(forReceiptId: "123")
         XCTAssertEqual(receipt.receiptId, "123")
+    }
+    
+    func testIsSandbox() {
+        XCTAssertFalse(self.transactionService.isSandboxed)
+        
+        self.transactionService.isSandboxed = true
+        
+        XCTAssertTrue(self.transactionService.isSandboxed)
+    }
+    
+    func testSendRequest() {
+        let stubObject = ["paymentMethod":"PBBA",
+            "siteId": "xxx-xxx-siteId",
+            "orderDetails": ["orderId": "xxx-orderid",
+                             "orderStatus": "PENDING",
+                             "timestamp": "2020-05-05T07:29:04.663Z",
+                             "currency": "GBP",
+                             "amount": 0.15,
+                             "refundedAmount": 0.0],
+            "merchantPaymentReference": "xxx-xxx-ref_id",
+            "merchantConsumerReference": "reference"] as [String : Any]
+        stub(condition: isHost("api.judopay.com")) { _ in
+            return HTTPStubsResponse(jsonObject: stubObject, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "expect")
+        self.transactionService.sendRequest(withEndpoint: "order/bank/statusrequest/123",
+                                            httpMethod: HTTPMethod.GET,
+                                            parameters: nil) { (response, error) in
+                                                XCTAssertEqual("xxx-xxx-siteId", response!.items!.first!.judoId)
+                                                XCTAssertEqual("PBBA", response!.items!.first!.paymentMethod)
+                                                XCTAssertEqual("xxx-xxx-ref_id", response!.items!.first!.paymentReference)
+                                                XCTAssertEqual(stubObject["siteId"] as! String,
+                                                               response!.items!.first!.rawData["siteId"] as! String)
+                                                XCTAssertEqual(stubObject["paymentMethod"] as! String,
+                                                               response!.items!.first!.rawData["paymentMethod"] as! String)
+                                                XCTAssertEqual(stubObject["merchantPaymentReference"] as! String,
+                                                               response!.items!.first!.rawData["merchantPaymentReference"] as! String)
+                                                XCTAssertEqual(stubObject["merchantConsumerReference"] as! String,
+                                                               response!.items!.first!.rawData["merchantConsumerReference"] as! String)
+                                                
+                                                let orderDetails = response!.items!.first!.rawData["orderDetails"] as! [String : Any]
+                                                let stubOrderDetails = stubObject["orderDetails"] as! [String : Any]
+                                                XCTAssertEqual(stubOrderDetails["orderId"] as! String, orderDetails["orderId"] as! String)
+                                                XCTAssertEqual(stubOrderDetails["orderStatus"] as! String, orderDetails["orderStatus"] as! String)
+                                                XCTAssertEqual(stubOrderDetails["timestamp"] as! String, orderDetails["timestamp"] as! String)
+                                                XCTAssertEqual(stubOrderDetails["currency"] as! String, orderDetails["currency"] as! String)
+                                                XCTAssertEqual(stubOrderDetails["amount"] as! Double, orderDetails["amount"] as! Double)
+                                                XCTAssertEqual(stubOrderDetails["refundedAmount"] as! Double, orderDetails["refundedAmount"] as! Double)
+                                                XCTAssertNil(error)
+                                                expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
 }

@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		010A9D0F24601B680064316D /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
+		01AE3A31246034C60050952E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
+		01AE3A32246034C70050952E /* OHHTTPStubs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
+		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
 		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		072AFF452451E7C70038A417 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -297,7 +300,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				01AE3A32246034C70050952E /* OHHTTPStubs.framework in Embed Frameworks */,
 				072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */,
+				01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */,
 				072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -307,8 +312,7 @@
 
 /* Begin PBXFileReference section */
 		010A9D0E24601B680064316D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
-		01AE3A232460236D0050952E /* JudoKitObjCTestsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitObjCTestsNew.swift; sourceTree = "<group>"; };
-		01AE3A252460236D0050952E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01AE3A38246050E90050952E /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
 		01CEFC1D244093C50062C948 /* CardStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStorageTest.swift; sourceTree = "<group>"; };
 		0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAppleConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
 		0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
@@ -595,9 +599,9 @@
 			files = (
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
 				072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */,
-				010A9D0F24601B680064316D /* OHHTTPStubs.framework in Frameworks */,
+				01AE3A31246034C60050952E /* OHHTTPStubs.framework in Frameworks */,
 				072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */,
-				072AFF452451E7C70038A417 /* DeviceDNA.framework in Frameworks */,
+				01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +609,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */,
 				4416C3A22451A4060002870C /* JudoKitObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,15 +617,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01AE3A222460236D0050952E /* JudoKitObjCTestsNew */ = {
-			isa = PBXGroup;
-			children = (
-				01AE3A232460236D0050952E /* JudoKitObjCTestsNew.swift */,
-				01AE3A252460236D0050952E /* Info.plist */,
-			);
-			path = JudoKitObjCTestsNew;
-			sourceTree = "<group>";
-		};
 		01CEFC1A244093A30062C948 /* CardStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +701,7 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01AE3A38246050E90050952E /* OHHTTPStubs */,
 				010A9D0E24601B680064316D /* OHHTTPStubs.framework */,
 				072AFF442451E7C70038A417 /* DeviceDNA.framework */,
 				072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */,
@@ -1752,7 +1749,6 @@
 			isa = PBXGroup;
 			children = (
 				4416C39E2451A4060002870C /* JudoKitObjCTests */,
-				01AE3A222460236D0050952E /* JudoKitObjCTestsNew */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
 				52FBFB6A2325A3770096064C /* Resources */,
@@ -2182,6 +2178,7 @@
 				4416C3992451A4060002870C /* Sources */,
 				4416C39A2451A4060002870C /* Frameworks */,
 				4416C39B2451A4060002870C /* Resources */,
+				01AE3A3A246051220050952E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2257,6 +2254,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01AE3A3A246051220050952E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B678B511C6CE5190001DC2F /* Sources */ = {
@@ -2571,6 +2589,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
 					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2579,7 +2598,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2615,6 +2633,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
 					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2623,7 +2642,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2649,6 +2667,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKitObjCTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -2682,6 +2704,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKitObjCTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
