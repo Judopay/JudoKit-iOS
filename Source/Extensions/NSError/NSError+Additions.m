@@ -47,6 +47,7 @@ NSString *const Error3DSRequest = @"error_3DS_request";
 NSString *const ErrorUnderlyingError = @"error_underlying_error";
 NSString *const ErrorTransactionDeclined = @"error_transaction_declined";
 NSString *const ErrorInvalidIDEALCurrency = @"error_invalid_ideal_currency";
+NSString *const ErrorInvalidPBBACurrency = @"error_invalid_pbba_currency";
 NSString *const ErrorApplePayNotSupported = @"error_apple_pay_unsupported";
 NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 
@@ -74,7 +75,7 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 
 + (NSError *)judoInvalidPBBACurrencyPound {
 
-    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidIDEALCurrency.localized
+    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
                                                  failureReason:nil
                                                          title:nil];
 
