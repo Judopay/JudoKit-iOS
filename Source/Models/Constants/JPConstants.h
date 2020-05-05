@@ -44,6 +44,7 @@ static NSString *const kRegexUnionPay = @"^(62|81)\\d{0,14}";
 
 static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
+static NSString *const kCurrencyPounds = @"GBP";
 static NSString *const kFailureReasonUserAbort = @"USER_ABORT";
 
 static NSUInteger const kSecurityCodeLengthAmex = 4;

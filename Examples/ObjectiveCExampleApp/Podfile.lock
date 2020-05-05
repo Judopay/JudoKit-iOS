@@ -6,8 +6,10 @@ PODS:
     - DeviceDNA
     - PayCardsRecognizer
     - TrustKit
+    - ZappMerchantLib
   - PayCardsRecognizer (1.1.7)
   - TrustKit (1.6.5)
+  - ZappMerchantLib (3.1.0)
 
 DEPENDENCIES:
   - CocoaDebug
@@ -21,6 +23,7 @@ SPEC REPOS:
     - InAppSettingsKit
     - PayCardsRecognizer
     - TrustKit
+    - ZappMerchantLib
 
 EXTERNAL SOURCES:
   JudoKitObjC:
@@ -30,10 +33,11 @@ SPEC CHECKSUMS:
   CocoaDebug: 7446061b7ec181a102ad7dfac4535a5adc824e6d
   DeviceDNA: 06c4c1af198fc8b44711d10bed39e0a8638b490d
   InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
-  JudoKitObjC: fc659a2d67db3ef22b18ef4014fb9005531bc048
+  JudoKitObjC: 799a126da822eef6ec2025676202da5f5d9e2918
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
+  ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
 PODFILE CHECKSUM: e20a57c9c0cbf8a9f4490d8e0ae390f4f56fd514
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.8.3

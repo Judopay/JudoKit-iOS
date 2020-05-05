@@ -106,6 +106,10 @@
         [methods addObject:JPPaymentMethod.applePay];
     }
     
+    if ([self.defaults boolForKey:kPbbaPaymentMethodEnabledKey]) {
+        [methods addObject:JPPaymentMethod.pbba];
+    }
+
     return methods;
 }
 

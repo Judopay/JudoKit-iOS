@@ -61,7 +61,7 @@ static NSString *const HTTPMethodGET = @"GET";
 static NSString *const HTTPMethodPOST = @"POST";
 static NSString *const HTTPMethodPUT = @"PUT";
 
-static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
+static NSString *const kJudoBaseURL = @"https://api.karatepay.com/";//@"https://api.judopay.com/";
 static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";
 
 #pragma mark - Initializers
