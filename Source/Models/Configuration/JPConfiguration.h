@@ -29,6 +29,7 @@
 #import "JPTransaction.h"
 #import "JPUIConfiguration.h"
 #import <Foundation/Foundation.h>
+#import "JPPBBAConfiguration.h"
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem;
 
@@ -84,6 +85,12 @@
  * An instance of JPPrimaryAccountDetails that, if set, will be passed in the transaction's request body.
  */
 @property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
+
+/**
+ * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
+ * It is optional field for merchant
+ */
+@property (nonatomic, strong) JPPBBAConfiguration *_Nullable pbbaConfiguration;
 
 /**
  * An instance of JPApplePayConfiguration required for Apple Pay-related transactions.

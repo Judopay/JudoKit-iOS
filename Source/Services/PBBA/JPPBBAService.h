@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethod.h
+//  JPPBBAService.h
 //  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,55 +22,33 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPConfiguration.h"
+#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
+#import <ZappMerchantLib/PBBAAppUtils.h>
 
-typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
-    JPPaymentMethodTypeCard,
-    JPPaymentMethodTypeIDeal,
-    JPPaymentMethodTypeApplePay,
-    JPPaymentMethodTypePbba,
-};
-
-@interface JPPaymentMethod : NSObject
+@interface JPPBBAService : NSObject
 
 /**
- * The title of the payment method
+ * Creates an instance of an JPPBBAService object
+ *
+ * @param configuration - an instance of JPConfiguration used to configure the PBBA
+ * @param transactionService - an instance of JPTransactionService responsible for Judo backend calls
  */
-@property (nonatomic, strong, readonly) NSString *title;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                           transactionService:(nonnull JPTransactionService *)transactionService;
 
 /**
- * The icon name of the payment method
+ * Method used for returning a redirect URL based on the PBBA
+ *
+ * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
-@property (nonatomic, strong, readonly) NSString *iconName;
+- (void)openPBBAMerchantApp:(nonnull JudoCompletionBlock)completion;
 
 /**
- * The type of the payment method
- */
-@property (nonatomic, assign, readonly) JPPaymentMethodType type;
+* A reference to the JPTheme instance responsible for customizing the user interface
+*/
+@property (nonatomic, strong) JPTheme *_Nullable theme;
 
-/**
- * A pre-defined initializer that describes the card payment method
- */
-+ (instancetype)card;
-
-/**
- * A pre-defined initializer that describes the iDeal payment method
- */
-+ (instancetype)iDeal;
-
-/**
- * A pre-defined initializer that describes the Apple Pay payment method
- */
-+ (instancetype)applePay;
-
-/**
- * A pre-defined initializer that describes the PBBA payment method
- */
-+ (instancetype)pbba;
-
-/**
- * An initializer that creates a JPPaymentMethod instance based on a pre-defined type
- */
-- (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type;
 
 @end
