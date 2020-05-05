@@ -25,11 +25,11 @@
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
 #import "JPConstants.h"
+#import "JPError+Additions.h"
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JPTransactionStatusView.h"
-#import "JPError+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPIDEALViewController ()

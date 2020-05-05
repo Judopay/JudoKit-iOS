@@ -30,11 +30,11 @@
 #import "JPReference.h"
 #import "JudoKit.h"
 
+#import "JPError+Additions.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "JPError+Additions.h"
 
 #import "JPApplePayService.h"
 

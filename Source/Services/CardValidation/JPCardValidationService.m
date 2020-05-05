@@ -26,8 +26,8 @@
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
-#import "JPValidationResult.h"
 #import "JPError+Additions.h"
+#import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
 @interface JPCardValidationService ()

@@ -25,6 +25,7 @@
 #import "JudoKit.h"
 #import "JPApplePayService.h"
 #import "JPConfiguration.h"
+#import "JPError+Additions.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPReceipt.h"
@@ -36,7 +37,6 @@
 #import "JPTransactionEnricher.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "JPError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
@@ -85,10 +85,10 @@
 - (void)invokeTransactionWithType:(TransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JudoCompletionBlock)completion {
-    
+
     JPError *configurationError = [self.configurationValidationService validateConfiguration:configuration
                                                                           forTransactionType:type];
-    
+
     if (configurationError) {
         completion(nil, configurationError);
         return;
@@ -117,7 +117,7 @@
         completion(nil, configurationError);
         return;
     }
-    
+
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
@@ -126,9 +126,9 @@
 - (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JudoCompletionBlock)completion {
-    
+
     //TODO: No validation???
-    
+
     UIViewController *controller;
     controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                                     configuration:configuration

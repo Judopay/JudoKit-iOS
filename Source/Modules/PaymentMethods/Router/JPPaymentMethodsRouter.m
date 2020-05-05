@@ -22,16 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPError.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "JPError+Additions.h"
 
 #import "JPConfiguration.h"
 #import "JPSliderTransitioningDelegate.h"
@@ -109,12 +109,6 @@
 
 - (void)dismissViewController {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(JPError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
 }
 
 @end

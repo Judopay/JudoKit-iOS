@@ -29,6 +29,6 @@
 /**
  * A property that contains the list of errors returned from the Judo API
  */
-@property (nonatomic, strong, nullable) NSArray <NSError *> *details;
+@property (nonatomic, strong, nullable) NSArray<NSError *> *details;
 
 @end

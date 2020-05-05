@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPError.h"
 #import "JP3DSViewController.h"
-#import "JPLoadingView.h"
 #import "JPError+Additions.h"
+#import "JPError.h"
+#import "JPLoadingView.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
 

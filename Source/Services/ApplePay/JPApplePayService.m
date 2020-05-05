@@ -26,12 +26,12 @@
 #import "JPApplePayWrappers.h"
 #import "JPConsumer.h"
 #import "JPContactInformation.h"
+#import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPPostalAddress.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "JPError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
