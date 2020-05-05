@@ -40,12 +40,14 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
+#import "JPPBBAService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
@@ -152,6 +154,12 @@
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
+    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds]) { // &&  ([PBBAAppUtils isCFIAppAvailable])) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
+    } else {
+        [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
+    }
+
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 
@@ -198,6 +206,12 @@
     [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
+#pragma mark - PbBA payment
+
+- (void)openPBBAWithCompletion:(JudoCompletionBlock)completion {
+    [self.pbbaService openPBBAMerchantApp:completion];
+}
+
 #pragma mark - Delete card at index
 
 - (void)deleteCardWithIndex:(NSUInteger)index {
@@ -222,6 +236,15 @@
                                                          transactionService:self.transactionService];
     }
     return _applePayService;
+}
+
+
+- (JPPBBAService *)pbbaService {
+    if (!_pbbaService && self.configuration) {
+        _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
+                                                         transactionService:self.transactionService];
+    }
+    return _pbbaService;
 }
 
 - (JP3DSService *)threeDSecureService {

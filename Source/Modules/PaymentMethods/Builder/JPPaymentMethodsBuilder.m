@@ -49,9 +49,11 @@
                                       completionHandler:(JudoCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
+        BOOL isPbBAPresent = (paymentMethod.type == JPPaymentMethodTypePbba);
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
         BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
+        BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
 
@@ -62,6 +64,11 @@
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
             completion(nil, JPError.judoApplePayNotSupportedError);
+            return nil;
+        }
+        
+        if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
+            completion(nil, NSError.judoInvalidPBBACurrencyPound);
             return nil;
         }
     }

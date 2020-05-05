@@ -193,3 +193,4 @@
 
 //Payment Methods
 "apple_pay" = "Apple Pay";
+"pbba_pay" = "Pay by Bank app";

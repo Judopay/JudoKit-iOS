@@ -95,6 +95,11 @@ static const float kContentPadding = 28.0f;
             self.leadingImageView.image = [UIImage imageWithIconName:viewModel.bankModel.bankIconName];
             self.trailingImageView.image = [UIImage imageWithIconName:@"ideal-pay-icon"];
             break;
+            
+        case JPPaymentMethodTypePbba:
+            self.leadingImageView.image = [UIImage imageWithIconName:@"zapp-action"];
+            self.titleLabel.text = @"pbba_pay".localized;
+            break;
 
         default:
             break;

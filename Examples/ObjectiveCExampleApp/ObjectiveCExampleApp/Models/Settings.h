@@ -30,6 +30,7 @@ static NSString * const kChinaUnionPayEnabledKey = @"is_card_network_china_union
 static NSString * const kJCBEnabledKey = @"is_card_network_jcb_enabled";
 static NSString * const kDiscoverEnabledKey = @"is_card_network_discover_enabled";
 static NSString * const kDinersClubEnabledKey = @"is_card_network_diners_club_enabled";
+static NSString * const kPbbaPaymentMethodEnabledKey = @"is_payment_method_pbba_enabled";
 
 #pragma mark - Payment methods section keys
 

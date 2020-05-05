@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.dependency 'DeviceDNA'
   s.dependency 'TrustKit'
   s.dependency 'PayCardsRecognizer'
+  s.dependency 'ZappMerchantLib'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
   s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }

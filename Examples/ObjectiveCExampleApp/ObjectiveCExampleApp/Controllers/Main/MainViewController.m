@@ -272,7 +272,16 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     configuration.uiConfiguration.shouldDisplayAmount = self.settings.isAmountLabelEnabled;
     configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
+    configuration.pbbaConfiguration = self.pbbaConfiguration;
     return configuration;
+}
+
+- (JPPBBAConfiguration *)pbbaConfiguration {
+    JPPBBAConfiguration *configPbba = [JPPBBAConfiguration new];
+    configPbba.appearsOnStatement = @"appearsOnStatement";
+    configPbba.emailAddress = @"test@email.com";
+    configPbba.mobileNumber = @"+890 11111111";
+    return configPbba;
 }
 
 - (JPApplePayConfiguration *)applePayConfiguration {

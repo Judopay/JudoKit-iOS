@@ -2,85 +2,83 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Title</key>
-	<string>Settings</string>
-	<key>StringsTable</key>
-	<string>Root</string>
-	<key>PreferenceSpecifiers</key>
-	<array>
-        
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>api_header</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>is_sandboxed_title</string>
-			<key>Key</key>
-			<string>is_sandboxed</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>judo_id_title</string>
-			<key>Key</key>
-			<string>judo_id</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>site_id_title</string>
-			<key>Key</key>
-			<string>site_id</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>token_title</string>
-			<key>Key</key>
-			<string>token</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>secret_title</string>
-			<key>Key</key>
-			<string>secret</string>
-		</dict>
-        
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>amount_header</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>amount_title</string>
-			<key>Key</key>
-			<string>amount</string>
+    <key>Title</key>
+    <string>Settings</string>
+    <key>StringsTable</key>
+    <string>Root</string>
+    <key>PreferenceSpecifiers</key>
+    <array>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>Title</key>
+            <string>api_header</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>is_sandboxed_title</string>
+            <key>Key</key>
+            <string>is_sandboxed</string>
+            <key>DefaultValue</key>
+            <true/>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>judo_id_title</string>
+            <key>Key</key>
+            <string>judo_id</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>site_id_title</string>
+            <key>Key</key>
+            <string>site_id</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>token_title</string>
+            <key>Key</key>
+            <string>token</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>secret_title</string>
+            <key>Key</key>
+            <string>secret</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>Title</key>
+            <string>amount_header</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>amount_title</string>
+            <key>Key</key>
+            <string>amount</string>
             <key>DefaultValue</key>
             <string>0.15</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>currency_title</string>
-			<key>Key</key>
-			<string>currency</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSMultiValueSpecifier</string>
+            <key>Title</key>
+            <string>currency_title</string>
+            <key>Key</key>
+            <string>currency</string>
             <key>Values</key>
             <array>
                 <string>AED</string>
@@ -131,14 +129,13 @@
             </array>
             <key>DefaultValue</key>
             <string>GBP</string>
-		</dict>
-        
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>apple_pay_header</string>
-		</dict>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>Title</key>
+            <string>apple_pay_header</string>
+        </dict>
         <dict>
             <key>Type</key>
             <string>PSTextFieldSpecifier</string>
@@ -147,7 +144,6 @@
             <key>Key</key>
             <string>apple_pay_merchant_id</string>
         </dict>
-        
         <dict>
             <key>Type</key>
             <string>PSGroupSpecifier</string>
@@ -234,7 +230,6 @@
             <key>DefaultValue</key>
             <false/>
         </dict>
-        
         <dict>
             <key>Type</key>
             <string>PSGroupSpecifier</string>
@@ -271,7 +266,16 @@
             <key>DefaultValue</key>
             <false/>
         </dict>
-        
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>payment_methods_entry_pbba</string>
+            <key>Key</key>
+            <string>is_payment_method_pbba_enabled</string>
+            <key>DefaultValue</key>
+            <false/>
+        </dict>
         <dict>
             <key>Type</key>
             <string>PSGroupSpecifier</string>
@@ -298,6 +302,6 @@
             <key>DefaultValue</key>
             <true/>
         </dict>
-	</array>
+    </array>
 </dict>
 </plist>
