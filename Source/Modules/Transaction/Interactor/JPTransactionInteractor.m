@@ -119,7 +119,7 @@
     if (!self.completionHandler)
         return;
     
-    if (error == JPError.judoUserDidCancelError) {
+    if (error.code == JPError.judoUserDidCancelError.code) {
         error.details = self.storedErrors;
     }
     
