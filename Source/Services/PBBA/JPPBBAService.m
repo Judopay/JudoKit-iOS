@@ -99,6 +99,19 @@ static const float kTimerDurationLimit = 20.0f;
     }];
 }
 
+- (void)remapPBBAResponse:(JPResponse *)response completion:(JudoCompletionBlock)completion  {
+    
+    if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"])  {
+        NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
+        NSString *brn = response.items.firstObject.rawData[@"pbbaBrn"];
+        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn expiryInterval:100 delegate:nil];
+        
+        if ([PBBAAppUtils isCFIAppAvailable]) {
+            [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion: completion];
+        }
+    }
+}
+
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                              completion:(JudoCompletionBlock)completion {
     
@@ -124,7 +137,7 @@ static const float kTimerDurationLimit = 20.0f;
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
-        self.intTimer += 5;
+        self.intTimer += kTimerDuration;
         if (self.intTimer > kTimerDurationLimit) {
             completion(nil, NSError.judoRequestTimeoutError);
             [weakSelf.timer invalidate];
@@ -132,7 +145,8 @@ static const float kTimerDurationLimit = 20.0f;
             self.intTimer = 0;
             return;
         }
-        if (error){// && error.code != 53) {
+        
+        if (error) {
             completion(nil, error);
             self.transactionStatusView.hidden = YES;
             [weakSelf.timer invalidate];
@@ -184,19 +198,6 @@ static const float kTimerDurationLimit = 20.0f;
     if (self.configuration.pbbaConfiguration.appearsOnStatement) [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"appearsOnStatement"];
     
     return parameters;
-}
-
-- (void)remapPBBAResponse:(JPResponse *)response completion:(JudoCompletionBlock)completion  {
-    
-    if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"])  {
-        NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
-        NSString *brn = response.items.firstObject.rawData[@"pbbaBrn"];
-        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn expiryInterval:100 delegate:nil];
-        
-        if ([PBBAAppUtils isCFIAppAvailable]) {
-            [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion: completion];
-        }
-    }
 }
 
 - (JPTransactionStatusView *)transactionStatusView {
