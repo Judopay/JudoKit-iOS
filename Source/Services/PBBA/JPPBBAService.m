@@ -49,7 +49,7 @@
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 5.0f;
-static const float kTimerDurationLimit = 60.0f;
+static const float kTimerDurationLimit = 20.0f;
 
 #pragma mark - Initializers
 
@@ -59,12 +59,12 @@ static const float kTimerDurationLimit = 60.0f;
         self.configuration = configuration;
         self.transactionService = transactionService;
     }
-    
+
     [UIApplication.topMostViewController.view addSubview:self.transactionStatusView];
     [self.transactionStatusView pinToView:UIApplication.topMostViewController.view withPadding:0.0];
     self.transactionStatusView.hidden = YES;
     [self.transactionStatusView applyTheme:configuration.uiConfiguration.theme];
-    
+
     return self;
 }
 
@@ -75,37 +75,37 @@ static const float kTimerDurationLimit = 60.0f;
 #pragma mark - Public methods
 
 - (void)openPBBAMerchantApp:(JudoCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [self parametersForPBBA];
-    
+
     if (!parameters) {
         completion(nil, NSError.judoSiteIDMissingError);
         return;
     }
-    
+
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:HTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, NSError *error) {
         JPTransactionData *data = response.items.firstObject;
-        
+
         if (data.orderDetails.orderId && data.redirectUrl) {
             [weakSelf handlePBBAResponse:response completion: completion];
             return;
         }
-        
+
         completion(nil, NSError.judoResponseParseError);
     }];
 }
 
 - (void)handlePBBAResponse:(JPResponse *)response completion:(JudoCompletionBlock)completion  {
-    
+
     if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"])  {
         NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
         NSString *brn = response.items.firstObject.rawData[@"pbbaBrn"];
         [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn expiryInterval:100 delegate:nil];
-        
+
         if ([PBBAAppUtils isCFIAppAvailable]) {
             [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion: completion];
         }
@@ -114,7 +114,7 @@ static const float kTimerDurationLimit = 60.0f;
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                              completion:(JudoCompletionBlock)completion {
-    
+
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
@@ -125,13 +125,13 @@ static const float kTimerDurationLimit = 60.0f;
 
 - (void)getStatusForOrderId:(NSString *)orderId
                  completion:(JudoCompletionBlock)completion {
-    
+
     if (self.didTimeout) {
         return;
     }
-    
+
     NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
-    
+
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:statusEndpoint
                                           httpMethod:HTTPMethodGET
@@ -145,14 +145,14 @@ static const float kTimerDurationLimit = 60.0f;
             self.intTimer = 0;
             return;
         }
-        
+
         if (error) {
             completion(nil, error);
             self.transactionStatusView.hidden = YES;
             [weakSelf.timer invalidate];
             return;
         }
-        
+
         if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
             weakSelf.transactionStatusView.hidden = NO;
             [weakSelf.transactionStatusView changeToTransactionStatus:JPTransactionStatusPending];
@@ -173,14 +173,14 @@ static const float kTimerDurationLimit = 60.0f;
 }
 
 - (NSDictionary *)parametersForPBBA {
-    
+
     if (!self.configuration.siteId) {
         return nil;
     }
-    
+
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;
-    
+
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
         @"currency" : amount.currency,
@@ -192,7 +192,7 @@ static const float kTimerDurationLimit = 60.0f;
         @"merchantConsumerReference" : reference.consumerReference,
         @"siteId" : self.configuration.siteId
     }];
-    
+
     if (self.configuration.pbbaConfiguration.mobileNumber) {
         [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"mobileNumber"];
     }
@@ -202,7 +202,7 @@ static const float kTimerDurationLimit = 60.0f;
     if (self.configuration.pbbaConfiguration.appearsOnStatement) {
         [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"appearsOnStatement"];
     }
-    
+
     return parameters;
 }
 

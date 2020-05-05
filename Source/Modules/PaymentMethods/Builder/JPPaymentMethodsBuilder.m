@@ -71,6 +71,11 @@
             completion(nil, NSError.judoInvalidPBBACurrency);
             return nil;
         }
+        
+        if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
+            completion(nil, NSError.judoInvalidPBBACurrencyPound);
+            return nil;
+        }
     }
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];

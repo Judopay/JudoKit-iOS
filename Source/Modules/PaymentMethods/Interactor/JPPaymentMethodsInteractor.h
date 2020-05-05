@@ -69,6 +69,11 @@
 - (void)openPBBAWithCompletion:(JudoCompletionBlock)completion;
 
 /**
+* Starts the PBBA payment
+*/
+- (void)openPBBAWithCompletion:(JudoCompletionBlock)completion;
+
+/**
  * A method for deleting a specific card details from the keychain by its index
  *
  * @param index - Card's index in cards list

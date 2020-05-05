@@ -206,7 +206,7 @@
     [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
-#pragma mark - PBBA payment
+#pragma mark - PbBA payment
 
 - (void)openPBBAWithCompletion:(JudoCompletionBlock)completion {
     [self.pbbaService openPBBAMerchantApp:completion];
