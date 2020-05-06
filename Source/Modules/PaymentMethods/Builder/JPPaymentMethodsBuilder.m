@@ -68,7 +68,7 @@
         }
         
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
-            completion(nil, NSError.judoInvalidPBBACurrencyPound);
+            completion(nil, NSError.judoInvalidPBBACurrency);
             return nil;
         }
     }

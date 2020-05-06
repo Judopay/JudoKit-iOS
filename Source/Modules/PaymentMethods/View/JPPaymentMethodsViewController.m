@@ -115,6 +115,13 @@
     [self.paymentMethodsView.headerView.applePayButton addTarget:self
                                                           action:@selector(onApplePayButtonTap)
                                                 forControlEvents:UIControlEventTouchUpInside];
+    
+    self.paymentMethodsView.headerView.pbbaButton.delegate = self;
+}
+
+- (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
+    [self.presenter handlePayButtonTap];
+    return true;
 }
 
 #pragma mark - Protocol Conformance
