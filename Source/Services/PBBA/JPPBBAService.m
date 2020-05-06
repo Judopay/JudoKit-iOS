@@ -49,7 +49,7 @@
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 5.0f;
-static const float kTimerDurationLimit = 20.0f;
+static const float kTimerDurationLimit = 60.0f;
 
 #pragma mark - Initializers
 
