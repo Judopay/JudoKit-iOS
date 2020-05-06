@@ -154,7 +154,7 @@
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
-    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds]) { // &&  ([PBBAAppUtils isCFIAppAvailable])) {
+    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds] && [PBBAAppUtils isCFIAppAvailable]) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
@@ -242,7 +242,7 @@
 - (JPPBBAService *)pbbaService {
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
-                                                         transactionService:self.transactionService];
+                                                 transactionService:self.transactionService];
     }
     return _pbbaService;
 }

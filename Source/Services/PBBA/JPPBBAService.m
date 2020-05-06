@@ -49,7 +49,7 @@
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 5.0f;
-static const float kTimerDurationLimit = 20.0f;
+static const float kTimerDurationLimit = 60.0f;
 
 #pragma mark - Initializers
 
@@ -91,7 +91,7 @@ static const float kTimerDurationLimit = 20.0f;
         JPTransactionData *data = response.items.firstObject;
         
         if (data.orderDetails.orderId && data.redirectUrl) {
-            [weakSelf remapPBBAResponse:response completion: completion];
+            [weakSelf handlePBBAResponse:response completion: completion];
             return;
         }
         
@@ -99,7 +99,7 @@ static const float kTimerDurationLimit = 20.0f;
     }];
 }
 
-- (void)remapPBBAResponse:(JPResponse *)response completion:(JudoCompletionBlock)completion  {
+- (void)handlePBBAResponse:(JPResponse *)response completion:(JudoCompletionBlock)completion  {
     
     if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"])  {
         NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
@@ -193,9 +193,15 @@ static const float kTimerDurationLimit = 20.0f;
         @"siteId" : self.configuration.siteId
     }];
     
-    if (self.configuration.pbbaConfiguration.mobileNumber) [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"mobileNumber"];
-    if (self.configuration.pbbaConfiguration.emailAddress) [parameters setValue:self.configuration.pbbaConfiguration.emailAddress forKey:@"emailAddress"];
-    if (self.configuration.pbbaConfiguration.appearsOnStatement) [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"appearsOnStatement"];
+    if (self.configuration.pbbaConfiguration.mobileNumber) {
+        [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"mobileNumber"];
+    }
+    if (self.configuration.pbbaConfiguration.emailAddress) {
+        [parameters setValue:self.configuration.pbbaConfiguration.emailAddress forKey:@"emailAddress"];
+    }
+    if (self.configuration.pbbaConfiguration.appearsOnStatement) {
+        [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"appearsOnStatement"];
+    }
     
     return parameters;
 }

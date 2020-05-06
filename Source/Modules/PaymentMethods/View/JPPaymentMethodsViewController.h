@@ -27,6 +27,7 @@
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import <UIKit/UIKit.h>
+#import "ZappMerchantLib/ZappMerchantLib.h"
 
 @protocol JPPaymentMethodsPresenter;
 @class JPPaymentMethodsViewModel;
@@ -57,7 +58,7 @@
 
 #pragma mark - JPPaymentMethodsViewController
 
-@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
+@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView, PBBAButtonDelegate>
 
 /**
  * A reference to the JPUIConfiguration instance responsible for customizing the user interface
