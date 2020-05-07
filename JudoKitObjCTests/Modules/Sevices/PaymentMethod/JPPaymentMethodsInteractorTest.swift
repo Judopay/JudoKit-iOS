@@ -28,14 +28,14 @@ import XCTest
 class JPPaymentMethodsInteractorTest: XCTestCase {
     var sut: JPPaymentMethodsInteractor!
     let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
-
+    
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
         let service = JPTransactionService()
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
     }
-
+    
     func testServerToServer()  {
         let completion: JudoCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)

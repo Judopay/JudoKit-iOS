@@ -30,7 +30,7 @@ class JPCanadaPostCodeValidation: XCTestCase {
     var sut: JPTransactionInteractor! = nil
     let configuration = JPConfiguration(judoID: "judoId",
                                         amount: JPAmount("0.01", currency: "GBR"),
-                                     reference: JPReference(consumerReference: "consumerReference"))
+                                        reference: JPReference(consumerReference: "consumerReference"))
     
     override func setUp() {
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX, .networkDinersClub]

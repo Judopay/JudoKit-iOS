@@ -30,8 +30,8 @@ class JPUKPostCodeValidation: XCTestCase {
     var sut: JPTransactionInteractor! = nil
     let configuration = JPConfiguration(judoID: "judoId",
                                         amount: JPAmount("0.01", currency: "GBR"),
-                                     reference: JPReference(consumerReference: "consumerReference"))
-
+                                        reference: JPReference(consumerReference: "consumerReference"))
+    
     override func setUp() {
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX, .networkDinersClub]
         validationService.validateCountryInput("UK")
@@ -73,7 +73,7 @@ class JPUKPostCodeValidation: XCTestCase {
         let result = sut.validatePostalCodeInput("B3@ 8TH")
         XCTAssertFalse(result!.isValid)
     }
-
+    
     func testEmptyCode_UK() {
         let result = sut.validatePostalCodeInput("")
         XCTAssertFalse(result!.isValid)
