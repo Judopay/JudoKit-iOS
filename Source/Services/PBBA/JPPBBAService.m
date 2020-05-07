@@ -30,7 +30,6 @@
 #import "JPTransactionData.h"
 #import "NSError+Additions.h"
 #import "UIApplication+Additions.h"
-#import "JPTransactionStatusView.h"
 #import "UIView+Additions.h"
 
 @interface JPPBBAService ()
@@ -39,7 +38,6 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) int intTimer;
-@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @end
 
 @implementation JPPBBAService
@@ -50,6 +48,7 @@ static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 5.0f;
 static const float kTimerDurationLimit = 60.0f;
+static const int NSPOSIXErrorDomainCode = 53;
 
 #pragma mark - Initializers
 
@@ -59,25 +58,19 @@ static const float kTimerDurationLimit = 60.0f;
         self.configuration = configuration;
         self.transactionService = transactionService;
     }
-    
-    [UIApplication.topMostViewController.view addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:UIApplication.topMostViewController.view withPadding:0.0];
-    self.transactionStatusView.hidden = YES;
-    [self.transactionStatusView applyTheme:configuration.uiConfiguration.theme];
-    
     return self;
 }
 
 - (void)dealloc {
+    [self.statusViewDelegate hideStatusView];
     [self.timer invalidate];
 }
 
 #pragma mark - Public methods
 
 - (void)openPBBAMerchantApp:(JudoCompletionBlock)completion {
-    
     NSDictionary *parameters = [self parametersForPBBA];
-    
+
     if (!parameters) {
         completion(nil, NSError.judoSiteIDMissingError);
         return;
@@ -104,11 +97,13 @@ static const float kTimerDurationLimit = 60.0f;
     if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"])  {
         NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
         NSString *brn = response.items.firstObject.rawData[@"pbbaBrn"];
-        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn expiryInterval:100 delegate:nil];
-        
         if ([PBBAAppUtils isCFIAppAvailable]) {
             [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion: completion];
         }
+        
+        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn delegate:nil];
+    } else {
+        completion(nil, NSError.judoResponseParseError);
     }
 }
 
@@ -141,27 +136,26 @@ static const float kTimerDurationLimit = 60.0f;
         if (self.intTimer > kTimerDurationLimit) {
             completion(nil, NSError.judoRequestTimeoutError);
             [weakSelf.timer invalidate];
-            self.transactionStatusView.hidden = YES;
+            [self.statusViewDelegate hideStatusView];
             self.intTimer = 0;
             return;
         }
         
-        if (error) {
+        if (error && error.code != NSPOSIXErrorDomainCode) {
             completion(nil, error);
-            self.transactionStatusView.hidden = YES;
+            [self.statusViewDelegate hideStatusView];
             [weakSelf.timer invalidate];
             return;
         }
         
         if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
-            weakSelf.transactionStatusView.hidden = NO;
-            [weakSelf.transactionStatusView changeToTransactionStatus:JPTransactionStatusPending];
+            [self.statusViewDelegate showStatusViewWith:JPTransactionStatusPending];
             return;
         }
         if (error == nil) {
             response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
             completion(response, error);
-            self.transactionStatusView.hidden = YES;
+            [self.statusViewDelegate hideStatusView];
             [weakSelf.timer invalidate];
         }
     }];
@@ -206,11 +200,4 @@ static const float kTimerDurationLimit = 60.0f;
     return parameters;
 }
 
-- (JPTransactionStatusView *)transactionStatusView {
-    if (!_transactionStatusView) {
-        _transactionStatusView = [JPTransactionStatusView new];
-        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _transactionStatusView;
-}
 @end

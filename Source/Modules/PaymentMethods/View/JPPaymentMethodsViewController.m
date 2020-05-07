@@ -35,11 +35,13 @@
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
+#import "UIView+Additions.h"
 
 @interface JPPaymentMethodsViewController ()
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
+@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 
 @end
 
@@ -308,6 +310,14 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (JPTransactionStatusView *)transactionStatusView {
+    if (!_transactionStatusView) {
+        _transactionStatusView = [JPTransactionStatusView new];
+        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _transactionStatusView;
+}
+
 @end
 
 #pragma mark - JPTransactionViewDelegate
@@ -344,6 +354,21 @@
 
 - (void)sectionView:(JPSectionView *)sectionView didSelectSectionAtIndex:(NSUInteger)index {
     [self.presenter changePaymentMethodToIndex:index];
+}
+
+@end
+
+@implementation JPPaymentMethodsViewController (JPStatusViewDelegate)
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self hideStatusView];
+    [self.paymentMethodsView addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:self.paymentMethodsView withPadding:0.0];
+    [self.transactionStatusView applyTheme:self.uiConfiguration.theme];
+    [self.transactionStatusView changeToTransactionStatus:status];
+}
+
+-(void)hideStatusView {
+    [self.transactionStatusView removeFromSuperview];
 }
 
 @end

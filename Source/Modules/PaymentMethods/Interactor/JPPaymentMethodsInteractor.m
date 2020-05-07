@@ -241,6 +241,7 @@
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
                                                  transactionService:self.transactionService];
+        _pbbaService.statusViewDelegate = self;
     }
     return _pbbaService;
 }
@@ -283,6 +284,15 @@
 
 - (void)processServerToServer:(JudoCompletionBlock)completion {
     completion([self buildResponse], nil);
+}
+
+#pragma mark - JPStatusViewDelegate implementation
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self.statusViewDelegate showStatusViewWith:status];
+}
+
+-(void)hideStatusView {
+    [self.statusViewDelegate hideStatusView];
 }
 
 @end

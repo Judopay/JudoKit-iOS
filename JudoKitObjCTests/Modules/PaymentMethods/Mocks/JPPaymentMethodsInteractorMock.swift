@@ -25,6 +25,10 @@
 import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+    func openPBBA(completion: JudoCompletionBlock!) {
+        
+    }
+    
     func setCardAsSelectedAt(_ index: UInt) {
         
     }

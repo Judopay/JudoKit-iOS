@@ -25,6 +25,7 @@
 #import "JPSession.h"
 #import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
+#import "JPTransactionStatusView.h"
 
 @class JPConfiguration, JPTransactionService, JPStoredCardDetails;
 
@@ -117,7 +118,7 @@
 
 @end
 
-@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor>
+@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor,JPStatusViewDelegate>
 
 /**
  * A designated initializer that sets up the JPTheme object needed for view customization
@@ -133,5 +134,11 @@
                configuration:(JPConfiguration *)configuration
           transactionService:(JPTransactionService *)transactionService
                   completion:(JudoCompletionBlock)completion;
+
+
+/**
+* A weak reference to the object that adopts the JPStatusViewDelegate protocol
+*/
+@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
 
 @end
