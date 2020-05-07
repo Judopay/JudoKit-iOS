@@ -131,7 +131,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -140,7 +140,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeTransactionWithType:TransactionTypePreAuth
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -149,7 +149,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeTransactionWithType:TransactionTypeRegisterCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -158,7 +158,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeTransactionWithType:TransactionTypeCheckCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -167,7 +167,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeTransactionWithType:TransactionTypeSaveCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -176,7 +176,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeApplePayWithMode:TransactionModePayment
                                   configuration:self.configuration
-                                     completion:^(JPResponse *response, NSError *error) {
+                                     completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -185,7 +185,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokeApplePayWithMode:TransactionModePreAuth
                                   configuration:self.configuration
-                                     completion:^(JPResponse *response, NSError *error) {
+                                     completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -194,7 +194,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePayment
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -203,7 +203,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePreAuth
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -212,7 +212,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     __weak typeof(self) weakSelf = self;
     [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModeServerToServer
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
                                   [weakSelf handleResponse:response error:error];
     }];
 }

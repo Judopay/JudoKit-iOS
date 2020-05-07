@@ -24,11 +24,11 @@
 
 #import "JPIDEALService.h"
 #import "JPAmount.h"
+#import "JPError+Additions.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "JPError+Additions.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -100,8 +100,9 @@ static const float kTimerDuration = 60.0f;
                                                        completion(nil, JPError.judoRequestTimeoutError);
                                                        return;
                                                    }];
-    
-    [self getStatusForOrderId:orderId checksum:checksum
+
+    [self getStatusForOrderId:orderId
+                     checksum:checksum
                    completion:completion];
 }
 
@@ -120,7 +121,6 @@ static const float kTimerDuration = 60.0f;
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
-        
                                               if (error) {
                                                   completion(nil, (JPError *)error);
                                                   [weakSelf.timer invalidate];
@@ -134,7 +134,7 @@ static const float kTimerDuration = 60.0f;
                                                   });
                                                   return;
                                               }
-        
+
                                               JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
                                               completion(mappedResponse, nil);
                                               [weakSelf.timer invalidate];

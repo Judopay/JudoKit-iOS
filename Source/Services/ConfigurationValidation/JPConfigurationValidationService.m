@@ -22,12 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPConfigurationValidationService.h"
+#import "JPAmount.h"
+#import "JPApplePayConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
-#import "JPApplePayConfiguration.h"
-#import "JPAmount.h"
 #import "JPReference.h"
-#import "JPConfigurationValidationService.h"
 
 @implementation JPConfigurationValidationServiceImp
 
@@ -35,27 +35,27 @@
 
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
                 forTransactionType:(TransactionType)transactionType {
-    
+
     JPError *error;
-    
+
     [self checkAmount:configuration.amount transactionType:transactionType error:&error];
     [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
-    
+
     return error;
 }
 
 - (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration {
-    
+
     JPError *error;
-    
+
     [self checkForValidCurrency:configuration.applePayConfiguration.currency error:&error];
     [self checkForEmptyMerchantId:configuration.applePayConfiguration.merchantId error:&error];
     [self checkForValidCountryCode:configuration.applePayConfiguration.countryCode error:&error];
     [self checkApplePaymentItemsLength:configuration error:&error];
     [self checkForShippingMethodsLength:configuration error:&error];
     [self checkIfAppleConfigNonNull:configuration error:&error];
-    
+
     return error;
 }
 
@@ -144,7 +144,7 @@
     BOOL isTypeSaveCard = transactionType == TransactionTypeSaveCard;
     BOOL isTypeRegisterCard = transactionType == TransactionTypeRegisterCard;
     BOOL isTypeChekCard = transactionType == TransactionTypeCheckCard;
-    
+
     if (!(isTypeChekCard || isTypeSaveCard || isTypeRegisterCard)) {
         [self checkForValidCurrency:amount.currency error:error];
         [self checkIfAmountIsNumber:amount.amount error:error];

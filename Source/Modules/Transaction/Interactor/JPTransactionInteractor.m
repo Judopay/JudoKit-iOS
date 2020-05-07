@@ -28,13 +28,13 @@
 #import "JPCardStorage.h"
 #import "JPCardValidationService.h"
 #import "JPCountry.h"
+#import "JPError+Additions.h"
 #import "JPKeychainService.h"
 #import "JPReference.h"
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewModel.h"
-#import "JPError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPTransactionInteractorImpl ()
@@ -43,6 +43,7 @@
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
+@property (nonatomic, strong) NSMutableArray *storedErrors;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -114,8 +115,19 @@
 
 - (void)completeTransactionWithResponse:(JPResponse *)response
                                   error:(JPError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
+
+    if (!self.completionHandler)
+        return;
+
+    if (error.code == JPError.judoUserDidCancelError.code) {
+        error.details = self.storedErrors;
+    }
+
+    self.completionHandler(response, error);
+}
+
+- (void)storeError:(NSError *)error {
+    [self.storedErrors addObject:error];
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
@@ -222,6 +234,13 @@
         return self.configuration.supportedCardNetworks;
     }
     return CardNetworkVisa | CardNetworkAMEX | CardNetworkMaestro | CardNetworkMasterCard;
+}
+
+- (NSMutableArray *)storedErrors {
+    if (!_storedErrors) {
+        _storedErrors = [NSMutableArray new];
+    }
+    return _storedErrors;
 }
 
 @end
