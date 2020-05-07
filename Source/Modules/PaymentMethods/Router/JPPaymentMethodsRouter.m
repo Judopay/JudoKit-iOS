@@ -25,12 +25,13 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
 
 #import "JPConfiguration.h"
 #import "JPSliderTransitioningDelegate.h"
@@ -81,7 +82,7 @@
                         andCompletion:(JudoCompletionBlock)completion {
 
     if (!self.configuration.siteId) {
-        completion(nil, NSError.judoParameterError);
+        completion(nil, JPError.judoParameterError);
         return;
     }
 
@@ -108,12 +109,6 @@
 
 - (void)dismissViewController {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(NSError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
 }
 
 @end

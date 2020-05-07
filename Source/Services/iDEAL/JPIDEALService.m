@@ -24,11 +24,11 @@
 
 #import "JPIDEALService.h"
 #import "JPAmount.h"
+#import "JPError+Additions.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "NSError+Additions.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -68,7 +68,7 @@ static const float kTimerDuration = 60.0f;
     NSDictionary *parameters = [self parametersForIDEALBank:iDealBank];
 
     if (!parameters) {
-        completion(nil, NSError.judoSiteIDMissingError);
+        completion(nil, JPError.judoSiteIDMissingError);
         return;
     }
 
@@ -80,11 +80,11 @@ static const float kTimerDuration = 60.0f;
                                               JPTransactionData *data = response.items.firstObject;
 
                                               if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  completion([weakSelf remapIdealResponseWithResponse:response], error);
+                                                  completion([weakSelf remapIdealResponseWithResponse:response], (JPError *)error);
                                                   return;
                                               }
 
-                                              completion(nil, NSError.judoResponseParseError);
+                                              completion(nil, JPError.judoResponseParseError);
                                           }];
 }
 
@@ -97,10 +97,13 @@ static const float kTimerDuration = 60.0f;
                                                  repeats:NO
                                                    block:^(NSTimer *_Nonnull timer) {
                                                        weakSelf.didTimeout = true;
-                                                       completion(nil, NSError.judoRequestTimeoutError);
+                                                       completion(nil, JPError.judoRequestTimeoutError);
                                                        return;
                                                    }];
-    [self getStatusForOrderId:orderId checksum:checksum completion:completion];
+
+    [self getStatusForOrderId:orderId
+                     checksum:checksum
+                   completion:completion];
 }
 
 - (void)getStatusForOrderId:(NSString *)orderId
@@ -119,7 +122,7 @@ static const float kTimerDuration = 60.0f;
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
                                               if (error) {
-                                                  completion(nil, error);
+                                                  completion(nil, (JPError *)error);
                                                   [weakSelf.timer invalidate];
                                                   return;
                                               }
@@ -131,8 +134,9 @@ static const float kTimerDuration = 60.0f;
                                                   });
                                                   return;
                                               }
+
                                               JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
-                                              completion(mappedResponse, error);
+                                              completion(mappedResponse, nil);
                                               [weakSelf.timer invalidate];
                                           }];
 }

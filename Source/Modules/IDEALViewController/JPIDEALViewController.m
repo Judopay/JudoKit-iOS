@@ -25,11 +25,11 @@
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
 #import "JPConstants.h"
+#import "JPError+Additions.h"
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JPTransactionStatusView.h"
-#import "NSError+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPIDEALViewController ()
@@ -88,7 +88,7 @@ const float kPollingDelayTimer = 30.0;
 
     __weak typeof(self) weakSelf = self;
     [self.idealService redirectURLForIDEALBank:iDEALBank
-                                    completion:^(JPResponse *response, NSError *error) {
+                                    completion:^(JPResponse *response, JPError *error) {
                                         if (error) {
                                             [weakSelf dismissViewControllerAnimated:YES
                                                                          completion:^{
@@ -176,7 +176,7 @@ const float kPollingDelayTimer = 30.0;
             return;
         }
 
-        self.completionBlock(nil, NSError.judoMissingChecksumError);
+        self.completionBlock(nil, JPError.judoMissingChecksumError);
     }
 }
 
@@ -203,14 +203,14 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleError:(NSError *)error {
-    if (error.localizedDescription == NSError.judoRequestTimeoutError.localizedDescription) {
+    if (error.localizedDescription == JPError.judoRequestTimeoutError.localizedDescription) {
         [self.transactionStatusView changeToTransactionStatus:JPTransactionStatusTimeout];
-        self.completionBlock(self.redirectResponse, NSError.judoRequestTimeoutError);
+        self.completionBlock(self.redirectResponse, JPError.judoRequestTimeoutError);
         return;
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(self.redirectResponse, error);
+    self.completionBlock(self.redirectResponse, (JPError *)error);
     return;
 }
 
@@ -218,7 +218,7 @@ const float kPollingDelayTimer = 30.0;
     JPOrderDetails *orderDetails = response.items.firstObject.orderDetails;
     if (orderDetails && [orderDetails.orderFailureReason isEqualToString:kFailureReasonUserAbort]) {
         [self dismissViewControllerAnimated:YES completion:nil];
-        self.completionBlock(response, NSError.judoUserDidCancelError);
+        self.completionBlock(response, JPError.judoUserDidCancelError);
         return;
     }
 

@@ -25,12 +25,21 @@
 import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+    
+    func completeTransaction(with response: JPResponse?, andError error: Error?) {
+        
+    }
+    
+    func storeError(_ error: Error) {
+        
+    }
+    
     func setCardAsSelectedAt(_ index: UInt) {
         
     }
     
-    func getIDEALBankTypes() -> [Any]! {
-        return nil
+    func getIDEALBankTypes() -> [Any] {
+        return []
     }
     
     func orderCards() {
@@ -61,7 +70,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
-    func getStoredCardDetails() -> [JPStoredCardDetails]! {
+    func getStoredCardDetails() -> [JPStoredCardDetails] {
         
         let calendar = Calendar.current
         
@@ -85,29 +94,29 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     
-    func getAmount() -> JPAmount! {
+    func getAmount() -> JPAmount {
         let amount = JPAmount("1.0", currency: "EUR");
         return amount
     }
     
-    func getPaymentMethods() -> [JPPaymentMethod]! {
+    func getPaymentMethods() -> [JPPaymentMethod] {
         return [JPPaymentMethod.card()]
     }
     
-    func paymentTransaction(withToken token: String!, andCompletion completion: JudoCompletionBlock!) {
+    func paymentTransaction(withToken token: String, andCompletion completion: JudoCompletionBlock?) {
         
     }
     
-    func startApplePay(completion: JudoCompletionBlock!) {
+    func startApplePay(completion: JudoCompletionBlock?) {
         let response = JPResponse()
-        completion(response,nil)
+        completion?(response,nil)
     }
     
     func isApplePaySetUp() -> Bool {
         return false
     }
     
-    func handle3DSecureTransaction(fromError error: Error!, completion: JudoCompletionBlock!) {
+    func handle3DSecureTransaction(fromError error: Error, completion: JudoCompletionBlock?) {
         
     }
     

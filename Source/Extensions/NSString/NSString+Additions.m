@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardNetwork.h"
+#import "JPError+Additions.h"
 #import "NSBundle+Additions.h"
-#import "NSError+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
 #import <Foundation/Foundation.h>

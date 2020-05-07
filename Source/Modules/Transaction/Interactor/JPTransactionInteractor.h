@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPAddress.h"
+#import "JPError.h"
 #import "JPSession.h"
 #import "JPTransaction.h"
 #import "JPValidationResult.h"
@@ -75,10 +76,17 @@
  * A method for returning the transaction response / error to the merchant
  *
  * @param response - the JPResponse returned from the transaction
- * @param error - the NSError returned from the transaction
+ * @param error - the JPError returned from the transaction
  */
 - (void)completeTransactionWithResponse:(JPResponse *)response
-                                  error:(NSError *)error;
+                                  error:(JPError *)error;
+
+/**
+ * A method that stores the errors returned from the Judo API to be sent back to the merchant once the user cancels the payment.
+ *
+ * @param error - an instance of NSError that describes the error
+ */
+- (void)storeError:(NSError *)error;
 
 /**
  * A method for resetting the card validation results

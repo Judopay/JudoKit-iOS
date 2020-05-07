@@ -27,6 +27,7 @@
 #import "JPAmount.h"
 #import "JPCard.h"
 #import "JPEnhancedPaymentDetail.h"
+#import "JPError+Additions.h"
 #import "JPPagination.h"
 #import "JPPaymentToken.h"
 #import "JPPrimaryAccountDetails.h"
@@ -35,7 +36,6 @@
 #import "JPSession.h"
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
-#import "NSError+Additions.h"
 
 static NSString *const kPaymentPathKey = @"transactions/payments";
 static NSString *const kPreauthPathKey = @"transactions/preauths";
@@ -143,7 +143,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
         return;
     }
 
-    NSError *validationError = [self validateTransaction];
+    JPError *validationError = [self validateTransaction];
 
     if (validationError) {
         completion(nil, validationError);
@@ -163,7 +163,9 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
                       }];
 }
 
-- (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
+- (void)threeDSecureWithParameters:(NSDictionary *)parameters
+                         receiptId:(NSString *)receiptId
+                        completion:(JudoCompletionBlock)completion {
 
     NSString *fullURL = [NSString stringWithFormat:@"%@transactions/%@", self.apiSession.baseURL, receiptId];
 
@@ -187,24 +189,24 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 #pragma mark - Helper methods
 
-- (NSError *)validateTransaction {
+- (JPError *)validateTransaction {
     if (!self.judoId) {
-        return [NSError judoJudoIdMissingError];
+        return JPError.judoJudoIdMissingError;
     }
 
     if (!self.card && !self.paymentToken && !self.pkPayment && !self.vcoResult) {
-        return [NSError judoPaymentMethodMissingError];
+        return JPError.judoPaymentMethodMissingError;
     }
 
     if (!self.reference) {
-        return [NSError judoReferenceMissingError];
+        return JPError.judoReferenceMissingError;
     }
 
     BOOL isRegisterCard = (self.transactionType == TransactionTypeRegisterCard);
     BOOL isCheckCard = (self.transactionType == TransactionTypeCheckCard);
     BOOL isSaveCard = (self.transactionType == TransactionTypeSaveCard);
     if (!isRegisterCard && !isCheckCard && !isSaveCard && !self.amount) {
-        return [NSError judoAmountMissingError];
+        return JPError.judoAmountMissingError;
     }
 
     return nil;

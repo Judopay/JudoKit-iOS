@@ -21,7 +21,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-
 import XCTest
 @testable import JudoKitObjC
 
@@ -29,46 +28,38 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     var amount: JPAmount!
     var configuration: JPConfiguration!
     let consumerReference = "judoPay-sample-app"
-    var sut: JPConfigurationValidationService!
+    var configValidation: JPConfigurationValidationService!
     lazy var reference = JPReference(consumerReference: consumerReference)
-    
+
     override func setUp() {
-        sut = JPConfigurationValidationServiceImp()
+        configValidation = JPConfigurationValidationServiceImp()
         amount = JPAmount("fv", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
     }
     
     func testInvalidCharacters() {
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .transaction, transactionType: .payment) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Amount should be a number")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when invalid amount is specified")
     }
     
     func testEmptyCurrency() {
         amount = JPAmount("0.1", currency: "")
         configuration.amount = amount
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .transaction, transactionType: .payment) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Currency cannot be empty")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when no curency is specified")
     }
     
-    func testNilJudoId() {
+    func testNilConfiguration() {
         configuration = nil
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .transaction, transactionType: .payment) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "JudoId cannot be null or empty")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when nil configuration is specified")
     }
     
     func testConsumerReferenceInvalid() {
         let reference40Characters = String(repeating: "J", count: Int(kMaximumLengthForConsumerReference + 1))
         configuration.reference = JPReference(consumerReference: reference40Characters)
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .transaction, transactionType: .payment) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Consumer Reference is invalid")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when the consumer reference is larger than 40 characters")
     }
 }

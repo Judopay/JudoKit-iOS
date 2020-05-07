@@ -26,6 +26,7 @@
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
 #import "JPPaymentMethodsInteractor.h"
@@ -34,7 +35,6 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
-#import "NSError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
@@ -104,6 +104,8 @@
 }
 
 - (void)handleBackButtonTap {
+    [self.interactor completeTransactionWithResponse:nil
+                                            andError:JPError.judoUserDidCancelError];
     [self.router dismissViewController];
 }
 
@@ -145,7 +147,7 @@
     if (selectedCardIndex >= 0) {
         [self.interactor setLastUsedCardAtIndex:selectedCardIndex];
     }
-    [self.router completeTransactionWithResponse:response andError:nil];
+    [self.interactor completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
 }
 
@@ -156,7 +158,7 @@
         return;
     }
 
-    [self.router completeTransactionWithResponse:nil andError:error];
+    [self.interactor storeError:error];
     [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
 }
 
@@ -235,7 +237,7 @@
         [self handlePaymentError:error];
         return;
     }
-    [self.router completeTransactionWithResponse:response andError:nil];
+    [self.interactor completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
 }
 

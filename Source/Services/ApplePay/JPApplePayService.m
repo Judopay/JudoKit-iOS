@@ -26,12 +26,12 @@
 #import "JPApplePayWrappers.h"
 #import "JPConsumer.h"
 #import "JPContactInformation.h"
+#import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPPostalAddress.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "NSError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
@@ -95,7 +95,7 @@
     [transaction setPkPayment:payment error:&error];
 
     if (error && self.completionBlock) {
-        self.completionBlock(nil, [NSError judoJSONSerializationFailedWithError:error]);
+        self.completionBlock(nil, [JPError judoJSONSerializationFailedWithError:error]);
         completion(PKPaymentAuthorizationStatusFailure);
         return;
     }
@@ -104,7 +104,7 @@
     [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
         if (error || response.items.count == 0) {
             if (weakSelf.completionBlock)
-                weakSelf.completionBlock(response, error);
+                weakSelf.completionBlock(response, (JPError *)error);
             completion(PKPaymentAuthorizationStatusFailure);
             return;
         }
@@ -118,7 +118,7 @@
         }
 
         if (weakSelf.completionBlock)
-            weakSelf.completionBlock(response, error);
+            weakSelf.completionBlock(response, (JPError *)error);
         completion(PKPaymentAuthorizationStatusSuccess);
     }];
 }

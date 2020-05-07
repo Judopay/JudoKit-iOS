@@ -21,7 +21,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-
 import XCTest
 @testable import JudoKitObjC
 
@@ -29,7 +28,7 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     var amount: JPAmount!
     var configuration: JPConfiguration!
     let consumerReference = "judoPay-sample-app"
-    var sut: JPConfigurationValidationService!
+    var configValidation: JPConfigurationValidationService!
     lazy var reference = JPReference(consumerReference: consumerReference)
     
     var applePayConfigurations: JPApplePayConfiguration {
@@ -44,7 +43,7 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     }
     
     override func setUp() {
-        sut = JPConfigurationValidationServiceImp()
+        configValidation = JPConfigurationValidationServiceImp()
         amount = JPAmount("fv", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
@@ -52,56 +51,44 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     }
     
     func testAppleConfigIfValid() {
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType:.void, completion: nil)
-        XCTAssertTrue(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNil(error, "Error must be nil for a valid Apple Pay configuration")
     }
     
     func testAppleConfigForNil() {
         configuration.applePayConfiguration = nil
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Apple Configuration is empty")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil for an invalid Apple Pay configuration")
     }
     
     func testAppleConfigForPaymentSummaryItemsEmpty() {
         configuration.applePayConfiguration?.paymentSummaryItems.removeAll()
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Payment items couldn't be empty")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil when no Payment Summary Items are present")
     }
     
     func testAppleConfigForShipingMethods() {
         configuration.applePayConfiguration?.requiredShippingContactFields = .postalAddress
         configuration.applePayConfiguration?.shippingMethods?.removeAll()
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Specify shipinng methonds")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil when no Shipping Methods are specified")
     }
     
     func testAppleConfigForInvalidCountryCode() {
         configuration.applePayConfiguration?.countryCode = ""
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Country Code is invalid")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil when no Country Code is specified")
     }
     
     func testAppleConfigForInvalidMerchantId() {
         configuration.applePayConfiguration?.merchantId = ""
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Merchant Id cannot be empty")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil when no Merchant ID is specified")
     }
     
     func testAppleConfigForUnsuportedCurrency() {
         configuration.applePayConfiguration?.currency = "XYZ"
-        let isValid = sut.isTransactionValid(with: configuration, validationType: .applePay, transactionType: .void) { (response, errror) in
-            XCTAssertEqual(errror!.localizedDescription, "Unsuported Currency")
-        }
-        XCTAssertFalse(isValid)
+        let error = configValidation.valiadateApplePay(configuration)
+        XCTAssertNotNil(error, "Error must not be nil when the Currency Code is invalid")
     }
 }

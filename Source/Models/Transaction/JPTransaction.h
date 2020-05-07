@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPSession.h"
+
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
@@ -206,7 +208,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @param completion - the completion block that stores an optional JPResponse object or an NSError
  */
-- (void)sendWithCompletion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
+- (void)sendWithCompletion:(nonnull JudoCompletionBlock)completion;
 
 /**
  * A method that performs a 3D Secure transaction
@@ -217,22 +219,5 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  */
 - (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
                          receiptId:(nonnull NSString *)receiptId
-                        completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
-
-/**
- * A method which returns a list of all transactions in a completion block
- *
- * @param completion - the completion block that stores an optional JPResponse object or an NSError
- */
-- (void)listWithCompletion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
-
-/**
- * A method which returns a list of all transactions in a completion block with specified pagination
- *
- * @param pagination - an object that describes the pagination logic (offset & page size) of the transaction list
- * @param completion - the completion block that stores an optional JPResponse object or an NSError
- */
-- (void)listWithPagination:(nullable JPPagination *)pagination
-                completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
-
+                        completion:(nonnull JudoCompletionBlock)completion;
 @end

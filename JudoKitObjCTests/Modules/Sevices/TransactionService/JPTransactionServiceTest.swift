@@ -50,19 +50,6 @@ class JPTransactionServiceTest: XCTestCase {
         XCTAssertEqual(transaction.reference!.paymentReference, transactionReference.paymentReference)
     }
     
-    func testListTransactionsOfType() {
-        sut.listTransactions(of: .checkCard,
-                             paginated: JPPagination(offset: 1, pageSize: 2, sort: ""),
-                             completion: { (response, error) in
-                                XCTAssertNotNil(response)
-        })
-    }
-    
-    func testReceiptForReceiptId() {
-        let receipt = sut.receipt(forReceiptId: "123")
-        XCTAssertEqual(receipt.receiptId, "123")
-    }
-    
     func testIsSandbox() {
         XCTAssertFalse(sut.isSandboxed)
         sut.isSandboxed = true

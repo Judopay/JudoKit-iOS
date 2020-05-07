@@ -31,6 +31,7 @@
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPConsumer.h"
+#import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
 #import "JPPaymentMethod.h"
@@ -44,10 +45,11 @@
 @property (nonatomic, assign) TransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completion;
+@property (nonatomic, strong) JudoCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -63,7 +65,7 @@
         self.transactionMode = mode;
         self.configuration = configuration;
         self.transactionService = transactionService;
-        self.completion = completion;
+        self.completionHandler = completion;
         self.paymentMethods = configuration.paymentMethods;
     }
     return self;
@@ -260,6 +262,29 @@
 
 - (void)processServerToServer:(JudoCompletionBlock)completion {
     completion([self buildResponse], nil);
+}
+
+- (void)storeError:(NSError *)error {
+    [self.storedErrors addObject:error];
+}
+
+- (void)completeTransactionWithResponse:(JPResponse *)response
+                               andError:(JPError *)error {
+    if (!self.completionHandler)
+        return;
+
+    if (error.code == JPError.judoUserDidCancelError.code) {
+        error.details = self.storedErrors;
+    }
+
+    self.completionHandler(response, error);
+}
+
+- (NSMutableArray *)storedErrors {
+    if (!_storedErrors) {
+        _storedErrors = [NSMutableArray new];
+    }
+    return _storedErrors;
 }
 
 @end

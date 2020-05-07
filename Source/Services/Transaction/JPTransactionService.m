@@ -27,7 +27,6 @@
 #import "JPCard.h"
 #import "JPReference.h"
 #import "JPTransactionEnricher.h"
-#import "NSError+Additions.h"
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPSession *session;
@@ -70,26 +69,11 @@
 
 - (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
 
-    if (configuration.receiptId) {
-        return [self receiptTransactionWithConfiguration:configuration];
-    }
-
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
     transaction.judoId = configuration.judoId;
     transaction.amount = [self amountForTransactionType:configuration];
     transaction.reference = configuration.reference;
     transaction.primaryAccountDetails = configuration.primaryAccountDetails;
-    transaction.apiSession = self.session;
-    transaction.enricher = self.enricher;
-
-    return transaction;
-}
-
-- (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration {
-
-    JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType
-                                                          receiptId:configuration.receiptId
-                                                             amount:configuration.amount];
     transaction.apiSession = self.session;
     transaction.enricher = self.enricher;
 
@@ -107,21 +91,6 @@
         default:
             return configuration.amount;
     }
-}
-
-- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId {
-    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
-    receipt.apiSession = self.session;
-    return receipt;
-}
-
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(JPPagination *)pagination
-                    completion:(JudoCompletionBlock)completion {
-
-    JPTransaction *transaction = [JPTransaction transactionWithType:type];
-    transaction.apiSession = self.session;
-    [transaction listWithPagination:pagination completion:completion];
 }
 
 - (void)sendRequestWithEndpoint:(NSString *)endpoint
