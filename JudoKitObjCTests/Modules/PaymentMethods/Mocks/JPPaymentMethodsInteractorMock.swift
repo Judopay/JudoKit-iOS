@@ -69,7 +69,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         let dateInTwoMonths = calendar.date(byAdding: .month, value: 1, to: todaysDate)!
         let expiredDate = calendar.date(byAdding: .month, value: -1, to: todaysDate)!
         let notExpiredDate = calendar.date(byAdding: .month, value: 3, to: todaysDate)!
-
+        
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = (kMonthYearDateFormat)
         
@@ -83,7 +83,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
         return [validCard, expiresSoonCard, expirdCard]
     }
-
+    
     
     func getAmount() -> JPAmount! {
         let amount = JPAmount("1.0", currency: "EUR");

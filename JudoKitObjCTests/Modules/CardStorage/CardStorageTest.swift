@@ -47,6 +47,6 @@ class CardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         JPCardStorage.sharedInstance()?.add(thirdStoredCard)
         JPCardStorage.sharedInstance()?.add(forthStoredCard)
-
+        
     }
 }
