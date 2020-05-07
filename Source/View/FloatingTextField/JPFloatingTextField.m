@@ -28,6 +28,9 @@
 @interface JPFloatingTextField ()
 @property (nonatomic, strong) UILabel *floatingLabel;
 @property (nonatomic, strong) NSLayoutConstraint *floatingLabelCenterYConstraint;
+@property (nonatomic, assign) CGFloat defaultPointSize;
+@property (nonatomic, assign) CGFloat expandedPointSize;
+@property (nonatomic, assign) BOOL isExpanded;
 @end
 
 @implementation JPFloatingTextField
@@ -46,6 +49,7 @@ static const float kErrorConstraintOffset = -15.0f;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self setupViews];
+        [self registerAppStateNotifications];
     }
     return self;
 }
@@ -53,6 +57,7 @@ static const float kErrorConstraintOffset = -15.0f;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setupViews];
+        [self registerAppStateNotifications];
     }
     return self;
 }
@@ -60,8 +65,13 @@ static const float kErrorConstraintOffset = -15.0f;
 - (instancetype)init {
     if (self = [super init]) {
         [self setupViews];
+        [self registerAppStateNotifications];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self unregisterAppStateNotifications];
 }
 
 #pragma mark - Theming
@@ -75,17 +85,19 @@ static const float kErrorConstraintOffset = -15.0f;
 
 - (void)displayFloatingLabelWithText:(NSString *)text {
     self.floatingLabel.text = text;
-    [self transformToNewFontSize:self.placeholderFont.pointSize - kFontDecreaseValue
-                     frameOffset:kErrorFrameOffset
+    [self transformToNewFontSize:self.expandedPointSize
+                     frameOffset:self.isExpanded ? 0 : kErrorFrameOffset
                       alphaValue:1.0
            andConstraintConstant:kErrorConstraintOffset];
+    self.isExpanded = YES;
 }
 
 - (void)hideFloatingLabel {
-    [self transformToNewFontSize:self.placeholderFont.pointSize
+    [self transformToNewFontSize:self.defaultPointSize
                      frameOffset:kStandardFrameOffset
                       alphaValue:0.0
            andConstraintConstant:0.0];
+    self.isExpanded = NO;
 }
 
 #pragma mark - View layout
@@ -108,13 +120,19 @@ static const float kErrorConstraintOffset = -15.0f;
                     alphaValue:(CGFloat)alphaValue
          andConstraintConstant:(CGFloat)constant {
 
+    if (fontSize == self.expandedPointSize && self.isExpanded) {
+        self.font = [UIFont fontWithName:self.placeholderFont.familyName size:self.expandedPointSize];
+        return;
+    }
+    
+    if (fontSize == self.defaultPointSize && !self.isExpanded) {
+        self.font = [UIFont fontWithName:self.placeholderFont.familyName size:self.defaultPointSize];
+        return;
+    }
+    
     UIFont *oldFont = self.font;
     self.font = [UIFont fontWithName:self.placeholderFont.familyName size:fontSize];
     CGFloat scale = oldFont.pointSize / self.font.pointSize;
-
-    if (scale == 1) {
-        return;
-    }
 
     [self layoutIfNeeded];
 
@@ -124,7 +142,11 @@ static const float kErrorConstraintOffset = -15.0f;
     self.transform = CGAffineTransformScale(self.transform, scale, scale);
 
     CGPoint newOrigin = self.frame.origin;
-    self.frame = CGRectMake(oldOrigin.x, oldOrigin.y + frameOffset, self.frame.size.width, self.frame.size.height);
+    
+    self.frame = CGRectMake(oldOrigin.x,
+                            oldOrigin.y + frameOffset,
+                            self.frame.size.width,
+                            self.frame.size.height);
 
     self.floatingLabelCenterYConstraint.constant = constant;
 
@@ -134,11 +156,35 @@ static const float kErrorConstraintOffset = -15.0f;
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:kAnimationDuration
                      animations:^{
-                         weakSelf.frame = CGRectMake(newOrigin.x, yOrigin, self.frame.size.width, self.frame.size.height);
+                         weakSelf.frame = CGRectMake(newOrigin.x,
+                                                     yOrigin,
+                                                     self.frame.size.width,
+                                                     self.frame.size.height);
                          weakSelf.transform = oldTransform;
                          weakSelf.floatingLabel.alpha = alphaValue;
                          [weakSelf layoutIfNeeded];
                      }];
+}
+
+#pragma mark - UIApplication notifications
+
+- (void)registerAppStateNotifications {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(resetFrameOriginIfNeeded)
+                                               name:UIApplicationWillEnterForegroundNotification
+                                             object:nil];
+}
+
+- (void)unregisterAppStateNotifications {
+    [NSNotificationCenter.defaultCenter removeObserver:self
+                                                  name:UIApplicationWillEnterForegroundNotification
+                                                object:nil];
+}
+
+- (void)resetFrameOriginIfNeeded {
+    if (self.floatingLabelCenterYConstraint.constant == kErrorConstraintOffset) {
+        self.frame = CGRectMake(0, -kErrorFrameOffset + kStandardFrameOffset, self.frame.size.width, self.frame.size.height);
+    }
 }
 
 #pragma mark - Lazy properties
@@ -157,6 +203,20 @@ static const float kErrorConstraintOffset = -15.0f;
         _floatingLabelCenterYConstraint = [self.floatingLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor];
     }
     return _floatingLabelCenterYConstraint;
+}
+
+- (CGFloat)defaultPointSize {
+    if (!_defaultPointSize) {
+        _defaultPointSize = self.placeholderFont.pointSize;
+    }
+    return _defaultPointSize;
+}
+
+- (CGFloat)expandedPointSize {
+    if (!_expandedPointSize) {
+        _expandedPointSize = self.defaultPointSize - kFontDecreaseValue;
+    }
+    return _expandedPointSize;
 }
 
 @end

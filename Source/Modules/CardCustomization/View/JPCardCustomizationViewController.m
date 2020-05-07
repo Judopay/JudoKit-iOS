@@ -187,6 +187,7 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
         JPCardCustomizationTextInputCell *textInputCell;
         textInputCell = (JPCardCustomizationTextInputCell *)cell;
         textInputCell.inputField.delegate = self;
+        [textInputCell configureWithViewModel:selectedModel];
     }
 
     if ([cell isKindOfClass:JPCardCustomizationSubmitCell.class]) {
