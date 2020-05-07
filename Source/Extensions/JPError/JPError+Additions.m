@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardNetwork.h"
-#import "JPTransactionData.h"
 #import "JPError+Additions.h"
+#import "JPTransactionData.h"
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";

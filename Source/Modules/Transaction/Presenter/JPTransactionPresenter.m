@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPTransactionPresenter.h"
+#import "JPError+Additions.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-#import "JPError+Additions.h"
 
 #import "JPAddress.h"
 #import "JPCard.h"
@@ -138,7 +138,7 @@
         return;
     }
     [self.view updateViewWithError:error];
-    [self.interactor completeTransactionWithResponse:nil error:error];
+    [self.interactor storeError:error];
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
@@ -202,6 +202,12 @@
             }
         });
     }];
+}
+
+- (void)handleCancelButtonTap {
+    [self.interactor completeTransactionWithResponse:nil
+                                               error:JPError.judoUserDidCancelError];
+    [self.router dismissViewController];
 }
 
 #pragma mark - Helper methods

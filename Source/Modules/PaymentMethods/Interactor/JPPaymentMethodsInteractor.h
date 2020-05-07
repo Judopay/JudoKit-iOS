@@ -35,7 +35,7 @@
  *
  * @returns an array of JPStoredCardDetails objects
  */
-- (NSArray<JPStoredCardDetails *> *)getStoredCardDetails;
+- (nonnull NSArray<JPStoredCardDetails *> *)getStoredCardDetails;
 
 /**
  * A method that updates the selected state of a card stored in the keychain
@@ -45,23 +45,23 @@
 /**
  * A method that returns the amount passed from the builder
  */
-- (JPAmount *)getAmount;
+- (nonnull JPAmount *)getAmount;
 
 /**
  * A method that returns the available payment methods
  */
-- (NSArray<JPPaymentMethod *> *)getPaymentMethods;
+- (nonnull NSArray<JPPaymentMethod *> *)getPaymentMethods;
 
 /**
  * Sends a payment transaction based on a stored card token
  */
-- (void)paymentTransactionWithToken:(NSString *)token
-                      andCompletion:(JudoCompletionBlock)completion;
+- (void)paymentTransactionWithToken:(nonnull NSString *)token
+                      andCompletion:(nullable JudoCompletionBlock)completion;
 
 /**
  * Starts the Apple Pay payment / preAuth flow
  */
-- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion;
+- (void)startApplePayWithCompletion:(nullable JudoCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -97,8 +97,8 @@
  * @param error - the NSError object that triggers a 3D Secure transaction
  * @param completion - the JPResponse / NSError completion block
  */
-- (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JudoCompletionBlock)completion;
+- (void)handle3DSecureTransactionFromError:(nonnull NSError *)error
+                                completion:(nullable JudoCompletionBlock)completion;
 
 /**
  * A method that reorders cards so that the default card is always on top
@@ -108,7 +108,23 @@
 /**
  * A method which returns all the iDEAL bank types available
  */
-- (NSArray *)getIDEALBankTypes;
+- (nonnull NSArray *)getIDEALBankTypes;
+
+/**
+ * A method that triggers the completion handler passed by the merchant with an optional response / error
+ *
+ * @param response - an optional instance of the JPResponse object that contains the response details
+ * @param error - an optional instance of NSError that contains the error details
+ */
+- (void)completeTransactionWithResponse:(JPResponse *_Nullable)response
+                               andError:(NSError *_Nullable)error;
+
+/**
+ * A method that stores the errors returned from the Judo API to be sent back to the merchant once the user cancels the payment.
+ *
+ * @param error - an instance of NSError that describes the error
+ */
+- (void)storeError:(nonnull NSError *)error;
 
 @end
 
@@ -124,9 +140,9 @@
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
-- (instancetype)initWithMode:(TransactionMode)mode
-               configuration:(JPConfiguration *)configuration
-          transactionService:(JPTransactionService *)transactionService
-                  completion:(JudoCompletionBlock)completion;
+- (nonnull instancetype)initWithMode:(TransactionMode)mode
+                       configuration:(nonnull JPConfiguration *)configuration
+                  transactionService:(nonnull JPTransactionService *)transactionService
+                          completion:(nullable JudoCompletionBlock)completion;
 
 @end

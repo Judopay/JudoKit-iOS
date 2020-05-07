@@ -22,9 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-
 #import <Foundation/Foundation.h>
 
 @interface JPError : NSError
+
+/**
+ * A property that contains the list of errors returned from the Judo API
+ */
+@property (nonatomic, strong, nullable) NSArray<NSError *> *details;
 
 @end

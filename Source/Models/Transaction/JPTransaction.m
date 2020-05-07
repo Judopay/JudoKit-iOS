@@ -27,6 +27,7 @@
 #import "JPAmount.h"
 #import "JPCard.h"
 #import "JPEnhancedPaymentDetail.h"
+#import "JPError+Additions.h"
 #import "JPPagination.h"
 #import "JPPaymentToken.h"
 #import "JPPrimaryAccountDetails.h"
@@ -35,7 +36,6 @@
 #import "JPSession.h"
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
-#import "JPError+Additions.h"
 
 static NSString *const kPaymentPathKey = @"transactions/payments";
 static NSString *const kPreauthPathKey = @"transactions/preauths";

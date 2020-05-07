@@ -56,15 +56,6 @@
  */
 - (void)dismissViewController;
 
-/**
- * A method that triggers the completion handler passed by the merchant with an optional response / error
- *
- * @param response - an optional instance of the JPResponse object that contains the response details
- * @param error - an optional instance of NSError that contains the error details
- */
-- (void)completeTransactionWithResponse:(JPResponse *_Nullable)response
-                               andError:(NSError *_Nullable)error;
-
 @end
 
 @interface JPPaymentMethodsRouterImpl : NSObject <JPPaymentMethodsRouter>
