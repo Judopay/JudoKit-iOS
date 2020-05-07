@@ -92,7 +92,8 @@
                                                         configuration:configuration
                                                    transactionService:transactionService
                                                            completion:completion];
-
+    interactor.statusViewDelegate = presenter;
+    presenter.statusViewDelegate = viewController;
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;

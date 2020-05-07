@@ -28,6 +28,7 @@
 #import "JPUIConfiguration.h"
 #import <UIKit/UIKit.h>
 #import "ZappMerchantLib/ZappMerchantLib.h"
+#import "JPTransactionStatusView.h"
 
 @protocol JPPaymentMethodsPresenter;
 @class JPPaymentMethodsViewModel;

@@ -27,7 +27,7 @@ import XCTest
 
 class JPPaymentMethodsInteractorTest: XCTestCase {
     var sut: JPPaymentMethodsInteractor!
-    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
+    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "EUR"), reference: JPReference(consumerReference: "consumerReference"))
     
     override func setUp() {
         super.setUp()
@@ -50,5 +50,23 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNil(error)
         }
         sut.startApplePay(completion: completion)
+    }
+    
+    func testNumberOfMethodsForEUR() {
+        let expectedType: [JPPaymentMethodType] = [.applePay, .card, .iDeal]
+        let paymentTypes = sut.getPaymentMethods()!.map {$0.type}
+        XCTAssertTrue(Set(expectedType) == Set(paymentTypes))
+    }
+    
+    func testNumberOfMethodsForGBP() {
+        var expectedType: [JPPaymentMethodType] = [.applePay, .card]
+        configuration.amount = JPAmount("999", currency: "GBP")
+        let paymentTypes = sut.getPaymentMethods()!.map {$0.type}
+        if PBBAAppUtils.isCFIAppAvailable()  {
+            expectedType.append(.pbba)
+            XCTAssertTrue(Set(expectedType) == Set(paymentTypes))
+        } else {
+            XCTAssertTrue(Set(expectedType) == Set(paymentTypes))
+        }
     }
 }

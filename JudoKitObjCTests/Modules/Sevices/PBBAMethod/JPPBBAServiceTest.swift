@@ -1,6 +1,6 @@
 //
-//  JPTransactionStatusView.h
-//  JudoKitObjC
+//  JPPBBAServiceTest.swift
+//  JudoKitObjCTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,34 +22,37 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import <UIKit/UIKit.h>
+import XCTest
+@testable import JudoKitObjC
 
-typedef NS_ENUM(NSUInteger, JPTransactionStatus) {
-    JPTransactionStatusPending,
-    JPTransactionStatusPendingDelayed,
-    JPTransactionStatusTimeout
-};
+class JPPBBAServiceTest: XCTestCase {
+    let transactionService = JPTransactionService(token: "TOKEN", andSecret: "SECRET")
+    let configuration = JPConfiguration(judoID: "judoId",
+                                        amount: JPAmount("0.01", currency: "GBR"),
+                                        reference: JPReference(consumerReference: "consumerReference"))
+    var sut: JPPBBAService! = nil
 
-@protocol JPStatusViewDelegate
--(void)showStatusViewWith:(JPTransactionStatus)status;
--(void)hideStatusView;
-@end
-
-@interface JPTransactionStatusView : UIView
-
-/**
- * A method used to apply a theme to the view
- *
- * @param theme - the JPTheme object used to configure the user interface
- */
-- (void)applyTheme:(JPTheme *)theme;
-
-/**
- * A method for changing the transaction status view based on a provided status
- *
- * @param status - one of the pre-defined JPTransactionStatus values;
- */
-- (void)changeToTransactionStatus:(JPTransactionStatus)status;
-
-@end
+    
+    override func setUp() {
+        sut = JPPBBAService(configuration: configuration, transactionService: transactionService)
+    }
+    
+    override func tearDown() {
+        HTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
+    
+    func testSiteIdEmpty() {
+        configuration.siteId = nil
+        sut.openPBBAMerchantApp { (res, error) in
+            XCTAssertNotNil(error)
+        }
+    }
+    
+    func testSiteIdNotEmpty() {
+        configuration.siteId = "siteId"
+        sut.openPBBAMerchantApp { (res, error) in
+            XCTAssertNotNil(error)
+        }
+    }
+}

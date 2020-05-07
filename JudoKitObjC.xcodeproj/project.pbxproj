@@ -12,6 +12,16 @@
 		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
 		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
+		0701433A2464008900C5D299 /* JPPbBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 070143382464008900C5D299 /* JPPbBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0701433B2464008900C5D299 /* JPPbBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 070143392464008900C5D299 /* JPPbBAConfiguration.m */; };
+		0701433E246407F500C5D299 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701433D246407F500C5D299 /* ZappMerchantLib.framework */; };
+		0701433F246407F500C5D299 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701433D246407F500C5D299 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		070143432464083100C5D299 /* JPPBBAService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070143412464083100C5D299 /* JPPBBAService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		070143442464083100C5D299 /* JPPBBAService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070143422464083100C5D299 /* JPPBBAService.m */; };
+		0701434724642AF000C5D299 /* ZappMerchantLib.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 0701433C246407D300C5D299 /* ZappMerchantLib.framework.dSYM */; };
+		0701434824642AF100C5D299 /* ZappMerchantLib.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 0701433C246407D300C5D299 /* ZappMerchantLib.framework.dSYM */; };
+		0701434B24642F6C00C5D299 /* JPPBBAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0701434A24642F6C00C5D299 /* JPPBBAServiceTest.swift */; };
+		0701434C24644AC700C5D299 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701433D246407F500C5D299 /* ZappMerchantLib.framework */; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
@@ -256,7 +266,7 @@
 		52B4CA32241EF6C8009C28DC /* JPIDEALService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2D23F697B60099F3C5 /* JPIDEALService.m */; };
 		52B4CA44241EF7AA009C28DC /* JPIDEALViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4CA38241EF7AA009C28DC /* JPIDEALViewController.m */; };
 		52B4CA45241EF7AA009C28DC /* JPTransactionStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4CA3A241EF7AA009C28DC /* JPTransactionStatusView.m */; };
-		52B4CA46241EF7AA009C28DC /* JPTransactionStatusView.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B4CA3B241EF7AA009C28DC /* JPTransactionStatusView.h */; };
+		52B4CA46241EF7AA009C28DC /* JPTransactionStatusView.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B4CA3B241EF7AA009C28DC /* JPTransactionStatusView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52B4CA47241EF7AA009C28DC /* JPIDEALViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B4CA3C241EF7AA009C28DC /* JPIDEALViewController.h */; };
 		52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B4CAD3241FAEBB009C28DC /* JPThemable.h */; };
 		52B4CAE2241FB93D009C28DC /* JPSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4CAD9241FB93D009C28DC /* JPSection.m */; };
@@ -303,6 +313,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				01AE3A32246034C70050952E /* OHHTTPStubs.framework in Embed Frameworks */,
+				0701433F246407F500C5D299 /* ZappMerchantLib.framework in Embed Frameworks */,
 				072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */,
 				01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */,
 				072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */,
@@ -316,6 +327,13 @@
 		010A9D0E24601B680064316D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		01AE3A38246050E90050952E /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
 		01CEFC1D244093C50062C948 /* CardStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStorageTest.swift; sourceTree = "<group>"; };
+		070143382464008900C5D299 /* JPPbBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPbBAConfiguration.h; sourceTree = "<group>"; };
+		070143392464008900C5D299 /* JPPbBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPbBAConfiguration.m; sourceTree = "<group>"; };
+		0701433C246407D300C5D299 /* ZappMerchantLib.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ZappMerchantLib.framework.dSYM; path = Carthage/Build/iOS/ZappMerchantLib.framework.dSYM; sourceTree = "<group>"; };
+		0701433D246407F500C5D299 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
+		070143412464083100C5D299 /* JPPBBAService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAService.h; sourceTree = "<group>"; };
+		070143422464083100C5D299 /* JPPBBAService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
+		0701434A24642F6C00C5D299 /* JPPBBAServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPPBBAServiceTest.swift; sourceTree = "<group>"; };
 		0709ECBA243CC13B0032879F /* JPAppleConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAppleConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
 		0709ECF2243F1F790032879F /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
 		070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPConfigurationValidationService.h; sourceTree = "<group>"; };
@@ -604,6 +622,7 @@
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
 				072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */,
 				01AE3A31246034C60050952E /* OHHTTPStubs.framework in Frameworks */,
+				0701433E246407F500C5D299 /* ZappMerchantLib.framework in Frameworks */,
 				072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */,
 				01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */,
 			);
@@ -613,6 +632,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0701434C24644AC700C5D299 /* ZappMerchantLib.framework in Frameworks */,
 				01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */,
 				4416C3A22451A4060002870C /* JudoKitObjC.framework in Frameworks */,
 			);
@@ -627,6 +647,33 @@
 				01CEFC1D244093C50062C948 /* CardStorageTest.swift */,
 			);
 			path = CardStorage;
+			sourceTree = "<group>";
+		};
+		070143372464008900C5D299 /* PBBAConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				070143382464008900C5D299 /* JPPbBAConfiguration.h */,
+				070143392464008900C5D299 /* JPPbBAConfiguration.m */,
+			);
+			name = PBBAConfiguration;
+			path = Models/PBBAConfiguration;
+			sourceTree = "<group>";
+		};
+		070143402464083100C5D299 /* PBBA */ = {
+			isa = PBXGroup;
+			children = (
+				070143412464083100C5D299 /* JPPBBAService.h */,
+				070143422464083100C5D299 /* JPPBBAService.m */,
+			);
+			path = PBBA;
+			sourceTree = "<group>";
+		};
+		0701434924642F4000C5D299 /* PBBAMethod */ = {
+			isa = PBXGroup;
+			children = (
+				0701434A24642F6C00C5D299 /* JPPBBAServiceTest.swift */,
+			);
+			path = PBBAMethod;
 			sourceTree = "<group>";
 		};
 		0709ECE8243F1F530032879F /* ConfigurationValidator */ = {
@@ -658,6 +705,7 @@
 		070F1FF6243B4FE7005D8FAB /* Sevices */ = {
 			isa = PBXGroup;
 			children = (
+				0701434924642F4000C5D299 /* PBBAMethod */,
 				07D70A3F2449BC980039D187 /* PaymentMethod */,
 				07D70A1F244742E70039D187 /* PostCodesValidation */,
 				07D709E524406A2D0039D187 /* TransactionService */,
@@ -705,6 +753,8 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0701433D246407F500C5D299 /* ZappMerchantLib.framework */,
+				0701433C246407D300C5D299 /* ZappMerchantLib.framework.dSYM */,
 				01AE3A38246050E90050952E /* OHHTTPStubs */,
 				010A9D0E24601B680064316D /* OHHTTPStubs.framework */,
 				072AFF442451E7C70038A417 /* DeviceDNA.framework */,
@@ -1591,6 +1641,7 @@
 		30D08910238FB4CD00480C9E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				070143372464008900C5D299 /* PBBAConfiguration */,
 				52B4CA37241EF7AA009C28DC /* IDEALViewController */,
 				30221C1823FE6D9200BF2823 /* CardCustomization */,
 				3000737E23FBED640099F3C5 /* 3DSViewController */,
@@ -1748,6 +1799,7 @@
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				070143402464083100C5D299 /* PBBA */,
 				070F1FE9243B2391005D8FAB /* ConfigurationValidation */,
 				3000738823FBEDC80099F3C5 /* 3DSService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
@@ -2084,6 +2136,7 @@
 				52B74D9123F98B4C009FE38C /* JPTransactionViewModel.h in Headers */,
 				300072D023F6AB560099F3C5 /* JPConsumerDevice.h in Headers */,
 				30D61D6F23BB741A004E5CEE /* JPPaymentMethodsRouter.h in Headers */,
+				070143432464083100C5D299 /* JPPBBAService.h in Headers */,
 				300072FE23F6AB560099F3C5 /* JPVCOResult.h in Headers */,
 				30006F3423F697B60099F3C5 /* JPKeychainService.h in Headers */,
 				300072CB23F6AB560099F3C5 /* JPDictionaryConvertible.h in Headers */,
@@ -2106,6 +2159,7 @@
 				30D61D6523BB741A004E5CEE /* JPPaymentMethodConfigurable.h in Headers */,
 				52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */,
 				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
+				0701433A2464008900C5D299 /* JPPbBAConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
 				3000734123FA9C590099F3C5 /* JPReceipt.h in Headers */,
 				300072D823F6AB560099F3C5 /* JPPaymentToken.h in Headers */,
@@ -2176,6 +2230,7 @@
 				3B678B531C6CE5190001DC2F /* Headers */,
 				3B678B541C6CE5190001DC2F /* Resources */,
 				4494959F245112560050C6A0 /* Embed Frameworks */,
+				0701434D24644AFC00C5D299 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2256,6 +2311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D0894023901F1F00480C9E /* icons.bundle in Resources */,
+				0701434824642AF100C5D299 /* ZappMerchantLib.framework.dSYM in Resources */,
 				829330FC230AF0F900689DC4 /* Localizable.strings in Resources */,
 				529CCB7F23BE775B00A8DBDD /* resources.bundle in Resources */,
 			);
@@ -2265,6 +2321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0701434724642AF000C5D299 /* ZappMerchantLib.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2280,6 +2337,24 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ZappMerchantLib.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+		0701434D24644AFC00C5D299 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
 			);
 			outputFileListPaths = (
 			);
@@ -2390,6 +2465,7 @@
 				30006F8E23F6993A0099F3C5 /* UIColor+Additions.m in Sources */,
 				300072CA23F6AB560099F3C5 /* JPConfiguration.m in Sources */,
 				529CCB8E23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m in Sources */,
+				0701433B2464008900C5D299 /* JPPbBAConfiguration.m in Sources */,
 				30D61D5623BB741A004E5CEE /* JPPaymentMethodsPresenter.m in Sources */,
 				300072DC23F6AB560099F3C5 /* JPOrderDetails.m in Sources */,
 				30489AD72460738B0085B4F2 /* JPError.m in Sources */,
@@ -2404,6 +2480,7 @@
 				30006F9723F6993A0099F3C5 /* NSArray+Additions.m in Sources */,
 				30D61D6223BB741A004E5CEE /* JPPaymentMethodsEmptyCardListCell.m in Sources */,
 				52B4CAE2241FB93D009C28DC /* JPSection.m in Sources */,
+				070143442464083100C5D299 /* JPPBBAService.m in Sources */,
 				52B4CA27241EF5B6009C28DC /* JPPaymentMethodsIDEALBankCell.m in Sources */,
 				30D61D6623BB741A004E5CEE /* JPPaymentMethodsCardCell.m in Sources */,
 				300072D623F6AB560099F3C5 /* JPPrimaryAccountDetails.m in Sources */,
@@ -2432,6 +2509,7 @@
 				4416C3C62451AA050002870C /* CardStorageTest.swift in Sources */,
 				4416C3C82451AA320002870C /* JPPaymentMethodsTest.swift in Sources */,
 				4416C3CD2451AA470002870C /* JPCardValidationServiceTest.swift in Sources */,
+				0701434B24642F6C00C5D299 /* JPPBBAServiceTest.swift in Sources */,
 				4416C3D02451AA530002870C /* JPUKPostCodeValidation.swift in Sources */,
 				4416C3CB2451AA430002870C /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
 				4416C3C72451AA180002870C /* JPPaymentMethodsInteractorTest.swift in Sources */,
