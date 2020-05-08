@@ -12,8 +12,8 @@
 		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
 		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
-		0701433A2464008900C5D299 /* JPPbBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 070143382464008900C5D299 /* JPPbBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0701433B2464008900C5D299 /* JPPbBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 070143392464008900C5D299 /* JPPbBAConfiguration.m */; };
+		0701433A2464008900C5D299 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 070143382464008900C5D299 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0701433B2464008900C5D299 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 070143392464008900C5D299 /* JPPBBAConfiguration.m */; };
 		0701433E246407F500C5D299 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701433D246407F500C5D299 /* ZappMerchantLib.framework */; };
 		0701433F246407F500C5D299 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701433D246407F500C5D299 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		070143432464083100C5D299 /* JPPBBAService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070143412464083100C5D299 /* JPPBBAService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -325,8 +325,8 @@
 		010A9D0E24601B680064316D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		01AE3A38246050E90050952E /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
 		01CEFC1D244093C50062C948 /* CardStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStorageTest.swift; sourceTree = "<group>"; };
-		070143382464008900C5D299 /* JPPbBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPbBAConfiguration.h; sourceTree = "<group>"; };
-		070143392464008900C5D299 /* JPPbBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPbBAConfiguration.m; sourceTree = "<group>"; };
+		070143382464008900C5D299 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
+		070143392464008900C5D299 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
 		0701433C246407D300C5D299 /* ZappMerchantLib.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ZappMerchantLib.framework.dSYM; path = Carthage/Build/iOS/ZappMerchantLib.framework.dSYM; sourceTree = "<group>"; };
 		0701433D246407F500C5D299 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
 		070143412464083100C5D299 /* JPPBBAService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAService.h; sourceTree = "<group>"; };
@@ -648,8 +648,8 @@
 		070143372464008900C5D299 /* PBBAConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				070143382464008900C5D299 /* JPPbBAConfiguration.h */,
-				070143392464008900C5D299 /* JPPbBAConfiguration.m */,
+				070143382464008900C5D299 /* JPPBBAConfiguration.h */,
+				070143392464008900C5D299 /* JPPBBAConfiguration.m */,
 			);
 			name = PBBAConfiguration;
 			path = Models/PBBAConfiguration;
@@ -2144,7 +2144,7 @@
 				30D61D6523BB741A004E5CEE /* JPPaymentMethodConfigurable.h in Headers */,
 				52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */,
 				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
-				0701433A2464008900C5D299 /* JPPbBAConfiguration.h in Headers */,
+				0701433A2464008900C5D299 /* JPPBBAConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
 				3000734123FA9C590099F3C5 /* JPReceipt.h in Headers */,
 				300072D823F6AB560099F3C5 /* JPPaymentToken.h in Headers */,
@@ -2450,7 +2450,7 @@
 				30006F8E23F6993A0099F3C5 /* UIColor+Additions.m in Sources */,
 				300072CA23F6AB560099F3C5 /* JPConfiguration.m in Sources */,
 				529CCB8E23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m in Sources */,
-				0701433B2464008900C5D299 /* JPPbBAConfiguration.m in Sources */,
+				0701433B2464008900C5D299 /* JPPBBAConfiguration.m in Sources */,
 				30D61D5623BB741A004E5CEE /* JPPaymentMethodsPresenter.m in Sources */,
 				300072DC23F6AB560099F3C5 /* JPOrderDetails.m in Sources */,
 				30D61D6E23BB741A004E5CEE /* JPPaymentMethodsRouter.m in Sources */,

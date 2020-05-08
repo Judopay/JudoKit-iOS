@@ -23,8 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPTransactionStatusView.h"
 
-@protocol JPPaymentMethodsView, JPPaymentMethodsInteractor, JPPaymentMethodsRouter, JPStatusViewDelegate;
+@protocol JPPaymentMethodsView, JPPaymentMethodsInteractor, JPPaymentMethodsRouter;
 @class JPPaymentMethodsCardModel;
 
 @protocol JPPaymentMethodsPresenter

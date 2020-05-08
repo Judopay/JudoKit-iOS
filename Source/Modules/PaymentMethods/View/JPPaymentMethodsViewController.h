@@ -59,7 +59,7 @@
 
 #pragma mark - JPPaymentMethodsViewController
 
-@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView, PBBAButtonDelegate>
+@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView, PBBAButtonDelegate, JPStatusViewDelegate>
 
 /**
  * A reference to the JPUIConfiguration instance responsible for customizing the user interface

@@ -184,6 +184,20 @@
     self.paymentMethodsView.headerView.frame = newFrame;
 }
 
+#pragma mark - JPStatusViewDelegate
+
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self hideStatusView];
+    [self.paymentMethodsView addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:self.paymentMethodsView withPadding:0.0];
+    [self.transactionStatusView applyTheme:self.uiConfiguration.theme];
+    [self.transactionStatusView changeToTransactionStatus:status];
+}
+
+-(void)hideStatusView {
+    [self.transactionStatusView removeFromSuperview];
+}
+
 @end
 
 #pragma mark - UITableViewDataSource
@@ -258,6 +272,7 @@
 
     return cell;
 }
+
 
 @end
 
@@ -354,21 +369,6 @@
 
 - (void)sectionView:(JPSectionView *)sectionView didSelectSectionAtIndex:(NSUInteger)index {
     [self.presenter changePaymentMethodToIndex:index];
-}
-
-@end
-
-@implementation JPPaymentMethodsViewController (JPStatusViewDelegate)
--(void)showStatusViewWith:(JPTransactionStatus)status {
-    [self hideStatusView];
-    [self.paymentMethodsView addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:self.paymentMethodsView withPadding:0.0];
-    [self.transactionStatusView applyTheme:self.uiConfiguration.theme];
-    [self.transactionStatusView changeToTransactionStatus:status];
-}
-
--(void)hideStatusView {
-    [self.transactionStatusView removeFromSuperview];
 }
 
 @end
