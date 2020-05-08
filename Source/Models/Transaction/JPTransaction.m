@@ -154,12 +154,11 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, self.transactionPath];
 
-    __weak typeof(self) weakSelf = self;
     [self.enricher enrichTransaction:self
                       withCompletion:^{
-                          [weakSelf.apiSession POST:fullURL
-                                         parameters:weakSelf.parameters
-                                         completion:completion];
+                          [self.apiSession POST:fullURL
+                                     parameters:self.parameters
+                                     completion:completion];
                       }];
 }
 
