@@ -45,6 +45,7 @@ extern NSString *_Nonnull const JudoErrorDomain;
 + (nonnull JPError *)judoParameterError;
 + (nonnull JPError *)judoInternetConnectionError;
 + (nonnull JPError *)judoJPApplePayConfigurationError;
++ (nonnull JPError *)judoInvalidPBBACurrency;
 + (nonnull JPError *)judoResponseParseError;
 + (nonnull JPError *)judoMissingChecksumError;
 + (nonnull JPError *)judoRequestTimeoutError;

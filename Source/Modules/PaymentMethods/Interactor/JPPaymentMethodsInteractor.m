@@ -294,7 +294,6 @@
     completion([self buildResponse], nil);
 }
 
-<<<<<<< HEAD
 - (void)storeError:(NSError *)error {
     [self.storedErrors addObject:error];
 }
@@ -318,8 +317,6 @@
     return _storedErrors;
   }
 
-=======
->>>>>>> 942da9e3726ecf22709847daa1ff0f4946291b25
 #pragma mark - JPStatusViewDelegate implementation
 -(void)showStatusViewWith:(JPTransactionStatus)status {
     [self.statusViewDelegate showStatusViewWith:status];

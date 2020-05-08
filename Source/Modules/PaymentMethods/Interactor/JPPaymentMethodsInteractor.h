@@ -67,17 +67,7 @@
 /**
 * Starts the PBBA payment
 */
-- (void)openPBBAWithCompletion:(JudoCompletionBlock)completion;
-
-/**
-* Starts the PBBA payment
-*/
-- (void)openPBBAWithCompletion:(JudoCompletionBlock)completion;
-
-/**
-* Starts the PBBA payment
-*/
-- (void)openPBBAWithCompletion:(JudoCompletionBlock)completion;
+- (void)openPBBAWithCompletion:(_Nullable JudoCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -160,12 +150,6 @@
                        configuration:(nonnull JPConfiguration *)configuration
                   transactionService:(nonnull JPTransactionService *)transactionService
                           completion:(nullable JudoCompletionBlock)completion;
-
-
-/**
-* A weak reference to the object that adopts the JPStatusViewDelegate protocol
-*/
-@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
 
 
 /**

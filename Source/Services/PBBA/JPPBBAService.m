@@ -28,7 +28,7 @@
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "NSError+Additions.h"
+#import "JPError+Additions.h"
 #import "UIApplication+Additions.h"
 #import "UIView+Additions.h"
 
@@ -72,7 +72,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     NSDictionary *parameters = [self parametersForPBBA];
 
     if (!parameters) {
-        completion(nil, NSError.judoSiteIDMissingError);
+        completion(nil, JPError.judoSiteIDMissingError);
         return;
     }
 
@@ -80,7 +80,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:HTTPMethodPOST
                                           parameters:parameters
-                                          completion:^(JPResponse *response, NSError *error) {
+                                          completion:^(JPResponse *response, JPError *error) {
         JPTransactionData *data = response.items.firstObject;
 
         if (data.orderDetails.orderId && data.redirectUrl) {
@@ -88,7 +88,7 @@ static const int NSPOSIXErrorDomainCode = 53;
             return;
         }
 
-        completion(nil, NSError.judoResponseParseError);
+        completion(nil, JPError.judoResponseParseError);
     }];
 }
 
@@ -103,7 +103,7 @@ static const int NSPOSIXErrorDomainCode = 53;
 
         [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn delegate:nil];
     } else {
-        completion(nil, NSError.judoResponseParseError);
+        completion(nil, JPError.judoResponseParseError);
     }
 }
 
@@ -131,10 +131,10 @@ static const int NSPOSIXErrorDomainCode = 53;
     [self.transactionService sendRequestWithEndpoint:statusEndpoint
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
-                                          completion:^(JPResponse *response, NSError *error) {
+                                          completion:^(JPResponse *response, JPError *error) {
         self.intTimer += kTimerDuration;
         if (self.intTimer > kTimerDurationLimit) {
-            completion(nil, NSError.judoRequestTimeoutError);
+            completion(nil, JPError.judoRequestTimeoutError);
             [weakSelf.timer invalidate];
             [self.statusViewDelegate hideStatusView];
             self.intTimer = 0;
