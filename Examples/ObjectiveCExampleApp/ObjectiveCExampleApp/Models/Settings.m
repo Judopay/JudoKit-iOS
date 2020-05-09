@@ -98,12 +98,12 @@
         [methods addObject:JPPaymentMethod.card];
     }
     
-    if ([self.defaults boolForKey:kiDEALPaymentMethodEnabledKey]) {
-        [methods addObject:JPPaymentMethod.iDeal];
-    }
-    
     if ([self.defaults boolForKey:kApplePayPaymentMethodEnabledKey]) {
         [methods addObject:JPPaymentMethod.applePay];
+    }
+    
+    if ([self.defaults boolForKey:kiDEALPaymentMethodEnabledKey]) {
+        [methods addObject:JPPaymentMethod.iDeal];
     }
     
     return methods;
