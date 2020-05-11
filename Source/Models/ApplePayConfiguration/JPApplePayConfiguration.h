@@ -1,6 +1,6 @@
 //
 //  JPApplePayConfiguration.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,12 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApplePayWrappers.h"
-#import "JPCardDetails.h"
-#import "JPTransaction.h"
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "JPApplePayWrappers.h"
+#import "CardNetwork.h"
 
 /**
  * A configuration file responsible for setting all the necessary parameters
@@ -107,11 +104,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param countryCode         - The two-letter ISO 3166 country code where the payment will be processed
  * @param paymentSummaryItems - An array of items that summarize the amount of the payment (total, shipping, tax, etc.)
  */
-- (instancetype)initWithMerchantId:(NSString *)merchantId
-                          currency:(NSString *)currency
-                       countryCode:(NSString *)countryCode
-               paymentSummaryItems:(NSArray<JPPaymentSummaryItem *> *)paymentSummaryItems;
+- (_Nonnull instancetype)initWithMerchantId:(NSString *_Nonnull)merchantId
+                          currency:(NSString *_Nonnull)currency
+                       countryCode:(NSString *_Nonnull)countryCode
+               paymentSummaryItems:(NSArray<JPPaymentSummaryItem *> *_Nonnull)paymentSummaryItems;
 
 @end
-
-NS_ASSUME_NONNULL_END

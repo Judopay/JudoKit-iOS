@@ -1,6 +1,6 @@
 //
 //  JPApplePayService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,19 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApplePayConfiguration.h"
-#import "JPSession.h"
-#import "JPTransactionService.h"
-
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#import "TransactionMode.h"
+#import "Typedefs.h"
+
+@class JPConfiguration, JPTransactionService;
 
 @interface JPApplePayService : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  * Designated initalizer that creates a configured instance of JPApplePayService for making Apple Pay transactions.
  *
- * @param configuration - an instance of JPApplePayConfiguration used to configure the Apple Pay flow.
+ * @param configuration - an instance of JPConfiguration used to configure the Apple Pay flow.
  * @param transactionService - an instance of JPTransactionService responsible for making the Judo backend transaction.
  *
  * @returns - a configured instance of JPApplePayService.

@@ -1,6 +1,6 @@
 //
 //  NSBundle+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -50,7 +50,7 @@
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKitObjC"
+        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKit-iOS"
                                                                ofType:@"bundle"];
         bundle = [NSBundle bundleWithPath:podPath];
     });

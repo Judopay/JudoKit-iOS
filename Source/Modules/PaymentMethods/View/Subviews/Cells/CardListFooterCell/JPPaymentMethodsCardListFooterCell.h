@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardListFooterCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,7 +24,6 @@
 
 #import "JPPaymentMethodConfigurable.h"
 #import "JPThemable.h"
-
 #import <UIKit/UIKit.h>
 
 @interface JPPaymentMethodsCardListFooterCell : UITableViewCell <JPPaymentMethodConfigurable, JPThemable>

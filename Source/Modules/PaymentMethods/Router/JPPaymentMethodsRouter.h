@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsRouter.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,9 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPSession.h"
 #import <Foundation/Foundation.h>
+#import "Typedefs.h"
 
 @class JPPaymentMethodsViewController;
 @class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;

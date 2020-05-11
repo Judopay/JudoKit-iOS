@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractor.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -40,6 +40,10 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
+#import "JPStoredCardDetails.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
+#import "JPTransaction.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;

@@ -1,6 +1,6 @@
 //
 //  JPCardView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -29,6 +29,9 @@
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
+#import "JPTheme.h"
+#import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 
 @interface JPCardPaymentMethodView ()
 

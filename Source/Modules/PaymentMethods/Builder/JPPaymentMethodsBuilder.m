@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsBuilder.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,20 +23,19 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsBuilder.h"
-
 #import "JPAmount.h"
 #import "JPCardStorage.h"
 #import "JPConstants.h"
 #import "JPReference.h"
 #import "JudoKit.h"
-
 #import "JPError+Additions.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-
 #import "JPApplePayService.h"
+#import "JPPaymentMethod.h"
+#import "JPConfiguration.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 

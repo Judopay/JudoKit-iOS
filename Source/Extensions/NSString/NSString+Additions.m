@@ -1,6 +1,6 @@
 //
 //  NSString+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,12 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import <Foundation/Foundation.h>
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
-#import <Foundation/Foundation.h>
+#import "JPTheme.h"
 
 @implementation NSString (Additions)
 

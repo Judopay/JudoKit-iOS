@@ -1,6 +1,6 @@
 //
 //  JPApplePayWrappers.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,8 +23,6 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Lists the available merchant capabilities.
@@ -108,8 +106,8 @@ typedef NS_OPTIONS(NSUInteger, ReturnedInfo) {
  * @param label  - title of the item
  * @param amount - amount to be payed for this item
  */
-+ (instancetype)itemWithLabel:(nonnull NSString *)label
-                       amount:(nonnull NSDecimalNumber *)amount;
++ (_Nonnull instancetype)itemWithLabel:(NSString *_Nonnull)label
+                       amount:(NSDecimalNumber *_Nonnull)amount;
 
 /**
  * Designated initializer
@@ -118,8 +116,8 @@ typedef NS_OPTIONS(NSUInteger, ReturnedInfo) {
  * @param amount - amount to be payed for this item
  * @param type   - payment type for this item (final / pending)
  */
-+ (instancetype)itemWithLabel:(nonnull NSString *)label
-                       amount:(nonnull NSDecimalNumber *)amount
++ (_Nonnull instancetype)itemWithLabel:(NSString *_Nonnull)label
+                       amount:(NSDecimalNumber *_Nonnull)amount
                          type:(JPPaymentSummaryItemType)type;
 
 /**
@@ -129,18 +127,18 @@ typedef NS_OPTIONS(NSUInteger, ReturnedInfo) {
  * @param amount - amount to be payed for this item
  * @param type   - payment type for this item (final / pending)
  */
-- (instancetype)initWithLabel:(nonnull NSString *)label
-                       amount:(nonnull NSDecimalNumber *)amount
+- (_Nonnull instancetype)initWithLabel:(NSString *_Nonnull)label
+                       amount:(NSDecimalNumber *_Nonnull)amount
                          type:(JPPaymentSummaryItemType)type;
 
 /**
  * Convenience initializer that sets payment type to JPPaymentSummaryItemTypeFinal by default
  *
  * @param label  - title of the item
- * @param amount - amount to be payed for this item
+ * @param amount - amount to be payed for th _Nonnull is item
  */
-- (instancetype)initWithLabel:(nonnull NSString *)label
-                       amount:(nonnull NSDecimalNumber *)amount;
+- (_Nonnull instancetype)initWithLabel:(NSString *_Nonnull)label
+                       amount:(NSDecimalNumber *_Nonnull)amount;
 
 @end
 
@@ -167,14 +165,12 @@ typedef NS_OPTIONS(NSUInteger, ReturnedInfo) {
  * @param detail  - a user-readable description of the shipping method.
  * @param label  - title of the item
  * @param amount - amount to be payed for this item
- * @param type   - payment type for this item (final / pending)
+ * @param type   - payment type for this item ( _Nonnull final / pending)
  */
-- (instancetype)initWithIdentifier:(nonnull NSString *)identifier
-                            detail:(nonnull NSString *)detail
-                             label:(nonnull NSString *)label
-                            amount:(nonnull NSDecimalNumber *)amount
+- (_Nonnull instancetype)initWithIdentifier:(NSString *_Nonnull)identifier
+                            detail:(NSString *_Nonnull)detail
+                             label:(NSString *_Nonnull)label
+                            amount:(NSDecimalNumber *_Nonnull)amount
                               type:(JPPaymentSummaryItemType)type;
 
 @end
-
-NS_ASSUME_NONNULL_END

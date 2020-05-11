@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethod.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,12 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
-    JPPaymentMethodTypeCard,
-    JPPaymentMethodTypeIDeal,
-    JPPaymentMethodTypeApplePay,
-};
+#import "JPPaymentMethodType.h"
 
 @interface JPPaymentMethod : NSObject
 

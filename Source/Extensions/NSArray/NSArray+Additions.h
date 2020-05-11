@@ -1,6 +1,6 @@
 //
 //  NSArray+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //

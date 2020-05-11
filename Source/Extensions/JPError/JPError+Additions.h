@@ -1,6 +1,6 @@
 //
 //  JPError+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPError.h"
 #import <Foundation/Foundation.h>
+#import "JPError.h"
+#import "CardNetwork.h"
 
-@class JPTransactionData;
+@class JPTransactionData, JPCardNetwork;
 
 extern NSString *_Nonnull const JudoErrorDomain;
 

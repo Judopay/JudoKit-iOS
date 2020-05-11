@@ -1,6 +1,6 @@
 //
 //  UIViewController+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,7 +23,6 @@
 //  SOFTWARE.
 //
 
-#import "JPtheme.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIViewController+Additions.h"

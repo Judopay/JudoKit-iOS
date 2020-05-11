@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardListHeaderCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,20 +24,8 @@
 
 #import "JPPaymentMethodConfigurable.h"
 #import "JPThemable.h"
-
+#import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import <UIKit/UIKit.h>
-
-/**
- * A delegate protocol related action button logic
- */
-@protocol JPPaymentMethodsCardListHeaderCellDelegate
-
-/**
- * A delegate method to notify when the action button was tapped
- */
-- (void)didTapActionButton;
-
-@end
 
 @interface JPPaymentMethodsCardListHeaderCell : UITableViewCell <JPPaymentMethodConfigurable, JPThemable>
 

@@ -1,6 +1,6 @@
 //
 //  JPTransactionPresenter.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewModel.h"
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
+#import "JPInputType.h"
 
 @protocol JPTransactionView, JPTransactionRouter, JPTransactionInteractor;
 

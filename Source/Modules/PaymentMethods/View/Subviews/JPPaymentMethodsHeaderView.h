@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsHeaderView.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,11 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUIConfiguration.h"
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
 
-@class JPPaymentMethodsHeaderModel, JPTransactionButton;
+@class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
 
 @interface JPPaymentMethodsHeaderView : UIView
 

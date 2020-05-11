@@ -1,6 +1,6 @@
 //
 //  JPIDEALService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,10 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
-#import "JPIDEALBank.h"
-#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
+#import "Typedefs.h"
 
 typedef NS_ENUM(NSUInteger, IDEALStatus) {
     IDEALStatusSuccess,
@@ -35,6 +33,8 @@ typedef NS_ENUM(NSUInteger, IDEALStatus) {
     IDEALStatusFailed,
     IDEALStatusError
 };
+
+@class JPConfiguration, JPIDEALBank, JPTransactionService;
 
 @interface JPIDEALService : NSObject
 

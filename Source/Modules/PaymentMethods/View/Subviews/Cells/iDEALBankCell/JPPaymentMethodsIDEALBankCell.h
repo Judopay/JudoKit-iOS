@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsIDEALBankCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,7 +24,6 @@
 
 #import "JPPaymentMethodConfigurable.h"
 #import "JPThemable.h"
-
 #import <UIKit/UIKit.h>
 
 @interface JPPaymentMethodsIDEALBankCell : UITableViewCell <JPPaymentMethodConfigurable, JPThemable>

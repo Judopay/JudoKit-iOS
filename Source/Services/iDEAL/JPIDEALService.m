@@ -1,6 +1,6 @@
 //
 //  JPIDEALService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -29,6 +29,9 @@
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
+#import "JPConfiguration.h"
+#import "JPIDEALBank.h"
+#import "JPTransactionService.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;

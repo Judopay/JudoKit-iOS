@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -35,6 +35,9 @@
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPTheme.h"
+#import "JPSectionView.h"
+#import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsViewController ()
 

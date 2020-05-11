@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationViewModel.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPCardPattern.h"
 #import <Foundation/Foundation.h>
+#import "CardExpirationStatus.h"
+#import "CardNetwork.h"
+#import "JPCardPatternType.h"
+
+@class JPCardPattern;
 
 @interface JPCardCustomizationViewModel : NSObject
 /**

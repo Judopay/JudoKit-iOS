@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardListFooterCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -26,6 +26,7 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
+#import "JPTheme.h"
 
 @interface JPPaymentMethodsCardListFooterCell ()
 @property (nonatomic, copy) void (^onTransactionButtonTapHandler)(void);

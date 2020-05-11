@@ -1,6 +1,6 @@
 //
 //  JPIDEALViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,11 +24,9 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "Typedefs.h"
 
-#import "JPConfiguration.h"
-#import "JPIDEALService.h"
-#import "JPTheme.h"
-#import "JPTransactionService.h"
+@class JPConfiguration, JPIDEALService, JPTheme, JPTransactionService, JPIDEALBank;
 
 @interface JPIDEALViewController : UIViewController
 

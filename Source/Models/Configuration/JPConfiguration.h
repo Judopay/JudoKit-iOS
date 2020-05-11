@@ -1,6 +1,6 @@
 //
 //  JPConfiguration.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,15 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAddress.h"
-#import "JPApplePayConfiguration.h"
-#import "JPCardNetwork.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
-#import "JPUIConfiguration.h"
 #import <Foundation/Foundation.h>
+#import "CardNetwork.h"
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration;
 
 @interface JPConfiguration : NSObject
 

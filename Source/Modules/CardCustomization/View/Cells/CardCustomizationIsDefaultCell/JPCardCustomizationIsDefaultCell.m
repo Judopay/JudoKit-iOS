@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationIsDefaultCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -27,6 +27,7 @@
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
+#import "JPTheme.h"
 
 @interface JPCardCustomizationIsDefaultCell ()
 @property (nonatomic, strong) UIStackView *stackView;

@@ -1,6 +1,6 @@
 //
 //  JP3DSViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,12 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSConfiguration.h"
-#import "JPSession.h"
-#import "JPTheme.h"
-#import "JPTransaction.h"
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "Typedefs.h"
+
+@class JPTheme, JP3DSConfiguration, JPTransaction;
 
 @interface JP3DSViewController : UIViewController <WKNavigationDelegate>
 

@@ -1,6 +1,6 @@
 //
 //  JPTransactionService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -27,6 +27,9 @@
 #import "JPCard.h"
 #import "JPReference.h"
 #import "JPTransactionEnricher.h"
+#import "JPConfiguration.h"
+#import "JPTransaction.h"
+#import "JPSession.h"
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPSession *session;

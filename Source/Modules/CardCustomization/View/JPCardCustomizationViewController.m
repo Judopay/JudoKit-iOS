@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -32,6 +32,10 @@
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPCardCustomizationPatternPickerCell.h"
+#import "JPCardCustomizationSubmitCell.h"
+#import "JPInputField.h"
+#import "JPTheme.h"
 
 @interface JPCardCustomizationViewController ()
 @property (nonatomic, strong) UIView *fadedView;

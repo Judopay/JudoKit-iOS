@@ -1,6 +1,6 @@
 //
 //  JPTransactionPresenter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -27,13 +27,16 @@
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-
 #import "JPAddress.h"
 #import "JPCard.h"
 #import "JPCountry.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "NSString+Additions.h"
+#import "JPTransactionViewModel.h"
+#import "JPValidationResult.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;

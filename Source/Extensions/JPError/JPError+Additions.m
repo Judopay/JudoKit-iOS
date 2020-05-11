@@ -1,6 +1,6 @@
 //
 //  JPError+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -26,6 +26,7 @@
 #import "JPError+Additions.h"
 #import "JPTransactionData.h"
 #import "NSString+Additions.h"
+#import "JPError.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
 NSString *const UnableToProcessRequestErrorDesc = @"unable_to_process_request_error_desc";

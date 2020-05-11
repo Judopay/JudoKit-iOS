@@ -1,6 +1,6 @@
 //
 //  JPCardDetails.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,70 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-/**
- * The expiration status of the card
- */
-typedef NS_ENUM(NSUInteger, CardExpirationStatus) {
-    /**
-     * Card is not expired
-     */
-    CardNotExpired,
-    /**
-     * Card is expired
-     */
-    CardExpired,
-    /**
-     * Card will expire in the next 2 months
-     */
-    CardExpiresSoon
-};
-
-/**
- *  The CardNetwork enum depicts the Card Network type of a given Card object
- */
-typedef NS_OPTIONS(NSUInteger, CardNetwork) {
-    /**
-     * Unknown
-     */
-    CardNetworkUnknown = 0,
-    /**
-     * Visa Network
-     */
-    CardNetworkVisa = 1 << 0,
-    /**
-     * MasterCard Network
-     */
-    CardNetworkMasterCard = 1 << 1,
-    /**
-     * Maestro Network
-     */
-    CardNetworkMaestro = 1 << 2,
-    /**
-     * American Express Network
-     */
-    CardNetworkAMEX = 1 << 3,
-    /**
-     * China Union Pay Network
-     */
-    CardNetworkChinaUnionPay = 1 << 4,
-    /**
-     * JCB Network
-     */
-    CardNetworkJCB = 1 << 5,
-    /**
-     * Discover Network
-     */
-    CardNetworkDiscover = 1 << 6,
-    /**
-     * Diners Club Network
-     */
-    CardNetworkDinersClub = 1 << 7,
-    /**
-     * All card networks
-     */
-    CardNetworksAll,
-};
+#import "CardNetwork.h"
 
 /**
  * The CardDetails object stores information that is returned from a successful payment or pre-auth.

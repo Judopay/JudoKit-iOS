@@ -1,6 +1,6 @@
 //
 //  JP3DSService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,9 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSession.h"
-#import "JPTransaction.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
+
+@class JPTransaction;
 
 @interface JP3DSService : NSObject
 

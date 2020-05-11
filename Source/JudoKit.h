@@ -1,6 +1,6 @@
 //
 //  JudoKit.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,17 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
-#import "JPConfigurationValidationService.h"
-#import "JPPaymentMethod.h"
-#import "JPReceipt.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#import "Typedefs.h"
+#import "TransactionMode.h"
+#import "TransactionType.h"
 
-static NSString *__nonnull const JudoKitName = @"iOS-ObjC";
-static NSString *__nonnull const JudoKitVersion = @"8.2.1";
+@class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
+
+static NSString *__nonnull const JudoKitName = @"JudoKit-iOS";
+static NSString *__nonnull const JudoKitVersion = @"10.0.0";
 
 @interface JudoKit : NSObject
 

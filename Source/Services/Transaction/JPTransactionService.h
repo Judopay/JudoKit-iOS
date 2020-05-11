@@ -1,6 +1,6 @@
 //
 //  JPTransactionService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,16 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
-#import "JPReceipt.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
 #import <Foundation/Foundation.h>
+#import "TransactionType.h"
+#import "Typedefs.h"
 
 typedef NS_ENUM(NSUInteger, HTTPMethod) {
     HTTPMethodGET,
     HTTPMethodPOST,
 };
+
+@class JPConfiguration, JPTransaction;
 
 @interface JPTransactionService : NSObject
 

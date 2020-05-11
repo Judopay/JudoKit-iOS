@@ -1,6 +1,6 @@
 //
 //  JPCardNumberField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -26,6 +26,8 @@
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
+#import "JPTransactionViewModel.h"
+#import "JPTheme.h"
 
 @interface JPCardNumberField ()
 @property (nonatomic, strong) UIImageView *cardLogoImageView;

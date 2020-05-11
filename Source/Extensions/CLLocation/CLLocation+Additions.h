@@ -1,6 +1,6 @@
 //
 //  CLLocation+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,8 @@
 
 #import "JPDictionaryConvertible.h"
 #import <CoreLocation/CoreLocation.h>
+
+@protocol JPDictionaryConvertible;
 
 @interface CLLocation (Additions) <JPDictionaryConvertible>
 

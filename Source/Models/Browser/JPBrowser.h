@@ -1,6 +1,6 @@
 //
 //  JPBrowser.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPDictionaryConvertible.h"
 #import <UIKit/UIKit.h>
+#import "JPDictionaryConvertible.h"
 
 @interface JPBrowser : NSObject <JPDictionaryConvertible>
 

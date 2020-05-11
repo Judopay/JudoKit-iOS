@@ -1,6 +1,6 @@
 //
 //  JPTransactionInteractor.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,17 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAddress.h"
-#import "JPError.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
-#import "JPValidationResult.h"
-
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
+#import "TransactionType.h"
+#import "Typedefs.h"
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService;
-@class JPTransactionViewModel;
+@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
 

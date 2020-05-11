@@ -1,6 +1,6 @@
 //
 //  JPTransactionInteractor.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -36,6 +36,14 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
+#import "JPAddress.h"
+#import "JPError.h"
+#import "JPResponse.h"
+#import "JPValidationResult.h"
+#import "JPUIConfiguration.h"
+#import "JPCardPattern.h"
+#import "JPConfiguration.h"
+#import "JPTransaction.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JudoCompletionBlock completionHandler;

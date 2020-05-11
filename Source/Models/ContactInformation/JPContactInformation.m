@@ -1,6 +1,6 @@
 //
 //  JPContactInformation.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPContactInformation.h"
+#import "JPPostalAddress.h"
 
 @implementation JPContactInformation
 

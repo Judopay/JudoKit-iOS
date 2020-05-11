@@ -1,6 +1,6 @@
 //
 //  JPFloatingTextField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPFloatingTextField.h"
 #import "UIFont+Additions.h"
+#import "JPTheme.h"
 
 @interface JPFloatingTextField ()
 @property (nonatomic, strong) UILabel *floatingLabel;

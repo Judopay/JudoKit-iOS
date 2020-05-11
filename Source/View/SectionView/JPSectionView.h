@@ -1,6 +1,6 @@
 //
 //  JPSectionView.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,22 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSection.h"
-#import "JPTheme.h"
 #import <UIKit/UIKit.h>
+#import "JPSectionViewDelegate.h"
 
-@class JPSectionView;
-
-@protocol JPSectionViewDelegate
-/**
- * The method that is triggered once the user selects one of the sections of the section view
- *
- * @param sectionView - a reference to the current instance of JPSectionView
- * @param index - the index of the selected section
- */
-- (void)sectionView:(JPSectionView *_Nonnull)sectionView didSelectSectionAtIndex:(NSUInteger)index;
-
-@end
+@class JPSection, JPTheme;
 
 @interface JPSectionView : UIView
 

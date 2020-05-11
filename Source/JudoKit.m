@@ -1,6 +1,6 @@
 //
 //  JudoKit.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -38,8 +38,15 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
+#import "JPConfiguration.h"
+#import "JPConfigurationValidationService.h"
+#import "JPPaymentMethod.h"
+#import "JPReceipt.h"
+#import "JPSession.h"
+#import "JPTransaction.h"
 
 @interface JudoKit ()
+
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;

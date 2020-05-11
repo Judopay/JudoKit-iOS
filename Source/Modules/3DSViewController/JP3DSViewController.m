@@ -1,6 +1,6 @@
 //
 //  JP3DSViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -28,6 +28,10 @@
 #import "JPLoadingView.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
+#import "JPTheme.h"
+#import "JP3DSConfiguration.h"
+#import "JPSession.h"
+#import "JPTransaction.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;

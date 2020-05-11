@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -28,6 +28,7 @@
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPReference.h"
+#import "JPConfiguration.h"
 
 @implementation JPConfigurationValidationServiceImp
 

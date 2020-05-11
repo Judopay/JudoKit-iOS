@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationPresenter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -30,6 +30,7 @@
 #import "JPConstants.h"
 #import "JPStoredCardDetails.h"
 #import "NSString+Additions.h"
+#import "JPCardPattern.h"
 
 @interface JPCardCustomizationPresenterImpl ()
 @property (nonatomic, assign) BOOL shouldPreserveResponder;

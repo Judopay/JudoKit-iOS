@@ -1,6 +1,6 @@
 //
 //  JPInputField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -27,6 +27,8 @@
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UITextField+Additions.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 
 @interface JPInputField ()
 @property (nonatomic, strong) JPTheme *theme;

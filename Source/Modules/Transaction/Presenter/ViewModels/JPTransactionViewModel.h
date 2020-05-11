@@ -1,6 +1,6 @@
 //
 //  JPTransactionViewModel.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,20 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
 #import <Foundation/Foundation.h>
-
-/**
- * An enum that defines the input field types present in the Add Card view
- */
-typedef NS_ENUM(NSUInteger, JPInputType) {
-    JPInputTypeCardNumber,
-    JPInputTypeCardholderName,
-    JPInputTypeCardExpiryDate,
-    JPInputTypeCardSecureCode,
-    JPInputTypeCardCountry,
-    JPInputTypeCardPostalCode,
-};
+#import "JPInputType.h"
+#import "CardNetwork.h"
 
 #pragma mark - JPTransactionInputFieldViewModel
 

@@ -1,0 +1,6 @@
+framework module JudoKit {
+  umbrella header "JudoKit-iOS.h"
+
+  export *
+  module * { export * }
+}

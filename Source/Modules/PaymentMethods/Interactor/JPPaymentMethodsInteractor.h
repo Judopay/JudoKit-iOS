@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractor.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSession.h"
-#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
+#import "Typedefs.h"
+#import "TransactionMode.h"
 
-@class JPConfiguration, JPTransactionService, JPStoredCardDetails;
+@class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
 @protocol JPPaymentMethodsInteractor
 

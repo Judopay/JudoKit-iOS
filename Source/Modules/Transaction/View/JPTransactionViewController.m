@@ -1,6 +1,6 @@
 //
 //  JPTransactionViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -31,6 +31,9 @@
 #import "JPTransactionView.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPTransactionViewModel.h"
+#import "JPTheme.h"
+#import "JPInputField.h"
 
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPTransactionView *addCardView;

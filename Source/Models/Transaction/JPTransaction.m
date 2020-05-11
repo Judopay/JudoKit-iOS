@@ -1,6 +1,6 @@
 //
 //  JPTransaction.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -290,7 +290,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     }
 
     if (card.cardholderName) {
-        self.parameters[@"carholderName"] = card.cardholderName;
+        self.parameters[@"cardholderName"] = card.cardholderName;
     }
 
     if (card.expiryDate) {

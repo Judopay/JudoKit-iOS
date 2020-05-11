@@ -1,6 +1,6 @@
 //
 //  JPVCOResult.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2017 Alternative Payments Ltd
 //
@@ -53,6 +53,8 @@
  *
  *  @return a JPVCOResult object
  */
-- (nonnull instancetype)initWithCallId:(nonnull NSString *)callId encryptedKey:(nonnull NSString *)encryptedKey encryptedPaymentData:(nonnull NSString *)encryptedPaymentData;
+- (nonnull instancetype)initWithCallId:(nonnull NSString *)callId
+                          encryptedKey:(nonnull NSString *)encryptedKey
+                  encryptedPaymentData:(nonnull NSString *)encryptedPaymentData;
 
 @end

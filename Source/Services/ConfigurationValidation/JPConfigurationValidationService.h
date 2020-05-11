@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,13 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
 #import <Foundation/Foundation.h>
+#import "TransactionType.h"
 
 typedef NS_ENUM(NSUInteger, JPValidationError) {
     JPValidationErrorMissingParameter,
     JPValidationErrorInvalidParameter
 };
+
+@class JPError, JPConfiguration;
 
 @protocol JPConfigurationValidationService
 

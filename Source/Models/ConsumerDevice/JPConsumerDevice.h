@@ -1,6 +1,6 @@
 //
 //  JPConsumerDevice.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,7 +24,6 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
-
 #import "JPDictionaryConvertible.h"
 
 @class JPClientDetails, JPGeoLocation, JPThreeDSecure;

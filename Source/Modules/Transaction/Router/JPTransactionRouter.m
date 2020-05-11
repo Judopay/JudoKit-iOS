@@ -1,6 +1,6 @@
 //
 //  JPTransactionRouter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -26,6 +26,7 @@
 #import "JPScanCardViewController.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionViewController.h"
+#import "JPTheme.h"
 
 @interface JPTransactionRouterImpl ()
 @property (nonatomic, strong) PayCardsRecognizer *recognizer;

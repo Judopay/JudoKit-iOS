@@ -1,6 +1,6 @@
 //
 //  JPCardNumberField.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,9 +23,8 @@
 //  SOFTWARE.
 
 #import "JPInputField.h"
-#import "JPTransactionViewModel.h"
 
-@class JPCardNumberField;
+@class JPCardNumberField, JPTransactionViewModel, JPTransactionNumberInputViewModel;
 
 /**
  * A custom implementation of the JPInputField class that is used to display the credit card number

@@ -1,6 +1,6 @@
 //
 //  JPTransaction.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,37 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSession.h"
-
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#import "TransactionMode.h"
+#import "TransactionType.h"
+#import "TransactionResult.h"
+#import "Typedefs.h"
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
-
-typedef NS_ENUM(NSUInteger, TransactionMode) {
-    TransactionModePayment,
-    TransactionModePreAuth,
-    TransactionModeServerToServer,
-};
-
-typedef NS_ENUM(NSUInteger, TransactionType) {
-    TransactionTypePayment,
-    TransactionTypePreAuth,
-    TransactionTypeRefund,
-    TransactionTypeRegisterCard,
-    TransactionTypeCheckCard,
-    TransactionTypeSaveCard,
-    TransactionTypeCollection,
-    TransactionTypeVoid,
-};
-
-typedef NS_ENUM(NSUInteger, TransactionResult) {
-    TransactionResultSuccess,
-    TransactionResultDeclined,
-    TransactionResultError
-};
 
 @interface JPTransaction : NSObject
 

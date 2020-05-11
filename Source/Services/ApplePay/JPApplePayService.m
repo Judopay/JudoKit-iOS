@@ -1,6 +1,6 @@
 //
 //  JPApplePayService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -33,6 +33,12 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "UIApplication+Additions.h"
+#import "JPCardDetails.h"
+#import "JPTransactionService.h"
+#import "JPConfiguration.h"
+#import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
+#import "JPTransaction.h"
 
 @interface JPApplePayService ()
 @property (nonatomic, assign) TransactionMode transactionMode;

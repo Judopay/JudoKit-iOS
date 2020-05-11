@@ -1,6 +1,6 @@
 //
 //  JPCardNetwork.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
 #import <Foundation/Foundation.h>
+#import "CardNetwork.h"
 
 @interface JPCardNetwork : NSObject
 

@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsViewModel.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,12 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPCardPattern.h"
-#import "JPPaymentMethod.h"
 #import <Foundation/Foundation.h>
+#import "CardExpirationStatus.h"
+#import "JPCardPatternType.h"
+#import "JPPaymentMethodType.h"
+#import "CardNetwork.h"
 
-@class JPAmount, JPTransactionButtonViewModel;
+@class JPAmount, JPTransactionButtonViewModel, JPPaymentMethod;
 
 #pragma mark - JPPaymentMethodsModel
 

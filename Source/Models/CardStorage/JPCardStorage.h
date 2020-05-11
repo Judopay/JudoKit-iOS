@@ -1,6 +1,6 @@
 //
 //  JPCardStorage.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,8 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPStoredCardDetails.h"
 #import <Foundation/Foundation.h>
+
+@class JPStoredCardDetails;
 
 @interface JPCardStorage : NSObject
 

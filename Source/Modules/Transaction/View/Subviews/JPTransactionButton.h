@@ -1,6 +1,6 @@
 //
 //  JPTransactionButton.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,7 +23,8 @@
 //  SOFTWARE.
 
 #import "JPLoadingButton.h"
-#import "JPTransactionViewModel.h"
+
+@class JPTransactionViewModel, JPTransactionButtonViewModel;
 
 /**
  * A custom implementation of the JPLoadingButton used for displaying the Add Card button

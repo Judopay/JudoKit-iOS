@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsEmptyHeaderView.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,10 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
 #import <UIKit/UIKit.h>
 
-@class JPPaymentMethodsHeaderModel;
+@class JPPaymentMethodsHeaderModel, JPTheme;
 
 /**
  * A view that describes the header when no card is being selected

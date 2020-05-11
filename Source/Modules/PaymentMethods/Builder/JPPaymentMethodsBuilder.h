@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsBuilder.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,15 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPPaymentMethod.h"
-#import "JPReference.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
 #import <Foundation/Foundation.h>
+#import "Typedefs.h"
+#import "TransactionMode.h"
 
-@class JPPaymentMethodsViewController;
-@class JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
+@class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 

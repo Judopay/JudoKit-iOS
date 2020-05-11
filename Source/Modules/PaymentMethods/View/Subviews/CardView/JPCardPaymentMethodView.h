@@ -1,6 +1,6 @@
 //
 //  JPCardView.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPCardPattern.h"
-#import "JPPaymentMethodsViewModel.h"
-#import "JPTheme.h"
 #import <UIKit/UIKit.h>
+#import "CardNetwork.h"
+#import "JPCardPatternType.h"
+#import "CardExpirationStatus.h"
+
+@class JPTheme;
 
 @interface JPCardPaymentMethodView : UIView
 

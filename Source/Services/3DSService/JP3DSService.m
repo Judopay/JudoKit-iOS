@@ -1,6 +1,6 @@
 //
 //  JP3DSService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -26,6 +26,7 @@
 #import "JP3DSConfiguration.h"
 #import "JP3DSViewController.h"
 #import "UIApplication+Additions.h"
+#import "JPTransaction.h"
 
 @implementation JP3DSService
 

@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsPresenter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -36,6 +36,7 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
+#import "JPPaymentMethod.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;

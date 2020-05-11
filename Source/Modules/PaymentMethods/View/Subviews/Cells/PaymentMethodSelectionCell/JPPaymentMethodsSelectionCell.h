@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsSelectionCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodConfigurable.h"
-#import "JPSectionView.h"
 #import "JPThemable.h"
-
 #import <UIKit/UIKit.h>
+
+@class JPSectionView;
 
 @interface JPPaymentMethodsSelectionCell : UITableViewCell <JPPaymentMethodConfigurable, JPThemable>
 

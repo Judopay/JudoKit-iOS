@@ -1,6 +1,6 @@
 //
 //  JPCardPattern.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,17 +23,7 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, JPCardPatternType) {
-    JPCardPatternTypeBlack = 1,
-    JPCardPatternTypeBlue,
-    JPCardPatternTypeGreen,
-    JPCardPatternTypeRed,
-    JPCardPatternTypeOrange,
-    JPCardPatternTypeGold,
-    JPCardPatternTypeCyan,
-    JPCardPatternTypeOlive,
-};
+#import "JPCardPatternType.h"
 
 @interface JPCardPattern : NSObject
 

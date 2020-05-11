@@ -1,6 +1,6 @@
 //
 //  JPReceipt.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,9 +23,7 @@
 //  SOFTWARE.
 
 #import "JPReceipt.h"
-
 #import "JPPagination.h"
-
 #import "JPSession.h"
 
 @interface JPReceipt ()
@@ -44,7 +42,7 @@
     return self;
 }
 
-- (void)sendWithCompletion:(void (^)(JPResponse *, NSError *))completion {
+- (void)sendWithCompletion:(nonnull JudoCompletionBlock)completion {
 
     NSString *path = @"transactions/";
 
@@ -56,7 +54,7 @@
     [self.apiSession GET:fullURL parameters:nil completion:completion];
 }
 
-- (void)listWithPagination:(JPPagination *)pagination completion:(void (^)(JPResponse *, NSError *))completion {
+- (void)listWithPagination:(JPPagination *)pagination completion:(nonnull JudoCompletionBlock)completion {
     NSString *path = [NSString stringWithFormat:@"transactions?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
 
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, path];

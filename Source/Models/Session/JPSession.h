@@ -1,6 +1,6 @@
 //
 //  JPSession.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,12 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPError.h"
 #import <Foundation/Foundation.h>
+#import "Typedefs.h"
 
 @class JPResponse;
-
-typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
 
 /**
  *  The Session class is a wrapper for all REST API calls
