@@ -211,7 +211,7 @@
 }
 
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
-    return [self.cardValidationService validateCarholderNameInput:input];
+    return [self.cardValidationService validateCardholderNameInput:input];
 }
 
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {
