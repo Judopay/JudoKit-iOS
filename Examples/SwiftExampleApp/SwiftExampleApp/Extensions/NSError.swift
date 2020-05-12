@@ -1,5 +1,5 @@
 import Foundation
-import JudoKitObjC
+import JudoKit_iOS
 
 extension NSError {
 

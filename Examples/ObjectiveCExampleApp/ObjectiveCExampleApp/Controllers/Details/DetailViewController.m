@@ -27,7 +27,7 @@
 #import "JPOrderDetails.h"
 #import "DetailsTableViewController.h"
 
-@import JudoKitObjC;
+@import JudoKit_iOS;
 
 @interface DetailViewController ()
 

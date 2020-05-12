@@ -24,7 +24,7 @@
 
 import XCTest
 
-@testable import JudoKit
+@testable import JudoKit_iOS
 
 class JPPaymentMethodsInteractorTest: XCTestCase {
     var sut: JPPaymentMethodsInteractor!

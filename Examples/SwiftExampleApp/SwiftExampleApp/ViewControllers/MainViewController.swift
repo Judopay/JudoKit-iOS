@@ -1,5 +1,5 @@
 import UIKit
-import JudoKitObjC
+import JudoKit_iOS
 
 class MainViewController: UITableViewController {
     var settings = Settings(isAVSEnabled: false, currency: .GBP)
@@ -56,7 +56,7 @@ class MainViewController: UITableViewController {
     
     var configuration: JPConfiguration {
         let configuration = JPConfiguration(judoID: judoId, amount: self.amount, reference: reference)
-        configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
+        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
         configuration.uiConfiguration.isAVSEnabled = settings.isAVSEnabled
         configuration.applePayConfiguration = applePayConfigurations
         return configuration

@@ -25,13 +25,13 @@
 		30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F1D23F6971B0099F3C5 /* JPSliderPresentationController.h */; };
 		30006F2223F6971B0099F3C5 /* JPSliderTransitioningDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F1E23F6971B0099F3C5 /* JPSliderTransitioningDelegate.h */; };
 		30006F3223F697B60099F3C5 /* JPApplePayService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2423F697B60099F3C5 /* JPApplePayService.m */; };
-		30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2523F697B60099F3C5 /* JPApplePayService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2523F697B60099F3C5 /* JPApplePayService.h */; };
 		30006F3423F697B60099F3C5 /* JPKeychainService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2723F697B60099F3C5 /* JPKeychainService.h */; };
 		30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2823F697B60099F3C5 /* JPKeychainService.m */; };
 		30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2A23F697B60099F3C5 /* JPCardValidationService.h */; };
 		30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F2B23F697B60099F3C5 /* JPCardValidationService.m */; };
-		30006F3923F697B60099F3C5 /* JPIDEALService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2E23F697B60099F3C5 /* JPIDEALService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30006F3A23F697B60099F3C5 /* JPTransactionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F3023F697B60099F3C5 /* JPTransactionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30006F3923F697B60099F3C5 /* JPIDEALService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F2E23F697B60099F3C5 /* JPIDEALService.h */; };
+		30006F3A23F697B60099F3C5 /* JPTransactionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F3023F697B60099F3C5 /* JPTransactionService.h */; };
 		30006F3B23F697B60099F3C5 /* JPTransactionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F3123F697B60099F3C5 /* JPTransactionService.m */; };
 		30006F5723F698A20099F3C5 /* JPLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F4623F698A20099F3C5 /* JPLoadingButton.m */; };
 		30006F5823F698A20099F3C5 /* JPLoadingButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F4723F698A20099F3C5 /* JPLoadingButton.h */; };
@@ -119,7 +119,7 @@
 		300072F123F6AB560099F3C5 /* JPConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072A623F6AB550099F3C5 /* JPConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F223F6AB560099F3C5 /* JPClientDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072A823F6AB550099F3C5 /* JPClientDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F323F6AB560099F3C5 /* JPClientDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 300072A923F6AB550099F3C5 /* JPClientDetails.m */; };
-		300072F423F6AB560099F3C5 /* JudoKit-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AA23F6AB550099F3C5 /* JudoKit-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		300072F423F6AB560099F3C5 /* JudoKit_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F523F6AB560099F3C5 /* JPCardDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AC23F6AB560099F3C5 /* JPCardDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F623F6AB560099F3C5 /* JPCardDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 300072AD23F6AB560099F3C5 /* JPCardDetails.m */; };
 		300072F723F6AB560099F3C5 /* JPReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AF23F6AB560099F3C5 /* JPReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,10 +151,10 @@
 		3000735123FACF540099F3C5 /* JPUIConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000734F23FACF540099F3C5 /* JPUIConfiguration.m */; };
 		3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000735023FACF540099F3C5 /* JPUIConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000737C23FBECCE0099F3C5 /* JP3DSConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000737A23FBECCE0099F3C5 /* JP3DSConfiguration.m */; };
-		3000737D23FBECCE0099F3C5 /* JP3DSConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000737B23FBECCE0099F3C5 /* JP3DSConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3000737D23FBECCE0099F3C5 /* JP3DSConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000737B23FBECCE0099F3C5 /* JP3DSConfiguration.h */; };
 		3000738123FBED640099F3C5 /* JP3DSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000737F23FBED640099F3C5 /* JP3DSViewController.m */; };
-		3000738223FBED640099F3C5 /* JP3DSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738023FBED640099F3C5 /* JP3DSViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3000738B23FBEDC80099F3C5 /* JP3DSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738923FBEDC80099F3C5 /* JP3DSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3000738223FBED640099F3C5 /* JP3DSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738023FBED640099F3C5 /* JP3DSViewController.h */; };
+		3000738B23FBEDC80099F3C5 /* JP3DSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738923FBEDC80099F3C5 /* JP3DSService.h */; };
 		3000738C23FBEDC80099F3C5 /* JP3DSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000738A23FBEDC80099F3C5 /* JP3DSService.m */; };
 		30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221BC523FD7E4D00BF2823 /* JPLoadingView.h */; };
 		30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221BC623FD7E4D00BF2823 /* JPLoadingView.m */; };
@@ -183,7 +183,7 @@
 		30221C8023FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C7E23FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m */; };
 		30221C8523FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8323FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h */; };
 		30221C8623FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8423FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m */; };
-		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; };
 		30221C9123FFC53600BF2823 /* JPCardPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8F23FFC53600BF2823 /* JPCardPattern.m */; };
 		30221CBE24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221CBC24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h */; };
 		30221CBF24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221CBD24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m */; };
@@ -226,7 +226,7 @@
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
-		4416C3A22451A4060002870C /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit.framework */; platformFilter = ios; };
+		4416C3A22451A4060002870C /* JudoKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */; platformFilter = ios; };
 		4416C3C62451AA050002870C /* CardStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CEFC1D244093C50062C948 /* CardStorageTest.swift */; platformFilter = ios; };
 		4416C3C72451AA180002870C /* JPPaymentMethodsInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A402449BCAA0039D187 /* JPPaymentMethodsInteractorTest.swift */; platformFilter = ios; };
 		4416C3C82451AA320002870C /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF50D23FFD257009ECC9C /* JPPaymentMethodsTest.swift */; platformFilter = ios; };
@@ -447,7 +447,7 @@
 		300072A623F6AB550099F3C5 /* JPConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPConsumer.h; sourceTree = "<group>"; };
 		300072A823F6AB550099F3C5 /* JPClientDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPClientDetails.h; sourceTree = "<group>"; };
 		300072A923F6AB550099F3C5 /* JPClientDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPClientDetails.m; sourceTree = "<group>"; };
-		300072AA23F6AB550099F3C5 /* JudoKit-iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JudoKit-iOS.h"; sourceTree = "<group>"; };
+		300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudoKit_iOS.h; sourceTree = "<group>"; };
 		300072AC23F6AB560099F3C5 /* JPCardDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardDetails.h; sourceTree = "<group>"; };
 		300072AD23F6AB560099F3C5 /* JPCardDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardDetails.m; sourceTree = "<group>"; };
 		300072AF23F6AB560099F3C5 /* JPReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPReference.h; sourceTree = "<group>"; };
@@ -552,14 +552,13 @@
 		30DB511A23100E6B00B73D66 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		30DB511B23100E6B00B73D66 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		30F77E53241A650800D68BF9 /* UITextField+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Additions.m"; sourceTree = "<group>"; };
-		3B678B561C6CE5190001DC2F /* JudoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "JudoKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
-		4416C39D2451A4060002870C /* JudoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JudoKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4416C3A12451A4060002870C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4416C3D32451AC070002870C /* JudoKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		449211602469E08E00DF6D14 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
+		4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKit-iOSTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		449211612469E7A200DF6D14 /* JPTransactionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionMode.h; sourceTree = "<group>"; };
 		449211632469E7F600DF6D14 /* JPTransactionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionType.h; sourceTree = "<group>"; };
 		449211652469E83D00DF6D14 /* JPTransactionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionResult.h; sourceTree = "<group>"; };
@@ -645,7 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */,
-				4416C3A22451A4060002870C /* JudoKit.framework in Frameworks */,
+				4416C3A22451A4060002870C /* JudoKit-iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1805,7 +1804,6 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
-				449211602469E08E00DF6D14 /* module.modulemap */,
 				4416C39E2451A4060002870C /* JudoKit-iOSTests */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
@@ -1817,8 +1815,8 @@
 		3B678B571C6CE5190001DC2F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B678B561C6CE5190001DC2F /* JudoKit.framework */,
-				4416C39D2451A4060002870C /* JudoKitTests.xctest */,
+				3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */,
+				4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1827,7 +1825,7 @@
 			isa = PBXGroup;
 			children = (
 				3B678B5B1C6CE5190001DC2F /* Info.plist */,
-				300072AA23F6AB550099F3C5 /* JudoKit-iOS.h */,
+				300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */,
 				449211672469E8DD00DF6D14 /* Typedefs.h */,
 				3B678BC71C735AB80001DC2F /* JudoKit.h */,
 				3B678BC81C735AB80001DC2F /* JudoKit.m */,
@@ -1881,7 +1879,7 @@
 			children = (
 				827AF50723FFD257009ECC9C /* Modules */,
 				4416C3A12451A4060002870C /* Info.plist */,
-				4416C3D32451AC070002870C /* JudoKitTests-Bridging-Header.h */,
+				4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */,
 			);
 			path = "JudoKit-iOSTests";
 			sourceTree = "<group>";
@@ -2197,7 +2195,7 @@
 				30D61D5723BB741A004E5CEE /* JPPaymentMethodsViewModel.h in Headers */,
 				30221C3223FE6D9200BF2823 /* JPCardCustomizationViewController.h in Headers */,
 				30006FB623F6999C0099F3C5 /* JPScanCardViewController.h in Headers */,
-				300072F423F6AB560099F3C5 /* JudoKit-iOS.h in Headers */,
+				300072F423F6AB560099F3C5 /* JudoKit_iOS.h in Headers */,
 				30221C4823FE7D7100BF2823 /* JPCardCustomizable.h in Headers */,
 				300072DB23F6AB560099F3C5 /* JPOrderDetails.h in Headers */,
 				30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */,
@@ -2245,7 +2243,7 @@
 			);
 			name = "JudoKit-iOS";
 			productName = JudoKit;
-			productReference = 3B678B561C6CE5190001DC2F /* JudoKit.framework */;
+			productReference = 3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4416C39C2451A4060002870C /* JudoKit-iOSTests */ = {
@@ -2264,7 +2262,7 @@
 			);
 			name = "JudoKit-iOSTests";
 			productName = JudoKitTests;
-			productReference = 4416C39D2451A4060002870C /* JudoKitTests.xctest */;
+			productReference = 4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -2677,16 +2675,17 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 10.0.0;
-				MODULEMAP_FILE = module.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKit;
-				PRODUCT_MODULE_NAME = JudoKit;
-				PRODUCT_NAME = JudoKit;
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.judopay.JudoKit-iOS";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "JudoKit-iOS";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2723,16 +2722,17 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 10.0.0;
-				MODULEMAP_FILE = module.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKit;
-				PRODUCT_MODULE_NAME = JudoKit;
-				PRODUCT_NAME = JudoKit;
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.judopay.JudoKit-iOS";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "JudoKit-iOS";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2764,12 +2764,12 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judo.JudoKit-iOSTests";
-				PRODUCT_MODULE_NAME = JudoKitTests;
-				PRODUCT_NAME = JudoKitTests;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "JudoKit-iOSTests";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKitTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKit-iOSTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2801,11 +2801,11 @@
 				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judo.JudoKit-iOSTests";
-				PRODUCT_MODULE_NAME = JudoKitTests;
-				PRODUCT_NAME = JudoKitTests;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "JudoKit-iOSTests";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKitTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKit-iOSTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

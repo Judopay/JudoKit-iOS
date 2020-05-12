@@ -22,7 +22,7 @@
 
 import XCTest
 
-@testable import JudoKit
+@testable import JudoKit_iOS
 
 class CardStorageTest: XCTestCase {
     

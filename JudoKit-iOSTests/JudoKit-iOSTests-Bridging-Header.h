@@ -12,5 +12,9 @@
 #import "JPCardDetails.h"
 #import "JPKeychainService.h"
 #import "JPConfigurationValidationService.h"
+#import "JP3DSViewController.h"
+#import "JPTransactionService.h"
+#import "JPIDEALService.h"
+#import "JPApplePayService.h"
 
 #import <OHHTTPStubs/OHHTTPStubs.h>

@@ -1,5 +1,5 @@
 import UIKit
-import JudoKitObjC
+import JudoKit_iOS
 
 class TransactionDetailsTableViewController: UITableViewController {
     

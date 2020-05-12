@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-               BuildableName = "JudoKit.framework"
+               BuildableName = "JudoKit-iOS.framework"
                BlueprintName = "JudoKit-iOS"
                ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit.framework"
+            BuildableName = "JudoKit-iOS.framework"
             BlueprintName = "JudoKit-iOS"
             ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
          </BuildableReference>
@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4416C39C2451A4060002870C"
-               BuildableName = "JudoKitTests.xctest"
+               BuildableName = "JudoKit-iOSTests.xctest"
                BlueprintName = "JudoKit-iOSTests"
                ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit.framework"
+            BuildableName = "JudoKit-iOS.framework"
             BlueprintName = "JudoKit-iOS"
             ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit.framework"
+            BuildableName = "JudoKit-iOS.framework"
             BlueprintName = "JudoKit-iOS"
             ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
          </BuildableReference>

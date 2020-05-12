@@ -24,7 +24,7 @@
 
 import XCTest
 
-@testable import JudoKit
+@testable import JudoKit_iOS
 
 class JPUKPostCodeValidation: XCTestCase {
     let validationService = JPCardValidationService()
