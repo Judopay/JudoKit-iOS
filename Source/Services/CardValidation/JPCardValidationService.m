@@ -94,7 +94,7 @@ static int const kCardHolderNameLength = 3;
     return self.lastCardNumberValidationResult;
 }
 
-- (JPValidationResult *)validateCarholderNameInput:(NSString *)input {
+- (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
     return [JPValidationResult validationWithResult:input.length > kCardHolderNameLength
                                        inputAllowed:YES
                                        errorMessage:nil
