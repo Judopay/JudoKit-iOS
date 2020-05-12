@@ -55,7 +55,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateCarholderNameInput:(NSString *)input;
+- (JPValidationResult *)validateCardholderNameInput:(NSString *)input;
 
 /**
  *  A method for validating the expiry date
