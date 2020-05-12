@@ -48,6 +48,7 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPCountry.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPPagination.h"
@@ -75,4 +76,3 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPValidationResult.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
-#import "JPError.h"
