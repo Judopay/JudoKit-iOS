@@ -86,9 +86,9 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         let expiredDateAsString = dateFormater.string(from: expiredDate)
         let notExpiredDateAsString = dateFormater.string(from: notExpiredDate)
         
-        let validCard = JPStoredCardDetails(lastFour: "1111", expiryDate: notExpiredDateAsString, cardNetwork: .networkVisa, cardToken: "token")!
-        let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .networkVisa, cardToken: "token")!
-        let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .networkVisa, cardToken: "token")!
+        let validCard = JPStoredCardDetails(lastFour: "1111", expiryDate: notExpiredDateAsString, cardNetwork: .visa, cardToken: "token")!
+        let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .visa, cardToken: "token")!
+        let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .visa, cardToken: "token")!
         
         return [validCard, expiresSoonCard, expirdCard]
     }
@@ -103,11 +103,11 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         return [JPPaymentMethod.card()]
     }
     
-    func paymentTransaction(withToken token: String, andCompletion completion: JudoCompletionBlock?) {
+    func paymentTransaction(withToken token: String, andCompletion completion: JPCompletionBlock?) {
         
     }
     
-    func startApplePay(completion: JudoCompletionBlock?) {
+    func startApplePay(completion: JPCompletionBlock?) {
         let response = JPResponse()
         completion?(response,nil)
     }
@@ -116,7 +116,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         return false
     }
     
-    func handle3DSecureTransaction(fromError error: Error, completion: JudoCompletionBlock?) {
+    func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
         
     }
     

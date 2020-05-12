@@ -32,13 +32,13 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
+        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
         let service = JPTransactionService()
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
     }
     
     func testServerToServer()  {
-        let completion: JudoCompletionBlock = { (response, error) in
+        let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
@@ -46,7 +46,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
     
     func testServerToServerApple()  {
-        let completion: JudoCompletionBlock = { (response, error) in
+        let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }

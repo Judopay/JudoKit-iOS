@@ -35,7 +35,7 @@ class JPCardValidationServiceTest: XCTestCase {
     override func setUp() {
         let amount = JPAmount("0.01", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
-        configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX, .networkDinersClub]
+        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         
         sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
     }
@@ -100,65 +100,65 @@ class JPCardValidationServiceTest: XCTestCase {
     
     func testForTypeRecognizeVisa() {
         let result = sut.validateCardNumberInput("4")
-        XCTAssertEqual(result!.cardNetwork, .networkVisa)
+        XCTAssertEqual(result!.cardNetwork, .visa)
     }
     
     func testForTypeRecognizeUnknown() {
         let result = sut.validateCardNumberInput("3")
-        let unKnownType = CardNetwork(rawValue: 0)
+        let unKnownType = JPCardNetworkType(rawValue: 0)
         XCTAssertEqual(result!.cardNetwork, unKnownType)
     }
     
     func testForTypeRecognizeMaster() {
         let result = sut.validateCardNumberInput("52")
-        XCTAssertEqual(result!.cardNetwork, .networkMasterCard)
+        XCTAssertEqual(result!.cardNetwork, .masterCard)
     }
     
     func testForTypeRecognizeAmex() {
         let result = sut.validateCardNumberInput("34")
-        XCTAssertEqual(result!.cardNetwork, .networkAMEX)
+        XCTAssertEqual(result!.cardNetwork, .AMEX)
     }
     
     func testForTypeRecognizeDiscover() {
         let result = sut.validateCardNumberInput("65")
-        XCTAssertEqual(result!.cardNetwork, .networkDiscover)
+        XCTAssertEqual(result!.cardNetwork, .discover)
     }
     
     func testForTypeRecognizeJCB() {
         let result = sut.validateCardNumberInput("3528")
-        XCTAssertEqual(result!.cardNetwork, .networkJCB)
+        XCTAssertEqual(result!.cardNetwork, .JCB)
     }
     
     func testForTypeRecognizeDiners() {
         let result = sut.validateCardNumberInput("36")
-        XCTAssertEqual(result!.cardNetwork, .networkDinersClub)
+        XCTAssertEqual(result!.cardNetwork, .dinersClub)
     }
     
     func testForTypeRecognizeMaestro() {
         let result = sut.validateCardNumberInput("5018")
-        XCTAssertEqual(result!.cardNetwork, .networkMaestro)
+        XCTAssertEqual(result!.cardNetwork, .maestro)
     }
     
     func testForTypeRecognizeChina() {
         let result = sut.validateCardNumberInput("62")
-        XCTAssertEqual(result!.cardNetwork, .networkChinaUnionPay)
+        XCTAssertEqual(result!.cardNetwork, .chinaUnionPay)
     }
     
     func testForChangingType() {
         var result = sut.validateCardNumberInput("36")
-        XCTAssertEqual(result!.cardNetwork, .networkDinersClub)
+        XCTAssertEqual(result!.cardNetwork, .dinersClub)
         result = sut.validateCardNumberInput("62")
-        XCTAssertEqual(result!.cardNetwork, .networkChinaUnionPay)
+        XCTAssertEqual(result!.cardNetwork, .chinaUnionPay)
     }
     
     func testUnsuportedTypeFromConfig() {
-        configuration.supportedCardNetworks = [.networkVisa]
+        configuration.supportedCardNetworks = [.visa]
         let result = sut.validateCardNumberInput("30260943491310")
         XCTAssertFalse(result!.isValid)
     }
     
     func testUnsuportedErrorTypeFromConfig() {
-        configuration.supportedCardNetworks = [.networkVisa]
+        configuration.supportedCardNetworks = [.visa]
         let result = sut.validateCardNumberInput("30260943491310")
         let cardNetworkString = JPCardNetwork.name(of: result!.cardNetwork)
         XCTAssertEqual(result!.errorMessage!,  "\(cardNetworkString!) is not supported")

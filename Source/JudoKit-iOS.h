@@ -73,3 +73,10 @@ FOUNDATION_EXPORT const unsigned char JudoKitVersionString[];
 #import <JudoKit/JPVCOResult.h>
 #import <JudoKit/JPValidationResult.h>
 #import <JudoKit/JudoKit.h>
+#import <JudoKit/JPConfiguration.h>
+#import <JudoKit/JPPaymentMethod.h>
+#import <JudoKit/JPPostalAddress.h>
+#import <JudoKit/JPThemable.h>
+#import <JudoKit/JPUIConfiguration.h>
+#import <JudoKit/JPPaymentMethodType.h>
+#import <JudoKit/Typedefs.h>

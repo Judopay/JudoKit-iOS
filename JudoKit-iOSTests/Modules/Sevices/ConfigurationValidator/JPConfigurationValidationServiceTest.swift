@@ -37,7 +37,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
         configValidation = JPConfigurationValidationServiceImp()
         amount = JPAmount("fv", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)
-        configuration.supportedCardNetworks = [.networkVisa, .networkMasterCard, .networkAMEX]
+        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
     }
     
     func testInvalidCharacters() {

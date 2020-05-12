@@ -75,7 +75,7 @@ class JPTransactionServiceTest: XCTestCase {
         let expectation = self.expectation(description: "expect")
         
         sut.sendRequest(withEndpoint: "order/bank/statusrequest/123",
-                        httpMethod: HTTPMethod.GET,
+                        httpMethod: .GET,
                         parameters: nil) { (response, error) in
                             XCTAssertEqual("xxx-xxx-siteId", response!.items!.first!.judoId)
                             XCTAssertEqual("PBBA", response!.items!.first!.paymentMethod)

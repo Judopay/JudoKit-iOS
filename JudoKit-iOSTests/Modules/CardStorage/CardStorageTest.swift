@@ -33,15 +33,15 @@ class CardStorageTest: XCTestCase {
         let selectedCard = storedCardsDetails[0];
         XCTAssert(selectedCard.cardLastFour == "3333")
         XCTAssert(selectedCard.expiryDate == "23/23")
-        XCTAssert(selectedCard.cardNetwork == .networkJCB)
+        XCTAssert(selectedCard.cardNetwork == .JCB)
         XCTAssert(selectedCard.cardToken == "cardToken3")
     }
     
     func addTestCardsInStorage() {
-        let firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .networkVisa, cardToken: "cardToken1")
-        let secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .networkMasterCard, cardToken: "cardToken2")
-        let thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .networkJCB, cardToken: "cardToken3")
-        let forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .networkAMEX, cardToken: "cardToken4")
+        let firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
+        let secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
+        let thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3")
+        let forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
         
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
