@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JPInputType.h"
-#import "CardNetwork.h"
+#import "JPCardNetwork.h"
 
 #pragma mark - JPTransactionInputFieldViewModel
 
@@ -72,7 +72,7 @@
 /**
  * The detected card network of the view model
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 @end
 

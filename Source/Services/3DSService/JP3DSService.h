@@ -41,6 +41,6 @@
  * @param completion - a completion handler with an optional JPResponse / NSError
  */
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JudoCompletionBlock)completion;
+                                   completion:(JPCompletionBlock)completion;
 
 @end

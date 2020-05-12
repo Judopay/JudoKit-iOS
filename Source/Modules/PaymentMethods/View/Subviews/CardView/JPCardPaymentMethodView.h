@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 #import "JPCardPatternType.h"
-#import "CardExpirationStatus.h"
+#import "JPCardExpirationStatus.h"
 
 @class JPTheme;
 
@@ -49,7 +49,7 @@
  */
 - (void)configureWithTitle:(NSString *)title
                 expiryDate:(NSString *)expiryDate
-                   network:(CardNetwork)cardNetwork
+                   network:(JPCardNetworkType)cardNetwork
               cardLastFour:(NSString *)cardLastFour
                patternType:(JPCardPatternType)patternType;
 
@@ -58,6 +58,6 @@
  *
  * @param expirationStatus - the expiration status of the card
  */
-- (void)configureExpirationStatus:(CardExpirationStatus)expirationStatus;
+- (void)configureExpirationStatus:(JPCardExpirationStatus)expirationStatus;
 
 @end

@@ -23,21 +23,21 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardExpirationStatus.h"
+#import "JPCardExpirationStatus.h"
 #import "JPCardPatternType.h"
 #import "JPPaymentMethodType.h"
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @class JPAmount, JPTransactionButtonViewModel, JPPaymentMethod;
 
 #pragma mark - JPPaymentMethodsModel
 
-typedef NS_ENUM(NSUInteger, AnimationType) {
-    AnimationTypeNone,
-    AnimationTypeSetup,
-    AnimationTypeLeftToRight,
-    AnimationTypeRightToLeft,
-    AnimationTypeBottomToTop
+typedef NS_ENUM(NSUInteger, JPAnimationType) {
+    JPAnimationTypeNone,
+    JPAnimationTypeSetup,
+    JPAnimationTypeLeftToRight,
+    JPAnimationTypeRightToLeft,
+    JPAnimationTypeBottomToTop
 };
 
 @interface JPPaymentMethodsModel : NSObject
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * The card network used for displaying the card logo and name
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * The last four digits of the card
@@ -175,7 +175,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * A value that specifies card expiration staus
  */
-@property (nonatomic, assign) CardExpirationStatus cardExpirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus cardExpirationStatus;
 
 @end
 
@@ -238,7 +238,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * Card appearance animation type
  */
-@property (nonatomic, assign) AnimationType animationType;
+@property (nonatomic, assign) JPAnimationType animationType;
 
 /**
  * The currently selected payment method type

@@ -85,11 +85,11 @@
 
 - (nullable JPAmount *)amountForTransactionType:(JPConfiguration *)configuration {
     switch (self.transactionType) {
-        case TransactionTypeCheckCard:
+        case JPTransactionTypeCheckCard:
             return [JPAmount amount:@"0.00" currency:@"GBP"];
-        case TransactionTypeSaveCard:
+        case JPTransactionTypeSaveCard:
             return nil;
-        case TransactionTypeRegisterCard:
+        case JPTransactionTypeRegisterCard:
             return configuration.amount ? configuration.amount : [JPAmount amount:@"0.01" currency:@"GBP"];
         default:
             return configuration.amount;
@@ -97,13 +97,13 @@
 }
 
 - (void)sendRequestWithEndpoint:(NSString *)endpoint
-                     httpMethod:(HTTPMethod)httpMethod
+                     httpMethod:(JPHTTPMethod)httpMethod
                      parameters:(NSDictionary *)parameters
-                     completion:(JudoCompletionBlock)completion {
+                     completion:(JPCompletionBlock)completion {
 
     NSString *url = [NSString stringWithFormat:@"%@%@", self.session.baseURL, endpoint];
 
-    if (httpMethod == HTTPMethodPOST) {
+    if (httpMethod == JPHTTPMethodPOST) {
         [self.session POST:url parameters:parameters completion:completion];
         return;
     }

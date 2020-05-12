@@ -35,7 +35,7 @@
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) JPLoadingView *loadingView;
 @end
@@ -45,7 +45,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JP3DSConfiguration *)configuration
-                           completion:(JudoCompletionBlock)completion {
+                           completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;
         self.completionBlock = completion;

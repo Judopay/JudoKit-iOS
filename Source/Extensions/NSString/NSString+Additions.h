@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @class JPTheme, JPCardNetwork;
 
@@ -32,7 +32,7 @@
 /**
  * A method which returns the card network from the string
  */
-@property (nonatomic, assign, readonly) CardNetwork cardNetwork;
+@property (nonatomic, assign, readonly) JPCardNetworkType cardNetwork;
 
 /**
  * A method which returns YES if the string represents a valid card number

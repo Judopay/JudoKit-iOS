@@ -1,5 +1,5 @@
 //
-//  CardExpirationStatus.h
+//  JPTransactionMode.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,21 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- * The expiration status of the card
- */
-typedef NS_ENUM(NSUInteger, CardExpirationStatus) {
-    /**
-     * Card is not expired
-     */
-    CardNotExpired,
-    /**
-     * Card is expired
-     */
-    CardExpired,
-    /**
-     * Card will expire in the next 2 months
-     */
-    CardExpiresSoon
+typedef NS_ENUM(NSUInteger, JPTransactionMode) {
+    JPTransactionModePayment,
+    JPTransactionModePreAuth,
+    JPTransactionModeServerToServer,
 };
-

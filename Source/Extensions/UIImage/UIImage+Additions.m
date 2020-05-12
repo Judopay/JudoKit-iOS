@@ -36,30 +36,30 @@
     return [UIImage imageNamed:resourceName inBundle:NSBundle.resourcesBundle compatibleWithTraitCollection:nil];
 }
 
-+ (UIImage *)headerImageForCardNetwork:(CardNetwork)network {
-    if (network == CardNetworkVisa) {
++ (UIImage *)headerImageForCardNetwork:(JPCardNetworkType)network {
+    if (network == JPCardNetworkTypeVisa) {
         return [UIImage imageWithIconName:@"card-visa-white"];
     }
     return [UIImage imageForCardNetwork:network];
 }
 
-+ (UIImage *)imageForCardNetwork:(CardNetwork)network {
++ (UIImage *)imageForCardNetwork:(JPCardNetworkType)network {
     switch (network) {
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return [UIImage imageWithIconName:@"card-amex"];
-        case CardNetworkDinersClub:
+        case JPCardNetworkTypeDinersClub:
             return [UIImage imageWithIconName:@"card-diners"];
-        case CardNetworkDiscover:
+        case JPCardNetworkTypeDiscover:
             return [UIImage imageWithIconName:@"card-discover"];
-        case CardNetworkJCB:
+        case JPCardNetworkTypeJCB:
             return [UIImage imageWithIconName:@"card-jcb"];
-        case CardNetworkMaestro:
+        case JPCardNetworkTypeMaestro:
             return [UIImage imageWithIconName:@"card-maestro"];
-        case CardNetworkMasterCard:
+        case JPCardNetworkTypeMasterCard:
             return [UIImage imageWithIconName:@"card-mastercard"];
-        case CardNetworkChinaUnionPay:
+        case JPCardNetworkTypeChinaUnionPay:
             return [UIImage imageWithIconName:@"card-unionpay"];
-        case CardNetworkVisa:
+        case JPCardNetworkTypeVisa:
             return [UIImage imageWithIconName:@"card-visa"];
         default:
             return nil;

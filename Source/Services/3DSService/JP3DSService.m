@@ -31,7 +31,7 @@
 @implementation JP3DSService
 
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JudoCompletionBlock)completion {
+                                   completion:(JPCompletionBlock)completion {
 
     JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
 

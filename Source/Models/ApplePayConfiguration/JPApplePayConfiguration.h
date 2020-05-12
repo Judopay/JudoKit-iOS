@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JPApplePayWrappers.h"
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 /**
  * A configuration file responsible for setting all the necessary parameters
@@ -60,23 +60,23 @@
  *
  * [NOTE: Maestro is only available starting with iOS 12.0]
  */
-@property (nonatomic, assign) CardNetwork supportedCardNetworks;
+@property (nonatomic, assign) JPCardNetworkType supportedCardNetworks;
 
 /**
  * [DEFAULT] A bitmask of the payment processing protocols and card types that you support.
  *           If not set, defaults to 3D Security.
  */
-@property (nonatomic, assign) MerchantCapability merchantCapabilities;
+@property (nonatomic, assign) JPMerchantCapability merchantCapabilities;
 
 /**
  * [OPTIONAL] A bitmask specifying the required billing contant fields in order to process the transaction
  */
-@property (nonatomic, assign) ContactField requiredBillingContactFields;
+@property (nonatomic, assign) JPContactField requiredBillingContactFields;
 
 /**
  * [OPTIONAL] A bitmask specifying the required shipping contant fields in order to process the transaction
  */
-@property (nonatomic, assign) ContactField requiredShippingContactFields;
+@property (nonatomic, assign) JPContactField requiredShippingContactFields;
 
 /**
  * [OPTIONAL] An array that describes the supported shipping methods
@@ -87,13 +87,13 @@
  * [DEFAULT] The type of shipping used for this request.
  *           If not set, defaults to PKShippingTypeShipping.
  */
-@property (nonatomic, assign) PaymentShippingType shippingType;
+@property (nonatomic, assign) JPPaymentShippingType shippingType;
 
 /**
  * [DEFAULT] The billing / shipping information to be returned to the merchant.
  *           If not set, defaults to Billing Contact information.
  */
-@property (nonatomic, assign) ReturnedInfo returnedContactInfo;
+@property (nonatomic, assign) JPReturnedInfo returnedContactInfo;
 
 /**
  * Designated initializer necesary for the bare minimum configuration of a PKPaymentRequest object.

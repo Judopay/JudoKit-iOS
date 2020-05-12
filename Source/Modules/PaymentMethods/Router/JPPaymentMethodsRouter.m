@@ -41,7 +41,7 @@
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completionHandler;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
 @end
@@ -53,7 +53,7 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                    transactionService:(JPTransactionService *)transactionService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
-                           completion:(JudoCompletionBlock)completion {
+                           completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;
@@ -66,7 +66,7 @@
 #pragma mark - Protocol Conformance
 
 - (void)navigateToTransactionModule {
-    self.transactionService.transactionType = TransactionTypeSaveCard;
+    self.transactionService.transactionType = JPTransactionTypeSaveCard;
     JPTransactionViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:self.configuration
@@ -79,7 +79,7 @@
 }
 
 - (void)navigateToIDEALModuleWithBank:(JPIDEALBank *)bank
-                        andCompletion:(JudoCompletionBlock)completion {
+                        andCompletion:(JPCompletionBlock)completion {
 
     if (!self.configuration.siteId) {
         completion(nil, JPError.judoParameterError);

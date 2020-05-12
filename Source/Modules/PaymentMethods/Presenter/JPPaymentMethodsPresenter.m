@@ -62,12 +62,12 @@
 #pragma mark - Protocol Conformance
 
 - (void)viewModelNeedsUpdate {
-    [self updateViewModelWithAnimationType:AnimationTypeSetup];
+    [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
 }
 
-- (void)viewModelNeedsUpdateWithAnimationType:(AnimationType)animationType
+- (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType
                           shouldAnimateChange:(BOOL)shouldAnimate {
 
     [self updateViewModelWithAnimationType:animationType];
@@ -85,8 +85,8 @@
 
     [self.interactor selectCardAtIndex:index];
 
-    AnimationType animationType;
-    animationType = self.headerModel.cardModel ? AnimationTypeBottomToTop : AnimationTypeSetup;
+    JPAnimationType animationType;
+    animationType = self.headerModel.cardModel ? JPAnimationTypeBottomToTop : JPAnimationTypeSetup;
 
     [self viewModelNeedsUpdateWithAnimationType:animationType
                             shouldAnimateChange:YES];
@@ -94,7 +94,7 @@
 
 - (void)didSelectBankAtIndex:(NSUInteger)index {
     self.selectedBankIndex = index;
-    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop
+    [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeBottomToTop
                             shouldAnimateChange:YES];
 }
 
@@ -187,7 +187,7 @@
     if (selectedCard.isSelected && storedCards.count - 1 > 0) {
         [self.interactor setCardAsSelectedAtIndex:0];
     }
-    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeBottomToTop
+    [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeBottomToTop
                             shouldAnimateChange:YES];
 }
 
@@ -195,7 +195,7 @@
     NSString *title = isEditing ? @"done_capitalized" : @"edit_capitalized";
     self.cardHeaderModel.editButtonTitle = title.localized;
 
-    [self viewModelNeedsUpdateWithAnimationType:AnimationTypeNone
+    [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeNone
                             shouldAnimateChange:NO];
 }
 
@@ -205,15 +205,15 @@
         return;
     }
 
-    AnimationType animationType = AnimationTypeLeftToRight;
+    JPAnimationType animationType = JPAnimationTypeLeftToRight;
 
     if (index < self.previousSectionIndex) {
-        animationType = AnimationTypeRightToLeft;
+        animationType = JPAnimationTypeRightToLeft;
     }
 
     JPPaymentMethod *previousMethod = self.paymentSelectionModel.paymentMethods[self.previousSectionIndex];
     if (previousMethod.type == JPPaymentMethodTypeCard && self.cardListModel.cardModels.count == 0) {
-        animationType = AnimationTypeSetup;
+        animationType = JPAnimationTypeSetup;
     }
 
     self.previousSectionIndex = index;
@@ -256,7 +256,7 @@
     [self.interactor setCardAsSelectedAtIndex:cards.count - 1];
 }
 
-- (void)updateViewModelWithAnimationType:(AnimationType)animationType {
+- (void)updateViewModelWithAnimationType:(JPAnimationType)animationType {
     [self.viewModel.items removeAllObjects];
 
     [self prepareHeaderModel];
@@ -324,7 +324,7 @@
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         if (cardDetails.isSelected) {
             self.headerModel.cardModel = [self cardModelFromStoredCardDetails:cardDetails];
-            BOOL isCardExpired = self.headerModel.cardModel.cardExpirationStatus != CardExpired;
+            BOOL isCardExpired = self.headerModel.cardModel.cardExpirationStatus != JPCardExpirationStatusExpired;
             self.headerModel.payButtonModel.isEnabled = isCardExpired;
         }
     }

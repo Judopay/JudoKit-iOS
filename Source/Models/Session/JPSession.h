@@ -77,7 +77,7 @@
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
@@ -86,7 +86,7 @@
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  GET Helper Method for accessing the judo REST API
@@ -95,6 +95,6 @@
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 @end

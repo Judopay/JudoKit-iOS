@@ -57,10 +57,10 @@
 #pragma mark - Helper methods
 
 - (void)setupDefaults {
-    self.merchantCapabilities = MerchantCapability3DS;
-    self.shippingType = ShippingTypeShipping;
-    self.returnedContactInfo = ReturnedInfoBillingContacts;
-    self.supportedCardNetworks = CardNetworkVisa | CardNetworkMasterCard | CardNetworkAMEX | CardNetworkMaestro;
+    self.merchantCapabilities = JPMerchantCapability3DS;
+    self.shippingType = JPShippingTypeShipping;
+    self.returnedContactInfo = JPReturnedInfoBillingContacts;
+    self.supportedCardNetworks = JPCardNetworkTypeVisa | JPCardNetworkTypeMasterCard | JPCardNetworkTypeAMEX | JPCardNetworkTypeMaestro;
 }
 
 @end

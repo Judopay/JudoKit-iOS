@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration;
 
@@ -73,7 +73,7 @@
 /**
  * An NS_OPTION property used to pick between a set of supported card network values.
  */
-@property (nonatomic, assign) CardNetwork supportedCardNetworks;
+@property (nonatomic, assign) JPCardNetworkType supportedCardNetworks;
 
 /**
  * An instance of JPPrimaryAccountDetails that, if set, will be passed in the transaction's request body.

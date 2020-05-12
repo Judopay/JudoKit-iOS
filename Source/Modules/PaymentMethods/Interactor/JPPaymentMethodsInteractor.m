@@ -46,10 +46,10 @@
 #import "JPTransaction.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
-@property (nonatomic, assign) TransactionMode transactionMode;
+@property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completionHandler;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
@@ -60,10 +60,10 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithMode:(TransactionMode)mode
+- (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
           transactionService:(JPTransactionService *)transactionService
-                  completion:(JudoCompletionBlock)completion {
+                  completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         self.transactionMode = mode;
@@ -179,13 +179,13 @@
 #pragma mark - Payment transaction
 
 - (void)paymentTransactionWithToken:(NSString *)token
-                      andCompletion:(JudoCompletionBlock)completion {
-    if (self.transactionMode == TransactionModeServerToServer) {
+                      andCompletion:(JPCompletionBlock)completion {
+    if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
     }
-    BOOL isPreAuth = (self.transactionMode == TransactionTypePreAuth);
-    self.transactionService.transactionType = isPreAuth ? TransactionTypePreAuth : TransactionModePayment;
+    BOOL isPreAuth = (self.transactionMode == JPTransactionTypePreAuth);
+    self.transactionService.transactionType = isPreAuth ? JPTransactionTypePreAuth : JPTransactionModePayment;
     NSString *consumerReference = self.configuration.reference.consumerReference;
     JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
@@ -198,7 +198,7 @@
 
 #pragma mark - Apple Pay payment
 
-- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
+- (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
     [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
@@ -215,7 +215,7 @@
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JudoCompletionBlock)completion {
+                                completion:(JPCompletionBlock)completion {
     [self.threeDSecureService invoke3DSecureViewControllerWithError:error
                                                          completion:completion];
 }
@@ -264,7 +264,7 @@
     return response;
 }
 
-- (void)processServerToServer:(JudoCompletionBlock)completion {
+- (void)processServerToServer:(JPCompletionBlock)completion {
     completion([self buildResponse], nil);
 }
 

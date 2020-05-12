@@ -43,7 +43,7 @@
     return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
 }
 
-- (CardNetwork)cardNetwork {
+- (JPCardNetworkType)cardNetwork {
     return [JPCardNetwork cardNetworkForCardNumber:self];
 }
 

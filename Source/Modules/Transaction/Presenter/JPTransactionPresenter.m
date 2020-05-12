@@ -66,7 +66,7 @@
 
 - (void)prepareInitialViewModel {
 
-    TransactionType type = self.interactor.transactionType;
+    JPTransactionType type = self.interactor.transactionType;
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
 
     self.addCardViewModel.shouldDisplayAVSFields = [self.interactor isAVSEnabled];
@@ -159,7 +159,7 @@
 
 - (void)handleResponse:(JPResponse *)response {
 
-    if (self.interactor.transactionType == TransactionTypeSaveCard) {
+    if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
         NSString *token = response.items.firstObject.cardDetails.cardToken;
 
         if (!token) {
@@ -236,17 +236,17 @@
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
-- (NSString *)transactionButtonTitleForType:(TransactionType)type {
+- (NSString *)transactionButtonTitleForType:(JPTransactionType)type {
     switch (type) {
-        case TransactionTypePayment:
-        case TransactionTypePreAuth:
+        case JPTransactionTypePayment:
+        case JPTransactionTypePreAuth:
             return @"pay".localized;
 
-        case TransactionTypeSaveCard:
-        case TransactionTypeRegisterCard:
+        case JPTransactionTypeSaveCard:
+        case JPTransactionTypeRegisterCard:
             return @"add_card".localized;
 
-        case TransactionTypeCheckCard:
+        case JPTransactionTypeCheckCard:
             return @"check_card".localized;
 
         default:
@@ -282,7 +282,7 @@
     }
 }
 
-- (void)updateSecureCodePlaceholderForNetworkType:(CardNetwork)cardNetwork {
+- (void)updateSecureCodePlaceholderForNetworkType:(JPCardNetworkType)cardNetwork {
     if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
         self.addCardViewModel.secureCodeViewModel.text = @"";
         self.isSecureCodeValid = false;

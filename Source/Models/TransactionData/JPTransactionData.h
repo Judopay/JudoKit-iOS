@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "TransactionType.h"
-#import "TransactionResult.h"
+#import "JPTransactionType.h"
+#import "JPTransactionResult.h"
 
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken, JPOrderDetails;
 
@@ -46,7 +46,7 @@
 /**
  *  The type of Transaction, either "Payment" or "Refund"
  */
-@property (nonatomic, assign) TransactionType type;
+@property (nonatomic, assign) JPTransactionType type;
 
 /**
  *  A redirect URL used for iDEAL bank transactions
@@ -71,7 +71,7 @@
 /**
  *  The result of this transactions, this will either be "Success" or "Declined"
  */
-@property (nonatomic, assign) TransactionResult result;
+@property (nonatomic, assign) JPTransactionResult result;
 
 /**
  *  A message detailing the result.

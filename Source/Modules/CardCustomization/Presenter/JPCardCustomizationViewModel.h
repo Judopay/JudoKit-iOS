@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardExpirationStatus.h"
-#import "CardNetwork.h"
+#import "JPCardExpirationStatus.h"
+#import "JPCardNetworkType.h"
 #import "JPCardPatternType.h"
 
 @class JPCardPattern;
@@ -67,7 +67,7 @@
 /**
  * A value that identifies the card network
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * A value for identifying the card's pattern
@@ -77,7 +77,7 @@
 /**
  * A value that sets the expiration state of the card
  */
-@property (nonatomic, assign) CardExpirationStatus expirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus expirationStatus;
 
 @end
 

@@ -24,13 +24,13 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_OPTIONS(NSUInteger, AnchorType) {
-    AnchorTypeNone = 0,
-    AnchorTypeTop = 1 << 0,
-    AnchorTypeBottom = 1 << 1,
-    AnchorTypeLeading = 1 << 2,
-    AnchorTypeTrailing = 1 << 3,
-    AnchorTypeAll = (AnchorTypeTop | AnchorTypeBottom | AnchorTypeLeading | AnchorTypeTrailing)
+typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
+    JPAnchorTypeNone = 0,
+    JPAnchorTypeTop = 1 << 0,
+    JPAnchorTypeBottom = 1 << 1,
+    JPAnchorTypeLeading = 1 << 2,
+    JPAnchorTypeTrailing = 1 << 3,
+    JPAnchorTypeAll = (JPAnchorTypeTop | JPAnchorTypeBottom | JPAnchorTypeLeading | JPAnchorTypeTrailing)
 };
 
 @interface UIView (Additions)
@@ -79,7 +79,7 @@ typedef NS_OPTIONS(NSUInteger, AnchorType) {
  * @param anchors - the anchor values to be constrained to
  * @param view - the view to anchor to
  */
-- (void)pinToAnchors:(AnchorType)anchors
+- (void)pinToAnchors:(JPAnchorType)anchors
              forView:(nonnull UIView *)view;
 
 /**
@@ -89,7 +89,7 @@ typedef NS_OPTIONS(NSUInteger, AnchorType) {
  * @param view - the view to anchor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToAnchors:(AnchorType)anchors
+- (void)pinToAnchors:(JPAnchorType)anchors
              forView:(nonnull UIView *)view
          withPadding:(CGFloat)padding;
 

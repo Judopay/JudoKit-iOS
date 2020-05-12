@@ -25,9 +25,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "TransactionMode.h"
-#import "TransactionType.h"
-#import "TransactionResult.h"
+#import "JPTransactionMode.h"
+#import "JPTransactionType.h"
+#import "JPTransactionResult.h"
 #import "Typedefs.h"
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
@@ -127,7 +127,7 @@
  *
  * @returns a configured instance of JPTransaction
  */
-+ (nonnull instancetype)transactionWithType:(TransactionType)type;
++ (nonnull instancetype)transactionWithType:(JPTransactionType)type;
 
 /**
  * Initializer that creates a refund-related JPTransaction instance based on a provided transaction type
@@ -138,7 +138,7 @@
  *
  * @returns a configured instance of JPTransaction
  */
-+ (nonnull instancetype)transactionWithType:(TransactionType)type
++ (nonnull instancetype)transactionWithType:(JPTransactionType)type
                                   receiptId:(nonnull NSString *)receiptId
                                      amount:(nonnull JPAmount *)amount;
 
@@ -149,7 +149,7 @@
  *
  * @returns a configured instance of JPTransaction
  */
-- (nonnull instancetype)initWithType:(TransactionType)type;
+- (nonnull instancetype)initWithType:(JPTransactionType)type;
 
 /**
  * Initializer that creates a refund-related JPTransaction instance based on a provided transaction type
@@ -160,7 +160,7 @@
  *
  * @returns a configured instance of JPTransaction
  */
-- (nonnull instancetype)initWithType:(TransactionType)type
+- (nonnull instancetype)initWithType:(JPTransactionType)type
                            receiptId:(nonnull NSString *)receiptId
                               amount:(nonnull JPAmount *)amount;
 
@@ -187,7 +187,7 @@
  *
  * @param completion - the completion block that stores an optional JPResponse object or an NSError
  */
-- (void)sendWithCompletion:(nonnull JudoCompletionBlock)completion;
+- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that performs a 3D Secure transaction
@@ -198,5 +198,5 @@
  */
 - (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
                          receiptId:(nonnull NSString *)receiptId
-                        completion:(nonnull JudoCompletionBlock)completion;
+                        completion:(nonnull JPCompletionBlock)completion;
 @end

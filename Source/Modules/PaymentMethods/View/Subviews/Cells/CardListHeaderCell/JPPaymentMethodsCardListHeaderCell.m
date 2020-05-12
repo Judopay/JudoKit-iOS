@@ -95,11 +95,11 @@ const float kCardListHeaderCenterOffset = 10.0f;
     [self addSubview:self.titleLabel];
     [self addSubview:self.actionButton];
 
-    [self.titleLabel pinToAnchors:AnchorTypeLeading
+    [self.titleLabel pinToAnchors:JPAnchorTypeLeading
                           forView:self
                       withPadding:kCardListHeaderHorizontalPadding];
 
-    [self.actionButton pinToAnchors:AnchorTypeTrailing
+    [self.actionButton pinToAnchors:JPAnchorTypeTrailing
                             forView:self
                         withPadding:kCardListHeaderHorizontalPadding];
 

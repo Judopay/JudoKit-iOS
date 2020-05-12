@@ -115,26 +115,26 @@
     }
 }
 
-- (TransactionResult)transactionResultForString:(NSString *)resultString {
+- (JPTransactionResult)transactionResultForString:(NSString *)resultString {
     if ([resultString isEqualToString:@"Success"]) {
-        return TransactionResultSuccess;
+        return JPTransactionResultSuccess;
     } else if ([resultString isEqualToString:@"Declined"]) {
-        return TransactionResultDeclined;
+        return JPTransactionResultDeclined;
     }
-    return TransactionResultError;
+    return JPTransactionResultError;
 }
 
-- (TransactionType)transactionTypeForString:(NSString *)typeString {
+- (JPTransactionType)transactionTypeForString:(NSString *)typeString {
     if ([typeString isEqualToString:@"Payment"]) {
-        return TransactionTypePayment;
+        return JPTransactionTypePayment;
     } else if ([typeString isEqualToString:@"PreAuth"]) {
-        return TransactionTypePreAuth;
+        return JPTransactionTypePreAuth;
     } else if ([typeString isEqualToString:@"RegisterCard"]) {
-        return TransactionTypeRegisterCard;
+        return JPTransactionTypeRegisterCard;
     } else if ([typeString isEqualToString:@"Save"]) {
-        return TransactionTypeSaveCard;
+        return JPTransactionTypeSaveCard;
     }
-    return TransactionTypeRefund;
+    return JPTransactionTypeRefund;
 }
 
 - (JPPaymentToken *)paymentToken {

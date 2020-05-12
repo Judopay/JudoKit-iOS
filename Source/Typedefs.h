@@ -26,4 +26,4 @@
 
 @class JPResponse, JPError;
 
-typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
+typedef void (^JPCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);

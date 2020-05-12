@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "TransactionMode.h"
+#import "JPTransactionMode.h"
 #import "Typedefs.h"
 
 @class JPConfiguration, JPTransactionService;
@@ -58,6 +58,6 @@
  * @param mode - an instance of JPTransactionMode that sets the transaction as either Payment or Pre Auth.
  * @param completion - a completion block with an optional JPResponse or an NSError;
  */
-- (void)invokeApplePayWithMode:(TransactionMode)mode
-                    completion:(nullable JudoCompletionBlock)completion;
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
+                    completion:(nullable JPCompletionBlock)completion;
 @end

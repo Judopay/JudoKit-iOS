@@ -96,7 +96,7 @@ const int kSubstringPatternOffset = 4;
 
 - (void)configureWithTitle:(NSString *)title
                 expiryDate:(NSString *)expiryDate
-                   network:(CardNetwork)cardNetwork
+                   network:(JPCardNetworkType)cardNetwork
               cardLastFour:(NSString *)cardLastFour
                patternType:(JPCardPatternType)patternType {
 
@@ -117,8 +117,8 @@ const int kSubstringPatternOffset = 4;
     self.backgroundImageView.image = pattern.image;
 }
 
-- (void)configureExpirationStatus:(CardExpirationStatus)expirationStatus {
-    if (expirationStatus == CardExpired) {
+- (void)configureExpirationStatus:(JPCardExpirationStatus)expirationStatus {
+    if (expirationStatus == JPCardExpirationStatusExpired) {
         [self setCardAsExpired];
     }
 }

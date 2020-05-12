@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @interface JPValidationResult : NSObject
 
@@ -45,7 +45,7 @@
 /**
  * A property that will return one of the pre-defined card network types (only for card number)
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * A property that will return a formatted input

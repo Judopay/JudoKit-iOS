@@ -1,5 +1,5 @@
 //
-//  TransactionType.h
+//  JPTransactionType.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,13 +24,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, TransactionType) {
-    TransactionTypePayment,
-    TransactionTypePreAuth,
-    TransactionTypeRefund,
-    TransactionTypeRegisterCard,
-    TransactionTypeCheckCard,
-    TransactionTypeSaveCard,
-    TransactionTypeCollection,
-    TransactionTypeVoid,
+typedef NS_ENUM(NSUInteger, JPTransactionType) {
+    JPTransactionTypePayment,
+    JPTransactionTypePreAuth,
+    JPTransactionTypeRefund,
+    JPTransactionTypeRegisterCard,
+    JPTransactionTypeCheckCard,
+    JPTransactionTypeSaveCard,
+    JPTransactionTypeCollection,
+    JPTransactionTypeVoid,
 };

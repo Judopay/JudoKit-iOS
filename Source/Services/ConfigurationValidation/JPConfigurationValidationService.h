@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "TransactionType.h"
+#import "JPTransactionType.h"
 
 typedef NS_ENUM(NSUInteger, JPValidationError) {
     JPValidationErrorMissingParameter,
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  * @returns an optional instance of JPError containing the validation error details
  */
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
-                forTransactionType:(TransactionType)transactionType;
+                forTransactionType:(JPTransactionType)transactionType;
 
 /**
  * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails

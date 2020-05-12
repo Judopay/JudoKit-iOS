@@ -1,5 +1,5 @@
 //
-//  TransactionResult.h
+//  JPCardExpirationStatus.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,8 +24,21 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, TransactionResult) {
-    TransactionResultSuccess,
-    TransactionResultDeclined,
-    TransactionResultError
+/**
+ * The expiration status of the card
+ */
+typedef NS_ENUM(NSUInteger, JPCardExpirationStatus) {
+    /**
+     * Card is not expired
+     */
+    JPCardExpirationStatusNotExpired,
+    /**
+     * Card is expired
+     */
+    JPCardExpirationStatusExpired,
+    /**
+     * Card will expire in the next 2 months
+     */
+    JPCardExpirationStatusExpiresSoon
 };
+

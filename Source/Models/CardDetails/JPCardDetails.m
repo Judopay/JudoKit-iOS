@@ -91,8 +91,8 @@
     [encoder encodeObject:self.cardScheme forKey:@"cardScheme"];
 }
 
-- (CardNetwork)cardNetwork {
-    if (_cardNetwork == CardNetworkUnknown && self.cardNumber) {
+- (JPCardNetworkType)cardNetwork {
+    if (_cardNetwork == JPCardNetworkTypeUnknown && self.cardNumber) {
         _cardNetwork = self.cardNumber.cardNetwork;
     }
     return _cardNetwork;
@@ -105,11 +105,11 @@
         self.cardLastFour = [self.cardNumber substringFromIndex:self.cardNumber.length - 4];
     }
 
-    if (self.cardNetwork == CardNetworkAMEX) {
+    if (self.cardNetwork == JPCardNetworkTypeAMEX) {
         return [NSString stringWithFormat:@"**** ****** *%@", self.cardLastFour];
     }
 
-    if (self.cardNetwork == CardNetworkUnknown) {
+    if (self.cardNetwork == JPCardNetworkTypeUnknown) {
         return [NSString stringWithFormat:@"**** %@", self.cardLastFour];
     }
 

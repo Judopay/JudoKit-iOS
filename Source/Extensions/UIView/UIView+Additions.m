@@ -62,31 +62,31 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
-- (void)pinToAnchors:(AnchorType)anchors forView:(UIView *)view {
+- (void)pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view {
     [self pinToAnchors:anchors forView:view withPadding:0.0];
 }
 
-- (void)pinToAnchors:(AnchorType)anchors forView:(UIView *)view withPadding:(CGFloat)padding {
+- (void)pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view withPadding:(CGFloat)padding {
 
-    if (anchors & AnchorTypeTop) {
+    if (anchors & JPAnchorTypeTop) {
         [self.topAnchor constraintEqualToAnchor:view.topAnchor
                                        constant:padding]
             .active = YES;
     }
 
-    if (anchors & AnchorTypeBottom) {
+    if (anchors & JPAnchorTypeBottom) {
         [self.bottomAnchor constraintEqualToAnchor:view.bottomAnchor
                                           constant:-padding]
             .active = YES;
     }
 
-    if (anchors & AnchorTypeLeading) {
+    if (anchors & JPAnchorTypeLeading) {
         [self.leadingAnchor constraintEqualToAnchor:view.leadingAnchor
                                            constant:padding]
             .active = YES;
     }
 
-    if (anchors & AnchorTypeTrailing) {
+    if (anchors & JPAnchorTypeTrailing) {
         [self.trailingAnchor constraintEqualToAnchor:view.trailingAnchor
                                             constant:-padding]
             .active = YES;

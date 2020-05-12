@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Typedefs.h"
-#import "TransactionMode.h"
+#import "JPTransactionMode.h"
 
 @class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
@@ -56,12 +56,12 @@
  * Sends a payment transaction based on a stored card token
  */
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
-                      andCompletion:(nullable JudoCompletionBlock)completion;
+                      andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the Apple Pay payment / preAuth flow
  */
-- (void)startApplePayWithCompletion:(nullable JudoCompletionBlock)completion;
+- (void)startApplePayWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -98,7 +98,7 @@
  * @param completion - the JPResponse / NSError completion block
  */
 - (void)handle3DSecureTransactionFromError:(nonnull NSError *)error
-                                completion:(nullable JudoCompletionBlock)completion;
+                                completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method that reorders cards so that the default card is always on top
@@ -140,9 +140,9 @@
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
-- (nonnull instancetype)initWithMode:(TransactionMode)mode
+- (nonnull instancetype)initWithMode:(JPTransactionMode)mode
                        configuration:(nonnull JPConfiguration *)configuration
                   transactionService:(nonnull JPTransactionService *)transactionService
-                          completion:(nullable JudoCompletionBlock)completion;
+                          completion:(nullable JPCompletionBlock)completion;
 
 @end

@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JPError.h"
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @class JPTransactionData, JPCardNetwork;
 
@@ -49,7 +49,7 @@ extern NSString *_Nonnull const JudoErrorDomain;
 + (nonnull JPError *)judoMissingChecksumError;
 + (nonnull JPError *)judoRequestTimeoutError;
 + (nonnull JPError *)judoInvalidCardNumberError;
-+ (nonnull JPError *)judoUnsupportedCardNetwork:(CardNetwork)network;
++ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
 + (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
 + (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
 + (nonnull JPError *)judoErrorFromTransactionData:(nonnull JPTransactionData *)data;

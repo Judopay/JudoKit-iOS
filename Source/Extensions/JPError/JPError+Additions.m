@@ -233,7 +233,7 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                            userInfo:@{NSLocalizedDescriptionKey : @"check_card_number".localized}];
 }
 
-+ (JPError *)judoUnsupportedCardNetwork:(CardNetwork)network {
++ (JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network {
 
     NSString *cardNetworkName = [JPCardNetwork nameOfCardNetwork:network];
     NSString *description = [NSString stringWithFormat:ErrorUnsupportedCardNetworkDescription.localized, cardNetworkName];

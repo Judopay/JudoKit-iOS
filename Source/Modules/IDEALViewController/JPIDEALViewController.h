@@ -46,7 +46,7 @@
 - (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
                             configuration:(nonnull JPConfiguration *)configuration
                        transactionService:(nonnull JPTransactionService *)transactionService
-                        completionHandler:(nullable JudoCompletionBlock)completion;
+                        completionHandler:(nullable JPCompletionBlock)completion;
 
 @end
 

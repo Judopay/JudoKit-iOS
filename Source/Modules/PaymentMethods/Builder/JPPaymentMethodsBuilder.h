@@ -24,17 +24,17 @@
 
 #import <Foundation/Foundation.h>
 #import "Typedefs.h"
-#import "TransactionMode.h"
+#import "JPTransactionMode.h"
 
 @class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 
-+ (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                                    configuration:(nonnull JPConfiguration *)configuration
                                               transactionService:(nonnull JPTransactionService *)transactionService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
-                                               completionHandler:(nullable JudoCompletionBlock)completion;
+                                               completionHandler:(nullable JPCompletionBlock)completion;
 @end
 
 @interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>

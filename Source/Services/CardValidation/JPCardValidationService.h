@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
 @class JPCard, JPValidationResult;
@@ -46,7 +46,7 @@
  *  @return an instance of JPValidationResult that contains the validation status
  */
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input
-                           forSupportedNetworks:(CardNetwork)networks;
+                           forSupportedNetworks:(JPCardNetworkType)networks;
 
 /**
  *  A method for validating the cardholder name

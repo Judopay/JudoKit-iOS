@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 /**
  * The CardDetails object stores information that is returned from a successful payment or pre-auth.
@@ -49,7 +49,7 @@
 /**
  * The card network
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * The card number if available

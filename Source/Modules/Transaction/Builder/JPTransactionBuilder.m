@@ -37,7 +37,7 @@
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
-                                                        completion:(JudoCompletionBlock)completion {
+                                                        completion:(JPCompletionBlock)completion {
 
     JPCardValidationService *cardValidationService = [JPCardValidationService new];
 

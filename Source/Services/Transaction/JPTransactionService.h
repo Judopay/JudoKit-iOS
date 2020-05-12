@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "TransactionType.h"
+#import "JPTransactionType.h"
 #import "Typedefs.h"
 
-typedef NS_ENUM(NSUInteger, HTTPMethod) {
-    HTTPMethodGET,
-    HTTPMethodPOST,
+typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
+    JPHTTPMethodGET,
+    JPHTTPMethodPOST,
 };
 
 @class JPConfiguration, JPTransaction;
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
 /**
  * A property which describes the transaction type
  */
-@property (nonatomic, assign) TransactionType transactionType;
+@property (nonatomic, assign) JPTransactionType transactionType;
 
 /**
  * Designated initializer that creates a configured instance of JPTransactionService based on a token and secret.
@@ -74,8 +74,8 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
  * @param completion - a completion block that returns an optional JPResponse or NSError
  */
 - (void)sendRequestWithEndpoint:(nonnull NSString *)endpoint
-                     httpMethod:(HTTPMethod)httpMethod
+                     httpMethod:(JPHTTPMethod)httpMethod
                      parameters:(nullable NSDictionary *)parameters
-                     completion:(nullable JudoCompletionBlock)completion;
+                     completion:(nullable JPCompletionBlock)completion;
 
 @end

@@ -31,7 +31,7 @@
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
-                                                        completion:(JudoCompletionBlock)completion;
+                                                        completion:(JPCompletionBlock)completion;
 @end
 
 @interface JPTransactionBuilderImpl : NSObject <JPTransactionBuilder>

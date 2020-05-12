@@ -41,7 +41,7 @@
  * @param completion - the JPResponse / NSError completion block
  */
 - (void)navigateToIDEALModuleWithBank:(nonnull JPIDEALBank *)bank
-                        andCompletion:(nonnull JudoCompletionBlock)completion;
+                        andCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that opens the Card Customization view for customizing the card
@@ -75,6 +75,6 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                            transactionService:(nonnull JPTransactionService *)transactionService
                         transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate
-                                   completion:(JudoCompletionBlock _Nonnull)completion;
+                                   completion:(JPCompletionBlock _Nonnull)completion;
 
 @end

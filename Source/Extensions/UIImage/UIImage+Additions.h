@@ -24,7 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardNetwork.h"
+#import "JPCardNetworkType.h"
 
 @interface UIImage (Additions)
 
@@ -53,7 +53,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)imageForCardNetwork:(CardNetwork)network;
++ (nonnull UIImage *)imageForCardNetwork:(JPCardNetworkType)network;
 
 /**
  * Initializes an UIImage to be displayed on top of a card.
@@ -63,6 +63,6 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)headerImageForCardNetwork:(CardNetwork)network;
++ (nonnull UIImage *)headerImageForCardNetwork:(JPCardNetworkType)network;
 
 @end

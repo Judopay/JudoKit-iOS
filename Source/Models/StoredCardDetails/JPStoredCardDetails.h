@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CardExpirationStatus.h"
+#import "JPCardExpirationStatus.h"
 #import "JPCardPatternType.h"
-#import "CardNetwork.h"
+#import "JPCardNetwork.h"
 
 @interface JPStoredCardDetails : NSObject
 
@@ -47,7 +47,7 @@
 /**
  * The card's network
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * The token associated with the card
@@ -76,7 +76,7 @@
 /**
  * A property that showcases the card's expiration status
  */
-@property (nonatomic, assign) CardExpirationStatus expirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus expirationStatus;
 
 /**
  * The designated initializer that creates a new instance with the last four digits, expiry date and card network set
@@ -90,7 +90,7 @@
  */
 - (instancetype)initWithLastFour:(NSString *)lastFour
                       expiryDate:(NSString *)expiryDate
-                     cardNetwork:(CardNetwork)network
+                     cardNetwork:(JPCardNetworkType)network
                        cardToken:(NSString *)cardToken;
 
 /**
@@ -114,7 +114,7 @@
  */
 + (instancetype)cardDetailsWithLastFour:(NSString *)lastFour
                              expiryDate:(NSString *)expiryDate
-                            cardNetwork:(CardNetwork)network
+                            cardNetwork:(JPCardNetworkType)network
                               cardToken:(NSString *)cardToken;
 
 /**

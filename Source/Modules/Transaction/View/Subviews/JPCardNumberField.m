@@ -28,6 +28,7 @@
 #import "UIImage+Additions.h"
 #import "JPTransactionViewModel.h"
 #import "JPTheme.h"
+#import "JPCardNetworkType.h"
 
 @interface JPCardNumberField ()
 @property (nonatomic, strong) UIImageView *cardLogoImageView;
@@ -92,7 +93,7 @@
 
 #pragma mark - Public Methods
 
-- (void)setCardNetwork:(CardNetwork)network {
+- (void)setCardNetwork:(JPCardNetworkType)network {
 
     UIImage *cardIcon = [UIImage imageForCardNetwork:network];
     cardIcon.accessibilityLabel = @"CardNumberCardTypeIcon";

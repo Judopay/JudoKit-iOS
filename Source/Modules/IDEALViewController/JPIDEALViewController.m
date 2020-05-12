@@ -43,7 +43,7 @@
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @property (nonatomic, strong) JPIDEALBank *iDEALBank;
 @property (nonatomic, strong) JPIDEALService *idealService;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPResponse *redirectResponse;
 
 @property (nonatomic, strong) NSString *redirectURL;
@@ -65,7 +65,7 @@ const float kPollingDelayTimer = 30.0;
 - (instancetype)initWithIDEALBank:(JPIDEALBank *)iDEALBank
                     configuration:(JPConfiguration *)configuration
                transactionService:(JPTransactionService *)transactionService
-                completionHandler:(JudoCompletionBlock)completion {
+                completionHandler:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.idealService = [[JPIDEALService alloc] initWithConfiguration:configuration
                                                        transactionService:transactionService];

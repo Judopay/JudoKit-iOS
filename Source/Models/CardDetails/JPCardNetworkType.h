@@ -1,5 +1,5 @@
 //
-//  CardNetwork.h
+//  JPCardNetworkType.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,47 +25,47 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  The CardNetwork enum depicts the Card Network type of a given Card object
+ *  The JPCardNetworkType enum depicts the Card Network type of a given Card object
  */
-typedef NS_OPTIONS(NSUInteger, CardNetwork) {
+typedef NS_OPTIONS(NSUInteger, JPCardNetworkType) {
     /**
      * Unknown
      */
-    CardNetworkUnknown = 0,
+    JPCardNetworkTypeUnknown = 0,
     /**
      * Visa Network
      */
-    CardNetworkVisa = 1 << 0,
+    JPCardNetworkTypeVisa = 1 << 0,
     /**
      * MasterCard Network
      */
-    CardNetworkMasterCard = 1 << 1,
+    JPCardNetworkTypeMasterCard = 1 << 1,
     /**
      * Maestro Network
      */
-    CardNetworkMaestro = 1 << 2,
+    JPCardNetworkTypeMaestro = 1 << 2,
     /**
      * American Express Network
      */
-    CardNetworkAMEX = 1 << 3,
+    JPCardNetworkTypeAMEX = 1 << 3,
     /**
      * China Union Pay Network
      */
-    CardNetworkChinaUnionPay = 1 << 4,
+    JPCardNetworkTypeChinaUnionPay = 1 << 4,
     /**
      * JCB Network
      */
-    CardNetworkJCB = 1 << 5,
+    JPCardNetworkTypeJCB = 1 << 5,
     /**
      * Discover Network
      */
-    CardNetworkDiscover = 1 << 6,
+    JPCardNetworkTypeDiscover = 1 << 6,
     /**
      * Diners Club Network
      */
-    CardNetworkDinersClub = 1 << 7,
+    JPCardNetworkTypeDinersClub = 1 << 7,
     /**
      * All card networks
      */
-    CardNetworksAll,
+    JPCardNetworkTypeAll,
 };

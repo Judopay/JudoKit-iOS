@@ -25,8 +25,8 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 #import "Typedefs.h"
-#import "TransactionMode.h"
-#import "TransactionType.h"
+#import "JPTransactionMode.h"
+#import "JPTransactionType.h"
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
@@ -72,7 +72,7 @@ static NSString *__nonnull const JudoKitVersion = @"10.0.0";
  *
  * @returns - a configured instance of JPTransaction.
  */
-- (nonnull JPTransaction *)transactionWithType:(TransactionType)type
+- (nonnull JPTransaction *)transactionWithType:(JPTransactionType)type
                                  configuration:(nonnull JPConfiguration *)configuration;
 
 /**
@@ -82,9 +82,9 @@ static NSString *__nonnull const JudoKitVersion = @"10.0.0";
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
-- (void)invokeTransactionWithType:(TransactionType)type
+- (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(nonnull JPConfiguration *)configuration
-                       completion:(nullable JudoCompletionBlock)completion;
+                       completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which invokes the Apple Pay sleeve which allows users to make Apple Pay transactions.
@@ -93,9 +93,9 @@ static NSString *__nonnull const JudoKitVersion = @"10.0.0";
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
-- (void)invokeApplePayWithMode:(TransactionMode)mode
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(nonnull JPConfiguration *)configuration
-                    completion:(nullable JudoCompletionBlock)completion;
+                    completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.
@@ -104,7 +104,7 @@ static NSString *__nonnull const JudoKitVersion = @"10.0.0";
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
-- (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
+- (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
-                               completion:(nullable JudoCompletionBlock)completion;
+                               completion:(nullable JPCompletionBlock)completion;
 @end

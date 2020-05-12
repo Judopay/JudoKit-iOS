@@ -112,22 +112,22 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 
 #pragma mark - REST API methods
 
-- (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodPOST path:path parameters:parameters completion:completion];
 }
 
-- (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodPUT path:path parameters:parameters completion:completion];
 }
 
-- (void)GET:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)GET:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodGET path:path parameters:parameters completion:completion];
 }
 
 - (void)apiCall:(NSString *)HTTPMethod
            path:(NSString *)path
      parameters:(NSDictionary *)parameters
-     completion:(JudoCompletionBlock)completion {
+     completion:(JPCompletionBlock)completion {
 
     if ([self.reachability isReachable]) {
         [self performRequestWithMethod:HTTPMethod
@@ -142,7 +142,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 - (void)performRequestWithMethod:(NSString *)HTTPMethod
                             path:(NSString *)path
                       parameters:(NSDictionary *)parameters
-                      completion:(JudoCompletionBlock)completion {
+                      completion:(JPCompletionBlock)completion {
 
     NSMutableURLRequest *request = [self judoRequest:path];
     request.HTTPMethod = HTTPMethod;
@@ -185,7 +185,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request
-                    completion:(JudoCompletionBlock)completion {
+                    completion:(JPCompletionBlock)completion {
 
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig
@@ -251,7 +251,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                              }
 
                              dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (result.items.count == 1 && responseJSON[@"result"] != nil && result.items.firstObject.result != TransactionResultSuccess) {
+                                 if (result.items.count == 1 && responseJSON[@"result"] != nil && result.items.firstObject.result != JPTransactionResultSuccess) {
                                      completion(nil, [JPError judoErrorFromTransactionData:result.items.firstObject]);
                                  } else {
                                      completion(result, nil);

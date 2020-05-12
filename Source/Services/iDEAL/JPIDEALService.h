@@ -25,15 +25,6 @@
 #import <Foundation/Foundation.h>
 #import "Typedefs.h"
 
-typedef NS_ENUM(NSUInteger, IDEALStatus) {
-    IDEALStatusSuccess,
-    IDEALStatusPending,
-    IDEALStatusPendingDelay,
-    IDEALStatusTimeout,
-    IDEALStatusFailed,
-    IDEALStatusError
-};
-
 @class JPConfiguration, JPIDEALBank, JPTransactionService;
 
 @interface JPIDEALService : NSObject
@@ -59,7 +50,7 @@ typedef NS_ENUM(NSUInteger, IDEALStatus) {
  * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
 - (void)redirectURLForIDEALBank:(nonnull JPIDEALBank *)iDEALBank
-                     completion:(nonnull JudoCompletionBlock)completion;
+                     completion:(nonnull JPCompletionBlock)completion;
 
 /**
  * Method used for polling the iDEAL transaction status
@@ -70,7 +61,7 @@ typedef NS_ENUM(NSUInteger, IDEALStatus) {
  */
 - (void)pollTransactionStatusForOrderId:(nonnull NSString *)orderId
                                checksum:(nonnull NSString *)checksum
-                             completion:(nonnull JudoCompletionBlock)completion;
+                             completion:(nonnull JPCompletionBlock)completion;
 
 /**
  * Method used to invalidate the timer and stop the polling process

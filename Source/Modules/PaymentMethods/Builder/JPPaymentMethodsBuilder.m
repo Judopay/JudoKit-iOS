@@ -41,11 +41,11 @@
 
 #pragma mark - Public methods
 
-+ (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
-                                      completionHandler:(JudoCompletionBlock)completion {
+                                      completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);

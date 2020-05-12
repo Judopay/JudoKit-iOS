@@ -240,12 +240,12 @@
 		4416C3D12451AA530002870C /* JPUSAPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A21244742E70039D187 /* JPUSAPostCodeValidation.swift */; platformFilter = ios; };
 		4416C3D22451AA530002870C /* JPCanadaPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A22244742E70039D187 /* JPCanadaPostCodeValidation.swift */; platformFilter = ios; };
 		4492115F2469DC7200DF6D14 /* JPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000727523F6AB540099F3C5 /* JPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		449211622469E7A200DF6D14 /* TransactionMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211612469E7A200DF6D14 /* TransactionMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		449211642469E7F600DF6D14 /* TransactionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211632469E7F600DF6D14 /* TransactionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		449211662469E83D00DF6D14 /* TransactionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211652469E83D00DF6D14 /* TransactionResult.h */; };
+		449211622469E7A200DF6D14 /* JPTransactionMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211612469E7A200DF6D14 /* JPTransactionMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		449211642469E7F600DF6D14 /* JPTransactionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211632469E7F600DF6D14 /* JPTransactionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		449211662469E83D00DF6D14 /* JPTransactionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211652469E83D00DF6D14 /* JPTransactionResult.h */; };
 		449211682469E8DD00DF6D14 /* Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211672469E8DD00DF6D14 /* Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4492116A2469ED9A00DF6D14 /* CardExpirationStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211692469ED9A00DF6D14 /* CardExpirationStatus.h */; };
-		4492116C2469EDB300DF6D14 /* CardNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116B2469EDB300DF6D14 /* CardNetwork.h */; };
+		4492116A2469ED9A00DF6D14 /* JPCardExpirationStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211692469ED9A00DF6D14 /* JPCardExpirationStatus.h */; };
+		4492116C2469EDB300DF6D14 /* JPCardNetworkType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116B2469EDB300DF6D14 /* JPCardNetworkType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4492116E2469F19100DF6D14 /* JPCardPatternType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116D2469F19100DF6D14 /* JPCardPatternType.h */; };
 		449211702469F77900DF6D14 /* JPInputType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116F2469F77900DF6D14 /* JPInputType.h */; };
 		44921172246A001700DF6D14 /* JPInputFieldDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 44921171246A001700DF6D14 /* JPInputFieldDelegate.h */; };
@@ -560,12 +560,12 @@
 		4416C3A12451A4060002870C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4416C3D32451AC070002870C /* JudoKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		449211602469E08E00DF6D14 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
-		449211612469E7A200DF6D14 /* TransactionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionMode.h; sourceTree = "<group>"; };
-		449211632469E7F600DF6D14 /* TransactionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionType.h; sourceTree = "<group>"; };
-		449211652469E83D00DF6D14 /* TransactionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionResult.h; sourceTree = "<group>"; };
+		449211612469E7A200DF6D14 /* JPTransactionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionMode.h; sourceTree = "<group>"; };
+		449211632469E7F600DF6D14 /* JPTransactionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionType.h; sourceTree = "<group>"; };
+		449211652469E83D00DF6D14 /* JPTransactionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionResult.h; sourceTree = "<group>"; };
 		449211672469E8DD00DF6D14 /* Typedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Typedefs.h; sourceTree = "<group>"; };
-		449211692469ED9A00DF6D14 /* CardExpirationStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardExpirationStatus.h; sourceTree = "<group>"; };
-		4492116B2469EDB300DF6D14 /* CardNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardNetwork.h; sourceTree = "<group>"; };
+		449211692469ED9A00DF6D14 /* JPCardExpirationStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardExpirationStatus.h; sourceTree = "<group>"; };
+		4492116B2469EDB300DF6D14 /* JPCardNetworkType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardNetworkType.h; sourceTree = "<group>"; };
 		4492116D2469F19100DF6D14 /* JPCardPatternType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardPatternType.h; sourceTree = "<group>"; };
 		4492116F2469F77900DF6D14 /* JPInputType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPInputType.h; sourceTree = "<group>"; };
 		44921171246A001700DF6D14 /* JPInputFieldDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPInputFieldDelegate.h; sourceTree = "<group>"; };
@@ -1293,8 +1293,8 @@
 			children = (
 				300072AC23F6AB560099F3C5 /* JPCardDetails.h */,
 				300072AD23F6AB560099F3C5 /* JPCardDetails.m */,
-				449211692469ED9A00DF6D14 /* CardExpirationStatus.h */,
-				4492116B2469EDB300DF6D14 /* CardNetwork.h */,
+				449211692469ED9A00DF6D14 /* JPCardExpirationStatus.h */,
+				4492116B2469EDB300DF6D14 /* JPCardNetworkType.h */,
 			);
 			path = CardDetails;
 			sourceTree = "<group>";
@@ -1376,9 +1376,9 @@
 			children = (
 				3000732623FA9C1C0099F3C5 /* JPTransaction.h */,
 				3000732723FA9C1C0099F3C5 /* JPTransaction.m */,
-				449211612469E7A200DF6D14 /* TransactionMode.h */,
-				449211632469E7F600DF6D14 /* TransactionType.h */,
-				449211652469E83D00DF6D14 /* TransactionResult.h */,
+				449211612469E7A200DF6D14 /* JPTransactionMode.h */,
+				449211632469E7F600DF6D14 /* JPTransactionType.h */,
+				449211652469E83D00DF6D14 /* JPTransactionResult.h */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -2090,7 +2090,7 @@
 				52B74DA023F98B4C009FE38C /* JPTransactionInteractor.h in Headers */,
 				30221C2F23FE6D9200BF2823 /* JPCardCustomizationPresenter.h in Headers */,
 				30006F9A23F6993A0099F3C5 /* UIApplication+Additions.h in Headers */,
-				4492116C2469EDB300DF6D14 /* CardNetwork.h in Headers */,
+				4492116C2469EDB300DF6D14 /* JPCardNetworkType.h in Headers */,
 				52B74D9F23F98B4C009FE38C /* JPTransactionBuilder.h in Headers */,
 				52B74D9B23F98B4C009FE38C /* JPTransactionButton.h in Headers */,
 				52B74D9723F98B4C009FE38C /* JPCardNumberField.h in Headers */,
@@ -2098,7 +2098,7 @@
 				3000732423FA9BBD0099F3C5 /* JPApplePayWrappers.h in Headers */,
 				449211702469F77900DF6D14 /* JPInputType.h in Headers */,
 				300072F523F6AB560099F3C5 /* JPCardDetails.h in Headers */,
-				449211622469E7A200DF6D14 /* TransactionMode.h in Headers */,
+				449211622469E7A200DF6D14 /* JPTransactionMode.h in Headers */,
 				30D61D5D23BB741A004E5CEE /* JPPaymentMethodsSelectionCell.h in Headers */,
 				529CCB9123BE910500A8DBDD /* JPPaymentMethodsCardHeaderView.h in Headers */,
 				30006F9823F6993A0099F3C5 /* UIImage+Additions.h in Headers */,
@@ -2106,7 +2106,7 @@
 				300072BB23F6AB560099F3C5 /* JPSDKInfo.h in Headers */,
 				3000738223FBED640099F3C5 /* JP3DSViewController.h in Headers */,
 				44921176246A013F00DF6D14 /* JPCardCustomizationSubmitCellDelegate.h in Headers */,
-				449211642469E7F600DF6D14 /* TransactionType.h in Headers */,
+				449211642469E7F600DF6D14 /* JPTransactionType.h in Headers */,
 				30006F5B23F698A20099F3C5 /* JPRoundedCornerView.h in Headers */,
 				300072F223F6AB560099F3C5 /* JPClientDetails.h in Headers */,
 				30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */,
@@ -2184,7 +2184,7 @@
 				3000733123FA9C1C0099F3C5 /* JPTransaction.h in Headers */,
 				30006F8F23F6993A0099F3C5 /* UIColor+Additions.h in Headers */,
 				300072F923F6AB560099F3C5 /* JPStoredCardDetails.h in Headers */,
-				4492116A2469ED9A00DF6D14 /* CardExpirationStatus.h in Headers */,
+				4492116A2469ED9A00DF6D14 /* JPCardExpirationStatus.h in Headers */,
 				52B74D9523F98B4C009FE38C /* JPTransactionViewController.h in Headers */,
 				30221C3423FE6D9200BF2823 /* JPCardCustomizationBuilder.h in Headers */,
 				5273AF1423F30730008C6D89 /* JPCardPaymentMethodView.h in Headers */,
@@ -2210,7 +2210,7 @@
 				30221C3D23FE739800BF2823 /* JPCardCustomizationView.h in Headers */,
 				30221C3723FE6D9200BF2823 /* JPCardCustomizationRouter.h in Headers */,
 				30006F9E23F6993A0099F3C5 /* NSBundle+Additions.h in Headers */,
-				449211662469E83D00DF6D14 /* TransactionResult.h in Headers */,
+				449211662469E83D00DF6D14 /* JPTransactionResult.h in Headers */,
 				305835242406586C00B61167 /* JPCardCustomizationIsDefaultCell.h in Headers */,
 				30D61D5E23BB741A004E5CEE /* JPPaymentMethodsCardCell.h in Headers */,
 				300072D523F6AB560099F3C5 /* JPPrimaryAccountDetails.h in Headers */,
