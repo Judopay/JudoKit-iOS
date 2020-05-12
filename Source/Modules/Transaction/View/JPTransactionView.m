@@ -27,6 +27,7 @@
 #import "JPCardNumberField.h"
 #import "JPLoadingButton.h"
 #import "JPRoundedCornerView.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
@@ -35,7 +36,6 @@
 #import "UIStackView+Additions.h"
 #import "UITextField+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPTransactionView ()
 

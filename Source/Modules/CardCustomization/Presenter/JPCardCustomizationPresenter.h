@@ -22,10 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardPatternType.h"
+#import <Foundation/Foundation.h>
 
-@protocol JPCardCustomizationView, JPCardCustomizationRouter, JPCardCustomizationInteractor;
+@protocol JPCardCustomizationView
+, JPCardCustomizationRouter, JPCardCustomizationInteractor;
 
 @protocol JPCardCustomizationPresenter
 

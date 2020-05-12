@@ -25,15 +25,15 @@
 #import "JPTransactionViewController.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
+#import "JPInputField.h"
 #import "JPLoadingButton.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionView.h"
+#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
-#import "JPTransactionViewModel.h"
-#import "JPTheme.h"
-#import "JPInputField.h"
 
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPTransactionView *addCardView;

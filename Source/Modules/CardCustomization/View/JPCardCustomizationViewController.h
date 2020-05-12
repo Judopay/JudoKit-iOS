@@ -22,12 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import "JPInputFieldDelegate.h"
 #import "JPCardCustomizationPatternPickerCellDelegate.h"
 #import "JPCardCustomizationSubmitCellDelegate.h"
+#import "JPInputFieldDelegate.h"
+#import <UIKit/UIKit.h>
 
-@protocol JPCardCustomizationPresenter, JPCardCustomizationPatternPickerCellDelegate, JPInputFieldDelegate, JPCardCustomizationSubmitCellDelegate;
+@protocol JPCardCustomizationPresenter
+, JPCardCustomizationPatternPickerCellDelegate, JPInputFieldDelegate, JPCardCustomizationSubmitCellDelegate;
 @class JPCardCustomizationView, JPCardCustomizationViewModel, JPCardCustomizationSubmitCell, JPCardCustomizationPatternPickerCell, JPInputField, JPTheme;
 
 @protocol JPCardCustomizationView

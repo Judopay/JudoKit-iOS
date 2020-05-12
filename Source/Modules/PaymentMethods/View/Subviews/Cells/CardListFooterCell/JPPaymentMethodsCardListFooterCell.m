@@ -24,9 +24,9 @@
 
 #import "JPPaymentMethodsCardListFooterCell.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPPaymentMethodsCardListFooterCell ()
 @property (nonatomic, copy) void (^onTransactionButtonTapHandler)(void);

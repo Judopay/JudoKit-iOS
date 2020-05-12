@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPConfiguration.h"
+#import "JPAddress.h"
 #import "JPAmount.h"
+#import "JPApplePayConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
-#import "JPAddress.h"
-#import "JPApplePayConfiguration.h"
 #import "JPUIConfiguration.h"
 
 @interface JPConfiguration ()

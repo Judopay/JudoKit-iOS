@@ -23,20 +23,20 @@
 //  SOFTWARE.
 
 #import "JPTransactionPresenter.h"
+#import "JPAddress.h"
+#import "JPCard.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
+#import "JPCountry.h"
 #import "JPError+Additions.h"
+#import "JPResponse.h"
+#import "JPTransactionData.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-#import "JPAddress.h"
-#import "JPCard.h"
-#import "JPCountry.h"
-#import "JPResponse.h"
-#import "JPTransactionData.h"
-#import "NSString+Additions.h"
 #import "JPTransactionViewModel.h"
 #import "JPValidationResult.h"
-#import "JPCardDetails.h"
-#import "JPCardNetwork.h"
+#import "NSString+Additions.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;

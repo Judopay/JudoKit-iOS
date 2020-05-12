@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPFloatingTextField.h"
-#import "UIFont+Additions.h"
 #import "JPTheme.h"
+#import "UIFont+Additions.h"
 
 @interface JPFloatingTextField ()
 @property (nonatomic, strong) UILabel *floatingLabel;
@@ -125,12 +125,12 @@ static const float kErrorConstraintOffset = -15.0f;
         self.font = [UIFont fontWithName:self.placeholderFont.familyName size:self.expandedPointSize];
         return;
     }
-    
+
     if (fontSize == self.defaultPointSize && !self.isExpanded) {
         self.font = [UIFont fontWithName:self.placeholderFont.familyName size:self.defaultPointSize];
         return;
     }
-    
+
     UIFont *oldFont = self.font;
     self.font = [UIFont fontWithName:self.placeholderFont.familyName size:fontSize];
     CGFloat scale = oldFont.pointSize / self.font.pointSize;
@@ -143,7 +143,7 @@ static const float kErrorConstraintOffset = -15.0f;
     self.transform = CGAffineTransformScale(self.transform, scale, scale);
 
     CGPoint newOrigin = self.frame.origin;
-    
+
     self.frame = CGRectMake(oldOrigin.x,
                             oldOrigin.y + frameOffset,
                             self.frame.size.width,

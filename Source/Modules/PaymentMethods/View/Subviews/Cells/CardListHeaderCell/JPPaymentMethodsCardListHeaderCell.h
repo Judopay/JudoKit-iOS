@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodConfigurable.h"
-#import "JPThemable.h"
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
+#import "JPThemable.h"
 #import <UIKit/UIKit.h>
 
 @interface JPPaymentMethodsCardListHeaderCell : UITableViewCell <JPPaymentMethodConfigurable, JPThemable>

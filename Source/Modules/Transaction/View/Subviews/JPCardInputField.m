@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPCardInputField.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
-#import "JPTransactionViewModel.h"
-#import "JPTheme.h"
 
 @interface JPCardInputField ()
 @property (nonatomic, strong) JPTheme *theme;

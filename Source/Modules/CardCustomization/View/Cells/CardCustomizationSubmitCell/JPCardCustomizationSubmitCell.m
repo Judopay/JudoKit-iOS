@@ -25,10 +25,10 @@
 #import "JPCardCustomizationSubmitCell.h"
 #import "Functions.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIStackView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPCardCustomizationSubmitCell ()
 

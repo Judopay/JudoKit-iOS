@@ -36,4 +36,3 @@
 - (void)sectionView:(JPSectionView *_Nonnull)sectionView didSelectSectionAtIndex:(NSUInteger)index;
 
 @end
-

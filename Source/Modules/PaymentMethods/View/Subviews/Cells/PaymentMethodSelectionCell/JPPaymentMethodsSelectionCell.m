@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsSelectionCell.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPSection.h"
+#import "JPSectionView.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
-#import "JPPaymentMethod.h"
-#import "JPSectionView.h"
-#import "JPSection.h"
 
 @interface JPPaymentMethodsSelectionCell ()
 

@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPTransactionStatusView.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIStackView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPTransactionStatusView ()
 

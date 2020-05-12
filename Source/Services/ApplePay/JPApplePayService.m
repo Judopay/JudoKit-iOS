@@ -23,7 +23,11 @@
 //  SOFTWARE.
 
 #import "JPApplePayService.h"
+#import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
+#import "JPCardDetails.h"
+#import "JPConfiguration.h"
 #import "JPConsumer.h"
 #import "JPContactInformation.h"
 #import "JPError+Additions.h"
@@ -31,14 +35,10 @@
 #import "JPPostalAddress.h"
 #import "JPReference.h"
 #import "JPResponse.h"
-#import "JPTransactionData.h"
-#import "UIApplication+Additions.h"
-#import "JPCardDetails.h"
-#import "JPTransactionService.h"
-#import "JPConfiguration.h"
-#import "JPApplePayConfiguration.h"
-#import "JPApplePayService.h"
 #import "JPTransaction.h"
+#import "JPTransactionData.h"
+#import "JPTransactionService.h"
+#import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;

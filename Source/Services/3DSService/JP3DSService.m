@@ -25,8 +25,8 @@
 #import "JP3DSService.h"
 #import "JP3DSConfiguration.h"
 #import "JP3DSViewController.h"
-#import "UIApplication+Additions.h"
 #import "JPTransaction.h"
+#import "UIApplication+Additions.h"
 
 @implementation JP3DSService
 

@@ -25,10 +25,10 @@
 #import "JPConfigurationValidationService.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPReference.h"
-#import "JPConfiguration.h"
 
 @implementation JPConfigurationValidationServiceImp
 

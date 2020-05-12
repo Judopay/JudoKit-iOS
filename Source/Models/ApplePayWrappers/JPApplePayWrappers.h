@@ -107,7 +107,7 @@ typedef NS_OPTIONS(NSUInteger, JPReturnedInfo) {
  * @param amount - amount to be payed for this item
  */
 + (_Nonnull instancetype)itemWithLabel:(NSString *_Nonnull)label
-                       amount:(NSDecimalNumber *_Nonnull)amount;
+                                amount:(NSDecimalNumber *_Nonnull)amount;
 
 /**
  * Designated initializer
@@ -117,8 +117,8 @@ typedef NS_OPTIONS(NSUInteger, JPReturnedInfo) {
  * @param type   - payment type for this item (final / pending)
  */
 + (_Nonnull instancetype)itemWithLabel:(NSString *_Nonnull)label
-                       amount:(NSDecimalNumber *_Nonnull)amount
-                         type:(JPPaymentSummaryItemType)type;
+                                amount:(NSDecimalNumber *_Nonnull)amount
+                                  type:(JPPaymentSummaryItemType)type;
 
 /**
  * Designated initializer
@@ -128,8 +128,8 @@ typedef NS_OPTIONS(NSUInteger, JPReturnedInfo) {
  * @param type   - payment type for this item (final / pending)
  */
 - (_Nonnull instancetype)initWithLabel:(NSString *_Nonnull)label
-                       amount:(NSDecimalNumber *_Nonnull)amount
-                         type:(JPPaymentSummaryItemType)type;
+                                amount:(NSDecimalNumber *_Nonnull)amount
+                                  type:(JPPaymentSummaryItemType)type;
 
 /**
  * Convenience initializer that sets payment type to JPPaymentSummaryItemTypeFinal by default
@@ -138,7 +138,7 @@ typedef NS_OPTIONS(NSUInteger, JPReturnedInfo) {
  * @param amount - amount to be payed for th _Nonnull is item
  */
 - (_Nonnull instancetype)initWithLabel:(NSString *_Nonnull)label
-                       amount:(NSDecimalNumber *_Nonnull)amount;
+                                amount:(NSDecimalNumber *_Nonnull)amount;
 
 @end
 
@@ -168,9 +168,9 @@ typedef NS_OPTIONS(NSUInteger, JPReturnedInfo) {
  * @param type   - payment type for this item ( _Nonnull final / pending)
  */
 - (_Nonnull instancetype)initWithIdentifier:(NSString *_Nonnull)identifier
-                            detail:(NSString *_Nonnull)detail
-                             label:(NSString *_Nonnull)label
-                            amount:(NSDecimalNumber *_Nonnull)amount
-                              type:(JPPaymentSummaryItemType)type;
+                                     detail:(NSString *_Nonnull)detail
+                                      label:(NSString *_Nonnull)label
+                                     amount:(NSDecimalNumber *_Nonnull)amount
+                                       type:(JPPaymentSummaryItemType)type;
 
 @end

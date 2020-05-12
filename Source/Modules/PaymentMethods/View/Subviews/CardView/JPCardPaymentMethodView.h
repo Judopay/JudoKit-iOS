@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPCardExpirationStatus.h"
 #import "JPCardNetworkType.h"
 #import "JPCardPatternType.h"
-#import "JPCardExpirationStatus.h"
+#import <UIKit/UIKit.h>
 
 @class JPTheme;
 

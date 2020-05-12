@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import "JPInputFieldDelegate.h"
 #import "JPInputType.h"
+#import <UIKit/UIKit.h>
 
 @class JPTheme, JPTransactionViewModel;
 

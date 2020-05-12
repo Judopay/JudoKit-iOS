@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <AVFoundation/AVFoundation.h>
-#import <Foundation/Foundation.h>
 #import "JPTransactionType.h"
 #import "Typedefs.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 
 @class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 

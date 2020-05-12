@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPDictionaryConvertible.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
-#import "JPDictionaryConvertible.h"
 
 @class JPClientDetails, JPGeoLocation, JPThreeDSecure;
 

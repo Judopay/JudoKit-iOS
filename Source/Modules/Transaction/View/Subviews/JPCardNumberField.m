@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPCardNumberField.h"
+#import "JPCardNetworkType.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
-#import "JPTransactionViewModel.h"
-#import "JPTheme.h"
-#import "JPCardNetworkType.h"
 
 @interface JPCardNumberField ()
 @property (nonatomic, strong) UIImageView *cardLogoImageView;

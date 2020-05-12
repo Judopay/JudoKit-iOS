@@ -24,18 +24,18 @@
 
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPIDEALBank.h"
+#import "JPIDEALService.h"
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
+#import "JPTheme.h"
 #import "JPTransactionData.h"
+#import "JPTransactionService.h"
 #import "JPTransactionStatusView.h"
 #import "UIView+Additions.h"
-#import "JPConfiguration.h"
-#import "JPIDEALService.h"
-#import "JPTheme.h"
-#import "JPTransactionService.h"
-#import "JPIDEALBank.h"
 
 @interface JPIDEALViewController ()
 

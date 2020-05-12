@@ -24,8 +24,8 @@
 
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsViewModel.h"
-#import "UIView+Additions.h"
 #import "JPTheme.h"
+#import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsCardListHeaderCell
 

@@ -25,18 +25,18 @@
 #import "JPPaymentMethodsHeaderView.h"
 #import "Functions.h"
 #import "JPAmount.h"
+#import "JPPaymentMethodsCardHeaderView.h"
+#import "JPPaymentMethodsEmptyHeaderView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
+#import "JPUIConfiguration.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "JPPaymentMethodsCardHeaderView.h"
-#import "JPPaymentMethodsEmptyHeaderView.h"
-#import "JPTheme.h"
-#import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsHeaderView ()
 

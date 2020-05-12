@@ -24,14 +24,14 @@
 
 #import "JPTransactionBuilder.h"
 #import "JPCardValidationService.h"
+#import "JPConfiguration.h"
+#import "JPTheme.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionRouter.h"
-#import "JPTransactionViewController.h"
-#import "JPConfiguration.h"
-#import "JPUIConfiguration.h"
 #import "JPTransactionService.h"
-#import "JPTheme.h"
+#import "JPTransactionViewController.h"
+#import "JPUIConfiguration.h"
 
 @implementation JPTransactionBuilderImpl
 

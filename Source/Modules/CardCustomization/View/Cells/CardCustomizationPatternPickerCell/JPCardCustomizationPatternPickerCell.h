@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizable.h"
-#import "JPCardPatternType.h"
 #import "JPCardCustomizationPatternPickerCellDelegate.h"
+#import "JPCardPatternType.h"
 
 @interface JPCardCustomizationPatternPickerCell : UITableViewCell <JPCardCustomizable>
 

@@ -25,17 +25,17 @@
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationHeaderCell.h"
 #import "JPCardCustomizationIsDefaultCell.h"
+#import "JPCardCustomizationPatternPickerCell.h"
 #import "JPCardCustomizationPresenter.h"
+#import "JPCardCustomizationSubmitCell.h"
 #import "JPCardCustomizationTextInputCell.h"
 #import "JPCardCustomizationView.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPInputField.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
-#import "JPCardCustomizationPatternPickerCell.h"
-#import "JPCardCustomizationSubmitCell.h"
-#import "JPInputField.h"
-#import "JPTheme.h"
 
 @interface JPCardCustomizationViewController ()
 @property (nonatomic, strong) UIView *fadedView;

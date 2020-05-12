@@ -23,15 +23,15 @@
 //  SOFTWARE.
 
 #import "JP3DSViewController.h"
+#import "JP3DSConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPError.h"
 #import "JPLoadingView.h"
+#import "JPSession.h"
+#import "JPTheme.h"
+#import "JPTransaction.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTheme.h"
-#import "JP3DSConfiguration.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;

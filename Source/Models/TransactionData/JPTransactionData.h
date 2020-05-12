@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPTransactionType.h"
 #import "JPTransactionResult.h"
+#import "JPTransactionType.h"
+#import <Foundation/Foundation.h>
 
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken, JPOrderDetails;
 

@@ -24,10 +24,10 @@
 
 #import "JPCardCustomizationIsDefaultCell.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPCardCustomizationIsDefaultCell ()
 @property (nonatomic, strong) UIStackView *stackView;

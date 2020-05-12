@@ -29,10 +29,10 @@
 #import "JPCardPaymentMethodView.h"
 #import "JPOtherPaymentMethodView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPCardView ()
 

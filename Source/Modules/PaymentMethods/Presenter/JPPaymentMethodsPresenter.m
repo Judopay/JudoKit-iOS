@@ -29,6 +29,7 @@
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
@@ -36,7 +37,6 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
-#import "JPPaymentMethod.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;

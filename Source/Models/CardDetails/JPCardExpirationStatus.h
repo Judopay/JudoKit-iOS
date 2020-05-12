@@ -41,4 +41,3 @@ typedef NS_ENUM(NSUInteger, JPCardExpirationStatus) {
      */
     JPCardExpirationStatusExpiresSoon
 };
-

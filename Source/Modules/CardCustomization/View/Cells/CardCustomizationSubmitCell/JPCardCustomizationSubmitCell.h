@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizable.h"
-#import "JPThemable.h"
 #import "JPCardCustomizationSubmitCellDelegate.h"
+#import "JPThemable.h"
 
 @interface JPCardCustomizationSubmitCell : UITableViewCell <JPCardCustomizable, JPThemable>
 

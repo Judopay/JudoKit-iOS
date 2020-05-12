@@ -30,14 +30,14 @@
 #import "JPPaymentMethodsSelectionCell.h"
 #import "JPPaymentMethodsView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPSectionView.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
+#import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
-#import "JPTheme.h"
-#import "JPSectionView.h"
-#import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsViewController ()
 

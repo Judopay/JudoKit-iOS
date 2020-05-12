@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "Typedefs.h"
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import "Typedefs.h"
 
 @class JPTheme, JP3DSConfiguration, JPTransaction;
 

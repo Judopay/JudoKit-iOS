@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardNetworkType.h"
+#import <Foundation/Foundation.h>
 
 /**
  * The CardDetails object stores information that is returned from a successful payment or pre-auth.

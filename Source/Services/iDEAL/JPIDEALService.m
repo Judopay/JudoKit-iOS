@@ -24,13 +24,13 @@
 
 #import "JPIDEALService.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPError+Additions.h"
+#import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "JPConfiguration.h"
-#import "JPIDEALBank.h"
 #import "JPTransactionService.h"
 
 @interface JPIDEALService ()

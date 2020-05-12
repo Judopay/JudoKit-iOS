@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTransactionMode.h"
+#import "JPTransactionResult.h"
+#import "JPTransactionType.h"
+#import "Typedefs.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "JPTransactionMode.h"
-#import "JPTransactionType.h"
-#import "JPTransactionResult.h"
-#import "Typedefs.h"
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;

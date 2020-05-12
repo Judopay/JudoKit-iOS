@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPApplePayWrappers.h"
 #import "JPCardNetworkType.h"
+#import <Foundation/Foundation.h>
 
 /**
  * A configuration file responsible for setting all the necessary parameters
@@ -105,8 +105,8 @@
  * @param paymentSummaryItems - An array of items that summarize the amount of the payment (total, shipping, tax, etc.)
  */
 - (_Nonnull instancetype)initWithMerchantId:(NSString *_Nonnull)merchantId
-                          currency:(NSString *_Nonnull)currency
-                       countryCode:(NSString *_Nonnull)countryCode
-               paymentSummaryItems:(NSArray<JPPaymentSummaryItem *> *_Nonnull)paymentSummaryItems;
+                                   currency:(NSString *_Nonnull)currency
+                                countryCode:(NSString *_Nonnull)countryCode
+                        paymentSummaryItems:(NSArray<JPPaymentSummaryItem *> *_Nonnull)paymentSummaryItems;
 
 @end

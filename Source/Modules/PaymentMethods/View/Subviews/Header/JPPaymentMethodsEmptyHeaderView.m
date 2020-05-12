@@ -24,9 +24,9 @@
 
 #import "JPPaymentMethodsEmptyHeaderView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIStackView+Additions.h"
-#import "JPTheme.h"
 
 @interface JPPaymentMethodsEmptyHeaderView ()
 @property (nonatomic, strong) UILabel *titleLabel;

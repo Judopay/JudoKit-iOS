@@ -24,9 +24,9 @@
 
 #import "JPTransactionRouter.h"
 #import "JPScanCardViewController.h"
+#import "JPTheme.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionViewController.h"
-#import "JPTheme.h"
 
 @interface JPTransactionRouterImpl ()
 @property (nonatomic, strong) PayCardsRecognizer *recognizer;

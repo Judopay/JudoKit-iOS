@@ -24,14 +24,14 @@
 
 #import "JPCardPaymentMethodView.h"
 #import "Functions.h"
+#import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTheme.h"
-#import "JPCardNetwork.h"
-#import "JPCardPattern.h"
 
 @interface JPCardPaymentMethodView ()
 

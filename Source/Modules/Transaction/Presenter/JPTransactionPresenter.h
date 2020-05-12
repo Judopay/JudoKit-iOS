@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPInputType.h"
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
-#import "JPInputType.h"
 
-@protocol JPTransactionView, JPTransactionRouter, JPTransactionInteractor;
+@protocol JPTransactionView
+, JPTransactionRouter, JPTransactionInteractor;
 
 @protocol JPTransactionPresenter
 

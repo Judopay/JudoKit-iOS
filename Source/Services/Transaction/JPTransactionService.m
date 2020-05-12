@@ -25,11 +25,11 @@
 #import "JPTransactionService.h"
 #import "JPAmount.h"
 #import "JPCard.h"
-#import "JPReference.h"
-#import "JPTransactionEnricher.h"
 #import "JPConfiguration.h"
-#import "JPTransaction.h"
+#import "JPReference.h"
 #import "JPSession.h"
+#import "JPTransaction.h"
+#import "JPTransactionEnricher.h"
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPSession *session;

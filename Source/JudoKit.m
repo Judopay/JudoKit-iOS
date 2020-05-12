@@ -25,11 +25,14 @@
 #import "JudoKit.h"
 #import "JPApplePayService.h"
 #import "JPConfiguration.h"
+#import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPReceipt.h"
 #import "JPResponse.h"
+#import "JPSession.h"
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
@@ -38,12 +41,6 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
-#import "JPConfiguration.h"
-#import "JPConfigurationValidationService.h"
-#import "JPPaymentMethod.h"
-#import "JPReceipt.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
 
 @interface JudoKit ()
 

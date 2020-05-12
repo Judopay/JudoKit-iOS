@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
+#import "JPTheme.h"
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
-#import "JPTheme.h"
+#import <Foundation/Foundation.h>
 
 @implementation NSString (Additions)
 

@@ -24,18 +24,18 @@
 
 #import "JPPaymentMethodsBuilder.h"
 #import "JPAmount.h"
+#import "JPApplePayService.h"
 #import "JPCardStorage.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
-#import "JPReference.h"
-#import "JudoKit.h"
 #import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "JPApplePayService.h"
-#import "JPPaymentMethod.h"
-#import "JPConfiguration.h"
+#import "JPReference.h"
+#import "JudoKit.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 

@@ -27,6 +27,8 @@
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
 #import "JPCardStorage.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
@@ -38,12 +40,10 @@
 #import "JPPaymentToken.h"
 #import "JPReference.h"
 #import "JPResponse.h"
+#import "JPStoredCardDetails.h"
+#import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
-#import "JPStoredCardDetails.h"
-#import "JPCardDetails.h"
-#import "JPCardNetwork.h"
-#import "JPTransaction.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;

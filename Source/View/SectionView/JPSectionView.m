@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPSectionView.h"
-#import "UIColor+Additions.h"
 #import "JPSection.h"
 #import "JPTheme.h"
+#import "UIColor+Additions.h"
 
 @interface JPSectionView ()
 

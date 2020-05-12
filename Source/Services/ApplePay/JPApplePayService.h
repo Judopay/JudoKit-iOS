@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <PassKit/PassKit.h>
 #import "JPTransactionMode.h"
 #import "Typedefs.h"
+#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
 @class JPConfiguration, JPTransactionService;
 
