@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationSubmitCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,6 +25,7 @@
 #import "JPCardCustomizationSubmitCell.h"
 #import "Functions.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIStackView+Additions.h"

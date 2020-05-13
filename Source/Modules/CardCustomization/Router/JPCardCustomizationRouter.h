@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationRouter.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //

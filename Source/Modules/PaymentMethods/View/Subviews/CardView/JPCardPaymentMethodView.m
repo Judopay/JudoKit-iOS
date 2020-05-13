@@ -1,6 +1,6 @@
 //
 //  JPCardView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,7 +24,10 @@
 
 #import "JPCardPaymentMethodView.h"
 #import "Functions.h"
+#import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
@@ -93,7 +96,7 @@ const int kSubstringPatternOffset = 4;
 
 - (void)configureWithTitle:(NSString *)title
                 expiryDate:(NSString *)expiryDate
-                   network:(CardNetwork)cardNetwork
+                   network:(JPCardNetworkType)cardNetwork
               cardLastFour:(NSString *)cardLastFour
                patternType:(JPCardPatternType)patternType {
 
@@ -114,8 +117,8 @@ const int kSubstringPatternOffset = 4;
     self.backgroundImageView.image = pattern.image;
 }
 
-- (void)configureExpirationStatus:(CardExpirationStatus)expirationStatus {
-    if (expirationStatus == CardExpired) {
+- (void)configureExpirationStatus:(JPCardExpirationStatus)expirationStatus {
+    if (expirationStatus == JPCardExpirationStatusExpired) {
         [self setCardAsExpired];
     }
 }

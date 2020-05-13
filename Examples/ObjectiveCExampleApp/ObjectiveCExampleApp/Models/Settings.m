@@ -51,39 +51,39 @@
 
 #pragma mark - Supported card networks section
 
-- (CardNetwork)supportedCardNetworks {
-    CardNetwork networks = CardNetworkUnknown;
+- (JPCardNetworkType)supportedCardNetworks {
+    JPCardNetworkType networks = JPCardNetworkTypeUnknown;
     
     if ([self.defaults boolForKey:kVisaEnabledKey]) {
-        networks |= CardNetworkVisa;
+        networks |= JPCardNetworkTypeVisa;
     }
     
     if ([self.defaults boolForKey:kMasterCardEnabledKey]) {
-        networks |= CardNetworkMasterCard;
+        networks |= JPCardNetworkTypeMasterCard;
     }
     
     if ([self.defaults boolForKey:kMaestroEnabledKey]) {
-        networks |= CardNetworkMaestro;
+        networks |= JPCardNetworkTypeMaestro;
     }
     
     if ([self.defaults boolForKey:kAMEXEnabledKey]) {
-        networks |= CardNetworkAMEX;
+        networks |= JPCardNetworkTypeAMEX;
     }
     
     if ([self.defaults boolForKey:kChinaUnionPayEnabledKey]) {
-        networks |= CardNetworkChinaUnionPay;
+        networks |= JPCardNetworkTypeChinaUnionPay;
     }
     
     if ([self.defaults boolForKey:kJCBEnabledKey]) {
-        networks |= CardNetworkJCB;
+        networks |= JPCardNetworkTypeJCB;
     }
     
     if ([self.defaults boolForKey:kDiscoverEnabledKey]) {
-        networks |= CardNetworkDiscover;
+        networks |= JPCardNetworkTypeDiscover;
     }
     
     if ([self.defaults boolForKey:kDinersClubEnabledKey]) {
-        networks |= CardNetworkDinersClub;
+        networks |= JPCardNetworkTypeDinersClub;
     }
     
     return networks;

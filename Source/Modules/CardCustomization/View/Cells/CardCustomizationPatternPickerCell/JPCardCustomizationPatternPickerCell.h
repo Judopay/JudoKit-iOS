@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationPatternPickerCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,22 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizable.h"
-#import "JPCardPattern.h"
-
-@class JPCardCustomizationPatternPickerCell;
-
-@protocol JPCardCustomizationPatternPickerCellDelegate
-
-/**
- * A method that triggers once the user selects one of the pattern options from the collection
- *
- * @param pickerCell - a reference to the JPCardCustomizationPatternPickerCell instancee
- * @param type - the type of a JPCardPattern used to identify the pattern
- */
-- (void)patternPickerCell:(JPCardCustomizationPatternPickerCell *)pickerCell
-    didSelectPatternWithType:(JPCardPatternType)type;
-
-@end
+#import "JPCardCustomizationPatternPickerCellDelegate.h"
+#import "JPCardPatternType.h"
 
 @interface JPCardCustomizationPatternPickerCell : UITableViewCell <JPCardCustomizable>
 

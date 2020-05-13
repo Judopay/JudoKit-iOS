@@ -1,6 +1,6 @@
 //
 //  JPError+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
+#import "JPCardNetworkType.h"
 #import "JPError.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionData;
+@class JPTransactionData, JPCardNetwork;
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
@@ -49,7 +49,7 @@ extern NSString *_Nonnull const JudoErrorDomain;
 + (nonnull JPError *)judoMissingChecksumError;
 + (nonnull JPError *)judoRequestTimeoutError;
 + (nonnull JPError *)judoInvalidCardNumberError;
-+ (nonnull JPError *)judoUnsupportedCardNetwork:(CardNetwork)network;
++ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
 + (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
 + (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
 + (nonnull JPError *)judoErrorFromTransactionData:(nonnull JPTransactionData *)data;

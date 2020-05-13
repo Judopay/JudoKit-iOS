@@ -1,6 +1,6 @@
 //
 //  JPTransaction.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,37 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSession.h"
-
+#import "JPTransactionMode.h"
+#import "JPTransactionResult.h"
+#import "JPTransactionType.h"
+#import "Typedefs.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
-
-typedef NS_ENUM(NSUInteger, TransactionMode) {
-    TransactionModePayment,
-    TransactionModePreAuth,
-    TransactionModeServerToServer,
-};
-
-typedef NS_ENUM(NSUInteger, TransactionType) {
-    TransactionTypePayment,
-    TransactionTypePreAuth,
-    TransactionTypeRefund,
-    TransactionTypeRegisterCard,
-    TransactionTypeCheckCard,
-    TransactionTypeSaveCard,
-    TransactionTypeCollection,
-    TransactionTypeVoid,
-};
-
-typedef NS_ENUM(NSUInteger, TransactionResult) {
-    TransactionResultSuccess,
-    TransactionResultDeclined,
-    TransactionResultError
-};
 
 @interface JPTransaction : NSObject
 
@@ -148,7 +127,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @returns a configured instance of JPTransaction
  */
-+ (nonnull instancetype)transactionWithType:(TransactionType)type;
++ (nonnull instancetype)transactionWithType:(JPTransactionType)type;
 
 /**
  * Initializer that creates a refund-related JPTransaction instance based on a provided transaction type
@@ -159,7 +138,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @returns a configured instance of JPTransaction
  */
-+ (nonnull instancetype)transactionWithType:(TransactionType)type
++ (nonnull instancetype)transactionWithType:(JPTransactionType)type
                                   receiptId:(nonnull NSString *)receiptId
                                      amount:(nonnull JPAmount *)amount;
 
@@ -170,7 +149,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @returns a configured instance of JPTransaction
  */
-- (nonnull instancetype)initWithType:(TransactionType)type;
+- (nonnull instancetype)initWithType:(JPTransactionType)type;
 
 /**
  * Initializer that creates a refund-related JPTransaction instance based on a provided transaction type
@@ -181,7 +160,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @returns a configured instance of JPTransaction
  */
-- (nonnull instancetype)initWithType:(TransactionType)type
+- (nonnull instancetype)initWithType:(JPTransactionType)type
                            receiptId:(nonnull NSString *)receiptId
                               amount:(nonnull JPAmount *)amount;
 
@@ -208,7 +187,7 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  *
  * @param completion - the completion block that stores an optional JPResponse object or an NSError
  */
-- (void)sendWithCompletion:(nonnull JudoCompletionBlock)completion;
+- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that performs a 3D Secure transaction
@@ -219,5 +198,5 @@ typedef NS_ENUM(NSUInteger, TransactionResult) {
  */
 - (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
                          receiptId:(nonnull NSString *)receiptId
-                        completion:(nonnull JudoCompletionBlock)completion;
+                        completion:(nonnull JPCompletionBlock)completion;
 @end

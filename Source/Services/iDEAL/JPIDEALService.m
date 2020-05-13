@@ -1,6 +1,6 @@
 //
 //  JPIDEALService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,11 +24,14 @@
 
 #import "JPIDEALService.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPError+Additions.h"
+#import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
+#import "JPTransactionService.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -63,7 +66,7 @@ static const float kTimerDuration = 60.0f;
 #pragma mark - Public methods
 
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank
-                     completion:(JudoCompletionBlock)completion {
+                     completion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [self parametersForIDEALBank:iDealBank];
 
@@ -74,7 +77,7 @@ static const float kTimerDuration = 60.0f;
 
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:HTTPMethodPOST
+                                          httpMethod:JPHTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, NSError *error) {
                                               JPTransactionData *data = response.items.firstObject;
@@ -90,7 +93,7 @@ static const float kTimerDuration = 60.0f;
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                                checksum:(NSString *)checksum
-                             completion:(JudoCompletionBlock)completion {
+                             completion:(JPCompletionBlock)completion {
 
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
@@ -108,7 +111,7 @@ static const float kTimerDuration = 60.0f;
 
 - (void)getStatusForOrderId:(NSString *)orderId
                    checksum:(NSString *)checksum
-                 completion:(JudoCompletionBlock)completion {
+                 completion:(JPCompletionBlock)completion {
 
     if (self.didTimeout) {
         return;
@@ -118,7 +121,7 @@ static const float kTimerDuration = 60.0f;
 
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:HTTPMethodGET
+                                          httpMethod:JPHTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
                                               if (error) {

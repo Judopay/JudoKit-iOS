@@ -1,6 +1,6 @@
 //
 //  JudoKit.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -25,11 +25,14 @@
 #import "JudoKit.h"
 #import "JPApplePayService.h"
 #import "JPConfiguration.h"
+#import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPReceipt.h"
 #import "JPResponse.h"
+#import "JPSession.h"
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
@@ -40,10 +43,11 @@
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
+
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
 
@@ -76,15 +80,15 @@
 
 #pragma mark - Public methods
 
-- (JPTransaction *)transactionWithType:(TransactionType)type
+- (JPTransaction *)transactionWithType:(JPTransactionType)type
                          configuration:(JPConfiguration *)configuration {
     self.transactionService.transactionType = type;
     return [self.transactionService transactionWithConfiguration:configuration];
 }
 
-- (void)invokeTransactionWithType:(TransactionType)type
+- (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(JPConfiguration *)configuration
-                       completion:(JudoCompletionBlock)completion {
+                       completion:(JPCompletionBlock)completion {
 
     JPError *configurationError = [self.configurationValidationService validateConfiguration:configuration
                                                                           forTransactionType:type];
@@ -107,9 +111,9 @@
                                                     completion:nil];
 }
 
-- (void)invokeApplePayWithMode:(TransactionMode)mode
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(JPConfiguration *)configuration
-                    completion:(JudoCompletionBlock)completion {
+                    completion:(JPCompletionBlock)completion {
 
     JPError *configurationError = [self.configurationValidationService valiadateApplePayConfiguration:configuration];
 
@@ -123,9 +127,9 @@
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
 }
 
-- (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
+- (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(JPConfiguration *)configuration
-                               completion:(JudoCompletionBlock)completion {
+                               completion:(JPCompletionBlock)completion {
 
     //TODO: No validation???
 

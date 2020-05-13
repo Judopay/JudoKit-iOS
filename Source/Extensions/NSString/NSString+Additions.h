@@ -1,6 +1,6 @@
 //
 //  NSString+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,16 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPTheme.h"
+#import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
+
+@class JPTheme, JPCardNetwork;
 
 @interface NSString (Additions)
 
 /**
  * A method which returns the card network from the string
  */
-@property (nonatomic, assign, readonly) CardNetwork cardNetwork;
+@property (nonatomic, assign, readonly) JPCardNetworkType cardNetwork;
 
 /**
  * A method which returns YES if the string represents a valid card number

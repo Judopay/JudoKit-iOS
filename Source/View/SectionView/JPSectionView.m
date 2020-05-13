@@ -1,6 +1,6 @@
 //
 //  JPScrollableSectionView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,6 +23,8 @@
 //  SOFTWARE.
 
 #import "JPSectionView.h"
+#import "JPSection.h"
+#import "JPTheme.h"
 #import "UIColor+Additions.h"
 
 @interface JPSectionView ()

@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsViewModel.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,21 +22,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPCardPattern.h"
-#import "JPPaymentMethod.h"
+#import "JPCardExpirationStatus.h"
+#import "JPCardNetworkType.h"
+#import "JPCardPatternType.h"
+#import "JPPaymentMethodType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPTransactionButtonViewModel;
+@class JPAmount, JPTransactionButtonViewModel, JPPaymentMethod;
 
 #pragma mark - JPPaymentMethodsModel
 
-typedef NS_ENUM(NSUInteger, AnimationType) {
-    AnimationTypeNone,
-    AnimationTypeSetup,
-    AnimationTypeLeftToRight,
-    AnimationTypeRightToLeft,
-    AnimationTypeBottomToTop
+typedef NS_ENUM(NSUInteger, JPAnimationType) {
+    JPAnimationTypeNone,
+    JPAnimationTypeSetup,
+    JPAnimationTypeLeftToRight,
+    JPAnimationTypeRightToLeft,
+    JPAnimationTypeBottomToTop
 };
 
 @interface JPPaymentMethodsModel : NSObject
@@ -144,7 +145,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * The card network used for displaying the card logo and name
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * The last four digits of the card
@@ -174,7 +175,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * A value that specifies card expiration staus
  */
-@property (nonatomic, assign) CardExpirationStatus cardExpirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus cardExpirationStatus;
 
 @end
 
@@ -237,7 +238,7 @@ typedef NS_ENUM(NSUInteger, AnimationType) {
 /**
  * Card appearance animation type
  */
-@property (nonatomic, assign) AnimationType animationType;
+@property (nonatomic, assign) JPAnimationType animationType;
 
 /**
  * The currently selected payment method type

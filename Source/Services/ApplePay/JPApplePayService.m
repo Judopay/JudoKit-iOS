@@ -1,6 +1,6 @@
 //
 //  JPApplePayService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,7 +23,11 @@
 //  SOFTWARE.
 
 #import "JPApplePayService.h"
+#import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
+#import "JPCardDetails.h"
+#import "JPConfiguration.h"
 #import "JPConsumer.h"
 #import "JPContactInformation.h"
 #import "JPError+Additions.h"
@@ -31,14 +35,16 @@
 #import "JPPostalAddress.h"
 #import "JPReference.h"
 #import "JPResponse.h"
+#import "JPTransaction.h"
 #import "JPTransactionData.h"
+#import "JPTransactionService.h"
 #import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
-@property (nonatomic, assign) TransactionMode transactionMode;
+@property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @end
 
 @implementation JPApplePayService
@@ -56,8 +62,8 @@
 
 #pragma mark - Public method
 
-- (void)invokeApplePayWithMode:(TransactionMode)mode
-                    completion:(JudoCompletionBlock)completion {
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
+                    completion:(JPCompletionBlock)completion {
     self.transactionMode = mode;
     self.completionBlock = completion;
     [UIApplication.topMostViewController presentViewController:self.pkPaymentAuthorizationViewController
@@ -81,12 +87,12 @@
                        didAuthorizePayment:(PKPayment *)payment
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion {
 
-    if (self.transactionMode == TransactionModeServerToServer) {
+    if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:self.completionBlock payment:payment];
         return;
     }
 
-    TransactionType type = (self.transactionMode == TransactionModePreAuth) ? TransactionTypePreAuth : TransactionTypePayment;
+    JPTransactionType type = (self.transactionMode == JPTransactionModePreAuth) ? JPTransactionTypePreAuth : JPTransactionTypePayment;
     self.transactionService.transactionType = type;
 
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
@@ -109,11 +115,11 @@
             return;
         }
 
-        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & ReturnedInfoBillingContacts) {
+        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & JPReturnedInfoBillingContacts) {
             response.billingInfo = [weakSelf contactInformationFromPaymentContact:payment.billingContact];
         }
 
-        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & ReturnedInfoShippingContacts) {
+        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & JPReturnedInfoShippingContacts) {
             response.shippingInfo = [weakSelf contactInformationFromPaymentContact:payment.shippingContact];
         }
 
@@ -152,8 +158,8 @@
     paymentRequest.shippingType = self.pkShippingType;
     paymentRequest.shippingMethods = self.pkShippingMethods;
 
-    ContactField requiredShippingContactFields = self.configuration.applePayConfiguration.requiredShippingContactFields;
-    ContactField requiredBillingContactFields = self.configuration.applePayConfiguration.requiredBillingContactFields;
+    JPContactField requiredShippingContactFields = self.configuration.applePayConfiguration.requiredShippingContactFields;
+    JPContactField requiredBillingContactFields = self.configuration.applePayConfiguration.requiredBillingContactFields;
 
     if (@available(iOS 11.0, *)) {
 
@@ -178,26 +184,26 @@
 
 - (PKMerchantCapability)pkMerchantCapabilities {
     switch (self.configuration.applePayConfiguration.merchantCapabilities) {
-        case MerchantCapability3DS:
+        case JPMerchantCapability3DS:
             return PKMerchantCapability3DS;
-        case MerchantCapabilityEMV:
+        case JPMerchantCapabilityEMV:
             return PKMerchantCapabilityEMV;
-        case MerchantCapabilityCredit:
+        case JPMerchantCapabilityCredit:
             return PKMerchantCapabilityCredit;
-        case MerchantCapabilityDebit:
+        case JPMerchantCapabilityDebit:
             return PKMerchantCapabilityDebit;
     }
 }
 
 - (PKShippingType)pkShippingType {
     switch (self.configuration.applePayConfiguration.shippingType) {
-        case ShippingTypeShipping:
+        case JPShippingTypeShipping:
             return PKShippingTypeShipping;
-        case ShippingTypeDelivery:
+        case JPShippingTypeDelivery:
             return PKShippingTypeDelivery;
-        case ShippingTypeStorePickup:
+        case JPShippingTypeStorePickup:
             return PKShippingTypeStorePickup;
-        case ShippingTypeServicePickup:
+        case JPShippingTypeServicePickup:
             return PKShippingTypeServicePickup;
     }
 }
@@ -236,60 +242,60 @@
 
     NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [[NSMutableArray alloc] init];
 
-    CardNetwork cardNetworks = self.configuration.supportedCardNetworks;
+    JPCardNetworkType cardNetworks = self.configuration.supportedCardNetworks;
 
-    if (cardNetworks && CardNetworkVisa) {
+    if (cardNetworks && JPCardNetworkTypeVisa) {
         [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
     }
 
-    if (cardNetworks & CardNetworkAMEX) {
+    if (cardNetworks & JPCardNetworkTypeAMEX) {
         [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
     }
 
-    if (cardNetworks & CardNetworkMasterCard) {
+    if (cardNetworks & JPCardNetworkTypeMasterCard) {
         [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
     }
 
-    if (cardNetworks & CardNetworkMaestro) {
+    if (cardNetworks & JPCardNetworkTypeMaestro) {
         if (@available(iOS 12.0, *)) {
             [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
         }
     }
 
-    if (cardNetworks & CardNetworkJCB) {
+    if (cardNetworks & JPCardNetworkTypeJCB) {
         [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
     }
 
-    if (cardNetworks & CardNetworkDiscover) {
+    if (cardNetworks & JPCardNetworkTypeDiscover) {
         [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
     }
 
-    if (cardNetworks & CardNetworkChinaUnionPay) {
+    if (cardNetworks & JPCardNetworkTypeChinaUnionPay) {
         [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
     }
 
     return pkPaymentNetworks;
 }
 
-- (NSSet<PKContactField> *)pkContactFieldsFromFields:(ContactField)contactFields {
+- (NSSet<PKContactField> *)pkContactFieldsFromFields:(JPContactField)contactFields {
 
     NSMutableSet *pkContactFields = [NSMutableSet new];
 
     if (@available(iOS 11.0, *)) {
 
-        if (contactFields & ContactFieldPostalAddress) {
+        if (contactFields & JPContactFieldPostalAddress) {
             [pkContactFields addObject:PKContactFieldPostalAddress];
         }
 
-        if (contactFields & ContactFieldPhone) {
+        if (contactFields & JPContactFieldPhone) {
             [pkContactFields addObject:PKContactFieldPhoneNumber];
         }
 
-        if (contactFields & ContactFieldEmail) {
+        if (contactFields & JPContactFieldEmail) {
             [pkContactFields addObject:PKContactFieldEmailAddress];
         }
 
-        if (contactFields & ContactFieldName) {
+        if (contactFields & JPContactFieldName) {
             [pkContactFields addObject:PKContactFieldName];
         }
     }
@@ -305,7 +311,7 @@
     return PKPaymentSummaryItemTypePending;
 }
 
-- (PKAddressField)pkAddressFieldsFromFields:(ContactField)contactFields {
+- (PKAddressField)pkAddressFieldsFromFields:(JPContactField)contactFields {
     return (PKAddressField)contactFields;
 }
 
@@ -329,7 +335,7 @@
                                                 postalAddress:postalAddress];
 }
 
-- (void)processServerToServer:(JudoCompletionBlock)completion payment:(PKPayment *)payment {
+- (void)processServerToServer:(JPCompletionBlock)completion payment:(PKPayment *)payment {
     completion([self buildResponse:payment], nil);
 }
 

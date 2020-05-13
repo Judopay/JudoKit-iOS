@@ -1,6 +1,6 @@
 //
 //  UIImage+Additions.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,7 +23,7 @@
 //  SOFTWARE.
 //
 
-#import "JPCardNetwork.h"
+#import "JPCardNetworkType.h"
 #import <UIKit/UIKit.h>
 
 @interface UIImage (Additions)
@@ -53,7 +53,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)imageForCardNetwork:(CardNetwork)network;
++ (nonnull UIImage *)imageForCardNetwork:(JPCardNetworkType)network;
 
 /**
  * Initializes an UIImage to be displayed on top of a card.
@@ -63,6 +63,6 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)headerImageForCardNetwork:(CardNetwork)network;
++ (nonnull UIImage *)headerImageForCardNetwork:(JPCardNetworkType)network;
 
 @end

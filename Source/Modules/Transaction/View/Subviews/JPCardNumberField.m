@@ -1,6 +1,6 @@
 //
 //  JPCardNumberField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,6 +23,9 @@
 //  SOFTWARE.
 
 #import "JPCardNumberField.h"
+#import "JPCardNetworkType.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
@@ -90,7 +93,7 @@
 
 #pragma mark - Public Methods
 
-- (void)setCardNetwork:(CardNetwork)network {
+- (void)setCardNetwork:(JPCardNetworkType)network {
 
     UIImage *cardIcon = [UIImage imageForCardNetwork:network];
     cardIcon.accessibilityLabel = @"CardNumberCardTypeIcon";

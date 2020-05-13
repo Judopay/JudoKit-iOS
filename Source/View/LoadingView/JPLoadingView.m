@@ -1,6 +1,6 @@
 //
 //  JPLoadingView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -74,10 +74,10 @@
         [self.loadingContainerView.widthAnchor constraintEqualToConstant:200.0]
     ]];
 
-    [stackView pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing
+    [stackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
                     forView:self.loadingContainerView];
 
-    [stackView pinToAnchors:AnchorTypeTop | AnchorTypeBottom
+    [stackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                     forView:self.loadingContainerView
                 withPadding:30.0];
 

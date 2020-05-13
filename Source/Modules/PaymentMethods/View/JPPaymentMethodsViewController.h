@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,14 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPaymentMethodsCardListHeaderCell.h"
-#import "JPSectionView.h"
-#import "JPTransactionViewController.h"
-#import "JPUIConfiguration.h"
+#import "JPPaymentMethodsCardListHeaderCellDelegate.h"
+#import "JPSectionViewDelegate.h"
+#import "JPTransactionViewDelegate.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
-@class JPPaymentMethodsViewModel;
+@class JPPaymentMethodsViewModel, JPUIConfiguration;
 
 #pragma mark - JPPaymentMethodsView
 

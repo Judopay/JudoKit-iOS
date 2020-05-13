@@ -1,6 +1,6 @@
 //
 //  JPSession.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,12 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPError.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
 @class JPResponse;
-
-typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
 
 /**
  *  The Session class is a wrapper for all REST API calls
@@ -79,7 +77,7 @@ typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
@@ -88,7 +86,7 @@ typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  GET Helper Method for accessing the judo REST API
@@ -97,6 +95,6 @@ typedef void (^JudoCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callblack block with the results
  */
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JudoCompletionBlock)completion;
+- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
 
 @end

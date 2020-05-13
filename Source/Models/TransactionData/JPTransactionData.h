@@ -1,6 +1,6 @@
 //
 //  JPTransactionData.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,7 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransaction.h"
+#import "JPTransactionResult.h"
+#import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken, JPOrderDetails;
@@ -45,7 +46,7 @@
 /**
  *  The type of Transaction, either "Payment" or "Refund"
  */
-@property (nonatomic, assign) TransactionType type;
+@property (nonatomic, assign) JPTransactionType type;
 
 /**
  *  A redirect URL used for iDEAL bank transactions
@@ -70,7 +71,7 @@
 /**
  *  The result of this transactions, this will either be "Success" or "Declined"
  */
-@property (nonatomic, assign) TransactionResult result;
+@property (nonatomic, assign) JPTransactionResult result;
 
 /**
  *  A message detailing the result.

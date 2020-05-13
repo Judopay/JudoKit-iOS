@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,14 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardCustomizationPatternPickerCell.h"
-#import "JPCardCustomizationSubmitCell.h"
-#import "JPInputField.h"
-#import "JPTheme.h"
+#import "JPCardCustomizationPatternPickerCellDelegate.h"
+#import "JPCardCustomizationSubmitCellDelegate.h"
+#import "JPInputFieldDelegate.h"
 #import <UIKit/UIKit.h>
 
-@protocol JPCardCustomizationPresenter;
-@class JPCardCustomizationView, JPCardCustomizationViewModel;
+@protocol JPCardCustomizationPresenter
+, JPCardCustomizationPatternPickerCellDelegate, JPInputFieldDelegate, JPCardCustomizationSubmitCellDelegate;
+@class JPCardCustomizationView, JPCardCustomizationViewModel, JPCardCustomizationSubmitCell, JPCardCustomizationPatternPickerCell, JPInputField, JPTheme;
 
 @protocol JPCardCustomizationView
 

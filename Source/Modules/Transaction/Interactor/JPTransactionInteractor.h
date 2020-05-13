@@ -1,6 +1,6 @@
 //
 //  JPTransactionInteractor.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,17 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPAddress.h"
-#import "JPError.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
-#import "JPValidationResult.h"
-
+#import "JPTransactionType.h"
+#import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService;
-@class JPTransactionViewModel;
+@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
 
@@ -44,7 +39,7 @@
 /**
  * A method that returns the current transaction type
  */
-- (TransactionType)transactionType;
+- (JPTransactionType)transactionType;
 
 /**
  * A method that handles the camera permission for the Scan Card functionality
@@ -70,7 +65,7 @@
  * @param completion - the completion block with an optional JPResponse or NSError
  */
 - (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JudoCompletionBlock)completion;
+                                completion:(JPCompletionBlock)completion;
 
 /**
  * A method for returning the transaction response / error to the merchant
@@ -154,7 +149,7 @@
  * @param completionHandler - the completion block with an optional JPResponse / NSError
  */
 - (void)sendTransactionWithCard:(JPCard *)card
-              completionHandler:(JudoCompletionBlock)completionHandler;
+              completionHandler:(JPCompletionBlock)completionHandler;
 
 /**
  * A method for updating the keychain information about the card
@@ -180,5 +175,5 @@
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
                                 configuration:(JPConfiguration *)configuration
-                                   completion:(JudoCompletionBlock)completion;
+                                   completion:(JPCompletionBlock)completion;
 @end

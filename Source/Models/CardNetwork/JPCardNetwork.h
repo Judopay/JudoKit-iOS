@@ -1,6 +1,6 @@
 //
 //  JPCardNetwork.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
+#import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
 @interface JPCardNetwork : NSObject
@@ -30,7 +30,7 @@
 /**
  * The card network type
  */
-@property (nonatomic, assign) CardNetwork network;
+@property (nonatomic, assign) JPCardNetworkType network;
 
 /**
  * Designated initializer that returns a configured JPCardNetwork based on a type
@@ -39,7 +39,7 @@
  *
  * @returns a pattern for networkType
  */
-+ (NSString *)cardPatternForType:(CardNetwork)networkType;
++ (NSString *)cardPatternForType:(JPCardNetworkType)networkType;
 
 /**
  * A method that returns the name of the card network based on a specified network type
@@ -48,7 +48,7 @@
  *
  * @returns the card network name;
  */
-+ (NSString *)nameOfCardNetwork:(CardNetwork)network;
++ (NSString *)nameOfCardNetwork:(JPCardNetworkType)network;
 
 /**
  * A method that returns the card network based on the provided card number
@@ -57,7 +57,7 @@
  *
  * @returns one of the pre-defined card network types
  */
-+ (CardNetwork)cardNetworkForCardNumber:(NSString *)cardNumber;
++ (JPCardNetworkType)cardNetworkForCardNumber:(NSString *)cardNumber;
 
 /**
  * An integer specifying the security code length for the network type
@@ -66,7 +66,7 @@
  *
  * @returns the card network security code length;
  */
-+ (NSUInteger)secureCodeLengthForNetworkType:(CardNetwork)networkType;
++ (NSUInteger)secureCodeLengthForNetworkType:(JPCardNetworkType)networkType;
 
 /**
  * String specifying the security code placeholder
@@ -75,6 +75,6 @@
  *
  * @returns the card network security code placeholder;
  */
-+ (NSString *)secureCodePlaceholderForNetworkType:(CardNetwork)networkType;
++ (NSString *)secureCodePlaceholderForNetworkType:(JPCardNetworkType)networkType;
 
 @end

@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationBuilder.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -26,6 +26,8 @@
 #import "JPCardCustomizationInteractor.h"
 #import "JPCardCustomizationPresenter.h"
 #import "JPCardCustomizationRouter.h"
+#import "JPCardCustomizationViewController.h"
+#import "JPTheme.h"
 
 @implementation JPCardCustomizationBuilderImpl
 

@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationBuilder.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardCustomizationViewController.h"
-#import "JPTheme.h"
 #import <Foundation/Foundation.h>
+
+@class JPCardCustomizationViewController, JPTheme;
 
 @protocol JPCardCustomizationBuilder
 

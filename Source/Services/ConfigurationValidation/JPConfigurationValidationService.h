@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,13 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
+#import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, JPValidationError) {
     JPValidationErrorMissingParameter,
     JPValidationErrorInvalidParameter
 };
+
+@class JPError, JPConfiguration;
 
 @protocol JPConfigurationValidationService
 
@@ -41,7 +43,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  * @returns an optional instance of JPError containing the validation error details
  */
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
-                forTransactionType:(TransactionType)transactionType;
+                forTransactionType:(JPTransactionType)transactionType;
 
 /**
  * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails

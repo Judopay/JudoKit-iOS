@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,6 +25,7 @@
 #import "JPConfigurationValidationService.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPReference.h"
@@ -34,7 +35,7 @@
 #pragma mark - Public methods
 
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
-                forTransactionType:(TransactionType)transactionType {
+                forTransactionType:(JPTransactionType)transactionType {
 
     JPError *error;
 
@@ -70,7 +71,7 @@
 }
 
 - (void)checkForShippingMethodsLength:(JPConfiguration *)configuration error:(NSError **)error {
-    if ((configuration.applePayConfiguration.requiredShippingContactFields != ContactFieldNone) &&
+    if ((configuration.applePayConfiguration.requiredShippingContactFields != JPContactFieldNone) &&
         ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
@@ -140,10 +141,10 @@
     }
 }
 
-- (void)checkAmount:(JPAmount *)amount transactionType:(TransactionType)transactionType error:(NSError **)error {
-    BOOL isTypeSaveCard = transactionType == TransactionTypeSaveCard;
-    BOOL isTypeRegisterCard = transactionType == TransactionTypeRegisterCard;
-    BOOL isTypeChekCard = transactionType == TransactionTypeCheckCard;
+- (void)checkAmount:(JPAmount *)amount transactionType:(JPTransactionType)transactionType error:(NSError **)error {
+    BOOL isTypeSaveCard = transactionType == JPTransactionTypeSaveCard;
+    BOOL isTypeRegisterCard = transactionType == JPTransactionTypeRegisterCard;
+    BOOL isTypeChekCard = transactionType == JPTransactionTypeCheckCard;
 
     if (!(isTypeChekCard || isTypeSaveCard || isTypeRegisterCard)) {
         [self checkForValidCurrency:amount.currency error:error];

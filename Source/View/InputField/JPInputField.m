@@ -1,6 +1,6 @@
 //
 //  JPInputField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,6 +24,8 @@
 
 #import "JPInputField.h"
 #import "JPFloatingTextField.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UITextField+Additions.h"

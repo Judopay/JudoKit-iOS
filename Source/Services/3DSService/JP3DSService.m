@@ -1,6 +1,6 @@
 //
 //  JP3DSService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,12 +25,13 @@
 #import "JP3DSService.h"
 #import "JP3DSConfiguration.h"
 #import "JP3DSViewController.h"
+#import "JPTransaction.h"
 #import "UIApplication+Additions.h"
 
 @implementation JP3DSService
 
 - (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JudoCompletionBlock)completion {
+                                   completion:(JPCompletionBlock)completion {
 
     JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
 

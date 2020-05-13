@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardHeaderView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -26,6 +26,7 @@
 #import "Functions.h"
 #import "JPCardView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 
 @interface JPPaymentMethodsCardHeaderView ()
 @property (nonatomic, strong) JPCardView *cardView;
@@ -95,19 +96,19 @@
 
 - (void)animateCardChangeTransitionWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     switch (viewModel.animationType) {
-        case AnimationTypeBottomToTop:
+        case JPAnimationTypeBottomToTop:
             [self animateBottomToTopCardChangeWithViewModel:viewModel];
             break;
-        case AnimationTypeLeftToRight:
+        case JPAnimationTypeLeftToRight:
             [self animateLeftToRightCardChangeWithViewModel:viewModel];
             break;
-        case AnimationTypeRightToLeft:
+        case JPAnimationTypeRightToLeft:
             [self animateRightToLeftCardChangeWithViewModel:viewModel];
             break;
-        case AnimationTypeSetup:
+        case JPAnimationTypeSetup:
             [self.cardView configureWithPaymentMethodModel:viewModel];
             [self animateCardSetup];
-        case AnimationTypeNone:
+        case JPAnimationTypeNone:
             break;
     }
 }

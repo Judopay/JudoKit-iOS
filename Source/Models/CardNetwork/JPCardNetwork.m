@@ -1,6 +1,6 @@
 //
 //  JPCardNetwork.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -33,15 +33,15 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _networkNames = @{
-            @(CardNetworkUnknown) : @"Unknown Card Network",
-            @(CardNetworkVisa) : @"Visa",
-            @(CardNetworkMasterCard) : @"Mastercard",
-            @(CardNetworkChinaUnionPay) : @"China UnionPay",
-            @(CardNetworkAMEX) : @"AmEx",
-            @(CardNetworkJCB) : @"JCB",
-            @(CardNetworkMaestro) : @"Maestro",
-            @(CardNetworkDiscover) : @"Discover",
-            @(CardNetworkDinersClub) : @"Diners Club",
+            @(JPCardNetworkTypeUnknown) : @"Unknown Card Network",
+            @(JPCardNetworkTypeVisa) : @"Visa",
+            @(JPCardNetworkTypeMasterCard) : @"Mastercard",
+            @(JPCardNetworkTypeChinaUnionPay) : @"China UnionPay",
+            @(JPCardNetworkTypeAMEX) : @"AmEx",
+            @(JPCardNetworkTypeJCB) : @"JCB",
+            @(JPCardNetworkTypeMaestro) : @"Maestro",
+            @(JPCardNetworkTypeDiscover) : @"Discover",
+            @(JPCardNetworkTypeDinersClub) : @"Diners Club",
         };
     });
 
@@ -57,49 +57,49 @@
                                       range:NSMakeRange(0, cardNumber.length)] > 0;
 }
 
-+ (CardNetwork)cardNetworkForCardNumber:(NSString *)cardNumber {
++ (JPCardNetworkType)cardNetworkForCardNumber:(NSString *)cardNumber {
     if ([self doesCardNumber:cardNumber matchRegex:kRegexVisa]) {
-        return CardNetworkVisa;
+        return JPCardNetworkTypeVisa;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexMasterCard]) {
-        return CardNetworkMasterCard;
+        return JPCardNetworkTypeMasterCard;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexMaestro]) {
-        return CardNetworkMaestro;
+        return JPCardNetworkTypeMaestro;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexAmex]) {
-        return CardNetworkAMEX;
+        return JPCardNetworkTypeAMEX;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexDiscover]) {
-        return CardNetworkDiscover;
+        return JPCardNetworkTypeDiscover;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexDinersClub]) {
-        return CardNetworkDinersClub;
+        return JPCardNetworkTypeDinersClub;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexJCB]) {
-        return CardNetworkJCB;
+        return JPCardNetworkTypeJCB;
     }
 
     if ([self doesCardNumber:cardNumber matchRegex:kRegexUnionPay]) {
-        return CardNetworkChinaUnionPay;
+        return JPCardNetworkTypeChinaUnionPay;
     }
 
-    return CardNetworkUnknown;
+    return JPCardNetworkTypeUnknown;
 }
 
-+ (NSString *)cardPatternForType:(CardNetwork)networkType {
++ (NSString *)cardPatternForType:(JPCardNetworkType)networkType {
     switch (networkType) {
-        case CardNetworkVisa:
+        case JPCardNetworkTypeVisa:
             return kVISAPattern;
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return kAMEXPattern;
-        case CardNetworkDinersClub:
+        case JPCardNetworkTypeDinersClub:
             return kDinersClubPattern;
         default:
             return [self defaultNumberPattern];
@@ -110,35 +110,35 @@
     return kDefaultPattern;
 }
 
-+ (NSString *)nameOfCardNetwork:(CardNetwork)network {
++ (NSString *)nameOfCardNetwork:(JPCardNetworkType)network {
     NSDictionary *names = [JPCardNetwork networkNames];
     NSNumber *key = @(network);
     if ([names.allKeys containsObject:key]) {
         return names[key];
     }
-    return names[@(CardNetworkUnknown)];
+    return names[@(JPCardNetworkTypeUnknown)];
 }
 
-+ (NSUInteger)secureCodeLengthForNetworkType:(CardNetwork)networkType {
++ (NSUInteger)secureCodeLengthForNetworkType:(JPCardNetworkType)networkType {
     switch (networkType) {
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return kSecurityCodeLengthAmex;
         default:
             return kSecurityCodeLengthDefault;
     }
 }
 
-+ (NSString *)secureCodePlaceholderForNetworkType:(CardNetwork)networkType {
++ (NSString *)secureCodePlaceholderForNetworkType:(JPCardNetworkType)networkType {
     switch (networkType) {
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return kSecurityCodePlaceholderhAmex;
-        case CardNetworkVisa:
+        case JPCardNetworkTypeVisa:
             return kSecurityCodePlaceholderhVisa;
-        case CardNetworkMasterCard:
+        case JPCardNetworkTypeMasterCard:
             return kSecurityCodePlaceholderhMasterCard;
-        case CardNetworkChinaUnionPay:
+        case JPCardNetworkTypeChinaUnionPay:
             return kSecurityCodePlaceholderhChinaUnionPay;
-        case CardNetworkJCB:
+        case JPCardNetworkTypeJCB:
             return kSecurityCodePlaceholderhJCB;
         default:
             return kSecurityCodePlaceholderDefault;

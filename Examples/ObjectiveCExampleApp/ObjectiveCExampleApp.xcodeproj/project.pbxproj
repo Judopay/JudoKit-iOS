@@ -62,7 +62,7 @@
 		448AB1C42450DE93004A11CB /* ObjectiveCExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExampleAppUITests.m; sourceTree = "<group>"; };
 		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		449495032450ED870050C6A0 /* JudoKitObjCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = JudoKitObjCExampleApp.entitlements; sourceTree = "<group>"; };
+		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		449495072450ED870050C6A0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		449495082450ED870050C6A0 /* DetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsTableViewController.h; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 				449495042450ED870050C6A0 /* ExampleAppCredentials.h */,
 				449495102450ED870050C6A0 /* Models */,
 				449495052450ED870050C6A0 /* Controllers */,
-				449495032450ED870050C6A0 /* JudoKitObjCExampleApp.entitlements */,
+				449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */,
 				448AB1AA2450DE8F004A11CB /* Main.storyboard */,
 				448AB1AD2450DE93004A11CB /* Assets.xcassets */,
 				448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */,

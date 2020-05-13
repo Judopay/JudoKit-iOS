@@ -1,6 +1,6 @@
 //
 //  JPTransactionButton.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTransactionButton.h"
+#import "JPTransactionViewModel.h"
 
 @implementation JPTransactionButton
 

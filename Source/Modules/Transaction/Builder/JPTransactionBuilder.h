@@ -1,6 +1,6 @@
 //
 //  JPTransactionBuilder.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,17 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSession.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionViewController;
-@class JPTransactionService, JPConfiguration;
+@class JPTransactionService, JPConfiguration, JPTransactionViewController;
 
 @protocol JPTransactionBuilder
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
-                                                        completion:(JudoCompletionBlock)completion;
+                                                        completion:(JPCompletionBlock)completion;
 @end
 
 @interface JPTransactionBuilderImpl : NSObject <JPTransactionBuilder>

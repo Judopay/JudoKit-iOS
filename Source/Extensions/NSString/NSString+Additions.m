@@ -1,6 +1,6 @@
 //
 //  NSString+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
+#import "JPTheme.h"
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
@@ -42,7 +43,7 @@
     return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
 }
 
-- (CardNetwork)cardNetwork {
+- (JPCardNetworkType)cardNetwork {
     return [JPCardNetwork cardNetworkForCardNumber:self];
 }
 

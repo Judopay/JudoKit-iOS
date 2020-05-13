@@ -1,6 +1,6 @@
 //
 //  JPError+Additions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPTransactionData.h"
 #import "NSString+Additions.h"
 
@@ -232,7 +233,7 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                            userInfo:@{NSLocalizedDescriptionKey : @"check_card_number".localized}];
 }
 
-+ (JPError *)judoUnsupportedCardNetwork:(CardNetwork)network {
++ (JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network {
 
     NSString *cardNetworkName = [JPCardNetwork nameOfCardNetwork:network];
     NSString *description = [NSString stringWithFormat:ErrorUnsupportedCardNetworkDescription.localized, cardNetworkName];

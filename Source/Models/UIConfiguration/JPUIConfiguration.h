@@ -1,6 +1,6 @@
 //
 //  JPUIConfiguration.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,8 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
 #import <Foundation/Foundation.h>
+
+@class JPTheme;
 
 @interface JPUIConfiguration : NSObject
 

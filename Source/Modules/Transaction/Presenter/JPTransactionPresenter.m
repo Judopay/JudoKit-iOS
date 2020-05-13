@@ -1,6 +1,6 @@
 //
 //  JPTransactionPresenter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,16 +23,19 @@
 //  SOFTWARE.
 
 #import "JPTransactionPresenter.h"
+#import "JPAddress.h"
+#import "JPCard.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
+#import "JPCountry.h"
 #import "JPError+Additions.h"
+#import "JPResponse.h"
+#import "JPTransactionData.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-
-#import "JPAddress.h"
-#import "JPCard.h"
-#import "JPCountry.h"
-#import "JPResponse.h"
-#import "JPTransactionData.h"
+#import "JPTransactionViewModel.h"
+#import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
 @interface JPTransactionPresenterImpl ()
@@ -63,7 +66,7 @@
 
 - (void)prepareInitialViewModel {
 
-    TransactionType type = self.interactor.transactionType;
+    JPTransactionType type = self.interactor.transactionType;
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
 
     self.addCardViewModel.shouldDisplayAVSFields = [self.interactor isAVSEnabled];
@@ -156,7 +159,7 @@
 
 - (void)handleResponse:(JPResponse *)response {
 
-    if (self.interactor.transactionType == TransactionTypeSaveCard) {
+    if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
         NSString *token = response.items.firstObject.cardDetails.cardToken;
 
         if (!token) {
@@ -233,17 +236,17 @@
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
-- (NSString *)transactionButtonTitleForType:(TransactionType)type {
+- (NSString *)transactionButtonTitleForType:(JPTransactionType)type {
     switch (type) {
-        case TransactionTypePayment:
-        case TransactionTypePreAuth:
+        case JPTransactionTypePayment:
+        case JPTransactionTypePreAuth:
             return @"pay".localized;
 
-        case TransactionTypeSaveCard:
-        case TransactionTypeRegisterCard:
+        case JPTransactionTypeSaveCard:
+        case JPTransactionTypeRegisterCard:
             return @"add_card".localized;
 
-        case TransactionTypeCheckCard:
+        case JPTransactionTypeCheckCard:
             return @"check_card".localized;
 
         default:
@@ -279,7 +282,7 @@
     }
 }
 
-- (void)updateSecureCodePlaceholderForNetworkType:(CardNetwork)cardNetwork {
+- (void)updateSecureCodePlaceholderForNetworkType:(JPCardNetworkType)cardNetwork {
     if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
         self.addCardViewModel.secureCodeViewModel.text = @"";
         self.isSecureCodeValid = false;

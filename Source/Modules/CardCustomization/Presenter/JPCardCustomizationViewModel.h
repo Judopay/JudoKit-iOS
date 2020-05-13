@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationViewModel.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPCardPattern.h"
+#import "JPCardExpirationStatus.h"
+#import "JPCardNetworkType.h"
+#import "JPCardPatternType.h"
 #import <Foundation/Foundation.h>
+
+@class JPCardPattern;
 
 @interface JPCardCustomizationViewModel : NSObject
 /**
@@ -64,7 +67,7 @@
 /**
  * A value that identifies the card network
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * A value for identifying the card's pattern
@@ -74,7 +77,7 @@
 /**
  * A value that sets the expiration state of the card
  */
-@property (nonatomic, assign) CardExpirationStatus expirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus expirationStatus;
 
 @end
 

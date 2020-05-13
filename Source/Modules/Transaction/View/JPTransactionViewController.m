@@ -1,6 +1,6 @@
 //
 //  JPTransactionViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -25,10 +25,13 @@
 #import "JPTransactionViewController.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
+#import "JPInputField.h"
 #import "JPLoadingButton.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionView.h"
+#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 

@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationPatternPickerCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,6 +25,7 @@
 #import "JPCardCustomizationPatternPickerCell.h"
 #import "JPCardCustomizationPatternCell.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPCardPattern.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "UIView+Additions.h"
 

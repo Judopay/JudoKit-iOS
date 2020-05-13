@@ -1,6 +1,6 @@
 //
 //  JPIDEALViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,11 +24,16 @@
 
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPIDEALBank.h"
+#import "JPIDEALService.h"
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
+#import "JPTheme.h"
 #import "JPTransactionData.h"
+#import "JPTransactionService.h"
 #import "JPTransactionStatusView.h"
 #import "UIView+Additions.h"
 
@@ -38,7 +43,7 @@
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @property (nonatomic, strong) JPIDEALBank *iDEALBank;
 @property (nonatomic, strong) JPIDEALService *idealService;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPResponse *redirectResponse;
 
 @property (nonatomic, strong) NSString *redirectURL;
@@ -60,7 +65,7 @@ const float kPollingDelayTimer = 30.0;
 - (instancetype)initWithIDEALBank:(JPIDEALBank *)iDEALBank
                     configuration:(JPConfiguration *)configuration
                transactionService:(JPTransactionService *)transactionService
-                completionHandler:(JudoCompletionBlock)completion {
+                completionHandler:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.idealService = [[JPIDEALService alloc] initWithConfiguration:configuration
                                                        transactionService:transactionService];

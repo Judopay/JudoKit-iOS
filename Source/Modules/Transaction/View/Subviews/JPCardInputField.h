@@ -1,6 +1,6 @@
 //
 //  JPCardInputField.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,7 +23,8 @@
 //  SOFTWARE.
 
 #import "JPInputField.h"
-#import "JPTransactionViewModel.h"
+
+@class JPTransactionViewModel, JPTransactionInputFieldViewModel;
 
 /**
  * A custom implementation of the JPInputField class used for displaying card details input

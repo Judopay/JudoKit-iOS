@@ -1,6 +1,6 @@
 //
 //  JPTransactionViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,22 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPInputField.h"
-#import "JPTheme.h"
-#import "JPTransactionViewModel.h"
+#import "JPInputFieldDelegate.h"
+#import "JPTransactionViewDelegate.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPTransactionPresenter;
-
-#pragma mark - JPTransactionViewDelegate
-
-@protocol JPTransactionViewDelegate
-/**
- * A method that is called once the Add Card flow completes
- */
-- (void)didFinishAddingCard;
-
-@end
+@class JPTheme, JPTransactionViewModel, JPInputField;
 
 #pragma mark - JPTransactionView
 

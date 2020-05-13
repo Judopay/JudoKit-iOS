@@ -28,7 +28,7 @@
 #import "ExampleAppCredentials.h"
 
 @import CocoaDebug;
-@import JudoKitObjC;
+@import JudoKit_iOS;
 
 @implementation AppDelegate
 
