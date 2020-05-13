@@ -25,12 +25,21 @@
 import Foundation
 
 class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
-    func navigateToCardCustomization(with index: UInt) {}
+    var caledCardCustomization = false
+    func navigateToCardCustomization(with index: UInt) {
+        caledCardCustomization = true
+    }
     
     func navigateToTransactionModule() {}
     
-    func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {}
+    var navigatedToIdealPay = false
+    func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {
+        navigatedToIdealPay = true
+    }
 
-    func dismissViewController() {}
+    var dismissController = false
+    func dismissViewController() {
+        dismissController = true
+    }
     
 }
