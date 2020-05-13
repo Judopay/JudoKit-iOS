@@ -17,7 +17,6 @@
 		0708AD28246BEB9500ED6FE9 /* JPPaymentMethodsRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD02246BEB9500ED6FE9 /* JPPaymentMethodsRouterMock.swift */; };
 		0708AD29246BEB9500ED6FE9 /* JPTransactionServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD03246BEB9500ED6FE9 /* JPTransactionServiceStub.swift */; };
 		0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD04246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift */; };
-		0708AD2B246BEB9500ED6FE9 /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD05246BEB9500ED6FE9 /* JPPaymentMethodsTest.swift */; };
 		0708AD2C246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD07246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift */; };
 		0708AD2D246BEB9500ED6FE9 /* JPPaymentMethodsInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD09246BEB9500ED6FE9 /* JPPaymentMethodsInteractorTest.swift */; };
 		0708AD2E246BEB9500ED6FE9 /* JPCardStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD0C246BEB9500ED6FE9 /* JPCardStorageTest.swift */; };
@@ -347,7 +346,6 @@
 		0708AD02246BEB9500ED6FE9 /* JPPaymentMethodsRouterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsRouterMock.swift; sourceTree = "<group>"; };
 		0708AD03246BEB9500ED6FE9 /* JPTransactionServiceStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPTransactionServiceStub.swift; sourceTree = "<group>"; };
 		0708AD04246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsInteractorMock.swift; sourceTree = "<group>"; };
-		0708AD05246BEB9500ED6FE9 /* JPPaymentMethodsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsTest.swift; sourceTree = "<group>"; };
 		0708AD07246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsPresenterTest.swift; sourceTree = "<group>"; };
 		0708AD09246BEB9500ED6FE9 /* JPPaymentMethodsInteractorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsInteractorTest.swift; sourceTree = "<group>"; };
 		0708AD0C246BEB9500ED6FE9 /* JPCardStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPCardStorageTest.swift; sourceTree = "<group>"; };
@@ -704,7 +702,6 @@
 			isa = PBXGroup;
 			children = (
 				0708AD00246BEB9500ED6FE9 /* Mocks */,
-				0708AD05246BEB9500ED6FE9 /* JPPaymentMethodsTest.swift */,
 				0708AD06246BEB9500ED6FE9 /* Presenter */,
 				0708AD08246BEB9500ED6FE9 /* Interactor */,
 			);
@@ -2614,7 +2611,6 @@
 				0708AD3A246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
 				0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */,
-				0708AD2B246BEB9500ED6FE9 /* JPPaymentMethodsTest.swift in Sources */,
 				0708AD3B246BEB9500ED6FE9 /* JPApplePayServiceTest.swift in Sources */,
 				0708AD29246BEB9500ED6FE9 /* JPTransactionServiceStub.swift in Sources */,
 				0708AD27246BEB9500ED6FE9 /* JPPaymentMethodsViewControllerMock.swift in Sources */,

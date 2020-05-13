@@ -36,7 +36,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
     }
     
-    func testServerToServer()  {
+    /*
+     * GIVEN: User is calling payment type with server to server mode
+     *
+     * THEN: should call and return not nill response
+     */
+    func test_ServerToServer_WhenCallingPayment_ShouldReturnNotNilResponse()  {
         let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
@@ -44,7 +49,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut.paymentTransaction(withToken: "", andCompletion: completion)
     }
     
-    func testServerToServerApple()  {
+    /*
+     * GIVEN: User is calling apple pay with server to server mode
+     *
+     * THEN: should call and return not nill response
+     */
+    func test_ServerToServerApple_WhenCallingApplePay_ShouldReturnNotNilResponse()  {
         let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
@@ -52,19 +62,40 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut.startApplePay(completion: completion)
     }
     
-    func testGetAmount() {
+    /*
+     * GIVEN: Set up ammount in config object
+     *
+     * WHEN: getting ammount in interactor
+     *
+     * THEN: should return the same currency and ammount as in config model
+     */
+    func test_GetAmount_WhenIsSettepUp_ShouldReturnSame() {
         let amount = sut.getAmount()
         XCTAssertEqual(amount.amount, "123")
         XCTAssertEqual(amount.currency, "GBP")
     }
     
-    func testStoredCards_WhenRemovingAllCards_ShouldGetEmptyList() {
+    /*
+     * GIVEN: remove all cards from store
+     *
+     * WHEN: checking all cards
+     *
+     * THEN: should be empty list of cards
+     */
+    func test_StoredCards_WhenRemovingAllCards_ShouldGetEmptyList() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let cards = sut.getStoredCardDetails()
         XCTAssertEqual(cards.count, 0)
     }
     
-    func testStoredCards_WhenAddingNewCards_ShouldAppearInList() {
+    /*
+     * GIVEN: remove all cards from store
+     *
+     * WHEN: adding one card in store
+     *
+     * THEN: in store should be presented only one card
+     */
+    func test_StoredCards_WhenAddingNewCards_ShouldAppearInList() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
         JPCardStorage.sharedInstance()?.add(card)
@@ -80,7 +111,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * THEN: count of methods should 2: cards and apple pay
      */
-    func testGetPaymentMethods_WhenPoundsCurrency_ShouldExcludeIdealPayment() {
+    func test_GetPaymentMethods_WhenPoundsCurrency_ShouldExcludeIdealPayment() {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 2)
     }
@@ -92,13 +123,19 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * THEN: count of methods should 3: cards, apple ideal
      */
-    func testGetPaymentMethods_WhenEURisCurrency_ShouldAddiDealPayment() {
+    func test_GetPaymentMethods_WhenEURisCurrency_ShouldAddiDealPayment() {
         configuration.amount = JPAmount("123", currency: "EUR")
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 3)
     }
     
-    //card with isDefault parameter true should be at first index of card list.
+    /*
+     * GIVEN: We need to order cards
+     *
+     * WHEN: we have in store more then 1 card
+     *
+     * THEN: card with isDefault parameter = true should be at first index of card list
+     */
     func testOrderCards_WhenCardIsDefault_ShouldPlaceOnFirstIndex() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
