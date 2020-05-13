@@ -1,6 +1,6 @@
 //
-//  JPCardValidationServiceTest.swift
-//  JudoKit-iOSTests
+//  JPTransactionInteractorTest.swift
+//  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,10 +23,9 @@
 //  SOFTWARE.
 
 import XCTest
-
 @testable import JudoKit_iOS
 
-class JPCardValidationServiceTest: XCTestCase {
+class JPTransactionInteractorTest: XCTestCase {
     var configuration: JPConfiguration! = nil
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
@@ -167,5 +166,21 @@ class JPCardValidationServiceTest: XCTestCase {
     func testErrorStringForInvalidCardNumber() {
         let result = sut.validateCardNumberInput("4129939187355598")
         XCTAssertEqual(result!.errorMessage!,  "Check card number")
+    }
+    
+    func testValidateSecurityMoreThanMax() {
+        let result = sut.validateSecureCodeInput("1234")
+        XCTAssertEqual(result!.formattedInput!,  "123")
+    }
+    
+    func testValidateSecurityExact() {
+        let result = sut.validateSecureCodeInput("123")
+        XCTAssertTrue(result!.isInputAllowed)
+    }
+    
+    func testValidateSecurityLess() {
+        let result = sut.validateSecureCodeInput("12")
+        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertFalse(result!.isValid)
     }
 }

@@ -1,6 +1,6 @@
 //
 //  CardStorageTest.swift
-//  JudoKit-iOSTests
+//  JudoKit_iOS
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,19 @@
 //  SOFTWARE.
 
 import XCTest
-
 @testable import JudoKit_iOS
 
-class CardStorageTest: XCTestCase {
+class JPCardStorageTest: XCTestCase {
+    
+    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
+    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
+    lazy var thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3")
+    lazy var forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+    
+    override func setUp() {
+        super.setUp()
+        JPCardStorage.sharedInstance()?.deleteCardDetails()
+    }
     
     func testSetCardAsDefaultAtIndex() {
         self.addTestCardsInStorage()
@@ -38,16 +47,36 @@ class CardStorageTest: XCTestCase {
     }
     
     func addTestCardsInStorage() {
-        let firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
-        let secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
-        let thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3")
-        let forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
-        
-        JPCardStorage.sharedInstance()?.deleteCardDetails()
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         JPCardStorage.sharedInstance()?.add(thirdStoredCard)
         JPCardStorage.sharedInstance()?.add(forthStoredCard)
-        
     }
+    
+    func testOrderCards() {
+        firstStoredCard?.isDefault = true
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        var cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        XCTAssertFalse((cards![0] as! JPStoredCardDetails).isDefault)
+        
+        JPCardStorage.sharedInstance()?.orderCards()
+        cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        XCTAssertTrue((cards![0] as! JPStoredCardDetails).isDefault)
+    }
+    
+    func testDeleteCards() {
+        let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        XCTAssert(cards?.count == 0)
+    }
+    
+    
+    func testDeleteCardIndex() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.deleteCard(with: 0)
+        let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        XCTAssert(cards?.count == 0)
+
+    }
+    
 }

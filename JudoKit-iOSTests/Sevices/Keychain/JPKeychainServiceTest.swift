@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethodsTest.swift
+//  JPKeychainServiceTest.swift
 //  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,20 +23,17 @@
 //  SOFTWARE.
 
 import XCTest
-@testable import JudoKit_iOS
+//@testable import JudoKit_iOS
 
-class JPPaymentMethodsTest: XCTestCase {
+class JPKeychainServiceTest: XCTestCase {
+    //MARK: Should be resolved issue with test host. Keychain must be tested only with executable app. 
     
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        interactor.saveMockCards()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
-    }
+    func testSaveObject()  {    }
+    
+    func testGetObject() {    }
+    
+    func testRemoveObject() {    }
+    
+    
+    func testGetAfterRemoveObject() {    }
 }

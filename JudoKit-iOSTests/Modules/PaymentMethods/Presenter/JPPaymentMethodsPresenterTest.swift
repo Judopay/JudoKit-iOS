@@ -1,5 +1,5 @@
 //
-//  JPPaymentMethodsTest.swift
+//  JPPaymentMethodsPresenterTest.swift
 //  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,18 +25,31 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPPaymentMethodsTest: XCTestCase {
+class JPPaymentMethodsPresenterTest: XCTestCase {
+    var sut: JPPaymentMethodsPresenterImpl!
+    let controller = JPPaymentMethodsViewControllerMock()
     
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        interactor.saveMockCards()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
+    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
+    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
+    
+    override func setUp() {
+        super.setUp()
+        sut = JPPaymentMethodsPresenterImpl()
+        sut.view = controller
+        sut.interactor = JPPaymentMethodsInteractorMock()
+        sut.router = JPPaymentMethodsRouterImplMock()
+    }
+    
+    func testViewModelNeedsUpdate() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        sut.viewModelNeedsUpdate()
+        XCTAssertTrue(controller.cardsList.count == 2)
+    }
+    
+    func testViewModelNeedsUpdateNoCards() {
+        JPCardStorage.sharedInstance()?.deleteCardDetails()
+        sut.viewModelNeedsUpdate()
+        XCTAssertTrue(controller.cardsList.count == 0)
     }
 }

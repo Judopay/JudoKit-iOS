@@ -18,3 +18,4 @@
 #import "JPApplePayService.h"
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
+#import "JPPaymentMethodsRouter.h"

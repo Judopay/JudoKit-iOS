@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsTest.swift
-//  JudoKit_iOSTests
+//  NSArrayTest.swift
+//  NSArrayTest
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,18 +25,15 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPPaymentMethodsTest: XCTestCase {
+class NSArrayTest: XCTestCase {
+    let arrayCard: NSArray = ["UK", "USA"]
     
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        interactor.saveMockCards()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
+    func testContainsPrefix() {
+        let contain = arrayCard.containsPrefix("UK")
+        XCTAssertTrue(contain)
+        
+        let notContaining = arrayCard.containsPrefix("MD")
+        XCTAssertFalse(notContaining)
     }
+    
 }

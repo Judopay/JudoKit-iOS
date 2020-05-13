@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsInteractorTest.swift
-//  JudoKit-iOSTests
+//  CLLocationTest.swift
+//  CLLocationTest
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,33 +23,21 @@
 //  SOFTWARE.
 
 import XCTest
-
 @testable import JudoKit_iOS
 
-class JPPaymentMethodsInteractorTest: XCTestCase {
-    var sut: JPPaymentMethodsInteractor!
-    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
-    
+class CLLocationTest: XCTestCase {
+    var myLocation: CLLocation!
+
     override func setUp() {
         super.setUp()
-        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
-        let service = JPTransactionService()
-        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
+        myLocation = CLLocation(latitude: 51.5074, longitude: 0.1278)
+    }
+
+    func testToDictionary() {
+        let coordinateDictionary = myLocation.toDictionary() as! [String: Double]
+        XCTAssertEqual(coordinateDictionary.count, 2)
+        XCTAssertEqual(coordinateDictionary["latitude"], 51.5074)
+        XCTAssertEqual(coordinateDictionary["longitude"], 0.1278)
     }
     
-    func testServerToServer()  {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-        }
-        sut.paymentTransaction(withToken: "", andCompletion: completion)
-    }
-    
-    func testServerToServerApple()  {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-        }
-        sut.startApplePay(completion: completion)
-    }
 }
