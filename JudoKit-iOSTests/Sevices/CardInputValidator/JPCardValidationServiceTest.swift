@@ -33,54 +33,121 @@ class JPCardValidationServiceTest: XCTestCase {
         sut = JPCardValidationService()
     }
     
-    func testLuhnValidVisa() {
+    /*
+    * GIVEN: Validate card number input
+    *
+    * WHEN: card number should be validated and formated based on Luhn
+    *
+    * THEN: should be valid
+    */
+    func test_ValidateCardNumberInput_WhenIsValid_ShouldFormatLuhnValid() {
         let result = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnValidVisaForMaster() {
+    /*
+    * GIVEN: Validate card number input for type .maestro
+    *
+    * WHEN: card number is Visa, is not supported
+    *
+    * THEN: should throw error with specific message
+    */
+    func tesTvalidateCardNumberInput_WhenCardTypeIsNotSupporter_ShouldThrowErrorWithMessage() {
         let result = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .maestro)
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
         XCTAssertFalse(result!.isValid)
         XCTAssertEqual(result!.errorMessage, "Visa is not supported")
     }
     
-    func testValidateSecurityMoreThanMax() {
+    /*
+     * GIVEN: Validate Security code for Visa
+     *
+     * WHEN: code is more then 4 character for visa
+     *
+     * THEN: should format result, subscript to 3
+     */
+    func test_ValidateSecureCodeInput_WhenCodeIsBiggerThenMax_ShouldSubscriptCode() {
         let result = sut.validateSecureCodeInput("1234")
         XCTAssertEqual(result!.formattedInput!,  "123")
     }
     
-    func testValidateSecurityExact() {
+    /*
+     * GIVEN: Validate Security code for Visa
+     *
+     * WHEN: code is less then 3 character for visa
+     *
+     * THEN: should return valid result
+     */
+    func test_ValidateSecureCodeInput_WhenThreeCharacters_ShouldValidate() {
+        _  = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
         let result = sut.validateSecureCodeInput("123")
         XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertTrue(result!.isValid)
     }
     
-    func testValidateSecurityLess() {
+    /*
+     * GIVEN: Validate Security code for Visa
+     *
+     * WHEN: code is less then 3 character for visa
+     *
+     * THEN: should return invalid result
+     */
+    func test_ValidateSecureCodeInput_WhenCodeIsLessThenMinimum_ShouldThrowInValidResponse()  {
+        _  = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
         let result = sut.validateSecureCodeInput("12")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
     }
     
-    func testValidateCarholderNameInput() {
+    /*
+     * GIVEN: validate card holder
+     *
+     * WHEN: name is valid
+     *
+     * THEN: should return valid result
+     */
+    func test_ValidateCarholderNameInput_WhenNameIsValid_ShouldReturnValidResponse() {
         let result = sut.validateCardholderNameInput("Alex ABC")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertTrue(result!.isValid)
     }
     
-    func testValidateExpiryDateInput() {
+    /*
+     * GIVEN: validate Expiry Date
+     *
+     * WHEN: Date is expired
+     *
+     * THEN: should return invalid result
+     */
+    func test_ValidateExpiryDateInput_WhenDateIsExpired_ShouldReturnInValidEResult() {
         let result = sut.validateExpiryDateInput("12/06")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
     }
     
-    func testValidateCountryInput() {
+    /*
+     * GIVEN: validate Country
+     *
+     * WHEN: selected country is supported
+     *
+     * THEN: should return valid result
+     */
+    func test_ValidateCountryInput_WhenCountryUSAIsSupported_ShouldReturnValidResult() {
         let result = sut.validateCountryInput("USA")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertTrue(result!.isValid)
     }
     
-    func testValidatePostalCodeInput() {
+    /*
+     * GIVEN: validate postal code
+     *
+     * WHEN: inserted not valid post code for UK
+     *
+     * THEN: should return invalid error
+     */
+    func test_ValidatePostalCodeInput_WhenInvalidCodeForUK_ShouldReturnInvalidResult() {
+        _ = sut.validateCountryInput("UK")
         let result = sut.validatePostalCodeInput("12345")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
