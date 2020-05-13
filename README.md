@@ -1,7 +1,7 @@
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/JudoKitObjC.svg)](https://img.shields.io/cocoapods/v/JudoKitObjC.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/JudoKit-iOS.svg)](https://img.shields.io/cocoapods/v/JudoKit-iOS.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
-[![Platform](https://img.shields.io/cocoapods/p/JudoKitObjC.svg)](http://http://cocoadocs.org/docsets/JudoKitObjC)
+[![License](https://img.shields.io/cocoapods/l/JudoKit-iOS.svg)](http://http://cocoadocs.org/docsets/JudoKit-iOS)
+[![Platform](https://img.shields.io/cocoapods/p/JudoKit-iOS.svg)](http://http://cocoadocs.org/docsets/JudoKit-iOS)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 
 # JudoKit-iOS
