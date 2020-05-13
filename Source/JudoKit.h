@@ -31,7 +31,7 @@
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit-iOS";
-static NSString *__nonnull const JudoKitVersion = @"10.0.0";
+static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 
 @interface JudoKit : NSObject
 
