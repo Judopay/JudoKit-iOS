@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPIDEALServiceTest: XCTestCase {
-    lazy  var service = JPTransactionServiceiDealStub()
+    lazy var service = JPTransactionServiceiDealStub()
     lazy var configuration = JPConfiguration(judoID: "judoId",
                                              amount: JPAmount("123", currency: "EUR"),
                                              reference: JPReference(consumerReference: "consumerReference"))
@@ -45,6 +45,13 @@ class JPIDEALServiceTest: XCTestCase {
         super.tearDown()
     }
     
+    /*
+     * GIVEN: JPIDEALService calling bank sale point
+     *
+     * WHEN: "siteId" is empty in configuration model
+     *
+     * THEN: should throw "Site ID is missing" in error
+     */
     func testRedirectURLForIDEALWithoutSiteId() {
         let expectation = self.expectation(description: "site id is missing for iDeal")
         let completion: JPCompletionBlock = { (response, error) in
@@ -57,6 +64,13 @@ class JPIDEALServiceTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    /*
+     * GIVEN: JPIDEALService calling bank sale point
+     *
+     * WHEN: Evrey parameter in config model is valid
+     *
+     * THEN: should return valid response
+     */
     func testRedirectURLForIDEALBank() {
         configuration.siteId = "siteId"
         
@@ -71,6 +85,13 @@ class JPIDEALServiceTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    /*
+     * GIVEN: JPIDEALService polling status
+     *
+     * WHEN: response is stuck at Pending status for more then 60 sec (kTimerDuration)
+     *
+     * THEN: should return error: "Request did not complete in the specified time"
+     */
     func testPollTransactionStatusForOrderIdInfinitePending() {
         let expectation = self.expectation(description: "get response from iDeal pending sale")
         
@@ -84,6 +105,13 @@ class JPIDEALServiceTest: XCTestCase {
         waitForExpectations(timeout: 65, handler: nil)
     }
     
+    /*
+     * GIVEN: JPIDEALService polling status
+     *
+     * WHEN: response handled successfully
+     *
+     * THEN: should return response with status "SUCCESS"
+     */
     func testPollTransactionStatusForOrderIdPendingSuccess() {
         let expectation = self.expectation(description: "get response from iDeal success sale")
         

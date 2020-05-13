@@ -1,5 +1,5 @@
 //
-//  CLLocationTest.swift
+//  NSArrayAdditionsTest.swift
 //  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,18 +25,15 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class CLLocationTest: XCTestCase {
-    var myLocation: CLLocation!
-
-    override func setUp() {
-        super.setUp()
-        myLocation = CLLocation(latitude: 51.5074, longitude: 0.1278)
-    }
-
-    func testToDictionary() {
-        let coordinateDictionary = myLocation.toDictionary() as! [String: Double]
-        XCTAssertEqual(coordinateDictionary.count, 2)
-        XCTAssertEqual(coordinateDictionary["latitude"], 51.5074)
-        XCTAssertEqual(coordinateDictionary["longitude"], 0.1278)
+class NSArrayAdditionsTest: XCTestCase {
+    let arrayCard: NSArray = ["UK", "USA"]
+    
+    //test if array contains prefix, should return bool value
+    func testContainsPrefix() {
+        let contain = arrayCard.containsPrefix("UK")
+        XCTAssertTrue(contain)
+        
+        let notContaining = arrayCard.containsPrefix("MD")
+        XCTAssertFalse(notContaining)
     }
 }

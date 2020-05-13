@@ -35,6 +35,13 @@ class JPCardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
     }
     
+    /*
+     * GIVEN: JPCardStorage set card state at given index
+     *
+     * WHEN: setup default card for index 2
+     *
+     * THEN: should return thirdStoredCard from method fetchStoredCardDetails
+     */
     func testSetCardAsDefaultAtIndex() {
         self.addTestCardsInStorage()
         JPCardStorage.sharedInstance()?.setCardDefaultState(true, at: 2);
@@ -53,6 +60,13 @@ class JPCardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(forthStoredCard)
     }
     
+    /*
+     * GIVEN: JPCardStorage sorting card
+     *
+     * WHEN: fetching all cards from stack
+     *
+     * THEN: should place default card to first index
+     */
     func testOrderCards() {
         firstStoredCard?.isDefault = true
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
@@ -65,17 +79,29 @@ class JPCardStorageTest: XCTestCase {
         XCTAssertTrue((cards![0] as! JPStoredCardDetails).isDefault)
     }
     
+    /*
+    * GIVEN: JPCardStorage fetching all card (in setUp() we remove all card from store)
+    *
+    * WHEN: fetching all cards from stack
+    *
+    * THEN: count of cards should be 0
+    */
     func testDeleteCards() {
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssert(cards?.count == 0)
     }
     
-    
+    /*
+       * GIVEN: JPCardStorage remove all cards in store
+       *
+       * WHEN: before in store was saved few card
+       *
+       * THEN: after removeing, cards count should be 0
+       */
     func testDeleteCardIndex() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.deleteCard(with: 0)
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssert(cards?.count == 0)
     }
-    
 }

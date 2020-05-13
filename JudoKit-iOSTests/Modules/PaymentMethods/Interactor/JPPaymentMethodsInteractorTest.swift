@@ -73,17 +73,34 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         XCTAssertEqual(cards.count, 1)
     }
     
+    /*
+     * GIVEN: Calculating all payment methods
+     *
+     * WHEN: config object are seted up with GBP currency
+     *
+     * THEN: count of methods should 2: cards and apple pay
+     */
     func testGetPaymentMethodsGBP() {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 2)
     }
     
+    
+    /*
+     * GIVEN: Calculating all payment methods
+     *
+     * WHEN: config object are seted up with EUR currency
+     *
+     * THEN: count of methods should 3: cards, apple ideal
+     */
     func testGetPaymentMethodsEUR() {
         configuration.amount = JPAmount("123", currency: "EUR")
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 3)
     }
     
+    
+    //card with isDefault parameter true should be at first index of card list.
     func testOrderCards() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
