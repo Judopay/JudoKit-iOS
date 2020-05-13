@@ -1,0 +1,16 @@
+{
+    "paymentMethod":"IDEAL",
+    "siteId": "xxx-xxx-siteId",
+    "redirectUrl": "redirectUrl",
+    "orderDetails": {
+        "orderId": "xxx-orderid",
+        "orderId": "123456",
+        "orderStatus": "SUCCESS",
+        "timestamp": "2020-05-05T07:29:04.663Z",
+        "currency": "GBP",
+        "amount": 0.15,
+        "refundedAmount": 0.0
+    },
+    "merchantPaymentReference": "xxx-xxx-ref_id",
+    "merchantConsumerReference": "reference"
+}

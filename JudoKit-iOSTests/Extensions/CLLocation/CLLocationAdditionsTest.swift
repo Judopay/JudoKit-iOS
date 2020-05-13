@@ -1,5 +1,5 @@
 //
-//  JPTransactionServiceStub.swift
+//  CLLocationAdditionsTest.swift
 //  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,17 +23,21 @@
 //  SOFTWARE.
 
 import XCTest
+@testable import JudoKit_iOS
 
-class JPTransactionServiceStub: JPTransactionService {
-    
-    override init() {
-        super.init(token: "TOKEN", andSecret: "SECRET")
-        saveStubs()
+class CLLocationAdditionsTest: XCTestCase {
+    var myLocation: CLLocation!
+
+    override func setUp() {
+        super.setUp()
+        myLocation = CLLocation(latitude: 51.5074, longitude: 0.1278)
     }
-    
-    func saveStubs() {
-        stub(condition: isPath("/order/bank/sale")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponse.json", type(of: self))!, statusCode: 200, headers: nil)
-        }
+
+    //test if CLLocation could be parsed in valid dictionary of coordinates
+    func testToDictionary() {
+        let coordinateDictionary = myLocation.toDictionary() as! [String: Double]
+        XCTAssertEqual(coordinateDictionary.count, 2)
+        XCTAssertEqual(coordinateDictionary["latitude"], 51.5074)
+        XCTAssertEqual(coordinateDictionary["longitude"], 0.1278)
     }
 }

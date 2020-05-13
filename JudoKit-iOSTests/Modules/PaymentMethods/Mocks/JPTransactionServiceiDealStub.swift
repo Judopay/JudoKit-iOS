@@ -1,5 +1,5 @@
 //
-//  NSArrayTest.swift
+//  JPTransactionServiceiDealStub.swift
 //  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,14 +25,23 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class NSArrayTest: XCTestCase {
-    let arrayCard: NSArray = ["UK", "USA"]
+class JPTransactionServiceiDealStub: JPTransactionService {
+    override init() {
+        super.init(token: "TOKEN", andSecret: "SECRET")
+        saveStubs()
+    }
     
-    func testContainsPrefix() {
-        let contain = arrayCard.containsPrefix("UK")
-        XCTAssertTrue(contain)
+    func saveStubs() {
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponse.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
         
-        let notContaining = arrayCard.containsPrefix("MD")
-        XCTAssertFalse(notContaining)
+        stub(condition: isPath("/order/bank/statusrequest")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("PendingResponse.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        stub(condition: isPath("/order/bank/statusrequest/123456")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponse.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
     }
 }

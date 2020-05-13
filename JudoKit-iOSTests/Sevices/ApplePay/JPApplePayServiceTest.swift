@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPApplePayServiceTest: XCTestCase {
-    lazy  var service = JPTransactionServiceiDealStub()
+    lazy var service = JPTransactionServiceiDealStub()
     lazy var configuration = JPConfiguration(judoID: "judoId",
                                              amount: JPAmount("123", currency: "EUR"),
                                              reference: JPReference(consumerReference: "consumerReference"))
@@ -37,7 +37,6 @@ class JPApplePayServiceTest: XCTestCase {
         sut = JPApplePayService(configuration:configuration,
                                 transactionService:service)
     }
-    
     
     func testIsApplePaySetUp() {
         let isApplePaySetUp = sut.isApplePaySetUp()
