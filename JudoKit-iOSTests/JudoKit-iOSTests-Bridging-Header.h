@@ -19,3 +19,4 @@
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "JPPaymentMethodsRouter.h"
+#import "JPIDEALBank.h"

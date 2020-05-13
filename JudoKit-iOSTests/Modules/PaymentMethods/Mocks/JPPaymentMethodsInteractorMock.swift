@@ -26,8 +26,9 @@ import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
+    var transactionCompleteError: Error?
     func completeTransaction(with response: JPResponse?, andError error: Error?) {
-        
+        transactionCompleteError = error
     }
     
     func storeError(_ error: Error) {
@@ -35,15 +36,15 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func setCardAsSelectedAt(_ index: UInt) {
-        
+        JPCardStorage.sharedInstance()?.setCardAsSelectedAt(index)
     }
     
     func getIDEALBankTypes() -> [Any] {
-        return []
+        return [0, 1]
     }
     
     func orderCards() {
-        
+        JPCardStorage.sharedInstance()?.orderCards()
     }
     
     func setLastUsedCardAt(_ index: UInt) {
@@ -54,17 +55,15 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
+    var cardSelected = false
     func selectCard(at index: UInt) {
-        
+        cardSelected = true
     }
     
     func deleteCard(with index: UInt) {
-        
+        JPCardStorage.sharedInstance()?.deleteCard(with: index)
     }
     
-    func setCardAsSelectedAtInded(_ index: UInt) {
-        
-    }
     
     func setCardAsDefaultAt(_ index: Int) {
         
@@ -82,16 +81,19 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func getPaymentMethods() -> [JPPaymentMethod] {
-        return [JPPaymentMethod.card()]
+        return [JPPaymentMethod.card(), JPPaymentMethod.iDeal()]
     }
     
+    var calledTransactionPayment = false
     func paymentTransaction(withToken token: String, andCompletion completion: JPCompletionBlock?) {
-        
+        calledTransactionPayment = true
     }
     
+    var startApplePay = false
     func startApplePay(completion: JPCompletionBlock?) {
         let response = JPResponse()
         completion?(response,nil)
+        startApplePay = true
     }
     
     func isApplePaySetUp() -> Bool {

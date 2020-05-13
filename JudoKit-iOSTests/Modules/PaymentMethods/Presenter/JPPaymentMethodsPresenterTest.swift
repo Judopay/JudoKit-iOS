@@ -28,16 +28,19 @@ import XCTest
 class JPPaymentMethodsPresenterTest: XCTestCase {
     var sut: JPPaymentMethodsPresenterImpl!
     let controller = JPPaymentMethodsViewControllerMock()
+    let router = JPPaymentMethodsRouterImplMock()
+    let interactor = JPPaymentMethodsInteractorMock()
     
     lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
     lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
     
     override func setUp() {
         super.setUp()
+        JPCardStorage.sharedInstance()?.deleteCardDetails()
         sut = JPPaymentMethodsPresenterImpl()
         sut.view = controller
-        sut.interactor = JPPaymentMethodsInteractorMock()
-        sut.router = JPPaymentMethodsRouterImplMock()
+        sut.interactor = interactor
+        sut.router = router
     }
     
     func testViewModelNeedsUpdate() {
@@ -48,8 +51,178 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     }
     
     func testViewModelNeedsUpdateNoCards() {
-        JPCardStorage.sharedInstance()?.deleteCardDetails()
         sut.viewModelNeedsUpdate()
         XCTAssertTrue(controller.cardsList.count == 0)
+    }
+    
+    /*
+     * GIVEN: selecting card in JPPaymentMethodsPresenter
+     *
+     * WHEN: is editing mode is on
+     *
+     * THEN: should send user to card customization screen
+     */
+    func testdidSelectCardAtIndexWithEditing() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        XCTAssertFalse(router.caledCardCustomization)
+        sut.didSelectCard(at: 0, isEditingMode: true)
+        XCTAssertTrue(router.caledCardCustomization)
+    }
+    
+    /*
+     * GIVEN: selecting card in JPPaymentMethodsPresenter
+     *
+     * WHEN: is editing mode is off
+     *
+     * THEN: should call interactor card select and update controller UI with current card
+     */
+    func testdidSelectCardAtIndex() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        XCTAssertFalse(interactor.cardSelected)
+        sut.didSelectCard(at: 0, isEditingMode: false)
+        XCTAssertTrue(interactor.cardSelected)
+        XCTAssertTrue(controller.cardsList.count == 1)
+    }
+    
+    /*
+     * GIVEN: selecting ideal option, selecting bank in iDeal type. Everything is setuped in interactorMock
+     *
+     * WHEN: is updated controller UI
+     *
+     * THEN: should set up given bank in header, check if idealBankModel is not nill in controller
+     */
+    func testDidSelectBankAtIndex() {
+        sut.changePaymentMethod(to: 1)
+        sut.didSelectBank(at: 0)
+        XCTAssertNotNil(controller.idealBankModel)
+    }
+    
+    /*
+     * GIVEN: clicking on back button
+     *
+     * THEN: should end all conections and dismiss controller
+     */
+    func testHandleBackButtonTap() {
+        sut.handleBackButtonTap()
+        XCTAssertNotNil(interactor.transactionCompleteError)
+        XCTAssertEqual(interactor.transactionCompleteError!.localizedDescription, "The operation couldn’t be completed. Received when user cancels the payment journey")
+        XCTAssertTrue(router.dismissController)
+    }
+    
+    /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: ideal is selected payment method
+     *
+     * THEN: should send user to ideal view controller
+     */
+    func testHandlePayButtonTapIdealType() {
+        sut.changePaymentMethod(to: 1) // select ideal payment method, seted up in interactor mock
+        sut.handlePayButtonTap()
+        XCTAssertTrue(router.navigatedToIdealPay)
+    }
+    
+    /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: card is selected payment method
+     *
+     * THEN: should call inteactor for payment method call
+     */
+    func testHandlePayButtonTapCardType() {
+        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        sut.handlePayButtonTap()
+        XCTAssertTrue(interactor.calledTransactionPayment)
+    }
+    
+    func testHandleApplePayButtonTap() {
+        sut.handleApplePayButtonTap()
+        XCTAssertTrue(interactor.startApplePay)
+    }
+    
+    /*
+     * GIVEN: adding 2 cards to store
+     *
+     * WHEN: remove last one card
+     *
+     * THEN: should update UI with first card in list (firstStoredCard)
+     */
+    func testDeleteCardWithIndex()  {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        sut.viewModelNeedsUpdate()
+        sut.deleteCard(with: 1)
+        let cardFromUI = controller.cardsList.first!
+        XCTAssertEqual(cardFromUI.cardNumberLastFour, firstStoredCard?.cardLastFour)
+    }
+    
+    /*
+     * GIVEN: When editing card
+     *
+     * WHEN: for different status
+     *
+     * THEN: should update UI button translated text in header view
+     */
+    func testChangeHeaderButtonTitle() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        sut.changeHeaderButtonTitle(true)
+        
+        let textButtonTrue = (controller.viewModelSut!.items?[1] as! JPPaymentMethodsCardHeaderModel).editButtonTitle
+        XCTAssertEqual(textButtonTrue, "DONE")
+        
+        sut.changeHeaderButtonTitle(false)
+        let textButtonFalse = (controller.viewModelSut!.items?[1] as! JPPaymentMethodsCardHeaderModel).editButtonTitle
+        XCTAssertEqual(textButtonFalse, "EDIT")
+    }
+    
+    /*
+     * GIVEN: When user changing payment method
+     *
+     * WHEN: from ideal type to card
+     *
+     * THEN: should update UI with right viewmodel type
+     */
+    func testChangePaymentMethodToIndex() {
+        sut.changePaymentMethod(to: 1) // select ideal payment method, seted up in interactor mock
+        var viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
+        XCTAssertEqual(viewModelType, JPPaymentMethodType.iDeal)
+        
+        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        
+        viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
+        XCTAssertEqual(viewModelType, JPPaymentMethodType.card)
+    }
+    
+    /*
+     * GIVEN: Adding few cards
+     *
+     * WHEN: we set last card to be selected
+     *
+     * THEN: last card should be ypdated with isSelected = true
+     */
+    func testSetLastAddedCardAsSelected()  {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        sut.setLastAddedCardAsSelected()
+        XCTAssertTrue(secondStoredCard!.isSelected)
+    }
+    
+    /*
+     * GIVEN: Adding few cards, and order them
+     *
+     * WHEN: second card is default
+     *
+     * THEN: second card should be on first place
+     */
+    func testOrderCards() {
+        secondStoredCard?.isDefault = true
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        sut.orderCards()
+        
+        let card = (JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.firstObject! as! JPStoredCardDetails)
+        XCTAssertTrue(card.isDefault)
     }
 }

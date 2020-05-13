@@ -25,16 +25,19 @@
 import Foundation
 
 @objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
+    var cardsList:[JPPaymentMethodsCardModel] = []
+    var idealBankModel: JPPaymentMethodsIDEALBankModel?
+    var viewModelSut: JPPaymentMethodsViewModel?
     
     func configure(with viewModel: JPPaymentMethodsViewModel, shouldAnimateChange shouldAnimate: Bool) {
+        viewModelSut = viewModel
         for card in viewModel.items!{
             if let cardList = card as? JPPaymentMethodsCardListModel {
                 cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
             }
         }
+        self.idealBankModel = viewModel.headerModel?.bankModel
     }
-    
-    var cardsList:[JPPaymentMethodsCardModel] = []
     
     func configure(with viewModel: JPPaymentMethodsViewModel!) {
         for card in viewModel.items!{
