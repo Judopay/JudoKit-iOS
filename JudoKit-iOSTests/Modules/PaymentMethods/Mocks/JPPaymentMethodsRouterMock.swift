@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsRouterMock.swift
-//  JudoKit_iOS
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,9 +25,7 @@
 import Foundation
 
 class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
-    func navigateToCardCustomization(with index: UInt) {
-    }
-    
+    func navigateToCardCustomization(with index: UInt) {}
     
     func navigateToTransactionModule() {}
     

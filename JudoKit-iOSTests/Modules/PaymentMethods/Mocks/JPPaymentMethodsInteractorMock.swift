@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractorMock.swift
-//  JudoKit_iOS
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -105,7 +105,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
-    
     func saveMockCards() {
         let calendar = Calendar.current
         
@@ -128,6 +127,5 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         JPCardStorage.sharedInstance()?.add(validCard)
         JPCardStorage.sharedInstance()?.add(expiresSoonCard)
         JPCardStorage.sharedInstance()?.add(expirdCard)
-        
     }
 }

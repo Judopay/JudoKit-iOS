@@ -1,6 +1,6 @@
 //
 //  JPKeychainServiceTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,17 +23,15 @@
 //  SOFTWARE.
 
 import XCTest
-//@testable import JudoKit_iOS
+@testable import JudoKit_iOS
 
 class JPKeychainServiceTest: XCTestCase {
-    //MARK: Should be resolved issue with test host. Keychain must be tested only with executable app. 
-    
+    //TODO: Should be resolved issue with test host. Keychain must be tested only with executable app. 
     func testSaveObject()  {    }
     
     func testGetObject() {    }
     
     func testRemoveObject() {    }
-    
     
     func testGetAfterRemoveObject() {    }
 }

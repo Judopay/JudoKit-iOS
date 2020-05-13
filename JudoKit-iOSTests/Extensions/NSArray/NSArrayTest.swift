@@ -1,6 +1,6 @@
 //
 //  NSArrayTest.swift
-//  NSArrayTest
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -35,5 +35,4 @@ class NSArrayTest: XCTestCase {
         let notContaining = arrayCard.containsPrefix("MD")
         XCTAssertFalse(notContaining)
     }
-    
 }
