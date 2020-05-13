@@ -58,13 +58,13 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         XCTAssertEqual(amount.currency, "GBP")
     }
     
-    func testStoredCardsNull() {
+    func testStoredCards_WhenRemovingAllCards_ShouldGetEmptyList() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let cards = sut.getStoredCardDetails()
         XCTAssertEqual(cards.count, 0)
     }
     
-    func testStoredCardsAfterAdding() {
+    func testStoredCards_WhenAddingNewCards_ShouldAppearInList() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
         JPCardStorage.sharedInstance()?.add(card)
@@ -80,11 +80,10 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * THEN: count of methods should 2: cards and apple pay
      */
-    func testGetPaymentMethodsGBP() {
+    func testGetPaymentMethods_WhenPoundsCurrency_ShouldExcludeIdealPayment() {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 2)
     }
-    
     
     /*
      * GIVEN: Calculating all payment methods
@@ -93,15 +92,14 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * THEN: count of methods should 3: cards, apple ideal
      */
-    func testGetPaymentMethodsEUR() {
+    func testGetPaymentMethods_WhenEURisCurrency_ShouldAddiDealPayment() {
         configuration.amount = JPAmount("123", currency: "EUR")
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 3)
     }
     
-    
     //card with isDefault parameter true should be at first index of card list.
-    func testOrderCards() {
+    func testOrderCards_WhenCardIsDefault_ShouldPlaceOnFirstIndex() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
         let defaultCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
