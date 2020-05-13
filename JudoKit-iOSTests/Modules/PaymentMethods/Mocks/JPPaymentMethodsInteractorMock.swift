@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractorMock.swift
-//  JudoKit-iOSTests
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -74,26 +74,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func getStoredCardDetails() -> [JPStoredCardDetails] {
-        
-        let calendar = Calendar.current
-        
-        let todaysDate = Date()
-        let dateInTwoMonths = calendar.date(byAdding: .month, value: 1, to: todaysDate)!
-        let expiredDate = calendar.date(byAdding: .month, value: -1, to: todaysDate)!
-        let notExpiredDate = calendar.date(byAdding: .month, value: 3, to: todaysDate)!
-        
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = (kMonthYearDateFormat)
-        
-        let expiresSoonDateAsString = dateFormater.string(from: dateInTwoMonths)
-        let expiredDateAsString = dateFormater.string(from: expiredDate)
-        let notExpiredDateAsString = dateFormater.string(from: notExpiredDate)
-        
-        let validCard = JPStoredCardDetails(lastFour: "1111", expiryDate: notExpiredDateAsString, cardNetwork: .visa, cardToken: "token")!
-        let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .visa, cardToken: "token")!
-        let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .visa, cardToken: "token")!
-        
-        return [validCard, expiresSoonCard, expirdCard]
+        let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        return cards as! [JPStoredCardDetails]
     }
     
     
@@ -123,4 +105,29 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
+    
+    func saveMockCards() {
+        let calendar = Calendar.current
+        
+        let todaysDate = Date()
+        let dateInTwoMonths = calendar.date(byAdding: .month, value: 1, to: todaysDate)!
+        let expiredDate = calendar.date(byAdding: .month, value: -1, to: todaysDate)!
+        let notExpiredDate = calendar.date(byAdding: .month, value: 3, to: todaysDate)!
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = (kMonthYearDateFormat)
+        
+        let expiresSoonDateAsString = dateFormater.string(from: dateInTwoMonths)
+        let expiredDateAsString = dateFormater.string(from: expiredDate)
+        let notExpiredDateAsString = dateFormater.string(from: notExpiredDate)
+        
+        let validCard = JPStoredCardDetails(lastFour: "1111", expiryDate: notExpiredDateAsString, cardNetwork: .visa, cardToken: "token")!
+        let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .visa, cardToken: "token")!
+        let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .visa, cardToken: "token")!
+        
+        JPCardStorage.sharedInstance()?.add(validCard)
+        JPCardStorage.sharedInstance()?.add(expiresSoonCard)
+        JPCardStorage.sharedInstance()?.add(expirdCard)
+        
+    }
 }

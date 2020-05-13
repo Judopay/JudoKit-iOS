@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsTest.swift
-//  JudoKit_iOSTests
+//  JPApplePayServiceTest.swift
+//  JPApplePayServiceTest
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,18 +25,27 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPPaymentMethodsTest: XCTestCase {
+class JPApplePayServiceTest: XCTestCase {
+    lazy  var service = JPTransactionServiceiDealStub()
+    lazy var configuration = JPConfiguration(judoID: "judoId",
+                                             amount: JPAmount("123", currency: "EUR"),
+                                             reference: JPReference(consumerReference: "consumerReference"))
+    var sut: JPApplePayService! = nil
     
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        interactor.saveMockCards()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
+    override func setUp() {
+        super.setUp()
+        sut = JPApplePayService(configuration:configuration,
+                                transactionService:service)
+    }
+    
+    
+    func testIsApplePaySetUp() {
+        let isApplePaySetUp = sut.isApplePaySetUp()
+        XCTAssertTrue(isApplePaySetUp)
+    }
+    
+    func testIsApplePaySupported() {
+        let supported = JPApplePayService.isApplePaySupported()
+        XCTAssertTrue(supported)
     }
 }

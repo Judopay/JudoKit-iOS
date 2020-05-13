@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsTest.swift
-//  JudoKit_iOSTests
+//  JPPaymentMethodsRouterMock.swift
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,21 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
-@testable import JudoKit_iOS
+import Foundation
 
-class JPPaymentMethodsTest: XCTestCase {
-    
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        interactor.saveMockCards()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
+class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
+    func navigateToCardCustomization(with index: UInt) {
     }
+    
+    
+    func navigateToTransactionModule() {}
+    
+    func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {}
+
+    func dismissViewController() {}
+    
 }

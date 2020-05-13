@@ -1,6 +1,6 @@
 //
-//  JPCanadaPostCodeValidation.swift
-//  JudoKit-iOSTests
+//  JPUSAPostCodeValidation.swift
+//  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,10 +23,9 @@
 //  SOFTWARE.
 
 import XCTest
-
 @testable import JudoKit_iOS
 
-class JPCanadaPostCodeValidation: XCTestCase {
+class JPUSAPostCodeValidation: XCTestCase {
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
     let configuration = JPConfiguration(judoID: "judoId",
@@ -35,36 +34,48 @@ class JPCanadaPostCodeValidation: XCTestCase {
     
     override func setUp() {
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
-        validationService.validateCountryInput("Canada")
+        validationService.validateCountryInput("USA")
         sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
     }
     
-    func testValidCode_Canada() {
-        let result = sut.validatePostalCodeInput("A1A1A1")!
-        XCTAssertEqual(result.formattedInput, "A1A 1A1")
-        XCTAssertTrue(result.isValid)
+    func testValidCode_US() {
+        let result = sut.validatePostalCodeInput("12345")
+        XCTAssertTrue(result!.isValid)
     }
     
-    func testValidCodeWithSpaces_Canada() {
-        let result = sut.validatePostalCodeInput("A1A 1A1")!
-        XCTAssertEqual(result.formattedInput, "A1A 1A1")
-        XCTAssertTrue(result.isValid)
+    func testValidCodeWithSpaces_US() {
+        let result = sut.validatePostalCodeInput("12345-6789")
+        XCTAssertTrue(result!.isValid)
     }
     
-    func testInValidRegexSpecialSymbols_Canada() {
-        let result = sut.validatePostalCodeInput("A1! 1A1")!
-        XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
-        XCTAssertFalse(result.isValid)
-    }
-    
-    func testEmptyCode_Canada() {
-        let result = sut.validatePostalCodeInput("")
+    func testInValidCodeMiddleCharacter_US() {
+        let result = sut.validatePostalCodeInput("1234@")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testInValidRegexUndersScore_Canada() {
-        let result = sut.validatePostalCodeInput("A11_1A1")!
-        XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
+    func testInValidCodeShort_US() {
+        let result = sut.validatePostalCodeInput("1234")
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    func testInValidLastCharatcer_US() {
+        let result = sut.validatePostalCodeInput("12345-678@")
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    func testInValidCodeWithSpaces_US() {
+        let result = sut.validatePostalCodeInput("12345 6789")
+        XCTAssertTrue(result!.isValid)
+    }
+    
+    func testInValidCodeError_US() {
+        let result = sut.validatePostalCodeInput("abcde-fghj")!
+        XCTAssertEqual(result.errorMessage, "Invalid ZIP code entered")
         XCTAssertFalse(result.isValid)
+    }
+    
+    func testEmptyCode_US() {
+        let result = sut.validatePostalCodeInput("")
+        XCTAssertFalse(result!.isValid)
     }
 }
