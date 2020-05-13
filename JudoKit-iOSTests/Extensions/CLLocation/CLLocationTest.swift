@@ -1,6 +1,6 @@
 //
 //  CLLocationTest.swift
-//  CLLocationTest
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -39,5 +39,4 @@ class CLLocationTest: XCTestCase {
         XCTAssertEqual(coordinateDictionary["latitude"], 51.5074)
         XCTAssertEqual(coordinateDictionary["longitude"], 0.1278)
     }
-    
 }

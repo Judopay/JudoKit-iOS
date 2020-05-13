@@ -1,6 +1,6 @@
 //
 //  JPTransactionServiceiDealStub.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -30,7 +30,6 @@ class JPTransactionServiceiDealStub: JPTransactionService {
         super.init(token: "TOKEN", andSecret: "SECRET")
         saveStubs()
     }
-    
     
     func saveStubs() {
         let stubObjectSale = ["paymentMethod":"IDEAL",
@@ -82,6 +81,4 @@ class JPTransactionServiceiDealStub: JPTransactionService {
             return HTTPStubsResponse(jsonObject: stubObjectStatusSuccess, statusCode: 200, headers: nil)
         }
     }
-    
-    
 }

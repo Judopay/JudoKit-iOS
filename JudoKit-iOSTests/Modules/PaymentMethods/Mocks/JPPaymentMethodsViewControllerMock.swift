@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsViewControllerMock.swift
-//  JudoKit_iOS
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //

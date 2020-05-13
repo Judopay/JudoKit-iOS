@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractorTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -95,6 +95,5 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut.orderCards()
         let cards = sut.getStoredCardDetails()
         XCTAssertTrue((cards[0] as JPStoredCardDetails).isDefault)
-        
     }
 }

@@ -1,6 +1,6 @@
 //
 //  JPTransactionServiceStub.swift
-//  JPTransactionServiceStub
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //

@@ -1,6 +1,6 @@
 //
-//  CardStorageTest.swift
-//  JudoKit_iOS
+//  JPCardStorageTest.swift
+//  JudoKit-iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -76,7 +76,6 @@ class JPCardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()?.deleteCard(with: 0)
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssert(cards?.count == 0)
-
     }
     
 }

@@ -1,6 +1,6 @@
 //
 //  JPIDEALServiceTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -71,7 +71,6 @@ class JPIDEALServiceTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    
     func testPollTransactionStatusForOrderIdInfinitePending() {
         let expectation = self.expectation(description: "get response from iDeal pending sale")
         
@@ -85,7 +84,6 @@ class JPIDEALServiceTest: XCTestCase {
         waitForExpectations(timeout: 65, handler: nil)
     }
     
-    
     func testPollTransactionStatusForOrderIdPendingSuccess() {
         let expectation = self.expectation(description: "get response from iDeal success sale")
         
@@ -98,5 +96,4 @@ class JPIDEALServiceTest: XCTestCase {
         sut.pollTransactionStatus(forOrderId: "123456", checksum: "", completion: completion)
         waitForExpectations(timeout: 5, handler: nil)
     }
-    
 }
