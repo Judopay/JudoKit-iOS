@@ -1,6 +1,6 @@
 //
 //  JPConfiguration.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,10 +23,13 @@
 //  SOFTWARE.
 
 #import "JPConfiguration.h"
+#import "JPAddress.h"
 #import "JPAmount.h"
+#import "JPApplePayConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
+#import "JPUIConfiguration.h"
 
 @interface JPConfiguration ()
 @property (nonatomic, strong) NSString *_Nullable judoId;

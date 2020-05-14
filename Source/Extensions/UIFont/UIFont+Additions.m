@@ -1,6 +1,6 @@
 //
 //  UIFont.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //

@@ -1,6 +1,6 @@
 //
 //  JPFormatters.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 
 @interface JPFormatters : NSObject
+
 @property (nonatomic, strong) NSDateFormatter *rfc3339DateFormatter;
 
 /**

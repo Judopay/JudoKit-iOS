@@ -1,6 +1,6 @@
 //
 //  JPCardValidationService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -26,8 +26,8 @@
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "JPError+Additions.h"
 #import "JPValidationResult.h"
-#import "NSError+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPCardValidationService ()
@@ -51,13 +51,13 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (BOOL)isInputSupported:(NSString *)input
-    forSupportedNetworks:(CardNetwork)supportedCardNetworks {
+    forSupportedNetworks:(JPCardNetworkType)supportedCardNetworks {
 
-    if (input.cardNetwork == CardNetworkUnknown && input.length == kMaxDefaultCardLength) {
+    if (input.cardNetwork == JPCardNetworkTypeUnknown && input.length == kMaxDefaultCardLength) {
         return NO;
     }
 
-    if (supportedCardNetworks == CardNetworksAll || input.cardNetwork == CardNetworkUnknown) {
+    if (supportedCardNetworks == JPCardNetworkTypeAll || input.cardNetwork == JPCardNetworkTypeUnknown) {
         return YES;
     }
 
@@ -65,7 +65,7 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input
-                           forSupportedNetworks:(CardNetwork)networks {
+                           forSupportedNetworks:(JPCardNetworkType)networks {
     NSError *error;
     NSString *cardNumber = [input stringByRemovingWhitespaces];
     NSString *cardNetworkPatern = [JPCardNetwork cardPatternForType:cardNumber.cardNetwork];
@@ -76,11 +76,11 @@ static int const kCardHolderNameLength = 3;
     }
 
     if ((cardNumber.length == maxCardLength) && (![cardNumber isCardNumberValid])) {
-        error = NSError.judoInvalidCardNumberError;
+        error = JPError.judoInvalidCardNumberError;
     }
 
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
-        error = [NSError judoUnsupportedCardNetwork:input.cardNetwork];
+        error = [JPError judoUnsupportedCardNetwork:input.cardNetwork];
     }
 
     cardNumber = [cardNumber formatWithPattern:cardNetworkPatern];
@@ -94,7 +94,7 @@ static int const kCardHolderNameLength = 3;
     return self.lastCardNumberValidationResult;
 }
 
-- (JPValidationResult *)validateCarholderNameInput:(NSString *)input {
+- (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
     return [JPValidationResult validationWithResult:input.length > kCardHolderNameLength
                                        inputAllowed:YES
                                        errorMessage:nil
@@ -179,14 +179,14 @@ static int const kCardHolderNameLength = 3;
 
 - (NSArray *)acceptedCardNetworks {
     return @[
-        @(CardNetworkVisa),
-        @(CardNetworkAMEX),
-        @(CardNetworkMasterCard),
-        @(CardNetworkMaestro),
-        @(CardNetworkDiscover),
-        @(CardNetworkJCB),
-        @(CardNetworkDinersClub),
-        @(CardNetworkChinaUnionPay),
+        @(JPCardNetworkTypeVisa),
+        @(JPCardNetworkTypeAMEX),
+        @(JPCardNetworkTypeMasterCard),
+        @(JPCardNetworkTypeMaestro),
+        @(JPCardNetworkTypeDiscover),
+        @(JPCardNetworkTypeJCB),
+        @(JPCardNetworkTypeDinersClub),
+        @(JPCardNetworkTypeChinaUnionPay),
     ];
 }
 
@@ -454,11 +454,11 @@ static int const kCardHolderNameLength = 3;
     }
 }
 
-- (NSUInteger)maxCardLength:(CardNetwork)cardNetwork {
+- (NSUInteger)maxCardLength:(JPCardNetworkType)cardNetwork {
     switch (cardNetwork) {
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return kMaxAMEXCardLength;
-        case CardNetworkDinersClub:
+        case JPCardNetworkTypeDinersClub:
             return kMaxDinersClubCardLength;
         default:
             return kMaxDefaultCardLength;

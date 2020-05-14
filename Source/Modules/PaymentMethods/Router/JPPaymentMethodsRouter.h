@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsRouter.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,8 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPSession.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
@@ -42,7 +41,7 @@
  * @param completion - the JPResponse / NSError completion block
  */
 - (void)navigateToIDEALModuleWithBank:(nonnull JPIDEALBank *)bank
-                        andCompletion:(nonnull JudoCompletionBlock)completion;
+                        andCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that opens the Card Customization view for customizing the card
@@ -55,15 +54,6 @@
  * A method that dismisses the current view
  */
 - (void)dismissViewController;
-
-/**
- * A method that triggers the completion handler passed by the merchant with an optional response / error
- *
- * @param response - an optional instance of the JPResponse object that contains the response details
- * @param error - an optional instance of NSError that contains the error details
- */
-- (void)completeTransactionWithResponse:(JPResponse *_Nullable)response
-                               andError:(NSError *_Nullable)error;
 
 @end
 
@@ -85,6 +75,6 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                            transactionService:(nonnull JPTransactionService *)transactionService
                         transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate
-                                   completion:(JudoCompletionBlock _Nonnull)completion;
+                                   completion:(JPCompletionBlock _Nonnull)completion;
 
 @end

@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardListHeaderCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsCardListHeaderCell
@@ -94,11 +95,11 @@ const float kCardListHeaderCenterOffset = 10.0f;
     [self addSubview:self.titleLabel];
     [self addSubview:self.actionButton];
 
-    [self.titleLabel pinToAnchors:AnchorTypeLeading
+    [self.titleLabel pinToAnchors:JPAnchorTypeLeading
                           forView:self
                       withPadding:kCardListHeaderHorizontalPadding];
 
-    [self.actionButton pinToAnchors:AnchorTypeTrailing
+    [self.actionButton pinToAnchors:JPAnchorTypeTrailing
                             forView:self
                         withPadding:kCardListHeaderHorizontalPadding];
 

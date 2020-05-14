@@ -1,6 +1,6 @@
 //
 //  JPCardView.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
-#import "JPCardPattern.h"
-#import "JPPaymentMethodsViewModel.h"
-#import "JPTheme.h"
+#import "JPCardExpirationStatus.h"
+#import "JPCardNetworkType.h"
+#import "JPCardPatternType.h"
 #import <UIKit/UIKit.h>
+
+@class JPTheme;
 
 @interface JPCardPaymentMethodView : UIView
 
@@ -48,7 +49,7 @@
  */
 - (void)configureWithTitle:(NSString *)title
                 expiryDate:(NSString *)expiryDate
-                   network:(CardNetwork)cardNetwork
+                   network:(JPCardNetworkType)cardNetwork
               cardLastFour:(NSString *)cardLastFour
                patternType:(JPCardPatternType)patternType;
 
@@ -57,6 +58,6 @@
  *
  * @param expirationStatus - the expiration status of the card
  */
-- (void)configureExpirationStatus:(CardExpirationStatus)expirationStatus;
+- (void)configureExpirationStatus:(JPCardExpirationStatus)expirationStatus;
 
 @end

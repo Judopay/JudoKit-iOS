@@ -1,6 +1,6 @@
 //
 //  JPContactInformation.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,10 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPostalAddress.h"
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@class JPPostalAddress;
 
 /**
  * An object containing the Billing / Shipping information of the payment.
@@ -62,16 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param phoneNumber - the phone number returned from a PKContact object
  * @param postalAddress - a JPPostalAddress object containing location information
  */
-- (instancetype)initWithEmailAddress:(nullable NSString *)emailAddress
-                                name:(nullable NSPersonNameComponents *)name
-                         phoneNumber:(nullable NSString *)phoneNumber
-                       postalAddress:(nullable JPPostalAddress *)postalAddress;
+- (_Nonnull instancetype)initWithEmailAddress:(NSString *_Nullable)emailAddress
+                                         name:(NSPersonNameComponents *_Nullable)name
+                                  phoneNumber:(NSString *_Nullable)phoneNumber
+                                postalAddress:(JPPostalAddress *_Nullable)postalAddress;
 
 /**
  * Helper method that generates a human-readable string from all the initialized parameters.
  */
-- (NSString *)toString;
+- (NSString *_Nonnull)toString;
 
 @end
-
-NS_ASSUME_NONNULL_END

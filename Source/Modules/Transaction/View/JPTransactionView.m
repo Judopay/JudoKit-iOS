@@ -1,6 +1,6 @@
 //
 //  JPTransactionView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -27,6 +27,7 @@
 #import "JPCardNumberField.h"
 #import "JPLoadingButton.h"
 #import "JPRoundedCornerView.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
@@ -173,7 +174,7 @@ static const float kLooseContentSpacing = 16.0;
 }
 
 - (void)setupBottomSliderConstraints {
-    [self.bottomSlider pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing forView:self];
+    [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
     self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
     self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kStandardSliderHeight];
@@ -184,11 +185,11 @@ static const float kLooseContentSpacing = 16.0;
 
 - (void)setupMainStackViewConstraints {
 
-    [self.mainStackView pinToAnchors:AnchorTypeTop | AnchorTypeBottom
+    [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                              forView:self.bottomSlider
                          withPadding:kContentVerticalPadding];
 
-    [self.mainStackView pinToAnchors:AnchorTypeLeading | AnchorTypeTrailing
+    [self.mainStackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
                              forView:self.bottomSlider
                          withPadding:kContentHorizontalPadding];
 }

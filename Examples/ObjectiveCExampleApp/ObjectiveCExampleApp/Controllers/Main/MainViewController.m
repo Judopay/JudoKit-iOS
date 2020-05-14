@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import <CoreLocation/CoreLocation.h>
-#import <JudoKitObjC/JudoKitObjC.h>
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
+@import JudoKit_iOS;
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
@@ -129,90 +129,90 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)paymentOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:TransactionTypePayment
+    [self.judoKitSession invokeTransactionWithType:JPTransactionTypePayment
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)preAuthOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:TransactionTypePreAuth
+    [self.judoKitSession invokeTransactionWithType:JPTransactionTypePreAuth
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:TransactionTypeRegisterCard
+    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeRegisterCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)checkCardOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:TransactionTypeCheckCard
+    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeCheckCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)saveCardOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:TransactionTypeSaveCard
+    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeSaveCard
                                      configuration:self.configuration
-                                        completion:^(JPResponse *response, NSError *error) {
+                                        completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)applePayPaymentOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeApplePayWithMode:TransactionModePayment
+    [self.judoKitSession invokeApplePayWithMode:JPTransactionModePayment
                                   configuration:self.configuration
-                                     completion:^(JPResponse *response, NSError *error) {
+                                     completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)applePayPreAuthOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeApplePayWithMode:TransactionModePreAuth
+    [self.judoKitSession invokeApplePayWithMode:JPTransactionModePreAuth
                                   configuration:self.configuration
-                                     completion:^(JPResponse *response, NSError *error) {
+                                     completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)paymentMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePayment
+    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModePayment
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)preAuthMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModePreAuth
+    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModePreAuth
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 - (void)serverToServerMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:TransactionModeServerToServer
+    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
                                              configuration:self.configuration
-                                                completion:^(JPResponse *response, NSError *error) {
+                                                completion:^(JPResponse *response, JPError *error) {
                                   [weakSelf handleResponse:response error:error];
     }];
 }
@@ -289,9 +289,9 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
                                                                                         currency:self.settings.amount.currency
                                                                                      countryCode:@"GB"
                                                                              paymentSummaryItems:items];
-    configuration.requiredShippingContactFields = ContactFieldAll;
-    configuration.requiredBillingContactFields = ContactFieldAll;
-    configuration.returnedContactInfo = ReturnedInfoAll;
+    configuration.requiredShippingContactFields = JPContactFieldAll;
+    configuration.requiredBillingContactFields = JPContactFieldAll;
+    configuration.returnedContactInfo = JPReturnedInfoAll;
     configuration.shippingMethods = @[[[PaymentShippingMethod alloc] initWithIdentifier:@"method"
                                                                                  detail:@"details"
                                                                                   label:@"label"

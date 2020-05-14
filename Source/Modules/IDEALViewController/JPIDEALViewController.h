@@ -1,6 +1,6 @@
 //
 //  JPIDEALViewController.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,13 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "Typedefs.h"
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-#import "JPConfiguration.h"
-#import "JPIDEALService.h"
-#import "JPTheme.h"
-#import "JPTransactionService.h"
+@class JPConfiguration, JPIDEALService, JPTheme, JPTransactionService, JPIDEALBank;
 
 @interface JPIDEALViewController : UIViewController
 
@@ -48,7 +46,7 @@
 - (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
                             configuration:(nonnull JPConfiguration *)configuration
                        transactionService:(nonnull JPTransactionService *)transactionService
-                        completionHandler:(nullable JudoCompletionBlock)completion;
+                        completionHandler:(nullable JPCompletionBlock)completion;
 
 @end
 

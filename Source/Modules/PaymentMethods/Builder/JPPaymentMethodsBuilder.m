@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsBuilder.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,30 +23,29 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsBuilder.h"
-
 #import "JPAmount.h"
+#import "JPApplePayService.h"
 #import "JPCardStorage.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
-#import "JPReference.h"
-#import "JudoKit.h"
-
+#import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "NSError+Additions.h"
-
-#import "JPApplePayService.h"
+#import "JPReference.h"
+#import "JudoKit.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
 #pragma mark - Public methods
 
-+ (JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
-                                      completionHandler:(JudoCompletionBlock)completion {
+                                      completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
@@ -56,12 +55,12 @@
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
-            completion(nil, NSError.judoInvalidIDEALCurrencyError);
+            completion(nil, JPError.judoInvalidIDEALCurrencyError);
             return nil;
         }
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
-            completion(nil, NSError.judoApplePayNotSupportedError);
+            completion(nil, JPError.judoApplePayNotSupportedError);
             return nil;
         }
     }

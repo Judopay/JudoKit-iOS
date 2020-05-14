@@ -1,6 +1,6 @@
 //
 //  JP3DSViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,14 +23,19 @@
 //  SOFTWARE.
 
 #import "JP3DSViewController.h"
+#import "JP3DSConfiguration.h"
+#import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPLoadingView.h"
-#import "NSError+Additions.h"
+#import "JPSession.h"
+#import "JPTheme.h"
+#import "JPTransaction.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) JPLoadingView *loadingView;
 @end
@@ -40,7 +45,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JP3DSConfiguration *)configuration
-                           completion:(JudoCompletionBlock)completion {
+                           completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;
         self.completionBlock = completion;
@@ -80,7 +85,7 @@
 
 - (void)onDismissTap {
     [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(nil, NSError.judoUserDidCancelError);
+    self.completionBlock(nil, JPError.judoUserDidCancelError);
 }
 
 #pragma mark - Public methods
@@ -131,11 +136,11 @@
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    self.completionBlock(nil, error);
+    self.completionBlock(nil, (JPError *)error);
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    self.completionBlock(nil, error);
+    self.completionBlock(nil, (JPError *)error);
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -189,7 +194,7 @@
     __weak typeof(self) weakSelf = self;
     [self.transaction threeDSecureWithParameters:response
                                        receiptId:self.configuration.receiptId
-                                      completion:^(JPResponse *response, NSError *error) {
+                                      completion:^(JPResponse *response, JPError *error) {
                                           if (error) {
                                               decisionHandler(WKNavigationActionPolicyCancel);
                                           } else {

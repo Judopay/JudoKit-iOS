@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardListFooterCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsCardListFooterCell.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
 
@@ -105,7 +106,7 @@
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
     [self addSubview:self.addCardButton];
-    [self.addCardButton pinToAnchors:AnchorTypeTrailing forView:self withPadding:24.0];
+    [self.addCardButton pinToAnchors:JPAnchorTypeTrailing forView:self withPadding:24.0];
     [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
 }
 

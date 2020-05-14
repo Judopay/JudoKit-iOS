@@ -1,6 +1,6 @@
 //
 //  JPTransaction.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -27,6 +27,7 @@
 #import "JPAmount.h"
 #import "JPCard.h"
 #import "JPEnhancedPaymentDetail.h"
+#import "JPError+Additions.h"
 #import "JPPagination.h"
 #import "JPPaymentToken.h"
 #import "JPPrimaryAccountDetails.h"
@@ -35,7 +36,6 @@
 #import "JPSession.h"
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
-#import "NSError+Additions.h"
 
 static NSString *const kPaymentPathKey = @"transactions/payments";
 static NSString *const kPreauthPathKey = @"transactions/preauths";
@@ -53,7 +53,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPTransaction ()
 
-@property (nonatomic, assign) TransactionType transactionType;
+@property (nonatomic, assign) JPTransactionType transactionType;
 @property (nonatomic, strong) NSString *currentTransactionReference;
 @property (nonatomic, assign) BOOL initialRecurringPayment;
 @property (nonatomic, strong) NSMutableDictionary *parameters;
@@ -67,11 +67,11 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 #pragma mark - Initializers
 
-+ (instancetype)transactionWithType:(TransactionType)type {
++ (instancetype)transactionWithType:(JPTransactionType)type {
     return [[JPTransaction alloc] initWithType:type];
 }
 
-+ (instancetype)transactionWithType:(TransactionType)type
++ (instancetype)transactionWithType:(JPTransactionType)type
                           receiptId:(NSString *)receiptId
                              amount:(JPAmount *)amount {
     return [[JPTransaction alloc] initWithType:type
@@ -79,7 +79,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
                                         amount:amount];
 }
 
-- (instancetype)initWithType:(TransactionType)type {
+- (instancetype)initWithType:(JPTransactionType)type {
     if (self = [super init]) {
         self.transactionType = type;
         self.parameters = [NSMutableDictionary dictionary];
@@ -88,7 +88,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     return self;
 }
 
-- (instancetype)initWithType:(TransactionType)type
+- (instancetype)initWithType:(JPTransactionType)type
                    receiptId:(NSString *)receiptId
                       amount:(JPAmount *)amount {
     self = [super init];
@@ -104,30 +104,30 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 #pragma mark - Setup methods
 
-- (NSString *)transactionPathForType:(TransactionType)type {
+- (NSString *)transactionPathForType:(JPTransactionType)type {
     switch (type) {
-        case TransactionTypePayment:
+        case JPTransactionTypePayment:
             return kPaymentPathKey;
 
-        case TransactionTypePreAuth:
+        case JPTransactionTypePreAuth:
             return kPreauthPathKey;
 
-        case TransactionTypeRegisterCard:
+        case JPTransactionTypeRegisterCard:
             return kRegisterCardPathKey;
 
-        case TransactionTypeSaveCard:
+        case JPTransactionTypeSaveCard:
             return kSaveCardPathKey;
 
-        case TransactionTypeCheckCard:
+        case JPTransactionTypeCheckCard:
             return kCheckCardPathKey;
 
-        case TransactionTypeRefund:
+        case JPTransactionTypeRefund:
             return kRefundPathKey;
 
-        case TransactionTypeCollection:
+        case JPTransactionTypeCollection:
             return kCollectionPathKey;
 
-        case TransactionTypeVoid:
+        case JPTransactionTypeVoid:
             return kVoidTransactionPathKey;
 
         default:
@@ -137,13 +137,13 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 #pragma mark - Public methods
 
-- (void)sendWithCompletion:(JudoCompletionBlock)completion {
+- (void)sendWithCompletion:(JPCompletionBlock)completion {
 
     if (!completion) {
         return;
     }
 
-    NSError *validationError = [self validateTransaction];
+    JPError *validationError = [self validateTransaction];
 
     if (validationError) {
         completion(nil, validationError);
@@ -154,16 +154,17 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, self.transactionPath];
 
-    __weak typeof(self) weakSelf = self;
     [self.enricher enrichTransaction:self
                       withCompletion:^{
-                          [weakSelf.apiSession POST:fullURL
-                                         parameters:weakSelf.parameters
-                                         completion:completion];
+                          [self.apiSession POST:fullURL
+                                     parameters:self.parameters
+                                     completion:completion];
                       }];
 }
 
-- (void)threeDSecureWithParameters:(NSDictionary *)parameters receiptId:(NSString *)receiptId completion:(JudoCompletionBlock)completion {
+- (void)threeDSecureWithParameters:(NSDictionary *)parameters
+                         receiptId:(NSString *)receiptId
+                        completion:(JPCompletionBlock)completion {
 
     NSString *fullURL = [NSString stringWithFormat:@"%@transactions/%@", self.apiSession.baseURL, receiptId];
 
@@ -172,11 +173,11 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
               completion:completion];
 }
 
-- (void)listWithCompletion:(JudoCompletionBlock)completion {
+- (void)listWithCompletion:(JPCompletionBlock)completion {
     [self listWithPagination:nil completion:completion];
 }
 
-- (void)listWithPagination:(JPPagination *)pagination completion:(JudoCompletionBlock)completion {
+- (void)listWithPagination:(JPPagination *)pagination completion:(JPCompletionBlock)completion {
     NSString *path = self.transactionPath;
     if (pagination) {
         path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
@@ -187,24 +188,24 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 #pragma mark - Helper methods
 
-- (NSError *)validateTransaction {
+- (JPError *)validateTransaction {
     if (!self.judoId) {
-        return [NSError judoJudoIdMissingError];
+        return JPError.judoJudoIdMissingError;
     }
 
     if (!self.card && !self.paymentToken && !self.pkPayment && !self.vcoResult) {
-        return [NSError judoPaymentMethodMissingError];
+        return JPError.judoPaymentMethodMissingError;
     }
 
     if (!self.reference) {
-        return [NSError judoReferenceMissingError];
+        return JPError.judoReferenceMissingError;
     }
 
-    BOOL isRegisterCard = (self.transactionType == TransactionTypeRegisterCard);
-    BOOL isCheckCard = (self.transactionType == TransactionTypeCheckCard);
-    BOOL isSaveCard = (self.transactionType == TransactionTypeSaveCard);
+    BOOL isRegisterCard = (self.transactionType == JPTransactionTypeRegisterCard);
+    BOOL isCheckCard = (self.transactionType == JPTransactionTypeCheckCard);
+    BOOL isSaveCard = (self.transactionType == JPTransactionTypeSaveCard);
     if (!isRegisterCard && !isCheckCard && !isSaveCard && !self.amount) {
-        return [NSError judoAmountMissingError];
+        return JPError.judoAmountMissingError;
     }
 
     return nil;
@@ -289,7 +290,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     }
 
     if (card.cardholderName) {
-        self.parameters[@"carholderName"] = card.cardholderName;
+        self.parameters[@"cardholderName"] = card.cardholderName;
     }
 
     if (card.expiryDate) {

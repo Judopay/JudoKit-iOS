@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsBuilder.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,23 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPPaymentMethod.h"
-#import "JPReference.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
+#import "JPTransactionMode.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPPaymentMethodsViewController;
-@class JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
+@class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 
-+ (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(TransactionMode)mode
++ (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                                    configuration:(nonnull JPConfiguration *)configuration
                                               transactionService:(nonnull JPTransactionService *)transactionService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
-                                               completionHandler:(nullable JudoCompletionBlock)completion;
+                                               completionHandler:(nullable JPCompletionBlock)completion;
 @end
 
 @interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>

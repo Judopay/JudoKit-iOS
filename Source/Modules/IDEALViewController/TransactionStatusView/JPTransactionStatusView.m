@@ -1,6 +1,6 @@
 //
 //  JPTransactionStatusView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTransactionStatusView.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIStackView+Additions.h"
 

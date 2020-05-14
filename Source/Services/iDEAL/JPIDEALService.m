@@ -1,6 +1,6 @@
 //
 //  JPIDEALService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,11 +24,14 @@
 
 #import "JPIDEALService.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
+#import "JPError+Additions.h"
+#import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "NSError+Additions.h"
+#import "JPTransactionService.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -63,49 +66,52 @@ static const float kTimerDuration = 60.0f;
 #pragma mark - Public methods
 
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank
-                     completion:(JudoCompletionBlock)completion {
+                     completion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [self parametersForIDEALBank:iDealBank];
 
     if (!parameters) {
-        completion(nil, NSError.judoSiteIDMissingError);
+        completion(nil, JPError.judoSiteIDMissingError);
         return;
     }
 
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:HTTPMethodPOST
+                                          httpMethod:JPHTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, NSError *error) {
                                               JPTransactionData *data = response.items.firstObject;
 
                                               if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  completion([weakSelf remapIdealResponseWithResponse:response], error);
+                                                  completion([weakSelf remapIdealResponseWithResponse:response], (JPError *)error);
                                                   return;
                                               }
 
-                                              completion(nil, NSError.judoResponseParseError);
+                                              completion(nil, JPError.judoResponseParseError);
                                           }];
 }
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                                checksum:(NSString *)checksum
-                             completion:(JudoCompletionBlock)completion {
+                             completion:(JPCompletionBlock)completion {
 
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:NO
                                                    block:^(NSTimer *_Nonnull timer) {
                                                        weakSelf.didTimeout = true;
-                                                       completion(nil, NSError.judoRequestTimeoutError);
+                                                       completion(nil, JPError.judoRequestTimeoutError);
                                                        return;
                                                    }];
-    [self getStatusForOrderId:orderId checksum:checksum completion:completion];
+
+    [self getStatusForOrderId:orderId
+                     checksum:checksum
+                   completion:completion];
 }
 
 - (void)getStatusForOrderId:(NSString *)orderId
                    checksum:(NSString *)checksum
-                 completion:(JudoCompletionBlock)completion {
+                 completion:(JPCompletionBlock)completion {
 
     if (self.didTimeout) {
         return;
@@ -115,11 +121,11 @@ static const float kTimerDuration = 60.0f;
 
     __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:HTTPMethodGET
+                                          httpMethod:JPHTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, NSError *error) {
                                               if (error) {
-                                                  completion(nil, error);
+                                                  completion(nil, (JPError *)error);
                                                   [weakSelf.timer invalidate];
                                                   return;
                                               }
@@ -131,8 +137,9 @@ static const float kTimerDuration = 60.0f;
                                                   });
                                                   return;
                                               }
+
                                               JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
-                                              completion(mappedResponse, error);
+                                              completion(mappedResponse, nil);
                                               [weakSelf.timer invalidate];
                                           }];
 }

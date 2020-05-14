@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsEmptyCardListCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsEmptyCardListCell.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"

@@ -1,6 +1,6 @@
 //
 //  JPValidationResult.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetwork.h"
+#import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
 @interface JPValidationResult : NSObject
@@ -45,7 +45,7 @@
 /**
  * A property that will return one of the pre-defined card network types (only for card number)
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * A property that will return a formatted input

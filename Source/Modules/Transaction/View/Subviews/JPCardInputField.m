@@ -1,6 +1,6 @@
 //
 //  JPCardInputField.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -23,6 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardInputField.h"
+#import "JPTheme.h"
+#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 

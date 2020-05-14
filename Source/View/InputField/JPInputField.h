@@ -1,6 +1,6 @@
 //
 //  JPInputField.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,23 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTheme.h"
-#import "JPTransactionViewModel.h"
+#import "JPInputFieldDelegate.h"
+#import "JPInputType.h"
 #import <UIKit/UIKit.h>
 
-@class JPInputField;
-
-@protocol JPInputFieldDelegate <NSObject>
-
-/**
- * A method which triggers everytime an input change should occur
- *
- * @param inputField - a reference to the current instance of JPInputField
- * @param text - the new input string that should change
- */
-- (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text;
-
-@end
+@class JPTheme, JPTransactionViewModel;
 
 @interface JPInputField : UIView
 

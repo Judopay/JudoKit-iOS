@@ -1,6 +1,6 @@
 //
 //  JPPostalAddress.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -23,8 +23,6 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 /**
  * The representation of the postal address for a contact
@@ -83,15 +81,13 @@ NS_ASSUME_NONNULL_BEGIN
  * @param subAdministrativeArea - The subadministrative area in a postal address.
  * @param sublocality - Additional information associated with the location in a postal address.
  */
-- (instancetype)initWithSteet:(nullable NSString *)street
-                         city:(nullable NSString *)city
-                        state:(nullable NSString *)state
-                   postalCode:(nullable NSString *)postalCode
-                      country:(nullable NSString *)country
-                      isoCode:(nullable NSString *)isoCode
-        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
-                  sublocality:(nullable NSString *)sublocality;
+- (_Nonnull instancetype)initWithSteet:(NSString *_Nullable)street
+                                  city:(NSString *_Nullable)city
+                                 state:(NSString *_Nullable)state
+                            postalCode:(NSString *_Nullable)postalCode
+                               country:(NSString *_Nullable)country
+                               isoCode:(NSString *_Nullable)isoCode
+                 subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
+                           sublocality:(NSString *_Nullable)sublocality;
 
 @end
-
-NS_ASSUME_NONNULL_END

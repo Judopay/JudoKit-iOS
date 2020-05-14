@@ -1,6 +1,6 @@
 //
 //  JPTransactionService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,16 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
-#import "JPReceipt.h"
-#import "JPSession.h"
-#import "JPTransaction.h"
+#import "JPTransactionType.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, HTTPMethod) {
-    HTTPMethodGET,
-    HTTPMethodPOST,
+typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
+    JPHTTPMethodGET,
+    JPHTTPMethodPOST,
 };
+
+@class JPConfiguration, JPTransaction;
 
 @interface JPTransactionService : NSObject
 
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
 /**
  * A property which describes the transaction type
  */
-@property (nonatomic, assign) TransactionType transactionType;
+@property (nonatomic, assign) JPTransactionType transactionType;
 
 /**
  * Designated initializer that creates a configured instance of JPTransactionService based on a token and secret.
@@ -74,28 +74,8 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
  * @param completion - a completion block that returns an optional JPResponse or NSError
  */
 - (void)sendRequestWithEndpoint:(nonnull NSString *)endpoint
-                     httpMethod:(HTTPMethod)httpMethod
+                     httpMethod:(JPHTTPMethod)httpMethod
                      parameters:(nullable NSDictionary *)parameters
-                     completion:(nullable JudoCompletionBlock)completion;
-
-/**
- * A method which returns a list of transactions based on a specified type.
- *
- * @param type - the type of the transaction.
- * @param pagination - an instance of JPPagination which offers pagination details
- * @param completion - a completion block with an optinal JPResponse or NSError
- */
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(nullable JPPagination *)pagination
-                    completion:(nullable JudoCompletionBlock)completion;
-
-/**
- * A method which returns a instance of JPReceipt based on a specified receipt ID.
- *
- * @param receiptId - an instance of NSString that serves as the receipt ID of a transaction.
- *
- * @returns - a configured instance of JPReceipt.
- */
-- (nonnull JPReceipt *)receiptForReceiptId:(nonnull NSString *)receiptId;
+                     completion:(nullable JPCompletionBlock)completion;
 
 @end

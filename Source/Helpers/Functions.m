@@ -1,6 +1,6 @@
 //
 //  Functions.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -42,7 +42,7 @@ NSString *getUserAgent() {
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
 
     //Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"iOS-ObjC/%@", JudoKitVersion]];
+    [userAgentParts addObject:[NSString stringWithFormat:@"JudoKit-iOS/%@", JudoKitVersion]];
 
     //Model
     [userAgentParts addObject:device.model];

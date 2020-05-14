@@ -1,6 +1,6 @@
 //
 //  JPCardStorage.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPCardStorage.h"
 #import "JPKeychainService.h"
+#import "JPStoredCardDetails.h"
 
 @interface JPCardStorage ()
 @property (nonatomic, strong) NSMutableArray<JPStoredCardDetails *> *storedCards;

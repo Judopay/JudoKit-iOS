@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //

@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsIDEALBankCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsIDEALBankCell.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 

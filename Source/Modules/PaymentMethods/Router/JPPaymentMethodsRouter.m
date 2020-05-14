@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsRouter.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -25,22 +25,23 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPConfiguration.h"
+#import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
+#import "JPSliderTransitioningDelegate.h"
+#import "JPTransaction.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
-
-#import "JPConfiguration.h"
-#import "JPSliderTransitioningDelegate.h"
-#import "JPTransaction.h"
+#import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completionHandler;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
 @end
@@ -52,7 +53,7 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                    transactionService:(JPTransactionService *)transactionService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
-                           completion:(JudoCompletionBlock)completion {
+                           completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;
@@ -65,7 +66,7 @@
 #pragma mark - Protocol Conformance
 
 - (void)navigateToTransactionModule {
-    self.transactionService.transactionType = TransactionTypeSaveCard;
+    self.transactionService.transactionType = JPTransactionTypeSaveCard;
     JPTransactionViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:self.configuration
@@ -78,10 +79,10 @@
 }
 
 - (void)navigateToIDEALModuleWithBank:(JPIDEALBank *)bank
-                        andCompletion:(JudoCompletionBlock)completion {
+                        andCompletion:(JPCompletionBlock)completion {
 
     if (!self.configuration.siteId) {
-        completion(nil, NSError.judoParameterError);
+        completion(nil, JPError.judoParameterError);
         return;
     }
 
@@ -108,12 +109,6 @@
 
 - (void)dismissViewController {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(NSError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
 }
 
 @end

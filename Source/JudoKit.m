@@ -1,6 +1,6 @@
 //
 //  JudoKit.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -25,10 +25,14 @@
 #import "JudoKit.h"
 #import "JPApplePayService.h"
 #import "JPConfiguration.h"
+#import "JPConfigurationValidationService.h"
+#import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPReceipt.h"
 #import "JPResponse.h"
+#import "JPSession.h"
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTheme.h"
 #import "JPTransaction.h"
@@ -36,14 +40,14 @@
 #import "JPTransactionEnricher.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
-#import "NSError+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
+
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
 
@@ -62,10 +66,10 @@
        allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
-    self.configurationValidationService = [JPConfigurationValidationServiceImp new];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
+        self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.transactionService = [[JPTransactionService alloc] initWithToken:token
                                                                     andSecret:secret];
         return self;
@@ -76,31 +80,21 @@
 
 #pragma mark - Public methods
 
-- (JPTransaction *)transactionWithType:(TransactionType)type
+- (JPTransaction *)transactionWithType:(JPTransactionType)type
                          configuration:(JPConfiguration *)configuration {
-
     self.transactionService.transactionType = type;
     return [self.transactionService transactionWithConfiguration:configuration];
 }
 
-- (BOOL)configurationIsValid:(JPConfiguration *)configuration
-              validationType:(JPValidationType)validationType
-             transactionType:(TransactionType)transactionType
-                  completion:(JudoCompletionBlock)completion {
-
-    return [self.configurationValidationService isTransactionValidWithConfiguration:configuration
-                                                                     validationType:validationType
-                                                                    transactionType:transactionType
-                                                                         completion:completion];
-}
-
-- (void)invokeTransactionWithType:(TransactionType)type
+- (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(JPConfiguration *)configuration
-                       completion:(JudoCompletionBlock)completion {
-    if (![self configurationIsValid:configuration
-                     validationType:JPValidationTypeTransaction
-                    transactionType:type
-                         completion:completion]) {
+                       completion:(JPCompletionBlock)completion {
+
+    JPError *configurationError = [self.configurationValidationService validateConfiguration:configuration
+                                                                          forTransactionType:type];
+
+    if (configurationError) {
+        completion(nil, configurationError);
         return;
     }
 
@@ -117,14 +111,14 @@
                                                     completion:nil];
 }
 
-- (void)invokeApplePayWithMode:(TransactionMode)mode
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(JPConfiguration *)configuration
-                    completion:(JudoCompletionBlock)completion {
+                    completion:(JPCompletionBlock)completion {
 
-    if (![self configurationIsValid:configuration
-                     validationType:JPValidationTypeApplePay
-                    transactionType:TransactionTypeVoid
-                         completion:completion]) {
+    JPError *configurationError = [self.configurationValidationService valiadateApplePayConfiguration:configuration];
+
+    if (configurationError) {
+        completion(nil, configurationError);
         return;
     }
 
@@ -133,9 +127,12 @@
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
 }
 
-- (void)invokePaymentMethodScreenWithMode:(TransactionMode)mode
+- (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(JPConfiguration *)configuration
-                               completion:(JudoCompletionBlock)completion {
+                               completion:(JPCompletionBlock)completion {
+
+    //TODO: No validation???
+
     UIViewController *controller;
     controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                                     configuration:configuration
@@ -153,18 +150,6 @@
     [UIApplication.topMostViewController presentViewController:navController
                                                       animated:YES
                                                     completion:nil];
-}
-
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(JPPagination *)pagination
-                    completion:(JudoCompletionBlock)completion {
-    [self.transactionService listTransactionsOfType:type
-                                          paginated:pagination
-                                         completion:completion];
-}
-
-- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId {
-    return [self.transactionService receiptForReceiptId:receiptId];
 }
 
 #pragma mark - Getters & Setters

@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <JudoKitObjC/JudoKitObjC.h>
+@import JudoKit_iOS;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -65,7 +65,7 @@ static NSString * const kAmountLabelEnabledKey = @"is_amount_label_enabled";
 
 #pragma mark - Supported card networks section
 
-- (CardNetwork)supportedCardNetworks;
+- (JPCardNetworkType)supportedCardNetworks;
 
 #pragma mark - Payment methods section
 

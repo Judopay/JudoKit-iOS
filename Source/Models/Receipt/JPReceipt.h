@@ -1,6 +1,6 @@
 //
 //  JPReceipt.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -22,11 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPResponse;
-@class JPPagination;
-@class JPSession;
+@class JPResponse, JPPagination, JPSession;
 
 /**
  *  You can get a copy of the receipt for an individual transaction by creating a Receipt Object and calling `.sendWithCompletion(() -> ())` including the receipt ID for the transaction in the path.
@@ -58,7 +57,7 @@
  *
  *  @param completion a completion block that is called when the request finishes
  */
-- (void)sendWithCompletion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
+- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  This method will return a list of receipts, See [List all transactions](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/#transactions>) for more information.
@@ -66,6 +65,6 @@
  *  @param pagination The offset, number of items and order in which to return the items
  *  @param completion a completion block that is called when the request finishes
  */
-- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull void (^)(JPResponse *_Nullable, NSError *_Nullable))completion;
+- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull JPCompletionBlock)completion;
 
 @end

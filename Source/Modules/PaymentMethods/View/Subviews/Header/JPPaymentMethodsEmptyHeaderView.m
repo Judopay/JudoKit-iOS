@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsEmptyHeaderView.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsEmptyHeaderView.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIStackView+Additions.h"
 

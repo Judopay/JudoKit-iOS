@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsCardCell.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsCardCell.h"
 #import "JPCardNetwork.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPTheme.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
@@ -177,20 +178,20 @@ const float kCardSmallPadding = 3.0f;
     self.editingAccessoryView = disclosureImageView;
 }
 
-- (void)setSubtitleExpirationStatus:(CardExpirationStatus)status {
+- (void)setSubtitleExpirationStatus:(JPCardExpirationStatus)status {
     NSString *expirationStatus = @"";
     NSString *boldWord = @"";
 
     switch (status) {
-        case CardNotExpired:
+        case JPCardExpirationStatusNotExpired:
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;
             break;
-        case CardExpired:
+        case JPCardExpirationStatusExpired:
             expirationStatus = @"is_expired".localized;
             boldWord = @"expired".localized;
             self.subtitleLabel.textColor = self.theme.jpRedColor;
             break;
-        case CardExpiresSoon:
+        case JPCardExpirationStatusExpiresSoon:
             expirationStatus = @"will_expire_soon".localized;
             boldWord = @"expire_soon".localized;
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;

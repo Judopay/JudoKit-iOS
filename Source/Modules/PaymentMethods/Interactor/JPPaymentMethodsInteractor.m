@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractor.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -27,43 +27,49 @@
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
+#import "JPCardDetails.h"
+#import "JPCardNetwork.h"
 #import "JPCardStorage.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPConsumer.h"
+#import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentToken.h"
 #import "JPReference.h"
 #import "JPResponse.h"
+#import "JPStoredCardDetails.h"
+#import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
-@property (nonatomic, assign) TransactionMode transactionMode;
+@property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JudoCompletionBlock completion;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
 
 #pragma mark - Initializers
 
-- (instancetype)initWithMode:(TransactionMode)mode
+- (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
           transactionService:(JPTransactionService *)transactionService
-                  completion:(JudoCompletionBlock)completion {
+                  completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         self.transactionMode = mode;
         self.configuration = configuration;
         self.transactionService = transactionService;
-        self.completion = completion;
+        self.completionHandler = completion;
         self.paymentMethods = configuration.paymentMethods;
     }
     return self;
@@ -173,13 +179,13 @@
 #pragma mark - Payment transaction
 
 - (void)paymentTransactionWithToken:(NSString *)token
-                      andCompletion:(JudoCompletionBlock)completion {
-    if (self.transactionMode == TransactionModeServerToServer) {
+                      andCompletion:(JPCompletionBlock)completion {
+    if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
     }
-    BOOL isPreAuth = (self.transactionMode == TransactionTypePreAuth);
-    self.transactionService.transactionType = isPreAuth ? TransactionTypePreAuth : TransactionModePayment;
+    BOOL isPreAuth = (self.transactionMode == JPTransactionTypePreAuth);
+    self.transactionService.transactionType = isPreAuth ? JPTransactionTypePreAuth : JPTransactionModePayment;
     NSString *consumerReference = self.configuration.reference.consumerReference;
     JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
@@ -192,7 +198,7 @@
 
 #pragma mark - Apple Pay payment
 
-- (void)startApplePayWithCompletion:(JudoCompletionBlock)completion {
+- (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
     [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
 }
 
@@ -209,7 +215,7 @@
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JudoCompletionBlock)completion {
+                                completion:(JPCompletionBlock)completion {
     [self.threeDSecureService invoke3DSecureViewControllerWithError:error
                                                          completion:completion];
 }
@@ -258,8 +264,31 @@
     return response;
 }
 
-- (void)processServerToServer:(JudoCompletionBlock)completion {
+- (void)processServerToServer:(JPCompletionBlock)completion {
     completion([self buildResponse], nil);
+}
+
+- (void)storeError:(NSError *)error {
+    [self.storedErrors addObject:error];
+}
+
+- (void)completeTransactionWithResponse:(JPResponse *)response
+                               andError:(JPError *)error {
+    if (!self.completionHandler)
+        return;
+
+    if (error.code == JPError.judoUserDidCancelError.code) {
+        error.details = self.storedErrors;
+    }
+
+    self.completionHandler(response, error);
+}
+
+- (NSMutableArray *)storedErrors {
+    if (!_storedErrors) {
+        _storedErrors = [NSMutableArray new];
+    }
+    return _storedErrors;
 }
 
 @end

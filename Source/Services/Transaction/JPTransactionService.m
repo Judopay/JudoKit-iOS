@@ -1,6 +1,6 @@
 //
 //  JPTransactionService.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -25,9 +25,11 @@
 #import "JPTransactionService.h"
 #import "JPAmount.h"
 #import "JPCard.h"
+#import "JPConfiguration.h"
 #import "JPReference.h"
+#import "JPSession.h"
+#import "JPTransaction.h"
 #import "JPTransactionEnricher.h"
-#import "NSError+Additions.h"
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPSession *session;
@@ -70,10 +72,6 @@
 
 - (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
 
-    if (configuration.receiptId) {
-        return [self receiptTransactionWithConfiguration:configuration];
-    }
-
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
     transaction.judoId = configuration.judoId;
     transaction.amount = [self amountForTransactionType:configuration];
@@ -85,53 +83,27 @@
     return transaction;
 }
 
-- (JPTransaction *)receiptTransactionWithConfiguration:(JPConfiguration *)configuration {
-
-    JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType
-                                                          receiptId:configuration.receiptId
-                                                             amount:configuration.amount];
-    transaction.apiSession = self.session;
-    transaction.enricher = self.enricher;
-
-    return transaction;
-}
-
 - (nullable JPAmount *)amountForTransactionType:(JPConfiguration *)configuration {
     switch (self.transactionType) {
-        case TransactionTypeCheckCard:
+        case JPTransactionTypeCheckCard:
             return [JPAmount amount:@"0.00" currency:@"GBP"];
-        case TransactionTypeSaveCard:
+        case JPTransactionTypeSaveCard:
             return nil;
-        case TransactionTypeRegisterCard:
+        case JPTransactionTypeRegisterCard:
             return configuration.amount ? configuration.amount : [JPAmount amount:@"0.01" currency:@"GBP"];
         default:
             return configuration.amount;
     }
 }
 
-- (JPReceipt *)receiptForReceiptId:(NSString *)receiptId {
-    JPReceipt *receipt = [[JPReceipt alloc] initWithReceiptId:receiptId];
-    receipt.apiSession = self.session;
-    return receipt;
-}
-
-- (void)listTransactionsOfType:(TransactionType)type
-                     paginated:(JPPagination *)pagination
-                    completion:(JudoCompletionBlock)completion {
-
-    JPTransaction *transaction = [JPTransaction transactionWithType:type];
-    transaction.apiSession = self.session;
-    [transaction listWithPagination:pagination completion:completion];
-}
-
 - (void)sendRequestWithEndpoint:(NSString *)endpoint
-                     httpMethod:(HTTPMethod)httpMethod
+                     httpMethod:(JPHTTPMethod)httpMethod
                      parameters:(NSDictionary *)parameters
-                     completion:(JudoCompletionBlock)completion {
+                     completion:(JPCompletionBlock)completion {
 
     NSString *url = [NSString stringWithFormat:@"%@%@", self.session.baseURL, endpoint];
 
-    if (httpMethod == HTTPMethodPOST) {
+    if (httpMethod == JPHTTPMethodPOST) {
         [self.session POST:url parameters:parameters completion:completion];
         return;
     }

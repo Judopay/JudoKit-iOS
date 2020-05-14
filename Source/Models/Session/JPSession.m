@@ -1,6 +1,6 @@
 //
 //  JPSession.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -24,12 +24,12 @@
 
 #import "JPSession.h"
 #import "Functions.h"
+#import "JPError+Additions.h"
 #import "JPPagination.h"
 #import "JPReachability.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JudoKit.h"
-#import "NSError+Additions.h"
 
 #import <TrustKit/TrustKit.h>
 
@@ -47,7 +47,7 @@
 
 static NSString *const JPAPIVersion = @"5.6.0";
 static NSString *const JPContentTypeJSON = @"application/json";
-static NSString *const JPJudoSDK = @"Judo-SDK";
+static NSString *const JPJudoSDK = @"JudoKit-iOS";
 static NSString *const JPCustomUI = @"Custom-UI";
 
 static NSString *const HTTPHeaderFieldContentType = @"Content-Type";
@@ -112,22 +112,22 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 
 #pragma mark - REST API methods
 
-- (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)POST:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodPOST path:path parameters:parameters completion:completion];
 }
 
-- (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodPUT path:path parameters:parameters completion:completion];
 }
 
-- (void)GET:(NSString *)path parameters:(NSDictionary *)parameters completion:(JudoCompletionBlock)completion {
+- (void)GET:(NSString *)path parameters:(NSDictionary *)parameters completion:(JPCompletionBlock)completion {
     [self apiCall:HTTPMethodGET path:path parameters:parameters completion:completion];
 }
 
 - (void)apiCall:(NSString *)HTTPMethod
            path:(NSString *)path
      parameters:(NSDictionary *)parameters
-     completion:(JudoCompletionBlock)completion {
+     completion:(JPCompletionBlock)completion {
 
     if ([self.reachability isReachable]) {
         [self performRequestWithMethod:HTTPMethod
@@ -135,14 +135,14 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                             parameters:parameters
                             completion:completion];
     } else {
-        completion(nil, NSError.judoInternetConnectionError);
+        completion(nil, JPError.judoInternetConnectionError);
     }
 }
 
 - (void)performRequestWithMethod:(NSString *)HTTPMethod
                             path:(NSString *)path
                       parameters:(NSDictionary *)parameters
-                      completion:(JudoCompletionBlock)completion {
+                      completion:(JPCompletionBlock)completion {
 
     NSMutableURLRequest *request = [self judoRequest:path];
     request.HTTPMethod = HTTPMethod;
@@ -154,7 +154,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                                                              error:&error];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil, error);
+                completion(nil, (JPError *)error);
             });
             return;
         }
@@ -185,7 +185,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request
-                    completion:(JudoCompletionBlock)completion {
+                    completion:(JPCompletionBlock)completion {
 
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig
@@ -193,19 +193,19 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                                                         delegateQueue:nil];
 
     return [urlSession dataTaskWithRequest:request
-                         completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                              if (!completion) {
                                  return;
                              }
 
                              if (error || !data) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                     completion(nil, error ? error : NSError.judoRequestFailedError);
+                                     completion(nil, error ? (JPError *)error : JPError.judoRequestFailedError);
                                  });
                                  return;
                              }
 
-                             __block NSError *jsonError = nil;
+                             __block JPError *jsonError = nil;
                              NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data
                                                                                           options:NSJSONReadingAllowFragments
                                                                                             error:&jsonError];
@@ -213,7 +213,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                              if (jsonError || !responseJSON) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
                                      if (!jsonError) {
-                                         jsonError = [NSError judoJSONSerializationFailedWithError:jsonError];
+                                         jsonError = [JPError judoJSONSerializationFailedWithError:jsonError];
                                      }
                                      completion(nil, jsonError);
                                  });
@@ -222,14 +222,14 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 
                              if (responseJSON[@"code"]) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                     completion(nil, [NSError judoErrorFromDictionary:responseJSON]);
+                                     completion(nil, [JPError judoErrorFromDictionary:responseJSON]);
                                  });
                                  return;
                              }
 
                              if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                     completion(nil, [NSError judo3DSRequestWithPayload:responseJSON]);
+                                     completion(nil, [JPError judo3DSRequestWithPayload:responseJSON]);
                                  });
                                  return;
                              }
@@ -251,8 +251,8 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                              }
 
                              dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (result.items.count == 1 && responseJSON[@"result"] != nil && result.items.firstObject.result != TransactionResultSuccess) {
-                                     completion(nil, [NSError judoErrorFromTransactionData:result.items.firstObject]);
+                                 if (result.items.count == 1 && responseJSON[@"result"] != nil && result.items.firstObject.result != JPTransactionResultSuccess) {
+                                     completion(nil, [JPError judoErrorFromTransactionData:result.items.firstObject]);
                                  } else {
                                      completion(result, nil);
                                  }

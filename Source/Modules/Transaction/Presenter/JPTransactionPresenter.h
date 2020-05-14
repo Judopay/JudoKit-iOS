@@ -1,6 +1,6 @@
 //
 //  JPTransactionPresenter.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionViewModel.h"
+#import "JPInputType.h"
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
 
-@protocol JPTransactionView, JPTransactionRouter, JPTransactionInteractor;
+@protocol JPTransactionView
+, JPTransactionRouter, JPTransactionInteractor;
 
 @protocol JPTransactionPresenter
 
@@ -49,6 +50,11 @@
  * A method that handles Scan Card button tap
  */
 - (void)handleScanCardButtonTap;
+
+/**
+ * A method that handles Cancel button tap
+ */
+- (void)handleCancelButtonTap;
 
 /**
  * A method that updates the view model with a card scan result

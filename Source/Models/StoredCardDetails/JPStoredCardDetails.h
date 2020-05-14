@@ -1,6 +1,6 @@
 //
 //  JPStoredCardDetails.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -22,8 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetails.h"
-#import "JPCardPattern.h"
+#import "JPCardExpirationStatus.h"
+#import "JPCardNetwork.h"
+#import "JPCardPatternType.h"
 #import <Foundation/Foundation.h>
 
 @interface JPStoredCardDetails : NSObject
@@ -46,7 +47,7 @@
 /**
  * The card's network
  */
-@property (nonatomic, assign) CardNetwork cardNetwork;
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * The token associated with the card
@@ -75,7 +76,7 @@
 /**
  * A property that showcases the card's expiration status
  */
-@property (nonatomic, assign) CardExpirationStatus expirationStatus;
+@property (nonatomic, assign) JPCardExpirationStatus expirationStatus;
 
 /**
  * The designated initializer that creates a new instance with the last four digits, expiry date and card network set
@@ -89,7 +90,7 @@
  */
 - (instancetype)initWithLastFour:(NSString *)lastFour
                       expiryDate:(NSString *)expiryDate
-                     cardNetwork:(CardNetwork)network
+                     cardNetwork:(JPCardNetworkType)network
                        cardToken:(NSString *)cardToken;
 
 /**
@@ -113,7 +114,7 @@
  */
 + (instancetype)cardDetailsWithLastFour:(NSString *)lastFour
                              expiryDate:(NSString *)expiryDate
-                            cardNetwork:(CardNetwork)network
+                            cardNetwork:(JPCardNetworkType)network
                               cardToken:(NSString *)cardToken;
 
 /**

@@ -1,6 +1,6 @@
 //
 //  JPIDEALViewController.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,12 +24,17 @@
 
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
+#import "JPError+Additions.h"
+#import "JPIDEALBank.h"
+#import "JPIDEALService.h"
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
+#import "JPTheme.h"
 #import "JPTransactionData.h"
+#import "JPTransactionService.h"
 #import "JPTransactionStatusView.h"
-#import "NSError+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPIDEALViewController ()
@@ -38,7 +43,7 @@
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @property (nonatomic, strong) JPIDEALBank *iDEALBank;
 @property (nonatomic, strong) JPIDEALService *idealService;
-@property (nonatomic, strong) JudoCompletionBlock completionBlock;
+@property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPResponse *redirectResponse;
 
 @property (nonatomic, strong) NSString *redirectURL;
@@ -60,7 +65,7 @@ const float kPollingDelayTimer = 30.0;
 - (instancetype)initWithIDEALBank:(JPIDEALBank *)iDEALBank
                     configuration:(JPConfiguration *)configuration
                transactionService:(JPTransactionService *)transactionService
-                completionHandler:(JudoCompletionBlock)completion {
+                completionHandler:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.idealService = [[JPIDEALService alloc] initWithConfiguration:configuration
                                                        transactionService:transactionService];
@@ -88,7 +93,7 @@ const float kPollingDelayTimer = 30.0;
 
     __weak typeof(self) weakSelf = self;
     [self.idealService redirectURLForIDEALBank:iDEALBank
-                                    completion:^(JPResponse *response, NSError *error) {
+                                    completion:^(JPResponse *response, JPError *error) {
                                         if (error) {
                                             [weakSelf dismissViewControllerAnimated:YES
                                                                          completion:^{
@@ -176,7 +181,7 @@ const float kPollingDelayTimer = 30.0;
             return;
         }
 
-        self.completionBlock(nil, NSError.judoMissingChecksumError);
+        self.completionBlock(nil, JPError.judoMissingChecksumError);
     }
 }
 
@@ -203,14 +208,14 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleError:(NSError *)error {
-    if (error.localizedDescription == NSError.judoRequestTimeoutError.localizedDescription) {
+    if (error.localizedDescription == JPError.judoRequestTimeoutError.localizedDescription) {
         [self.transactionStatusView changeToTransactionStatus:JPTransactionStatusTimeout];
-        self.completionBlock(self.redirectResponse, NSError.judoRequestTimeoutError);
+        self.completionBlock(self.redirectResponse, JPError.judoRequestTimeoutError);
         return;
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(self.redirectResponse, error);
+    self.completionBlock(self.redirectResponse, (JPError *)error);
     return;
 }
 
@@ -218,7 +223,7 @@ const float kPollingDelayTimer = 30.0;
     JPOrderDetails *orderDetails = response.items.firstObject.orderDetails;
     if (orderDetails && [orderDetails.orderFailureReason isEqualToString:kFailureReasonUserAbort]) {
         [self dismissViewControllerAnimated:YES completion:nil];
-        self.completionBlock(response, NSError.judoUserDidCancelError);
+        self.completionBlock(response, JPError.judoUserDidCancelError);
         return;
     }
 

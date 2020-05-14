@@ -1,6 +1,6 @@
 //
 //  JPTransactionInteractor.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -24,25 +24,34 @@
 
 #import "JPTransactionInteractor.h"
 #import "JP3DSService.h"
+#import "JPAddress.h"
 #import "JPCard.h"
+#import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPCardValidationService.h"
+#import "JPConfiguration.h"
 #import "JPCountry.h"
+#import "JPError+Additions.h"
+#import "JPError.h"
 #import "JPKeychainService.h"
 #import "JPReference.h"
+#import "JPResponse.h"
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
+#import "JPTransaction.h"
 #import "JPTransactionService.h"
 #import "JPTransactionViewModel.h"
-#import "NSError+Additions.h"
+#import "JPUIConfiguration.h"
+#import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
 @interface JPTransactionInteractorImpl ()
-@property (nonatomic, strong) JudoCompletionBlock completionHandler;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
+@property (nonatomic, strong) NSMutableArray *storedErrors;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -52,7 +61,7 @@
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
                                 configuration:(JPConfiguration *)configuration
-                                   completion:(JudoCompletionBlock)completion {
+                                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         self.cardValidationService = cardValidationService;
@@ -69,7 +78,7 @@
     return self.configuration.uiConfiguration.isAVSEnabled;
 }
 
-- (TransactionType)transactionType {
+- (JPTransactionType)transactionType {
     return self.transactionService.transactionType;
 }
 
@@ -91,14 +100,14 @@
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card
-              completionHandler:(JudoCompletionBlock)completionHandler {
+              completionHandler:(JPCompletionBlock)completionHandler {
 
 #if DEBUG
     // TODO: Temporary duplicate transaction solution
     // Generates a new consumer reference for each Payment/PreAuth transaction
 
-    BOOL isPayment = (self.transactionService.transactionType == TransactionTypePayment);
-    BOOL isPreAuth = (self.transactionService.transactionType == TransactionTypePreAuth);
+    BOOL isPayment = (self.transactionService.transactionType == JPTransactionTypePayment);
+    BOOL isPreAuth = (self.transactionService.transactionType == JPTransactionTypePreAuth);
 
     if (isPayment || isPreAuth) {
         self.configuration.reference = [JPReference consumerReference:NSUUID.UUID.UUIDString];
@@ -112,14 +121,26 @@
     [transaction sendWithCompletion:completionHandler];
 }
 
-- (void)completeTransactionWithResponse:(JPResponse *)response error:(NSError *)error {
-    if (self.completionHandler)
-        self.completionHandler(response, error);
+- (void)completeTransactionWithResponse:(JPResponse *)response
+                                  error:(JPError *)error {
+
+    if (!self.completionHandler)
+        return;
+
+    if (error.code == JPError.judoUserDidCancelError.code) {
+        error.details = self.storedErrors;
+    }
+
+    self.completionHandler(response, error);
+}
+
+- (void)storeError:(NSError *)error {
+    [self.storedErrors addObject:error];
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
 
-    CardNetwork cardNetwork = viewModel.cardNumberViewModel.cardNetwork;
+    JPCardNetworkType cardNetwork = viewModel.cardNumberViewModel.cardNetwork;
     NSString *cardNumberString = viewModel.cardNumberViewModel.text;
 
     NSString *lastFour = [cardNumberString substringFromIndex:cardNumberString.length - 4];
@@ -134,30 +155,30 @@
     [JPCardStorage.sharedInstance addCardDetails:storedCardDetails];
 }
 
-- (NSString *)defaultCardTitleForCardNetwork:(CardNetwork)network {
+- (NSString *)defaultCardTitleForCardNetwork:(JPCardNetworkType)network {
     switch (network) {
-        case CardNetworkVisa:
+        case JPCardNetworkTypeVisa:
             return @"default_visa_card_title".localized;
 
-        case CardNetworkAMEX:
+        case JPCardNetworkTypeAMEX:
             return @"default_amex_card_title".localized;
 
-        case CardNetworkMaestro:
+        case JPCardNetworkTypeMaestro:
             return @"default_maestro_card_title".localized;
 
-        case CardNetworkMasterCard:
+        case JPCardNetworkTypeMasterCard:
             return @"default_mastercard_card_title".localized;
 
-        case CardNetworkChinaUnionPay:
+        case JPCardNetworkTypeChinaUnionPay:
             return @"default_chinaunionpay_card_title".localized;
 
-        case CardNetworkJCB:
+        case JPCardNetworkTypeJCB:
             return @"default_jcb_card_title".localized;
 
-        case CardNetworkDiscover:
+        case JPCardNetworkTypeDiscover:
             return @"default_discover_card_title".localized;
 
-        case CardNetworkDinersClub:
+        case JPCardNetworkTypeDinersClub:
             return @"default_dinnersclub_card_title".localized;
 
         default:
@@ -170,7 +191,7 @@
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JudoCompletionBlock)completion {
+                                completion:(JPCompletionBlock)completion {
     [self.threeDSecureService invoke3DSecureViewControllerWithError:error
                                                          completion:completion];
 }
@@ -190,7 +211,7 @@
 }
 
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
-    return [self.cardValidationService validateCarholderNameInput:input];
+    return [self.cardValidationService validateCardholderNameInput:input];
 }
 
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {
@@ -216,11 +237,18 @@
     return _threeDSecureService;
 }
 
-- (CardNetwork)supportedNetworks {
+- (JPCardNetworkType)supportedNetworks {
     if (self.configuration.supportedCardNetworks) {
         return self.configuration.supportedCardNetworks;
     }
-    return CardNetworkVisa | CardNetworkAMEX | CardNetworkMaestro | CardNetworkMasterCard;
+    return JPCardNetworkTypeVisa | JPCardNetworkTypeAMEX | JPCardNetworkTypeMaestro | JPCardNetworkTypeMasterCard;
+}
+
+- (NSMutableArray *)storedErrors {
+    if (!_storedErrors) {
+        _storedErrors = [NSMutableArray new];
+    }
+    return _storedErrors;
 }
 
 @end

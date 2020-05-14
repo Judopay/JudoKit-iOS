@@ -1,6 +1,6 @@
 //
 //  JPStoredCardDetails.m
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -36,7 +36,7 @@
 
 - (instancetype)initWithLastFour:(NSString *)lastFour
                       expiryDate:(NSString *)expiryDate
-                     cardNetwork:(CardNetwork)network
+                     cardNetwork:(JPCardNetworkType)network
                        cardToken:(NSString *)cardToken {
     if (self = [super init]) {
         self.cardLastFour = lastFour;
@@ -73,7 +73,7 @@
 
 + (instancetype)cardDetailsWithLastFour:(NSString *)lastFour
                              expiryDate:(NSString *)expiryDate
-                            cardNetwork:(CardNetwork)network
+                            cardNetwork:(JPCardNetworkType)network
                               cardToken:(NSString *)cardToken {
 
     return [[JPStoredCardDetails new] initWithLastFour:lastFour
@@ -100,7 +100,7 @@
     return data;
 }
 
-- (CardExpirationStatus)determineCardExpirationStatus {
+- (JPCardExpirationStatus)determineCardExpirationStatus {
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *cardExpirationDate = [self.dateFormatter dateFromString:self.expiryDate];
@@ -115,14 +115,14 @@
                                                    options:0];
 
     if ([cardExpirationDate compare:datePreviousMonth] == NSOrderedAscending) {
-        return CardExpired;
+        return JPCardExpirationStatusExpired;
     }
 
     if ([cardExpirationDate compare:dateInTwoMonths] == NSOrderedAscending) {
-        return CardExpiresSoon;
+        return JPCardExpirationStatusExpiresSoon;
     }
 
-    return CardNotExpired;
+    return JPCardExpirationStatusNotExpired;
 }
 
 - (NSDateFormatter *)dateFormatter {

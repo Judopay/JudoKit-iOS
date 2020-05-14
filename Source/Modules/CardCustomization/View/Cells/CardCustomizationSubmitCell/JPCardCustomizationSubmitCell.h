@@ -1,6 +1,6 @@
 //
 //  JPCardCustomizationSubmitCell.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -23,27 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCardCustomizable.h"
+#import "JPCardCustomizationSubmitCellDelegate.h"
 #import "JPThemable.h"
-
-@class JPCardCustomizationSubmitCell;
-
-@protocol JPCardCustomizationSubmitCellDelegate
-
-/**
- * A method that is triggered once the user taps `Save` on the Card Customization Screen
- *
- * @param cell - a reference to the JPCardCustomizationSubmitCell instance that calls the delegate method
- */
-- (void)didTapSaveForSubmitCell:(nonnull JPCardCustomizationSubmitCell *)cell;
-
-/**
- * A method that is triggered once the user taps `Cancel` on the Card Customization Screen
- *
- * @param cell - a reference to the JPCardCustomizationSubmitCell instance that calls the delegate method
- */
-- (void)didTapCancelForSubmitCell:(nonnull JPCardCustomizationSubmitCell *)cell;
-
-@end
 
 @interface JPCardCustomizationSubmitCell : UITableViewCell <JPCardCustomizable, JPThemable>
 
