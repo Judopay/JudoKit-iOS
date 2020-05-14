@@ -26,10 +26,100 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionPresenterTests: XCTestCase {
-    var sut: JPTransactionPresenter! = nil
-
+    var sut: JPTransactionPresenterImpl! = nil
+    let controller = JPTransactionViewMock()
+    let interactor = JPTransactionInteractorMock()
+    let router = JPTransactionRouterMock()
+    
     override func setUp() {
-         super.setUp()
+        super.setUp()
         sut = JPTransactionPresenterImpl()
+        sut.view = controller
+        sut.interactor = interactor
+        sut.router = router
+    }
+    
+    /*
+     * GIVEN: creating view model for card view
+     *
+     * WHEN: getting data from interactor mock
+     *
+     * THEN: should fill all parameters in view model
+     */
+    func test_PrepareInitialViewModel_whenPreparingModelForUI() {
+        sut.prepareInitialViewModel()
+        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.placeholder, "Card Number")
+        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.placeholder, "Cardholder Name")
+        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.placeholder, "MM/YY")
+        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.placeholder, "CVV")
+        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.placeholder, "Country")
+        XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.placeholder, "Postcode")
+        
+        XCTAssertTrue(controller.viewModelSut.shouldDisplayAVSFields)
+        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
+    
+    /*
+     * GIVEN: handle input
+     *
+     * WHEN: type is card Number
+     *
+     * THEN: should fill card number in viewmodel
+     */
+    func test_handleInputChange_WhenTypeIsCard_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("4444", for: .cardNumber)
+        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.text, "4444")
+    }
+    
+    /*
+     * GIVEN: User taps on transaction
+     *
+     * WHEN: card model is valid
+     *
+     * THEN: should call interactor for transaction
+     */
+    func test_HandleTransactionButtonTap_WhenUserTap_ShouldCallInteractor() {
+        sut.handleTransactionButtonTap()
+        XCTAssertTrue(interactor.trasactionSent)
+    }
+    
+    /*
+     * GIVEN: User taps on scan
+     *
+     * THEN: should call view with alert
+     */
+    func test_HandleScanCardButtonTap_WhenScanCard_ShouldShowAlertInView() {
+        sut.handleScanCardButtonTap()
+        XCTAssertTrue(controller.showedCameraAlert)
+    }
+    
+    /*
+     * GIVEN: User taps on cancel
+     *
+     * THEN: should call interactor for cancel
+     */
+    func test_HandleCancelButtonTap_WhenCancel_ShouldCallInteractor() {
+        sut.handleCancelButtonTap()
+        XCTAssertTrue(interactor.completeTransaction)
+    }
+    
+    /*
+    * GIVEN: Send scan result to view
+    *
+    * WHEN: scan result is populated with fields
+    *
+    * THEN: should recieve same field in View
+    */
+    func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
+        let scanResult = PayCardsRecognizerResult()
+        scanResult.recognizedNumber = "4445"
+        scanResult.recognizedHolderName = "Alex"
+        scanResult.recognizedExpireDateYear = "20"
+        scanResult.recognizedExpireDateMonth = "10"
+        sut.updateViewModel(withScanCardResult: scanResult)
+        
+        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.text, "4445")
+        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.text, "Alex")
+        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.text, "10/20")
     }
 }

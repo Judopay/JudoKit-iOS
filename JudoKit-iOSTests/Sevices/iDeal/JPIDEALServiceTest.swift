@@ -52,7 +52,7 @@ class JPIDEALServiceTest: XCTestCase {
      *
      * THEN: should throw "Site ID is missing" in error
      */
-    func testRedirectURLForIDEALWithoutSiteId() {
+    func test_RedirectURL_WhenSiteIdIsMissong_ShouldThrowError() {
         let expectation = self.expectation(description: "site id is missing for iDeal")
         let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNil(response)
@@ -71,7 +71,7 @@ class JPIDEALServiceTest: XCTestCase {
      *
      * THEN: should return valid response
      */
-    func testRedirectURLForIDEALBank() {
+    func test_RedirectURL_WhenBankiDeal_ShouldReturnValidiDealResponse() {
         configuration.siteId = "siteId"
         
         let expectation = self.expectation(description: "get response from iDeal sale")
@@ -92,7 +92,7 @@ class JPIDEALServiceTest: XCTestCase {
      *
      * THEN: should return error: "Request did not complete in the specified time"
      */
-    func testPollTransactionStatusForOrderIdInfinitePending() {
+    func test_PollTransactionStatus_WhenPendingInfinite_ShouldThrowErrorAfterkTimerDuration() {
         let expectation = self.expectation(description: "get response from iDeal pending sale")
         
         let completion: JPCompletionBlock = { (response, error) in
@@ -112,7 +112,7 @@ class JPIDEALServiceTest: XCTestCase {
      *
      * THEN: should return response with status "SUCCESS"
      */
-    func testPollTransactionStatusForOrderIdPendingSuccess() {
+    func test_PollTransactionStatus_WhenResponseSuccess_ShouldReturnSuccess() {
         let expectation = self.expectation(description: "get response from iDeal success sale")
         
         let completion: JPCompletionBlock = { (response, error) in

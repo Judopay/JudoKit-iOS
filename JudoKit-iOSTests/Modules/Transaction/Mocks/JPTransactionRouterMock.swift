@@ -1,6 +1,6 @@
 //
-//  JPApplePayServiceTest.swift
-//  JPApplePayServiceTest
+//  JPTransactionRouterMock.swift
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -25,37 +25,12 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPApplePayServiceTest: XCTestCase {
-    lazy var service = JPTransactionServiceiDealStub()
-    lazy var configuration = JPConfiguration(judoID: "judoId",
-                                             amount: JPAmount("123", currency: "EUR"),
-                                             reference: JPReference(consumerReference: "consumerReference"))
-    var sut: JPApplePayService! = nil
-    
-    override func setUp() {
-        super.setUp()
-        sut = JPApplePayService(configuration:configuration,
-                                transactionService:service)
+class JPTransactionRouterMock: JPTransactionRouter {
+    func dismissViewController() {
+        
     }
     
-    /*
-    * GIVEN: Checking apple method for simator
-    *
-    * THEN: should return true
-    */
-    func test_IsApplePaySetUp_WhenCallingApplePay_ShouldReturnTrueForSimlator() {
-        let isApplePaySetUp = sut.isApplePaySetUp()
-        XCTAssertTrue(isApplePaySetUp)
-    }
-    
-     
-    /*
-    * GIVEN: Checking apple pay supported method for simator
-    *
-    * THEN: should return true
-    */
-    func test_IsApplePaySupported_WhenCheckingForSupport_ShouldReturnTrue() {
-        let supported = JPApplePayService.isApplePaySupported()
-        XCTAssertTrue(supported)
+    func navigateToScanCamera() {
+        
     }
 }
