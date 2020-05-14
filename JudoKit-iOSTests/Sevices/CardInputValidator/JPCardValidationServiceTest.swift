@@ -53,7 +53,7 @@ class JPCardValidationServiceTest: XCTestCase {
     *
     * THEN: should throw error with specific message
     */
-    func tesTvalidateCardNumberInput_WhenCardTypeIsNotSupporter_ShouldThrowErrorWithMessage() {
+    func tes_ValidateCardNumberInput_WhenCardTypeIsNotSupporter_ShouldThrowErrorWithMessage() {
         let result = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .maestro)
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
         XCTAssertFalse(result!.isValid)

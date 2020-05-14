@@ -22,3 +22,11 @@
 #import "JPIDEALBank.h"
 #import "JPTransactionViewController.h"
 #import "JPTransactionPresenter.h"
+
+#import "JPTransactionPresenter.h"
+#import "JPTransactionViewController.h"
+#import "JPTransactionInteractor.h"
+#import "JPTransactionRouter.h"
+#import "JPTransactionViewModel.h"
+
+

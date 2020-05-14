@@ -42,7 +42,7 @@ class JPCardStorageTest: XCTestCase {
      *
      * THEN: should return thirdStoredCard from method fetchStoredCardDetails
      */
-    func testSetCardAsDefaultAtIndex() {
+    func test_SetCardAsDefault_WhenSelectDefaultCard_ShouldSetThatCardAtFirstIndex() {
         self.addTestCardsInStorage()
         JPCardStorage.sharedInstance()?.setCardDefaultState(true, at: 2);
         let storedCardsDetails:[JPStoredCardDetails] = JPCardStorage.sharedInstance()?.fetchStoredCardDetails() as! [JPStoredCardDetails]
@@ -67,7 +67,7 @@ class JPCardStorageTest: XCTestCase {
      *
      * THEN: should place default card to first index
      */
-    func testOrderCards() {
+    func test_OrderCards_WhenOneCardIsDefault_WhenOrdering_ShouldPlaceThatCardOnFirstPostition() {
         firstStoredCard?.isDefault = true
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
@@ -86,7 +86,7 @@ class JPCardStorageTest: XCTestCase {
     *
     * THEN: count of cards should be 0
     */
-    func testDeleteCards() {
+    func test_DeleteCards_WhenIsSetupRemoveAllCards_ShouldReturnEmptyArray() {
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssert(cards?.count == 0)
     }
@@ -98,7 +98,7 @@ class JPCardStorageTest: XCTestCase {
        *
        * THEN: after removeing, cards count should be 0
        */
-    func testDeleteCardIndex() {
+    func test_DeleteCardIndex_WhenRemoveingCardAtIndex_ShouldReturnRightCardsCount() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.deleteCard(with: 0)
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
