@@ -30,103 +30,198 @@ class JPTransactionInteractorTest: XCTestCase {
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
     lazy var reference = JPReference(consumerReference: "consumerReference")
+    let transactionService = JPTransactionService()
     
     override func setUp() {
+        super.setUp()
         let amount = JPAmount("0.01", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
+        configuration.cardAddress = JPAddress()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         
-        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
+        let completion: JPCompletionBlock = { (response, error) in
+        }
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: transactionService, configuration:configuration, completion: completion)
     }
     
-    func testLuhnValidVisa() {
+    /*
+     * GIVEN: validate card number(Visa)
+     *
+     * WHEN: user input Master with valid Luhn and complete number lenght
+     *
+     * THEN: result should be VALID and formated
+     */
+    func test_validateCardNumberInput_WhenLuhnValidVisa_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("4929939187355598")
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
         XCTAssertTrue(result!.isValid)
     }
-    
-    func testLuhnInValidVisa() {
+    /*
+     * GIVEN: validate card number(Visa)
+     *
+     * WHEN: user input Master with invalid Luhn
+     *
+     * THEN: result should be INVALID
+     */
+    func test_validateCardNumberInput_WhenLuhnValidVisa_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("4129939187355598")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testValidCardWithSpecialCharacters() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input some special characters
+     *
+     * THEN: result should be invalid
+     */
+    func test_validateCardNumberInput_WhenSpecialCharacters_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("41299391873555+!")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testLuhnValidMaster() {
+    /*
+     * GIVEN: validate card number(Master)
+     *
+     * WHEN: user input Master with valid Luhn and complete number lenght
+     *
+     * THEN: result should be VALID
+     */
+    func test_validateCardNumberInput_WhenLuhnValidMaster_ShouldReturnValid() {
         let result = sut.validateCardNumberInput("5454422955385717")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnInValidMaster() {
+    /*
+     * GIVEN: validate card number(Master)
+     *
+     * WHEN: user input Master with INVALID Luhn and complete number lenght
+     *
+     * THEN: result should be INVALID
+     */
+    func test_validateCardNumberInput_WhenLuhnInvalidMaster_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("5454452295585717")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testLuhnValidAmex() {
+    /*
+     * GIVEN: validate card number(Amex)
+     *
+     * WHEN: user input Amex with valid Luhn and complete number lenght
+     *
+     * THEN: result should be valid and formated
+     */
+    func test_validateCardNumberInput_WhenLuhnValidAmex_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("348570250878868")
         XCTAssertEqual(result!.formattedInput, "3485 702508 78868")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testForValidDiner() {
+    /*
+     * GIVEN: validate card number(Diner)
+     *
+     * WHEN: user input Diner type with valid Luhn and complete number lenght
+     *
+     * THEN: result should be valid and formated
+     */
+    func test_validateCardNumberInput_WhenLuhnValidDiner_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("30260943491310")
         XCTAssertEqual(result!.formattedInput, "3026 094349 1310")
         XCTAssertTrue(result!.isValid)
     }
     
-    func testLuhnInValidAmex() {
+    /*
+     * GIVEN: validate card number(Amex)
+     *
+     * WHEN: user input Amex with valid Luhn
+     *
+     * THEN: result should be valid
+     */
+    func test_ValidateCardNumberInput_WhenLuhnValid_ShouldReturnLuhnValidAmex() {
         let result = sut.validateCardNumberInput("348570250872868")
         XCTAssertFalse(result!.isValid)
     }
     
-    func testFormatedIncompleteLenghtAmex() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input card type Amex
+     *
+     * THEN: should format Amex based on regex
+     */
+    func test_ValidateCardNumberInput_WhenAmexValid_ShouldFormateAmex() {
         let result = sut.validateCardNumberInput("34857025087")
         XCTAssertEqual(result!.formattedInput, "3485 702508 7")
     }
     
-    func testBiggerFormatedMaximumLenghtVisa() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input card number more character
+     *
+     * THEN: should format card number based on regex and substring it
+     */
+    func test_ValidateCardNumberInput_WhenInputIsToLong_ShouldFormatInput() {
         let result = sut.validateCardNumberInput("4929939187355598111")
         XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
     }
     
-    func testFormatedIncompleteLenghtVisa() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input card number
+     *
+     * THEN: should format card number based on regex
+     */
+    func test_ValidateCardNumberInput_WhenInputIsLong_ShouldFormatInput() {
         let result = sut.validateCardNumberInput("492993918")
         XCTAssertEqual(result!.formattedInput, "4929 9391 8")
     }
     
-    func testForTypeRecognizeVisa() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input (one character starts visa)
+     *
+     * THEN: should recognize card network visa
+     */
+    func test_ValidateCardNumberInput_WhenInputIsVisa_ShouldRecognizeVisa() {
         let result = sut.validateCardNumberInput("4")
         XCTAssertEqual(result!.cardNetwork, .visa)
     }
     
-    func testForTypeRecognizeUnknown() {
+    /*
+     * GIVEN: validate card number
+     *
+     * WHEN: user input (one character, unknown)
+     *
+     * THEN: should recognize card network unKnownType
+     */
+    func test_ValidateCardNumberInput_WhenInputIsUnkwon_ShouldRecognizeUnknown() {
         let result = sut.validateCardNumberInput("3")
         let unKnownType = JPCardNetworkType(rawValue: 0)
         XCTAssertEqual(result!.cardNetwork, unKnownType)
     }
     
     /*
-    * GIVEN: check input number
-    *
-    * WHEN: user input (52 - masterCard)
-    *
-    * THEN: should return card network masterCard
-    */
+     * GIVEN: check input number
+     *
+     * WHEN: user input (52 - masterCard)
+     *
+     * THEN: should return card network masterCard
+     */
     func test_ValidateCardNumberInput_WhenInputIsMasterCard_ShouldReturnMasterCard() {
         let result = sut.validateCardNumberInput("52")
         XCTAssertEqual(result!.cardNetwork, .masterCard)
     }
     
     /*
-    * GIVEN: check input number
-    *
-    * WHEN: user input (34 - AMEX)
-    *
-    * THEN: should return card network AMEX
-    */
+     * GIVEN: check input number
+     *
+     * WHEN: user input (34 - AMEX)
+     *
+     * THEN: should return card network AMEX
+     */
     func test_ValidateCardNumberInput_WhenInputIsAMEX_ShouldReturnAMEX() {
         let result = sut.validateCardNumberInput("34")
         XCTAssertEqual(result!.cardNetwork, .AMEX)
@@ -281,4 +376,161 @@ class JPTransactionInteractorTest: XCTestCase {
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
     }
+    
+    /*
+     * GIVEN: check for avs
+     *
+     * WHEN: is enabled in configs
+     *
+     * THEN: should throw true result
+     */
+    func test_IsAVSEnabled_WhenIsEnabledInconfig_ShouldBeTrue() {
+        self.configuration.uiConfiguration.isAVSEnabled = true
+        XCTAssertTrue(sut.isAVSEnabled())
+        
+    }
+    
+    /*
+     * GIVEN: check for avs
+     *
+     * WHEN: is disabled in configs
+     *
+     * THEN: should throw false result
+     */
+    func test_IsAVSEnabled_WhenIsDisabledInconfig_ShouldBeFalse() {
+        self.configuration.uiConfiguration.isAVSEnabled = false
+        XCTAssertFalse(sut.isAVSEnabled())
+    }
+    
+    
+    /*
+     * GIVEN: getting transaction type
+     *
+     * WHEN: seted up to .saveCard
+     *
+     * THEN: should return saveCard type
+     */
+    func test_TransactionType_WhenSavedCard_ShouldReturnSavedCard() {
+        transactionService.transactionType = .saveCard
+        let type = sut.transactionType()
+        XCTAssertEqual(type, .saveCard)
+    }
+    
+    /*
+     * GIVEN: getting card Address type
+     *
+     * WHEN: seted up in config object
+     *
+     * THEN: should return cardAddress
+     */
+    func test_GetConfiguredCardAddress_WhenIsSettedUp_ShouldReturnNonNil() {
+        let cardAddress = sut.getConfiguredCardAddress()
+        XCTAssertNotNil(cardAddress)
+    }
+    
+    /*
+     * GIVEN: getting camera permission
+     *
+     * WHEN: on simulator, test
+     *
+     * THEN: should be denied
+     */
+    func test_HandleCameraPermissionsWithCompletion_WhenInTest_ShouldBeDenied() {
+        sut.handleCameraPermissions { (auth) in
+            XCTAssertEqual(auth, .denied)
+        }
+    }
+    
+    /*
+     * GIVEN: getting countries from interactor
+     *
+     * WHEN: we have 4 countries that we support
+     *
+     * THEN: should be returned 4 countries
+     */
+    func test_GetSelectableCountryNames_WhenCountriesArrayHardcodedInteractor_ShouldReturnTheSame() {
+        let countries = sut.getSelectableCountryNames()
+        XCTAssertEqual(countries?.count, 4)
+    }
+    
+    /*
+    * GIVEN: opening 3ds error controller
+    *
+    * WHEN: handle response
+    *
+    * THEN: controller should be non nill
+    */
+    func test_Handle3DSecureTransactionFromError_WhenCalling_3dsControllerShouldBeNonNill(){
+        let controller = JP3DSViewController()
+        XCTAssertNotNil(controller)
+    }
+
+    /*
+     * GIVEN: calling transaction
+     *
+     * WHEN: before saved an error
+     *
+     * THEN: should add ro response error, savedError from storeError
+     */
+    func test_completeTransactionWithResponse() {
+        let savedEerror = NSError(domain: "domain", code: 111, userInfo: nil)
+        sut.storeError(savedEerror)
+        
+        let error = JPError(domain: "domain", code: JPError.judoUserDidCancelError().code, userInfo: nil)
+        sut.completeTransaction(with: JPResponse(), error: error)
+        XCTAssertNotNil(error)
+        XCTAssertEqual(error.details!.count, 1)
+    }
+    
+    /*
+     * GIVEN: interactor validate card holder
+     *
+     * WHEN: name is valid
+     *
+     * THEN: should return valid result
+     */
+    func test_ValidateCarholderNameInput_WhenNameIsValid_ShouldReturnValidResponse() {
+        let result = sut.validateCardholderNameInput("Alex ABC")
+        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertTrue(result!.isValid)
+    }
+    
+    /*
+     * GIVEN: interactor validate Expiry Date
+     *
+     * WHEN: Date is expired
+     *
+     * THEN: should return invalid result
+     */
+    func test_ValidateExpiryDateInput_WhenDateIsExpired_ShouldReturnInValidEResult() {
+        let result = sut.validateExpiryDateInput("12/06")
+        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    /*
+     * GIVEN: interactor validate Country
+     *
+     * WHEN: selected country is supported
+     *
+     * THEN: should return valid result
+     */
+    func test_ValidateCountryInput_WhenCountryUSAIsSupported_ShouldReturnValidResult() {
+        let result = sut.validateCountryInput("USA")
+        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertTrue(result!.isValid)
+    }
+    
+    /*
+    * GIVEN: interactor validate postal code
+    *
+    * WHEN: selected UK, and code is valid
+    *
+    * THEN: should return valid result
+    */
+    func test_ValidatePostalCodeInput_WhenIsUk_ShouldBeValid() {
+        let result = sut.validatePostalCodeInput("EC1A 1BB")
+        XCTAssertTrue(result!.isValid)
+    }
+    
 }
