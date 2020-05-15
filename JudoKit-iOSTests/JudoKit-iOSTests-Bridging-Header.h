@@ -29,4 +29,14 @@
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewModel.h"
 
+#import "JPTransactionPresenter.h"
+#import "JPTransactionViewController.h"
+#import "JPTransactionInteractor.h"
+#import "JPTransactionRouter.h"
+#import "JPTransactionViewModel.h"
 
+#import "JPCardCustomizationPresenter.h"
+#import "JPCardCustomizationInteractor.h"
+#import "JPCardCustomizationRouter.h"
+#import "JPCardCustomizationViewController.h"
+#import "JPCardCustomizationViewModel.h"

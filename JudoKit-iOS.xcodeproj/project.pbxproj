@@ -47,6 +47,11 @@
 		075B0747246D616800351CD2 /* JPTransactionViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0746246D616800351CD2 /* JPTransactionViewMock.swift */; };
 		075B0749246D617400351CD2 /* JPTransactionRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0748246D617400351CD2 /* JPTransactionRouterMock.swift */; };
 		075B074B246D617F00351CD2 /* JPTransactionInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B074A246D617F00351CD2 /* JPTransactionInteractorMock.swift */; };
+		075B0751246D816900351CD2 /* JPCardCustomizationPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0750246D816900351CD2 /* JPCardCustomizationPresenterTest.swift */; };
+		075B0753246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0752246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift */; };
+		075B0755246D819A00351CD2 /* JPCardCustomizationViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0754246D819A00351CD2 /* JPCardCustomizationViewMock.swift */; };
+		075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0756246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift */; };
+		075B0759246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0758246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -380,6 +385,11 @@
 		075B0746246D616800351CD2 /* JPTransactionViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPTransactionViewMock.swift; sourceTree = "<group>"; };
 		075B0748246D617400351CD2 /* JPTransactionRouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPTransactionRouterMock.swift; sourceTree = "<group>"; };
 		075B074A246D617F00351CD2 /* JPTransactionInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPTransactionInteractorMock.swift; sourceTree = "<group>"; };
+		075B0750246D816900351CD2 /* JPCardCustomizationPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationPresenterTest.swift; sourceTree = "<group>"; };
+		075B0752246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationInteractorTest.swift; sourceTree = "<group>"; };
+		075B0754246D819A00351CD2 /* JPCardCustomizationViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationViewMock.swift; sourceTree = "<group>"; };
+		075B0756246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationRouterMock.swift; sourceTree = "<group>"; };
+		075B0758246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationInteractorMock.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -688,6 +698,7 @@
 		0708ACFB246BEB9500ED6FE9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				075B074C246D7C8200351CD2 /* CardCustomization */,
 				0708ACFC246BEB9500ED6FE9 /* Transaction */,
 				0708ACFF246BEB9500ED6FE9 /* PaymentMethods */,
 			);
@@ -907,6 +918,42 @@
 				075B0742246D4FC000351CD2 /* JPTransactionPresenterTests.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		075B074C246D7C8200351CD2 /* CardCustomization */ = {
+			isa = PBXGroup;
+			children = (
+				075B074F246D810C00351CD2 /* Interactor */,
+				075B074E246D810700351CD2 /* Presenter */,
+				075B074D246D810100351CD2 /* Mocks */,
+			);
+			path = CardCustomization;
+			sourceTree = "<group>";
+		};
+		075B074D246D810100351CD2 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				075B0754246D819A00351CD2 /* JPCardCustomizationViewMock.swift */,
+				075B0756246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift */,
+				075B0758246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		075B074E246D810700351CD2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				075B0750246D816900351CD2 /* JPCardCustomizationPresenterTest.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		075B074F246D810C00351CD2 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				075B0752246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2651,6 +2698,7 @@
 			files = (
 				0708AD2E246BEB9500ED6FE9 /* JPCardStorageTest.swift in Sources */,
 				0708AD3A246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
+				075B0753246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				075B0747246D616800351CD2 /* JPTransactionViewMock.swift in Sources */,
 				0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */,
@@ -2658,6 +2706,7 @@
 				0708AD29246BEB9500ED6FE9 /* JPTransactionServiceStub.swift in Sources */,
 				0708AD27246BEB9500ED6FE9 /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 				075B0749246D617400351CD2 /* JPTransactionRouterMock.swift in Sources */,
+				075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */,
 				0708AD2F246BEB9500ED6FE9 /* CLLocationAdditionsTest.swift in Sources */,
 				0708AD2C246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift in Sources */,
 				0708AD34246BEB9500ED6FE9 /* JPCardValidationServiceTest.swift in Sources */,
@@ -2665,9 +2714,11 @@
 				0708AD32246BEB9500ED6FE9 /* JPUSAPostCodeValidation.swift in Sources */,
 				0708AD2D246BEB9500ED6FE9 /* JPPaymentMethodsInteractorTest.swift in Sources */,
 				0708AD33246BEB9500ED6FE9 /* JPCanadaPostCodeValidation.swift in Sources */,
+				075B0759246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift in Sources */,
 				0708AD35246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift in Sources */,
 				0708AD37246BEB9500ED6FE9 /* JPKeychainServiceTest.swift in Sources */,
 				0708AD36246BEB9500ED6FE9 /* JPIDEALServiceTest.swift in Sources */,
+				075B0755246D819A00351CD2 /* JPCardCustomizationViewMock.swift in Sources */,
 				075B0743246D4FC000351CD2 /* JPTransactionPresenterTests.swift in Sources */,
 				0708AD31246BEB9500ED6FE9 /* JPUKPostCodeValidation.swift in Sources */,
 				075B073F246D3DA000351CD2 /* JPPaymentMethodsRouterTest.swift in Sources */,
@@ -2675,6 +2726,7 @@
 				0708AD30246BEB9500ED6FE9 /* NSArrayAdditionsTest.swift in Sources */,
 				0708AD39246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift in Sources */,
 				075B074B246D617F00351CD2 /* JPTransactionInteractorMock.swift in Sources */,
+				075B0751246D816900351CD2 /* JPCardCustomizationPresenterTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
