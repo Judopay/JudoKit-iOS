@@ -69,7 +69,7 @@ class JPCardCustomizationInteractorTest: XCTestCase {
      *
      * WHEN: card index initially is 0
      *
-     * THEN: should return new title  ("new title")
+     * THEN: should return new title ("new title")
      */
     func test_UpdateStoredCardTitleWithInput_WhenSettedUpTitle_ShouldReturnSameTitleForCurrentCard() {
         sut.updateStoredCardTitle(withInput: "new title")

@@ -27,8 +27,18 @@ import XCTest
 
 class JPCardCustomizationViewMock: JPCardCustomizationView {
     
+    var viewUpdated = false
     var viewModelsSUT = [JPCardCustomizationViewModel]()
-        func updateView(with viewModels: [JPCardCustomizationViewModel], shouldPreserveResponder: Bool) {
+    func updateView(with viewModels: [JPCardCustomizationViewModel], shouldPreserveResponder: Bool) {
         viewModelsSUT = viewModels
+        viewUpdated = true
     }
+    /*
+     self.titleModel,
+     self.headerModel,
+     self.patternPickerModel,
+     self.textInputModel,
+     self.isDefaultModel,
+     self.submitModel
+     */
 }

@@ -217,7 +217,7 @@
 		30221C8023FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C7E23FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m */; };
 		30221C8523FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8323FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h */; };
 		30221C8623FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8423FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m */; };
-		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; };
+		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30221C9123FFC53600BF2823 /* JPCardPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8F23FFC53600BF2823 /* JPCardPattern.m */; };
 		30221CBE24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221CBC24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h */; };
 		30221CBF24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221CBD24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m */; };
