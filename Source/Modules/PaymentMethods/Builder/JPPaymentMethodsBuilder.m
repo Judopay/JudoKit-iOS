@@ -29,14 +29,13 @@
 #import "JPConstants.h"
 #import "JPReference.h"
 #import "JudoKit.h"
-
 #import "JPError+Additions.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-
 #import "JPApplePayService.h"
+#import "NSBundle+Additions.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
@@ -56,6 +55,7 @@
         BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
+        BOOL isURLSchemeMissing = (NSBundle.appURLScheme == nil) || (NSBundle.appURLScheme.length == 0);
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
             completion(nil, JPError.judoInvalidIDEALCurrencyError);
@@ -69,6 +69,11 @@
         
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
             completion(nil, JPError.judoInvalidPBBACurrency);
+            return nil;
+        }
+        
+        if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
+            completion(nil, JPError.judoPBBAURLSchemeMissing);
             return nil;
         }
     }

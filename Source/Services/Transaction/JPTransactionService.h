@@ -66,7 +66,20 @@ typedef NS_ENUM(NSUInteger, HTTPMethod) {
 - (nonnull JPTransaction *)transactionWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
- * A method for sending REST API requests to a provided URL with optional parameters
+ * A method for sending REST API requests to custom URL address with optional parameters
+ *
+ * @param urlString - the destination URL address for REST requests
+ * @param httpMethod - an NS_ENUM value that describes the HTTP method
+ * @param parameters - optional NSDictionary that should be send with the request
+ * @param completion - a completion block that returns an optional JPResponse or NSError
+ */
+- (void)sendRequestWithURLString:(nonnull NSString *)urlString
+                      httpMethod:(HTTPMethod)httpMethod
+                      parameters:(nullable NSDictionary *)parameters
+                      completion:(nullable JudoCompletionBlock)completion;
+
+/**
+ * A method for sending REST API requests to a provided endpoint with optional parameters
  *
  * @param endpoint - the destination URL endpoint for REST requests
  * @param httpMethod - an NS_ENUM value that describes the HTTP method

@@ -41,6 +41,7 @@
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
 #import "JPPBBAService.h"
+#import "NSBundle+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) TransactionMode transactionMode;
@@ -154,13 +155,11 @@
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
-    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds] && [PBBAAppUtils isCFIAppAvailable]) {
-        [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
-    } else {
-        [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
-    }
-
-    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds] && [PBBAAppUtils isCFIAppAvailable]) {
+    BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
+    BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
+    BOOL isURLSchemeSet = (NSBundle.appURLScheme != nil)  && (NSBundle.appURLScheme.length > 0);
+    
+    if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypePbba];

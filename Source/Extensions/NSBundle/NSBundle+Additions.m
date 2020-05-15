@@ -83,4 +83,14 @@
     }
     return nil;
 }
+
++ (NSString *)appURLScheme {
+    NSBundle *bundle = NSBundle.mainBundle;
+    NSMutableArray *urlTypes = bundle.infoDictionary[@"CFBundleURLTypes"];
+    NSMutableDictionary *urlType = urlTypes.firstObject;
+    NSMutableArray *urlSchemes = urlType[@"CFBundleURLSchemes"];
+    NSString *urlScheme = urlSchemes.firstObject;
+    return urlScheme;
+}
+
 @end

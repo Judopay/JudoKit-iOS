@@ -93,19 +93,27 @@
     }
 }
 
+- (void)sendRequestWithURLString:(NSString *)urlString
+                      httpMethod:(HTTPMethod)httpMethod
+                      parameters:(NSDictionary *)parameters
+                      completion:(JudoCompletionBlock)completion {
+    if (httpMethod == HTTPMethodPOST) {
+        [self.session POST:urlString parameters:parameters completion:completion];
+        return;
+    }
+
+    [self.session GET:urlString parameters:parameters completion:completion];
+}
+
 - (void)sendRequestWithEndpoint:(NSString *)endpoint
                      httpMethod:(HTTPMethod)httpMethod
                      parameters:(NSDictionary *)parameters
                      completion:(JudoCompletionBlock)completion {
-
     NSString *url = [NSString stringWithFormat:@"%@%@", self.session.baseURL, endpoint];
-
-    if (httpMethod == HTTPMethodPOST) {
-        [self.session POST:url parameters:parameters completion:completion];
-        return;
-    }
-
-    [self.session GET:url parameters:parameters completion:completion];
+    [self sendRequestWithURLString:url
+                        httpMethod:httpMethod
+                        parameters:parameters
+                        completion:completion];
 }
 
 #pragma mark - Setters

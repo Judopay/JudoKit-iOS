@@ -48,6 +48,7 @@ NSString *const ErrorUnderlyingError = @"error_underlying_error";
 NSString *const ErrorTransactionDeclined = @"error_transaction_declined";
 NSString *const ErrorInvalidIDEALCurrency = @"error_invalid_ideal_currency";
 NSString *const ErrorInvalidPBBACurrency = @"error_invalid_pbba_currency";
+NSString *const ErrorPBBAMissingURLScheme = @"error_pbba_missing_scheme";
 NSString *const ErrorApplePayNotSupported = @"error_apple_pay_unsupported";
 NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 
@@ -76,6 +77,17 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 + (NSError *)judoInvalidPBBACurrency {
 
     NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
+                                                 failureReason:nil
+                                                         title:nil];
+
+    return [NSError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorParameterError
+                           userInfo:userInfo];
+}
+
++ (NSError *)judoPBBAURLSchemeMissing {
+
+    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorPBBAMissingURLScheme.localized
                                                  failureReason:nil
                                                          title:nil];
 

@@ -29,6 +29,7 @@
 #import "JPResponse.h"
 #import "JPTransactionData.h"
 #import "JPError+Additions.h"
+#import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
 #import "UIView+Additions.h"
 
@@ -43,6 +44,9 @@
 @implementation JPPBBAService
 
 #pragma mark - Constants
+
+static NSString *const kPbbaBaseURL = @"https://api.karatepay.com/";
+static NSString *const kPbbaSandboxBaseURL = @"https://api-sandbox.karatepay.com/";
 
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
@@ -77,7 +81,8 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", self.pbbaBaseURL, kRedirectEndpoint];
+    [self.transactionService sendRequestWithURLString:urlString
                                           httpMethod:HTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, JPError *error) {
@@ -125,10 +130,10 @@ static const int NSPOSIXErrorDomainCode = 53;
         return;
     }
 
-    NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@/%@", self.pbbaBaseURL, kStatusRequestEndpoint, orderId];
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:statusEndpoint
+    [self.transactionService sendRequestWithURLString:urlString
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, JPError *error) {
@@ -175,6 +180,8 @@ static const int NSPOSIXErrorDomainCode = 53;
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;
 
+    NSString *merchantRedirectUrl = [NSString stringWithFormat:@"%@://", NSBundle.appURLScheme];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
         @"currency" : amount.currency,
@@ -184,7 +191,8 @@ static const int NSPOSIXErrorDomainCode = 53;
         @"merchantPaymentReference" : reference.paymentReference,
         @"bic" : @"RABONL2U",
         @"merchantConsumerReference" : reference.consumerReference,
-        @"siteId" : self.configuration.siteId
+        @"siteId" : self.configuration.siteId,
+        @"merchantRedirectUrl" : merchantRedirectUrl
     }];
 
     if (self.configuration.pbbaConfiguration.mobileNumber) {
@@ -198,6 +206,13 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     return parameters;
+}
+
+- (NSString *)pbbaBaseURL {
+    if (self.transactionService.isSandboxed) {
+        return kPbbaSandboxBaseURL;
+    }
+    return kPbbaBaseURL;
 }
 
 @end
