@@ -40,3 +40,4 @@
 #import "JPCardCustomizationRouter.h"
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPCardPattern.h"

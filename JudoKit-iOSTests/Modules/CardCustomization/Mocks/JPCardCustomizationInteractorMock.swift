@@ -31,8 +31,9 @@ class JPCardCustomizationInteractorMock: JPCardCustomizationInteractor {
         return JPStoredCardDetails()
     }
     
+    var updateStoredCard = false
     func updateStoredCardPattern(with type: JPCardPatternType) {
-        
+        updateStoredCard = true
     }
     
     func updateStoredCardTitle(withInput input: String) {
