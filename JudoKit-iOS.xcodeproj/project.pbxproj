@@ -90,8 +90,8 @@
 		30006F9223F6993A0099F3C5 /* UIViewController+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7023F6993A0099F3C5 /* UIViewController+Additions.h */; };
 		30006F9323F6993A0099F3C5 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7123F6993A0099F3C5 /* UIViewController+Additions.m */; };
 		30006F9423F6993A0099F3C5 /* JPError+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7323F6993A0099F3C5 /* JPError+Additions.m */; };
-		30006F9523F6993A0099F3C5 /* JPError+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7423F6993A0099F3C5 /* JPError+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30006F9623F6993A0099F3C5 /* NSArray+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7623F6993A0099F3C5 /* NSArray+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30006F9523F6993A0099F3C5 /* JPError+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7423F6993A0099F3C5 /* JPError+Additions.h */; };
+		30006F9623F6993A0099F3C5 /* NSArray+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7623F6993A0099F3C5 /* NSArray+Additions.h */; };
 		30006F9723F6993A0099F3C5 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7723F6993A0099F3C5 /* NSArray+Additions.m */; };
 		30006F9823F6993A0099F3C5 /* UIImage+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F7923F6993A0099F3C5 /* UIImage+Additions.h */; };
 		30006F9923F6993A0099F3C5 /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7A23F6993A0099F3C5 /* UIImage+Additions.m */; };
@@ -99,11 +99,11 @@
 		30006F9B23F6993A0099F3C5 /* UIApplication+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7D23F6993A0099F3C5 /* UIApplication+Additions.m */; };
 		30006F9C23F6993A0099F3C5 /* UIStackView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7F23F6993A0099F3C5 /* UIStackView+Additions.m */; };
 		30006F9D23F6993A0099F3C5 /* UIStackView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8023F6993A0099F3C5 /* UIStackView+Additions.h */; };
-		30006F9E23F6993A0099F3C5 /* NSBundle+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8223F6993A0099F3C5 /* NSBundle+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30006F9E23F6993A0099F3C5 /* NSBundle+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8223F6993A0099F3C5 /* NSBundle+Additions.h */; };
 		30006F9F23F6993A0099F3C5 /* NSBundle+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F8323F6993A0099F3C5 /* NSBundle+Additions.m */; };
 		30006FA023F6993A0099F3C5 /* UIFont+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F8523F6993A0099F3C5 /* UIFont+Additions.m */; };
 		30006FA123F6993A0099F3C5 /* UIFont+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8623F6993A0099F3C5 /* UIFont+Additions.h */; };
-		30006FA223F6993A0099F3C5 /* CLLocation+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8823F6993A0099F3C5 /* CLLocation+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30006FA223F6993A0099F3C5 /* CLLocation+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8823F6993A0099F3C5 /* CLLocation+Additions.h */; };
 		30006FA323F6993A0099F3C5 /* CLLocation+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F8923F6993A0099F3C5 /* CLLocation+Additions.m */; };
 		30006FB623F6999C0099F3C5 /* JPScanCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006FB423F6999C0099F3C5 /* JPScanCardViewController.h */; };
 		30006FB723F6999C0099F3C5 /* JPScanCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006FB523F6999C0099F3C5 /* JPScanCardViewController.m */; };
@@ -196,7 +196,7 @@
 		30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221BC523FD7E4D00BF2823 /* JPLoadingView.h */; };
 		30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221BC623FD7E4D00BF2823 /* JPLoadingView.m */; };
 		30221C1023FE617300BF2823 /* NSLayoutConstraint+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C0E23FE617300BF2823 /* NSLayoutConstraint+Additions.m */; };
-		30221C1123FE617300BF2823 /* NSLayoutConstraint+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C0F23FE617300BF2823 /* NSLayoutConstraint+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30221C1123FE617300BF2823 /* NSLayoutConstraint+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C0F23FE617300BF2823 /* NSLayoutConstraint+Additions.h */; };
 		30221C2F23FE6D9200BF2823 /* JPCardCustomizationPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C1A23FE6D9200BF2823 /* JPCardCustomizationPresenter.h */; };
 		30221C3023FE6D9200BF2823 /* JPCardCustomizationPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C1B23FE6D9200BF2823 /* JPCardCustomizationPresenter.m */; };
 		30221C3123FE6D9200BF2823 /* JPCardCustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C1D23FE6D9200BF2823 /* JPCardCustomizationViewController.m */; };
@@ -220,7 +220,7 @@
 		30221C8023FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C7E23FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m */; };
 		30221C8523FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8323FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h */; };
 		30221C8623FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8423FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m */; };
-		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221C8E23FFC53600BF2823 /* JPCardPattern.h */; };
 		30221C9123FFC53600BF2823 /* JPCardPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221C8F23FFC53600BF2823 /* JPCardPattern.m */; };
 		30221CBE24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30221CBC24040F4D00BF2823 /* JPCardCustomizationTextInputCell.h */; };
 		30221CBF24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30221CBD24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m */; };
@@ -271,7 +271,7 @@
 		449211682469E8DD00DF6D14 /* Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211672469E8DD00DF6D14 /* Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4492116A2469ED9A00DF6D14 /* JPCardExpirationStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211692469ED9A00DF6D14 /* JPCardExpirationStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4492116C2469EDB300DF6D14 /* JPCardNetworkType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116B2469EDB300DF6D14 /* JPCardNetworkType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4492116E2469F19100DF6D14 /* JPCardPatternType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116D2469F19100DF6D14 /* JPCardPatternType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4492116E2469F19100DF6D14 /* JPCardPatternType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116D2469F19100DF6D14 /* JPCardPatternType.h */; };
 		449211702469F77900DF6D14 /* JPInputType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4492116F2469F77900DF6D14 /* JPInputType.h */; };
 		44921172246A001700DF6D14 /* JPInputFieldDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 44921171246A001700DF6D14 /* JPInputFieldDelegate.h */; };
 		44921174246A00D800DF6D14 /* JPCardCustomizationPatternPickerCellDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 44921173246A00D800DF6D14 /* JPCardCustomizationPatternPickerCellDelegate.h */; };
