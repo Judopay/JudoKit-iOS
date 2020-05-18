@@ -41,3 +41,9 @@
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardPattern.h"
+
+#import "CLLocation+Additions.h"
+#import "NSArray+Additions.h"
+#import "NSBundle+Additions.h"
+#import "JPError+Additions.h"
+#import "NSLayoutConstraint+Additions.h"
