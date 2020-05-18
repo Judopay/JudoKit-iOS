@@ -52,6 +52,8 @@
 		075B0755246D819A00351CD2 /* JPCardCustomizationViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0754246D819A00351CD2 /* JPCardCustomizationViewMock.swift */; };
 		075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0756246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift */; };
 		075B0759246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B0758246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift */; };
+		07684C6D2472723200A49EB9 /* NSBundleAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07684C6C2472723200A49EB9 /* NSBundleAdditionsTests.swift */; };
+		07684C70247284AB00A49EB9 /* JPErrorAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07684C6F247284AB00A49EB9 /* JPErrorAdditionsTests.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -96,7 +98,7 @@
 		30006F9B23F6993A0099F3C5 /* UIApplication+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7D23F6993A0099F3C5 /* UIApplication+Additions.m */; };
 		30006F9C23F6993A0099F3C5 /* UIStackView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F7F23F6993A0099F3C5 /* UIStackView+Additions.m */; };
 		30006F9D23F6993A0099F3C5 /* UIStackView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8023F6993A0099F3C5 /* UIStackView+Additions.h */; };
-		30006F9E23F6993A0099F3C5 /* NSBundle+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8223F6993A0099F3C5 /* NSBundle+Additions.h */; };
+		30006F9E23F6993A0099F3C5 /* NSBundle+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8223F6993A0099F3C5 /* NSBundle+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30006F9F23F6993A0099F3C5 /* NSBundle+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F8323F6993A0099F3C5 /* NSBundle+Additions.m */; };
 		30006FA023F6993A0099F3C5 /* UIFont+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F8523F6993A0099F3C5 /* UIFont+Additions.m */; };
 		30006FA123F6993A0099F3C5 /* UIFont+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F8623F6993A0099F3C5 /* UIFont+Additions.h */; };
@@ -390,6 +392,8 @@
 		075B0754246D819A00351CD2 /* JPCardCustomizationViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationViewMock.swift; sourceTree = "<group>"; };
 		075B0756246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationRouterMock.swift; sourceTree = "<group>"; };
 		075B0758246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardCustomizationInteractorMock.swift; sourceTree = "<group>"; };
+		07684C6C2472723200A49EB9 /* NSBundleAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBundleAdditionsTests.swift; sourceTree = "<group>"; };
+		07684C6F247284AB00A49EB9 /* JPErrorAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPErrorAdditionsTests.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -781,6 +785,8 @@
 		0708AD0D246BEB9500ED6FE9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				07684C6E2472849000A49EB9 /* JPError */,
+				07684C6B2472722000A49EB9 /* NSBundle */,
 				0708AD0E246BEB9500ED6FE9 /* CLLocation */,
 				0708AD10246BEB9500ED6FE9 /* NSArray */,
 			);
@@ -954,6 +960,22 @@
 				075B0752246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		07684C6B2472722000A49EB9 /* NSBundle */ = {
+			isa = PBXGroup;
+			children = (
+				07684C6C2472723200A49EB9 /* NSBundleAdditionsTests.swift */,
+			);
+			path = NSBundle;
+			sourceTree = "<group>";
+		};
+		07684C6E2472849000A49EB9 /* JPError */ = {
+			isa = PBXGroup;
+			children = (
+				07684C6F247284AB00A49EB9 /* JPErrorAdditionsTests.swift */,
+			);
+			path = JPError;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2700,6 +2722,7 @@
 				0708AD3A246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
 				075B0753246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */,
+				07684C6D2472723200A49EB9 /* NSBundleAdditionsTests.swift in Sources */,
 				075B0747246D616800351CD2 /* JPTransactionViewMock.swift in Sources */,
 				0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */,
 				0708AD3B246BEB9500ED6FE9 /* JPApplePayServiceTest.swift in Sources */,
@@ -2716,6 +2739,7 @@
 				0708AD33246BEB9500ED6FE9 /* JPCanadaPostCodeValidation.swift in Sources */,
 				075B0759246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift in Sources */,
 				0708AD35246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift in Sources */,
+				07684C70247284AB00A49EB9 /* JPErrorAdditionsTests.swift in Sources */,
 				0708AD37246BEB9500ED6FE9 /* JPKeychainServiceTest.swift in Sources */,
 				0708AD36246BEB9500ED6FE9 /* JPIDEALServiceTest.swift in Sources */,
 				075B0755246D819A00351CD2 /* JPCardCustomizationViewMock.swift in Sources */,

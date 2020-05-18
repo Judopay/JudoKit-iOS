@@ -79,3 +79,5 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 
 #import "CLLocation+Additions.h"
 #import "NSArray+Additions.h"
+#import "NSBundle+Additions.h"
+#import "JPError+Additions.h"
