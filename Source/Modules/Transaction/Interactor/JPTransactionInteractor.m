@@ -102,18 +102,6 @@
 - (void)sendTransactionWithCard:(JPCard *)card
               completionHandler:(JPCompletionBlock)completionHandler {
 
-#if DEBUG
-    // TODO: Temporary duplicate transaction solution
-    // Generates a new consumer reference for each Payment/PreAuth transaction
-
-    BOOL isPayment = (self.transactionService.transactionType == JPTransactionTypePayment);
-    BOOL isPreAuth = (self.transactionService.transactionType == JPTransactionTypePreAuth);
-
-    if (isPayment || isPreAuth) {
-        self.configuration.reference = [JPReference consumerReference:NSUUID.UUID.UUIDString];
-    }
-#endif
-
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.card = card;
 

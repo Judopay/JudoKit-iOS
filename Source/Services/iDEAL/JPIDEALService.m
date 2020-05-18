@@ -68,8 +68,14 @@ static const float kTimerDuration = 60.0f;
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank
                      completion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [self parametersForIDEALBank:iDealBank];
+    NSMutableDictionary *parameters = [self parametersForIDEALBank:iDealBank];
 
+    #if DEBUG
+        // TODO: Temporary duplicate transaction solution
+        // Generates a new payment reference for each iDEAL redirect transaction
+        parameters[@"merchantPaymentReference"] = [JPReference generatePaymentReference];
+    #endif
+    
     if (!parameters) {
         completion(nil, JPError.judoSiteIDMissingError);
         return;
@@ -149,7 +155,7 @@ static const float kTimerDuration = 60.0f;
     [self.timer invalidate];
 }
 
-- (NSDictionary *)parametersForIDEALBank:(JPIDEALBank *)iDEALBank {
+- (NSMutableDictionary *)parametersForIDEALBank:(JPIDEALBank *)iDEALBank {
 
     if (!self.configuration.siteId) {
         return nil;
