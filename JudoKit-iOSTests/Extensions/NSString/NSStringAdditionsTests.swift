@@ -54,4 +54,38 @@ class NSStringAdditionsTests: XCTestCase {
         XCTAssertEqual(type, unKnownType)
     }
     
+    /*
+       * GIVEN: A string with card number
+       *
+       * WHEN: it is valid and luhn valid
+       *
+       * THEN: shoould return right valid bool for this number
+       */
+    func text_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
+        let cardValid = "4929939187355598"
+        XCTAssertTrue(cardValid.isCardNumberValid)
+    }
+    
+    /*
+       * GIVEN: A string is a key from localization
+       *
+       * THEN: shoould return value(localication) for current string
+       */
+    func text_Localized_WhenKeyFromTranslate_ShouldReturnTranslatedString() {
+        let keyForTranslate = "postal_code"
+        XCTAssertEqual(keyForTranslate.localized(), "Postcode")
+    }
+    
+    /*
+    * GIVEN: A string with currency
+    *
+    * WHEN: is supported
+    *
+    * THEN: shoould return symbol for currency string
+    */
+    func test_ToCurrencySymbol_WhenSupportedCurrencyString_ShouldReturnSymbolForCurrency(){
+        let usdSymbol = "USD"
+        let symbol = usdSymbol.toCurrencySymbol()
+        XCTAssertEqual(symbol, "$")
+    }
 }
