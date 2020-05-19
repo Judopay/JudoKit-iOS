@@ -24,6 +24,32 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPOrderDetailsTest: XCTestCase {
-
-
+    var cardDetailsDic: Dictionary<String, AnyObject>!
+    
+    override func setUp() {
+        super.setUp()
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: "OrderDetails", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+        cardDetailsDic = jsonResult as? Dictionary<String, AnyObject>
+    }
+    
+    /*
+     * GIVEN: Creating JPOrderDetails from dictionary/Json
+     *
+     * WHEN: dictionary are parsed from json stub: JPOrderDetails.json
+     *
+     * THEN: should create correct fields in JPOrderDetails object
+     */
+    func test_InitWithDictionary_WhenRecieveJson_ShouldPopulateFields() {
+        let cardDetails = JPOrderDetails(dictionary: cardDetailsDic["orderDetails"] as! [AnyHashable : Any])
+        XCTAssertEqual(cardDetails.amount, 0.14999999999999999)
+        XCTAssertEqual(cardDetails.timestamp, "2020-05-19T10:25:22.238Z")
+        XCTAssertNil(cardDetails.orderFailureReason)
+        XCTAssertEqual(cardDetails.orderStatus, "SUCCEEDED")
+        XCTAssertEqual(cardDetails.orderId, "BTO-P5nhpXwATLSvJvI4WP90Dg")
+    }
+    
 }
+

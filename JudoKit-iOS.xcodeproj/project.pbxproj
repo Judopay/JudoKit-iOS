@@ -65,6 +65,8 @@
 		079FA3392473E25E00DB1BEA /* CardDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 079FA3382473E25E00DB1BEA /* CardDetails.json */; };
 		079FA33C2473E58600DB1BEA /* JudoKitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA33B2473E58600DB1BEA /* JudoKitTest.swift */; };
 		079FA33F2473E8D300DB1BEA /* JPOrderDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */; };
+		079FA3412473EBAE00DB1BEA /* OrderDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 079FA3402473EBAE00DB1BEA /* OrderDetails.json */; };
+		079FA34424740F9B00DB1BEA /* JPContactInformationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -415,6 +417,8 @@
 		079FA3382473E25E00DB1BEA /* CardDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardDetails.json; sourceTree = "<group>"; };
 		079FA33B2473E58600DB1BEA /* JudoKitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitTest.swift; sourceTree = "<group>"; };
 		079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPOrderDetailsTest.swift; sourceTree = "<group>"; };
+		079FA3402473EBAE00DB1BEA /* OrderDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OrderDetails.json; sourceTree = "<group>"; };
+		079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPContactInformationTest.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -790,6 +794,7 @@
 		0708AD0A246BEB9500ED6FE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				079FA34224740F9000DB1BEA /* JPContactInformation */,
 				079FA33D2473E8CA00DB1BEA /* JPOrderDetails */,
 				079FA3352473DE1100DB1BEA /* JPCardDetails */,
 				079FA3322473DD2900DB1BEA /* Card */,
@@ -881,6 +886,7 @@
 		0708AD1A246BEB9500ED6FE9 /* JsonStubs */ = {
 			isa = PBXGroup;
 			children = (
+				079FA3402473EBAE00DB1BEA /* OrderDetails.json */,
 				079FA3382473E25E00DB1BEA /* CardDetails.json */,
 				0708AD3D246C0B3500ED6FE9 /* PendingResponse.json */,
 				0708AD3C246C0B3500ED6FE9 /* SuccessResponse.json */,
@@ -1070,6 +1076,14 @@
 				079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */,
 			);
 			path = JPOrderDetails;
+			sourceTree = "<group>";
+		};
+		079FA34224740F9000DB1BEA /* JPContactInformation */ = {
+			isa = PBXGroup;
+			children = (
+				079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */,
+			);
+			path = JPContactInformation;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2655,6 +2669,7 @@
 				079FA3392473E25E00DB1BEA /* CardDetails.json in Resources */,
 				0708AD3F246C0B3500ED6FE9 /* PendingResponse.json in Resources */,
 				0708AD3E246C0B3500ED6FE9 /* SuccessResponse.json in Resources */,
+				079FA3412473EBAE00DB1BEA /* OrderDetails.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2855,6 +2870,7 @@
 				0708AD30246BEB9500ED6FE9 /* NSArrayAdditionsTest.swift in Sources */,
 				079FA3372473DE1C00DB1BEA /* JPCardDetailsTest.swift in Sources */,
 				0708AD39246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift in Sources */,
+				079FA34424740F9B00DB1BEA /* JPContactInformationTest.swift in Sources */,
 				075B074B246D617F00351CD2 /* JPTransactionInteractorMock.swift in Sources */,
 				075B0751246D816900351CD2 /* JPCardCustomizationPresenterTest.swift in Sources */,
 			);

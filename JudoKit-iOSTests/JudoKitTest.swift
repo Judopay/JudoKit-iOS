@@ -25,14 +25,14 @@ import XCTest
 
 class JudoKitTest: XCTestCase {
     let judoKit = JudoKit(token: "token", secret: "secret")!
-
+    
     /*
-    * GIVEN: Creating JudoKit object
-    *
-    * WHEN: setup sandbox env
-    *
-    * THEN: should update sandbox parameter in JudoKit object
-    */
+     * GIVEN: Creating JudoKit object
+     *
+     * WHEN: setup sandbox env
+     *
+     * THEN: should update sandbox parameter in JudoKit object
+     */
     func test_isSandboxed_WhenSetUpSandBox_ShouldSaveInJudoObject() {
         XCTAssertFalse(judoKit.isSandboxed)
         judoKit.isSandboxed = true

@@ -33,7 +33,13 @@ class CLLocationAdditionsTest: XCTestCase {
         myLocation = CLLocation(latitude: 51.5074, longitude: 0.1278)
     }
 
-    //test if CLLocation could be parsed in valid dictionary of coordinates
+    /*
+    * GIVEN: CLLocation addition for dictionary
+    *
+    * WHEN: initialize and make dictionary from location
+    *
+    * THEN: should be parsed in valid dictionary of coordinates
+    */
     func testToDictionary() {
         let coordinateDictionary = myLocation.toDictionary() as! [String: Double]
         XCTAssertEqual(coordinateDictionary.count, 2)

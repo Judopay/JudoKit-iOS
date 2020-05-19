@@ -28,7 +28,13 @@ import XCTest
 class NSArrayAdditionsTest: XCTestCase {
     let arrayCard: NSArray = ["UK", "USA"]
     
-    //test if array contains prefix, should return bool value
+    /*
+     * GIVEN: NSArray addition for prefix check
+     *
+     * WHEN: array condain prefix and not contain
+     *
+     * THEN: should return correct bool value
+     */
     func testContainsPrefix() {
         let contain = arrayCard.containsPrefix("UK")
         XCTAssertTrue(contain)
