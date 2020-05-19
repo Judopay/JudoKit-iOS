@@ -28,7 +28,7 @@ import XCTest
 class NSLayoutConstraintAdditionsTests: XCTestCase {
     
     /*
-    * GIVEN: NSLayoutConstraint Additions for priotiry
+    * GIVEN: NSLayoutConstraint Additions for priority
     *
     * WHEN: constraint is changing priority
     *

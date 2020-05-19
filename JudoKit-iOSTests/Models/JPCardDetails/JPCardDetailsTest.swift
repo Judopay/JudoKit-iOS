@@ -51,7 +51,7 @@ class JPCardDetailsTest: XCTestCase {
     /*
     * GIVEN: Creating JPCardDetails from dictionary
     *
-    * WHEN: dicxtionary are parsed from json stub: CardDetails.json
+    * WHEN: dictionary are parsed from json stub: CardDetails.json
     *
     * THEN: should create correct fields in JPCardDetails object
     */
