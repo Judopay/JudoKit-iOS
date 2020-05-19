@@ -57,6 +57,14 @@
 		07684C732472B41400A49EB9 /* NSLayoutConstraintAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07684C722472B41400A49EB9 /* NSLayoutConstraintAdditionsTests.swift */; };
 		07684C782472BD2C00A49EB9 /* NSStringAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07684C772472BD2C00A49EB9 /* NSStringAdditionsTests.swift */; };
 		07684C7B2472C26000A49EB9 /* JudoKit-iOSTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */; };
+		079FA32B2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA32A2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift */; };
+		079FA32E2473CFF700DB1BEA /* JPAmountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA32D2473CFF700DB1BEA /* JPAmountTests.swift */; };
+		079FA3312473D26A00DB1BEA /* JPAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3302473D26A00DB1BEA /* JPAddressTests.swift */; };
+		079FA3342473DD3D00DB1BEA /* JPCardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3332473DD3D00DB1BEA /* JPCardTest.swift */; };
+		079FA3372473DE1C00DB1BEA /* JPCardDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3362473DE1C00DB1BEA /* JPCardDetailsTest.swift */; };
+		079FA3392473E25E00DB1BEA /* CardDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 079FA3382473E25E00DB1BEA /* CardDetails.json */; };
+		079FA33C2473E58600DB1BEA /* JudoKitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA33B2473E58600DB1BEA /* JudoKitTest.swift */; };
+		079FA33F2473E8D300DB1BEA /* JPOrderDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -399,6 +407,14 @@
 		07684C6F247284AB00A49EB9 /* JPErrorAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPErrorAdditionsTests.swift; sourceTree = "<group>"; };
 		07684C722472B41400A49EB9 /* NSLayoutConstraintAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintAdditionsTests.swift; sourceTree = "<group>"; };
 		07684C772472BD2C00A49EB9 /* NSStringAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStringAdditionsTests.swift; sourceTree = "<group>"; };
+		079FA32A2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationAdditionsTests.swift; sourceTree = "<group>"; };
+		079FA32D2473CFF700DB1BEA /* JPAmountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPAmountTests.swift; sourceTree = "<group>"; };
+		079FA3302473D26A00DB1BEA /* JPAddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPAddressTests.swift; sourceTree = "<group>"; };
+		079FA3332473DD3D00DB1BEA /* JPCardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardTest.swift; sourceTree = "<group>"; };
+		079FA3362473DE1C00DB1BEA /* JPCardDetailsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCardDetailsTest.swift; sourceTree = "<group>"; };
+		079FA3382473E25E00DB1BEA /* CardDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardDetails.json; sourceTree = "<group>"; };
+		079FA33B2473E58600DB1BEA /* JudoKitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitTest.swift; sourceTree = "<group>"; };
+		079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPOrderDetailsTest.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -774,6 +790,11 @@
 		0708AD0A246BEB9500ED6FE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				079FA33D2473E8CA00DB1BEA /* JPOrderDetails */,
+				079FA3352473DE1100DB1BEA /* JPCardDetails */,
+				079FA3322473DD2900DB1BEA /* Card */,
+				079FA32F2473D25D00DB1BEA /* JPAddress */,
+				079FA32C2473CFD300DB1BEA /* Amount */,
 				0708AD0B246BEB9500ED6FE9 /* CardStorage */,
 			);
 			path = Models;
@@ -790,6 +811,7 @@
 		0708AD0D246BEB9500ED6FE9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				079FA3292473CDBA00DB1BEA /* UIApplication */,
 				07684C762472BD1700A49EB9 /* NSString */,
 				07684C712472B3FF00A49EB9 /* NSLayoutConstraint */,
 				07684C6E2472849000A49EB9 /* JPError */,
@@ -859,6 +881,7 @@
 		0708AD1A246BEB9500ED6FE9 /* JsonStubs */ = {
 			isa = PBXGroup;
 			children = (
+				079FA3382473E25E00DB1BEA /* CardDetails.json */,
 				0708AD3D246C0B3500ED6FE9 /* PendingResponse.json */,
 				0708AD3C246C0B3500ED6FE9 /* SuccessResponse.json */,
 			);
@@ -999,6 +1022,54 @@
 				07684C772472BD2C00A49EB9 /* NSStringAdditionsTests.swift */,
 			);
 			path = NSString;
+			sourceTree = "<group>";
+		};
+		079FA3292473CDBA00DB1BEA /* UIApplication */ = {
+			isa = PBXGroup;
+			children = (
+				079FA32A2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift */,
+			);
+			path = UIApplication;
+			sourceTree = "<group>";
+		};
+		079FA32C2473CFD300DB1BEA /* Amount */ = {
+			isa = PBXGroup;
+			children = (
+				079FA32D2473CFF700DB1BEA /* JPAmountTests.swift */,
+			);
+			path = Amount;
+			sourceTree = "<group>";
+		};
+		079FA32F2473D25D00DB1BEA /* JPAddress */ = {
+			isa = PBXGroup;
+			children = (
+				079FA3302473D26A00DB1BEA /* JPAddressTests.swift */,
+			);
+			path = JPAddress;
+			sourceTree = "<group>";
+		};
+		079FA3322473DD2900DB1BEA /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				079FA3332473DD3D00DB1BEA /* JPCardTest.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		079FA3352473DE1100DB1BEA /* JPCardDetails */ = {
+			isa = PBXGroup;
+			children = (
+				079FA3362473DE1C00DB1BEA /* JPCardDetailsTest.swift */,
+			);
+			path = JPCardDetails;
+			sourceTree = "<group>";
+		};
+		079FA33D2473E8CA00DB1BEA /* JPOrderDetails */ = {
+			isa = PBXGroup;
+			children = (
+				079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */,
+			);
+			path = JPOrderDetails;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2155,6 +2226,7 @@
 		4416C39E2451A4060002870C /* JudoKit-iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				079FA33B2473E58600DB1BEA /* JudoKitTest.swift */,
 				0708AD1A246BEB9500ED6FE9 /* JsonStubs */,
 				0708AD0D246BEB9500ED6FE9 /* Extensions */,
 				0708AD0A246BEB9500ED6FE9 /* Models */,
@@ -2580,6 +2652,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079FA3392473E25E00DB1BEA /* CardDetails.json in Resources */,
 				0708AD3F246C0B3500ED6FE9 /* PendingResponse.json in Resources */,
 				0708AD3E246C0B3500ED6FE9 /* SuccessResponse.json in Resources */,
 			);
@@ -2742,18 +2815,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079FA3312473D26A00DB1BEA /* JPAddressTests.swift in Sources */,
 				0708AD2E246BEB9500ED6FE9 /* JPCardStorageTest.swift in Sources */,
 				0708AD3A246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
 				075B0753246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				07684C6D2472723200A49EB9 /* NSBundleAdditionsTests.swift in Sources */,
 				075B0747246D616800351CD2 /* JPTransactionViewMock.swift in Sources */,
+				079FA33F2473E8D300DB1BEA /* JPOrderDetailsTest.swift in Sources */,
 				0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */,
 				0708AD3B246BEB9500ED6FE9 /* JPApplePayServiceTest.swift in Sources */,
 				0708AD29246BEB9500ED6FE9 /* JPTransactionServiceStub.swift in Sources */,
 				0708AD27246BEB9500ED6FE9 /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 				075B0749246D617400351CD2 /* JPTransactionRouterMock.swift in Sources */,
 				075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */,
+				079FA32B2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift in Sources */,
 				0708AD2F246BEB9500ED6FE9 /* CLLocationAdditionsTest.swift in Sources */,
 				0708AD2C246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift in Sources */,
 				07684C782472BD2C00A49EB9 /* NSStringAdditionsTests.swift in Sources */,
@@ -2763,17 +2839,21 @@
 				0708AD2D246BEB9500ED6FE9 /* JPPaymentMethodsInteractorTest.swift in Sources */,
 				0708AD33246BEB9500ED6FE9 /* JPCanadaPostCodeValidation.swift in Sources */,
 				075B0759246D81C100351CD2 /* JPCardCustomizationInteractorMock.swift in Sources */,
+				079FA32E2473CFF700DB1BEA /* JPAmountTests.swift in Sources */,
 				0708AD35246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift in Sources */,
 				07684C70247284AB00A49EB9 /* JPErrorAdditionsTests.swift in Sources */,
 				0708AD37246BEB9500ED6FE9 /* JPKeychainServiceTest.swift in Sources */,
 				07684C732472B41400A49EB9 /* NSLayoutConstraintAdditionsTests.swift in Sources */,
 				0708AD36246BEB9500ED6FE9 /* JPIDEALServiceTest.swift in Sources */,
+				079FA33C2473E58600DB1BEA /* JudoKitTest.swift in Sources */,
 				075B0755246D819A00351CD2 /* JPCardCustomizationViewMock.swift in Sources */,
 				075B0743246D4FC000351CD2 /* JPTransactionPresenterTests.swift in Sources */,
 				0708AD31246BEB9500ED6FE9 /* JPUKPostCodeValidation.swift in Sources */,
+				079FA3342473DD3D00DB1BEA /* JPCardTest.swift in Sources */,
 				075B073F246D3DA000351CD2 /* JPPaymentMethodsRouterTest.swift in Sources */,
 				0708AD26246BEB9500ED6FE9 /* JPTransactionInteractorTest.swift in Sources */,
 				0708AD30246BEB9500ED6FE9 /* NSArrayAdditionsTest.swift in Sources */,
+				079FA3372473DE1C00DB1BEA /* JPCardDetailsTest.swift in Sources */,
 				0708AD39246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift in Sources */,
 				075B074B246D617F00351CD2 /* JPTransactionInteractorMock.swift in Sources */,
 				075B0751246D816900351CD2 /* JPCardCustomizationPresenterTest.swift in Sources */,

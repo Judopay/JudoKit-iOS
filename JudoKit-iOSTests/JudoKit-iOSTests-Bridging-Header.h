@@ -49,3 +49,8 @@
 #import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "JPStoredCardDetails.h"
+#import "UIApplication+Additions.h"
+#import "JPAmount.h"
+#import "JPCard.h"
+#import "JPCardDetails.h"
+#import "JudoKit.h"
