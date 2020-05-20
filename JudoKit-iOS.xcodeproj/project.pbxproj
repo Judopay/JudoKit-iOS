@@ -28,7 +28,6 @@
 		0708AD34246BEB9500ED6FE9 /* JPCardValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD18246BEB9500ED6FE9 /* JPCardValidationServiceTest.swift */; };
 		0708AD35246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD1B246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift */; };
 		0708AD36246BEB9500ED6FE9 /* JPIDEALServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD1C246BEB9500ED6FE9 /* JPIDEALServiceTest.swift */; };
-		0708AD37246BEB9500ED6FE9 /* JPKeychainServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD1E246BEB9500ED6FE9 /* JPKeychainServiceTest.swift */; };
 		0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD20246BEB9500ED6FE9 /* JPTransactionServiceTest.swift */; };
 		0708AD39246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD22246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift */; };
 		0708AD3A246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0708AD23246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift */; };
@@ -67,6 +66,7 @@
 		079FA33F2473E8D300DB1BEA /* JPOrderDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */; };
 		079FA3412473EBAE00DB1BEA /* OrderDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 079FA3402473EBAE00DB1BEA /* OrderDetails.json */; };
 		079FA34424740F9B00DB1BEA /* JPContactInformationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */; };
+		079FA3472475163A00DB1BEA /* JP3DSConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -383,7 +383,6 @@
 		0708AD18246BEB9500ED6FE9 /* JPCardValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPCardValidationServiceTest.swift; sourceTree = "<group>"; };
 		0708AD1B246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPTransactionServiceiDealStub.swift; sourceTree = "<group>"; };
 		0708AD1C246BEB9500ED6FE9 /* JPIDEALServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPIDEALServiceTest.swift; sourceTree = "<group>"; };
-		0708AD1E246BEB9500ED6FE9 /* JPKeychainServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPKeychainServiceTest.swift; sourceTree = "<group>"; };
 		0708AD20246BEB9500ED6FE9 /* JPTransactionServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPTransactionServiceTest.swift; sourceTree = "<group>"; };
 		0708AD22246BEB9500ED6FE9 /* JPConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
 		0708AD23246BEB9500ED6FE9 /* JPAppleConfigurationValidationServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAppleConfigurationValidationServiceTest.swift; sourceTree = "<group>"; };
@@ -419,6 +418,7 @@
 		079FA33E2473E8D300DB1BEA /* JPOrderDetailsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPOrderDetailsTest.swift; sourceTree = "<group>"; };
 		079FA3402473EBAE00DB1BEA /* OrderDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OrderDetails.json; sourceTree = "<group>"; };
 		079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPContactInformationTest.swift; sourceTree = "<group>"; };
+		079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JP3DSConfigurationTest.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -794,6 +794,7 @@
 		0708AD0A246BEB9500ED6FE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				079FA3452475162A00DB1BEA /* JP3DSConfiguration */,
 				079FA34224740F9000DB1BEA /* JPContactInformation */,
 				079FA33D2473E8CA00DB1BEA /* JPOrderDetails */,
 				079FA3352473DE1100DB1BEA /* JPCardDetails */,
@@ -849,7 +850,6 @@
 				0708AD13246BEB9500ED6FE9 /* PostCodesValidation */,
 				0708AD17246BEB9500ED6FE9 /* CardInputValidator */,
 				0708AD19246BEB9500ED6FE9 /* iDeal */,
-				0708AD1D246BEB9500ED6FE9 /* Keychain */,
 				0708AD1F246BEB9500ED6FE9 /* TransactionService */,
 				0708AD21246BEB9500ED6FE9 /* ConfigurationValidator */,
 				0708AD24246BEB9500ED6FE9 /* ApplePay */,
@@ -892,14 +892,6 @@
 				0708AD3C246C0B3500ED6FE9 /* SuccessResponse.json */,
 			);
 			path = JsonStubs;
-			sourceTree = "<group>";
-		};
-		0708AD1D246BEB9500ED6FE9 /* Keychain */ = {
-			isa = PBXGroup;
-			children = (
-				0708AD1E246BEB9500ED6FE9 /* JPKeychainServiceTest.swift */,
-			);
-			path = Keychain;
 			sourceTree = "<group>";
 		};
 		0708AD1F246BEB9500ED6FE9 /* TransactionService */ = {
@@ -1084,6 +1076,14 @@
 				079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */,
 			);
 			path = JPContactInformation;
+			sourceTree = "<group>";
+		};
+		079FA3452475162A00DB1BEA /* JP3DSConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */,
+			);
+			path = JP3DSConfiguration;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2845,6 +2845,7 @@
 				075B0749246D617400351CD2 /* JPTransactionRouterMock.swift in Sources */,
 				075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */,
 				079FA32B2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift in Sources */,
+				079FA3472475163A00DB1BEA /* JP3DSConfigurationTest.swift in Sources */,
 				0708AD2F246BEB9500ED6FE9 /* CLLocationAdditionsTest.swift in Sources */,
 				0708AD2C246BEB9500ED6FE9 /* JPPaymentMethodsPresenterTest.swift in Sources */,
 				07684C782472BD2C00A49EB9 /* NSStringAdditionsTests.swift in Sources */,
@@ -2857,7 +2858,6 @@
 				079FA32E2473CFF700DB1BEA /* JPAmountTests.swift in Sources */,
 				0708AD35246BEB9500ED6FE9 /* JPTransactionServiceiDealStub.swift in Sources */,
 				07684C70247284AB00A49EB9 /* JPErrorAdditionsTests.swift in Sources */,
-				0708AD37246BEB9500ED6FE9 /* JPKeychainServiceTest.swift in Sources */,
 				07684C732472B41400A49EB9 /* NSLayoutConstraintAdditionsTests.swift in Sources */,
 				0708AD36246BEB9500ED6FE9 /* JPIDEALServiceTest.swift in Sources */,
 				079FA33C2473E58600DB1BEA /* JudoKitTest.swift in Sources */,

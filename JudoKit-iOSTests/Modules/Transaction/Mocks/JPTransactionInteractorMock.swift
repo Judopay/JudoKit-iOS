@@ -27,10 +27,11 @@ import XCTest
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
     lazy var validationService = JPCardValidationService()
-    
+    var trasactionSent = false
+    var completeTransaction = false
+
     func updateKeychain(withCardModel viewModel: JPTransactionViewModel!, andToken token: String!) {
     }
-    
     
     func isAVSEnabled() -> Bool {
         return true
@@ -56,7 +57,6 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         
     }
     
-    var completeTransaction = false
     func completeTransaction(with response: JPResponse!, error: JPError!) {
         completeTransaction = true
     }
@@ -93,7 +93,6 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         return validationService.validatePostalCodeInput(input)
     }
     
-    var trasactionSent = false
     func sendTransaction(with card: JPCard!, completionHandler: JPCompletionBlock!) {
         trasactionSent = true
     }
