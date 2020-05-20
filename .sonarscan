@@ -1,1 +1,1 @@
-sonar.exclusions=JudoKit-iOSTests/**/*,Source/View/**/*,Source/Modules/**/Builder/*,Source/Modules/**/View/**/*
+sonar.exclusions=JudoKit-iOSTests/**/*,Source/View/**/*,Source/Modules/**/Builder/*, Source/Modules/**/View/**/*

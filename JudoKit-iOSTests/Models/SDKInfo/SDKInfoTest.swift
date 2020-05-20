@@ -1,5 +1,5 @@
 //
-//  JPCardTest.swift
+//  SDKInfoTest.swift
 //  JudoKit-iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,5 +23,5 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPCardTest: XCTestCase {
+class SDKInfoTest: XCTestCase {
 }
