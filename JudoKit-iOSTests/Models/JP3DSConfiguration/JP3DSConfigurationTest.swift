@@ -24,15 +24,38 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JP3DSConfigurationTest: XCTestCase {
+    let error = NSError(domain: "Domain", code: 444, userInfo: ["md": "mdValue",
+                                                                "paReq":"paReqValue",
+                                                                "receiptId":"receiptId",
+                                                                "acsUrl":"acsUrl"])
     
     /*
-     * GIVEN: Creating JP3DSConfiguration with NSError
+     * GIVEN: Creating JP3DSConfiguration with NSError deisgnated init
      *
      * WHEN: userInfo include all fields
      *
      * THEN: should create correct fields in JP3DSConfiguration object
      */
     func test_InitWithError_WhenObjectIsInnitializedWithError_ShouldPopulateFields() {
-        
+        let sut3DSConfig = JP3DSConfiguration(error: error)
+        XCTAssertEqual(sut3DSConfig.acsURL, URL(string:"acsUrl"))
+        XCTAssertEqual(sut3DSConfig.mdValue, "mdValue")
+        XCTAssertEqual(sut3DSConfig.receiptId, "receiptId")
+        XCTAssertEqual(sut3DSConfig.receiptId, "receiptId")
+    }
+    
+    /*
+     * GIVEN: Creating JP3DSConfiguration with NSError class init
+     *
+     * WHEN: userInfo include all fields
+     *
+     * THEN: should create correct fields in JP3DSConfiguration object
+     */
+    func test_InitWithError_WhenObjectIsInnitializedWithErrorClassInit_ShouldPopulateFields() {
+        let sut3DSConfig = JP3DSConfiguration.init(error: error)
+        XCTAssertEqual(sut3DSConfig.acsURL, URL(string:"acsUrl"))
+        XCTAssertEqual(sut3DSConfig.mdValue, "mdValue")
+        XCTAssertEqual(sut3DSConfig.receiptId, "receiptId")
+        XCTAssertEqual(sut3DSConfig.receiptId, "receiptId")
     }
 }
