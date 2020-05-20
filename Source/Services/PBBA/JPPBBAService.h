@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConfiguration.h"
-#import "JPTransactionService.h"
 #import <Foundation/Foundation.h>
 #import <ZappMerchantLib/PBBAAppUtils.h>
 #import "JPTransactionStatusView.h"
+#import "Typedefs.h"
+
+@class JPConfiguration, JPTransactionService;
 
 @interface JPPBBAService : NSObject
 

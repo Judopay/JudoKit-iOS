@@ -24,9 +24,8 @@
 
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
-#import "JPPBBAConfiguration.h"
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration;
 
 @interface JPConfiguration : NSObject
 

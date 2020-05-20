@@ -134,7 +134,7 @@
 
 @end
 
-@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor,JPStatusViewDelegate>
+@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor, JPStatusViewDelegate>
 
 /**
  * A designated initializer that sets up the JPTheme object needed for view customization

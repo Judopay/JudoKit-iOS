@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPPBBAService.h"
+#import "JPPBBAConfiguration.h"
 #import "JPAmount.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
@@ -31,6 +32,8 @@
 #import "JPError+Additions.h"
 #import "UIApplication+Additions.h"
 #import "UIView+Additions.h"
+#import "JPConfiguration.h"
+#import "JPTransactionService.h"
 
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -46,6 +49,7 @@
 
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
+static NSString *const kPendingStatus = @"PENDING";
 static const float kTimerDuration = 5.0f;
 static const float kTimerDurationLimit = 60.0f;
 static const int NSPOSIXErrorDomainCode = 53;
@@ -148,7 +152,7 @@ static const int NSPOSIXErrorDomainCode = 53;
             return;
         }
 
-        if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
+        if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
             [self.statusViewDelegate showStatusViewWith:JPTransactionStatusPending];
             return;
         }
