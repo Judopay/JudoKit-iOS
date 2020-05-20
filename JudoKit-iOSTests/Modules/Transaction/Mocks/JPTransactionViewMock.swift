@@ -27,7 +27,9 @@ import XCTest
 
 class JPTransactionViewMock: UIViewController, JPTransactionView {
     
+    var showedCameraAlert = false
     var viewModelSut: JPTransactionViewModel!
+    
     func updateView(with viewModel: JPTransactionViewModel) {
         viewModelSut = viewModel
     }
@@ -48,7 +50,6 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
         
     }
     
-    var showedCameraAlert = false
     func displayCameraSimulatorAlert() {
         showedCameraAlert = true
     }

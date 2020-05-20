@@ -1,8 +1,6 @@
 //
-//  JPKeychainServiceTest.swift
+//  JP3DSConfigurationTest.swift
 //  JudoKit-iOSTests
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +23,16 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPKeychainServiceTest: XCTestCase {
-    //TODO: Should be resolved issue with test host. Keychain must be tested only with executable app. 
-    func testSaveObject()  {    }
+class JP3DSConfigurationTest: XCTestCase {
     
-    func testGetObject() {    }
-    
-    func testRemoveObject() {    }
-    
-    func testGetAfterRemoveObject() {    }
+    /*
+     * GIVEN: Creating JP3DSConfiguration with NSError
+     *
+     * WHEN: userInfo include all fields
+     *
+     * THEN: should create correct fields in JP3DSConfiguration object
+     */
+    func test_InitWithError_WhenObjectIsInnitializedWithError_ShouldPopulateFields() {
+        
+    }
 }

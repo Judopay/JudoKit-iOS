@@ -26,20 +26,29 @@ import XCTest
 @testable import JudoKit_iOS
 
 class NSArrayAdditionsTest: XCTestCase {
-    let arrayCard: NSArray = ["UK", "USA"]
+    let sutArrayCard: NSArray = ["UK", "USA"]
     
     /*
      * GIVEN: NSArray addition for prefix check
      *
-     * WHEN: array condain prefix and not contain
+     * WHEN: array contains prefix
      *
-     * THEN: should return correct bool value
+     * THEN: should return true bool value
      */
-    func testContainsPrefix() {
-        let contain = arrayCard.containsPrefix("UK")
+    func test_ContainsPrefix_WhenItIsInArray_ShouldReturnTrue() {
+        let contain = sutArrayCard.containsPrefix("UK")
         XCTAssertTrue(contain)
-        
-        let notContaining = arrayCard.containsPrefix("MD")
+    }
+    
+    /*
+     * GIVEN: NSArray addition for prefix check
+     *
+     * WHEN: array doesnt contains prefix
+     *
+     * THEN: should return false bool value
+     */
+    func test_ContainsPrefix_WhenItIsNotInArray_ShouldReturnFalse() {
+        let notContaining = sutArrayCard.containsPrefix("MD")
         XCTAssertFalse(notContaining)
     }
 }

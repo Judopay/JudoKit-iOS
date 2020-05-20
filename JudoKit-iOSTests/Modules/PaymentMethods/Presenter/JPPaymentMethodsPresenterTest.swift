@@ -252,7 +252,8 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * THEN: should check epiration status right
      */
-    func test_ExpirationDateHandling_WhenSaveThreeCards_ShouldCheckTheirExpirationDate() {        JPCardStorage.sharedInstance()?.deleteCardDetails()
+    func test_ExpirationDateHandling_WhenSaveThreeCards_ShouldCheckTheirExpirationDate() {
+        JPCardStorage.sharedInstance()?.deleteCardDetails()
         interactor.saveMockCards()
         sut.viewModelNeedsUpdate()
         XCTAssert(controller.cardsList[0].cardExpirationStatus == .notExpired)
