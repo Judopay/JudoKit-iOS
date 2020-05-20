@@ -54,3 +54,4 @@
 #import "JPCard.h"
 #import "JPCardDetails.h"
 #import "JudoKit.h"
+#import "JP3DSConfiguration.h"
