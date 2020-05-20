@@ -41,6 +41,10 @@
     return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeApplePay];
 }
 
++ (instancetype)pbba {
+    return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypePbba];
+}
+
 - (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type {
     if (self = [super init]) {
         switch (type) {
@@ -48,15 +52,20 @@
                 _title = @"Cards";
                 _iconName = @"cards-pay-icon";
                 break;
-
+                
             case JPPaymentMethodTypeIDeal:
                 _title = @"iDeal";
                 _iconName = @"ideal-pay-icon";
                 break;
-
+                
             case JPPaymentMethodTypeApplePay:
                 _title = nil;
                 _iconName = @"apple-pay-icon";
+                break;
+                
+            case JPPaymentMethodTypePbba:
+                _title = @"PBBA";
+                _iconName = @"zapp-icon";
                 break;
         }
         _type = type;

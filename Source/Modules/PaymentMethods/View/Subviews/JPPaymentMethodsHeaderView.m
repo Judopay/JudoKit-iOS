@@ -151,7 +151,12 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
         [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
-
+    
+    if (viewModel.paymentMethodType == JPPaymentMethodTypePbba) {
+        [self.paymentStackView addArrangedSubview:self.pbbaButton];
+        return;
+    }
+    
     [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
@@ -340,6 +345,28 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
         [_payButton setClipsToBounds:YES];
     }
     return _payButton;
+}
+
+- (PBBAButton *)pbbaButton {
+    if (!_pbbaButton) {
+        _pbbaButton = [PBBAButton new];
+        [_pbbaButton.subviews.firstObject.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+            if ([obj isKindOfClass:[UILabel class]] || [obj isKindOfClass:[UIButton class]]) {
+                [obj removeFromSuperview];
+                return;
+            }
+            [obj.subviews.firstObject.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+            [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:self.payButton.frame.size.height].active = YES;
+            [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor].active = YES;
+            [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor].active = YES;
+            [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor].active = YES;
+            [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor].active = YES;
+        }];
+        _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_pbbaButton setClipsToBounds:YES];
+    }
+    return _pbbaButton;
 }
 
 - (PKPaymentButton *)applePayButton {

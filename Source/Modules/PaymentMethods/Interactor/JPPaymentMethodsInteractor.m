@@ -44,6 +44,7 @@
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
+#import "JPPBBAService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -51,6 +52,7 @@
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
@@ -155,7 +157,13 @@
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
-
+    
+    if ([self.configuration.amount.currency isEqualToString:kCurrencyPounds] && [PBBAAppUtils isCFIAppAvailable]) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
+    } else {
+        [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
+    }
+    
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 
@@ -208,6 +216,12 @@
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
 }
 
+#pragma mark - PBBA payment
+
+- (void)openPBBAWithCompletion:(JPCompletionBlock)completion {
+    [self.pbbaService openPBBAMerchantApp:completion];
+}
+
 #pragma mark - Is Apple Pay ready
 
 - (bool)isApplePaySetUp {
@@ -233,6 +247,15 @@
         _threeDSecureService = [JP3DSService new];
     }
     return _threeDSecureService;
+}
+
+- (JPPBBAService *)pbbaService {
+    if (!_pbbaService && self.configuration) {
+        _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
+                                                 transactionService:self.transactionService];
+        _pbbaService.statusViewDelegate = self;
+    }
+    return _pbbaService;
 }
 
 - (JPStoredCardDetails *)selectedCard {
@@ -289,6 +312,15 @@
         _storedErrors = [NSMutableArray new];
     }
     return _storedErrors;
+}
+
+#pragma mark - JPStatusViewDelegate implementation
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self.statusViewDelegate showStatusViewWith:status];
+}
+
+-(void)hideStatusView {
+    [self.statusViewDelegate hideStatusView];
 }
 
 @end

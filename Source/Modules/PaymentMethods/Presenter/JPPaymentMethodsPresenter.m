@@ -128,6 +128,13 @@
         return;
     }
 
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
+        [self.interactor openPBBAWithCompletion:^(JPResponse *response, NSError *error) {
+            [weakSelf handleCallbackWithResponse:response andError:error];
+        }];
+        return;
+    }
+
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                    andCompletion:^(JPResponse *response, NSError *error) {
                                        [weakSelf handleCallbackWithResponse:response
@@ -284,6 +291,8 @@
         case JPPaymentMethodTypeIDeal:
             [self prepareIDEALBankListModel];
             break;
+        case JPPaymentMethodTypePbba:
+            break;
     }
 }
 
@@ -329,7 +338,8 @@
         }
     }
 
-    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal ||
+        self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
         self.headerModel.payButtonModel.isEnabled = YES;
     }
 
@@ -490,6 +500,15 @@
         _paymentMethods = [self.interactor getPaymentMethods];
     }
     return _paymentMethods;
+}
+
+#pragma mark - JPStatusViewDelegate implementation
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self.statusViewDelegate showStatusViewWith:status];
+}
+
+-(void)hideStatusView {
+    [self.statusViewDelegate hideStatusView];
 }
 
 @end

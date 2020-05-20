@@ -2,3 +2,4 @@ github "datatheorem/TrustKit" == 1.6.4
 github "faceterteam/PayCards_iOS"
 github "Judopay/DeviceDNA-iOS"
 github "AliSoftware/OHHTTPStubs" == 9.0.0
+github "Judopay/ZappMerchantLib-R2-iOS" "feature/carthage_support"

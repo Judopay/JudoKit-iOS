@@ -1,6 +1,6 @@
 //
-//  JPTransactionStatusView.h
-//  JudoKit-iOS
+//  JPPBBAConfiguration.m
+//  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,35 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPPBBAConfiguration.h"
 
-@class JPTheme;
+@implementation JPPBBAConfiguration
 
-typedef NS_ENUM(NSUInteger, JPTransactionStatus) {
-    JPTransactionStatusPending,
-    JPTransactionStatusPendingDelayed,
-    JPTransactionStatusTimeout
-};
+#pragma mark - Initializers
 
-@protocol JPStatusViewDelegate
--(void)showStatusViewWith:(JPTransactionStatus)status;
--(void)hideStatusView;
-@end
+- (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
+                        emailAddress:(NSString *_Nullable)emailAddress
+                  appearsOnStatement:(NSString *_Nullable)appearsOnStatement {
+    
+    self.mobileNumber = mobileNumber;
+    self.emailAddress = emailAddress;
+    self.appearsOnStatement = appearsOnStatement;
 
-@interface JPTransactionStatusView : UIView
-
-/**
- * A method used to apply a theme to the view
- *
- * @param theme - the JPTheme object used to configure the user interface
- */
-- (void)applyTheme:(JPTheme *)theme;
-
-/**
- * A method for changing the transaction status view based on a provided status
- *
- * @param status - one of the pre-defined JPTransactionStatus values;
- */
-- (void)changeToTransactionStatus:(JPTransactionStatus)status;
+    return self;
+}
 
 @end

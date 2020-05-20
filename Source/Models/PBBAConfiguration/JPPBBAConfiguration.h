@@ -1,6 +1,6 @@
 //
-//  JPTransactionStatusView.h
-//  JudoKit-iOS
+//  JPPBBAConfiguration.h
+//  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,35 +22,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@class JPTheme;
-
-typedef NS_ENUM(NSUInteger, JPTransactionStatus) {
-    JPTransactionStatusPending,
-    JPTransactionStatusPendingDelayed,
-    JPTransactionStatusTimeout
-};
-
-@protocol JPStatusViewDelegate
--(void)showStatusViewWith:(JPTransactionStatus)status;
--(void)hideStatusView;
-@end
-
-@interface JPTransactionStatusView : UIView
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- * A method used to apply a theme to the view
- *
- * @param theme - the JPTheme object used to configure the user interface
+ * A configuration file responsible for setting additionals parameters
+ * for PBBA method.
  */
-- (void)applyTheme:(JPTheme *)theme;
+@interface JPPBBAConfiguration : NSObject
 
 /**
- * A method for changing the transaction status view based on a provided status
- *
- * @param status - one of the pre-defined JPTransactionStatus values;
+ * [Optional] The merchant mobile number
  */
-- (void)changeToTransactionStatus:(JPTransactionStatus)status;
+@property (nonatomic, strong) NSString *_Nullable mobileNumber;
+
+/**
+ * [Optional] The merchant email address
+ */
+@property (nonatomic, strong) NSString *_Nullable emailAddress;
+
+/**
+ * [Optional] The merchant appears on statement
+ */
+@property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
+
+/**
+ * @param mobileNumber          - The merchant mobile number
+ * @param emailAddress          - The merchant email address
+ * @param appearsOnStatement    - The merchant appears on statement
+ */
+- (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
+                        emailAddress:(NSString *_Nullable)emailAddress
+                  appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
 
 @end
+
+NS_ASSUME_NONNULL_END

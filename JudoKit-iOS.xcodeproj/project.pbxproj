@@ -18,6 +18,10 @@
 		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
+		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; };
+		0783431F24755348000DA445 /* JPPBBAService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431E24755348000DA445 /* JPPBBAService.m */; };
+		0783432124755356000DA445 /* JPPBBAService.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783432024755354000DA445 /* JPPBBAService.h */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -339,6 +343,10 @@
 		072AFF3A2451DE5E0038A417 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
 		072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		072AFF442451E7C70038A417 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Source/DeviceDNA.framework"; sourceTree = "<group>"; };
+		0783431924754BCC000DA445 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
+		0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
+		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
+		0783432024755354000DA445 /* JPPBBAService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPBBAService.h; sourceTree = "<group>"; };
 		07D709E324406A230039D187 /* JPTransactionServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPTransactionServiceTest.swift; sourceTree = "<group>"; };
 		07D70A20244742E70039D187 /* JPUKPostCodeValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPUKPostCodeValidation.swift; sourceTree = "<group>"; };
 		07D70A21244742E70039D187 /* JPUSAPostCodeValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPUSAPostCodeValidation.swift; sourceTree = "<group>"; };
@@ -697,6 +705,24 @@
 			path = Sevices;
 			sourceTree = "<group>";
 		};
+		0783431824754BAE000DA445 /* PBBAConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */,
+				0783431924754BCC000DA445 /* JPPBBAConfiguration.m */,
+			);
+			path = PBBAConfiguration;
+			sourceTree = "<group>";
+		};
+		0783431D247552FA000DA445 /* PBBA */ = {
+			isa = PBXGroup;
+			children = (
+				0783431E24755348000DA445 /* JPPBBAService.m */,
+				0783432024755354000DA445 /* JPPBBAService.h */,
+			);
+			path = PBBA;
+			sourceTree = "<group>";
+		};
 		07D709E524406A2D0039D187 /* TransactionService */ = {
 			isa = PBXGroup;
 			children = (
@@ -996,6 +1022,7 @@
 		300071C523F6A78E0099F3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0783431824754BAE000DA445 /* PBBAConfiguration */,
 				30489AD32460737A0085B4F2 /* Error */,
 				3000737923FBECCE0099F3C5 /* 3DSConfiguration */,
 				3000728F23F6AB550099F3C5 /* Address */,
@@ -1790,6 +1817,7 @@
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0783431D247552FA000DA445 /* PBBA */,
 				070F1FE9243B2391005D8FAB /* ConfigurationValidation */,
 				3000738823FBEDC80099F3C5 /* 3DSService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
@@ -2114,6 +2142,7 @@
 				30006FA223F6993A0099F3C5 /* CLLocation+Additions.h in Headers */,
 				300072C923F6AB560099F3C5 /* JPConfiguration.h in Headers */,
 				3000731E23FA9BBD0099F3C5 /* JPContactInformation.h in Headers */,
+				0783432124755356000DA445 /* JPPBBAService.h in Headers */,
 				30221C6F23FEC87900BF2823 /* JPCardCustomizationTitleCell.h in Headers */,
 				30006F8C23F6993A0099F3C5 /* UITextField+Additions.h in Headers */,
 				529CCB8D23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.h in Headers */,
@@ -2121,6 +2150,7 @@
 				30006F9623F6993A0099F3C5 /* NSArray+Additions.h in Headers */,
 				52B4CA46241EF7AA009C28DC /* JPTransactionStatusView.h in Headers */,
 				3000733623FA9C1C0099F3C5 /* JPTransactionEnricher.h in Headers */,
+				0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */,
 				300072BF23F6AB560099F3C5 /* JPCardStorage.h in Headers */,
 				30006F3623F697B60099F3C5 /* JPCardValidationService.h in Headers */,
 				52B74D9323F98B4C009FE38C /* JPTransactionPresenter.h in Headers */,
@@ -2378,6 +2408,7 @@
 				30D61DE623BE3976004E5CEE /* JPPaymentMethodsHeaderView.m in Sources */,
 				3000734623FA9C6D0099F3C5 /* JPReachability.m in Sources */,
 				52B74D9223F98B4C009FE38C /* JPTransactionViewModel.m in Sources */,
+				0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */,
 				52B74D9823F98B4C009FE38C /* JPTransactionButton.m in Sources */,
 				30006F9023F6993A0099F3C5 /* NSString+Additions.m in Sources */,
 				30DB512123100E6B00B73D66 /* Functions.m in Sources */,
@@ -2465,6 +2496,7 @@
 				30D61D6223BB741A004E5CEE /* JPPaymentMethodsEmptyCardListCell.m in Sources */,
 				52B4CAE2241FB93D009C28DC /* JPSection.m in Sources */,
 				52B4CA27241EF5B6009C28DC /* JPPaymentMethodsIDEALBankCell.m in Sources */,
+				0783431F24755348000DA445 /* JPPBBAService.m in Sources */,
 				30D61D6623BB741A004E5CEE /* JPPaymentMethodsCardCell.m in Sources */,
 				300072D623F6AB560099F3C5 /* JPPrimaryAccountDetails.m in Sources */,
 				300072BE23F6AB560099F3C5 /* JPTransactionData.m in Sources */,

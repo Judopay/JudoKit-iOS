@@ -24,6 +24,7 @@
 
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
+#import "JPPBBAConfiguration.h"
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration;
 
@@ -85,6 +86,12 @@
  * Not setting this property will hide Apple Pay from the Judo Payment Method screen, even though it has been set as one of the payment methods.
  */
 @property (nonatomic, strong) JPApplePayConfiguration *_Nullable applePayConfiguration;
+
+/**
+ * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
+ * It is optional field for merchant
+ */
+@property (nonatomic, strong) JPPBBAConfiguration *_Nullable pbbaConfiguration;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.
