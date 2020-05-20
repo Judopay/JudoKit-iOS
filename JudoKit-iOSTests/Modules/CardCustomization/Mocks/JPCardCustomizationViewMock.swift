@@ -29,6 +29,7 @@ class JPCardCustomizationViewMock: JPCardCustomizationView {
     
     var viewUpdated = false
     var viewModelsSUT = [JPCardCustomizationViewModel]()
+    
     func updateView(with viewModels: [JPCardCustomizationViewModel], shouldPreserveResponder: Bool) {
         viewModelsSUT = viewModels
         viewUpdated = true
