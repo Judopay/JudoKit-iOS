@@ -55,3 +55,4 @@
 #import "JPCardDetails.h"
 #import "JudoKit.h"
 #import "JP3DSConfiguration.h"
+#import "UIImage+Additions.h"
