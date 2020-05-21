@@ -24,4 +24,30 @@ import XCTest
 @testable import JudoKit_iOS
 
 class SDKInfoTest: XCTestCase {
+    
+    /*
+     * GIVEN: Creating JPSDKInfo with Designated Init
+     *
+     * WHEN: inser version and name
+     *
+     * THEN: should create correct fields in JPSDKInfo object
+     */
+    func test_initWithVersion_WhenDesignatedInit_ShouldFillFields() {
+        let sut = JPSDKInfo(version: "version", name: "name")
+        XCTAssertEqual(sut.version, "version")
+        XCTAssertEqual(sut.name, "name")
+    }
+    
+    /*
+     * GIVEN: Creating JPSDKInfo with class init
+     *
+     * WHEN: inser version and name
+     *
+     * THEN: should create correct fields in JPSDKInfo object
+     */
+    func test_initWithVersion_WhenClassInit_ShouldFillFields() {
+        let sut = JPSDKInfo.init(version: "version", name: "name")
+        XCTAssertEqual(sut.version, "version")
+        XCTAssertEqual(sut.name, "name")
+    }
 }
