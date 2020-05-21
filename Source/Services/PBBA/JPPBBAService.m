@@ -78,7 +78,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithURLString:kRedirectEndpoint
+    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:HTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, JPError *error) {
