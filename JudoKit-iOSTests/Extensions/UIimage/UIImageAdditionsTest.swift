@@ -27,16 +27,40 @@ import XCTest
 @testable import JudoKit_iOS
 
 class UIImageAdditionsTest: XCTestCase {
-
+    
     /*
-    * GIVEN: UIImage addition
-    *
-    * WHEN: trying to get headerImage for: .discover type
-    *
-    * THEN: shoould return non nill image
-    */
-    func test_ImageAddition_WhenGettingHeaderImage_ShouldReturnNonNill() {
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .discover type
+     *
+     * THEN: shoould return non nill image
+     */
+    func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .discover)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition init
+     *
+     * WHEN: trying to get image for string name
+     *
+     * THEN: shoould return non nill image
+     */
+    func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNill() {
+        let image = UIImage.init(iconName: "lock-icon")
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition init with card type
+     *
+     * WHEN: trying to get image for card
+     *
+     * THEN: shoould return non nill image
+     */
+    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNill() {
+        let image = UIImage.init(for: .discover)
         XCTAssertNotNil(image)
     }
 }

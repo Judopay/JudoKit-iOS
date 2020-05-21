@@ -58,6 +58,7 @@
 		07684C7B2472C26000A49EB9 /* JudoKit-iOSTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */; };
 		077F500D24756AA0004B81E2 /* SDKInfoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F500C24756AA0004B81E2 /* SDKInfoTest.swift */; };
 		079033B12476819000689F06 /* UIImageAdditionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079033B02476819000689F06 /* UIImageAdditionsTest.swift */; };
+		079033B42476A26700689F06 /* JPTransactionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079033B32476A26700689F06 /* JPTransactionTest.swift */; };
 		079FA32B2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA32A2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift */; };
 		079FA32E2473CFF700DB1BEA /* JPAmountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA32D2473CFF700DB1BEA /* JPAmountTests.swift */; };
 		079FA3312473D26A00DB1BEA /* JPAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3302473D26A00DB1BEA /* JPAddressTests.swift */; };
@@ -412,6 +413,7 @@
 		07684C772472BD2C00A49EB9 /* NSStringAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStringAdditionsTests.swift; sourceTree = "<group>"; };
 		077F500C24756AA0004B81E2 /* SDKInfoTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKInfoTest.swift; sourceTree = "<group>"; };
 		079033B02476819000689F06 /* UIImageAdditionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditionsTest.swift; sourceTree = "<group>"; };
+		079033B32476A26700689F06 /* JPTransactionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPTransactionTest.swift; sourceTree = "<group>"; };
 		079FA32A2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationAdditionsTests.swift; sourceTree = "<group>"; };
 		079FA32D2473CFF700DB1BEA /* JPAmountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPAmountTests.swift; sourceTree = "<group>"; };
 		079FA3302473D26A00DB1BEA /* JPAddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPAddressTests.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 		0708AD0A246BEB9500ED6FE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				079033B22476A25C00689F06 /* JPTransaction */,
 				077F500B24756A93004B81E2 /* SDKInfo */,
 				079FA3452475162A00DB1BEA /* JP3DSConfiguration */,
 				079FA34224740F9000DB1BEA /* JPContactInformation */,
@@ -1042,6 +1045,14 @@
 				079033B02476819000689F06 /* UIImageAdditionsTest.swift */,
 			);
 			path = UIimage;
+			sourceTree = "<group>";
+		};
+		079033B22476A25C00689F06 /* JPTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				079033B32476A26700689F06 /* JPTransactionTest.swift */,
+			);
+			path = JPTransaction;
 			sourceTree = "<group>";
 		};
 		079FA3292473CDBA00DB1BEA /* UIApplication */ = {
@@ -2866,6 +2877,7 @@
 				0708AD29246BEB9500ED6FE9 /* JPTransactionServiceStub.swift in Sources */,
 				0708AD27246BEB9500ED6FE9 /* JPPaymentMethodsViewControllerMock.swift in Sources */,
 				075B0749246D617400351CD2 /* JPTransactionRouterMock.swift in Sources */,
+				079033B42476A26700689F06 /* JPTransactionTest.swift in Sources */,
 				075B0757246D81AA00351CD2 /* JPCardCustomizationRouterMock.swift in Sources */,
 				079FA32B2473CDD800DB1BEA /* UIApplicationAdditionsTests.swift in Sources */,
 				079FA3472475163A00DB1BEA /* JP3DSConfigurationTest.swift in Sources */,
