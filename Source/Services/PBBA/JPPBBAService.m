@@ -45,9 +45,6 @@
 
 #pragma mark - Constants
 
-static NSString *const kPbbaBaseURL = @"https://api.karatepay.com/";
-static NSString *const kPbbaSandboxBaseURL = @"https://api-sandbox.karatepay.com/";
-
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 5.0f;
@@ -81,8 +78,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     __weak typeof(self) weakSelf = self;
-    NSString *urlString = [NSString stringWithFormat:@"%@%@", self.pbbaBaseURL, kRedirectEndpoint];
-    [self.transactionService sendRequestWithURLString:urlString
+    [self.transactionService sendRequestWithURLString:kRedirectEndpoint
                                           httpMethod:HTTPMethodPOST
                                           parameters:parameters
                                           completion:^(JPResponse *response, JPError *error) {
@@ -130,10 +126,10 @@ static const int NSPOSIXErrorDomainCode = 53;
         return;
     }
 
-    NSString *urlString = [NSString stringWithFormat:@"%@%@/%@", self.pbbaBaseURL, kStatusRequestEndpoint, orderId];
+    NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithURLString:urlString
+    [self.transactionService sendRequestWithEndpoint:endpoint
                                           httpMethod:HTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, JPError *error) {
@@ -206,13 +202,6 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     return parameters;
-}
-
-- (NSString *)pbbaBaseURL {
-    if (self.transactionService.isSandboxed) {
-        return kPbbaSandboxBaseURL;
-    }
-    return kPbbaBaseURL;
 }
 
 @end
