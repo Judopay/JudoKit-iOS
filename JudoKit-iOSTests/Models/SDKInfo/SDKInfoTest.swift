@@ -28,7 +28,7 @@ class SDKInfoTest: XCTestCase {
     /*
      * GIVEN: Creating JPSDKInfo with Designated Init
      *
-     * WHEN: inser version and name
+     * WHEN: insert version and name
      *
      * THEN: should create correct fields in JPSDKInfo object
      */
