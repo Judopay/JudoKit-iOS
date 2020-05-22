@@ -34,6 +34,7 @@
 #import "UIView+Additions.h"
 #import "JPConfiguration.h"
 #import "JPTransactionService.h"
+#import "NSBundle+Additions.h"
 
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -179,6 +180,8 @@ static const int NSPOSIXErrorDomainCode = 53;
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;
 
+    NSString *merchantRedirectUrl = [NSString stringWithFormat:@"%@://", NSBundle.appURLScheme];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
         @"currency" : amount.currency,
@@ -188,7 +191,8 @@ static const int NSPOSIXErrorDomainCode = 53;
         @"merchantPaymentReference" : reference.paymentReference,
         @"bic" : @"RABONL2U",
         @"merchantConsumerReference" : reference.consumerReference,
-        @"siteId" : self.configuration.siteId
+        @"siteId" : self.configuration.siteId,
+        @"merchantRedirectUrl" : merchantRedirectUrl
     }];
 
     if (self.configuration.pbbaConfiguration.mobileNumber) {
