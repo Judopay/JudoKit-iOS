@@ -57,3 +57,5 @@
 #import "JP3DSConfiguration.h"
 #import "UIImage+Additions.h"
 #import "JPTransaction.h"
+#import "JPFormatters.h"
+#import "Functions.h"

@@ -70,6 +70,8 @@
 		079FA3412473EBAE00DB1BEA /* OrderDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 079FA3402473EBAE00DB1BEA /* OrderDetails.json */; };
 		079FA34424740F9B00DB1BEA /* JPContactInformationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */; };
 		079FA3472475163A00DB1BEA /* JP3DSConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */; };
+		07A05ACA2477B88800DD783A /* FunctionsHelpersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A05AC92477B88800DD783A /* FunctionsHelpersTest.swift */; };
+		07A05ACC2477B9A200DD783A /* JPFormattersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A05ACB2477B9A200DD783A /* JPFormattersTests.swift */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
@@ -425,6 +427,8 @@
 		079FA3402473EBAE00DB1BEA /* OrderDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OrderDetails.json; sourceTree = "<group>"; };
 		079FA34324740F9B00DB1BEA /* JPContactInformationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPContactInformationTest.swift; sourceTree = "<group>"; };
 		079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JP3DSConfigurationTest.swift; sourceTree = "<group>"; };
+		07A05AC92477B88800DD783A /* FunctionsHelpersTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsHelpersTest.swift; sourceTree = "<group>"; };
+		07A05ACB2477B9A200DD783A /* JPFormattersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPFormattersTests.swift; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
@@ -1117,6 +1121,15 @@
 				079FA3462475163A00DB1BEA /* JP3DSConfigurationTest.swift */,
 			);
 			path = JP3DSConfiguration;
+			sourceTree = "<group>";
+		};
+		07A05AC82477B86E00DD783A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				07A05AC92477B88800DD783A /* FunctionsHelpersTest.swift */,
+				07A05ACB2477B9A200DD783A /* JPFormattersTests.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		07D70A3A2449BA9F0039D187 /* NSDateFormator */ = {
@@ -2275,6 +2288,7 @@
 			children = (
 				079FA33B2473E58600DB1BEA /* JudoKitTest.swift */,
 				0708AD1A246BEB9500ED6FE9 /* JsonStubs */,
+				07A05AC82477B86E00DD783A /* Helpers */,
 				0708AD0D246BEB9500ED6FE9 /* Extensions */,
 				0708AD0A246BEB9500ED6FE9 /* Models */,
 				0708ACFB246BEB9500ED6FE9 /* Modules */,
@@ -2869,7 +2883,9 @@
 				075B0753246D817B00351CD2 /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0708AD2A246BEB9500ED6FE9 /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				07684C6D2472723200A49EB9 /* NSBundleAdditionsTests.swift in Sources */,
+				07A05ACC2477B9A200DD783A /* JPFormattersTests.swift in Sources */,
 				079033B12476819000689F06 /* UIImageAdditionsTest.swift in Sources */,
+				07A05ACA2477B88800DD783A /* FunctionsHelpersTest.swift in Sources */,
 				075B0747246D616800351CD2 /* JPTransactionViewMock.swift in Sources */,
 				079FA33F2473E8D300DB1BEA /* JPOrderDetailsTest.swift in Sources */,
 				0708AD38246BEB9500ED6FE9 /* JPTransactionServiceTest.swift in Sources */,
