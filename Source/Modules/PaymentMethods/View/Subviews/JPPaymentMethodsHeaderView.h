@@ -24,6 +24,7 @@
 
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
+#import "ZappMerchantLib/ZappMerchantLib.h"
 
 @class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
 
@@ -38,6 +39,11 @@
  * The Apple Pay branded button that triggers the Apple Pay flow
  */
 @property (nonatomic, strong) PKPaymentButton *applePayButton;
+
+/**
+ * The PBBA branded button that triggers the PBBA flow
+ */
+@property (nonatomic, strong) PBBAButton *pbbaButton;
 
 /**
  * A method used to apply a theme to the view

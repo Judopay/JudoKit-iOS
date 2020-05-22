@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethod.h
-//  JudoKit-iOS
+//  JPPBBAConfiguration.h
+//  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,49 +22,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPaymentMethodType.h"
 #import <Foundation/Foundation.h>
 
-@interface JPPaymentMethod : NSObject
+/**
+ * A configuration file responsible for setting additionals parameters
+ * for PBBA method.
+ */
+@interface JPPBBAConfiguration : NSObject
 
 /**
- * The title of the payment method
+ * [Optional] The merchant mobile number
  */
-@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, strong) NSString *_Nullable mobileNumber;
 
 /**
- * The icon name of the payment method
+ * [Optional] The merchant email address
  */
-@property (nonatomic, strong, readonly) NSString *iconName;
+@property (nonatomic, strong) NSString *_Nullable emailAddress;
 
 /**
- * The type of the payment method
+ * [Optional] The merchant appears on statement
  */
-@property (nonatomic, assign, readonly) JPPaymentMethodType type;
+@property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
 
 /**
- * A pre-defined initializer that describes the card payment method
+ * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
+ *
+ * @param mobileNumber          - The merchant mobile number
+ * @param emailAddress          - The merchant email address
+ * @param appearsOnStatement    - The merchant appears on statement
+ *
+ * @return a JPPBBAConfiguration object
  */
-+ (instancetype)card;
-
-/**
- * A pre-defined initializer that describes the iDeal payment method
- */
-+ (instancetype)iDeal;
-
-/**
- * A pre-defined initializer that describes the Apple Pay payment method
- */
-+ (instancetype)applePay;
-
-/**
- * A pre-defined initializer that describes the PBBA payment method
- */
-+ (instancetype)pbba;
-
-/**
- * An initializer that creates a JPPaymentMethod instance based on a pre-defined type
- */
-- (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type;
+- (_Nonnull instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
+                                 emailAddress:(NSString *_Nullable)emailAddress
+                           appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
 
 @end

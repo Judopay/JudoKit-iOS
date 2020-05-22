@@ -38,11 +38,13 @@
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
+#import "UIView+Additions.h"
 
 @interface JPPaymentMethodsViewController ()
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
+@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 
 @end
 
@@ -108,6 +110,12 @@
 
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
+    self.paymentMethodsView.headerView.pbbaButton.delegate = self;
+}
+
+- (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
+    [self.presenter handlePayButtonTap];
+    return true;
 }
 
 - (void)configureTargets {
@@ -176,6 +184,20 @@
     CGFloat height = MIN(MAX(yValue, 370 * getWidthAspectRatio()), 418 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
+}
+
+#pragma mark - JPStatusViewDelegate
+
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self hideStatusView];
+    [self.paymentMethodsView addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:self.paymentMethodsView withPadding:0.0];
+    [self.transactionStatusView applyTheme:self.uiConfiguration.theme];
+    [self.transactionStatusView changeToTransactionStatus:status];
+}
+
+-(void)hideStatusView {
+    [self.transactionStatusView removeFromSuperview];
 }
 
 @end
@@ -302,6 +324,14 @@
     [alertController addAction:cancelAction];
     [alertController addAction:deleteAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (JPTransactionStatusView *)transactionStatusView {
+    if (!_transactionStatusView) {
+        _transactionStatusView = [JPTransactionStatusView new];
+        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _transactionStatusView;
 }
 
 @end

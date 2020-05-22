@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethod.h
-//  JudoKit-iOS
+//  JPPBBAConfiguration.m
+//  JudoKitObjC
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,49 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPaymentMethodType.h"
-#import <Foundation/Foundation.h>
+#import "JPPBBAConfiguration.h"
 
-@interface JPPaymentMethod : NSObject
+@implementation JPPBBAConfiguration
 
-/**
- * The title of the payment method
- */
-@property (nonatomic, strong, readonly) NSString *title;
+#pragma mark - Initializers
 
-/**
- * The icon name of the payment method
- */
-@property (nonatomic, strong, readonly) NSString *iconName;
+- (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
+                        emailAddress:(NSString *_Nullable)emailAddress
+                  appearsOnStatement:(NSString *_Nullable)appearsOnStatement {
+    
+    self.mobileNumber = mobileNumber;
+    self.emailAddress = emailAddress;
+    self.appearsOnStatement = appearsOnStatement;
 
-/**
- * The type of the payment method
- */
-@property (nonatomic, assign, readonly) JPPaymentMethodType type;
-
-/**
- * A pre-defined initializer that describes the card payment method
- */
-+ (instancetype)card;
-
-/**
- * A pre-defined initializer that describes the iDeal payment method
- */
-+ (instancetype)iDeal;
-
-/**
- * A pre-defined initializer that describes the Apple Pay payment method
- */
-+ (instancetype)applePay;
-
-/**
- * A pre-defined initializer that describes the PBBA payment method
- */
-+ (instancetype)pbba;
-
-/**
- * An initializer that creates a JPPaymentMethod instance based on a pre-defined type
- */
-- (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type;
+    return self;
+}
 
 @end

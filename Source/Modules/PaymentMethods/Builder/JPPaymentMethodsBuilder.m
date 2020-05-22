@@ -36,6 +36,7 @@
 #import "JPPaymentMethodsViewController.h"
 #import "JPReference.h"
 #import "JudoKit.h"
+#import "NSBundle+Additions.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
@@ -48,11 +49,14 @@
                                       completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
+        BOOL isPbBAPresent = (paymentMethod.type == JPPaymentMethodTypePbba);
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
         BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
+        BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
+        BOOL isURLSchemeMissing = (NSBundle.appURLScheme == nil) || (NSBundle.appURLScheme.length == 0);
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
             completion(nil, JPError.judoInvalidIDEALCurrencyError);
@@ -61,6 +65,16 @@
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
             completion(nil, JPError.judoApplePayNotSupportedError);
+            return nil;
+        }
+        
+        if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
+            completion(nil, JPError.judoInvalidPBBACurrency);
+            return nil;
+        }
+        
+        if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
+            completion(nil, JPError.judoPBBAURLSchemeMissing);
             return nil;
         }
     }
@@ -80,6 +94,8 @@
                                                    transactionService:transactionService
                                                            completion:completion];
 
+    interactor.statusViewDelegate = presenter;
+    presenter.statusViewDelegate = viewController;
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;
