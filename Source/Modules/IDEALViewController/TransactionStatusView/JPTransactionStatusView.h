@@ -33,7 +33,17 @@ typedef NS_ENUM(NSUInteger, JPTransactionStatus) {
 };
 
 @protocol JPStatusViewDelegate
+
+/**
+ * A method used to show transaction status view
+ *
+ * @param status - the JPTransactionStatus status used to configure status view
+ */
 -(void)showStatusViewWith:(JPTransactionStatus)status;
+
+/**
+ * A method used to hide transaction status view
+ */
 -(void)hideStatusView;
 @end
 

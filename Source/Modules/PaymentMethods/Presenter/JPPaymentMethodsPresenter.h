@@ -23,10 +23,8 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "JPTransactionStatusView.h"
 
-@protocol JPPaymentMethodsView
-, JPPaymentMethodsInteractor, JPPaymentMethodsRouter;
+@protocol JPPaymentMethodsView, JPPaymentMethodsInteractor, JPPaymentMethodsRouter, JPStatusViewDelegate;
 @class JPPaymentMethodsCardModel;
 
 @protocol JPPaymentMethodsPresenter
@@ -123,6 +121,5 @@
 * A weak reference to the object that adopts the JPStatusViewDelegate protocol
 */
 @property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
-
 
 @end

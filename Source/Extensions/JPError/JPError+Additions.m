@@ -76,12 +76,12 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 
 + (nonnull JPError *)judoInvalidPBBACurrency {
     NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
-                                                    failureReason:nil
-                                                            title:nil];
-
-       return [JPError errorWithDomain:JudoErrorDomain
-                                  code:JudoErrorParameterError
-                              userInfo:userInfo];
+                                                 failureReason:nil
+                                                         title:nil];
+    
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorParameterError
+                           userInfo:userInfo];
 }
 
 + (JPError *)judoApplePayNotSupportedError {

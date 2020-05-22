@@ -65,7 +65,7 @@
 - (void)startApplePayWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
-* Starts the PBBA payment
+ * Starts the PBBA payment
 */
 - (void)openPBBAWithCompletion:(_Nullable JPCompletionBlock)completion;
 
@@ -155,6 +155,5 @@
 * A weak reference to the object that adopts the JPStatusViewDelegate protocol
 */
 @property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
-
 
 @end

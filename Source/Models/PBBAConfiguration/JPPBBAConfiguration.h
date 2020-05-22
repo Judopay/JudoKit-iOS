@@ -24,8 +24,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 /**
  * A configuration file responsible for setting additionals parameters
  * for PBBA method.
@@ -48,14 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
 
 /**
+ * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
+ *
  * @param mobileNumber          - The merchant mobile number
  * @param emailAddress          - The merchant email address
  * @param appearsOnStatement    - The merchant appears on statement
+ *
+ * @return a JPPBBAConfiguration object
  */
-- (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
-                        emailAddress:(NSString *_Nullable)emailAddress
-                  appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
+- (_Nonnull instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
+                                 emailAddress:(NSString *_Nullable)emailAddress
+                           appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
 
 @end
-
-NS_ASSUME_NONNULL_END
