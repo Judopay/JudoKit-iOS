@@ -39,23 +39,34 @@ class JPApplePayServiceTest: XCTestCase {
     }
     
     /*
-    * GIVEN: Checking apple method for simator
-    *
-    * THEN: should return true
-    */
+     * GIVEN: Checking apple method for simator
+     *
+     * THEN: should return true
+     */
     func test_IsApplePaySetUp_WhenCallingApplePay_ShouldReturnTrueForSimlator() {
         let isApplePaySetUp = sut.isApplePaySetUp()
         XCTAssertTrue(isApplePaySetUp)
     }
     
-     
     /*
-    * GIVEN: Checking apple pay supported method for simator
-    *
-    * THEN: should return true
-    */
+     * GIVEN: Checking apple pay supported method for simator
+     *
+     * THEN: should return true
+     */
     func test_IsApplePaySupported_WhenCheckingForSupport_ShouldReturnTrue() {
         let supported = JPApplePayService.isApplePaySupported()
         XCTAssertTrue(supported)
+    }
+    
+    /*
+     * GIVEN: creating JPApplePayService
+     *
+     * WHEN: valid configuration and transactionService
+     *
+     * THEN: should return configured instance of JPApplePayService
+     */
+    func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
+        let applePayService = JPApplePayService(configuration: configuration, transactionService: service)
+        XCTAssertNotNil(applePayService)
     }
 }
