@@ -32,7 +32,7 @@ class JPTransactionServiceTest: XCTestCase {
     lazy var transactionAmmount = JPAmount("100.0", currency: "EUR")
     lazy var transactionReference = JPReference(consumerReference: "consumerReference",
                                                 paymentReference: "PaymentReference")
-    lazy var transactionConfigurations = JPConfiguration(judoID: "JUDAID",
+    lazy var transactionConfigurations = JPConfiguration(judoID: "JUDOID",
                                                          amount: transactionAmmount,
                                                          reference: transactionReference)
     
@@ -47,7 +47,9 @@ class JPTransactionServiceTest: XCTestCase {
         XCTAssertEqual(transaction.amount!.amount, transactionAmmount.amount)
         XCTAssertEqual(transaction.amount!.currency, transactionAmmount.currency)
         XCTAssertEqual(transaction.reference!.consumerReference, transactionReference.consumerReference)
-        XCTAssertEqual(transaction.reference!.paymentReference, transactionReference.paymentReference)
+        
+        // TODO: Revert once the temporary duplicate transaction solution is no longer needed
+        // XCTAssertEqual(transaction.reference!.paymentReference, transactionReference.paymentReference)
     }
     
     func testIsSandbox() {
