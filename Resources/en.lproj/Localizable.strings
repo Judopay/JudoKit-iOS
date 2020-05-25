@@ -174,7 +174,7 @@
 "redirecting" = "Redirecting...";
 "verifying_payment" = "Verifying payment";
 "verifying_card" = "Verifying card";
-"secure_server_transmission" = "Your card details are encrypted using SSL before transmission to our secure payment service provider.";
+"secure_server_transmission" = "Your card details are encrypted using TLS before transmission to our secure payment service provider.";
 
 //Customize Card
 "customize_card" = "Customize Card";
