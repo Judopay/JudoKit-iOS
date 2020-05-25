@@ -59,3 +59,4 @@
 #import "JPTransaction.h"
 #import "JPFormatters.h"
 #import "Functions.h"
+#import "JPPBBAService.h"
