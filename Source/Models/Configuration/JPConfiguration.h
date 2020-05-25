@@ -88,7 +88,6 @@
 
 /**
  * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
- * It is optional field for merchant
  */
 @property (nonatomic, strong) JPPBBAConfiguration *_Nullable pbbaConfiguration;
 

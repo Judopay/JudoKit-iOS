@@ -1,6 +1,6 @@
 //
 //  JPPBBAService.h
-//  JudoKitObjC
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -106,7 +106,11 @@ static const int NSPOSIXErrorDomainCode = 53;
             [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion: completion];
         }
 
-        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController secureToken:secureToken brn:brn delegate:nil];
+        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
+                        secureToken:secureToken
+                                brn:brn
+                     expiryInterval:0
+                           delegate:nil];
     } else {
         completion(nil, JPError.judoResponseParseError);
     }
