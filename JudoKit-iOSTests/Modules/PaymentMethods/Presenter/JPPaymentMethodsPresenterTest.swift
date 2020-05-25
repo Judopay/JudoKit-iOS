@@ -62,7 +62,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: all cards are removed from store (in setUp() method)
      *
-     * THEN: should updayted conroller with 0 cards
+     * THEN: should updated conroller with 0 cards
      */
     func test_ViewModelNeedsUpdate_WhenNoCardsAreInStore_ShouldUpdateControllerWithEmptyCardList() {
         sut.viewModelNeedsUpdate()
@@ -72,7 +72,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: selecting card in JPPaymentMethodsPresenter
      *
-     * WHEN: is editing mode is on
+     * WHEN: editing mode is on
      *
      * THEN: should send user to card customization screen
      */
@@ -86,7 +86,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: selecting card in JPPaymentMethodsPresenter
      *
-     * WHEN: is editing mode is off
+     * WHEN: editing mode is off
      *
      * THEN: should call interactor card select and update controller UI with current card
      */
@@ -103,7 +103,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: is updated controller UI
      *
-     * THEN: should set up given bank in header, check if idealBankModel is not nill in controller
+     * THEN: should set up given bank in header, check if idealBankModel is not nil in controller
      */
     func test_DidSelectBankAtIndex_WhenSelectingBankForiDeal_ShouldUpdateControllerWithBankDetails() {
         sut.changePaymentMethod(to: 1)
@@ -152,7 +152,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: Clicking on apple pay
      *
-     * THEN: should be caleed startApplePay method from router
+     * THEN: should be caled startApplePay method from router
      */
     func test_HandleApplePayButtonTap() {
         sut.handleApplePayButtonTap()
@@ -219,7 +219,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: we set last card to be selected
      *
-     * THEN: last card should be ypdated with isSelected = true
+     * THEN: last card should be ydated with isSelected = true
      */
     func test_SetLastAddedCardAsSelected_WhenNoSelection_ShouldSelectLastOne()  {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
@@ -241,7 +241,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.orderCards()
         
-        let card = (JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.firstObject! as! JPStoredCardDetails)
+        let card = (JPCardStorage.sharedInstance()!.fetchStoredCardDetails()!.firstObject! as! JPStoredCardDetails)
         XCTAssertTrue(card.isDefault)
     }
     

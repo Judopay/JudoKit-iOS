@@ -39,7 +39,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     /*
      * GIVEN: User is calling payment type with server to server mode
      *
-     * THEN: should call and return not nill response
+     * THEN: should call and return not nil response
      */
     func test_ServerToServer_WhenCallingPayment_ShouldReturnNotNilResponse()  {
         let completion: JPCompletionBlock = { (response, error) in
@@ -52,7 +52,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     /*
      * GIVEN: User is calling apple pay with server to server mode
      *
-     * THEN: should call and return not nill response
+     * THEN: should call and return not nil response
      */
     func test_ServerToServerApple_WhenCallingApplePay_ShouldReturnNotNilResponse()  {
         let completion: JPCompletionBlock = { (response, error) in
@@ -107,7 +107,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     /*
      * GIVEN: Calculating all payment methods
      *
-     * WHEN: config object are seted up with GBP currency
+     * WHEN: amount currency is GBP
      *
      * THEN: count of methods should 2: cards and apple pay
      */
@@ -119,7 +119,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     /*
      * GIVEN: Calculating all payment methods
      *
-     * WHEN: config object are seted up with EUR currency
+     * WHEN: amount currency is EUR
      *
      * THEN: count of methods should 3: cards, apple ideal
      */

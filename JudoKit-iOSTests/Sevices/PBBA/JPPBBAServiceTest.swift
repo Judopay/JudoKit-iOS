@@ -1,6 +1,6 @@
 //
 //  JPPBBAServiceTest.swift
-//  JudoKitObjCTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //

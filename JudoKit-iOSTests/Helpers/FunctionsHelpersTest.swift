@@ -30,7 +30,7 @@ class FunctionsHelpersTest: XCTestCase {
      *
      * WHEN: based on simulator
      *
-     * THEN: should be no nill and bigger then zero
+     * THEN: should be no nil and bigger then zero
      */
     func test_getWidthAspectRatio_WhenSimulator_ShouldBeNonZero() {
         let sutAspect = getWidthAspectRatio()
@@ -43,7 +43,7 @@ class FunctionsHelpersTest: XCTestCase {
      *
      * WHEN: based on simulator
      *
-     * THEN: should be no nill
+     * THEN: should be no nil
      */
     func test_getUserAgent_WhenSimulator_ShouldBeNonZero() {
         let sutUserAgent = getUserAgent()
@@ -55,7 +55,7 @@ class FunctionsHelpersTest: XCTestCase {
      *
      * WHEN: based on simulator
      *
-     * THEN: should be no nill
+     * THEN: should be no nil
      */
     func test_getIPAddress_WhenSimulator_ShouldBeNonZero() {
         let sutIPAddress = getIPAddress()

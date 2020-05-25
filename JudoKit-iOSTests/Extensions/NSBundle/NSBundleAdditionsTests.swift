@@ -28,21 +28,30 @@ import XCTest
 class NSBundleAdditionsTests: XCTestCase {
     
     /*
-    * GIVEN: accesing bundle
-    *
-    * THEN: should return non nill bundle path
-    */
-    
+     * GIVEN: accesing bundle for framework
+     *
+     * THEN: should return non nil bundle path
+     */
     func test_frameworkBundle() {
         let bundle = Bundle.framework()
         XCTAssertNotNil(bundle)
     }
     
+    /*
+     * GIVEN: accesing bundle for icons
+     *
+     * THEN: should return non nil bundle path
+     */
     func test_iconsBundle() {
         let bundle = Bundle.icons()
         XCTAssertNotNil(bundle)
     }
     
+    /*
+     * GIVEN: accesing bundle for resources
+     *
+     * THEN: should return non nil bundle path
+     */
     func test_resourcesBundle() {
         let bundle = Bundle.resources()
         XCTAssertNotNil(bundle)

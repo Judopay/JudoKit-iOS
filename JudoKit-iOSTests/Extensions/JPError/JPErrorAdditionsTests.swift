@@ -30,7 +30,7 @@ class JPErrorAdditionsTests: XCTestCase {
     /*
      * GIVEN: when initialize JPError (RequestFailed type)
      *
-     * WHEN: it is valid
+     * WHEN: error object is populated with fields
      *
      * THEN: should return right description(localizaed)
      */

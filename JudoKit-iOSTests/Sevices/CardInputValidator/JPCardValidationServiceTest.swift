@@ -36,9 +36,9 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
     * GIVEN: Validate card number input
     *
-    * WHEN: card number should be validated and formated based on Luhn
+    * WHEN: invoking validateCardNumberInput
     *
-    * THEN: should be valid
+    * THEN: should return true
     */
     func test_ValidateCardNumberInput_WhenIsValid_ShouldFormatLuhnValid() {
         let result = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
@@ -49,7 +49,7 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
     * GIVEN: Validate card number input for type .maestro
     *
-    * WHEN: card number is Visa, is not supported
+    * WHEN: card number is Visa, and Visa is not supported
     *
     * THEN: should throw error with specific message
     */

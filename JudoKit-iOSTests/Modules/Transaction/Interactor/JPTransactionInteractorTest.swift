@@ -47,7 +47,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: validate card number(Visa)
      *
-     * WHEN: user input Master with valid Luhn and complete number lenght
+     * WHEN: input is a Mastercard and Luhn algorithm valid number
      *
      * THEN: result should be VALID and formated
      */
@@ -59,9 +59,9 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: validate card number(Visa)
      *
-     * WHEN: user input Master with invalid Luhn
+     * WHEN: user input Mastercard with incorrect Luhn
      *
-     * THEN: result should be INVALID
+     * THEN: result isValid should be false
      */
     func test_validateCardNumberInput_WhenLuhnValidVisa_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("4129939187355598")
@@ -73,7 +73,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: user input some special characters
      *
-     * THEN: result should be invalid
+     * THEN: result isValid should be false
      */
     func test_validateCardNumberInput_WhenSpecialCharacters_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("41299391873555+!")
@@ -83,9 +83,9 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: validate card number(Master)
      *
-     * WHEN: user input Master with valid Luhn and complete number lenght
+     * WHEN: input is a Mastercard and Luhn algorithm valid number
      *
-     * THEN: result should be VALID
+     * THEN: result isValid should be true
      */
     func test_validateCardNumberInput_WhenLuhnValidMaster_ShouldReturnValid() {
         let result = sut.validateCardNumberInput("5454422955385717")
@@ -93,11 +93,11 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: validate card number(Master)
+     * GIVEN: validate card number(Mastercard)
      *
-     * WHEN: user input Master with INVALID Luhn and complete number lenght
+     * WHEN: user input Mastercard with incorrect Luhn and complete number lenght
      *
-     * THEN: result should be INVALID
+     * THEN: result isValid should be true
      */
     func test_validateCardNumberInput_WhenLuhnInvalidMaster_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("5454452295585717")
@@ -357,7 +357,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: right lenght of secure code
      *
-     * THEN: should throw valid result
+     * THEN: isInputAllowed should be true
      */
     func test_ValidateSecureCodeInput_WhenCorrectLenght_ShouldBeValid() {
         let result = sut.validateSecureCodeInput("123")
@@ -369,7 +369,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: is less then minimum
      *
-     * THEN: should throw that code is not valid
+     * THEN: should return false
      */
     func test_validateSecureCodeInput_WhenLessThenMinimum_ShouldNotBeValid() {
         let result = sut.validateSecureCodeInput("12")
@@ -382,7 +382,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: is enabled in configs
      *
-     * THEN: should throw true result
+     * THEN: should return true
      */
     func test_IsAVSEnabled_WhenIsEnabledInconfig_ShouldBeTrue() {
         self.configuration.uiConfiguration.isAVSEnabled = true
@@ -395,13 +395,12 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: is disabled in configs
      *
-     * THEN: should throw false result
+     * THEN: should return false, there's no exception thrown
      */
     func test_IsAVSEnabled_WhenIsDisabledInconfig_ShouldBeFalse() {
         self.configuration.uiConfiguration.isAVSEnabled = false
         XCTAssertFalse(sut.isAVSEnabled())
     }
-    
     
     /*
      * GIVEN: getting transaction type
@@ -456,9 +455,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
     * GIVEN: opening 3ds error controller
     *
-    * WHEN: handle response
-    *
-    * THEN: controller should be non nill
+    * THEN: controller should be non nil
     */
     func test_Handle3DSecureTransactionFromError_WhenCalling_3dsControllerShouldBeNonNill(){
         let controller = JP3DSViewController()
@@ -470,7 +467,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: before saved an error
      *
-     * THEN: should add ro response error, savedError from storeError
+     * THEN: should add to response error, savedError from storeError
      */
     func test_completeTransactionWithResponse() {
         let savedEerror = NSError(domain: "domain", code: 111, userInfo: nil)
@@ -500,7 +497,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: Date is expired
      *
-     * THEN: should return invalid result
+     * THEN: result isValid should be false
      */
     func test_ValidateExpiryDateInput_WhenDateIsExpired_ShouldReturnInValidEResult() {
         let result = sut.validateExpiryDateInput("12/06")
@@ -513,7 +510,7 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: selected country is supported
      *
-     * THEN: should return valid result
+     * THEN: result isValid should be true
      */
     func test_ValidateCountryInput_WhenCountryUSAIsSupported_ShouldReturnValidResult() {
         let result = sut.validateCountryInput("USA")
@@ -524,7 +521,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
     * GIVEN: interactor validate postal code
     *
-    * WHEN: selected UK, and code is valid
+    * WHEN: selected country is UK, and code is valid
     *
     * THEN: should return valid result
     */

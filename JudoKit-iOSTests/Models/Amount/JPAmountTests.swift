@@ -38,7 +38,6 @@ class JPAmountTests: XCTestCase {
         XCTAssertEqual(amount.currency, "USD")
     }
     
-    
     /*
     * GIVEN: Creating JPAmount using Designated Init
     *

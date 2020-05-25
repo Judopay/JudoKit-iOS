@@ -60,7 +60,7 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
-     * GIVEN: handle input
+     * GIVEN: handleInputChange is invoked
      *
      * WHEN: type is card Number
      *
@@ -76,7 +76,7 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: card model is valid
      *
-     * THEN: should call interactor for transaction
+     * THEN: should invoke interactor.trasactionSent
      */
     func test_HandleTransactionButtonTap_WhenUserTap_ShouldCallInteractor() {
         sut.handleTransactionButtonTap()
@@ -86,7 +86,7 @@ class JPTransactionPresenterTests: XCTestCase {
     /*
      * GIVEN: User taps on scan
      *
-     * THEN: should call view with alert
+     * THEN: showedCameraAlert should be invoked
      */
     func test_HandleScanCardButtonTap_WhenScanCard_ShouldShowAlertInView() {
         sut.handleScanCardButtonTap()
@@ -96,7 +96,7 @@ class JPTransactionPresenterTests: XCTestCase {
     /*
      * GIVEN: User taps on cancel
      *
-     * THEN: should call interactor for cancel
+     * THEN: completeTransaction on interactor instance should be invoked
      */
     func test_HandleCancelButtonTap_WhenCancel_ShouldCallInteractor() {
         sut.handleCancelButtonTap()

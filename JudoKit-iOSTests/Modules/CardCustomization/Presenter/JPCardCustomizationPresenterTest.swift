@@ -43,7 +43,7 @@ class JPCardCustomizationPresenterTest: XCTestCase {
     /*
      * GIVEN: Prepare model for UI
      *
-     * WHEN: updateing card
+     * WHEN: updating card
      *
      * THEN: should call view for new UI
      */
@@ -65,7 +65,7 @@ class JPCardCustomizationPresenterTest: XCTestCase {
     /*
      * GIVEN: Change pattern type for card
      *
-     * WHEN: updateing card pattern - .blue
+     * WHEN: updating card pattern - .blue
      *
      * THEN: should call update view with new card pattern
      */
@@ -80,7 +80,7 @@ class JPCardCustomizationPresenterTest: XCTestCase {
     /*
      * GIVEN: Change card title input
      *
-     * WHEN: updateing card title with "new input"
+     * WHEN: updating card title with "new input"
      *
      * THEN: should call update view with new card title
      */
@@ -92,7 +92,7 @@ class JPCardCustomizationPresenterTest: XCTestCase {
     }
     
     /*
-     * GIVEN: user tap in cancel
+     * GIVEN: user tap cancel
      *
      * THEN: should call router and navigate back
      */

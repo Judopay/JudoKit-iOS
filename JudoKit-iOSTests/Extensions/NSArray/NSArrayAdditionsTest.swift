@@ -43,7 +43,7 @@ class NSArrayAdditionsTest: XCTestCase {
     /*
      * GIVEN: NSArray addition for prefix check
      *
-     * WHEN: array doesnt contains prefix
+     * WHEN: array doesn't contains prefix
      *
      * THEN: should return false bool value
      */

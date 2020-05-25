@@ -3145,7 +3145,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
 					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Sources",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -3193,7 +3193,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
 					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Sources",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

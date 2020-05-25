@@ -39,7 +39,7 @@ class JPApplePayServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Checking apple method for simator
+     * GIVEN: Checking apple method using simulated device
      *
      * THEN: should return true
      */
@@ -49,7 +49,7 @@ class JPApplePayServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Checking apple pay supported method for simator
+     * GIVEN: Checking apple pay supported method for simulated device
      *
      * THEN: should return true
      */
@@ -59,11 +59,11 @@ class JPApplePayServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: creating JPApplePayService
+     * GIVEN: a new instance of JPApplePayService is created
      *
-     * WHEN: valid configuration and transactionService
+     * WHEN: when a valid configuration and transactionService is provided
      *
-     * THEN: should return configured instance of JPApplePayService
+     * THEN: the returned instance of JPApplePayService should not be nil
      */
     func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
         let applePayService = JPApplePayService(configuration: configuration, transactionService: service)

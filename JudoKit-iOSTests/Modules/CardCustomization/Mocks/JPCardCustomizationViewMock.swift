@@ -34,12 +34,4 @@ class JPCardCustomizationViewMock: JPCardCustomizationView {
         viewModelsSUT = viewModels
         viewUpdated = true
     }
-    /*
-     self.titleModel,
-     self.headerModel,
-     self.patternPickerModel,
-     self.textInputModel,
-     self.isDefaultModel,
-     self.submitModel
-     */
 }

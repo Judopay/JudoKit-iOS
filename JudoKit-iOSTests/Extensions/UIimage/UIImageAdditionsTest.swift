@@ -33,7 +33,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .discover type
      *
-     * THEN: shoould return non nill image
+     * THEN: shoould return non nil image
      */
     func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .discover)
@@ -45,7 +45,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for string name
      *
-     * THEN: shoould return non nill image
+     * THEN: shoould return non nil image
      */
     func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNill() {
         let image = UIImage.init(iconName: "lock-icon")
@@ -57,7 +57,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for card
      *
-     * THEN: shoould return non nill image
+     * THEN: shoould return non nil image
      */
     func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNill() {
         let image = UIImage.init(for: .discover)

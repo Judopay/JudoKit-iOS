@@ -67,7 +67,7 @@ class JPIDEALServiceTest: XCTestCase {
     /*
      * GIVEN: JPIDEALService calling bank sale point
      *
-     * WHEN: Evrey parameter in config model is valid
+     * WHEN: Every parameter in config model is valid
      *
      * THEN: should return valid response
      */

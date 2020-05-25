@@ -291,7 +291,7 @@
         case JPPaymentMethodTypeIDeal:
             [self prepareIDEALBankListModel];
             break;
-        case JPPaymentMethodTypePbba:
+        default:
             break;
     }
 }
