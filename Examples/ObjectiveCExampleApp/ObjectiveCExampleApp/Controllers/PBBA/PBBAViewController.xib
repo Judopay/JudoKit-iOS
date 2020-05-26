@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PBBAViewController">
+            <connections>
+                <outlet property="pbbaFromXib" destination="cOF-3M-JXk" id="hlJ-VQ-zpM"/>
+                <outlet property="view" destination="iN0-l3-epB" id="qaU-qq-IPz"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOF-3M-JXk" customClass="JPPBBAButton">
+                    <rect key="frame" x="76.5" y="305" width="222" height="57"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="cOF-3M-JXk" secondAttribute="height" multiplier="74:19" id="cyZ-bm-hyL"/>
+                    </constraints>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="cOF-3M-JXk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SDQ-bF-ffl"/>
+                <constraint firstItem="cOF-3M-JXk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Z16-Pc-uNh"/>
+                <constraint firstItem="cOF-3M-JXk" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.592" id="eqc-Wp-91m"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="-119.2" y="-188.45577211394306"/>
+        </view>
+    </objects>
+</document>

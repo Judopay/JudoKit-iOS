@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28229247D308B00F9862B /* PBBAViewController.m */; };
+		07B2822C247D308B00F9862B /* PBBAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B2822A247D308B00F9862B /* PBBAViewController.xib */; };
 		0D39BA40400F0D8DF1F35225 /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */; };
 		23DCF27D58A18EF25392B811 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
@@ -44,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07B28228247D308B00F9862B /* PBBAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBAViewController.h; sourceTree = "<group>"; };
+		07B28229247D308B00F9862B /* PBBAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBAViewController.m; sourceTree = "<group>"; };
+		07B2822A247D308B00F9862B /* PBBAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PBBAViewController.xib; sourceTree = "<group>"; };
 		0DCD412286DED20EC2028ACD /* Pods-ObjectiveCExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +126,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07B28227247D302C00F9862B /* PBBA */ = {
+			isa = PBXGroup;
+			children = (
+				07B28228247D308B00F9862B /* PBBAViewController.h */,
+				07B28229247D308B00F9862B /* PBBAViewController.m */,
+				07B2822A247D308B00F9862B /* PBBAViewController.xib */,
+			);
+			path = PBBA;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +198,7 @@
 		449495052450ED870050C6A0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				07B28227247D302C00F9862B /* PBBA */,
 				449495062450ED870050C6A0 /* Details */,
 				4494950C2450ED870050C6A0 /* Main */,
 			);
@@ -362,6 +378,7 @@
 				449495192450ED870050C6A0 /* Settings.bundle in Resources */,
 				448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */,
 				449495162450ED870050C6A0 /* DetailViewController.xib in Resources */,
+				07B2822C247D308B00F9862B /* PBBAViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +509,7 @@
 				448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */,
 				4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */,
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
+				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				449495172450ED870050C6A0 /* DetailsTableViewController.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				449495152450ED870050C6A0 /* DetailViewController.m in Sources */,

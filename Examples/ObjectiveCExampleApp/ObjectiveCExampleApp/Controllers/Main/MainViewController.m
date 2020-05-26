@@ -28,6 +28,7 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+#import "PBBAViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
 
@@ -217,6 +218,11 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     }];
 }
 
+- (void)pbbaMethodOperation {
+    PBBAViewController *viewController = [[PBBAViewController alloc] initWithNibName:@"PBBAViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 // MARK: Helper methods
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
@@ -387,6 +393,10 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
             
         case DemoFeatureTypeServerToServer:
             [self serverToServerMethodOperation];
+            break;
+            
+        case DemoFeatureTypePBBA:
+            [self pbbaMethodOperation];
             break;
     }
 }

@@ -74,4 +74,4 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPValidationResult.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
-
+#import "JPPBBAButton.h"
