@@ -23,6 +23,8 @@
 //  SOFTWARE.
 
 #import "PBBAViewController.h"
+#import "DetailViewController.h"
+
 @import JudoKit_iOS;
 
 @interface PBBAViewController ()
@@ -45,7 +47,7 @@
         [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
                                            delegate:weakSelf
                                          completion:^(JPResponse *response, JPError *error) {
-            NSLog(@"JPPBBAButton call back %@ and error: %@", response, error);
+            [weakSelf handleResponse:response error:error];
         }];
     };
 }
@@ -59,7 +61,7 @@
         [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
                                            delegate:weakSelf
                                          completion:^(JPResponse *response, JPError *error) {
-            NSLog(@"JPPBBAButton call back %@ and error: %@", response, error);
+            [weakSelf handleResponse:response error:error];
         }];
     };
 }
@@ -86,6 +88,43 @@
         _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _transactionStatusView;
+}
+
+
+- (void)handleResponse:(JPResponse *)response error:(NSError *)error {
+    if (error) {
+        [self presentErrorWithMessage: error.localizedDescription];
+        return;
+    }
+    
+    if (!response) {
+        return;
+    }
+    
+    JPTransactionData *transactionData = response.items.firstObject;
+    
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [weakSelf presentDetailsViewControllerWithTransactionData:transactionData];
+    }];
+}
+
+- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    viewController.transactionData = transactionData;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)presentErrorWithMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

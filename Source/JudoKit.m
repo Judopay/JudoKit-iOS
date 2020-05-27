@@ -133,10 +133,15 @@
                   delegate:(nullable id<JPStatusViewDelegate>)delegate
                 completion:(nullable JPCompletionBlock)completion {
     
-    //should validate config and show error. (if not BGP, if no banking app...?)
+    JPError *configurationError = [self.configurationValidationService valiadatePBBAConfiguration:configuration];
+    
+    if (configurationError) {
+        completion(nil, configurationError);
+        return;
+    }
     
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                            transactionService:self.transactionService];
+                                                 transactionService:self.transactionService];
     [self.pbbaService openPBBAMerchantApp:completion];
     self.pbbaService.statusViewDelegate = delegate;
 }

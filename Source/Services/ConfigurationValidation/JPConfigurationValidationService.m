@@ -60,6 +60,18 @@
     return error;
 }
 
+- (JPError *)valiadatePBBAConfiguration:(JPConfiguration *)configuration {
+    JPError *error;
+    
+    if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
+        error = [NSError errorWithDomain:kJudoErrorDomain
+                                    code:JPValidationErrorInvalidParameter
+                                userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
+    }
+    
+    return error;
+}
+
 #pragma mark - Validation methods
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
