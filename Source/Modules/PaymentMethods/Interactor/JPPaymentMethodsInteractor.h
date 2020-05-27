@@ -67,7 +67,7 @@
 /**
  * Starts the PBBA payment
 */
-- (void)openPBBAWithCompletion:(_Nullable JPCompletionBlock)completion;
+- (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index

@@ -31,33 +31,73 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     let consumerReference = "judoPay-sample-app"
     var configValidation: JPConfigurationValidationService!
     lazy var reference = JPReference(consumerReference: consumerReference)
-
+    
     override func setUp() {
         configValidation = JPConfigurationValidationServiceImp()
-        amount = JPAmount("fv", currency: "GBR")
+        amount = JPAmount("fv", currency: "EUR")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
     }
     
-    func testInvalidCharacters() {
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: amount is invalid
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenAmountInvalid_ShouldReturnError() {
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when invalid amount is specified")
     }
     
-    func testEmptyCurrency() {
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: configuration currency is empty
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenCurrencyIsEmpty_ShouldReturnError() {
         amount = JPAmount("0.1", currency: "")
         configuration.amount = amount
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when no curency is specified")
     }
     
-    func testNilConfiguration() {
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: configuration is nil
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenConfigIsNil_ShouldReturnError() {
         configuration = nil
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when nil configuration is specified")
     }
     
-    func testConsumerReferenceInvalid() {
+    /*
+     * GIVEN: Validate pbba payment
+     *
+     * WHEN: amout currency is EUR
+     *
+     * THEN: should return error with "Unsuported Currency" message
+     */
+    func test_ValiadatePBBAConfiguration_WhenCurrencyEUR_ShouldReturnError() {
+        let error = configValidation.valiadatePBBAConfiguration(configuration)
+        XCTAssertNotNil(error, "Unsuported Currency")
+    }
+    
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: reference ID is less then 40 characters
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenReferenceIsLess_ShouldReturnError() {
         let reference40Characters = String(repeating: "J", count: Int(kMaximumLengthForConsumerReference + 1))
         configuration.reference = JPReference(consumerReference: reference40Characters)
         let error = configValidation.validate(configuration, for: .payment)

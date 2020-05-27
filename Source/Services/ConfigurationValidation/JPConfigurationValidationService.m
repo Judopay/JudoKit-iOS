@@ -64,7 +64,7 @@
     JPError *error;
     
     if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
-        error = [NSError errorWithDomain:kJudoErrorDomain
+        error = [JPError errorWithDomain:kJudoErrorDomain
                                     code:JPValidationErrorInvalidParameter
                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
     }
