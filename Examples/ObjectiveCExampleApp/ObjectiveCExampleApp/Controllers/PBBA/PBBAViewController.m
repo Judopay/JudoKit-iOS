@@ -26,6 +26,7 @@
 @import JudoKit_iOS;
 
 @interface PBBAViewController ()
+@property (strong, nonatomic) IBOutlet UIView *buttonPlaceholder;
 @property (strong, nonatomic) IBOutlet JPPBBAButton *pbbaFromXib;
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @end
@@ -36,14 +37,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createButtonProgrammatically];
     self.title = @"";
+    
     __weak typeof(self) weakSelf = self;
-
-    self.pbbaFromXib.pbbaDidPress = ^(void){
-
+    self.pbbaFromXib.didPress = ^(void){
         [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
-                                       delegate:weakSelf
-                                     completion:^(JPResponse *response, JPError *error) {
+                                           delegate:weakSelf
+                                         completion:^(JPResponse *response, JPError *error) {
+            NSLog(@"JPPBBAButton call back %@ and error: %@", response, error);
+        }];
+    };
+}
+
+- (void)createButtonProgrammatically {
+    JPPBBAButton *pbbaFromCode = [[JPPBBAButton alloc] initWithFrame:self.buttonPlaceholder.bounds];
+    [self.buttonPlaceholder addSubview:pbbaFromCode];
+    
+    __weak typeof(self) weakSelf = self;
+    pbbaFromCode.didPress = ^(void){
+        [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
+                                           delegate:weakSelf
+                                         completion:^(JPResponse *response, JPError *error) {
             NSLog(@"JPPBBAButton call back %@ and error: %@", response, error);
         }];
     };
@@ -53,14 +68,17 @@
 
 -(void)showStatusViewWith:(JPTransactionStatus)status {
     [self hideStatusView];
-       [self.view addSubview:self.transactionStatusView];
-       [self.transactionStatusView pinToView:self.view withPadding:0.0];
-       [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
-       [self.transactionStatusView changeToTransactionStatus:status];}
+    [self.view addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:self.view withPadding:0.0];
+    [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
+    [self.transactionStatusView changeToTransactionStatus:status];
+}
 
 -(void)hideStatusView {
-       [self.transactionStatusView removeFromSuperview];
+    [self.transactionStatusView removeFromSuperview];
 }
+
+#pragma mark - lazy init transactionStatusView
 
 - (JPTransactionStatusView *)transactionStatusView {
     if (!_transactionStatusView) {
@@ -69,4 +87,5 @@
     }
     return _transactionStatusView;
 }
+
 @end

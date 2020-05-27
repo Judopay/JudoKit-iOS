@@ -26,6 +26,6 @@
 #import "ZappMerchantLib/ZappMerchantLib.h"
 
 @interface JPPBBAButton: UIView <PBBAButtonDelegate>
-@property (copy, nonatomic) void (^pbbaDidPress)(void);
+@property (copy, nonatomic) void (^didPress)(void);
 @end
 

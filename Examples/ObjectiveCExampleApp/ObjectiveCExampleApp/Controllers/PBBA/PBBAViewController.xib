@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PBBAViewController">
             <connections>
+                <outlet property="buttonPlaceholder" destination="o4A-VG-UaZ" id="w8l-bM-6Pf"/>
                 <outlet property="pbbaFromXib" destination="cOF-3M-JXk" id="hlJ-VQ-zpM"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qaU-qq-IPz"/>
             </connections>
@@ -25,12 +26,36 @@
                         <constraint firstAttribute="width" secondItem="cOF-3M-JXk" secondAttribute="height" multiplier="74:19" id="cyZ-bm-hyL"/>
                     </constraints>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fromm xib" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrt-Dq-ypD">
+                    <rect key="frame" x="76.5" y="276" width="81" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fromm Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdV-e7-m2r">
+                    <rect key="frame" x="76.5" y="415" width="99" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4A-VG-UaZ">
+                    <rect key="frame" x="76.5" y="444" width="222" height="57"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstItem="cOF-3M-JXk" firstAttribute="top" secondItem="jrt-Dq-ypD" secondAttribute="bottom" constant="8" id="2a1-fn-zrG"/>
+                <constraint firstItem="o4A-VG-UaZ" firstAttribute="leading" secondItem="MdV-e7-m2r" secondAttribute="leading" id="AiE-4G-1gj"/>
+                <constraint firstItem="MdV-e7-m2r" firstAttribute="top" secondItem="cOF-3M-JXk" secondAttribute="bottom" constant="53" id="Ck1-kl-DTE"/>
                 <constraint firstItem="cOF-3M-JXk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SDQ-bF-ffl"/>
                 <constraint firstItem="cOF-3M-JXk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Z16-Pc-uNh"/>
+                <constraint firstItem="o4A-VG-UaZ" firstAttribute="width" secondItem="cOF-3M-JXk" secondAttribute="width" id="deh-ae-X7N"/>
                 <constraint firstItem="cOF-3M-JXk" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.592" id="eqc-Wp-91m"/>
+                <constraint firstItem="o4A-VG-UaZ" firstAttribute="top" secondItem="MdV-e7-m2r" secondAttribute="bottom" constant="8" id="faK-9h-ZWQ"/>
+                <constraint firstItem="MdV-e7-m2r" firstAttribute="leading" secondItem="cOF-3M-JXk" secondAttribute="leading" id="n1d-BI-K5u"/>
+                <constraint firstItem="o4A-VG-UaZ" firstAttribute="height" secondItem="cOF-3M-JXk" secondAttribute="height" id="wgp-NU-WwJ"/>
+                <constraint firstItem="jrt-Dq-ypD" firstAttribute="leading" secondItem="cOF-3M-JXk" secondAttribute="leading" id="xQ7-xX-iOJ"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <point key="canvasLocation" x="-119.2" y="-188.45577211394306"/>
