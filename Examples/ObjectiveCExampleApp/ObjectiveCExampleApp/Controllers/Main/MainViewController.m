@@ -220,6 +220,8 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)pbbaMethodOperation {
     PBBAViewController *viewController = [[PBBAViewController alloc] initWithNibName:@"PBBAViewController" bundle:nil];
+    viewController.judoKitSession = self.judoKitSession;
+    viewController.configuration = self.configuration;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

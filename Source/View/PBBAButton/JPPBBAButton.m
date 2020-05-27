@@ -2,7 +2,7 @@
 //  JPPBBAButton.m
 //  JudoKit-iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -43,12 +43,14 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        [self addSubview: self.pbbaButton];
     }
     return self;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
+        [self addSubview: self.pbbaButton];
     }
     return self;
 }
@@ -67,12 +69,14 @@
                 [obj removeFromSuperview];
                 return;
             }
-            [obj.subviews.firstObject.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-            [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:self.frame.size.height].active = YES;
-            [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor].active = YES;
-            [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor].active = YES;
-            [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor].active = YES;
-            [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor].active = YES;
+            
+            NSArray *constraints = @[[obj.subviews.firstObject.widthAnchor constraintEqualToConstant:self.frame.size.width],
+                                     [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:self.frame.size.height],
+                                     [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor],
+                                     [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor],
+                                     [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor],
+                                     [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor]];
+            [NSLayoutConstraint activateConstraints:constraints];
         }];
         _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_pbbaButton setClipsToBounds:YES];

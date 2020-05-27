@@ -27,6 +27,7 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#import "JPTransactionStatusView.h"
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
@@ -96,6 +97,18 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(nonnull JPConfiguration *)configuration
                     completion:(nullable JPCompletionBlock)completion;
+
+
+/**
+ * A method which invokes the PBBA which allows users to make pay by bank transactions.
+ *
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ * @param delegate - delegate, which implement status screen methods.
+ */
+- (void)invokePBBAWithMode:(nonnull JPConfiguration *)configuration
+                  delegate:(nullable id<JPStatusViewDelegate>)delegate
+                completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.

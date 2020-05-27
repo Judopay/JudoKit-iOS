@@ -44,8 +44,8 @@
                                title:@"Server-to-Server payment methods"
                              details:@"with default Server-to-Server payment methods"],
         [DemoFeature featureWithType:DemoFeatureTypePBBA
-                               title:@"PBBA payments"
-                             details:@"by call pbba button"],
+                               title:@"Pay By Bank"
+                             details:@"by using your existing Bank app"],
     ];
 }
 @end

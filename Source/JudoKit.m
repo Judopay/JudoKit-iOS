@@ -24,6 +24,7 @@
 
 #import "JudoKit.h"
 #import "JPApplePayService.h"
+#import "JPPBBAService.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -46,6 +47,7 @@
 
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApplePayConfiguration *configuration;
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
@@ -125,6 +127,18 @@
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
+}
+
+- (void)invokePBBAWithMode:(nonnull JPConfiguration *)configuration
+                  delegate:(nullable id<JPStatusViewDelegate>)delegate
+                completion:(nullable JPCompletionBlock)completion {
+    
+    //should validate config and show error. (if not BGP, if no banking app...?)
+    
+    self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
+                                                            transactionService:self.transactionService];
+    [self.pbbaService openPBBAMerchantApp:completion];
+    self.pbbaService.statusViewDelegate = delegate;
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode

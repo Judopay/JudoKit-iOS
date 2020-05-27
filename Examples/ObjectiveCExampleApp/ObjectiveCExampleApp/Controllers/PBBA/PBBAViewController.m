@@ -27,6 +27,7 @@
 
 @interface PBBAViewController ()
 @property (strong, nonatomic) IBOutlet JPPBBAButton *pbbaFromXib;
+@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @end
 
 @implementation PBBAViewController
@@ -36,10 +37,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"";
-    
+    __weak typeof(self) weakSelf = self;
+
     self.pbbaFromXib.pbbaDidPress = ^(void){
-        NSLog(@"JPPBBAButton did press, should call pbba service");
+
+        [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
+                                       delegate:weakSelf
+                                     completion:^(JPResponse *response, JPError *error) {
+            NSLog(@"JPPBBAButton call back %@ and error: %@", response, error);
+        }];
     };
 }
 
+#pragma mark - JPStatusViewDelegate
+
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self hideStatusView];
+       [self.view addSubview:self.transactionStatusView];
+       [self.transactionStatusView pinToView:self.view withPadding:0.0];
+       [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
+       [self.transactionStatusView changeToTransactionStatus:status];}
+
+-(void)hideStatusView {
+       [self.transactionStatusView removeFromSuperview];
+}
+
+- (JPTransactionStatusView *)transactionStatusView {
+    if (!_transactionStatusView) {
+        _transactionStatusView = [JPTransactionStatusView new];
+        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _transactionStatusView;
+}
 @end
