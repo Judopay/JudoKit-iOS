@@ -35,47 +35,46 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
-        [self addSubview: self.pbbaButton];
+        [self addSubview:self.pbbaButton];
     }
-    
+
     return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self addSubview: self.pbbaButton];
+        [self addSubview:self.pbbaButton];
     }
     return self;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self addSubview: self.pbbaButton];
+        [self addSubview:self.pbbaButton];
     }
     return self;
 }
 
 - (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
-    [self.delegate pbbaButtonDidPress: self];
+    [self.delegate pbbaButtonDidPress:self];
     return true;
 }
 
 - (PBBAButton *)pbbaButton {
     if (!_pbbaButton) {
         _pbbaButton = [PBBAButton new];
-        [_pbbaButton.subviews.firstObject.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
+        [_pbbaButton.subviews.firstObject.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if ([obj isKindOfClass:UILabel.class] || [obj isKindOfClass:UIButton.class]) {
                 [obj removeFromSuperview];
                 return;
             }
             UIView *firstView = obj.subviews.firstObject;
-            NSArray *constraints = @[[firstView.widthAnchor constraintEqualToConstant:self.frame.size.width],
-                                     [firstView.heightAnchor constraintEqualToConstant:self.frame.size.height],
-                                     [firstView.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor],
-                                     [firstView.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor],
-                                     [firstView.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor],
-                                     [firstView.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor]];
+            NSArray *constraints = @[ [firstView.widthAnchor constraintEqualToConstant:self.frame.size.width],
+                                      [firstView.heightAnchor constraintEqualToConstant:self.frame.size.height],
+                                      [firstView.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor],
+                                      [firstView.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor],
+                                      [firstView.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor],
+                                      [firstView.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor] ];
             [NSLayoutConstraint activateConstraints:constraints];
         }];
         _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;

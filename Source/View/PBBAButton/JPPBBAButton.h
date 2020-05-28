@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import "ZappMerchantLib/ZappMerchantLib.h"
+#import <UIKit/UIKit.h>
 
 @class JPPBBAButton;
 /**
@@ -37,6 +37,6 @@
 
 @end
 
-@interface JPPBBAButton: UIView 
+@interface JPPBBAButton : UIView
 @property (nonatomic, weak) id<JPPBBAButtonDelegate> _Nullable delegate;
 @end

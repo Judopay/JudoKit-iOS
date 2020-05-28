@@ -36,6 +36,7 @@
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
+#import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentToken.h"
 #import "JPReference.h"
@@ -44,7 +45,6 @@
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
-#import "JPPBBAService.h"
 #import "NSBundle+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
@@ -158,17 +158,17 @@
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
-    
+
     BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
     BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
-    BOOL isURLSchemeSet = (NSBundle.appURLScheme != nil)  && (NSBundle.appURLScheme.length > 0);
+    BOOL isURLSchemeSet = (NSBundle.appURLScheme != nil) && (NSBundle.appURLScheme.length > 0);
 
     if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
     }
-    
+
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 

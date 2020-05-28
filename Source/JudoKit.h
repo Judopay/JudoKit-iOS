@@ -97,7 +97,6 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
                  configuration:(nonnull JPConfiguration *)configuration
                     completion:(nullable JPCompletionBlock)completion;
 
-
 /**
  * A method invokes the PBBA which allows users to make pay by bank transactions.
  *
