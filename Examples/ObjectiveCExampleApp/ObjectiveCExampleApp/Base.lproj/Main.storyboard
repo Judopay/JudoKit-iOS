@@ -49,6 +49,39 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.judo.judopaysample.tableviewcellPBBAidentifier" textLabel="pfX-eb-nya" detailTextLabel="a6E-OR-BIu" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="ut8-n8-ych" customClass="PBBATableViewCell">
+                                        <rect key="frame" x="0.0" y="119.5" width="375" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ut8-n8-ych" id="ElT-ht-ZBv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4br-jc-s3g" customClass="JPPBBAButton">
+                                                    <rect key="frame" x="206" y="11" width="162" height="42"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pfX-eb-nya">
+                                                    <rect key="frame" x="15" y="14.5" width="30" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a6E-OR-BIu">
+                                                    <rect key="frame" x="15" y="34" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <connections>
+                                            <outlet property="pbbaButton" destination="4br-jc-s3g" id="qA4-mJ-nFq"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <sections/>
                                 <connections>
@@ -76,7 +109,53 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892" y="671"/>
+            <point key="canvasLocation" x="892" y="669.71514242878561"/>
+        </scene>
+        <!--PBBA-->
+        <scene sceneID="1N5-xj-n68">
+            <objects>
+                <viewController storyboardIdentifier="PBBAViewController" id="roV-nE-oFc" customClass="PBBAViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wV9-OE-FjF"/>
+                        <viewControllerLayoutGuide type="bottom" id="bpp-NB-xZN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7qM-xy-XFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4k-V2-Fkc" customClass="JPPBBAButton">
+                                <rect key="frame" x="76.5" y="305" width="222" height="57"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J4k-V2-Fkc" secondAttribute="height" multiplier="74:19" id="zCC-eN-4hS"/>
+                                </constraints>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay By Bank using your existing Bank app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kJ-cv-xWQ">
+                                <rect key="frame" x="29" y="276.5" width="317.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="width" secondItem="7qM-xy-XFJ" secondAttribute="width" multiplier="0.592" id="G7p-TK-iME"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="top" secondItem="7kJ-cv-xWQ" secondAttribute="bottom" constant="8" id="JCD-Mt-B5b"/>
+                            <constraint firstItem="7kJ-cv-xWQ" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="13" id="M42-xv-Dzi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7kJ-cv-xWQ" secondAttribute="trailing" constant="12.5" id="aHJ-xF-f12"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="centerY" secondItem="7qM-xy-XFJ" secondAttribute="centerY" id="ho6-a3-UBl"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="zZy-E2-sUi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="PBBA" largeTitleDisplayMode="never" id="W6f-GJ-s96"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="pbbaButton" destination="J4k-V2-Fkc" id="tLP-1b-LGz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vgZ-3z-BrU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="1373"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nYt-DK-Zkg">

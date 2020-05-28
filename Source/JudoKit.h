@@ -104,10 +104,8 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
  *
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
- * @param delegate - delegate, which implement status screen methods.
  */
 - (void)invokePBBAWithMode:(nonnull JPConfiguration *)configuration
-                  delegate:(nullable id<JPStatusViewDelegate>)delegate
                 completion:(nullable JPCompletionBlock)completion;
 
 /**

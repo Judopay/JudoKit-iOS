@@ -23,11 +23,10 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "JPTransactionStatusView.h"
 
 @import JudoKit_iOS;
 
-@interface PBBAViewController : UIViewController <JPStatusViewDelegate>
+@interface PBBAViewController : UIViewController
 
 @property (nonatomic, strong) JudoKit *judoKitSession;
 @property (nonatomic, strong) JPConfiguration *configuration;

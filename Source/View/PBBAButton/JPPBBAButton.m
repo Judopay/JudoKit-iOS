@@ -25,7 +25,7 @@
 #import "JPPBBAButton.h"
 #import "UIView+Additions.h"
 
-@interface JPPBBAButton ()
+@interface JPPBBAButton () <PBBAButtonDelegate>
 @property (nonatomic, strong) PBBAButton *pbbaButton;
 @end
 
@@ -56,7 +56,7 @@
 }
 
 - (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
-    self.didPress();
+    [self.delegate pbbaButtonDidPress];
     return true;
 }
 
@@ -69,13 +69,13 @@
                 [obj removeFromSuperview];
                 return;
             }
-            
-            NSArray *constraints = @[[obj.subviews.firstObject.widthAnchor constraintEqualToConstant:self.frame.size.width],
-                                     [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:self.frame.size.height],
-                                     [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor],
-                                     [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor],
-                                     [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor],
-                                     [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor]];
+            UIView *firstView = obj.subviews.firstObject;
+            NSArray *constraints = @[[firstView.widthAnchor constraintEqualToConstant:self.frame.size.width],
+                                     [firstView.heightAnchor constraintEqualToConstant:self.frame.size.height],
+                                     [firstView.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor],
+                                     [firstView.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor],
+                                     [firstView.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor],
+                                     [firstView.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor]];
             [NSLayoutConstraint activateConstraints:constraints];
         }];
         _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;
