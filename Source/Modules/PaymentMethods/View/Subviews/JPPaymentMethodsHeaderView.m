@@ -154,6 +154,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     
     if (viewModel.paymentMethodType == JPPaymentMethodTypePbba) {
         [self.paymentStackView addArrangedSubview:self.pbbaButton];
+        [_pbbaButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
     
@@ -347,24 +348,10 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     return _payButton;
 }
 
-- (PBBAButton *)pbbaButton {
+- (JPPBBAButton *)pbbaButton {
     if (!_pbbaButton) {
-        _pbbaButton = [PBBAButton new];
-        [_pbbaButton.subviews.firstObject.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-
-            if ([obj isKindOfClass:UILabel.class] || [obj isKindOfClass:UIButton.class]) {
-                [obj removeFromSuperview];
-                return;
-            }
-            [obj.subviews.firstObject.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
-            [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:_payButton.frame.size.height].active = YES;
-            [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor].active = YES;
-            [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor].active = YES;
-            [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor].active = YES;
-            [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor].active = YES;
-        }];
-        _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_pbbaButton setClipsToBounds:YES];
+        CGRect buttonRect = CGRectMake(0, 0, kHeaderPaymentButtonHeight * getWidthAspectRatio(), kHeaderPaymentButtonHeight);
+        _pbbaButton = [[JPPBBAButton alloc] initWithFrame:buttonRect];
     }
     return _pbbaButton;
 }

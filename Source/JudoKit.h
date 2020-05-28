@@ -27,7 +27,6 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "JPTransactionStatusView.h"
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
@@ -105,8 +104,8 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
-- (void)invokePBBAWithMode:(nonnull JPConfiguration *)configuration
-                completion:(nullable JPCompletionBlock)completion;
+- (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
+                         completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.

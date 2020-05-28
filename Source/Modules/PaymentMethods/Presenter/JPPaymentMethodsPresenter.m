@@ -502,13 +502,4 @@
     return _paymentMethods;
 }
 
-#pragma mark - JPStatusViewDelegate implementation
--(void)showStatusViewWith:(JPTransactionStatus)status {
-    [self.statusViewDelegate showStatusViewWith:status];
-}
-
--(void)hideStatusView {
-    [self.statusViewDelegate hideStatusView];
-}
-
 @end

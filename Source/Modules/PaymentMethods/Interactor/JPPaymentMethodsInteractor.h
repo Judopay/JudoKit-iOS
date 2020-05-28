@@ -134,7 +134,7 @@
 
 @end
 
-@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor, JPStatusViewDelegate>
+@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor>
 
 /**
  * A designated initializer that sets up the JPTheme object needed for view customization
@@ -150,10 +150,5 @@
                        configuration:(nonnull JPConfiguration *)configuration
                   transactionService:(nonnull JPTransactionService *)transactionService
                           completion:(nullable JPCompletionBlock)completion;
-
-/**
-* A weak reference to the object that adopts the JPStatusViewDelegate protocol
-*/
-@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
 
 @end

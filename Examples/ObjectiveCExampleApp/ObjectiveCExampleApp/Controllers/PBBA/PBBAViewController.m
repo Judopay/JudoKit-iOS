@@ -45,20 +45,20 @@
 #pragma mark - JPPBBAButtonDelegate
 
 /**
- *  Catch delegate call from JPPBBAButton
+ * Catch delegate call from JPPBBAButton
  *
  * @param sender - JPPBBAButton object, which triggers the click.
  */
 - (void)pbbaButtonDidPress:(JPPBBAButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
-                                     completion:^(JPResponse *response, JPError *error) {
+    [weakSelf.judoKitSession invokePBBAWithConfiguration:weakSelf.configuration
+                                              completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
 /**
- *  Create and add JPPBBAButton Programmatically to view. Set up delegates
+ *  Method used for creating and adding JPPBBAButton Programmatically to view. Set up delegates
  */
 - (void)createButtonProgrammatically {
     JPPBBAButton *pbbaFromCode = [[JPPBBAButton alloc] initWithFrame:self.buttonPlaceholder.bounds];

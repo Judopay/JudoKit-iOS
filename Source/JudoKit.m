@@ -42,11 +42,8 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
-#import "JPTransactionStatusView.h"
-#import "UIView+Additions.h"
-#import "JPUIConfiguration.h"
 
-@interface JudoKit ()  <JPStatusViewDelegate>
+@interface JudoKit ()
 
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
@@ -54,7 +51,6 @@
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
-@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
@@ -133,8 +129,8 @@
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
 }
 
-- (void)invokePBBAWithMode:(nonnull JPConfiguration *)configuration
-                completion:(nullable JPCompletionBlock)completion {
+- (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
+                         completion:(nullable JPCompletionBlock)completion {
     
     JPError *configurationError = [self.configurationValidationService valiadatePBBAConfiguration:configuration];
     if (configurationError) {
@@ -144,7 +140,6 @@
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
                                                  transactionService:self.transactionService];
-    self.pbbaService.statusViewDelegate = self;
     [self.pbbaService openPBBAMerchantApp:completion];
 }
 
@@ -185,30 +180,6 @@
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;
     self.transactionService.isSandboxed = isSandboxed;
-}
-
-#pragma mark - JPStatusViewDelegate
-
--(void)showStatusViewWith:(JPTransactionStatus)status {
-    [self hideStatusView];
-    [UIApplication.topMostViewController.view addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:UIApplication.topMostViewController.view withPadding:0.0];
-    [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
-    [self.transactionStatusView changeToTransactionStatus:status];
-}
-
--(void)hideStatusView {
-    [self.transactionStatusView removeFromSuperview];
-}
-
-#pragma mark - lazy init transactionStatusView
-
-- (JPTransactionStatusView *)transactionStatusView {
-    if (!_transactionStatusView) {
-        _transactionStatusView = [JPTransactionStatusView new];
-        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _transactionStatusView;
 }
 
 @end

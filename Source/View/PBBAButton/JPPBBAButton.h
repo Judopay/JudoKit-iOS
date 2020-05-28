@@ -29,7 +29,7 @@
 /**
  *  PBBA payment button delegate.
  */
-@protocol JPPBBAButtonDelegate <NSObject>
+@protocol JPPBBAButtonDelegate
 /**
  *  Tell the delegate that pay by bank button was pressed.
  */
@@ -38,5 +38,5 @@
 @end
 
 @interface JPPBBAButton: UIView 
-@property (nonatomic, strong) id<JPPBBAButtonDelegate> _Nonnull delegate;
+@property (nonatomic, weak) id<JPPBBAButtonDelegate> _Nullable delegate;
 @end

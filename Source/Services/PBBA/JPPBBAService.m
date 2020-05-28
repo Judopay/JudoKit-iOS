@@ -35,6 +35,8 @@
 #import "JPConfiguration.h"
 #import "JPTransactionService.h"
 #import "NSBundle+Additions.h"
+#import "JPTransactionStatusView.h"
+#import "JPUIConfiguration.h"
 
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
@@ -42,6 +44,7 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) int intTimer;
+@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @end
 
 @implementation JPPBBAService
@@ -67,7 +70,7 @@ static const int NSPOSIXErrorDomainCode = 53;
 }
 
 - (void)dealloc {
-    [self.statusViewDelegate hideStatusView];
+    [self hideStatusView];
     [self.timer invalidate];
 }
 
@@ -145,26 +148,26 @@ static const int NSPOSIXErrorDomainCode = 53;
         if (self.intTimer > kTimerDurationLimit) {
             completion(nil, JPError.judoRequestTimeoutError);
             [weakSelf.timer invalidate];
-            [self.statusViewDelegate hideStatusView];
+            [self hideStatusView];
             self.intTimer = 0;
             return;
         }
 
         if (error && error.code != NSPOSIXErrorDomainCode) {
             completion(nil, error);
-            [self.statusViewDelegate hideStatusView];
+            [self hideStatusView];
             [weakSelf.timer invalidate];
             return;
         }
 
         if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
-            [self.statusViewDelegate showStatusViewWith:JPTransactionStatusPending];
+            [self showStatusViewWith:JPTransactionStatusPending];
             return;
         }
         if (error == nil) {
             response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
             completion(response, error);
-            [self.statusViewDelegate hideStatusView];
+            [self hideStatusView];
             [weakSelf.timer invalidate];
         }
     }];
@@ -210,6 +213,28 @@ static const int NSPOSIXErrorDomainCode = 53;
     }
 
     return parameters;
+}
+
+-(void)showStatusViewWith:(JPTransactionStatus)status {
+    [self hideStatusView];
+    [UIApplication.topMostViewController.view addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:UIApplication.topMostViewController.view withPadding:0.0];
+    [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
+    [self.transactionStatusView changeToTransactionStatus:status];
+}
+
+-(void)hideStatusView {
+    [self.transactionStatusView removeFromSuperview];
+}
+
+#pragma mark - lazy init transactionStatusView
+
+- (JPTransactionStatusView *)transactionStatusView {
+    if (!_transactionStatusView) {
+        _transactionStatusView = [JPTransactionStatusView new];
+        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _transactionStatusView;
 }
 
 @end

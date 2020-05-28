@@ -52,9 +52,4 @@
 */
 @property (nonatomic, strong) JPTheme *_Nullable theme;
 
-/**
-* A weak reference to the object that adopts the JPStatusViewDelegate protocol
-*/
-@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
-
 @end
