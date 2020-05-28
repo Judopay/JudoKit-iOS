@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 #import "ZappMerchantLib/ZappMerchantLib.h"
 
+@class JPPBBAButton;
 /**
  *  PBBA payment button delegate.
  */
@@ -32,11 +33,10 @@
 /**
  *  Tell the delegate that pay by bank button was pressed.
  */
-- (void)pbbaButtonDidPress;
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender;
 
 @end
 
 @interface JPPBBAButton: UIView 
-@property (nonatomic, strong) id<JPPBBAButtonDelegate> delegate;
+@property (nonatomic, strong) id<JPPBBAButtonDelegate> _Nonnull delegate;
 @end
-

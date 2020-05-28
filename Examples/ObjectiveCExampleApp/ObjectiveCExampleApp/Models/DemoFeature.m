@@ -1,6 +1,5 @@
 #import "DemoFeature.h"
 
-static NSString * const kCellIPBBAdentifier = @"com.judo.judopaysample.tableviewcellPBBAidentifier";
 static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
 
 @implementation DemoFeature
@@ -11,14 +10,8 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
     option.type = type;
     option.title = title;
     option.details = details;
-    switch (type) {
-        case DemoFeatureTypePBBA:
-            option.cellIdentifier = kCellIPBBAdentifier;
-            break;
-        default:
-            option.cellIdentifier = kCellIdentifier;
-            break;
-    }
+    option.cellIdentifier = kCellIdentifier;
+
     return option;
 }
 

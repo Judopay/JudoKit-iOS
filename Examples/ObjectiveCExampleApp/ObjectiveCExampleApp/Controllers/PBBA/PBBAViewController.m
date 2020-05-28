@@ -28,6 +28,7 @@
 @import JudoKit_iOS;
 
 @interface PBBAViewController () <JPPBBAButtonDelegate>
+@property (strong, nonatomic) IBOutlet UIView *buttonPlaceholder;
 @property (strong, nonatomic) IBOutlet JPPBBAButton *pbbaButton;
 @end
 
@@ -38,16 +39,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pbbaButton.delegate = self;
+    [self createButtonProgrammatically];
 }
 
 #pragma mark - JPPBBAButtonDelegate
 
-- (void)pbbaButtonDidPress {
+/**
+ *  Catch delegate call from JPPBBAButton
+ *
+ * @param sender - JPPBBAButton object, which triggers the click.
+ */
+- (void)pbbaButtonDidPress:(JPPBBAButton *)sender {
     __weak typeof(self) weakSelf = self;
     [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
                                      completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
+}
+
+/**
+ *  Create and add JPPBBAButton Programmatically to view. Set up delegates
+ */
+- (void)createButtonProgrammatically {
+    JPPBBAButton *pbbaFromCode = [[JPPBBAButton alloc] initWithFrame:self.buttonPlaceholder.bounds];
+    pbbaFromCode.delegate = self;
+    [self.buttonPlaceholder addSubview:pbbaFromCode];
 }
 
 #pragma mark - Handle Response

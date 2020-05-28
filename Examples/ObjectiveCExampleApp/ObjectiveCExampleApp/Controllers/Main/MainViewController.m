@@ -31,12 +31,10 @@
 #import "PBBAViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
-#import "PBBATableViewCell.h"
-#import "JPPBBAButton.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
-@interface MainViewController () <JPPBBAButtonDelegate>
+@interface MainViewController ()
 
 @property (nonatomic, strong) JPReference *reference;
 @property (nonatomic, strong) JPCardDetails *cardDetails;
@@ -219,22 +217,14 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     }];
 }
 
-- (void)pbbaButtonDidPress {
-    __weak typeof(self) weakSelf = self;
-    [weakSelf.judoKitSession invokePBBAWithMode:weakSelf.configuration
-                                     completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
-}
+- (void)pbbaMethodOperation {
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PBBAViewController *viewController = (PBBAViewController *)[main instantiateViewControllerWithIdentifier:@"PBBAViewController"];
 
-//- (void)pbbaMethodOperation {
-//    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    PBBAViewController *viewController = (PBBAViewController *)[main instantiateViewControllerWithIdentifier:@"PBBAViewController"];
-//
-//    viewController.judoKitSession = self.judoKitSession;
-//    viewController.configuration = self.configuration;
-//    [self.navigationController pushViewController:viewController animated:YES];
-//}
+    viewController.judoKitSession = self.judoKitSession;
+    viewController.configuration = self.configuration;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 // MARK: Helper methods
 
@@ -356,10 +346,6 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DemoFeature *option = self.features[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:option.cellIdentifier forIndexPath:indexPath];
-
-    if ([cell isKindOfClass:PBBATableViewCell.class]) {
-        ((PBBATableViewCell *)cell).delegate = self;
-    }
     
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
@@ -413,7 +399,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
             break;
             
         case DemoFeatureTypePBBA:
-//            [self pbbaMethodOperation];
+            [self pbbaMethodOperation];
             break;
     }
 }

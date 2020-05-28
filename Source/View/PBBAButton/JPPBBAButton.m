@@ -56,7 +56,7 @@
 }
 
 - (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
-    [self.delegate pbbaButtonDidPress];
+    [self.delegate pbbaButtonDidPress: self];
     return true;
 }
 
