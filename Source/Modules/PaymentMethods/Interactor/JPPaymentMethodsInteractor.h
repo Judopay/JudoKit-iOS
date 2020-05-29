@@ -26,6 +26,7 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import "JPTransactionStatusView.h"
+#import <ZappMerchantLib/PBBAAppUtils.h>
 
 @class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 

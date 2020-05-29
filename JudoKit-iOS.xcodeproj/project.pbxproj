@@ -12,6 +12,8 @@
 		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
 		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A9D0E24601B680064316D /* OHHTTPStubs.framework */; };
+		0701930224811DC400401E45 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; };
+		0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
@@ -72,8 +74,6 @@
 		0777BA17247BC9BB00867B9F /* FunctionsHelpersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B9E2247BC9BB00867B9F /* FunctionsHelpersTest.swift */; };
 		0777BA1B247BCA3C00867B9F /* JPPBBAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BA1A247BCA3B00867B9F /* JPPBBAServiceTest.swift */; };
 		077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
-		077F501324757B03004B81E2 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F501224757B02004B81E2 /* ZappMerchantLib.framework */; };
-		077F501424757B10004B81E2 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F501224757B02004B81E2 /* ZappMerchantLib.framework */; };
 		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
 		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0783431F24755348000DA445 /* JPPBBAService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431E24755348000DA445 /* JPPBBAService.m */; };
@@ -368,6 +368,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				01AE3A32246034C70050952E /* OHHTTPStubs.framework in Embed Frameworks */,
+				0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */,
 				072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */,
 				01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */,
 				072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */,
@@ -380,6 +381,7 @@
 /* Begin PBXFileReference section */
 		010A9D0E24601B680064316D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		01AE3A38246050E90050952E /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
+		0701930124811DC400401E45 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
 		070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPConfigurationValidationService.h; sourceTree = "<group>"; };
 		070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPConfigurationValidationService.m; sourceTree = "<group>"; };
 		072AFF3A2451DE5E0038A417 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
@@ -440,7 +442,6 @@
 		0777B9E2247BC9BB00867B9F /* FunctionsHelpersTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsHelpersTest.swift; sourceTree = "<group>"; };
 		0777B9E3247BC9BB00867B9F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0777BA1A247BCA3B00867B9F /* JPPBBAServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPBBAServiceTest.swift; sourceTree = "<group>"; };
-		077F501224757B02004B81E2 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
 		0783431924754BCC000DA445 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
 		0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
 		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
@@ -732,7 +733,7 @@
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
 				072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */,
 				01AE3A31246034C60050952E /* OHHTTPStubs.framework in Frameworks */,
-				077F501324757B03004B81E2 /* ZappMerchantLib.framework in Frameworks */,
+				0701930224811DC400401E45 /* ZappMerchantLib.framework in Frameworks */,
 				072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */,
 				01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */,
 			);
@@ -744,7 +745,6 @@
 			files = (
 				01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */,
 				4416C3A22451A4060002870C /* JudoKit-iOS.framework in Frameworks */,
-				077F501424757B10004B81E2 /* ZappMerchantLib.framework in Frameworks */,
 				077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1215,7 +1215,7 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				077F501224757B02004B81E2 /* ZappMerchantLib.framework */,
+				0701930124811DC400401E45 /* ZappMerchantLib.framework */,
 				01AE3A38246050E90050952E /* OHHTTPStubs */,
 				010A9D0E24601B680064316D /* OHHTTPStubs.framework */,
 				072AFF442451E7C70038A417 /* DeviceDNA.framework */,
