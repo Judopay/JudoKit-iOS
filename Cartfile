@@ -2,4 +2,4 @@ github "datatheorem/TrustKit" == 1.6.4
 github "faceterteam/PayCards_iOS"
 github "Judopay/DeviceDNA-iOS"
 github "AliSoftware/OHHTTPStubs" == 9.0.0
-github "Judopay/pbba-merchant-button-library-ios" == 3.1.1
+github "Judopay/pbba-merchant-button-library-ios" "feature/carthage_support_deploy_target_chabge"
