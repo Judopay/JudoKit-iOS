@@ -132,7 +132,7 @@
 - (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
                          completion:(nullable JPCompletionBlock)completion {
     
-    JPError *configurationError = [self.configurationValidationService valiadatePBBAConfiguration:configuration];
+    JPError *configurationError = [self.configurationValidationService validatePBBAConfiguration:configuration];
     if (configurationError) {
         completion(nil, configurationError);
         return;

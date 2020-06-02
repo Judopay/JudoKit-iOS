@@ -45,6 +45,8 @@
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) int intTimer;
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
+@property (nonatomic, strong) UIViewController *topViewController;
+
 @end
 
 @implementation JPPBBAService
@@ -65,6 +67,9 @@ static const int NSPOSIXErrorDomainCode = 53;
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;
+        if (self.topViewController == nil) {
+            self.topViewController = UIApplication.topMostViewController;
+        }
     }
     return self;
 }
@@ -109,7 +114,7 @@ static const int NSPOSIXErrorDomainCode = 53;
             [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion:completion];
         }
 
-        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
+        [PBBAAppUtils showPBBAPopup:self.topViewController
                         secureToken:secureToken
                                 brn:brn
                      expiryInterval:0
@@ -217,8 +222,8 @@ static const int NSPOSIXErrorDomainCode = 53;
 
 - (void)showStatusViewWith:(JPTransactionStatus)status {
     [self hideStatusView];
-    [UIApplication.topMostViewController.view addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:UIApplication.topMostViewController.view withPadding:0.0];
+    [self.topViewController.view addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:self.topViewController.view withPadding:0.0];
     [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
     [self.transactionStatusView changeToTransactionStatus:status];
 }

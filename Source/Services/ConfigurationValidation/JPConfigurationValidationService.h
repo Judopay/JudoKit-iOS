@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  *
  * @returns an optional instance of JPError containing the validation error details
  */
-- (JPError *)valiadatePBBAConfiguration:(JPConfiguration *)configuration;
+- (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration;
 
 @end
 

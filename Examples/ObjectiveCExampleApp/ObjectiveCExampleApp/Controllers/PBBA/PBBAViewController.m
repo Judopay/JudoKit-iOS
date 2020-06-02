@@ -75,15 +75,12 @@
     }
     
     if (!response) {
+        [self presentErrorWithMessage: [JPError judoRequestFailedError].localizedDescription];
         return;
     }
     
     JPTransactionData *transactionData = response.items.firstObject;
-    
-    __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:YES completion:^{
-        [weakSelf presentDetailsViewControllerWithTransactionData:transactionData];
-    }];
+    [self presentDetailsViewControllerWithTransactionData:transactionData];
 }
 
 - (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {

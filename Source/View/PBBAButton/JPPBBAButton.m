@@ -37,7 +37,6 @@
     if (self = [super initWithCoder:coder]) {
         [self addSubview:self.pbbaButton];
     }
-
     return self;
 }
 

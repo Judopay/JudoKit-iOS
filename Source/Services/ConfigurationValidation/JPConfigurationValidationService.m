@@ -60,7 +60,7 @@
     return error;
 }
 
-- (JPError *)valiadatePBBAConfiguration:(JPConfiguration *)configuration {
+- (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration {
     JPError *error;
     
     if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
