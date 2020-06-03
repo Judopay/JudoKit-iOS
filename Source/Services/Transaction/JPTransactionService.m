@@ -80,7 +80,7 @@
     #if DEBUG
         // TODO: Temporary duplicate transaction solution
         // Generates a new payment reference for each Payment/PreAuth transaction
-        JPReference *oldReference = configuration.reference;
+        JPReference * _Nonnull oldReference = configuration.reference;
         transaction.reference = [[JPReference alloc] initWithConsumerReference:oldReference.consumerReference
                                                               paymentReference:[JPReference generatePaymentReference]];
     #endif
