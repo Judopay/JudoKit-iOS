@@ -85,8 +85,8 @@ class JPConfigurationValidationServiceTest: XCTestCase {
      *
      * THEN: should return error with "Unsuported Currency" message
      */
-    func test_ValiadatePBBAConfiguration_WhenCurrencyEUR_ShouldReturnError() {
-        let error = configValidation.valiadatePBBAConfiguration(configuration)
+    func test_ValidatePBBAConfiguration_WhenCurrencyEUR_ShouldReturnError() {
+        let error = configValidation.validatePBBAConfiguration(configuration)
         XCTAssertNotNil(error, "Unsuported Currency")
     }
     
