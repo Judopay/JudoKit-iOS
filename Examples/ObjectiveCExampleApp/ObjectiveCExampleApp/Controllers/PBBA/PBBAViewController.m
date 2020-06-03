@@ -24,6 +24,7 @@
 
 #import "PBBAViewController.h"
 #import "DetailViewController.h"
+#import "UIViewController+Additions.h"
 
 @import JudoKit_iOS;
 
@@ -70,12 +71,12 @@
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self presentErrorWithMessage: error.localizedDescription];
+        [self displayAlertWithError: error];
         return;
     }
     
     if (!response) {
-        [self presentErrorWithMessage: [JPError judoRequestFailedError].localizedDescription];
+        [self displayAlertWithError: [JPError judoRequestFailedError]];
         return;
     }
     
@@ -87,18 +88,6 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     viewController.transactionData = transactionData;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)presentErrorWithMessage:(NSString *)message {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

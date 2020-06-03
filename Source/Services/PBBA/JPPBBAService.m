@@ -38,6 +38,15 @@
 #import "UIApplication+Additions.h"
 #import "UIView+Additions.h"
 
+#pragma mark - Constants
+
+static NSString *const kRedirectEndpoint = @"order/bank/sale";
+static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
+static NSString *const kPendingStatus = @"PENDING";
+static const float kTimerDuration = 5.0f;
+static const float kTimerDurationLimit = 60.0f;
+static const int kNSPOSIXErrorDomainCode = 53;
+
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPTransactionService *transactionService;
@@ -50,15 +59,6 @@
 @end
 
 @implementation JPPBBAService
-
-#pragma mark - Constants
-
-static NSString *const kRedirectEndpoint = @"order/bank/sale";
-static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
-static NSString *const kPendingStatus = @"PENDING";
-static const float kTimerDuration = 5.0f;
-static const float kTimerDurationLimit = 60.0f;
-static const int NSPOSIXErrorDomainCode = 53;
 
 #pragma mark - Initializers
 
@@ -93,7 +93,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:JPHTTPMethodPOST
                                           parameters:parameters
-                                          completion:^(JPResponse *response, JPError *error) {
+                                          completion:^(JPResponse *response, __unused JPError *error) {
                                               JPTransactionData *data = response.items.firstObject;
 
                                               if (data.orderDetails.orderId && data.redirectUrl) {
@@ -130,7 +130,7 @@ static const int NSPOSIXErrorDomainCode = 53;
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
-                                                   block:^(NSTimer *_Nonnull timer) {
+                                                   block:^(__unused NSTimer *_Nonnull timer) {
                                                        [weakSelf getStatusForOrderId:orderId completion:completion];
                                                    }];
 }
@@ -149,33 +149,41 @@ static const int NSPOSIXErrorDomainCode = 53;
                                           httpMethod:JPHTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, JPError *error) {
-                                              self.intTimer += kTimerDuration;
-                                              if (self.intTimer > kTimerDurationLimit) {
-                                                  completion(nil, JPError.judoRequestTimeoutError);
-                                                  [weakSelf.timer invalidate];
-                                                  [self hideStatusView];
-                                                  self.intTimer = 0;
-                                                  return;
-                                              }
-
-                                              if (error && error.code != NSPOSIXErrorDomainCode) {
-                                                  completion(nil, error);
-                                                  [self hideStatusView];
-                                                  [weakSelf.timer invalidate];
-                                                  return;
-                                              }
-
-                                              if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
-                                                  [self showStatusViewWith:JPTransactionStatusPending];
-                                                  return;
-                                              }
-                                              if (error == nil) {
-                                                  response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
-                                                  completion(response, error);
-                                                  [self hideStatusView];
-                                                  [weakSelf.timer invalidate];
-                                              }
+                                                [weakSelf handleResponse:response
+                                                                   error:error
+                                                              completion:completion];
                                           }];
+}
+
+-(void)handleResponse:(JPResponse *)response
+                error:(JPError *)error
+           completion:(JPCompletionBlock)completion {
+    self.intTimer += kTimerDuration;
+    if (self.intTimer > kTimerDurationLimit) {
+        completion(nil, JPError.judoRequestTimeoutError);
+        [self.timer invalidate];
+        [self hideStatusView];
+        self.intTimer = 0;
+        return;
+    }
+    
+    if (error && error.code != kNSPOSIXErrorDomainCode) {
+        completion(nil, error);
+        [self hideStatusView];
+        [self.timer invalidate];
+        return;
+    }
+    
+    if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
+        [self showStatusViewWith:JPTransactionStatusPending];
+        return;
+    }
+    if (error == nil) {
+        response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
+        completion(response, error);
+        [self hideStatusView];
+        [self.timer invalidate];
+    }
 }
 
 - (void)stopPollingTransactionStatus {
