@@ -37,8 +37,8 @@
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
-#import "UIViewController+Additions.h"
 #import "UIView+Additions.h"
+#import "UIViewController+Additions.h"
 
 @interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>
 
@@ -112,7 +112,7 @@
     self.paymentMethodsView.headerView.pbbaButton.delegate = self;
 }
 
-- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender{
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
     [self.presenter handlePayButtonTap];
 }
 

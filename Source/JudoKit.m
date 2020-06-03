@@ -24,10 +24,10 @@
 
 #import "JudoKit.h"
 #import "JPApplePayService.h"
-#import "JPPBBAService.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
@@ -131,7 +131,7 @@
 
 - (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
                          completion:(nullable JPCompletionBlock)completion {
-    
+
     JPError *configurationError = [self.configurationValidationService validatePBBAConfiguration:configuration];
     if (configurationError) {
         completion(nil, configurationError);

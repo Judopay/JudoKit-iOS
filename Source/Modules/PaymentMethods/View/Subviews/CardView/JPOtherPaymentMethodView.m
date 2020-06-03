@@ -46,10 +46,10 @@
 
 #pragma mark - Constants
 
-static const float kLeadingImageViewWidth = 109.0f;
-static const float kLeadingImageViewHeight = 31.0f;
-static const float kTrailingImageViewWidth = 30.0f;
-static const float kContentPadding = 28.0f;
+static const float kLeadingImageViewWidth = 109.0F;
+static const float kLeadingImageViewHeight = 31.0F;
+static const float kTrailingImageViewWidth = 30.0F;
+static const float kContentPadding = 28.0F;
 
 #pragma mark - Initializers
 
@@ -84,28 +84,28 @@ static const float kContentPadding = 28.0f;
 #pragma mark - View Model Configuration
 
 - (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    
+
     switch (viewModel.paymentMethodType) {
         case JPPaymentMethodTypeApplePay:
             self.leadingImageView.image = [UIImage imageWithIconName:@"apple-pay-icon"];
             self.titleLabel.text = @"apple_pay".localized;
             break;
-            
+
         case JPPaymentMethodTypeIDeal:
             self.titleLabel.text = viewModel.bankModel.bankTitle;
             self.leadingImageView.image = [UIImage imageWithIconName:viewModel.bankModel.bankIconName];
             self.trailingImageView.image = [UIImage imageWithIconName:@"ideal-pay-icon"];
             break;
-            
+
         case JPPaymentMethodTypePbba:
             self.leadingImageView.image = [UIImage imageWithIconName:@"zapp-action"];
             self.titleLabel.text = @"pbba_pay".localized;
             break;
-            
+
         default:
             break;
     }
-    
+
     CGSize imageSize = self.leadingImageView.image.size;
     self.widthConstraint.constant = imageSize.width * (kLeadingImageViewHeight / imageSize.height);
 }
@@ -113,25 +113,25 @@ static const float kContentPadding = 28.0f;
 #pragma mark - Layout Setup
 
 - (void)setupViews {
-    
+
     self.widthConstraint = [self.leadingImageView.widthAnchor constraintLessThanOrEqualToConstant:kLeadingImageViewWidth];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.leadingImageView.heightAnchor constraintEqualToConstant:kLeadingImageViewHeight],
         self.widthConstraint,
         [self.trailingImageView.widthAnchor constraintEqualToConstant:kTrailingImageViewWidth],
     ]];
-    
+
     UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:0.0];
     [bottomStackView addArrangedSubview:self.leadingImageView];
     [bottomStackView addArrangedSubview:[UIView new]];
     [bottomStackView addArrangedSubview:self.trailingImageView];
-    
+
     UIStackView *mainStackView = [UIStackView verticalStackViewWithSpacing:0.0];
     [mainStackView addArrangedSubview:self.titleLabel];
     [mainStackView addArrangedSubview:[UIView new]];
     [mainStackView addArrangedSubview:bottomStackView];
-    
+
     [self addSubview:mainStackView];
     [mainStackView pinToView:self withPadding:kContentPadding * getWidthAspectRatio()];
 }

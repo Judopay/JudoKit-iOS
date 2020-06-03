@@ -62,16 +62,16 @@
 
 #pragma mark - Constants
 
-const float kHeaderBottomHeight = 86.0f;
-const float kHeaderAmountLabelMinScaleFactor = 0.5f;
-const float kHeaderDefaultStackViewSpacing = 0.0f;
-const float kHeaderDefaultPadding = 0.0f;
-const float kHeaderGradientClearColorLocation = 0.0f;
-const float kHeaderGradientWhiteColorLocation = 0.3f;
-const float kHeaderPaymentStackViewHorizontalPadding = 24.0f;
-const float kHeaderPaymentStackViewVerticalPadding = 20.0f;
-const float kHeaderPaymentButtonHeight = 200.0f;
-const float kHeaderEmptyHeaderViewYOffset = 100.0f;
+const float kHeaderBottomHeight = 86.0F;
+const float kHeaderAmountLabelMinScaleFactor = 0.5F;
+const float kHeaderDefaultStackViewSpacing = 0.0F;
+const float kHeaderDefaultPadding = 0.0F;
+const float kHeaderGradientClearColorLocation = 0.0F;
+const float kHeaderGradientWhiteColorLocation = 0.3F;
+const float kHeaderPaymentStackViewHorizontalPadding = 24.0F;
+const float kHeaderPaymentStackViewVerticalPadding = 20.0F;
+const float kHeaderPaymentButtonHeight = 200.0F;
+const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 #pragma mark - Initializers
 
@@ -151,13 +151,13 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
         [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
-    
+
     if (viewModel.paymentMethodType == JPPaymentMethodTypePbba) {
         [self.paymentStackView addArrangedSubview:self.pbbaButton];
         [_pbbaButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
-    
+
     [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];

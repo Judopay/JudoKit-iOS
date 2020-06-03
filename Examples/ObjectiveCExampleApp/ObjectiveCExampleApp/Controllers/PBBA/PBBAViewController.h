@@ -28,7 +28,7 @@
 
 @interface PBBAViewController : UIViewController
 
-@property (nonatomic, strong) JudoKit *judoKitSession;
+@property (nonatomic, strong) JudoKit *judoKit;
 @property (nonatomic, strong) JPConfiguration *configuration;
 
 @end

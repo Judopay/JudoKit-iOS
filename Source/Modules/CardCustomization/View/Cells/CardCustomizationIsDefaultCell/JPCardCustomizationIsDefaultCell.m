@@ -39,11 +39,11 @@
 
 #pragma mark - Constants
 
-const float kIsDefaultStackViewSpacing = 8.0f;
-const float kIsDefaultStackViewVerticalPadding = 0.0f;
-const float kIsDefaultStackViewHorizontalPadding = 24.0f;
-const float kIsDefaultStackViewHeight = 23.0f;
-const float kIsDefaultCheckmarkImageWidth = 23.0f;
+const float kIsDefaultStackViewSpacing = 8.0F;
+const float kIsDefaultStackViewVerticalPadding = 0.0F;
+const float kIsDefaultStackViewHorizontalPadding = 24.0F;
+const float kIsDefaultStackViewHeight = 23.0F;
+const float kIsDefaultCheckmarkImageWidth = 23.0F;
 
 #pragma mark - Theming
 

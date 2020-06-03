@@ -79,7 +79,7 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
     NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
                                                  failureReason:nil
                                                          title:nil];
-    
+
     return [JPError errorWithDomain:JudoErrorDomain
                                code:JudoErrorParameterError
                            userInfo:userInfo];

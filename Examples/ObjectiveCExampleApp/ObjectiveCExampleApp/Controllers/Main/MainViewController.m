@@ -45,7 +45,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 
-// INFO: Workaround for the judoKitSession setup
+// INFO: Workaround for the judoKit setup
 @property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
 @property (nonatomic, assign) BOOL shouldSetupJudoSDK;
 
@@ -69,7 +69,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // When isSandbox | token | secred changed in the settings, re-init the JudoKitSession
+    // When isSandbox | token | secred changed in the settings, re-init the JudoKit
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -98,7 +98,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     }
     if ([segue.destinationViewController isKindOfClass: PBBAViewController.class]) {
         PBBAViewController *controller = segue.destinationViewController;
-        controller.judoKitSession = self.judoKit;
+        controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }
 }

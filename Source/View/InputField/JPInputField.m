@@ -150,7 +150,7 @@
 
 - (void)setupViews {
 
-    self.layer.cornerRadius = 6.0f;
+    self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor.jpLightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 

@@ -54,8 +54,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) int intTimer;
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
-@property (nonatomic, strong) UIViewController *topViewController;
-
 @end
 
 @implementation JPPBBAService
@@ -67,9 +65,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;
-        if (self.topViewController == nil) {
-            self.topViewController = UIApplication.topMostViewController;
-        }
     }
     return self;
 }
@@ -114,7 +109,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
             [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion:completion];
         }
 
-        [PBBAAppUtils showPBBAPopup:self.topViewController
+        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
                         secureToken:secureToken
                                 brn:brn
                      expiryInterval:0
@@ -149,15 +144,15 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                           httpMethod:JPHTTPMethodGET
                                           parameters:nil
                                           completion:^(JPResponse *response, JPError *error) {
-                                                [weakSelf handleResponse:response
-                                                                   error:error
-                                                              completion:completion];
+                                              [weakSelf handleResponse:response
+                                                                 error:error
+                                                            completion:completion];
                                           }];
 }
 
--(void)handleResponse:(JPResponse *)response
-                error:(JPError *)error
-           completion:(JPCompletionBlock)completion {
+- (void)handleResponse:(JPResponse *)response
+                 error:(JPError *)error
+            completion:(JPCompletionBlock)completion {
     self.intTimer += kTimerDuration;
     if (self.intTimer > kTimerDurationLimit) {
         completion(nil, JPError.judoRequestTimeoutError);
@@ -166,14 +161,14 @@ static const int kNSPOSIXErrorDomainCode = 53;
         self.intTimer = 0;
         return;
     }
-    
+
     if (error && error.code != kNSPOSIXErrorDomainCode) {
         completion(nil, error);
         [self hideStatusView];
         [self.timer invalidate];
         return;
     }
-    
+
     if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
         [self showStatusViewWith:JPTransactionStatusPending];
         return;
@@ -229,9 +224,11 @@ static const int kNSPOSIXErrorDomainCode = 53;
 }
 
 - (void)showStatusViewWith:(JPTransactionStatus)status {
+    UIViewController *viewController = UIApplication.topMostViewController;
+
     [self hideStatusView];
-    [self.topViewController.view addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:self.topViewController.view withPadding:0.0];
+    [viewController.view addSubview:self.transactionStatusView];
+    [self.transactionStatusView pinToView:viewController.view withPadding:0.0];
     [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
     [self.transactionStatusView changeToTransactionStatus:status];
 }

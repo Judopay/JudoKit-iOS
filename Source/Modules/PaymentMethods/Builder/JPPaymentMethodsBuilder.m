@@ -67,12 +67,12 @@
             completion(nil, JPError.judoApplePayNotSupportedError);
             return nil;
         }
-        
+
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
             completion(nil, JPError.judoInvalidPBBACurrency);
             return nil;
         }
-        
+
         if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
             completion(nil, JPError.judoPBBAURLSchemeMissing);
             return nil;

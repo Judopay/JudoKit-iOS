@@ -46,12 +46,12 @@
 
 #pragma mark - Constants
 
-const float kCardHorizontalPadding = 24.0f;
-const float kCardVerticalPadding = 13.0f;
-const float kCardIconHeight = 36.0f;
-const float kCardIconWidth = 52.0f;
-const float kCardDefaultPadding = 8.0f;
-const float kCardSmallPadding = 3.0f;
+const float kCardHorizontalPadding = 24.0F;
+const float kCardVerticalPadding = 13.0F;
+const float kCardIconHeight = 36.0F;
+const float kCardIconWidth = 52.0F;
+const float kCardDefaultPadding = 8.0F;
+const float kCardSmallPadding = 3.0F;
 
 #pragma mark - Initializers
 
@@ -211,8 +211,8 @@ const float kCardSmallPadding = 3.0f;
     if (!_iconContainerView) {
         _iconContainerView = [UIView new];
         _iconContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-        _iconContainerView.layer.borderWidth = 1.0f;
-        _iconContainerView.layer.cornerRadius = 2.4f;
+        _iconContainerView.layer.borderWidth = 1.0F;
+        _iconContainerView.layer.cornerRadius = 2.4F;
     }
     return _iconContainerView;
 }

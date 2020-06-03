@@ -42,7 +42,7 @@
 /**
  * An initializer that points to the strings bundle inside the JudoKit framework
  */
-+ (nonnull instancetype)stringsBundle;
++ (nullable instancetype)stringsBundle;
 
 /**
  * An initializer that points to the resources bundle inside the JudoKit framework

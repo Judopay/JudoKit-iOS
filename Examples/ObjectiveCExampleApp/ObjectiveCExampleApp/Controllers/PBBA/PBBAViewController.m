@@ -52,7 +52,7 @@
  */
 - (void)pbbaButtonDidPress:(JPPBBAButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [weakSelf.judoKitSession invokePBBAWithConfiguration:weakSelf.configuration
+    [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
                                               completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];

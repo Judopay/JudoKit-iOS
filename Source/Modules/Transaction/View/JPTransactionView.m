@@ -52,19 +52,19 @@
 
 #pragma mark - Constants
 
-static const float kStandardSliderHeight = 365.0f;
-static const float kAVSSliderHeight = 410.0f;
-static const float kScanButtonCornerRadius = 4.0f;
-static const float kScanButtonBorderWidth = 1.0f;
-static const float kContentHorizontalPadding = 24.0f;
-static const float kContentVerticalPadding = 20.0f;
-static const float kScanCardHeight = 36.0f;
-static const float kInputFieldHeight = 44.0f;
-static const float kAddCardButtonHeight = 46.0f;
-static const float kLockImageWidth = 17.0f;
-static const float kSliderCornerRadius = 10.0f;
-static const float kTightContentSpacing = 8.0f;
-static const float kLooseContentSpacing = 16.0;
+static const float kStandardSliderHeight = 365.0F;
+static const float kAVSSliderHeight = 410.0F;
+static const float kScanButtonCornerRadius = 4.0F;
+static const float kScanButtonBorderWidth = 1.0F;
+static const float kContentHorizontalPadding = 24.0F;
+static const float kContentVerticalPadding = 20.0F;
+static const float kScanCardHeight = 36.0F;
+static const float kInputFieldHeight = 44.0F;
+static const float kAddCardButtonHeight = 46.0F;
+static const float kLockImageWidth = 17.0F;
+static const float kSliderCornerRadius = 10.0F;
+static const float kTightContentSpacing = 8.0F;
+static const float kLooseContentSpacing = 16.0F;
 
 #pragma mark - Initializers
 

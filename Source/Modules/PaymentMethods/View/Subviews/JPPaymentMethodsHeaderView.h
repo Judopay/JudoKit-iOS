@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPPBBAButton.h"
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
-#import "JPPBBAButton.h"
 
 @class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
 

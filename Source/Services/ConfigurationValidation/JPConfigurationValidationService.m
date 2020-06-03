@@ -62,13 +62,13 @@
 
 - (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration {
     JPError *error;
-    
+
     if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
         error = [JPError errorWithDomain:kJudoErrorDomain
                                     code:JPValidationErrorInvalidParameter
                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsupported Currency"}];
     }
-    
+
     return error;
 }
 

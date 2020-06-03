@@ -35,8 +35,8 @@
 
 #pragma mark - Constants
 
-const float kTitleLabelHorizontalPadding = 20.0f;
-const float kTitleLabelVerticalPadding = 10.0f;
+const float kTitleLabelHorizontalPadding = 20.0F;
+const float kTitleLabelVerticalPadding = 10.0F;
 
 #pragma mark - Initializers
 
