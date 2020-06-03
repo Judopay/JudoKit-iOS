@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -65,16 +66,83 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Judopay examples" id="zc7-jC-8dZ">
+                        <barButtonItem key="backBarButtonItem" title=" " id="xTp-8b-Yc1"/>
                         <barButtonItem key="rightBarButtonItem" title="Settings" image="settings_black" id="OAR-Ow-eeI">
                             <connections>
                                 <segue destination="c7c-i8-8h5" kind="show" id="Yn9-60-Z64"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="roV-nE-oFc" kind="show" identifier="showPbbaScreen" id="ace-IV-qgw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892" y="671"/>
+            <point key="canvasLocation" x="892" y="669.71514242878561"/>
+        </scene>
+        <!--PBBA-->
+        <scene sceneID="1N5-xj-n68">
+            <objects>
+                <viewController storyboardIdentifier="PBBAViewController" id="roV-nE-oFc" customClass="PBBAViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wV9-OE-FjF"/>
+                        <viewControllerLayoutGuide type="bottom" id="bpp-NB-xZN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7qM-xy-XFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4k-V2-Fkc" customClass="JPPBBAButton">
+                                <rect key="frame" x="76.5" y="305" width="222" height="57"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J4k-V2-Fkc" secondAttribute="height" multiplier="74:19" id="zCC-eN-4hS"/>
+                                </constraints>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay By Bank using your existing Bank app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kJ-cv-xWQ">
+                                <rect key="frame" x="29" y="276.5" width="317.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay By Bank using your existing Bank app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnW-Sq-xhf">
+                                <rect key="frame" x="29" y="439" width="317.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVy-Ii-QA4">
+                                <rect key="frame" x="67" y="467.5" width="241" height="57"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bnW-Sq-xhf" firstAttribute="centerX" secondItem="J4k-V2-Fkc" secondAttribute="centerX" id="0fO-k2-eh0"/>
+                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="top" secondItem="bnW-Sq-xhf" secondAttribute="bottom" constant="8" id="86E-tc-xaC"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="width" secondItem="7qM-xy-XFJ" secondAttribute="width" multiplier="0.592" id="G7p-TK-iME"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="top" secondItem="7kJ-cv-xWQ" secondAttribute="bottom" constant="8" id="JCD-Mt-B5b"/>
+                            <constraint firstItem="7kJ-cv-xWQ" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="13" id="M42-xv-Dzi"/>
+                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="centerX" secondItem="bnW-Sq-xhf" secondAttribute="centerX" id="OHg-7W-xSq"/>
+                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="height" secondItem="J4k-V2-Fkc" secondAttribute="height" id="V48-46-gOa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7kJ-cv-xWQ" secondAttribute="trailing" constant="12.5" id="aHJ-xF-f12"/>
+                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="width" secondItem="J4k-V2-Fkc" secondAttribute="width" multiplier="1.08108" constant="1" id="hYc-9k-qur"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="centerY" secondItem="7qM-xy-XFJ" secondAttribute="centerY" id="ho6-a3-UBl"/>
+                            <constraint firstItem="bnW-Sq-xhf" firstAttribute="top" secondItem="J4k-V2-Fkc" secondAttribute="bottom" constant="77" id="wd5-Qg-67w"/>
+                            <constraint firstItem="J4k-V2-Fkc" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="zZy-E2-sUi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="PBBA" largeTitleDisplayMode="never" id="W6f-GJ-s96"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="buttonPlaceholder" destination="cVy-Ii-QA4" id="nU6-Jw-RE0"/>
+                        <outlet property="pbbaButton" destination="J4k-V2-Fkc" id="tLP-1b-LGz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vgZ-3z-BrU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="1441"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nYt-DK-Zkg">

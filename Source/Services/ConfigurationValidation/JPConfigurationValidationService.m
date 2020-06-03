@@ -60,6 +60,18 @@
     return error;
 }
 
+- (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration {
+    JPError *error;
+
+    if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
+        error = [JPError errorWithDomain:kJudoErrorDomain
+                                    code:JPValidationErrorInvalidParameter
+                                userInfo:@{NSLocalizedDescriptionKey : @"Unsupported Currency"}];
+    }
+
+    return error;
+}
+
 #pragma mark - Validation methods
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
@@ -95,7 +107,7 @@
     } else if (![self.validCurrencies containsObject:curency]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorInvalidParameter
-                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsuported Currency"}];
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Unsupported Currency"}];
     }
 }
 

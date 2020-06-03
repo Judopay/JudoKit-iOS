@@ -1,5 +1,7 @@
 #import "DemoFeature.h"
 
+static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
+
 @implementation DemoFeature
 + (instancetype)featureWithType:(DemoFeatureType)type
                           title:(NSString *)title
@@ -8,6 +10,8 @@
     option.type = type;
     option.title = title;
     option.details = details;
+    option.cellIdentifier = kCellIdentifier;
+
     return option;
 }
 
@@ -43,6 +47,9 @@
         [DemoFeature featureWithType:DemoFeatureTypeServerToServer
                                title:@"Server-to-Server payment methods"
                              details:@"with default Server-to-Server payment methods"],
+        [DemoFeature featureWithType:DemoFeatureTypePBBA
+                               title:@"Pay By Bank"
+                             details:@"by using your existing Bank app"],
     ];
 }
 @end

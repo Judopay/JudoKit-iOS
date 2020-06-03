@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <ZappMerchantLib/PBBAAppUtils.h>
 #import "JPTransactionStatusView.h"
 #import "Typedefs.h"
+#import <Foundation/Foundation.h>
+#import <ZappMerchantLib/PBBAAppUtils.h>
 
 @class JPConfiguration, JPTransactionService;
 
@@ -51,10 +51,5 @@
 * A reference to the JPTheme instance responsible for customizing the user interface
 */
 @property (nonatomic, strong) JPTheme *_Nullable theme;
-
-/**
-* A weak reference to the object that adopts the JPStatusViewDelegate protocol
-*/
-@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
 
 @end

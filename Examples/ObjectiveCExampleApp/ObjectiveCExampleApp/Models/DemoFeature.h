@@ -13,12 +13,14 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
     DemoFeatureTypePaymentMethods,
     DemoFeatureTypePreAuthMethods,
     DemoFeatureTypeServerToServer,
+    DemoFeatureTypePBBA,
 };
 
 @interface DemoFeature : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *details;
+@property (nonatomic, strong) NSString *cellIdentifier;
 @property (nonatomic, assign) DemoFeatureType type;
 
 + (instancetype)featureWithType:(DemoFeatureType)type

@@ -24,10 +24,10 @@
 
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import "JPSectionViewDelegate.h"
-#import "JPTransactionViewDelegate.h"
-#import <UIKit/UIKit.h>
-#import "ZappMerchantLib/ZappMerchantLib.h"
 #import "JPTransactionStatusView.h"
+#import "JPTransactionViewDelegate.h"
+#import "ZappMerchantLib/ZappMerchantLib.h"
+#import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
 @class JPPaymentMethodsViewModel, JPUIConfiguration;
@@ -58,7 +58,7 @@
 
 #pragma mark - JPPaymentMethodsViewController
 
-@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView, PBBAButtonDelegate, JPStatusViewDelegate>
+@interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
 
 /**
  * A reference to the JPUIConfiguration instance responsible for customizing the user interface

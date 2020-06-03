@@ -37,14 +37,13 @@
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
-#import "UIViewController+Additions.h"
 #import "UIView+Additions.h"
+#import "UIViewController+Additions.h"
 
-@interface JPPaymentMethodsViewController ()
+@interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
-@property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 
 @end
 
@@ -113,9 +112,8 @@
     self.paymentMethodsView.headerView.pbbaButton.delegate = self;
 }
 
-- (BOOL)pbbaButtonDidPress:(nonnull PBBAButton *)pbbaButton {
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
     [self.presenter handlePayButtonTap];
-    return true;
 }
 
 - (void)configureTargets {
@@ -184,20 +182,6 @@
     CGFloat height = MIN(MAX(yValue, 370 * getWidthAspectRatio()), 418 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
-}
-
-#pragma mark - JPStatusViewDelegate
-
--(void)showStatusViewWith:(JPTransactionStatus)status {
-    [self hideStatusView];
-    [self.paymentMethodsView addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:self.paymentMethodsView withPadding:0.0];
-    [self.transactionStatusView applyTheme:self.uiConfiguration.theme];
-    [self.transactionStatusView changeToTransactionStatus:status];
-}
-
--(void)hideStatusView {
-    [self.transactionStatusView removeFromSuperview];
 }
 
 @end
@@ -326,17 +310,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (JPTransactionStatusView *)transactionStatusView {
-    if (!_transactionStatusView) {
-        _transactionStatusView = [JPTransactionStatusView new];
-        _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _transactionStatusView;
-}
-
 @end
-
-#pragma mark - JPTransactionViewDelegate
 
 @implementation JPPaymentMethodsViewController (TransactionDelegate)
 

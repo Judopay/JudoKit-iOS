@@ -23,9 +23,10 @@
 //  SOFTWARE.
 
 #import "JPTransactionMode.h"
+#import "JPTransactionStatusView.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
-#import "JPTransactionStatusView.h"
+#import <ZappMerchantLib/PBBAAppUtils.h>
 
 @class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
@@ -67,7 +68,7 @@
 /**
  * Starts the PBBA payment
 */
-- (void)openPBBAWithCompletion:(_Nullable JPCompletionBlock)completion;
+- (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -134,7 +135,7 @@
 
 @end
 
-@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor, JPStatusViewDelegate>
+@interface JPPaymentMethodsInteractorImpl : NSObject <JPPaymentMethodsInteractor>
 
 /**
  * A designated initializer that sets up the JPTheme object needed for view customization
@@ -150,10 +151,5 @@
                        configuration:(nonnull JPConfiguration *)configuration
                   transactionService:(nonnull JPTransactionService *)transactionService
                           completion:(nullable JPCompletionBlock)completion;
-
-/**
-* A weak reference to the object that adopts the JPStatusViewDelegate protocol
-*/
-@property (nonatomic, weak) id<JPStatusViewDelegate> _Nullable statusViewDelegate;
 
 @end

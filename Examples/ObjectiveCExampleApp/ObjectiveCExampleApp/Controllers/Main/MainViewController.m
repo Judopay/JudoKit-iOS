@@ -28,23 +28,24 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+#import "PBBAViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
 
-static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcellidentifier";
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
+static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 
 @interface MainViewController ()
 
 @property (nonatomic, strong) JPReference *reference;
 @property (nonatomic, strong) JPCardDetails *cardDetails;
 @property (nonatomic, strong) JPPaymentToken *payToken;
-@property (nonatomic, strong) JudoKit *judoKitSession;
+@property (nonatomic, strong) JudoKit *judoKit;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 
-// INFO: Workaround for the judoKitSession setup
+// INFO: Workaround for the judoKit setup
 @property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
 @property (nonatomic, assign) BOOL shouldSetupJudoSDK;
 
@@ -68,7 +69,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // When isSandbox | token | secred changed in the settings, re-init the JudoKitSession
+    // When isSandbox | token | secred changed in the settings, re-init the JudoKit
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -95,14 +96,19 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
         IASKAppSettingsViewController *controller = segue.destinationViewController;
         controller.neverShowPrivacySettings = YES;
     }
+    if ([segue.destinationViewController isKindOfClass: PBBAViewController.class]) {
+        PBBAViewController *controller = segue.destinationViewController;
+        controller.judoKit = self.judoKit;
+        controller.configuration = self.configuration;
+    }
 }
 
 // MARK: Setup methods
 
 - (void)setupJudoSDK {
-    self.judoKitSession = [[JudoKit alloc] initWithToken:self.settings.token
+    self.judoKit = [[JudoKit alloc] initWithToken:self.settings.token
                                                   secret:self.settings.secret];
-    self.judoKitSession.isSandboxed = self.settings.isSandboxed;
+    self.judoKit.isSandboxed = self.settings.isSandboxed;
 }
 
 - (void)setupPropertiesObservation {
@@ -129,7 +135,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)paymentOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:JPTransactionTypePayment
+    [self.judoKit invokeTransactionWithType:JPTransactionTypePayment
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -138,7 +144,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)preAuthOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:JPTransactionTypePreAuth
+    [self.judoKit invokeTransactionWithType:JPTransactionTypePreAuth
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -147,7 +153,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeRegisterCard
+    [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -156,7 +162,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)checkCardOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeCheckCard
+    [self.judoKit invokeTransactionWithType:JPTransactionTypeCheckCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -165,7 +171,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)saveCardOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeTransactionWithType:JPTransactionTypeSaveCard
+    [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
                                      configuration:self.configuration
                                         completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -174,7 +180,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)applePayPaymentOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeApplePayWithMode:JPTransactionModePayment
+    [self.judoKit invokeApplePayWithMode:JPTransactionModePayment
                                   configuration:self.configuration
                                      completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -183,7 +189,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)applePayPreAuthOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokeApplePayWithMode:JPTransactionModePreAuth
+    [self.judoKit invokeApplePayWithMode:JPTransactionModePreAuth
                                   configuration:self.configuration
                                      completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -192,7 +198,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)paymentMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModePayment
+    [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePayment
                                              configuration:self.configuration
                                                 completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
@@ -201,16 +207,20 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)preAuthMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModePreAuth
+    [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePreAuth
                                              configuration:self.configuration
                                                 completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
 
+- (void)pbbaMethodOperation {
+    [self performSegueWithIdentifier:kShowPbbaScreenSegue sender:nil];
+}
+
 - (void)serverToServerMethodOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKitSession invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
+    [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
                                              configuration:self.configuration
                                                 completion:^(JPResponse *response, JPError *error) {
                                   [weakSelf handleResponse:response error:error];
@@ -221,7 +231,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self presentErrorWithMessage: error.localizedDescription];
+        [self displayAlertWithError: error];
         return;
     }
     
@@ -246,18 +256,6 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     viewController.transactionData = transactionData;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)presentErrorWithMessage:(NSString *)message {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 // MARK: Lazy properties
@@ -335,9 +333,9 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
     DemoFeature *option = self.features[indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:option.cellIdentifier forIndexPath:indexPath];
+    
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
     return cell;
@@ -387,6 +385,10 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
             
         case DemoFeatureTypeServerToServer:
             [self serverToServerMethodOperation];
+            break;
+            
+        case DemoFeatureTypePBBA:
+            [self pbbaMethodOperation];
             break;
     }
 }

@@ -34,10 +34,10 @@
 
 #pragma mark - Constants
 
-const float kInputFieldTopPadding = 32.0f;
-const float kInputFieldBottomPadding = 16.0f;
-const float kInputFieldHorizontalPadding = 24.0f;
-const float kInputFieldHeight = 44.0f;
+const float kInputFieldTopPadding = 32.0F;
+const float kInputFieldBottomPadding = 16.0F;
+const float kInputFieldHorizontalPadding = 24.0F;
+const float kInputFieldHeight = 44.0F;
 
 #pragma mark - Initializers
 

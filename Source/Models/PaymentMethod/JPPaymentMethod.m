@@ -52,17 +52,17 @@
                 _title = @"Cards";
                 _iconName = @"cards-pay-icon";
                 break;
-                
+
             case JPPaymentMethodTypeIDeal:
                 _title = @"iDeal";
                 _iconName = @"ideal-pay-icon";
                 break;
-                
+
             case JPPaymentMethodTypeApplePay:
                 _title = nil;
                 _iconName = @"apple-pay-icon";
                 break;
-                
+
             case JPPaymentMethodTypePbba:
                 _title = @"PBBA";
                 _iconName = @"zapp-icon";

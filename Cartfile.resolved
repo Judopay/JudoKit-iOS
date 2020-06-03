@@ -1,5 +1,5 @@
 github "AliSoftware/OHHTTPStubs" "9.0.0"
 github "Judopay/DeviceDNA-iOS" "1.1.2"
-github "Judopay/ZappMerchantLib-R2-iOS" "c405b4f4ebff3cb702b63f589cece264273dc0f1"
+github "Judopay/pbba-merchant-button-library-ios" "3.1.2"
 github "datatheorem/TrustKit" "1.6.4"
 github "faceterteam/PayCards_iOS" "1.1.7"

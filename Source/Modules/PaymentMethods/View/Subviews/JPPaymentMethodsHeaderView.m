@@ -62,16 +62,16 @@
 
 #pragma mark - Constants
 
-const float kHeaderBottomHeight = 86.0f;
-const float kHeaderAmountLabelMinScaleFactor = 0.5f;
-const float kHeaderDefaultStackViewSpacing = 0.0f;
-const float kHeaderDefaultPadding = 0.0f;
-const float kHeaderGradientClearColorLocation = 0.0f;
-const float kHeaderGradientWhiteColorLocation = 0.3f;
-const float kHeaderPaymentStackViewHorizontalPadding = 24.0f;
-const float kHeaderPaymentStackViewVerticalPadding = 20.0f;
-const float kHeaderPaymentButtonHeight = 200.0f;
-const float kHeaderEmptyHeaderViewYOffset = 100.0f;
+const float kHeaderBottomHeight = 86.0F;
+const float kHeaderAmountLabelMinScaleFactor = 0.5F;
+const float kHeaderDefaultStackViewSpacing = 0.0F;
+const float kHeaderDefaultPadding = 0.0F;
+const float kHeaderGradientClearColorLocation = 0.0F;
+const float kHeaderGradientWhiteColorLocation = 0.3F;
+const float kHeaderPaymentStackViewHorizontalPadding = 24.0F;
+const float kHeaderPaymentStackViewVerticalPadding = 20.0F;
+const float kHeaderPaymentButtonHeight = 200.0F;
+const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 #pragma mark - Initializers
 
@@ -151,12 +151,13 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
         [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
-    
+
     if (viewModel.paymentMethodType == JPPaymentMethodTypePbba) {
         [self.paymentStackView addArrangedSubview:self.pbbaButton];
+        [_pbbaButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
         return;
     }
-    
+
     [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
@@ -347,24 +348,10 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0f;
     return _payButton;
 }
 
-- (PBBAButton *)pbbaButton {
+- (JPPBBAButton *)pbbaButton {
     if (!_pbbaButton) {
-        _pbbaButton = [PBBAButton new];
-        [_pbbaButton.subviews.firstObject.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-
-            if ([obj isKindOfClass:UILabel.class] || [obj isKindOfClass:UIButton.class]) {
-                [obj removeFromSuperview];
-                return;
-            }
-            [obj.subviews.firstObject.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
-            [obj.subviews.firstObject.heightAnchor constraintEqualToConstant:_payButton.frame.size.height].active = YES;
-            [obj.subviews.firstObject.topAnchor constraintEqualToAnchor:_pbbaButton.topAnchor].active = YES;
-            [obj.subviews.firstObject.bottomAnchor constraintEqualToAnchor:_pbbaButton.bottomAnchor].active = YES;
-            [obj.subviews.firstObject.leadingAnchor constraintEqualToAnchor:_pbbaButton.leadingAnchor].active = YES;
-            [obj.subviews.firstObject.trailingAnchor constraintEqualToAnchor:_pbbaButton.trailingAnchor].active = YES;
-        }];
-        _pbbaButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_pbbaButton setClipsToBounds:YES];
+        CGRect buttonRect = CGRectMake(0, 0, kHeaderPaymentButtonHeight * getWidthAspectRatio(), kHeaderPaymentButtonHeight);
+        _pbbaButton = [[JPPBBAButton alloc] initWithFrame:buttonRect];
     }
     return _pbbaButton;
 }

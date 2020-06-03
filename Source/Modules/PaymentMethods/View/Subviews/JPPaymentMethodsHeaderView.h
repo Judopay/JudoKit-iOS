@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPPBBAButton.h"
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
-#import "ZappMerchantLib/ZappMerchantLib.h"
 
 @class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
 
@@ -43,7 +43,7 @@
 /**
  * The PBBA branded button that triggers the PBBA flow
  */
-@property (nonatomic, strong) PBBAButton *pbbaButton;
+@property (nonatomic, strong) JPPBBAButton *pbbaButton;
 
 /**
  * A method used to apply a theme to the view

@@ -31,7 +31,7 @@
 - (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
                         emailAddress:(NSString *_Nullable)emailAddress
                   appearsOnStatement:(NSString *_Nullable)appearsOnStatement {
-    
+
     self.mobileNumber = mobileNumber;
     self.emailAddress = emailAddress;
     self.appearsOnStatement = appearsOnStatement;

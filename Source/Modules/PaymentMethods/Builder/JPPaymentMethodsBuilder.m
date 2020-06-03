@@ -67,12 +67,12 @@
             completion(nil, JPError.judoApplePayNotSupportedError);
             return nil;
         }
-        
+
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
             completion(nil, JPError.judoInvalidPBBACurrency);
             return nil;
         }
-        
+
         if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
             completion(nil, JPError.judoPBBAURLSchemeMissing);
             return nil;
@@ -94,8 +94,6 @@
                                                    transactionService:transactionService
                                                            completion:completion];
 
-    interactor.statusViewDelegate = presenter;
-    presenter.statusViewDelegate = viewController;
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;

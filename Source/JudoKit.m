@@ -27,6 +27,7 @@
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
@@ -46,10 +47,11 @@
 
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPApplePayConfiguration *configuration;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
 
@@ -125,6 +127,20 @@
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
     [self.applePayService invokeApplePayWithMode:mode completion:completion];
+}
+
+- (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
+                         completion:(nullable JPCompletionBlock)completion {
+
+    JPError *configurationError = [self.configurationValidationService validatePBBAConfiguration:configuration];
+    if (configurationError) {
+        completion(nil, configurationError);
+        return;
+    }
+    self.configuration = configuration;
+    self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
+                                                 transactionService:self.transactionService];
+    [self.pbbaService openPBBAMerchantApp:completion];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode

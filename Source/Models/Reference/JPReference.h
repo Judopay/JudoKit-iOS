@@ -77,6 +77,6 @@
  *
  *  @return a random string that can act as a payment reference for any kind of transaction with the judo API
  */
-+ (nullable NSString *)generatePaymentReference;
++ (nonnull NSString *)generatePaymentReference;
 
 @end

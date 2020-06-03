@@ -54,6 +54,15 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  */
 - (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration;
 
+/**
+ * A method that validates the PBBA configuration and returns an optional JPError if the configuration fails
+ *
+ * @param configuration - an instance of JPConfiguration that contains all the payment configuration properties
+ *
+ * @returns an optional instance of JPError containing the validation error details
+ */
+- (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration;
+
 @end
 
 /**

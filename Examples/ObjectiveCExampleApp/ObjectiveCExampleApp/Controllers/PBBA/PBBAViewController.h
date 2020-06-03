@@ -1,8 +1,8 @@
 //
-//  NSBundle+Additions.h
-//  JudoKit-iOS
+//  PBBAViewController.h
+//  ObjectiveCExampleApp
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-/**
- * An NSBundle extension that offers additional convenience initializers
- */
-@interface NSBundle (Additions)
+@import JudoKit_iOS;
 
-/**
- * An initializer that points to the JudoKit framework
- */
-+ (nonnull instancetype)frameworkBundle;
+@interface PBBAViewController : UIViewController
 
-/**
- * An initializer that points to the icons bundle inside the JudoKit framework
- */
-+ (nullable instancetype)iconsBundle;
-
-/**
- * An initializer that points to the strings bundle inside the JudoKit framework
- */
-+ (nullable instancetype)stringsBundle;
-
-/**
- * An initializer that points to the resources bundle inside the JudoKit framework
- */
-+ (nullable instancetype)resourcesBundle;
-
-/**
- * A getter that returns the URL Scheme from the app's Info.plist, used for app redirect calls.
- * Transactions such as Pay by Bank App require a valid URL Scheme to be enabled.
- *
- * @returns a nullable NSString instance containing the URL Scheme name
- */
-+ (nullable NSString *)appURLScheme;
+@property (nonatomic, strong) JudoKit *judoKit;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
+

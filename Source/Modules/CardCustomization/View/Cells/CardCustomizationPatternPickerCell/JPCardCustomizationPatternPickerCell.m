@@ -39,9 +39,9 @@
 
 #pragma mark - Constants
 
-const float kPatternSelectedCellSize = 50.0f;
-const float kPatternUnselectedCellSize = 36.0f;
-const float kPatternCollectionViewPadding = 24.0f;
+const float kPatternSelectedCellSize = 50.0F;
+const float kPatternUnselectedCellSize = 36.0F;
+const float kPatternCollectionViewPadding = 24.0F;
 
 #pragma mark - Initializers
 

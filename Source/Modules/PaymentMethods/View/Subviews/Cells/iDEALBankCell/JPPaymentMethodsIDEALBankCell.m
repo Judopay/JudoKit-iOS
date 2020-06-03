@@ -40,13 +40,13 @@
 
 #pragma mark - Constants
 
-const float kiDEALBankVerticalPadding = 18.0f;
-const float kiDEALBankStackViewHorizontalPadding = 27.0f;
-const float kiDEALBankStackViewHeight = 24.0f;
-const float kiDEALBankIconWidth = 60.0f;
-const float kiDEALBankCheckmarkWidth = 34.0f;
-const float kiDEALBankSeparatorHeight = 1.0f;
-const float kiDEALBankStackViewSpacing = 10.0f;
+const float kiDEALBankVerticalPadding = 18.0F;
+const float kiDEALBankStackViewHorizontalPadding = 27.0F;
+const float kiDEALBankStackViewHeight = 24.0F;
+const float kiDEALBankIconWidth = 60.0F;
+const float kiDEALBankCheckmarkWidth = 34.0F;
+const float kiDEALBankSeparatorHeight = 1.0F;
+const float kiDEALBankStackViewSpacing = 10.0F;
 
 #pragma mark - Initializers
 

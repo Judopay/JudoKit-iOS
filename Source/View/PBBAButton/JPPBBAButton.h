@@ -1,8 +1,8 @@
 //
-//  NSBundle+Additions.h
+//  JPPBBAButton.h
 //  JudoKit-iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "ZappMerchantLib/ZappMerchantLib.h"
+#import <UIKit/UIKit.h>
 
+@class JPPBBAButton;
 /**
- * An NSBundle extension that offers additional convenience initializers
+ *  PBBA payment button delegate.
  */
-@interface NSBundle (Additions)
-
+@protocol JPPBBAButtonDelegate
 /**
- * An initializer that points to the JudoKit framework
+ *  Tell the delegate that pay by bank button was pressed.
  */
-+ (nonnull instancetype)frameworkBundle;
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender;
 
-/**
- * An initializer that points to the icons bundle inside the JudoKit framework
- */
-+ (nullable instancetype)iconsBundle;
+@end
 
-/**
- * An initializer that points to the strings bundle inside the JudoKit framework
- */
-+ (nullable instancetype)stringsBundle;
-
-/**
- * An initializer that points to the resources bundle inside the JudoKit framework
- */
-+ (nullable instancetype)resourcesBundle;
-
-/**
- * A getter that returns the URL Scheme from the app's Info.plist, used for app redirect calls.
- * Transactions such as Pay by Bank App require a valid URL Scheme to be enabled.
- *
- * @returns a nullable NSString instance containing the URL Scheme name
- */
-+ (nullable NSString *)appURLScheme;
-
+@interface JPPBBAButton : UIView
+@property (nonatomic, weak) id<JPPBBAButtonDelegate> _Nullable delegate;
 @end

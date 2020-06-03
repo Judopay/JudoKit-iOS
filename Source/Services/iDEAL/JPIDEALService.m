@@ -46,7 +46,7 @@
 
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
-static const float kTimerDuration = 60.0f;
+static const float kTimerDuration = 60.0F;
 
 #pragma mark - Initializers
 
@@ -70,12 +70,12 @@ static const float kTimerDuration = 60.0f;
 
     NSMutableDictionary *parameters = [self parametersForIDEALBank:iDealBank];
 
-    #if DEBUG
-        // TODO: Temporary duplicate transaction solution
-        // Generates a new payment reference for each iDEAL redirect transaction
-        parameters[@"merchantPaymentReference"] = [JPReference generatePaymentReference];
-    #endif
-    
+#if DEBUG
+    // TODO: Temporary duplicate transaction solution
+    // Generates a new payment reference for each iDEAL redirect transaction
+    parameters[@"merchantPaymentReference"] = [JPReference generatePaymentReference];
+#endif
+
     if (!parameters) {
         completion(nil, JPError.judoSiteIDMissingError);
         return;

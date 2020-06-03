@@ -76,15 +76,15 @@
     transaction.judoId = configuration.judoId;
     transaction.amount = [self amountForTransactionType:configuration];
     transaction.reference = configuration.reference;
-    
-    #if DEBUG
-        // TODO: Temporary duplicate transaction solution
-        // Generates a new payment reference for each Payment/PreAuth transaction
-        JPReference *oldReference = configuration.reference;
-        transaction.reference = [[JPReference alloc] initWithConsumerReference:oldReference.consumerReference
-                                                              paymentReference:[JPReference generatePaymentReference]];
-    #endif
-    
+
+#if DEBUG
+    // TODO: Temporary duplicate transaction solution
+    // Generates a new payment reference for each Payment/PreAuth transaction
+    JPReference *_Nonnull oldReference = configuration.reference;
+    transaction.reference = [[JPReference alloc] initWithConsumerReference:oldReference.consumerReference
+                                                          paymentReference:[JPReference generatePaymentReference]];
+#endif
+
     transaction.primaryAccountDetails = configuration.primaryAccountDetails;
     transaction.apiSession = self.session;
     transaction.enricher = self.enricher;
