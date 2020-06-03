@@ -43,8 +43,8 @@
 static NSString *const kRedirectEndpoint = @"order/bank/sale";
 static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kPendingStatus = @"PENDING";
-static const float kTimerDuration = 5.0f;
-static const float kTimerDurationLimit = 60.0f;
+static const float kTimerDuration = 5.0F;
+static const float kTimerDurationLimit = 60.0F;
 static const int kNSPOSIXErrorDomainCode = 53;
 
 @interface JPPBBAService ()

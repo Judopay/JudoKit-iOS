@@ -37,7 +37,7 @@
 }
 
 + (NSBundle *)iconsBundle {
-    static NSBundle * _Nonnull iconsBundle;
+    static NSBundle * __nullable iconsBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"icons"];
@@ -58,7 +58,7 @@
 }
 
 + (instancetype)resourcesBundle {
-    static NSBundle * _Nonnull iconsBundle;
+    static NSBundle * __nullable iconsBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"resources"];
