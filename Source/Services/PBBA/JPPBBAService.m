@@ -54,7 +54,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) int intTimer;
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
-@property (nonatomic, weak) JPCompletionBlock completionHandler;
 @end
 
 @implementation JPPBBAService
@@ -62,12 +61,10 @@ static const int kNSPOSIXErrorDomainCode = 53;
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService
-                           completion:(JPCompletionBlock)completion {
+                   transactionService:(JPTransactionService *)transactionService {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;
-        self.completionHandler = completion;
     }
     return self;
 }
@@ -198,7 +195,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;
 
-    NSString *merchantRedirectUrl = self.configuration.pbbaConfiguration.deeplinkScheme;
+    NSString *merchantRedirectUrl = self.configuration.pbbaConfiguration.deeplinkScheme ? self.configuration.pbbaConfiguration.deeplinkScheme : @"";
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
@@ -250,24 +247,25 @@ static const int kNSPOSIXErrorDomainCode = 53;
     return _transactionStatusView;
 }
 
-- (NSString *)parseURL:(NSURL *)url {
+- (NSString *__nullable)parseURL:(NSURL *_Nonnull)url {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
     NSArray *queryItems = [components queryItems];
-    NSMutableDictionary *dict = [NSMutableDictionary new];
 
     for (NSURLQueryItem *item in queryItems) {
-        [dict setObject:[item value] forKey:[item name]];
+        if ([item.name isEqualToString:@"aptrId"]) {
+            return item.value;
+        }
     }
-    NSString *orderId = [dict objectForKey:@"aptrId"];
-    return orderId;
+    return nil;
 }
 
-- (void)pollingPBBAMerchantApp {
-    NSURL *deepLink = self.configuration.pbbaConfiguration.deeplinkURL;
-    NSString *orderID = [self parseURL:deepLink];
-    if ([orderID length] > 0) {
-        [self getStatusForOrderId:orderID completion:self.completionHandler];
-        [self pollTransactionStatusForOrderId:orderID completion:self.completionHandler];
+- (void)pollingPBBAMerchantApp:(nonnull JPCompletionBlock)completion {
+    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
+        NSString *orderID = [self parseURL:self.configuration.pbbaConfiguration.deeplinkURL];
+        if ([orderID length] > 0) {
+            [self getStatusForOrderId:orderID completion:completion];
+            [self pollTransactionStatusForOrderId:orderID completion:completion];
+        }
     }
 }
 

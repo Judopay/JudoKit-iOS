@@ -184,8 +184,8 @@
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
 }
 
-- (void)pollingPBBAWithCompletion {
-    [self.pbbaService pollingPBBAMerchantApp];
+- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion {
+    [self.pbbaService pollingPBBAMerchantApp:completion];
 }
 
 #pragma mark - Remove Apple Pay from payment methods
@@ -273,8 +273,7 @@
 - (JPPBBAService *)pbbaService {
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
-                                                 transactionService:self.transactionService
-                                                         completion:self.completionHandler];
+                                                 transactionService:self.transactionService];
     }
     return _pbbaService;
 }

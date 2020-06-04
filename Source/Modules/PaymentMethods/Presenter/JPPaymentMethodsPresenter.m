@@ -81,7 +81,10 @@
         NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
         if (pbbaIndex >= 0) {
             [self changePaymentMethodToIndex:pbbaIndex];
-            [self.interactor pollingPBBAWithCompletion];
+            __weak typeof(self) weakSelf = self;
+            [self.interactor pollingPBBAWithCompletion:^(JPResponse *response, NSError *error) {
+                [weakSelf handleCallbackWithResponse:response andError:error];
+            }];
         }
     }
 }

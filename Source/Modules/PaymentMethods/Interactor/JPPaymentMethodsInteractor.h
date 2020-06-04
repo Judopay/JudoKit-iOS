@@ -73,7 +73,7 @@
 /**
  * Starts the PBBA polling
 */
-- (void)pollingPBBAWithCompletion;
+- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index

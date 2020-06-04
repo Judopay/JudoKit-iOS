@@ -139,8 +139,7 @@
     }
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                 transactionService:self.transactionService
-                                                         completion:completion];
+                                                 transactionService:self.transactionService];
 
     [self.pbbaService openPBBAMerchantApp:completion];
 }
@@ -172,9 +171,9 @@
 - (void)pollingPBBAMerchantApp:(nonnull JPConfiguration *)configuration
                     completion:(nullable JPCompletionBlock)completion  {
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                 transactionService:self.transactionService
-                                                         completion:completion];
-    [self.pbbaService pollingPBBAMerchantApp];
+                                                 transactionService:self.transactionService];
+
+    [self.pbbaService pollingPBBAMerchantApp:completion];
 }
 
 
