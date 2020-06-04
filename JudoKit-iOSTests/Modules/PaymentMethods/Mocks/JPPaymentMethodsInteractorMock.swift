@@ -25,6 +25,13 @@
 import Foundation
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+    func pollingPBBAWithCompletion() {
+    }
+    
+    func indexOfPBBAMethod() -> Int {
+        return -1
+    }
+
     func openPBBA(completion: JPCompletionBlock? = nil) {
 
     }

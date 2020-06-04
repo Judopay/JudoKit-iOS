@@ -28,4 +28,11 @@
 @end
 
 @interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>
+
+/**
+* A method that opens pbba payment screen from deeplink
+*
+* @param url - url that it is deeplink
+*/
+-(void)openPBBAScreen:(NSURL *)url;
 @end

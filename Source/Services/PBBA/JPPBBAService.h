@@ -38,7 +38,8 @@
  * @param transactionService - an instance of JPTransactionService responsible for Judo backend calls
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           transactionService:(nonnull JPTransactionService *)transactionService;
+                           transactionService:(nonnull JPTransactionService *)transactionService
+                                   completion:(nullable JPCompletionBlock)completion;;
 
 /**
  * Method used for returning a redirect URL based on the PBBA
@@ -46,6 +47,11 @@
  * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
 - (void)openPBBAMerchantApp:(nonnull JPCompletionBlock)completion;
+
+/**
+ * Method used for start polling
+ */
+- (void)pollingPBBAMerchantApp;
 
 /**
 * A reference to the JPTheme instance responsible for customizing the user interface

@@ -139,7 +139,9 @@
     }
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                 transactionService:self.transactionService];
+                                                 transactionService:self.transactionService
+                                                         completion:completion];
+
     [self.pbbaService openPBBAMerchantApp:completion];
 }
 

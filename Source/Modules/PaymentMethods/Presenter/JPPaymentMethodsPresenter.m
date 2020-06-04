@@ -37,6 +37,8 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
+#import "JPConfiguration.h"
+#import "JPPBBAConfiguration.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -54,10 +56,19 @@
 
 @property (nonatomic, assign) NSUInteger selectedBankIndex;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
 
 @implementation JPPaymentMethodsPresenterImpl
+
+#pragma mark - Initializers
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration*)configuration {
+    if (self = [super init]) {
+          self.configuration = configuration;
+      }
+      return self;
+}
 
 #pragma mark - Protocol Conformance
 
@@ -65,6 +76,14 @@
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
+    
+    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
+        NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
+        if (pbbaIndex >= 0) {
+            [self changePaymentMethodToIndex:pbbaIndex];
+            [self.interactor pollingPBBAWithCompletion];
+        }
+    }
 }
 
 - (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType

@@ -46,6 +46,17 @@
 @property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
 
 /**
+ * [Optional] DeeplinkURL from bank app
+ */
+@property (nonatomic, strong) NSURL *_Nullable deeplinkURL;
+
+/**
+ * [Optional] The merchant deeplinkScheme from app
+ */
+@property (nonatomic, strong) NSString *_Nullable deeplinkScheme;
+
+
+/**
  * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
  *
  * @param mobileNumber          - The merchant mobile number

@@ -46,6 +46,7 @@
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
 #import "NSBundle+Additions.h"
+#import "JPPBBAConfiguration.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -141,6 +142,17 @@
     return self.configuration.amount;
 }
 
+- (NSInteger)indexOfPBBAMethod {
+    NSInteger cardIndex = 0;
+    for (JPPaymentMethod *method in [self getPaymentMethods]) {
+        if (method.type == JPPaymentMethodTypePbba) {
+            return cardIndex;
+        }
+        cardIndex++;
+    }
+    return -1;
+}
+
 #pragma mark - Get payment methods
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
@@ -161,8 +173,8 @@
 
     BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
     BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
-    BOOL isURLSchemeSet = (NSBundle.appURLScheme != nil) && (NSBundle.appURLScheme.length > 0);
-
+    BOOL isURLSchemeSet = ((NSBundle.appURLScheme.length > 0)  && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
+    
     if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
     } else {
@@ -170,6 +182,10 @@
     }
 
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
+}
+
+- (void)pollingPBBAWithCompletion {
+    [self.pbbaService pollingPBBAMerchantApp];
 }
 
 #pragma mark - Remove Apple Pay from payment methods
@@ -257,7 +273,8 @@
 - (JPPBBAService *)pbbaService {
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
-                                                 transactionService:self.transactionService];
+                                                 transactionService:self.transactionService
+                                                         completion:self.completionHandler];
     }
     return _pbbaService;
 }

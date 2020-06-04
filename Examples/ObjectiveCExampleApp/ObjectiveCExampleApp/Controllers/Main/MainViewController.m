@@ -270,6 +270,11 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     configuration.uiConfiguration.shouldDisplayAmount = self.settings.isAmountLabelEnabled;
     configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
+    
+    JPPBBAConfiguration *pbbaConfig = [JPPBBAConfiguration new];
+    pbbaConfig.deeplinkScheme = @"judo://";
+    configuration.pbbaConfiguration = pbbaConfig;
+
     return configuration;
 }
 
@@ -391,6 +396,18 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
             [self pbbaMethodOperation];
             break;
     }
+}
+
+-(void)openPBBAScreen:(NSURL *)url {
+    [self setupJudoSDK];
+    JPConfiguration *config = self.configuration;
+    config.pbbaConfiguration.deeplinkURL = url;
+    __weak typeof(self) weakSelf = self;
+     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePayment
+                                                configuration:config
+                                                   completion:^(JPResponse *response, JPError *error) {
+           [weakSelf handleResponse:response error:error];
+       }];
 }
 
 @end
