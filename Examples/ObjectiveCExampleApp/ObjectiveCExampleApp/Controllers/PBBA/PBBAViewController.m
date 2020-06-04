@@ -41,6 +41,7 @@
     [super viewDidLoad];
     self.pbbaButton.delegate = self;
     [self createButtonProgrammatically];
+    [self checkForDeeplink];
 }
 
 #pragma mark - JPPBBAButtonDelegate
@@ -88,6 +89,19 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     viewController.transactionData = transactionData;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+-(void)checkForDeeplink {
+    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
+        [self pollingPBBAMerchantApp];
+    }
+}
+
+- (void)pollingPBBAMerchantApp {
+    __weak typeof(self) weakSelf = self;
+    [self.judoKit pollingPBBAMerchantApp:self.configuration completion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 @end

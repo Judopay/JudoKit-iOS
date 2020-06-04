@@ -31,6 +31,7 @@
 #import "PBBAViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
+#import "SampleAppStoreUserDefaults.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
@@ -44,6 +45,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
+@property (strong, nonatomic) JPPBBAConfiguration *pbbaConfig;
 
 // INFO: Workaround for the judoKit setup
 @property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
@@ -109,6 +111,8 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     self.judoKit = [[JudoKit alloc] initWithToken:self.settings.token
                                                   secret:self.settings.secret];
     self.judoKit.isSandboxed = self.settings.isSandboxed;
+    self.pbbaConfig = [JPPBBAConfiguration new];
+    self.pbbaConfig.deeplinkScheme = @"judo://";
 }
 
 - (void)setupPropertiesObservation {
@@ -270,10 +274,8 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     configuration.uiConfiguration.shouldDisplayAmount = self.settings.isAmountLabelEnabled;
     configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
-    
-    JPPBBAConfiguration *pbbaConfig = [JPPBBAConfiguration new];
-    pbbaConfig.deeplinkScheme = @"judo://";
-    configuration.pbbaConfiguration = pbbaConfig;
+
+    configuration.pbbaConfiguration = self.pbbaConfig;
 
     return configuration;
 }
@@ -381,6 +383,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
             break;
             
         case DemoFeatureTypePaymentMethods:
+            [[SampleAppStoreUserDefaults sharedInstance] saveLastScreenType:LastPBBAScreenPayment];
             [self paymentMethodOperation];
             break;
             
@@ -393,21 +396,25 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
             break;
             
         case DemoFeatureTypePBBA:
+            [[SampleAppStoreUserDefaults sharedInstance] saveLastScreenType:LastPBBAScreenController];
             [self pbbaMethodOperation];
             break;
     }
 }
 
 -(void)openPBBAScreen:(NSURL *)url {
+    LastPBBAScreen lastScreen = [[SampleAppStoreUserDefaults sharedInstance] lastScreenType];
     [self setupJudoSDK];
-    JPConfiguration *config = self.configuration;
-    config.pbbaConfiguration.deeplinkURL = url;
-    __weak typeof(self) weakSelf = self;
-     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePayment
-                                                configuration:config
-                                                   completion:^(JPResponse *response, JPError *error) {
-           [weakSelf handleResponse:response error:error];
-       }];
+    self.pbbaConfig.deeplinkURL = url;
+
+    switch (lastScreen) {
+        case LastPBBAScreenController:
+            [self pbbaMethodOperation];
+            break;
+        case LastPBBAScreenPayment:
+            [self paymentMethodOperation];
+            break;
+    }
 }
 
 @end

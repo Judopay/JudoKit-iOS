@@ -116,4 +116,15 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
                                completion:(nullable JPCompletionBlock)completion;
+
+
+/**
+* A method which invokes the PBBA Method, for looping order status.
+*
+* @param configuration - an instance of JPConfiguration used to configure the transaction.
+* @param completion - a completion block with an optional JPResponse object or an NSError.
+*/
+- (void)pollingPBBAMerchantApp:(nonnull JPConfiguration *)configuration
+                    completion:(nullable JPCompletionBlock)completion;
+
 @end

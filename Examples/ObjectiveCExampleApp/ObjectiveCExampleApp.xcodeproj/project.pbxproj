@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28229247D308B00F9862B /* PBBAViewController.m */; };
+		07CD7C582488F67200B253B4 /* SampleAppStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD7C572488F67200B253B4 /* SampleAppStoreUserDefaults.m */; };
 		0D39BA40400F0D8DF1F35225 /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */; };
 		23DCF27D58A18EF25392B811 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
@@ -47,6 +48,8 @@
 /* Begin PBXFileReference section */
 		07B28228247D308B00F9862B /* PBBAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBAViewController.h; sourceTree = "<group>"; };
 		07B28229247D308B00F9862B /* PBBAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBAViewController.m; sourceTree = "<group>"; };
+		07CD7C562488F67200B253B4 /* SampleAppStoreUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAppStoreUserDefaults.h; sourceTree = "<group>"; };
+		07CD7C572488F67200B253B4 /* SampleAppStoreUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppStoreUserDefaults.m; sourceTree = "<group>"; };
 		0DCD412286DED20EC2028ACD /* Pods-ObjectiveCExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +136,15 @@
 			path = PBBA;
 			sourceTree = "<group>";
 		};
+		07CD7C552488F64900B253B4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				07CD7C562488F67200B253B4 /* SampleAppStoreUserDefaults.h */,
+				07CD7C572488F67200B253B4 /* SampleAppStoreUserDefaults.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +229,7 @@
 		4494950C2450ED870050C6A0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				07CD7C552488F64900B253B4 /* Service */,
 				4494950D2450ED870050C6A0 /* MainViewController.m */,
 				4494950E2450ED870050C6A0 /* MainViewController.h */,
 			);
@@ -505,6 +518,7 @@
 				448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */,
 				4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */,
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
+				07CD7C582488F67200B253B4 /* SampleAppStoreUserDefaults.m in Sources */,
 				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				449495172450ED870050C6A0 /* DetailsTableViewController.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
