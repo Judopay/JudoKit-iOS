@@ -59,18 +59,18 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.features = DemoFeature.defaultFeatures;
     self.settingsToObserve = @[kSandboxedKey, kTokenKey, kSecretKey];
     self.shouldSetupJudoSDK = YES;
-    
+
     [self requestLocationPermissions];
     [self setupPropertiesObservation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     // When isSandbox | token | secred changed in the settings, re-init the JudoKit
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
@@ -238,18 +238,18 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
         [self displayAlertWithError: error];
         return;
     }
-    
+
     if (!response) {
         return;
     }
-    
+
     JPTransactionData *transactionData = response.items.firstObject;
-    
+
     if (transactionData.cardDetails) {
         self.cardDetails = transactionData.cardDetails;
         self.payToken = transactionData.paymentToken;
     }
-    
+
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
         [weakSelf presentDetailsViewControllerWithTransactionData:transactionData];
@@ -282,15 +282,15 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 }
 
 - (JPApplePayConfiguration *)applePayConfiguration {
-    
+
     NSDecimalNumber *itemOnePrice = [NSDecimalNumber decimalNumberWithString:@"0.01"];
     NSDecimalNumber *itemTwoPrice = [NSDecimalNumber decimalNumberWithString:@"0.02"];
     NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:@"0.03"];
-    
+
     NSArray *items = @[[JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
                        [JPPaymentSummaryItem itemWithLabel:@"Item 2" amount:itemTwoPrice],
                        [JPPaymentSummaryItem itemWithLabel:@"Tim Apple" amount:totalPrice]];
-    
+
     JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:self.settings.applePayMerchantId
                                                                                         currency:self.settings.amount.currency
                                                                                      countryCode:@"GB"
@@ -343,7 +343,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DemoFeature *option = self.features[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:option.cellIdentifier forIndexPath:indexPath];
-    
+
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
     return cell;
@@ -358,44 +358,44 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
         case DemoFeatureTypePayment:
             [self paymentOperation];
             break;
-            
+
         case DemoFeatureTypePreAuth:
             [self preAuthOperation];
             break;
-            
+
         case DemoFeatureTypeCreateCardToken:
             [self createCardTokenOperation];
             break;
-            
+
         case DemoFeatureTypeSaveCard:
             [self saveCardOperation];
             break;
-            
+
         case DemoFeatureTypeCheckCard:
             [self checkCardOperation];
             break;
-            
+
         case DemoFeatureTypeApplePayPayment:
             [self applePayPaymentOperation];
             break;
-            
+
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-            
+
         case DemoFeatureTypePaymentMethods:
             [[ExampleAppStorage sharedInstance] persistLastUsedFeature:DemoFeatureTypePaymentMethods];
             [self paymentMethodOperation];
             break;
-            
+
         case DemoFeatureTypePreAuthMethods:
             [self preAuthMethodOperation];
             break;
-            
+
         case DemoFeatureTypeServerToServer:
             [self serverToServerMethodOperation];
             break;
-            
+
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
             break;
