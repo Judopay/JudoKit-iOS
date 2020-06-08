@@ -30,7 +30,6 @@
 
 @interface PBBAViewController () <JPPBBAButtonDelegate>
 @property (strong, nonatomic) IBOutlet UIView *buttonPlaceholder;
-@property (strong, nonatomic) IBOutlet JPPBBAButton *pbbaButton;
 @end
 
 @implementation PBBAViewController
@@ -39,8 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pbbaButton.delegate = self;
     [self createButtonProgrammatically];
+    [self checkForDeeplink];
 }
 
 #pragma mark - JPPBBAButtonDelegate
@@ -53,7 +52,7 @@
 - (void)pbbaButtonDidPress:(JPPBBAButton *)sender {
     __weak typeof(self) weakSelf = self;
     [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
-                                              completion:^(JPResponse *response, JPError *error) {
+                                       completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -88,6 +87,20 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     viewController.transactionData = transactionData;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+-(void)checkForDeeplink {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
+        [self pollingPBBAMerchantApp];
+    }
+}
+
+- (void)pollingPBBAMerchantApp {
+    __weak typeof(self) weakSelf = self;
+    [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
+                                       completion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 @end

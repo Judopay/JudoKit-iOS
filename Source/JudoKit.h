@@ -116,4 +116,5 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
                                completion:(nullable JPCompletionBlock)completion;
+
 @end

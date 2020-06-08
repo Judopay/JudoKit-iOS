@@ -26,9 +26,14 @@
 #import "JPCardStorage.h"
 #import "Settings.h"
 #import "ExampleAppCredentials.h"
+#import "MainViewController.h"
 
 @import CocoaDebug;
 @import JudoKit_iOS;
+
+@interface AppDelegate()
+@property (nonatomic, assign) BOOL appIsLaunchedFromURL;
+@end
 
 @implementation AppDelegate
 
@@ -39,7 +44,27 @@
     // Enable debug inspector
     [CocoaDebug enable];
     
+    self.appIsLaunchedFromURL = false;
+    NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (applicationOpenURL) {
+        self.appIsLaunchedFromURL = true;
+    }
+    
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (self.appIsLaunchedFromURL) {
+        UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
+        UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        self.window.rootViewController = homeNavigationController;
+        [self.window makeKeyAndVisible];
+        [viewController openPBBAScreen:url];
+    }
+    self.appIsLaunchedFromURL = false;
+    
+    return true;
 }
 
 - (void)registerDefaultsFromSettingsBundle {

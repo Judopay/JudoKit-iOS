@@ -42,16 +42,43 @@ class JPPBBAServiceTest: XCTestCase {
         super.tearDown()
     }
     
+    /*
+    * GIVEN: JPPBBAServiceTest start pbba flow
+    *
+    * WHEN: siteId is not presenting in configuration
+    *
+    * THEN: should return judoSiteIDMissingError error,
+    */
     func testSiteIdEmpty() {
         configuration.siteId = nil
         sut.openPBBAMerchantApp { (res, error) in
-            XCTAssertNotNil(error)
+            XCTAssertEqual(error, JPError.judoSiteIDMissingError())
         }
     }
     
+    /*
+    * GIVEN: JPPBBAServiceTest start pbba flow
+    *
+    * WHEN: siteId is presenting in configuration
+    *
+    * THEN: should return default error,
+    */
     func testSiteIdNotEmpty() {
         configuration.siteId = "siteId"
         sut.openPBBAMerchantApp { (res, error) in
+            XCTAssertNotEqual(error, JPError.judoSiteIDMissingError())
+        }
+    }
+    
+    /*
+     * GIVEN: JPPBBAServiceTest start polling
+     *
+     * WHEN: response is unsuccess
+     *
+     * THEN: should return non nill error
+     */
+    func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
+        sut.pollingOrderStatus { (res, error) in
             XCTAssertNotNil(error)
         }
     }

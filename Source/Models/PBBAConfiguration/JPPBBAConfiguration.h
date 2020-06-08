@@ -46,6 +46,16 @@
 @property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
 
 /**
+ * [Optional] DeeplinkURL from bank app
+ */
+@property (nonatomic, strong) NSURL *_Nullable deeplinkURL;
+
+/**
+ * [Optional] The merchant deeplinkScheme from app
+ */
+@property (nonatomic, strong) NSString *_Nullable deeplinkScheme;
+
+/**
  * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
  *
  * @param mobileNumber          - The merchant mobile number
@@ -57,5 +67,12 @@
 - (_Nonnull instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
                                  emailAddress:(NSString *_Nullable)emailAddress
                            appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
+
+/**
+ * A method which check deeplink url in pbba configuration
+ *
+ * @returns - a bool value.
+ */
+- (BOOL)hasDeepLinkURL;
 
 @end

@@ -42,6 +42,7 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
+#import "JPPBBAConfiguration.h"
 
 @interface JudoKit ()
 
@@ -140,7 +141,12 @@
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
                                                  transactionService:self.transactionService];
-    [self.pbbaService openPBBAMerchantApp:completion];
+    
+    if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
+        [self.pbbaService pollingOrderStatus:completion];
+    } else {
+        [self.pbbaService openPBBAMerchantApp:completion];
+    }
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode

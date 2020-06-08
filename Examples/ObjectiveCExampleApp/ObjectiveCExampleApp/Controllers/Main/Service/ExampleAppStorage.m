@@ -1,6 +1,6 @@
 //
-//  MainViewController.h
-//  ObjectiveCExampleApp
+//  SampleAppStoreUserDefaults.m
+//  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,17 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "ExampleAppStorage.h"
 
-@interface MainViewController : UIViewController
+static NSString *const kLastScreenType = @"lastUsedFeature";
+
+@interface ExampleAppStorage ()
+@property (nonatomic, strong) NSUserDefaults* defaults;
 @end
 
-@interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>
+@implementation ExampleAppStorage
 
-/**
-* A method that opens pbba payment screen from deeplink
-*
-* @param url - deeplink url
-*/
--(void)openPBBAScreen:(NSURL *)url;
++ (instancetype)sharedInstance {
+    static ExampleAppStorage *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [ExampleAppStorage new];
+        sharedInstance.defaults = [NSUserDefaults standardUserDefaults];
+    });
+    return sharedInstance;
+}
+
+- (DemoFeatureType)lastUsedFeature {
+    return [self.defaults integerForKey:kLastScreenType];
+}
+
+- (void)persistLastUsedFeature:(DemoFeatureType)lastScreenType {
+    [self.defaults setInteger:lastScreenType forKey:kLastScreenType];
+}
+
 @end

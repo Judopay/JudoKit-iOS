@@ -1,1 +1,1 @@
-sonar.exclusions=JudoKit-iOSTests/**/*,Source/View/**/*,Source/Modules/**/Builder/*, Source/Modules/**/View/**/*, Source/Modules/**/*Cell.m
+sonar.exclusions=JudoKit-iOSTests/**/*,Source/View/**/*,Source/Modules/**/Builder/*, Source/Modules/**/View/**/*, Source/Modules/**/*Cell.m, Source/**/JPVCOResult.m, Source/**/JPSection.m, Source/**/JPReceipt.m, Source/**/JPPrimaryAccountDetails.m, Source/**/JPTheme.m, Source/**/JPPBBAConfiguration.m, Source/**/*Controller.m, Source/**/*Controller.swift, Source/**/UIView+Additions.m 

@@ -39,4 +39,8 @@
     return self;
 }
 
+- (BOOL)hasDeepLinkURL {
+    return self.deeplinkURL != nil;
+}
+
 @end

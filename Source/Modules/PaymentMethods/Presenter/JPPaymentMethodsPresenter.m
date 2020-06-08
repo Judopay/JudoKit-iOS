@@ -25,10 +25,12 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
@@ -54,10 +56,19 @@
 
 @property (nonatomic, assign) NSUInteger selectedBankIndex;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
 
 @implementation JPPaymentMethodsPresenterImpl
+
+#pragma mark - Initializers
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super init]) {
+        self.configuration = configuration;
+    }
+    return self;
+}
 
 #pragma mark - Protocol Conformance
 
@@ -65,6 +76,20 @@
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
+    [self checkIfDeeplinkURLExist];
+}
+
+- (void)checkIfDeeplinkURLExist {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
+        NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
+        if (pbbaIndex != NSNotFound) {
+            [self changePaymentMethodToIndex:pbbaIndex];
+            __weak typeof(self) weakSelf = self;
+            [self.interactor pollingPBBAWithCompletion:^(JPResponse *response, NSError *error) {
+                [weakSelf handleCallbackWithResponse:response andError:error];
+            }];
+        }
+    }
 }
 
 - (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType

@@ -195,7 +195,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     JPAmount *amount = self.configuration.amount;
     JPReference *reference = self.configuration.reference;
 
-    NSString *merchantRedirectUrl = [NSString stringWithFormat:@"%@://", NSBundle.appURLScheme];
+    NSString *merchantRedirectUrl = self.configuration.pbbaConfiguration.deeplinkScheme ? self.configuration.pbbaConfiguration.deeplinkScheme : @"";
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
@@ -245,6 +245,27 @@ static const int kNSPOSIXErrorDomainCode = 53;
         _transactionStatusView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _transactionStatusView;
+}
+
+- (NSString *__nullable)parseOrderIdFromURL:(NSURL *_Nonnull)url {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSArray *queryItems = [components queryItems];
+
+    for (NSURLQueryItem *item in queryItems) {
+        if ([item.name isEqualToString:@"orderId"]) {
+            return item.value;
+        }
+    }
+    return nil;
+}
+
+- (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
+        NSString *orderID = [self parseOrderIdFromURL:self.configuration.pbbaConfiguration.deeplinkURL];
+        if (orderID.length > 0) {
+            [self pollTransactionStatusForOrderId:orderID completion:completion];
+        }
+    }
 }
 
 @end

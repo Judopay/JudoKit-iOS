@@ -71,6 +71,11 @@
 - (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
+ * Starts the PBBA polling
+*/
+- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion;
+
+/**
  * A method for deleting a specific card details from the keychain by its index
  *
  * @param index - Card's index in cards list
@@ -116,6 +121,11 @@
  * A method which returns all the iDEAL bank types available
  */
 - (nonnull NSArray *)getIDEALBankTypes;
+
+/**
+* A method which returns index of pbba method
+*/
+- (NSInteger)indexOfPBBAMethod;
 
 /**
  * A method that triggers the completion handler passed by the merchant with an optional response / error

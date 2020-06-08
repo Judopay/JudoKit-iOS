@@ -76,6 +76,18 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
     
     /*
+     * GIVEN: Pbba method is not available
+     *
+     * WHEN: getting index of pbba method
+     *
+     * THEN: should return -1
+     */
+    func test_IndexOfPBBAMethod_WhenIsSettepUp_ShouldReturnSame() {
+        let index = sut.indexOfPBBAMethod()
+        XCTAssertEqual(index, NSNotFound)
+    }
+
+    /*
      * GIVEN: remove all cards from store
      *
      * WHEN: checking all cards
