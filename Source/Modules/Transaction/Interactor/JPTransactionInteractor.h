@@ -160,6 +160,11 @@
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel
                            andToken:(NSString *)token;
 
+/**
+* A method for generating pay button title
+*/
+- (NSString *)generatePayButtonTitle;
+
 @end
 
 @interface JPTransactionInteractorImpl : NSObject <JPTransactionInteractor>

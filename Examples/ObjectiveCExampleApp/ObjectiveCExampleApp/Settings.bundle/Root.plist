@@ -296,11 +296,21 @@
             <key>Type</key>
             <string>PSToggleSwitchSpecifier</string>
             <key>Title</key>
-            <string>amount_label_title</string>
+            <string>amount_method_label_title</string>
             <key>Key</key>
-            <string>is_amount_label_enabled</string>
+            <string>is_amount_method_enabled</string>
             <key>DefaultValue</key>
             <true/>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>amount_button_label_title</string>
+            <key>Key</key>
+            <string>is_amount_button_enabled</string>
+            <key>DefaultValue</key>
+            <false/>
         </dict>
     </array>
 </dict>

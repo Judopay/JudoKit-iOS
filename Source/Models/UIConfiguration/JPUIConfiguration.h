@@ -31,7 +31,12 @@
 /**
  * A boolean property that defines if the amount should be displayed on the payment method screen
  */
-@property (nonatomic, assign) BOOL shouldDisplayAmount;
+@property (nonatomic, assign) BOOL shouldPaymentMethodsDisplayAmount;
+
+/**
+ * A boolean property that defines if the amount should be displayed on the card pay screen
+ */
+@property (nonatomic, assign) BOOL shouldPaymentButonDisplayAmount;
 
 /**
  * A boolean property that defines if AVS should be enabled during the payment flow

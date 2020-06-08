@@ -110,7 +110,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     self.payButton.layer.cornerRadius = uiConfiguration.theme.buttonCornerRadius;
     [self.cardHeaderView applyTheme:uiConfiguration.theme];
     [self.emptyHeaderView applyTheme:uiConfiguration.theme];
-    self.amountStackView.hidden = !uiConfiguration.shouldDisplayAmount;
+    self.amountStackView.hidden = !uiConfiguration.shouldPaymentMethodsDisplayAmount;
 }
 
 #pragma mark - View Model Configuration
