@@ -22,31 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "SampleAppStoreUserDefaults.h"
+#import "ExampleAppStorage.h"
 
-static NSString *const kLastScreenType = @"lastScreenType";
+static NSString *const kLastScreenType = @"lastUsedFeature";
 
-@interface SampleAppStoreUserDefaults ()
+@interface ExampleAppStorage ()
 @property (nonatomic, strong) NSUserDefaults* defaults;
 @end
 
-@implementation SampleAppStoreUserDefaults
+@implementation ExampleAppStorage
 
 + (instancetype)sharedInstance {
-    static SampleAppStoreUserDefaults *sharedInstance = nil;
+    static ExampleAppStorage *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [SampleAppStoreUserDefaults new];
-        sharedInstance.defaults = [NSUserDefaults new];
+        sharedInstance = [ExampleAppStorage new];
+        sharedInstance.defaults = [NSUserDefaults standardUserDefaults];
     });
     return sharedInstance;
 }
 
-- (LastPBBAScreen)lastScreenType {
+- (DemoFeatureType)lastUsedFeature {
     return [self.defaults integerForKey:kLastScreenType];
 }
 
-- (void)saveLastScreenType:(LastPBBAScreen)lastScreenType {
+- (void)persistLastUsedFeature:(DemoFeatureType)lastScreenType {
     [self.defaults setInteger:lastScreenType forKey:kLastScreenType];
 }
 

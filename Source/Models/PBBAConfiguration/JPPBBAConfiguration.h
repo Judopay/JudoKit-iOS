@@ -55,7 +55,6 @@
  */
 @property (nonatomic, strong) NSString *_Nullable deeplinkScheme;
 
-
 /**
  * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
  *
@@ -68,5 +67,12 @@
 - (_Nonnull instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
                                  emailAddress:(NSString *_Nullable)emailAddress
                            appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
+
+/**
+ * A method which check deeplink url in pbba configuration
+ *
+ * @returns - a bool value.
+ */
+- (BOOL)isDeeplinkURLExist;
 
 @end

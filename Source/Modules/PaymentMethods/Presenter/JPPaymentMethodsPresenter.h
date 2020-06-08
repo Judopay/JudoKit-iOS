@@ -110,7 +110,7 @@
  * @param configuration - reference to the JPConfiguration object used to configure the payment flow
  * @returns a configured instance of JPPaymentMethodsPresenterImpl
  */
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration*)configuration;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
  * A weak reference to the view that adops the  JPPaymentMethodsView protocol

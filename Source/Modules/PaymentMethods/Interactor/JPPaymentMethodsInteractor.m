@@ -36,6 +36,7 @@
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentToken.h"
@@ -46,7 +47,6 @@
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
 #import "NSBundle+Additions.h"
-#import "JPPBBAConfiguration.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -173,8 +173,8 @@
 
     BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
     BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
-    BOOL isURLSchemeSet = ((NSBundle.appURLScheme.length > 0)  && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
-    
+    BOOL isURLSchemeSet = ((NSBundle.appURLScheme.length > 0) && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
+
     if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
     } else {
@@ -185,7 +185,7 @@
 }
 
 - (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion {
-    [self.pbbaService pollingPBBAMerchantApp:completion];
+    [self.pbbaService pollingOrderStatus:completion];
 }
 
 #pragma mark - Remove Apple Pay from payment methods

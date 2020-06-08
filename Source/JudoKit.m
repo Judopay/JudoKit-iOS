@@ -168,14 +168,13 @@
                                                       animated:YES
                                                     completion:nil];
 }
-- (void)pollingPBBAMerchantApp:(nonnull JPConfiguration *)configuration
-                    completion:(nullable JPCompletionBlock)completion  {
+- (void)pollingOrderStatus:(nonnull JPConfiguration *)configuration
+                completion:(nullable JPCompletionBlock)completion {
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
                                                  transactionService:self.transactionService];
 
-    [self.pbbaService pollingPBBAMerchantApp:completion];
+    [self.pbbaService pollingOrderStatus:completion];
 }
-
 
 #pragma mark - Getters & Setters
 

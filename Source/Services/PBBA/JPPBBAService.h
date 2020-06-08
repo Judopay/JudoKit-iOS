@@ -52,7 +52,7 @@
  *
  * @param completion  A completion block that either returns the redirect URL string or returns an error
  */
-- (void)pollingPBBAMerchantApp:(nonnull JPCompletionBlock)completion;
+- (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion;
 
 /**
 * A reference to the JPTheme instance responsible for customizing the user interface

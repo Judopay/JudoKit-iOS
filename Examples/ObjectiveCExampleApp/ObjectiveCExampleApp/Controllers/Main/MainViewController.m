@@ -31,7 +31,7 @@
 #import "PBBAViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
-#import "SampleAppStoreUserDefaults.h"
+#import "ExampleAppStorage.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
@@ -112,7 +112,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
                                                   secret:self.settings.secret];
     self.judoKit.isSandboxed = self.settings.isSandboxed;
     self.pbbaConfig = [JPPBBAConfiguration new];
-    self.pbbaConfig.deeplinkScheme = @"judo://";
+    self.pbbaConfig.deeplinkScheme = @"judo://pay";
 }
 
 - (void)setupPropertiesObservation {
@@ -383,7 +383,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
             break;
             
         case DemoFeatureTypePaymentMethods:
-            [[SampleAppStoreUserDefaults sharedInstance] saveLastScreenType:LastPBBAScreenPayment];
+            [[ExampleAppStorage sharedInstance] persistLastUsedFeature:DemoFeatureTypePaymentMethods];
             [self paymentMethodOperation];
             break;
             
@@ -396,23 +396,21 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
             break;
             
         case DemoFeatureTypePBBA:
-            [[SampleAppStoreUserDefaults sharedInstance] saveLastScreenType:LastPBBAScreenController];
             [self pbbaMethodOperation];
             break;
     }
 }
 
 -(void)openPBBAScreen:(NSURL *)url {
-    LastPBBAScreen lastScreen = [[SampleAppStoreUserDefaults sharedInstance] lastScreenType];
+    DemoFeatureType demoFeature = [[ExampleAppStorage sharedInstance] lastUsedFeature];
     [self setupJudoSDK];
     self.pbbaConfig.deeplinkURL = url;
 
-    switch (lastScreen) {
-        case LastPBBAScreenController:
-            [self pbbaMethodOperation];
-            break;
-        case LastPBBAScreenPayment:
+    switch (demoFeature) {
+        case DemoFeatureTypePaymentMethods:
             [self paymentMethodOperation];
+            break;
+        default:
             break;
     }
 }

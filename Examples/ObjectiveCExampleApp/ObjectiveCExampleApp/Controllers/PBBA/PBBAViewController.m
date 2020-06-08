@@ -30,7 +30,6 @@
 
 @interface PBBAViewController () <JPPBBAButtonDelegate>
 @property (strong, nonatomic) IBOutlet UIView *buttonPlaceholder;
-@property (strong, nonatomic) IBOutlet JPPBBAButton *pbbaButton;
 @end
 
 @implementation PBBAViewController
@@ -39,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pbbaButton.delegate = self;
     [self createButtonProgrammatically];
     [self checkForDeeplink];
 }
@@ -92,14 +90,14 @@
 }
 
 -(void)checkForDeeplink {
-    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
+    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
         [self pollingPBBAMerchantApp];
     }
 }
 
 - (void)pollingPBBAMerchantApp {
     __weak typeof(self) weakSelf = self;
-    [self.judoKit pollingPBBAMerchantApp:self.configuration completion:^(JPResponse *response, JPError *error) {
+    [self.judoKit pollingOrderStatus:self.configuration completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }

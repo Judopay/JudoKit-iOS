@@ -196,7 +196,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     JPReference *reference = self.configuration.reference;
 
     NSString *merchantRedirectUrl = self.configuration.pbbaConfiguration.deeplinkScheme ? self.configuration.pbbaConfiguration.deeplinkScheme : @"";
-    
+
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
         @"paymentMethod" : @"PBBA",
         @"currency" : amount.currency,
@@ -247,23 +247,22 @@ static const int kNSPOSIXErrorDomainCode = 53;
     return _transactionStatusView;
 }
 
-- (NSString *__nullable)parseURL:(NSURL *_Nonnull)url {
+- (NSString *__nullable)parseOrderIdFromURL:(NSURL *_Nonnull)url {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
     NSArray *queryItems = [components queryItems];
 
     for (NSURLQueryItem *item in queryItems) {
-        if ([item.name isEqualToString:@"aptrId"]) {
+        if ([item.name isEqualToString:@"orderId"]) {
             return item.value;
         }
     }
     return nil;
 }
 
-- (void)pollingPBBAMerchantApp:(nonnull JPCompletionBlock)completion {
-    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
-        NSString *orderID = [self parseURL:self.configuration.pbbaConfiguration.deeplinkURL];
-        if ([orderID length] > 0) {
-            [self getStatusForOrderId:orderID completion:completion];
+- (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion {
+    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
+        NSString *orderID = [self parseOrderIdFromURL:self.configuration.pbbaConfiguration.deeplinkURL];
+        if (orderID.length > 0) {
             [self pollTransactionStatusForOrderId:orderID completion:completion];
         }
     }

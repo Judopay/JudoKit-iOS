@@ -29,6 +29,7 @@
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -37,7 +38,6 @@
 #import "JPReference.h"
 #import "JudoKit.h"
 #import "NSBundle+Additions.h"
-#import "JPPBBAConfiguration.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
@@ -58,7 +58,7 @@
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
         BOOL isURLSchemeMissing = ((!NSBundle.appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
-        
+
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
             completion(nil, JPError.judoInvalidIDEALCurrencyError);
             return nil;
@@ -82,7 +82,7 @@
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
     JPPaymentMethodsPresenterImpl *presenter = [[JPPaymentMethodsPresenterImpl alloc] initWithConfiguration:configuration];
-    
+
     JPPaymentMethodsRouterImpl *router;
     router = [[JPPaymentMethodsRouterImpl alloc] initWithConfiguration:configuration
                                                     transactionService:transactionService

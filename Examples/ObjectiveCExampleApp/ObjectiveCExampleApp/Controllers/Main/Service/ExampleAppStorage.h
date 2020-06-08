@@ -1,5 +1,5 @@
 //
-//  SampleAppStoreUserDefaults.h
+//  ExampleAppStorage.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,13 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "DemoFeature.h"
 
-typedef NS_ENUM(NSUInteger, LastPBBAScreen) {
-    LastPBBAScreenPayment,
-    LastPBBAScreenController,
-};
-
-@interface SampleAppStoreUserDefaults : NSObject
+@interface ExampleAppStorage : NSObject
 
 /**
  * The shared SampleAppStoreUserDefaults instance
@@ -39,13 +35,13 @@ typedef NS_ENUM(NSUInteger, LastPBBAScreen) {
 /**
  * The shared lastScreenType property
  */
-@property (nonatomic, assign) LastPBBAScreen lastScreenType;
+@property (nonatomic, assign) DemoFeatureType lastUsedFeature;
 
 /**
  * A method that saved last screen type
  *
  * @param lastScreenType - screen type, from where was tapped pbba button
  */
-- (void)saveLastScreenType:(LastPBBAScreen)lastScreenType;
+- (void)persistLastUsedFeature:(DemoFeatureType)lastScreenType;
 
 @end

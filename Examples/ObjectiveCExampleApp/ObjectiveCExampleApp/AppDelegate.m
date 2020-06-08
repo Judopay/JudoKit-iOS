@@ -32,7 +32,7 @@
 @import JudoKit_iOS;
 
 @interface AppDelegate()
-@property (nonatomic, assign) BOOL appIsLaunchedFromZeroToOpenURL;
+@property (nonatomic, assign) BOOL appIsLaunchedFromURL;
 @end
 
 @implementation AppDelegate
@@ -44,17 +44,17 @@
     // Enable debug inspector
     [CocoaDebug enable];
     
-    self.appIsLaunchedFromZeroToOpenURL = false;
+    self.appIsLaunchedFromURL = false;
     NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
     if (applicationOpenURL) {
-        self.appIsLaunchedFromZeroToOpenURL = true;
+        self.appIsLaunchedFromURL = true;
     }
     
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if (self.appIsLaunchedFromZeroToOpenURL) {
+    if (self.appIsLaunchedFromURL) {
         UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
         UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -62,7 +62,7 @@
         [self.window makeKeyAndVisible];
         [viewController openPBBAScreen:url];
     }
-    self.appIsLaunchedFromZeroToOpenURL = false;
+    self.appIsLaunchedFromURL = false;
     
     return true;
 }

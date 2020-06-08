@@ -25,10 +25,12 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
+#import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
@@ -37,8 +39,6 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
-#import "JPConfiguration.h"
-#import "JPPBBAConfiguration.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -63,11 +63,11 @@
 @implementation JPPaymentMethodsPresenterImpl
 
 #pragma mark - Initializers
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration*)configuration {
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
     if (self = [super init]) {
-          self.configuration = configuration;
-      }
-      return self;
+        self.configuration = configuration;
+    }
+    return self;
 }
 
 #pragma mark - Protocol Conformance
@@ -76,8 +76,11 @@
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
-    
-    if (self.configuration.pbbaConfiguration.deeplinkURL != nil) {
+    [self checkIfDeeplinkURLExist];
+}
+
+- (void)checkIfDeeplinkURLExist {
+    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
         NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
         if (pbbaIndex >= 0) {
             [self changePaymentMethodToIndex:pbbaIndex];
