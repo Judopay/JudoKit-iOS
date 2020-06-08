@@ -82,7 +82,7 @@
 - (void)checkIfDeeplinkURLExist {
     if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
         NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
-        if (pbbaIndex >= 0) {
+        if (pbbaIndex != NSNotFound) {
             [self changePaymentMethodToIndex:pbbaIndex];
             __weak typeof(self) weakSelf = self;
             [self.interactor pollingPBBAWithCompletion:^(JPResponse *response, NSError *error) {

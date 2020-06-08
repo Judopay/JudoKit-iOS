@@ -78,7 +78,7 @@ class JPPBBAServiceTest: XCTestCase {
      * THEN: should return non nill error
      */
     func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
-        sut.pollingPBBAMerchantApp { (res, error) in
+        sut.pollingOrderStatus { (res, error) in
             XCTAssertNotNil(error)
         }
     }

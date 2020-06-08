@@ -143,14 +143,14 @@
 }
 
 - (NSInteger)indexOfPBBAMethod {
-    NSInteger cardIndex = 0;
-    for (JPPaymentMethod *method in [self getPaymentMethods]) {
-        if (method.type == JPPaymentMethodTypePbba) {
-            return cardIndex;
+    NSUInteger pbbaIndex = [[self getPaymentMethods] indexOfObjectPassingTest:^BOOL(id obj, __unused NSUInteger idx, BOOL *stop) {
+        if ([(JPPaymentMethod *)obj type] == JPPaymentMethodTypePbba) {
+            *stop = YES;
+            return YES;
         }
-        cardIndex++;
-    }
-    return -1;
+        return NO;
+    }];
+    return pbbaIndex;
 }
 
 #pragma mark - Get payment methods

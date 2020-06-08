@@ -84,7 +84,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      */
     func test_IndexOfPBBAMethod_WhenIsSettepUp_ShouldReturnSame() {
         let index = sut.indexOfPBBAMethod()
-        XCTAssertEqual(index, -1)
+        XCTAssertEqual(index, NSNotFound)
     }
 
     /*
