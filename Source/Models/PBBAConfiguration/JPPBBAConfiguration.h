@@ -73,6 +73,6 @@
  *
  * @returns - a bool value.
  */
-- (BOOL)isDeeplinkURLExist;
+- (BOOL)hasDeepLinkURL;
 
 @end

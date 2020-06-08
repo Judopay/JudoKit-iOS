@@ -32,7 +32,7 @@
 /**
 * A method that opens pbba payment screen from deeplink
 *
-* @param url - url that it is deeplink
+* @param url - deeplink url
 */
 -(void)openPBBAScreen:(NSURL *)url;
 @end

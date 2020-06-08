@@ -260,7 +260,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 }
 
 - (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion {
-    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
         NSString *orderID = [self parseOrderIdFromURL:self.configuration.pbbaConfiguration.deeplinkURL];
         if (orderID.length > 0) {
             [self pollTransactionStatusForOrderId:orderID completion:completion];

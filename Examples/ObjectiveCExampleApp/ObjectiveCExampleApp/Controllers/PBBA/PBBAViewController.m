@@ -52,7 +52,7 @@
 - (void)pbbaButtonDidPress:(JPPBBAButton *)sender {
     __weak typeof(self) weakSelf = self;
     [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
-                                              completion:^(JPResponse *response, JPError *error) {
+                                       completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
@@ -90,14 +90,15 @@
 }
 
 -(void)checkForDeeplink {
-    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
         [self pollingPBBAMerchantApp];
     }
 }
 
 - (void)pollingPBBAMerchantApp {
     __weak typeof(self) weakSelf = self;
-    [self.judoKit pollingOrderStatus:self.configuration completion:^(JPResponse *response, JPError *error) {
+    [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
+                                       completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }

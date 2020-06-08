@@ -80,7 +80,7 @@
 }
 
 - (void)checkIfDeeplinkURLExist {
-    if ([self.configuration.pbbaConfiguration isDeeplinkURLExist]) {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
         NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
         if (pbbaIndex != NSNotFound) {
             [self changePaymentMethodToIndex:pbbaIndex];
