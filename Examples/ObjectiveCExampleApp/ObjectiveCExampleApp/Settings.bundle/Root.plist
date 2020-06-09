@@ -298,7 +298,7 @@
             <key>Title</key>
             <string>amount_method_label_title</string>
             <key>Key</key>
-            <string>is_amount_method_enabled</string>
+            <string>should_payment_methods_display_amount</string>
             <key>DefaultValue</key>
             <true/>
         </dict>
@@ -308,7 +308,7 @@
             <key>Title</key>
             <string>amount_button_label_title</string>
             <key>Key</key>
-            <string>is_amount_button_enabled</string>
+            <string>should_payment_buton_display_amount</string>
             <key>DefaultValue</key>
             <false/>
         </dict>

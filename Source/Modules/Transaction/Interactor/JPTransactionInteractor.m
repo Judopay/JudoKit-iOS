@@ -102,7 +102,8 @@
 
 - (NSString *)generatePayButtonTitle {
     if (self.configuration.uiConfiguration.shouldPaymentButonDisplayAmount) {
-        return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, self.configuration.amount.currency.toCurrencySymbol, self.configuration.amount.amount];
+        JPAmount *amount = self.configuration.amount;
+        return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, amount.currency.toCurrencySymbol, amount.amount];
     }
     return @"pay".localized;
 }

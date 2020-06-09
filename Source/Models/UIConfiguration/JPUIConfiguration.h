@@ -34,7 +34,7 @@
 @property (nonatomic, assign) BOOL shouldPaymentMethodsDisplayAmount;
 
 /**
- * A boolean property that defines if the amount should be displayed on the card pay screen
+ * A boolean property that defines if the amount should be displayed on the transaction screen
  */
 @property (nonatomic, assign) BOOL shouldPaymentButonDisplayAmount;
 

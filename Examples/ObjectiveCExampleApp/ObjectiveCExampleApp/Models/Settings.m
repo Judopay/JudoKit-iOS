@@ -119,12 +119,12 @@
     return [self.defaults boolForKey:kAVSEnabledKey];
 }
 
-- (BOOL)isPaymentMethodsDisplayAmount {
-    return [self.defaults boolForKey:kPaymentMethodsDisplayAmount];
+- (BOOL)shouldPaymentMethodsDisplayAmount {
+    return [self.defaults boolForKey:kShouldPaymentMethodsDisplayAmount];
 }
 
-- (BOOL)isPaymentButonDisplayAmount {
-    return [self.defaults boolForKey:kPaymentButonDisplayAmount];
+- (BOOL)shouldPaymentButonDisplayAmount {
+    return [self.defaults boolForKey:kShouldPaymentButonDisplayAmount];
 }
 
 @end
