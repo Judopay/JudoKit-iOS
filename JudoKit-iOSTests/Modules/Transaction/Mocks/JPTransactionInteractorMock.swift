@@ -26,6 +26,10 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
+    func generatePayButtonTitle() -> String! {
+        return "Pay"
+    }
+    
     lazy var validationService = JPCardValidationService()
     var trasactionSent = false
     var completeTransaction = false

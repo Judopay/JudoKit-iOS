@@ -119,8 +119,12 @@
     return [self.defaults boolForKey:kAVSEnabledKey];
 }
 
-- (BOOL)isAmountLabelEnabled {
-    return [self.defaults boolForKey:kAmountLabelEnabledKey];
+- (BOOL)shouldPaymentMethodsDisplayAmount {
+    return [self.defaults boolForKey:kShouldPaymentMethodsDisplayAmount];
+}
+
+- (BOOL)shouldPaymentButonDisplayAmount {
+    return [self.defaults boolForKey:kShouldPaymentButonDisplayAmount];
 }
 
 @end

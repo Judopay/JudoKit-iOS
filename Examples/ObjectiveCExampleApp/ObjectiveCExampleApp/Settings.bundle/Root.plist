@@ -296,11 +296,21 @@
             <key>Type</key>
             <string>PSToggleSwitchSpecifier</string>
             <key>Title</key>
-            <string>amount_label_title</string>
+            <string>amount_method_label_title</string>
             <key>Key</key>
-            <string>is_amount_label_enabled</string>
+            <string>should_payment_methods_display_amount</string>
             <key>DefaultValue</key>
             <true/>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>amount_button_label_title</string>
+            <key>Key</key>
+            <string>should_payment_buton_display_amount</string>
+            <key>DefaultValue</key>
+            <false/>
         </dict>
     </array>
 </dict>

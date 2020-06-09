@@ -25,6 +25,7 @@
 #import "JPTransactionInteractor.h"
 #import "JP3DSService.h"
 #import "JPAddress.h"
+#import "JPAmount.h"
 #import "JPCard.h"
 #import "JPCardPattern.h"
 #import "JPCardStorage.h"
@@ -97,6 +98,14 @@
     } else {
         completion(status);
     }
+}
+
+- (NSString *)generatePayButtonTitle {
+    if (self.configuration.uiConfiguration.shouldPaymentButonDisplayAmount) {
+        JPAmount *amount = self.configuration.amount;
+        return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, amount.currency.toCurrencySymbol, amount.amount];
+    }
+    return @"pay".localized;
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card

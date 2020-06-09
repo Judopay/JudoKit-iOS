@@ -271,7 +271,8 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     configuration.siteId = self.settings.siteId;
     configuration.paymentMethods = self.settings.paymentMethods;
     configuration.uiConfiguration.isAVSEnabled = self.settings.isAVSEnabled;
-    configuration.uiConfiguration.shouldDisplayAmount = self.settings.isAmountLabelEnabled;
+    configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = self.settings.shouldPaymentMethodsDisplayAmount;
+    configuration.uiConfiguration.shouldPaymentButonDisplayAmount = self.settings.shouldPaymentButonDisplayAmount;
     configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
 

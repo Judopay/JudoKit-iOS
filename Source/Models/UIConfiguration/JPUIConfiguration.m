@@ -29,8 +29,9 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.shouldDisplayAmount = YES;
+        self.shouldPaymentMethodsDisplayAmount = YES;
         self.isAVSEnabled = NO;
+        self.shouldPaymentButonDisplayAmount = NO;
     }
     return self;
 }

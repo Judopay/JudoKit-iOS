@@ -34,7 +34,7 @@ class JPTransactionInteractorTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let amount = JPAmount("0.01", currency: "GBR")
+        let amount = JPAmount("0.01", currency: "USD")
         configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
         configuration.cardAddress = JPAddress()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
@@ -42,6 +42,31 @@ class JPTransactionInteractorTest: XCTestCase {
         let completion: JPCompletionBlock = { (response, error) in
         }
         sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: transactionService, configuration:configuration, completion: completion)
+    }
+    
+    /*
+      * GIVEN: generate pay button title
+      *
+      * WHEN: shouldPaymentButonDisplayAmount in config object is false
+      *
+      * THEN: result should be raw title
+      */
+     func test_generatePayButtonTitle_Whentfalse_Shouldraw() {
+         let result = sut.generatePayButtonTitle()
+         XCTAssertEqual(result, "Pay")
+     }
+    
+    /*
+     * GIVEN: generate pay button title
+     *
+     * WHEN: shouldPaymentButonDisplayAmount in config object is true
+     *
+     * THEN: result should be composed from pay + currency + amount
+     */
+    func test_generatePayButtonTitle_Whentrue_ShouldFormatAndReturnValid() {
+        configuration.uiConfiguration.shouldPaymentButonDisplayAmount = true
+        let result = sut.generatePayButtonTitle()
+        XCTAssertEqual(result, "Pay $0.01")
     }
     
     /*
@@ -387,7 +412,6 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_IsAVSEnabled_WhenIsEnabledInconfig_ShouldBeTrue() {
         self.configuration.uiConfiguration.isAVSEnabled = true
         XCTAssertTrue(sut.isAVSEnabled())
-        
     }
     
     /*

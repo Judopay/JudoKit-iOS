@@ -240,7 +240,7 @@
     switch (type) {
         case JPTransactionTypePayment:
         case JPTransactionTypePreAuth:
-            return @"pay".localized;
+            return [self.interactor generatePayButtonTitle];
 
         case JPTransactionTypeSaveCard:
         case JPTransactionTypeRegisterCard:
