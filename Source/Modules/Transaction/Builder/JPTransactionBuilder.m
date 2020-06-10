@@ -41,7 +41,7 @@
                                                         completion:(JPCompletionBlock)completion {
 
     JPCardValidationService *cardValidationService = [JPCardValidationService new];
-    cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];2
+    cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
     cardValidationService.lastCardNumberValidationResult.cardNetwork = transactionService.cardNetwork;
 
     JPTransactionInteractorImpl *interactor;
