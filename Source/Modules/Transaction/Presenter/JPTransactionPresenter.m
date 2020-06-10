@@ -260,17 +260,18 @@
 }
 
 - (void)updateTransactionButtonModelIfNeeded {
-
-    BOOL firstCheck = self.isCardNumberValid && self.isCardholderNameValid;
-    BOOL secondCheck = self.isExpiryDateValid && self.isSecureCodeValid;
-
-    BOOL isCardValid = firstCheck && secondCheck;
-
-    if ([self.interactor isAVSEnabled]) {
-        isCardValid = isCardValid && self.isPostalCodeValid;
+    JPCardDetailsMode mode = [self cardDetailsMode];
+    switch (mode) {
+        case JPCardDetailsModeSecurityCode:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
+            break;
+        case JPCardDetailsModeDefault:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
+            break;
+        case JPCardDetailsModeAVS:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid && self.isPostalCodeValid;
+            break;
     }
-
-    self.addCardViewModel.addCardButtonViewModel.isEnabled = isCardValid;
 }
 
 - (void)updateCardNumberViewModelForInput:(NSString *)input {

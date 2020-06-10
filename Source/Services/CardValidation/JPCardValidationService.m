@@ -32,7 +32,6 @@
 
 @interface JPCardValidationService ()
 
-@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, strong) NSString *selectedJPBillingCountry;
 @end
