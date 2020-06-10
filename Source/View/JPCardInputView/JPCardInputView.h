@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import "JPTransactionViewModel.h"
+#import <UIKit/UIKit.h>
 
 @class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton, JPTheme, JPTransactionViewModel;
 
@@ -105,7 +105,6 @@
 
 - (void)setUpWithMode:(JPCardDetailsMode)mode;
 
-    
 /**
  * A method that specifies if the user inteface should be enabled
  *

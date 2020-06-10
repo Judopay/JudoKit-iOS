@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPTransactionType.h"
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
-#import "JPTransactionViewModel.h"
 
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     JPHTTPMethodGET,

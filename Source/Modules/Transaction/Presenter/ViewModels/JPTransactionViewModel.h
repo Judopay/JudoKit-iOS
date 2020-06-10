@@ -24,8 +24,8 @@
 
 #import "JPCardNetwork.h"
 #import "JPInputType.h"
-#import <Foundation/Foundation.h>
 #import "JPTransactionType.h"
+#import <Foundation/Foundation.h>
 #pragma mark - JPTransactionInputFieldViewModel
 
 typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {

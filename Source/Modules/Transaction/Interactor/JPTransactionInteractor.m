@@ -45,7 +45,6 @@
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
-#import "JPTransactionViewModel.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JPCompletionBlock completionHandler;

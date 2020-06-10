@@ -37,7 +37,6 @@
 #import "JPTransactionViewModel.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
-#import "JPTransactionViewModel.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;
@@ -73,7 +72,7 @@
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
     self.addCardViewModel.type = type;
     self.addCardViewModel.mode = [self.interactor cardDetailsMode];
-    
+
     self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number".localized;
     self.addCardViewModel.cardholderNameViewModel.placeholder = @"cardholder_name".localized;
     self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;

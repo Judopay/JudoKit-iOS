@@ -126,30 +126,30 @@ static const float kLooseContentSpacing = 16.0F;
 
 - (void)setUpWithMode:(JPCardDetailsMode)mode {
     switch (mode) {
-    case JPCardDetailsModeSecurityCode:
-        [self.mainStackView addArrangedSubview:self.topButtonStackViewSecurityCode];
-        [self.mainStackView addArrangedSubview:self.secureCodeTextField];
-        [self.mainStackView addArrangedSubview:self.buttonStackView];
-        break;
-    case JPCardDetailsModeDefault:
-        [self.mainStackView addArrangedSubview:self.topButtonStackView];
-        [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
-        [self.mainStackView addArrangedSubview:self.buttonStackView];
-        break;
-    case JPCardDetailsModeAVS:
-        [self.mainStackView addArrangedSubview:self.topButtonStackView];
-        [self.mainStackView addArrangedSubview:self.inputFieldsStackViewForAVS];
-        [self.mainStackView addArrangedSubview:self.buttonStackView];
-        break;
+        case JPCardDetailsModeSecurityCode:
+            [self.mainStackView addArrangedSubview:self.topButtonStackViewSecurityCode];
+            [self.mainStackView addArrangedSubview:self.secureCodeTextField];
+            [self.mainStackView addArrangedSubview:self.buttonStackView];
+            break;
+        case JPCardDetailsModeDefault:
+            [self.mainStackView addArrangedSubview:self.topButtonStackView];
+            [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
+            [self.mainStackView addArrangedSubview:self.buttonStackView];
+            break;
+        case JPCardDetailsModeAVS:
+            [self.mainStackView addArrangedSubview:self.topButtonStackView];
+            [self.mainStackView addArrangedSubview:self.inputFieldsStackViewForAVS];
+            [self.mainStackView addArrangedSubview:self.buttonStackView];
+            break;
     }
-    
+
     [self.bottomSlider addSubview:self.mainStackView];
 }
 #pragma mark - View model configuration
 
 - (void)configureWithViewModel:(JPTransactionViewModel *)viewModel {
     switch (viewModel.mode) {
-            
+
         case JPCardDetailsModeSecurityCode:
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
             break;
@@ -158,7 +158,7 @@ static const float kLooseContentSpacing = 16.0F;
             [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
             [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
-            
+
             break;
         case JPCardDetailsModeAVS:
             [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
@@ -170,7 +170,7 @@ static const float kLooseContentSpacing = 16.0F;
             break;
     }
     [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
-    [self setupConstraints: viewModel];
+    [self setupConstraints:viewModel];
 }
 
 #pragma mark - Helper methods
@@ -196,14 +196,14 @@ static const float kLooseContentSpacing = 16.0F;
 
 - (void)setupConstraints:(JPTransactionViewModel *)viewModel {
     [self.backgroundView pinToView:self withPadding:0.0];
-    [self setupBottomSliderConstraints: viewModel];
+    [self setupBottomSliderConstraints:viewModel];
     [self setupMainStackViewConstraints];
     [self setupContentsConstraints];
 }
 
 - (void)setupBottomSliderConstraints:(JPTransactionViewModel *)viewModel {
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
-    
+
     self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
     switch (viewModel.mode) {
         case JPCardDetailsModeSecurityCode:
@@ -216,17 +216,17 @@ static const float kLooseContentSpacing = 16.0F;
             self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kAVSSliderHeight];
             break;
     }
-    
+
     self.bottomSliderConstraint.active = YES;
     self.sliderHeightConstraint.active = YES;
 }
 
 - (void)setupMainStackViewConstraints {
-    
+
     [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                              forView:self.bottomSlider
                          withPadding:kContentVerticalPadding];
-    
+
     [self.mainStackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
                              forView:self.bottomSlider
                          withPadding:kContentHorizontalPadding];
@@ -381,7 +381,6 @@ static const float kLooseContentSpacing = 16.0F;
 - (UIStackView *)mainStackView {
     if (!_mainStackView) {
         _mainStackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
-
     }
     return _mainStackView;
 }

@@ -126,7 +126,7 @@
 #pragma mark - Action Handlers
 
 - (void)handleAddCardButtonTap {
-    [self.router navigateToTransactionModuleWith: JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypeRegisterCard];
+    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypeRegisterCard];
 }
 
 - (void)handleBackButtonTap {
@@ -159,15 +159,15 @@
         }];
         return;
     }
-    
+
     if ([self.interactor shouldAskSecurityCode]) {
-        [self.router navigateToTransactionModuleWith: JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypePayment];
+        [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypePayment];
     } else {
         [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                        andCompletion:^(JPResponse *response, NSError *error) {
-                [weakSelf handleCallbackWithResponse:response
-                                            andError:error];
-        }];
+                                           [weakSelf handleCallbackWithResponse:response
+                                                                       andError:error];
+                                       }];
     }
 }
 

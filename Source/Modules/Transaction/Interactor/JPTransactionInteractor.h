@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPTransactionType.h"
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
-#import "JPTransactionViewModel.h"
 
 @class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
