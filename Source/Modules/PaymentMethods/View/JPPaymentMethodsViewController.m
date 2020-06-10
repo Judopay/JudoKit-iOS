@@ -321,6 +321,14 @@
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
 }
 
+- (void)didIntroduceCV2:(NSString *)cv2 {
+    NSLog(@"didIntroduceCV2 and tap pay %@", cv2);
+}
+
+- (void)didCancel {
+    [self.paymentMethodsView.headerView.payButton stopLoading];
+    self.paymentMethodsView.userInteractionEnabled = YES;
+}
 @end
 
 @implementation JPPaymentMethodsViewController (EditCardsDelegate)

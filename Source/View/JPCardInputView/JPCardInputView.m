@@ -1,4 +1,3 @@
-//
 //  JPTransactionView.m
 //  JudoKit-iOS
 //
@@ -22,14 +21,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionView.h"
+#import "JPCardInputView.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
 #import "JPLoadingButton.h"
 #import "JPRoundedCornerView.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
-#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
@@ -37,7 +35,7 @@
 #import "UITextField+Additions.h"
 #import "UIView+Additions.h"
 
-@interface JPTransactionView ()
+@interface JPCardInputView ()
 
 @property (nonatomic, strong) JPRoundedCornerView *bottomSlider;
 @property (nonatomic, strong) UIStackView *mainStackView;
@@ -48,11 +46,12 @@
 
 @end
 
-@implementation JPTransactionView
+@implementation JPCardInputView
 
 #pragma mark - Constants
 
 static const float kStandardSliderHeight = 365.0F;
+static const float kCV2dSliderHeight = 250.0F;
 static const float kAVSSliderHeight = 410.0F;
 static const float kScanButtonCornerRadius = 4.0F;
 static const float kScanButtonBorderWidth = 1.0F;
@@ -71,7 +70,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setupSubviews];
-        [self setupConstraints];
+//        [self setupConstraints];
     }
     return self;
 }
@@ -79,7 +78,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self setupSubviews];
-        [self setupConstraints];
+//        [self setupConstraints];
     }
     return self;
 }
@@ -87,9 +86,14 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)init {
     if (self = [super initWithFrame:CGRectZero]) {
         [self setupSubviews];
-        [self setupConstraints];
+//        [self setupConstraints];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"JPCardInputView called");
 }
 
 #pragma mark - Theming
@@ -124,24 +128,54 @@ static const float kLooseContentSpacing = 16.0F;
     [self.postcodeTextField applyTheme:theme];
 }
 
+- (void)setUpWithMode:(JPCardDetailsMode)mode {
+    switch (mode) {
+    case JPCardDetailsModeSecurityCode:
+        [self.mainStackView addArrangedSubview:self.topButtonStackViewCVV2];
+        [self.mainStackView addArrangedSubview:self.secureCodeTextField];
+        [self.mainStackView addArrangedSubview:self.buttonStackView];
+        break;
+    case JPCardDetailsModeDefault:
+        [self.mainStackView addArrangedSubview:self.topButtonStackView];
+        [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
+        [self.mainStackView addArrangedSubview:self.buttonStackView];
+        break;
+    case JPCardDetailsModeAVS:
+        [self.mainStackView addArrangedSubview:self.topButtonStackView];
+        [self.mainStackView addArrangedSubview:self.inputFieldsStackViewForAvs];
+        [self.mainStackView addArrangedSubview:self.buttonStackView];
+        break;
+    }
+    
+    [self.bottomSlider addSubview:self.mainStackView];
+}
 #pragma mark - View model configuration
 
 - (void)configureWithViewModel:(JPTransactionViewModel *)viewModel {
-    self.sliderHeightConstraint.constant = kStandardSliderHeight;
-    [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
-    [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
-    [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
-    [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
-    [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
-
-    self.countryTextField.hidden = !viewModel.shouldDisplayAVSFields;
-    self.postcodeTextField.hidden = !viewModel.shouldDisplayAVSFields;
-
-    if (viewModel.shouldDisplayAVSFields) {
-        self.sliderHeightConstraint.constant = kAVSSliderHeight;
-        [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
-        [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
+    switch (viewModel.mode) {
+            
+        case JPCardDetailsModeSecurityCode:
+            [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            break;
+        case JPCardDetailsModeDefault:
+            [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
+            [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
+            [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
+            [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            break;
+        case JPCardDetailsModeAVS:
+            [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
+            [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
+            [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
+            [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
+            [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
+            self.countryTextField.hidden = NO;
+            self.postcodeTextField.hidden = NO;
+            break;
     }
+    [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
+    [self setupConstraints: viewModel];
 }
 
 #pragma mark - Helper methods
@@ -163,32 +197,41 @@ static const float kLooseContentSpacing = 16.0F;
 - (void)setupSubviews {
     [self addSubview:self.backgroundView];
     [self addSubview:self.bottomSlider];
-    [self.bottomSlider addSubview:self.mainStackView];
 }
 
-- (void)setupConstraints {
+- (void)setupConstraints:(JPTransactionViewModel *)viewModel {
     [self.backgroundView pinToView:self withPadding:0.0];
-    [self setupBottomSliderConstraints];
+    [self setupBottomSliderConstraints: viewModel];
     [self setupMainStackViewConstraints];
     [self setupContentsConstraints];
 }
 
-- (void)setupBottomSliderConstraints {
+- (void)setupBottomSliderConstraints:(JPTransactionViewModel *)viewModel {
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
-
+    
     self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kStandardSliderHeight];
-
+    switch (viewModel.mode) {
+        case JPCardDetailsModeSecurityCode:
+            self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kCV2dSliderHeight];
+            break;
+        case JPCardDetailsModeDefault:
+            self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kStandardSliderHeight];
+            break;
+        case JPCardDetailsModeAVS:
+            self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kAVSSliderHeight];
+            break;
+    }
+    
     self.bottomSliderConstraint.active = YES;
     self.sliderHeightConstraint.active = YES;
 }
 
 - (void)setupMainStackViewConstraints {
-
+    
     [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                              forView:self.bottomSlider
                          withPadding:kContentVerticalPadding];
-
+    
     [self.mainStackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
                              forView:self.bottomSlider
                          withPadding:kContentHorizontalPadding];
@@ -344,9 +387,6 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_mainStackView) {
         _mainStackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
 
-        [_mainStackView addArrangedSubview:self.topButtonStackView];
-        [_mainStackView addArrangedSubview:self.inputFieldsStackView];
-        [_mainStackView addArrangedSubview:self.buttonStackView];
     }
     return _mainStackView;
 }
@@ -361,6 +401,14 @@ static const float kLooseContentSpacing = 16.0F;
     return stackView;
 }
 
+- (UIStackView *)topButtonStackViewCVV2 {
+    UIStackView *stackView = [UIStackView new];
+
+    [stackView addArrangedSubview:self.cancelButton];
+    [stackView addArrangedSubview:[UIView new]];
+    return stackView;
+}
+
 - (UIStackView *)additionalInputFieldsStackView {
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
@@ -372,6 +420,16 @@ static const float kLooseContentSpacing = 16.0F;
 }
 
 - (UIStackView *)inputFieldsStackView {
+    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
+
+    [stackView addArrangedSubview:self.cardNumberTextField];
+    [stackView addArrangedSubview:self.cardHolderTextField];
+    [stackView addArrangedSubview:self.additionalInputFieldsStackView];
+
+    return stackView;
+}
+
+- (UIStackView *)inputFieldsStackViewForAvs {
     UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
 
     [stackView addArrangedSubview:self.cardNumberTextField];

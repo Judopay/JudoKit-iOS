@@ -102,6 +102,7 @@
     }
 
     self.transactionService.transactionType = type;
+    self.transactionService.mode = JPCardDetailsModeDefault;
 
     UIViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService

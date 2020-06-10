@@ -39,6 +39,11 @@
 @property (nonatomic, assign) BOOL shouldPaymentButonDisplayAmount;
 
 /**
+ * A boolean property that defines if merchant should ask for security code(CV2)
+ */
+@property (nonatomic, assign) BOOL shouldAskSecurityCode;
+
+/**
  * A boolean property that defines if AVS should be enabled during the payment flow
  */
 @property (nonatomic, assign) BOOL isAVSEnabled;

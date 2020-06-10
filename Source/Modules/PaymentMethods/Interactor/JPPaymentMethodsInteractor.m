@@ -47,6 +47,7 @@
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
 #import "NSBundle+Additions.h"
+#import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -151,6 +152,12 @@
         return NO;
     }];
     return pbbaIndex;
+}
+
+#pragma mark - Get bool for security code on pay button click
+
+-(BOOL)shouldAskSecurityCode {
+    return self.configuration.uiConfiguration.shouldAskSecurityCode;
 }
 
 #pragma mark - Get payment methods

@@ -24,6 +24,7 @@
 
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
+#import "JPTransactionViewModel.h"
 
 @class JPPaymentMethodsViewController;
 @class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
@@ -32,7 +33,7 @@
 /**
  * A method that opens up the Add Card view for entering new card details
  */
-- (void)navigateToTransactionModule;
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork transactionType:(JPTransactionType)transactionType;
 
 /**
  * A method that displays the iDEAL bank web page in order to complete the transaction

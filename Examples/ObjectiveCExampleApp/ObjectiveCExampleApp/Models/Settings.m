@@ -126,5 +126,8 @@
 - (BOOL)shouldPaymentButonDisplayAmount {
     return [self.defaults boolForKey:kShouldPaymentButonDisplayAmount];
 }
+- (BOOL)shouldAskSecurityCode {
+    return [self.defaults boolForKey:kShouldAskSecurityCode];
+}
 
 @end

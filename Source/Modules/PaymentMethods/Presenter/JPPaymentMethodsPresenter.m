@@ -125,8 +125,8 @@
 
 #pragma mark - Action Handlers
 
-- (void)handleTransactionButtonTap {
-    [self.router navigateToTransactionModule];
+- (void)handleAddCardButtonTap {
+    [self.router navigateToTransactionModuleWith: JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypeRegisterCard];
 }
 
 - (void)handleBackButtonTap {
@@ -159,12 +159,16 @@
         }];
         return;
     }
-
-    [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
-                                   andCompletion:^(JPResponse *response, NSError *error) {
-                                       [weakSelf handleCallbackWithResponse:response
-                                                                   andError:error];
-                                   }];
+    
+    if ([self.interactor shouldAskSecurityCode]) {
+        [self.router navigateToTransactionModuleWith: JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypePayment];
+    } else {
+        [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
+                                       andCompletion:^(JPResponse *response, NSError *error) {
+                [weakSelf handleCallbackWithResponse:response
+                                            andError:error];
+        }];
+    }
 }
 
 - (void)handleApplePayButtonTap {
@@ -457,7 +461,7 @@
 
         __weak typeof(self) weakSelf = self;
         _emptyListModel.onTransactionButtonTapHandler = ^{
-            [weakSelf handleTransactionButtonTap];
+            [weakSelf handleAddCardButtonTap];
         };
     }
     return _emptyListModel;
@@ -482,7 +486,7 @@
 
         __weak typeof(self) weakSelf = self;
         _cardFooterModel.onTransactionButtonTapHandler = ^{
-            [weakSelf handleTransactionButtonTap];
+            [weakSelf handleAddCardButtonTap];
         };
     }
     return _cardFooterModel;
