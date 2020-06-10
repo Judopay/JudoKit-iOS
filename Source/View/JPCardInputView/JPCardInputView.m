@@ -70,7 +70,6 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setupSubviews];
-//        [self setupConstraints];
     }
     return self;
 }
@@ -78,7 +77,6 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self setupSubviews];
-//        [self setupConstraints];
     }
     return self;
 }
@@ -86,13 +84,11 @@ static const float kLooseContentSpacing = 16.0F;
 - (instancetype)init {
     if (self = [super initWithFrame:CGRectZero]) {
         [self setupSubviews];
-//        [self setupConstraints];
     }
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     NSLog(@"JPCardInputView called");
 }
 
@@ -131,7 +127,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (void)setUpWithMode:(JPCardDetailsMode)mode {
     switch (mode) {
     case JPCardDetailsModeSecurityCode:
-        [self.mainStackView addArrangedSubview:self.topButtonStackViewCVV2];
+        [self.mainStackView addArrangedSubview:self.topButtonStackViewSecurityCode];
         [self.mainStackView addArrangedSubview:self.secureCodeTextField];
         [self.mainStackView addArrangedSubview:self.buttonStackView];
         break;
@@ -142,7 +138,7 @@ static const float kLooseContentSpacing = 16.0F;
         break;
     case JPCardDetailsModeAVS:
         [self.mainStackView addArrangedSubview:self.topButtonStackView];
-        [self.mainStackView addArrangedSubview:self.inputFieldsStackViewForAvs];
+        [self.mainStackView addArrangedSubview:self.inputFieldsStackViewForAVS];
         [self.mainStackView addArrangedSubview:self.buttonStackView];
         break;
     }
@@ -162,6 +158,7 @@ static const float kLooseContentSpacing = 16.0F;
             [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
             [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            
             break;
         case JPCardDetailsModeAVS:
             [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
@@ -170,8 +167,6 @@ static const float kLooseContentSpacing = 16.0F;
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
             [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
             [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
-            self.countryTextField.hidden = NO;
-            self.postcodeTextField.hidden = NO;
             break;
     }
     [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
@@ -401,7 +396,7 @@ static const float kLooseContentSpacing = 16.0F;
     return stackView;
 }
 
-- (UIStackView *)topButtonStackViewCVV2 {
+- (UIStackView *)topButtonStackViewSecurityCode {
     UIStackView *stackView = [UIStackView new];
 
     [stackView addArrangedSubview:self.cancelButton];
@@ -429,18 +424,18 @@ static const float kLooseContentSpacing = 16.0F;
     return stackView;
 }
 
-- (UIStackView *)inputFieldsStackViewForAvs {
+- (UIStackView *)inputFieldsStackViewForAVS {
     UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
 
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
     [stackView addArrangedSubview:self.additionalInputFieldsStackView];
-    [stackView addArrangedSubview:self.avsStackView];
+    [stackView addArrangedSubview:self.AVSStackView];
 
     return stackView;
 }
 
-- (UIStackView *)avsStackView {
+- (UIStackView *)AVSStackView {
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
     [stackView addArrangedSubview:self.countryTextField];
