@@ -30,13 +30,14 @@
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
-#import "JPTransactionView.h"
+#import "JPCardInputView.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPTransactionViewModel.h"
 
 @interface JPTransactionViewController ()
-@property (nonatomic, strong) JPTransactionView *addCardView;
+@property (nonatomic, strong) JPCardInputView *addCardView;
 @property (nonatomic, strong) NSArray *countryNames;
 @end
 
@@ -45,10 +46,11 @@
 #pragma mark - View Lifecycle
 
 - (void)loadView {
-    self.addCardView = [JPTransactionView new];
-    [self.addCardView applyTheme:self.theme];
-    [self.presenter prepareInitialViewModel];
+    self.addCardView = [JPCardInputView new];
     self.view = self.addCardView;
+    [self.addCardView applyTheme:self.theme];
+    [self.addCardView setUpWithMode:[self.presenter cardDetailsMode]];
+    [self.presenter prepareInitialViewModel];
     [self addTargets];
     [self addGestureRecognizers];
 }
@@ -74,6 +76,7 @@
 }
 
 - (void)onCancelButtonTap {
+    [self.delegate didCancel];
     [self.presenter handleCancelButtonTap];
 }
 
@@ -91,7 +94,7 @@
 #pragma mark - View protocol methods
 
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel {
-    if ([viewModel shouldDisplayAVSFields]) {
+    if (viewModel.mode == JPCardDetailsModeAVS) {
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
         self.countryNames = viewModel.countryPickerViewModel.pickerTitles;

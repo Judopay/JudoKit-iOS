@@ -45,6 +45,7 @@
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
+#import "JPTransactionViewModel.h"
 
 @interface JPTransactionInteractorImpl ()
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
@@ -79,6 +80,17 @@
     return self.configuration.uiConfiguration.isAVSEnabled;
 }
 
+- (JPCardDetailsMode)cardDetailsMode {
+    if (self.transactionService.mode == JPCardDetailsModeDefault) {
+        return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault;
+    }
+    return self.transactionService.mode;
+}
+
+- (JPCardNetworkType)cardNetwork {
+    return self.transactionService.cardNetwork;
+}
+
 - (JPTransactionType)transactionType {
     return self.transactionService.transactionType;
 }
@@ -101,7 +113,7 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if (self.configuration.uiConfiguration.shouldPaymentButonDisplayAmount) {
+    if ((self.configuration.uiConfiguration.shouldPaymentButonDisplayAmount)) {
         JPAmount *amount = self.configuration.amount;
         return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, amount.currency.toCurrencySymbol, amount.amount];
     }

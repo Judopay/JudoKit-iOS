@@ -65,13 +65,14 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToTransactionModule {
-    self.transactionService.transactionType = JPTransactionTypeSaveCard;
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork transactionType:(JPTransactionType)transactionType {
+    self.transactionService.transactionType = transactionType;
+    self.transactionService.mode = mode;
+    self.transactionService.cardNetwork = cardNetwork;
     JPTransactionViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:self.configuration
                                                                   completion:nil];
-
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;

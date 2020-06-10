@@ -118,6 +118,11 @@
 - (nonnull NSArray *)getIDEALBankTypes;
 
 /**
+* A method which returns bool value for security code
+*/
+-(BOOL)shouldAskSecurityCode;
+
+/**
  * A method that triggers the completion handler passed by the merchant with an optional response / error
  *
  * @param response - an optional instance of the JPResponse object that contains the response details

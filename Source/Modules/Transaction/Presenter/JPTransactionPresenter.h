@@ -25,6 +25,7 @@
 #import "JPInputType.h"
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
+#import "JPTransactionViewModel.h"
 
 @protocol JPTransactionView
 , JPTransactionRouter, JPTransactionInteractor;
@@ -55,6 +56,12 @@
  * A method that handles Cancel button tap
  */
 - (void)handleCancelButtonTap;
+
+/**
+* A method which return current JPCardDetailsMode
+*/
+- (JPCardDetailsMode)cardDetailsMode;
+
 
 /**
  * A method that updates the view model with a card scan result

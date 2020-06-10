@@ -1,5 +1,5 @@
 //
-//  JPTransactionView.h
+//  JPCardInputView.h
 //  JudoKit-iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -23,10 +23,11 @@
 //  SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "JPTransactionViewModel.h"
 
 @class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton, JPTheme, JPTransactionViewModel;
 
-@interface JPTransactionView : UIView
+@interface JPCardInputView : UIView
 
 /**
  * The dimmed, semi-transparent background view that fades in when the add card slider appears
@@ -102,6 +103,9 @@
  */
 - (void)configureWithViewModel:(JPTransactionViewModel *)viewModel;
 
+- (void)setUpWithMode:(JPCardDetailsMode)mode;
+
+    
 /**
  * A method that specifies if the user inteface should be enabled
  *

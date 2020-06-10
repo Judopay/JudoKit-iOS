@@ -37,6 +37,7 @@
 #import "JPTransactionViewModel.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
+#import "JPTransactionViewModel.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;
@@ -61,19 +62,23 @@
     }
     return self;
 }
-
+- (JPCardDetailsMode)cardDetailsMode {
+    return [self.interactor cardDetailsMode];
+}
 #pragma mark - Protocol methods
 
 - (void)prepareInitialViewModel {
 
     JPTransactionType type = self.interactor.transactionType;
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
-
-    self.addCardViewModel.shouldDisplayAVSFields = [self.interactor isAVSEnabled];
+    self.addCardViewModel.type = type;
+    self.addCardViewModel.mode = [self.interactor cardDetailsMode];
+    
     self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number".localized;
     self.addCardViewModel.cardholderNameViewModel.placeholder = @"cardholder_name".localized;
     self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
-    self.addCardViewModel.secureCodeViewModel.placeholder = @"secure_code".localized;
+    NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetwork]];
+    self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
 
     NSArray *selectableCountryNames = [self.interactor getSelectableCountryNames];
     self.addCardViewModel.countryPickerViewModel.placeholder = @"country".localized;
