@@ -32,6 +32,11 @@
 @protocol JPPaymentMethodsPresenter
 
 /**
+* A method that hadle payment
+*/
+- (void)handlePaymentWidthCode:(nullable NSString *)code;
+
+/**
  * A method that updates the view model with the latest state and refreshes the view
  */
 - (void)viewModelNeedsUpdate;

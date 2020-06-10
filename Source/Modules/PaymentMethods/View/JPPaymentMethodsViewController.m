@@ -322,7 +322,7 @@
 }
 
 - (void)didIntroduceCV2:(NSString *)cv2 {
-    NSLog(@"didIntroduceCV2 and tap pay %@", cv2);
+    [self.presenter handlePaymentWidthCode:cv2];
 }
 
 - (void)didCancel {

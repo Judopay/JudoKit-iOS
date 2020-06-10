@@ -79,10 +79,15 @@
     [self.presenter handleCancelButtonTap];
 }
 
-- (void)onTransactionButtonTap {
+- (void)onAddCardButtonTap {
     [self.addCardView.addCardButton startLoading];
     [self.addCardView enableUserInterface:NO];
     [self.presenter handleTransactionButtonTap];
+}
+
+- (void)onPayWithCVVButtonTap {
+    [self.delegate didIntroduceCV2:self.addCardView.secureCodeTextField.text];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)onScanCardButtonTap {
@@ -164,7 +169,16 @@
 
 - (void)addTargets {
     [self connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    [self connectButton:self.addCardView.addCardButton withSelector:@selector(onTransactionButtonTap)];
+    switch ([self.presenter cardDetailsMode]) {
+        case JPCardDetailsModeDefault:
+        case JPCardDetailsModeAVS:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
+            break;
+        case JPCardDetailsModeSecurityCode:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithCVVButtonTap)];
+        default:
+            break;
+    }
     [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
 
     self.addCardView.cardNumberTextField.delegate = self;

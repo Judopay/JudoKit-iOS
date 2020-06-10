@@ -163,12 +163,18 @@
     if ([self.interactor shouldAskSecurityCode]) {
         [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypePayment];
     } else {
-        [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
-                                       andCompletion:^(JPResponse *response, NSError *error) {
-                                           [weakSelf handleCallbackWithResponse:response
-                                                                       andError:error];
-                                       }];
+        [self handlePaymentWidthCode:nil];
     }
+}
+
+- (void)handlePaymentWidthCode:(nullable NSString *)code {
+    __weak typeof(self) weakSelf = self;
+    [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
+                                 andSecurityCode:code
+                                        andCompletion:^(JPResponse *response, NSError *error) {
+                                            [weakSelf handleCallbackWithResponse:response
+                                                                        andError:error];
+                                        }];
 }
 
 - (void)handleApplePayButtonTap {

@@ -58,6 +58,7 @@
  * Sends a payment transaction based on a stored card token
  */
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
+                    andSecurityCode:(nullable NSString *)securityCode
                       andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
