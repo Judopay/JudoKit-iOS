@@ -62,7 +62,6 @@
 */
 - (JPCardDetailsMode)cardDetailsMode;
 
-
 /**
  * A method that updates the view model with a card scan result
  *
