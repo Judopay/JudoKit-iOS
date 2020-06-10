@@ -156,8 +156,8 @@
 
 #pragma mark - Get bool for security code on pay button click
 
-- (BOOL)shouldAskSecurityCode {
-    return self.configuration.uiConfiguration.shouldAskSecurityCode;
+- (BOOL)shouldPaymentMethodsVerifySecurityCode {
+    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode;
 }
 
 #pragma mark - Get payment methods

@@ -51,11 +51,10 @@ class JPTransactionPresenterTests: XCTestCase {
         XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.placeholder, "Card Number")
         XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.placeholder, "Cardholder Name")
         XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.placeholder, "MM/YY")
-        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.placeholder, "CVV")
+        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.placeholder, "CVV2")
         XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.placeholder, "Country")
         XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.placeholder, "Postcode")
         
-        XCTAssertTrue(controller.viewModelSut.shouldDisplayAVSFields)
         XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
     }
     

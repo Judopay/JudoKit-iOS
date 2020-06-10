@@ -131,7 +131,7 @@
 /**
 * A method which returns bool value for security code
 */
-- (BOOL)shouldAskSecurityCode;
+- (BOOL)shouldPaymentMethodsVerifySecurityCode;
 
 /**
  * A method that triggers the completion handler passed by the merchant with an optional response / error

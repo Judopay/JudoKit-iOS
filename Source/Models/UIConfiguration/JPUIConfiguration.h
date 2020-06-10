@@ -41,7 +41,7 @@
 /**
  * A boolean property that defines if merchant should ask for security code(CV2)
  */
-@property (nonatomic, assign) BOOL shouldAskSecurityCode;
+@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
 
 /**
  * A boolean property that defines if AVS should be enabled during the payment flow

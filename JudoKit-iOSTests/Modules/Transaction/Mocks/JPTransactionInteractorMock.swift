@@ -26,14 +26,22 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
+    lazy var validationService = JPCardValidationService()
+    var trasactionSent = false
+    var completeTransaction = false
+    
+    func cardDetailsMode() -> JPCardDetailsMode {
+        return .default
+    }
+    
+    func cardNetwork() -> JPCardNetworkType {
+        return .visa
+    }
+    
     func generatePayButtonTitle() -> String! {
         return "Pay"
     }
     
-    lazy var validationService = JPCardValidationService()
-    var trasactionSent = false
-    var completeTransaction = false
-
     func updateKeychain(withCardModel viewModel: JPTransactionViewModel!, andToken token: String!) {
     }
     
