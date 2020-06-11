@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		076841BC246E98EF00A49EB9 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BB246E98EF00A49EB9 /* TrustKit.framework */; };
+		076841BD246E98EF00A49EB9 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BB246E98EF00A49EB9 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		076841C0246E990000A49EB9 /* JudoKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BF246E990000A49EB9 /* JudoKit-iOS.framework */; };
+		076841C1246E990000A49EB9 /* JudoKit-iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BF246E990000A49EB9 /* JudoKit-iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		076841C3246E990E00A49EB9 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C2246E990E00A49EB9 /* DeviceDNA.framework */; };
+		076841C4246E990E00A49EB9 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C2246E990E00A49EB9 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		076841C6246E991900A49EB9 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */; };
+		076841C7246E991900A49EB9 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
+		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
+		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
+		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
+		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
+		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		448AB1BA2450DE93004A11CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 448AB1962450DE8F004A11CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 448AB19D2450DE8F004A11CB;
+			remoteInfo = ObjectiveCExampleApp;
+		};
+		448AB1C52450DE93004A11CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 448AB1962450DE8F004A11CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 448AB19D2450DE8F004A11CB;
+			remoteInfo = ObjectiveCExampleApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		076841BE246E98EF00A49EB9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				076841BD246E98EF00A49EB9 /* TrustKit.framework in Embed Frameworks */,
+				076841C4246E990E00A49EB9 /* DeviceDNA.framework in Embed Frameworks */,
+				076841C1246E990000A49EB9 /* JudoKit-iOS.framework in Embed Frameworks */,
+				076841C7246E991900A49EB9 /* PayCardsRecognizer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		076841BB246E98EF00A49EB9 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
+		076841BF246E990000A49EB9 /* JudoKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "JudoKit-iOS.framework"; path = "Carthage/Build/iOS/JudoKit-iOS.framework"; sourceTree = "<group>"; };
+		076841C2246E990E00A49EB9 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
+		076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
+		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		448AB1A22450DE8F004A11CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		448AB1AB2450DE8F004A11CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		448AB1AD2450DE93004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		448AB1B02450DE93004A11CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		448AB1B22450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		448AB1B32450DE93004A11CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		448AB1B92450DE93004A11CB /* CarthageExampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarthageExampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		448AB1C42450DE93004A11CB /* CarthageExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarthageExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
+		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
+		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4494950E2450ED870050C6A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		448AB19B2450DE8F004A11CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				076841BC246E98EF00A49EB9 /* TrustKit.framework in Frameworks */,
+				076841C3246E990E00A49EB9 /* DeviceDNA.framework in Frameworks */,
+				076841C0246E990000A49EB9 /* JudoKit-iOS.framework in Frameworks */,
+				076841C6246E991900A49EB9 /* PayCardsRecognizer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1B62450DE93004A11CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1C12450DE93004A11CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		448AB1952450DE8F004A11CB = {
+			isa = PBXGroup;
+			children = (
+				448AB1A02450DE8F004A11CB /* CarthageExampleApp */,
+				448AB1BC2450DE93004A11CB /* CarthageExampleAppTests */,
+				448AB1C72450DE93004A11CB /* CarthageExampleAppUITests */,
+				448AB19F2450DE8F004A11CB /* Products */,
+				9B9F9602B30C65E77C8697F2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		448AB19F2450DE8F004A11CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				448AB19E2450DE8F004A11CB /* Judopay demo.app */,
+				448AB1B92450DE93004A11CB /* CarthageExampleAppTests.xctest */,
+				448AB1C42450DE93004A11CB /* CarthageExampleAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		448AB1A02450DE8F004A11CB /* CarthageExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				448AB1B32450DE93004A11CB /* main.m */,
+				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
+				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
+				449495042450ED870050C6A0 /* ExampleAppCredentials.h */,
+				449495052450ED870050C6A0 /* Controllers */,
+				449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */,
+				448AB1AA2450DE8F004A11CB /* Main.storyboard */,
+				448AB1AD2450DE93004A11CB /* Assets.xcassets */,
+				448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */,
+				448AB1B22450DE93004A11CB /* Info.plist */,
+			);
+			path = CarthageExampleApp;
+			sourceTree = "<group>";
+		};
+		448AB1BC2450DE93004A11CB /* CarthageExampleAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				448AB1BF2450DE93004A11CB /* Info.plist */,
+			);
+			path = CarthageExampleAppTests;
+			sourceTree = "<group>";
+		};
+		448AB1C72450DE93004A11CB /* CarthageExampleAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				448AB1CA2450DE93004A11CB /* Info.plist */,
+			);
+			path = CarthageExampleAppUITests;
+			sourceTree = "<group>";
+		};
+		449495052450ED870050C6A0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4494950C2450ED870050C6A0 /* Main */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4494950C2450ED870050C6A0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4494950E2450ED870050C6A0 /* MainViewController.h */,
+				4494950D2450ED870050C6A0 /* MainViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		9B9F9602B30C65E77C8697F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */,
+				076841C2246E990E00A49EB9 /* DeviceDNA.framework */,
+				076841BF246E990000A49EB9 /* JudoKit-iOS.framework */,
+				076841BB246E98EF00A49EB9 /* TrustKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		448AB19D2450DE8F004A11CB /* CarthageExampleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 448AB1CD2450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleApp" */;
+			buildPhases = (
+				448AB19A2450DE8F004A11CB /* Sources */,
+				448AB19B2450DE8F004A11CB /* Frameworks */,
+				448AB19C2450DE8F004A11CB /* Resources */,
+				076841BE246E98EF00A49EB9 /* Embed Frameworks */,
+				076841C8246E9A2B00A49EB9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CarthageExampleApp;
+			productName = ObjectiveCExampleApp;
+			productReference = 448AB19E2450DE8F004A11CB /* Judopay demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		448AB1B82450DE93004A11CB /* CarthageExampleAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 448AB1D02450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleAppTests" */;
+			buildPhases = (
+				448AB1B52450DE93004A11CB /* Sources */,
+				448AB1B62450DE93004A11CB /* Frameworks */,
+				448AB1B72450DE93004A11CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				448AB1BB2450DE93004A11CB /* PBXTargetDependency */,
+			);
+			name = CarthageExampleAppTests;
+			productName = ObjectiveCExampleAppTests;
+			productReference = 448AB1B92450DE93004A11CB /* CarthageExampleAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		448AB1C32450DE93004A11CB /* CarthageExampleAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 448AB1D32450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleAppUITests" */;
+			buildPhases = (
+				448AB1C02450DE93004A11CB /* Sources */,
+				448AB1C12450DE93004A11CB /* Frameworks */,
+				448AB1C22450DE93004A11CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				448AB1C62450DE93004A11CB /* PBXTargetDependency */,
+			);
+			name = CarthageExampleAppUITests;
+			productName = ObjectiveCExampleAppUITests;
+			productReference = 448AB1C42450DE93004A11CB /* CarthageExampleAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		448AB1962450DE8F004A11CB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = Judopay;
+				TargetAttributes = {
+					448AB19D2450DE8F004A11CB = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+					448AB1B82450DE93004A11CB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 448AB19D2450DE8F004A11CB;
+					};
+					448AB1C32450DE93004A11CB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 448AB19D2450DE8F004A11CB;
+					};
+				};
+			};
+			buildConfigurationList = 448AB1992450DE8F004A11CB /* Build configuration list for PBXProject "CarthageExampleApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 448AB1952450DE8F004A11CB;
+			productRefGroup = 448AB19F2450DE8F004A11CB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				448AB19D2450DE8F004A11CB /* CarthageExampleApp */,
+				448AB1B82450DE93004A11CB /* CarthageExampleAppTests */,
+				448AB1C32450DE93004A11CB /* CarthageExampleAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		448AB19C2450DE8F004A11CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */,
+				448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */,
+				448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1B72450DE93004A11CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1C22450DE93004A11CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		076841C8246E9A2B00A49EB9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/JudoKit-iOS.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		448AB19A2450DE8F004A11CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */,
+				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
+				448AB1B42450DE93004A11CB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1B52450DE93004A11CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		448AB1C02450DE93004A11CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		448AB1BB2450DE93004A11CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 448AB19D2450DE8F004A11CB /* CarthageExampleApp */;
+			targetProxy = 448AB1BA2450DE93004A11CB /* PBXContainerItemProxy */;
+		};
+		448AB1C62450DE93004A11CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 448AB19D2450DE8F004A11CB /* CarthageExampleApp */;
+			targetProxy = 448AB1C52450DE93004A11CB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		448AB1AA2450DE8F004A11CB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				448AB1AB2450DE8F004A11CB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				448AB1B02450DE93004A11CB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		448AB1CB2450DE93004A11CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		448AB1CC2450DE93004A11CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		448AB1CE2450DE93004A11CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
+				);
+				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				PRODUCT_NAME = "Judopay demo";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		448AB1CF2450DE93004A11CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
+				);
+				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				PRODUCT_NAME = "Judopay demo";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		448AB1D12450DE93004A11CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.CarthageExampleAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Judopay demo.app/Judopay demo";
+			};
+			name = Debug;
+		};
+		448AB1D22450DE93004A11CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.CarthageExampleAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Judopay demo.app/Judopay demo";
+			};
+			name = Release;
+		};
+		448AB1D42450DE93004A11CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CarthageExampleAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.CarthageExampleAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarthageExampleApp;
+			};
+			name = Debug;
+		};
+		448AB1D52450DE93004A11CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CarthageExampleAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.CarthageExampleAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarthageExampleApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		448AB1992450DE8F004A11CB /* Build configuration list for PBXProject "CarthageExampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				448AB1CB2450DE93004A11CB /* Debug */,
+				448AB1CC2450DE93004A11CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		448AB1CD2450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				448AB1CE2450DE93004A11CB /* Debug */,
+				448AB1CF2450DE93004A11CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		448AB1D02450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				448AB1D12450DE93004A11CB /* Debug */,
+				448AB1D22450DE93004A11CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		448AB1D32450DE93004A11CB /* Build configuration list for PBXNativeTarget "CarthageExampleAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				448AB1D42450DE93004A11CB /* Debug */,
+				448AB1D52450DE93004A11CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 448AB1962450DE8F004A11CB /* Project object */;
+}
