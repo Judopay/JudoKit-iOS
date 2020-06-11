@@ -31,7 +31,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var cardSelected = false
     var startApplePay = false
     
-    func shouldPaymentMethodsVerifySecurityCode() -> Bool {
+    func shouldVerifySecurityCode() -> Bool {
         return false
     }
     

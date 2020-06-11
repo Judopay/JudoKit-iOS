@@ -39,6 +39,11 @@
 - (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel;
 
 /**
+ * A method that updates the view based on the provided view model
+ */
+- (void)loadViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel;
+
+/**
  * A method that updates the view with an error
  */
 - (void)updateViewWithError:(nonnull NSError *)error;

@@ -65,7 +65,7 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork transactionType:(JPTransactionType)transactionType {
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork andTransactionType:(JPTransactionType)transactionType {
     self.transactionService.transactionType = transactionType;
     self.transactionService.mode = mode;
     self.transactionService.cardNetwork = cardNetwork;

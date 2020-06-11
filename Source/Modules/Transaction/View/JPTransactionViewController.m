@@ -38,6 +38,7 @@
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPCardInputView *addCardView;
 @property (nonatomic, strong) NSArray *countryNames;
+@property (nonatomic, assign) JPCardDetailsMode mode;
 @end
 
 @implementation JPTransactionViewController
@@ -45,13 +46,17 @@
 #pragma mark - View Lifecycle
 
 - (void)loadView {
-    self.addCardView = [JPCardInputView new];
+    [self.presenter prepareInitialViewModel];
+}
+
+- (void)loadViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel {
+    self.mode = viewModel.mode;
+    self.addCardView = [[JPCardInputView alloc] initWithCardDetailsMode:self.mode];
     self.view = self.addCardView;
     [self.addCardView applyTheme:self.theme];
-    [self.addCardView setUpWithMode:[self.presenter cardDetailsMode]];
-    [self.presenter prepareInitialViewModel];
     [self addTargets];
     [self addGestureRecognizers];
+    [self updateViewWithViewModel:viewModel];
 }
 
 - (void)viewDidLoad {
@@ -85,8 +90,8 @@
     [self.presenter handleTransactionButtonTap];
 }
 
-- (void)onPayWithCVVButtonTap {
-    [self.delegate didIntroduceCV2:self.addCardView.secureCodeTextField.text];
+- (void)onPayWithSecurityCodeButtonTap {
+    [self.delegate didInputSecurityCode:self.addCardView.secureCodeTextField.text];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -169,17 +174,17 @@
 
 - (void)addTargets {
     [self connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    switch ([self.presenter cardDetailsMode]) {
+    switch (self.mode) {
         case JPCardDetailsModeDefault:
         case JPCardDetailsModeAVS:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
+            [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
             break;
         case JPCardDetailsModeSecurityCode:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithCVVButtonTap)];
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
         default:
             break;
     }
-    [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
 
     self.addCardView.cardNumberTextField.delegate = self;
     self.addCardView.cardHolderTextField.delegate = self;

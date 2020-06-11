@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 @property (nonatomic, assign) JPTransactionType transactionType;
 
 /**
- * A property which describes the transaction UI mode
+ * A property which describes the card details mode
  */
 @property (nonatomic, assign) JPCardDetailsMode mode;
 

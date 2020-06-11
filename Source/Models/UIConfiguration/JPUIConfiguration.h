@@ -39,7 +39,7 @@
 @property (nonatomic, assign) BOOL shouldPaymentButonDisplayAmount;
 
 /**
- * A boolean property that defines if merchant should ask for security code(CV2)
+ * A boolean property that defines if the SDK should verify security code when paying with card token
  */
 @property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
 

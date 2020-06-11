@@ -33,7 +33,7 @@
 @protocol JPTransactionInteractor
 
 /**
- * A method that returns JPTransactionUIMode
+ * A method that returns JPCardDetailsMode
  */
 - (JPCardDetailsMode)cardDetailsMode;
 
@@ -50,7 +50,7 @@
 /**
 * A method that returns the current cardNetwork type
 */
-- (JPCardNetworkType)cardNetwork;
+- (JPCardNetworkType)cardNetworkType;
 
 /**
  * A method that handles the camera permission for the Scan Card functionality

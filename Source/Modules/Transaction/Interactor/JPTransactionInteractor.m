@@ -86,7 +86,7 @@
     return self.transactionService.mode;
 }
 
-- (JPCardNetworkType)cardNetwork {
+- (JPCardNetworkType)cardNetworkType {
     return self.transactionService.cardNetwork;
 }
 

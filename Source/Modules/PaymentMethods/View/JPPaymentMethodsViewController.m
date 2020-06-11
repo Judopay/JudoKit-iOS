@@ -321,8 +321,8 @@
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
 }
 
-- (void)didIntroduceCV2:(NSString *)cv2 {
-    [self.presenter handlePaymentWidthCode:cv2];
+- (void)didInputSecurityCode:(NSString *)cv2 {
+    [self.presenter handlePaymentWithSecurityCode:cv2];
 }
 
 - (void)didCancel {

@@ -33,7 +33,7 @@
 /**
  * A method that opens up the Add Card view for entering new card details
  */
-- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork transactionType:(JPTransactionType)transactionType;
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork andTransactionType:(JPTransactionType)transactionType;
 
 /**
  * A method that displays the iDEAL bank web page in order to complete the transaction

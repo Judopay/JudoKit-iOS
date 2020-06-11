@@ -126,7 +126,7 @@
 #pragma mark - Action Handlers
 
 - (void)handleAddCardButtonTap {
-    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypeRegisterCard];
+    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypeRegisterCard];
 }
 
 - (void)handleBackButtonTap {
@@ -160,14 +160,14 @@
         return;
     }
 
-    if ([self.interactor shouldPaymentMethodsVerifySecurityCode]) {
-        [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork transactionType:JPTransactionTypePayment];
+    if ([self.interactor shouldVerifySecurityCode]) {
+        [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypePayment];
     } else {
-        [self handlePaymentWidthCode:nil];
+        [self handlePaymentWithSecurityCode:nil];
     }
 }
 
-- (void)handlePaymentWidthCode:(nullable NSString *)code {
+- (void)handlePaymentWithSecurityCode:(nullable NSString *)code {
     __weak typeof(self) weakSelf = self;
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
                                  andSecurityCode:code

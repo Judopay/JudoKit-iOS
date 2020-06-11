@@ -43,6 +43,7 @@
 @property (nonatomic, strong) UILabel *securityMessageLabel;
 @property (nonatomic, strong) NSLayoutConstraint *sliderHeightConstraint;
 @property (nonatomic, copy) void (^onScanCardButtonTapHandler)(void);
+@property (nonatomic, assign) JPCardDetailsMode mode;
 
 @end
 
@@ -81,8 +82,10 @@ static const float kLooseContentSpacing = 16.0F;
     return self;
 }
 
-- (instancetype)init {
+- (nonnull instancetype)initWithCardDetailsMode:(JPCardDetailsMode)mode {
     if (self = [super initWithFrame:CGRectZero]) {
+        self.mode = mode;
+        [self setUpWithMode];
         [self setupSubviews];
     }
     return self;
@@ -120,8 +123,8 @@ static const float kLooseContentSpacing = 16.0F;
     [self.postcodeTextField applyTheme:theme];
 }
 
-- (void)setUpWithMode:(JPCardDetailsMode)mode {
-    switch (mode) {
+- (void)setUpWithMode {
+    switch (self.mode) {
         case JPCardDetailsModeSecurityCode:
             [self.mainStackView addArrangedSubview:self.topButtonStackViewSecurityCode];
             [self.mainStackView addArrangedSubview:self.secureCodeTextField];
@@ -165,7 +168,7 @@ static const float kLooseContentSpacing = 16.0F;
             break;
     }
     [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
-    [self setupConstraints:viewModel];
+    [self setupConstraints];
 }
 
 #pragma mark - Helper methods
@@ -189,18 +192,18 @@ static const float kLooseContentSpacing = 16.0F;
     [self addSubview:self.bottomSlider];
 }
 
-- (void)setupConstraints:(JPTransactionViewModel *)viewModel {
+- (void)setupConstraints {
     [self.backgroundView pinToView:self withPadding:0.0];
-    [self setupBottomSliderConstraints:viewModel];
+    [self setupBottomSliderConstraints];
     [self setupMainStackViewConstraints];
     [self setupContentsConstraints];
 }
 
-- (void)setupBottomSliderConstraints:(JPTransactionViewModel *)viewModel {
+- (void)setupBottomSliderConstraints {
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
     self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    switch (viewModel.mode) {
+    switch (self.mode) {
         case JPCardDetailsModeSecurityCode:
             self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kCV2dSliderHeight];
             break;
@@ -424,12 +427,12 @@ static const float kLooseContentSpacing = 16.0F;
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
     [stackView addArrangedSubview:self.additionalInputFieldsStackView];
-    [stackView addArrangedSubview:self.AVSStackView];
+    [stackView addArrangedSubview:self.avsStackView];
 
     return stackView;
 }
 
-- (UIStackView *)AVSStackView {
+- (UIStackView *)avsStackView {
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
     [stackView addArrangedSubview:self.countryTextField];

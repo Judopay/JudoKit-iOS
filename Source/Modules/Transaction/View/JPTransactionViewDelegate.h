@@ -33,7 +33,7 @@
 /**
  * A method that is called once the Add Card flow completes
  */
-- (void)didIntroduceCV2:(NSString *)cv2;
+- (void)didInputSecurityCode:(NSString *)cv2;
 
 /**
  * A method that is called once the Add Card flow completes

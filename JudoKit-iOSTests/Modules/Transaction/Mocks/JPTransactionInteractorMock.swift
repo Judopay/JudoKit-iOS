@@ -26,6 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
+
     lazy var validationService = JPCardValidationService()
     var trasactionSent = false
     var completeTransaction = false
@@ -34,7 +35,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         return .default
     }
     
-    func cardNetwork() -> JPCardNetworkType {
+    func cardNetworkType() -> JPCardNetworkType {
         return .visa
     }
     

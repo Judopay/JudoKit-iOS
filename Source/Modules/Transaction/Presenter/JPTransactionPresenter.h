@@ -58,11 +58,6 @@
 - (void)handleCancelButtonTap;
 
 /**
-* A method which return current JPCardDetailsMode
-*/
-- (JPCardDetailsMode)cardDetailsMode;
-
-/**
  * A method that updates the view model with a card scan result
  *
  * @param result - the PayCardsRecognizerResult object that contains the scan result

@@ -121,7 +121,7 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
 @property (nonatomic, assign) JPTransactionType type;
 
 /**
- * A enum parameter that tells the view of JPTransactionUIMode
+ * A enum parameter to specify the card details mode
  */
 @property (nonatomic, assign) JPCardDetailsMode mode;
 
