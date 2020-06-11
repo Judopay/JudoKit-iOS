@@ -20,8 +20,6 @@
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
-		448AB1BE2450DE93004A11CB /* ObjectiveCExampleAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */; };
-		448AB1C92450DE93004A11CB /* ObjectiveCExampleAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */; };
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +62,6 @@
 		076841BF246E990000A49EB9 /* JudoKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "JudoKit-iOS.framework"; path = "Carthage/Build/iOS/JudoKit-iOS.framework"; sourceTree = "<group>"; };
 		076841C2246E990E00A49EB9 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
 		076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
-		076841C9246E9F5D00A49EB9 /* InAppSettingsKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = InAppSettingsKit.framework.dSYM; path = Carthage/Build/iOS/InAppSettingsKit.framework.dSYM; sourceTree = "<group>"; };
-		076841CA246E9F7100A49EB9 /* InAppSettingsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InAppSettingsKit.framework; path = Carthage/Build/iOS/InAppSettingsKit.framework; sourceTree = "<group>"; };
 		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		448AB1A22450DE8F004A11CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,10 +71,8 @@
 		448AB1B22450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1B32450DE93004A11CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		448AB1B92450DE93004A11CB /* CarthageExampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarthageExampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExampleAppTests.m; sourceTree = "<group>"; };
 		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1C42450DE93004A11CB /* CarthageExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarthageExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExampleAppUITests.m; sourceTree = "<group>"; };
 		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
@@ -156,7 +150,6 @@
 		448AB1BC2450DE93004A11CB /* CarthageExampleAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */,
 				448AB1BF2450DE93004A11CB /* Info.plist */,
 			);
 			path = CarthageExampleAppTests;
@@ -165,7 +158,6 @@
 		448AB1C72450DE93004A11CB /* CarthageExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */,
 				448AB1CA2450DE93004A11CB /* Info.plist */,
 			);
 			path = CarthageExampleAppUITests;
@@ -191,8 +183,6 @@
 		9B9F9602B30C65E77C8697F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				076841CA246E9F7100A49EB9 /* InAppSettingsKit.framework */,
-				076841C9246E9F5D00A49EB9 /* InAppSettingsKit.framework.dSYM */,
 				076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */,
 				076841C2246E990E00A49EB9 /* DeviceDNA.framework */,
 				076841BF246E990000A49EB9 /* JudoKit-iOS.framework */,
@@ -364,7 +354,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				448AB1BE2450DE93004A11CB /* ObjectiveCExampleAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +361,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				448AB1C92450DE93004A11CB /* ObjectiveCExampleAppUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
