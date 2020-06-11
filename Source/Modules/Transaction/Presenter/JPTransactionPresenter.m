@@ -270,6 +270,7 @@
         case JPCardDetailsModeAVS:
             self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid && self.isPostalCodeValid;
             break;
+        default: break;
     }
 }
 

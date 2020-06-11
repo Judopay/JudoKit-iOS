@@ -88,10 +88,6 @@ static const float kLooseContentSpacing = 16.0F;
     return self;
 }
 
-- (void)dealloc {
-    NSLog(@"JPCardInputView called");
-}
-
 #pragma mark - Theming
 
 - (void)applyTheme:(JPTheme *)theme {
@@ -158,7 +154,6 @@ static const float kLooseContentSpacing = 16.0F;
             [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
             [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
-
             break;
         case JPCardDetailsModeAVS:
             [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];

@@ -77,10 +77,10 @@
         const char element = patternString[patternIndex];
 
         if (element == 'X') {
-            char num = [self characterAtIndex:i];
+            unichar num = [self characterAtIndex:i];
             returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@"%c", num]];
         } else {
-            char num = [self characterAtIndex:i];
+            unichar num = [self characterAtIndex:i];
             returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@" %c", num]];
             patternIndex++;
         }
