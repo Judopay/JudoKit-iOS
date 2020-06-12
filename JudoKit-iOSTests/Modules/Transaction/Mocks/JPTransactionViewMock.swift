@@ -26,9 +26,12 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionViewMock: UIViewController, JPTransactionView {
-    
+
     var showedCameraAlert = false
     var viewModelSut: JPTransactionViewModel!
+    
+    func load(with mode: JPCardDetailsMode) {
+    }
     
     func updateView(with viewModel: JPTransactionViewModel) {
         viewModelSut = viewModel

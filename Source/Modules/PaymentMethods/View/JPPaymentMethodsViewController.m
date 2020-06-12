@@ -321,6 +321,14 @@
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
 }
 
+- (void)didInputSecurityCode:(NSString *)cv2 {
+    [self.presenter handlePaymentWithSecurityCode:cv2];
+}
+
+- (void)didCancel {
+    [self.paymentMethodsView.headerView.payButton stopLoading];
+    self.paymentMethodsView.userInteractionEnabled = YES;
+}
 @end
 
 @implementation JPPaymentMethodsViewController (EditCardsDelegate)

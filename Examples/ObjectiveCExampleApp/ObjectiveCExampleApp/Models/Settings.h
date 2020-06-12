@@ -43,6 +43,7 @@ static NSString * const kApplePayPaymentMethodEnabledKey = @"is_payment_method_a
 static NSString * const kAVSEnabledKey = @"is_avs_enabled";
 static NSString * const kShouldPaymentMethodsDisplayAmount = @"should_payment_methods_display_amount";
 static NSString * const kShouldPaymentButonDisplayAmount = @"should_payment_buton_display_amount";
+static NSString * const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 
 @interface Settings : NSObject
 
@@ -78,6 +79,7 @@ static NSString * const kShouldPaymentButonDisplayAmount = @"should_payment_buto
 - (BOOL)isAVSEnabled;
 - (BOOL)shouldPaymentMethodsDisplayAmount;
 - (BOOL)shouldPaymentButonDisplayAmount;
+- (BOOL)shouldPaymentMethodsVerifySecurityCode;
 
 @end
 

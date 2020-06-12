@@ -46,6 +46,7 @@
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
+#import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
@@ -153,6 +154,12 @@
     return pbbaIndex;
 }
 
+#pragma mark - Get bool for security code on pay button click
+
+- (BOOL)shouldVerifySecurityCode {
+    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode;
+}
+
 #pragma mark - Get payment methods
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
@@ -207,8 +214,9 @@
 
 #pragma mark - Payment transaction
 
-- (void)paymentTransactionWithToken:(NSString *)token
-                      andCompletion:(JPCompletionBlock)completion {
+- (void)paymentTransactionWithToken:(nonnull NSString *)token
+                    andSecurityCode:(nullable NSString *)securityCode
+                      andCompletion:(nullable JPCompletionBlock)completion {
     if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
@@ -221,6 +229,7 @@
 
     JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
     transaction.paymentToken = paymentToken;
+    transaction.securityCode = securityCode;
     self.threeDSecureService.transaction = transaction;
     [transaction sendWithCompletion:completion];
 }

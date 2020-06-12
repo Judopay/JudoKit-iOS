@@ -46,7 +46,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
-        sut.paymentTransaction(withToken: "", andCompletion: completion)
+        sut.paymentTransaction(withToken: "", andSecurityCode: nil, andCompletion: completion)
     }
     
     /*

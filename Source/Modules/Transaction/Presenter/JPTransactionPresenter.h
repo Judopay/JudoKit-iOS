@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPInputType.h"
+#import "JPTransactionViewModel.h"
 #import <Foundation/Foundation.h>
 #import <PayCardsRecognizer/PayCardsRecognizer.h>
 

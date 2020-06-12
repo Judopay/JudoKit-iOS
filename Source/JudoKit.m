@@ -27,6 +27,7 @@
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
@@ -42,7 +43,6 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
-#import "JPPBBAConfiguration.h"
 
 @interface JudoKit ()
 
@@ -102,6 +102,7 @@
     }
 
     self.transactionService.transactionType = type;
+    self.transactionService.mode = JPCardDetailsModeDefault;
 
     UIViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
@@ -141,7 +142,7 @@
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
                                                  transactionService:self.transactionService];
-    
+
     if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
         [self.pbbaService pollingOrderStatus:completion];
     } else {

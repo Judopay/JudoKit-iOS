@@ -56,6 +56,11 @@
 @property (nonatomic, strong) JPReference *_Nullable reference;
 
 /**
+ * An string containing separate security code for payment
+ */
+@property (nonatomic, strong) NSString *_Nullable securityCode;
+
+/**
  * An object containing the amount and the currency of the transaction
  */
 @property (nonatomic, strong) JPAmount *_Nullable amount;

@@ -68,12 +68,14 @@
 
     JPTransactionType type = self.interactor.transactionType;
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
+    self.addCardViewModel.type = type;
+    self.addCardViewModel.mode = [self.interactor cardDetailsMode];
 
-    self.addCardViewModel.shouldDisplayAVSFields = [self.interactor isAVSEnabled];
     self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number".localized;
     self.addCardViewModel.cardholderNameViewModel.placeholder = @"cardholder_name".localized;
     self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
-    self.addCardViewModel.secureCodeViewModel.placeholder = @"secure_code".localized;
+    NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
+    self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
 
     NSArray *selectableCountryNames = [self.interactor getSelectableCountryNames];
     self.addCardViewModel.countryPickerViewModel.placeholder = @"country".localized;
@@ -85,6 +87,7 @@
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.addCardViewModel.addCardButtonViewModel.isEnabled = false;
 
+    [self.view loadViewWithMode:self.addCardViewModel.mode];
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
@@ -255,17 +258,21 @@
 }
 
 - (void)updateTransactionButtonModelIfNeeded {
-
-    BOOL firstCheck = self.isCardNumberValid && self.isCardholderNameValid;
-    BOOL secondCheck = self.isExpiryDateValid && self.isSecureCodeValid;
-
-    BOOL isCardValid = firstCheck && secondCheck;
-
-    if ([self.interactor isAVSEnabled]) {
-        isCardValid = isCardValid && self.isPostalCodeValid;
+    JPCardDetailsMode mode = [self.interactor cardDetailsMode];
+    BOOL isDefaultValid = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
+    switch (mode) {
+        case JPCardDetailsModeSecurityCode:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
+            break;
+        case JPCardDetailsModeDefault:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = isDefaultValid;
+            break;
+        case JPCardDetailsModeAVS:
+            self.addCardViewModel.addCardButtonViewModel.isEnabled = isDefaultValid && self.isPostalCodeValid;
+            break;
+        default:
+            break;
     }
-
-    self.addCardViewModel.addCardButtonViewModel.isEnabled = isCardValid;
 }
 
 - (void)updateCardNumberViewModelForInput:(NSString *)input {

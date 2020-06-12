@@ -53,39 +53,39 @@
 
 - (JPCardNetworkType)supportedCardNetworks {
     JPCardNetworkType networks = JPCardNetworkTypeUnknown;
-    
+
     if ([self.defaults boolForKey:kVisaEnabledKey]) {
         networks |= JPCardNetworkTypeVisa;
     }
-    
+
     if ([self.defaults boolForKey:kMasterCardEnabledKey]) {
         networks |= JPCardNetworkTypeMasterCard;
     }
-    
+
     if ([self.defaults boolForKey:kMaestroEnabledKey]) {
         networks |= JPCardNetworkTypeMaestro;
     }
-    
+
     if ([self.defaults boolForKey:kAMEXEnabledKey]) {
         networks |= JPCardNetworkTypeAMEX;
     }
-    
+
     if ([self.defaults boolForKey:kChinaUnionPayEnabledKey]) {
         networks |= JPCardNetworkTypeChinaUnionPay;
     }
-    
+
     if ([self.defaults boolForKey:kJCBEnabledKey]) {
         networks |= JPCardNetworkTypeJCB;
     }
-    
+
     if ([self.defaults boolForKey:kDiscoverEnabledKey]) {
         networks |= JPCardNetworkTypeDiscover;
     }
-    
+
     if ([self.defaults boolForKey:kDinersClubEnabledKey]) {
         networks |= JPCardNetworkTypeDinersClub;
     }
-    
+
     return networks;
 }
 
@@ -93,23 +93,23 @@
 
 - (NSArray<JPPaymentMethod *> *)paymentMethods {
     NSMutableArray *methods = [NSMutableArray new];
-    
+
     if ([self.defaults boolForKey:kCardPaymentMethodEnabledKey]) {
         [methods addObject:JPPaymentMethod.card];
     }
-    
+
     if ([self.defaults boolForKey:kApplePayPaymentMethodEnabledKey]) {
         [methods addObject:JPPaymentMethod.applePay];
     }
-    
+
     if ([self.defaults boolForKey:kiDEALPaymentMethodEnabledKey]) {
         [methods addObject:JPPaymentMethod.iDeal];
     }
-    
+
     if ([self.defaults boolForKey:kPbbaPaymentMethodEnabledKey]) {
         [methods addObject:JPPaymentMethod.pbba];
     }
-    
+
     return methods;
 }
 
@@ -125,6 +125,9 @@
 
 - (BOOL)shouldPaymentButonDisplayAmount {
     return [self.defaults boolForKey:kShouldPaymentButonDisplayAmount];
+}
+- (BOOL)shouldPaymentMethodsVerifySecurityCode {
+    return [self.defaults boolForKey:kShouldPaymentMethodsVerifySecurityCode];
 }
 
 @end

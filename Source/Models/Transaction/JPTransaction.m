@@ -260,6 +260,10 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     self.parameters[@"yourPaymentMetaData"] = reference.metaData;
 }
 
+- (void)setSecurityCode:(NSString *)code {
+    self.parameters[@"cv2"] = code;
+}
+
 - (JPCard *)card {
 
     NSString *cardNumber = self.parameters[@"cardNumber"];

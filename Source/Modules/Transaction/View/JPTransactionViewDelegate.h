@@ -30,4 +30,14 @@
  */
 - (void)didFinishAddingCard;
 
+/**
+ * A method that is called once the Add Card flow completes
+ */
+- (void)didInputSecurityCode:(NSString *)cv2;
+
+/**
+ * A method that is called once the Add Card flow completes
+ */
+- (void)didCancel;
+
 @end

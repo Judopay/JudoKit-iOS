@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTransactionType.h"
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
@@ -30,6 +31,11 @@
 @class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
+
+/**
+ * A method that returns JPCardDetailsMode
+ */
+- (JPCardDetailsMode)cardDetailsMode;
 
 /**
  * A method that returns YES if the Address Verification Service is enabled
@@ -40,6 +46,11 @@
  * A method that returns the current transaction type
  */
 - (JPTransactionType)transactionType;
+
+/**
+* A method that returns the current cardNetwork type
+*/
+- (JPCardNetworkType)cardNetworkType;
 
 /**
  * A method that handles the camera permission for the Scan Card functionality

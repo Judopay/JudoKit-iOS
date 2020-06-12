@@ -28,17 +28,18 @@ class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
     var caledCardCustomization = false
     var dismissController = false
     var navigatedToIdealPay = false
-
+    
+    func navigateToTransactionModule(with mode: JPCardDetailsMode, cardNetwork: JPCardNetworkType, andTransactionType: JPTransactionType) {
+    }
+    
     func navigateToCardCustomization(with index: UInt) {
         caledCardCustomization = true
     }
     
-    func navigateToTransactionModule() {}
-    
     func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {
         navigatedToIdealPay = true
     }
-
+    
     func dismissViewController() {
         dismissController = true
     }

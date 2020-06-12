@@ -58,6 +58,7 @@
  * Sends a payment transaction based on a stored card token
  */
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
+                    andSecurityCode:(nullable NSString *)securityCode
                       andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
@@ -126,6 +127,11 @@
 * A method which returns index of pbba method
 */
 - (NSInteger)indexOfPBBAMethod;
+
+/**
+* A method which returns bool value for security code
+*/
+- (BOOL)shouldVerifySecurityCode;
 
 /**
  * A method that triggers the completion handler passed by the merchant with an optional response / error

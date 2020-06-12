@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTransactionType.h"
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
@@ -44,6 +45,16 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
  * A property which describes the transaction type
  */
 @property (nonatomic, assign) JPTransactionType transactionType;
+
+/**
+ * A property which describes the card details mode
+ */
+@property (nonatomic, assign) JPCardDetailsMode mode;
+
+/**
+ * A property that will return one of the pre-defined card network types (only for card number)
+ */
+@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * Designated initializer that creates a configured instance of JPTransactionService based on a token and secret.
