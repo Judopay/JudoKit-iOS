@@ -87,7 +87,8 @@
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.addCardViewModel.addCardButtonViewModel.isEnabled = false;
 
-    [self.view loadViewWithViewModel:self.addCardViewModel];
+    [self.view loadViewWithMode:self.addCardViewModel.mode];
+    [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
 #pragma mark - Input Handler

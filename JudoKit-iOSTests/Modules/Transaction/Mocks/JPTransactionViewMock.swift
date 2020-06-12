@@ -30,8 +30,7 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
     var showedCameraAlert = false
     var viewModelSut: JPTransactionViewModel!
     
-    func loadView(with viewModel: JPTransactionViewModel) {
-        viewModelSut = viewModel
+    func load(with mode: JPCardDetailsMode) {
     }
     
     func updateView(with viewModel: JPTransactionViewModel) {

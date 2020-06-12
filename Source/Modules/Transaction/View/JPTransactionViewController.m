@@ -31,7 +31,6 @@
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
-#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 
@@ -49,14 +48,13 @@
     [self.presenter prepareInitialViewModel];
 }
 
-- (void)loadViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel {
-    self.mode = viewModel.mode;
+- (void)loadViewWithMode:(JPCardDetailsMode)mode {
+    self.mode = mode;
     self.addCardView = [[JPCardInputView alloc] initWithCardDetailsMode:self.mode];
     self.view = self.addCardView;
     [self.addCardView applyTheme:self.theme];
     [self addTargets];
     [self addGestureRecognizers];
-    [self updateViewWithViewModel:viewModel];
 }
 
 - (void)viewDidLoad {
