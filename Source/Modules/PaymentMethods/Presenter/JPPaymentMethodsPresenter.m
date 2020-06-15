@@ -126,7 +126,9 @@
 #pragma mark - Action Handlers
 
 - (void)handleAddCardButtonTap {
-    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypeRegisterCard];
+    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault
+                                     cardNetwork:self.selectedCard.cardNetwork
+                              andTransactionType:JPTransactionTypeSaveCard];
 }
 
 - (void)handleBackButtonTap {
