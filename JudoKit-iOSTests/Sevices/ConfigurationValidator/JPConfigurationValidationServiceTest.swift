@@ -103,4 +103,34 @@ class JPConfigurationValidationServiceTest: XCTestCase {
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when the consumer reference is larger than 40 characters")
     }
+    
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: judoID is invalid ("judoId")
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenJudoIDInvalid_ShouldReturnError() {
+        amount = JPAmount("0.1", currency: "USD")
+        configuration.amount = amount
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when invalid amount is specified")
+    }
+    
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: judoID is valid ("12345")
+     *
+     * THEN: should return error
+     */
+    func test_ValiadateConfiguration_WhenJudoIDValid_ShoulNotdReturnError() {
+        amount = JPAmount("0.1", currency: "USD")
+        configuration.amount = amount
+        configuration = JPConfiguration(judoID: "12345", amount: self.amount, reference: reference)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNil(error, "Error must  be nil when valid amount is specified")
+    }
+    
 }
