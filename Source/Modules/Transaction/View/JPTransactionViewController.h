@@ -24,8 +24,8 @@
 
 #import "JPInputFieldDelegate.h"
 #import "JPTransactionViewDelegate.h"
-#import <UIKit/UIKit.h>
 #import "JPTransactionViewModel.h"
+#import <UIKit/UIKit.h>
 
 @protocol JPTransactionPresenter;
 @class JPTheme, JPTransactionViewModel, JPInputField;
