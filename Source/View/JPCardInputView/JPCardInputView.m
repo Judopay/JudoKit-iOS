@@ -202,7 +202,9 @@ static const float kLooseContentSpacing = 16.0F;
 - (void)setupBottomSliderConstraints {
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
-    self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    if (self.bottomSliderConstraint == nil) {
+        self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    }
     switch (self.mode) {
         case JPCardDetailsModeSecurityCode:
             self.sliderHeightConstraint = [self.bottomSlider.heightAnchor constraintEqualToConstant:kCV2dSliderHeight];
