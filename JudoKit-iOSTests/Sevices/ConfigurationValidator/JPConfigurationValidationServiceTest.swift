@@ -120,7 +120,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
      *
      * WHEN: judoID is valid ("12345")
      *
-     * THEN: should return error
+     * THEN: should not return error
      */
     func test_ValidateConfiguration_WhenJudoIDValid_ShoulNotReturnError() {
         configuration = JPConfiguration(judoID: "12345", amount: self.amount, reference: reference)

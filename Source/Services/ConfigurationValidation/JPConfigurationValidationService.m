@@ -104,7 +104,7 @@
 }
 
 - (BOOL)isJudoIdValid:(NSString *)judoId {
-    NSRegularExpression *judoIdRegex = [NSRegularExpression regularExpressionWithPattern:kjudoIdRegex
+    NSRegularExpression *judoIdRegex = [NSRegularExpression regularExpressionWithPattern:kJudoIdRegex
                                                                                  options:NSRegularExpressionAnchorsMatchLines
                                                                                    error:nil];
     return [judoIdRegex numberOfMatchesInString:judoId
