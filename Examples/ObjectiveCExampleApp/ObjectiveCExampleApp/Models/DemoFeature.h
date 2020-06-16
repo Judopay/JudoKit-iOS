@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
     DemoFeatureTypePreAuthMethods,
     DemoFeatureTypeServerToServer,
     DemoFeatureTypePBBA,
+    DemoFeatureTokenPayments,
 };
 
 @interface DemoFeature : NSObject

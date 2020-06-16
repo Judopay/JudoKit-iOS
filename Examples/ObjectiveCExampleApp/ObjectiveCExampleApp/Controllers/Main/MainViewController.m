@@ -29,12 +29,14 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "PBBAViewController.h"
+#import "TokenPayViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "ExampleAppStorage.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
+static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 @interface MainViewController ()
 
@@ -100,6 +102,11 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     }
     if ([segue.destinationViewController isKindOfClass: PBBAViewController.class]) {
         PBBAViewController *controller = segue.destinationViewController;
+        controller.judoKit = self.judoKit;
+        controller.configuration = self.configuration;
+    }
+    if ([segue.destinationViewController isKindOfClass: TokenPayViewController.class]) {
+        TokenPayViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }
@@ -220,6 +227,10 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 
 - (void)pbbaMethodOperation {
     [self performSegueWithIdentifier:kShowPbbaScreenSegue sender:nil];
+}
+
+- (void)tokenPaymentsMethodOperation {
+    [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
 }
 
 - (void)serverToServerMethodOperation {
@@ -399,6 +410,10 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
+            break;
+            
+        case DemoFeatureTokenPayments:
+            [self tokenPaymentsMethodOperation];
             break;
     }
 }

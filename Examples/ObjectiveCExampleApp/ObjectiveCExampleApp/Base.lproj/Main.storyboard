@@ -75,11 +75,61 @@
                     </navigationItem>
                     <connections>
                         <segue destination="roV-nE-oFc" kind="show" identifier="showPbbaScreen" id="ace-IV-qgw"/>
+                        <segue destination="UWo-Q7-j0K" kind="show" identifier="tokenPayments" id="MxX-bg-KUN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="892" y="669.71514242878561"/>
+        </scene>
+        <!--Token Pay View Controller-->
+        <scene sceneID="hHt-gy-Nk0">
+            <objects>
+                <viewController id="UWo-Q7-j0K" customClass="TokenPayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MHk-TG-oSf"/>
+                        <viewControllerLayoutGuide type="bottom" id="MgC-wc-mMW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9wu-Ks-chD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-Zi-CaP">
+                                <rect key="frame" x="156.5" y="89" width="62" height="30"/>
+                                <state key="normal" title="Add card"/>
+                                <connections>
+                                    <action selector="addCardAction:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="gAF-kY-mBt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy">
+                                <rect key="frame" x="141.5" y="180" width="92" height="30"/>
+                                <state key="normal" title="Pay with card"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU">
+                                <rect key="frame" x="124.5" y="234" width="126" height="30"/>
+                                <state key="normal" title="PreAuth with card "/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="top" secondItem="Ll4-Zi-CaP" secondAttribute="bottom" constant="61" id="221-gp-bHP"/>
+                            <constraint firstItem="Au4-yv-ygU" firstAttribute="centerX" secondItem="FGg-E2-8Dy" secondAttribute="centerX" id="Bg5-5Y-Zw6"/>
+                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="GoO-gN-PsW"/>
+                            <constraint firstItem="Au4-yv-ygU" firstAttribute="top" secondItem="FGg-E2-8Dy" secondAttribute="bottom" constant="24" id="QAa-Wp-nar"/>
+                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="QyJ-7Q-TpI"/>
+                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="top" secondItem="MHk-TG-oSf" secondAttribute="bottom" constant="45" id="cIV-vP-WE1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9KV-jm-kze"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="cardPay" destination="FGg-E2-8Dy" id="FUz-kW-h8O"/>
+                        <outlet property="preAuthCardPay" destination="Au4-yv-ygU" id="wSD-Ug-6OO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5yh-Yf-Atc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892" y="1343"/>
         </scene>
         <!--PBBA-->
         <scene sceneID="1N5-xj-n68">
