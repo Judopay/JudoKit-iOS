@@ -59,11 +59,11 @@
 
 - (void)setupSessionWithToken:(NSString *)token
                     andSecret:(NSString *)secret {
-
+    
     NSString *formattedString = [NSString stringWithFormat:@"%@:%@", token, secret];
     NSData *encodedStringData = [formattedString dataUsingEncoding:NSISOLatin1StringEncoding];
     NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
-
+    
     NSString *authorizationHeader = [NSString stringWithFormat:@"Basic %@", base64String];
     self.session = [JPSession sessionWithAuthorizationHeader:authorizationHeader];
 }
@@ -71,12 +71,12 @@
 #pragma mark - Public methods
 
 - (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
-
+    
     JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
     transaction.judoId = configuration.judoId;
     transaction.amount = [self amountForTransactionType:configuration];
     transaction.reference = configuration.reference;
-
+    
 #if DEBUG
     // TODO: Temporary duplicate transaction solution
     // Generates a new payment reference for each Payment/PreAuth transaction
@@ -84,11 +84,11 @@
     transaction.reference = [[JPReference alloc] initWithConsumerReference:oldReference.consumerReference
                                                           paymentReference:[JPReference generatePaymentReference]];
 #endif
-
+    
     transaction.primaryAccountDetails = configuration.primaryAccountDetails;
     transaction.apiSession = self.session;
     transaction.enricher = self.enricher;
-
+    
     return transaction;
 }
 
@@ -109,39 +109,39 @@
                      httpMethod:(JPHTTPMethod)httpMethod
                      parameters:(NSDictionary *)parameters
                      completion:(JPCompletionBlock)completion {
-
+    
     NSString *url = [NSString stringWithFormat:@"%@%@", self.session.baseURL, endpoint];
-
+    
     if (httpMethod == JPHTTPMethodPOST) {
         [self.session POST:url parameters:parameters completion:completion];
         return;
     }
-
+    
     [self.session GET:url parameters:parameters completion:completion];
 }
 
 - (void)payWithCardWithTransaction:(JPTransaction *)transaction
                         completion:(nullable JPCompletionBlock)completion {
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPaymentPathKey];
-
-     [self.enricher enrichTransaction:transaction
-                         withCompletion:^{
-                             [self.session POST:fullURL
-                                        parameters:transaction.parameters
-                                        completion:completion];
-                         }];
+    
+    [self.enricher enrichTransaction:transaction
+                      withCompletion:^{
+        [self.session POST:fullURL
+                parameters:transaction.parameters
+                completion:completion];
+    }];
 }
 
 - (void)preAuthpayWithCardTransaction:(JPTransaction *)transaction
                            completion:(nullable JPCompletionBlock)completion {
     NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPreauthPathKey];
-
-       [self.enricher enrichTransaction:transaction
-                           withCompletion:^{
-                               [self.session POST:fullURL
-                                          parameters:transaction.parameters
-                                          completion:completion];
-                           }];
+    
+    [self.enricher enrichTransaction:transaction
+                      withCompletion:^{
+        [self.session POST:fullURL
+                parameters:transaction.parameters
+                completion:completion];
+    }];
 }
 
 

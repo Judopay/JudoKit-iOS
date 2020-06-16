@@ -43,7 +43,7 @@ extern NSString *_Nonnull const kSaveCardPathKey;
 /**
  * The endpoint of the transaction
  */
-@property (nonatomic, strong, readonly) NSString *_Nullable transactionPath;
+@property (nonatomic, strong) NSString *_Nullable transactionPath;
 
 /**
  * The Judo ID required for most transactions
@@ -66,6 +66,11 @@ extern NSString *_Nonnull const kSaveCardPathKey;
 @property (nonatomic, strong) NSString *_Nullable securityCode;
 
 /**
+ * A string that stores the card token for the transaction
+ */
+@property (nonatomic, strong) NSString *_Nullable cardToken;
+
+/**
  * An object containing the amount and the currency of the transaction
  */
 @property (nonatomic, strong) JPAmount *_Nullable amount;
@@ -79,11 +84,6 @@ extern NSString *_Nonnull const kSaveCardPathKey;
  * An object that stores the payment token for the transaction
  */
 @property (nonatomic, strong) JPPaymentToken *_Nullable paymentToken;
-
-/**
- * A string that stores the card token for the transaction
- */
-@property (nonatomic, strong) NSString *_Nullable cardToken;
 
 /**
  * An object that stores additional account details passed to the transaction

@@ -24,6 +24,7 @@
 
 #import "TokenPayViewController.h"
 #import "Settings.h"
+#import "DetailViewController.h"
 
 @import JudoKit_iOS;
 
@@ -46,8 +47,8 @@
     
     self.transactionService = [[JPTransactionService alloc] initWithToken:self.settings.token
                                                                 andSecret:self.settings.secret];
+    self.transactionService.isSandboxed = self.settings.isSandboxed;
     self.transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -57,46 +58,53 @@
 - (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReciep:false];
     }];
 }
 
-- (void)handleResponse:(JPResponse *)response error:(NSError *)error {
+- (void)handleResponse:(JPResponse *)response error:(NSError *)error showReciep:(BOOL)showReciep {
     if (error) {
         [self displayAlertWithError: error];
         return;
     }
-
+    
     if (!response) {
         return;
     }
     
     JPTransactionData *transactionData = response.items.firstObject;
+    
     self.transaction.cardToken = transactionData.cardDetails.cardToken;
-    if (self.transaction.cardToken) {
+    if (transactionData.cardDetails.cardToken) {
         [self.cardPay setEnabled:YES];
         [self.preAuthCardPay setEnabled:YES];
     }
+
+    if (showReciep) {
+        [self presentDetailsViewControllerWithTransactionData:transactionData];
+    }
+}
+
+- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    viewController.transactionData = transactionData;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)payCard:(UIButton *)sender {
-    if (self.transaction.cardToken) {
-        __weak typeof(self) weakSelf = self;
-        [self.transactionService payWithCardWithTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
-            [weakSelf handleResponse:response error:error];
-        }];
-    }
+    __weak typeof(self) weakSelf = self;
+    [self.transactionService payWithCardWithTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReciep:true];
+    }];
 }
 
 - (IBAction)preAuthPay:(UIButton *)sender {
-    if (self.transaction.cardToken) {
-        __weak typeof(self) weakSelf = self;
-        [self.transactionService preAuthpayWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
-            [weakSelf handleResponse:response error:error];
-        }];
-    }
+    __weak typeof(self) weakSelf = self;
+    [self.transactionService preAuthpayWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReciep:true];
+    }];
 }
 
 - (Settings *)settings {

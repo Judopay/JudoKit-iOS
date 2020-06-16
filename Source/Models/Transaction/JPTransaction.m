@@ -60,6 +60,7 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;
+
 @end
 
 @implementation JPTransaction
@@ -261,6 +262,10 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 - (void)setSecurityCode:(NSString *)code {
     self.parameters[@"cv2"] = code;
+}
+
+- (void)setCardToken:(NSString *)token {
+    self.parameters[@"cardToken"] = token;
 }
 
 - (JPCard *)card {
