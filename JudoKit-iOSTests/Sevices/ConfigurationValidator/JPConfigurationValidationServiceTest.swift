@@ -34,7 +34,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     
     override func setUp() {
         configValidation = JPConfigurationValidationServiceImp()
-        amount = JPAmount("fv", currency: "EUR")
+        amount = JPAmount("0.1", currency: "USD")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
     }
@@ -47,6 +47,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
      * THEN: should return error
      */
     func test_ValiadateConfiguration_WhenAmountInvalid_ShouldReturnError() {
+        amount = JPAmount("fv", currency: "EUR")
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when invalid amount is specified")
     }
@@ -59,8 +60,6 @@ class JPConfigurationValidationServiceTest: XCTestCase {
      * THEN: should return error
      */
     func test_ValiadateConfiguration_WhenCurrencyIsEmpty_ShouldReturnError() {
-        amount = JPAmount("0.1", currency: "")
-        configuration.amount = amount
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when no curency is specified")
     }
@@ -103,4 +102,30 @@ class JPConfigurationValidationServiceTest: XCTestCase {
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNotNil(error, "Error must not be nil when the consumer reference is larger than 40 characters")
     }
+    
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: judoID is invalid ("judoId")
+     *
+     * THEN: should return error
+     */
+    func test_ValidateConfiguration_WhenJudoIDInvalid_ShouldReturnError() {
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNotNil(error, "Error must not be nil when judoId is invalid")
+    }
+    
+    /*
+     * GIVEN: Validate configuration for payment
+     *
+     * WHEN: judoID is valid ("12345")
+     *
+     * THEN: should not return error
+     */
+    func test_ValidateConfiguration_WhenJudoIDValid_ShoulNotReturnError() {
+        configuration = JPConfiguration(judoID: "12345", amount: self.amount, reference: reference)
+        let error = configValidation.validate(configuration, for: .payment)
+        XCTAssertNil(error, "Error must be nil when judoId is valid")
+    }
+    
 }

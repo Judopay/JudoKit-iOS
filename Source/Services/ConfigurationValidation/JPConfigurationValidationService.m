@@ -96,7 +96,20 @@
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"JudoId cannot be null or empty"}];
+    } else if (![self isJudoIdValid:configuration.judoId]) {
+        *error = [NSError errorWithDomain:kJudoErrorDomain
+                                     code:JPValidationErrorMissingParameter
+                                 userInfo:@{NSLocalizedDescriptionKey : @"JudoId is invalid"}];
     }
+}
+
+- (BOOL)isJudoIdValid:(NSString *)judoId {
+    NSRegularExpression *judoIdRegex = [NSRegularExpression regularExpressionWithPattern:kJudoIdRegex
+                                                                                 options:NSRegularExpressionAnchorsMatchLines
+                                                                                   error:nil];
+    return [judoIdRegex numberOfMatchesInString:judoId
+                                        options:NSMatchingWithoutAnchoringBounds
+                                          range:NSMakeRange(0, judoId.length)] > 0;
 }
 
 - (void)checkForValidCurrency:(NSString *)curency error:(NSError **)error {
