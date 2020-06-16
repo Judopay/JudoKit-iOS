@@ -104,10 +104,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy">
                                 <rect key="frame" x="141.5" y="180" width="92" height="30"/>
                                 <state key="normal" title="Pay with card"/>
+                                <connections>
+                                    <action selector="payCard:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="nBl-l8-GTZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU">
                                 <rect key="frame" x="124.5" y="234" width="126" height="30"/>
                                 <state key="normal" title="PreAuth with card "/>
+                                <connections>
+                                    <action selector="preAuthPay:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="bNY-uf-ah1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

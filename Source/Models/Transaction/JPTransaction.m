@@ -37,13 +37,14 @@
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
-static NSString *const kPaymentPathKey = @"transactions/payments";
-static NSString *const kPreauthPathKey = @"transactions/preauths";
-static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+NSString *const kPaymentPathKey = @"transactions/payments";
+NSString *const kPreauthPathKey = @"transactions/preauths";
+NSString *const kRegisterCardPathKey = @"transactions/registercard";
+NSString *const kSaveCardPathKey = @"transactions/savecard";
+
 static NSString *const kCollectionPathKey = @"/transactions/collections";
 static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
-static NSString *const kSaveCardPathKey = @"transactions/savecard";
-static NSString *const kRegisterCardPathKey = @"transactions/registercard";
+static NSString *const kCheckCardPathKey = @"transactions/checkcard";;
 static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPReference ()
@@ -56,8 +57,6 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 @property (nonatomic, assign) JPTransactionType transactionType;
 @property (nonatomic, strong) NSString *currentTransactionReference;
 @property (nonatomic, assign) BOOL initialRecurringPayment;
-@property (nonatomic, strong) NSMutableDictionary *parameters;
-@property (nonatomic, strong) NSString *transactionPath;
 
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;

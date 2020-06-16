@@ -120,6 +120,31 @@
     [self.session GET:url parameters:parameters completion:completion];
 }
 
+- (void)payWithCardWithTransaction:(JPTransaction *)transaction
+                        completion:(nullable JPCompletionBlock)completion {
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPaymentPathKey];
+
+     [self.enricher enrichTransaction:transaction
+                         withCompletion:^{
+                             [self.session POST:fullURL
+                                        parameters:transaction.parameters
+                                        completion:completion];
+                         }];
+}
+
+- (void)preAuthpayWithCardTransaction:(JPTransaction *)transaction
+                           completion:(nullable JPCompletionBlock)completion {
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPreauthPathKey];
+
+       [self.enricher enrichTransaction:transaction
+                           withCompletion:^{
+                               [self.session POST:fullURL
+                                          parameters:transaction.parameters
+                                          completion:completion];
+                           }];
+}
+
+
 #pragma mark - Setters
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {

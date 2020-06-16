@@ -23,12 +23,16 @@
 //  SOFTWARE.
 
 #import "TokenPayViewController.h"
+#import "Settings.h"
 
 @import JudoKit_iOS;
 
 @interface TokenPayViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *cardPay;
 @property (strong, nonatomic) IBOutlet UIButton *preAuthCardPay;
+@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (strong, nonatomic) Settings *settings;
+@property (strong, nonatomic) JPTransaction *transaction;
 @end
 
 @implementation TokenPayViewController
@@ -39,6 +43,11 @@
     [super viewDidLoad];
     [self.cardPay setEnabled:NO];
     [self.preAuthCardPay setEnabled:NO];
+    
+    self.transactionService = [[JPTransactionService alloc] initWithToken:self.settings.token
+                                                                andSecret:self.settings.secret];
+    self.transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -63,15 +72,38 @@
     if (!response) {
         return;
     }
-
+    
     JPTransactionData *transactionData = response.items.firstObject;
-
-    if (transactionData.cardDetails) {
-        if (transactionData.cardDetails.cardToken) {
-            [self.cardPay setEnabled:YES];
-            [self.preAuthCardPay setEnabled:YES];
-        }
+    self.transaction.cardToken = transactionData.cardDetails.cardToken;
+    if (self.transaction.cardToken) {
+        [self.cardPay setEnabled:YES];
+        [self.preAuthCardPay setEnabled:YES];
     }
+}
+
+- (IBAction)payCard:(UIButton *)sender {
+    if (self.transaction.cardToken) {
+        __weak typeof(self) weakSelf = self;
+        [self.transactionService payWithCardWithTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error];
+        }];
+    }
+}
+
+- (IBAction)preAuthPay:(UIButton *)sender {
+    if (self.transaction.cardToken) {
+        __weak typeof(self) weakSelf = self;
+        [self.transactionService preAuthpayWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error];
+        }];
+    }
+}
+
+- (Settings *)settings {
+    if (!_settings) {
+        _settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
+    }
+    return _settings;
 }
 
 @end

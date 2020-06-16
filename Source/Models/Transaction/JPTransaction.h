@@ -30,6 +30,11 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
+extern NSString *_Nonnull const kPaymentPathKey;
+extern NSString *_Nonnull const kPreauthPathKey;
+extern NSString *_Nonnull const kRegisterCardPathKey;
+extern NSString *_Nonnull const kSaveCardPathKey;
+
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
 
@@ -74,6 +79,11 @@
  * An object that stores the payment token for the transaction
  */
 @property (nonatomic, strong) JPPaymentToken *_Nullable paymentToken;
+
+/**
+ * A string that stores the card token for the transaction
+ */
+@property (nonatomic, strong) NSString *_Nullable cardToken;
 
 /**
  * An object that stores additional account details passed to the transaction
@@ -124,6 +134,8 @@
  * An object that offers additional SDK-related details
  */
 @property (nonatomic, strong) JPEnhancedPaymentDetail *_Nullable paymentDetail;
+
+@property (nonatomic, strong) NSMutableDictionary *_Nonnull parameters;
 
 /**
  * Initializer that creates a JPTransaction instance based on a provided transaction type

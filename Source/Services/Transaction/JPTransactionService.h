@@ -89,4 +89,10 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      parameters:(nullable NSDictionary *)parameters
                      completion:(nullable JPCompletionBlock)completion;
 
+- (void)payWithCardWithTransaction:(JPTransaction *_Nonnull)transaction
+                        completion:(nullable JPCompletionBlock)completion;
+
+- (void)preAuthpayWithCardTransaction:(JPTransaction *_Nonnull)transaction
+                           completion:(nullable JPCompletionBlock)completion;
+
 @end
