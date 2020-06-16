@@ -44,7 +44,8 @@ NSString *const kSaveCardPathKey = @"transactions/savecard";
 
 static NSString *const kCollectionPathKey = @"/transactions/collections";
 static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
-static NSString *const kCheckCardPathKey = @"transactions/checkcard";;
+static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+;
 static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPReference ()
