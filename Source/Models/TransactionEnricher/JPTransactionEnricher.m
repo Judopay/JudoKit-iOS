@@ -158,10 +158,10 @@
 
 - (NSArray *)enricheablePaths {
     if (!_enricheablePaths) {
-        _enricheablePaths = @[ kPaymentPathKey,
-                               kPreauthPathKey,
-                               kRegisterCardPathKey,
-                               kSaveCardPathKey ];
+        _enricheablePaths = @[ kPaymentEndpoint,
+                               kPreauthEndpoint,
+                               kRegisterCardEndpoint,
+                               kSaveCardEndpoint ];
     }
     return _enricheablePaths;
 }

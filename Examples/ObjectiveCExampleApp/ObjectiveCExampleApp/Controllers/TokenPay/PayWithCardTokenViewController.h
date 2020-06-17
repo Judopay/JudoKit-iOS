@@ -1,5 +1,5 @@
 //
-//  TokenPayViewController.h
+//  PayWithCardTokenViewController.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -26,7 +26,7 @@
 
 @import JudoKit_iOS;
 
-@interface TokenPayViewController : UIViewController
+@interface PayWithCardTokenViewController : UIViewController
 
 @property (nonatomic, strong) JudoKit *judoKit;
 @property (nonatomic, strong) JPConfiguration *configuration;

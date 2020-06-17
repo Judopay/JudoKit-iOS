@@ -122,13 +122,13 @@
 
 - (void)payWithTransaction:(JPTransaction *)transaction
              andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPaymentPathKey];
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPaymentEndpoint];
     [self enrichAndPost:transaction fullURL:fullURL completion:completion];
 }
 
 - (void)preAuthWithTransaction:(JPTransaction *)transaction
                  andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPreauthPathKey];
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPreauthEndpoint];
     [self enrichAndPost:transaction fullURL:fullURL completion:completion];
 }
 
@@ -138,7 +138,7 @@
     [self.enricher enrichTransaction:transaction
                       withCompletion:^{
                           [self.session POST:fullURL
-                                  parameters:transaction.parameters
+                                  parameters:[transaction getParameters]
                                   completion:completion];
                       }];
 }

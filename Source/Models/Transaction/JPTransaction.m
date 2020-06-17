@@ -37,10 +37,10 @@
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
-NSString *const kPaymentPathKey = @"transactions/payments";
-NSString *const kPreauthPathKey = @"transactions/preauths";
-NSString *const kRegisterCardPathKey = @"transactions/registercard";
-NSString *const kSaveCardPathKey = @"transactions/savecard";
+NSString *const kPaymentEndpoint = @"transactions/payments";
+NSString *const kPreauthEndpoint = @"transactions/preauths";
+NSString *const kRegisterCardEndpoint = @"transactions/registercard";
+NSString *const kSaveCardEndpoint = @"transactions/savecard";
 
 static NSString *const kCollectionPathKey = @"/transactions/collections";
 static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
@@ -61,6 +61,8 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;
+@property (nonatomic, strong) NSMutableDictionary *_Nonnull parameters;
+@property (nonatomic, strong, readwrite) NSString *_Nullable transactionPath;
 
 @end
 
@@ -108,16 +110,16 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 - (NSString *)transactionPathForType:(JPTransactionType)type {
     switch (type) {
         case JPTransactionTypePayment:
-            return kPaymentPathKey;
+            return kPaymentEndpoint;
 
         case JPTransactionTypePreAuth:
-            return kPreauthPathKey;
+            return kPreauthEndpoint;
 
         case JPTransactionTypeRegisterCard:
-            return kRegisterCardPathKey;
+            return kRegisterCardEndpoint;
 
         case JPTransactionTypeSaveCard:
-            return kSaveCardPathKey;
+            return kSaveCardEndpoint;
 
         case JPTransactionTypeCheckCard:
             return kCheckCardPathKey;
@@ -452,6 +454,10 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
     NSDictionary *dict = [paymentDetail toDictionary];
     self.parameters[@"EnhancedPaymentDetail"] = dict;
+}
+
+- (NSDictionary *_Nonnull)getParameters {
+    return self.parameters;
 }
 
 @end

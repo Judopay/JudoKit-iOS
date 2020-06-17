@@ -29,7 +29,7 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "PBBAViewController.h"
-#import "TokenPayViewController.h"
+#import "PayWithCardTokenViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "ExampleAppStorage.h"
@@ -105,8 +105,8 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }
-    if ([segue.destinationViewController isKindOfClass: TokenPayViewController.class]) {
-        TokenPayViewController *controller = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass: PayWithCardTokenViewController.class]) {
+        PayWithCardTokenViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }

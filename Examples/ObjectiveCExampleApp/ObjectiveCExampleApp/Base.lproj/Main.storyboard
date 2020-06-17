@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="892" y="669.71514242878561"/>
         </scene>
-        <!--Token Pay View Controller-->
+        <!--Pay With Card Token View Controller-->
         <scene sceneID="hHt-gy-Nk0">
             <objects>
-                <viewController id="UWo-Q7-j0K" customClass="TokenPayViewController" sceneMemberID="viewController">
+                <viewController id="UWo-Q7-j0K" customClass="PayWithCardTokenViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MHk-TG-oSf"/>
                         <viewControllerLayoutGuide type="bottom" id="MgC-wc-mMW"/>
@@ -103,11 +103,16 @@
                                 <state key="normal" title="Add card">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="addCardAction:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="gAF-kY-mBt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy" customClass="JPLoadingButton">
                                 <rect key="frame" x="37.5" y="202" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Pay with card">
@@ -116,11 +121,17 @@
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="payCard:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="nBl-l8-GTZ"/>
+                                    <action selector="payWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="nBl-l8-GTZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU" customClass="JPLoadingButton">
                                 <rect key="frame" x="37.5" y="266" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="PreAuth with card ">
@@ -129,8 +140,14 @@
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="preAuthPay:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="bNY-uf-ah1"/>
+                                    <action selector="preAuthWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="bNY-uf-ah1"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To make a token or preauth token payment, first you have to create a card token" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiX-ve-3f3">
@@ -162,9 +179,9 @@
                     <navigationItem key="navigationItem" id="9KV-jm-kze"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="addCardButton" destination="Ll4-Zi-CaP" id="tyg-FX-UFX"/>
-                        <outlet property="cardPay" destination="FGg-E2-8Dy" id="FUz-kW-h8O"/>
-                        <outlet property="preAuthCardPay" destination="Au4-yv-ygU" id="wSD-Ug-6OO"/>
+                        <outlet property="createCardTokenButton" destination="Ll4-Zi-CaP" id="tyg-FX-UFX"/>
+                        <outlet property="payWithCardTokenButton" destination="FGg-E2-8Dy" id="FUz-kW-h8O"/>
+                        <outlet property="preAuthWithCardTokenButton" destination="Au4-yv-ygU" id="wSD-Ug-6OO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5yh-Yf-Atc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

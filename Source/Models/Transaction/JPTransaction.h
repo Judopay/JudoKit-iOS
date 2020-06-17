@@ -30,10 +30,10 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-extern NSString *_Nonnull const kPaymentPathKey;
-extern NSString *_Nonnull const kPreauthPathKey;
-extern NSString *_Nonnull const kRegisterCardPathKey;
-extern NSString *_Nonnull const kSaveCardPathKey;
+extern NSString *_Nonnull const kPaymentEndpoint;
+extern NSString *_Nonnull const kPreauthEndpoint;
+extern NSString *_Nonnull const kRegisterCardEndpoint;
+extern NSString *_Nonnull const kSaveCardEndpoint;
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
@@ -43,7 +43,7 @@ extern NSString *_Nonnull const kSaveCardPathKey;
 /**
  * The endpoint of the transaction
  */
-@property (nonatomic, strong) NSString *_Nullable transactionPath;
+@property (nonatomic, strong, readonly) NSString *_Nullable transactionPath;
 
 /**
  * The Judo ID required for most transactions
@@ -135,8 +135,6 @@ extern NSString *_Nonnull const kSaveCardPathKey;
  */
 @property (nonatomic, strong) JPEnhancedPaymentDetail *_Nullable paymentDetail;
 
-@property (nonatomic, strong) NSMutableDictionary *_Nonnull parameters;
-
 /**
  * Initializer that creates a JPTransaction instance based on a provided transaction type
  *
@@ -216,4 +214,12 @@ extern NSString *_Nonnull const kSaveCardPathKey;
 - (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
                          receiptId:(nonnull NSString *)receiptId
                         completion:(nonnull JPCompletionBlock)completion;
+
+/**
+ * A method which return all parameters for current transaction
+ *
+ * @returns NSDictionary with parameters for an API call
+ */
+- (NSDictionary *_Nonnull)getParameters;
+
 @end
