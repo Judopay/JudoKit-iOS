@@ -102,7 +102,7 @@
 
 - (IBAction)preAuthPay:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [self.transactionService preAuthpayWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
+    [self.transactionService preAuthWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReciep:true];
     }];
 }
