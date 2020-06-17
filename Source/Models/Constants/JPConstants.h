@@ -83,6 +83,6 @@ static NSString *const kUSARegex = @"^[0-9]{5}(?:-[0-9]{4})?$";
 static NSString *const kUKRegex = @"^([A-Z][0-9]|[A-Z][0-9][A-Z]|[A-Z][0-9][0-9]|[A-Z][A-Z][0-9]|[A-Z][A-Z][0-9][A-Z]|[A-Z][A-Z][0-9][0-9])([0-9][A-Z][A-Z])$";
 static NSString *const kCanadaRegex = @"^(\\d{5}(-\\d{4})?|[A-Z]\\d[A-Z] ?\\d[A-Z]\\d)$";
 
-static NSString *const kJudoIdRegex = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{5}))?$";
+static NSString *const kJudoIdRegex = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{6}))?$";
 
 #endif /* JPConstants_h */
