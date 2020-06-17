@@ -1,6 +1,6 @@
 //
 //  JudoKit.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -30,7 +30,7 @@
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
-static NSString *__nonnull const JudoKitName = @"JudoKit-iOS";
+static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
 static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 
 @interface JudoKit : NSObject

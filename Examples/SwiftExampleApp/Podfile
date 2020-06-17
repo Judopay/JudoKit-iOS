@@ -6,7 +6,7 @@ target 'SwiftExampleApp' do
   use_frameworks!
 
   # Pods for SwiftExampleApp
-  pod 'JudoKit-iOS', :path => '../../'
+  pod 'JudoKit_iOS', :path => '../../'
 
   pod 'InAppSettingsKit'
   pod 'CocoaDebug'

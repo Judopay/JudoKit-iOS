@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name                  = 'JudoKit-iOS'
+  s.name                  = 'JudoKit_iOS'
   s.version               = '1.0.0'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'https://www.judopay.com/'
@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
   s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }
-  s.resource_bundles      = { "JudoKit-iOS" => ["Resources/*.lproj/*.strings"] }
+  s.resource_bundles      = { "JudoKit_iOS" => ["Resources/*.lproj/*.strings"] }
   s.resources             = ['Resources/icons.bundle', 'Resources/resources.bundle']
 end
