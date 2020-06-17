@@ -53,11 +53,14 @@
 - (bool)isApplePaySetUp;
 
 /**
- * A method for making Apple Pay transactions. Calling this method displayes the Apple Pay sheet.
+ * A method that returns a configured Apple Pay UIViewController instance that can be presented to complete
+ * Apple Pay transactions.
  *
  * @param mode - an instance of JPTransactionMode that sets the transaction as either Payment or Pre Auth.
  * @param completion - a completion block with an optional JPResponse or an NSError;
+ *
+ * @returns a fully configured UIViewController instance
  */
-- (void)invokeApplePayWithMode:(JPTransactionMode)mode
-                    completion:(nullable JPCompletionBlock)completion;
+- (nullable UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
+                                                   completion:(nullable JPCompletionBlock)completion;
 @end

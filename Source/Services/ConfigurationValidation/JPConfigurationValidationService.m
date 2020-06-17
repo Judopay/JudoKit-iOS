@@ -46,7 +46,7 @@
     return error;
 }
 
-- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration {
+- (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration {
 
     JPError *error;
 
