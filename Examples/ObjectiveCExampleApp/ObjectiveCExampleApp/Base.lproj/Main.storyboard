@@ -94,11 +94,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-Zi-CaP" customClass="JPTransactionButton">
-                                <rect key="frame" x="94" y="89" width="187.5" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-Zi-CaP">
+                                <rect key="frame" x="37.5" y="101" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="kCJ-Wz-8u1"/>
+                                    <constraint firstAttribute="height" constant="40" id="kCJ-Wz-8u1"/>
                                 </constraints>
                                 <state key="normal" title="Add card">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -108,7 +108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy">
-                                <rect key="frame" x="94" y="200" width="187.5" height="50"/>
+                                <rect key="frame" x="37.5" y="202" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Pay with card">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,7 +121,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU">
-                                <rect key="frame" x="94" y="274" width="187.5" height="50"/>
+                                <rect key="frame" x="37.5" y="266" width="300" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="PreAuth with card ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -133,6 +133,12 @@
                                     <action selector="preAuthPay:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="bNY-uf-ah1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To make a token or preauth token payment, first you have to create a card token" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiX-ve-3f3">
+                                <rect key="frame" x="8" y="52" width="359" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -140,18 +146,23 @@
                             <constraint firstItem="FGg-E2-8Dy" firstAttribute="height" secondItem="Ll4-Zi-CaP" secondAttribute="height" id="3Uo-1s-Dad"/>
                             <constraint firstItem="Au4-yv-ygU" firstAttribute="width" secondItem="FGg-E2-8Dy" secondAttribute="width" id="BD6-SH-3fS"/>
                             <constraint firstItem="Au4-yv-ygU" firstAttribute="centerX" secondItem="FGg-E2-8Dy" secondAttribute="centerX" id="Bg5-5Y-Zw6"/>
+                            <constraint firstItem="WiX-ve-3f3" firstAttribute="top" secondItem="MHk-TG-oSf" secondAttribute="bottom" constant="8" id="Ccc-xz-uFg"/>
                             <constraint firstItem="Ll4-Zi-CaP" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="GoO-gN-PsW"/>
                             <constraint firstItem="Au4-yv-ygU" firstAttribute="top" secondItem="FGg-E2-8Dy" secondAttribute="bottom" constant="24" id="QAa-Wp-nar"/>
                             <constraint firstItem="FGg-E2-8Dy" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="QyJ-7Q-TpI"/>
+                            <constraint firstAttribute="trailing" secondItem="WiX-ve-3f3" secondAttribute="trailing" constant="8" id="SJv-8y-crC"/>
                             <constraint firstItem="Au4-yv-ygU" firstAttribute="height" secondItem="FGg-E2-8Dy" secondAttribute="height" id="Sve-3C-3Bu"/>
-                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="top" secondItem="MHk-TG-oSf" secondAttribute="bottom" constant="45" id="cIV-vP-WE1"/>
-                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="width" secondItem="9wu-Ks-chD" secondAttribute="width" multiplier="0.5" id="ouR-sY-R9t"/>
+                            <constraint firstItem="WiX-ve-3f3" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="bIw-P7-3Tl"/>
+                            <constraint firstItem="WiX-ve-3f3" firstAttribute="leading" secondItem="9wu-Ks-chD" secondAttribute="leading" constant="8" id="gcz-IV-1EY"/>
+                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="width" secondItem="9wu-Ks-chD" secondAttribute="width" multiplier="0.8" id="ouR-sY-R9t"/>
                             <constraint firstItem="FGg-E2-8Dy" firstAttribute="width" secondItem="Ll4-Zi-CaP" secondAttribute="width" id="pbf-vl-W2d"/>
+                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="top" secondItem="WiX-ve-3f3" secondAttribute="bottom" constant="8" id="wPr-Ft-t7x"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9KV-jm-kze"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="addCardButton" destination="Ll4-Zi-CaP" id="tyg-FX-UFX"/>
                         <outlet property="cardPay" destination="FGg-E2-8Dy" id="FUz-kW-h8O"/>
                         <outlet property="preAuthCardPay" destination="Au4-yv-ygU" id="wSD-Ug-6OO"/>
                     </connections>

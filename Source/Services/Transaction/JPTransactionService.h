@@ -90,21 +90,21 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      completion:(nullable JPCompletionBlock)completion;
 
 /**
-* A method for sending REST API requests for payment with card token
-*
-* @param transaction - mandatory JPTransaction object
-* @param completion - a completion block that returns an optional JPResponse or NSError
-*/
-- (void)payWithCardWithTransaction:(JPTransaction *_Nonnull)transaction
-                        completion:(nullable JPCompletionBlock)completion;
+ * A method for sending REST API requests for payment with card token
+ *
+ * @param transaction - mandatory JPTransaction object
+ * @param completion - a completion block that returns an optional JPResponse or NSError
+ */
+- (void)payWithTransaction:(JPTransaction *_Nonnull)transaction
+             andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
-* A method for sending REST API requests for pre auth pay with card token
-*
-* @param transaction - mandatory JPTransaction object
-* @param completion - a completion block that returns an optional JPResponse or NSError
-*/
-- (void)preAuthWithCardTransaction:(JPTransaction *_Nonnull)transaction
-                        completion:(nullable JPCompletionBlock)completion;
+ * A method for sending REST API requests for pre auth pay with card token
+ *
+ * @param transaction - mandatory JPTransaction object
+ * @param completion - a completion block that returns an optional JPResponse or NSError
+ */
+- (void)preAuthWithTransaction:(JPTransaction *_Nonnull)transaction
+                 andCompletion:(nullable JPCompletionBlock)completion;
 
 @end

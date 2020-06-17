@@ -31,6 +31,7 @@
 @interface TokenPayViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *cardPay;
 @property (strong, nonatomic) IBOutlet UIButton *preAuthCardPay;
+@property (strong, nonatomic) IBOutlet UIButton *addCardButton;
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (strong, nonatomic) Settings *settings;
 @property (strong, nonatomic) JPTransaction *transaction;
@@ -42,9 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.cardPay setEnabled:NO];
-    [self.preAuthCardPay setEnabled:NO];
-    
+    [self setDisableButtons];
+    [self setupButtons];
     self.transactionService = [[JPTransactionService alloc] initWithToken:self.settings.token
                                                                 andSecret:self.settings.secret];
     self.transactionService.isSandboxed = self.settings.isSandboxed;
@@ -60,11 +60,11 @@
     [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReciep:false];
+        [weakSelf handleResponse:response error:error showReceipt:false];
     }];
 }
 
-- (void)handleResponse:(JPResponse *)response error:(NSError *)error showReciep:(BOOL)showReciep {
+- (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
     if (error) {
         [self displayAlertWithError: error];
         return;
@@ -78,11 +78,10 @@
     
     self.transaction.cardToken = transactionData.cardDetails.cardToken;
     if (transactionData.cardDetails.cardToken) {
-        [self.cardPay setEnabled:YES];
-        [self.preAuthCardPay setEnabled:YES];
+        [self setEnableButtons];
     }
 
-    if (showReciep) {
+    if (showReceipt) {
         [self presentDetailsViewControllerWithTransactionData:transactionData];
     }
 }
@@ -95,15 +94,15 @@
 
 - (IBAction)payCard:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [self.transactionService payWithCardWithTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReciep:true];
+    [self.transactionService payWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReceipt:true];
     }];
 }
 
 - (IBAction)preAuthPay:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [self.transactionService preAuthWithCardTransaction:self.transaction completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReciep:true];
+    [self.transactionService preAuthWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReceipt:true];
     }];
 }
 
@@ -112,6 +111,26 @@
         _settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
     }
     return _settings;
+}
+
+- (void)setupButtons {
+    self.cardPay.layer.cornerRadius = 4.0F;
+    self.preAuthCardPay.layer.cornerRadius = 4.0F;
+    self.addCardButton.layer.cornerRadius = 4.0F;
+}
+
+- (void)setDisableButtons {
+    [self.cardPay setEnabled:NO];
+    [self.preAuthCardPay setEnabled:NO];
+    self.cardPay.alpha = 0.5;
+    self.preAuthCardPay.alpha = 0.5;
+}
+
+- (void)setEnableButtons {
+    [self.cardPay setEnabled:YES];
+    [self.preAuthCardPay setEnabled:YES];
+    self.cardPay.alpha = 1.0;
+    self.preAuthCardPay.alpha = 1.0;
 }
 
 @end
