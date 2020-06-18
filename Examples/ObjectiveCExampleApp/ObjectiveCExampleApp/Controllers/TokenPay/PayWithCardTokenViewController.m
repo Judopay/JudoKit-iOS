@@ -33,9 +33,9 @@
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (strong, nonatomic) JPTransactionService *transactionService;
 @property (strong, nonatomic) JPTransaction *transaction;
-@property (nonatomic, strong) UIActivityIndicatorView *_Nullable activityIndicatorView;
+@property (strong, nonatomic) UIActivityIndicatorView *_Nullable activityIndicatorView;
 @end
 
 @implementation PayWithCardTokenViewController
@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self disableButtons];
+    [self shouldEnableButtons:NO];
     [self setupButtons];
     Settings *settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
     self.transactionService = [[JPTransactionService alloc] initWithToken:settings.token
@@ -76,7 +76,7 @@
     
     self.transaction.cardToken = transactionData.cardDetails.cardToken;
     if (transactionData.cardDetails.cardToken) {
-        [self enableButtons];
+        [self shouldEnableButtons:YES];
     }
     
     if (showReceipt) {
@@ -115,14 +115,9 @@
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
 }
 
-- (void)disableButtons {
-    self.payWithCardTokenButton.enabled = NO;
-    self.preAuthWithCardTokenButton.enabled = NO;
-}
-
-- (void)enableButtons {
-    self.payWithCardTokenButton.enabled = YES;
-    self.preAuthWithCardTokenButton.enabled = YES;
+- (void)shouldEnableButtons:(BOOL)shouldEnable {
+    self.payWithCardTokenButton.enabled = shouldEnable;
+    self.preAuthWithCardTokenButton.enabled = shouldEnable;
 }
 
 @end

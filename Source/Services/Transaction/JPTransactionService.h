@@ -95,7 +95,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
  * @param transaction - mandatory JPTransaction object
  * @param completion - a completion block that returns an optional JPResponse or NSError
  */
-- (void)payWithTransaction:(JPTransaction *_Nonnull)transaction
+- (void)payWithTransaction:(nullable JPTransaction *)transaction
              andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
  * @param transaction - mandatory JPTransaction object
  * @param completion - a completion block that returns an optional JPResponse or NSError
  */
-- (void)preAuthWithTransaction:(JPTransaction *_Nonnull)transaction
+- (void)preAuthWithTransaction:(nullable JPTransaction *)transaction
                  andCompletion:(nullable JPCompletionBlock)completion;
 
 @end
