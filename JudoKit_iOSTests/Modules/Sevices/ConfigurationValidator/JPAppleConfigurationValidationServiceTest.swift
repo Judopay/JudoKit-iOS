@@ -53,44 +53,44 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     }
     
     func testAppleConfigIfValid() {
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNil(error, "Error must be nil for a valid Apple Pay configuration")
     }
     
     func testAppleConfigForNil() {
         configuration.applePayConfiguration = nil
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil for an invalid Apple Pay configuration")
     }
     
     func testAppleConfigForPaymentSummaryItemsEmpty() {
         configuration.applePayConfiguration?.paymentSummaryItems.removeAll()
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil when no Payment Summary Items are present")
     }
     
     func testAppleConfigForShipingMethods() {
         configuration.applePayConfiguration?.requiredShippingContactFields = .postalAddress
         configuration.applePayConfiguration?.shippingMethods?.removeAll()
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil when no Shipping Methods are specified")
     }
     
     func testAppleConfigForInvalidCountryCode() {
         configuration.applePayConfiguration?.countryCode = ""
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil when no Country Code is specified")
     }
     
     func testAppleConfigForInvalidMerchantId() {
         configuration.applePayConfiguration?.merchantId = ""
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil when no Merchant ID is specified")
     }
     
     func testAppleConfigForUnsuportedCurrency() {
         configuration.applePayConfiguration?.currency = "XYZ"
-        let error = configValidation.valiadateApplePay(configuration)
+        let error = configValidation.validateApplePay(configuration)
         XCTAssertNotNil(error, "Error must not be nil when the Currency Code is invalid")
     }
 }
