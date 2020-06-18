@@ -36,7 +36,7 @@
 /**
  * A boolean property that defines if the amount should be displayed on the transaction screen
  */
-@property (nonatomic, assign) BOOL shouldPaymentButonDisplayAmount;
+@property (nonatomic, assign) BOOL shouldPaymentButtonDisplayAmount;
 
 /**
  * A boolean property that defines if the SDK should verify security code when paying with card token

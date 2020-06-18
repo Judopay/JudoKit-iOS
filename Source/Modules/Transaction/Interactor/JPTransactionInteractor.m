@@ -115,7 +115,7 @@
     if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
         return @"pay".localized;
     }
-    if ((self.configuration.uiConfiguration.shouldPaymentButonDisplayAmount)) {
+    if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
         JPAmount *amount = self.configuration.amount;
         return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, amount.currency.toCurrencySymbol, amount.amount];
     }
