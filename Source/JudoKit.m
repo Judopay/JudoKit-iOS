@@ -187,14 +187,12 @@
 - (UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode
                                             configuration:(JPConfiguration *)configuration
                                                completion:(JPCompletionBlock)completion {
-    UIViewController *controller;
-    controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
-                                                    configuration:configuration
-                                               transactionService:self.transactionService
-                                            transitioningDelegate:self.transitioningDelegate
-                                                completionHandler:completion];
-
-    return controller;
+    
+    return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
+                                              configuration:configuration
+                                         transactionService:self.transactionService
+                                      transitioningDelegate:self.transitioningDelegate
+                                          completionHandler:completion];
 }
 
 #pragma mark - Getters & Setters
