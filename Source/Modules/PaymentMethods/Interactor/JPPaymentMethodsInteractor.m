@@ -44,6 +44,7 @@
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
 #import "JPTransactionService.h"
+#import "UIApplication+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -199,7 +200,12 @@
 #pragma mark - Apple Pay payment
 
 - (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
-    [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
+    UIViewController *controller = [self.applePayService applePayViewControllerWithMode:self.transactionMode
+                                                                             completion:completion];
+    
+    [UIApplication.topMostViewController presentViewController:controller
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 #pragma mark - Delete card at index

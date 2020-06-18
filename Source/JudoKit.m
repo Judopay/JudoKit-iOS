@@ -90,12 +90,30 @@
                     configuration:(JPConfiguration *)configuration
                        completion:(JPCompletionBlock)completion {
 
-    JPError *configurationError = [self.configurationValidationService validateConfiguration:configuration
-                                                                          forTransactionType:type];
+    UIViewController *controller = [self transactionViewControllerWithType:type
+                                                             configuration:configuration
+                                                                completion:completion];
+    
+    if (!controller) {
+        return;
+    }
+    
+    [UIApplication.topMostViewController presentViewController:controller
+                                                      animated:YES
+                                                    completion:nil];
+}
+
+- (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
+                                          configuration:(JPConfiguration *)configuration
+                                             completion:(JPCompletionBlock)completion {
+    
+    JPError *configurationError;
+    configurationError = [self.configurationValidationService validateConfiguration:configuration
+                                                                 forTransactionType:type];
 
     if (configurationError) {
         completion(nil, configurationError);
-        return;
+        return nil;
     }
 
     self.transactionService.transactionType = type;
@@ -104,52 +122,77 @@
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:configuration
                                                                   completion:completion];
+    
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
-    [UIApplication.topMostViewController presentViewController:controller
-                                                      animated:YES
-                                                    completion:nil];
+    
+    return controller;
 }
 
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(JPConfiguration *)configuration
                     completion:(JPCompletionBlock)completion {
 
-    JPError *configurationError = [self.configurationValidationService valiadateApplePayConfiguration:configuration];
+    UIViewController *controller = [self applePayViewControllerWithMode:mode
+                                                          configuration:configuration
+                                                             completion:completion];
+    
+    if (!controller) {
+        return;
+    }
+    
+    [UIApplication.topMostViewController presentViewController:controller
+                                                      animated:YES
+                                                    completion:nil];
+}
+
+- (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
+                                       configuration:(JPConfiguration *)configuration
+                                          completion:(JPCompletionBlock)completion {
+    
+    JPError *configurationError = [self.configurationValidationService validateApplePayConfiguration:configuration];
 
     if (configurationError) {
         completion(nil, configurationError);
-        return;
+        return nil;
     }
 
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                          transactionService:self.transactionService];
-    [self.applePayService invokeApplePayWithMode:mode completion:completion];
+
+    return [self.applePayService applePayViewControllerWithMode:mode
+                                                     completion:completion];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JPCompletionBlock)completion {
 
-    //TODO: No validation???
-
-    UIViewController *controller;
-    controller = [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
-                                                    configuration:configuration
-                                               transactionService:self.transactionService
-                                            transitioningDelegate:self.transitioningDelegate
-                                                completionHandler:completion];
+    UIViewController *controller = [self paymentMethodViewControllerWithMode:mode
+                                                               configuration:configuration
+                                                                  completion:completion];
 
     if (!controller) {
         return;
     }
-
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 
     [UIApplication.topMostViewController presentViewController:navController
                                                       animated:YES
                                                     completion:nil];
+}
+
+- (UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode
+                                            configuration:(JPConfiguration *)configuration
+                                               completion:(JPCompletionBlock)completion {
+    
+    return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
+                                              configuration:configuration
+                                         transactionService:self.transactionService
+                                      transitioningDelegate:self.transitioningDelegate
+                                          completionHandler:completion];
 }
 
 #pragma mark - Getters & Setters

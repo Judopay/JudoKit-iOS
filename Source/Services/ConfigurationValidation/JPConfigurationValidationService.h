@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  *
  * @returns an optional instance of JPError containing the validation error details
  */
-- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration;
+- (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration;
 
 @end
 
