@@ -1,6 +1,6 @@
 //
 //  JudoKit.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -30,7 +30,7 @@
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
-static NSString *__nonnull const JudoKitName = @"JudoKit-iOS";
+static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
 static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 
 @interface JudoKit : NSObject
@@ -87,6 +87,20 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
                        completion:(nullable JPCompletionBlock)completion;
 
 /**
+ * A method which returns a configured Judo transaction UIViewController that can be presented to allow
+ * users to enter their card details and make a transaction
+ *
+ * @param type - an instance of TransactionType that describes the type of the transaction.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ *
+ * @returns a fully configured UIViewController instance
+ */
+- (nullable UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
+                                                   configuration:(nonnull JPConfiguration *)configuration
+                                                      completion:(nullable JPCompletionBlock)completion;
+
+/**
  * A method which invokes the Apple Pay sleeve which allows users to make Apple Pay transactions.
  *
  * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.
@@ -98,7 +112,21 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
                     completion:(nullable JPCompletionBlock)completion;
 
 /**
- * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.
+ * A method which returns a configured Apple Pay UIViewController that allows users to make Apple Pay transactions.
+ *
+ * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ *
+ * @returns a fully configured UIViewController instance
+ */
+- (nullable UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
+                                                configuration:(nonnull JPConfiguration *)configuration
+                                                   completion:(nullable JPCompletionBlock)completion;
+
+/**
+ * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment
+ * methods to complete their transaction.
  *
  * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
@@ -107,4 +135,18 @@ static NSString *__nonnull const JudoKitVersion = @"1.0.0";
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
                                completion:(nullable JPCompletionBlock)completion;
+
+/**
+ * A method which returns a configured Judo Payment Method Selection UIViewController which allows users to pick between
+ * multiple payment methods to complete their transaction.
+ *
+ * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ *
+ * @returns a fully configured UIViewController instance
+ */
+- (nullable UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode
+                                                     configuration:(nonnull JPConfiguration *)configuration
+                                                        completion:(nullable JPCompletionBlock)completion;
 @end

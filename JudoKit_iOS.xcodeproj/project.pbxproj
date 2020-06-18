@@ -226,7 +226,7 @@
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
-		4416C3A22451A4060002870C /* JudoKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */; platformFilter = ios; };
+		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4416C3C62451AA050002870C /* CardStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CEFC1D244093C50062C948 /* CardStorageTest.swift */; platformFilter = ios; };
 		4416C3C72451AA180002870C /* JPPaymentMethodsInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A402449BCAA0039D187 /* JPPaymentMethodsInteractorTest.swift */; platformFilter = ios; };
 		4416C3C82451AA320002870C /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827AF50D23FFD257009ECC9C /* JPPaymentMethodsTest.swift */; platformFilter = ios; };
@@ -552,13 +552,13 @@
 		30DB511A23100E6B00B73D66 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		30DB511B23100E6B00B73D66 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		30F77E53241A650800D68BF9 /* UITextField+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Additions.m"; sourceTree = "<group>"; };
-		3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "JudoKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
-		4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JudoKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4416C3A12451A4060002870C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKit-iOSTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		4416C3D32451AC070002870C /* JudoKit_iOSTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JudoKit_iOSTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		449211612469E7A200DF6D14 /* JPTransactionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionMode.h; sourceTree = "<group>"; };
 		449211632469E7F600DF6D14 /* JPTransactionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionType.h; sourceTree = "<group>"; };
 		449211652469E83D00DF6D14 /* JPTransactionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTransactionResult.h; sourceTree = "<group>"; };
@@ -644,7 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01AE3A3B246053AD0050952E /* OHHTTPStubs.framework in Frameworks */,
-				4416C3A22451A4060002870C /* JudoKit-iOS.framework in Frameworks */,
+				4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1804,7 +1804,7 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
-				4416C39E2451A4060002870C /* JudoKit-iOSTests */,
+				4416C39E2451A4060002870C /* JudoKit_iOSTests */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
 				52FBFB6A2325A3770096064C /* Resources */,
@@ -1815,8 +1815,8 @@
 		3B678B571C6CE5190001DC2F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */,
-				4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */,
+				3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */,
+				4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1874,14 +1874,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		4416C39E2451A4060002870C /* JudoKit-iOSTests */ = {
+		4416C39E2451A4060002870C /* JudoKit_iOSTests */ = {
 			isa = PBXGroup;
 			children = (
 				827AF50723FFD257009ECC9C /* Modules */,
 				4416C3A12451A4060002870C /* Info.plist */,
-				4416C3D32451AC070002870C /* JudoKit-iOSTests-Bridging-Header.h */,
+				4416C3D32451AC070002870C /* JudoKit_iOSTests-Bridging-Header.h */,
 			);
-			path = "JudoKit-iOSTests";
+			path = JudoKit_iOSTests;
 			sourceTree = "<group>";
 		};
 		5273AF0A23F306D4008C6D89 /* CardView */ = {
@@ -2227,9 +2227,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3B678B551C6CE5190001DC2F /* JudoKit-iOS */ = {
+		3B678B551C6CE5190001DC2F /* JudoKit_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B678B6A1C6CE5190001DC2F /* Build configuration list for PBXNativeTarget "JudoKit-iOS" */;
+			buildConfigurationList = 3B678B6A1C6CE5190001DC2F /* Build configuration list for PBXNativeTarget "JudoKit_iOS" */;
 			buildPhases = (
 				3B678B511C6CE5190001DC2F /* Sources */,
 				3B678B521C6CE5190001DC2F /* Frameworks */,
@@ -2241,14 +2241,14 @@
 			);
 			dependencies = (
 			);
-			name = "JudoKit-iOS";
+			name = JudoKit_iOS;
 			productName = JudoKit;
-			productReference = 3B678B561C6CE5190001DC2F /* JudoKit-iOS.framework */;
+			productReference = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4416C39C2451A4060002870C /* JudoKit-iOSTests */ = {
+		4416C39C2451A4060002870C /* JudoKit_iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4416C3A52451A4060002870C /* Build configuration list for PBXNativeTarget "JudoKit-iOSTests" */;
+			buildConfigurationList = 4416C3A52451A4060002870C /* Build configuration list for PBXNativeTarget "JudoKit_iOSTests" */;
 			buildPhases = (
 				4416C3992451A4060002870C /* Sources */,
 				4416C39A2451A4060002870C /* Frameworks */,
@@ -2260,9 +2260,9 @@
 			dependencies = (
 				4416C3A42451A4060002870C /* PBXTargetDependency */,
 			);
-			name = "JudoKit-iOSTests";
+			name = JudoKit_iOSTests;
 			productName = JudoKitTests;
-			productReference = 4416C39D2451A4060002870C /* JudoKit-iOSTests.xctest */;
+			productReference = 4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -2286,7 +2286,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3B678B501C6CE5190001DC2F /* Build configuration list for PBXProject "JudoKit-iOS" */;
+			buildConfigurationList = 3B678B501C6CE5190001DC2F /* Build configuration list for PBXProject "JudoKit_iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -2304,8 +2304,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B678B551C6CE5190001DC2F /* JudoKit-iOS */,
-				4416C39C2451A4060002870C /* JudoKit-iOSTests */,
+				3B678B551C6CE5190001DC2F /* JudoKit_iOS */,
+				4416C39C2451A4060002870C /* JudoKit_iOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2505,7 +2505,7 @@
 		4416C3A42451A4060002870C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = 3B678B551C6CE5190001DC2F /* JudoKit-iOS */;
+			target = 3B678B551C6CE5190001DC2F /* JudoKit_iOS */;
 			targetProxy = 4416C3A32451A4060002870C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2681,7 +2681,7 @@
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judopay.JudoKit-iOS";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "JudoKit-iOS";
+				PRODUCT_NAME = JudoKit_iOS;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -2729,7 +2729,7 @@
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judopay.JudoKit-iOS";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "JudoKit-iOS";
+				PRODUCT_NAME = JudoKit_iOS;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -2758,7 +2758,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "JudoKit-iOSTests/Info.plist";
+				INFOPLIST_FILE = JudoKit_iOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2769,11 +2769,11 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judo.JudoKit-iOSTests";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "JudoKit-iOSTests";
+				PRODUCT_NAME = JudoKit_iOSTests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKit-iOSTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit_iOSTests/JudoKit_iOSTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
@@ -2797,7 +2797,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "JudoKit-iOSTests/Info.plist";
+				INFOPLIST_FILE = JudoKit_iOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2807,10 +2807,10 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.judo.JudoKit-iOSTests";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "JudoKit-iOSTests";
+				PRODUCT_NAME = JudoKit_iOSTests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit-iOSTests/JudoKit-iOSTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JudoKit_iOSTests/JudoKit_iOSTests-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2820,7 +2820,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3B678B501C6CE5190001DC2F /* Build configuration list for PBXProject "JudoKit-iOS" */ = {
+		3B678B501C6CE5190001DC2F /* Build configuration list for PBXProject "JudoKit_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B678B681C6CE5190001DC2F /* Debug */,
@@ -2829,7 +2829,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B678B6A1C6CE5190001DC2F /* Build configuration list for PBXNativeTarget "JudoKit-iOS" */ = {
+		3B678B6A1C6CE5190001DC2F /* Build configuration list for PBXNativeTarget "JudoKit_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B678B6B1C6CE5190001DC2F /* Debug */,
@@ -2838,7 +2838,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4416C3A52451A4060002870C /* Build configuration list for PBXNativeTarget "JudoKit-iOSTests" */ = {
+		4416C3A52451A4060002870C /* Build configuration list for PBXNativeTarget "JudoKit_iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4416C3A62451A4060002870C /* Debug */,

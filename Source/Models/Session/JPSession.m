@@ -1,6 +1,6 @@
 //
 //  JPSession.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -47,7 +47,7 @@
 
 static NSString *const JPAPIVersion = @"5.6.0";
 static NSString *const JPContentTypeJSON = @"application/json";
-static NSString *const JPJudoSDK = @"JudoKit-iOS";
+static NSString *const JPJudoSDK = @"JudoKit_iOS";
 static NSString *const JPCustomUI = @"Custom-UI";
 
 static NSString *const HTTPHeaderFieldContentType = @"Content-Type";

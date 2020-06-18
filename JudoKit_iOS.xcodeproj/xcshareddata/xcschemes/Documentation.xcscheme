@@ -17,7 +17,7 @@
                BlueprintIdentifier = "700523F31CC7882800CC916D"
                BuildableName = "Documentation"
                BlueprintName = "Documentation"
-               ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+               ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,7 +46,7 @@
             BlueprintIdentifier = "700523F31CC7882800CC916D"
             BuildableName = "Documentation"
             BlueprintName = "Documentation"
-            ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+            ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -62,7 +62,7 @@
             BlueprintIdentifier = "700523F31CC7882800CC916D"
             BuildableName = "Documentation"
             BlueprintName = "Documentation"
-            ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+            ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
