@@ -123,8 +123,8 @@
     return [self.defaults boolForKey:kShouldPaymentMethodsDisplayAmount];
 }
 
-- (BOOL)shouldPaymentButonDisplayAmount {
-    return [self.defaults boolForKey:kShouldPaymentButonDisplayAmount];
+- (BOOL)shouldPaymentButtonDisplayAmount {
+    return [self.defaults boolForKey:kShouldPaymentButtonDisplayAmount];
 }
 - (BOOL)shouldPaymentMethodsVerifySecurityCode {
     return [self.defaults boolForKey:kShouldPaymentMethodsVerifySecurityCode];

@@ -50,6 +50,9 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
         [DemoFeature featureWithType:DemoFeatureTypePBBA
                                title:@"Pay By Bank"
                              details:@"by using your existing Bank app"],
+        [DemoFeature featureWithType:DemoFeatureTokenPayments
+                               title:@"Token Payments"
+                             details:@"Token Payments (no UI)"],
     ];
 }
 @end

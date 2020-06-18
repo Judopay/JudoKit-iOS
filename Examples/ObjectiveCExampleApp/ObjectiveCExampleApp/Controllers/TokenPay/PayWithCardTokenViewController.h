@@ -1,6 +1,6 @@
 //
-//  JPUIConfiguration.h
-//  JudoKit-iOS
+//  PayWithCardTokenViewController.h
+//  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,35 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@class JPTheme;
+@import JudoKit_iOS;
 
-@interface JPUIConfiguration : NSObject
+@interface PayWithCardTokenViewController : UIViewController
 
-/**
- * A boolean property that defines if the amount should be displayed on the payment method screen
- */
-@property (nonatomic, assign) BOOL shouldPaymentMethodsDisplayAmount;
-
-/**
- * A boolean property that defines if the amount should be displayed on the transaction screen
- */
-@property (nonatomic, assign) BOOL shouldPaymentButtonDisplayAmount;
-
-/**
- * A boolean property that defines if the SDK should verify security code when paying with card token
- */
-@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
-
-/**
- * A boolean property that defines if AVS should be enabled during the payment flow
- */
-@property (nonatomic, assign) BOOL isAVSEnabled;
-
-/**
- * A reference to the JPTheme object that customizes the user interface
- */
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong) JudoKit *judoKit;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
+

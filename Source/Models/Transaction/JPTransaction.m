@@ -37,13 +37,15 @@
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
-static NSString *const kPaymentPathKey = @"transactions/payments";
-static NSString *const kPreauthPathKey = @"transactions/preauths";
-static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+NSString *const kPaymentEndpoint = @"transactions/payments";
+NSString *const kPreauthEndpoint = @"transactions/preauths";
+NSString *const kRegisterCardEndpoint = @"transactions/registercard";
+NSString *const kSaveCardEndpoint = @"transactions/savecard";
+
 static NSString *const kCollectionPathKey = @"/transactions/collections";
 static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
-static NSString *const kSaveCardPathKey = @"transactions/savecard";
-static NSString *const kRegisterCardPathKey = @"transactions/registercard";
+static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+;
 static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPReference ()
@@ -56,11 +58,12 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 @property (nonatomic, assign) JPTransactionType transactionType;
 @property (nonatomic, strong) NSString *currentTransactionReference;
 @property (nonatomic, assign) BOOL initialRecurringPayment;
-@property (nonatomic, strong) NSMutableDictionary *parameters;
-@property (nonatomic, strong) NSString *transactionPath;
 
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;
+@property (nonatomic, strong) NSMutableDictionary *_Nonnull parameters;
+@property (nonatomic, strong, readwrite) NSString *_Nullable transactionPath;
+
 @end
 
 @implementation JPTransaction
@@ -107,16 +110,16 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 - (NSString *)transactionPathForType:(JPTransactionType)type {
     switch (type) {
         case JPTransactionTypePayment:
-            return kPaymentPathKey;
+            return kPaymentEndpoint;
 
         case JPTransactionTypePreAuth:
-            return kPreauthPathKey;
+            return kPreauthEndpoint;
 
         case JPTransactionTypeRegisterCard:
-            return kRegisterCardPathKey;
+            return kRegisterCardEndpoint;
 
         case JPTransactionTypeSaveCard:
-            return kSaveCardPathKey;
+            return kSaveCardEndpoint;
 
         case JPTransactionTypeCheckCard:
             return kCheckCardPathKey;
@@ -262,6 +265,10 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 - (void)setSecurityCode:(NSString *)code {
     self.parameters[@"cv2"] = code;
+}
+
+- (void)setCardToken:(NSString *)token {
+    self.parameters[@"cardToken"] = token;
 }
 
 - (JPCard *)card {
@@ -447,6 +454,10 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
 
     NSDictionary *dict = [paymentDetail toDictionary];
     self.parameters[@"EnhancedPaymentDetail"] = dict;
+}
+
+- (NSDictionary *_Nonnull)getParameters {
+    return self.parameters;
 }
 
 @end

@@ -31,7 +31,7 @@
     if (self = [super init]) {
         self.shouldPaymentMethodsDisplayAmount = YES;
         self.isAVSEnabled = NO;
-        self.shouldPaymentButonDisplayAmount = NO;
+        self.shouldPaymentButtonDisplayAmount = NO;
         self.shouldPaymentMethodsVerifySecurityCode = YES;
     }
     return self;

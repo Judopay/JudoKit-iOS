@@ -47,7 +47,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
       * GIVEN: generate pay button title
       *
-      * WHEN: shouldPaymentButonDisplayAmount in config object is false
+      * WHEN: shouldPaymentButtonDisplayAmount in config object is false
       *
       * THEN: result should be raw title
       */
@@ -59,12 +59,12 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: generate pay button title
      *
-     * WHEN: shouldPaymentButonDisplayAmount in config object is true
+     * WHEN: shouldPaymentButtonDisplayAmount in config object is true
      *
      * THEN: result should be composed from pay + currency + amount
      */
     func test_generatePayButtonTitle_Whentrue_ShouldFormatAndReturnValid() {
-        configuration.uiConfiguration.shouldPaymentButonDisplayAmount = true
+        configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = true
         let result = sut.generatePayButtonTitle()
         XCTAssertEqual(result, "Pay $0.01")
     }

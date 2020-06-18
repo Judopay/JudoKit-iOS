@@ -30,6 +30,11 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
+extern NSString *_Nonnull const kPaymentEndpoint;
+extern NSString *_Nonnull const kPreauthEndpoint;
+extern NSString *_Nonnull const kRegisterCardEndpoint;
+extern NSString *_Nonnull const kSaveCardEndpoint;
+
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
 
@@ -59,6 +64,11 @@
  * An string containing separate security code for payment
  */
 @property (nonatomic, strong) NSString *_Nullable securityCode;
+
+/**
+ * A string that stores the card token for the transaction
+ */
+@property (nonatomic, strong) NSString *_Nullable cardToken;
 
 /**
  * An object containing the amount and the currency of the transaction
@@ -204,4 +214,12 @@
 - (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
                          receiptId:(nonnull NSString *)receiptId
                         completion:(nonnull JPCompletionBlock)completion;
+
+/**
+ * A method which return all parameters for current transaction
+ *
+ * @returns NSDictionary with parameters for an API call
+ */
+- (NSDictionary *_Nonnull)getParameters;
+
 @end

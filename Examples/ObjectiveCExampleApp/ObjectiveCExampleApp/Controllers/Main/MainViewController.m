@@ -29,12 +29,14 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "PBBAViewController.h"
+#import "PayWithCardTokenViewController.h"
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "ExampleAppStorage.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
+static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 @interface MainViewController ()
 
@@ -100,6 +102,11 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     }
     if ([segue.destinationViewController isKindOfClass: PBBAViewController.class]) {
         PBBAViewController *controller = segue.destinationViewController;
+        controller.judoKit = self.judoKit;
+        controller.configuration = self.configuration;
+    }
+    if ([segue.destinationViewController isKindOfClass: PayWithCardTokenViewController.class]) {
+        PayWithCardTokenViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }
@@ -222,6 +229,10 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     [self performSegueWithIdentifier:kShowPbbaScreenSegue sender:nil];
 }
 
+- (void)tokenPaymentsMethodOperation {
+    [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
+}
+
 - (void)serverToServerMethodOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
@@ -272,7 +283,7 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
     configuration.paymentMethods = self.settings.paymentMethods;
     configuration.uiConfiguration.isAVSEnabled = self.settings.isAVSEnabled;
     configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = self.settings.shouldPaymentMethodsDisplayAmount;
-    configuration.uiConfiguration.shouldPaymentButonDisplayAmount = self.settings.shouldPaymentButonDisplayAmount;
+    configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = self.settings.shouldPaymentButtonDisplayAmount;
     configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = self.settings.shouldPaymentMethodsVerifySecurityCode;
     configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
@@ -399,6 +410,10 @@ static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
 
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
+            break;
+            
+        case DemoFeatureTokenPayments:
+            [self tokenPaymentsMethodOperation];
             break;
     }
 }
