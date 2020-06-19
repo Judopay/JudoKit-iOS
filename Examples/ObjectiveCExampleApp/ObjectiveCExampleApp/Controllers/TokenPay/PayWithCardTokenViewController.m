@@ -34,8 +34,8 @@
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
 @property (strong, nonatomic) JPTransactionService *transactionService;
-@property (strong, nonatomic) JPTransaction *transaction;
 @property (strong, nonatomic) UIActivityIndicatorView *_Nullable activityIndicatorView;
+@property (strong, nonatomic) NSString *_Nullable cardToken;
 @end
 
 @implementation PayWithCardTokenViewController
@@ -50,7 +50,6 @@
     self.transactionService = [[JPTransactionService alloc] initWithToken:settings.token
                                                                 andSecret:settings.secret];
     self.transactionService.isSandboxed = settings.isSandboxed;
-    self.transaction = [self.transactionService transactionWithConfiguration:self.configuration];
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -74,7 +73,7 @@
     
     JPTransactionData *transactionData = response.items.firstObject;
     
-    self.transaction.cardToken = transactionData.cardDetails.cardToken;
+    self.cardToken = transactionData.cardDetails.cardToken;
     if (transactionData.cardDetails.cardToken) {
         [self shouldEnableButtons:YES];
     }
@@ -93,7 +92,9 @@
 - (IBAction)payWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.payWithCardTokenButton startLoading];
-    [self.transactionService payWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration andType:JPTransactionTypePayment];
+    transaction.cardToken = self.cardToken;
+    [self.transactionService sendWithTransaction:transaction andCompletion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReceipt:true];
         [self.payWithCardTokenButton stopLoading];
     }];
@@ -102,7 +103,9 @@
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.preAuthWithCardTokenButton startLoading];
-    [self.transactionService preAuthWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration andType:JPTransactionTypePreAuth];
+    transaction.cardToken = self.cardToken;
+    [self.transactionService sendWithTransaction:transaction andCompletion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReceipt:true];
         [self.preAuthWithCardTokenButton stopLoading];
     }];

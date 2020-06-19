@@ -93,10 +93,8 @@
     }
 
     JPTransactionType type = (self.transactionMode == JPTransactionModePreAuth) ? JPTransactionTypePreAuth : JPTransactionTypePayment;
-    self.transactionService.transactionType = type;
-
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration andType: type];
+    
     NSError *error;
     [transaction setPkPayment:payment error:&error];
 
@@ -107,7 +105,7 @@
     }
 
     __weak typeof(self) weakSelf = self;
-    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
+    [self.transactionService sendWithTransaction:transaction andCompletion:^(JPResponse *response, NSError *error) {
         if (error || response.items.count == 0) {
             if (weakSelf.completionBlock)
                 weakSelf.completionBlock(response, (JPError *)error);

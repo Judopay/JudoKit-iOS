@@ -27,6 +27,11 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
+extern NSString *_Nonnull const kPaymentEndpoint;
+extern NSString *_Nonnull const kPreauthEndpoint;
+extern NSString *_Nonnull const kRegisterCardEndpoint;
+extern NSString *_Nonnull const kSaveCardEndpoint;
+
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     JPHTTPMethodGET,
     JPHTTPMethodPOST,
@@ -40,21 +45,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
  * A boolean property that, if set to YES, toggles sandbox mode for the Judo transactions
  */
 @property (nonatomic, assign) BOOL isSandboxed;
-
-/**
- * A property which describes the transaction type
- */
-@property (nonatomic, assign) JPTransactionType transactionType;
-
-/**
- * A property which describes the card details mode
- */
-@property (nonatomic, assign) JPCardDetailsMode mode;
-
-/**
- * A property that will return one of the pre-defined card network types (only for card number)
- */
-@property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
  * Designated initializer that creates a configured instance of JPTransactionService based on a token and secret.
@@ -74,37 +64,15 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
  *
  * @returns - a configured instance of JPTransaction;
  */
-- (nonnull JPTransaction *)transactionWithConfiguration:(nonnull JPConfiguration *)configuration;
+- (nonnull JPTransaction *)transactionWithConfiguration:(nonnull JPConfiguration *)configuration andType:(JPTransactionType)type;
 
 /**
- * A method for sending REST API requests to a provided URL with optional parameters
- *
- * @param endpoint - the destination URL endpoint for REST requests
- * @param httpMethod - an NS_ENUM value that describes the HTTP method
- * @param parameters - optional NSDictionary that should be send with the request
- * @param completion - a completion block that returns an optional JPResponse or NSError
- */
-- (void)sendRequestWithEndpoint:(nonnull NSString *)endpoint
-                     httpMethod:(JPHTTPMethod)httpMethod
-                     parameters:(nullable NSDictionary *)parameters
-                     completion:(nullable JPCompletionBlock)completion;
-
-/**
- * A method for sending REST API requests for payment with card token
+ * A method for sending REST API requests
  *
  * @param transaction - mandatory JPTransaction object
  * @param completion - a completion block that returns an optional JPResponse or NSError
  */
-- (void)payWithTransaction:(nullable JPTransaction *)transaction
-             andCompletion:(nullable JPCompletionBlock)completion;
-
-/**
- * A method for sending REST API requests for pre auth pay with card token
- *
- * @param transaction - mandatory JPTransaction object
- * @param completion - a completion block that returns an optional JPResponse or NSError
- */
-- (void)preAuthWithTransaction:(nullable JPTransaction *)transaction
-                 andCompletion:(nullable JPCompletionBlock)completion;
+- (void)sendWithTransaction:(nonnull JPTransaction *)transaction
+              andCompletion:(nonnull JPCompletionBlock)completion;
 
 @end

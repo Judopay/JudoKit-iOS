@@ -43,7 +43,6 @@
 @property (nonatomic, weak) JPTransaction *transaction;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *lastKnownLocation;
-@property (nonatomic, strong) NSArray *enricheablePaths;
 @property (nonatomic, copy, nullable) void (^completionBlock)(void);
 
 @end
@@ -83,11 +82,6 @@
 
 - (void)enrichTransaction:(nonnull JPTransaction *)transaction
            withCompletion:(nonnull void (^)(void))completion {
-
-    if (![self shouldEnrichTransaction:transaction]) {
-        completion();
-        return;
-    }
 
     self.completionBlock = completion;
     self.transaction = transaction;
@@ -150,21 +144,7 @@
     return areLocationServicesEnabled && self.isAuthorizationGranted;
 }
 
-- (BOOL)shouldEnrichTransaction:(JPTransaction *)transaction {
-    return [self.enricheablePaths containsObject:transaction.transactionPath];
-}
-
 #pragma mark - Lazy properties
-
-- (NSArray *)enricheablePaths {
-    if (!_enricheablePaths) {
-        _enricheablePaths = @[ kPaymentEndpoint,
-                               kPreauthEndpoint,
-                               kRegisterCardEndpoint,
-                               kSaveCardEndpoint ];
-    }
-    return _enricheablePaths;
-}
 
 - (CLLocationManager *)locationManager {
     if (!_locationManager) {

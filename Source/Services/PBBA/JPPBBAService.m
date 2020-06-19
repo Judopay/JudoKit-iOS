@@ -85,19 +85,19 @@ static const int kNSPOSIXErrorDomainCode = 53;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:JPHTTPMethodPOST
-                                          parameters:parameters
-                                          completion:^(JPResponse *response, __unused JPError *error) {
-                                              JPTransactionData *data = response.items.firstObject;
-
-                                              if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  [weakSelf handlePBBAResponse:response completion:completion];
-                                                  return;
-                                              }
-
-                                              completion(nil, JPError.judoResponseParseError);
-                                          }];
+//    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
+//                                          httpMethod:JPHTTPMethodPOST
+//                                          parameters:parameters
+//                                          completion:^(JPResponse *response, __unused JPError *error) {
+//                                              JPTransactionData *data = response.items.firstObject;
+//
+//                                              if (data.orderDetails.orderId && data.redirectUrl) {
+//                                                  [weakSelf handlePBBAResponse:response completion:completion];
+//                                                  return;
+//                                              }
+//
+//                                              completion(nil, JPError.judoResponseParseError);
+//                                          }];
 }
 
 - (void)handlePBBAResponse:(JPResponse *)response completion:(JPCompletionBlock)completion {
@@ -140,14 +140,14 @@ static const int kNSPOSIXErrorDomainCode = 53;
     NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:JPHTTPMethodGET
-                                          parameters:nil
-                                          completion:^(JPResponse *response, JPError *error) {
-                                              [weakSelf handleResponse:response
-                                                                 error:error
-                                                            completion:completion];
-                                          }];
+//    [self.transactionService sendRequestWithEndpoint:statusEndpoint
+//                                          httpMethod:JPHTTPMethodGET
+//                                          parameters:nil
+//                                          completion:^(JPResponse *response, JPError *error) {
+//                                              [weakSelf handleResponse:response
+//                                                                 error:error
+//                                                            completion:completion];
+//                                          }];
 }
 
 - (void)handleResponse:(JPResponse *)response

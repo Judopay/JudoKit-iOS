@@ -222,16 +222,17 @@
         return;
     }
     BOOL isPreAuth = (self.transactionMode == JPTransactionTypePreAuth);
-    self.transactionService.transactionType = isPreAuth ? JPTransactionTypePreAuth : JPTransactionModePayment;
     NSString *consumerReference = self.configuration.reference.consumerReference;
     JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
                                                                        cardToken:token];
-
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    
+    JPTransactionType type = isPreAuth ? JPTransactionTypePreAuth : JPTransactionTypePayment;
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration andType:type];
+                                  
     transaction.paymentToken = paymentToken;
     transaction.securityCode = securityCode;
     self.threeDSecureService.transaction = transaction;
-    [transaction sendWithCompletion:completion];
+    [self.transactionService sendWithTransaction:transaction andCompletion:completion];
 }
 
 #pragma mark - Apple Pay payment

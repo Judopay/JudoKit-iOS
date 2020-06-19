@@ -53,6 +53,9 @@
 @property (nonatomic, strong) JPTransactionService *transactionService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSMutableArray *storedErrors;
+@property (nonatomic, assign) JPCardDetailsMode mode;
+@property (nonatomic, assign) JPTransactionType transactionType;
+
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -62,13 +65,17 @@
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
                                 configuration:(JPConfiguration *)configuration
-                                   completion:(JPCompletionBlock)completion {
-
+                                   completion:(JPCompletionBlock)completion
+                                         mode:(JPCardDetailsMode)mode
+                           andTransactionType:(JPTransactionType)transactionType {
+    
     if (self = [super init]) {
         self.cardValidationService = cardValidationService;
         self.transactionService = transactionService;
         self.configuration = configuration;
         self.completionHandler = completion;
+        self.transactionType = transactionType;
+        self.mode = mode;
     }
     return self;
 }
@@ -80,18 +87,18 @@
 }
 
 - (JPCardDetailsMode)cardDetailsMode {
-    if (self.transactionService.mode == JPCardDetailsModeDefault) {
+    if (self.mode == JPCardDetailsModeDefault) {
         return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault;
     }
-    return self.transactionService.mode;
+    return self.mode;
 }
 
 - (JPCardNetworkType)cardNetworkType {
-    return self.transactionService.cardNetwork;
+    return self.cardValidationService.lastCardNumberValidationResult.cardNetwork;
 }
 
 - (JPTransactionType)transactionType {
-    return self.transactionService.transactionType;
+    return self.transactionType;
 }
 
 - (JPAddress *)getConfiguredCardAddress {
@@ -125,11 +132,11 @@
 - (void)sendTransactionWithCard:(JPCard *)card
               completionHandler:(JPCompletionBlock)completionHandler {
 
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration andType:JPTransactionTypePayment];
     transaction.card = card;
 
     self.threeDSecureService.transaction = transaction;
-    [transaction sendWithCompletion:completionHandler];
+    [self.transactionService sendWithTransaction:transaction andCompletion:completionHandler];
 }
 
 - (void)completeTransactionWithResponse:(JPResponse *)response

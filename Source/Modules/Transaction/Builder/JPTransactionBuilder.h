@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "Typedefs.h"
+#import "JPTransactionViewModel.h"
 #import <Foundation/Foundation.h>
 
 @class JPTransactionService, JPConfiguration, JPTransactionViewController;
@@ -31,7 +32,10 @@
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
-                                                        completion:(JPCompletionBlock)completion;
+                                                        completion:(JPCompletionBlock)completion
+                                                              mode:(JPCardDetailsMode)mode
+                                                       cardNetwork:(JPCardNetworkType)cardNetwork
+                                                andTransactionType:(JPTransactionType)transactionType;
 @end
 
 @interface JPTransactionBuilderImpl : NSObject <JPTransactionBuilder>

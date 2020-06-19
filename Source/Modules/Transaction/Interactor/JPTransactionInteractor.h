@@ -191,5 +191,7 @@
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPTransactionService *)transactionService
                                 configuration:(JPConfiguration *)configuration
-                                   completion:(JPCompletionBlock)completion;
+                                   completion:(JPCompletionBlock)completion
+                                         mode:(JPCardDetailsMode)mode
+                           andTransactionType:(JPTransactionType)transactionType;
 @end

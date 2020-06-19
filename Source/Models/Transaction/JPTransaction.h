@@ -30,20 +30,15 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-extern NSString *_Nonnull const kPaymentEndpoint;
-extern NSString *_Nonnull const kPreauthEndpoint;
-extern NSString *_Nonnull const kRegisterCardEndpoint;
-extern NSString *_Nonnull const kSaveCardEndpoint;
-
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;
 
 @interface JPTransaction : NSObject
 
 /**
- * The endpoint of the transaction
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable transactionPath;
+* The type of the transaction
+*/
+@property (nonatomic, assign) JPTransactionType transactionType;
 
 /**
  * The Judo ID required for most transactions
@@ -121,16 +116,6 @@ extern NSString *_Nonnull const kSaveCardEndpoint;
 @property (nonatomic, strong) NSString *_Nullable emailAddress;
 
 /**
- * A reference to the API session used to make REST API requests
- */
-@property (nonatomic, strong) JPSession *_Nullable apiSession;
-
-/**
- * A reference to the transaction enricher object
- */
-@property (nonatomic, strong) JPTransactionEnricher *_Nullable enricher;
-
-/**
  * An object that offers additional SDK-related details
  */
 @property (nonatomic, strong) JPEnhancedPaymentDetail *_Nullable paymentDetail;
@@ -196,24 +181,6 @@ extern NSString *_Nonnull const kSaveCardEndpoint;
  * @param vcoResult - the Visa Checkout result object
  */
 - (void)setVCOResult:(nonnull JPVCOResult *)vcoResult;
-
-/**
- * A method which performs the transaction and returns the response/error as a completion block
- *
- * @param completion - the completion block that stores an optional JPResponse object or an NSError
- */
-- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
-
-/**
- * A method that performs a 3D Secure transaction
- *
- * @param parameters - the parameters passed to the transaction
- * @param receiptId - the receipt ID of the transaction
- * @param completion - the completion block that stores an optional JPResponse object or an NSError
- */
-- (void)threeDSecureWithParameters:(nonnull NSDictionary *)parameters
-                         receiptId:(nonnull NSString *)receiptId
-                        completion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method which return all parameters for current transaction

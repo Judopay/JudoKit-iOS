@@ -37,33 +37,16 @@
 #import "JPTransactionEnricher.h"
 #import "JPVCOResult.h"
 
-NSString *const kPaymentEndpoint = @"transactions/payments";
-NSString *const kPreauthEndpoint = @"transactions/preauths";
-NSString *const kRegisterCardEndpoint = @"transactions/registercard";
-NSString *const kSaveCardEndpoint = @"transactions/savecard";
-
-static NSString *const kCollectionPathKey = @"/transactions/collections";
-static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
-static NSString *const kCheckCardPathKey = @"transactions/checkcard";
-;
-static NSString *const kRefundPathKey = @"/transactions/refunds";
-
 @interface JPReference ()
 @property (nonatomic, strong, readwrite) NSString *paymentReference;
 @property (nonatomic, strong, readwrite) NSString *consumerReference;
 @end
 
 @interface JPTransaction ()
-
-@property (nonatomic, assign) JPTransactionType transactionType;
-@property (nonatomic, strong) NSString *currentTransactionReference;
 @property (nonatomic, assign) BOOL initialRecurringPayment;
-
 @property (nonatomic, strong) PKPayment *pkPayment;
 @property (nonatomic, strong) JPVCOResult *vcoResult;
 @property (nonatomic, strong) NSMutableDictionary *_Nonnull parameters;
-@property (nonatomic, strong, readwrite) NSString *_Nullable transactionPath;
-
 @end
 
 @implementation JPTransaction
@@ -86,7 +69,6 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
     if (self = [super init]) {
         self.transactionType = type;
         self.parameters = [NSMutableDictionary dictionary];
-        self.transactionPath = [self transactionPathForType:type];
     }
     return self;
 }
@@ -103,115 +85,6 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
         self.parameters[@"yourPaymentReference"] = [JPReference generatePaymentReference];
     }
     return self;
-}
-
-#pragma mark - Setup methods
-
-- (NSString *)transactionPathForType:(JPTransactionType)type {
-    switch (type) {
-        case JPTransactionTypePayment:
-            return kPaymentEndpoint;
-
-        case JPTransactionTypePreAuth:
-            return kPreauthEndpoint;
-
-        case JPTransactionTypeRegisterCard:
-            return kRegisterCardEndpoint;
-
-        case JPTransactionTypeSaveCard:
-            return kSaveCardEndpoint;
-
-        case JPTransactionTypeCheckCard:
-            return kCheckCardPathKey;
-
-        case JPTransactionTypeRefund:
-            return kRefundPathKey;
-
-        case JPTransactionTypeCollection:
-            return kCollectionPathKey;
-
-        case JPTransactionTypeVoid:
-            return kVoidTransactionPathKey;
-
-        default:
-            return nil;
-    }
-}
-
-#pragma mark - Public methods
-
-- (void)sendWithCompletion:(JPCompletionBlock)completion {
-
-    if (!completion) {
-        return;
-    }
-
-    JPError *validationError = [self validateTransaction];
-
-    if (validationError) {
-        completion(nil, validationError);
-        return;
-    }
-
-    self.currentTransactionReference = self.reference.paymentReference;
-
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, self.transactionPath];
-
-    [self.enricher enrichTransaction:self
-                      withCompletion:^{
-                          [self.apiSession POST:fullURL
-                                     parameters:self.parameters
-                                     completion:completion];
-                      }];
-}
-
-- (void)threeDSecureWithParameters:(NSDictionary *)parameters
-                         receiptId:(NSString *)receiptId
-                        completion:(JPCompletionBlock)completion {
-
-    NSString *fullURL = [NSString stringWithFormat:@"%@transactions/%@", self.apiSession.baseURL, receiptId];
-
-    [self.apiSession PUT:fullURL
-              parameters:parameters
-              completion:completion];
-}
-
-- (void)listWithCompletion:(JPCompletionBlock)completion {
-    [self listWithPagination:nil completion:completion];
-}
-
-- (void)listWithPagination:(JPPagination *)pagination completion:(JPCompletionBlock)completion {
-    NSString *path = self.transactionPath;
-    if (pagination) {
-        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
-    }
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, path];
-    [self.apiSession GET:fullURL parameters:nil completion:completion];
-}
-
-#pragma mark - Helper methods
-
-- (JPError *)validateTransaction {
-    if (!self.judoId) {
-        return JPError.judoJudoIdMissingError;
-    }
-
-    if (!self.card && !self.paymentToken && !self.pkPayment && !self.vcoResult) {
-        return JPError.judoPaymentMethodMissingError;
-    }
-
-    if (!self.reference) {
-        return JPError.judoReferenceMissingError;
-    }
-
-    BOOL isRegisterCard = (self.transactionType == JPTransactionTypeRegisterCard);
-    BOOL isCheckCard = (self.transactionType == JPTransactionTypeCheckCard);
-    BOOL isSaveCard = (self.transactionType == JPTransactionTypeSaveCard);
-    if (!isRegisterCard && !isCheckCard && !isSaveCard && !self.amount) {
-        return JPError.judoAmountMissingError;
-    }
-
-    return nil;
 }
 
 #pragma mark - Getters & setters

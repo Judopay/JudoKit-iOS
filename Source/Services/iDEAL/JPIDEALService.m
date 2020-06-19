@@ -82,19 +82,19 @@ static const float kTimerDuration = 60.0F;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:JPHTTPMethodPOST
-                                          parameters:parameters
-                                          completion:^(JPResponse *response, NSError *error) {
-                                              JPTransactionData *data = response.items.firstObject;
-
-                                              if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  completion([weakSelf remapIdealResponseWithResponse:response], (JPError *)error);
-                                                  return;
-                                              }
-
-                                              completion(nil, JPError.judoResponseParseError);
-                                          }];
+//    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
+//                                          httpMethod:JPHTTPMethodPOST
+//                                          parameters:parameters
+//                                          completion:^(JPResponse *response, NSError *error) {
+//                                              JPTransactionData *data = response.items.firstObject;
+//
+//                                              if (data.orderDetails.orderId && data.redirectUrl) {
+//                                                  completion([weakSelf remapIdealResponseWithResponse:response], (JPError *)error);
+//                                                  return;
+//                                              }
+//
+//                                              completion(nil, JPError.judoResponseParseError);
+//                                          }];
 }
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
@@ -126,28 +126,28 @@ static const float kTimerDuration = 60.0F;
     NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
 
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:JPHTTPMethodGET
-                                          parameters:nil
-                                          completion:^(JPResponse *response, NSError *error) {
-                                              if (error) {
-                                                  completion(nil, (JPError *)error);
-                                                  [weakSelf.timer invalidate];
-                                                  return;
-                                              }
-
-                                              if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
-                                                  dispatch_time_t timeInterval = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC));
-                                                  dispatch_after(timeInterval, dispatch_get_main_queue(), ^{
-                                                      [weakSelf getStatusForOrderId:orderId checksum:checksum completion:completion];
-                                                  });
-                                                  return;
-                                              }
-
-                                              JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
-                                              completion(mappedResponse, nil);
-                                              [weakSelf.timer invalidate];
-                                          }];
+//    [self.transactionService sendRequestWithEndpoint:statusEndpoint
+//                                          httpMethod:JPHTTPMethodGET
+//                                          parameters:nil
+//                                          completion:^(JPResponse *response, NSError *error) {
+//                                              if (error) {
+//                                                  completion(nil, (JPError *)error);
+//                                                  [weakSelf.timer invalidate];
+//                                                  return;
+//                                              }
+//
+//                                              if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
+//                                                  dispatch_time_t timeInterval = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC));
+//                                                  dispatch_after(timeInterval, dispatch_get_main_queue(), ^{
+//                                                      [weakSelf getStatusForOrderId:orderId checksum:checksum completion:completion];
+//                                                  });
+//                                                  return;
+//                                              }
+//
+//                                              JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
+//                                              completion(mappedResponse, nil);
+//                                              [weakSelf.timer invalidate];
+//                                          }];
 }
 
 - (void)stopPollingTransactionStatus {

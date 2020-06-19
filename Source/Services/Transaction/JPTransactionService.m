@@ -30,10 +30,23 @@
 #import "JPSession.h"
 #import "JPTransaction.h"
 #import "JPTransactionEnricher.h"
+#import "JPError+Additions.h"
+
+NSString *const kPaymentEndpoint = @"transactions/payments";
+NSString *const kPreauthEndpoint = @"transactions/preauths";
+NSString *const kRegisterCardEndpoint = @"transactions/registercard";
+NSString *const kSaveCardEndpoint = @"transactions/savecard";
+
+static NSString *const kCollectionPathKey = @"/transactions/collections";
+static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
+static NSString *const kCheckCardPathKey = @"transactions/checkcard";
+static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPTransactionService ()
 @property (nonatomic, strong) JPSession *session;
 @property (nonatomic, strong) JPTransactionEnricher *enricher;
+@property (nonatomic, strong, readwrite) NSString *_Nullable transactionPath;
+@property (nonatomic, strong) NSArray *enricheablePaths;
 @end
 
 @implementation JPTransactionService
@@ -59,24 +72,24 @@
 
 - (void)setupSessionWithToken:(NSString *)token
                     andSecret:(NSString *)secret {
-
+    
     NSString *formattedString = [NSString stringWithFormat:@"%@:%@", token, secret];
     NSData *encodedStringData = [formattedString dataUsingEncoding:NSISOLatin1StringEncoding];
     NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
-
+    
     NSString *authorizationHeader = [NSString stringWithFormat:@"Basic %@", base64String];
     self.session = [JPSession sessionWithAuthorizationHeader:authorizationHeader];
 }
 
 #pragma mark - Public methods
 
-- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration {
-
-    JPTransaction *transaction = [JPTransaction transactionWithType:self.transactionType];
+- (JPTransaction *)transactionWithConfiguration:(JPConfiguration *)configuration andType:(JPTransactionType)type {
+    
+    JPTransaction *transaction = [JPTransaction transactionWithType:type];
     transaction.judoId = configuration.judoId;
-    transaction.amount = [self amountForTransactionType:configuration];
+    transaction.amount = [self amountForTransactionType:configuration andType:type];
     transaction.reference = configuration.reference;
-
+    
 #if DEBUG
     // TODO: Temporary duplicate transaction solution
     // Generates a new payment reference for each Payment/PreAuth transaction
@@ -84,16 +97,13 @@
     transaction.reference = [[JPReference alloc] initWithConsumerReference:oldReference.consumerReference
                                                           paymentReference:[JPReference generatePaymentReference]];
 #endif
-
+    
     transaction.primaryAccountDetails = configuration.primaryAccountDetails;
-    transaction.apiSession = self.session;
-    transaction.enricher = self.enricher;
-
     return transaction;
 }
 
-- (nullable JPAmount *)amountForTransactionType:(JPConfiguration *)configuration {
-    switch (self.transactionType) {
+- (nullable JPAmount *)amountForTransactionType:(JPConfiguration *)configuration andType:(JPTransactionType)type {
+    switch (type) {
         case JPTransactionTypeCheckCard:
             return [JPAmount amount:@"0.00" currency:@"GBP"];
         case JPTransactionTypeSaveCard:
@@ -105,49 +115,111 @@
     }
 }
 
-- (void)sendRequestWithEndpoint:(NSString *)endpoint
-                     httpMethod:(JPHTTPMethod)httpMethod
-                     parameters:(NSDictionary *)parameters
-                     completion:(JPCompletionBlock)completion {
-
-    NSString *url = [NSString stringWithFormat:@"%@%@", self.session.baseURL, endpoint];
-
-    if (httpMethod == JPHTTPMethodPOST) {
-        [self.session POST:url parameters:parameters completion:completion];
-        return;
-    }
-
-    [self.session GET:url parameters:parameters completion:completion];
-}
-
-- (void)payWithTransaction:(nullable JPTransaction *)transaction
-             andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPaymentEndpoint];
-    [self enrichAndPost:transaction fullURL:fullURL completion:completion];
-}
-
-- (void)preAuthWithTransaction:(nullable JPTransaction *)transaction
-                 andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, kPreauthEndpoint];
-    [self enrichAndPost:transaction fullURL:fullURL completion:completion];
-}
-
 - (void)enrichAndPost:(JPTransaction *)transaction
               fullURL:(NSString *)fullURL
            completion:(nullable JPCompletionBlock)completion {
-    [self.enricher enrichTransaction:transaction
-                      withCompletion:^{
-                          [self.session POST:fullURL
-                                  parameters:[transaction getParameters]
-                                  completion:completion];
-                      }];
+    if ([self.enricheablePaths containsObject:[self pathForTransaction:transaction]]) {
+        [self.enricher enrichTransaction:transaction
+                          withCompletion:^{
+            [self.session POST:fullURL
+                    parameters:[transaction getParameters]
+                    completion:completion];
+        }];
+    } else {
+        [self.session POST:fullURL
+                parameters:[transaction getParameters]
+                completion:completion];
+    }
 }
+
+- (void)sendWithTransaction:(nonnull JPTransaction *)transaction
+              andCompletion:(nonnull JPCompletionBlock)completion {
+    
+    if (!completion) {
+        return;
+    }
+    
+    JPError *validationError = [self validateTransaction: transaction];
+    
+    if (validationError) {
+        completion(nil, validationError);
+        return;
+    }
+    
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.session.baseURL, [self pathForTransaction:transaction]];
+    [self enrichAndPost:transaction fullURL:fullURL completion:completion];
+}
+
+
+- (JPError *)validateTransaction:(nonnull JPTransaction *)transaction {
+    if (!transaction.judoId) {
+        return JPError.judoJudoIdMissingError;
+    }
+    
+    if (!transaction.card && !transaction.paymentToken && !transaction.pkPayment && !transaction.vcoResult) {
+        return JPError.judoPaymentMethodMissingError;
+    }
+    
+    if (!transaction.reference) {
+        return JPError.judoReferenceMissingError;
+    }
+    
+    BOOL isRegisterCard = (transaction.transactionType == JPTransactionTypeRegisterCard);
+    BOOL isCheckCard = (transaction.transactionType == JPTransactionTypeCheckCard);
+    BOOL isSaveCard = (transaction.transactionType == JPTransactionTypeSaveCard);
+    if (!isRegisterCard && !isCheckCard && !isSaveCard && !transaction.amount) {
+        return JPError.judoAmountMissingError;
+    }
+    return nil;
+}
+
 
 #pragma mark - Setters
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;
     self.session.sandboxed = isSandboxed;
+}
+
+- (NSString *)pathForTransaction:(JPTransaction *)transaction {
+    switch (transaction.transactionType) {
+        case JPTransactionTypePayment:
+            return kPaymentEndpoint;
+            
+        case JPTransactionTypePreAuth:
+            return kPreauthEndpoint;
+            
+        case JPTransactionTypeRegisterCard:
+            return kRegisterCardEndpoint;
+            
+        case JPTransactionTypeSaveCard:
+            return kSaveCardEndpoint;
+            
+        case JPTransactionTypeCheckCard:
+            return kCheckCardPathKey;
+            
+        case JPTransactionTypeRefund:
+            return kRefundPathKey;
+            
+        case JPTransactionTypeCollection:
+            return kCollectionPathKey;
+            
+        case JPTransactionTypeVoid:
+            return kVoidTransactionPathKey;
+            
+        default:
+            return nil;
+    }
+}
+
+- (NSArray *)enricheablePaths {
+    if (!_enricheablePaths) {
+        _enricheablePaths = @[ kPaymentEndpoint,
+                               kPreauthEndpoint,
+                               kRegisterCardEndpoint,
+                               kSaveCardEndpoint ];
+    }
+    return _enricheablePaths;
 }
 
 @end

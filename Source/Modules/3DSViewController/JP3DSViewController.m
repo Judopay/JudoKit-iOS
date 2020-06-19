@@ -192,20 +192,21 @@
                   decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     __weak typeof(self) weakSelf = self;
-    [self.transaction threeDSecureWithParameters:response
-                                       receiptId:self.configuration.receiptId
-                                      completion:^(JPResponse *response, JPError *error) {
-                                          if (error) {
-                                              decisionHandler(WKNavigationActionPolicyCancel);
-                                          } else {
-                                              decisionHandler(WKNavigationActionPolicyAllow);
-                                          }
-
-                                          [weakSelf.loadingView stopLoading];
-                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
-
-                                          weakSelf.completionBlock(response, error);
-                                      }];
+//    [self.tra]
+//    [self.transaction threeDSecureWithParameters:response
+//                                       receiptId:self.configuration.receiptId
+//                                      completion:^(JPResponse *response, JPError *error) {
+//                                          if (error) {
+//                                              decisionHandler(WKNavigationActionPolicyCancel);
+//                                          } else {
+//                                              decisionHandler(WKNavigationActionPolicyAllow);
+//                                          }
+//
+//                                          [weakSelf.loadingView stopLoading];
+//                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
+//
+//                                          weakSelf.completionBlock(response, error);
+//                                      }];
 }
 
 - (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {

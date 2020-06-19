@@ -38,17 +38,22 @@
 
 + (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
-                                                        completion:(JPCompletionBlock)completion {
-
+                                                        completion:(JPCompletionBlock)completion
+                                                              mode:(JPCardDetailsMode)mode
+                                                       cardNetwork:(JPCardNetworkType)cardNetwork
+                                                andTransactionType:(JPTransactionType)transactionType {
+    
     JPCardValidationService *cardValidationService = [JPCardValidationService new];
     cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
-    cardValidationService.lastCardNumberValidationResult.cardNetwork = transactionService.cardNetwork;
+    cardValidationService.lastCardNumberValidationResult.cardNetwork = cardNetwork;
 
     JPTransactionInteractorImpl *interactor;
     interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                  transactionService:transactionService
                                                                       configuration:configuration
-                                                                         completion:completion];
+                                                                         completion:completion
+                                                                               mode:mode
+                                                                 andTransactionType:transactionType];
 
     JPTransactionViewController *viewController = [JPTransactionViewController new];
     JPTransactionPresenterImpl *presenter = [JPTransactionPresenterImpl new];

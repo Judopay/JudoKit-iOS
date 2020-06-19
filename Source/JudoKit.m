@@ -85,8 +85,7 @@
 
 - (JPTransaction *)transactionWithType:(JPTransactionType)type
                          configuration:(JPConfiguration *)configuration {
-    self.transactionService.transactionType = type;
-    return [self.transactionService transactionWithConfiguration:configuration];
+    return [self.transactionService transactionWithConfiguration:configuration andType:type];
 }
 
 - (void)invokeTransactionWithType:(JPTransactionType)type
@@ -101,13 +100,15 @@
         return;
     }
 
-    self.transactionService.transactionType = type;
-    self.transactionService.mode = JPCardDetailsModeDefault;
-
     UIViewController *controller;
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:configuration
-                                                                  completion:completion];
+                                                                  completion:completion
+                                                                        mode:JPCardDetailsModeDefault
+                                                                 cardNetwork:JPCardNetworkTypeUnknown
+                                                          andTransactionType:type];
+                  
+                  
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
     [UIApplication.topMostViewController presentViewController:controller
