@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsTest.swift
-//  JudoKit-iOSTests
+//  JPPaymentMethodsInteractorTest.swift
+//  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -26,17 +26,30 @@ import XCTest
 
 @testable import JudoKit_iOS
 
-class JPPaymentMethodsTest: XCTestCase {
+class JPPaymentMethodsInteractorTest: XCTestCase {
+    var sut: JPPaymentMethodsInteractor!
+    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
     
-    func testExpirationDateHandling() {
-        let presenter = JPPaymentMethodsPresenterImpl()
-        let viewController = JPPaymentMethodsViewControllerMock()
-        let interactor = JPPaymentMethodsInteractorMock()
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.viewModelNeedsUpdate()
-        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
-        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
-        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
+    override func setUp() {
+        super.setUp()
+        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
+        let service = JPTransactionService()
+        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
+    }
+    
+    func testServerToServer()  {
+        let completion: JPCompletionBlock = { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+        }
+        sut.paymentTransaction(withToken: "", andCompletion: completion)
+    }
+    
+    func testServerToServerApple()  {
+        let completion: JPCompletionBlock = { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+        }
+        sut.startApplePay(completion: completion)
     }
 }

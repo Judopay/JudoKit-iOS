@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsViewControllerMock.swift
-//  JudoKit-iOSTests
+//  JPPaymentMethodsTest.swift
+//  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,30 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
+import XCTest
 
-@objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
+@testable import JudoKit_iOS
+
+class JPPaymentMethodsTest: XCTestCase {
     
-    func configure(with viewModel: JPPaymentMethodsViewModel, shouldAnimateChange shouldAnimate: Bool) {
-        for card in viewModel.items!{
-            if let cardList = card as? JPPaymentMethodsCardListModel {
-                cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
-            }
-        }
+    func testExpirationDateHandling() {
+        let presenter = JPPaymentMethodsPresenterImpl()
+        let viewController = JPPaymentMethodsViewControllerMock()
+        let interactor = JPPaymentMethodsInteractorMock()
+        presenter.view = viewController
+        presenter.interactor = interactor
+        presenter.viewModelNeedsUpdate()
+        XCTAssert(viewController.cardsList[0].cardExpirationStatus == .notExpired)
+        XCTAssert(viewController.cardsList[1].cardExpirationStatus == .expiresSoon)
+        XCTAssert(viewController.cardsList[2].cardExpirationStatus == .expired)
     }
-    
-    var cardsList:[JPPaymentMethodsCardModel] = []
-    
-    func configure(with viewModel: JPPaymentMethodsViewModel!) {
-        for card in viewModel.items!{
-            if let cardList = card as? JPPaymentMethodsCardListModel {
-                cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
-            }
-        }
-    }
-    
-    func displayAlert(withTitle title: String?, andError error: Error) {
-        
-    }
-    
 }

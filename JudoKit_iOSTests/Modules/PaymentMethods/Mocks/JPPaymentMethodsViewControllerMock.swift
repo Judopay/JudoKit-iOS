@@ -1,6 +1,6 @@
 //
-//  JPPaymentMethodsInteractorTest.swift
-//  JudoKit-iOSTests
+//  JPPaymentMethodsViewControllerMock.swift
+//  JudoKit_iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,34 +22,30 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
+import Foundation
 
-@testable import JudoKit_iOS
-
-class JPPaymentMethodsInteractorTest: XCTestCase {
-    var sut: JPPaymentMethodsInteractor!
-    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("fv", currency: "GBR"), reference: JPReference(consumerReference: "consumerReference"))
+@objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
     
-    override func setUp() {
-        super.setUp()
-        configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
-        let service = JPTransactionService()
-        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
-    }
-    
-    func testServerToServer()  {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
+    func configure(with viewModel: JPPaymentMethodsViewModel, shouldAnimateChange shouldAnimate: Bool) {
+        for card in viewModel.items!{
+            if let cardList = card as? JPPaymentMethodsCardListModel {
+                cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
+            }
         }
-        sut.paymentTransaction(withToken: "", andCompletion: completion)
     }
     
-    func testServerToServerApple()  {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
+    var cardsList:[JPPaymentMethodsCardModel] = []
+    
+    func configure(with viewModel: JPPaymentMethodsViewModel!) {
+        for card in viewModel.items!{
+            if let cardList = card as? JPPaymentMethodsCardListModel {
+                cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
+            }
         }
-        sut.startApplePay(completion: completion)
     }
+    
+    func displayAlert(withTitle title: String?, andError error: Error) {
+        
+    }
+    
 }

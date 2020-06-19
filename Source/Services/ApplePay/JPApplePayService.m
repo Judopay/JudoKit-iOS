@@ -1,6 +1,6 @@
 //
 //  JPApplePayService.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -62,13 +62,11 @@
 
 #pragma mark - Public method
 
-- (void)invokeApplePayWithMode:(JPTransactionMode)mode
-                    completion:(JPCompletionBlock)completion {
+- (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
+                                          completion:(JPCompletionBlock)completion {
     self.transactionMode = mode;
     self.completionBlock = completion;
-    [UIApplication.topMostViewController presentViewController:self.pkPaymentAuthorizationViewController
-                                                      animated:YES
-                                                    completion:nil];
+    return self.pkPaymentAuthorizationViewController;
 }
 
 #pragma mark - Apple Pay setup methods

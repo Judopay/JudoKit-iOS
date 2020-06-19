@@ -1,8 +1,8 @@
 coverage_service: cobertura_xml
-xcodeproj: ./JudoKit-iOS.xcodeproj
-scheme: JudoKit-iOS
+xcodeproj: ./JudoKit_iOS.xcodeproj
+scheme: JudoKit_iOS
 source_directory: Sources/
 ignore:
   - TrustKit/*
-  - JudoKit-iOSTests/*
+  - JudoKit_iOSTests/*
   - Examples/*
