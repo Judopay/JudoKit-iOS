@@ -98,7 +98,7 @@ static const float kContentPadding = 28.0F;
             break;
 
         case JPPaymentMethodTypePbba:
-            self.leadingImageView.image = [UIImage imageWithIconName:@"zapp-action"];
+            self.leadingImageView.image = [UIImage imageWithIconName:@"PbBA-logo"];
             self.titleLabel.text = @"pbba_pay".localized;
             break;
 
