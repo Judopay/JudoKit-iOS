@@ -82,6 +82,8 @@
 		0779B1782490EC05000844AF /* JPCardNumberField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779B1702490EC05000844AF /* JPCardNumberField.m */; };
 		0779B1792490EC05000844AF /* JPTransactionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1712490EC05000844AF /* JPTransactionButton.h */; };
 		0779B17A2490EC05000844AF /* JPCardInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1722490EC05000844AF /* JPCardInputView.h */; };
+		077EFA8924A223320065D2BC /* JPClientDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077EFA8824A223320065D2BC /* JPClientDetailsTest.swift */; };
+		077EFA8C24A226E70065D2BC /* JPConsumerDeviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077EFA8B24A226E70065D2BC /* JPConsumerDeviceTest.swift */; };
 		077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
 		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -452,6 +454,8 @@
 		0779B1702490EC05000844AF /* JPCardNumberField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardNumberField.m; sourceTree = "<group>"; };
 		0779B1712490EC05000844AF /* JPTransactionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionButton.h; sourceTree = "<group>"; };
 		0779B1722490EC05000844AF /* JPCardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardInputView.h; sourceTree = "<group>"; };
+		077EFA8824A223320065D2BC /* JPClientDetailsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPClientDetailsTest.swift; sourceTree = "<group>"; };
+		077EFA8B24A226E70065D2BC /* JPConsumerDeviceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPConsumerDeviceTest.swift; sourceTree = "<group>"; };
 		0783431924754BCC000DA445 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
 		0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
 		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
@@ -867,6 +871,8 @@
 		0777B99A247BC9BB00867B9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				077EFA8A24A226DF0065D2BC /* JPConsumerDevice */,
+				077EFA8724A223220065D2BC /* JPClientDetails */,
 				0777B99B247BC9BB00867B9F /* JPAddress */,
 				0777B99D247BC9BB00867B9F /* Card */,
 				0777B99F247BC9BB00867B9F /* Amount */,
@@ -1208,6 +1214,22 @@
 				0779B1712490EC05000844AF /* JPTransactionButton.h */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		077EFA8724A223220065D2BC /* JPClientDetails */ = {
+			isa = PBXGroup;
+			children = (
+				077EFA8824A223320065D2BC /* JPClientDetailsTest.swift */,
+			);
+			path = JPClientDetails;
+			sourceTree = "<group>";
+		};
+		077EFA8A24A226DF0065D2BC /* JPConsumerDevice */ = {
+			isa = PBXGroup;
+			children = (
+				077EFA8B24A226E70065D2BC /* JPConsumerDeviceTest.swift */,
+			);
+			path = JPConsumerDevice;
 			sourceTree = "<group>";
 		};
 		0783431824754BAE000DA445 /* PBBAConfiguration */ = {
@@ -3005,6 +3027,8 @@
 				0777B9EC247BC9BB00867B9F /* JPApplePayServiceTest.swift in Sources */,
 				0777B9E6247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift in Sources */,
 				0777B9E9247BC9BB00867B9F /* JPTransactionServiceTest.swift in Sources */,
+				077EFA8C24A226E70065D2BC /* JPConsumerDeviceTest.swift in Sources */,
+				077EFA8924A223320065D2BC /* JPClientDetailsTest.swift in Sources */,
 				0777BA10247BC9BB00867B9F /* JPPaymentMethodsRouterMock.swift in Sources */,
 				0777B9E5247BC9BB00867B9F /* JPUSAPostCodeValidation.swift in Sources */,
 				0777B9FA247BC9BB00867B9F /* JPContactInformationTest.swift in Sources */,
