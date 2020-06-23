@@ -123,7 +123,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
      * THEN: should not return error
      */
     func test_ValidateConfiguration_WhenJudoIDValid_ShoulNotReturnError() {
-        configuration = JPConfiguration(judoID: "12345", amount: self.amount, reference: reference)
+        configuration = JPConfiguration(judoID: "123456", amount: self.amount, reference: reference)
         let error = configValidation.validate(configuration, for: .payment)
         XCTAssertNil(error, "Error must be nil when judoId is valid")
     }

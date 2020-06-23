@@ -16,6 +16,7 @@
 		0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
+		0719B1DA24A1EE340002990A /* JP3DSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719B1D924A1EE340002990A /* JP3DSServiceTest.swift */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
 		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -384,6 +385,7 @@
 		0701930124811DC400401E45 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
 		070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPConfigurationValidationService.h; sourceTree = "<group>"; };
 		070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPConfigurationValidationService.m; sourceTree = "<group>"; };
+		0719B1D924A1EE340002990A /* JP3DSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JP3DSServiceTest.swift; sourceTree = "<group>"; };
 		072AFF3A2451DE5E0038A417 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
 		072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		072AFF442451E7C70038A417 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Source/DeviceDNA.framework"; sourceTree = "<group>"; };
@@ -761,6 +763,14 @@
 			path = ConfigurationValidation;
 			sourceTree = "<group>";
 		};
+		0719B1D824A1EE040002990A /* 3DSService */ = {
+			isa = PBXGroup;
+			children = (
+				0719B1D924A1EE340002990A /* JP3DSServiceTest.swift */,
+			);
+			path = 3DSService;
+			sourceTree = "<group>";
+		};
 		0777B982247BC9BB00867B9F /* JudoKit-iOSTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -780,6 +790,7 @@
 		0777B983247BC9BB00867B9F /* Sevices */ = {
 			isa = PBXGroup;
 			children = (
+				0719B1D824A1EE040002990A /* 3DSService */,
 				0777BA19247BCA3200867B9F /* PBBA */,
 				0777B984247BC9BB00867B9F /* PostCodesValidation */,
 				0777B988247BC9BB00867B9F /* CardInputValidator */,
@@ -2987,6 +2998,7 @@
 				0777B9FC247BC9BB00867B9F /* UIImageAdditionsTest.swift in Sources */,
 				0777BA00247BC9BB00867B9F /* NSStringAdditionsTests.swift in Sources */,
 				0777B9E8247BC9BB00867B9F /* JPIDEALServiceTest.swift in Sources */,
+				0719B1DA24A1EE340002990A /* JP3DSServiceTest.swift in Sources */,
 				0777BA14247BC9BB00867B9F /* JPPaymentMethodsInteractorTest.swift in Sources */,
 				0777BA07247BC9BB00867B9F /* JPTransactionPresenterTests.swift in Sources */,
 				0777B9FF247BC9BB00867B9F /* CLLocationAdditionsTest.swift in Sources */,
