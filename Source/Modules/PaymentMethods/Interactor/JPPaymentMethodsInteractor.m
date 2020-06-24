@@ -243,6 +243,10 @@
     UIViewController *controller = [self.applePayService applePayViewControllerWithMode:self.transactionMode
                                                                              completion:completion];
 
+    if (!controller) {
+        return;
+    }
+    
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];

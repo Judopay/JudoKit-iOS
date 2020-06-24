@@ -305,6 +305,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardInputField *)cardHolderTextField {
     if (!_cardHolderTextField) {
         _cardHolderTextField = [JPCardInputField new];
+        _cardHolderTextField.keyboardType = UIKeyboardTypeDefault;
     }
     return _cardHolderTextField;
 }
@@ -343,6 +344,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardInputField *)postcodeTextField {
     if (!_postcodeTextField) {
         _postcodeTextField = [JPCardInputField new];
+        _postcodeTextField.keyboardType = UIKeyboardTypeDefault;
     }
     return _postcodeTextField;
 }
