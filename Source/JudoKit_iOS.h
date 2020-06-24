@@ -24,10 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for JudoKit-iOS.
+//! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
 
-//! Project version string for JudoKit-iOS.
+//! Project version string for JudoKit_iOS.
 FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 
 #import "JPAddress.h"

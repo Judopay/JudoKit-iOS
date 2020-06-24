@@ -50,7 +50,7 @@
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKit-iOS"
+        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKit_iOS"
                                                                ofType:@"bundle"];
         bundle = [NSBundle bundleWithPath:podPath];
     });
