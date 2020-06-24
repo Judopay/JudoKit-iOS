@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-               BuildableName = "JudoKit-iOS.framework"
-               BlueprintName = "JudoKit-iOS"
-               ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+               BuildableName = "JudoKit_iOS.framework"
+               BlueprintName = "JudoKit_iOS"
+               ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,9 +32,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit-iOS.framework"
-            BlueprintName = "JudoKit-iOS"
-            ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+            BuildableName = "JudoKit_iOS.framework"
+            BlueprintName = "JudoKit_iOS"
+            ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4416C39C2451A4060002870C"
-               BuildableName = "JudoKit-iOSTests.xctest"
-               BlueprintName = "JudoKit-iOSTests"
-               ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+               BuildableName = "JudoKit_iOSTests.xctest"
+               BlueprintName = "JudoKit_iOSTests"
+               ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit-iOS.framework"
-            BlueprintName = "JudoKit-iOS"
-            ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+            BuildableName = "JudoKit_iOS.framework"
+            BlueprintName = "JudoKit_iOS"
+            ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -81,9 +81,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B678B551C6CE5190001DC2F"
-            BuildableName = "JudoKit-iOS.framework"
-            BlueprintName = "JudoKit-iOS"
-            ReferencedContainer = "container:JudoKit-iOS.xcodeproj">
+            BuildableName = "JudoKit_iOS.framework"
+            BlueprintName = "JudoKit_iOS"
+            ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
