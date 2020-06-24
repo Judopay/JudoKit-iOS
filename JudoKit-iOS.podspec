@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage              = 'https://www.judopay.com/'
   s.license               = 'MIT'
   s.author                = { "Judopay" => 'developersupport@judopayments.com' }
-  s.source                = { :git => 'https://github.com/Judopay/JudoKit-iOS.git', :tag => s.version.to_s }
+  s.source                = { :git => 'https://github.com/Judopay/JudoKit-iOS.git', :tag => 'v' +  s.version.to_s }
 
   s.documentation_url     = 'https://docs.judopay.com'
 
