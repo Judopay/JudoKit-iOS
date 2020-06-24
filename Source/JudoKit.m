@@ -96,11 +96,11 @@
     UIViewController *controller = [self transactionViewControllerWithType:type
                                                              configuration:configuration
                                                                 completion:completion];
-    
+
     if (!controller) {
         return;
     }
-    
+
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];
@@ -109,7 +109,7 @@
 - (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
                                           configuration:(JPConfiguration *)configuration
                                              completion:(JPCompletionBlock)completion {
-    
+
     JPError *configurationError;
     configurationError = [self.configurationValidationService validateConfiguration:configuration
                                                                  forTransactionType:type];
@@ -126,10 +126,10 @@
     controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
                                                                configuration:configuration
                                                                   completion:completion];
-    
+
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
-    
+
     return controller;
 }
 
@@ -140,20 +140,20 @@
     UIViewController *controller = [self applePayViewControllerWithMode:mode
                                                           configuration:configuration
                                                              completion:completion];
-    
+
     if (!controller) {
         return;
     }
-    
+
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];
 }
-        
+
 - (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
                                        configuration:(JPConfiguration *)configuration
                                           completion:(JPCompletionBlock)completion {
-    
+
     JPError *configurationError = [self.configurationValidationService validateApplePayConfiguration:configuration];
 
     if (configurationError) {
@@ -198,7 +198,7 @@
     if (!controller) {
         return;
     }
-    
+
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 
@@ -210,7 +210,7 @@
 - (UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode
                                             configuration:(JPConfiguration *)configuration
                                                completion:(JPCompletionBlock)completion {
-    
+
     return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                               configuration:configuration
                                          transactionService:self.transactionService

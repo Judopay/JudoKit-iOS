@@ -189,7 +189,6 @@
 		300072F123F6AB560099F3C5 /* JPConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072A623F6AB550099F3C5 /* JPConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F223F6AB560099F3C5 /* JPClientDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072A823F6AB550099F3C5 /* JPClientDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F323F6AB560099F3C5 /* JPClientDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 300072A923F6AB550099F3C5 /* JPClientDetails.m */; };
-		300072F423F6AB560099F3C5 /* JudoKit_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */; };
 		300072F523F6AB560099F3C5 /* JPCardDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AC23F6AB560099F3C5 /* JPCardDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		300072F623F6AB560099F3C5 /* JPCardDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 300072AD23F6AB560099F3C5 /* JPCardDetails.m */; };
 		300072F723F6AB560099F3C5 /* JPReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AF23F6AB560099F3C5 /* JPReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -263,6 +262,7 @@
 		3058351F2406583400B61167 /* JPCardCustomizationSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 305835162406583400B61167 /* JPCardCustomizationSubmitCell.m */; };
 		305835232406586C00B61167 /* JPCardCustomizationIsDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 305835212406586C00B61167 /* JPCardCustomizationIsDefaultCell.m */; };
 		305835242406586C00B61167 /* JPCardCustomizationIsDefaultCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 305835222406586C00B61167 /* JPCardCustomizationIsDefaultCell.h */; };
+		30ABAC0324A36503005550E1 /* JudoKit_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D0894023901F1F00480C9E /* icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30C22170235DC518000D6E3A /* icons.bundle */; };
 		30D61D5423BB741A004E5CEE /* JPPaymentMethodsPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D61D3323BB741A004E5CEE /* JPPaymentMethodsPresenter.h */; };
 		30D61D5523BB741A004E5CEE /* JPPaymentMethodsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D61D3423BB741A004E5CEE /* JPPaymentMethodsViewModel.m */; };
@@ -2535,6 +2535,7 @@
 				30006F3A23F697B60099F3C5 /* JPTransactionService.h in Headers */,
 				4492117E246A052300DF6D14 /* JPSectionViewDelegate.h in Headers */,
 				30D61D6D23BB741A004E5CEE /* JPPaymentMethodsInteractor.h in Headers */,
+				30ABAC0324A36503005550E1 /* JudoKit_iOS.h in Headers */,
 				30D61D6423BB741A004E5CEE /* JPPaymentMethodsCardListFooterCell.h in Headers */,
 				30D61D5A23BB741A004E5CEE /* JPPaymentMethodsCardListHeaderCell.h in Headers */,
 				52B4CA47241EF7AA009C28DC /* JPIDEALViewController.h in Headers */,
@@ -2652,7 +2653,6 @@
 				30D61D5723BB741A004E5CEE /* JPPaymentMethodsViewModel.h in Headers */,
 				30221C3223FE6D9200BF2823 /* JPCardCustomizationViewController.h in Headers */,
 				30006FB623F6999C0099F3C5 /* JPScanCardViewController.h in Headers */,
-				300072F423F6AB560099F3C5 /* JudoKit_iOS.h in Headers */,
 				30221C4823FE7D7100BF2823 /* JPCardCustomizable.h in Headers */,
 				300072DB23F6AB560099F3C5 /* JPOrderDetails.h in Headers */,
 				30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */,
