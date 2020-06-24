@@ -1,6 +1,6 @@
 //
 //  JPVCOResult.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2017 Alternative Payments Ltd
 //

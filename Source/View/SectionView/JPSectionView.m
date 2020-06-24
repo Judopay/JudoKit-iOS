@@ -1,6 +1,6 @@
 //
 //  JPScrollableSectionView.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -154,7 +154,7 @@ static const float kSliderCornerRadius = 10.0F;
 
 - (void)moveSliderToIndex:(NSUInteger)index {
 
-    CGFloat xPosition = kContentPadding + index * self.adaptiveSectionWidth;
+    CGFloat xPosition = kContentPadding + (double)index * self.adaptiveSectionWidth;
     CGFloat yPosition = kContentPadding;
     CGFloat width = self.adaptiveSectionWidth - kContentPadding * 2;
     CGFloat height = kSectionHeight - kContentPadding * 2;
@@ -188,11 +188,11 @@ static const float kSliderCornerRadius = 10.0F;
 - (CGFloat)adaptiveSectionWidth {
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
 
-    if (self.sections.count * kSectionWidth > screenWidth) {
+    if ((double)self.sections.count * kSectionWidth > screenWidth) {
         return kSectionWidth;
     }
 
-    return (screenWidth - kBackgroundPadding * 2) / self.sections.count;
+    return (screenWidth - kBackgroundPadding * 2) / (double)self.sections.count;
 }
 
 - (UIImageView *)generateSectionImageViewFromImage:(UIImage *)image {

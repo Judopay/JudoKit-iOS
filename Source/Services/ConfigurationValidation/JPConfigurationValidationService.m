@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -46,7 +46,7 @@
     return error;
 }
 
-- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration {
+- (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration {
 
     JPError *error;
 

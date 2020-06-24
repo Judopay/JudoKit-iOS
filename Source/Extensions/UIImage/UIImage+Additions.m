@@ -1,6 +1,6 @@
 //
 //  UIImage+Additions.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //

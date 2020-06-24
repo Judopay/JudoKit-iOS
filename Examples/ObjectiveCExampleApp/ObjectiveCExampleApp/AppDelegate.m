@@ -40,16 +40,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load settings defaults
     [self registerDefaultsFromSettingsBundle];
-    
+
     // Enable debug inspector
     [CocoaDebug enable];
-    
+
     self.appIsLaunchedFromURL = false;
     NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
     if (applicationOpenURL) {
         self.appIsLaunchedFromURL = true;
     }
-    
+
     return YES;
 }
 
@@ -63,23 +63,23 @@
         [viewController openPBBAScreen:url];
     }
     self.appIsLaunchedFromURL = false;
-    
+
     return true;
 }
 
 - (void)registerDefaultsFromSettingsBundle {
     NSString *settingsBundle = [NSBundle.mainBundle pathForResource:@"Settings" ofType:@"bundle"];
-    
+
     if(!settingsBundle) {
         return;
     }
-    
+
     NSString *stringsPath = [settingsBundle stringByAppendingPathComponent:@"Root.plist"];
     NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:stringsPath];
     NSArray *preferences = settings[@"PreferenceSpecifiers"];
-    
+
     NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
-    
+
     NSDictionary *secretsMapping = @{
         kJudoIdKey: judoId,
         kSiteIdKey: siteId,
@@ -87,20 +87,20 @@
         kSecretKey: secret,
         kMerchantIdKey: merchantId,
     };
-    
+
     for(NSDictionary *preference in preferences) {
         NSString *key = preference[@"Key"];
         if (!key) {
             continue;
         }
-        
+
         if([preference.allKeys containsObject:@"DefaultValue"]) {
             defaultsToRegister[key] = preference[@"DefaultValue"];
         } else if ([secretsMapping.allKeys containsObject:key]) {
             defaultsToRegister[key] = secretsMapping[key];
         }
     }
-    
+
     [NSUserDefaults.standardUserDefaults registerDefaults:defaultsToRegister];
 }
 

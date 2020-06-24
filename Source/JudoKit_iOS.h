@@ -1,6 +1,6 @@
 //
-//  JudoKit-iOS.h
-//  JudoKit-iOS
+//  JudoKit_iOS.h
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -24,10 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for JudoKit-iOS.
+//! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
 
-//! Project version string for JudoKit-iOS.
+//! Project version string for JudoKit_iOS.
 FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 
 #import "JPAddress.h"
@@ -37,7 +37,9 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPBrowser.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
+#import "JPCardExpirationStatus.h"
 #import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPClientDetails.h"
 #import "JPConfiguration.h"
@@ -47,10 +49,12 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPContactInformation.h"
 #import "JPCountry.h"
 #import "JPEnhancedPaymentDetail.h"
+#import "JPError+Additions.h"
 #import "JPError.h"
 #import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPPBBAButton.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPagination.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodType.h"
@@ -64,6 +68,7 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPResponse.h"
 #import "JPSDKInfo.h"
 #import "JPSession.h"
+#import "JPStoredCardDetails.h"
 #import "JPThemable.h"
 #import "JPTheme.h"
 #import "JPThreeDSecure.h"

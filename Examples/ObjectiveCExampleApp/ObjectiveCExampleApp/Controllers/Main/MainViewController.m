@@ -411,7 +411,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
             break;
-            
+
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
             break;

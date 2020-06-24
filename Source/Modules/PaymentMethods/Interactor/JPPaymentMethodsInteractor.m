@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractor.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
 //
@@ -48,6 +48,7 @@
 #import "JPTransactionService.h"
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
+#import "UIApplication+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -217,6 +218,7 @@
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
                     andSecurityCode:(nullable NSString *)securityCode
                       andCompletion:(nullable JPCompletionBlock)completion {
+
     if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
@@ -237,7 +239,17 @@
 #pragma mark - Apple Pay payment
 
 - (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
-    [self.applePayService invokeApplePayWithMode:self.transactionMode completion:completion];
+
+    UIViewController *controller = [self.applePayService applePayViewControllerWithMode:self.transactionMode
+                                                                             completion:completion];
+
+    if (!controller) {
+        return;
+    }
+    
+    [UIApplication.topMostViewController presentViewController:controller
+                                                      animated:YES
+                                                    completion:nil];
 }
 
 #pragma mark - Delete card at index

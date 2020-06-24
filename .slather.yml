@@ -1,6 +1,6 @@
 coverage_service: cobertura_xml
-xcodeproj: ./JudoKit-iOS.xcodeproj
-scheme: JudoKit-iOS
+xcodeproj: ./JudoKit_iOS.xcodeproj
+scheme: JudoKit_iOS
 source_directory: Sources/
 ignore:
   - JudoKit-iOSTests/**/*
@@ -14,9 +14,8 @@ ignore:
   - Source/Modules/**/*Builder.m
   - Source/Modules/**/*Router.m
   - TrustKit/*
-  - JudoKit-iOSTests/*
+  - JudoKit_iOSTests/*
   - Examples/*
-
   - Source/Modules/Transaction/View/Subviews/JPCardInputField.m
   - Source/Modules/Transaction/View/Subviews/JPCardNumberField.m
   - Source/Modules/Transaction/View/Subviews/JPTransactionButton.m

@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationService.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  *
  * @returns an optional instance of JPError containing the validation error details
  */
-- (JPError *)valiadateApplePayConfiguration:(JPConfiguration *)configuration;
+- (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration;
 
 /**
  * A method that validates the PBBA configuration and returns an optional JPError if the configuration fails
