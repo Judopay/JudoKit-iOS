@@ -1,6 +1,6 @@
 //
 //  JPCard.m
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //

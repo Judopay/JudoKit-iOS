@@ -1,6 +1,6 @@
 //
 //  Typedefs.h
-//  JudoKit-iOS
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
