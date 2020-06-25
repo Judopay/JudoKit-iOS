@@ -217,7 +217,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
         [parameters setValue:self.configuration.pbbaConfiguration.emailAddress forKey:@"emailAddress"];
     }
     if (self.configuration.pbbaConfiguration.appearsOnStatement) {
-        [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"appearsOnStatement"];
+        [parameters setValue:self.configuration.pbbaConfiguration.appearsOnStatement forKey:@"appearsOnStatement"];
     }
 
     return parameters;

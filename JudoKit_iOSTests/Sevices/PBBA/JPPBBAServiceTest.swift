@@ -34,6 +34,8 @@ class JPPBBAServiceTest: XCTestCase {
 
     
     override func setUp() {
+        let ppbaConfig = JPPBBAConfiguration(mobileNumber: "9807", emailAddress: "email@email.com", appearsOnStatement: "")
+        configuration.pbbaConfiguration = ppbaConfig
         sut = JPPBBAService(configuration: configuration, transactionService: transactionService)
     }
     
@@ -78,6 +80,7 @@ class JPPBBAServiceTest: XCTestCase {
      * THEN: should return non nill error
      */
     func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
+        self.configuration.pbbaConfiguration?.deeplinkURL = URL(string: "url")
         sut.pollingOrderStatus { (res, error) in
             XCTAssertNotNil(error)
         }

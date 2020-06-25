@@ -24,5 +24,48 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPSessionTest: XCTestCase {
-
+    
+    /*
+     * GIVEN: Creating JPSession designed init
+     *
+     * WHEN: populating with auth_header and not sandbox
+     *
+     * THEN: should create correct fields in JPSession object
+     */
+    func test_JPSession_WhenNotSandBox_ShouldCreateObject() {
+        let session = JPSession(authorizationHeader: "auth_header")
+        XCTAssertEqual(session.authorizationHeader, "auth_header")
+        XCTAssertEqual(session.baseURL, "https://api.judopay.com/")
+        XCTAssertFalse(session.uiClientMode)
+        XCTAssertFalse(session.sandboxed)
+    }
+    
+    /*
+     * GIVEN: Creating JPSession designed init
+     *
+     * WHEN: populating with dictionary and sandbox
+     *
+     * THEN: should create correct fields in JPSession object
+     */
+    func test_JPSession_WhenSandBox_ShouldCreateObject() {
+        let session = JPSession(authorizationHeader: "auth_header")
+        session.sandboxed = true
+        XCTAssertEqual(session.baseURL, "https://api-sandbox.judopay.com/")
+        XCTAssertTrue(session.sandboxed)
+    }
+    
+    /*
+     * GIVEN: Creating JPSession class init
+     *
+     * WHEN: populating with dictionary
+     *
+     * THEN: should create correct fields in JPSession object
+     */
+    func test_JPSession_WhenClassInitAndNotSandBox_ShouldReturnObject() {
+        let session = JPSession.init(authorizationHeader: "auth_header")
+        XCTAssertEqual(session.authorizationHeader, "auth_header")
+        XCTAssertEqual(session.baseURL, "https://api.judopay.com/")
+        XCTAssertFalse(session.uiClientMode)
+        XCTAssertFalse(session.sandboxed)
+    }
 }

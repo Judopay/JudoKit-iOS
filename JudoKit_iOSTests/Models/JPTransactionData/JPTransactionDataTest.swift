@@ -24,4 +24,72 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionDataTest: XCTestCase {
+    
+    let dic = ["receiptId":"receiptId",
+               "type":"Payment",
+               "createdAt":"createdAt",
+               "result":"Success",
+               "message":"message",
+               "redirectUrl":"redirectUrl",
+               "merchantName":"merchantName",
+               "appearsOnStatementAs":"appearsOnStatementAs",
+               "paymentMethod":"paymentMethod",
+               "siteId":"siteId",
+               "merchantPaymentReference":"merchantPaymentReference",
+               "consumer":["consumerReference":"consumerReference",
+                           "consumerToken":"consumerToken"],
+               "orderDetails":["orderId":"orderId",
+                               "orderStatus":"orderStatus",
+                               "orderFailureReason":"orderFailureReason",
+                               "timestamp":"timestamp",
+                               "amount":999],
+               "cardDetails":["cardLastfour":"cardLastfour",
+                              "endDate":"endDate",
+                              "cardToken":"cardToken",
+                              "cardNumber":"cardNumber",
+                              "cardCategory":"cardCategory",
+                              "cardCountry":"cardCountry",
+                              "cardFunding":"cardFunding",
+                              "cardScheme":"cardScheme",
+                              "cardType":0]] as [String : Any]
+    
+    /*
+     * GIVEN: Creating JPTransactionData designed init
+     *
+     * WHEN: populating with dictionary
+     *
+     * THEN: should create correct fields in JPTransactionData object
+     */
+    func test_InitWithDictionary_WhenInitTransactionData_ShouldPopulateRight() {
+        let transactionDataSUT = JPTransactionData(dictionary: dic)
+        transactionDataSUT.receiptId = "receiptId"
+        transactionDataSUT.type = .payment
+        transactionDataSUT.createdAt = "createdAt"
+        transactionDataSUT.result = .success
+        transactionDataSUT.message = "message"
+        transactionDataSUT.redirectUrl = "redirectUrl"
+        
+        transactionDataSUT.cardDetails?.cardToken = "cardToken"
+        transactionDataSUT.cardDetails?.cardLastFour = "cardLastfour"
+        transactionDataSUT.cardDetails?.endDate = "endDate"
+        transactionDataSUT.cardDetails?.cardNumber = "cardNumber"
+        transactionDataSUT.cardDetails?.cardCategory = "cardCategory"
+        transactionDataSUT.cardDetails?.cardCountry = "cardCountry"
+        transactionDataSUT.cardDetails?.cardFunding = "cardFunding"
+        transactionDataSUT.cardDetails?.cardScheme = "cardScheme"
+    }
+    
+    /*
+     * GIVEN: Creating JPTransactionData designed init
+     *
+     * GIVEN: retrieve paymentToken
+     *
+     * THEN: should create correct fields in JPPaymentToken object
+     */
+    func test_PaymentToken_WhenTransactionInites_ShouldReturnJPPaymentToken() {
+        let transactionDataSUT = JPTransactionData(dictionary: dic)
+        let tokenSUT = transactionDataSUT.paymentToken
+        XCTAssertEqual(tokenSUT.cardToken, "cardToken")
+        XCTAssertEqual(tokenSUT.consumerToken, "consumerToken")
+    }
 }
