@@ -256,4 +256,16 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut.selectCard(at: 0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isSelected)
     }
+    
+    /*
+    * GIVEN: object of JPPaymentMethodsInteractor
+    *
+    * WHEN: get bool for should Verify Security Code
+    *
+    * THEN: should return true
+    */
+    func test_shouldVerifySecurityCode() {
+        let shouldVerify = sut.shouldVerifySecurityCode()
+        XCTAssertTrue(shouldVerify)
+    }
 }

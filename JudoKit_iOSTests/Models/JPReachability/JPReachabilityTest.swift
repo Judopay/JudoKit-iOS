@@ -146,5 +146,41 @@ class JPReachabilityTest: XCTestCase {
         let reachability = JPReachability.init(url: URL(string: "https://github.com/"))
         XCTAssertNotNil(reachability)
     }
+    
+    /*
+     * GIVEN: check for isConnectionRequired
+     *
+     * THEN: should be false
+     */
+    func test_isConnectionRequired() {
+        XCTAssertFalse(sut!.isConnectionRequired())
+    }
+    
+    /*
+     * GIVEN: check for connectionRequired
+     *
+     * THEN: should be false
+     */
+    func test_connectionRequired() {
+        XCTAssertFalse(sut!.connectionRequired())
+    }
+    
+    /*
+     * GIVEN: check for isConnectionOnDemand
+     *
+     * THEN: should be false
+     */
+    func test_isConnectionOnDemand() {
+        XCTAssertFalse(sut!.isConnectionOnDemand())
+    }
+    
+    /*
+     * GIVEN: check for isInterventionRequired
+     *
+     * THEN: should be false
+     */
+    func test_isInterventionRequired() {
+        XCTAssertFalse(sut!.isInterventionRequired())
+    }
 }
 

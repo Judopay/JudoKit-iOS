@@ -176,19 +176,6 @@ static NSString *const kRefundPathKey = @"/transactions/refunds";
               completion:completion];
 }
 
-- (void)listWithCompletion:(JPCompletionBlock)completion {
-    [self listWithPagination:nil completion:completion];
-}
-
-- (void)listWithPagination:(JPPagination *)pagination completion:(JPCompletionBlock)completion {
-    NSString *path = self.transactionPath;
-    if (pagination) {
-        path = [path stringByAppendingFormat:@"?pageSize=%li&offset=%li&sort=%@", (long)pagination.pageSize, (long)pagination.offset, pagination.sort];
-    }
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, path];
-    [self.apiSession GET:fullURL parameters:nil completion:completion];
-}
-
 #pragma mark - Helper methods
 
 - (JPError *)validateTransaction {

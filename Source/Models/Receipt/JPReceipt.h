@@ -59,12 +59,4 @@
  */
 - (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
 
-/**
- *  This method will return a list of receipts, See [List all transactions](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/#transactions>) for more information.
- *
- *  @param pagination The offset, number of items and order in which to return the items
- *  @param completion a completion block that is called when the request finishes
- */
-- (void)listWithPagination:(nullable JPPagination *)pagination completion:(nonnull JPCompletionBlock)completion;
-
 @end

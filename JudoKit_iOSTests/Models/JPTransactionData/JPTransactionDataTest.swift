@@ -1,8 +1,6 @@
 //
-//  JPReceipt.m
-//  JudoKit_iOS
-//
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  JPTransactionDataTest.swift
+//  JudoKit_iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,36 +20,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPReceipt.h"
-#import "JPPagination.h"
-#import "JPSession.h"
+import XCTest
+@testable import JudoKit_iOS
 
-@interface JPReceipt ()
-
-@property (nonatomic, strong, readwrite) NSString *receiptId;
-
-@end
-
-@implementation JPReceipt
-
-- (instancetype)initWithReceiptId:(NSString *)receiptId {
-    self = [super init];
-    if (self) {
-        self.receiptId = receiptId;
-    }
-    return self;
+class JPTransactionDataTest: XCTestCase {
 }
-
-- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion {
-
-    NSString *path = @"transactions/";
-
-    if (self.receiptId) {
-        path = [path stringByAppendingString:self.receiptId];
-    }
-
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, path];
-    [self.apiSession GET:fullURL parameters:nil completion:completion];
-}
-
-@end

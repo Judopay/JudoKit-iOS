@@ -260,4 +260,20 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssert(controller.cardsList[1].cardExpirationStatus == .expiresSoon)
         XCTAssert(controller.cardsList[2].cardExpirationStatus == .expired)
     }
+    
+    
+    /*
+     * GIVEN: designed init JPPaymentMethodsPresenterImpl
+     *
+     * WHEN: inkecting config
+     *
+     * THEN: should return non nil JPPaymentMethodsPresenterImpl object
+     */
+    func test_InitWithConfiguration_WhenInitWithConfig_ShouldReturnNonNil() {
+        let configuration = JPConfiguration(judoID: "judoId",
+                                            amount: JPAmount("0.01", currency: "GBR"),
+                                            reference: JPReference(consumerReference: "consumerReference"))
+        let sut = JPPaymentMethodsPresenterImpl(configuration: configuration)
+        XCTAssertNotNil(sut)
+    }
 }

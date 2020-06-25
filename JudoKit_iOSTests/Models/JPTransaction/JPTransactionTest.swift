@@ -41,6 +41,19 @@ class JPTransactionTest: XCTestCase {
     }
     
     /*
+     * GIVEN: Creating JPTransaction with class Init
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct parameters fields
+     */
+    func test_TransactionWithType_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction.init(type: .payment, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.amount?.amount, "989")
+        XCTAssertEqual(transactionSUT.amount?.currency, "USD")
+    }
+    
+    /*
      * GIVEN: Creating card and insert in JPTransaction object
      *
      * WHEN: card fields are valid
@@ -259,5 +272,77 @@ class JPTransactionTest: XCTestCase {
      */
     func test_PaymentToken_WhenPaymentTokenIsNil_ShouldReturnNil() {
         XCTAssertNil(paymentTransactionSUT.paymentToken)
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with payment type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathPayment_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .payment, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with preauth type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathPreAuth_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .preAuth, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with refund type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathRefund_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .refund, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with registerCard type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathRegisterCard_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .registerCard, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with checkCard type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathCheckCard_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .checkCard, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransaction with saveCard type
+     *
+     * WHEN: insert receiptId and amount
+     *
+     * THEN: should create correct params
+     */
+    func test_TransactionPathSaveCard_WhenSetupAmountAndEReciep_ShouldPopulateParameters() {
+        let transactionSUT = JPTransaction(type: .saveCard, receiptId: "recieptId", amount: amount)
+        XCTAssertEqual(transactionSUT.getParameters()["amount"] as! String, "989")
     }
 }
