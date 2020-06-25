@@ -1,6 +1,6 @@
 //
 //  JPErrorAdditionsTests.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -127,6 +127,7 @@ class JPErrorAdditionsTests: XCTestCase {
         let error = JPError.judo3DSRequestFailedError(withUnderlyingError: testError)
         let errorWithUnderlyingError = Int(JudoError(rawValue: 11)!.rawValue)
         XCTAssertEqual(error.code, errorWithUnderlyingError)
+        XCTAssertEqual(error.userInfo.count, 4)
     }
     
     /*
@@ -356,5 +357,56 @@ class JPErrorAdditionsTests: XCTestCase {
     func test_judoSiteIDMissingError() {
         let error = JPError.judoSiteIDMissingError()
         XCTAssertEqual(error.localizedDescription, "Site ID is missing")
+    }
+    
+    /*
+     * GIVEN: when initialize JPError judoInvalidPBBACurrency
+     *
+     * WHEN: it is populated error fields
+     *
+     * THEN: should return right localizedDescription
+     */
+    func test_judoInvalidPBBACurrency() {
+        let error = JPError.judoInvalidPBBACurrency()
+        XCTAssertEqual(error.localizedDescription, "Cannot make PBBA transactions with currencies different than GBP")
+    }
+    
+    /*
+     * GIVEN: when initialize JPError judoPBBAURLSchemeMissing
+     *
+     * WHEN: it is populated error fields
+     *
+     * THEN: should return right localizedDescription
+     */
+    func test_judoPBBAURLSchemeMissing() {
+        let error = JPError.judoPBBAURLSchemeMissing()
+        XCTAssertEqual(error.localizedDescription, "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps")
+    }
+    
+    
+    /*
+     * GIVEN: when initialize JPError judoPaymentMethodMissingError
+     *
+     * WHEN: it is populated error fields
+     *
+     * THEN: should return right localizedDescription
+     */
+    func test_judoPaymentMethodMissingError() {
+        let error = JPError.judoPaymentMethodMissingError()
+        XCTAssertEqual(error.localizedDescription, "Sorry, we're currently unable to process this request.")
+    }
+    
+    /*
+     * GIVEN: when initialize JPError (3DS Request Failed type)
+     *
+     * WHEN: it is populated with all fields automatically with nil error
+     *
+     * THEN: should return right error.code, rawVaule 11 (UnderlyingError)
+     */
+    func test_judo3DSRequestFailedErrorWithoutUnderlyingError() {
+        let error = JPError.judo3DSRequestFailedError(withUnderlyingError: nil)
+        let errorWithUnderlyingError = Int(JudoError(rawValue: 11)!.rawValue)
+        XCTAssertEqual(error.code, errorWithUnderlyingError)
+        XCTAssertEqual(error.userInfo.count, 3)
     }
 }

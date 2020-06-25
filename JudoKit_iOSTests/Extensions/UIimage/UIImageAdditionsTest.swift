@@ -1,6 +1,6 @@
 //
 //  UIImageAdditionsTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -41,6 +41,91 @@ class UIImageAdditionsTest: XCTestCase {
     }
     
     /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .visa type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .visa)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .AMEX type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .AMEX)
+        XCTAssertNotNil(image)
+    }
+    
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .dinersClub type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .dinersClub)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .JCB type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .JCB)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .maestro type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .maestro)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .masterCard type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .masterCard)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition
+     *
+     * WHEN: trying to get headerImage for: .chinaUnionPay type
+     *
+     * THEN: shoould return non nil image
+     */
+    func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNill() {
+        let image = UIImage.headerImage(for: .chinaUnionPay)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
      * GIVEN: UIImage addition init
      *
      * WHEN: trying to get image for string name
@@ -51,6 +136,7 @@ class UIImageAdditionsTest: XCTestCase {
         let image = UIImage.init(iconName: "lock-icon")
         XCTAssertNotNil(image)
     }
+    
     
     /*
      * GIVEN: UIImage addition init with card type

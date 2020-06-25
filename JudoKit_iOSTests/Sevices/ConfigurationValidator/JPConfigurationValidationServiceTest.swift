@@ -1,6 +1,6 @@
 //
 //  JPConfigurationValidationServiceTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -118,7 +118,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     /*
      * GIVEN: Validate configuration for payment
      *
-     * WHEN: judoID is valid ("123456")
+     * WHEN: judoID is valid ("12345")
      *
      * THEN: should not return error
      */

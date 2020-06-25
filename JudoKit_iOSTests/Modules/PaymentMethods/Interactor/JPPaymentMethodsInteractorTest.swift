@@ -1,6 +1,6 @@
 //
 //  JPPaymentMethodsInteractorTest.swift
-//  JudoKit_iOSTests
+//  JudoKit-iOSTests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -86,7 +86,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let index = sut.indexOfPBBAMethod()
         XCTAssertEqual(index, NSNotFound)
     }
-
+    
     /*
      * GIVEN: remove all cards from store
      *
@@ -159,5 +159,101 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut.orderCards()
         let cards = sut.getStoredCardDetails()
         XCTAssertTrue((cards[0] as JPStoredCardDetails).isDefault)
+    }
+    
+    /*
+     * GIVEN: remove all cards from store
+     *
+     * WHEN: checking all cards
+     *
+     * THEN: should be empty list of cards
+     */
+    func test_DeleteCardWithIndex_WhenRemoving_ShouldCountCardsRight() {
+        let initialCount = JPCardStorage.sharedInstance()?.fetchStoredCardDetails().count
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        JPCardStorage.sharedInstance()?.add(card)
+        sut.deleteCard(with: 0)
+        let countAfterRemoving = JPCardStorage.sharedInstance()?.fetchStoredCardDetails().count
+        
+        XCTAssertEqual(initialCount, countAfterRemoving)
+    }
+    
+    /*
+     * GIVEN: check for apple pay
+     *
+     * WHEN: testing on simulator
+     *
+     * THEN: should return false
+     */
+    func test_IsApplePaySetUp_WhenSimulator_ShouldReturnFalse() {
+        XCTAssertFalse(sut.isApplePaySetUp())
+    }
+    
+    /*
+     * GIVEN: Add a card
+     *
+     * WHEN: set last card selected
+     *
+     * THEN: should return true for isLastUsed
+     */
+    func test_SetLastUsedCardAtIndex_WhenAddingCard_SetLastUsed() {
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        JPCardStorage.sharedInstance()?.add(card)
+        sut.setLastUsedCardAt(0)
+        XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isLastUsed)
+    }
+    
+    /*
+     * GIVEN: Get a list of ideal banks
+     *
+     * WHEN: there are stored in interactor
+     *
+     * THEN: should return 12 banks
+     */
+    func test_GetIDEALBankTypes_WhenGettingBanks_ShouldReturnRightNumber() {
+        let array = sut.getIDEALBankTypes()
+        XCTAssertEqual(array.count, 12)
+    }
+    
+    /*
+     * GIVEN: Set default card
+     *
+     * WHEN: adding card to JPCardStorage
+     *
+     * THEN: should return isDefault true
+     */
+    func test_SetCardAsDefaultAtIndex_WhenAddingCard_ShouldSaveIsDefault() {
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        JPCardStorage.sharedInstance()?.add(card)
+        sut.setCardAsDefaultAt(0)
+        XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isDefault)
+    }
+    
+    /*
+     * GIVEN: Set card as selected
+     *
+     * WHEN: adding card to JPCardStorage
+     *
+     * THEN: should isSelected true
+     */
+    func test_SetCardAsSelectedAtIndex_WhenAddingCard_ShouldSaveisSelected() {
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        JPCardStorage.sharedInstance()?.add(card)
+        sut.setCardAsSelectedAt(0)
+        XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isSelected)
+    }
+    
+    /*
+     * GIVEN: Selected card at index
+     *
+     * WHEN: adding card to JPCardStorage
+     *
+     * THEN: should isSelected true
+     */
+    func test_SelectCardAtIndex() {
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        JPCardStorage.sharedInstance()?.add(card)
+        sut.selectCard(at: 0)
+        XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isSelected)
     }
 }
