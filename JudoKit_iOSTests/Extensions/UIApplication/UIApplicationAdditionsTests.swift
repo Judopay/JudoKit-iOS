@@ -30,7 +30,7 @@ class UIApplicationAdditionsTests: XCTestCase {
     /*
     * GIVEN: UIApplication addition
     *
-    * THEN: shoould return right current UIApplication state
+    * THEN: should return right current UIApplication state
     */
     
     func test_isUserInterfaceStyleDark() {

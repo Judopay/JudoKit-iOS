@@ -69,7 +69,7 @@ class NSStringAdditionsTests: XCTestCase {
     /*
      * GIVEN: A string is a key from localization
      *
-     * THEN: shoould return value(localication) for current string
+     * THEN: should return value(localication) for current string
      */
     func test_Localized_WhenKeyFromTranslate_ShouldReturnTranslatedString() {
         let keyForTranslate = "postal_code"

@@ -32,7 +32,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: transform color in image
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_AsImage_WhenInitAColor_ShouldReturnNonNillImage() {
         let color = UIColor.black
@@ -45,7 +45,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with native qhite color
+     * THEN: should be equal with native qhite color
      */
     func test_ColorFromHex_WhenInitColor_ShouldReturnRightColor() {
         let sut = UIColor.init(fromHex: 0xFFFFFF)
@@ -58,7 +58,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: inversing black color
      *
-     * THEN: returned color shoould be equal with native white color
+     * THEN: returned color should be equal with native white color
      */
     func test_InverseColor_WhenBlack_ShouldReverseToWhite() {
         let color = UIColor.black
@@ -71,7 +71,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpBlackColor_WhenInit_ShouldReturnRightColor() {
         let jpBlackColor = UIColor.init(fromHex: 0x262626)
@@ -84,7 +84,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpDarkGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpDarkGrayColor = UIColor.init(fromHex: 0x999999)
@@ -97,7 +97,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpGrayColor = UIColor.init(fromHex: 0xE5E5E5)
@@ -110,7 +110,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpLightGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpLightGrayColor = UIColor.init(fromHex: 0xF6F6F6)
@@ -123,7 +123,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpRedColor_WhenInit_ShouldReturnRightColor() {
         let jpRedColor = UIColor.init(fromHex: 0xE21900)
@@ -136,7 +136,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: shoould be equal with initial hex from additions
+     * THEN: should be equal with initial hex from additions
      */
     func test_JpWhiteColor_WhenInit_ShouldReturnRightColor() {
         let jpWhiteColor = UIColor.init(fromHex: 0xFFFFFF)

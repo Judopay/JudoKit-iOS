@@ -33,7 +33,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .discover type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .discover)
@@ -45,7 +45,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .visa type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .visa)
@@ -57,7 +57,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .AMEX type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .AMEX)
@@ -70,7 +70,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .dinersClub type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .dinersClub)
@@ -82,7 +82,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .JCB type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .JCB)
@@ -94,7 +94,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .maestro type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .maestro)
@@ -106,7 +106,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .masterCard type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .masterCard)
@@ -118,7 +118,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .chinaUnionPay type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNill() {
         let image = UIImage.headerImage(for: .chinaUnionPay)
@@ -130,7 +130,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for string name
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNill() {
         let image = UIImage.init(iconName: "lock-icon")
@@ -143,7 +143,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for card
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
     func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNill() {
         let image = UIImage.init(for: .discover)
