@@ -47,7 +47,6 @@ class JPTransactionEnricherTest: XCTestCase {
         XCTAssertNotNil(enricher)
     }
     
-    
     /*
      * GIVEN: JPTransactionEnricher object
      *
@@ -68,5 +67,4 @@ class JPTransactionEnricherTest: XCTestCase {
         enrich.enrichTransaction(transaction, withCompletion: completion)
         waitForExpectations(timeout: 1, handler: nil)
     }
-    
 }

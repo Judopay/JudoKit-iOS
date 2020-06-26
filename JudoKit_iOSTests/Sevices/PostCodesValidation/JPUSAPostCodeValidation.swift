@@ -33,6 +33,7 @@ class JPUSAPostCodeValidation: XCTestCase {
                                         reference: JPReference(consumerReference: "consumerReference"))
     
     override func setUp() {
+        super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         validationService.validateCountryInput("USA")
         sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)

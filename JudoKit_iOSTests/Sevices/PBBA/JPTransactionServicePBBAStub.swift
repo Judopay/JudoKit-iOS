@@ -1,6 +1,8 @@
 //
-//  JPReceiptTest.swift
+//  JPTransactionServicePBBAStub.swift
 //  JudoKit_iOSTests
+//
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,16 +25,19 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPReceiptTest: XCTestCase {
-    /*
-     * GIVEN: Creating JPReceipt designed init
-     *
-     * WHEN: all fields are valid
-     *
-     * THEN: should create correct fields in JPReceipt object
-     */
-    func test_InitWithReceiptId_WhenDesignedInit_ShouldCreateObject() {
-        let sut = JPReceipt(receiptId: "receiptId")
-        XCTAssertEqual(sut.receiptId, "receiptId")
+class JPTransactionServicePBBAStub: JPTransactionService {
+    override init() {
+        super.init(token: "TOKEN", andSecret: "SECRET")
+        saveStubs()
+    }
+    
+    func saveStubs() {
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        stub(condition: isPath("/order/bank/statusrequest/3333")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessStatusPBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
     }
 }

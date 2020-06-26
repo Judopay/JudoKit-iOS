@@ -42,16 +42,4 @@
     return self;
 }
 
-- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion {
-
-    NSString *path = @"transactions/";
-
-    if (self.receiptId) {
-        path = [path stringByAppendingString:self.receiptId];
-    }
-
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@", self.apiSession.baseURL, path];
-    [self.apiSession GET:fullURL parameters:nil completion:completion];
-}
-
 @end

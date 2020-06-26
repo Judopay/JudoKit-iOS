@@ -37,6 +37,7 @@ class JP3DSServiceTest: XCTestCase {
     var transaction: JPTransaction!
     
     override func setUp() {
+        super.setUp()
         transaction = transactionService.transaction(with: transactionConfigurations)
     }
     

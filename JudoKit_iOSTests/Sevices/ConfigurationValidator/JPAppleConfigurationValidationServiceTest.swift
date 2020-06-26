@@ -43,6 +43,7 @@ class JPAppleConfigurationValidationServiceTest: XCTestCase {
     }
     
     override func setUp() {
+        super.setUp()
         configValidation = JPConfigurationValidationServiceImp()
         amount = JPAmount("fv", currency: "GBR")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)

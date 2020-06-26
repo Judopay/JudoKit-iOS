@@ -39,11 +39,6 @@
 @property (nonatomic, strong, readonly) NSString *_Nullable receiptId;
 
 /**
- *  The current Session to access the Judo API
- */
-@property (nonatomic, strong) JPSession *_Nullable apiSession;
-
-/**
  *  Initialization for a Receipt Object, in case you want to use this function, you need to enable it in your judo Dashboard
  *
  *  @param receiptId the receipt ID as a String - if nil, completion function will return a list of all transactions
@@ -51,12 +46,5 @@
  *  @return a Receipt Object for reactive usage
  */
 - (nonnull instancetype)initWithReceiptId:(nullable NSString *)receiptId;
-
-/**
- *  Completion caller - this method will automatically trigger a Session Call to the judo REST API and execute the request based on the information that were set in the previous methods.
- *
- *  @param completion a completion block that is called when the request finishes
- */
-- (void)sendWithCompletion:(nonnull JPCompletionBlock)completion;
 
 @end
