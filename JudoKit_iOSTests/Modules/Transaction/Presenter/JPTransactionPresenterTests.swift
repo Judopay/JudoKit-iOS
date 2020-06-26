@@ -71,6 +71,66 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: type is card card Expiry Date
+     *
+     * THEN: should fill expiry Date ViewModel
+     */
+    func test_handleInputChange_WhenTypeIsCardExpiryDate_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("10/20", for: .cardExpiryDate)
+        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.text, "10/20")
+    }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: type is secure
+     *
+     * THEN: should fill card secure Code ViewModel
+     */
+    func test_handleInputChange_WhenTypeIsSecure_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("123", for: .cardSecureCode)
+        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.text, "123")
+    }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: type is card holder Name
+     *
+     * THEN: should fill card holder Name ViewModel
+     */
+    func test_handleInputChange_WhenTypeIsCardholderName_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("name", for: .cardholderName)
+        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.text, "name")
+    }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: type is card Country
+     *
+     * THEN: should fill country Picker ViewModel
+     */
+    func test_handleInputChange_WhenTypeIsCardCountry_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("UK", for: .cardCountry)
+        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.text, "UK")
+    }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: type is card Postal Code
+     *
+     * THEN: should fill postal Code Input ViewModel
+     */
+    func test_handleInputChange_WhenTypeIsCardPostalCode_ShouldUpdateViewModelWithCardNumber() {
+        sut.handleInputChange("1001", for: .cardPostalCode)
+        XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.text, "1001")
+    }
+    
+    /*
      * GIVEN: User taps on transaction
      *
      * WHEN: card model is valid
@@ -103,12 +163,12 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
-    * GIVEN: Send scan result to view
-    *
-    * WHEN: scan result is populated with fields
-    *
-    * THEN: should recieve same field in View
-    */
+     * GIVEN: Send scan result to view
+     *
+     * WHEN: scan result is populated with fields
+     *
+     * THEN: should recieve same field in View
+     */
     func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
         let scanResult = PayCardsRecognizerResult()
         scanResult.recognizedNumber = "4445"

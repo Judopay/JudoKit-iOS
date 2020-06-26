@@ -148,6 +148,16 @@ class JPReachabilityTest: XCTestCase {
     }
     
     /*
+     * GIVEN: init JPReachability with class init with url
+     *
+     * THEN: reachability opbject should be not nil
+     */
+    func test_reachabilityWithURL_WhenIp_ShouldReturnNoNilOnkect() {
+        let reachability = JPReachability.init(url: URL(string: "http://192.168.100.1/"))
+        XCTAssertNotNil(reachability)
+    }
+    
+    /*
      * GIVEN: check for isConnectionRequired
      *
      * THEN: should be false
