@@ -270,6 +270,18 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
+     * GIVEN: when initialize JPError (Input Mismatch type with no message)
+     *
+     * WHEN: it is populated with all fields automatically and custom message: "Test error"
+     *
+     * THEN: should return right localizedDescription: Test error
+     */
+    func test_judoInputMismatchErrorWithNoMessage() {
+        let error = JPError.judoInputMismatchError(withMessage: nil)
+        XCTAssertEqual(error.localizedDescription, "The operation couldn’t be completed. (com.judo.error error 12.)")
+    }
+    
+    /*
      * GIVEN: when initialize JPError from JPTransactionData
      *
      * WHEN: it is populated with custom dictionary in raw data

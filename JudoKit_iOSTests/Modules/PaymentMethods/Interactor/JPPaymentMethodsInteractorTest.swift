@@ -258,14 +258,35 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
     
     /*
-    * GIVEN: object of JPPaymentMethodsInteractor
-    *
-    * WHEN: get bool for should Verify Security Code
-    *
-    * THEN: should return true
-    */
+     * GIVEN: object of JPPaymentMethodsInteractor
+     *
+     * WHEN: get bool for should Verify Security Code
+     *
+     * THEN: should return true
+     */
     func test_shouldVerifySecurityCode() {
         let shouldVerify = sut.shouldVerifySecurityCode()
         XCTAssertTrue(shouldVerify)
+    }
+    
+    /*
+     * GIVEN: User is calling payment type with payment mode
+     *
+     * THEN: should call and return not nil response
+     */
+    func test_paymentTransaction_WhenPayment_ShouldCall() {
+        let service = JPTransactionServiceStub()
+        let sut = JPPaymentMethodsInteractorImpl(mode: .payment, configuration: configuration, transactionService: service, completion: nil)
+        sut.paymentTransaction(withToken: "token", andSecurityCode: "secure", andCompletion:nil)
+    }
+    
+    /*
+     * GIVEN: User add error
+     *
+     * THEN: should save error in local
+     */
+    func test_storeError() {
+        let error = NSError(domain: "Domain", code: 404, userInfo: nil)
+        sut.storeError(error)
     }
 }

@@ -25,7 +25,8 @@ import XCTest
 
 class JPTransactionDataTest: XCTestCase {
     
-    let dic = ["receiptId":"receiptId",
+    var dic = ["receiptId":"receiptId",
+               "orderId": "orderId",
                "type":"Payment",
                "createdAt":"createdAt",
                "result":"Success",
@@ -91,5 +92,18 @@ class JPTransactionDataTest: XCTestCase {
         let tokenSUT = transactionDataSUT.paymentToken
         XCTAssertEqual(tokenSUT.cardToken, "cardToken")
         XCTAssertEqual(tokenSUT.consumerToken, "consumerToken")
+    }
+    
+    /*
+     * GIVEN: Creating JPTransactionData Declined
+     *
+     * GIVEN: retrieve result
+     *
+     * THEN: should create correct fields Declined
+     */
+    func test_PaymentToken_WhenTransactionDeclined_ShouldReturnDeclinedType() {
+        dic["result"] = "Declined"
+        let transactionDataSUT = JPTransactionData(dictionary: dic)
+        XCTAssertEqual(transactionDataSUT.result, .declined)
     }
 }
