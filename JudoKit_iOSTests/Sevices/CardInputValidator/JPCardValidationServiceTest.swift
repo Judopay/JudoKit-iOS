@@ -249,4 +249,56 @@ class JPCardValidationServiceTest: XCTestCase {
         let result = sut.validatePostalCodeInput("123457890")
         XCTAssertFalse(result!.isInputAllowed)
     }
+    
+    /*
+     * GIVEN: validate postal code
+     *
+     * WHEN: inserted invalid post code for Unknown
+     *
+     * THEN: should return Input Not Allowed and result not valid
+     */
+    func test_ValidatePostalCodeInput_WhenInValidCodeForUnknown_ShouldReturnInputNotAllowed() {
+        _ = sut.validateCountryInput("Unknown")
+        let result = sut.validatePostalCodeInput("123457890")
+        XCTAssertFalse(result!.isInputAllowed)
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    /*
+     * GIVEN: validate Expiry Date
+     *
+     * WHEN: more then 5 characthers
+     *
+     * THEN: should return isInputAllowed = false
+     */
+    func test_ValidateExpiryDateInput_WhenDateIsMoreCharacters_ShouldReturnInValidEResult() {
+        let result = sut.validateExpiryDateInput("12/063")
+        XCTAssertFalse(result!.isInputAllowed)
+    }
+    
+    /*
+     * GIVEN: validate Expiry Date
+     *
+     * WHEN: Date is expired, current year
+     *
+     * THEN: should return invalid result
+     */
+    func test_ValidateExpiryDateInput_WhenCurrentYear_ShouldReturnInValidEResult() {
+        let result = sut.validateExpiryDateInput("01/20")
+        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertFalse(result!.isValid)
+    }
+    
+    /*
+     * GIVEN: validate expiry date
+     *
+     * WHEN: there is 2 characters total, after user input more then 2 characters
+     *
+     * THEN: should return that input is allowed
+     */
+    func test_ValidateExpiryDateInput_When2CharactersAfterInput_ShouldReturnInputAllowed() {
+        _ = sut.validateExpiryDateInput("12/20")
+        let result = sut.validateExpiryDateInput("12")
+        XCTAssertTrue(result!.isInputAllowed)
+    }
 }

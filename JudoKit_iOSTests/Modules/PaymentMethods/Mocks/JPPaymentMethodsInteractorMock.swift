@@ -30,17 +30,18 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var transactionCompleteError: Error?
     var cardSelected = false
     var startApplePay = false
+    var startPolling = false
     
     func shouldVerifySecurityCode() -> Bool {
         return false
     }
     
     func pollingPBBA(completion: JPCompletionBlock? = nil) {
-        
+        startPolling = true
     }
     
     func indexOfPBBAMethod() -> Int {
-        return -1
+        return 1
     }
     
     func openPBBA(completion: JPCompletionBlock? = nil) {

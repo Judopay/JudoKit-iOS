@@ -37,8 +37,9 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
         viewModelSut = viewModel
     }
     
+    var error: Error! = nil
     func updateWithError(_ error: Error) {
-        
+        self.error = error
     }
     
     func didFinishAddingCard() {
