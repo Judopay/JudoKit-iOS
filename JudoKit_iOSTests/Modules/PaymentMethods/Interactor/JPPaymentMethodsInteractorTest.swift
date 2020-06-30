@@ -32,6 +32,10 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
+        configuration.paymentMethods = [JPPaymentMethod(paymentMethodType: .applePay),
+                                        JPPaymentMethod(paymentMethodType: .pbba),
+                                        JPPaymentMethod(paymentMethodType: .card),
+                                        JPPaymentMethod(paymentMethodType: .iDeal)]
         let service = JPTransactionServiceStub()
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
     }
@@ -288,5 +292,43 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     func test_storeError() {
         let error = NSError(domain: "Domain", code: 404, userInfo: nil)
         sut.storeError(error)
+    }
+    
+    /*
+    * GIVEN: object of JPPaymentMethodsInteractor
+    *
+    * WHEN: initialize with completion
+    *
+    * THEN: should return error and response in completion
+    */
+    func test_completeTransactionWithResponse() {
+        let error = NSError(domain: "Domain", code: 404, userInfo: nil)
+        let response = JPResponse()
+        
+        let completion: JPCompletionBlock = { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(error)
+        }
+        let service = JPTransactionServiceStub()
+        let sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: completion)
+        
+        sut.completeTransaction(with: response, andError: error)
+    }
+    
+    
+    /*
+    * GIVEN: object of JPPaymentMethodsInteractor
+    *
+    * WHEN: open PBBA on simulator
+    *
+    * THEN: should return error and nil response in completion
+    */
+    func test_pbbaService() {
+        let completion: JPCompletionBlock = { (response, error) in
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+        }
+        
+        sut.openPBBA(completion: completion)
     }
 }

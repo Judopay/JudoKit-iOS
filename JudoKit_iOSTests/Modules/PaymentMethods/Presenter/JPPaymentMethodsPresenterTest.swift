@@ -134,6 +134,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.changePaymentMethod(to: 1) // select ideal payment method, seted up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(router.navigatedToIdealPay)
+        XCTAssertTrue(router.dismissController)
     }
     
     /*
@@ -155,6 +156,9 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should be caled startApplePay method from router
      */
     func test_HandleApplePayButtonTap() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        firstStoredCard?.isSelected = true
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.handleApplePayButtonTap()
         XCTAssertTrue(interactor.startApplePay)
     }
@@ -169,7 +173,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     func test_DeleteCardWithIndex_WhenRemoveCard_ShouldUseFirstCard() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
-        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        JPCardStorage.sharedInstance()?.setCardAsSelectedAt(0)
         sut.viewModelNeedsUpdate()
         sut.deleteCard(with: 1)
         let cardFromUI = controller.cardsList.first!
@@ -295,5 +299,21 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.interactor = interactor
         sut.viewModelNeedsUpdate()
         XCTAssertTrue(interactor.startPolling)
+    }
+    
+    /*
+     * GIVEN: updating view with card list
+     *
+     * WHEN: inserted 2 cards in store, last one selected
+     *
+     * THEN: router should call navigateToTransactionModule
+     */
+    func test_ViewModelNeedsUpdate_WhenHandlePayButtonTap_ShouldNavigateToTransaction() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+        interactor.shouldVerify = true
+        sut.setLastAddedCardAsSelected()
+        sut.handlePayButtonTap()
+        XCTAssertTrue(router.navigateToTransactionModule)
     }
 }

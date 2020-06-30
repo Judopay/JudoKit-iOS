@@ -31,9 +31,10 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var cardSelected = false
     var startApplePay = false
     var startPolling = false
+    var shouldVerify = false
     
     func shouldVerifySecurityCode() -> Bool {
-        return false
+        return shouldVerify
     }
     
     func pollingPBBA(completion: JPCompletionBlock? = nil) {
@@ -74,6 +75,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
     func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
+        let error = JPError.judoDuplicateTransactionError()
+        completion?(nil, error)
     }
     
     func orederCards() {
