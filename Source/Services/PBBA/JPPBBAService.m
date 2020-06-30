@@ -84,7 +84,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
         return;
     }
 
-    __weak typeof(self) weakSelf = self;
     [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
                                           httpMethod:JPHTTPMethodPOST
                                           parameters:parameters
@@ -92,7 +91,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                               JPTransactionData *data = response.items.firstObject;
 
                                               if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  [weakSelf handlePBBAResponse:response completion:completion];
+                                                  [self handlePBBAResponse:response completion:completion];
                                                   return;
                                               }
 
@@ -122,11 +121,10 @@ static const int kNSPOSIXErrorDomainCode = 53;
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                              completion:(JPCompletionBlock)completion {
 
-    __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
                                                    block:^(__unused NSTimer *_Nonnull timer) {
-                                                       [weakSelf getStatusForOrderId:orderId completion:completion];
+                                                       [self getStatusForOrderId:orderId completion:completion];
                                                    }];
 }
 
