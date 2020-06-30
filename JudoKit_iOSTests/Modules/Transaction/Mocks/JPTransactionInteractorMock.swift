@@ -39,8 +39,10 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     var trasactionSent = false
     var completeTransaction = false
     var handle3DS = false
+    
+    var mode: JPCardDetailsMode = .default
     func cardDetailsMode() -> JPCardDetailsMode {
-        return .default
+        return mode
     }
     
     func cardNetworkType() -> JPCardNetworkType {

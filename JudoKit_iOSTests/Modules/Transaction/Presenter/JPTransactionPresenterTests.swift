@@ -276,4 +276,30 @@ class JPTransactionPresenterTests: XCTestCase {
         sut.prepareInitialViewModel()
         XCTAssertNil(controller.viewModelSut.addCardButtonViewModel.title)
     }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: securityCode is currect mode, invalid input
+     *
+     * THEN: should return faslse isEnabled
+     */
+    func test_handleInputChange_WhenTypeSecurityCode_ShouldEnableAddCard() {
+        interactor.mode = .securityCode
+        sut.handleInputChange("4444", for: .cardNumber)
+        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
+    
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: AVS is currect mode, invalid input
+     *
+     * THEN: should return faslse isEnabled
+     */
+    func test_handleInputChange_WhenAVSMode_ShouldEnableAddCard() {
+        interactor.mode = .AVS
+        sut.handleInputChange("4444", for: .cardNumber)
+        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
 }
