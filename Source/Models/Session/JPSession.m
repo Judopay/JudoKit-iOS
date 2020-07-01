@@ -251,8 +251,13 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                              }
 
                              dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (result.items.count == 1 && responseJSON[@"result"] != nil && result.items.firstObject.result != JPTransactionResultSuccess) {
-                                     completion(nil, [JPError judoErrorFromTransactionData:result.items.firstObject]);
+                                 if (result.items.count == 1 && responseJSON[@"result"] != nil) {
+                                     if (result.items.firstObject.result == JPTransactionResultError) {
+                                         completion(nil, [JPError judoErrorFromTransactionData:result.items.firstObject]);
+                                     }
+                                     if (result.items.firstObject.result == JPTransactionResultDeclined) {
+                                         completion(nil, [JPError judoErrorForDeclinedCard]);
+                                     }
                                  } else {
                                      completion(result, nil);
                                  }
