@@ -207,8 +207,8 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
     return [JPError errorWithDomain:JudoErrorDomain
                                code:JudoErrorTransactionDeclined
                            userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
-                                                         failureReason:nil
-                                                                 title:UnableToProcessRequestErrorTitle.localized]];
+                                                        failureReason:nil
+                                                                title:UnableToProcessRequestErrorTitle.localized]];
 }
 
 + (JPError *)judoErrorFromDictionary:(NSDictionary *)dict {
