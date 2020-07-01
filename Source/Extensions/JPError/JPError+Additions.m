@@ -203,6 +203,14 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                            userInfo:data.rawData];
 }
 
++ (JPError *)judoErrorForDeclinedCard {
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorTransactionDeclined
+                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
+                                                        failureReason:nil
+                                                                title:UnableToProcessRequestErrorTitle.localized]];
+}
+
 + (JPError *)judoErrorFromDictionary:(NSDictionary *)dict {
     NSString *messageFromDict = dict[@"message"];
     NSString *errorMessage = messageFromDict == nil ? UnableToProcessRequestErrorDesc.localized : messageFromDict;
