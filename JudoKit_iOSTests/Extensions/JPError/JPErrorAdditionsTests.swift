@@ -395,7 +395,6 @@ class JPErrorAdditionsTests: XCTestCase {
         XCTAssertEqual(error.localizedDescription, "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps")
     }
     
-    
     /*
      * GIVEN: when initialize JPError judoPaymentMethodMissingError
      *

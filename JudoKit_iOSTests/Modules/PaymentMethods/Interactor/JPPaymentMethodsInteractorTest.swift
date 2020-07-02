@@ -314,8 +314,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         
         sut.completeTransaction(with: response, andError: error)
     }
-    
-    
+
     /*
     * GIVEN: object of JPPaymentMethodsInteractor
     *

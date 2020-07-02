@@ -100,7 +100,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         return cards as! [JPStoredCardDetails]
     }
     
-    
     func getAmount() -> JPAmount {
         let amount = JPAmount("1.0", currency: "EUR");
         return amount

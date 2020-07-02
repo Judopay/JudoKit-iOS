@@ -265,7 +265,6 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssert(controller.cardsList[2].cardExpirationStatus == .expired)
     }
     
-    
     /*
      * GIVEN: designed init JPPaymentMethodsPresenterImpl
      *

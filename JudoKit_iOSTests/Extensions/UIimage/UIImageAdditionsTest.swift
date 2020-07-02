@@ -64,7 +64,6 @@ class UIImageAdditionsTest: XCTestCase {
         XCTAssertNotNil(image)
     }
     
-    
     /*
      * GIVEN: UIImage addition
      *
@@ -136,7 +135,6 @@ class UIImageAdditionsTest: XCTestCase {
         let image = UIImage.init(iconName: "lock-icon")
         XCTAssertNotNil(image)
     }
-    
     
     /*
      * GIVEN: UIImage addition init with card type

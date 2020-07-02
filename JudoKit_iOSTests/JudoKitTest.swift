@@ -34,7 +34,6 @@ class JudoKitTest: XCTestCase {
                  JPPaymentSummaryItem(label: "item 2", amount: 0.02),
                  JPPaymentSummaryItem(label: "Judo Pay", amount: 0.03)]
     
-    
     override func setUp() {
         super.setUp()
         pbbaconfig.deeplinkURL = URL(string: "link")

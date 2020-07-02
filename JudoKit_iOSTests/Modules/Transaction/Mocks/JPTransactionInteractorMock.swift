@@ -141,7 +141,6 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         }
     }
     
-    
     var dic = ["receiptId":"receiptId",
                "orderId": "orderId",
                "type":"Payment",

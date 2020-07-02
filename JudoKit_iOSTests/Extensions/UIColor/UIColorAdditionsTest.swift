@@ -144,7 +144,6 @@ class UIColorAdditionsTest: XCTestCase {
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpWhiteColor))
     }
     
-    
     //MARK: method that helps comparing colors.
     func compareColors(c1:UIColor, c2:UIColor) -> Bool{
         var red:CGFloat = 0

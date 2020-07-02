@@ -62,5 +62,4 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
         
     }
     
-    
 }
