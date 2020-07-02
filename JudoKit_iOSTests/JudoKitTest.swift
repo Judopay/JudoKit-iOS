@@ -199,7 +199,7 @@ class JudoKitTest: XCTestCase {
      *
      * WHEN: all fields are valid
      *
-     * THEN: should return transaction object
+     * THEN: should return transaction object with same fields from config object
      */
     func test_transactionWithType_WhenPaymentType_ShouldReturnRightObject() {
         let transaction = judoKit.transaction(with: .payment, configuration: configuration)
@@ -207,41 +207,5 @@ class JudoKitTest: XCTestCase {
         XCTAssertEqual(transaction.judoId, "123456789")
         XCTAssertEqual(transaction.siteId, nil)
         XCTAssertEqual(transaction.amount?.amount, "0.01")
-    }
-    
-    /*
-     * GIVEN: judokit invoke transaction
-     *
-     * WHEN: config is valid
-     *
-     * THEN: should invoke transaction
-     */
-    func test_invokeTransaction_WhenPaymentType_ShouldReturnRightObject() {
-        judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-        }
-    }
-    
-    /*
-     * GIVEN: judokit invoke pbba
-     *
-     * WHEN: config is valid
-     *
-     * THEN: should invoke pbba screen
-     */
-    func test_invokePBBAWithConfiguration_WhenPaymentType_ShouldReturnRightObject() {
-        judoKit.invokePBBA(with: configuration) { (res, error) in
-        }
-    }
-    
-    /*
-     * GIVEN: judokit invoke Payment Method Screen
-     *
-     * WHEN: config is valid
-     *
-     * THEN: should invoke screen
-     */
-    func test_invokePaymentMethodScreen_WhenPaymentType_ShouldReturnRightObject() {
-        judoKit.invokePaymentMethodScreen(with: .payment, configuration: configuration) { (res, error) in
-        }
     }
 }

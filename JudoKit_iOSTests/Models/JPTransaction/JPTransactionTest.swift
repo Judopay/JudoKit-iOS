@@ -77,7 +77,7 @@ class JPTransactionTest: XCTestCase {
     /*
      * GIVEN: asking for parameters from transaction
      *
-     * WHEN: paramenters are nil
+     * WHEN: parameters are nil
      *
      * THEN: should return empty dictionary
      */
@@ -222,7 +222,7 @@ class JPTransactionTest: XCTestCase {
     /*
      * GIVEN: not injecting amount
      *
-     * WHEN: amount is a nil
+     * WHEN: amount is nil
      *
      * THEN: should return nil amount
      */
@@ -233,7 +233,7 @@ class JPTransactionTest: XCTestCase {
     /*
      * GIVEN: not injecting reference
      *
-     * WHEN: reference is a nil
+     * WHEN: reference is nil
      *
      * THEN: should return nil reference
      */
@@ -244,7 +244,7 @@ class JPTransactionTest: XCTestCase {
     /*
      * GIVEN: not injecting card
      *
-     * WHEN: card is a nil
+     * WHEN: card is nil
      *
      * THEN: should return nil card
      */

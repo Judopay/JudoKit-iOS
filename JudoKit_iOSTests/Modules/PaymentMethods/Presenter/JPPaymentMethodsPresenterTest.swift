@@ -48,7 +48,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: inserted 2 cards in store
      *
-     * THEN: controller should recieve 2 cards
+     * THEN: controller should receive 2 cards
      */
     func test_ViewModelNeedsUpdate_WhenTwoCardsInstore_ShouldUpdateControllerWithTwoCards() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
@@ -62,7 +62,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: all cards are removed from store (in setUp() method)
      *
-     * THEN: should updated conroller with 0 cards
+     * THEN: should updated controller with 0 cards
      */
     func test_ViewModelNeedsUpdate_WhenNoCardsAreInStore_ShouldUpdateControllerWithEmptyCardList() {
         sut.viewModelNeedsUpdate()
@@ -131,7 +131,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should send user to ideal view controller
      */
     func test_HandlePayButtonTapIdealType_WhenUserClickPayiDeal_ShouldNavigateToIdealController() {
-        sut.changePaymentMethod(to: 1) // select ideal payment method, seted up in interactor mock
+        sut.changePaymentMethod(to: 1) // select ideal payment method, setted up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(router.navigatedToIdealPay)
         XCTAssertTrue(router.dismissController)
@@ -145,15 +145,29 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should call interactor for payment method call
      */
     func test_HandlePayButtonTapCardType_WhenUserClickPay_ShouldCallInteractor() {
-        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(interactor.calledTransactionPayment)
     }
     
     /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: card is selected payment method, 3ds secure error
+     *
+     * THEN: should call interactor for payment method call and handle 3D Secure Transaction error
+     */
+    func test_HandlePayButtonTapCardType_WhenUserClickPay3DSSecureError_ShouldCallInteractor() {
+        interactor.errorType = .threeDSRequest
+        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
+        sut.handlePayButtonTap()
+        XCTAssertTrue(interactor.handle3DSecureTransaction)
+    }
+    
+    /*
      * GIVEN: Clicking on apple pay
      *
-     * THEN: should be caled startApplePay method from router
+     * THEN: should be called startApplePay method from router
      */
     func test_HandleApplePayButtonTap() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
@@ -208,11 +222,11 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should update UI with right viewmodel type
      */
     func test_ChangePaymentMethodToIndex_WhenUserChangeMethod_ShouldUpdateController() {
-        sut.changePaymentMethod(to: 1) // select ideal payment method, seted up in interactor mock
+        sut.changePaymentMethod(to: 1) // select ideal payment method, setted up in interactor mock
         var viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.iDeal)
         
-        sut.changePaymentMethod(to: 0) // select card payment method, seted up in interactor mock
+        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
         
         viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.card)
@@ -254,7 +268,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: each card have different expiry date
      *
-     * THEN: should check epiration status right
+     * THEN: should check expiration status right
      */
     func test_ExpirationDateHandling_WhenSaveThreeCards_ShouldCheckTheirExpirationDate() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
@@ -268,7 +282,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: designed init JPPaymentMethodsPresenterImpl
      *
-     * WHEN: inkecting config
+     * WHEN: injecting config
      *
      * THEN: should return non nil JPPaymentMethodsPresenterImpl object
      */

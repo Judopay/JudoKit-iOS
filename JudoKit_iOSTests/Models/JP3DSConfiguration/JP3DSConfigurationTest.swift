@@ -30,7 +30,7 @@ class JP3DSConfigurationTest: XCTestCase {
                                                                 "acsUrl":"acsUrl"])
     
     /*
-     * GIVEN: Creating JP3DSConfiguration with NSError deisgnated init
+     * GIVEN: Creating JP3DSConfiguration with NSError designated init
      *
      * WHEN: userInfo include all fields
      *

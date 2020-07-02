@@ -28,9 +28,9 @@ class JPPaymentMethodTest: XCTestCase {
     /*
      * GIVEN: Creating JPPaymentMethod with class Init pbba
      *
-     * WHEN: insert version and name
+     * WHEN: init without properties
      *
-     * THEN: should create correct fields in JPPaymentMethod object
+     * THEN: should create JPPaymentMethod object with nil title
      */
     func test_pbba_WhenDesignatedInit_ShouldFillFields() {
         let sut = JPPaymentMethod.pbba()
@@ -41,9 +41,9 @@ class JPPaymentMethodTest: XCTestCase {
     /*
      * GIVEN: Creating JPPaymentMethod with class Init cards
      *
-     * WHEN: insert version and name
+     * WHEN: raw initialization
      *
-     * THEN: should create correct fields in JPPaymentMethod object
+     * THEN: should create correct fields in JPPaymentMethod object with right title
      */
     func test_card_WhenDesignatedInit_ShouldFillFields() {
         let sut = JPPaymentMethod.card()
@@ -54,9 +54,9 @@ class JPPaymentMethodTest: XCTestCase {
     /*
      * GIVEN: Creating JPPaymentMethod with class Init iDeal
      *
-     * WHEN: insert version and name
+     * WHEN: raw initialization
      *
-     * THEN: should create correct fields in JPPaymentMethod object
+     * THEN: should create correct fields in JPPaymentMethod object with right title
      */
     func test_iDeal_WhenDesignatedInit_ShouldFillFields() {
         let sut = JPPaymentMethod.iDeal()
@@ -67,9 +67,9 @@ class JPPaymentMethodTest: XCTestCase {
     /*
      * GIVEN: Creating JPPaymentMethod with class Init applePay
      *
-     * WHEN: insert version and name
+     * WHEN: init without properties
      *
-     * THEN: should create correct fields in JPPaymentMethod object
+     * THEN: should create JPPaymentMethod object with nil title
      */
     func test_applePay_WhenDesignatedInit_ShouldFillFields() {
         let sut = JPPaymentMethod.applePay()

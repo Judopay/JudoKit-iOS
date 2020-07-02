@@ -37,5 +37,4 @@ class JPPaymentTokenTest: XCTestCase {
         XCTAssertEqual(sut.consumerToken, "consumer")
         XCTAssertEqual(sut.cardToken, "card")
     }
-    
 }

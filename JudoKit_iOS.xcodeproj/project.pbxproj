@@ -112,6 +112,7 @@
 		07B28232247E996100F9862B /* JPPBBAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28230247E996100F9862B /* JPPBBAButton.m */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
 		07D70A3E2449BA9F0039D187 /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D70A3C2449BA9F0039D187 /* JPFormatters.m */; };
+		07DCD60424ADD8E100FE906A /* TransactionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 07DCD60324ADD8E100FE906A /* TransactionData.json */; };
 		30006F1F23F6971B0099F3C5 /* JPSliderPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */; };
 		30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30006F1C23F6971B0099F3C5 /* JPSliderTransitioningDelegate.m */; };
 		30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30006F1D23F6971B0099F3C5 /* JPSliderPresentationController.h */; };
@@ -502,6 +503,7 @@
 		07B28230247E996100F9862B /* JPPBBAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAButton.m; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		07D70A3C2449BA9F0039D187 /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
+		07DCD60324ADD8E100FE906A /* TransactionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TransactionData.json; path = JudoKit_iOSTests/JsonStubs/TransactionData.json; sourceTree = SOURCE_ROOT; };
 		30006F1B23F6971B0099F3C5 /* JPSliderPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderPresentationController.m; sourceTree = "<group>"; };
 		30006F1C23F6971B0099F3C5 /* JPSliderTransitioningDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSliderTransitioningDelegate.m; sourceTree = "<group>"; };
 		30006F1D23F6971B0099F3C5 /* JPSliderPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPSliderPresentationController.h; sourceTree = "<group>"; };
@@ -1399,6 +1401,7 @@
 				07953BC924A4B9F9007D82FE /* PendingResponse.json */,
 				07953BCA24A4B9F9007D82FE /* SuccessResponse.json */,
 				07953BCB24A4B9F9007D82FE /* OrderDetails.json */,
+				07DCD60324ADD8E100FE906A /* TransactionData.json */,
 			);
 			path = JsonStubs;
 			sourceTree = "<group>";
@@ -3007,6 +3010,7 @@
 				07953C1024A4B9F9007D82FE /* OrderDetails.json in Resources */,
 				07953C0D24A4B9F9007D82FE /* CardDetails.json in Resources */,
 				07953C1E24A5DF7F007D82FE /* SuccessResponsePBBA.json in Resources */,
+				07DCD60424ADD8E100FE906A /* TransactionData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

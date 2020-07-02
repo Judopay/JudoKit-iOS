@@ -25,34 +25,16 @@ import XCTest
 
 class JPTransactionDataTest: XCTestCase {
     
-    var dic = ["receiptId":"receiptId",
-               "orderId": "orderId",
-               "type":"Payment",
-               "createdAt":"createdAt",
-               "result":"Success",
-               "message":"message",
-               "redirectUrl":"redirectUrl",
-               "merchantName":"merchantName",
-               "appearsOnStatementAs":"appearsOnStatementAs",
-               "paymentMethod":"paymentMethod",
-               "siteId":"siteId",
-               "merchantPaymentReference":"merchantPaymentReference",
-               "consumer":["consumerReference":"consumerReference",
-                           "consumerToken":"consumerToken"],
-               "orderDetails":["orderId":"orderId",
-                               "orderStatus":"orderStatus",
-                               "orderFailureReason":"orderFailureReason",
-                               "timestamp":"timestamp",
-                               "amount":999],
-               "cardDetails":["cardLastfour":"cardLastfour",
-                              "endDate":"endDate",
-                              "cardToken":"cardToken",
-                              "cardNumber":"cardNumber",
-                              "cardCategory":"cardCategory",
-                              "cardCountry":"cardCountry",
-                              "cardFunding":"cardFunding",
-                              "cardScheme":"cardScheme",
-                              "cardType":0]] as [String : Any]
+    var dic: [String : Any]! = nil
+    
+    override func setUp() {
+        super.setUp()
+        let bundle = Bundle(for: type(of: self))
+        let dic = bundle.path(forResource: "TransactionData", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: dic), options: .mappedIfSafe)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+        self.dic = jsonResult as? Dictionary<String, AnyObject>
+    }
     
     /*
      * GIVEN: Creating JPTransactionData designed init
@@ -63,21 +45,21 @@ class JPTransactionDataTest: XCTestCase {
      */
     func test_InitWithDictionary_WhenInitTransactionData_ShouldPopulateRight() {
         let transactionDataSUT = JPTransactionData(dictionary: dic)
-        transactionDataSUT.receiptId = "receiptId"
-        transactionDataSUT.type = .payment
-        transactionDataSUT.createdAt = "createdAt"
-        transactionDataSUT.result = .success
-        transactionDataSUT.message = "message"
-        transactionDataSUT.redirectUrl = "redirectUrl"
+        XCTAssertEqual(transactionDataSUT.receiptId, "receiptId")
+        XCTAssertEqual(transactionDataSUT.type, .payment)
+        XCTAssertEqual(transactionDataSUT.createdAt, "createdAt")
+        XCTAssertEqual(transactionDataSUT.result, .success)
+        XCTAssertEqual(transactionDataSUT.message, "message")
+        XCTAssertEqual(transactionDataSUT.redirectUrl, "redirectUrl")
         
-        transactionDataSUT.cardDetails?.cardToken = "cardToken"
-        transactionDataSUT.cardDetails?.cardLastFour = "cardLastfour"
-        transactionDataSUT.cardDetails?.endDate = "endDate"
-        transactionDataSUT.cardDetails?.cardNumber = "cardNumber"
-        transactionDataSUT.cardDetails?.cardCategory = "cardCategory"
-        transactionDataSUT.cardDetails?.cardCountry = "cardCountry"
-        transactionDataSUT.cardDetails?.cardFunding = "cardFunding"
-        transactionDataSUT.cardDetails?.cardScheme = "cardScheme"
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardToken, "cardToken")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardLastFour, "cardLastfour")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.endDate, "endDate")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardNumber, "cardNumber")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardCategory, "cardCategory")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardCountry, "cardCountry")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardFunding, "cardFunding")
+        XCTAssertEqual(transactionDataSUT.cardDetails?.cardScheme, "cardScheme")
     }
     
     /*

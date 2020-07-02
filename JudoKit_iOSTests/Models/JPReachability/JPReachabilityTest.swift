@@ -29,7 +29,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: JPReachability object under test
      *
-     * WHEN: wifi is reacheble
+     * WHEN: wifi is reachable
      *
      * THEN: should return true
      */
@@ -40,7 +40,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: JPReachability object under test
      *
-     * WHEN: WWAN is not reacheble
+     * WHEN: WWAN is not reachable
      *
      * THEN: should return false
      */
@@ -51,7 +51,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: JPReachability object under test
      *
-     * WHEN: connectivity is reacheble
+     * WHEN: connectivity is reachable
      *
      * THEN: should return false
      */
@@ -120,7 +120,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: init JPReachability for internet connection
      *
-     * THEN: reachability opbject should be not nil
+     * THEN: reachability object should be not nil
      */
     func test_reachabilityForInternetConnection() {
         let reachability = JPReachability.forInternetConnection()
@@ -130,7 +130,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: init JPReachability for local wifi connection
      *
-     * THEN: reachability opbject should be not nil
+     * THEN: reachability object should be not nil
      */
     func test_reachabilityWithAddress() {
         let reachability = JPReachability.forLocalWiFi()
@@ -140,7 +140,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: init JPReachability with class init with url
      *
-     * THEN: reachability opbject should be not nil
+     * THEN: reachability object should be not nil
      */
     func test_reachabilityWithURL() {
         let reachability = JPReachability.init(url: URL(string: "https://github.com/"))
@@ -150,7 +150,7 @@ class JPReachabilityTest: XCTestCase {
     /*
      * GIVEN: init JPReachability with class init with url
      *
-     * THEN: reachability opbject should be not nil
+     * THEN: reachability object should be not nil
      */
     func test_reachabilityWithURL_WhenIp_ShouldReturnNoNilOnkect() {
         let reachability = JPReachability.init(url: URL(string: "http://192.168.100.1/"))

@@ -24,6 +24,11 @@
 
 import Foundation
 
+enum PaymentError {
+    case duplicateeError
+    case threeDSRequest
+}
+
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
     var calledTransactionPayment = false
@@ -32,6 +37,9 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var startApplePay = false
     var startPolling = false
     var shouldVerify = false
+    var handle3DSecureTransaction = false
+    
+    var errorType: PaymentError = .duplicateeError
     
     func shouldVerifySecurityCode() -> Bool {
         return shouldVerify
@@ -75,8 +83,14 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
     func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
-        let error = JPError.judoDuplicateTransactionError()
-        completion?(nil, error)
+        switch errorType {
+        case .duplicateeError:
+            let error = JPError.judoDuplicateTransactionError()
+            completion?(nil, error)
+        case .threeDSRequest:
+            let error = JPError.judo3DSRequest(withPayload: ["":""])
+            completion?(nil, error)
+        }
     }
     
     func orederCards() {
@@ -120,7 +134,9 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
-        
+        handle3DSecureTransaction = true
+        let response = JPResponse()
+        completion?(response,nil)
     }
     
     func saveMockCards() {

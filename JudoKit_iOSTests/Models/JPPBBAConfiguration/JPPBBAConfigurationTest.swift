@@ -57,7 +57,7 @@ class JPPBBAConfigurationTest: XCTestCase {
      *
      * WHEN: all fields are valid
      *
-     * THEN: should return fakse when deeplinkURL is not setted
+     * THEN: should return false when deeplinkURL is not setted
      */
     func test_HasDeepLinkURL_WhenDeeplinkExist_ShouldReturnFalse() {
         sut.deeplinkURL = nil

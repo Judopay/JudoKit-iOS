@@ -442,7 +442,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: getting transaction type
      *
-     * WHEN: seted up to .saveCard
+     * WHEN: setted up to .saveCard
      *
      * THEN: should return saveCard type
      */
@@ -455,7 +455,7 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: getting card Address type
      *
-     * WHEN: seted up in config object
+     * WHEN: setted up in config object
      *
      * THEN: should return cardAddress
      */

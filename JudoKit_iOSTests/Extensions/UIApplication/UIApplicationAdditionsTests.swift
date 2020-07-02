@@ -28,21 +28,30 @@ import XCTest
 class UIApplicationAdditionsTests: XCTestCase {
     
     /*
-    * GIVEN: UIApplication addition
-    *
-    * THEN: should return right current UIApplication state
-    */
-    
+     * GIVEN: UIApplication addition
+     *
+     * THEN: should return right current UIApplication state
+     */
     func test_isUserInterfaceStyleDark() {
         let isDark = UIApplication.isUserInterfaceStyleDark()
         XCTAssertFalse(isDark)
     }
     
+    /*
+     * GIVEN: UIApplication addition
+     *
+     * THEN: should return right jail broken device type(false for tests)
+     */
     func test_isCurrentDeviceJailbroken() {
         let isJailBreak = UIApplication.isCurrentDeviceJailbroken()
         XCTAssertFalse(isJailBreak)
     }
     
+    /*
+     * GIVEN: UIApplication addition
+     *
+     * THEN: should return nil top view controller (in testing)
+     */
     func test_topMostViewController() {
         let topController = UIApplication.topMostViewController()
         XCTAssertNil(topController)

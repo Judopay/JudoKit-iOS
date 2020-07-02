@@ -59,24 +59,11 @@ class JPPBBAServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: JPPBBAServiceTest start pbba flow
-     *
-     * WHEN: siteId is not presenting in configuration
-     *
-     * THEN: should return judoSiteIDMissingError error,
-     */
-    func test_OpenPBBAMerchantApp_WhenSiteNotEmpty_ShouldOpenMerchantApp() {
-        configuration.siteId = "siteId"
-        sut.openPBBAMerchantApp { (res, error) in
-        }
-    }
-    
-    /*
      * GIVEN: JPPBBAServiceTest start polling
      *
      * WHEN: response is Success
      *
-     * THEN: should return non nill error
+     * THEN: should return non nil response and equal with Success status
      */
     func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
         self.configuration.pbbaConfiguration?.deeplinkURL = URL(string: "url?orderId=3333")
