@@ -28,25 +28,21 @@ import XCTest
 class JPErrorAdditionsTests: XCTestCase {
     
     /*
-     * GIVEN: when initialize JPError (RequestFailed type)
+     * GIVEN: the JPError is initialized with the custom judoRequestFailedError initializer
      *
-     * WHEN: error object is populated with fields
-     *
-     * THEN: should return right description(localizaed)
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_JudoRequestFailedError_WhenIsCreated_ShouldContainRightLocalization() {
+    func test_WhenJudoRequestFailedError_SetCorrectLocalizedDescription() {
         let error = JPError.judoRequestFailedError()
         XCTAssertEqual(error.localizedDescription, "Sorry, we're currently unable to process this request.")
     }
     
     /*
-     * GIVEN: when initialize JPError (JSON Serialization type)
+     * GIVEN: the JPError is initialized with the custom judoJSONSerializationFailedWithError initializer
      *
-     * WHEN: it is populated by JudoError with raw value 1
-     *
-     * THEN: should return right error code (JSONSerializationFailed)
+     * THEN:  it should set the correct error code
      */
-    func test_judoJSONSerializationFailedWithError() {
+    func test_WhenJudoJSONSerializationFailedWithError_SetCorrectErrorCode() {
         let testError = NSError(domain: "test", code: 400, userInfo: nil)
         let error = JPError.judoJSONSerializationFailedWithError(testError)
         let judoErrorJSONSerializationFailed = Int(JudoError(rawValue: 1)!.rawValue)
@@ -54,75 +50,63 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError (JudoId Missing type)
+     * GIVEN: the JPError is initialized with the custom judoJudoIdMissingError initializer
      *
-     * WHEN: it is populated by JudoError with raw value 2
-     *
-     * THEN: should return right error code (ErrorJudoIdMissing)
+     * THEN:  it should set the correct error code
      */
-    func test_judoJudoIdMissingError() {
+    func test_WhenJudoJudoIdMissingError_SetCorrectErrorCode() {
         let error = JPError.judoJudoIdMissingError()
         let judoErrorJudoIdMissing = Int(JudoError(rawValue: 2)!.rawValue)
         XCTAssertEqual(error.code, judoErrorJudoIdMissing)
     }
     
     /*
-     * GIVEN: when initialize JPError (Amount Missing type)
+     * GIVEN: the JPError is initialized with the custom judoAmountMissingError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoAmountMissingError() {
+    func test_WhenJudoAmountMissingError_SetCorrectLocalizedDescription() {
         let error = JPError.judoAmountMissingError()
         XCTAssertEqual(error.localizedFailureReason, "The amount has not been set for a transaction that requires it (custom UI)")
     }
     
     /*
-     * GIVEN: when initialize JPError (Reference Missing type)
+     * GIVEN: the JPError is initialized with the custom judoReferenceMissingError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoReferenceMissingError() {
+    func test_WhenJudoReferenceMissingError_SetCorrectLocalizedDescription() {
         let error = JPError.judoReferenceMissingError()
         XCTAssertEqual(error.localizedFailureReason, "The reference has not been set for a transaction that requires it (custom UI)")
     }
     
     /*
-     * GIVEN: when initialize JPError (Token Missing type)
+     * GIVEN: the JPError is initialized with the custom judoTokenMissingError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoTokenMissingError() {
+    func test_WhenJudoTokenMissingError_SetCorrectLocalizedDescription() {
         let error = JPError.judoTokenMissingError()
         XCTAssertEqual(error.localizedFailureReason, "The card token could not be retrieved from the response")
     }
     
     /*
-     * GIVEN: when initialize JPError (Duplicate Transaction type)
+     * GIVEN: the JPError is initialized with the custom judoDuplicateTransactionError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 7 (ErrorJudoIdMissing)
+     * THEN:  it should set the correct error code
      */
-    func test_judoDuplicateTransactionError() {
+    func test_WhenJudoDuplicateTransactionError_SetCorrectErrorCode() {
         let error = JPError.judoDuplicateTransactionError()
         let judoErrorJudoIdMissing = Int(JudoError(rawValue: 7)!.rawValue)
         XCTAssertEqual(error.code, judoErrorJudoIdMissing)
     }
     
     /*
-     * GIVEN: when initialize JPError (3DS Request Failed type)
+     * GIVEN: the JPError is initialized with the custom judo3DSRequestFailedError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 11 (UnderlyingError)
+     * THEN:  it should set the correct error code
      */
-    func test_judo3DSRequestFailedErrorWithUnderlyingError() {
+    func test_WhenJudo3DSRequestFailedError_SetCorrectErrorCode() {
         let testError = NSError(domain: "test", code: 400, userInfo: nil)
         let error = JPError.judo3DSRequestFailedError(withUnderlyingError: testError)
         let errorWithUnderlyingError = Int(JudoError(rawValue: 11)!.rawValue)
@@ -131,25 +115,21 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError (User Did Cancel type)
+     * GIVEN: the JPError is initialized with the custom judoUserDidCancelError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoUserDidCancelError() {
+    func test_WhenJudoUserDidCancelError_SetCorrectLocalizedDescription() {
         let error = JPError.judoUserDidCancelError()
         XCTAssertEqual(error.localizedFailureReason, "Received when user cancels the payment journey")
     }
     
     /*
-     * GIVEN: when initialize JPError (Parameter error type)
+     * GIVEN: the JPError is initialized with the custom judoParameterError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 14 (parameterError), should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoParameterError() {
+    func test_WhenJudoParameterError_SetCorrectLocalizedDescription() {
         let error = JPError.judoParameterError()
         let parameterError = Int(JudoError(rawValue: 14)!.rawValue)
         XCTAssertEqual(error.code, parameterError)
@@ -157,138 +137,116 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError (Internet Connection type)
+     * GIVEN: the JPError is initialized with the custom judoInternetConnectionError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoInternetConnectionError() {
+    func test_WhenJudoInternetConnectionError_SetCorrectLocalizedDescription() {
         let error = JPError.judoInternetConnectionError()
         XCTAssertEqual(error.localizedFailureReason, "Please check your internet connection and try again.")
     }
     
     /*
-     * GIVEN: when initialize JPError (JPApple Pay Configuration type)
+     * GIVEN: the JPError is initialized with the custom judoJPApplePayConfigurationError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 16 (JudoErrorApplePayConfiguration)
+     * THEN:  it should set the correct error code
      */
-    func test_judoJPApplePayConfigurationError() {
+    func test_WhenJudoInputMismatchError_SetCorrectErrorCode() {
         let error = JPError.judoJPApplePayConfigurationError()
         let JudoErrorApplePayConfiguration = Int(JudoError(rawValue: 16)!.rawValue)
         XCTAssertEqual(error.code, JudoErrorApplePayConfiguration)
     }
     
     /*
-     * GIVEN: when initialize JPError (Response Parse type)
+     * GIVEN: the JPError is initialized with the custom judoResponseParseError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason and localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoResponseParseError() {
+    func test_WhenJudoResponseParseError_SetCorrectLocalizedDescription() {
         let error = JPError.judoResponseParseError()
         XCTAssertEqual(error.localizedFailureReason, "An error with a response from the backend API")
         XCTAssertEqual(error.localizedDescription, "Sorry, we're currently unable to process this request.")
     }
     
     /*
-     * GIVEN: when initialize JPError (Missing Checksum type)
+     * GIVEN: the JPError is initialized with the custom judoMissingChecksumError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason and localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoMissingChecksumError() {
+    func test_WhenJudoMissingChecksumError_SetCorrectLocalizedDescription() {
         let error = JPError.judoMissingChecksumError()
         XCTAssertEqual(error.localizedFailureReason, "No checksum parameter present in iDEAL redirect URL")
         XCTAssertEqual(error.localizedDescription, "No checksum parameter present in iDEAL redirect URL")
     }
     
     /*
-     * GIVEN: when initialize JPError (Request Timeout type)
+     * GIVEN: the JPError is initialized with the custom judoRequestTimeoutError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 0 (JudoError)
+     * THEN:  it should set the correct error code
      */
-    func test_judoRequestTimeoutError() {
+    func test_WhenJudoRequestTimeoutError_SetCorrectErrorCode() {
         let error = JPError.judoRequestTimeoutError()
         let timeoutError = Int(JudoError(rawValue: 0)!.rawValue)
         XCTAssertEqual(error.code, timeoutError)
     }
     
     /*
-     * GIVEN: when initialize JPError (Invalid Card Number type)
+     * GIVEN: the JPError is initialized with the custom judoInvalidCardNumberError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right error.code, rawVaule 17 (cardNumberError)
+     * THEN:  it should set the correct error code
      */
-    func test_judoInvalidCardNumberError() {
+    func test_WhenJudoInvalidCardNumberError_SetCorrectErrorCode() {
         let error = JPError.judoInvalidCardNumberError()
         let cardNumberError = Int(JudoError(rawValue: 17)!.rawValue)
         XCTAssertEqual(error.code, cardNumberError)
     }
     
     /*
-     * GIVEN: when initialize JPError (Unsupported Card Network type)
+     * GIVEN: the JPError is initialized with the custom judoUnsupportedCardNetwork AMEX initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoUnsupportedCardNetwork() {
+    func test_WhenJudoUnsupportedCardNetwork_SetCorrectLocalizedDescription() {
         let error = JPError.judoUnsupportedCardNetwork(.AMEX)
         XCTAssertEqual(error.localizedDescription, "AmEx is not supported")
     }
     
     /*
-     * GIVEN: when initialize JPError (Jailbroken Device Disallowed type)
+     * GIVEN: the JPError is initialized with the custom judoJailbrokenDeviceDisallowedError initializer
      *
-     * WHEN: it is populated with all fields automatically
-     *
-     * THEN: should return right localizedFailureReason
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoJailbrokenDeviceDisallowedError() {
+    func test_WhenJudoJailbrokenDeviceDisallowedError_SetCorrectLocalizedDescription() {
         let error = JPError.judoJailbrokenDeviceDisallowedError()
         XCTAssertEqual(error.localizedFailureReason, "The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session")
     }
     
     /*
-     * GIVEN: when initialize JPError (Input Mismatch type)
+     * GIVEN: the JPError is initialized with the custom judoInputMismatchError initializer
      *
-     * WHEN: it is populated with all fields automatically and custom message: "Test error"
-     *
-     * THEN: should return right localizedDescription: Test error
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoInputMismatchErrorWithMessage() {
+    func test_WhenJudoInputMismatchError_SetCorrectLocalizedDescription() {
         let error = JPError.judoInputMismatchError(withMessage: "Test error")
         XCTAssertEqual(error.localizedDescription, "Test error")
     }
     
     /*
-     * GIVEN: when initialize JPError (Input Mismatch type with no message)
+     * GIVEN: the JPError is initialized with the custom judoInputMismatchError initializer
      *
-     * WHEN: it is populated with all fields automatically and custom message: "Test error"
-     *
-     * THEN: should return right localizedDescription: Test error
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoInputMismatchErrorWithNoMessage() {
+    func test_WhenJudoInputMismatchErrorWithNilMessage_SetCorrectLocalizedDescription() {
         let error = JPError.judoInputMismatchError(withMessage: nil)
         XCTAssertEqual(error.localizedDescription, "The operation couldn’t be completed. (com.judo.error error 12.)")
     }
     
     /*
-     * GIVEN: when initialize JPError from JPTransactionData
+     * GIVEN: the JPError is initialized with the custom judoInputMismatchError initializer
      *
-     * WHEN: it is populated with custom dictionary in raw data
-     *
-     * THEN: should return right data in userInfo
+     * THEN:  it should set the correct user info parameter
      */
-    func test_judoErrorFromTransactionData() {
+    func test_WhenJudoErrorFromData_SetCorrectUserInfo() {
         let data = JPTransactionData()
         data.rawData = ["test": "testData"]
         let errorUserInfo = (JPError.judoError(from: data).userInfo)["test"] as! String
@@ -296,26 +254,22 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError from dictionary
+     * GIVEN: the JPError is initialized with the custom judoInputMismatchError initializer
      *
-     * WHEN: it is populated with custom dictionary
-     *
-     * THEN: should return right data in userInfo
+     * THEN:  it should set the correct user info parameter
      */
-    func test_judoErrorFromDictionary() {
+    func test_WhenJudoErrorWithDic_SetCorrectUserInfo() {
         let error = JPError.judoError(from: ["test": "testData"])
         let errorUserInfo = error.userInfo["test"] as! String
         XCTAssertEqual(errorUserInfo, "testData")
     }
     
     /*
-     * GIVEN: when initialize JPError from dictionary
+     * GIVEN: the JPError is initialized with the custom judoError initializer
      *
-     * WHEN: it is populated with NSUnderlyingError keyword
-     *
-     * THEN: should return right data in userInfo
+     * THEN:  it should set the correct user info parameter
      */
-    func test_judoErrorFromError() {
+    func test_WhenJudoErrorWithError_SetCorrectUserInfo() {
         let testError = NSError(domain: "test", code: 400, userInfo: nil)
         let error = JPError.judoError(fromError: testError)
         let errorUserInfo = error.userInfo["NSUnderlyingError"] as! NSError
@@ -323,98 +277,82 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError 3DSRequest with payload
+     * GIVEN: the JPError is initialized with the custom judo3DSRequest initializer
      *
-     * WHEN: it is populated with custom payload
-     *
-     * THEN: should return right data in userInfo
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judo3DSRequestWithPayload() {
+    func test_WhenJudo3DSRequest_SetCorrectLocalizedDescription() {
         let error = JPError.judo3DSRequest(withPayload: ["test": "testData"])
         let errorUserInfo = error.userInfo["test"] as! String
         XCTAssertEqual(errorUserInfo, "testData")
     }
     
     /*
-     * GIVEN: when initialize JPError InvalidIDEALCurrency
+     * GIVEN: the JPError is initialized with the custom judoInvalidIDEALCurrencyError initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoInvalidIDEALCurrencyError() {
+    func test_WhenJudoInvalidIDEALCurrencyError_SetCorrectLocalizedDescription() {
         let error = JPError.judoInvalidIDEALCurrencyError()
         XCTAssertEqual(error.localizedDescription, "Cannot make iDEAL transactions with currencies different than EUR")
     }
     
     /*
-     * GIVEN: when initialize JPError ApplePayNotSupported
+     * GIVEN: the JPError is initialized with the custom judoApplePayNotSupportedError initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoApplePayNotSupportedError() {
+    func test_WhenJudoApplePayNotSupportedError_SetCorrectLocalizedDescription() {
         let error = JPError.judoApplePayNotSupportedError()
         XCTAssertEqual(error.localizedDescription, "Apple Pay is not supported on your device")
     }
     
     /*
-     * GIVEN: when initialize JPError ApplePayNotSupported
+     * GIVEN: the JPError is initialized with the custom judoSiteIDMissingError initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoSiteIDMissingError() {
+    func test_WhenJudoSiteIDMissingError_SetCorrectLocalizedDescription() {
         let error = JPError.judoSiteIDMissingError()
         XCTAssertEqual(error.localizedDescription, "Site ID is missing")
     }
     
     /*
-     * GIVEN: when initialize JPError judoInvalidPBBACurrency
+     * GIVEN: the JPError is initialized with the custom judoInvalidPBBACurrency initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoInvalidPBBACurrency() {
+    func test_WhenJudoInvalidPBBACurrency_SetCorrectLocalizedDescription() {
         let error = JPError.judoInvalidPBBACurrency()
         XCTAssertEqual(error.localizedDescription, "Cannot make PBBA transactions with currencies different than GBP")
     }
     
     /*
-     * GIVEN: when initialize JPError judoPBBAURLSchemeMissing
+     * GIVEN: the JPError is initialized with the custom judoPBBAURLSchemeMissing initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoPBBAURLSchemeMissing() {
+    func test_WhenJudoPBBAURLSchemeMissing_SetCorrectLocalizedDescription() {
         let error = JPError.judoPBBAURLSchemeMissing()
         XCTAssertEqual(error.localizedDescription, "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps")
     }
     
     /*
-     * GIVEN: when initialize JPError judoPaymentMethodMissingError
+     * GIVEN: the JPError is initialized with the custom judoPaymentMethodMissingError initializer
      *
-     * WHEN: it is populated error fields
-     *
-     * THEN: should return right localizedDescription
+     * THEN:  it should set the correct localizedDescription parameter
      */
-    func test_judoPaymentMethodMissingError() {
+    func test_WhenJudoPaymentMethodMissingError_SetCorrectLocalizedDescription() {
         let error = JPError.judoPaymentMethodMissingError()
         XCTAssertEqual(error.localizedDescription, "Sorry, we're currently unable to process this request.")
     }
     
     /*
-     * GIVEN: when initialize JPError (3DS Request Failed type)
+     * GIVEN: the JPError is initialized with the custom judo3DSRequestFailedError initializer without UnderlyingError
      *
-     * WHEN: it is populated with all fields automatically with nil error
-     *
-     * THEN: should return right error.code, rawVaule 11 (UnderlyingError)
+     * THEN:  it should set the correct error code
      */
-    func test_judo3DSRequestFailedErrorWithoutUnderlyingError() {
+    func test_WhenJudo3DSRequestFailedErrorWithoutUnderlyingError_SetCorrectErrorCode() {
         let error = JPError.judo3DSRequestFailedError(withUnderlyingError: nil)
         let errorWithUnderlyingError = Int(JudoError(rawValue: 11)!.rawValue)
         XCTAssertEqual(error.code, errorWithUnderlyingError)

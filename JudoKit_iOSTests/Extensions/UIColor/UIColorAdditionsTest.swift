@@ -28,11 +28,9 @@ import XCTest
 class UIColorAdditionsTest: XCTestCase {
     
     /*
-     * GIVEN: random UIColor addition
+     * GIVEN: the [asImage] method is called on an instance of UIColor
      *
-     * WHEN: transform color in image
-     *
-     * THEN: should return non nil image
+     * THEN: the result should be an UIImage representation of that color
      */
     func test_AsImage_WhenInitAColor_ShouldReturnNonNillImage() {
         let color = UIColor.black
@@ -45,7 +43,7 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * WHEN: return color
      *
-     * THEN: should be equal with native qhite color
+     * THEN: should be equal with native white color
      */
     func test_ColorFromHex_WhenInitColor_ShouldReturnRightColor() {
         let sut = UIColor.init(fromHex: 0xFFFFFF)
@@ -56,7 +54,7 @@ class UIColorAdditionsTest: XCTestCase {
     /*
      * GIVEN: init native black
      *
-     * WHEN: inversing black color
+     * WHEN: inverse black color
      *
      * THEN: returned color should be equal with native white color
      */

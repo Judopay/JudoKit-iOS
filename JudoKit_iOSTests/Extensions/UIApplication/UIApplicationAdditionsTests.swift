@@ -28,9 +28,11 @@ import XCTest
 class UIApplicationAdditionsTests: XCTestCase {
     
     /*
-     * GIVEN: UIApplication addition
+     * GIVEN: the device is using the light iOS theme
      *
-     * THEN: should return right current UIApplication state
+     * WHEN: the [isUserInterfaceStyleDark] method is called from the UIApplication extension
+     *
+     * THEN: the result should be false
      */
     func test_isUserInterfaceStyleDark() {
         let isDark = UIApplication.isUserInterfaceStyleDark()
@@ -38,9 +40,11 @@ class UIApplicationAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: UIApplication addition
+     * GIVEN: the device is not jailbroken
      *
-     * THEN: should return right jail broken device type(false for tests)
+     * WHEN: the [isCurrentDeviceJailbroken] method is called from the UIApplication extension
+     *
+     * THEN: the result should be false
      */
     func test_isCurrentDeviceJailbroken() {
         let isJailBreak = UIApplication.isCurrentDeviceJailbroken()
@@ -48,10 +52,12 @@ class UIApplicationAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: UIApplication addition
-     *
-     * THEN: should return nil top view controller (in testing)
-     */
+    * GIVEN: no view controllers have been presented on the screen
+    *
+    * WHEN: the [topMostViewController] method is called from the UIApplication extension
+    *
+    * THEN: the result should return nil
+    */
     func test_topMostViewController() {
         let topController = UIApplication.topMostViewController()
         XCTAssertNil(topController)

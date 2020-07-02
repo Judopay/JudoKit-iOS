@@ -26,7 +26,7 @@ import XCTest
 class JPClientDetailsTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPClientDetails designed init
+     * GIVEN: Creating JPClientDetails designated init
      *
      * WHEN: all fields are valid
      *
@@ -52,7 +52,7 @@ class JPClientDetailsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPClientDetails designed init
+     * GIVEN: Creating JPClientDetails designated init
      *
      * WHEN: all fields are valid
      *

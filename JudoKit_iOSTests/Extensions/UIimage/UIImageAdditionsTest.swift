@@ -35,91 +35,91 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * THEN: should return non nil image
      */
-    func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .discover)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .visa type
+     * WHEN: Visa is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .visa)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .AMEX type
+     * WHEN: AMEX is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .AMEX)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .dinersClub type
+     * WHEN: dinersClub is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .dinersClub)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .JCB type
+     * WHEN: JCB is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .JCB)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .maestro type
+     * WHEN: masterCard is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .maestro)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .masterCard type
+     * WHEN: masterCard is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .masterCard)
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: UIImage addition
+     * GIVEN: the [headerImage] method is called from the UIImage extension
      *
-     * WHEN: trying to get headerImage for: .chinaUnionPay type
+     * WHEN: chinaUnionPay is set as the header type
      *
-     * THEN: should return non nil image
+     * THEN: a valid header image must be returned
      */
-    func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .chinaUnionPay)
         XCTAssertNotNil(image)
     }
@@ -131,7 +131,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * THEN: should return non nil image
      */
-    func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNill() {
+    func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNil() {
         let image = UIImage.init(iconName: "lock-icon")
         XCTAssertNotNil(image)
     }
@@ -143,7 +143,7 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * THEN: should return non nil image
      */
-    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNill() {
+    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNil() {
         let image = UIImage.init(for: .discover)
         XCTAssertNotNil(image)
     }

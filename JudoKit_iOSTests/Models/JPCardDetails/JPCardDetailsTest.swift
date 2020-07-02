@@ -70,7 +70,7 @@ class JPCardDetailsTest: XCTestCase {
      *
      * WHEN: endDate is nil
      *
-     * THEN: should format end date and return nil
+     * THEN: should return nil after formating
      */
     func test_FormattedExpiryDate_WhenEndDateNil_ShouldReturnNil() {
         var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
@@ -110,7 +110,7 @@ class JPCardDetailsTest: XCTestCase {
     /*
      * GIVEN: Creating JPCardDetails from dictionary
      *
-     * WHEN: cardNumber is full fill
+     * WHEN: card number is entered completely
      *
      * THEN: should format 1111
      */

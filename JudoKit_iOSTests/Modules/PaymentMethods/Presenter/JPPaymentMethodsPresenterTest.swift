@@ -131,7 +131,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should send user to ideal view controller
      */
     func test_HandlePayButtonTapIdealType_WhenUserClickPayiDeal_ShouldNavigateToIdealController() {
-        sut.changePaymentMethod(to: 1) // select ideal payment method, setted up in interactor mock
+        sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(router.navigatedToIdealPay)
         XCTAssertTrue(router.dismissController)
@@ -145,7 +145,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should call interactor for payment method call
      */
     func test_HandlePayButtonTapCardType_WhenUserClickPay_ShouldCallInteractor() {
-        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
+        sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(interactor.calledTransactionPayment)
     }
@@ -159,7 +159,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      */
     func test_HandlePayButtonTapCardType_WhenUserClickPay3DSSecureError_ShouldCallInteractor() {
         interactor.errorType = .threeDSRequest
-        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
+        sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
         sut.handlePayButtonTap()
         XCTAssertTrue(interactor.handle3DSecureTransaction)
     }
@@ -222,11 +222,11 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should update UI with right viewmodel type
      */
     func test_ChangePaymentMethodToIndex_WhenUserChangeMethod_ShouldUpdateController() {
-        sut.changePaymentMethod(to: 1) // select ideal payment method, setted up in interactor mock
+        sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
         var viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.iDeal)
         
-        sut.changePaymentMethod(to: 0) // select card payment method, setted up in interactor mock
+        sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
         
         viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.card)

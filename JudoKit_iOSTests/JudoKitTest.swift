@@ -70,7 +70,7 @@ class JudoKitTest: XCTestCase {
     /*
      * GIVEN: Invoke Apple Pay With Mode
      *
-     * WHEN: apple pay is not settted
+     * WHEN: No applePayConfiguration is present in the JPConfiguration object
      *
      * THEN: should not pass validation and throw error
      */
