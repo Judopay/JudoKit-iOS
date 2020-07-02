@@ -31,7 +31,7 @@
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPTransactionStatusView.h"
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
@@ -40,8 +40,6 @@
 
 #pragma mark - Constants
 
-static NSString *const kRedirectEndpoint = @"order/bank/sale";
-static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kPendingStatus = @"PENDING";
 static const NSTimeInterval kTimerDuration = 5;
 static const NSTimeInterval kTimerDurationLimit = 60;
@@ -49,7 +47,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) NSTimeInterval intTimer;
@@ -61,7 +59,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService {
+                   transactionService:(JPApiService *)transactionService {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;

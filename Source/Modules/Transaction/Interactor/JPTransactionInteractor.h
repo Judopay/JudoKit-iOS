@@ -28,7 +28,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
 
@@ -189,7 +189,7 @@
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPTransactionService *)transactionService
+                           transactionService:(JPApiService *)transactionService
                                 configuration:(JPConfiguration *)configuration
                                    completion:(JPCompletionBlock)completion;
 @end

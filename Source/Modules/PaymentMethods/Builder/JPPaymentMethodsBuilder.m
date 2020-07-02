@@ -45,7 +45,7 @@
 
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
-                                     transactionService:(JPTransactionService *)transactionService
+                                     transactionService:(JPApiService *)transactionService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JPCompletionBlock)completion {
 

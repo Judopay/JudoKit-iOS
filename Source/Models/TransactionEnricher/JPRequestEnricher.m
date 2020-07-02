@@ -1,5 +1,5 @@
 //
-//  JPTransactionEnricher.m
+//  JPRequestEnricher.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2019 Alternative Payments Ltd
@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionEnricher.h"
+#import "JPRequestEnricher.h"
 
 #import <CoreLocation/CoreLocation.h>
 #import <DeviceDNA/DeviceDNA.h>
@@ -37,41 +37,35 @@
 #import "JPTransaction.h"
 #import "JudoKit.h"
 
-@interface JPTransactionEnricher () <CLLocationManagerDelegate>
+static NSString *const kClientDetailsKey = @"clientDetails";
+static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
-@property (nonatomic, strong) DeviceDNA *deviceDNA;
-@property (nonatomic, weak) JPTransaction *transaction;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *lastKnownLocation;
-@property (nonatomic, strong) NSArray *enricheablePaths;
-@property (nonatomic, copy, nullable) void (^completionBlock)(void);
+@interface JPRequestEnricher () <CLLocationManagerDelegate>
+
+@property(nonatomic, strong) DeviceDNA *deviceDNA;
+@property(nonatomic, strong) CLLocationManager *locationManager;
+@property(nonatomic, strong) CLLocation *lastKnownLocation;
 
 @end
 
-@implementation JPTransactionEnricher
+@implementation JPRequestEnricher
 
 #pragma mark - Initializers
 
-- (instancetype)initWithToken:(NSString *)token
-                       secret:(NSString *)secret {
+- (instancetype)init {
 
     if (self = [super init]) {
         [self requestLocation];
-        [self setupDeviceDNAWithToken:token
-                               secret:secret];
+
+        // TODO: token and secret are not used in device-dna,
+        //  this is a workaround until new version of device-dna will be deployed
+        Credentials *credentials = [[Credentials alloc] initWithToken:@"" secret:@""];
+        _deviceDNA = [[DeviceDNA alloc] initWithCredentials:credentials];
     }
     return self;
 }
 
 #pragma mark - Setup methods
-
-- (void)setupDeviceDNAWithToken:(NSString *)token
-                         secret:(NSString *)secret {
-    Credentials *credentials = [[Credentials alloc] initWithToken:token
-                                                           secret:secret];
-
-    self.deviceDNA = [[DeviceDNA alloc] initWithCredentials:credentials];
-}
 
 - (void)requestLocation {
     if (self.shouldRequestLocation) {
@@ -81,49 +75,31 @@
 
 #pragma mark - Public methods
 
-- (void)enrichTransaction:(nonnull JPTransaction *)transaction
-           withCompletion:(nonnull void (^)(void))completion {
-
-    if (![self shouldEnrichTransaction:transaction]) {
-        completion();
-        return;
-    }
-
-    self.completionBlock = completion;
-    self.transaction = transaction;
-
-    [self enrichWithLocation:self.lastKnownLocation];
-}
-
-#pragma mark - Helper methods
-
-- (void)enrichWithLocation:(CLLocation *)location {
+- (void)enrichRequestParameters:(nonnull NSDictionary *)dictionary
+                 withCompletion:(nonnull JPEnricherCompletionBlock)completion {
 
     __weak typeof(self) weakSelf = self;
     [self.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *error) {
-        JPEnhancedPaymentDetail *detail;
-        detail = [weakSelf buildEnhancedPaymentDetail:device
-                                          andLocation:location];
-
-        [weakSelf.transaction setPaymentDetail:detail];
-        [weakSelf.transaction setDeviceSignal:device];
-
-        weakSelf.completionBlock();
+        JPEnhancedPaymentDetail *detail = [weakSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
+        NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+        enrichedRequest[kEnhancedPaymentDetailKey] = [detail toDictionary];
+        enrichedRequest[kClientDetailsKey] = device;
+        completion([NSDictionary dictionaryWithDictionary:enrichedRequest]);
     }];
 }
+
+#pragma mark - Helper methods
 
 - (JPEnhancedPaymentDetail *)buildEnhancedPaymentDetail:(NSDictionary *)device
                                             andLocation:(CLLocation *)location {
 
     JPThreeDSecure *threeDSecure = [JPThreeDSecure secureWithBrowser:[JPBrowser new]];
-
     JPClientDetails *clientDetails = [JPClientDetails detailsWithDictionary:device];
 
-    JPConsumerDevice *consumerDevice;
-    consumerDevice = [JPConsumerDevice deviceWithIpAddress:getIPAddress()
-                                             clientDetails:clientDetails
-                                               geoLocation:location
-                                              threeDSecure:threeDSecure];
+    JPConsumerDevice *consumerDevice = [JPConsumerDevice deviceWithIpAddress:getIPAddress()
+                                                               clientDetails:clientDetails
+                                                                 geoLocation:location
+                                                                threeDSecure:threeDSecure];
 
     JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:JudoKitVersion
                                                name:JudoKitName];
@@ -150,21 +126,7 @@
     return areLocationServicesEnabled && self.isAuthorizationGranted;
 }
 
-- (BOOL)shouldEnrichTransaction:(JPTransaction *)transaction {
-    return [self.enricheablePaths containsObject:transaction.transactionPath];
-}
-
 #pragma mark - Lazy properties
-
-- (NSArray *)enricheablePaths {
-    if (!_enricheablePaths) {
-        _enricheablePaths = @[ kPaymentEndpoint,
-                               kPreauthEndpoint,
-                               kRegisterCardEndpoint,
-                               kSaveCardEndpoint ];
-    }
-    return _enricheablePaths;
-}
 
 - (CLLocationManager *)locationManager {
     if (!_locationManager) {
@@ -177,8 +139,7 @@
 
 - (CLLocation *)lastKnownLocation {
     if (!_lastKnownLocation) {
-        _lastKnownLocation = [[CLLocation alloc] initWithLatitude:0.0
-                                                        longitude:0.0];
+        _lastKnownLocation = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
     }
     return _lastKnownLocation;
 }

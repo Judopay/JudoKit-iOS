@@ -33,7 +33,7 @@
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
-@property (strong, nonatomic) JPTransactionService *transactionService;
+@property (strong, nonatomic) JPApiService *transactionService;
 @property (strong, nonatomic) JPTransaction *transaction;
 @property (strong, nonatomic) UIActivityIndicatorView *_Nullable activityIndicatorView;
 @end
@@ -47,7 +47,7 @@
     [self shouldEnableButtons:NO];
     [self setupButtons];
     Settings *settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
-    self.transactionService = [[JPTransactionService alloc] initWithToken:settings.token
+    self.transactionService = [[JPApiService alloc] initWithToken:settings.token
                                                                 andSecret:settings.secret];
     self.transactionService.isSandboxed = settings.isSandboxed;
     self.transaction = [self.transactionService transactionWithConfiguration:self.configuration];

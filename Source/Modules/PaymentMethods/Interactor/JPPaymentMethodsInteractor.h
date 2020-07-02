@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 #import <ZappMerchantLib/PBBAAppUtils.h>
 
-@class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
+@class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -165,7 +165,7 @@
  */
 - (nonnull instancetype)initWithMode:(JPTransactionMode)mode
                        configuration:(nonnull JPConfiguration *)configuration
-                  transactionService:(nonnull JPTransactionService *)transactionService
+                  transactionService:(nonnull JPApiService *)transactionService
                           completion:(nullable JPCompletionBlock)completion;
 
 @end

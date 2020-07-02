@@ -25,7 +25,7 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPResponse;
+@class JPSessionConfiguration;
 
 /**
  *  The Session class is a wrapper for all REST API calls
@@ -33,24 +33,13 @@
 @interface JPSession : NSObject
 
 /**
- *  The base URL for REST API calls to the judo API
+ * A designated initializer that creates a JPSession instance with a provided authorization header
+ *
+ * @param header - the authorization header string
+ *
+ * @returns a configured instance of JPSession
  */
-@property (nonatomic, strong, readonly) NSString *_Nonnull baseURL;
-
-/**
- *  Token and secret are saved in the authorizationHeader for authentication of REST API calls
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable authorizationHeader;
-
-/**
- *  identifying whether developers are using their own UI or the Judo Out of the box UI
- */
-@property (nonatomic, assign) BOOL uiClientMode;
-
-/**
- *  Set the app to sandboxed mode
- */
-@property (nonatomic, assign) BOOL sandboxed;
++ (nonnull instancetype)sessionWithConfiguration:(nonnull JPSessionConfiguration *)configuration;
 
 /**
  * A designated initializer that creates a JPSession instance with a provided authorization header
@@ -59,42 +48,39 @@
  *
  * @returns a configured instance of JPSession
  */
-+ (nonnull instancetype)sessionWithAuthorizationHeader:(nonnull NSString *)header;
-
-/**
- * A designated initializer that creates a JPSession instance with a provided authorization header
- *
- * @param header - the authorization header string
- *
- * @returns a configured instance of JPSession
- */
-- (nonnull instancetype)initWithAuthorizationHeader:(nonnull NSString *)header;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPSessionConfiguration *)configuration;
 
 /**
  *  POST Helper Method for accessing the judo REST API
  *
- *  @param path       the path
+ *  @param endpoint       the endpoint
  *  @param parameters information that is set in the HTTP Body
- *  @param completion completion callblack block with the results
+ *  @param completion completion callback block with the results
  */
-- (void)POST:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
+- (void) POST:(nonnull NSString *)endpoint
+   parameters:(nullable NSDictionary *)parameters
+andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
  *
- *  @param path       the path
+ *  @param endpoint       the endpoint
  *  @param parameters information that is set in the HTTP Body
- *  @param completion completion callblack block with the results
+ *  @param completion completion callback block with the results
  */
-- (void)PUT:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
+- (void)  PUT:(nonnull NSString *)endpoint
+   parameters:(nullable NSDictionary *)parameters
+andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  *  GET Helper Method for accessing the judo REST API
  *
- *  @param path       the path
+ *  @param endpoint       the endpoint
  *  @param parameters information that is set in the HTTP Body
- *  @param completion completion callblack block with the results
+ *  @param completion completion callback block with the results
  */
-- (void)GET:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nonnull JPCompletionBlock)completion;
+- (void)  GET:(nonnull NSString *)endpoint
+   parameters:(nullable NSDictionary *)parameters
+andCompletion:(nullable JPCompletionBlock)completion;
 
 @end

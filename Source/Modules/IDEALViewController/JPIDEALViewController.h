@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@class JPConfiguration, JPIDEALService, JPTheme, JPTransactionService, JPIDEALBank;
+@class JPConfiguration, JPIDEALService, JPTheme, JPApiService, JPIDEALBank;
 
 @interface JPIDEALViewController : UIViewController
 
@@ -45,7 +45,7 @@
  */
 - (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
                             configuration:(nonnull JPConfiguration *)configuration
-                       transactionService:(nonnull JPTransactionService *)transactionService
+                       transactionService:(nonnull JPApiService *)transactionService
                         completionHandler:(nullable JPCompletionBlock)completion;
 
 @end

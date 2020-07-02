@@ -27,7 +27,7 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
+@class JPApiService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
 
 @protocol JPPaymentMethodsRouter
 /**
@@ -69,12 +69,12 @@
  * Designated initializer that creates a JPPaymentMethodsRouterImpl instance
  *
  * @param configuration - a JPConfiguration object used to configure the Payment Method screen flow
- * @param transactionService - a JPTransactionService responsible for all Judo backend requests
+ * @param transactionService - a JPApiService responsible for all Judo backend requests
  * @param transitioningDelegate - a JPSliderTransitioningDelegate object used to customize the view controller transition.
  * @param completion - an optional JPResponse and NSError completion block
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           transactionService:(nonnull JPTransactionService *)transactionService
+                           transactionService:(nonnull JPApiService *)transactionService
                         transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate
                                    completion:(JPCompletionBlock _Nonnull)completion;
 

@@ -74,7 +74,7 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPThreeDSecure.h"
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
-#import "JPTransactionEnricher.h"
+#import "JPRequestEnricher.h"
 #import "JPUIConfiguration.h"
 #import "JPVCOResult.h"
 #import "JPValidationResult.h"

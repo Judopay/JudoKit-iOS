@@ -29,30 +29,23 @@
 #import "JPError+Additions.h"
 #import "JPPBBAConfiguration.h"
 #import "JPPBBAService.h"
-#import "JPPaymentMethod.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
-#import "JPReceipt.h"
 #import "JPResponse.h"
-#import "JPSession.h"
 #import "JPSliderTransitioningDelegate.h"
-#import "JPTheme.h"
-#import "JPTransaction.h"
 #import "JPTransactionBuilder.h"
-#import "JPTransactionEnricher.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
 
 @interface JudoKit ()
 
-@property (nonatomic, strong) JPTransactionService *transactionService;
-@property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPPBBAService *pbbaService;
-@property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPCompletionBlock completionBlock;
-@property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
-@property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
+@property(nonatomic, strong) JPApiService *apiService;
+@property(nonatomic, strong) JPApplePayService *applePayService;
+@property(nonatomic, strong) JPPBBAService *pbbaService;
+@property(nonatomic, strong) JPConfiguration *configuration;
+@property(nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
+@property(nonatomic, strong) id <JPConfigurationValidationService> configurationValidationService;
 
 @end
 
@@ -60,21 +53,19 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithToken:(NSString *)token secret:(NSString *)secret {
-    return [self initWithToken:token secret:secret allowJailbrokenDevices:YES];
+- (instancetype)initWithAuthorization:(nonnull id <Authorization>)authorization {
+    return [self initWithAuthorization:authorization allowJailbrokenDevices:YES];
 }
 
-- (instancetype)initWithToken:(NSString *)token
-                       secret:(NSString *)secret
-       allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
+- (instancetype)initWithAuthorization:(nonnull id <Authorization>)authorization
+               allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
-        self.transactionService = [[JPTransactionService alloc] initWithToken:token
-                                                                    andSecret:secret];
+        self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
         return self;
     }
 
@@ -83,11 +74,11 @@
 
 #pragma mark - Public methods
 
-- (JPTransaction *)transactionWithType:(JPTransactionType)type
-                         configuration:(JPConfiguration *)configuration {
-    self.transactionService.transactionType = type;
-    return [self.transactionService transactionWithConfiguration:configuration];
-}
+//- (JPTransaction *)transactionWithType:(JPTransactionType)type
+//                         configuration:(JPConfiguration *)configuration {
+//    self.apiService.transactionType = type;
+//    return [self.apiService transactionWithConfiguration:configuration];
+//}
 
 - (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(JPConfiguration *)configuration
@@ -119,11 +110,11 @@
         return nil;
     }
 
-    self.transactionService.transactionType = type;
-    self.transactionService.mode = JPCardDetailsModeDefault;
+    self.apiService.transactionType = type;
+    self.apiService.mode = JPCardDetailsModeDefault;
 
     UIViewController *controller;
-    controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
+    controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.apiService
                                                                configuration:configuration
                                                                   completion:completion];
 
@@ -162,7 +153,7 @@
     }
 
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
-                                                         transactionService:self.transactionService];
+                                                         transactionService:self.apiService];
 
     return [self.applePayService applePayViewControllerWithMode:mode
                                                      completion:completion];
@@ -178,7 +169,7 @@
     }
     self.configuration = configuration;
     self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                 transactionService:self.transactionService];
+                                                 transactionService:self.apiService];
 
     if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
         [self.pbbaService pollingOrderStatus:completion];
@@ -213,7 +204,7 @@
 
     return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                               configuration:configuration
-                                         transactionService:self.transactionService
+                                         transactionService:self.apiService
                                       transitioningDelegate:self.transitioningDelegate
                                           completionHandler:completion];
 }
@@ -229,7 +220,7 @@
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;
-    self.transactionService.isSandboxed = isSandboxed;
+    self.apiService.isSandboxed = isSandboxed;
 }
 
 @end

@@ -40,7 +40,6 @@
  * @param error - an instance of NSError which contains the 3D Secure payload (PaRes, MD, ACS URL, Receipt ID)
  * @param completion - a completion handler with an optional JPResponse / NSError
  */
-- (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JPCompletionBlock)completion;
+- (void)invoke3DSecureViewControllerWithError:(NSError *)error completion:(JPCompletionBlock)completion;
 
 @end

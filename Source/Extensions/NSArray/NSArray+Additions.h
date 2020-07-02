@@ -33,4 +33,6 @@
  */
 - (BOOL)containsPrefix:(NSString *)prefix;
 
+- (nonnull NSArray *)toArrayOfDictionaries;
+
 @end

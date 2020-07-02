@@ -37,13 +37,13 @@
 #import "JPResponse.h"
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @end
 
@@ -52,7 +52,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService {
+                   transactionService:(JPApiService *)transactionService {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;

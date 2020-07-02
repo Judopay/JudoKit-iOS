@@ -32,36 +32,31 @@
 /*
  *  The name provided by the merchant
  */
-@property (nonatomic, strong) NSString *_Nullable name;
+@property (nonatomic, strong, nullable) NSString * name;
 
 /*
  *  The account number provided by the merchant
  */
-@property (nonatomic, strong) NSString *_Nullable accountNumber;
+@property (nonatomic, strong, nullable) NSString * accountNumber;
 
 /*
  *  The date of birth provided by the merchant
  */
-@property (nonatomic, strong) NSString *_Nullable dateOfBirth;
+@property (nonatomic, strong, nullable) NSString * dateOfBirth;
 
 /*
  *  The postal code provided by the merchant
  */
-@property (nonatomic, strong) NSString *_Nullable postCode;
+@property (nonatomic, strong, nullable) NSString * postCode;
 
 /*
  *  Convenience initialized based on a provided NSDictionary object
  */
-+ (nonnull instancetype)detailsFromDictionary:(nonnull NSDictionary *)dictionary;
++ (nonnull instancetype)detailsWithDictionary:(nonnull NSDictionary *)dictionary;
 
 /*
 *  Convenience initialized based on a provided NSDictionary object
 */
-- (nonnull instancetype)initFromDictionary:(nonnull NSDictionary *)dictionary;
-
-/*
- *  Convenience method for mapping properties into a NSDictionary object
- */
-- (nonnull NSDictionary *)toDictionary;
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

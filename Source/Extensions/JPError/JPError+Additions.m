@@ -301,6 +301,14 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
     return [JPError errorWithDomain:JudoErrorDomain code:JudoErrorInputMismatchError userInfo:nil];
 }
 
++ (JPError *)judoErrorCardDeclined {
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorTransactionDeclined
+                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
+                                                        failureReason:nil
+                                                                title:UnableToProcessRequestErrorTitle.localized]];
+}
+
 + (NSDictionary *)userDataDictWithDescription:(NSString *)description
                                 failureReason:(NSString *)failureReason
                                         title:(NSString *)title {

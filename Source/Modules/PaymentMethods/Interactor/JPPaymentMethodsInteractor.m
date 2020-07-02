@@ -45,7 +45,7 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransaction.h"
 #import "JPTransactionData.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
@@ -53,7 +53,7 @@
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
@@ -68,7 +68,7 @@
 
 - (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
-          transactionService:(JPTransactionService *)transactionService
+          transactionService:(JPApiService *)transactionService
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
@@ -207,7 +207,7 @@
     for (JPPaymentMethod *method in self.paymentMethods) {
         if (method.type == type) {
             [tempArray removeObject:method];
-        }
+
     }
 
     self.paymentMethods = tempArray;
@@ -336,8 +336,7 @@
     [self.storedErrors addObject:error];
 }
 
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(JPError *)error {
+- (void)completeTransactionWithResponse:(JPResponse *)response andError:(JPError *)error {
     if (!self.completionHandler)
         return;
 

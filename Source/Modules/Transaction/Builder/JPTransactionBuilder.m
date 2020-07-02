@@ -29,14 +29,14 @@
 #import "JPTransactionInteractor.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionRouter.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 
 @implementation JPTransactionBuilderImpl
 
-+ (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
++ (JPTransactionViewController *)buildModuleWithTransactionService:(JPApiService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
                                                         completion:(JPCompletionBlock)completion {
 

@@ -38,3 +38,5 @@ NSString *getUserAgent(void);
  * A method which returns the IP address of the device
  */
 NSString *getIPAddress(void);
+
+NSString *generateBasicAuthHeader(NSString *token, NSString *secret);

@@ -40,7 +40,7 @@
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransaction.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPTransactionViewModel.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
@@ -50,7 +50,7 @@
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSMutableArray *storedErrors;
 @end
@@ -60,7 +60,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPTransactionService *)transactionService
+                           transactionService:(JPApiService *)transactionService
                                 configuration:(JPConfiguration *)configuration
                                    completion:(JPCompletionBlock)completion {
 

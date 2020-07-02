@@ -29,7 +29,7 @@
 @class JPAmount, JPCardDetails, JPConsumer, JPPaymentToken, JPOrderDetails;
 
 /**
- *  TransactionData is an object that references all information in correspondance with a Transaction with the judo API
+ *  TransactionData is an object that references all information in correspondence with a Transaction with the judo API
  */
 @interface JPTransactionData : NSObject
 

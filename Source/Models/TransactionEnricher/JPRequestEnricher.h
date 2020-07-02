@@ -1,8 +1,8 @@
 //
-//  JPVCOResult.h
+//  JPRequestEnricher.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2017 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,11 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- *  A JPVCOResult object used in Visa Checkout transactions
- */
-@interface JPVCOResult : NSObject
+typedef void (^JPEnricherCompletionBlock)(NSDictionary *_Nullable);
 
-/**
- *  The callId returned by the Visa Checkout SDK
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable callId;
+@interface JPRequestEnricher : NSObject
 
-/**
- *  The encrypted key returned by the Visa Checkout SDK
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable encryptedKey;
-
-/**
- *  The encrypted payment data returned by the Visa Checkout SDK
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable encryptedPaymentData;
-
-/**
- *  Designated initializer
- *
- *  @param callId               callId string
- *  @param encryptedKey         encryptedKey string
- *  @param encryptedPaymentData encryptedPaymentData string
- *
- *  @return a JPVCOResult object
- */
-- (nonnull instancetype)initWithCallId:(nonnull NSString *)callId
-                          encryptedKey:(nonnull NSString *)encryptedKey
-                  encryptedPaymentData:(nonnull NSString *)encryptedPaymentData;
+- (void)enrichRequestParameters:(nonnull NSDictionary *)dictionary
+                 withCompletion:(nonnull JPEnricherCompletionBlock)completion;
 
 @end

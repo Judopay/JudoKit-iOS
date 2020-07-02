@@ -26,13 +26,13 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
+@class JPPaymentMethodsViewController, JPConfiguration, JPApiService, JPSliderTransitioningDelegate;
 
 @protocol JPPaymentMethodsBuilder
 
 + (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                                    configuration:(nonnull JPConfiguration *)configuration
-                                              transactionService:(nonnull JPTransactionService *)transactionService
+                                              transactionService:(nonnull JPApiService *)transactionService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
                                                completionHandler:(nullable JPCompletionBlock)completion;
 @end

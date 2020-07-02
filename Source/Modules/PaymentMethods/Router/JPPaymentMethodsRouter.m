@@ -33,14 +33,14 @@
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTransaction.h"
 #import "JPTransactionBuilder.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
@@ -51,7 +51,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService
+                   transactionService:(JPApiService *)transactionService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                            completion:(JPCompletionBlock)completion {
     if (self = [super init]) {

@@ -61,7 +61,7 @@ class JPApplePayServiceTest: XCTestCase {
     /*
      * GIVEN: a new instance of JPApplePayService is created
      *
-     * WHEN: when a valid configuration and transactionService is provided
+     * WHEN: when a valid configuration and apiService is provided
      *
      * THEN: the returned instance of JPApplePayService should not be nil
      */

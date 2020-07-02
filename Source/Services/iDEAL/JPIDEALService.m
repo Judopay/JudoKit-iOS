@@ -31,11 +31,11 @@
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPTransactionData.h"
-#import "JPTransactionService.h"
+#import "JPApiService.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *transactionService;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @end
@@ -51,7 +51,7 @@ static const float kTimerDuration = 60.0F;
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService {
+                   transactionService:(JPApiService *)transactionService {
     if (self = [super init]) {
         self.configuration = configuration;
         self.transactionService = transactionService;

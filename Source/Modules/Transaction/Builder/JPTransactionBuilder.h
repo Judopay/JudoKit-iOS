@@ -25,11 +25,11 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionService, JPConfiguration, JPTransactionViewController;
+@class JPApiService, JPConfiguration, JPTransactionViewController;
 
 @protocol JPTransactionBuilder
 
-+ (JPTransactionViewController *)buildModuleWithTransactionService:(JPTransactionService *)transactionService
++ (JPTransactionViewController *)buildModuleWithTransactionService:(JPApiService *)transactionService
                                                      configuration:(JPConfiguration *)configuration
                                                         completion:(JPCompletionBlock)completion;
 @end

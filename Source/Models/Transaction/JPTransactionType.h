@@ -30,7 +30,5 @@ typedef NS_ENUM(NSUInteger, JPTransactionType) {
     JPTransactionTypeRefund,
     JPTransactionTypeRegisterCard,
     JPTransactionTypeCheckCard,
-    JPTransactionTypeSaveCard,
-    JPTransactionTypeCollection,
-    JPTransactionTypeVoid,
+    JPTransactionTypeSaveCard
 };
