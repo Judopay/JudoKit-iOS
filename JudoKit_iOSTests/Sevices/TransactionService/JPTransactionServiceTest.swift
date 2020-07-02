@@ -36,6 +36,17 @@ class JPTransactionServiceTest: XCTestCase {
                                                          amount: transactionAmmount,
                                                          reference: transactionReference)
     
+    let stubObject = ["paymentMethod":"PBBA",
+                      "siteId": "xxx-xxx-siteId",
+                      "orderDetails": ["orderId": "xxx-orderid",
+                                       "orderStatus": "PENDING",
+                                       "timestamp": "2020-05-05T07:29:04.663Z",
+                                       "currency": "GBP",
+                                       "amount": 0.15,
+                                       "refundedAmount": 0.0],
+                      "merchantPaymentReference": "xxx-xxx-ref_id",
+                      "merchantConsumerReference": "reference"] as [String : Any]
+    
     override func tearDown() {
         HTTPStubs.removeAllStubs()
         super.tearDown()
@@ -58,20 +69,17 @@ class JPTransactionServiceTest: XCTestCase {
         XCTAssertTrue(sut.isSandboxed)
     }
     
-    func testSendRequest() {
-        let stubObject = ["paymentMethod":"PBBA",
-                          "siteId": "xxx-xxx-siteId",
-                          "orderDetails": ["orderId": "xxx-orderid",
-                                           "orderStatus": "PENDING",
-                                           "timestamp": "2020-05-05T07:29:04.663Z",
-                                           "currency": "GBP",
-                                           "amount": 0.15,
-                                           "refundedAmount": 0.0],
-                          "merchantPaymentReference": "xxx-xxx-ref_id",
-                          "merchantConsumerReference": "reference"] as [String : Any]
+    /*
+     * GIVEN: request with JPTransactionService object
+     *
+     * WHEN: stubbed response with success
+     *
+     * THEN: should return right response and error nil
+     */
+    func test_SendRequest_WhenStubbedRequest_ShouldReturnSuccessResponse() {
         
         stub(condition: isHost("api.judopay.com")) { _ in
-            return HTTPStubsResponse(jsonObject: stubObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: self.stubObject, statusCode: 200, headers: nil)
         }
         
         let expectation = self.expectation(description: "expect")
@@ -82,17 +90,17 @@ class JPTransactionServiceTest: XCTestCase {
                             XCTAssertEqual("xxx-xxx-siteId", response!.items!.first!.judoId)
                             XCTAssertEqual("PBBA", response!.items!.first!.paymentMethod)
                             XCTAssertEqual("xxx-xxx-ref_id", response!.items!.first!.paymentReference)
-                            XCTAssertEqual(stubObject["siteId"] as! String,
+                            XCTAssertEqual(self.stubObject["siteId"] as! String,
                                            response!.items!.first!.rawData["siteId"] as! String)
-                            XCTAssertEqual(stubObject["paymentMethod"] as! String,
+                            XCTAssertEqual(self.stubObject["paymentMethod"] as! String,
                                            response!.items!.first!.rawData["paymentMethod"] as! String)
-                            XCTAssertEqual(stubObject["merchantPaymentReference"] as! String,
+                            XCTAssertEqual(self.stubObject["merchantPaymentReference"] as! String,
                                            response!.items!.first!.rawData["merchantPaymentReference"] as! String)
-                            XCTAssertEqual(stubObject["merchantConsumerReference"] as! String,
+                            XCTAssertEqual(self.stubObject["merchantConsumerReference"] as! String,
                                            response!.items!.first!.rawData["merchantConsumerReference"] as! String)
                             
                             let orderDetails = response!.items!.first!.rawData["orderDetails"] as! [String : Any]
-                            let stubOrderDetails = stubObject["orderDetails"] as! [String : Any]
+                            let stubOrderDetails = self.stubObject["orderDetails"] as! [String : Any]
                             XCTAssertEqual(stubOrderDetails["orderId"] as! String, orderDetails["orderId"] as! String)
                             XCTAssertEqual(stubOrderDetails["orderStatus"] as! String, orderDetails["orderStatus"] as! String)
                             XCTAssertEqual(stubOrderDetails["timestamp"] as! String, orderDetails["timestamp"] as! String)
@@ -106,5 +114,56 @@ class JPTransactionServiceTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    /*
+     * GIVEN: pay with transaction
+     *
+     * WHEN: stubbed response with success
+     *
+     * THEN: should return right response and error nil
+     */
+    func test_payWithTransaction_WhenSuccess_ShouldReturnResponse() {
+        
+        stub(condition: isHost("api.judopay.com")) { _ in
+            return HTTPStubsResponse(jsonObject: self.stubObject, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "expect")
+        
+        let transaction = sut.transaction(with: transactionConfigurations)
+        
+        sut.pay(with: transaction) { (response, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(response)
+            expectation.fulfill()
+            
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    /*
+     * GIVEN: preAuth with transaction
+     *
+     * WHEN: stubbed response with success
+     *
+     * THEN: should return right response and error nil
+     */
+    func test_preAuthWithTransaction_WhenSuccess_ShouldReturnResponse() {
+        
+        stub(condition: isHost("api.judopay.com")) { _ in
+            return HTTPStubsResponse(jsonObject: self.stubObject, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "expect")
+        
+        let transaction = sut.transaction(with: transactionConfigurations)
+        
+        sut.preAuth(with: transaction) { (response, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(response)
+            expectation.fulfill()
+            
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }
 
