@@ -280,7 +280,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     }
     
     /*
-     * GIVEN: designed init JPPaymentMethodsPresenterImpl
+     * GIVEN: designated init JPPaymentMethodsPresenterImpl
      *
      * WHEN: injecting config
      *

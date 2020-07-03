@@ -26,13 +26,13 @@ import XCTest
 class JPThreeDSecureTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPThreeDSecure designed init
+     * GIVEN: Creating JPThreeDSecure designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPThreeDSecure object
      */
-    func test_InitWithBrowser_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithBrowser_WhenDesignatedInit_ShouldCreateObject() {
         let browser = JPBrowser()
         let sut = JPThreeDSecure(browser: browser)
         XCTAssertEqual(browser, sut.browser)

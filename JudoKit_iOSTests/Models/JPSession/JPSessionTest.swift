@@ -26,7 +26,7 @@ import XCTest
 class JPSessionTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPSession designed init
+     * GIVEN: Creating JPSession designated init
      *
      * WHEN: populating with auth_header and not sandbox
      *
@@ -41,7 +41,7 @@ class JPSessionTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPSession designed init
+     * GIVEN: Creating JPSession designated init
      *
      * WHEN: populating with dictionary and sandbox
      *

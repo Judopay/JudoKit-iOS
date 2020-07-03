@@ -29,13 +29,13 @@ class JPPrimaryAccountDetailsTest: XCTestCase {
                "dateOfBirth":"dateOfBirth",
                "postCode":"postCode"]
     /*
-     * GIVEN: Creating JPPrimaryAccountDetails designed init
+     * GIVEN: Creating JPPrimaryAccountDetails designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPPrimaryAccountDetails object
      */
-    func test_InitFromDictionary_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitFromDictionary_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPPrimaryAccountDetails(from: dic)
         XCTAssertEqual(sut.name, "name")
         XCTAssertEqual(sut.accountNumber, "accountNumber")
@@ -59,13 +59,13 @@ class JPPrimaryAccountDetailsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPPrimaryAccountDetails designed init
+     * GIVEN: Creating JPPrimaryAccountDetails designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct dictionary from properties
      */
-    func test_ToDictionary_WhenDesignedInit_ShouldCreateDictionaryFromObject() {
+    func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPPrimaryAccountDetails(from: dic)
         let dic = sut.toDictionary() as! Dictionary<String, String>
         XCTAssertEqual(dic, dic)

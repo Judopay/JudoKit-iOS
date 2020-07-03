@@ -37,7 +37,7 @@ class JPTransactionDataTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPTransactionData designed init
+     * GIVEN: Creating JPTransactionData designated init
      *
      * WHEN: populating with dictionary
      *
@@ -63,13 +63,13 @@ class JPTransactionDataTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPTransactionData designed init
+     * GIVEN: Creating JPTransactionData designated init
      *
      * GIVEN: retrieve paymentToken
      *
      * THEN: should create correct fields in JPPaymentToken object
      */
-    func test_PaymentToken_WhenTransactionInites_ShouldReturnJPPaymentToken() {
+    func test_PaymentToken_WhenTransactionInits_ShouldReturnJPPaymentToken() {
         let transactionDataSUT = JPTransactionData(dictionary: dic)
         let tokenSUT = transactionDataSUT.paymentToken
         XCTAssertEqual(tokenSUT.cardToken, "cardToken")

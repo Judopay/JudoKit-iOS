@@ -36,7 +36,7 @@ class JPCardDetailsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPCardDetails designed init
+     * GIVEN: Creating JPCardDetails designated init
      *
      * WHEN: setup all properties
      *

@@ -25,13 +25,13 @@ import XCTest
 
 class JPReceiptTest: XCTestCase {
     /*
-     * GIVEN: Creating JPReceipt designed init
+     * GIVEN: Creating JPReceipt designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPReceipt object
      */
-    func test_InitWithReceiptId_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithReceiptId_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPReceipt(receiptId: "receiptId")
         XCTAssertEqual(sut.receiptId, "receiptId")
     }

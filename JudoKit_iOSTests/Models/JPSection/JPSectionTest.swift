@@ -26,13 +26,13 @@ import XCTest
 class JPSectionTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPSection designed init
+     * GIVEN: Creating JPSection designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPSection object
      */
-    func test_InitWithImage_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithImage_WhenDesignatedInit_ShouldCreateObject() {
         let image = UIImage()
         let sut = JPSection(image: image, andTitle: "title")
         XCTAssertEqual(sut.image, image)
@@ -46,7 +46,7 @@ class JPSectionTest: XCTestCase {
      *
      * THEN: should create correct fields in JPSection object
      */
-    func test_SectionWithImage_WhenDesignedInit_ShouldCreateObject() {
+    func test_SectionWithImage_WhenDesignatedInit_ShouldCreateObject() {
         let image = UIImage()
         let sut = JPSection.init(image: image, andTitle: "title")
         XCTAssertEqual(sut.image, image)

@@ -28,20 +28,20 @@ class JPPBBAConfigurationTest: XCTestCase {
     let sut = JPPBBAConfiguration(mobileNumber: "mobile", emailAddress: "email@email.com", appearsOnStatement: "")
 
     /*
-     * GIVEN: Creating JPPBBAConfiguration designed init
+     * GIVEN: Creating JPPBBAConfiguration designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPPBBAConfiguration object
      */
-    func test_InitWithMobileNumber_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithMobileNumber_WhenDesignatedInit_ShouldCreateObject() {
         XCTAssertEqual(sut.emailAddress, "email@email.com")
         XCTAssertEqual(sut.mobileNumber, "mobile")
         XCTAssertEqual(sut.appearsOnStatement, "")
     }
     
     /*
-     * GIVEN: JPPBBAConfiguration object designed init
+     * GIVEN: JPPBBAConfiguration object designated init
      *
      * WHEN: all fields are valid
      *
@@ -53,7 +53,7 @@ class JPPBBAConfigurationTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPPBBAConfiguration designed init
+     * GIVEN: Creating JPPBBAConfiguration designated init
      *
      * WHEN: all fields are valid
      *

@@ -29,13 +29,13 @@ class JPConsumerDeviceTest: XCTestCase {
     let secure = JPThreeDSecure(browser: JPBrowser())
     
     /*
-     * GIVEN: Creating JPConsumerDevice designed init
+     * GIVEN: Creating JPConsumerDevice designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPConsumerDevice object
      */
-    func test_InitWithIpAddress_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithIpAddress_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPConsumerDevice(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
         XCTAssertEqual(sut.ipAddress, "ip")
         XCTAssertEqual(sut.geoLocation?.coordinate.latitude, 0.0)
@@ -50,7 +50,7 @@ class JPConsumerDeviceTest: XCTestCase {
      *
      * THEN: should create correct fields in JPConsumerDevice object
      */
-    func test_deviceWithIpAddress_WhenDesignedInit_ShouldCreateObject() {
+    func test_deviceWithIpAddress_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPConsumerDevice.init(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
         XCTAssertEqual(sut.ipAddress, "ip")
         XCTAssertEqual(sut.geoLocation?.coordinate.latitude, 0.0)
@@ -65,7 +65,7 @@ class JPConsumerDeviceTest: XCTestCase {
      *
      * THEN: should create dictionary from fields
      */
-    func test_ToDictionary_WhenDesignedInit_ShouldCreateDictionaryFromObject() {
+    func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPConsumerDevice.init(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
         let dic = sut.toDictionary() as NSDictionary
         XCTAssertEqual(dic["ClientDetails"] as! Dictionary, ["key": "key", "value": "value"])

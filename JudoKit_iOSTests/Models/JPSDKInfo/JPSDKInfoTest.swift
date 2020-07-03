@@ -26,7 +26,7 @@ import XCTest
 class JPSDKInfoTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPSDKInfo designed init
+     * GIVEN: Creating JPSDKInfo designated init
      *
      * WHEN: all fields are valid
      *

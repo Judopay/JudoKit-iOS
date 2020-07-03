@@ -26,13 +26,13 @@ import XCTest
 class JPPaymentTokenTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPPaymentToken designed init
+     * GIVEN: Creating JPPaymentToken designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPPaymentToken object
      */
-    func test_InitWithConsumerToken_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithConsumerToken_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPPaymentToken(consumerToken: "consumer", cardToken: "card")
         XCTAssertEqual(sut.consumerToken, "consumer")
         XCTAssertEqual(sut.cardToken, "card")

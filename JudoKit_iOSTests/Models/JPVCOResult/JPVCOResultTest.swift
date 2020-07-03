@@ -26,13 +26,13 @@ import XCTest
 class JPVCOResultTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPVCOResult designed init
+     * GIVEN: Creating JPVCOResult designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPVCOResult object
      */
-    func test_InitWithCallId_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithCallId_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPVCOResult(callId: "callId", encryptedKey: "key", encryptedPaymentData: "data")
         XCTAssertEqual(sut.callId, "callId")
         XCTAssertEqual(sut.encryptedKey, "key")

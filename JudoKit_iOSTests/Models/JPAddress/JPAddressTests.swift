@@ -40,13 +40,13 @@ class JPAddressTests: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPAddress designed init
+     * GIVEN: Creating JPAddress designated init
      *
      * WHEN: setup all properties
      *
      * THEN: should create correct fields in JPAddress object
      */
-    func test_InitDesigned() {
+    func test_InitDesignated() {
         let address = JPAddress(line1: "line1", line2: "line2", line3: "line3", town: "town", countryCode: 123, postCode: "postCode")
         XCTAssertEqual(address.line1, "line1")
         XCTAssertEqual(address.line2, "line2")

@@ -32,7 +32,7 @@ class JPClientDetailsTest: XCTestCase {
      *
      * THEN: should create correct fields in JPClientDetails object
      */
-    func test_InitWithKey_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithKey_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPClientDetails(key: "key", value: "value")
         XCTAssertEqual(sut.key, "key")
         XCTAssertEqual(sut.value, "value")
@@ -58,7 +58,7 @@ class JPClientDetailsTest: XCTestCase {
      *
      * THEN: should create correct dictionary from properties
      */
-    func test_ToDictionary_WhenDesignedInit_ShouldCreateDictionaryFromObject() {
+    func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPClientDetails(key: "key", value: "value")
         let dic = sut.toDictionary()
         XCTAssertEqual(dic as! Dictionary, ["key":"key", "value":"value"])

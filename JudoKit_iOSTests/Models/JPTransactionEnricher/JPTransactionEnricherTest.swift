@@ -35,7 +35,7 @@ class JPTransactionEnricherTest: XCTestCase {
     let enrich = JPTransactionEnricher(token: "token", secret: "secret")
     
     /*
-     * GIVEN: Creating JPTransactionEnricher designed init
+     * GIVEN: Creating JPTransactionEnricher designated init
      *
      * WHEN: all fields are valid
      *

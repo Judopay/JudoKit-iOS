@@ -32,18 +32,18 @@ class UIColorAdditionsTest: XCTestCase {
      *
      * THEN: the result should be an UIImage representation of that color
      */
-    func test_AsImage_WhenInitAColor_ShouldReturnNonNillImage() {
+    func test_AsImage_WhenInitAColor_ShouldReturnNonNilImage() {
         let color = UIColor.black
         let image = color.asImage()
         XCTAssertNotNil(image)
     }
     
     /*
-     * GIVEN: init white color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid white HEX value
      *
-     * THEN: should be equal with native white color
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_ColorFromHex_WhenInitColor_ShouldReturnRightColor() {
         let sut = UIColor.init(fromHex: 0xFFFFFF)
@@ -52,11 +52,9 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init native black
+     * GIVEN: the [inverse] method is called on an instance of UIColor
      *
-     * WHEN: inverse black color
-     *
-     * THEN: returned color should be equal with native white color
+     * THEN: the result should be an UIColor inversed of that color
      */
     func test_InverseColor_WhenBlack_ShouldReverseToWhite() {
         let color = UIColor.black
@@ -65,11 +63,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpBlackColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpBlack HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpBlackColor_WhenInit_ShouldReturnRightColor() {
         let jpBlackColor = UIColor.init(fromHex: 0x262626)
@@ -78,11 +76,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpDarkGrayColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpGray HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpDarkGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpDarkGrayColor = UIColor.init(fromHex: 0x999999)
@@ -91,11 +89,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpGrayColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpGray HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpGrayColor = UIColor.init(fromHex: 0xE5E5E5)
@@ -104,11 +102,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpLightGrayColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpLightGray HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpLightGrayColor_WhenInit_ShouldReturnRightColor() {
         let jpLightGrayColor = UIColor.init(fromHex: 0xF6F6F6)
@@ -117,11 +115,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpRedColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpRed HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpRedColor_WhenInit_ShouldReturnRightColor() {
         let jpRedColor = UIColor.init(fromHex: 0xE21900)
@@ -130,11 +128,11 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: init jpWhiteColor color from hex
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
-     * WHEN: return color
+     * WHEN: the number is a valid jpWhite HEX value
      *
-     * THEN: should be equal with initial hex from additions
+     * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpWhiteColor_WhenInit_ShouldReturnRightColor() {
         let jpWhiteColor = UIColor.init(fromHex: 0xFFFFFF)

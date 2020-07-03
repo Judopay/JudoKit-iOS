@@ -36,13 +36,13 @@ class JPEnhancedPaymentDetailTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPEnhancedPaymentDetail designed init
+     * GIVEN: Creating JPEnhancedPaymentDetail designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct fields in JPEnhancedPaymentDetail object
      */
-    func test_InitWithSdkInfo_WhenDesignedInit_ShouldCreateObject() {
+    func test_InitWithSdkInfo_WhenDesignatedInit_ShouldCreateObject() {
         let sut = JPEnhancedPaymentDetail(sdkInfo: sdkInfo, consumerDevice: consumerDevice)
         XCTAssertEqual(sut.consumerDevice, consumerDevice)
         XCTAssertEqual(sut.sdkInfo, sdkInfo)
@@ -62,13 +62,13 @@ class JPEnhancedPaymentDetailTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Creating JPEnhancedPaymentDetail designed init
+     * GIVEN: Creating JPEnhancedPaymentDetail designated init
      *
      * WHEN: all fields are valid
      *
      * THEN: should create correct dictionary from properties
      */
-    func test_ToDictionary_WhenDesignedInit_ShouldCreateDictionaryFromObject() {
+    func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPEnhancedPaymentDetail.init(sdkInfo: sdkInfo, consumerDevice: consumerDevice)
         let dic = sut.toDictionary() as NSDictionary
         XCTAssertEqual(dic.object(forKey: "SDK_INFO") as! Dictionary, ["Version":"version", "Name": "name"])
