@@ -33,6 +33,7 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     lazy var reference = JPReference(consumerReference: consumerReference)
     
     override func setUp() {
+        super.setUp()
         configValidation = JPConfigurationValidationServiceImp()
         amount = JPAmount("0.1", currency: "USD")
         configuration = JPConfiguration(judoID: "judoId", amount: self.amount, reference: reference)

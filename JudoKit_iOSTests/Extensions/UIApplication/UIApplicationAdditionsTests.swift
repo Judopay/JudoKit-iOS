@@ -26,23 +26,38 @@ import XCTest
 @testable import JudoKit_iOS
 
 class UIApplicationAdditionsTests: XCTestCase {
-
+    
     /*
-    * GIVEN: UIApplication addition
-    *
-    * THEN: shoould return right current UIApplication state
-    */
-
+     * GIVEN: the device is using the light iOS theme
+     *
+     * WHEN: the [isUserInterfaceStyleDark] method is called from the UIApplication extension
+     *
+     * THEN: the result should be false
+     */
     func test_isUserInterfaceStyleDark() {
         let isDark = UIApplication.isUserInterfaceStyleDark()
         XCTAssertFalse(isDark)
     }
-
+    
+    /*
+     * GIVEN: the device is not jailbroken
+     *
+     * WHEN: the [isCurrentDeviceJailbroken] method is called from the UIApplication extension
+     *
+     * THEN: the result should be false
+     */
     func test_isCurrentDeviceJailbroken() {
         let isJailBreak = UIApplication.isCurrentDeviceJailbroken()
         XCTAssertFalse(isJailBreak)
     }
-
+    
+    /*
+    * GIVEN: no view controllers have been presented on the screen
+    *
+    * WHEN: the [topMostViewController] method is called from the UIApplication extension
+    *
+    * THEN: the result should return nil
+    */
     func test_topMostViewController() {
         let topController = UIApplication.topMostViewController()
         XCTAssertNil(topController)

@@ -67,6 +67,7 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPSDKInfo.h"
+#import "JPSection.h"
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPThemable.h"
@@ -80,3 +81,5 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPValidationResult.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
+#import "UIColor+Additions.h"
+#import "UIFont+Additions.h"

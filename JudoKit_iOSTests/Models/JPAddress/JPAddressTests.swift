@@ -32,14 +32,21 @@ class JPAddressTests: XCTestCase {
                              "town":"town",
                              "countryCode":123] as [String : Any]
     
+    var address: JPAddress! = nil
+    
+    override func setUp() {
+        super.setUp()
+        address = JPAddress(dictionary: dictionaryForInit)
+    }
+    
     /*
-     * GIVEN: Creating JPAddress designed init
+     * GIVEN: Creating JPAddress designated init
      *
      * WHEN: setup all properties
      *
      * THEN: should create correct fields in JPAddress object
      */
-    func test_InitDesigned() {
+    func test_InitDesignated() {
         let address = JPAddress(line1: "line1", line2: "line2", line3: "line3", town: "town", countryCode: 123, postCode: "postCode")
         XCTAssertEqual(address.line1, "line1")
         XCTAssertEqual(address.line2, "line2")
@@ -57,7 +64,6 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_initWithDictionary() {
-        let address = JPAddress(dictionary: dictionaryForInit)
         XCTAssertEqual(address.line1, "line1")
         XCTAssertEqual(address.line2, "line2")
         XCTAssertEqual(address.line3, "line3")
@@ -66,4 +72,20 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.postCode, "postCode")
     }
     
+    /*
+     * GIVEN: Creating Dictionary from JPAddress object
+     *
+     * WHEN: setup all properties
+     *
+     * THEN: should create correct Dictionary
+     */
+    func test_DictionaryRepresentation_WhenDeserializeObject_ShouldReturnRightDictionery() {
+        let dictionary = address.dictionaryRepresentation!
+        XCTAssertEqual(dictionary["line1"] as! String, "line1")
+        XCTAssertEqual(dictionary["line2"] as! String, "line2")
+        XCTAssertEqual(dictionary["line3"] as! String, "line3")
+        XCTAssertEqual(dictionary["town"] as! String, "town")
+        XCTAssertEqual(dictionary["countryCode"] as! NSNumber, 123)
+        XCTAssertEqual(dictionary["postCode"] as! String, "postCode")
+    }
 }

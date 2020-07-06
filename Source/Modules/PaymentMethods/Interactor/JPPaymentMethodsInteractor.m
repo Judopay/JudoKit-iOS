@@ -246,7 +246,7 @@
     if (!controller) {
         return;
     }
-    
+
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];

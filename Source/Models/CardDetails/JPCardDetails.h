@@ -29,7 +29,7 @@
  * The CardDetails object stores information that is returned from a successful payment or pre-auth.
  * This class also implements the `NSCoding` protocol to enable serialization for persistency.
  */
-@interface JPCardDetails : NSObject <NSCoding>
+@interface JPCardDetails : NSObject
 
 /**
  * The last four digits of the card used for this transaction

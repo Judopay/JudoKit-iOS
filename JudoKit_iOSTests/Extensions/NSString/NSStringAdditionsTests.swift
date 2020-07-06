@@ -32,7 +32,7 @@ class NSStringAdditionsTests: XCTestCase {
      *
      * WHEN: it is valid and could be translated to enum
      *
-     * THEN: shoould return right enum value
+     * THEN: should return right enum value
      */
     func test_CardNetwork_WhenStringIsValid_ShouldReturnRightType() {
         let cardNumber = "4444"
@@ -45,7 +45,7 @@ class NSStringAdditionsTests: XCTestCase {
      *
      * WHEN: it is invalid and couldnt be translated to enum
      *
-     * THEN: shoould return JPCardNetworkTypeUnknown type
+     * THEN: should return JPCardNetworkTypeUnknown type
      */
     func test_CardNetwork_WhenStringIsInValid_ShouldReturnTypeUnknown() {
         let cardNumber = "1111"
@@ -59,9 +59,9 @@ class NSStringAdditionsTests: XCTestCase {
      *
      * WHEN: it is valid and luhn valid
      *
-     * THEN: shoould return right valid bool for this number
+     * THEN: should return right valid bool for this number
      */
-    func text_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
+    func test_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
         let cardValid = "4929939187355598"
         XCTAssertTrue(cardValid.isCardNumberValid)
     }
@@ -69,9 +69,9 @@ class NSStringAdditionsTests: XCTestCase {
     /*
      * GIVEN: A string is a key from localization
      *
-     * THEN: shoould return value(localication) for current string
+     * THEN: should return value(localication) for current string
      */
-    func text_Localized_WhenKeyFromTranslate_ShouldReturnTranslatedString() {
+    func test_Localized_WhenKeyFromTranslate_ShouldReturnTranslatedString() {
         let keyForTranslate = "postal_code"
         XCTAssertEqual(keyForTranslate.localized(), "Postcode")
     }
@@ -81,11 +81,38 @@ class NSStringAdditionsTests: XCTestCase {
      *
      * WHEN: is supported
      *
-     * THEN: shoould return symbol for currency string
+     * THEN: should return symbol for currency string
      */
     func test_ToCurrencySymbol_WhenSupportedCurrencyString_ShouldReturnSymbolForCurrency(){
         let usdSymbol = "USD"
         let symbol = usdSymbol.toCurrencySymbol()
         XCTAssertEqual(symbol, "$")
+    }
+    
+    /*
+     * GIVEN: A raw string
+     *
+     * WHEN: replacing Characters in string
+     *
+     * THEN: should return right string
+     */
+    func test_StringByReplacingCharactersInSet_WhenRawString_ShouldReturnRightString() {
+        let stringForTest = "122"
+        let sut = stringForTest.replacingCharacters(in: CharacterSet(charactersIn: "1"), with: "2")
+        XCTAssertEqual(sut, "222")
+    }
+    
+    /*
+     * GIVEN: A raw string from numbers
+     *
+     * WHEN: making first character bold
+     *
+     * THEN: should return AttributedString with first bold character
+     */
+    func test_AttributedStringWithBoldSubstring_WhenSgtringFromNumbers_Shouldtrue() {
+        let keyForTranslate = "122"
+        let sut = keyForTranslate.attributedString(withBoldSubstring: "1")
+        let attributes = sut.attributes(at: 0, effectiveRange: nil)
+        XCTAssertEqual((attributes.first?.value as! UIFont).fontName, ".SFUI-Semibold")
     }
 }

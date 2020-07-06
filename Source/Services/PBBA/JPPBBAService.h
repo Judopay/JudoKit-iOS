@@ -54,9 +54,4 @@
  */
 - (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion;
 
-/**
-* A reference to the JPTheme instance responsible for customizing the user interface
-*/
-@property (nonatomic, strong) JPTheme *_Nullable theme;
-
 @end
