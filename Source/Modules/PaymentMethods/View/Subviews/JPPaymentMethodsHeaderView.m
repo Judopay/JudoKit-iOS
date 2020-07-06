@@ -32,6 +32,7 @@
 #import "JPTransactionButton.h"
 #import "JPUIConfiguration.h"
 #import "NSLayoutConstraint+Additions.h"
+#import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
@@ -164,9 +165,8 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 }
 
 - (void)configureAmountWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    self.amountValueLabel.text = [NSString stringWithFormat:@"%@%@",
-                                                            viewModel.amount.currency.toCurrencySymbol,
-                                                            viewModel.amount.amount];
+    self.amountValueLabel.text = [NSNumberFormatter formattedAmount:viewModel.amount.amount
+                                                   withCurrencyCode:viewModel.amount.currency];
 }
 
 #pragma mark - Helper methods
