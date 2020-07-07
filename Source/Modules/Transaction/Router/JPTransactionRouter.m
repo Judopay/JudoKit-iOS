@@ -49,9 +49,7 @@
 
 @implementation JPTransactionRouterImpl (RecognizerDelegate)
 
-- (void)payCardsRecognizer:(PayCardsRecognizer *)payCardsRecognizer
-              didRecognize:(PayCardsRecognizerResult *)result {
-
+- (void)payCardsRecognizer:(PayCardsRecognizer *)payCardsRecognizer didRecognize:(PayCardsRecognizerResult *)result {
     [self.presenter updateViewModelWithScanCardResult:result];
     [self.viewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }

@@ -1,7 +1,7 @@
+#import "JPAuthorization.h"
 #import <Foundation/Foundation.h>
-#import "../Authorization.h"
 
-@interface BasicAuthorization : NSObject <Authorization>
+@interface JPBasicAuthorization : NSObject <JPAuthorization>
 
 - (instancetype)initWithToken:(NSString *)token andSecret:(NSString *)secret;
 + (instancetype)authorizationWithToken:(NSString *)token andSecret:(NSString *)secret;

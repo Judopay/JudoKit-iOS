@@ -34,7 +34,6 @@
 #import "JPEnhancedPaymentDetail.h"
 #import "JPSDKInfo.h"
 #import "JPThreeDSecure.h"
-#import "JPTransaction.h"
 #import "JudoKit.h"
 
 static NSString *const kClientDetailsKey = @"clientDetails";
@@ -42,9 +41,9 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 @interface JPRequestEnricher () <CLLocationManagerDelegate>
 
-@property(nonatomic, strong) DeviceDNA *deviceDNA;
-@property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) CLLocation *lastKnownLocation;
+@property (nonatomic, strong) DeviceDNA *deviceDNA;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *lastKnownLocation;
 
 @end
 

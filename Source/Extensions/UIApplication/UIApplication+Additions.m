@@ -26,14 +26,6 @@
 
 @implementation UIApplication (Additions)
 
-+ (BOOL)isUserInterfaceStyleDark {
-    if (@available(iOS 13.0, *)) {
-        UITraitCollection *traitCollection = UIApplication.sharedApplication.keyWindow.traitCollection;
-        return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-    }
-    return false;
-}
-
 + (BOOL)isCurrentDeviceJailbroken {
     return [NSFileManager.defaultManager fileExistsAtPath:@"/private/var/lib/apt/"];
 }

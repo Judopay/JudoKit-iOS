@@ -1,13 +1,13 @@
-#import <Foundation/Foundation.h>
 #import "JPRequest.h"
+#import <Foundation/Foundation.h>
 
-@class PKPayment;
+@class PKPayment, PKPaymentToken;
 
 @interface JPApplePayPaymentToken : NSObject
 
-@property(nonatomic, strong, nullable) NSString *paymentInstrumentName;
-@property(nonatomic, strong, nullable) NSString *paymentNetwork;
-@property(nonatomic, strong, nonnull) NSDictionary *paymentData;
+@property (nonatomic, strong, nullable) NSString *paymentInstrumentName;
+@property (nonatomic, strong, nullable) NSString *paymentNetwork;
+@property (nonatomic, strong, nonnull) NSDictionary *paymentData;
 
 - (nonnull instancetype)initWithPaymentToken:(nonnull PKPaymentToken *)token;
 
@@ -15,7 +15,7 @@
 
 @interface JPApplePayPayment : NSObject
 
-@property(nonatomic, strong, nonnull) JPApplePayPaymentToken *token;
+@property (nonatomic, strong, nonnull) JPApplePayPaymentToken *token;
 
 - (nonnull instancetype)initWithPayment:(nonnull PKPayment *)payment;
 
@@ -23,8 +23,9 @@
 
 @interface JPApplePayRequest : JPRequest
 
-@property(nonatomic, strong, nullable) JPApplePayPayment *pkPayment;
+@property (nonatomic, strong, nullable) JPApplePayPayment *pkPayment;
 
-- (void)populateApplePayMetadataWithPayment:(PKPayment *)payment;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                                   andPayment:(nonnull PKPayment *)payment;
 
 @end

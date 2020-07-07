@@ -24,6 +24,7 @@
 
 #import "JPIDEALViewController.h"
 #import "JPAmount.h"
+#import "JPApiService.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
@@ -32,8 +33,6 @@
 #import "JPOrderDetails.h"
 #import "JPResponse.h"
 #import "JPTheme.h"
-#import "JPTransactionData.h"
-#import "JPApiService.h"
 #import "JPTransactionStatusView.h"
 #import "UIView+Additions.h"
 
@@ -64,11 +63,11 @@ const float kPollingDelayTimer = 30.0;
 
 - (instancetype)initWithIDEALBank:(JPIDEALBank *)iDEALBank
                     configuration:(JPConfiguration *)configuration
-               transactionService:(JPApiService *)transactionService
+                       apiService:(JPApiService *)apiService
                 completionHandler:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.idealService = [[JPIDEALService alloc] initWithConfiguration:configuration
-                                                       transactionService:transactionService];
+                                                               apiService:apiService];
         self.iDEALBank = iDEALBank;
         self.completionBlock = completion;
     }
@@ -90,7 +89,6 @@ const float kPollingDelayTimer = 30.0;
 #pragma mark - iDEAL Logic
 
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDEALBank {
-
     __weak typeof(self) weakSelf = self;
     [self.idealService redirectURLForIDEALBank:iDEALBank
                                     completion:^(JPResponse *response, JPError *error) {
@@ -107,10 +105,8 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleRedirectResponse:(JPResponse *)response {
-    JPTransactionData *transactionData = response.items.firstObject;
-
-    self.redirectURL = transactionData.redirectUrl;
-    self.orderID = transactionData.orderDetails.orderId;
+    self.redirectURL = response.redirectUrl;
+    self.orderID = response.orderDetails.orderId;
     self.redirectResponse = response;
 
     [self loadWebViewWithURLString:self.redirectURL];
@@ -220,7 +216,7 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleResponse:(JPResponse *)response {
-    JPOrderDetails *orderDetails = response.items.firstObject.orderDetails;
+    JPOrderDetails *orderDetails = response.orderDetails;
     if (orderDetails && [orderDetails.orderFailureReason isEqualToString:kFailureReasonUserAbort]) {
         [self dismissViewControllerAnimated:YES completion:nil];
         self.completionBlock(response, JPError.judoUserDidCancelError);
@@ -228,9 +224,9 @@ const float kPollingDelayTimer = 30.0;
     }
 
     NSString *amountString = [NSString stringWithFormat:@"%.2f", orderDetails.amount];
-    response.items.firstObject.amount = [JPAmount amount:amountString currency:kCurrencyEuro];
-    response.items.firstObject.createdAt = orderDetails.timestamp;
-    response.items.firstObject.message = orderDetails.orderStatus;
+    response.amount = [JPAmount amount:amountString currency:kCurrencyEuro];
+    response.createdAt = orderDetails.timestamp;
+    response.message = orderDetails.orderStatus;
 
     [self dismissViewControllerAnimated:YES completion:nil];
     self.completionBlock(response, nil);

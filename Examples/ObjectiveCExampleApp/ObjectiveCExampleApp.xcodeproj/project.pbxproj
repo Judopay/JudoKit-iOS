@@ -26,6 +26,7 @@
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
+		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
 		D9E096B89DC711101BD2C6D6 /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,8 @@
 		9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48506C24BC1772C11EA8BC /* Pods-ObjectiveCExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CEFF4FFEB0483C186BE3DDB /* Pods-ObjectiveCExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IASKAppSettingsViewController+Additions.h"; sourceTree = "<group>"; };
+		A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IASKAppSettingsViewController+Additions.m"; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +189,7 @@
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
 				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
 				449495042450ED870050C6A0 /* ExampleAppCredentials.h */,
+				A75B33187564297D32751980 /* Extensions */,
 				449495102450ED870050C6A0 /* Models */,
 				449495052450ED870050C6A0 /* Controllers */,
 				449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */,
@@ -268,6 +272,15 @@
 				4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A75B33187564297D32751980 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */,
+				A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EE7B4BE418A8C03392F6261E /* Pods */ = {
@@ -538,6 +551,7 @@
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				449495152450ED870050C6A0 /* DetailViewController.m in Sources */,
 				4494951A2450ED870050C6A0 /* Settings.m in Sources */,
+				A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

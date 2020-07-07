@@ -24,8 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
-#import "JPError.h"
-#import "JPTransactionData.h"
+#import "JPResponse.h"
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
@@ -197,7 +196,7 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                                                                 title:UnableToProcessRequestErrorTitle.localized]];
 }
 
-+ (JPError *)judoErrorFromTransactionData:(JPTransactionData *)data {
++ (JPError *)judoErrorFromResponse:(JPResponse *)data {
     return [JPError errorWithDomain:JudoErrorDomain
                                code:JudoErrorTransactionDeclined
                            userInfo:data.rawData];

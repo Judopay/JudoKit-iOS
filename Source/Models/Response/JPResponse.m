@@ -23,28 +23,117 @@
 //  SOFTWARE.
 
 #import "JPResponse.h"
-#import "JPTransactionData.h"
+#import "JPAmount.h"
+#import "JPCardDetails.h"
+#import "JPConsumer.h"
+#import "JPOrderDetails.h"
 
 @implementation JPResponse
 
-- (instancetype)initWithPagination:(JPPagination *)pagination {
-    self = [super init];
-    if (self) {
-        self.pagination = pagination;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        [self populateWith:dictionary];
     }
     return self;
 }
 
-- (void)appendItems:(NSArray *)items {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.items];
-    for (NSDictionary *item in items) {
-        [array addObject:[[JPTransactionData alloc] initWithDictionary:item]];
+- (void)populateWith:(NSDictionary *)dictionary {
+    self.receiptId = dictionary[@"receiptId"];
+    self.type = [self transactionTypeForString:dictionary[@"type"]];
+    self.createdAt = dictionary[@"createdAt"];
+    self.result = [self transactionResultForString:dictionary[@"result"]];
+    self.message = dictionary[@"message"];
+    self.redirectUrl = dictionary[@"redirectUrl"];
+    self.merchantName = dictionary[@"merchantName"];
+    self.appearsOnStatementAs = dictionary[@"appearsOnStatementAs"];
+    self.paymentMethod = dictionary[@"paymentMethod"];
+
+    [self setupJudoIDFromDictionary:dictionary];
+    [self setupPaymentReferenceFromDictionary:dictionary];
+    [self setupConsumerFromDictionary:dictionary];
+    [self setupIDEALFromDictionary:dictionary];
+
+    NSString *currency = dictionary[@"currency"];
+    if (dictionary[@"refunds"]) {
+        self.refunds = [[JPAmount alloc] initWithAmount:dictionary[@"refunds"] currency:currency];
     }
-    self.items = [array copy];
+    self.originalAmount = dictionary[@"originalAmount"];
+
+    self.netAmount = dictionary[@"netAmount"];
+    NSString *amount = dictionary[@"amount"];
+    if (amount != nil) {
+        self.amount = [[JPAmount alloc] initWithAmount:amount currency:currency];
+    }
+    NSDictionary *cardDetailsDictionary = dictionary[@"cardDetails"];
+    if (cardDetailsDictionary) {
+        self.cardDetails = [[JPCardDetails alloc] initWithDictionary:cardDetailsDictionary];
+    }
+
+    self.rawData = dictionary;
 }
 
-- (void)appendItem:(NSDictionary *)item {
-    [self appendItems:@[ item ]];
+- (void)setupJudoIDFromDictionary:(NSDictionary *)dictionary {
+    if (dictionary[@"siteId"]) {
+        self.judoId = dictionary[@"siteId"];
+    } else {
+        self.judoId = dictionary[@"judoId"];
+    }
+}
+
+- (void)setupPaymentReferenceFromDictionary:(NSDictionary *)dictionary {
+    if (dictionary[@"merchantPaymentReference"]) {
+        self.paymentReference = dictionary[@"merchantPaymentReference"];
+    } else {
+        self.paymentReference = dictionary[@"yourPaymentReference"];
+    }
+}
+
+- (void)setupConsumerFromDictionary:(NSDictionary *)dictionary {
+    if (dictionary[@"merchantConsumerReference"]) {
+        NSDictionary *consumerDictionary = @{
+            @"yourConsumerReference" : dictionary[@"merchantConsumerReference"]
+        };
+        self.consumer = [[JPConsumer alloc] initWithDictionary:consumerDictionary];
+    } else {
+        self.consumer = [[JPConsumer alloc] initWithDictionary:dictionary[@"consumer"]];
+    }
+}
+
+- (void)setupIDEALFromDictionary:(NSDictionary *)dictionary {
+
+    NSDictionary *orderDetailsDict = dictionary[@"orderDetails"];
+    NSString *orderId = dictionary[@"orderId"];
+
+    if (orderDetailsDict) {
+        self.orderDetails = [[JPOrderDetails alloc] initWithDictionary:orderDetailsDict];
+    }
+
+    if (orderId) {
+        self.orderDetails = [JPOrderDetails new];
+        self.orderDetails.orderId = orderId;
+    }
+}
+
+- (JPTransactionResult)transactionResultForString:(NSString *)resultString {
+    if ([resultString isEqualToString:@"Success"]) {
+        return JPTransactionResultSuccess;
+    } else if ([resultString isEqualToString:@"Declined"]) {
+        return JPTransactionResultDeclined;
+    }
+    return JPTransactionResultError;
+}
+
+- (JPTransactionType)transactionTypeForString:(NSString *)typeString {
+    if ([typeString isEqualToString:@"Payment"]) {
+        return JPTransactionTypePayment;
+    } else if ([typeString isEqualToString:@"PreAuth"]) {
+        return JPTransactionTypePreAuth;
+    } else if ([typeString isEqualToString:@"RegisterCard"]) {
+        return JPTransactionTypeRegisterCard;
+    } else if ([typeString isEqualToString:@"Save"]) {
+        return JPTransactionTypeSaveCard;
+    }
+    return JPTransactionTypeRefund;
 }
 
 @end

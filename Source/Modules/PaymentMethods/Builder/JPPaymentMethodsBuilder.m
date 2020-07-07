@@ -25,7 +25,6 @@
 #import "JPPaymentMethodsBuilder.h"
 #import "JPAmount.h"
 #import "JPApplePayService.h"
-#import "JPCardStorage.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
@@ -35,8 +34,6 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "JPReference.h"
-#import "JudoKit.h"
 #import "NSBundle+Additions.h"
 
 @implementation JPPaymentMethodsBuilderImpl
@@ -45,7 +42,7 @@
 
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
-                                     transactionService:(JPApiService *)transactionService
+                                             apiService:(JPApiService *)apiService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JPCompletionBlock)completion {
 
@@ -85,14 +82,14 @@
 
     JPPaymentMethodsRouterImpl *router;
     router = [[JPPaymentMethodsRouterImpl alloc] initWithConfiguration:configuration
-                                                    transactionService:transactionService
+                                                            apiService:apiService
                                                  transitioningDelegate:transitioningDelegate
                                                             completion:completion];
 
     JPPaymentMethodsInteractorImpl *interactor;
     interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithMode:mode
                                                         configuration:configuration
-                                                   transactionService:transactionService
+                                                           apiService:apiService
                                                            completion:completion];
 
     presenter.view = viewController;

@@ -1,19 +1,20 @@
-#import "SessionAuthorization.h"
+#import "JPSessionAuthorization.h"
 #import "Functions.h"
 
-@implementation SessionAuthorization {
+@implementation JPSessionAuthorization {
     NSDictionary<NSString *, NSString *> *_headers;
 }
 
 + (instancetype)authorizationWithToken:(NSString *)token andPaymentSession:(NSString *)session {
-    return [[SessionAuthorization alloc] initWithToken:token andPaymentSession:session];
+    return [[JPSessionAuthorization alloc] initWithToken:token andPaymentSession:session];
 }
 
 - (instancetype)initWithToken:(NSString *)token andPaymentSession:(NSString *)session {
     if (self = [super init]) {
         _headers = @{
-                @"Authorization": generateBasicAuthHeader(token, @""),
-                @"Payment-Session": session};
+            @"Authorization" : generateBasicAuthHeader(token, @""),
+            @"Payment-Session" : session
+        };
     }
 
     return self;

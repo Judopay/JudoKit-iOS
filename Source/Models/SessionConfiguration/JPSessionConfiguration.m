@@ -1,12 +1,12 @@
 #import "JPSessionConfiguration.h"
-#import "Authorization.h"
+#import "JPAuthorization.h"
 
 static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
 static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";
 
 @implementation JPSessionConfiguration
 
-- (instancetype)initWithAuthorization:(id <Authorization>)authorization {
+- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization {
     self = [super init];
     if (self) {
         self.authorization = authorization;
@@ -16,7 +16,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
     return self;
 }
 
-+ (instancetype)configurationWithAuthorization:(id <Authorization>)authorization {
++ (instancetype)configurationWithAuthorization:(id<JPAuthorization>)authorization {
     return [[JPSessionConfiguration alloc] initWithAuthorization:authorization];
 }
 

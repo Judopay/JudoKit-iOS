@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPApplePayService.h"
+#import "JPApiService.h"
 #import "JPApplePayConfiguration.h"
-#import "JPApplePayService.h"
-#import "JPApplePayWrappers.h"
+#import "JPApplePayRequest.h"
 #import "JPCardDetails.h"
 #import "JPConfiguration.h"
 #import "JPConsumer.h"
@@ -35,15 +35,11 @@
 #import "JPPostalAddress.h"
 #import "JPReference.h"
 #import "JPResponse.h"
-#import "JPTransaction.h"
-#import "JPTransactionData.h"
-#import "JPApiService.h"
-#import "UIApplication+Additions.h"
 
 @interface JPApplePayService ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @end
 
@@ -51,11 +47,10 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPApiService *)transactionService {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration andApiService:(JPApiService *)apiService {
     if (self = [super init]) {
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
     }
     return self;
 }
@@ -90,41 +85,43 @@
         return;
     }
 
-    JPTransactionType type = (self.transactionMode == JPTransactionModePreAuth) ? JPTransactionTypePreAuth : JPTransactionTypePayment;
-    self.transactionService.transactionType = type;
-
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-
-    NSError *error;
-    [transaction setPkPayment:payment error:&error];
-
-    if (error && self.completionBlock) {
-        self.completionBlock(nil, [JPError judoJSONSerializationFailedWithError:error]);
-        completion(PKPaymentAuthorizationStatusFailure);
-        return;
-    }
+    JPApplePayRequest *request = [[JPApplePayRequest alloc] initWithConfiguration:self.configuration
+                                                                       andPayment:payment];
 
     __weak typeof(self) weakSelf = self;
-    [transaction sendWithCompletion:^(JPResponse *response, NSError *error) {
-        if (error || response.items.count == 0) {
-            if (weakSelf.completionBlock)
+
+    JPCompletionBlock resultBlock = ^(JPResponse *response, NSError *error) {
+        if (error || response == nil) {
+            if (weakSelf.completionBlock) {
                 weakSelf.completionBlock(response, (JPError *)error);
+            }
+
             completion(PKPaymentAuthorizationStatusFailure);
             return;
         }
 
-        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & JPReturnedInfoBillingContacts) {
+        JPReturnedInfo returnedContactInfo = weakSelf.configuration.applePayConfiguration.returnedContactInfo;
+
+        if (returnedContactInfo & JPReturnedInfoBillingContacts) {
             response.billingInfo = [weakSelf contactInformationFromPaymentContact:payment.billingContact];
         }
 
-        if (weakSelf.configuration.applePayConfiguration.returnedContactInfo & JPReturnedInfoShippingContacts) {
+        if (returnedContactInfo & JPReturnedInfoShippingContacts) {
             response.shippingInfo = [weakSelf contactInformationFromPaymentContact:payment.shippingContact];
         }
 
-        if (weakSelf.completionBlock)
+        if (weakSelf.completionBlock) {
             weakSelf.completionBlock(response, (JPError *)error);
+        }
+
         completion(PKPaymentAuthorizationStatusSuccess);
-    }];
+    };
+
+    if (self.transactionMode == JPTransactionModePreAuth) {
+        [self.apiService invokePreAuthApplePayPaymentWithRequest:request andCompletion:resultBlock];
+    } else {
+        [self.apiService invokeApplePayPaymentWithRequest:request andCompletion:resultBlock];
+    }
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
@@ -147,17 +144,18 @@
 - (PKPaymentRequest *)pkPaymentRequest {
 
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
+    JPApplePayConfiguration *applePayConfiguration = self.configuration.applePayConfiguration;
 
-    paymentRequest.merchantIdentifier = self.configuration.applePayConfiguration.merchantId;
-    paymentRequest.countryCode = self.configuration.applePayConfiguration.countryCode;
-    paymentRequest.currencyCode = self.configuration.applePayConfiguration.currency;
+    paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
+    paymentRequest.countryCode = applePayConfiguration.countryCode;
+    paymentRequest.currencyCode = applePayConfiguration.currency;
     paymentRequest.supportedNetworks = self.pkPaymentNetworks;
     paymentRequest.merchantCapabilities = self.pkMerchantCapabilities;
     paymentRequest.shippingType = self.pkShippingType;
     paymentRequest.shippingMethods = self.pkShippingMethods;
 
-    JPContactField requiredShippingContactFields = self.configuration.applePayConfiguration.requiredShippingContactFields;
-    JPContactField requiredBillingContactFields = self.configuration.applePayConfiguration.requiredBillingContactFields;
+    JPContactField requiredShippingContactFields = applePayConfiguration.requiredShippingContactFields;
+    JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
 
     if (@available(iOS 11.0, *)) {
 
@@ -339,19 +337,15 @@
 
 - (JPResponse *)buildResponse:(PKPayment *)payment {
     JPResponse *response = [JPResponse new];
-
-    JPTransactionData *data = [JPTransactionData new];
-    data.judoId = self.configuration.judoId;
-    data.paymentReference = self.configuration.reference.paymentReference;
-    data.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
-    data.consumer = [JPConsumer new];
-    data.consumer.consumerReference = self.configuration.reference.consumerReference;
-    data.amount = self.configuration.amount;
-    data.cardDetails = [JPCardDetails new];
-
-    data.cardDetails.cardToken = payment.token.transactionIdentifier;
-    data.cardDetails.cardScheme = payment.token.paymentMethod.network;
-    response.items = @[ data ];
+    response.judoId = self.configuration.judoId;
+    response.paymentReference = self.configuration.reference.paymentReference;
+    response.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
+    response.consumer = [JPConsumer new];
+    response.consumer.consumerReference = self.configuration.reference.consumerReference;
+    response.amount = self.configuration.amount;
+    response.cardDetails = [JPCardDetails new];
+    response.cardDetails.cardToken = payment.token.transactionIdentifier;
+    response.cardDetails.cardScheme = payment.token.paymentMethod.network;
     return response;
 }
 

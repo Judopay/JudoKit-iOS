@@ -24,7 +24,6 @@
 
 #import "PBBAViewController.h"
 #import "DetailViewController.h"
-#import "UIViewController+Additions.h"
 
 @import JudoKit_iOS;
 
@@ -78,14 +77,13 @@
         [self displayAlertWithError: [JPError judoRequestFailedError]];
         return;
     }
-    
-    JPTransactionData *transactionData = response.items.firstObject;
-    [self presentDetailsViewControllerWithTransactionData:transactionData];
+
+    [self presentDetailsViewControllerWithResponse:response];
 }
 
-- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.transactionData = transactionData;
+    viewController.response = response;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

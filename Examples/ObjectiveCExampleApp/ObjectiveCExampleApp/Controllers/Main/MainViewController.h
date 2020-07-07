@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
+
 @end
 
 @interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>

@@ -35,9 +35,7 @@
 #import "JPTransactionButton.h"
 #import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
-#import "UIView+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>

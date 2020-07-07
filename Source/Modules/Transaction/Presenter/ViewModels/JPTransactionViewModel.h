@@ -22,17 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
 #import "JPInputType.h"
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
-#pragma mark - JPTransactionInputFieldViewModel
 
-typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
-    JPCardDetailsModeDefault,
-    JPCardDetailsModeAVS,
-    JPCardDetailsModeSecurityCode,
-};
+#pragma mark - JPTransactionInputFieldViewModel
 
 @interface JPTransactionInputFieldViewModel : NSObject
 /**

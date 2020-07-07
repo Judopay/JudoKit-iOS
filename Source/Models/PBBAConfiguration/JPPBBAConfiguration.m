@@ -28,15 +28,16 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
-                        emailAddress:(NSString *_Nullable)emailAddress
-                  appearsOnStatement:(NSString *_Nullable)appearsOnStatement {
-
-    self.mobileNumber = mobileNumber;
-    self.emailAddress = emailAddress;
-    self.appearsOnStatement = appearsOnStatement;
-
+- (instancetype)initWithDeeplinkScheme:(NSString *)deeplinkScheme andDeeplinkURL:(NSURL *)deeplinkURL {
+    if (self = [super init]) {
+        self.deeplinkURL = deeplinkURL;
+        self.deeplinkScheme = deeplinkScheme;
+    }
     return self;
+}
+
++ (instancetype)configurationWithDeeplinkScheme:(NSString *)deeplinkScheme andDeeplinkURL:(NSURL *)deeplinkURL {
+    return [[JPPBBAConfiguration alloc] initWithDeeplinkScheme:deeplinkScheme andDeeplinkURL:deeplinkURL];
 }
 
 - (BOOL)hasDeepLinkURL {

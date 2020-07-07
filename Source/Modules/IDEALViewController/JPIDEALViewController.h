@@ -40,12 +40,12 @@
  *
  * @param iDEALBank - the iDEAL bank that is selected to complete the transaction
  * @param configuration - the JPConfiguration that configures the payment flow
- * @param transactionService - the service responsible for Judo backend calls
+ * @param apiService - the service responsible for Judo backend calls
  * @param completion - the JPResponse / NSError completion block
  */
 - (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
                             configuration:(nonnull JPConfiguration *)configuration
-                       transactionService:(nonnull JPApiService *)transactionService
+                               apiService:(nonnull JPApiService *)apiService
                         completionHandler:(nullable JPCompletionBlock)completion;
 
 @end

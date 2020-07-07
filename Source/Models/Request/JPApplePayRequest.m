@@ -1,6 +1,5 @@
-#import <PassKit/PassKit.h>
 #import <JudoKit_iOS/JudoKit_iOS.h>
-#import "JPApplePayRequest.h"
+#import <PassKit/PassKit.h>
 
 @implementation JPApplePayPaymentToken
 
@@ -32,6 +31,14 @@
 @end
 
 @implementation JPApplePayRequest
+
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                                   andPayment:(nonnull PKPayment *)payment {
+    if (self = [super initWithConfiguration:configuration]) {
+        [self populateApplePayMetadataWithPayment:payment];
+    }
+    return self;
+}
 
 - (void)populateApplePayMetadataWithPayment:(PKPayment *)payment {
     self.pkPayment = [[JPApplePayPayment alloc] initWithPayment:payment];

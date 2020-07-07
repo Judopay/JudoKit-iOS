@@ -32,7 +32,7 @@
 
 + (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                                    configuration:(nonnull JPConfiguration *)configuration
-                                              transactionService:(nonnull JPApiService *)transactionService
+                                                      apiService:(nonnull JPApiService *)apiService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
                                                completionHandler:(nullable JPCompletionBlock)completion;
 @end

@@ -25,20 +25,24 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@protocol Authorization;
+@protocol JPAuthorization;
 
-@class JPPaymentRequest,
-JPTokenRequest,
-JPBankOrderSaleRequest,
-JPApplePayRequest,
-JPCheckCardRequest,
-JPSaveCardRequest,
-JPRegisterCardRequest,
-JP3DSecureAuthenticationResult;
+@class JPPaymentRequest, JPRequest,
+    JPTokenRequest,
+    JPBankOrderSaleRequest,
+    JPApplePayRequest,
+    JPCheckCardRequest,
+    JPSaveCardRequest,
+    JPRegisterCardRequest,
+    JP3DSecureAuthenticationResult;
 
 @interface JPApiService : NSObject
 
-- (nonnull instancetype)initWithAuthorization:(nonnull id <Authorization>)authorization isSandboxed:(BOOL)sandboxed;
+@property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
+@property (nonatomic, assign) BOOL isSandboxed;
+
+- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
+                                  isSandboxed:(BOOL)sandboxed;
 
 - (void)invokePaymentWithRequest:(nonnull JPPaymentRequest *)request andCompletion:(nullable JPCompletionBlock)completion;
 
@@ -47,10 +51,6 @@ JP3DSecureAuthenticationResult;
 - (void)invokeTokenPaymentWithRequest:(nonnull JPTokenRequest *)request andCompletion:(nullable JPCompletionBlock)completion;
 
 - (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPTokenRequest *)request andCompletion:(nullable JPCompletionBlock)completion;
-
-- (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
-                       authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
-                              andCompletion:(nullable JPCompletionBlock)completion;
 
 - (void)invokeRegisterCardWithRequest:(nonnull JPRegisterCardRequest *)request andCompletion:(nullable JPCompletionBlock)completion;
 
@@ -65,5 +65,9 @@ JP3DSecureAuthenticationResult;
 - (void)invokeBankSaleWithRequest:(nonnull JPBankOrderSaleRequest *)request andCompletion:(nullable JPCompletionBlock)completion;
 
 - (void)invokeOrderStatusWithOrderId:(nonnull NSString *)orderId andCompletion:(nullable JPCompletionBlock)completion;
+
+- (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
+                       authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
+                              andCompletion:(nullable JPCompletionBlock)completion;
 
 @end

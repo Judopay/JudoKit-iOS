@@ -23,19 +23,18 @@
 //  SOFTWARE.
 
 #import "JPIDEALService.h"
-#import "JPAmount.h"
+#import "JPApiService.h"
+#import "JPBankOrderSaleRequest.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
 #import "JPReference.h"
 #import "JPResponse.h"
-#import "JPTransactionData.h"
-#import "JPApiService.h"
 
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @end
@@ -44,17 +43,14 @@
 
 #pragma mark - Constants
 
-static NSString *const kRedirectEndpoint = @"order/bank/sale";
-static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static const float kTimerDuration = 60.0F;
 
 #pragma mark - Initializers
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPApiService *)transactionService {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration apiService:(JPApiService *)apiService {
     if (self = [super init]) {
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
     }
     return self;
 }
@@ -65,42 +61,37 @@ static const float kTimerDuration = 60.0F;
 
 #pragma mark - Public methods
 
-- (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank
-                     completion:(JPCompletionBlock)completion {
+- (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank completion:(JPCompletionBlock)completion {
 
-    NSMutableDictionary *parameters = [self parametersForIDEALBank:iDealBank];
-
-#if DEBUG
-    // TODO: Temporary duplicate transaction solution
-    // Generates a new payment reference for each iDEAL redirect transaction
-    parameters[@"merchantPaymentReference"] = [JPReference generatePaymentReference];
-#endif
-
-    if (!parameters) {
+    if (self.configuration.siteId.length == 0) {
         completion(nil, JPError.judoSiteIDMissingError);
         return;
     }
 
-    __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:JPHTTPMethodPOST
-                                          parameters:parameters
-                                          completion:^(JPResponse *response, NSError *error) {
-                                              JPTransactionData *data = response.items.firstObject;
+    JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest idealRequestWithConfiguration:self.configuration
+                                                                                     andBIC:iDealBank.bankIdentifierCode];
 
-                                              if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  completion([weakSelf remapIdealResponseWithResponse:response], (JPError *)error);
-                                                  return;
-                                              }
+#if DEBUG
+    // TODO: Temporary duplicate transaction solution
+    // Generates a new payment reference for each iDEAL redirect transaction
+    request.merchantPaymentReference = [JPReference generatePaymentReference];
+#endif
 
-                                              completion(nil, JPError.judoResponseParseError);
-                                          }];
+    [self.apiService invokeBankSaleWithRequest:request
+                                 andCompletion:^(JPResponse *response, NSError *error) {
+                                     if (response.orderDetails.orderId && response.redirectUrl) {
+                                         response.receiptId = response.orderDetails.orderId;
+                                         completion(response, (JPError *)error);
+                                         return;
+                                     }
+
+                                     completion(nil, JPError.judoResponseParseError);
+                                 }];
 }
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId
                                checksum:(NSString *)checksum
                              completion:(JPCompletionBlock)completion {
-
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:NO
@@ -110,9 +101,7 @@ static const float kTimerDuration = 60.0F;
                                                        return;
                                                    }];
 
-    [self getStatusForOrderId:orderId
-                     checksum:checksum
-                   completion:completion];
+    [self getStatusForOrderId:orderId checksum:checksum completion:completion];
 }
 
 - (void)getStatusForOrderId:(NSString *)orderId
@@ -123,65 +112,32 @@ static const float kTimerDuration = 60.0F;
         return;
     }
 
-    NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
-
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:JPHTTPMethodGET
-                                          parameters:nil
-                                          completion:^(JPResponse *response, NSError *error) {
-                                              if (error) {
-                                                  completion(nil, (JPError *)error);
-                                                  [weakSelf.timer invalidate];
-                                                  return;
-                                              }
+    [self.apiService invokeOrderStatusWithOrderId:orderId
+                                    andCompletion:^(JPResponse *response, NSError *error) {
+                                        if (error) {
+                                            completion(nil, (JPError *)error);
+                                            [weakSelf.timer invalidate];
+                                            return;
+                                        }
 
-                                              if ([response.items.firstObject.orderDetails.orderStatus isEqual:@"PENDING"]) {
-                                                  dispatch_time_t timeInterval = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC));
-                                                  dispatch_after(timeInterval, dispatch_get_main_queue(), ^{
-                                                      [weakSelf getStatusForOrderId:orderId checksum:checksum completion:completion];
-                                                  });
-                                                  return;
-                                              }
+                                        if ([response.orderDetails.orderStatus isEqual:@"PENDING"]) {
+                                            dispatch_time_t timeInterval = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC));
+                                            dispatch_after(timeInterval, dispatch_get_main_queue(), ^{
+                                                [weakSelf getStatusForOrderId:orderId checksum:checksum completion:completion];
+                                            });
+                                            return;
+                                        }
 
-                                              JPResponse *mappedResponse = [weakSelf remapIdealResponseWithResponse:response];
-                                              completion(mappedResponse, nil);
-                                              [weakSelf.timer invalidate];
-                                          }];
+                                        response.receiptId = response.orderDetails.orderId;
+                                        completion(response, nil);
+                                        [weakSelf.timer invalidate];
+                                    }];
 }
 
 - (void)stopPollingTransactionStatus {
     self.didTimeout = YES;
     [self.timer invalidate];
-}
-
-- (NSMutableDictionary *)parametersForIDEALBank:(JPIDEALBank *)iDEALBank {
-
-    if (!self.configuration.siteId) {
-        return nil;
-    }
-
-    JPAmount *amount = self.configuration.amount;
-    JPReference *reference = self.configuration.reference;
-
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
-        @"paymentMethod" : @"IDEAL",
-        @"currency" : amount.currency,
-        @"amount" : @(amount.amount.doubleValue),
-        @"country" : @"NL",
-        @"accountHolderName" : @"IDEAL Bank",
-        @"merchantPaymentReference" : reference.paymentReference,
-        @"bic" : iDEALBank.bankIdentifierCode,
-        @"merchantConsumerReference" : reference.consumerReference,
-        @"siteId" : self.configuration.siteId
-    }];
-
-    return parameters;
-}
-
-- (JPResponse *)remapIdealResponseWithResponse:(JPResponse *)response {
-    response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
-    return response;
 }
 
 @end

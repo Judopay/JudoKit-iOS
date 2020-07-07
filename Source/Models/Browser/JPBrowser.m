@@ -25,8 +25,6 @@
 #import "JPBrowser.h"
 #import "Functions.h"
 
-#import <UIKit/UIKit.h>
-
 @implementation JPBrowser
 
 static NSString *const kAcceptHeaderKey = @"AcceptHeader";

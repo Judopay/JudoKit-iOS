@@ -30,18 +30,13 @@
 @interface JPIDEALService : NSObject
 
 /**
- * A string describing the account holder name
- */
-@property (nonatomic, strong) NSString *_Nullable accountHolderName;
-
-/**
  * Creates an instance of an JPIDealService object
  *
  * @param configuration - an instance of JPConfiguration used to configure the iDEAL flow
- * @param transactionService - an instance of JPApiService responsible for Judo backend calls
+ * @param apiService - an instance of JPApiService responsible for Judo backend calls
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           transactionService:(nonnull JPApiService *)transactionService;
+                                   apiService:(nonnull JPApiService *)apiService;
 
 /**
  * Method used for returning a redirect URL based on the specified iDEAL bank

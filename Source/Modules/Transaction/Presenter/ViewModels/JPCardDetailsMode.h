@@ -1,8 +1,8 @@
 //
-//  JPPaymentToken.h
+//  JPCardDetailsMode.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,34 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- *  A JPPaymentToken object which is one part to be used in any token transactions
- */
-@interface JPPaymentToken : NSObject
-
-/**
- *  Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable consumerToken;
-
-/**
- *  Can be used to charge future payments against this card.
- */
-@property (nonatomic, strong, readonly) NSString *_Nullable cardToken;
-
-/**
- *  CV2 of the card
- */
-@property (nonatomic, strong) NSString *_Nullable secureCode;
-
-/**
- *  Designated initializer
- *
- *  @param consumerToken Consumer token string
- *  @param cardToken     Card token string
- *
- *  @return a JPPaymentToken object
- */
-- (nonnull instancetype)initWithConsumerToken:(nonnull NSString *)consumerToken cardToken:(nonnull NSString *)cardToken;
-
-@end
+typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
+    JPCardDetailsModeDefault,
+    JPCardDetailsModeAVS,
+    JPCardDetailsModeSecurityCode,
+};

@@ -36,15 +36,6 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
 @interface UIView (Additions)
 
 /**
- * Convenience method for setting a border
- *
- * @param color - the border color
- * @param width - the border width
- */
-- (void)setBorderWithColor:(nonnull UIColor *)color
-                  andWidth:(CGFloat)width;
-
-/**
  * Convenience method for setting a rounder border
  *
  * @param color - the border color
@@ -117,10 +108,5 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * A method which returns the safe top area anchor
  */
 - (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor;
-
-/**
- * A method which returns the safe area insets
- */
-- (UIEdgeInsets)safeAreaEdgeInsets;
 
 @end

@@ -32,32 +32,32 @@
 /**
  *  Line one of the address
  */
-@property(nonatomic, strong, nullable) NSString *line1;
+@property (nonatomic, strong, nullable) NSString *line1;
 
 /**
  *  Line two of the address
  */
-@property(nonatomic, strong, nullable) NSString *line2;
+@property (nonatomic, strong, nullable) NSString *line2;
 
 /**
  *  Line three of the address
  */
-@property(nonatomic, strong, nullable) NSString *line3;
+@property (nonatomic, strong, nullable) NSString *line3;
 
 /**
  *  Post code of the address
  */
-@property(nonatomic, strong, nullable) NSString *postCode;
+@property (nonatomic, strong, nullable) NSString *postCode;
 
 /**
  *  Town of the address
  */
-@property(nonatomic, strong, nullable) NSString *town;
+@property (nonatomic, strong, nullable) NSString *town;
 
 /**
  *  Billing country of the address
  */
-@property(nonatomic, strong, nullable) NSNumber *countryCode;
+@property (nonatomic, strong, nullable) NSNumber *countryCode;
 
 /**
  *  Designated Initializer

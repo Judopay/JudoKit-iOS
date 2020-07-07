@@ -24,12 +24,11 @@
 
 #import "JP3DSViewController.h"
 #import "JP3DSConfiguration.h"
+#import "JP3DSecureAuthenticationResult.h"
+#import "JPApiService.h"
 #import "JPError+Additions.h"
-#import "JPError.h"
 #import "JPLoadingView.h"
-#import "JPSession.h"
-#import "JPTheme.h"
-#import "JPTransaction.h"
+#import "JPResponse.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
 
@@ -182,41 +181,39 @@
         [javascriptCode appendString:@"[paRes, md]"];
         [webView evaluateJavaScript:javascriptCode
                   completionHandler:^(NSArray *response, NSError *error) {
-                      NSDictionary *responseDictionary = [weakSelf mapToDictionaryWithResponse:response];
-                      [weakSelf handleACSFormWithResponse:responseDictionary decisionHandler:decisionHandler];
+                      [weakSelf handleACSFormWithResponse:response decisionHandler:decisionHandler];
                   }];
     });
 }
 
-- (void)handleACSFormWithResponse:(NSDictionary *)response
+- (void)handleACSFormWithResponse:(NSArray *)response
                   decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (response.count != 2) {
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+
+    NSString *paRes = response[0];
+    NSString *md = [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+
+    JP3DSecureAuthenticationResult *result = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:paRes andMd:md];
 
     __weak typeof(self) weakSelf = self;
-    [self.transaction threeDSecureWithParameters:response
-                                       receiptId:self.configuration.receiptId
-                                      completion:^(JPResponse *response, JPError *error) {
-                                          if (error) {
-                                              decisionHandler(WKNavigationActionPolicyCancel);
-                                          } else {
-                                              decisionHandler(WKNavigationActionPolicyAllow);
-                                          }
 
-                                          [weakSelf.loadingView stopLoading];
-                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    [self.apiService invokeComplete3dSecureWithReceiptId:self.configuration.receiptId
+                                    authenticationResult:result
+                                           andCompletion:^(JPResponse *response, JPError *error) {
+                                               if (error) {
+                                                   decisionHandler(WKNavigationActionPolicyCancel);
+                                               } else {
+                                                   decisionHandler(WKNavigationActionPolicyAllow);
+                                               }
 
-                                          weakSelf.completionBlock(response, error);
-                                      }];
-}
+                                               [weakSelf.loadingView stopLoading];
+                                               [weakSelf dismissViewControllerAnimated:YES completion:nil];
 
-- (NSDictionary *)mapToDictionaryWithResponse:(NSArray *)response {
-
-    if (response.count != 2)
-        return nil;
-
-    return @{
-        @"PaRes" : response[0],
-        @"MD" : [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"]
-    };
+                                               weakSelf.completionBlock(response, error);
+                                           }];
 }
 
 #pragma mark - Lazy properties

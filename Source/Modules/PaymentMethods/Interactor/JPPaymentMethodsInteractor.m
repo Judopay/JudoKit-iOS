@@ -23,8 +23,10 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsInteractor.h"
+#import "JP3DSConfiguration.h"
 #import "JP3DSService.h"
 #import "JPAmount.h"
+#import "JPApiService.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
 #import "JPCardDetails.h"
@@ -39,13 +41,10 @@
 #import "JPPBBAConfiguration.h"
 #import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
-#import "JPPaymentToken.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPStoredCardDetails.h"
-#import "JPTransaction.h"
-#import "JPTransactionData.h"
-#import "JPApiService.h"
+#import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
@@ -53,7 +52,7 @@
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
@@ -68,13 +67,13 @@
 
 - (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
-          transactionService:(JPApiService *)transactionService
+                  apiService:(JPApiService *)apiService
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         self.transactionMode = mode;
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
         self.completionHandler = completion;
         self.paymentMethods = configuration.paymentMethods;
     }
@@ -207,7 +206,7 @@
     for (JPPaymentMethod *method in self.paymentMethods) {
         if (method.type == type) {
             [tempArray removeObject:method];
-
+        }
     }
 
     self.paymentMethods = tempArray;
@@ -223,17 +222,23 @@
         [self processServerToServer:completion];
         return;
     }
-    BOOL isPreAuth = (self.transactionMode == JPTransactionTypePreAuth);
-    self.transactionService.transactionType = isPreAuth ? JPTransactionTypePreAuth : JPTransactionModePayment;
-    NSString *consumerReference = self.configuration.reference.consumerReference;
-    JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
-                                                                       cardToken:token];
 
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-    transaction.paymentToken = paymentToken;
-    transaction.securityCode = securityCode;
-    self.threeDSecureService.transaction = transaction;
-    [transaction sendWithCompletion:completion];
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:token];
+    request.cv2 = securityCode;
+
+    switch (self.transactionMode) {
+        case JPTransactionTypePreAuth:
+            [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completion];
+            break;
+
+        case JPTransactionModePayment:
+            [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completion];
+            break;
+
+        default:
+            //noop
+            break;
+    }
 }
 
 #pragma mark - Apple Pay payment
@@ -246,7 +251,7 @@
     if (!controller) {
         return;
     }
-    
+
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];
@@ -270,23 +275,22 @@
     return [self.applePayService isApplePaySetUp];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JPCompletionBlock)completion {
-    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
-                                                         completion:completion];
+- (void)handle3DSecureTransactionFromError:(NSError *)error completion:(JPCompletionBlock)completion {
+    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration completion:completion];
 }
 
 - (JPApplePayService *)applePayService {
     if (!_applePayService && self.configuration.applePayConfiguration) {
         _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration
-                                                         transactionService:self.transactionService];
+                                                              andApiService:self.apiService];
     }
     return _applePayService;
 }
 
 - (JP3DSService *)threeDSecureService {
     if (!_threeDSecureService) {
-        _threeDSecureService = [JP3DSService new];
+        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
     }
     return _threeDSecureService;
 }
@@ -294,7 +298,7 @@
 - (JPPBBAService *)pbbaService {
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
-                                                 transactionService:self.transactionService];
+                                                         apiService:self.apiService];
     }
     return _pbbaService;
 }
@@ -310,20 +314,18 @@
 
 - (JPResponse *)buildResponse {
     JPResponse *response = [JPResponse new];
-    JPTransactionData *data = [JPTransactionData new];
-    data.judoId = self.configuration.judoId;
-    data.paymentReference = self.configuration.reference.paymentReference;
-    data.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
-    data.consumer = [JPConsumer new];
-    data.consumer.consumerReference = self.configuration.reference.consumerReference;
-    data.amount = self.configuration.amount;
-    data.cardDetails = [JPCardDetails new];
+    response.judoId = self.configuration.judoId;
+    response.paymentReference = self.configuration.reference.paymentReference;
+    response.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
+    response.consumer = [JPConsumer new];
+    response.consumer.consumerReference = self.configuration.reference.consumerReference;
+    response.amount = self.configuration.amount;
+    response.cardDetails = [JPCardDetails new];
     JPStoredCardDetails *selectedCard = [self selectedCard];
-    data.cardDetails.cardLastFour = selectedCard.cardLastFour;
-    data.cardDetails.cardToken = selectedCard.cardToken;
-    data.cardDetails.cardNetwork = selectedCard.cardNetwork;
-    data.cardDetails.cardScheme = [JPCardNetwork nameOfCardNetwork:selectedCard.cardNetwork];
-    response.items = @[ data ];
+    response.cardDetails.cardLastFour = selectedCard.cardLastFour;
+    response.cardDetails.cardToken = selectedCard.cardToken;
+    response.cardDetails.cardNetwork = selectedCard.cardNetwork;
+    response.cardDetails.cardScheme = [JPCardNetwork nameOfCardNetwork:selectedCard.cardNetwork];
 
     return response;
 }

@@ -35,12 +35,12 @@
  * Designated initalizer that creates a configured instance of JPApplePayService for making Apple Pay transactions.
  *
  * @param configuration - an instance of JPConfiguration used to configure the Apple Pay flow.
- * @param transactionService - an instance of JPApiService responsible for making the Judo backend transaction.
+ * @param apiService - an instance of JPApiService responsible for making the Judo backend transaction.
  *
  * @returns - a configured instance of JPApplePayService.
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           transactionService:(nonnull JPApiService *)transactionService;
+                                andApiService:(nonnull JPApiService *)apiService;
 
 /**
  * A boolean method which returns YES if the device supports Apple pay.

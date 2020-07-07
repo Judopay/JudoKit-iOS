@@ -27,25 +27,12 @@
 
 @implementation NSArray (Additions)
 
-- (BOOL)containsPrefix:(NSString *)prefix {
-    __block BOOL result = NO;
-
-    [self enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([prefix hasPrefix:obj]) {
-            *stop = YES;
-            result = YES;
-        }
-    }];
-
-    return result;
-}
-
 - (NSArray *)toArrayOfDictionaries {
     NSMutableArray *dictArray = [NSMutableArray new];
 
     for (NSObject *item in self) {
         if ([item isKindOfClass:NSArray.class]) {
-            NSArray *array = (NSArray *) item;
+            NSArray *array = (NSArray *)item;
             if (array.count > 0) {
                 [dictArray addObject:[array toArrayOfDictionaries]];
             }

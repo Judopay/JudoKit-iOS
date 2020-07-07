@@ -31,7 +31,6 @@
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPUIConfiguration.h"
-#import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIImage+Additions.h"

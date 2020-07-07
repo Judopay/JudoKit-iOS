@@ -35,7 +35,6 @@
 /**
  * A designated initializer that creates a JPSession instance with a provided authorization header
  *
- * @param header - the authorization header string
  *
  * @returns a configured instance of JPSession
  */
@@ -44,7 +43,6 @@
 /**
  * A designated initializer that creates a JPSession instance with a provided authorization header
  *
- * @param header - the authorization header string
  *
  * @returns a configured instance of JPSession
  */
@@ -57,9 +55,9 @@
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callback block with the results
  */
-- (void) POST:(nonnull NSString *)endpoint
-   parameters:(nullable NSDictionary *)parameters
-andCompletion:(nullable JPCompletionBlock)completion;
+- (void)POST:(nonnull NSString *)endpoint
+       parameters:(nullable NSDictionary *)parameters
+    andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
@@ -68,9 +66,9 @@ andCompletion:(nullable JPCompletionBlock)completion;
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callback block with the results
  */
-- (void)  PUT:(nonnull NSString *)endpoint
-   parameters:(nullable NSDictionary *)parameters
-andCompletion:(nullable JPCompletionBlock)completion;
+- (void)PUT:(nonnull NSString *)endpoint
+       parameters:(nullable NSDictionary *)parameters
+    andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  *  GET Helper Method for accessing the judo REST API
@@ -79,8 +77,8 @@ andCompletion:(nullable JPCompletionBlock)completion;
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callback block with the results
  */
-- (void)  GET:(nonnull NSString *)endpoint
-   parameters:(nullable NSDictionary *)parameters
-andCompletion:(nullable JPCompletionBlock)completion;
+- (void)GET:(nonnull NSString *)endpoint
+       parameters:(nullable NSDictionary *)parameters
+    andCompletion:(nullable JPCompletionBlock)completion;
 
 @end

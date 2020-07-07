@@ -23,25 +23,24 @@
 //  SOFTWARE.
 
 #import "JPTransactionInteractor.h"
+#import "JP3DSConfiguration.h"
 #import "JP3DSService.h"
 #import "JPAddress.h"
 #import "JPAmount.h"
+#import "JPApiService.h"
 #import "JPCard.h"
 #import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPCardValidationService.h"
+#import "JPCheckCardRequest.h"
 #import "JPConfiguration.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
-#import "JPError.h"
-#import "JPKeychainService.h"
-#import "JPReference.h"
+#import "JPPaymentRequest.h"
+#import "JPRegisterCardRequest.h"
 #import "JPResponse.h"
-#import "JPSession.h"
+#import "JPSaveCardRequest.h"
 #import "JPStoredCardDetails.h"
-#import "JPTransaction.h"
-#import "JPApiService.h"
-#import "JPTransactionViewModel.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
@@ -50,9 +49,12 @@
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSMutableArray *storedErrors;
+@property (nonatomic, assign) JPTransactionType transactionType;
+@property (nonatomic, assign) JPCardDetailsMode cardDetailsMode;
+@property (nonatomic, assign) JPCardNetworkType cardNetworkType;
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -60,15 +62,21 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPApiService *)transactionService
+                                   apiService:(JPApiService *)apiService
+                              transactionType:(JPTransactionType)type
+                              cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration
+                                  cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
-        self.cardValidationService = cardValidationService;
-        self.transactionService = transactionService;
-        self.configuration = configuration;
-        self.completionHandler = completion;
+        _cardValidationService = cardValidationService;
+        _apiService = apiService;
+        _configuration = configuration;
+        _completionHandler = completion;
+        _transactionType = type;
+        _cardDetailsMode = mode;
+        _cardNetworkType = cardNetwork;
     }
     return self;
 }
@@ -80,18 +88,10 @@
 }
 
 - (JPCardDetailsMode)cardDetailsMode {
-    if (self.transactionService.mode == JPCardDetailsModeDefault) {
-        return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault;
+    if (_cardDetailsMode == JPCardDetailsModeDefault) {
+        return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault; // WTF??!!
     }
-    return self.transactionService.mode;
-}
-
-- (JPCardNetworkType)cardNetworkType {
-    return self.transactionService.cardNetwork;
-}
-
-- (JPTransactionType)transactionType {
-    return self.transactionService.transactionType;
+    return _cardDetailsMode;
 }
 
 - (JPAddress *)getConfiguredCardAddress {
@@ -122,18 +122,47 @@
     return @"pay".localized;
 }
 
-- (void)sendTransactionWithCard:(JPCard *)card
-              completionHandler:(JPCompletionBlock)completionHandler {
+- (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
 
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-    transaction.card = card;
+    switch (self.transactionType) {
 
-    self.threeDSecureService.transaction = transaction;
-    [transaction sendWithCompletion:completionHandler];
+        case JPTransactionTypePayment: {
+            JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
+            [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
+            break;
+        }
+
+        case JPTransactionTypePreAuth: {
+            JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
+            [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
+            break;
+        }
+
+        case JPTransactionTypeSaveCard: {
+            JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
+            [self.apiService invokeSaveCardWithRequest:request andCompletion:completionHandler];
+            break;
+        }
+
+        case JPTransactionTypeCheckCard: {
+            JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
+            [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
+            break;
+        }
+
+        case JPTransactionTypeRegisterCard: {
+            JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
+            [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
+            break;
+        }
+
+        default:
+            // noop
+            break;
+    }
 }
 
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                                  error:(JPError *)error {
+- (void)completeTransactionWithResponse:(JPResponse *)response error:(JPError *)error {
 
     if (!self.completionHandler)
         return;
@@ -201,10 +230,9 @@
     [self.cardValidationService resetCardValidationResults];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JPCompletionBlock)completion {
-    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
-                                                         completion:completion];
+- (void)handle3DSecureTransactionFromError:(NSError *)error completion:(JPCompletionBlock)completion {
+    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration completion:completion];
 }
 
 - (NSArray<NSString *> *)getSelectableCountryNames {
@@ -243,7 +271,7 @@
 
 - (JP3DSService *)threeDSecureService {
     if (!_threeDSecureService) {
-        _threeDSecureService = [JP3DSService new];
+        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
     }
     return _threeDSecureService;
 }

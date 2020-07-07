@@ -25,19 +25,27 @@
 #import "JP3DSService.h"
 #import "JP3DSConfiguration.h"
 #import "JP3DSViewController.h"
-#import "JPTransaction.h"
+#import "JPApiService.h"
 #import "UIApplication+Additions.h"
+
+@interface JP3DSService ()
+@property (strong, nonatomic) JPApiService *apiService;
+@end
 
 @implementation JP3DSService
 
-- (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JPCompletionBlock)completion {
+- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService {
+    if (self = [super init]) {
+        _apiService = apiService;
+    }
+    return self;
+}
 
-    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+- (void)invoke3DSecureWithConfiguration:(JP3DSConfiguration *)configuration completion:(JPCompletionBlock)completion {
 
     JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration
                                                                               completion:completion];
-    controller.transaction = self.transaction;
+    controller.apiService = self.apiService;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;

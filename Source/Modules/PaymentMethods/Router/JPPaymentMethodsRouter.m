@@ -23,24 +23,22 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsRouter.h"
+#import "JPApiService.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
-#import "JPError.h"
 #import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPSliderTransitioningDelegate.h"
-#import "JPTransaction.h"
 #import "JPTransactionBuilder.h"
-#import "JPApiService.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
@@ -51,12 +49,12 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPApiService *)transactionService
+                           apiService:(JPApiService *)apiService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                            completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
         self.transitioningDelegate = transitioningDelegate;
         self.completionHandler = completion;
     }
@@ -65,14 +63,16 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork andTransactionType:(JPTransactionType)transactionType {
-    self.transactionService.transactionType = transactionType;
-    self.transactionService.mode = mode;
-    self.transactionService.cardNetwork = cardNetwork;
-    JPTransactionViewController *controller;
-    controller = [JPTransactionBuilderImpl buildModuleWithTransactionService:self.transactionService
-                                                               configuration:self.configuration
-                                                                  completion:nil];
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode
+                            cardNetwork:(JPCardNetworkType)cardNetwork
+                     andTransactionType:(JPTransactionType)transactionType {
+    JPTransactionViewController *controller =
+        [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                              configuration:self.configuration
+                                            transactionType:transactionType
+                                            cardDetailsMode:mode
+                                                cardNetwork:cardNetwork
+                                                 completion:nil];
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
@@ -90,7 +90,7 @@
     JPIDEALViewController *controller;
     controller = [[JPIDEALViewController alloc] initWithIDEALBank:bank
                                                     configuration:self.configuration
-                                               transactionService:self.transactionService
+                                                       apiService:self.apiService
                                                 completionHandler:completion];
 
     controller.theme = self.configuration.uiConfiguration.theme;

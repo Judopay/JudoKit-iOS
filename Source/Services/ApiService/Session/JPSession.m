@@ -24,31 +24,28 @@
 
 #import "JPSession.h"
 #import "Functions.h"
+#import "JPAuthorization.h"
 #import "JPError+Additions.h"
-#import "JPPagination.h"
 #import "JPReachability.h"
 #import "JPResponse.h"
-#import "JPTransactionData.h"
-#import "JudoKit.h"
 #import "JPSessionConfiguration.h"
-#import "Authorization.h"
-#import "NSMutableURLRequest/NSMutableURLRequest+Additions.h"
+#import "JudoKit.h"
 #import "NSObject+Additions.h"
 
 #import <TrustKit/TrustKit.h>
 
 @interface JPSession () <NSURLSessionDelegate>
-@property(nonatomic, strong, readwrite) TrustKit *trustKit;
-@property(nonatomic, strong, readwrite) JPReachability *reachability;
-@property(nonatomic, strong, readwrite) JPSessionConfiguration *configuration;
-@property(nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
+@property (nonatomic, strong, readwrite) TrustKit *trustKit;
+@property (nonatomic, strong, readwrite) JPReachability *reachability;
+@property (nonatomic, strong, readwrite) JPSessionConfiguration *configuration;
+@property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
 @end
 
 @implementation JPSession
 
 #pragma mark - Constants
 
-static NSString *const kAPIVersion = @"5.6.0";
+static NSString *const kAPIVersion = @"5.7.0.0";
 static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 static NSString *const kHeaderFieldAccept = @"Accept";
@@ -81,24 +78,24 @@ static NSString *const kMethodPUT = @"PUT";
 
 - (void)setupTrustKit {
     NSDictionary *trustKitConfig =
-            @{
-                    kTSKPinnedDomains: @{
-                    @"judopay-sandbox.com": @{
-                            kTSKPublicKeyHashes: @[
-                                    @"mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
-                                    @"SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
-                            ],
-                            kTSKIncludeSubdomains: @YES
-                    },
-                    @"gw1.judopay.com": @{
-                            kTSKPublicKeyHashes: @[
-                                    @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
-                                    @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
-                            ],
-                            kTSKIncludeSubdomains: @YES
-                    }
+        @{
+            kTSKPinnedDomains : @{
+                @"judopay-sandbox.com" : @{
+                    kTSKPublicKeyHashes : @[
+                        @"mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
+                        @"SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
+                    ],
+                    kTSKIncludeSubdomains : @YES
+                },
+                @"gw1.judopay.com" : @{
+                    kTSKPublicKeyHashes : @[
+                        @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+                        @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
+                    ],
+                    kTSKIncludeSubdomains : @YES
+                }
             }
-            };
+        };
 
     self.trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
 }
@@ -182,7 +179,7 @@ static NSString *const kMethodPUT = @"PUT";
        andCompletion:(JPCompletionBlock)completion {
 
     if (error || !data) {
-        JPError *jpError = error ? (JPError *) error : JPError.judoRequestFailedError;
+        JPError *jpError = error ? (JPError *)error : JPError.judoRequestFailedError;
         completion(nil, jpError);
         return;
     }
@@ -210,11 +207,9 @@ static NSString *const kMethodPUT = @"PUT";
         return;
     }
 
-    JPResponse *result = [[JPResponse alloc] initWithPagination:nil];
+    JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
 
-    [result appendItem:responseJSON];
-
-    switch (result.items.firstObject.result) {
+    switch (result.result) {
         case JPTransactionResultSuccess:
             completion(result, nil);
             break;
@@ -225,15 +220,15 @@ static NSString *const kMethodPUT = @"PUT";
 
         case JPTransactionResultError:
         default:
-            completion(nil, [JPError judoErrorFromTransactionData:result.items.firstObject]);
+            completion(nil, [JPError judoErrorFromResponse:result]);
     }
 }
 
 #pragma mark - URLSession SSL pinning
 
-- (void) URLSession:(NSURLSession *)session
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
-  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
+- (void)URLSession:(NSURLSession *)session
+    didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
 
     TSKPinningValidator *pinningValidator = self.trustKit.pinningValidator;
     if (![pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {

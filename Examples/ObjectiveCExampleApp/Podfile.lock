@@ -1,5 +1,5 @@
 PODS:
-  - CocoaDebug (1.2.7)
+  - CocoaDebug (1.2.8)
   - DeviceDNA (1.1.2)
   - InAppSettingsKit (3.0.1)
   - JudoKit-iOS (1.1.0):
@@ -30,7 +30,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  CocoaDebug: fbe21eafb4894150b1f5756d746a963a1cea8f5a
+  CocoaDebug: 32bb9cecd3b2df85f7d0e7bf48cae14fb149633a
   DeviceDNA: 3e72fd28d345a5aa6f218af4287cb46dc74b62cb
   InAppSettingsKit: 0d6cf327364085375cbfd8011fd6ae1c0d2c7d1c
   JudoKit-iOS: 9f8d430373d748dd58f6c0bf3e9782fa458b2fb0

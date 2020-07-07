@@ -22,6 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetailsMode.h"
+#import "JPCardNetworkType.h"
+#import "JPTransactionType.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
@@ -29,9 +32,19 @@
 
 @protocol JPTransactionBuilder
 
-+ (JPTransactionViewController *)buildModuleWithTransactionService:(JPApiService *)transactionService
-                                                     configuration:(JPConfiguration *)configuration
-                                                        completion:(JPCompletionBlock)completion;
++ (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                             configuration:(JPConfiguration *)configuration
+                                           transactionType:(JPTransactionType)type
+                                           cardDetailsMode:(JPCardDetailsMode)mode
+                                                completion:(JPCompletionBlock)completion;
+
++ (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                             configuration:(JPConfiguration *)configuration
+                                           transactionType:(JPTransactionType)type
+                                           cardDetailsMode:(JPCardDetailsMode)mode
+                                               cardNetwork:(JPCardNetworkType)cardNetwork
+                                                completion:(JPCompletionBlock)completion;
+
 @end
 
 @interface JPTransactionBuilderImpl : NSObject <JPTransactionBuilder>

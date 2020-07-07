@@ -32,22 +32,22 @@
 /*
  *  The name provided by the merchant
  */
-@property (nonatomic, strong, nullable) NSString * name;
+@property (nonatomic, strong, nullable) NSString *name;
 
 /*
  *  The account number provided by the merchant
  */
-@property (nonatomic, strong, nullable) NSString * accountNumber;
+@property (nonatomic, strong, nullable) NSString *accountNumber;
 
 /*
  *  The date of birth provided by the merchant
  */
-@property (nonatomic, strong, nullable) NSString * dateOfBirth;
+@property (nonatomic, strong, nullable) NSString *dateOfBirth;
 
 /*
  *  The postal code provided by the merchant
  */
-@property (nonatomic, strong, nullable) NSString * postCode;
+@property (nonatomic, strong, nullable) NSString *postCode;
 
 /*
  *  Convenience initialized based on a provided NSDictionary object

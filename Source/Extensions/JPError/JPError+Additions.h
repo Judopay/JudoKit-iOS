@@ -26,7 +26,7 @@
 #import "JPError.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionData, JPCardNetwork;
+@class JPTransactionData, JPCardNetwork, JPResponse;
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
@@ -52,7 +52,7 @@ extern NSString *_Nonnull const JudoErrorDomain;
 + (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
 + (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
 + (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
-+ (nonnull JPError *)judoErrorFromTransactionData:(nonnull JPTransactionData *)data;
++ (nonnull JPError *)judoErrorFromResponse:(nonnull JPResponse *)data;
 + (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
 + (nonnull JPError *)judoErrorFromError:(nonnull NSError *)error;
 + (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;

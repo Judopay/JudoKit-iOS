@@ -25,7 +25,6 @@
 #import "JPCardCustomizationTitleCell.h"
 #import "JPCardCustomizationViewModel.h"
 #import "JPTheme.h"
-#import "UIView+Additions.h"
 
 @interface JPCardCustomizationTitleCell ()
 @property (nonatomic, strong) UILabel *titleLabel;

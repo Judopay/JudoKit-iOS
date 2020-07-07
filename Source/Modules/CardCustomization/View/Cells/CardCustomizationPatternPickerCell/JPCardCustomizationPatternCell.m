@@ -25,7 +25,6 @@
 #import "JPCardCustomizationPatternCell.h"
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardPattern.h"
-#import "UIColor+Additions.h"
 
 @implementation JPCardCustomizationPatternCell
 

@@ -184,12 +184,15 @@
  * Designated initializer which creates a configured JPTransactionInteractorImpl instance
  *
  * @param cardValidationService - the service which is used to validate card details
- * @param transactionService - the service which sends requests to the Judo backend
+ * @param apiService - the service which sends requests to the Judo backend
  * @param configuration - the JPConfiguration object used for customizing the payment flow
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPApiService *)transactionService
+                                   apiService:(JPApiService *)apiService
+                              transactionType:(JPTransactionType)type
+                              cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration
+                                  cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion;
 @end

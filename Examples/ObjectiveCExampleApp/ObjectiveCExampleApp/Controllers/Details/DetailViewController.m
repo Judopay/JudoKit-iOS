@@ -55,7 +55,7 @@
     self.title = @"Payment receipt";
     self.navigationItem.hidesBackButton = YES;
     
-    if (self.transactionData) {
+    if (self.response) {
         [self setupTransactionData];
     }
     
@@ -77,7 +77,7 @@
 }
 
 - (IBAction)iDealButtonHandler:(id)sender {
-    JPOrderDetails *orderDetails = self.transactionData.orderDetails;
+    JPOrderDetails *orderDetails = self.response.orderDetails;
     
     if (!orderDetails) {
         [self displayErrorWithMessage:@"No iDEAL order details to display"];
@@ -89,7 +89,7 @@
 }
 
 - (IBAction)presentCardDetailsData:(id)sender {
-    JPCardDetails *cardDetails = self.transactionData.cardDetails;
+    JPCardDetails *cardDetails = self.response.cardDetails;
     
     if (!cardDetails) {
         [self displayErrorWithMessage:@"No card details to display"];
@@ -103,11 +103,11 @@
 #pragma mark - Helper methods
 
 - (void)setupTransactionData {
-    NSDate *createdAtDate = [self.inputDateFormatter dateFromString:self.transactionData.createdAt];
+    NSDate *createdAtDate = [self.inputDateFormatter dateFromString:self.response.createdAt];
     self.dateStampLabel.text = [self.outputDateFormatter stringFromDate:createdAtDate];
-    self.numberFormatter.currencyCode = self.transactionData.amount.currency;
-    self.resolutionLabel.text = self.transactionData.message;
-    self.amountLabel.text = [self.numberFormatter stringFromNumber:@(self.transactionData.amount.amount.floatValue)];
+    self.numberFormatter.currencyCode = self.response.amount.currency;
+    self.resolutionLabel.text = self.response.message;
+    self.amountLabel.text = [self.numberFormatter stringFromNumber:@(self.response.amount.amount.floatValue)];
 }
 
 - (void)navigateToDetailsPageWithTitle:(NSString *)title

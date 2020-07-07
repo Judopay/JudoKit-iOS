@@ -28,8 +28,8 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-@class JPConfiguration, JPPaymentMethod, JPSession, JPTransaction;
-@protocol Authorization;
+@class JPConfiguration, JPPaymentMethod, JPSession;
+@protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
 static NSString *__nonnull const JudoKitVersion = @"1.1.0";
@@ -40,7 +40,8 @@ static NSString *__nonnull const JudoKitVersion = @"1.1.0";
  * A property that toggles sandbox mode on the Judo SDK.
  */
 
-@property(nonatomic, assign) BOOL isSandboxed;
+@property (nonatomic, assign) BOOL isSandboxed;
+@property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
  * Designated initializer that returns a configured JudoKit instance.
@@ -50,7 +51,7 @@ static NSString *__nonnull const JudoKitVersion = @"1.1.0";
  * @returns - a configured instance of JudoKit
  */
 
-- (nullable instancetype)initWithAuthorization:(nonnull id <Authorization>)authorization
+- (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                         allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
 /**
@@ -59,19 +60,7 @@ static NSString *__nonnull const JudoKitVersion = @"1.1.0";
  * @returns - a configured instance of JudoKit.
 */
 
-- (nullable instancetype)initWithAuthorization:(nonnull id <Authorization>)authorization;
-
-/**
- * A method which returns a configured instance of JPTransaction for merchants to use in their own apps.
- *
- * @param type - an instance of TransactionType that describes the type of the transaction.
- * @param configuration - an instance of JPConfiguration used to configure the transaction.
- *
- * @returns - a configured instance of JPTransaction.
- */
-
-//- (nonnull JPTransaction *)transactionWithType:(JPTransactionType)type
-//                                 configuration:(nonnull JPConfiguration *)configuration;
+- (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 /**
  * A method which invokes the Judo transaction interface which allows users to enter their card details and make a transaction.

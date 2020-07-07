@@ -35,10 +35,6 @@
     self.layer.mask = mask;
 }
 
-- (void)setBorderWithColor:(UIColor *)color andWidth:(CGFloat)width {
-    [self setBorderWithColor:color width:width andCornerRadius:0.0];
-}
-
 - (void)setBorderWithColor:(UIColor *)color
                      width:(CGFloat)width
            andCornerRadius:(CGFloat)cornerRadius {
@@ -125,13 +121,6 @@
         return self.safeAreaLayoutGuide.bottomAnchor;
     }
     return self.bottomAnchor;
-}
-
-- (UIEdgeInsets)safeAreaEdgeInsets {
-    if (@available(iOS 11.0, *)) {
-        return self.safeAreaInsets;
-    }
-    return UIEdgeInsetsZero;
 }
 
 @end
