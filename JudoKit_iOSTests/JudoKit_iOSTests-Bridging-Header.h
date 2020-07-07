@@ -47,6 +47,7 @@
 #import "NSBundle+Additions.h"
 #import "JPError+Additions.h"
 #import "NSLayoutConstraint+Additions.h"
+#import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
 #import "JPStoredCardDetails.h"
 #import "UIApplication+Additions.h"
