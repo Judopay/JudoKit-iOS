@@ -208,7 +208,7 @@ class JPErrorAdditionsTests: XCTestCase {
      */
     func test_WhenJudoUnsupportedCardNetwork_SetCorrectLocalizedDescription() {
         let error = JPError.judoUnsupportedCardNetwork(.AMEX)
-        XCTAssertEqual(error.localizedDescription, "AmEx is not supported")
+        XCTAssertEqual(error.localizedDescription, "American Express is not supported")
     }
     
     /*
