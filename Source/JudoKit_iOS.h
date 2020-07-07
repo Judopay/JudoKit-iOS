@@ -83,3 +83,5 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "Typedefs.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
+#import "JPMerchantAnalytics.h"
+#import "AnalyticsEvent.h"

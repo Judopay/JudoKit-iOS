@@ -39,6 +39,7 @@
 #import "JPStoredCardDetails.h"
 #import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
+#import "AnalyticsService.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -77,6 +78,7 @@
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
     [self checkIfDeeplinkURLExist];
+    [self.analyticService addEventWithType:JPAnalyticTypeOpenPaymentMethod];
 }
 
 - (void)checkIfDeeplinkURLExist {

@@ -46,9 +46,10 @@
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
+                                        analyticService:(id<JPAnalyticsService>)analyticService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JPCompletionBlock)completion {
-
+    
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
         BOOL isPbBAPresent = (paymentMethod.type == JPPaymentMethodTypePbba);
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
@@ -98,7 +99,7 @@
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;
-
+    presenter.analyticService = analyticService;
     router.viewController = viewController;
 
     viewController.presenter = presenter;

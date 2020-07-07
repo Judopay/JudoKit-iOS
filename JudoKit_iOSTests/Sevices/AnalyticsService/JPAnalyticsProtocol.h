@@ -1,8 +1,8 @@
 //
-//  JPPaymentMethodsBuilder.h
+//  AnalyticsService.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionMode.h"
-#import "Typedefs.h"
 #import <Foundation/Foundation.h>
+#import "AnalyticsEvent.h"
 
-@class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
-@protocol JPAnalyticsService;
+@protocol JPAnalytics <NSObject>
 
-@protocol JPPaymentMethodsBuilder
+- (void)pushAnalyticsAnalytics:(NSArray<AnalyticsEvent *> *_Nonnull)event;
 
-+ (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
-                                                   configuration:(nonnull JPConfiguration *)configuration
-                                              transactionService:(nonnull JPTransactionService *)transactionService
-                                                 analyticService:(nullable id<JPAnalyticsService>)analyticService
-                                           transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
-                                               completionHandler:(nullable JPCompletionBlock)completion;
-@end
-
-@interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>
 @end

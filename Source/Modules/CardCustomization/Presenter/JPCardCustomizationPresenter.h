@@ -78,17 +78,17 @@
 @interface JPCardCustomizationPresenterImpl : NSObject <JPCardCustomizationPresenter>
 
 /**
- * A weak reference to the view that adops the  JPCardCustomizationView protocol
+ * A weak reference to the view that adopts the  JPCardCustomizationView protocol
  */
 @property (nonatomic, weak) id<JPCardCustomizationView> view;
 
 /**
- * A strong reference to the router that adops the  JPCardCustomizationRouter protocol
+ * A strong reference to the router that adopts the  JPCardCustomizationRouter protocol
  */
 @property (nonatomic, strong) id<JPCardCustomizationRouter> router;
 
 /**
- * A strong reference to the interactor that adops the  JPCardCustomizationInteractor protocol
+ * A strong reference to the interactor that adopts the  JPCardCustomizationInteractor protocol
  */
 @property (nonatomic, strong) id<JPCardCustomizationInteractor> interactor;
 

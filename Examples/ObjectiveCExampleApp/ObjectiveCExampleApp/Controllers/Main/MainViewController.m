@@ -33,6 +33,7 @@
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "ExampleAppStorage.h"
+#import "SampleAnalyticsService.h"
 
 static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
@@ -48,6 +49,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 @property (strong, nonatomic) JPPBBAConfiguration *pbbaConfig;
+@property (strong, nonatomic) id<JPMerchantAnalytics> analyticService;
 
 // INFO: Workaround for the judoKit setup
 @property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
@@ -65,6 +67,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     self.features = DemoFeature.defaultFeatures;
     self.settingsToObserve = @[kSandboxedKey, kTokenKey, kSecretKey];
     self.shouldSetupJudoSDK = YES;
+    self.analyticService = [SampleAnalyticsService new];
 
     [self requestLocationPermissions];
     [self setupPropertiesObservation];
@@ -73,7 +76,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    // When isSandbox | token | secred changed in the settings, re-init the JudoKit
+    // When isSandbox | token | secret changed in the settings, re-init the JudoKit
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -120,6 +123,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     self.judoKit.isSandboxed = self.settings.isSandboxed;
     self.pbbaConfig = [JPPBBAConfiguration new];
     self.pbbaConfig.deeplinkScheme = @"judo://pay";
+    [self.judoKit setAnalyticsWithDelegate:self.analyticService];
 }
 
 - (void)setupPropertiesObservation {

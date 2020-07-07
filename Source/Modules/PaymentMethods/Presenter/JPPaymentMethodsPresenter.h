@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol JPPaymentMethodsView
-, JPPaymentMethodsInteractor, JPPaymentMethodsRouter;
+, JPPaymentMethodsInteractor, JPPaymentMethodsRouter, JPAnalyticsService;
 @class JPPaymentMethodsCardModel, JPConfiguration;
 
 @protocol JPPaymentMethodsPresenter
@@ -118,18 +118,24 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
- * A weak reference to the view that adops the  JPPaymentMethodsView protocol
+ * A weak reference to the view that adopts the  JPPaymentMethodsView protocol
  */
 @property (nonatomic, weak) id<JPPaymentMethodsView> _Nullable view;
 
 /**
- * A strong reference to the router that adops the  JPPaymentMethodsRouter protocol
+ * A strong reference to the router that adopts the  JPPaymentMethodsRouter protocol
  */
 @property (nonatomic, strong) id<JPPaymentMethodsRouter> _Nullable router;
 
 /**
- * A strong reference to the interactor that adops the  JPPaymentMethodsInteractor protocol
+ * A strong reference to the interactor that adopts the  JPPaymentMethodsInteractor protocol
  */
 @property (nonatomic, strong) id<JPPaymentMethodsInteractor> _Nullable interactor;
+
+
+/**
+* A weak reference to the judokit that adopts the  JPAnalyticsService protocol
+*/
+@property (nonatomic, weak) id<JPAnalyticsService> _Nullable analyticService;
 
 @end
