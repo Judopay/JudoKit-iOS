@@ -27,7 +27,7 @@
 
 @interface JPAnalyticsService : NSObject
 
-- (void)sendEventWithType:(JPAnalyticsEvent *_Nonnull)event;
+- (void)sendEvent:(JPAnalyticsEvent *_Nonnull)event;
 - (void)setDelegate:(nullable id<JPAnalyticsServiceDelegate>)analyticsService;
 
 /**

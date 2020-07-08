@@ -68,6 +68,7 @@
     if (self = [super init]) {
         self.configuration = configuration;
     }
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsOpenPayments]];
     return self;
 }
 
@@ -78,7 +79,6 @@
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
     [self checkIfDeeplinkURLExist];
-    [JPAnalyticsService.sharedInstance sendEventWithType:[JPAnalyticsEvent judoAnalyticsScanCard]];
 }
 
 - (void)checkIfDeeplinkURLExist {

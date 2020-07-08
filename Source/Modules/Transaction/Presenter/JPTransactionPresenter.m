@@ -37,6 +37,7 @@
 #import "JPTransactionViewModel.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
+#import "JPAnalyticsService.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;
@@ -176,6 +177,7 @@
 
     [self.interactor completeTransactionWithResponse:response
                                                error:nil];
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsPaymentSuccess]];
     [self.router dismissViewController];
     [self.view didFinishAddingCard];
 }
@@ -183,6 +185,7 @@
 #pragma mark - Scan Card Tap
 
 - (void)handleScanCardButtonTap {
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsScanCard]];
 #if TARGET_OS_SIMULATOR
     [self.view displayCameraSimulatorAlert];
 #else
@@ -364,6 +367,7 @@
     if ([self.interactor isAVSEnabled]) {
         card.cardAddress.countryCode = [JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text];
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
+        [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsAVSUsed]];
     }
 
     //TODO: Handle Maestro-specific logic

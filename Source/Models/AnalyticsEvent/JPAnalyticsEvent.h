@@ -24,11 +24,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPAnalyticType) {
-    JPAnalyticTypeOpenPaymentMethod,
-    JPAnalyticTypeOther,
-};
-
 @interface JPAnalyticsEvent : NSObject
 
 /**
@@ -41,7 +36,18 @@ typedef NS_ENUM(NSUInteger, JPAnalyticType) {
  */
 @property (nonatomic, strong) NSDictionary *_Nonnull metaData;
 
++ (nonnull instancetype)name:(nonnull NSString *)name;
+
 + (nonnull JPAnalyticsEvent *)judoAnalyticsScanCard;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsAVSUsed;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsPaymentSuccess;
+
++ (nonnull JPAnalyticsEvent *)judoAnalyticsOpenPayments;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsSelectPaymentMethod;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsChangingPaymentMethod;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsClickPay;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsCloseScreen;
++ (nonnull JPAnalyticsEvent *)judoAnalyticsTransactionStatusAdded;
 
 @end
 

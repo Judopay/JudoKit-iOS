@@ -40,7 +40,7 @@
     return sharedInstance;
 }
 
-- (void)sendEventWithType:(JPAnalyticsEvent *)event {
+- (void)sendEvent:(JPAnalyticsEvent *)event {
     [self sendAnalyticsToMerchant: event];
 }
 
