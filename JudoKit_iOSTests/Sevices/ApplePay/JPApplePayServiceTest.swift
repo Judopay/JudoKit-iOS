@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPApplePayServiceTest: XCTestCase {
-    lazy var service = JPTransactionServiceiDealStub()
+    lazy var service = JPApiServiceiDealStub()
     lazy var configuration = JPConfiguration(judoID: "judoId",
                                              amount: JPAmount("123", currency: "EUR"),
                                              reference: JPReference(consumerReference: "consumerReference"))
@@ -35,7 +35,7 @@ class JPApplePayServiceTest: XCTestCase {
     override func setUp() {
         super.setUp()
         sut = JPApplePayService(configuration:configuration,
-                                transactionService:service)
+                                andApiService:service)
     }
     
     /*
@@ -66,7 +66,7 @@ class JPApplePayServiceTest: XCTestCase {
      * THEN: the returned instance of JPApplePayService should not be nil
      */
     func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
-        let applePayService = JPApplePayService(configuration: configuration, transactionService: service)
+        let applePayService = JPApplePayService(configuration: configuration, andApiService: service)
         XCTAssertNotNil(applePayService)
     }
 }

@@ -25,9 +25,11 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPTransactionServiceiDealStub: JPTransactionService {
+class JPApiServiceiDealStub: JPApiService {
     override init() {
-        super.init(token: "TOKEN", andSecret: "SECRET")
+        
+        let basicAuth: JPAuthorization = JPBasicAuthorization(token: "TOKEN", andSecret: "SECRET")
+        super.init(authorization: basicAuth, isSandboxed: true)
         saveStubs()
     }
     

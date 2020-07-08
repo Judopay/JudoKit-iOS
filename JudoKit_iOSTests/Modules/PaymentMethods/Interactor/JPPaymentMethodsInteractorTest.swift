@@ -32,8 +32,8 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
-        let service = JPTransactionServiceStub()
-        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
+        let service = JPApiServiceStub()
+        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, apiService: service, completion: nil)
     }
     
     /*

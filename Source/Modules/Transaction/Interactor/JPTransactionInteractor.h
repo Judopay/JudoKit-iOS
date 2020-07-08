@@ -48,8 +48,8 @@
 - (JPTransactionType)transactionType;
 
 /**
-* A method that returns the current cardNetwork type
-*/
+ * A method that returns the current cardNetwork type
+ */
 - (JPCardNetworkType)cardNetworkType;
 
 /**

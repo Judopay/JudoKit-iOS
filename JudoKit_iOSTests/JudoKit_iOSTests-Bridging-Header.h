@@ -9,7 +9,6 @@
 #import "JPKeychainService.h"
 #import "JPConfigurationValidationService.h"
 #import "JP3DSViewController.h"
-#import "JPTransactionService.h"
 #import "JPIDEALService.h"
 #import "JPApplePayService.h"
 
@@ -52,7 +51,6 @@
 #import "JudoKit.h"
 #import "JP3DSConfiguration.h"
 #import "UIImage+Additions.h"
-#import "JPTransaction.h"
 #import "JPFormatters.h"
 #import "Functions.h"
 #import "JPPBBAService.h"
