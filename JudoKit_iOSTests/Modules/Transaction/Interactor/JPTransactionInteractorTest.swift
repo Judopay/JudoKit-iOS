@@ -30,7 +30,7 @@ class JPTransactionInteractorTest: XCTestCase {
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
     lazy var reference = JPReference(consumerReference: "consumerReference")
-    let transactionService = JPTransactionService()
+    let apiService = JPApiService()
     
     override func setUp() {
         super.setUp()
@@ -41,7 +41,13 @@ class JPTransactionInteractorTest: XCTestCase {
         
         let completion: JPCompletionBlock = { (response, error) in
         }
-        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: transactionService, configuration:configuration, completion: completion)
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService,
+                                          apiService: apiService,
+                                          transactionType: .payment,
+                                          cardDetailsMode: .default,
+                                          configuration: configuration,
+                                          cardNetwork: .all,
+                                          completion: completion)
     }
     
     /*
@@ -427,16 +433,15 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: getting transaction type
+     * GIVEN: the JPTransactionInteractor is initialized with a [.payment] transaction type
      *
-     * WHEN: seted up to .saveCard
+     * WHEN: the [transactionType] method is called
      *
-     * THEN: should return saveCard type
+     * THEN: the returned transaction type should be [.payment]
      */
-    func test_TransactionType_WhenSavedCard_ShouldReturnSavedCard() {
-        transactionService.transactionType = .saveCard
+    func test_TransactionType_WhenInitializedWithPaymentType_ShouldReturnPaymentType() {
         let type = sut.transactionType()
-        XCTAssertEqual(type, .saveCard)
+        XCTAssertEqual(type, .payment)
     }
     
     /*

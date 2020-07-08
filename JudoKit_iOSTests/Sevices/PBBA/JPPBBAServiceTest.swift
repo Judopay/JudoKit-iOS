@@ -26,7 +26,9 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPPBBAServiceTest: XCTestCase {
-    let transactionService = JPTransactionService(token: "TOKEN", andSecret: "SECRET")
+    
+    let apiService = JPApiService()
+    
     let configuration = JPConfiguration(judoID: "judoId",
                                         amount: JPAmount("0.01", currency: "GBR"),
                                         reference: JPReference(consumerReference: "consumerReference"))
@@ -34,7 +36,7 @@ class JPPBBAServiceTest: XCTestCase {
 
     
     override func setUp() {
-        sut = JPPBBAService(configuration: configuration, transactionService: transactionService)
+        sut = JPPBBAService(configuration: configuration, apiService: apiService)
     }
     
     override func tearDown() {

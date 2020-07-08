@@ -24,7 +24,8 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JudoKitTest: XCTestCase {
-    let judoKit = JudoKit(token: "token", secret: "secret")!
+    
+    let judoKit = JudoKit()
     
     /*
      * GIVEN: Creating JudoKit object

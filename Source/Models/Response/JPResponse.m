@@ -115,12 +115,10 @@
 }
 
 - (JPTransactionResult)transactionResultForString:(NSString *)resultString {
-    if ([resultString isEqualToString:@"Success"]) {
-        return JPTransactionResultSuccess;
-    } else if ([resultString isEqualToString:@"Declined"]) {
+    if ([resultString isEqualToString:@"Declined"]) {
         return JPTransactionResultDeclined;
     }
-    return JPTransactionResultError;
+    return JPTransactionResultSuccess;
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {

@@ -24,10 +24,10 @@
 
 import XCTest
 
-class JPTransactionServiceStub: JPTransactionService {
+class JPApiServiceStub: JPApiService {
     
     override init() {
-        super.init(token: "TOKEN", andSecret: "SECRET")
+        super.init()
         saveStubs()
     }
     

@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPIDEALServiceTest: XCTestCase {
-    lazy var service = JPTransactionServiceiDealStub()
+    lazy var service = JPApiServiceiDealStub()
     lazy var configuration = JPConfiguration(judoID: "judoId",
                                              amount: JPAmount("123", currency: "EUR"),
                                              reference: JPReference(consumerReference: "consumerReference"))
@@ -37,7 +37,7 @@ class JPIDEALServiceTest: XCTestCase {
         super.setUp()
         HTTPStubs.setEnabled(true)
         sut = JPIDEALService(configuration:configuration,
-                             transactionService:service)
+                             apiService:service)
     }
     
     override func tearDown() {
@@ -116,7 +116,7 @@ class JPIDEALServiceTest: XCTestCase {
         let expectation = self.expectation(description: "get response from iDeal success sale")
         
         let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertEqual(response!.items!.first!.orderDetails!.orderStatus, "SUCCESS")
+            XCTAssertEqual(response?.orderDetails?.orderStatus, "SUCCESS")
             XCTAssertNil(error)
             expectation.fulfill()
         }

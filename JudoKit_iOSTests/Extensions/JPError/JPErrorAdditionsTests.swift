@@ -269,20 +269,6 @@ class JPErrorAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: when initialize JPError from JPTransactionData
-     *
-     * WHEN: it is populated with custom dictionary in raw data
-     *
-     * THEN: should return right data in userInfo
-     */
-    func test_judoErrorFromTransactionData() {
-        let data = JPTransactionData()
-        data.rawData = ["test": "testData"]
-        let errorUserInfo = (JPError.judoError(from: data).userInfo)["test"] as! String
-        XCTAssertEqual(errorUserInfo, "testData")
-    }
-    
-    /*
      * GIVEN: when initialize JPError from dictionary
      *
      * WHEN: it is populated with custom dictionary

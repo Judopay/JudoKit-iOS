@@ -95,7 +95,7 @@
 }
 
 - (JPAddress *)getConfiguredCardAddress {
-    return self.configuration.cardAddress.copy;
+    return self.configuration.cardAddress;
 }
 
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion {
