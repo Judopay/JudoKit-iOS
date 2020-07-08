@@ -49,7 +49,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 @property (strong, nonatomic) NSArray <DemoFeature *> *features;
 @property (strong, nonatomic) Settings *settings;
 @property (strong, nonatomic) JPPBBAConfiguration *pbbaConfig;
-@property (strong, nonatomic) id<JPMerchantAnalytics> analyticService;
+@property (strong, nonatomic) id<JPAnalyticsServiceDelegate> analyticService;
 
 // INFO: Workaround for the judoKit setup
 @property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
@@ -123,7 +123,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     self.judoKit.isSandboxed = self.settings.isSandboxed;
     self.pbbaConfig = [JPPBBAConfiguration new];
     self.pbbaConfig.deeplinkScheme = @"judo://pay";
-    [self.judoKit setAnalyticsWithDelegate:self.analyticService];
+    [self.judoKit registerService:self.analyticService];
 }
 
 - (void)setupPropertiesObservation {

@@ -143,8 +143,24 @@
 			<string>merchant_id_title</string>
 			<key>Key</key>
 			<string>apple_pay_merchant_id</string>
-		</dict>
-		<dict>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>Title</key>
+            <string>google_analytics_header</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>google_analytics_title</string>
+            <key>Key</key>
+            <string>google_analytics_enabled</string>
+            <key>DefaultValue</key>
+            <false/>
+        </dict>
+        <dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

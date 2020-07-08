@@ -46,7 +46,6 @@
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
                                      transactionService:(JPTransactionService *)transactionService
-                                        analyticService:(id<JPAnalyticsService>)analyticService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JPCompletionBlock)completion {
     
@@ -99,7 +98,6 @@
     presenter.view = viewController;
     presenter.interactor = interactor;
     presenter.router = router;
-    presenter.analyticService = analyticService;
     router.viewController = viewController;
 
     viewController.presenter = presenter;

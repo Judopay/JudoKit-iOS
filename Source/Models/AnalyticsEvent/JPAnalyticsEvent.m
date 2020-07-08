@@ -1,5 +1,5 @@
 //
-//  AnalyticsService.h
+//  JPAnalyticsEvent.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,20 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPMerchantAnalytics.h"
+#import "JPAnalyticsEvent.h"
 
-typedef NS_ENUM(NSUInteger, JPAnalyticType) {
-    JPAnalyticTypeOpenPaymentMethod,
-    JPAnalyticTypeOther,
-};
+@implementation JPAnalyticsEvent
 
-@protocol JPAnalyticsService <NSObject>
-- (void)addEventWithType:(JPAnalyticType)type;
-- (void)setDelegate:(nullable id<JPMerchantAnalytics>)analyticsService;
-@end
-
-@interface AnalyticsServiceImp : NSObject <JPAnalyticsService>
++ (JPAnalyticsEvent *)judoAnalyticsScanCard {
+    JPAnalyticsEvent * event = [JPAnalyticsEvent new];
+    event.eventName = @"test_name";
+    return event;
+}
 
 @end
-

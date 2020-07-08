@@ -27,7 +27,7 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import "AnalyticsService.h"
+#import "JPAnalyticsService.h"
 
 @class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
 
@@ -173,11 +173,11 @@ static NSString *__nonnull const JudoKitVersion = @"1.1.0";
 
 
 /**
-* A method which inject in sdk merchant analytic service
-*
-* @param service - merchant service that implement JPAnalytics protocol.
-*
-*/
-- (void)setAnalyticsWithDelegate:(id<JPMerchantAnalytics>_Nullable)service;
+ * A method which inject in sdk merchant analytic service
+ *
+ * @param service - merchant service that implement JPAnalyticsServiceDelegate.
+ *
+ */
+- (void)registerService:(id<JPAnalyticsServiceDelegate>_Nullable)service;
 
 @end

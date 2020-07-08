@@ -30,6 +30,7 @@
 
 @import CocoaDebug;
 @import JudoKit_iOS;
+@import Firebase;
 
 @interface AppDelegate()
 @property (nonatomic, assign) BOOL appIsLaunchedFromURL;
@@ -43,6 +44,9 @@
 
     // Enable debug inspector
     [CocoaDebug enable];
+    
+    //Enable firebase for analytics
+    [FIRApp configure];
 
     self.appIsLaunchedFromURL = false;
     NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];

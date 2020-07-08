@@ -23,11 +23,19 @@
 //  SOFTWARE.
 
 #import "SampleAnalyticsService.h"
+#import "Settings.h"
+@import Firebase;
 
 @implementation SampleAnalyticsService
 
-- (void)pushAnalyticsAnalytics:(NSArray<AnalyticsEvent *> *_Nonnull)event {
-    NSLog(@"events fired, handle those");
+- (void)didReceiveEvent:(JPAnalyticsEvent *)event {
+    BOOL googleAnalyticsEnabled = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults].isGoogleAnalyticsEnabled;
+    if (googleAnalyticsEnabled) {
+        [FIRAnalytics logEventWithName:event.eventName
+                            parameters:@{
+                                @"name": event.eventName,
+                            }];
+    }
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  JPMerchantAnalytics.h
+//  JPAnalyticsEvent.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,16 +23,25 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "AnalyticsEvent.h"
+
+typedef NS_ENUM(NSUInteger, JPAnalyticType) {
+    JPAnalyticTypeOpenPaymentMethod,
+    JPAnalyticTypeOther,
+};
+
+@interface JPAnalyticsEvent : NSObject
 
 /**
- * Protocol that are exposed to merchant. Should be implemented to receive events from judoSDK
+ * The eventName value, describing event naming
  */
-@protocol JPMerchantAnalytics <NSObject>
+@property (nonatomic, strong) NSString *_Nonnull eventName;
 
 /**
- * Method which fires in merchant app stack of events
+ * The metaData value, describing event meta data
  */
-- (void)pushAnalyticsAnalytics:(NSArray<AnalyticsEvent *> *_Nonnull)event;
+@property (nonatomic, strong) NSDictionary *_Nonnull metaData;
+
++ (nonnull JPAnalyticsEvent *)judoAnalyticsScanCard;
 
 @end
+

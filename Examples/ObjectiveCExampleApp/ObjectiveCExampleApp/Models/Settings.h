@@ -20,6 +20,10 @@ static NSString * const kCurrencyKey = @"currency";
 
 static NSString * const kMerchantIdKey = @"apple_pay_merchant_id";
 
+#pragma mark - Google Analytic section keys
+
+static NSString * const kGoogleAnalyticsKey = @"google_analytics_enabled";
+
 #pragma mark - Supported card networks section keys
 
 static NSString * const kVisaEnabledKey = @"is_card_network_visa_enabled";
@@ -65,6 +69,10 @@ static NSString * const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_s
 #pragma mark - Apple Pay section
 
 - (NSString *)applePayMerchantId;
+
+#pragma mark - Google Analytic section
+
+- (BOOL)isGoogleAnalyticsEnabled;
 
 #pragma mark - Supported card networks section
 

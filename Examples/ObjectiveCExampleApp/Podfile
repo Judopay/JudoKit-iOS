@@ -8,7 +8,8 @@ target 'ObjectiveCExampleApp' do
 
   pod 'InAppSettingsKit'
   pod 'CocoaDebug'
-
+  pod 'Firebase/Analytics'
+  
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths
     # Pods for testing

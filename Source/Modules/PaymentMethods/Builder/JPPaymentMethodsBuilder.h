@@ -27,14 +27,12 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController, JPConfiguration, JPTransactionService, JPSliderTransitioningDelegate;
-@protocol JPAnalyticsService;
 
 @protocol JPPaymentMethodsBuilder
 
 + (nullable JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                                    configuration:(nonnull JPConfiguration *)configuration
                                               transactionService:(nonnull JPTransactionService *)transactionService
-                                                 analyticService:(nullable id<JPAnalyticsService>)analyticService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
                                                completionHandler:(nullable JPCompletionBlock)completion;
 @end

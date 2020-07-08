@@ -49,6 +49,12 @@
     return [self.defaults stringForKey:kMerchantIdKey];
 }
 
+#pragma mark - Apple Pay section
+
+- (BOOL)isGoogleAnalyticsEnabled {
+    return [self.defaults boolForKey:kGoogleAnalyticsKey];
+}
+
 #pragma mark - Supported card networks section
 
 - (JPCardNetworkType)supportedCardNetworks {

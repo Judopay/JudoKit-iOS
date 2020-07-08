@@ -43,6 +43,7 @@
 #import "JPTransactionService.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
+#import "JPAnalyticsService.h"
 
 @interface JudoKit ()
 
@@ -53,7 +54,6 @@
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
-@property (nonatomic, strong) id<JPAnalyticsService> analyticService;
 
 @end
 
@@ -71,7 +71,6 @@
 
     self = [super init];
     BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
-    self.analyticService = [AnalyticsServiceImp new];
 
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
@@ -216,7 +215,6 @@
     return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                               configuration:configuration
                                          transactionService:self.transactionService
-                                            analyticService:self.analyticService
                                       transitioningDelegate:self.transitioningDelegate
                                           completionHandler:completion];
 }
@@ -235,8 +233,8 @@
     self.transactionService.isSandboxed = isSandboxed;
 }
 
-- (void)setAnalyticsWithDelegate:(id<JPMerchantAnalytics>)service {
-    [self.analyticService setDelegate:service];
+- (void)registerService:(id<JPAnalyticsServiceDelegate>)service {
+    [JPAnalyticsService.sharedInstance setDelegate:service];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  AnalyticsService.h
+//  JPAnalyticsService.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,40 +22,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AnalyticsService.h"
+#import <Foundation/Foundation.h>
+#import "JPAnalyticsServiceProtocol.h"
 
-@interface AnalyticsServiceImp ()
-@property (strong, nonatomic) NSMutableArray <AnalyticsEvent *> *events;
-@property (nonatomic, weak) id<JPMerchantAnalytics> _Nullable analyticsDelegate;
-@end
+@interface JPAnalyticsService : NSObject
 
-@implementation AnalyticsServiceImp
+- (void)sendEventWithType:(JPAnalyticsEvent *_Nonnull)event;
+- (void)setDelegate:(nullable id<JPAnalyticsServiceDelegate>)analyticsService;
 
-- (void)addEventWithType:(JPAnalyticType)type {
-    AnalyticsEvent * event = [AnalyticsEvent new];
-    switch (type) {
-        case JPAnalyticTypeOpenPaymentMethod:
-            event.eventName = @"open payment";
-        case JPAnalyticTypeOther:
-            event.eventName = @"other";
-    }
-    [self.events addObject:event];
-    [self sendAnalytics];
-    
-    /*
-     1. add event to userdefaults stack
-     2. check number of events in userdefaults stack
-     3. if >=10, call sendAnalytics method
-     */
-}
-
-- (void)sendAnalytics {
-    [self.analyticsDelegate pushAnalyticsAnalytics:self.events];
-    // remove from userdefaults stack all events
-}
-
-- (void)setDelegate:(id<JPMerchantAnalytics>)analyticsService {
-    self.analyticsDelegate = analyticsService;
-}
+/**
+ * The shared JPFormatters instance
+ */
++ (instancetype _Nonnull )sharedInstance;
 
 @end
+

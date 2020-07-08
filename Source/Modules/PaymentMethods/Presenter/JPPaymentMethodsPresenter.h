@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol JPPaymentMethodsView
-, JPPaymentMethodsInteractor, JPPaymentMethodsRouter, JPAnalyticsService;
+, JPPaymentMethodsInteractor, JPPaymentMethodsRouter;
 @class JPPaymentMethodsCardModel, JPConfiguration;
 
 @protocol JPPaymentMethodsPresenter
@@ -131,11 +131,5 @@
  * A strong reference to the interactor that adopts the  JPPaymentMethodsInteractor protocol
  */
 @property (nonatomic, strong) id<JPPaymentMethodsInteractor> _Nullable interactor;
-
-
-/**
-* A weak reference to the judokit that adopts the  JPAnalyticsService protocol
-*/
-@property (nonatomic, weak) id<JPAnalyticsService> _Nullable analyticService;
 
 @end

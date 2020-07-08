@@ -1,5 +1,5 @@
 //
-//  AnalyticsEvent.h
+//  JPAnalyticsServiceDelegate.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,14 +23,16 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-
-@interface AnalyticsEvent : NSObject
+#import "JPAnalyticsEvent.h"
 
 /**
- * The eventName value, describing event naming
+ * Protocol that are exposed to merchant. Should be implemented to receive events from judoSDK
  */
-@property (nonatomic, strong) NSString *_Nonnull eventName;
+@protocol JPAnalyticsServiceDelegate <NSObject>
+
+/**
+ * Method which fires in merchant app stack of events
+ */
+- (void)didReceiveEvent:(JPAnalyticsEvent *)event;
 
 @end
-

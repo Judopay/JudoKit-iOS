@@ -24,8 +24,8 @@
 
 #import <Foundation/Foundation.h>
 @import JudoKit_iOS;
-@protocol JPMerchantAnalytics;
+@protocol JPAnalyticsServiceDelegate;
 
-@interface SampleAnalyticsService : NSObject <JPMerchantAnalytics>
+@interface SampleAnalyticsService : NSObject <JPAnalyticsServiceDelegate>
 
 @end

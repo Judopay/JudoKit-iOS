@@ -1,5 +1,5 @@
 //
-//  AnalyticsEvent.h
+//  JPAnalyticsService.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,8 +22,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AnalyticsEvent.h"
+#import "JPAnalyticsService.h"
+#import "JPAnalyticsEvent.h"
 
-@implementation AnalyticsEvent
+@interface JPAnalyticsService ()
+@property (nonatomic, weak) id<JPAnalyticsServiceDelegate> _Nullable analyticsDelegate;
+@end
+
+@implementation JPAnalyticsService
+
++ (instancetype)sharedInstance {
+    static JPAnalyticsService *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [JPAnalyticsService new];
+    });
+    return sharedInstance;
+}
+
+- (void)sendEventWithType:(JPAnalyticsEvent *)event {
+    [self sendAnalyticsToMerchant: event];
+}
+
+- (void)sendAnalyticsToMerchant:(JPAnalyticsEvent *)event {
+    [self.analyticsDelegate didReceiveEvent:event];
+}
+
+- (void)setDelegate:(id<JPAnalyticsServiceDelegate>)analyticsService {
+    self.analyticsDelegate = analyticsService;
+}
 
 @end
