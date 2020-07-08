@@ -117,6 +117,7 @@
         card.isDefault = NO;
     }
     self.storedCards[index].isDefault = isDefault;
+    [self updateCardDetails:self.storedCards[index] atIndex:index];
     [self orderCards];
 }
 
