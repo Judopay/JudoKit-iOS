@@ -28,6 +28,12 @@ typedef void (^JPEnricherCompletionBlock)(NSDictionary *_Nullable);
 
 @interface JPRequestEnricher : NSObject
 
+/**
+ * A method used to enrich the request parameters with additional device/app information
+ *
+ * @param dictionary - the request parameters dictionary
+ * @param completion - a JPEnricherCompletionBlock containing the enrichment results
+ */
 - (void)enrichRequestParameters:(nonnull NSDictionary *)dictionary
                  withCompletion:(nonnull JPEnricherCompletionBlock)completion;
 

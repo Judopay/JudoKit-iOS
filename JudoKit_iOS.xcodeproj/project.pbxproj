@@ -1520,14 +1520,12 @@
 		300071C523F6A78E0099F3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				30D3639724B5BB1E0029BC86 /* Authorization */,
-				0783431824754BAE000DA445 /* PBBAConfiguration */,
-				30489AD32460737A0085B4F2 /* Error */,
 				3000737923FBECCE0099F3C5 /* 3DSConfiguration */,
 				3000728F23F6AB550099F3C5 /* Address */,
 				3000726223F6AB540099F3C5 /* Amount */,
 				3000731723FA9BBC0099F3C5 /* ApplePayConfiguration */,
 				3000731A23FA9BBD0099F3C5 /* ApplePayWrappers */,
+				30D3639724B5BB1E0029BC86 /* Authorization */,
 				3000727C23F6AB550099F3C5 /* BillingCountry */,
 				3000726823F6AB540099F3C5 /* Browser */,
 				3000727023F6AB540099F3C5 /* Card */,
@@ -1544,18 +1542,22 @@
 				3000728C23F6AB550099F3C5 /* Country */,
 				3000726E23F6AB540099F3C5 /* DictionaryConvertible */,
 				300072B423F6AB560099F3C5 /* EnchancedPaymentDetail */,
+				30489AD32460737A0085B4F2 /* Error */,
 				3000728423F6AB550099F3C5 /* IDEALBank */,
 				3000728723F6AB550099F3C5 /* OrderDetails */,
 				3000729E23F6AB550099F3C5 /* Pagination */,
 				3000727923F6AB550099F3C5 /* PaymentMethod */,
 				3000725423F6AB540099F3C5 /* PaymentMethods */,
+				0783431824754BAE000DA445 /* PBBAConfiguration */,
 				3000731423FA9BBC0099F3C5 /* PostalAddress */,
 				3000727E23F6AB550099F3C5 /* PrimaryAccountDetails */,
 				3000734323FA9C6D0099F3C5 /* Reachability */,
 				300072AE23F6AB560099F3C5 /* Reference */,
+				A75B38E09E5547C9A487965E /* Request */,
 				3000729223F6AB550099F3C5 /* Response */,
 				3000725623F6AB540099F3C5 /* SDKInfo */,
 				52B4CAD8241FB93D009C28DC /* Section */,
+				A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */,
 				300072B123F6AB560099F3C5 /* StoredCardDetails */,
 				3000727323F6AB540099F3C5 /* Theme */,
 				3000725F23F6AB540099F3C5 /* ThreeDSecure */,
@@ -1563,8 +1565,6 @@
 				3000732B23FA9C1C0099F3C5 /* TransactionEnricher */,
 				3000734E23FACF540099F3C5 /* UIConfiguration */,
 				3000726523F6AB540099F3C5 /* ValidationResult */,
-				A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */,
-				A75B38E09E5547C9A487965E /* Request */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2121,8 +2121,8 @@
 		30D3639724B5BB1E0029BC86 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				30D3639824B5BB1E0029BC86 /* Basic */,
 				30D3639B24B5BB1E0029BC86 /* JPAuthorization.h */,
+				30D3639824B5BB1E0029BC86 /* Basic */,
 				30D3639C24B5BB1E0029BC86 /* Session */,
 			);
 			path = Authorization;
@@ -2131,8 +2131,8 @@
 		30D3639824B5BB1E0029BC86 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				30D3639924B5BB1E0029BC86 /* JPBasicAuthorization.m */,
 				30D3639A24B5BB1E0029BC86 /* JPBasicAuthorization.h */,
+				30D3639924B5BB1E0029BC86 /* JPBasicAuthorization.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -2140,8 +2140,8 @@
 		30D3639C24B5BB1E0029BC86 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				30D3639D24B5BB1E0029BC86 /* JPSessionAuthorization.m */,
 				30D3639E24B5BB1E0029BC86 /* JPSessionAuthorization.h */,
+				30D3639D24B5BB1E0029BC86 /* JPSessionAuthorization.m */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -2339,11 +2339,11 @@
 		3B678B581C6CE5190001DC2F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3B678B5B1C6CE5190001DC2F /* Info.plist */,
 				300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */,
-				449211672469E8DD00DF6D14 /* Typedefs.h */,
 				3B678BC71C735AB80001DC2F /* JudoKit.h */,
+				449211672469E8DD00DF6D14 /* Typedefs.h */,
 				3B678BC81C735AB80001DC2F /* JudoKit.m */,
+				3B678B5B1C6CE5190001DC2F /* Info.plist */,
 				3B678B731C6CE6500001DC2F /* Extensions */,
 				30DB511923100E6B00B73D66 /* Helpers */,
 				300071C523F6A78E0099F3C5 /* Models */,
@@ -2358,13 +2358,13 @@
 		3B678B731C6CE6500001DC2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				30D363A424B5BB420029BC86 /* NSObject */,
-				4431198924B3345200BF961C /* JPRequest */,
 				30006F8723F6993A0099F3C5 /* CLLocation */,
+				30006F7223F6993A0099F3C5 /* JPError */,
+				4431198924B3345200BF961C /* JPRequest */,
 				30006F7523F6993A0099F3C5 /* NSArray */,
 				30006F8123F6993A0099F3C5 /* NSBundle */,
-				30006F7223F6993A0099F3C5 /* JPError */,
 				30221C0D23FE617300BF2823 /* NSLayoutConstraint */,
+				30D363A424B5BB420029BC86 /* NSObject */,
 				30006F6C23F6993A0099F3C5 /* NSString */,
 				30006F7B23F6993A0099F3C5 /* UIApplication */,
 				30006F6923F6993A0099F3C5 /* UIColor */,
@@ -2567,24 +2567,24 @@
 		A75B38E09E5547C9A487965E /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				A75B3F6D0368B16B90E91168 /* JPRequest.m */,
-				A75B3665E937D508A5B90FD3 /* JPRequest.h */,
-				A75B33A3353048CF004566BB /* JPBankOrderSaleRequest.m */,
-				A75B30D1310F0A0A309ADB2C /* JPBankOrderSaleRequest.h */,
-				A75B3A05BCC328B1D714AE05 /* JPPaymentRequest.m */,
-				A75B3A73666806B3E4B9042A /* JPPaymentRequest.h */,
-				A75B31A994AA449F1CDFC9EC /* JPTokenRequest.m */,
-				A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */,
-				A75B3FB6D940EB7798DF7588 /* JPRegisterCardRequest.m */,
-				A75B38F96B02C1CFA5D0B4DB /* JPRegisterCardRequest.h */,
-				A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */,
-				A75B3D5F0517A224048646EC /* JPSaveCardRequest.h */,
-				A75B3CEBCFA54CB571FFFF7B /* JPCheckCardRequest.m */,
-				A75B360FE17BBD2B1C94763D /* JPCheckCardRequest.h */,
-				A75B394953AC58E030F8CADF /* JPApplePayRequest.m */,
-				A75B37F24044357424FB12DC /* JPApplePayRequest.h */,
-				A75B390B0C47A007FDDF6711 /* JP3DSecureAuthenticationResult.m */,
 				A75B31AD376CC9B9B00F4302 /* JP3DSecureAuthenticationResult.h */,
+				A75B390B0C47A007FDDF6711 /* JP3DSecureAuthenticationResult.m */,
+				A75B37F24044357424FB12DC /* JPApplePayRequest.h */,
+				A75B394953AC58E030F8CADF /* JPApplePayRequest.m */,
+				A75B30D1310F0A0A309ADB2C /* JPBankOrderSaleRequest.h */,
+				A75B33A3353048CF004566BB /* JPBankOrderSaleRequest.m */,
+				A75B360FE17BBD2B1C94763D /* JPCheckCardRequest.h */,
+				A75B3CEBCFA54CB571FFFF7B /* JPCheckCardRequest.m */,
+				A75B3A73666806B3E4B9042A /* JPPaymentRequest.h */,
+				A75B3A05BCC328B1D714AE05 /* JPPaymentRequest.m */,
+				A75B38F96B02C1CFA5D0B4DB /* JPRegisterCardRequest.h */,
+				A75B3FB6D940EB7798DF7588 /* JPRegisterCardRequest.m */,
+				A75B3665E937D508A5B90FD3 /* JPRequest.h */,
+				A75B3F6D0368B16B90E91168 /* JPRequest.m */,
+				A75B3D5F0517A224048646EC /* JPSaveCardRequest.h */,
+				A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */,
+				A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */,
+				A75B31A994AA449F1CDFC9EC /* JPTokenRequest.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
