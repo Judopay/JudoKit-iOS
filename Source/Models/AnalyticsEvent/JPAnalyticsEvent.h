@@ -48,6 +48,6 @@
 + (nonnull JPAnalyticsEvent *)judoAnalyticsClickPay;
 + (nonnull JPAnalyticsEvent *)judoAnalyticsCloseScreen;
 + (nonnull JPAnalyticsEvent *)judoAnalyticsTransactionStatusAdded;
-
++ (nonnull JPAnalyticsEvent *)judoAnalyticsSelectCard;
 @end
 

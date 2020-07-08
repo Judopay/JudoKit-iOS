@@ -137,6 +137,7 @@
     [self.interactor completeTransactionWithResponse:nil
                                             andError:JPError.judoUserDidCancelError];
     [self.router dismissViewController];
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsCloseScreen]];
 }
 
 - (void)handlePayButtonTap {
@@ -169,6 +170,8 @@
     } else {
         [self handlePaymentWithSecurityCode:nil];
     }
+    
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsClickPay]];
 }
 
 - (void)handlePaymentWithSecurityCode:(nullable NSString *)code {
@@ -270,6 +273,7 @@
 
     [self viewModelNeedsUpdateWithAnimationType:animationType
                             shouldAnimateChange:YES];
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsChangingPaymentMethod]];
 }
 
 - (void)orderCards {

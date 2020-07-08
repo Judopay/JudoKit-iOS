@@ -49,6 +49,7 @@
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
+#import "JPAnalyticsService.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -103,6 +104,8 @@
     for (JPStoredCardDetails *cardDetails in storedCardDetails) {
         [JPCardStorage.sharedInstance addCardDetails:cardDetails];
     }
+    
+    [JPAnalyticsService.sharedInstance sendEvent:[JPAnalyticsEvent judoAnalyticsSelectCard]];
 }
 
 #pragma mark - Set card at index as default

@@ -68,4 +68,8 @@
     return [JPAnalyticsEvent name:@"transaction_status_added"];
 }
 
++ (JPAnalyticsEvent *)judoAnalyticsSelectCard {
+    return [JPAnalyticsEvent name:@"select_card"];
+}
+
 @end
