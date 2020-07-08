@@ -258,6 +258,9 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
                                      if (result.items.firstObject.result == JPTransactionResultDeclined) {
                                          completion(nil, [JPError judoErrorForDeclinedCard]);
                                      }
+                                     if (result.items.firstObject.result == JPTransactionResultSuccess) {
+                                         completion(result, nil);
+                                     }
                                  } else {
                                      completion(result, nil);
                                  }
