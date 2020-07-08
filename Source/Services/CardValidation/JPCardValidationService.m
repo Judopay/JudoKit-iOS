@@ -174,21 +174,6 @@ static int const kCardHolderNameLength = 3;
                                      formattedInput:input];
 }
 
-#pragma mark - Getters
-
-- (NSArray *)acceptedCardNetworks {
-    return @[
-        @(JPCardNetworkTypeVisa),
-        @(JPCardNetworkTypeAMEX),
-        @(JPCardNetworkTypeMasterCard),
-        @(JPCardNetworkTypeMaestro),
-        @(JPCardNetworkTypeDiscover),
-        @(JPCardNetworkTypeJCB),
-        @(JPCardNetworkTypeDinersClub),
-        @(JPCardNetworkTypeChinaUnionPay),
-    ];
-}
-
 #pragma mark - Expiry Date Validation Methods
 
 - (JPValidationResult *)validateNoExpiryDigitInput:(NSString *)input {

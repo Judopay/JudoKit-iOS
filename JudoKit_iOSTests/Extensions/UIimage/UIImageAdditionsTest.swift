@@ -33,10 +33,94 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get headerImage for: .discover type
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
-    func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNill() {
+    func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNil() {
         let image = UIImage.headerImage(for: .discover)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: Visa is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .visa)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: AMEX is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .AMEX)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: dinersClub is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .dinersClub)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: JCB is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .JCB)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: masterCard is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .maestro)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: masterCard is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .masterCard)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: the [headerImage] method is called from the UIImage extension
+     *
+     * WHEN: chinaUnionPay is set as the header type
+     *
+     * THEN: a valid header image must be returned
+     */
+    func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNil() {
+        let image = UIImage.headerImage(for: .chinaUnionPay)
         XCTAssertNotNil(image)
     }
     
@@ -45,9 +129,9 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for string name
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
-    func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNill() {
+    func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNil() {
         let image = UIImage.init(iconName: "lock-icon")
         XCTAssertNotNil(image)
     }
@@ -57,9 +141,9 @@ class UIImageAdditionsTest: XCTestCase {
      *
      * WHEN: trying to get image for card
      *
-     * THEN: shoould return non nil image
+     * THEN: should return non nil image
      */
-    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNill() {
+    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNil() {
         let image = UIImage.init(for: .discover)
         XCTAssertNotNil(image)
     }

@@ -26,7 +26,7 @@ import XCTest
 class JPCardTest: XCTestCase {
 
     /*
-    * GIVEN: Creating JPCard designed init
+    * GIVEN: Creating JPCard designated init
     *
     * WHEN: setup all properties
     *

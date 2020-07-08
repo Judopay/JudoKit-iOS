@@ -25,14 +25,24 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPTransactionInteractorMock: JPTransactionInteractor {
+enum SendTransactionTest {
+    case error
+    case noToken
+    case validData
+    case threedDSError
+}
 
+class JPTransactionInteractorMock: JPTransactionInteractor {
+    var testSendTransaction: SendTransactionTest = .validData
+    var type: JPTransactionType = .saveCard
     lazy var validationService = JPCardValidationService()
     var trasactionSent = false
     var completeTransaction = false
+    var handle3DS = false
     
+    var mode: JPCardDetailsMode = .default
     func cardDetailsMode() -> JPCardDetailsMode {
-        return .default
+        return mode
     }
     
     func cardNetworkType() -> JPCardNetworkType {
@@ -51,7 +61,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     }
     
     func transactionType() -> JPTransactionType {
-        return .saveCard
+        return type
     }
     
     func handleCameraPermissions(completion: ((AVAuthorizationStatus) -> Void)!) {
@@ -67,7 +77,9 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     }
     
     func handle3DSecureTransaction(fromError error: Error!, completion: JPCompletionBlock!) {
-        
+        let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
+        completion(nil, jpError)
+        handle3DS = true
     }
     
     func completeTransaction(with response: JPResponse!, error: JPError!) {
@@ -107,6 +119,52 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     }
     
     func sendTransaction(with card: JPCard!, completionHandler: JPCompletionBlock!) {
-        trasactionSent = true
+        switch testSendTransaction {
+        case .error:
+            let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
+            completionHandler(nil, jpError)
+            trasactionSent = true
+        case .noToken:
+            let jpResponse = JPResponse()
+            completionHandler(jpResponse, nil)
+            trasactionSent = true
+        case .validData:
+            let jpResponse = JPResponse()
+            completionHandler(jpResponse, nil)
+            trasactionSent = true
+        case .threedDSError:
+            let jpError = JPError.judo3DSRequest(withPayload: ["":""])
+            completionHandler(nil, jpError)
+            trasactionSent = true
+        }
     }
+    
+    var dic = ["receiptId":"receiptId",
+               "orderId": "orderId",
+               "type":"Payment",
+               "createdAt":"createdAt",
+               "result":"Success",
+               "message":"message",
+               "redirectUrl":"redirectUrl",
+               "merchantName":"merchantName",
+               "appearsOnStatementAs":"appearsOnStatementAs",
+               "paymentMethod":"paymentMethod",
+               "siteId":"siteId",
+               "merchantPaymentReference":"merchantPaymentReference",
+               "consumer":["consumerReference":"consumerReference",
+                           "consumerToken":"consumerToken"],
+               "orderDetails":["orderId":"orderId",
+                               "orderStatus":"orderStatus",
+                               "orderFailureReason":"orderFailureReason",
+                               "timestamp":"timestamp",
+                               "amount":999],
+               "cardDetails":["cardLastfour":"cardLastfour",
+                              "endDate":"endDate",
+                              "cardToken":"cardToken",
+                              "cardNumber":"cardNumber",
+                              "cardCategory":"cardCategory",
+                              "cardCountry":"cardCountry",
+                              "cardFunding":"cardFunding",
+                              "cardScheme":"cardScheme",
+                              "cardType":0]] as [String : Any]
 }

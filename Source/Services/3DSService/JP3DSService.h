@@ -37,6 +37,7 @@
  * @param configuration - an instance of JP3DSConfiguration which contains the 3D Secure payload (PaRes, MD, ACS URL, Receipt ID)
  * @param completion - a completion handler with an optional JPResponse / NSError
  */
-- (void)invoke3DSecureWithConfiguration:(nonnull JP3DSConfiguration *)configuration completion:(nonnull JPCompletionBlock)completion;
+- (void)invoke3DSecureWithConfiguration:(nonnull JP3DSConfiguration *)configuration
+                             completion:(nonnull JPCompletionBlock)completion;
 
 @end

@@ -43,6 +43,7 @@
 #import "JPStoredCardDetails.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
+#import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
 
 @interface JPTransactionInteractorImpl ()
@@ -117,7 +118,8 @@
     }
     if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
         JPAmount *amount = self.configuration.amount;
-        return [NSString stringWithFormat:@"%@ %@%@", @"pay".localized, amount.currency.toCurrencySymbol, amount.amount];
+        NSString *formattedAmount = [NSNumberFormatter formattedAmount:amount.amount withCurrencyCode:amount.currency];
+        return [NSString stringWithFormat:@"%@ %@", @"pay".localized, formattedAmount];
     }
     return @"pay".localized;
 }

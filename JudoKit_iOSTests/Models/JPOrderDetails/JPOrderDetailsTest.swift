@@ -50,6 +50,5 @@ class JPOrderDetailsTest: XCTestCase {
         XCTAssertEqual(cardDetails.orderStatus, "SUCCEEDED")
         XCTAssertEqual(cardDetails.orderId, "BTO-P5nhpXwATLSvJvI4WP90Dg")
     }
-    
 }
 

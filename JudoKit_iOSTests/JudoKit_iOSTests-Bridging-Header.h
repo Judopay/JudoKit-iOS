@@ -1,3 +1,7 @@
+//
+//  Use this file to import your target's public headers that you would like to expose to Swift.
+//
+
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsInteractor.h"
@@ -42,6 +46,7 @@
 #import "NSBundle+Additions.h"
 #import "JPError+Additions.h"
 #import "NSLayoutConstraint+Additions.h"
+#import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
 #import "JPStoredCardDetails.h"
 #import "UIApplication+Additions.h"
