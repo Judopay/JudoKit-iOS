@@ -2,7 +2,7 @@
 //  JPApiService.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -64,11 +64,12 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 #pragma mark - Initializers
 
-- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization isSandboxed:(BOOL)sandboxed {
+- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization
+                          isSandboxed:(BOOL)sandboxed {
+    
     if (self = [super init]) {
         _isSandboxed = sandboxed;
         _authorization = authorization;
-
         _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kRegisterCardEndpoint, kSaveCardEndpoint ];
         _enricher = [JPRequestEnricher new];
 
@@ -95,6 +96,129 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     _authorization = authorization;
     [self setUpSession];
 }
+
+- (void)invokePaymentWithRequest:(JPPaymentRequest *)request
+                   andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPaymentEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokePreAuthPaymentWithRequest:(JPPaymentRequest *)request
+                          andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPreauthEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeTokenPaymentWithRequest:(JPTokenRequest *)request
+                        andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPaymentEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokePreAuthTokenPaymentWithRequest:(JPTokenRequest *)request
+                               andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPreauthEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
+                       authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
+                              andCompletion:(nullable JPCompletionBlock)completion {
+    
+    NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
+    NSDictionary *parameters = [result toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPUT
+                          endpoint:endpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request
+                        andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kRegisterCardEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeSaveCardWithRequest:(JPSaveCardRequest *)request
+                    andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kSaveCardEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeCheckCardWithRequest:(JPCheckCardRequest *)request
+                     andCompletion:(JPCompletionBlock)completion {
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kCheckCardEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeApplePayPaymentWithRequest:(JPApplePayRequest *)request
+                           andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPaymentEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokePreAuthApplePayPaymentWithRequest:(JPApplePayRequest *)request
+                                  andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kPreauthEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request
+                    andCompletion:(JPCompletionBlock)completion {
+    
+    NSDictionary *parameters = [request toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPOST
+                          endpoint:kBankSaleEndpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeOrderStatusWithOrderId:(NSString *)orderId
+                       andCompletion:(JPCompletionBlock)completion {
+    
+    NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kBankStatusRequestEndpoint, orderId];
+    [self performRequestWithMethod:JPHTTPMethodGET
+                          endpoint:endpoint
+                        parameters:nil
+                     andCompletion:completion];
+}
+
+#pragma mark - Helper methods
 
 - (void)performRequestWithMethod:(JPHTTPMethod)method
                         endpoint:(NSString *)endpoint
@@ -127,69 +251,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     } else {
         enricherCompletion(parameters);
     }
-}
-
-- (void)invokePaymentWithRequest:(JPPaymentRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPaymentEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokePreAuthPaymentWithRequest:(JPPaymentRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPreauthEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeTokenPaymentWithRequest:(JPTokenRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPaymentEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokePreAuthTokenPaymentWithRequest:(JPTokenRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPreauthEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
-                       authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
-                              andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
-    NSDictionary *parameters = [result toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPUT endpoint:endpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kRegisterCardEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeSaveCardWithRequest:(JPSaveCardRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kSaveCardEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeCheckCardWithRequest:(JPCheckCardRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kCheckCardEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeApplePayPaymentWithRequest:(JPApplePayRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPaymentEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokePreAuthApplePayPaymentWithRequest:(JPApplePayRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kPreauthEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST endpoint:kBankSaleEndpoint parameters:parameters andCompletion:completion];
-}
-
-- (void)invokeOrderStatusWithOrderId:(NSString *)orderId andCompletion:(JPCompletionBlock)completion {
-    NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kBankStatusRequestEndpoint, orderId];
-    [self performRequestWithMethod:JPHTTPMethodGET endpoint:endpoint parameters:nil andCompletion:completion];
 }
 
 @end
