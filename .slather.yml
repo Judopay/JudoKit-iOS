@@ -13,6 +13,8 @@ ignore:
   - Source/Modules/**/*ViewController.m
   - Source/Modules/**/*Builder.m
   - Source/Modules/**/*Router.m
+  - Source/Models/ApplePayWrappers/JPApplePayWrappers.m
+  - Source/Models/TransactionEnricher/JPTransactionEnricher.m
   - TrustKit/*
   - JudoKit_iOSTests/*
   - Examples/*
@@ -28,3 +30,4 @@ ignore:
   - Source/Extensions/UIStackView/UIStackView+Additions.m
   - Source/Extensions/UIFont/UIFont+Additions.m
   - Source/Models/Pagination/JPPagination.m
+  - Source/Extensions/UIApplication/UIApplication+Additions.m

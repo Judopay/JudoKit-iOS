@@ -76,6 +76,8 @@
         self.apiService = apiService;
         self.completionHandler = completion;
         self.paymentMethods = configuration.paymentMethods;
+        
+        [JPCardStorage.sharedInstance orderCards];
     }
     return self;
 }

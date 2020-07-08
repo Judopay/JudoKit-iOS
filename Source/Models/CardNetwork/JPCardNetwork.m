@@ -36,7 +36,7 @@
             @(JPCardNetworkTypeVisa) : @"Visa",
             @(JPCardNetworkTypeMasterCard) : @"Mastercard",
             @(JPCardNetworkTypeChinaUnionPay) : @"China UnionPay",
-            @(JPCardNetworkTypeAMEX) : @"AmEx",
+            @(JPCardNetworkTypeAMEX) : @"American Express",
             @(JPCardNetworkTypeJCB) : @"JCB",
             @(JPCardNetworkTypeMaestro) : @"Maestro",
             @(JPCardNetworkTypeDiscover) : @"Discover",

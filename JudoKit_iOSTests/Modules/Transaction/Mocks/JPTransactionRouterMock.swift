@@ -26,8 +26,9 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPTransactionRouterMock: JPTransactionRouter {
+    var dimissController = false
     func dismissViewController() {
-        
+        dimissController = true
     }
     
     func navigateToScanCamera() {

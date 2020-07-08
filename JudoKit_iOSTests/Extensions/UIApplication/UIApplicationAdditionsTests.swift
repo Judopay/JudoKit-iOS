@@ -26,12 +26,26 @@ import XCTest
 @testable import JudoKit_iOS
 
 class UIApplicationAdditionsTests: XCTestCase {
-
+        
+    /*
+     * GIVEN: the device is not jailbroken
+     *
+     * WHEN: the [isCurrentDeviceJailbroken] method is called from the UIApplication extension
+     *
+     * THEN: the result should be false
+     */
     func test_isCurrentDeviceJailbroken() {
         let isJailBreak = UIApplication.isCurrentDeviceJailbroken()
         XCTAssertFalse(isJailBreak)
     }
-
+    
+    /*
+    * GIVEN: no view controllers have been presented on the screen
+    *
+    * WHEN: the [topMostViewController] method is called from the UIApplication extension
+    *
+    * THEN: the result should return nil
+    */
     func test_topMostViewController() {
         let topController = UIApplication.topMostViewController()
         XCTAssertNil(topController)

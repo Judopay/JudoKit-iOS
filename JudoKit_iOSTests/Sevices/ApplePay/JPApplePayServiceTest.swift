@@ -34,6 +34,9 @@ class JPApplePayServiceTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        let appleConfig = JPApplePayConfiguration(merchantId: "merchantId", currency: "USD", countryCode: "UK", paymentSummaryItems: [JPPaymentSummaryItem(label: "item", amount: 0.15)])
+        appleConfig.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
+        configuration.applePayConfiguration = appleConfig
         sut = JPApplePayService(configuration:configuration,
                                 andApiService:service)
     }
@@ -68,5 +71,43 @@ class JPApplePayServiceTest: XCTestCase {
     func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
         let applePayService = JPApplePayService(configuration: configuration, andApiService: service)
         XCTAssertNotNil(applePayService)
+    }
+    
+    /*
+     * GIVEN: Creating JPApplePayService with class Init
+     *
+     * WHEN: raw init
+     *
+     * THEN: should create correct non nill JPApplePayService object
+     */
+    func test_InitAppleService_WhenDesignatedInit_ShouldCreateObject() {
+        let sut = JPApplePayService.init()
+        XCTAssertNotNil(sut)
+    }
+    
+    /*
+     * GIVEN: Creating JPApplePayService with class Init
+     *
+     * WHEN: with configuration and service
+     *
+     * THEN: should create correct non nill JPApplePayService object
+     */
+    func test_InitAppleService_WhenClassInit_ShouldCreateObject() {
+        let sut = JPApplePayService()
+        XCTAssertNotNil(sut)
+    }
+    
+    /*
+     * GIVEN: Creating UIViewController with class Init
+     *
+     * WHEN: with type and nil complection
+     *
+     * THEN: should return nill UIViewController object
+     */
+    func test_initController_WhenPaymentType_ShouldCreateController() {
+        configuration.applePayConfiguration?.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
+        sut = JPApplePayService()
+        let controller = sut.applePayViewController(with: .payment, completion: nil)
+        XCTAssertNil(controller)
     }
 }

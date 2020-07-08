@@ -36,12 +36,12 @@ class JPCardDetailsTest: XCTestCase {
     }
     
     /*
-    * GIVEN: Creating JPCardDetails designed init
-    *
-    * WHEN: setup all properties
-    *
-    * THEN: should create correct fields in JPCardDetails object
-    */
+     * GIVEN: Creating JPCardDetails designated init
+     *
+     * WHEN: setup all properties
+     *
+     * THEN: should create correct fields in JPCardDetails object
+     */
     func test_InitWithCardNumber_DesgignatedInitilizer() {
         let cardDetails = JPCardDetails(cardNumber: "4445", expiryMonth: 10, expiryYear: 2010)
         XCTAssertEqual(cardDetails.cardNumber, "4445")
@@ -49,12 +49,12 @@ class JPCardDetailsTest: XCTestCase {
     }
     
     /*
-    * GIVEN: Creating JPCardDetails from dictionary
-    *
-    * WHEN: dictionary are parsed from json stub: CardDetails.json
-    *
-    * THEN: should create correct fields in JPCardDetails object
-    */
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: dictionary are parsed from json stub: CardDetails.json
+     *
+     * THEN: should create correct fields in JPCardDetails object
+     */
     func test_InitWithDictionary_InitFromDisctionary() {
         let cardDetails = JPCardDetails(dictionary: cardDetailsDic["cardDetails"]! as! [AnyHashable : Any])
         XCTAssertEqual(cardDetails.cardLastFour, "1111")
@@ -65,4 +65,88 @@ class JPCardDetailsTest: XCTestCase {
         XCTAssertEqual(cardDetails.cardNetwork, .visa)
     }
     
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: endDate is nil
+     *
+     * THEN: should return nil after formating
+     */
+    func test_FormattedExpiryDate_WhenEndDateNil_ShouldReturnNil() {
+        var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        dic["endDate"] = nil;
+        let cardDetails = JPCardDetails(dictionary: dic)
+        XCTAssertNil(cardDetails.formattedExpiryDate())
+    }
+    
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: endDate contain 4 digits
+     *
+     * THEN: should format right
+     */
+    func test_FormattedExpiryDate_WhenEndDate4Digits_ShouldReturnFormated() {
+        var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        dic["endDate"] = "1020";
+        let cardDetails = JPCardDetails(dictionary: dic)
+        XCTAssertEqual(cardDetails.formattedExpiryDate(), "10/20")
+    }
+    
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: cardLastfour is nil
+     *
+     * THEN: should format nil
+     */
+    func test_FormattedCardLastFour_WhenNil_ShouldReturnNil() {
+        var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        dic["cardLastfour"] = nil;
+        let cardDetails = JPCardDetails(dictionary: dic)
+        XCTAssertNil(cardDetails.formattedCardLastFour())
+    }
+    
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: card number is entered completely
+     *
+     * THEN: should format 1111
+     */
+    func test_FormattedCardLastFour_WhenCardNumber_ShouldReturnRight() {
+        var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        dic["cardNumber"] = "1111111111111111";
+        let cardDetails = JPCardDetails(dictionary: dic)
+        cardDetails.formattedCardLastFour()
+        XCTAssertEqual(cardDetails.cardLastFour, "1111")
+    }
+    
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: card network is AMEX
+     *
+     * THEN: should format AMEX
+     */
+    func test_FormattedCardLastFour_WhenAmex_ShouldReturnAmexFormat() {
+        let dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        let cardDetails = JPCardDetails(dictionary: dic)
+        cardDetails.cardNetwork = .AMEX
+        XCTAssertEqual(cardDetails.formattedCardLastFour(), "**** ****** *1111")
+    }
+    
+    /*
+     * GIVEN: Creating JPCardDetails from dictionary
+     *
+     * WHEN: card network is Unknown
+     *
+     * THEN: should format v
+     */
+    func test_FormattedCardLastFour_WhenUnknown_ShouldReturnRightFormat() {
+        let dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
+        let cardDetails = JPCardDetails(dictionary: dic)
+        cardDetails.cardNetwork = JPCardNetworkType(rawValue: 0)
+        XCTAssertEqual(cardDetails.formattedCardLastFour(), "**** 1111")
+    }
 }

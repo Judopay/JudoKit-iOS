@@ -26,17 +26,19 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPPBBAServiceTest: XCTestCase {
-    
-    let apiService = JPApiService()
-    
     let configuration = JPConfiguration(judoID: "judoId",
-                                        amount: JPAmount("0.01", currency: "GBR"),
+                                        amount: JPAmount("0.01", currency: "GBP"),
                                         reference: JPReference(consumerReference: "consumerReference"))
     var sut: JPPBBAService! = nil
 
-    
     override func setUp() {
-        sut = JPPBBAService(configuration: configuration, apiService: apiService)
+        super.setUp()
+        HTTPStubs.setEnabled(true)
+        let ppbaConfig = JPPBBAConfiguration(deeplinkScheme: "judo",
+                                             andDeeplinkURL: URL(string: "url?orderId=3333"))
+        configuration.pbbaConfiguration = ppbaConfig
+        
+        sut = JPPBBAService(configuration: configuration, apiService: JPApiServicePBBAStub())
     }
     
     override func tearDown() {
@@ -59,29 +61,22 @@ class JPPBBAServiceTest: XCTestCase {
     }
     
     /*
-    * GIVEN: JPPBBAServiceTest start pbba flow
-    *
-    * WHEN: siteId is presenting in configuration
-    *
-    * THEN: should return default error,
-    */
-    func testSiteIdNotEmpty() {
-        configuration.siteId = "siteId"
-        sut.openPBBAMerchantApp { (res, error) in
-            XCTAssertNotEqual(error, JPError.judoSiteIDMissingError())
-        }
-    }
-    
-    /*
      * GIVEN: JPPBBAServiceTest start polling
      *
-     * WHEN: response is unsuccess
+     * WHEN: response is Success
      *
-     * THEN: should return non nill error
+     * THEN: should return non nil response and equal with Success status
      */
     func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
-        sut.pollingOrderStatus { (res, error) in
-            XCTAssertNotNil(error)
+        let expectation = self.expectation(description: "get response from pbba polling")
+        
+        let completion: JPCompletionBlock = { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            XCTAssertEqual(response?.orderDetails?.orderStatus, "Success")
+            expectation.fulfill()
         }
+        sut.pollingOrderStatus(completion)
+        waitForExpectations(timeout: 6, handler: nil)
     }
 }
