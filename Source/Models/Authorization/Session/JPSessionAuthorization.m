@@ -33,14 +33,14 @@
 
 + (instancetype)authorizationWithToken:(NSString *)token
                      andPaymentSession:(NSString *)session {
-    
+
     return [[JPSessionAuthorization alloc] initWithToken:token
                                        andPaymentSession:session];
 }
 
 - (instancetype)initWithToken:(NSString *)token
             andPaymentSession:(NSString *)session {
-    
+
     if (self = [super init]) {
         _headers = @{
             @"Authorization" : generateBasicAuthHeader(token, @""),

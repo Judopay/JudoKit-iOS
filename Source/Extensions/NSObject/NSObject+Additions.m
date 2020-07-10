@@ -16,30 +16,32 @@
 
     if (aClass != NSObject.class) {
         unsigned int count = 0;
-        objc_property_t *_Nullable properties = class_copyPropertyList(aClass, &count);
+        objc_property_t *properties = class_copyPropertyList(aClass, &count);
 
-        for (int i = 0; i < count; i++) {
-            NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-            
-            if (key == nil) {
-                continue;
-            }
-            
-            id value = [self valueForKey:key];
+        if (properties) {
+            for (int i = 0; i < count; i++) {
+                NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
 
-            if (value == nil) {
-                if (serializeNils) {
-                    dictionary[key] = NSNull.null;
+                if (key == nil) {
+                    continue;
                 }
-            } else if ([value isKindOfClass:NSNumber.class] || [value isKindOfClass:NSString.class] || [value isKindOfClass:NSDictionary.class]) {
-                dictionary[key] = value;
-            } else if ([value isKindOfClass:NSArray.class]) {
-                NSArray *array = value;
-                if (array.count > 0) {
-                    dictionary[key] = [array toArrayOfDictionaries];
+
+                id value = [self valueForKey:key];
+
+                if (value == nil) {
+                    if (serializeNils) {
+                        dictionary[key] = NSNull.null;
+                    }
+                } else if ([value isKindOfClass:NSNumber.class] || [value isKindOfClass:NSString.class] || [value isKindOfClass:NSDictionary.class]) {
+                    dictionary[key] = value;
+                } else if ([value isKindOfClass:NSArray.class]) {
+                    NSArray *array = value;
+                    if (array.count > 0) {
+                        dictionary[key] = [array toArrayOfDictionaries];
+                    }
+                } else if ([value isKindOfClass:NSObject.class]) {
+                    dictionary[key] = [value toDictionary];
                 }
-            } else if ([value isKindOfClass:NSObject.class]) {
-                dictionary[key] = [value toDictionary];
             }
         }
 

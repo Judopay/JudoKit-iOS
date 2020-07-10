@@ -27,15 +27,15 @@
 @implementation NSNumberFormatter (Additions)
 
 + (NSString *)formattedAmount:(NSString *)amount withCurrencyCode:(NSString *)currencyCode {
-    
+
     NSDecimalNumber *amountNumber = [NSDecimalNumber decimalNumberWithString:amount];
     BOOL isFractional = amountNumber.doubleValue != (int)amountNumber.doubleValue;
-    
+
     NSNumberFormatter *currencyFormatter = [NSNumberFormatter new];
     [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [currencyFormatter setCurrencyCode:currencyCode];
     [currencyFormatter setMaximumFractionDigits:isFractional ? 2 : 0];
-    
+
     return [currencyFormatter stringFromNumber:amountNumber];
 }
 

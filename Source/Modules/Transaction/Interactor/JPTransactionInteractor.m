@@ -147,33 +147,33 @@
         case JPTransactionTypeRegisterCard:
             [self createTransactionTypeRegisterCard:card completionHandler:completionHandler];
             break;
-        
+
         default:
             break;
     }
 }
 
--(void)createTransactionTypePayment:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+- (void)createTransactionTypePayment:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
     [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
 }
 
--(void)createTransactionTypePreAuth:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+- (void)createTransactionTypePreAuth:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
     [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
 }
 
--(void)createTransactionTypeSaveCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+- (void)createTransactionTypeSaveCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
     JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
     [self.apiService invokeSaveCardWithRequest:request andCompletion:completionHandler];
 }
 
--(void)createTransactionTypeCheckCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+- (void)createTransactionTypeCheckCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
     JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
     [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
 }
 
--(void)createTransactionTypeRegisterCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+- (void)createTransactionTypeRegisterCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
     JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
     [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
 }

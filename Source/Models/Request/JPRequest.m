@@ -31,7 +31,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
-    
+
     if (self = [super init]) {
         [self setConfigurationDetails:configuration];
     }
@@ -40,7 +40,7 @@
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                        andCardDetails:(JPCard *)card {
-    
+
     if (self = [super init]) {
         [self setConfigurationDetails:configuration];
         [self setCardDetails:card];

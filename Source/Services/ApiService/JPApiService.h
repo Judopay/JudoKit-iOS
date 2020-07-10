@@ -60,7 +60,6 @@
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                                   isSandboxed:(BOOL)sandboxed;
 
-
 /**
  * A method that invokes a payment transaction
  *

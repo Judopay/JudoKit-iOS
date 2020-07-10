@@ -48,7 +48,7 @@ static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/"
 
 #pragma mark - Getters
 
-- (NSURL * _Nullable)apiBaseURL {
+- (NSURL *_Nullable)apiBaseURL {
     NSString *url = kJudoBaseURL;
 
     if (self.isSandboxed) {

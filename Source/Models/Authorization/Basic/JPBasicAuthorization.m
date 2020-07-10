@@ -33,14 +33,14 @@
 
 + (instancetype)authorizationWithToken:(NSString *)token
                              andSecret:(NSString *)secret {
-    
+
     return [[JPBasicAuthorization alloc] initWithToken:token
                                              andSecret:secret];
 }
 
 - (instancetype)initWithToken:(NSString *)token
                     andSecret:(NSString *)secret {
-    
+
     if (self = [super init]) {
         _headers = @{@"Authorization" : generateBasicAuthHeader(token, secret)};
     }
