@@ -34,15 +34,6 @@
 
 #import <TrustKit/TrustKit.h>
 
-@interface JPSession () <NSURLSessionDelegate>
-@property (nonatomic, strong, readwrite) TrustKit *trustKit;
-@property (nonatomic, strong, readwrite) JPReachability *reachability;
-@property (nonatomic, strong, readwrite) JPSessionConfiguration *configuration;
-@property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
-@end
-
-@implementation JPSession
-
 #pragma mark - Constants
 
 static NSString *const kAPIVersion = @"5.7.0.0";
@@ -55,6 +46,15 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 static NSString *const kMethodGET = @"GET";
 static NSString *const kMethodPOST = @"POST";
 static NSString *const kMethodPUT = @"PUT";
+
+@interface JPSession () <NSURLSessionDelegate>
+@property (nonatomic, strong, readwrite) TrustKit *trustKit;
+@property (nonatomic, strong, readwrite) JPReachability *reachability;
+@property (nonatomic, strong, readwrite) JPSessionConfiguration *configuration;
+@property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
+@end
+
+@implementation JPSession
 
 #pragma mark - Initializers
 
@@ -143,7 +143,7 @@ static NSString *const kMethodPUT = @"PUT";
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         request.HTTPMethod = HTTPMethod;
 
-        [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+        [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *__unused stop) {
             [request addValue:obj forHTTPHeaderField:key];
         }];
 
@@ -167,7 +167,7 @@ static NSString *const kMethodPUT = @"PUT";
                                                         delegateQueue:nil];
 
     return [urlSession dataTaskWithRequest:request
-                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                         completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
                              if (!completion) {
                                  return;
                              }
@@ -222,7 +222,6 @@ static NSString *const kMethodPUT = @"PUT";
             completion(nil, [JPError judoErrorCardDeclined]);
             break;
 
-        case JPTransactionResultError:
         default:
             completion(nil, [JPError judoErrorFromResponse:result]);
     }

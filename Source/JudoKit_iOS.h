@@ -24,12 +24,6 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for JudoKit_iOS.
-FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
-
-//! Project version string for JudoKit_iOS.
-FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
-
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
@@ -96,3 +90,9 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPSessionAuthorization.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
+
+//! Project version number for JudoKit_iOS.
+FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
+
+//! Project version string for JudoKit_iOS.
+FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];

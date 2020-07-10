@@ -32,6 +32,10 @@
 #import "JPReference.h"
 #import "JPResponse.h"
 
+#pragma mark - Constants
+
+static const float kTimerDuration = 60.0F;
+
 @interface JPIDEALService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApiService *apiService;
@@ -40,10 +44,6 @@
 @end
 
 @implementation JPIDEALService
-
-#pragma mark - Constants
-
-static const float kTimerDuration = 60.0F;
 
 #pragma mark - Initializers
 

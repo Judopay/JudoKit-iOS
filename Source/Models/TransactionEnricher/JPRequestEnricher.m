@@ -78,7 +78,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
                  withCompletion:(nonnull JPEnricherCompletionBlock)completion {
 
     __weak typeof(self) weakSelf = self;
-    [self.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *error) {
+    [self.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
         JPEnhancedPaymentDetail *detail = [weakSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
         NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
         enrichedRequest[kEnhancedPaymentDetailKey] = [detail toDictionary];
