@@ -26,21 +26,9 @@
                     continue;
                 }
 
-                id value = [self valueForKey:key];
-
-                if (value == nil) {
-                    if (serializeNils) {
-                        dictionary[key] = NSNull.null;
-                    }
-                } else if ([value isKindOfClass:NSNumber.class] || [value isKindOfClass:NSString.class] || [value isKindOfClass:NSDictionary.class]) {
+                id value = [self objectForKey:key serializeNils:serializeNils];
+                if (value) {
                     dictionary[key] = value;
-                } else if ([value isKindOfClass:NSArray.class]) {
-                    NSArray *array = value;
-                    if (array.count > 0) {
-                        dictionary[key] = [array toArrayOfDictionaries];
-                    }
-                } else if ([value isKindOfClass:NSObject.class]) {
-                    dictionary[key] = [value toDictionary];
                 }
             }
         }
@@ -49,6 +37,27 @@
 
         [self appendFieldsOfClass:aClass.superclass toDictionary:dictionary serializeNils:serializeNils];
     }
+}
+
+- (id)objectForKey:(NSString *)key serializeNils:(BOOL)serializeNils {
+    id value = [self valueForKey:key];
+    
+    if (value) {
+        if ([value isKindOfClass:NSNumber.class]
+            || [value isKindOfClass:NSString.class]
+            || [value isKindOfClass:NSDictionary.class]) {
+            return value;
+        } else if ([value isKindOfClass:NSArray.class]) {
+            NSArray *array = value;
+            if (array.count > 0) {
+                return [array toArrayOfDictionaries];
+            }
+        } else if ([value isKindOfClass:NSObject.class]) {
+            return [value toDictionary];
+        }
+    }
+    
+    return serializeNils ? NSNull.null : nil;
 }
 
 - (nullable NSData *)toJSONObjectData {
