@@ -19,7 +19,12 @@
         objc_property_t *_Nullable properties = class_copyPropertyList(aClass, &count);
 
         for (int i = 0; i < count; i++) {
-            NSString *_Nullable key = [NSString stringWithUTF8String:property_getName(properties[i])];
+            NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
+            
+            if (key == nil) {
+                continue;
+            }
+            
             id value = [self valueForKey:key];
 
             if (value == nil) {
