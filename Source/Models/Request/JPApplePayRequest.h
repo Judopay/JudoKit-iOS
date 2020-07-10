@@ -42,7 +42,7 @@
 /**
  * A refrerence to the payment data used to complete the Apple Pay transaction
  */
-@property (nonatomic, strong, nonnull) NSDictionary *paymentData;
+@property (nonatomic, strong, nullable) NSDictionary *paymentData;
 
 /**
  * Designated initializer that creates a JPApplePayPaymentToken instance based on a PKPaymentToken

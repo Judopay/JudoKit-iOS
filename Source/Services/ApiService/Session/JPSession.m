@@ -138,21 +138,25 @@ static NSString *const kMethodPUT = @"PUT";
         return;
     }
 
-    NSURL *url = [self.configuration.apiBaseURL URLByAppendingPathComponent:path];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    request.HTTPMethod = HTTPMethod;
+    NSURL *_Nullable url = [self.configuration.apiBaseURL URLByAppendingPathComponent:path];
+    if (url != nil) {
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        request.HTTPMethod = HTTPMethod;
 
-    [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
-        [request addValue:obj forHTTPHeaderField:key];
-    }];
+        [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+            [request addValue:obj forHTTPHeaderField:key];
+        }];
 
-    if (parameters) {
-        //TODO: handle serialization errors
-        request.HTTPBody = [parameters toJSONObjectData];
+        if (parameters) {
+            //TODO: handle serialization errors
+            request.HTTPBody = [parameters toJSONObjectData];
+        }
+
+        NSURLSessionDataTask *task = [self task:request completion:completion];
+        [task resume];
+    } else {
+        completion(nil, [JPError judoRequestFailedError]);
     }
-
-    NSURLSessionDataTask *task = [self task:request completion:completion];
-    [task resume];
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JPCompletionBlock)completion {

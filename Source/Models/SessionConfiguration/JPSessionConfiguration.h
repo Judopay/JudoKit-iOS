@@ -36,7 +36,7 @@
 /**
  * A reference to the Judo base URL
  */
-@property (nonatomic, readonly, nonnull) NSURL *apiBaseURL;
+@property (nonatomic, readonly, nullable) NSURL *apiBaseURL;
 
 /**
  * A parameter describing if the session is pointing to the sandbox environment

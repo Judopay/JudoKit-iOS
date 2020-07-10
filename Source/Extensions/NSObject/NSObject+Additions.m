@@ -16,10 +16,10 @@
 
     if (aClass != NSObject.class) {
         unsigned int count = 0;
-        objc_property_t *properties = class_copyPropertyList(aClass, &count);
+        objc_property_t *_Nullable properties = class_copyPropertyList(aClass, &count);
 
         for (int i = 0; i < count; i++) {
-            NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
+            NSString *_Nullable key = [NSString stringWithUTF8String:property_getName(properties[i])];
             id value = [self valueForKey:key];
 
             if (value == nil) {

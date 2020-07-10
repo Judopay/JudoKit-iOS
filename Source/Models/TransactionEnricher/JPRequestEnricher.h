@@ -34,7 +34,7 @@ typedef void (^JPEnricherCompletionBlock)(NSDictionary *_Nullable);
  * @param dictionary - the request parameters dictionary
  * @param completion - a JPEnricherCompletionBlock containing the enrichment results
  */
-- (void)enrichRequestParameters:(nonnull NSDictionary *)dictionary
+- (void)enrichRequestParameters:(nullable NSDictionary *)dictionary
                  withCompletion:(nonnull JPEnricherCompletionBlock)completion;
 
 @end

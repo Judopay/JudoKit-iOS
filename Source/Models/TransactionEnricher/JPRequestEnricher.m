@@ -74,7 +74,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 #pragma mark - Public methods
 
-- (void)enrichRequestParameters:(nonnull NSDictionary *)dictionary
+- (void)enrichRequestParameters:(nullable NSDictionary *)dictionary
                  withCompletion:(nonnull JPEnricherCompletionBlock)completion {
 
     __weak typeof(self) weakSelf = self;
