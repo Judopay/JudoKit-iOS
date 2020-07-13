@@ -261,6 +261,21 @@
 		30D3640024B5FAC00029BC86 /* JPApiServicePBBAStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D363FF24B5FAC00029BC86 /* JPApiServicePBBAStub.swift */; };
 		30D3640424B5FF730029BC86 /* SuccessResponsePBBA.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D3640124B5FF730029BC86 /* SuccessResponsePBBA.json */; };
 		30D3640524B5FF730029BC86 /* SuccessStatusPBBA.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D3640224B5FF730029BC86 /* SuccessStatusPBBA.json */; };
+		30D3640B24B8736E0029BC86 /* NSNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3640A24B8736E0029BC86 /* NSNumberFormatterTests.swift */; };
+		30D3640E24B873790029BC86 /* UIColorAdditionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3640D24B873790029BC86 /* UIColorAdditionsTest.swift */; };
+		30D3641124B873A90029BC86 /* JPClientDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3641024B873A90029BC86 /* JPClientDetailsTest.swift */; };
+		30D3641424B873B20029BC86 /* JPConsumerDeviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3641324B873B10029BC86 /* JPConsumerDeviceTest.swift */; };
+		30D3641724B873B90029BC86 /* JPEnhancedPaymentDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3641624B873B90029BC86 /* JPEnhancedPaymentDetailTest.swift */; };
+		30D3641A24B873C30029BC86 /* JPPaymentMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3641924B873C30029BC86 /* JPPaymentMethodTest.swift */; };
+		30D3642024B873D70029BC86 /* JPPBBAConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3641F24B873D70029BC86 /* JPPBBAConfigurationTest.swift */; };
+		30D3642324B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3642224B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift */; };
+		30D3642624B873E60029BC86 /* JPReachabilityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3642524B873E60029BC86 /* JPReachabilityTest.swift */; };
+		30D3642C24B873F50029BC86 /* JPSDKInfoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3642B24B873F50029BC86 /* JPSDKInfoTest.swift */; };
+		30D3643424B874060029BC86 /* JPSectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3643024B874060029BC86 /* JPSectionTest.swift */; };
+		30D3643524B874060029BC86 /* JPThreeDSecureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3643224B874060029BC86 /* JPThreeDSecureTest.swift */; };
+		30D3644324B874250029BC86 /* JPUIConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3643D24B874250029BC86 /* JPUIConfigurationTest.swift */; };
+		30D3644724B876620029BC86 /* JPApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3644624B876620029BC86 /* JPApiServiceTests.swift */; };
+		30D3644924B87FE20029BC86 /* TransactionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D3644824B87FE20029BC86 /* TransactionData.json */; };
 		30D61D5423BB741A004E5CEE /* JPPaymentMethodsPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D61D3323BB741A004E5CEE /* JPPaymentMethodsPresenter.h */; };
 		30D61D5523BB741A004E5CEE /* JPPaymentMethodsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D61D3423BB741A004E5CEE /* JPPaymentMethodsViewModel.m */; };
 		30D61D5623BB741A004E5CEE /* JPPaymentMethodsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D61D3523BB741A004E5CEE /* JPPaymentMethodsPresenter.m */; };
@@ -654,6 +669,21 @@
 		30D363FF24B5FAC00029BC86 /* JPApiServicePBBAStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPApiServicePBBAStub.swift; sourceTree = "<group>"; };
 		30D3640124B5FF730029BC86 /* SuccessResponsePBBA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessResponsePBBA.json; sourceTree = "<group>"; };
 		30D3640224B5FF730029BC86 /* SuccessStatusPBBA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessStatusPBBA.json; sourceTree = "<group>"; };
+		30D3640A24B8736E0029BC86 /* NSNumberFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterTests.swift; sourceTree = "<group>"; };
+		30D3640D24B873790029BC86 /* UIColorAdditionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorAdditionsTest.swift; sourceTree = "<group>"; };
+		30D3641024B873A90029BC86 /* JPClientDetailsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPClientDetailsTest.swift; sourceTree = "<group>"; };
+		30D3641324B873B10029BC86 /* JPConsumerDeviceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPConsumerDeviceTest.swift; sourceTree = "<group>"; };
+		30D3641624B873B90029BC86 /* JPEnhancedPaymentDetailTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPEnhancedPaymentDetailTest.swift; sourceTree = "<group>"; };
+		30D3641924B873C30029BC86 /* JPPaymentMethodTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodTest.swift; sourceTree = "<group>"; };
+		30D3641F24B873D70029BC86 /* JPPBBAConfigurationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPBBAConfigurationTest.swift; sourceTree = "<group>"; };
+		30D3642224B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPrimaryAccountDetailsTest.swift; sourceTree = "<group>"; };
+		30D3642524B873E60029BC86 /* JPReachabilityTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPReachabilityTest.swift; sourceTree = "<group>"; };
+		30D3642B24B873F50029BC86 /* JPSDKInfoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPSDKInfoTest.swift; sourceTree = "<group>"; };
+		30D3643024B874060029BC86 /* JPSectionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPSectionTest.swift; sourceTree = "<group>"; };
+		30D3643224B874060029BC86 /* JPThreeDSecureTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPThreeDSecureTest.swift; sourceTree = "<group>"; };
+		30D3643D24B874250029BC86 /* JPUIConfigurationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPUIConfigurationTest.swift; sourceTree = "<group>"; };
+		30D3644624B876620029BC86 /* JPApiServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPApiServiceTests.swift; sourceTree = "<group>"; };
+		30D3644824B87FE20029BC86 /* TransactionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionData.json; sourceTree = "<group>"; };
 		30D61D3323BB741A004E5CEE /* JPPaymentMethodsPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsPresenter.h; sourceTree = "<group>"; };
 		30D61D3423BB741A004E5CEE /* JPPaymentMethodsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsViewModel.m; sourceTree = "<group>"; };
 		30D61D3523BB741A004E5CEE /* JPPaymentMethodsPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsPresenter.m; sourceTree = "<group>"; };
@@ -826,6 +856,7 @@
 		0777B983247BC9BB00867B9F /* Sevices */ = {
 			isa = PBXGroup;
 			children = (
+				30D3644524B8764C0029BC86 /* ApiService */,
 				0777BA19247BCA3200867B9F /* PBBA */,
 				0777B984247BC9BB00867B9F /* PostCodesValidation */,
 				0777B988247BC9BB00867B9F /* CardInputValidator */,
@@ -882,6 +913,7 @@
 		0777B994247BC9BB00867B9F /* JsonStubs */ = {
 			isa = PBXGroup;
 			children = (
+				30D3644824B87FE20029BC86 /* TransactionData.json */,
 				30D3640124B5FF730029BC86 /* SuccessResponsePBBA.json */,
 				30D3640224B5FF730029BC86 /* SuccessStatusPBBA.json */,
 				0777B995247BC9BB00867B9F /* CardDetails.json */,
@@ -895,15 +927,26 @@
 		0777B99A247BC9BB00867B9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0777B99B247BC9BB00867B9F /* JPAddress */,
-				0777B99D247BC9BB00867B9F /* Card */,
 				0777B99F247BC9BB00867B9F /* Amount */,
-				0777B9A1247BC9BB00867B9F /* JPCardDetails */,
-				0777B9A3247BC9BB00867B9F /* JPOrderDetails */,
-				0777B9A5247BC9BB00867B9F /* JP3DSConfiguration */,
-				0777B9A9247BC9BB00867B9F /* SDKInfo */,
-				0777B9AB247BC9BB00867B9F /* JPContactInformation */,
+				0777B99D247BC9BB00867B9F /* Card */,
 				0777B9AD247BC9BB00867B9F /* CardStorage */,
+				0777B9A5247BC9BB00867B9F /* JP3DSConfiguration */,
+				0777B99B247BC9BB00867B9F /* JPAddress */,
+				0777B9A1247BC9BB00867B9F /* JPCardDetails */,
+				30D3640F24B873A90029BC86 /* JPClientDetails */,
+				30D3641224B873B10029BC86 /* JPConsumerDevice */,
+				0777B9AB247BC9BB00867B9F /* JPContactInformation */,
+				30D3641524B873B90029BC86 /* JPEnhancedPaymentDetail */,
+				0777B9A3247BC9BB00867B9F /* JPOrderDetails */,
+				30D3641824B873C30029BC86 /* JPPaymentMethod */,
+				30D3641E24B873D70029BC86 /* JPPBBAConfiguration */,
+				30D3642124B873DF0029BC86 /* JPPrimaryAccountDetails */,
+				30D3642424B873E60029BC86 /* JPReachability */,
+				30D3642A24B873F50029BC86 /* JPSDKInfo */,
+				30D3642F24B874060029BC86 /* JPSection */,
+				30D3643124B874060029BC86 /* JPThreeDSecure */,
+				30D3643C24B874250029BC86 /* JPUIConfiguration */,
+				0777B9A9247BC9BB00867B9F /* SDKInfo */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -983,14 +1026,16 @@
 		0777B9AF247BC9BB00867B9F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0777B9B0247BC9BB00867B9F /* UIimage */,
-				0777B9B2247BC9BB00867B9F /* UIApplication */,
-				0777B9B4247BC9BB00867B9F /* NSBundle */,
 				0777B9B6247BC9BB00867B9F /* CLLocation */,
-				0777B9B8247BC9BB00867B9F /* NSString */,
-				0777B9BA247BC9BB00867B9F /* NSLayoutConstraint */,
-				0777B9BC247BC9BB00867B9F /* NSArray */,
 				0777B9BE247BC9BB00867B9F /* JPError */,
+				0777B9BC247BC9BB00867B9F /* NSArray */,
+				0777B9B4247BC9BB00867B9F /* NSBundle */,
+				0777B9BA247BC9BB00867B9F /* NSLayoutConstraint */,
+				30D3640924B8736E0029BC86 /* NSNumberFormatter */,
+				0777B9B8247BC9BB00867B9F /* NSString */,
+				0777B9B2247BC9BB00867B9F /* UIApplication */,
+				30D3640C24B873790029BC86 /* UIColor */,
+				0777B9B0247BC9BB00867B9F /* UIimage */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2179,6 +2224,118 @@
 			path = Extensions/NSNumberFormatter;
 			sourceTree = "<group>";
 		};
+		30D3640924B8736E0029BC86 /* NSNumberFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				30D3640A24B8736E0029BC86 /* NSNumberFormatterTests.swift */,
+			);
+			path = NSNumberFormatter;
+			sourceTree = "<group>";
+		};
+		30D3640C24B873790029BC86 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				30D3640D24B873790029BC86 /* UIColorAdditionsTest.swift */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		30D3640F24B873A90029BC86 /* JPClientDetails */ = {
+			isa = PBXGroup;
+			children = (
+				30D3641024B873A90029BC86 /* JPClientDetailsTest.swift */,
+			);
+			path = JPClientDetails;
+			sourceTree = "<group>";
+		};
+		30D3641224B873B10029BC86 /* JPConsumerDevice */ = {
+			isa = PBXGroup;
+			children = (
+				30D3641324B873B10029BC86 /* JPConsumerDeviceTest.swift */,
+			);
+			path = JPConsumerDevice;
+			sourceTree = "<group>";
+		};
+		30D3641524B873B90029BC86 /* JPEnhancedPaymentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				30D3641624B873B90029BC86 /* JPEnhancedPaymentDetailTest.swift */,
+			);
+			path = JPEnhancedPaymentDetail;
+			sourceTree = "<group>";
+		};
+		30D3641824B873C30029BC86 /* JPPaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				30D3641924B873C30029BC86 /* JPPaymentMethodTest.swift */,
+			);
+			path = JPPaymentMethod;
+			sourceTree = "<group>";
+		};
+		30D3641E24B873D70029BC86 /* JPPBBAConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				30D3641F24B873D70029BC86 /* JPPBBAConfigurationTest.swift */,
+			);
+			path = JPPBBAConfiguration;
+			sourceTree = "<group>";
+		};
+		30D3642124B873DF0029BC86 /* JPPrimaryAccountDetails */ = {
+			isa = PBXGroup;
+			children = (
+				30D3642224B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift */,
+			);
+			path = JPPrimaryAccountDetails;
+			sourceTree = "<group>";
+		};
+		30D3642424B873E60029BC86 /* JPReachability */ = {
+			isa = PBXGroup;
+			children = (
+				30D3642524B873E60029BC86 /* JPReachabilityTest.swift */,
+			);
+			path = JPReachability;
+			sourceTree = "<group>";
+		};
+		30D3642A24B873F50029BC86 /* JPSDKInfo */ = {
+			isa = PBXGroup;
+			children = (
+				30D3642B24B873F50029BC86 /* JPSDKInfoTest.swift */,
+			);
+			path = JPSDKInfo;
+			sourceTree = "<group>";
+		};
+		30D3642F24B874060029BC86 /* JPSection */ = {
+			isa = PBXGroup;
+			children = (
+				30D3643024B874060029BC86 /* JPSectionTest.swift */,
+			);
+			path = JPSection;
+			sourceTree = "<group>";
+		};
+		30D3643124B874060029BC86 /* JPThreeDSecure */ = {
+			isa = PBXGroup;
+			children = (
+				30D3643224B874060029BC86 /* JPThreeDSecureTest.swift */,
+			);
+			path = JPThreeDSecure;
+			sourceTree = "<group>";
+		};
+		30D3643C24B874250029BC86 /* JPUIConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				30D3643D24B874250029BC86 /* JPUIConfigurationTest.swift */,
+			);
+			path = JPUIConfiguration;
+			sourceTree = "<group>";
+		};
+		30D3644524B8764C0029BC86 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				30D3644624B876620029BC86 /* JPApiServiceTests.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
 		30D61D3123BB741A004E5CEE /* PaymentMethods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2888,6 +3045,7 @@
 				0777B9EE247BC9BB00867B9F /* PendingResponse.json in Resources */,
 				0777B9ED247BC9BB00867B9F /* CardDetails.json in Resources */,
 				0777B9EF247BC9BB00867B9F /* SuccessResponse.json in Resources */,
+				30D3644924B87FE20029BC86 /* TransactionData.json in Resources */,
 				0777B9F0247BC9BB00867B9F /* OrderDetails.json in Resources */,
 				30D3640424B5FF730029BC86 /* SuccessResponsePBBA.json in Resources */,
 			);
@@ -3066,10 +3224,12 @@
 			files = (
 				0777BA09247BC9BB00867B9F /* JPCardCustomizationRouterMock.swift in Sources */,
 				0777BA17247BC9BB00867B9F /* FunctionsHelpersTest.swift in Sources */,
+				30D3644324B874250029BC86 /* JPUIConfigurationTest.swift in Sources */,
 				0777B9E7247BC9BB00867B9F /* JPCardValidationServiceTest.swift in Sources */,
 				0777B9F4247BC9BB00867B9F /* JPAmountTests.swift in Sources */,
 				0777B9F5247BC9BB00867B9F /* JPCardDetailsTest.swift in Sources */,
 				0777BA02247BC9BB00867B9F /* NSArrayAdditionsTest.swift in Sources */,
+				30D3642324B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift in Sources */,
 				0777BA04247BC9BB00867B9F /* JPTransactionInteractorMock.swift in Sources */,
 				0777BA0D247BC9BB00867B9F /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0777BA0B247BC9BB00867B9F /* JPCardCustomizationViewMock.swift in Sources */,
@@ -3078,13 +3238,18 @@
 				0777BA1B247BCA3C00867B9F /* JPPBBAServiceTest.swift in Sources */,
 				0777BA15247BC9BB00867B9F /* JPPaymentMethodsRouterTest.swift in Sources */,
 				0777BA11247BC9BB00867B9F /* JPApiServiceStub.swift in Sources */,
+				30D3643424B874060029BC86 /* JPSectionTest.swift in Sources */,
 				0777BA0E247BC9BB00867B9F /* JPApiServiceiDealStub.swift in Sources */,
+				30D3641A24B873C30029BC86 /* JPPaymentMethodTest.swift in Sources */,
 				0777B9E4247BC9BB00867B9F /* JPUKPostCodeValidation.swift in Sources */,
 				0777BA13247BC9BB00867B9F /* JPPaymentMethodsPresenterTest.swift in Sources */,
 				0777B9F9247BC9BB00867B9F /* SDKInfoTest.swift in Sources */,
 				0777BA01247BC9BB00867B9F /* NSLayoutConstraintAdditionsTests.swift in Sources */,
 				0777B9FB247BC9BB00867B9F /* JPCardStorageTest.swift in Sources */,
 				0777BA12247BC9BB00867B9F /* JPPaymentMethodsInteractorMock.swift in Sources */,
+				30D3640E24B873790029BC86 /* UIColorAdditionsTest.swift in Sources */,
+				30D3644724B876620029BC86 /* JPApiServiceTests.swift in Sources */,
+				30D3642024B873D70029BC86 /* JPPBBAConfigurationTest.swift in Sources */,
 				0777BA08247BC9BB00867B9F /* JPTransactionInteractorTest.swift in Sources */,
 				0777BA0C247BC9BB00867B9F /* JPCardCustomizationPresenterTest.swift in Sources */,
 				0777B9F1247BC9BB00867B9F /* JudoKitTest.swift in Sources */,
@@ -3092,12 +3257,15 @@
 				0777BA16247BC9BB00867B9F /* JPFormattersTests.swift in Sources */,
 				0777BA03247BC9BB00867B9F /* JPErrorAdditionsTests.swift in Sources */,
 				0777B9EB247BC9BB00867B9F /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
+				30D3643524B874060029BC86 /* JPThreeDSecureTest.swift in Sources */,
 				0777BA0A247BC9BB00867B9F /* JPCardCustomizationInteractorMock.swift in Sources */,
+				30D3642624B873E60029BC86 /* JPReachabilityTest.swift in Sources */,
 				0777BA05247BC9BB00867B9F /* JPTransactionViewMock.swift in Sources */,
 				0777B9F6247BC9BB00867B9F /* JPOrderDetailsTest.swift in Sources */,
 				0777B9FD247BC9BB00867B9F /* UIApplicationAdditionsTests.swift in Sources */,
 				0777B9FC247BC9BB00867B9F /* UIImageAdditionsTest.swift in Sources */,
 				0777BA00247BC9BB00867B9F /* NSStringAdditionsTests.swift in Sources */,
+				30D3640B24B8736E0029BC86 /* NSNumberFormatterTests.swift in Sources */,
 				0777B9E8247BC9BB00867B9F /* JPIDEALServiceTest.swift in Sources */,
 				0777BA14247BC9BB00867B9F /* JPPaymentMethodsInteractorTest.swift in Sources */,
 				0777BA07247BC9BB00867B9F /* JPTransactionPresenterTests.swift in Sources */,
@@ -3105,6 +3273,9 @@
 				0777B9EC247BC9BB00867B9F /* JPApplePayServiceTest.swift in Sources */,
 				0777B9E6247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift in Sources */,
 				30D3640024B5FAC00029BC86 /* JPApiServicePBBAStub.swift in Sources */,
+				30D3641424B873B20029BC86 /* JPConsumerDeviceTest.swift in Sources */,
+				30D3642C24B873F50029BC86 /* JPSDKInfoTest.swift in Sources */,
+				30D3641124B873A90029BC86 /* JPClientDetailsTest.swift in Sources */,
 				0777BA10247BC9BB00867B9F /* JPPaymentMethodsRouterMock.swift in Sources */,
 				0777B9E5247BC9BB00867B9F /* JPUSAPostCodeValidation.swift in Sources */,
 				0777B9FA247BC9BB00867B9F /* JPContactInformationTest.swift in Sources */,
@@ -3112,6 +3283,7 @@
 				0777BA06247BC9BB00867B9F /* JPTransactionRouterMock.swift in Sources */,
 				0777B9F3247BC9BB00867B9F /* JPCardTest.swift in Sources */,
 				0777B9FE247BC9BB00867B9F /* NSBundleAdditionsTests.swift in Sources */,
+				30D3641724B873B90029BC86 /* JPEnhancedPaymentDetailTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
