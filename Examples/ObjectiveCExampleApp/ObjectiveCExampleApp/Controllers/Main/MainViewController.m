@@ -73,7 +73,7 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    // When isSandbox | token | secred changed in the settings, re-init the JudoKit
+    // When isSandbox | token | secret changed in the settings, re-init the JudoKit
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -231,6 +231,26 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 - (void)tokenPaymentsMethodOperation {
     [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
+}
+
+- (void)transactionStatusMethodOperation {
+    __block UITextField *textField = [UITextField new];
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"" message:@"Insert Receipt ID:" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"textField %@", textField.text);
+    }];
+    
+    UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler: nil];
+    
+    [controller addTextFieldWithConfigurationHandler:^(UITextField *aTextField) {
+        textField = aTextField;
+        textField.placeholder = @"Receipt ID";
+    }];
+    
+    [controller addAction:buttonCancel];
+    [controller addAction:buttonOk];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)serverToServerMethodOperation {
@@ -411,9 +431,13 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
             break;
-
+            
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
+            break;
+            
+        case DemoFeatureGetTransactionStatus:
+            [self transactionStatusMethodOperation];
             break;
     }
 }

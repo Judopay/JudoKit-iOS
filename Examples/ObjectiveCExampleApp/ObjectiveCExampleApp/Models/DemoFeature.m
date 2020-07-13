@@ -53,6 +53,9 @@ static NSString * const kCellIdentifier = @"com.judo.judopaysample.tableviewcell
         [DemoFeature featureWithType:DemoFeatureTokenPayments
                                title:@"Token Payments"
                              details:@"Token Payments (no UI)"],
+        [DemoFeature featureWithType:DemoFeatureGetTransactionStatus
+                               title:@"Transaction Status"
+                             details:@"Get transaction status for Receipt ID"],
     ];
 }
 @end
