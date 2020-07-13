@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 #import <ZappMerchantLib/PBBAAppUtils.h>
 
-@class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
+@class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -158,14 +158,14 @@
  *
  * @param mode - the transaction mode value that can be set to either Payment or PreAuth
  * @param configuration - reference to the JPConfiguration object used to configure the payment flow
- * @param transactionService - the service used to handle Judo backend calls
+ * @param apiService - the service used to handle Judo backend calls
  * @param completion - a JPResponse / NSError completion block
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
 - (nonnull instancetype)initWithMode:(JPTransactionMode)mode
                        configuration:(nonnull JPConfiguration *)configuration
-                  transactionService:(nonnull JPTransactionService *)transactionService
+                          apiService:(nonnull JPApiService *)apiService
                           completion:(nullable JPCompletionBlock)completion;
 
 @end

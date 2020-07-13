@@ -23,11 +23,7 @@
 //  SOFTWARE.
 
 #import "JPConfiguration.h"
-#import "JPAddress.h"
 #import "JPAmount.h"
-#import "JPApplePayConfiguration.h"
-#import "JPPaymentMethod.h"
-#import "JPPrimaryAccountDetails.h"
 #import "JPReference.h"
 #import "JPUIConfiguration.h"
 
@@ -47,15 +43,6 @@
         self.judoId = judoId;
         self.amount = amount;
         self.reference = reference;
-    }
-    return self;
-}
-
-- (instancetype)initWithReceiptID:(nonnull NSString *)receiptId
-                           amount:(nullable JPAmount *)amount {
-    if (self = [super init]) {
-        self.receiptId = receiptId;
-        self.amount = amount;
     }
     return self;
 }

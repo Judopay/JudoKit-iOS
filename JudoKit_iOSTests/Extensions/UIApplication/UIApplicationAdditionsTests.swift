@@ -26,19 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class UIApplicationAdditionsTests: XCTestCase {
-    
-    /*
-     * GIVEN: the device is using the light iOS theme
-     *
-     * WHEN: the [isUserInterfaceStyleDark] method is called from the UIApplication extension
-     *
-     * THEN: the result should be false
-     */
-    func test_isUserInterfaceStyleDark() {
-        let isDark = UIApplication.isUserInterfaceStyleDark()
-        XCTAssertFalse(isDark)
-    }
-    
+        
     /*
      * GIVEN: the device is not jailbroken
      *

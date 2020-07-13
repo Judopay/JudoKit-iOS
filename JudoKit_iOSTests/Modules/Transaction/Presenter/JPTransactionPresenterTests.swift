@@ -206,6 +206,7 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should invoke interactor.trasactionSent and dismiss view
      */
     func test_HandleTransactionButtonTap_WhenUserTapAnValid_ShouldCallInteractor() {
+        interactor.type = .payment
         interactor.testSendTransaction = .validData
         sut.handleTransactionButtonTap()
         XCTAssertTrue(interactor.trasactionSent)

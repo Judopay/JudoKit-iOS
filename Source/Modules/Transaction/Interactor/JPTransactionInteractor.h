@@ -28,7 +28,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
 
@@ -48,8 +48,8 @@
 - (JPTransactionType)transactionType;
 
 /**
-* A method that returns the current cardNetwork type
-*/
+ * A method that returns the current cardNetwork type
+ */
 - (JPCardNetworkType)cardNetworkType;
 
 /**
@@ -184,12 +184,15 @@
  * Designated initializer which creates a configured JPTransactionInteractorImpl instance
  *
  * @param cardValidationService - the service which is used to validate card details
- * @param transactionService - the service which sends requests to the Judo backend
+ * @param apiService - the service which sends requests to the Judo backend
  * @param configuration - the JPConfiguration object used for customizing the payment flow
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPTransactionService *)transactionService
+                                   apiService:(JPApiService *)apiService
+                              transactionType:(JPTransactionType)type
+                              cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration
+                                  cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion;
 @end

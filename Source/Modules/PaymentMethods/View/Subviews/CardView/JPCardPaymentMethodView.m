@@ -26,7 +26,6 @@
 #import "Functions.h"
 #import "JPCardNetwork.h"
 #import "JPCardPattern.h"
-#import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"

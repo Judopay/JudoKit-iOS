@@ -246,18 +246,6 @@ class JPErrorAdditionsTests: XCTestCase {
      *
      * THEN:  it should set the correct user info parameter
      */
-    func test_WhenJudoErrorFromData_SetCorrectUserInfo() {
-        let data = JPTransactionData()
-        data.rawData = ["test": "testData"]
-        let errorUserInfo = (JPError.judoError(from: data).userInfo)["test"] as! String
-        XCTAssertEqual(errorUserInfo, "testData")
-    }
-    
-    /*
-     * GIVEN: the JPError is initialized with the custom judoInputMismatchError initializer
-     *
-     * THEN:  it should set the correct user info parameter
-     */
     func test_WhenJudoErrorWithDic_SetCorrectUserInfo() {
         let error = JPError.judoError(from: ["test": "testData"])
         let errorUserInfo = error.userInfo["test"] as! String

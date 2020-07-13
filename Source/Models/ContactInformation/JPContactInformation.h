@@ -36,22 +36,22 @@
 /**
  * The billing / shipping email address if specified in the JPApplePayConfiguration object;
  */
-@property (nonatomic, strong) NSString *_Nullable emailAddress;
+@property (nonatomic, strong, nullable) NSString *emailAddress;
 
 /**
  * The name of the person if specified in the JPApplePayConfiguration object;
  */
-@property (nonatomic, strong) NSPersonNameComponents *_Nullable name;
+@property (nonatomic, strong, nullable) NSPersonNameComponents *name;
 
 /**
  * The billing / shipping phone number if specified in the JPApplePayConfiguration object;
  */
-@property (nonatomic, strong) NSString *_Nullable phoneNumber;
+@property (nonatomic, strong, nullable) NSString *phoneNumber;
 
 /**
  * The billing / shipping postal address if specified in the JPApplePayConfiguration object;
  */
-@property (nonatomic, strong) JPPostalAddress *_Nullable postalAddress;
+@property (nonatomic, strong, nullable) JPPostalAddress *postalAddress;
 
 /**
  * Designated initializer
@@ -61,14 +61,14 @@
  * @param phoneNumber - the phone number returned from a PKContact object
  * @param postalAddress - a JPPostalAddress object containing location information
  */
-- (_Nonnull instancetype)initWithEmailAddress:(NSString *_Nullable)emailAddress
-                                         name:(NSPersonNameComponents *_Nullable)name
-                                  phoneNumber:(NSString *_Nullable)phoneNumber
-                                postalAddress:(JPPostalAddress *_Nullable)postalAddress;
+- (nonnull instancetype)initWithEmailAddress:(nullable NSString *)emailAddress
+                                        name:(nullable NSPersonNameComponents *)name
+                                 phoneNumber:(nullable NSString *)phoneNumber
+                               postalAddress:(nullable JPPostalAddress *)postalAddress;
 
 /**
  * Helper method that generates a human-readable string from all the initialized parameters.
  */
-- (NSString *_Nonnull)toString;
+- (nonnull NSString *)toString;
 
 @end

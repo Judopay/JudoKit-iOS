@@ -25,7 +25,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- * A configuration file responsible for setting additionals parameters
+ * A configuration file responsible for setting additional parameters
  * for PBBA method.
  */
 @interface JPPBBAConfiguration : NSObject
@@ -33,40 +33,33 @@
 /**
  * [Optional] The merchant mobile number
  */
-@property (nonatomic, strong) NSString *_Nullable mobileNumber;
+@property (nonatomic, strong, nullable) NSString *mobileNumber;
 
 /**
  * [Optional] The merchant email address
  */
-@property (nonatomic, strong) NSString *_Nullable emailAddress;
+@property (nonatomic, strong, nullable) NSString *emailAddress;
 
 /**
  * [Optional] The merchant appears on statement
  */
-@property (nonatomic, strong) NSString *_Nullable appearsOnStatement;
+@property (nonatomic, strong, nullable) NSString *appearsOnStatement;
 
 /**
  * [Optional] DeeplinkURL from bank app
  */
-@property (nonatomic, strong) NSURL *_Nullable deeplinkURL;
+@property (nonatomic, strong, nullable) NSURL *deeplinkURL;
 
 /**
  * [Optional] The merchant deeplinkScheme from app
  */
-@property (nonatomic, strong) NSString *_Nullable deeplinkScheme;
+@property (nonatomic, strong, nullable) NSString *deeplinkScheme;
 
-/**
- * Designated initializer necesary for the bare minimum configuration of a JPPBBAConfiguration object.
- *
- * @param mobileNumber          - The merchant mobile number
- * @param emailAddress          - The merchant email address
- * @param appearsOnStatement    - The merchant appears on statement
- *
- * @return a JPPBBAConfiguration object
- */
-- (_Nonnull instancetype)initWithMobileNumber:(NSString *_Nullable)mobileNumber
-                                 emailAddress:(NSString *_Nullable)emailAddress
-                           appearsOnStatement:(NSString *_Nullable)appearsOnStatement;
+- (nonnull instancetype)initWithDeeplinkScheme:(nonnull NSString *)deeplinkScheme
+                                andDeeplinkURL:(nullable NSURL *)deeplinkURL;
+
++ (nonnull instancetype)configurationWithDeeplinkScheme:(nonnull NSString *)deeplinkScheme
+                                         andDeeplinkURL:(nullable NSURL *)deeplinkURL;
 
 /**
  * A method which check deeplink url in pbba configuration

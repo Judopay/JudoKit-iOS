@@ -27,7 +27,6 @@
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardPattern.h"
 #import "NSLayoutConstraint+Additions.h"
-#import "UIView+Additions.h"
 
 @interface JPCardCustomizationPatternPickerCell ()
 @property (nonatomic, strong) UICollectionView *collectionView;

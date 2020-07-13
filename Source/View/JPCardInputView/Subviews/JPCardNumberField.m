@@ -26,8 +26,6 @@
 #import "JPCardNetworkType.h"
 #import "JPTheme.h"
 #import "JPTransactionViewModel.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 
 @interface JPCardNumberField ()

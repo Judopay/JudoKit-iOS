@@ -52,17 +52,6 @@ class UIColorAdditionsTest: XCTestCase {
     }
     
     /*
-     * GIVEN: the [inverse] method is called on an instance of UIColor
-     *
-     * THEN: the result should be an UIColor inversed of that color
-     */
-    func test_InverseColor_WhenBlack_ShouldReverseToWhite() {
-        let color = UIColor.black
-        let sut = color.inverse()
-        XCTAssertTrue(compareColors(c1: UIColor.white, c2: sut))
-    }
-    
-    /*
      * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
      * WHEN: the number is a valid jpBlack HEX value

@@ -71,21 +71,4 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")
     }
-    
-    /*
-     * GIVEN: Creating Dictionary from JPAddress object
-     *
-     * WHEN: setup all properties
-     *
-     * THEN: should create correct Dictionary
-     */
-    func test_DictionaryRepresentation_WhenDeserializeObject_ShouldReturnRightDictionery() {
-        let dictionary = address.dictionaryRepresentation!
-        XCTAssertEqual(dictionary["line1"] as! String, "line1")
-        XCTAssertEqual(dictionary["line2"] as! String, "line2")
-        XCTAssertEqual(dictionary["line3"] as! String, "line3")
-        XCTAssertEqual(dictionary["town"] as! String, "town")
-        XCTAssertEqual(dictionary["countryCode"] as! NSNumber, 123)
-        XCTAssertEqual(dictionary["postCode"] as! String, "postCode")
-    }
 }

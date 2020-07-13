@@ -130,8 +130,6 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             trasactionSent = true
         case .validData:
             let jpResponse = JPResponse()
-            let data = JPTransactionData(dictionary: dic)
-            jpResponse.items = [data]
             completionHandler(jpResponse, nil)
             trasactionSent = true
         case .threedDSError:

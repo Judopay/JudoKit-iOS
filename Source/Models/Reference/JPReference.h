@@ -42,7 +42,7 @@
 /**
  *  An object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
  */
-@property (nonatomic, strong) NSDictionary<NSString *, NSObject *> *_Nullable metaData;
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *_Nullable metaData;
 
 /**
  *  initializer that will generate a unique payment reference

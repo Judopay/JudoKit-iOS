@@ -36,8 +36,11 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                         JPPaymentMethod(paymentMethodType: .pbba),
                                         JPPaymentMethod(paymentMethodType: .card),
                                         JPPaymentMethod(paymentMethodType: .iDeal)]
-        let service = JPTransactionServiceStub()
-        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: nil)
+        let service = JPApiService()
+        sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer,
+                                             configuration: configuration,
+                                             apiService: service,
+                                             completion: nil)
     }
     
     /*
@@ -279,8 +282,11 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: should call and return not nil response
      */
     func test_paymentTransaction_WhenPayment_ShouldCall() {
-        let service = JPTransactionServiceStub()
-        let sut = JPPaymentMethodsInteractorImpl(mode: .payment, configuration: configuration, transactionService: service, completion: nil)
+        let service = JPApiService()
+        let sut = JPPaymentMethodsInteractorImpl(mode: .payment,
+                                                 configuration: configuration,
+                                                 apiService: service,
+                                                 completion: nil)
         sut.paymentTransaction(withToken: "token", andSecurityCode: "secure", andCompletion:nil)
     }
     
@@ -309,8 +315,11 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNotNil(error)
         }
-        let service = JPTransactionServiceStub()
-        let sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer, configuration: configuration, transactionService: service, completion: completion)
+        let service = JPApiServiceStub()
+        let sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer,
+                                                 configuration: configuration,
+                                                 apiService: service,
+                                                 completion: completion)
         
         sut.completeTransaction(with: response, andError: error)
     }

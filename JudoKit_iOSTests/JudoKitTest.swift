@@ -24,11 +24,11 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JudoKitTest: XCTestCase {
-    let judoKit = JudoKit(token: "token", secret: "secret")!
+    let judoKit = JudoKit()
     let configuration = JPConfiguration(judoID: "123456789",
                                         amount: JPAmount("0.01", currency: "EUR"),
                                         reference: JPReference(consumerReference: "consumerReference"))
-    let pbbaconfig = JPPBBAConfiguration(mobileNumber: "", emailAddress: "", appearsOnStatement: "")
+    let pbbaconfig = JPPBBAConfiguration()
     
     let items = [JPPaymentSummaryItem(label: "item 1", amount: 0.01),
                  JPPaymentSummaryItem(label: "item 2", amount: 0.02),
@@ -192,20 +192,5 @@ class JudoKitTest: XCTestCase {
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
             XCTAssertEqual(error?.localizedDescription ?? "", "Payment items couldn't be empty")
         }
-    }
-    
-    /*
-     * GIVEN: initialize transaction from judoKit
-     *
-     * WHEN: all fields are valid
-     *
-     * THEN: should return transaction object with same fields from config object
-     */
-    func test_transactionWithType_WhenPaymentType_ShouldReturnRightObject() {
-        let transaction = judoKit.transaction(with: .payment, configuration: configuration)
-        XCTAssertEqual(transaction.transactionPath, "transactions/payments")
-        XCTAssertEqual(transaction.judoId, "123456789")
-        XCTAssertEqual(transaction.siteId, nil)
-        XCTAssertEqual(transaction.amount?.amount, "0.01")
     }
 }

@@ -26,14 +26,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
-@class JPClientDetails, JPGeoLocation, JPThreeDSecure;
+@class JPClientDetails, JPThreeDSecure;
 
 @interface JPConsumerDevice : NSObject <JPDictionaryConvertible>
-@property (nonatomic, strong, readonly) NSString *_Nullable ipAddress;
-@property (nonatomic, strong, readonly) JPClientDetails *_Nullable clientDetails;
-@property (nonatomic, strong, readonly) CLLocation *_Nullable geoLocation;
-@property (nonatomic, strong, readonly) JPThreeDSecure *_Nullable threeDSecure;
-@property (nonatomic, strong, readonly) NSString *_Nullable paymentType;
+
+@property (nonatomic, strong, readonly, nullable) NSString *ipAddress;
+@property (nonatomic, strong, readonly, nullable) JPClientDetails *clientDetails;
+@property (nonatomic, strong, readonly, nullable) CLLocation *geoLocation;
+@property (nonatomic, strong, readonly, nullable) JPThreeDSecure *threeDSecure;
+@property (nonatomic, strong, readonly, nullable) NSString *paymentType;
 
 - (nonnull instancetype)initWithIpAddress:(nonnull NSString *)ipAddress
                             clientDetails:(nonnull JPClientDetails *)clientDetails

@@ -22,19 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "UIApplication+Additions.h"
 #import "UIColor+Additions.h"
 
 @implementation UIColor (Judo)
-
-- (UIColor *)inverseColor {
-    CGFloat red;
-    CGFloat green;
-    CGFloat blue;
-    CGFloat alpha;
-    [self getRed:&red green:&green blue:&blue alpha:&alpha];
-    return [UIColor colorWithRed:1 - red green:1 - green blue:1 - blue alpha:alpha];
-}
 
 - (UIImage *)asImage {
     CGRect rect = CGRectMake(0, 0, 1, 1);

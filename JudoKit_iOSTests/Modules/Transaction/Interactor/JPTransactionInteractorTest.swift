@@ -30,7 +30,7 @@ class JPTransactionInteractorTest: XCTestCase {
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
     lazy var reference = JPReference(consumerReference: "consumerReference")
-    let transactionService = JPTransactionService()
+    let apiService = JPApiService()
     
     override func setUp() {
         super.setUp()
@@ -41,7 +41,13 @@ class JPTransactionInteractorTest: XCTestCase {
         
         let completion: JPCompletionBlock = { (response, error) in
         }
-        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: transactionService, configuration:configuration, completion: completion)
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService,
+                                          apiService: apiService,
+                                          transactionType: .payment,
+                                          cardDetailsMode: .default,
+                                          configuration: configuration,
+                                          cardNetwork: .all,
+                                          completion: completion)
     }
     
     /*
@@ -64,7 +70,6 @@ class JPTransactionInteractorTest: XCTestCase {
      * THEN: result should be raw title
      */
     func test_generatePayButtonTitleSecurityCodeMode_Whentfalse_Shouldraw() {
-        transactionService.mode = .securityCode
         let result = sut.generatePayButtonTitle()
         XCTAssertEqual(result, "Pay")
     }
@@ -440,19 +445,6 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: getting transaction type
-     *
-     * WHEN: setted up to .saveCard
-     *
-     * THEN: should return saveCard type
-     */
-    func test_TransactionType_WhenSavedCard_ShouldReturnSavedCard() {
-        transactionService.transactionType = .saveCard
-        let type = sut.transactionType()
-        XCTAssertEqual(type, .saveCard)
-    }
-    
-    /*
      * GIVEN: getting card Address type
      *
      * WHEN: setted up in config object
@@ -575,7 +567,13 @@ class JPTransactionInteractorTest: XCTestCase {
      * THEN: should send transaction
      */
     func test_completeTransactionWithResponse_WhenNoComplection() {
-        let sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: transactionService, configuration:configuration, completion: nil)
+        let sut = JPTransactionInteractorImpl(cardValidationService: validationService,
+                                              apiService: apiService,
+                                              transactionType: .payment,
+                                              cardDetailsMode: .default,
+                                              configuration: configuration,
+                                              cardNetwork: .all,
+                                              completion: nil)
         
         let error = JPError(domain: "domain", code: JPError.judoUserDidCancelError().code, userInfo: nil)
         
@@ -629,32 +627,6 @@ class JPTransactionInteractorTest: XCTestCase {
                                          cardholderName: "cardholderName",
                                          expiryDate: "expiryDate",
                                          secureCode: "secureCode")) { (_, _) in}
-    }
-    
-    /*
-     * GIVEN: object of JPTransactionInteractor, cardNetwork is visa
-     *
-     * WHEN: getting card Network Type
-     *
-     * THEN: should return visa card network
-     */
-    func test_cardNetworkType() {
-        transactionService.cardNetwork = .visa
-        let cardNetwork = sut.cardNetworkType()
-        XCTAssertEqual(cardNetwork, .visa)
-    }
-    
-    /*
-     * GIVEN: object of JPTransactionInteractor, cardDetailsMode is securityCode
-     *
-     * WHEN: getting card Details Mode
-     *
-     * THEN: should return security Code mode
-     */
-    func test_cardDetailsMode() {
-        transactionService.mode = .securityCode
-        let cardMode = sut.cardDetailsMode()
-        XCTAssertEqual(cardMode, .securityCode)
     }
     
     /*

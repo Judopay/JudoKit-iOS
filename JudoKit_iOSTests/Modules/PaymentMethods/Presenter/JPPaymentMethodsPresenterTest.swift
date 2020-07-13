@@ -302,7 +302,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      * THEN: should start polling
      */
     func test_ViewModelNeedsUpdate_WhenDeepLink_ShouldPollingPBBAWithCompletion() {
-        let pbbaConfig = JPPBBAConfiguration(mobileNumber: "mobile", emailAddress: "email", appearsOnStatement: "")
+        let pbbaConfig = JPPBBAConfiguration()
         pbbaConfig.deeplinkURL = URL(string: "linkHere")
         let configuration = JPConfiguration(judoID: "judoId",
                                             amount: JPAmount("0.01", currency: "GBR"),

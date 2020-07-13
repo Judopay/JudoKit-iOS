@@ -23,25 +23,19 @@
 //  SOFTWARE.
 
 #import "JPPBBAService.h"
-#import "JPAmount.h"
+#import "JPApiService.h"
+#import "JPBankOrderSaleRequest.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPOrderDetails.h"
 #import "JPPBBAConfiguration.h"
-#import "JPReference.h"
 #import "JPResponse.h"
-#import "JPTransactionData.h"
-#import "JPTransactionService.h"
-#import "JPTransactionStatusView.h"
 #import "JPUIConfiguration.h"
-#import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
 #import "UIView+Additions.h"
 
 #pragma mark - Constants
 
-static NSString *const kRedirectEndpoint = @"order/bank/sale";
-static NSString *const kStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kPendingStatus = @"PENDING";
 static const NSTimeInterval kTimerDuration = 5;
 static const NSTimeInterval kTimerDurationLimit = 60;
@@ -49,7 +43,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
 @interface JPPBBAService ()
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) NSTimeInterval intTimer;
@@ -61,10 +55,10 @@ static const int kNSPOSIXErrorDomainCode = 53;
 #pragma mark - Initializers
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                   transactionService:(JPTransactionService *)transactionService {
+                           apiService:(JPApiService *)apiService {
     if (self = [super init]) {
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
     }
     return self;
 }
@@ -77,36 +71,33 @@ static const int kNSPOSIXErrorDomainCode = 53;
 #pragma mark - Public methods
 
 - (void)openPBBAMerchantApp:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [self parametersForPBBA];
 
-    if (!parameters) {
+    if (self.configuration.siteId.length == 0) {
         completion(nil, JPError.judoSiteIDMissingError);
         return;
     }
 
+    JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest pbbaRequestWithConfiguration:self.configuration];
+
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:kRedirectEndpoint
-                                          httpMethod:JPHTTPMethodPOST
-                                          parameters:parameters
-                                          completion:^(JPResponse *response, __unused JPError *error) {
-                                              JPTransactionData *data = response.items.firstObject;
 
-                                              if (data.orderDetails.orderId && data.redirectUrl) {
-                                                  [weakSelf handlePBBAResponse:response completion:completion];
-                                                  return;
-                                              }
-
-                                              completion(nil, JPError.judoResponseParseError);
-                                          }];
+    [self.apiService invokeBankSaleWithRequest:request
+                                 andCompletion:^(JPResponse *response, __unused JPError *error) {
+                                     if (response.orderDetails.orderId && response.redirectUrl) {
+                                         [weakSelf handlePBBAResponse:response completion:completion];
+                                         return;
+                                     }
+                                     completion(nil, JPError.judoResponseParseError);
+                                 }];
 }
 
 - (void)handlePBBAResponse:(JPResponse *)response completion:(JPCompletionBlock)completion {
+    if (response.rawData[@"secureToken"] && response.rawData[@"pbbaBrn"]) {
+        NSString *secureToken = response.rawData[@"secureToken"];
+        NSString *brn = response.rawData[@"pbbaBrn"];
 
-    if (response.items.firstObject.rawData[@"secureToken"] && response.items.firstObject.rawData[@"pbbaBrn"]) {
-        NSString *secureToken = response.items.firstObject.rawData[@"secureToken"];
-        NSString *brn = response.items.firstObject.rawData[@"pbbaBrn"];
         if ([PBBAAppUtils isCFIAppAvailable]) {
-            [self pollTransactionStatusForOrderId:response.items.firstObject.orderDetails.orderId completion:completion];
+            [self pollTransactionStatusForOrderId:response.orderDetails.orderId completion:completion];
         }
 
         [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
@@ -119,9 +110,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     }
 }
 
-- (void)pollTransactionStatusForOrderId:(NSString *)orderId
-                             completion:(JPCompletionBlock)completion {
-
+- (void)pollTransactionStatusForOrderId:(NSString *)orderId completion:(JPCompletionBlock)completion {
     __weak typeof(self) weakSelf = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
@@ -130,30 +119,28 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                                    }];
 }
 
-- (void)getStatusForOrderId:(NSString *)orderId
-                 completion:(JPCompletionBlock)completion {
+- (void)getStatusForOrderId:(NSString *)orderId completion:(JPCompletionBlock)completion {
 
     if (self.didTimeout) {
         return;
     }
 
-    NSString *statusEndpoint = [NSString stringWithFormat:@"%@/%@", kStatusRequestEndpoint, orderId];
-
     __weak typeof(self) weakSelf = self;
-    [self.transactionService sendRequestWithEndpoint:statusEndpoint
-                                          httpMethod:JPHTTPMethodGET
-                                          parameters:nil
-                                          completion:^(JPResponse *response, JPError *error) {
-                                              [weakSelf handleResponse:response
-                                                                 error:error
-                                                            completion:completion];
-                                          }];
+
+    [self.apiService invokeOrderStatusWithOrderId:orderId
+                                    andCompletion:^(JPResponse *response, JPError *error) {
+                                        [weakSelf handleResponse:response
+                                                           error:error
+                                                      completion:completion];
+                                    }];
 }
 
 - (void)handleResponse:(JPResponse *)response
                  error:(JPError *)error
             completion:(JPCompletionBlock)completion {
+
     self.intTimer += kTimerDuration;
+
     if (self.intTimer > kTimerDurationLimit) {
         completion(nil, JPError.judoRequestTimeoutError);
         [self.timer invalidate];
@@ -169,12 +156,13 @@ static const int kNSPOSIXErrorDomainCode = 53;
         return;
     }
 
-    if ([response.items.firstObject.orderDetails.orderStatus isEqual:kPendingStatus]) {
+    if ([response.orderDetails.orderStatus isEqual:kPendingStatus]) {
         [self showStatusViewWith:JPTransactionStatusPending];
         return;
     }
+
     if (error == nil) {
-        response.items.firstObject.receiptId = response.items.firstObject.orderDetails.orderId;
+        response.receiptId = response.orderDetails.orderId;
         completion(response, error);
         [self hideStatusView];
         [self.timer invalidate];
@@ -184,43 +172,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 - (void)stopPollingTransactionStatus {
     self.didTimeout = YES;
     [self.timer invalidate];
-}
-
-- (NSDictionary *)parametersForPBBA {
-
-    if (!self.configuration.siteId) {
-        return nil;
-    }
-
-    JPAmount *amount = self.configuration.amount;
-    JPReference *reference = self.configuration.reference;
-
-    NSString *merchantRedirectUrl = self.configuration.pbbaConfiguration.deeplinkScheme ? self.configuration.pbbaConfiguration.deeplinkScheme : @"";
-
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
-        @"paymentMethod" : @"PBBA",
-        @"currency" : amount.currency,
-        @"amount" : @(amount.amount.doubleValue),
-        @"country" : @"GB",
-        @"accountHolderName" : @"PBBA User",
-        @"merchantPaymentReference" : reference.paymentReference,
-        @"bic" : @"RABONL2U",
-        @"merchantConsumerReference" : reference.consumerReference,
-        @"siteId" : self.configuration.siteId,
-        @"merchantRedirectUrl" : merchantRedirectUrl
-    }];
-
-    if (self.configuration.pbbaConfiguration.mobileNumber) {
-        [parameters setValue:self.configuration.pbbaConfiguration.mobileNumber forKey:@"mobileNumber"];
-    }
-    if (self.configuration.pbbaConfiguration.emailAddress) {
-        [parameters setValue:self.configuration.pbbaConfiguration.emailAddress forKey:@"emailAddress"];
-    }
-    if (self.configuration.pbbaConfiguration.appearsOnStatement) {
-        [parameters setValue:self.configuration.pbbaConfiguration.appearsOnStatement forKey:@"appearsOnStatement"];
-    }
-
-    return parameters;
 }
 
 - (void)showStatusViewWith:(JPTransactionStatus)status {

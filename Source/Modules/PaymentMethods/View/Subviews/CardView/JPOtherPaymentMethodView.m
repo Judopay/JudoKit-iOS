@@ -27,8 +27,6 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"

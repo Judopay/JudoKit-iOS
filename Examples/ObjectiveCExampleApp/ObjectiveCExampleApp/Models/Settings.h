@@ -8,8 +8,21 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const kSandboxedKey = @"is_sandboxed";
 static NSString * const kJudoIdKey = @"judo_id";
 static NSString * const kSiteIdKey = @"site_id";
+
+#pragma mark - Authorization section keys
+
+static NSString * const kIsTokenAndSecretOnKey = @"is_token_and_secret_on";
+static NSString * const kIsPaymentSessionOnKey = @"is_payment_session_on";
+
 static NSString * const kTokenKey = @"token";
 static NSString * const kSecretKey = @"secret";
+
+static NSString * const kSessionTokenKey = @"session_token";
+static NSString * const kPaymentSessionKey = @"payment_session";
+
+#pragma mark - Reference section keys
+static NSString * const kPaymentReferenceKey = @"payment_reference";
+static NSString * const kConsumerReferenceKey = @"consumer_reference";
 
 #pragma mark - Amount section keys
 
@@ -47,7 +60,9 @@ static NSString * const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_s
 
 @interface Settings : NSObject
 
-- (instancetype)initWith: (NSUserDefaults *)defaults;
++ (instancetype)defaultSettings;
+
+- (instancetype)initWith:(NSUserDefaults *)defaults;
 
 #pragma mark - API credentials section
 
@@ -55,8 +70,17 @@ static NSString * const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_s
 
 -(NSString *)judoId;
 -(NSString *)siteId;
--(NSString *)token;
--(NSString *)secret;
+
+#pragma mark - Authorization
+
+-(id <JPAuthorization>)authorization;
+
+@property (nonatomic, assign) BOOL isTokenAndSecretAuthorizationOn;
+@property (nonatomic, assign) BOOL isPaymentSessionAuthorizationOn;
+
+#pragma mark - Payment reference section
+
+- (JPReference *)reference;
 
 #pragma mark - Amount section
 

@@ -24,6 +24,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
+#import <InAppSettingsKit/IASKSettingsReader.h>
+
 @import JudoKit_iOS;
 
 #import "MainViewController.h"
@@ -33,26 +35,20 @@
 #import "DemoFeature.h"
 #import "Settings.h"
 #import "ExampleAppStorage.h"
+#import "IASKAppSettingsViewController+Additions.h"
 
-static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
-static NSString * const kShowPbbaScreenSegue = @"showPbbaScreen";
-static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
+static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
+static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 @interface MainViewController ()
 
-@property (nonatomic, strong) JPReference *reference;
-@property (nonatomic, strong) JPCardDetails *cardDetails;
-@property (nonatomic, strong) JPPaymentToken *payToken;
-@property (nonatomic, strong) JudoKit *judoKit;
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSArray <DemoFeature *> *features;
-@property (strong, nonatomic) Settings *settings;
-@property (strong, nonatomic) JPPBBAConfiguration *pbbaConfig;
+@property(nonatomic, strong) JudoKit *judoKit;
+@property(strong, nonatomic) CLLocationManager *locationManager;
+@property(strong, nonatomic) NSArray <DemoFeature *> *features;
+@property(strong, nonatomic) NSSet <NSString *> *settingsToObserve;
 
-// INFO: Workaround for the judoKit setup
-@property (nonatomic, strong) NSArray <NSString *> *settingsToObserve;
-@property (nonatomic, assign) BOOL shouldSetupJudoSDK;
-
+@property(nonatomic, assign) BOOL shouldSetupJudoSDK;
+@property(nonatomic, strong) NSURL *deepLinkURL;
 @end
 
 @implementation MainViewController
@@ -63,17 +59,20 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     [super viewDidLoad];
 
     self.features = DemoFeature.defaultFeatures;
-    self.settingsToObserve = @[kSandboxedKey, kTokenKey, kSecretKey];
     self.shouldSetupJudoSDK = YES;
+    self.settingsToObserve = [NSSet setWithArray:@[kSandboxedKey,
+            kTokenKey, kSecretKey, kPaymentSessionKey, kSessionTokenKey,
+            kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
 
     [self requestLocationPermissions];
-    [self setupPropertiesObservation];
+
+    self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    // When isSandbox | token | secred changed in the settings, re-init the JudoKit
+    // When isSandbox | token | secret, payment session, changes in the settings, update JudoKit authorization
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -81,31 +80,46 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 }
 
 - (void)dealloc {
-    [self removePropertiesObservation];
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context {
-    if ([self.settingsToObserve containsObject:keyPath]) {
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(settingDidChanged:)
+                                               name:kIASKAppSettingChanged
+                                             object:nil];
+}
+
+- (void)settingDidChanged:(NSNotification *)notification {
+    if (![notification.name isEqualToString:kIASKAppSettingChanged]) {
+        return;
+    }
+
+    IASKAppSettingsViewController *settingsViewController = (IASKAppSettingsViewController *) notification.object;
+    NSSet *changes = [NSSet setWithArray:notification.userInfo.allKeys];
+
+    if ([changes intersectsSet:self.settingsToObserve]) {
         self.shouldSetupJudoSDK = YES;
     }
+
+    [settingsViewController didChangedSettingsWithKeys:changes.allObjects];
 }
 
 // MARK: Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass: IASKAppSettingsViewController.class]) {
+    if ([segue.destinationViewController isKindOfClass:IASKAppSettingsViewController.class]) {
         IASKAppSettingsViewController *controller = segue.destinationViewController;
         controller.neverShowPrivacySettings = YES;
+        [controller updateHiddenKeys];
     }
-    if ([segue.destinationViewController isKindOfClass: PBBAViewController.class]) {
+    if ([segue.destinationViewController isKindOfClass:PBBAViewController.class]) {
         PBBAViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
     }
-    if ([segue.destinationViewController isKindOfClass: PayWithCardTokenViewController.class]) {
+    if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {
         PayWithCardTokenViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
         controller.configuration = self.configuration;
@@ -115,26 +129,8 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 // MARK: Setup methods
 
 - (void)setupJudoSDK {
-    self.judoKit = [[JudoKit alloc] initWithToken:self.settings.token
-                                                  secret:self.settings.secret];
-    self.judoKit.isSandboxed = self.settings.isSandboxed;
-    self.pbbaConfig = [JPPBBAConfiguration new];
-    self.pbbaConfig.deeplinkScheme = @"judo://pay";
-}
-
-- (void)setupPropertiesObservation {
-    for (NSString *property in self.settingsToObserve) {
-        [NSUserDefaults.standardUserDefaults addObserver:self
-                                              forKeyPath:property
-                                                 options:NSKeyValueObservingOptionNew
-                                                 context:NULL];
-    }
-}
-
-- (void)removePropertiesObservation {
-    for (NSString *property in self.settingsToObserve) {
-        [NSUserDefaults.standardUserDefaults removeObserver:self forKeyPath:property];
-    }
+    self.judoKit.isSandboxed = Settings.defaultSettings.isSandboxed;
+    self.judoKit.authorization = Settings.defaultSettings.authorization;
 }
 
 - (void)requestLocationPermissions {
@@ -147,82 +143,82 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)paymentOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypePayment
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+                                     [weakSelf handleResponse:response error:error];
+                                 }];
 }
 
 - (void)preAuthOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypePreAuth
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+                                     [weakSelf handleResponse:response error:error];
+                                 }];
 }
 
 - (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+                                     [weakSelf handleResponse:response error:error];
+                                 }];
 }
 
 - (void)checkCardOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeCheckCard
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+                                     [weakSelf handleResponse:response error:error];
+                                 }];
 }
 
 - (void)saveCardOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
-                                     configuration:self.configuration
-                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                              configuration:self.configuration
+                                 completion:^(JPResponse *response, JPError *error) {
+                                     [weakSelf handleResponse:response error:error];
+                                 }];
 }
 
 - (void)applePayPaymentOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeApplePayWithMode:JPTransactionModePayment
-                                  configuration:self.configuration
-                                     completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                           configuration:self.configuration
+                              completion:^(JPResponse *response, JPError *error) {
+                                  [weakSelf handleResponse:response error:error];
+                              }];
 }
 
 - (void)applePayPreAuthOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeApplePayWithMode:JPTransactionModePreAuth
-                                  configuration:self.configuration
-                                     completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                           configuration:self.configuration
+                              completion:^(JPResponse *response, JPError *error) {
+                                  [weakSelf handleResponse:response error:error];
+                              }];
 }
 
 - (void)paymentMethodOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePayment
-                                             configuration:self.configuration
-                                                completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                                      configuration:self.configuration
+                                         completion:^(JPResponse *response, JPError *error) {
+                                             [weakSelf handleResponse:response error:error];
+                                         }];
 }
 
 - (void)preAuthMethodOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePreAuth
-                                             configuration:self.configuration
-                                                completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                                      configuration:self.configuration
+                                         completion:^(JPResponse *response, JPError *error) {
+                                             [weakSelf handleResponse:response error:error];
+                                         }];
 }
 
 - (void)pbbaMethodOperation {
@@ -236,17 +232,17 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)serverToServerMethodOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
-                                             configuration:self.configuration
-                                                completion:^(JPResponse *response, JPError *error) {
-                                  [weakSelf handleResponse:response error:error];
-    }];
+                                      configuration:self.configuration
+                                         completion:^(JPResponse *response, JPError *error) {
+                                             [weakSelf handleResponse:response error:error];
+                                         }];
 }
 
 // MARK: Helper methods
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self displayAlertWithError: error];
+        [self displayAlertWithError:error];
         return;
     }
 
@@ -254,41 +250,34 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
         return;
     }
 
-    JPTransactionData *transactionData = response.items.firstObject;
-
-    if (transactionData.cardDetails) {
-        self.cardDetails = transactionData.cardDetails;
-        self.payToken = transactionData.paymentToken;
-    }
-
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        [weakSelf presentDetailsViewControllerWithTransactionData:transactionData];
+        [weakSelf presentDetailsViewControllerWithResponse:response];
     }];
 }
 
-- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.transactionData = transactionData;
+    viewController.response = response;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 // MARK: Lazy properties
 
 - (JPConfiguration *)configuration {
-    JPConfiguration *configuration = [[JPConfiguration alloc] initWithJudoID:self.settings.judoId
-                                                                      amount:self.settings.amount
-                                                                   reference:self.reference];
-    configuration.siteId = self.settings.siteId;
-    configuration.paymentMethods = self.settings.paymentMethods;
-    configuration.uiConfiguration.isAVSEnabled = self.settings.isAVSEnabled;
-    configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = self.settings.shouldPaymentMethodsDisplayAmount;
-    configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = self.settings.shouldPaymentButtonDisplayAmount;
-    configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = self.settings.shouldPaymentMethodsVerifySecurityCode;
-    configuration.supportedCardNetworks = self.settings.supportedCardNetworks;
+    JPConfiguration *configuration = [[JPConfiguration alloc] initWithJudoID:Settings.defaultSettings.judoId
+                                                                      amount:Settings.defaultSettings.amount
+                                                                   reference:Settings.defaultSettings.reference];
+    configuration.siteId = Settings.defaultSettings.siteId;
+    configuration.paymentMethods = Settings.defaultSettings.paymentMethods;
+    configuration.uiConfiguration.isAVSEnabled = Settings.defaultSettings.isAVSEnabled;
+    configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = Settings.defaultSettings.shouldPaymentMethodsDisplayAmount;
+    configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = Settings.defaultSettings.shouldPaymentButtonDisplayAmount;
+    configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = Settings.defaultSettings.shouldPaymentMethodsVerifySecurityCode;
+    configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
 
-    configuration.pbbaConfiguration = self.pbbaConfig;
+    configuration.pbbaConfiguration = [JPPBBAConfiguration configurationWithDeeplinkScheme:@"judo://pay" andDeeplinkURL:self.deepLinkURL];
 
     return configuration;
 }
@@ -300,11 +289,11 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:@"0.03"];
 
     NSArray *items = @[[JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
-                       [JPPaymentSummaryItem itemWithLabel:@"Item 2" amount:itemTwoPrice],
-                       [JPPaymentSummaryItem itemWithLabel:@"Tim Apple" amount:totalPrice]];
+            [JPPaymentSummaryItem itemWithLabel:@"Item 2" amount:itemTwoPrice],
+            [JPPaymentSummaryItem itemWithLabel:@"Tim Apple" amount:totalPrice]];
 
-    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:self.settings.applePayMerchantId
-                                                                                        currency:self.settings.amount.currency
+    JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:Settings.defaultSettings.applePayMerchantId
+                                                                                        currency:Settings.defaultSettings.amount.currency
                                                                                      countryCode:@"GB"
                                                                              paymentSummaryItems:items];
     configuration.requiredShippingContactFields = JPContactFieldAll;
@@ -316,21 +305,6 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
                                                                                  amount:totalPrice
                                                                                    type:JPPaymentSummaryItemTypeFinal]];
     return configuration;
-}
-
-- (JPReference *)reference {
-    if (!_reference) {
-        _reference = [JPReference consumerReference:kConsumerReference];
-        _reference.metaData = @{@"exampleMetaKey": @"exampleMetaValue"};
-    }
-    return _reference;
-}
-
-- (Settings *)settings {
-    if (!_settings) {
-        _settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
-    }
-    return _settings;
 }
 
 @end
@@ -418,12 +392,12 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
     }
 }
 
--(void)openPBBAScreen:(NSURL *)url {
-    DemoFeatureType demoFeature = [[ExampleAppStorage sharedInstance] lastUsedFeature];
+// TODO: to be refactored, will be addressed in the `Results` screen PR
+- (void)openPBBAScreen:(NSURL *)url {
+    self.deepLinkURL = url;
     [self setupJudoSDK];
-    self.pbbaConfig.deeplinkURL = url;
 
-    switch (demoFeature) {
+    switch (ExampleAppStorage.sharedInstance.lastUsedFeature) {
         case DemoFeatureTypePaymentMethods:
             [self paymentMethodOperation];
             break;

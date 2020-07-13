@@ -26,19 +26,19 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@class JPTheme, JP3DSConfiguration, JPTransaction;
+@class JPTheme, JP3DSConfiguration, JPApiService;
 
 @interface JP3DSViewController : UIViewController <WKNavigationDelegate>
 
 /**
  * A reference to the JPTheme instance responsible for customizing the user interface
  */
-@property (nonatomic, strong) JPTheme *_Nullable theme;
+@property (nonatomic, strong, nullable) JPTheme *theme;
 
 /**
- * An instance of JPTransaction that is used to send a 3D Secure transaction to the Judo backend
+ * An instance of ApiService that is used to send a 3D Secure transaction to the Judo backend
  */
-@property (nonatomic, strong) JPTransaction *_Nonnull transaction;
+@property (nonatomic, strong, nonnull) JPApiService *apiService;
 
 /**
  * Designated initializer that creates a configured instance of JP3DSViewController based on configuration provided

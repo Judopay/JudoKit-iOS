@@ -24,7 +24,6 @@
 
 #import "JPFloatingTextField.h"
 #import "JPTheme.h"
-#import "UIFont+Additions.h"
 
 @interface JPFloatingTextField ()
 @property (nonatomic, strong) UILabel *floatingLabel;

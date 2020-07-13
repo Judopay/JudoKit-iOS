@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPPBBAButton.h"
-#import "UIView+Additions.h"
 
 @interface JPPBBAButton () <PBBAButtonDelegate>
 @property (nonatomic, strong) PBBAButton *pbbaButton;

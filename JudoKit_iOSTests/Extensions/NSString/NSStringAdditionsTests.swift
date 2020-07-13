@@ -90,19 +90,6 @@ class NSStringAdditionsTests: XCTestCase {
     }
     
     /*
-     * GIVEN: A raw string
-     *
-     * WHEN: replacing Characters in string
-     *
-     * THEN: should return right string
-     */
-    func test_StringByReplacingCharactersInSet_WhenRawString_ShouldReturnRightString() {
-        let stringForTest = "122"
-        let sut = stringForTest.replacingCharacters(in: CharacterSet(charactersIn: "1"), with: "2")
-        XCTAssertEqual(sut, "222")
-    }
-    
-    /*
      * GIVEN: A raw string from numbers
      *
      * WHEN: making first character bold

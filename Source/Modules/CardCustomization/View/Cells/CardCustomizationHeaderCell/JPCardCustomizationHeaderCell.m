@@ -26,7 +26,6 @@
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardView.h"
 #import "NSLayoutConstraint+Additions.h"
-#import "UIView+Additions.h"
 
 @interface JPCardCustomizationHeaderCell ()
 @property (nonatomic, strong) JPCardView *cardView;

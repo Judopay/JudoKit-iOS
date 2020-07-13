@@ -28,7 +28,8 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-@class JPConfiguration, JPConfigurationValidationService, JPPaymentMethod, JPReceipt, JPSession, JPTransaction;
+@class JPConfiguration, JPPaymentMethod, JPSession;
+@protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
 static NSString *__nonnull const JudoKitVersion = @"1.1.0";
@@ -40,44 +41,26 @@ static NSString *__nonnull const JudoKitVersion = @"1.1.0";
  */
 
 @property (nonatomic, assign) BOOL isSandboxed;
+@property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
  * Designated initializer that returns a configured JudoKit instance.
  *
- * @param token - an instance of NSString that serves as the merchant's token.
- * @param secret - an instance of NSString that serves as the merchant's secret.
  * @param jailbrokenDevicesAllowed - a boolean value that, if set to YES, will allow jailbroken devices to use the Judo SDK.
  *
  * @returns - a configured instance of JudoKit
  */
 
-- (nullable instancetype)initWithToken:(nonnull NSString *)token
-                                secret:(nonnull NSString *)secret
-                allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
+- (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
+                        allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed;
 
 /**
  * Convenience initializer that returns a configured JudoKit instance that allows jailbroken devices.
  *
- * @param token - an instance of NSString that serves as the merchant's token.
- * @param secret - an instance of NSString that serves as the merchant's secret.
- *
  * @returns - a configured instance of JudoKit.
 */
 
-- (nullable instancetype)initWithToken:(nonnull NSString *)token
-                                secret:(nonnull NSString *)secret;
-
-/**
- * A method which returns a configured instance of JPTransaction for merchants to use in their own apps.
- *
- * @param type - an instance of TransactionType that describes the type of the transaction.
- * @param configuration - an instance of JPConfiguration used to configure the transaction.
- *
- * @returns - a configured instance of JPTransaction.
- */
-
-- (nonnull JPTransaction *)transactionWithType:(JPTransactionType)type
-                                 configuration:(nonnull JPConfiguration *)configuration;
+- (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 /**
  * A method which invokes the Judo transaction interface which allows users to enter their card details and make a transaction.

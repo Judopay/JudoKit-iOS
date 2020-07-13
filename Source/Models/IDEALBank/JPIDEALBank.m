@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPIDEALBank.h"
-#import <Foundation/Foundation.h>
 
 @implementation JPIDEALBank
 

@@ -36,7 +36,13 @@ class JPUKPostCodeValidation: XCTestCase {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         validationService.validateCountryInput("UK")
-        sut = JPTransactionInteractorImpl(cardValidationService: validationService, transactionService: nil, configuration:configuration, completion: nil)
+        sut = JPTransactionInteractorImpl(cardValidationService: validationService,
+                                          apiService: nil,
+                                          transactionType: .payment,
+                                          cardDetailsMode: .default,
+                                          configuration: configuration,
+                                          cardNetwork: .all,
+                                          completion: nil)
     }
     
     func testValidCode_UK() {

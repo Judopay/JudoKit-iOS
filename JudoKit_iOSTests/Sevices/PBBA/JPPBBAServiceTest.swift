@@ -34,9 +34,11 @@ class JPPBBAServiceTest: XCTestCase {
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
-        let ppbaConfig = JPPBBAConfiguration(mobileNumber: "9807", emailAddress: "email@email.com", appearsOnStatement: "")
+        let ppbaConfig = JPPBBAConfiguration(deeplinkScheme: "judo",
+                                             andDeeplinkURL: URL(string: "url?orderId=3333"))
         configuration.pbbaConfiguration = ppbaConfig
-        sut = JPPBBAService(configuration: configuration, transactionService: JPTransactionServicePBBAStub())
+        
+        sut = JPPBBAService(configuration: configuration, apiService: JPApiServicePBBAStub())
     }
     
     override func tearDown() {
@@ -66,14 +68,12 @@ class JPPBBAServiceTest: XCTestCase {
      * THEN: should return non nil response and equal with Success status
      */
     func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
-        self.configuration.pbbaConfiguration?.deeplinkURL = URL(string: "url?orderId=3333")
-        
         let expectation = self.expectation(description: "get response from pbba polling")
         
         let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
-            XCTAssertEqual(response!.items!.first!.orderDetails!.orderStatus, "Success")
+            XCTAssertEqual(response?.orderDetails?.orderStatus, "Success")
             expectation.fulfill()
         }
         sut.pollingOrderStatus(completion)

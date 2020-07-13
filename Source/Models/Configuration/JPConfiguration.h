@@ -107,16 +107,4 @@
                                 amount:(nullable JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
 
-/**
- * Designated initializer that sets the required parameters for receipt-related transactions
- *  - Compatible with Refund, Void, Collection transactions.
- *
- *  @param receiptId - the Receipt ID obtained from a transaction response.
- *  @param amount - the JPAmount instance, contaning the amount and the currency of the transaction.
- *
- *  @returns a configured instance of JPConfiguration
- */
-- (nonnull instancetype)initWithReceiptID:(nonnull NSString *)receiptId
-                                   amount:(nullable JPAmount *)amount;
-
 @end

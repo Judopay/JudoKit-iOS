@@ -26,11 +26,11 @@
 
 @implementation JPPrimaryAccountDetails
 
-+ (instancetype)detailsFromDictionary:(NSDictionary *)dictionary {
-    return [[JPPrimaryAccountDetails alloc] initFromDictionary:dictionary];
++ (instancetype)detailsWithDictionary:(NSDictionary *)dictionary {
+    return [[JPPrimaryAccountDetails alloc] initWithDictionary:dictionary];
 }
 
-- (instancetype)initFromDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
 
     if (self = [super init]) {
         _name = dictionary[@"name"];
@@ -40,28 +40,6 @@
     }
 
     return self;
-}
-
-- (NSDictionary *)toDictionary {
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-
-    if (_name) {
-        dictionary[@"name"] = _name;
-    }
-
-    if (_accountNumber) {
-        dictionary[@"accountNumber"] = _accountNumber;
-    }
-
-    if (_dateOfBirth) {
-        dictionary[@"dateOfBirth"] = _dateOfBirth;
-    }
-
-    if (_postCode) {
-        dictionary[@"postCode"] = _postCode;
-    }
-
-    return dictionary;
 }
 
 @end

@@ -24,7 +24,6 @@
 
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
-#import "NSArray+Additions.h"
 
 @implementation JPCardNetwork
 

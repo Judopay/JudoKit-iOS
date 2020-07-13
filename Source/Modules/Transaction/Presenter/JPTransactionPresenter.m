@@ -26,15 +26,12 @@
 #import "JPAddress.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
-#import "JPCardNetwork.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPResponse.h"
-#import "JPTransactionData.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
-#import "JPTransactionViewModel.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
@@ -163,7 +160,7 @@
 - (void)handleResponse:(JPResponse *)response {
 
     if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
-        NSString *token = response.items.firstObject.cardDetails.cardToken;
+        NSString *token = response.cardDetails.cardToken;
 
         if (!token) {
             [self.view updateViewWithError:JPError.judoTokenMissingError];
@@ -211,8 +208,7 @@
 }
 
 - (void)handleCancelButtonTap {
-    [self.interactor completeTransactionWithResponse:nil
-                                               error:JPError.judoUserDidCancelError];
+    [self.interactor completeTransactionWithResponse:nil error:JPError.judoUserDidCancelError];
     [self.router dismissViewController];
 }
 

@@ -25,17 +25,19 @@
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
 #import "DetailViewController.h"
-#import "UIColor+Additions.h"
 
 @import JudoKit_iOS;
 
 @interface PayWithCardTokenViewController ()
+
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
-@property (strong, nonatomic) JPTransactionService *transactionService;
-@property (strong, nonatomic) JPTransaction *transaction;
-@property (strong, nonatomic) UIActivityIndicatorView *_Nullable activityIndicatorView;
+
+@property (strong, nonatomic) JPApiService *apiService;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
+@property (strong, nonatomic) NSString *cardToken;
+
 @end
 
 @implementation PayWithCardTokenViewController
@@ -46,11 +48,9 @@
     [super viewDidLoad];
     [self shouldEnableButtons:NO];
     [self setupButtons];
-    Settings *settings = [[Settings alloc] initWith:NSUserDefaults.standardUserDefaults];
-    self.transactionService = [[JPTransactionService alloc] initWithToken:settings.token
-                                                                andSecret:settings.secret];
-    self.transactionService.isSandboxed = settings.isSandboxed;
-    self.transaction = [self.transactionService transactionWithConfiguration:self.configuration];
+    
+    self.apiService = [[JPApiService alloc] initWithAuthorization:Settings.defaultSettings.authorization
+                                                      isSandboxed:Settings.defaultSettings.isSandboxed];
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -72,47 +72,57 @@
         return;
     }
     
-    JPTransactionData *transactionData = response.items.firstObject;
+    self.cardToken = response.cardDetails.cardToken;
     
-    self.transaction.cardToken = transactionData.cardDetails.cardToken;
-    if (transactionData.cardDetails.cardToken) {
+    if (self.cardToken) {
         [self shouldEnableButtons:YES];
     }
     
     if (showReceipt) {
-        [self presentDetailsViewControllerWithTransactionData:transactionData];
+        [self presentDetailsViewControllerWithResponse:response];
     }
 }
 
-- (void)presentDetailsViewControllerWithTransactionData:(JPTransactionData *)transactionData {
+- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.transactionData = transactionData;
+    viewController.response = response;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)payWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.payWithCardTokenButton startLoading];
-    [self.transactionService payWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+    
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken: self.cardToken];
+    request.yourPaymentReference = [JPReference generatePaymentReference];
+
+    [self.apiService invokeTokenPaymentWithRequest:request
+                                     andCompletion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReceipt:true];
-        [self.payWithCardTokenButton stopLoading];
+        [weakSelf.payWithCardTokenButton stopLoading];
     }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.preAuthWithCardTokenButton startLoading];
-    [self.transactionService preAuthWithTransaction:self.transaction andCompletion:^(JPResponse *response, JPError *error) {
+    
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken: self.cardToken];
+    request.yourPaymentReference = [JPReference generatePaymentReference];
+    
+    [self.apiService invokePreAuthTokenPaymentWithRequest:request
+                                            andCompletion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReceipt:true];
-        [self.preAuthWithCardTokenButton stopLoading];
+        [weakSelf.preAuthWithCardTokenButton stopLoading];
     }];
 }
 
 - (void)setupButtons {
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
+    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
+
     [self.payWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
     [self.payWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
-    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
 }
 
 - (void)shouldEnableButtons:(BOOL)shouldEnable {

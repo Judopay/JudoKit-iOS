@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPApplePayServiceTest: XCTestCase {
-    lazy var service = JPTransactionServiceiDealStub()
+    lazy var service = JPApiServiceiDealStub()
     lazy var configuration = JPConfiguration(judoID: "judoId",
                                              amount: JPAmount("123", currency: "EUR"),
                                              reference: JPReference(consumerReference: "consumerReference"))
@@ -38,7 +38,7 @@ class JPApplePayServiceTest: XCTestCase {
         appleConfig.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
         configuration.applePayConfiguration = appleConfig
         sut = JPApplePayService(configuration:configuration,
-                                transactionService:service)
+                                andApiService:service)
     }
     
     /*
@@ -64,12 +64,12 @@ class JPApplePayServiceTest: XCTestCase {
     /*
      * GIVEN: a new instance of JPApplePayService is created
      *
-     * WHEN: when a valid configuration and transactionService is provided
+     * WHEN: when a valid configuration and apiService is provided
      *
      * THEN: the returned instance of JPApplePayService should not be nil
      */
     func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
-        let applePayService = JPApplePayService(configuration: configuration, transactionService: service)
+        let applePayService = JPApplePayService(configuration: configuration, andApiService: service)
         XCTAssertNotNil(applePayService)
     }
     
@@ -93,7 +93,7 @@ class JPApplePayServiceTest: XCTestCase {
      * THEN: should create correct non nill JPApplePayService object
      */
     func test_InitAppleService_WhenClassInit_ShouldCreateObject() {
-        let sut = JPApplePayService.init(configuration: configuration, transactionService: service)
+        let sut = JPApplePayService()
         XCTAssertNotNil(sut)
     }
     
@@ -106,8 +106,7 @@ class JPApplePayServiceTest: XCTestCase {
      */
     func test_initController_WhenPaymentType_ShouldCreateController() {
         configuration.applePayConfiguration?.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
-        sut = JPApplePayService(configuration:configuration,
-                                transactionService:service)
+        sut = JPApplePayService()
         let controller = sut.applePayViewController(with: .payment, completion: nil)
         XCTAssertNil(controller)
     }

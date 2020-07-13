@@ -26,7 +26,6 @@
 #import "JPCardInputField.h"
 #import "JPCardInputView.h"
 #import "JPCardNumberField.h"
-#import "JPInputField.h"
 #import "JPLoadingButton.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
