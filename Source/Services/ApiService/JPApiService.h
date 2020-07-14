@@ -170,4 +170,12 @@
                        authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
                               andCompletion:(nullable JPCompletionBlock)completion;
 
+/**
+ * A method used to fetch the details of a transaction based on a provided receipt ID
+ *
+ * @param receiptId - a string which contains the receipt ID of a transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ */
+- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
+                           completion:(nullable JPCompletionBlock)completion;
 @end
