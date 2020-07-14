@@ -221,4 +221,9 @@
     self.apiService.authorization = authorization;
 }
 
+- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
+                           completion:(nullable JPCompletionBlock)completion {
+    [self.apiService fetchTransactionWithReceiptId:receiptId completion:completion];
+}
+
 @end
