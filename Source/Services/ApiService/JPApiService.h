@@ -171,9 +171,9 @@
                               andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
- * A method for sending REST API requests for fetching transaction
+ * A method used to fetch the details of a transaction based on a provided receipt ID
  *
- * @param receiptId - a string which contain receipt ID of transaction.
+ * @param receiptId - a string which contains the receipt ID of a transaction.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId

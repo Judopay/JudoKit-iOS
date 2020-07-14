@@ -238,18 +238,25 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
                                          }];
 }
 
-- (void)transactionStatusMethodOperation {
+- (void)transactionDetailsMethodOperation {
     __block UITextField *textField = [UITextField new];
     __weak typeof(self) weakSelf = self;
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Get transaction" message:@"For receipt Id:" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Get transaction"
+                                                                        message:@"For receipt Id:"
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text completion:^(JPResponse *response, JPError *error) {
+    UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text
+                                             completion:^(JPResponse *response, JPError *error) {
             [weakSelf handleResponse:response error:error];
         }];
     }];
 
-    UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler: nil];
+    UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler: nil];
 
     [controller addTextFieldWithConfigurationHandler:^(UITextField *aTextField) {
         textField = aTextField;
@@ -413,8 +420,8 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
             [self tokenPaymentsMethodOperation];
             break;
             
-        case DemoFeatureGetTransactionStatus:
-            [self transactionStatusMethodOperation];
+        case DemoFeatureGetTransactionDetails:
+            [self transactionDetailsMethodOperation];
             break;
     }
 }
