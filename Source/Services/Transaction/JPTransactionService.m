@@ -143,6 +143,14 @@
                       }];
 }
 
+- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
+                           completion:(nullable JPCompletionBlock)completion {
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@%@", self.session.baseURL, kTransactionStatusPathKey, receiptId];
+    [self.session GET:fullURL
+           parameters:nil
+           completion:completion];
+}
+
 #pragma mark - Setters
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {

@@ -34,6 +34,7 @@ extern NSString *_Nonnull const kPaymentEndpoint;
 extern NSString *_Nonnull const kPreauthEndpoint;
 extern NSString *_Nonnull const kRegisterCardEndpoint;
 extern NSString *_Nonnull const kSaveCardEndpoint;
+extern NSString *_Nonnull const kTransactionStatusPathKey;
 
 @class JPResponse, JPPagination, JPSession, JPPaymentToken, JPCard, JPAmount, JPReference, JPVCOResult, JPEnhancedPaymentDetail,
     JPTransactionEnricher, JPPrimaryAccountDetails;

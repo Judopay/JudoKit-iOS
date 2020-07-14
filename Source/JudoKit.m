@@ -218,6 +218,11 @@
                                           completionHandler:completion];
 }
 
+- (void)getTransactionStatusWithReceiptID:(nonnull NSString *)receiptId
+                               completion:(nullable JPCompletionBlock)completion {
+    [self.transactionService fetchTransactionWithReceiptId:receiptId completion:completion];
+}
+
 #pragma mark - Getters & Setters
 
 - (JPSliderTransitioningDelegate *)transitioningDelegate {

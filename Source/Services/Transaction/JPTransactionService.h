@@ -107,4 +107,13 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)preAuthWithTransaction:(nullable JPTransaction *)transaction
                  andCompletion:(nullable JPCompletionBlock)completion;
 
+/**
+ * A method for sending REST API requests for fetching transaction
+ *
+ * @param receiptId - a string which contain receipt ID of transaction.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ */
+- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
+                           completion:(nullable JPCompletionBlock)completion;
+
 @end

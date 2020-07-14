@@ -41,11 +41,11 @@ NSString *const kPaymentEndpoint = @"transactions/payments";
 NSString *const kPreauthEndpoint = @"transactions/preauths";
 NSString *const kRegisterCardEndpoint = @"transactions/registercard";
 NSString *const kSaveCardEndpoint = @"transactions/savecard";
+NSString *const kTransactionStatusPathKey = @"transactions/";
 
 static NSString *const kCollectionPathKey = @"/transactions/collections";
 static NSString *const kVoidTransactionPathKey = @"/transactions/voids";
 static NSString *const kCheckCardPathKey = @"transactions/checkcard";
-;
 static NSString *const kRefundPathKey = @"/transactions/refunds";
 
 @interface JPReference ()

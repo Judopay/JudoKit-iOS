@@ -235,10 +235,13 @@ static NSString * const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 - (void)transactionStatusMethodOperation {
     __block UITextField *textField = [UITextField new];
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"" message:@"Insert Receipt ID:" preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Get transaction" message:@"For receipt Id:" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"textField %@", textField.text);
+        [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text completion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error];
+        }];
     }];
     
     UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler: nil];
