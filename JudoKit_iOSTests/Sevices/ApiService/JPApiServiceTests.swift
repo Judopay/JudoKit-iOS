@@ -62,7 +62,7 @@ class JPApiServiceTests: XCTestCase {
     }
     
     /*
-     * GIVEN: the JPApiService instance has been succesfully initialized
+     * GIVEN: the JPApiService instance has been successfully initialized
      *
      * THEN:  the properties must be set correctly
      */
@@ -76,7 +76,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPPaymentRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidPaymentRequest_ReturnResponse() {
         let paymentRequest = JPPaymentRequest(configuration: transactionConfigurations)
@@ -96,7 +96,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPPaymentRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidPreAuthRequest_ReturnResponse() {
         let paymentRequest = JPPaymentRequest(configuration: transactionConfigurations)
@@ -116,7 +116,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPSaveCardRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidSaveCardRequest_ReturnResponse() {
         let saveCardRequest = JPSaveCardRequest(configuration: transactionConfigurations)
@@ -136,7 +136,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPRegisterCardRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidRegisterCardRequest_ReturnResponse() {
         let registerCardRequest = JPRegisterCardRequest(configuration: transactionConfigurations)
@@ -156,7 +156,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPCheckCardRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidCheckCardRequest_ReturnResponse() {
         let checkCardRequest = JPCheckCardRequest(configuration: transactionConfigurations)
@@ -176,7 +176,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPTokenRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidTokenPaymentRequest_ReturnResponse() {
         let tokenPaymentRequest = JPTokenRequest(configuration: transactionConfigurations)
@@ -196,7 +196,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPTokenRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidTokenPreAuthRequest_ReturnResponse() {
         let tokenPaymentRequest = JPTokenRequest(configuration: transactionConfigurations)
@@ -216,7 +216,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPApplePayRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidApplePayPaymentRequest_ReturnResponse() {
         let applePayRequest = JPApplePayRequest(configuration: transactionConfigurations)
@@ -236,7 +236,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPApplePayRequest is passed a valid configuration
      *
-     * THEN:  the transaction should complete succesfully
+     * THEN:  the transaction should complete successfully
      */
     func test_OnValidApplePayPreAuthRequest_ReturnResponse() {
         let applePayRequest = JPApplePayRequest(configuration: transactionConfigurations)
@@ -256,7 +256,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the JPBankOrderSaleRequest is passed a valid configuration
      *
-     * THEN:  the request should complete succesfully
+     * THEN:  the request should complete successfully
      */
     func test_OnValidBankSaleRequest_ReturnResponse() {
         let bankOrderSaleRequest = JPBankOrderSaleRequest(configuration: transactionConfigurations)
@@ -276,7 +276,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the order ID is valid
      *
-     * THEN:  the request should complete succesfully
+     * THEN:  the request should complete successfully
      */
     func test_OnValidOrderStatusRequest_ReturnResponse() {
         let expectation = self.expectation(description: "await order status response")
@@ -295,7 +295,7 @@ class JPApiServiceTests: XCTestCase {
      *
      * WHEN:  the order ID is valid
      *
-     * THEN:  the request should complete succesfully
+     * THEN:  the request should complete successfully
      */
     func test_OnValid3DSecureRequest_ReturnResponse() {
         let expectation = self.expectation(description: "await 3DS transaction response")

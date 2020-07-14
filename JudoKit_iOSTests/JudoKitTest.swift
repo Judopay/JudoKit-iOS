@@ -24,7 +24,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JudoKitTest: XCTestCase {
-    let judoKit = JudoKit()
+    var judoKit: JudoKit! = JudoKit(authorization: JPBasicAuthorization(token: "token", andSecret: "secret"))!
     let configuration = JPConfiguration(judoID: "123456789",
                                         amount: JPAmount("0.01", currency: "EUR"),
                                         reference: JPReference(consumerReference: "consumerReference"))
@@ -36,10 +36,16 @@ class JudoKitTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        HTTPStubs.setEnabled(true)
         pbbaconfig.deeplinkURL = URL(string: "link")
         configuration.pbbaConfiguration = pbbaconfig
         configuration.applePayConfiguration = JPApplePayConfiguration(merchantId: "1234", currency: "USD", countryCode: "DE", paymentSummaryItems: items)
     }
+    
+    override func tearDown() {
+           HTTPStubs.removeAllStubs()
+           super.tearDown()
+       }
     
     /*
      * GIVEN: Creating JudoKit object
@@ -192,5 +198,25 @@ class JudoKitTest: XCTestCase {
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
             XCTAssertEqual(error?.localizedDescription ?? "", "Payment items couldn't be empty")
         }
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
+     * WHEN: receipt Id is valid string
+     *
+     * THEN: should return transaction details
+     */
+    func test_FetchTransaction_WhenReceiptIdValid_ShouldReturnTransactionDetails() {
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("TransactionData.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        let expectation = self.expectation(description: "await save transaction response")
+
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertNotNil(res)
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
     }
 }

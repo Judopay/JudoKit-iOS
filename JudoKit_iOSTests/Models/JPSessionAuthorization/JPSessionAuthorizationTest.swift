@@ -1,8 +1,6 @@
 //
-//  NSBundleAdditionsTests.swift
+//  JPSessionAuthorizationTest.swift
 //  JudoKit_iOSTests
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,35 +23,31 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class NSBundleAdditionsTests: XCTestCase {
+class JPSessionAuthorizationTest: XCTestCase {
     
     /*
-     * GIVEN: accessing bundle for framework
-     *
-     * THEN: should return non nil bundle path
-     */
-    func test_frameworkBundle() {
-        let bundle = Bundle.framework()
-        XCTAssertNotNil(bundle)
+    * GIVEN: Creating JPSessionAuthorization using Convenient Init
+    *
+    * WHEN: setup default token and session
+    *
+    * THEN: should create correct fields in JPSessionAuthorization object
+    */
+    func test_ConvenientInit_WhenFieldsAreValid_ShouldPopulateProperties() {
+        let sessionAuthorization = JPSessionAuthorization.init(token: "token", andPaymentSession: "session")
+        XCTAssertEqual(sessionAuthorization.headers["Payment-Session"], "session")
+        XCTAssertNotNil(sessionAuthorization.headers["Authorization"])
     }
     
     /*
-     * GIVEN: accessing bundle for icons
-     *
-     * THEN: should return non nil bundle path
-     */
-    func test_iconsBundle() {
-        let bundle = Bundle.icons()
-        XCTAssertNotNil(bundle)
-    }
-    
-    /*
-     * GIVEN: accessing bundle for resources
-     *
-     * THEN: should return non nil bundle path
-     */
-    func test_resourcesBundle() {
-        let bundle = Bundle.resources()
-        XCTAssertNotNil(bundle)
+    * GIVEN: Creating JPSessionAuthorization using Designated Init
+    *
+    * WHEN: setup default token and session
+    *
+    * THEN: should create correct fields in JPSessionAuthorization object
+    */
+    func test_Initializer_WhenFieldsAreValid_ShouldPopulateProperties() {
+        let sessionAuthorization = JPSessionAuthorization(token: "token", andPaymentSession: "session")
+        XCTAssertEqual(sessionAuthorization.headers["Payment-Session"], "session")
+        XCTAssertNotNil(sessionAuthorization.headers["Authorization"])
     }
 }
