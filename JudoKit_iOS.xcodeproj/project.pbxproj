@@ -79,6 +79,7 @@
 		0779B1792490EC05000844AF /* JPTransactionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1712490EC05000844AF /* JPTransactionButton.h */; };
 		0779B17A2490EC05000844AF /* JPCardInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1722490EC05000844AF /* JPCardInputView.h */; };
 		077B285F24BF025D009A7183 /* UnSuccessResponsePBBA.json in Resources */ = {isa = PBXBuildFile; fileRef = 077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */; };
+		077B286224BF0F13009A7183 /* JPRegisterCardRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077B286124BF0F13009A7183 /* JPRegisterCardRequestTest.swift */; };
 		077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
 		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -488,6 +489,7 @@
 		0779B1712490EC05000844AF /* JPTransactionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionButton.h; sourceTree = "<group>"; };
 		0779B1722490EC05000844AF /* JPCardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardInputView.h; sourceTree = "<group>"; };
 		077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UnSuccessResponsePBBA.json; sourceTree = "<group>"; };
+		077B286124BF0F13009A7183 /* JPRegisterCardRequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPRegisterCardRequestTest.swift; sourceTree = "<group>"; };
 		0783431924754BCC000DA445 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
 		0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
 		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 		0777B99A247BC9BB00867B9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				077B286024BF0F08009A7183 /* JPRegisterCardRequest */,
 				07AA4FF724BDEC8200C21CEA /* JPCountry */,
 				079A871624BDDDD200108714 /* JPSessionAuthorization */,
 				0777B99F247BC9BB00867B9F /* Amount */,
@@ -1271,6 +1274,14 @@
 				0779B1712490EC05000844AF /* JPTransactionButton.h */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		077B286024BF0F08009A7183 /* JPRegisterCardRequest */ = {
+			isa = PBXGroup;
+			children = (
+				077B286124BF0F13009A7183 /* JPRegisterCardRequestTest.swift */,
+			);
+			path = JPRegisterCardRequest;
 			sourceTree = "<group>";
 		};
 		0783431824754BAE000DA445 /* PBBAConfiguration */ = {
@@ -3265,6 +3276,7 @@
 				30D3640E24B873790029BC86 /* UIColorAdditionsTest.swift in Sources */,
 				30D3644724B876620029BC86 /* JPApiServiceTests.swift in Sources */,
 				30D3642024B873D70029BC86 /* JPPBBAConfigurationTest.swift in Sources */,
+				077B286224BF0F13009A7183 /* JPRegisterCardRequestTest.swift in Sources */,
 				0777BA08247BC9BB00867B9F /* JPTransactionInteractorTest.swift in Sources */,
 				0777BA0C247BC9BB00867B9F /* JPCardCustomizationPresenterTest.swift in Sources */,
 				0777B9F1247BC9BB00867B9F /* JudoKitTest.swift in Sources */,

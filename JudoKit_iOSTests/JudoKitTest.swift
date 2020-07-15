@@ -34,18 +34,24 @@ class JudoKitTest: XCTestCase {
                  JPPaymentSummaryItem(label: "item 2", amount: 0.02),
                  JPPaymentSummaryItem(label: "Judo Pay", amount: 0.03)]
     
+    var jsonResult: [String: Any]!
+    
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
         pbbaconfig.deeplinkURL = URL(string: "link")
         configuration.pbbaConfiguration = pbbaconfig
         configuration.applePayConfiguration = JPApplePayConfiguration(merchantId: "1234", currency: "USD", countryCode: "DE", paymentSummaryItems: items)
+        
+        let path = Bundle(for: type(of: self)).path(forResource: "TransactionData", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! [String: Any]
     }
     
     override func tearDown() {
-           HTTPStubs.removeAllStubs()
-           super.tearDown()
-       }
+        HTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
     
     /*
      * GIVEN: Creating JudoKit object
@@ -96,7 +102,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeTransactionWithType_WhenJudoIdIsInvalid_ShouldNotValidate() {
         let configuration = JPConfiguration(judoID: "123",
                                             amount: JPAmount("0.01", currency: "EUR"),
-                                            reference: JPReference(consumerReference: "consumerReference"))
+                                            reference: JPReference.init(consumerReference: "consumerReference"))
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
             XCTAssertEqual(error?.localizedDescription ?? "", "JudoId is invalid")
         }
@@ -212,9 +218,109 @@ class JudoKitTest: XCTestCase {
             return HTTPStubsResponse(fileAtPath: OHPathForFile("TransactionData.json", type(of: self))!, statusCode: 200, headers: nil)
         }
         let expectation = self.expectation(description: "await save transaction response")
-
+        
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
             XCTAssertNotNil(res)
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
+     * WHEN: transaction is declined
+     *
+     * THEN: should return right error
+     */
+    func test_FetchTransaction_WhenTransactionDeclined_ShouldReturnRightError() {
+        jsonResult["result"] = "Declined"
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            let theJSONData = try! JSONSerialization.data(
+                withJSONObject: self.jsonResult ,
+                options: JSONSerialization.WritingOptions(rawValue: 0))
+            return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertEqual(error?.localizedDescription, "A transaction that was sent to the backend returned declined")
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
+     * WHEN: transaction type is PreAuth
+     *
+     * THEN: should return result type of: PreAuth
+     */
+    func test_FetchTransaction_WhenTransactionPreAuth_ShouldReturnRightTransactionType() {
+        jsonResult["type"] = "PreAuth"
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            let theJSONData = try! JSONSerialization.data(
+                withJSONObject: self.jsonResult ,
+                options: JSONSerialization.WritingOptions(rawValue: 0))
+            return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertEqual(res?.type, .preAuth)
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
+     * WHEN: transaction type is save card
+     *
+     * THEN: should return result type of: saveCard
+     */
+    func test_FetchTransaction_WhenTransactionSave_ShouldReturnRightTransactionType() {
+        jsonResult["type"] = "Save"
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            let theJSONData = try! JSONSerialization.data(
+                withJSONObject: self.jsonResult ,
+                options: JSONSerialization.WritingOptions(rawValue: 0))
+            return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertEqual(res?.type, .saveCard)
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
+     * WHEN: transaction type is register card
+     *
+     * THEN: should return result type of: registerCard
+     */
+    func test_FetchTransaction_WhenTransactionRegisterCard_ShouldReturnRightTransactionType() {
+        jsonResult["type"] = "RegisterCard"
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            let theJSONData = try! JSONSerialization.data(
+                withJSONObject: self.jsonResult ,
+                options: JSONSerialization.WritingOptions(rawValue: 0))
+            return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertEqual(res?.type, .registerCard)
             expectation.fulfill()
         })
         waitForExpectations(timeout: 3, handler: nil)
