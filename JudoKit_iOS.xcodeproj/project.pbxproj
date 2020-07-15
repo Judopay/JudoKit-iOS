@@ -78,6 +78,7 @@
 		0779B1782490EC05000844AF /* JPCardNumberField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779B1702490EC05000844AF /* JPCardNumberField.m */; };
 		0779B1792490EC05000844AF /* JPTransactionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1712490EC05000844AF /* JPTransactionButton.h */; };
 		0779B17A2490EC05000844AF /* JPCardInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1722490EC05000844AF /* JPCardInputView.h */; };
+		077B285F24BF025D009A7183 /* UnSuccessResponsePBBA.json in Resources */ = {isa = PBXBuildFile; fileRef = 077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */; };
 		077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
 		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -486,6 +487,7 @@
 		0779B1702490EC05000844AF /* JPCardNumberField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardNumberField.m; sourceTree = "<group>"; };
 		0779B1712490EC05000844AF /* JPTransactionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionButton.h; sourceTree = "<group>"; };
 		0779B1722490EC05000844AF /* JPCardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardInputView.h; sourceTree = "<group>"; };
+		077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UnSuccessResponsePBBA.json; sourceTree = "<group>"; };
 		0783431924754BCC000DA445 /* JPPBBAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAConfiguration.m; sourceTree = "<group>"; };
 		0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAConfiguration.h; sourceTree = "<group>"; };
 		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
@@ -916,6 +918,7 @@
 			isa = PBXGroup;
 			children = (
 				30D3644824B87FE20029BC86 /* TransactionData.json */,
+				077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */,
 				30D3640124B5FF730029BC86 /* SuccessResponsePBBA.json */,
 				30D3640224B5FF730029BC86 /* SuccessStatusPBBA.json */,
 				0777B995247BC9BB00867B9F /* CardDetails.json */,
@@ -3054,6 +3057,7 @@
 			files = (
 				30D3640524B5FF730029BC86 /* SuccessStatusPBBA.json in Resources */,
 				0777B9EE247BC9BB00867B9F /* PendingResponse.json in Resources */,
+				077B285F24BF025D009A7183 /* UnSuccessResponsePBBA.json in Resources */,
 				0777B9ED247BC9BB00867B9F /* CardDetails.json in Resources */,
 				0777B9EF247BC9BB00867B9F /* SuccessResponse.json in Resources */,
 				30D3644924B87FE20029BC86 /* TransactionData.json in Resources */,

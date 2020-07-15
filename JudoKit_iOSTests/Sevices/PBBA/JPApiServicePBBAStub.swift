@@ -32,11 +32,7 @@ class JPApiServicePBBAStub: JPApiService {
         saveStubs()
     }
     
-    func saveStubs() {
-        stub(condition: isPath("/order/bank/sale")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
-        }
-        
+    func saveStubs() {        
         stub(condition: isPath("/order/bank/statusrequest/3333")) { _ in
             return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessStatusPBBA.json", type(of: self))!, statusCode: 200, headers: nil)
         }

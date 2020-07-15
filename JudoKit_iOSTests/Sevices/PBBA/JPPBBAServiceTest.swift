@@ -30,7 +30,7 @@ class JPPBBAServiceTest: XCTestCase {
                                         amount: JPAmount("0.01", currency: "GBP"),
                                         reference: JPReference(consumerReference: "consumerReference"))
     var sut: JPPBBAService! = nil
-
+    
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
@@ -47,12 +47,12 @@ class JPPBBAServiceTest: XCTestCase {
     }
     
     /*
-    * GIVEN: JPPBBAServiceTest start pbba flow
-    *
-    * WHEN: siteId is not presenting in configuration
-    *
-    * THEN: should return judoSiteIDMissingError error,
-    */
+     * GIVEN: JPPBBAServiceTest start pbba flow
+     *
+     * WHEN: siteId is not presenting in configuration
+     *
+     * THEN: should return judoSiteIDMissingError error,
+     */
     func testSiteIdEmpty() {
         configuration.siteId = nil
         sut.openPBBAMerchantApp { (res, error) in
@@ -67,7 +67,7 @@ class JPPBBAServiceTest: XCTestCase {
      *
      * THEN: should return non nil response and equal with Success status
      */
-    func test_PollingPBBAMerchantApp_WhenRecieveDepplink_ShouldBeNotNill() {
+    func test_PollingPBBAMerchantApp_WhenReceiveDeeplink_ShouldBeNotNill() {
         let expectation = self.expectation(description: "get response from pbba polling")
         
         let completion: JPCompletionBlock = { (response, error) in
@@ -78,5 +78,49 @@ class JPPBBAServiceTest: XCTestCase {
         }
         sut.pollingOrderStatus(completion)
         waitForExpectations(timeout: 6, handler: nil)
+    }
+    
+    /*
+    * GIVEN: JPPBBAServiceTest open PBBA Merchant App
+    *
+    * WHEN: response is wrong json
+    *
+    * THEN: should return error with code errorResponseParseError
+    */
+    func test_OpenPBBAMerchantApp_WhenReceiveWrongJson_ShouldReturnRightError() {
+        self.configuration.siteId = "siteId"
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("OrderDetails.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        let expectation = self.expectation(description: "await save transaction response")
+        
+        sut.openPBBAMerchantApp { (res, error) in
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error?.code, Int(JudoError.errorResponseParseError.rawValue))
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+    * GIVEN: JPPBBAServiceTest open PBBA Merchant App
+    *
+    * WHEN: response is without pbbaBrn and secureToken
+    *
+    * THEN: should return error with code errorResponseParseError
+    */
+    func test_OpenPBBAMerchantApp_WhenDidntReceiveSecureToken_ShouldReturnRightError() {
+        self.configuration.siteId = "siteId"
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("UnSuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        sut.openPBBAMerchantApp { (res, error) in
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error?.code, Int(JudoError.errorResponseParseError.rawValue))
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
     }
 }
