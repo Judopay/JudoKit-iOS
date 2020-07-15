@@ -84,6 +84,7 @@
 		0783431F24755348000DA445 /* JPPBBAService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431E24755348000DA445 /* JPPBBAService.m */; };
 		0783432124755356000DA445 /* JPPBBAService.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783432024755354000DA445 /* JPPBBAService.h */; };
 		079A871824BDDDDE00108714 /* JPSessionAuthorizationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079A871724BDDDDE00108714 /* JPSessionAuthorizationTest.swift */; };
+		07AA4FF924BDECDF00C21CEA /* JPCountryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AA4FF824BDECDF00C21CEA /* JPCountryTest.swift */; };
 		07B28231247E996100F9862B /* JPPBBAButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B2822F247E996100F9862B /* JPPBBAButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B28232247E996100F9862B /* JPPBBAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28230247E996100F9862B /* JPPBBAButton.m */; };
 		07D70A3D2449BA9F0039D187 /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D70A3B2449BA9F0039D187 /* JPFormatters.h */; };
@@ -490,6 +491,7 @@
 		0783431E24755348000DA445 /* JPPBBAService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPBBAService.m; sourceTree = "<group>"; };
 		0783432024755354000DA445 /* JPPBBAService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPBBAService.h; sourceTree = "<group>"; };
 		079A871724BDDDDE00108714 /* JPSessionAuthorizationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPSessionAuthorizationTest.swift; sourceTree = "<group>"; };
+		07AA4FF824BDECDF00C21CEA /* JPCountryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPCountryTest.swift; sourceTree = "<group>"; };
 		07B2822F247E996100F9862B /* JPPBBAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPBBAButton.h; sourceTree = "<group>"; };
 		07B28230247E996100F9862B /* JPPBBAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPBBAButton.m; sourceTree = "<group>"; };
 		07D70A3B2449BA9F0039D187 /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
@@ -927,6 +929,7 @@
 		0777B99A247BC9BB00867B9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				07AA4FF724BDEC8200C21CEA /* JPCountry */,
 				079A871624BDDDD200108714 /* JPSessionAuthorization */,
 				0777B99F247BC9BB00867B9F /* Amount */,
 				0777B99D247BC9BB00867B9F /* Card */,
@@ -1291,6 +1294,14 @@
 				079A871724BDDDDE00108714 /* JPSessionAuthorizationTest.swift */,
 			);
 			path = JPSessionAuthorization;
+			sourceTree = "<group>";
+		};
+		07AA4FF724BDEC8200C21CEA /* JPCountry */ = {
+			isa = PBXGroup;
+			children = (
+				07AA4FF824BDECDF00C21CEA /* JPCountryTest.swift */,
+			);
+			path = JPCountry;
 			sourceTree = "<group>";
 		};
 		07B2822E247E996100F9862B /* PBBAButton */ = {
@@ -3233,6 +3244,7 @@
 				0777BA0D247BC9BB00867B9F /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0777BA0B247BC9BB00867B9F /* JPCardCustomizationViewMock.swift in Sources */,
 				0777BA0F247BC9BB00867B9F /* JPPaymentMethodsViewControllerMock.swift in Sources */,
+				07AA4FF924BDECDF00C21CEA /* JPCountryTest.swift in Sources */,
 				0777B9F7247BC9BB00867B9F /* JP3DSConfigurationTest.swift in Sources */,
 				0777BA1B247BCA3C00867B9F /* JPPBBAServiceTest.swift in Sources */,
 				0777BA15247BC9BB00867B9F /* JPPaymentMethodsRouterTest.swift in Sources */,

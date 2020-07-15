@@ -90,7 +90,7 @@ class JPApiServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 6, handler: nil)
     }
-
+    
     /*
      * GIVEN: a pre-auth transaction is invoked
      *
@@ -304,11 +304,25 @@ class JPApiServiceTests: XCTestCase {
         
         sut.invokeComplete3dSecure(withReceiptId: "12345",
                                    authenticationResult: result) { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
+                                    XCTAssertNotNil(response)
+                                    XCTAssertNil(error)
+                                    expectation.fulfill()
         }
         
         waitForExpectations(timeout: 6, handler: nil)
+    }
+    
+    /*
+     * GIVEN: JPBankOrderSaleRequest init for pbba Request
+     *
+     * WHEN:  the JPBankOrderSaleRequest is passed a valid configuration
+     *
+     * THEN:  return should be valid pbba Request
+     */
+    func test_pbbaRequest_ValidConfiguration_ReturnRightRequest() {
+        let pbbaRequest = JPBankOrderSaleRequest.pbbaRequest(with: transactionConfigurations)
+        XCTAssertEqual(String(Double(truncating: pbbaRequest.amount!)), transactionConfigurations.amount.amount)
+        XCTAssertEqual(pbbaRequest.currency, transactionConfigurations.amount.currency)
+        XCTAssertEqual(pbbaRequest.bic, "RABONL2U")
     }
 }
