@@ -7,7 +7,7 @@ target 'ObjectiveCExampleApp' do
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'InAppSettingsKit'
-  pod 'CocoaDebug'
+  pod 'CocoaDebug', '<= 1.2.9', :configurations => ['Debug']
 
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths
