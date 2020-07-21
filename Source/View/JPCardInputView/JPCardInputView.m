@@ -283,7 +283,7 @@ static const float kLooseContentSpacing = 16.0F;
         _scanCardButton = [UIButton new];
         _scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [_scanCardButton setTitle:@"scan_card".localized forState:UIControlStateNormal];
+        [_scanCardButton setTitle:@"button_scan_card".localized.uppercaseString forState:UIControlStateNormal];
         [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"]
                          forState:UIControlStateNormal];
         _scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;

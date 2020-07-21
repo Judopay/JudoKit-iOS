@@ -87,11 +87,9 @@ const float kCardSmallPadding = 3.0F;
 
     JPPaymentMethodsCardModel *cardModel = (JPPaymentMethodsCardModel *)viewModel;
     self.titleLabel.text = cardModel.cardTitle;
-
-    NSString *subtitleText = [NSString stringWithFormat:@"card_subtitle".localized,
-                                                        [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork],
-                                                        cardModel.cardNumberLastFour];
-
+    NSString *cardTypeSubtitle = [NSString stringWithFormat:@"card_subtitle".localized, [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork]];
+    NSString *subtitleText = [NSString stringWithFormat:@"%@ %@", cardTypeSubtitle, cardModel.cardNumberLastFour];
+    
     NSMutableAttributedString *subtitleLabelText = [[NSMutableAttributedString alloc] initWithString:subtitleText];
 
     if (subtitleText.length >= 4) {

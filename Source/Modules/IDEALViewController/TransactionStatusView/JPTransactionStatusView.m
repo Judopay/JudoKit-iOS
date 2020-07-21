@@ -92,7 +92,7 @@ const float kStatusViewRetryButtonRadius = 4.0F;
 
     switch (status) {
         case JPTransactionStatusPending:
-            self.titleLabel.text = @"transaction_pending".localized;
+            self.titleLabel.text = @"processing".localized;
             break;
         case JPTransactionStatusPendingDelayed:
             self.titleLabel.text = @"transaction_delayed".localized;

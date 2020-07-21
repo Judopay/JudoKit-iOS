@@ -244,7 +244,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
     if (text.length > kCustomizationViewMaxInputLength) {
-        [inputField displayErrorWithText:@"card_title_length_warning".localized];
+        [inputField displayErrorWithText:@"error_card_title_too_long".localized];
         return NO;
     }
     [inputField clearError];

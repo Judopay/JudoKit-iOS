@@ -123,7 +123,7 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.text = @"save_as_default".localized;
+        _titleLabel.text = @"save_as_default_payment_method".localized;
     }
     return _titleLabel;
 }

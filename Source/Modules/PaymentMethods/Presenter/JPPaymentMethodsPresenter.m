@@ -202,7 +202,7 @@
     }
 
     [self.interactor storeError:error];
-    [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
+    [self.view displayAlertWithTitle:@"transaction_unsuccessful".localized andError:error];
 }
 
 - (void)handle3DSecureTransactionWithError:(NSError *)error {
@@ -234,8 +234,8 @@
 }
 
 - (void)changeHeaderButtonTitle:(BOOL)isEditing {
-    NSString *title = isEditing ? @"done_capitalized" : @"edit_capitalized";
-    self.cardHeaderModel.editButtonTitle = title.localized;
+    NSString *title = isEditing ? @"button_done" : @"button_edit";
+    self.cardHeaderModel.editButtonTitle = title.localized.uppercaseString;
 
     [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeNone
                             shouldAnimateChange:NO];
@@ -462,7 +462,7 @@
         _emptyListModel = [JPPaymentMethodsEmptyListModel new];
         _emptyListModel.identifier = @"JPPaymentMethodsEmptyCardListCell";
         _emptyListModel.title = @"no_connected_cards".localized;
-        _emptyListModel.addCardButtonTitle = @"add_card_button".localized;
+        _emptyListModel.addCardButtonTitle = @"add_card".localized.uppercaseString;
         _emptyListModel.addCardButtonIconName = @"plus-icon";
 
         __weak typeof(self) weakSelf = self;
@@ -477,7 +477,7 @@
     if (!_cardHeaderModel) {
         _cardHeaderModel = [JPPaymentMethodsCardHeaderModel new];
         _cardHeaderModel.title = @"connected_cards".localized;
-        _cardHeaderModel.editButtonTitle = @"edit_capitalized".localized;
+        _cardHeaderModel.editButtonTitle = @"button_edit".localized.uppercaseString;
         _cardHeaderModel.identifier = @"JPPaymentMethodsCardListHeaderCell";
     }
     return _cardHeaderModel;
@@ -486,7 +486,7 @@
 - (JPPaymentMethodsCardFooterModel *)cardFooterModel {
     if (!_cardFooterModel) {
         _cardFooterModel = [JPPaymentMethodsCardFooterModel new];
-        _cardFooterModel.addCardButtonTitle = @"add_card_button".localized;
+        _cardFooterModel.addCardButtonTitle = @"add_card".localized.uppercaseString;
         _cardFooterModel.addCardButtonIconName = @"plus-icon";
         _cardFooterModel.identifier = @"JPPaymentMethodsCardListFooterCell";
 
@@ -515,7 +515,7 @@
 - (JPTransactionButtonViewModel *)paymentButtonModel {
     if (!_paymentButtonModel) {
         _paymentButtonModel = [JPTransactionButtonViewModel new];
-        _paymentButtonModel.title = @"pay_now_capitalized".localized;
+        _paymentButtonModel.title = @"pay_now".localized.uppercaseString;
         _paymentButtonModel.isEnabled = NO;
     }
     return _paymentButtonModel;

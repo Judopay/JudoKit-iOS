@@ -31,6 +31,7 @@
 #import "JPResponse.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
+#import "NSString+Additions.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;
@@ -70,8 +71,8 @@
 }
 
 - (void)setupNavigationItems {
-    self.navigationItem.title = @"3D Secure Check";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss"
+    self.navigationItem.title = @"three_d_secure_check".localized;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"dismiss".localized
                                                                              style:UIBarButtonItemStyleDone
                                                                             target:self
                                                                             action:@selector(onDismissTap)];
