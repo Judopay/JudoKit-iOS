@@ -139,12 +139,48 @@ class UIImageAdditionsTest: XCTestCase {
     /*
      * GIVEN: UIImage addition init with card type
      *
-     * WHEN: trying to get image for card
+     * WHEN: trying to get image for discover card
      *
      * THEN: should return non nil image
      */
-    func test_HeaderImage1_WhenGettingImageByType_ShouldReturnNonNil() {
+    func test_InitImage_WhenTypeIsDiscover_ShouldReturnNonNil() {
         let image = UIImage.init(for: .discover)
+        XCTAssertNotNil(image)
+    }
+    
+    /*
+     * GIVEN: UIImage addition init with card type
+     *
+     * WHEN: trying to get header image for type .all
+     *
+     * THEN: should return nil image
+     */
+    func test_HeaderImage_WhenTypeAll_ShouldReturnNil() {
+        let image = UIImage.headerImage(for: .all)
+        XCTAssertEqual(image, nil)
+    }
+    
+    /*
+     * GIVEN: UIImage addition init with card type
+     *
+     * WHEN: trying to init image for type .all
+     *
+     * THEN: should return nil image
+     */
+    func test_InitImage_WhenTypeAll_ShouldReturnNil() {
+        let image = UIImage(for: .all)
+        XCTAssertEqual(image, nil)
+    }
+    
+    /*
+     * GIVEN: UIImage addition init with card type
+     *
+     * WHEN: trying to get image for card visa
+     *
+     * THEN: should return non nil image
+     */
+    func test_InitImage_WhenTypeVisa_ShouldReturnNonNil() {
+        let image = UIImage(for: .visa)
         XCTAssertNotNil(image)
     }
 }

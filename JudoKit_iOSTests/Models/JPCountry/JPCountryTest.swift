@@ -1,8 +1,6 @@
 //
-//  NSArrayAdditionsTest.swift
+//  JPCountryTest.swift
 //  JudoKit_iOSTests
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +23,39 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class NSArrayAdditionsTest: XCTestCase {
-    let sutArrayCard: NSArray = ["UK", "USA"]
-
+class JPCountryTest: XCTestCase {
+    
+    /*
+     * GIVEN: String representing UK country
+     *
+     * WHEN: getting iso Code For Country
+     *
+     * THEN: should return 826 numeric code
+     */
+    func test_isoCodeForCountry_WhenUK_ShouldReturnRightISOCode() {
+        XCTAssertEqual(JPCountry.isoCode(forCountry: "UK"), 826)
+    }
+    
+    /*
+     * GIVEN: String representing USA country
+     *
+     * WHEN: getting iso Code For Country
+     *
+     * THEN: should return 840 numeric code
+     */
+    func test_isoCodeForCountry_WhenUSA_ShouldReturnRightISOCode() {
+        XCTAssertEqual(JPCountry.isoCode(forCountry: "USA"), 840)
+    }
+    
+    /*
+     * GIVEN: String representing Canada country
+     *
+     * WHEN: getting iso Code For Country
+     *
+     * THEN: should return 124 numeric code
+     */
+    func test_isoCodeForCountry_WhenCanada_ShouldReturnRightISOCode() {
+        XCTAssertEqual(JPCountry.isoCode(forCountry: "Canada"), 124)
+    }
+    
 }

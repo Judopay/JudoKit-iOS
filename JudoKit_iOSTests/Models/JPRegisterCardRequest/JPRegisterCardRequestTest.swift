@@ -1,8 +1,6 @@
 //
-//  JPTransactionServicePBBAStub.swift
+//  JPRegisterCardRequestTest.swift
 //  JudoKit_iOSTests
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,16 +23,19 @@
 import XCTest
 @testable import JudoKit_iOS
 
-class JPApiServicePBBAStub: JPApiService {
-    override init() {
-        let basicAuth: JPAuthorization = JPBasicAuthorization(token: "TOKEN", andSecret: "SECRET")
-        super.init(authorization: basicAuth, isSandboxed: true)
-        saveStubs()
-    }
+class JPRegisterCardRequestTest: XCTestCase {
     
-    func saveStubs() {        
-        stub(condition: isPath("/order/bank/statusrequest/3333")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessStatusPBBA.json", type(of: self))!, statusCode: 200, headers: nil)
-        }
+    /*
+     * GIVEN: creating JPRegisterCardRequest object
+     *
+     * WHEN: without super class
+     *
+     * THEN: should return default amount and currency
+     */
+    func test_CardRequest_WhenNoSuperClass_ShouldReturnDefaultFields() {
+        let cardRequest = JPRegisterCardRequest()
+        XCTAssertEqual(cardRequest.amount, "0.01")
+        XCTAssertEqual(cardRequest.currency, "GBP")
     }
+  
 }

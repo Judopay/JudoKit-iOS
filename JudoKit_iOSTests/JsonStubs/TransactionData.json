@@ -8,6 +8,7 @@
     "merchantName":"merchantName",
     "appearsOnStatementAs":"appearsOnStatementAs",
     "paymentMethod":"paymentMethod",
+    "refunds":"refunds",
     "siteId":"siteId",
     "merchantPaymentReference":"merchantPaymentReference",
     "consumer":{"consumerReference":"consumerReference",

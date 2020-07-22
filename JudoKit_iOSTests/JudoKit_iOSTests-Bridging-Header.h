@@ -59,3 +59,5 @@
 #import "JPFormatters.h"
 #import "Functions.h"
 #import "JPPBBAService.h"
+#import "JPAuthorization.h"
+#import "JPSessionAuthorization.h"

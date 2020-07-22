@@ -15,6 +15,7 @@ ignore:
   - Source/Modules/**/*Router.m
   - Source/Models/ApplePayWrappers/JPApplePayWrappers.m
   - Source/Models/TransactionEnricher/JPTransactionEnricher.m
+  - Source/Models/Section/JPSection.m
   - TrustKit/*
   - JudoKit_iOSTests/*
   - Examples/*
@@ -29,5 +30,10 @@ ignore:
   - Source/Extensions/UITextField/UITextField+Additions.m
   - Source/Extensions/UIStackView/UIStackView+Additions.m
   - Source/Extensions/UIFont/UIFont+Additions.m
+  - Source/Extensions/NSArray/NSArray+Additions.m
   - Source/Models/Pagination/JPPagination.m
+  - Source/Models/Request/JPApplePayRequest.m
   - Source/Extensions/UIApplication/UIApplication+Additions.m
+  - Source/Services/3DSService/JP3DSService.m
+  - Source/Models/Authorization/Basic/JPBasicAuthorization.m
+  - Source/Models/Authorization/Session/JPSessionAuthorization.m
