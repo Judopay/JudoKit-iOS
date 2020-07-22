@@ -114,14 +114,15 @@
 
 - (NSString *)generatePayButtonTitle {
     if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
-        return @"pay_amount".localized;
+        return @"pay_now".localized;
     }
     if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
         JPAmount *amount = self.configuration.amount;
         NSString *formattedAmount = [NSNumberFormatter formattedAmount:amount.amount withCurrencyCode:amount.currency];
-        return [NSString stringWithFormat:@"%@ %@", @"pay_amount".localized, formattedAmount];
+
+        return [NSString stringWithFormat:@"pay_amount".localized, formattedAmount];
     }
-    return @"pay_amount".localized;
+    return @"pay_now".localized;
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {

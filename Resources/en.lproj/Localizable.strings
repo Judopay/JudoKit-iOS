@@ -24,7 +24,7 @@
 
 "check_card" = "Check Card";
 "pay_now" = "Pay Now";
-"pay_amount" = "Pay";
+"pay_amount" = "Pay %@";
 "connected_cards" = "Connected cards";
 "button_edit" = "Edit";
 "button_done" = "DONE";
@@ -32,6 +32,8 @@
 "ok" = "Ok";
 "button_scan_card" = "Scan card";
 "add_card" = "Add card";
+"register_card" = "Register Card";
+"save_card" = "Save Card";
 "you_will_pay" = "You will pay";
 "cards" = "Cards";
 "amazon_pay" = "Amazon Pay";
@@ -45,6 +47,7 @@
 "post_code_hint" = "Postcode";
 "check_card_number" = "Check card number";
 "check_expiry_date" = "Check expiry date";
+"check_cvv" = "Check CVV";
 "expired" = "Expired";
 "is_expired" = "is Expired";
 "will_expire_soon" = "will expire soon";
