@@ -63,22 +63,6 @@ jobs:
           root: .
           paths:
             - DerivedData
-  build_sample:
-    executor: macos
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-ios-{{ checksum "Cartfile" }}
-      - run:
-          name: Build Sample App
-          command: |
-            cd Examples/ObjectiveCExampleApp
-            pod install
-            xcodebuild clean build \
-              -project ObjectiveCExampleApp.xcodeproj \
-              -configuration Release \
-              -sdk iphonesimulator
   unit_test_sdk:
     executor: macos
     steps:
@@ -118,14 +102,7 @@ jobs:
           paths:
             - DerivedData
             - build-wrapper-output
-  validate_podspec:
-    executor: macos
-    steps:
-      - checkout
-      - run:
-          name: Validate PodSpec
-          command: pod lib lint --no-subspecs --allow-warnings
-
+  
   # unit_test_sample:
 
   # instrumented_test_sample:
