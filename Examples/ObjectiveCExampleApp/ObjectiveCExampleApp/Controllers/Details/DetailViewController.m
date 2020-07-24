@@ -56,7 +56,11 @@
     self.navigationItem.hidesBackButton = YES;
     
     if (self.response) {
-        [self setupTransactionData];
+        if ([self.response.paymentMethod isEqual:@"PBBA"]) {
+            [self setupPBBATransactionData];
+        } else {
+            [self setupTransactionData];
+        }
     }
     
     if (self.billingInformation) {
@@ -108,6 +112,14 @@
     self.numberFormatter.currencyCode = self.response.amount.currency;
     self.resolutionLabel.text = self.response.message;
     self.amountLabel.text = [self.numberFormatter stringFromNumber:@(self.response.amount.amount.floatValue)];
+}
+
+- (void)setupPBBATransactionData {
+    NSDate *createdAtDate = [self.inputDateFormatter dateFromString:self.response.orderDetails.timestamp];
+    self.dateStampLabel.text = [self.outputDateFormatter stringFromDate:createdAtDate];
+    self.numberFormatter.currencyCode = @"GBP";
+    self.resolutionLabel.text = self.response.orderDetails.orderStatus;
+    self.amountLabel.text = [self.numberFormatter stringFromNumber:@(self.response.orderDetails.amount)];
 }
 
 - (void)navigateToDetailsPageWithTitle:(NSString *)title
