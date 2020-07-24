@@ -207,11 +207,9 @@ workflows:
             tags:
               only:
                 - /^v((\d)+\.){1,2}(\d+)/i
-      - build_sample
       - unit_test_sdk:
           requires:
             - build_sdk
-      - validate_podspec
       - sonar_scan:
           context: shared-secrets
           requires:
@@ -219,9 +217,7 @@ workflows:
       - release_sample:
           context: shared-secrets
           requires:
-            - build_sample
             - unit_test_sdk
-            - validate_podspec
           filters:
             branches:
               only:
