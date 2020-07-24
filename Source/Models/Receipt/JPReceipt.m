@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPReceipt.h"
-#import "JPPagination.h"
 #import "JPSession.h"
 
 @interface JPReceipt ()
