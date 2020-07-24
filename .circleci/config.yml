@@ -102,7 +102,14 @@ jobs:
           paths:
             - DerivedData
             - build-wrapper-output
-  
+  validate_podspec:
+    executor: macos
+    steps:
+      - checkout
+      - run:
+          name: Validate PodSpec
+          command: pod lib lint --no-subspecs --allow-warnings
+
   # unit_test_sample:
 
   # instrumented_test_sample:
@@ -210,6 +217,7 @@ workflows:
       - unit_test_sdk:
           requires:
             - build_sdk
+      - validate_podspec
       - sonar_scan:
           context: shared-secrets
           requires:
@@ -218,6 +226,7 @@ workflows:
           context: shared-secrets
           requires:
             - unit_test_sdk
+            - validate_podspec
           filters:
             branches:
               only:
