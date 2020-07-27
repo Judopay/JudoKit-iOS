@@ -87,7 +87,7 @@
         ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
-                                 userInfo:@{NSLocalizedDescriptionKey : @"Specify shipping methonds"}];
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Specify shipping methods"}];
     }
 }
 
