@@ -72,11 +72,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
 - (void)openPBBAMerchantApp:(JPCompletionBlock)completion {
 
-    if (self.configuration.siteId.length == 0) {
-        completion(nil, JPError.judoSiteIDMissingError);
-        return;
-    }
-
     JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest pbbaRequestWithConfiguration:self.configuration];
 
     __weak typeof(self) weakSelf = self;

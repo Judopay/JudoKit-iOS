@@ -103,7 +103,10 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
         self.shouldSetupJudoSDK = YES;
     }
 
-    [settingsViewController didChangedSettingsWithKeys:changes.allObjects];
+    if ([settingsViewController respondsToSelector:@selector(didChangedSettingsWithKeys:)]) {
+       [settingsViewController didChangedSettingsWithKeys:changes.allObjects];
+    }
+
 }
 
 // MARK: Navigation
@@ -298,7 +301,6 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     JPConfiguration *configuration = [[JPConfiguration alloc] initWithJudoID:Settings.defaultSettings.judoId
                                                                       amount:Settings.defaultSettings.amount
                                                                    reference:Settings.defaultSettings.reference];
-    configuration.siteId = Settings.defaultSettings.siteId;
     configuration.paymentMethods = Settings.defaultSettings.paymentMethods;
     configuration.uiConfiguration.isAVSEnabled = Settings.defaultSettings.isAVSEnabled;
     configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = Settings.defaultSettings.shouldPaymentMethodsDisplayAmount;

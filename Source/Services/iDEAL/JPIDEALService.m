@@ -62,12 +62,7 @@ static const float kTimerDuration = 60.0F;
 #pragma mark - Public methods
 
 - (void)redirectURLForIDEALBank:(JPIDEALBank *)iDealBank completion:(JPCompletionBlock)completion {
-
-    if (self.configuration.siteId.length == 0) {
-        completion(nil, JPError.judoSiteIDMissingError);
-        return;
-    }
-
+    
     JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest idealRequestWithConfiguration:self.configuration
                                                                                      andBIC:iDealBank.bankIdentifierCode];
 

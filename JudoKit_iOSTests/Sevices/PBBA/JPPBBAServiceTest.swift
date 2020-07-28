@@ -47,20 +47,6 @@ class JPPBBAServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: JPPBBAServiceTest start pbba flow
-     *
-     * WHEN: siteId is not presenting in configuration
-     *
-     * THEN: should return judoSiteIDMissingError error,
-     */
-    func testSiteIdEmpty() {
-        configuration.siteId = nil
-        sut.openPBBAMerchantApp { (res, error) in
-            XCTAssertEqual(error, JPError.judoSiteIDMissingError())
-        }
-    }
-    
-    /*
      * GIVEN: JPPBBAServiceTest start polling
      *
      * WHEN: response is Success
@@ -88,7 +74,6 @@ class JPPBBAServiceTest: XCTestCase {
     * THEN: should return error with code errorResponseParseError
     */
     func test_OpenPBBAMerchantApp_WhenReceiveWrongJson_ShouldReturnRightError() {
-        self.configuration.siteId = "siteId"
         stub(condition: isPath("/order/bank/sale")) { _ in
             return HTTPStubsResponse(fileAtPath: OHPathForFile("OrderDetails.json", type(of: self))!, statusCode: 200, headers: nil)
         }
@@ -110,7 +95,6 @@ class JPPBBAServiceTest: XCTestCase {
     * THEN: should return error with code errorResponseParseError
     */
     func test_OpenPBBAMerchantApp_WhenDidntReceiveSecureToken_ShouldReturnRightError() {
-        self.configuration.siteId = "siteId"
         stub(condition: isPath("/order/bank/sale")) { _ in
             return HTTPStubsResponse(fileAtPath: OHPathForFile("UnSuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
         }

@@ -34,9 +34,9 @@
 @property (nonatomic, strong, nullable) NSNumber *amount;
 
 /**
- * A reference to the site ID
+ * A reference to the judo ID
  */
-@property (nonatomic, strong, nullable) NSString *siteId;
+@property (nonatomic, strong, nullable) NSString *judoId;
 
 /**
  * A reference to the bank identifier code
