@@ -160,7 +160,6 @@
 "error_invalid_ideal_currency" = "Cannot make iDEAL transactions with currencies different than EUR";
 "error_invalid_pbba_currency" = "Cannot make PBBA transactions with currencies different than GBP";
 "error_apple_pay_unsupported" = "Apple Pay is not supported on your device";
-"error_site_id_missing" = "Site ID is missing";
 "error_pbba_missing_scheme" = "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps";
 
 //NSString+Card

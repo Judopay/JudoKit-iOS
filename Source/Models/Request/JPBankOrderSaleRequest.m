@@ -44,7 +44,7 @@ static NSString *const kPbBABIC = @"RABONL2U";
         JPAmount *amount = configuration.amount;
         JPReference *reference = configuration.reference;
 
-        _siteId = configuration.siteId;
+        _judoId = configuration.judoId;
 
         _amount = @(amount.amount.doubleValue);
         _currency = amount.currency;

@@ -73,11 +73,7 @@
 }
 
 - (void)setupJudoIDFromDictionary:(NSDictionary *)dictionary {
-    if (dictionary[@"siteId"]) {
-        self.judoId = dictionary[@"siteId"];
-    } else {
-        self.judoId = dictionary[@"judoId"];
-    }
+    self.judoId = dictionary[@"judoId"];
 }
 
 - (void)setupPaymentReferenceFromDictionary:(NSDictionary *)dictionary {
