@@ -59,7 +59,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_generatePayButtonTitle_Whentfalse_Shouldraw() {
         let result = sut.generatePayButtonTitle()
-        XCTAssertEqual(result, "Pay")
+        XCTAssertEqual(result, "Pay Now")
     }
     
     /*
@@ -71,7 +71,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_generatePayButtonTitleSecurityCodeMode_Whentfalse_Shouldraw() {
         let result = sut.generatePayButtonTitle()
-        XCTAssertEqual(result, "Pay")
+        XCTAssertEqual(result, "Pay Now")
     }
     
     /*
