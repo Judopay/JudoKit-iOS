@@ -9,7 +9,7 @@
         "consumerId": "bCWke1lWS2CKY4hlpOxIaw",
         "merchantConsumerReference": "judoPay-sample-app-objc"
     },
-    "siteId": "ohmVFpr-QK2V-zvwe1JC7w",
+    "judoID": "ohmVFpr-QK2V-zvwe1JC7w",
     "merchantSiteName": "DEMO ACCOUNT",
     "redirectUrl": "https://r2.girogate.de/pbba/T1019/I?tx=692012269&rs=MsztBKfUOXhrEelMmsydDAXw1C2j64Tv&cs=c936fb8126691283c823b902675a43c5c843370bc288814a5d2e72770eda054e",
     "merchantRedirectUrl": "https://api.judopay.com/order/bank/payment-method-redirect/ppro",
