@@ -79,7 +79,7 @@
     self.addCardViewModel.countryPickerViewModel.pickerTitles = selectableCountryNames;
     self.addCardViewModel.countryPickerViewModel.text = selectableCountryNames.firstObject;
 
-    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"cvv_hint".localized;
+    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
 
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.addCardViewModel.addCardButtonViewModel.isEnabled = false;

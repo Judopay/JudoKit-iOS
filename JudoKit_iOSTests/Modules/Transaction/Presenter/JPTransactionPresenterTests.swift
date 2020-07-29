@@ -52,7 +52,7 @@ class JPTransactionPresenterTests: XCTestCase {
         XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.placeholder, "Cardholder Name")
         XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.placeholder, "MM/YY")
         XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.placeholder, "CVV2")
-        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.placeholder, "Country")
+        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.placeholder, "country")
         XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.placeholder, "Postcode")
         
         XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
@@ -169,7 +169,7 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: scan result is populated with fields
      *
-     * THEN: should recieve same field in View
+     * THEN: should receive same field in View
      */
     func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
         let scanResult = PayCardsRecognizerResult()
@@ -236,7 +236,7 @@ class JPTransactionPresenterTests: XCTestCase {
     func test_PrepareInitialViewModel_WhenPreparingModel_ShouldSetRightButtonTitle() {
         interactor.type = .saveCard
         sut.prepareInitialViewModel()
-        XCTAssertEqual(controller.viewModelSut.addCardButtonViewModel.title, "ADD CARD")
+        XCTAssertEqual(controller.viewModelSut.addCardButtonViewModel.title, "SAVE CARD")
     }
     
     /*
