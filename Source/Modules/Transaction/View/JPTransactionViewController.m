@@ -135,7 +135,7 @@
 - (void)displayCameraPermissionsAlert {
     NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
-                                                        andMessage:[NSString stringWithFormat:@"scan_card_no_permission_message".localized, appName]];
+                                                        andMessage:@"scan_card_no_permission_message".localized];
 
     UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
                                                                  style:UIAlertActionStyleDefault

@@ -87,7 +87,7 @@
         ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
-                                 userInfo:@{NSLocalizedDescriptionKey : @"Specify shipinng methonds"}];
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Specify shipping methods"}];
     }
 }
 
@@ -112,12 +112,12 @@
                                           range:NSMakeRange(0, judoId.length)] > 0;
 }
 
-- (void)checkForValidCurrency:(NSString *)curency error:(NSError **)error {
-    if ([curency length] == 0) {
+- (void)checkForValidCurrency:(NSString *)currency error:(NSError **)error {
+    if ([currency length] == 0) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorMissingParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"Currency cannot be empty"}];
-    } else if (![self.validCurrencies containsObject:curency]) {
+    } else if (![self.validCurrencies containsObject:currency]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorInvalidParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"Unsupported Currency"}];
@@ -149,9 +149,9 @@
 }
 
 - (void)checkIfAmountIsNumber:(NSString *)amount error:(NSError **)error {
-    NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
-    formater.numberStyle = NSNumberFormatterDecimalStyle;
-    if (![formater numberFromString:amount]) {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    if (![formatter numberFromString:amount]) {
         *error = [NSError errorWithDomain:kJudoErrorDomain
                                      code:JPValidationErrorInvalidParameter
                                  userInfo:@{NSLocalizedDescriptionKey : @"Amount should be a number"}];
@@ -169,9 +169,9 @@
 - (void)checkAmount:(JPAmount *)amount transactionType:(JPTransactionType)transactionType error:(NSError **)error {
     BOOL isTypeSaveCard = transactionType == JPTransactionTypeSaveCard;
     BOOL isTypeRegisterCard = transactionType == JPTransactionTypeRegisterCard;
-    BOOL isTypeChekCard = transactionType == JPTransactionTypeCheckCard;
+    BOOL isTypeCheckCard = transactionType == JPTransactionTypeCheckCard;
 
-    if (!(isTypeChekCard || isTypeSaveCard || isTypeRegisterCard)) {
+    if (!(isTypeCheckCard || isTypeSaveCard || isTypeRegisterCard)) {
         [self checkForValidCurrency:amount.currency error:error];
         [self checkIfAmountIsNumber:amount.amount error:error];
     }

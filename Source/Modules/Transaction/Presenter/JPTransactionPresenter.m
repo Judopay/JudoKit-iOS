@@ -68,8 +68,8 @@
     self.addCardViewModel.type = type;
     self.addCardViewModel.mode = [self.interactor cardDetailsMode];
 
-    self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number".localized;
-    self.addCardViewModel.cardholderNameViewModel.placeholder = @"cardholder_name".localized;
+    self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number_hint".localized;
+    self.addCardViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint".localized;
     self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
     NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
     self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
@@ -79,7 +79,7 @@
     self.addCardViewModel.countryPickerViewModel.pickerTitles = selectableCountryNames;
     self.addCardViewModel.countryPickerViewModel.text = selectableCountryNames.firstObject;
 
-    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"postal_code".localized;
+    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"cvv_hint".localized;
 
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.addCardViewModel.addCardButtonViewModel.isEnabled = false;
@@ -240,11 +240,10 @@
         case JPTransactionTypePayment:
         case JPTransactionTypePreAuth:
             return [self.interactor generatePayButtonTitle];
-
         case JPTransactionTypeSaveCard:
+            return @"save_card".localized;
         case JPTransactionTypeRegisterCard:
-            return @"add_card".localized;
-
+            return @"register_card".localized;
         case JPTransactionTypeCheckCard:
             return @"check_card".localized;
 
