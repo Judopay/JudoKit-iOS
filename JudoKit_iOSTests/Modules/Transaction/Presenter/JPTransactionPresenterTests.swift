@@ -169,7 +169,7 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: scan result is populated with fields
      *
-     * THEN: should recieve same field in View
+     * THEN: should receive same field in View
      */
     func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
         let scanResult = PayCardsRecognizerResult()
@@ -281,9 +281,9 @@ class JPTransactionPresenterTests: XCTestCase {
     /*
      * GIVEN: handleInputChange is invoked
      *
-     * WHEN: securityCode is currect mode, invalid input
+     * WHEN: securityCode is securityCode mode, invalid input
      *
-     * THEN: should return faslse isEnabled
+     * THEN: should return false isEnabled
      */
     func test_handleInputChange_WhenTypeSecurityCode_ShouldEnableAddCard() {
         interactor.mode = .securityCode
@@ -294,9 +294,9 @@ class JPTransactionPresenterTests: XCTestCase {
     /*
      * GIVEN: handleInputChange is invoked
      *
-     * WHEN: AVS is currect mode, invalid input
+     * WHEN: AVS is securityCode mode, invalid input
      *
-     * THEN: should return faslse isEnabled
+     * THEN: should return false isEnabled
      */
     func test_handleInputChange_WhenAVSMode_ShouldEnableAddCard() {
         interactor.mode = .AVS
