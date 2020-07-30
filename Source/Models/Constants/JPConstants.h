@@ -44,6 +44,7 @@ static NSString *const kRegexUnionPay = @"^(62|81)\\d{0,14}";
 
 static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
+static NSString *const kCurrencyPounds = @"GBP";
 static NSString *const kFailureReasonUserAbort = @"USER_ABORT";
 
 static NSUInteger const kSecurityCodeLengthAmex = 4;
@@ -81,5 +82,7 @@ static int const kOtherPostalCodeLength = 8;
 static NSString *const kUSARegex = @"^[0-9]{5}(?:-[0-9]{4})?$";
 static NSString *const kUKRegex = @"^([A-Z][0-9]|[A-Z][0-9][A-Z]|[A-Z][0-9][0-9]|[A-Z][A-Z][0-9]|[A-Z][A-Z][0-9][A-Z]|[A-Z][A-Z][0-9][0-9])([0-9][A-Z][A-Z])$";
 static NSString *const kCanadaRegex = @"^(\\d{5}(-\\d{4})?|[A-Z]\\d[A-Z] ?\\d[A-Z]\\d)$";
+
+static NSString *const kJudoIdRegex = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{6}))?$";
 
 #endif /* JPConstants_h */

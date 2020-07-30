@@ -23,8 +23,10 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsInteractor.h"
+#import "JP3DSConfiguration.h"
 #import "JP3DSService.h"
 #import "JPAmount.h"
+#import "JPApiService.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
 #import "JPCardDetails.h"
@@ -36,22 +38,24 @@
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
+#import "JPPBBAConfiguration.h"
+#import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
-#import "JPPaymentToken.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPStoredCardDetails.h"
-#import "JPTransaction.h"
-#import "JPTransactionData.h"
-#import "JPTransactionService.h"
+#import "JPTokenRequest.h"
+#import "JPUIConfiguration.h"
+#import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPTransactionService *transactionService;
+@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
@@ -63,15 +67,17 @@
 
 - (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
-          transactionService:(JPTransactionService *)transactionService
+                  apiService:(JPApiService *)apiService
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         self.transactionMode = mode;
         self.configuration = configuration;
-        self.transactionService = transactionService;
+        self.apiService = apiService;
         self.completionHandler = completion;
         self.paymentMethods = configuration.paymentMethods;
+
+        [JPCardStorage.sharedInstance orderCards];
     }
     return self;
 }
@@ -139,6 +145,23 @@
     return self.configuration.amount;
 }
 
+- (NSInteger)indexOfPBBAMethod {
+    NSUInteger pbbaIndex = [[self getPaymentMethods] indexOfObjectPassingTest:^BOOL(id obj, __unused NSUInteger idx, BOOL *stop) {
+        if ([(JPPaymentMethod *)obj type] == JPPaymentMethodTypePbba) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    return pbbaIndex;
+}
+
+#pragma mark - Get bool for security code on pay button click
+
+- (BOOL)shouldVerifySecurityCode {
+    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode;
+}
+
 #pragma mark - Get payment methods
 
 - (NSArray<JPPaymentMethod *> *)getPaymentMethods {
@@ -157,7 +180,21 @@
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
+    BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
+    BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
+    BOOL isURLSchemeSet = ((NSBundle.appURLScheme.length > 0) && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
+
+    if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
+        [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
+    } else {
+        [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
+    }
+
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
+}
+
+- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion {
+    [self.pbbaService pollingOrderStatus:completion];
 }
 
 #pragma mark - Remove Apple Pay from payment methods
@@ -179,30 +216,44 @@
 
 #pragma mark - Payment transaction
 
-- (void)paymentTransactionWithToken:(NSString *)token
-                      andCompletion:(JPCompletionBlock)completion {
+- (void)paymentTransactionWithToken:(nonnull NSString *)token
+                    andSecurityCode:(nullable NSString *)securityCode
+                      andCompletion:(nullable JPCompletionBlock)completion {
+
     if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
     }
-    BOOL isPreAuth = (self.transactionMode == JPTransactionTypePreAuth);
-    self.transactionService.transactionType = isPreAuth ? JPTransactionTypePreAuth : JPTransactionModePayment;
-    NSString *consumerReference = self.configuration.reference.consumerReference;
-    JPPaymentToken *paymentToken = [[JPPaymentToken alloc] initWithConsumerToken:consumerReference
-                                                                       cardToken:token];
 
-    JPTransaction *transaction = [self.transactionService transactionWithConfiguration:self.configuration];
-    transaction.paymentToken = paymentToken;
-    self.threeDSecureService.transaction = transaction;
-    [transaction sendWithCompletion:completion];
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:token];
+    request.cv2 = securityCode;
+
+    switch (self.transactionMode) {
+        case JPTransactionTypePreAuth:
+            [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completion];
+            break;
+
+        case JPTransactionModePayment:
+            [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completion];
+            break;
+
+        default:
+            //noop
+            break;
+    }
 }
 
 #pragma mark - Apple Pay payment
 
 - (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
+
     UIViewController *controller = [self.applePayService applePayViewControllerWithMode:self.transactionMode
                                                                              completion:completion];
-    
+
+    if (!controller) {
+        return;
+    }
+
     [UIApplication.topMostViewController presentViewController:controller
                                                       animated:YES
                                                     completion:nil];
@@ -214,31 +265,44 @@
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
 }
 
+#pragma mark - PBBA payment
+
+- (void)openPBBAWithCompletion:(JPCompletionBlock)completion {
+    [self.pbbaService openPBBAMerchantApp:completion];
+}
+
 #pragma mark - Is Apple Pay ready
 
 - (bool)isApplePaySetUp {
     return [self.applePayService isApplePaySetUp];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JPCompletionBlock)completion {
-    [self.threeDSecureService invoke3DSecureViewControllerWithError:error
-                                                         completion:completion];
+- (void)handle3DSecureTransactionFromError:(NSError *)error completion:(JPCompletionBlock)completion {
+    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration completion:completion];
 }
 
 - (JPApplePayService *)applePayService {
     if (!_applePayService && self.configuration.applePayConfiguration) {
         _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration
-                                                         transactionService:self.transactionService];
+                                                              andApiService:self.apiService];
     }
     return _applePayService;
 }
 
 - (JP3DSService *)threeDSecureService {
     if (!_threeDSecureService) {
-        _threeDSecureService = [JP3DSService new];
+        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
     }
     return _threeDSecureService;
+}
+
+- (JPPBBAService *)pbbaService {
+    if (!_pbbaService && self.configuration) {
+        _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
+                                                         apiService:self.apiService];
+    }
+    return _pbbaService;
 }
 
 - (JPStoredCardDetails *)selectedCard {
@@ -252,20 +316,18 @@
 
 - (JPResponse *)buildResponse {
     JPResponse *response = [JPResponse new];
-    JPTransactionData *data = [JPTransactionData new];
-    data.judoId = self.configuration.judoId;
-    data.paymentReference = self.configuration.reference.paymentReference;
-    data.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
-    data.consumer = [JPConsumer new];
-    data.consumer.consumerReference = self.configuration.reference.consumerReference;
-    data.amount = self.configuration.amount;
-    data.cardDetails = [JPCardDetails new];
+    response.judoId = self.configuration.judoId;
+    response.paymentReference = self.configuration.reference.paymentReference;
+    response.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
+    response.consumer = [JPConsumer new];
+    response.consumer.consumerReference = self.configuration.reference.consumerReference;
+    response.amount = self.configuration.amount;
+    response.cardDetails = [JPCardDetails new];
     JPStoredCardDetails *selectedCard = [self selectedCard];
-    data.cardDetails.cardLastFour = selectedCard.cardLastFour;
-    data.cardDetails.cardToken = selectedCard.cardToken;
-    data.cardDetails.cardNetwork = selectedCard.cardNetwork;
-    data.cardDetails.cardScheme = [JPCardNetwork nameOfCardNetwork:selectedCard.cardNetwork];
-    response.items = @[ data ];
+    response.cardDetails.cardLastFour = selectedCard.cardLastFour;
+    response.cardDetails.cardToken = selectedCard.cardToken;
+    response.cardDetails.cardNetwork = selectedCard.cardNetwork;
+    response.cardDetails.cardScheme = [JPCardNetwork nameOfCardNetwork:selectedCard.cardNetwork];
 
     return response;
 }
@@ -278,8 +340,7 @@
     [self.storedErrors addObject:error];
 }
 
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                               andError:(JPError *)error {
+- (void)completeTransactionWithResponse:(JPResponse *)response andError:(JPError *)error {
     if (!self.completionHandler)
         return;
 

@@ -23,15 +23,11 @@
 //  SOFTWARE.
 
 #import "JPCardView.h"
-#import "Functions.h"
 #import "JPCardCustomizationViewModel.h"
-#import "JPCardNetwork.h"
 #import "JPCardPaymentMethodView.h"
 #import "JPOtherPaymentMethodView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
-#import "UIImage+Additions.h"
-#import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
 
 @interface JPCardView ()

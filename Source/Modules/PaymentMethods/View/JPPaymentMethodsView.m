@@ -25,7 +25,6 @@
 #import "JPPaymentMethodsView.h"
 #import "Functions.h"
 #import "JPPaymentMethodsHeaderView.h"
-#import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
 
@@ -73,7 +72,7 @@
     [self.tableView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor].active = YES;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.judoHeadlineImageView.topAnchor].active = YES;
 
-    self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:20.0f];
+    self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:20.0F];
     self.judoHeadlineHeightConstraint.active = YES;
 
     [self.judoHeadlineImageView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor].active = YES;

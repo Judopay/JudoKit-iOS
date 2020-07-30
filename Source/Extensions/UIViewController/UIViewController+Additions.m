@@ -24,7 +24,6 @@
 //
 
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
 #import "UIViewController+Additions.h"
 
 @implementation UIViewController (Additions)
@@ -48,7 +47,7 @@
                                                                         message:error.localizedDescription
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok".localized
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok".localized.uppercaseString
                                                        style:UIAlertActionStyleDefault
                                                      handler:nil];
     [controller addAction:okAction];

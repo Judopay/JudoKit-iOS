@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPPBBAButton.h"
 #import <PassKit/PassKit.h>
 #import <UIKit/UIKit.h>
 
@@ -38,6 +39,11 @@
  * The Apple Pay branded button that triggers the Apple Pay flow
  */
 @property (nonatomic, strong) PKPaymentButton *applePayButton;
+
+/**
+ * The PBBA branded button that triggers the PBBA flow
+ */
+@property (nonatomic, strong) JPPBBAButton *pbbaButton;
 
 /**
  * A method used to apply a theme to the view

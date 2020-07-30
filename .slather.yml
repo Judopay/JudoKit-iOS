@@ -3,6 +3,37 @@ xcodeproj: ./JudoKit_iOS.xcodeproj
 scheme: JudoKit_iOS
 source_directory: Sources/
 ignore:
+  - JudoKit-iOSTests/**/*
+  - Source/View/**/*
+  - Source/Transitions/*
+  - Source/Modules/**/Builder/*
+  - Source/Modules/**/View/**/*
+  - Source/Modules/**/*Cell.m
+  - Source/Modules/**/*View.m
+  - Source/Modules/**/*ViewController.m
+  - Source/Modules/**/*Builder.m
+  - Source/Modules/**/*Router.m
+  - Source/Models/ApplePayWrappers/JPApplePayWrappers.m
+  - Source/Models/TransactionEnricher/JPTransactionEnricher.m
+  - Source/Models/Section/JPSection.m
   - TrustKit/*
   - JudoKit_iOSTests/*
   - Examples/*
+  - Source/Modules/Transaction/View/Subviews/JPCardInputField.m
+  - Source/Modules/Transaction/View/Subviews/JPCardNumberField.m
+  - Source/Modules/Transaction/View/Subviews/JPTransactionButton.m
+  - Source/Transitions/JPSliderTransitioningDelegate.m
+  - Source/Models/Theme/JPTheme.m
+  - Source/Extensions/UIView/UIView+Additions.m
+  - Source/Extensions/UIViewController/UIViewController+Additions.m
+  - Source/Models/Browser/JPBrowser.m
+  - Source/Extensions/UITextField/UITextField+Additions.m
+  - Source/Extensions/UIStackView/UIStackView+Additions.m
+  - Source/Extensions/UIFont/UIFont+Additions.m
+  - Source/Extensions/NSArray/NSArray+Additions.m
+  - Source/Models/Pagination/JPPagination.m
+  - Source/Models/Request/JPApplePayRequest.m
+  - Source/Extensions/UIApplication/UIApplication+Additions.m
+  - Source/Services/3DSService/JP3DSService.m
+  - Source/Models/Authorization/Basic/JPBasicAuthorization.m
+  - Source/Models/Authorization/Session/JPSessionAuthorization.m

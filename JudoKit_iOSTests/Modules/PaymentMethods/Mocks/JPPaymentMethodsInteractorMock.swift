@@ -24,10 +24,41 @@
 
 import Foundation
 
+enum PaymentError {
+    case duplicateeError
+    case threeDSRequest
+}
+
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
-    func completeTransaction(with response: JPResponse?, andError error: Error?) {
+    var calledTransactionPayment = false
+    var transactionCompleteError: Error?
+    var cardSelected = false
+    var startApplePay = false
+    var startPolling = false
+    var shouldVerify = false
+    var handle3DSecureTransaction = false
+    
+    var errorType: PaymentError = .duplicateeError
+    
+    func shouldVerifySecurityCode() -> Bool {
+        return shouldVerify
+    }
+    
+    func pollingPBBA(completion: JPCompletionBlock? = nil) {
+        startPolling = true
+    }
+    
+    func indexOfPBBAMethod() -> Int {
+        return 1
+    }
+    
+    func openPBBA(completion: JPCompletionBlock? = nil) {
         
+    }
+    
+    func completeTransaction(with response: JPResponse?, andError error: Error?) {
+        transactionCompleteError = error
     }
     
     func storeError(_ error: Error) {
@@ -35,19 +66,31 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func setCardAsSelectedAt(_ index: UInt) {
-        
+        JPCardStorage.sharedInstance()?.setCardAsSelectedAt(index)
     }
     
     func getIDEALBankTypes() -> [Any] {
-        return []
+        return [0, 1]
     }
     
     func orderCards() {
-        
+        JPCardStorage.sharedInstance()?.orderCards()
     }
     
     func setLastUsedCardAt(_ index: UInt) {
         
+    }
+    
+    func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
+        calledTransactionPayment = true
+        switch errorType {
+        case .duplicateeError:
+            let error = JPError.judoDuplicateTransactionError()
+            completion?(nil, error)
+        case .threeDSRequest:
+            let error = JPError.judo3DSRequest(withPayload: ["":""])
+            completion?(nil, error)
+        }
     }
     
     func orederCards() {
@@ -55,15 +98,11 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func selectCard(at index: UInt) {
-        
+        cardSelected = true
     }
     
     func deleteCard(with index: UInt) {
-        
-    }
-    
-    func setCardAsSelectedAtInded(_ index: UInt) {
-        
+        JPCardStorage.sharedInstance()?.deleteCard(with: index)
     }
     
     func setCardAsDefaultAt(_ index: Int) {
@@ -71,7 +110,36 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func getStoredCardDetails() -> [JPStoredCardDetails] {
-        
+        let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
+        return cards as! [JPStoredCardDetails]
+    }
+    
+    func getAmount() -> JPAmount {
+        let amount = JPAmount("1.0", currency: "EUR");
+        return amount
+    }
+    
+    func getPaymentMethods() -> [JPPaymentMethod] {
+        return [JPPaymentMethod.card(), JPPaymentMethod.iDeal()]
+    }
+    
+    func startApplePay(completion: JPCompletionBlock?) {
+        let response = JPResponse()
+        completion?(response,nil)
+        startApplePay = true
+    }
+    
+    func isApplePaySetUp() -> Bool {
+        return false
+    }
+    
+    func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
+        handle3DSecureTransaction = true
+        let response = JPResponse()
+        completion?(response,nil)
+    }
+    
+    func saveMockCards() {
         let calendar = Calendar.current
         
         let todaysDate = Date()
@@ -90,34 +158,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .visa, cardToken: "token")!
         let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .visa, cardToken: "token")!
         
-        return [validCard, expiresSoonCard, expirdCard]
+        JPCardStorage.sharedInstance()?.add(validCard)
+        JPCardStorage.sharedInstance()?.add(expiresSoonCard)
+        JPCardStorage.sharedInstance()?.add(expirdCard)
     }
-    
-    
-    func getAmount() -> JPAmount {
-        let amount = JPAmount("1.0", currency: "EUR");
-        return amount
-    }
-    
-    func getPaymentMethods() -> [JPPaymentMethod] {
-        return [JPPaymentMethod.card()]
-    }
-    
-    func paymentTransaction(withToken token: String, andCompletion completion: JPCompletionBlock?) {
-        
-    }
-    
-    func startApplePay(completion: JPCompletionBlock?) {
-        let response = JPResponse()
-        completion?(response,nil)
-    }
-    
-    func isApplePaySetUp() -> Bool {
-        return false
-    }
-    
-    func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
-        
-    }
-    
 }

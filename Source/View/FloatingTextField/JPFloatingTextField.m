@@ -24,7 +24,6 @@
 
 #import "JPFloatingTextField.h"
 #import "JPTheme.h"
-#import "UIFont+Additions.h"
 
 @interface JPFloatingTextField ()
 @property (nonatomic, strong) UILabel *floatingLabel;
@@ -38,12 +37,12 @@
 
 #pragma mark - Constants
 
-static const float kAnimationDuration = 0.3f;
-static const float kFontDecreaseValue = 2.0f;
-static const float kErrorFrameOffset = -4.0f;
-static const float kErrorTextOffset = 5.0f;
-static const float kStandardFrameOffset = 3.0f;
-static const float kErrorConstraintOffset = -15.0f;
+static const float kAnimationDuration = 0.3F;
+static const float kFontDecreaseValue = 2.0F;
+static const float kErrorFrameOffset = -4.0F;
+static const float kErrorTextOffset = 5.0F;
+static const float kStandardFrameOffset = 3.0F;
+static const float kErrorConstraintOffset = -15.0F;
 
 #pragma mark - Initializers
 
@@ -194,7 +193,7 @@ static const float kErrorConstraintOffset = -15.0f;
     if (!_floatingLabel) {
         _floatingLabel = [UILabel new];
         _floatingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _floatingLabel.alpha = 0.0f;
+        _floatingLabel.alpha = 0.0F;
     }
     return _floatingLabel;
 }

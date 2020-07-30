@@ -159,8 +159,10 @@
 "error_unsupported_card_network_title" = "Card type is not supported";
 "error_token_missing" = "The card token could not be retrieved from the response";
 "error_invalid_ideal_currency" = "Cannot make iDEAL transactions with currencies different than EUR";
+"error_invalid_pbba_currency" = "Cannot make PBBA transactions with currencies different than GBP";
 "error_apple_pay_unsupported" = "Apple Pay is not supported on your device";
 "error_site_id_missing" = "Site ID is missing";
+"error_pbba_missing_scheme" = "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps";
 
 //NSString+Card
 "check_card_number" = "Check card number";
@@ -178,7 +180,7 @@
 "redirecting" = "Redirecting...";
 "verifying_payment" = "Verifying payment";
 "verifying_card" = "Verifying card";
-"secure_server_transmission" = " Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers.";
+"secure_server_transmission" = " Your card details are encrypted using TLS before transmission to our secure payment service provider. They will not be stored on this device or on our servers.";
 
 //Customize Card
 "customize_card" = "Customize Card";
@@ -197,3 +199,4 @@
 
 //Payment Methods
 "apple_pay" = "Apple Pay";
+"pbba_pay" = "Pay by Bank app";

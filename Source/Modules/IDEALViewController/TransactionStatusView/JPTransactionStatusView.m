@@ -40,14 +40,14 @@
 
 #pragma mark - Constants
 
-const float kStatusViewContainerHorizontalPadding = 60.0f;
-const float kStatusViewContainerHeight = 170.0f;
-const float kStatusViewContainerRadius = 20.0f;
-const float kStatusViewStackSpacing = 20.0f;
-const float kStatusViewStackHorizontalPadding = 35.0f;
-const float kStatusViewRetryButtonWidth = 200.0f;
-const float kStatusViewRetryButtonHeight = 45.0f;
-const float kStatusViewRetryButtonRadius = 4.0f;
+const float kStatusViewContainerHorizontalPadding = 60.0F;
+const float kStatusViewContainerHeight = 170.0F;
+const float kStatusViewContainerRadius = 20.0F;
+const float kStatusViewStackSpacing = 20.0F;
+const float kStatusViewStackHorizontalPadding = 35.0F;
+const float kStatusViewRetryButtonWidth = 200.0F;
+const float kStatusViewRetryButtonHeight = 45.0F;
+const float kStatusViewRetryButtonRadius = 4.0F;
 
 #pragma mark - Initializers
 
@@ -92,7 +92,7 @@ const float kStatusViewRetryButtonRadius = 4.0f;
 
     switch (status) {
         case JPTransactionStatusPending:
-            self.titleLabel.text = @"transaction_pending".localized;
+            self.titleLabel.text = @"processing".localized;
             break;
         case JPTransactionStatusPendingDelayed:
             self.titleLabel.text = @"transaction_delayed".localized;

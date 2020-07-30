@@ -41,7 +41,7 @@
 
 #pragma mark - Constants
 
-static const float kSectionViewHeight = 64.0f;
+static const float kSectionViewHeight = 64.0F;
 static const int kConstraintPriority = 999;
 
 #pragma mark - Theming

@@ -42,6 +42,49 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>authorization_header</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>is_payment_session_on</string>
+			<key>Title</key>
+			<string>token_and_payment_session_header</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>token_title</string>
+			<key>Key</key>
+			<string>session_token</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>payment_session_title</string>
+			<key>Key</key>
+			<string>payment_session</string>
+		</dict>
+
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>is_token_and_secret_on</string>
+			<key>Title</key>
+			<string>token_and_secret_header</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>token_title</string>
@@ -55,6 +98,34 @@
 			<string>secret_title</string>
 			<key>Key</key>
 			<string>secret</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>reference_header</string>
+			<key>FooterText</key>
+			<string>reference_footer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>payment_reference_title</string>
+			<key>Key</key>
+			<string>payment_reference</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>consumer_reference_title</string>
+			<key>Key</key>
+			<string>consumer_reference</string>
+			<key>DefaultValue</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -250,6 +321,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>payment_methods_entry_ideal</string>
+			<key>Key</key>
+			<string>is_payment_method_ideal_enabled</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>payment_methods_entry_apple_pay</string>
 			<key>Key</key>
 			<string>is_payment_method_apple_pay_enabled</string>
@@ -260,11 +341,11 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>payment_methods_entry_ideal</string>
+			<string>payment_methods_entry_pbba</string>
 			<key>Key</key>
-			<string>is_payment_method_ideal_enabled</string>
+			<string>is_payment_method_pbba_enabled</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -286,9 +367,29 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>amount_label_title</string>
+			<string>amount_method_label_title</string>
 			<key>Key</key>
-			<string>is_amount_label_enabled</string>
+			<string>should_payment_methods_display_amount</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>amount_button_label_title</string>
+			<key>Key</key>
+			<string>should_payment_button_display_amount</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>security_code</string>
+			<key>Key</key>
+			<string>should_ask_security_code</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

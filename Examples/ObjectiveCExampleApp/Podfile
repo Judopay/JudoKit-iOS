@@ -6,7 +6,7 @@ target 'ObjectiveCExampleApp' do
   # Pods for ObjectiveCExampleApp
   pod 'JudoKit-iOS', :path => '../../'
 
-  pod 'InAppSettingsKit'
+  pod 'InAppSettingsKit', '2.15'
   pod 'CocoaDebug'
 
   target 'ObjectiveCExampleAppTests' do

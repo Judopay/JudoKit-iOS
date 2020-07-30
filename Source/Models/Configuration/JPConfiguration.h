@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration;
 
 @interface JPConfiguration : NSObject
 
@@ -87,6 +87,11 @@
 @property (nonatomic, strong) JPApplePayConfiguration *_Nullable applePayConfiguration;
 
 /**
+ * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
+ */
+@property (nonatomic, strong) JPPBBAConfiguration *_Nullable pbbaConfiguration;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.
@@ -101,17 +106,5 @@
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
                                 amount:(nullable JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
-
-/**
- * Designated initializer that sets the required parameters for receipt-related transactions
- *  - Compatible with Refund, Void, Collection transactions.
- *
- *  @param receiptId - the Receipt ID obtained from a transaction response.
- *  @param amount - the JPAmount instance, contaning the amount and the currency of the transaction.
- *
- *  @returns a configured instance of JPConfiguration
- */
-- (nonnull instancetype)initWithReceiptID:(nonnull NSString *)receiptId
-                                   amount:(nullable JPAmount *)amount;
 
 @end

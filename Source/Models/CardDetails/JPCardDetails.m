@@ -63,34 +63,6 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        self.cardLastFour = [decoder decodeObjectForKey:@"cardLastFour"];
-        self.endDate = [decoder decodeObjectForKey:@"endDate"];
-        self.cardToken = [decoder decodeObjectForKey:@"cardToken"];
-        self.cardNetwork = [decoder decodeIntegerForKey:@"cardNetwork"];
-        self.cardNumber = nil;
-        self.bank = [decoder decodeObjectForKey:@"bank"];
-        self.cardCategory = [decoder decodeObjectForKey:@"cardCategory"];
-        self.cardCountry = [decoder decodeObjectForKey:@"cardCountry"];
-        self.cardFunding = [decoder decodeObjectForKey:@"cardFunding"];
-        self.cardScheme = [decoder decodeObjectForKey:@"cardScheme"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:self.cardLastFour forKey:@"cardLastFour"];
-    [encoder encodeObject:self.endDate forKey:@"endDate"];
-    [encoder encodeObject:self.cardToken forKey:@"cardToken"];
-    [encoder encodeInt64:self.cardNetwork forKey:@"cardNetwork"];
-    [encoder encodeObject:self.bank forKey:@"bank"];
-    [encoder encodeObject:self.cardCategory forKey:@"cardCategory"];
-    [encoder encodeObject:self.cardCountry forKey:@"cardCountry"];
-    [encoder encodeObject:self.cardFunding forKey:@"cardFunding"];
-    [encoder encodeObject:self.cardScheme forKey:@"cardScheme"];
-}
-
 - (JPCardNetworkType)cardNetwork {
     if (_cardNetwork == JPCardNetworkTypeUnknown && self.cardNumber) {
         _cardNetwork = self.cardNumber.cardNetwork;

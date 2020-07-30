@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethod.h"
+#import "NSString+Additions.h"
 
 @interface JPPaymentMethod ()
 @end
@@ -41,22 +42,31 @@
     return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeApplePay];
 }
 
++ (instancetype)pbba {
+    return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypePbba];
+}
+
 - (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type {
     if (self = [super init]) {
         switch (type) {
             case JPPaymentMethodTypeCard:
-                _title = @"Cards";
+                _title = @"cards".localized;
                 _iconName = @"cards-pay-icon";
                 break;
 
             case JPPaymentMethodTypeIDeal:
-                _title = @"iDeal";
+                _title = @"ideal_payment".localized;
                 _iconName = @"ideal-pay-icon";
                 break;
 
             case JPPaymentMethodTypeApplePay:
                 _title = nil;
                 _iconName = @"apple-pay-icon";
+                break;
+
+            case JPPaymentMethodTypePbba:
+                _title = nil;
+                _iconName = @"PbBA-logo";
                 break;
         }
         _type = type;

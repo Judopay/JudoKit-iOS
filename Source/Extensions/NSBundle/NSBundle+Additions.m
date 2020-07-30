@@ -37,7 +37,7 @@
 }
 
 + (NSBundle *)iconsBundle {
-    static NSBundle *iconsBundle;
+    static NSBundle *__nullable iconsBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"icons"];
@@ -58,13 +58,13 @@
 }
 
 + (instancetype)resourcesBundle {
-    static NSBundle *iconsBundle;
+    static NSBundle *__nullable resourcesBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"resources"];
-        iconsBundle = [NSBundle bundleWithPath:iconBundlePath];
+        resourcesBundle = [NSBundle bundleWithPath:iconBundlePath];
     });
-    return iconsBundle;
+    return resourcesBundle;
 }
 
 + (NSString *)pathForResourceBundle:(NSString *)resourceBundle {
@@ -83,4 +83,14 @@
     }
     return nil;
 }
+
++ (NSString *)appURLScheme {
+    NSBundle *bundle = NSBundle.mainBundle;
+    NSMutableArray *urlTypes = bundle.infoDictionary[@"CFBundleURLTypes"];
+    NSMutableDictionary *urlType = urlTypes.firstObject;
+    NSMutableArray *urlSchemes = urlType[@"CFBundleURLSchemes"];
+    NSString *urlScheme = urlSchemes.firstObject;
+    return urlScheme;
+}
+
 @end

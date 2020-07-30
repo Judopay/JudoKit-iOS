@@ -148,7 +148,7 @@
 
 - (CGFloat)buttonCornerRadius {
     if (!_buttonCornerRadius) {
-        _buttonCornerRadius = 4.0f;
+        _buttonCornerRadius = 4.0F;
     }
     return _buttonCornerRadius;
 }

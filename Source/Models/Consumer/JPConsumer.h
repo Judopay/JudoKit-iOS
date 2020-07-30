@@ -32,12 +32,12 @@
 /**
  *  Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
  */
-@property (nonatomic, strong) NSString *_Nonnull consumerToken;
+@property (nonatomic, strong, nonnull) NSString *consumerToken;
 
 /**
  *  Your reference for this Consumer as you sent in your request.
  */
-@property (nonatomic, strong) NSString *_Nonnull consumerReference;
+@property (nonatomic, strong, nonnull) NSString *consumerReference;
 
 /**
  *  Designated initializer

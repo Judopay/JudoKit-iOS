@@ -22,8 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
 #import "JPInputType.h"
+#import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
 #pragma mark - JPTransactionInputFieldViewModel
@@ -110,9 +112,14 @@
 @interface JPTransactionViewModel : NSObject
 
 /**
- * A boolean parameter that tells the view if AVS fields should be displayed
+ * A enum parameter that tells the view of JPTransactionType
  */
-@property (nonatomic, assign) BOOL shouldDisplayAVSFields;
+@property (nonatomic, assign) JPTransactionType type;
+
+/**
+ * A enum parameter to specify the card details mode
+ */
+@property (nonatomic, assign) JPCardDetailsMode mode;
 
 /**
  * The JPTransactionInputFieldViewModel for the card number input field

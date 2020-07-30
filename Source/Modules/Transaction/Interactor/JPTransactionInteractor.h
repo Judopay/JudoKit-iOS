@@ -23,13 +23,19 @@
 //  SOFTWARE.
 
 #import "JPTransactionType.h"
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
 
 @protocol JPTransactionInteractor
+
+/**
+ * A method that returns JPCardDetailsMode
+ */
+- (JPCardDetailsMode)cardDetailsMode;
 
 /**
  * A method that returns YES if the Address Verification Service is enabled
@@ -40,6 +46,11 @@
  * A method that returns the current transaction type
  */
 - (JPTransactionType)transactionType;
+
+/**
+ * A method that returns the current cardNetwork type
+ */
+- (JPCardNetworkType)cardNetworkType;
 
 /**
  * A method that handles the camera permission for the Scan Card functionality
@@ -160,6 +171,11 @@
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel
                            andToken:(NSString *)token;
 
+/**
+* A method for generating pay button title
+*/
+- (NSString *)generatePayButtonTitle;
+
 @end
 
 @interface JPTransactionInteractorImpl : NSObject <JPTransactionInteractor>
@@ -168,12 +184,15 @@
  * Designated initializer which creates a configured JPTransactionInteractorImpl instance
  *
  * @param cardValidationService - the service which is used to validate card details
- * @param transactionService - the service which sends requests to the Judo backend
+ * @param apiService - the service which sends requests to the Judo backend
  * @param configuration - the JPConfiguration object used for customizing the payment flow
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                           transactionService:(JPTransactionService *)transactionService
+                                   apiService:(JPApiService *)apiService
+                              transactionType:(JPTransactionType)type
+                              cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration
+                                  cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion;
 @end

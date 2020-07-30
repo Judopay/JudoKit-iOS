@@ -1,0 +1,14 @@
+{
+    "paymentMethod": "PBBA",
+    "siteId": "ohmVFpr-QK2V-zvwe1JC7w",
+    "orderDetails": {
+        "orderId": "BTO-Bqqqg5xAQK25Ihb6zWf01Q",
+        "orderStatus": "Success",
+        "timestamp": "2020-06-26T07:45:57.153Z",
+        "currency": "GBP",
+        "amount": 0.14999999999999999,
+        "refundedAmount": 0
+    },
+    "merchantPaymentReference": "iwkyxcjzpqusrybbeiernwauravevviurmpnatj",
+    "merchantConsumerReference": "judoPay-sample-app-objc"
+}

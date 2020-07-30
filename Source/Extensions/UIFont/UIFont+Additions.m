@@ -58,10 +58,4 @@
     return [UIFont systemFontOfSize:10.0 weight:UIFontWeightSemibold];
 }
 
-- (UIFontWeight)weight {
-    NSDictionary *traits = [self.fontDescriptor objectForKey:UIFontDescriptorTraitsAttribute];
-    NSNumber *weightNumber = traits[UIFontWeightTrait];
-    return weightNumber.doubleValue;
-}
-
 @end

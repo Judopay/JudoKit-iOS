@@ -27,11 +27,6 @@
 @interface UIColor (Additions)
 
 /**
- * A method which returns the inversed color
- */
-- (nonnull UIColor *)inverseColor;
-
-/**
  * A method which converts the color into an UIImage instance
  */
 - (nonnull UIImage *)asImage;

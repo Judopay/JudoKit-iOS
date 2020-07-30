@@ -31,8 +31,8 @@
 
 #pragma mark - Constants
 
-const float kCardListHeaderHorizontalPadding = 24.0f;
-const float kCardListHeaderCenterOffset = 10.0f;
+const float kCardListHeaderHorizontalPadding = 24.0F;
+const float kCardListHeaderCenterOffset = 10.0F;
 
 #pragma mark - Initializers
 

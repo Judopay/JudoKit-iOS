@@ -44,65 +44,28 @@
     return self;
 }
 
-- (nonnull instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        [self populateWith:dictionary];
+        if (dictionary[@"line1"]) {
+            self.line1 = dictionary[@"line1"];
+        }
+        if (dictionary[@"line2"]) {
+            self.line2 = dictionary[@"line2"];
+        }
+        if (dictionary[@"line3"]) {
+            self.line3 = dictionary[@"line3"];
+        }
+        if (dictionary[@"postCode"]) {
+            self.postCode = dictionary[@"postCode"];
+        }
+        if (dictionary[@"town"]) {
+            self.town = dictionary[@"town"];
+        }
+        if (dictionary[@"countryCode"]) {
+            self.countryCode = dictionary[@"countryCode"];
+        }
     }
     return self;
-}
-
-- (id)copy {
-    return [[JPAddress alloc] initWithLine1:self.line1
-                                      line2:self.line2
-                                      line3:self.line3
-                                       town:self.town
-                                countryCode:self.countryCode
-                                   postCode:self.postCode];
-}
-
-- (void)populateWith:(NSDictionary *)dictionary {
-    if (dictionary[@"line1"]) {
-        self.line1 = dictionary[@"line1"];
-    }
-    if (dictionary[@"line2"]) {
-        self.line2 = dictionary[@"line2"];
-    }
-    if (dictionary[@"line3"]) {
-        self.line3 = dictionary[@"line3"];
-    }
-    if (dictionary[@"postCode"]) {
-        self.postCode = dictionary[@"postCode"];
-    }
-    if (dictionary[@"town"]) {
-        self.town = dictionary[@"town"];
-    }
-    if (dictionary[@"countryCode"]) {
-        self.countryCode = dictionary[@"countryCode"];
-    }
-}
-
-- (NSDictionary *)dictionaryRepresentation {
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (self.line1) {
-        dictionary[@"line1"] = self.line1;
-    }
-    if (self.line2) {
-        dictionary[@"line2"] = self.line2;
-    }
-    if (self.line3) {
-        dictionary[@"line3"] = self.line3;
-    }
-    if (self.postCode) {
-        dictionary[@"postCode"] = self.postCode;
-    }
-    if (self.town) {
-        dictionary[@"town"] = self.town;
-    }
-    if (self.countryCode) {
-        dictionary[@"countryCode"] = self.countryCode;
-    }
-
-    return [dictionary copy];
 }
 
 @end

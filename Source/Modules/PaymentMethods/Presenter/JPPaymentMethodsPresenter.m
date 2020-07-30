@@ -25,17 +25,17 @@
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
 #import "JPCardNetwork.h"
-#import "JPConstants.h"
+#import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPStoredCardDetails.h"
-#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
@@ -54,10 +54,19 @@
 
 @property (nonatomic, assign) NSUInteger selectedBankIndex;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
+@property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
 
 @implementation JPPaymentMethodsPresenterImpl
+
+#pragma mark - Initializers
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super init]) {
+        self.configuration = configuration;
+    }
+    return self;
+}
 
 #pragma mark - Protocol Conformance
 
@@ -65,6 +74,20 @@
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel
                   shouldAnimateChange:NO];
+    [self checkIfDeeplinkURLExist];
+}
+
+- (void)checkIfDeeplinkURLExist {
+    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
+        NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
+        if (pbbaIndex != NSNotFound) {
+            [self changePaymentMethodToIndex:pbbaIndex];
+            __weak typeof(self) weakSelf = self;
+            [self.interactor pollingPBBAWithCompletion:^(JPResponse *response, NSError *error) {
+                [weakSelf handleCallbackWithResponse:response andError:error];
+            }];
+        }
+    }
 }
 
 - (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType
@@ -100,8 +123,10 @@
 
 #pragma mark - Action Handlers
 
-- (void)handleTransactionButtonTap {
-    [self.router navigateToTransactionModule];
+- (void)handleAddCardButtonTap {
+    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault
+                                     cardNetwork:self.selectedCard.cardNetwork
+                              andTransactionType:JPTransactionTypeSaveCard];
 }
 
 - (void)handleBackButtonTap {
@@ -128,7 +153,24 @@
         return;
     }
 
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
+        [self.interactor openPBBAWithCompletion:^(JPResponse *response, NSError *error) {
+            [weakSelf handleCallbackWithResponse:response andError:error];
+        }];
+        return;
+    }
+
+    if ([self.interactor shouldVerifySecurityCode]) {
+        [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypePayment];
+    } else {
+        [self handlePaymentWithSecurityCode:nil];
+    }
+}
+
+- (void)handlePaymentWithSecurityCode:(nullable NSString *)code {
+    __weak typeof(self) weakSelf = self;
     [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
+                                 andSecurityCode:code
                                    andCompletion:^(JPResponse *response, NSError *error) {
                                        [weakSelf handleCallbackWithResponse:response
                                                                    andError:error];
@@ -160,7 +202,7 @@
     }
 
     [self.interactor storeError:error];
-    [self.view displayAlertWithTitle:@"card_transaction_unsuccesful_error".localized andError:error];
+    [self.view displayAlertWithTitle:@"transaction_unsuccessful".localized andError:error];
 }
 
 - (void)handle3DSecureTransactionWithError:(NSError *)error {
@@ -192,8 +234,8 @@
 }
 
 - (void)changeHeaderButtonTitle:(BOOL)isEditing {
-    NSString *title = isEditing ? @"done_capitalized" : @"edit_capitalized";
-    self.cardHeaderModel.editButtonTitle = title.localized;
+    NSString *title = isEditing ? @"button_done" : @"button_edit";
+    self.cardHeaderModel.editButtonTitle = title.localized.uppercaseString;
 
     [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeNone
                             shouldAnimateChange:NO];
@@ -284,6 +326,8 @@
         case JPPaymentMethodTypeIDeal:
             [self prepareIDEALBankListModel];
             break;
+        default:
+            break;
     }
 }
 
@@ -329,7 +373,8 @@
         }
     }
 
-    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal ||
+        self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
         self.headerModel.payButtonModel.isEnabled = YES;
     }
 
@@ -417,12 +462,12 @@
         _emptyListModel = [JPPaymentMethodsEmptyListModel new];
         _emptyListModel.identifier = @"JPPaymentMethodsEmptyCardListCell";
         _emptyListModel.title = @"no_connected_cards".localized;
-        _emptyListModel.addCardButtonTitle = @"add_card_button".localized;
+        _emptyListModel.addCardButtonTitle = @"add_card".localized.uppercaseString;
         _emptyListModel.addCardButtonIconName = @"plus-icon";
 
         __weak typeof(self) weakSelf = self;
         _emptyListModel.onTransactionButtonTapHandler = ^{
-            [weakSelf handleTransactionButtonTap];
+            [weakSelf handleAddCardButtonTap];
         };
     }
     return _emptyListModel;
@@ -432,7 +477,7 @@
     if (!_cardHeaderModel) {
         _cardHeaderModel = [JPPaymentMethodsCardHeaderModel new];
         _cardHeaderModel.title = @"connected_cards".localized;
-        _cardHeaderModel.editButtonTitle = @"edit_capitalized".localized;
+        _cardHeaderModel.editButtonTitle = @"button_edit".localized.uppercaseString;
         _cardHeaderModel.identifier = @"JPPaymentMethodsCardListHeaderCell";
     }
     return _cardHeaderModel;
@@ -441,13 +486,13 @@
 - (JPPaymentMethodsCardFooterModel *)cardFooterModel {
     if (!_cardFooterModel) {
         _cardFooterModel = [JPPaymentMethodsCardFooterModel new];
-        _cardFooterModel.addCardButtonTitle = @"add_card_button".localized;
+        _cardFooterModel.addCardButtonTitle = @"add_card".localized.uppercaseString;
         _cardFooterModel.addCardButtonIconName = @"plus-icon";
         _cardFooterModel.identifier = @"JPPaymentMethodsCardListFooterCell";
 
         __weak typeof(self) weakSelf = self;
         _cardFooterModel.onTransactionButtonTapHandler = ^{
-            [weakSelf handleTransactionButtonTap];
+            [weakSelf handleAddCardButtonTap];
         };
     }
     return _cardFooterModel;
@@ -470,7 +515,7 @@
 - (JPTransactionButtonViewModel *)paymentButtonModel {
     if (!_paymentButtonModel) {
         _paymentButtonModel = [JPTransactionButtonViewModel new];
-        _paymentButtonModel.title = @"pay_now_capitalized".localized;
+        _paymentButtonModel.title = @"pay_now".localized.uppercaseString;
         _paymentButtonModel.isEnabled = NO;
     }
     return _paymentButtonModel;

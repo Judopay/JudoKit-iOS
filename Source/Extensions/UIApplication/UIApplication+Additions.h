@@ -27,11 +27,6 @@
 @interface UIApplication (Additions)
 
 /**
- * A method for identifying if the device is currently in dark mode
- */
-+ (BOOL)isUserInterfaceStyleDark;
-
-/**
  * A method for identifying if the current device is jailbroken
  */
 + (BOOL)isCurrentDeviceJailbroken;

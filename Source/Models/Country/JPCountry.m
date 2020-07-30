@@ -54,13 +54,13 @@
 
 + (NSNumber *)isoCodeForCountry:(NSString *)country {
     if ([country isEqualToString:@"country_usa".localized]) {
-        return [NSNumber numberWithInt:kJPCountryNumericCodeUSA];
+        return @(kJPCountryNumericCodeUSA);
     }
     if ([country isEqualToString:@"country_uk".localized]) {
-        return [NSNumber numberWithInt:kJPCountryNumericCodeUK];
+        return @(kJPCountryNumericCodeUK);
     }
     if ([country isEqualToString:@"country_canada".localized]) {
-        return [NSNumber numberWithInt:kJPCountryNumericCodeCanada];
+        return @(kJPCountryNumericCodeCanada);
     }
     return nil;
 }

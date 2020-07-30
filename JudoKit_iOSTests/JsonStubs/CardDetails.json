@@ -1,0 +1,14 @@
+{
+    "cardDetails" : {
+        "cardType" : 1,
+        "cardCountry" : "US",
+        "endDate" : "1020",
+        "cardLastfour" : "1111",
+        "cardToken" : "j7lQKJDfkTI3QbutMrxA9QQQZYQd2pXp",
+        "cardScheme" : "Visa",
+        "cardCategory" : "",
+        "bank" : "Jpmorgan Chase Bank, N.A.",
+        "cardQualifier" : 0,
+        "cardFunding" : "Credit"
+    }
+}

@@ -22,115 +22,90 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//General
-"ok" = "OK";
-"error" = "Error";
-"cancel" = "Cancel";
-"delete" = "Delete";
-
-//Add Card
-"scan_card" = "SCAN CARD";
-"card_number" = "Card Number";
-"cardholder_name" = "Cardholder Name";
-"expiry_date" = "MM/YY";
-"country" = "Country";
-"postal_code" = "Postcode";
-"secure_code" = "CVV";
-"add_card_button" = "ADD CARD";
-"invalid_expiry_date_value" = "Invalid date value entered";
-"invalid_postcode" = "Invalid postcode entered";
-"invalid_zip_code" = "Invalid ZIP code entered";
-
-//Scan Card
-"scan_card_message_title" = "Position card in this frame";
-"scan_card_message_subtitle" = "We will automatically scan it";
-"scan_card_no_permission_title" = "Camera permissions not granted";
-"scan_card_no_permission_message" = "In order to scan your card, please open settings and grant %@ access to your Camera";
-"scan_card_restricted_title" = "Camera access restricted";
-"scan_card_restricted_message" = "Scan camera functionality is not available due to restriction on your device";
-"scan_card_simulator_title" = "Camera not available on iOS simulators";
-"scan_card_confirm" = "Got it";
-"scan_card_go_to_settings" = "Go to Settings";
-
-//Payment Method Screen
-"card_subtitle" = "%@ Ending %@";
-"no_connected_cards" = "You didn't connect any cards yet";
+"check_card" = "Check Card";
+"pay_now" = "Pay Now";
+"pay_amount" = "Pay %@";
 "connected_cards" = "Connected cards";
-"edit_capitalized" = "EDIT";
-"done_capitalized" = "DONE";
-"pay_now_capitalized" = "PAY NOW";
-"choose_payment_method" = "Choose a Payment Method";
-"no_cards_added"  = "You didn’t add any cards yet.\nAdd one right now or use any of the payment methods below";
+"button_edit" = "Edit";
+"button_done" = "DONE";
+"cancel" = "Cancel";
+"ok" = "Ok";
+"button_scan_card" = "Scan card";
+"add_card" = "Add card";
+"register_card" = "Register Card";
+"save_card" = "Save Card";
 "you_will_pay" = "You will pay";
-"card_transaction_unsuccesful_error" = "Card transaction unsuccessful - please try again";
-"delete_card_alert_title" = "Delete Card ?";
-"delete_card_alert_message" = "Are you sure you want to delete this card from your wallet?";
+"cards" = "Cards";
+"amazon_pay" = "Amazon Pay";
+"ideal_payment" = "iDeal";
+"secure_server_transmission" = "Your card details are encrypted using TLS before transmission to our secure payment service provider.";
+"date_hint" = "MM/YY";
+"cvv_hint" = "CVV";
+"card_number_hint" = "Card Number";
+"card_holder_hint" = "Cardholder Name";
+"country_hint" = "Country";
+"post_code_hint" = "Postcode";
+"check_card_number" = "Check card number";
+"check_expiry_date" = "Check expiry date";
+"check_cvv" = "Check CVV";
 "expired" = "Expired";
 "is_expired" = "is Expired";
 "will_expire_soon" = "will expire soon";
 "expire_soon" = "expire soon";
-
-//CardInputField
-"card_number_label" = "Card number";
-"long_card_number" = "Long card number";
-
-//SecurityCodeInputField
-"please_reenter_the_card_security_code" = "Re-enter security code";
-"security_code" = "Security code";
-
-//IssueNumberInputField
-"issue_number_label" = "Issue number";
-"issue_number_front_of_card" = "Issue number on front of card";
-
-//DateInputField
-"check_expiry_date" = "Check expiry date";
-"check_start_date" = "Check start date";
-"start_date_label" = "Start date";
-"expiry_date_label" = "Expiry date";
-"date_hint" = "MM/YY";
-"date_format" = "MM/yy";
-
-//PostcodeInputField
-"billing_postcode" = "Billing postcode";
-"billing_zip_code" = "Billing ZIP code";
-"billing_postal_code" = "Billing postal code";
-
-//JPBillingCountryInputField
+"invalid_postcode" = "Invalid postcode entered";
+"invalid_zip_code" = "Invalid ZIP code entered";
+"close" = "Close";
+"no_connected_cards" = "You didn't connect any cards yet";
+"choose_payment_method" = "Choose a Payment Method";
+"no_cards_added"  = "You didn’t add any cards yet.\nAdd one right now or use any of the payment methods below";
+"delete" = "Delete";
+"delete_card_alert_title" = "Delete Card ?";
+"delete_card_alert_message" = "Are you sure you want to delete this card from your wallet?";
+"default_visa_card_title" = "My VISA Card";
+"default_mastercard_card_title" = "My MasterCard Card";
+"default_maestro_card_title" = "My Maestro Card";
+"default_amex_card_title" = "My American Express Card";
+"default_jcb_card_title" = "My JCB Card";
+"default_chinaunionpay_card_title" = "My China Union Pay Card";
+"default_discover_card_title" = "My Discover Card";
+"default_dinnersclub_card_title" = "My Dinners Club Card";
+"unable_to_process_request_error_desc" = "Sorry, we're currently unable to process this request.";
+"unable_to_process_request_error_title" = "Unable to process";
+"processing" = "Transaction pending...";
+"customize_card" = "Customize Card";
+"save_as_default_payment_method" = "Save as default payment method";
+"save" = "Save";
+"error_card_title_too_long" = "Card Name cannot be longer than 28 characters";
+"there_is_a_delay" = "This is taking longer than expected. Please wait...";
+"ideal_transaction" = "iDEAL Transaction";
+"dismiss" = "Dismiss";
+"three_d_secure_check" = "3D Secure Check";
+"scan_card_no_permission_title" = "Camera permissions not granted";
+"scan_card_no_permission_message" = "Permissions must be granted in order to use the scan card functionality. Please go to Settings and toggle Camera on";
+"scan_card_confirm" = "Got it";
+"scan_card_go_to_settings" = "Go to Settings";
+"wocr_hint_position_card_in_frame" = "Position card in this frame";
+"wocr_automatically_scan" = "We will automatically scan it";
+"pay_by_bank" = "Pay by Bank app";
+"retry" = "Retry";
+"transaction_successful" = "Transaction success!";
+"error" = "Error";
+"expiry_date" = "MM/YY";
+"invalid_expiry_date_value" = "Invalid date value entered";
+"scan_card_restricted_title" = "Camera access restricted";
+"scan_card_restricted_message" = "Scan camera functionality is not available due to restriction on your device";
+"scan_card_simulator_title" = "Camera not available on iOS simulators";
+"card_subtitle" = "%@ Ending";
+"transaction_unsuccessful" = "Card transaction unsuccessful - please try again";
 "country_uk" = "UK";
 "country_usa" = "USA";
 "country_canada" = "Canada";
 "country_other" = "Other";
-
-//IDEALFormViewController
-"ideal_transaction" = "iDEAL Transaction";
-"selected_bank" = "Selected bank:";
-"select_ideal_bank" = "Select iDEAL bank";
-"enter_name" = "Enter name";
-"name" = "Name";
-"select_bank" = "Select %@ as your iDEAL bank";
-"ideal_transaction_success" = "Transaction success!";
-"ideal_transaction_pending" = "Transaction pending...";
-"ideal_transaction_pending_delay" = "This is taking longer than expected. Please wait...";
-"ideal_transaction_timeout" = "The transaction has timed out!";
-"ideal_transaction_error" = "Oops! Something went wrong.";
-"ideal_transaction_failed" = "Transaction failed!";
-"retry" = "Retry";
-"close" = "Close";
-
-//Transaction Status View
-"transaction_pending" = "Transaction pending...";
 "transaction_delayed" = "This is taking longer than expected...";
 "transaction_timeout" = "Transaction timed out!";
+"enter_card_title" = "Enter a card title...";
+"apple_pay" = "Apple Pay";
 
-//JudoPayViewController
-"secure_server" = "Secure server: ";
-"pay" = "Pay";
-"check_card" = "Check Card";
-"add_card" = "Add Card";
-
-//NSError+Additions
-"unable_to_process_request_error_desc" = "Sorry, we're currently unable to process this request.";
-"unable_to_process_request_error_title" = "Unable to process";
 "error_request_failed" = "The request responded without data";
 "error_payment_method_missing" = "The payment method (card details, token or PKPayment) has not been set for a transaction that requires it (custom UI)";
 "error_amount_missing" = "The amount has not been set for a transaction that requires it (custom UI)";
@@ -149,45 +124,13 @@
 "error_timeout_description" = "Request did not complete in the specified time";
 "no_internet_error_description" = "Please check your internet connection and try again.";
 "no_internet_error_title" = "No internet connection!";
-"error_unsupported_card_network_desc" = "%@ is not supported";
 "error_unsupported_card_network_title" = "Card type is not supported";
 "error_token_missing" = "The card token could not be retrieved from the response";
 "error_invalid_ideal_currency" = "Cannot make iDEAL transactions with currencies different than EUR";
+"error_invalid_pbba_currency" = "Cannot make PBBA transactions with currencies different than GBP";
 "error_apple_pay_unsupported" = "Apple Pay is not supported on your device";
 "error_site_id_missing" = "Site ID is missing";
+"error_pbba_missing_scheme" = "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps";
 
-//NSString+Card
-"check_card_number" = "Check card number";
-"error_card_not_supported" = "We do not accept %@";
-
-//JPTheme
-"add_card" = "Add card";
-"add" = "Add";
-"back" = "Back";
-"payment" = "Payment";
-"refund" = "Refund";
-"authentication" = "Authentication";
-"adding_card" = "Adding card...";
-"processing_payment" = "Processing payment...";
-"redirecting" = "Redirecting...";
-"verifying_payment" = "Verifying payment";
-"verifying_card" = "Verifying card";
-"secure_server_transmission" = "Your card details are encrypted using SSL before transmission to our secure payment service provider.";
-
-//Customize Card
-"customize_card" = "Customize Card";
-"enter_card_title" = "Enter a card title...";
-"card_title_length_warning" = "Card Name cannot be longer than 28 characters";
-"default_visa_card_title" = "My VISA Card";
-"default_mastercard_card_title" = "My MasterCard Card";
-"default_maestro_card_title" = "My Maestro Card";
-"default_amex_card_title" = "My American Express Card";
-"default_jcb_card_title" = "My JCB Card";
-"default_chinaunionpay_card_title" = "My China Union Pay Card";
-"default_discover_card_title" = "My Discover Card";
-"default_dinnersclub_card_title" = "My Dinners Club Card";
-"save_as_default" = "Save as default payment method";
-"save" = "Save";
-
-//Payment Methods
-"apple_pay" = "Apple Pay";
+//MARK: iOS only:
+"error_unsupported_card_network_desc" = "%@ is not supported";

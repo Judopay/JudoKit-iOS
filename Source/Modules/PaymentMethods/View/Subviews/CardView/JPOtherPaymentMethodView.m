@@ -27,8 +27,6 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
-#import "UIFont+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
@@ -46,10 +44,10 @@
 
 #pragma mark - Constants
 
-static const float kLeadingImageViewWidth = 109.0f;
-static const float kLeadingImageViewHeight = 31.0f;
-static const float kTrailingImageViewWidth = 30.0f;
-static const float kContentPadding = 28.0f;
+static const float kLeadingImageViewWidth = 109.0F;
+static const float kLeadingImageViewHeight = 31.0F;
+static const float kTrailingImageViewWidth = 30.0F;
+static const float kContentPadding = 28.0F;
 
 #pragma mark - Initializers
 
@@ -95,6 +93,11 @@ static const float kContentPadding = 28.0f;
             self.titleLabel.text = viewModel.bankModel.bankTitle;
             self.leadingImageView.image = [UIImage imageWithIconName:viewModel.bankModel.bankIconName];
             self.trailingImageView.image = [UIImage imageWithIconName:@"ideal-pay-icon"];
+            break;
+
+        case JPPaymentMethodTypePbba:
+            self.leadingImageView.image = [UIImage imageWithIconName:@"PbBA-logo"];
+            self.titleLabel.text = @"pay_by_bank".localized;
             break;
 
         default:
