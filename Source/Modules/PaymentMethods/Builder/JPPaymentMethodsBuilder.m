@@ -25,17 +25,16 @@
 #import "JPPaymentMethodsBuilder.h"
 #import "JPAmount.h"
 #import "JPApplePayService.h"
-#import "JPCardStorage.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
-#import "JPReference.h"
-#import "JudoKit.h"
+#import "NSBundle+Additions.h"
 
 @implementation JPPaymentMethodsBuilderImpl
 
@@ -43,16 +42,19 @@
 
 + (JPPaymentMethodsViewController *)buildModuleWithMode:(JPTransactionMode)mode
                                           configuration:(JPConfiguration *)configuration
-                                     transactionService:(JPTransactionService *)transactionService
+                                             apiService:(JPApiService *)apiService
                                   transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                                       completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
+        BOOL isPbBAPresent = (paymentMethod.type == JPPaymentMethodTypePbba);
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
         BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
+        BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
+        BOOL isURLSchemeMissing = ((!NSBundle.appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
             completion(nil, JPError.judoInvalidIDEALCurrencyError);
@@ -63,21 +65,31 @@
             completion(nil, JPError.judoApplePayNotSupportedError);
             return nil;
         }
+
+        if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
+            completion(nil, JPError.judoInvalidPBBACurrency);
+            return nil;
+        }
+
+        if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
+            completion(nil, JPError.judoPBBAURLSchemeMissing);
+            return nil;
+        }
     }
 
     JPPaymentMethodsViewController *viewController = [JPPaymentMethodsViewController new];
-    JPPaymentMethodsPresenterImpl *presenter = [JPPaymentMethodsPresenterImpl new];
+    JPPaymentMethodsPresenterImpl *presenter = [[JPPaymentMethodsPresenterImpl alloc] initWithConfiguration:configuration];
 
     JPPaymentMethodsRouterImpl *router;
     router = [[JPPaymentMethodsRouterImpl alloc] initWithConfiguration:configuration
-                                                    transactionService:transactionService
+                                                            apiService:apiService
                                                  transitioningDelegate:transitioningDelegate
                                                             completion:completion];
 
     JPPaymentMethodsInteractorImpl *interactor;
     interactor = [[JPPaymentMethodsInteractorImpl alloc] initWithMode:mode
                                                         configuration:configuration
-                                                   transactionService:transactionService
+                                                           apiService:apiService
                                                            completion:completion];
 
     presenter.view = viewController;

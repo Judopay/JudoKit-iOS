@@ -50,15 +50,6 @@
 - (nullable NSString *)toCurrencySymbol;
 
 /**
- * A method which replaces each character in the set with a specified string
- *
- * @param charSet - the character set to be replaced
- * @param aString - the string to replace the characters in the set
- */
-- (nullable NSString *)stringByReplacingCharactersInSet:(nonnull NSCharacterSet *)charSet
-                                             withString:(nonnull NSString *)aString;
-
-/**
  * A method which returns an instance of the NSString without any whitespaces
  */
 - (nonnull NSString *)stringByRemovingWhitespaces;

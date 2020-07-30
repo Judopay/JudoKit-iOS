@@ -41,13 +41,13 @@
 
 #pragma mark - Constants
 
-static const float kHorizontalImageEdgeInsets = 12.0f;
-static const float kLeadingTitleEdgeInset = -10.0f;
-static const float kStackViewSpacing = 16.0f;
-static const float kStackViewTopPadding = 60.0f;
-static const float kAddCardButtonHeight = 36.0f;
-static const float kAddCardBorderWidth = 1.0f;
-static const float kAddCardCornerRadius = 4.0f;
+static const float kHorizontalImageEdgeInsets = 12.0F;
+static const float kLeadingTitleEdgeInset = -10.0F;
+static const float kStackViewSpacing = 16.0F;
+static const float kStackViewTopPadding = 60.0F;
+static const float kAddCardButtonHeight = 36.0F;
+static const float kAddCardBorderWidth = 1.0F;
+static const float kAddCardCornerRadius = 4.0F;
 static const int kConstraintPriority = 999;
 
 #pragma mark - View model configuration

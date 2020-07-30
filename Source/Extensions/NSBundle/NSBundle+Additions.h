@@ -32,21 +32,29 @@
 /**
  * An initializer that points to the JudoKit framework
  */
-+ (instancetype)frameworkBundle;
++ (nonnull instancetype)frameworkBundle;
 
 /**
  * An initializer that points to the icons bundle inside the JudoKit framework
  */
-+ (instancetype)iconsBundle;
++ (nullable instancetype)iconsBundle;
 
 /**
  * An initializer that points to the strings bundle inside the JudoKit framework
  */
-+ (instancetype)stringsBundle;
++ (nullable instancetype)stringsBundle;
 
 /**
  * An initializer that points to the resources bundle inside the JudoKit framework
  */
-+ (instancetype)resourcesBundle;
++ (nullable instancetype)resourcesBundle;
+
+/**
+ * A getter that returns the URL Scheme from the app's Info.plist, used for app redirect calls.
+ * Transactions such as Pay by Bank App require a valid URL Scheme to be enabled.
+ *
+ * @returns a nullable NSString instance containing the URL Scheme name
+ */
++ (nullable NSString *)appURLScheme;
 
 @end

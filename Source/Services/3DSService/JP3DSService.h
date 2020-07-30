@@ -25,22 +25,19 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransaction;
+@class JPApiService, JP3DSConfiguration;
 
 @interface JP3DSService : NSObject
 
-/**
- * An instance of JPTransaction which will be used to send a 3DS request to the Judo backend
- */
-@property (nonatomic, strong) JPTransaction *transaction;
+- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService;
 
 /**
  * A method for invoking the 3D Secure View Controller based on a 3DS Error
  *
- * @param error - an instance of NSError which contains the 3D Secure payload (PaRes, MD, ACS URL, Receipt ID)
+ * @param configuration - an instance of JP3DSConfiguration which contains the 3D Secure payload (PaRes, MD, ACS URL, Receipt ID)
  * @param completion - a completion handler with an optional JPResponse / NSError
  */
-- (void)invoke3DSecureViewControllerWithError:(NSError *)error
-                                   completion:(JPCompletionBlock)completion;
+- (void)invoke3DSecureWithConfiguration:(nonnull JP3DSConfiguration *)configuration
+                             completion:(nonnull JPCompletionBlock)completion;
 
 @end

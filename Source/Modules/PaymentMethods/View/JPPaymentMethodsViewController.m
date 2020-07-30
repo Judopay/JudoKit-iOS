@@ -35,11 +35,10 @@
 #import "JPTransactionButton.h"
 #import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
-#import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
-@interface JPPaymentMethodsViewController ()
+@interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -108,6 +107,11 @@
 
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
+    self.paymentMethodsView.headerView.pbbaButton.delegate = self;
+}
+
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
+    [self.presenter handlePayButtonTap];
 }
 
 - (void)configureTargets {
@@ -306,8 +310,6 @@
 
 @end
 
-#pragma mark - JPTransactionViewDelegate
-
 @implementation JPPaymentMethodsViewController (TransactionDelegate)
 
 - (void)didFinishAddingCard {
@@ -317,6 +319,14 @@
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
 }
 
+- (void)didInputSecurityCode:(NSString *)cv2 {
+    [self.presenter handlePaymentWithSecurityCode:cv2];
+}
+
+- (void)didCancel {
+    [self.paymentMethodsView.headerView.payButton stopLoading];
+    self.paymentMethodsView.userInteractionEnabled = YES;
+}
 @end
 
 @implementation JPPaymentMethodsViewController (EditCardsDelegate)

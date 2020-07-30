@@ -26,7 +26,6 @@
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardView.h"
 #import "NSLayoutConstraint+Additions.h"
-#import "UIView+Additions.h"
 
 @interface JPCardCustomizationHeaderCell ()
 @property (nonatomic, strong) JPCardView *cardView;
@@ -37,8 +36,8 @@
 
 #pragma mark - Constants
 
-const float kHeaderCardAnchorConstants = 20.0f;
-const float kHeaderCardAspectRatio = 0.583;
+const float kHeaderCardAnchorConstants = 20.0F;
+const float kHeaderCardAspectRatio = 0.583F;
 
 #pragma mark - Theming
 

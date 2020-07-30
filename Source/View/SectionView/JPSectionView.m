@@ -44,14 +44,14 @@
 
 #pragma mark - Constants
 
-static const float kBackgroundPadding = 24.0f;
-static const float kBackgroundCornerRadius = 14.0f;
-static const float kContentPadding = 4.0f;
-static const float kContentHeight = 25.0f;
-static const float kAnimationDuration = 0.3f;
-static const float kSectionWidth = 120.0f;
-static const float kSectionHeight = 64.0f;
-static const float kSliderCornerRadius = 10.0f;
+static const float kBackgroundPadding = 24.0F;
+static const float kBackgroundCornerRadius = 14.0F;
+static const float kContentPadding = 4.0F;
+static const float kContentHeight = 25.0F;
+static const float kAnimationDuration = 0.3F;
+static const float kSectionWidth = 120.0F;
+static const float kSectionHeight = 64.0F;
+static const float kSliderCornerRadius = 10.0F;
 
 #pragma mark - Initializers
 
@@ -154,7 +154,7 @@ static const float kSliderCornerRadius = 10.0f;
 
 - (void)moveSliderToIndex:(NSUInteger)index {
 
-    CGFloat xPosition = kContentPadding + index * self.adaptiveSectionWidth;
+    CGFloat xPosition = kContentPadding + (double)index * self.adaptiveSectionWidth;
     CGFloat yPosition = kContentPadding;
     CGFloat width = self.adaptiveSectionWidth - kContentPadding * 2;
     CGFloat height = kSectionHeight - kContentPadding * 2;
@@ -188,11 +188,11 @@ static const float kSliderCornerRadius = 10.0f;
 - (CGFloat)adaptiveSectionWidth {
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
 
-    if (self.sections.count * kSectionWidth > screenWidth) {
+    if ((double)self.sections.count * kSectionWidth > screenWidth) {
         return kSectionWidth;
     }
 
-    return (screenWidth - kBackgroundPadding * 2) / self.sections.count;
+    return (screenWidth - kBackgroundPadding * 2) / (double)self.sections.count;
 }
 
 - (UIImageView *)generateSectionImageViewFromImage:(UIImage *)image {
@@ -280,9 +280,9 @@ static const float kSliderCornerRadius = 10.0f;
         _sliderView.translatesAutoresizingMaskIntoConstraints = NO;
         _sliderView.backgroundColor = UIColor.jpWhiteColor;
         _sliderView.layer.cornerRadius = kSliderCornerRadius;
-        _sliderView.layer.shadowRadius = 1.0f;
+        _sliderView.layer.shadowRadius = 1.0F;
         _sliderView.layer.shadowOffset = CGSizeMake(0, 2);
-        _sliderView.layer.shadowOpacity = 1.0f;
+        _sliderView.layer.shadowOpacity = 1.0F;
         _sliderView.layer.shadowColor = UIColor.jpGrayColor.CGColor;
     }
     return _sliderView;

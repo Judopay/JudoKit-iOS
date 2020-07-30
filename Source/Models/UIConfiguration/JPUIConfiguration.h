@@ -31,7 +31,17 @@
 /**
  * A boolean property that defines if the amount should be displayed on the payment method screen
  */
-@property (nonatomic, assign) BOOL shouldDisplayAmount;
+@property (nonatomic, assign) BOOL shouldPaymentMethodsDisplayAmount;
+
+/**
+ * A boolean property that defines if the amount should be displayed on the transaction screen
+ */
+@property (nonatomic, assign) BOOL shouldPaymentButtonDisplayAmount;
+
+/**
+ * A boolean property that defines if the SDK should verify security code when paying with card token
+ */
+@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
 
 /**
  * A boolean property that defines if AVS should be enabled during the payment flow

@@ -24,8 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPError+Additions.h"
-#import "JPError.h"
-#import "JPTransactionData.h"
+#import "JPResponse.h"
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
@@ -48,6 +47,8 @@ NSString *const Error3DSRequest = @"error_3DS_request";
 NSString *const ErrorUnderlyingError = @"error_underlying_error";
 NSString *const ErrorTransactionDeclined = @"error_transaction_declined";
 NSString *const ErrorInvalidIDEALCurrency = @"error_invalid_ideal_currency";
+NSString *const ErrorInvalidPBBACurrency = @"error_invalid_pbba_currency";
+NSString *const ErrorPBBAMissingURLScheme = @"error_pbba_missing_scheme";
 NSString *const ErrorApplePayNotSupported = @"error_apple_pay_unsupported";
 NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
 
@@ -69,6 +70,27 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                                                          title:nil];
 
     return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorParameterError
+                           userInfo:userInfo];
+}
+
++ (nonnull JPError *)judoInvalidPBBACurrency {
+    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
+                                                 failureReason:nil
+                                                         title:nil];
+
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorParameterError
+                           userInfo:userInfo];
+}
+
++ (NSError *)judoPBBAURLSchemeMissing {
+
+    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorPBBAMissingURLScheme.localized
+                                                 failureReason:nil
+                                                         title:nil];
+
+    return [NSError errorWithDomain:JudoErrorDomain
                                code:JudoErrorParameterError
                            userInfo:userInfo];
 }
@@ -174,10 +196,18 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
                                                                 title:UnableToProcessRequestErrorTitle.localized]];
 }
 
-+ (JPError *)judoErrorFromTransactionData:(JPTransactionData *)data {
++ (JPError *)judoErrorFromResponse:(JPResponse *)data {
     return [JPError errorWithDomain:JudoErrorDomain
                                code:JudoErrorTransactionDeclined
                            userInfo:data.rawData];
+}
+
++ (JPError *)judoErrorForDeclinedCard {
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorTransactionDeclined
+                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
+                                                        failureReason:nil
+                                                                title:UnableToProcessRequestErrorTitle.localized]];
 }
 
 + (JPError *)judoErrorFromDictionary:(NSDictionary *)dict {
@@ -276,6 +306,14 @@ NSString *const ErrorSiteIDMissing = @"error_site_id_missing";
     }
 
     return [JPError errorWithDomain:JudoErrorDomain code:JudoErrorInputMismatchError userInfo:nil];
+}
+
++ (JPError *)judoErrorCardDeclined {
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoErrorTransactionDeclined
+                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
+                                                        failureReason:nil
+                                                                title:UnableToProcessRequestErrorTitle.localized]];
 }
 
 + (NSDictionary *)userDataDictWithDescription:(NSString *)description

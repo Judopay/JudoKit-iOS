@@ -128,8 +128,8 @@
 - (void)animateBottomToTopCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
 
-    CGPoint oldPosition = CGPointMake(0.0f, (self.cardView.frame.size.height + self.frame.size.width / 2));
-    CGPoint newPosition = CGPointMake(0.0f, oldCardView.frame.size.height * 2);
+    CGPoint oldPosition = CGPointMake(0.0F, (self.cardView.frame.size.height + self.frame.size.width / 2));
+    CGPoint newPosition = CGPointMake(0.0F, oldCardView.frame.size.height * 2);
 
     [self transitionCard:oldCardView
            withViewModel:viewModel
@@ -140,8 +140,8 @@
 - (void)animateRightToLeftCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
 
-    CGPoint oldPosition = CGPointMake(-self.frame.size.width * 2, 0.0f);
-    CGPoint newPosition = CGPointMake(self.frame.size.width - 30, 0.0f);
+    CGPoint oldPosition = CGPointMake(-self.frame.size.width * 2, 0.0F);
+    CGPoint newPosition = CGPointMake(self.frame.size.width - 30, 0.0F);
 
     [self transitionCard:oldCardView
            withViewModel:viewModel
@@ -152,8 +152,8 @@
 - (void)animateLeftToRightCardChangeWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     JPCardView *oldCardView = self.cardView;
 
-    CGPoint oldPosition = CGPointMake(self.frame.size.width * 2, 0.0f);
-    CGPoint newPosition = CGPointMake(-self.frame.size.width - 30, 0.0f);
+    CGPoint oldPosition = CGPointMake(self.frame.size.width * 2, 0.0F);
+    CGPoint newPosition = CGPointMake(-self.frame.size.width - 30, 0.0F);
 
     [self transitionCard:oldCardView
            withViewModel:viewModel

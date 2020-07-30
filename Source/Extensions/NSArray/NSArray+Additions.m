@@ -23,20 +23,25 @@
 //  SOFTWARE.
 
 #import "NSArray+Additions.h"
+#import "NSObject+Additions.h"
 
 @implementation NSArray (Additions)
 
-- (BOOL)containsPrefix:(NSString *)prefix {
-    __block BOOL result = NO;
+- (NSArray *)toArrayOfDictionaries {
+    NSMutableArray *dictArray = [NSMutableArray new];
 
-    [self enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([prefix hasPrefix:obj]) {
-            *stop = YES;
-            result = YES;
+    for (NSObject *item in self) {
+        if ([item isKindOfClass:NSArray.class]) {
+            NSArray *array = (NSArray *)item;
+            if (array.count > 0) {
+                [dictArray addObject:[array toArrayOfDictionaries]];
+            }
+        } else {
+            [dictArray addObject:[item toDictionary]];
         }
-    }];
+    }
 
-    return result;
+    return [NSArray arrayWithArray:dictArray];
 }
 
 @end

@@ -25,7 +25,6 @@
 #import "JPInputField.h"
 #import "JPFloatingTextField.h"
 #import "JPTheme.h"
-#import "JPTransactionViewModel.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
 #import "UITextField+Additions.h"
@@ -150,7 +149,7 @@
 
 - (void)setupViews {
 
-    self.layer.cornerRadius = 6.0f;
+    self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor.jpLightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 

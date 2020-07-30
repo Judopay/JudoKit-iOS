@@ -24,12 +24,6 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for JudoKit_iOS.
-FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
-
-//! Project version string for JudoKit_iOS.
-FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
-
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
@@ -37,7 +31,9 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPBrowser.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
+#import "JPCardExpirationStatus.h"
 #import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPClientDetails.h"
 #import "JPConfiguration.h"
@@ -51,28 +47,52 @@ FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];
 #import "JPError.h"
 #import "JPIDEALBank.h"
 #import "JPOrderDetails.h"
-#import "JPPagination.h"
+#import "JPPBBAButton.h"
+#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodType.h"
 #import "JPPaymentMethods.h"
-#import "JPPaymentToken.h"
 #import "JPPostalAddress.h"
 #import "JPPrimaryAccountDetails.h"
 #import "JPReachability.h"
-#import "JPReceipt.h"
 #import "JPReference.h"
+#import "JPRequestEnricher.h"
 #import "JPResponse.h"
 #import "JPSDKInfo.h"
+#import "JPSection.h"
 #import "JPSession.h"
 #import "JPStoredCardDetails.h"
 #import "JPThemable.h"
 #import "JPTheme.h"
 #import "JPThreeDSecure.h"
-#import "JPTransaction.h"
-#import "JPTransactionData.h"
-#import "JPTransactionEnricher.h"
 #import "JPUIConfiguration.h"
-#import "JPVCOResult.h"
 #import "JPValidationResult.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
+
+#import "JPApiService.h"
+#import "JPApplePayRequest.h"
+#import "JPPaymentRequest.h"
+#import "JPRequest.h"
+
+#import "JP3DSecureAuthenticationResult.h"
+#import "JPApplePayRequest.h"
+#import "JPBankOrderSaleRequest.h"
+#import "JPCheckCardRequest.h"
+#import "JPPaymentRequest.h"
+#import "JPRegisterCardRequest.h"
+#import "JPRequest.h"
+#import "JPSaveCardRequest.h"
+#import "JPTokenRequest.h"
+
+#import "JPAuthorization.h"
+#import "JPBasicAuthorization.h"
+#import "JPSessionAuthorization.h"
+#import "UIColor+Additions.h"
+#import "UIFont+Additions.h"
+
+//! Project version number for JudoKit_iOS.
+FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
+
+//! Project version string for JudoKit_iOS.
+FOUNDATION_EXPORT const unsigned char JudoKit_iOSVersionString[];

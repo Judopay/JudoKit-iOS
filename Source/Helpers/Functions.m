@@ -22,8 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 
@@ -96,4 +94,11 @@ NSString *getIPAddress() {
 
     freeifaddrs(interfaces);
     return address;
+}
+
+NSString *generateBasicAuthHeader(NSString *token, NSString *secret) {
+    NSString *formattedString = [NSString stringWithFormat:@"%@:%@", token, secret];
+    NSData *encodedStringData = [formattedString dataUsingEncoding:NSISOLatin1StringEncoding];
+    NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
+    return [NSString stringWithFormat:@"Basic %@", base64String];
 }

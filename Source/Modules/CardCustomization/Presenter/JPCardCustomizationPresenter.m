@@ -28,7 +28,6 @@
 #import "JPCardCustomizationViewController.h"
 #import "JPCardCustomizationViewModel.h"
 #import "JPCardPattern.h"
-#import "JPConstants.h"
 #import "JPStoredCardDetails.h"
 #import "NSString+Additions.h"
 

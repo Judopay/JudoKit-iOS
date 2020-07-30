@@ -28,7 +28,6 @@
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
-#import <Foundation/Foundation.h>
 
 @implementation NSString (Additions)
 
@@ -51,19 +50,6 @@
     return self.isLuhnValid;
 }
 
-- (NSString *)stringByReplacingCharactersInSet:(NSCharacterSet *)charSet withString:(NSString *)aString {
-    NSMutableString *string = [NSMutableString stringWithCapacity:self.length];
-    for (NSUInteger index = 0; index < self.length; ++index) {
-        unichar character = [self characterAtIndex:index];
-        if ([charSet characterIsMember:character]) {
-            [string appendString:aString];
-        } else {
-            [string appendFormat:@"%C", character];
-        }
-    }
-    return string;
-}
-
 - (NSString *)stringByRemovingWhitespaces {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
@@ -77,10 +63,10 @@
         const char element = patternString[patternIndex];
 
         if (element == 'X') {
-            char num = [self characterAtIndex:i];
+            unichar num = [self characterAtIndex:i];
             returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@"%c", num]];
         } else {
-            char num = [self characterAtIndex:i];
+            unichar num = [self characterAtIndex:i];
             returnString = [returnString stringByAppendingString:[NSString stringWithFormat:@" %c", num]];
             patternIndex++;
         }
@@ -89,12 +75,6 @@
     }
 
     return returnString;
-}
-
-- (BOOL)isNumeric {
-    NSString *regexPattern = @"^[0-9]*$";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
-    return [regex matchesInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)].count;
 }
 
 - (BOOL)isLuhnValid {

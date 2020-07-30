@@ -22,13 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTransactionStatusView.h"
 #import <Foundation/Foundation.h>
 
 @protocol JPPaymentMethodsView
 , JPPaymentMethodsInteractor, JPPaymentMethodsRouter;
-@class JPPaymentMethodsCardModel;
+@class JPPaymentMethodsCardModel, JPConfiguration;
 
 @protocol JPPaymentMethodsPresenter
+
+/**
+* A method that hadle payment
+*/
+- (void)handlePaymentWithSecurityCode:(nullable NSString *)code;
 
 /**
  * A method that updates the view model with the latest state and refreshes the view
@@ -104,18 +110,26 @@
 @interface JPPaymentMethodsPresenterImpl : NSObject <JPPaymentMethodsPresenter>
 
 /**
+ * A designated initializer that sets up the JPTheme object needed for view customization
+ *
+ * @param configuration - reference to the JPConfiguration object used to configure the payment flow
+ * @returns a configured instance of JPPaymentMethodsPresenterImpl
+ */
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
+
+/**
  * A weak reference to the view that adops the  JPPaymentMethodsView protocol
  */
-@property (nonatomic, weak) id<JPPaymentMethodsView> view;
+@property (nonatomic, weak) id<JPPaymentMethodsView> _Nullable view;
 
 /**
  * A strong reference to the router that adops the  JPPaymentMethodsRouter protocol
  */
-@property (nonatomic, strong) id<JPPaymentMethodsRouter> router;
+@property (nonatomic, strong) id<JPPaymentMethodsRouter> _Nullable router;
 
 /**
  * A strong reference to the interactor that adops the  JPPaymentMethodsInteractor protocol
  */
-@property (nonatomic, strong) id<JPPaymentMethodsInteractor> interactor;
+@property (nonatomic, strong) id<JPPaymentMethodsInteractor> _Nullable interactor;
 
 @end

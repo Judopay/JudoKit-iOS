@@ -24,20 +24,19 @@
 
 #import "JPTransactionViewController.h"
 #import "JPCardInputField.h"
+#import "JPCardInputView.h"
 #import "JPCardNumberField.h"
-#import "JPInputField.h"
 #import "JPLoadingButton.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
-#import "JPTransactionView.h"
-#import "JPTransactionViewModel.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 
 @interface JPTransactionViewController ()
-@property (nonatomic, strong) JPTransactionView *addCardView;
+@property (nonatomic, strong) JPCardInputView *addCardView;
 @property (nonatomic, strong) NSArray *countryNames;
+@property (nonatomic, assign) JPCardDetailsMode mode;
 @end
 
 @implementation JPTransactionViewController
@@ -45,10 +44,14 @@
 #pragma mark - View Lifecycle
 
 - (void)loadView {
-    self.addCardView = [JPTransactionView new];
-    [self.addCardView applyTheme:self.theme];
     [self.presenter prepareInitialViewModel];
+}
+
+- (void)loadViewWithMode:(JPCardDetailsMode)mode {
+    self.mode = mode;
+    self.addCardView = [[JPCardInputView alloc] initWithCardDetailsMode:self.mode];
     self.view = self.addCardView;
+    [self.addCardView applyTheme:self.theme];
     [self addTargets];
     [self addGestureRecognizers];
 }
@@ -74,13 +77,19 @@
 }
 
 - (void)onCancelButtonTap {
+    [self.delegate didCancel];
     [self.presenter handleCancelButtonTap];
 }
 
-- (void)onTransactionButtonTap {
+- (void)onAddCardButtonTap {
     [self.addCardView.addCardButton startLoading];
     [self.addCardView enableUserInterface:NO];
     [self.presenter handleTransactionButtonTap];
+}
+
+- (void)onPayWithSecurityCodeButtonTap {
+    [self.delegate didInputSecurityCode:self.addCardView.secureCodeTextField.text];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)onScanCardButtonTap {
@@ -91,7 +100,7 @@
 #pragma mark - View protocol methods
 
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel {
-    if ([viewModel shouldDisplayAVSFields]) {
+    if (viewModel.mode == JPCardDetailsModeAVS) {
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
         self.countryNames = viewModel.countryPickerViewModel.pickerTitles;
@@ -124,9 +133,8 @@
 }
 
 - (void)displayCameraPermissionsAlert {
-    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
-                                                        andMessage:[NSString stringWithFormat:@"scan_card_no_permission_message".localized, appName]];
+                                                        andMessage:@"scan_card_no_permission_message".localized];
 
     UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
                                                                  style:UIAlertActionStyleDefault
@@ -162,8 +170,17 @@
 
 - (void)addTargets {
     [self connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    [self connectButton:self.addCardView.addCardButton withSelector:@selector(onTransactionButtonTap)];
-    [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
+    switch (self.mode) {
+        case JPCardDetailsModeDefault:
+        case JPCardDetailsModeAVS:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
+            [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
+            break;
+        case JPCardDetailsModeSecurityCode:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
+        default:
+            break;
+    }
 
     self.addCardView.cardNumberTextField.delegate = self;
     self.addCardView.cardHolderTextField.delegate = self;

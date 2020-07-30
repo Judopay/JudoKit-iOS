@@ -24,6 +24,7 @@
 
 #import "JPInputFieldDelegate.h"
 #import "JPTransactionViewDelegate.h"
+#import "JPTransactionViewModel.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPTransactionPresenter;
@@ -37,6 +38,11 @@
  * A method that updates the view based on the provided view model
  */
 - (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel;
+
+/**
+ * A method that updates the view based on the provided view model
+ */
+- (void)loadViewWithMode:(JPCardDetailsMode)mode;
 
 /**
  * A method that updates the view with an error

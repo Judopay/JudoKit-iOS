@@ -22,17 +22,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPTransactionService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
+@class JPApiService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
 
 @protocol JPPaymentMethodsRouter
 /**
  * A method that opens up the Add Card view for entering new card details
  */
-- (void)navigateToTransactionModule;
+- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork andTransactionType:(JPTransactionType)transactionType;
 
 /**
  * A method that displays the iDEAL bank web page in order to complete the transaction
@@ -68,12 +69,12 @@
  * Designated initializer that creates a JPPaymentMethodsRouterImpl instance
  *
  * @param configuration - a JPConfiguration object used to configure the Payment Method screen flow
- * @param transactionService - a JPTransactionService responsible for all Judo backend requests
+ * @param apiService - a JPApiService responsible for all Judo backend requests
  * @param transitioningDelegate - a JPSliderTransitioningDelegate object used to customize the view controller transition.
  * @param completion - an optional JPResponse and NSError completion block
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           transactionService:(nonnull JPTransactionService *)transactionService
+                                   apiService:(nonnull JPApiService *)apiService
                         transitioningDelegate:(JPSliderTransitioningDelegate *_Nonnull)transitioningDelegate
                                    completion:(JPCompletionBlock _Nonnull)completion;
 

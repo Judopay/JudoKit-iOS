@@ -24,10 +24,6 @@
 
 #import "JPCard.h"
 
-@interface JPCard ()
-
-@end
-
 @implementation JPCard
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber

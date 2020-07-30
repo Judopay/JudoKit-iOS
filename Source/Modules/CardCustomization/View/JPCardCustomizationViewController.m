@@ -46,11 +46,11 @@
 
 #pragma mark - Constants
 
-const float kCustomizationViewTopBarPadding = 20.0f;
-const float kCustomizationViewBackButtonSize = 22.0f;
+const float kCustomizationViewTopBarPadding = 20.0F;
+const float kCustomizationViewBackButtonSize = 22.0F;
 const int kCustomizationViewMaxInputLength = 28;
-const float kCustomizationViewWhiteGradientLocation = 0.8f;
-const float kCustomizationViewClearGradientLocation = 1.0f;
+const float kCustomizationViewWhiteGradientLocation = 0.8F;
+const float kCustomizationViewClearGradientLocation = 1.0F;
 
 #pragma mark - View lifecycle
 
@@ -244,7 +244,7 @@ const float kCustomizationViewClearGradientLocation = 1.0f;
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
     if (text.length > kCustomizationViewMaxInputLength) {
-        [inputField displayErrorWithText:@"card_title_length_warning".localized];
+        [inputField displayErrorWithText:@"error_card_title_too_long".localized];
         return NO;
     }
     [inputField clearError];

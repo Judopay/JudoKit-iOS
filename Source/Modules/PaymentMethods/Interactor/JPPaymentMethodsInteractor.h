@@ -23,10 +23,12 @@
 //  SOFTWARE.
 
 #import "JPTransactionMode.h"
+#import "JPTransactionStatusView.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
+#import <ZappMerchantLib/PBBAAppUtils.h>
 
-@class JPConfiguration, JPTransactionService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
+@class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
 @protocol JPPaymentMethodsInteractor
 
@@ -56,12 +58,23 @@
  * Sends a payment transaction based on a stored card token
  */
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
+                    andSecurityCode:(nullable NSString *)securityCode
                       andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the Apple Pay payment / preAuth flow
  */
 - (void)startApplePayWithCompletion:(nullable JPCompletionBlock)completion;
+
+/**
+ * Starts the PBBA payment
+*/
+- (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
+
+/**
+ * Starts the PBBA polling
+*/
+- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -111,6 +124,16 @@
 - (nonnull NSArray *)getIDEALBankTypes;
 
 /**
+* A method which returns index of pbba method
+*/
+- (NSInteger)indexOfPBBAMethod;
+
+/**
+* A method which returns bool value for security code
+*/
+- (BOOL)shouldVerifySecurityCode;
+
+/**
  * A method that triggers the completion handler passed by the merchant with an optional response / error
  *
  * @param response - an optional instance of the JPResponse object that contains the response details
@@ -135,14 +158,14 @@
  *
  * @param mode - the transaction mode value that can be set to either Payment or PreAuth
  * @param configuration - reference to the JPConfiguration object used to configure the payment flow
- * @param transactionService - the service used to handle Judo backend calls
+ * @param apiService - the service used to handle Judo backend calls
  * @param completion - a JPResponse / NSError completion block
  *
  * @returns a configured instance of JPPaymentMethodsInteractor
  */
 - (nonnull instancetype)initWithMode:(JPTransactionMode)mode
                        configuration:(nonnull JPConfiguration *)configuration
-                  transactionService:(nonnull JPTransactionService *)transactionService
+                          apiService:(nonnull JPApiService *)apiService
                           completion:(nullable JPCompletionBlock)completion;
 
 @end

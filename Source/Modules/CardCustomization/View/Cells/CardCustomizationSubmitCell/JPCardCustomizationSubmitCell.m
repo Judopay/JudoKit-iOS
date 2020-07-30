@@ -42,13 +42,13 @@
 
 #pragma mark - Constants
 
-const float kSubmitStackViewSpacing = 3.0f;
-const float kSubmitStackViewTop = 70.0f;
-const float kSubmitStackViewBottom = 30.0f;
-const float kSubmitStackViewLeading = 0.0f;
-const float kSubmitStackViewTrailing = 24.0f;
-const float kSubmitStackViewHeight = 46.0f;
-const float kSubmitSaveButtonWidth = 200.0f;
+const float kSubmitStackViewSpacing = 3.0F;
+const float kSubmitStackViewTop = 70.0F;
+const float kSubmitStackViewBottom = 30.0F;
+const float kSubmitStackViewLeading = 0.0F;
+const float kSubmitStackViewTrailing = 24.0F;
+const float kSubmitStackViewHeight = 46.0F;
+const float kSubmitSaveButtonWidth = 200.0F;
 
 #pragma mark - Theming
 

@@ -23,38 +23,63 @@
 //  SOFTWARE.
 
 #import "AppDelegate.h"
-#import "JPCardStorage.h"
 #import "Settings.h"
 #import "ExampleAppCredentials.h"
+#import "MainViewController.h"
 
 @import CocoaDebug;
 @import JudoKit_iOS;
+
+@interface AppDelegate()
+@property (nonatomic, assign) BOOL appIsLaunchedFromURL;
+@end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load settings defaults
     [self registerDefaultsFromSettingsBundle];
-    
+
     // Enable debug inspector
     [CocoaDebug enable];
-    
+
+    self.appIsLaunchedFromURL = false;
+    NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (applicationOpenURL) {
+        self.appIsLaunchedFromURL = true;
+    }
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (self.appIsLaunchedFromURL) {
+        //TODO: this should be refactored, probably to move away from storyboards, will be addressed in the `Results` screen PR
+        UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
+        UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        self.window.rootViewController = homeNavigationController;
+        [self.window makeKeyAndVisible];
+        [viewController openPBBAScreen:url];
+    }
+    self.appIsLaunchedFromURL = false;
+
+    return true;
 }
 
 - (void)registerDefaultsFromSettingsBundle {
     NSString *settingsBundle = [NSBundle.mainBundle pathForResource:@"Settings" ofType:@"bundle"];
-    
+
     if(!settingsBundle) {
         return;
     }
-    
+
     NSString *stringsPath = [settingsBundle stringByAppendingPathComponent:@"Root.plist"];
     NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:stringsPath];
     NSArray *preferences = settings[@"PreferenceSpecifiers"];
-    
+
     NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
-    
+
     NSDictionary *secretsMapping = @{
         kJudoIdKey: judoId,
         kSiteIdKey: siteId,
@@ -62,20 +87,20 @@
         kSecretKey: secret,
         kMerchantIdKey: merchantId,
     };
-    
+
     for(NSDictionary *preference in preferences) {
         NSString *key = preference[@"Key"];
         if (!key) {
             continue;
         }
-        
+
         if([preference.allKeys containsObject:@"DefaultValue"]) {
             defaultsToRegister[key] = preference[@"DefaultValue"];
         } else if ([secretsMapping.allKeys containsObject:key]) {
             defaultsToRegister[key] = secretsMapping[key];
         }
     }
-    
+
     [NSUserDefaults.standardUserDefaults registerDefaults:defaultsToRegister];
 }
 

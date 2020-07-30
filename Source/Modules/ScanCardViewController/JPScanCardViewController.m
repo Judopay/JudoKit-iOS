@@ -143,7 +143,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"scan_card_message_title".localized;
+        _titleLabel.text = @"wocr_hint_position_card_in_frame".localized;
     }
     return _titleLabel;
 }
@@ -151,7 +151,7 @@
 - (UILabel *)subtitleLabel {
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
-        _subtitleLabel.text = @"scan_card_message_subtitle".localized;
+        _subtitleLabel.text = @"wocr_automatically_scan".localized;
     }
     return _subtitleLabel;
 }

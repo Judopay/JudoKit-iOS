@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28229247D308B00F9862B /* PBBAViewController.m */; };
+		07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD7C572488F67200B253B4 /* ExampleAppStorage.m */; };
+		07D84C042497B35E000D7197 /* PayWithCardTokenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */; };
 		0D39BA40400F0D8DF1F35225 /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */; };
 		23DCF27D58A18EF25392B811 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
@@ -23,6 +26,7 @@
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
+		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
 		D9E096B89DC711101BD2C6D6 /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07B28228247D308B00F9862B /* PBBAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBAViewController.h; sourceTree = "<group>"; };
+		07B28229247D308B00F9862B /* PBBAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBAViewController.m; sourceTree = "<group>"; };
+		07CD7C562488F67200B253B4 /* ExampleAppStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppStorage.h; sourceTree = "<group>"; };
+		07CD7C572488F67200B253B4 /* ExampleAppStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAppStorage.m; sourceTree = "<group>"; };
+		07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWithCardTokenViewController.m; sourceTree = "<group>"; };
+		07D84C032497B35E000D7197 /* PayWithCardTokenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWithCardTokenViewController.h; sourceTree = "<group>"; };
 		0DCD412286DED20EC2028ACD /* Pods-ObjectiveCExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +100,8 @@
 		9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48506C24BC1772C11EA8BC /* Pods-ObjectiveCExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CEFF4FFEB0483C186BE3DDB /* Pods-ObjectiveCExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IASKAppSettingsViewController+Additions.h"; sourceTree = "<group>"; };
+		A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IASKAppSettingsViewController+Additions.m"; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +133,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07B28227247D302C00F9862B /* PBBA */ = {
+			isa = PBXGroup;
+			children = (
+				07B28228247D308B00F9862B /* PBBAViewController.h */,
+				07B28229247D308B00F9862B /* PBBAViewController.m */,
+			);
+			path = PBBA;
+			sourceTree = "<group>";
+		};
+		07CD7C552488F64900B253B4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				07CD7C562488F67200B253B4 /* ExampleAppStorage.h */,
+				07CD7C572488F67200B253B4 /* ExampleAppStorage.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		07D84C012497B331000D7197 /* TokenPay */ = {
+			isa = PBXGroup;
+			children = (
+				07D84C032497B35E000D7197 /* PayWithCardTokenViewController.h */,
+				07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */,
+			);
+			path = TokenPay;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +189,7 @@
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
 				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
 				449495042450ED870050C6A0 /* ExampleAppCredentials.h */,
+				A75B33187564297D32751980 /* Extensions */,
 				449495102450ED870050C6A0 /* Models */,
 				449495052450ED870050C6A0 /* Controllers */,
 				449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */,
@@ -183,6 +223,8 @@
 		449495052450ED870050C6A0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				07D84C012497B331000D7197 /* TokenPay */,
+				07B28227247D302C00F9862B /* PBBA */,
 				449495062450ED870050C6A0 /* Details */,
 				4494950C2450ED870050C6A0 /* Main */,
 			);
@@ -204,6 +246,7 @@
 		4494950C2450ED870050C6A0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				07CD7C552488F64900B253B4 /* Service */,
 				4494950D2450ED870050C6A0 /* MainViewController.m */,
 				4494950E2450ED870050C6A0 /* MainViewController.h */,
 			);
@@ -229,6 +272,15 @@
 				4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A75B33187564297D32751980 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */,
+				A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EE7B4BE418A8C03392F6261E /* Pods */ = {
@@ -490,12 +542,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */,
+				07D84C042497B35E000D7197 /* PayWithCardTokenViewController.m in Sources */,
 				4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */,
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
+				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
+				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				449495172450ED870050C6A0 /* DetailsTableViewController.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				449495152450ED870050C6A0 /* DetailViewController.m in Sources */,
 				4494951A2450ED870050C6A0 /* Settings.m in Sources */,
+				A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

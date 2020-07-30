@@ -32,7 +32,6 @@
 
 @interface JPCardValidationService ()
 
-@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, strong) NSString *selectedJPBillingCountry;
 @end
@@ -173,21 +172,6 @@ static int const kCardHolderNameLength = 3;
                                        inputAllowed:NO
                                        errorMessage:nil
                                      formattedInput:input];
-}
-
-#pragma mark - Getters
-
-- (NSArray *)acceptedCardNetworks {
-    return @[
-        @(JPCardNetworkTypeVisa),
-        @(JPCardNetworkTypeAMEX),
-        @(JPCardNetworkTypeMasterCard),
-        @(JPCardNetworkTypeMaestro),
-        @(JPCardNetworkTypeDiscover),
-        @(JPCardNetworkTypeJCB),
-        @(JPCardNetworkTypeDinersClub),
-        @(JPCardNetworkTypeChinaUnionPay),
-    ];
 }
 
 #pragma mark - Expiry Date Validation Methods
