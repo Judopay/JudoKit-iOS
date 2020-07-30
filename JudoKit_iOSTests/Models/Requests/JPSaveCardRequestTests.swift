@@ -41,7 +41,7 @@ class JPSaveCardRequestTests: XCTestCase {
      *
      *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
      *
-     *  THEN: The amount and currency is going to be nil ragardless of value
+     *  THEN: The amount and currency is going to be nil regardless of value
      */
     func test_onDefaultInitialization_SetValidProperties() {
         let saveCardRequest = JPSaveCardRequest(configuration: configuration)

@@ -53,7 +53,7 @@ class JPPBBAServiceTest: XCTestCase {
      *
      * THEN: should return non nil response and equal with Success status
      */
-    func test_PollingPBBAMerchantApp_WhenReceiveDeeplink_ShouldBeNotNill() {
+    func test_PollingPBBAMerchantApp_WhenReceiveDeeplink_ShouldBeNotNil() {
         let expectation = self.expectation(description: "get response from pbba polling")
         
         let completion: JPCompletionBlock = { (response, error) in
