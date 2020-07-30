@@ -34,10 +34,6 @@ static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
     return [self.defaults stringForKey:kJudoIdKey];
 }
 
-- (NSString *)siteId {
-    return [self.defaults stringForKey:kSiteIdKey];
-}
-
 #pragma mark - Authorization
 
 NSString *safeString(NSString *aString) {

@@ -34,25 +34,5 @@ class JPPaymentMethodsRouterTest: XCTestCase {
         sut = JPPaymentMethodsRouterImpl()
         sut.viewController = controller
     }
-    
-    /*
-     * GIVEN: send user to iDeal controller
-     *
-     * WHEN: siteid is missing
-     *
-     * THEN: should return error from router
-     */
-    func test_NavigateToIDEALModuleWithBank_WhenNoSiteID_ShouldReturnError() {
-        let bank = JPIDEALBank(type: .ING)
-        
-        let expectation = self.expectation(description: "site id is missing for iDeal")
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNil(response)
-            XCTAssertNotNil(error)
-            expectation.fulfill()
-        }
-        
-        sut.navigateToIDEALModule(with: bank, andCompletion: completion)
-        waitForExpectations(timeout: 1, handler: nil)
-    }
+  
 }

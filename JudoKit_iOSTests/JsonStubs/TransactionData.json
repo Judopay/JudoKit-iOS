@@ -9,7 +9,7 @@
     "appearsOnStatementAs":"appearsOnStatementAs",
     "paymentMethod":"paymentMethod",
     "refunds":"refunds",
-    "siteId":"siteId",
+    "judoId":"judoId",
     "merchantPaymentReference":"merchantPaymentReference",
     "consumer":{"consumerReference":"consumerReference",
         "consumerToken":"consumerToken"},

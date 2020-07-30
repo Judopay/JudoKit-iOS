@@ -41,7 +41,6 @@ class JPBankOrderRequestTests: XCTestCase {
         reference.metaData = ["exampleKey": "exampleValue"];
         
         let configuration = JPConfiguration(judoID: "judoID", amount: amount, reference: reference)
-        configuration.siteId = "12345";
         
         return configuration
     }
@@ -56,7 +55,7 @@ class JPBankOrderRequestTests: XCTestCase {
     func test_onDefaultInitialization_SetValidProperties() {
         let bankRequest = JPBankOrderSaleRequest(configuration: configuration)
         
-        XCTAssertEqual(bankRequest.siteId, configuration.siteId)
+        XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
         XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
@@ -76,7 +75,7 @@ class JPBankOrderRequestTests: XCTestCase {
     func test_onIDEALInitialization_SetIDEALProperties() {
         let bankRequest = JPBankOrderSaleRequest.idealRequest(with: configuration, andBIC: "12345")
         
-        XCTAssertEqual(bankRequest.siteId, configuration.siteId)
+        XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
         XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
@@ -101,7 +100,7 @@ class JPBankOrderRequestTests: XCTestCase {
     func test_onPayByBankInitialization_SetPBBAProperties() {
         let bankRequest = JPBankOrderSaleRequest.pbbaRequest(with: configuration)
         
-        XCTAssertEqual(bankRequest.siteId, configuration.siteId)
+        XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
         XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)

@@ -36,7 +36,7 @@
 /**
  * A reference to the site ID
  */
-@property (nonatomic, strong, nullable) NSString *siteId;
+@property (nonatomic, strong, nullable) NSString *judoId;
 
 /**
  * A reference to the bank identifier code
