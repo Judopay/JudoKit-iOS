@@ -149,7 +149,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
                "merchantName":"merchantName",
                "appearsOnStatementAs":"appearsOnStatementAs",
                "paymentMethod":"paymentMethod",
-               "siteId":"siteId",
+               "judoId":"judoId",
                "merchantPaymentReference":"merchantPaymentReference",
                "consumer":["consumerReference":"consumerReference",
                            "consumerToken":"consumerToken"],

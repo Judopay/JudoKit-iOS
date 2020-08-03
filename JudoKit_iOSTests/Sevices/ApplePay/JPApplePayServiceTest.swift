@@ -46,7 +46,7 @@ class JPApplePayServiceTest: XCTestCase {
      *
      * THEN: should return true
      */
-    func test_IsApplePaySetUp_WhenCallingApplePay_ShouldReturnTrueForSimlator() {
+    func test_IsApplePaySetUp_WhenCallingApplePay_ShouldReturnTrueForSimulator() {
         let isApplePaySetUp = sut.isApplePaySetUp()
         XCTAssertTrue(isApplePaySetUp)
     }
@@ -90,7 +90,7 @@ class JPApplePayServiceTest: XCTestCase {
      *
      * WHEN: with configuration and service
      *
-     * THEN: should create correct non nill JPApplePayService object
+     * THEN: should create correct non nil JPApplePayService object
      */
     func test_InitAppleService_WhenClassInit_ShouldCreateObject() {
         let sut = JPApplePayService()
@@ -100,9 +100,9 @@ class JPApplePayServiceTest: XCTestCase {
     /*
      * GIVEN: Creating UIViewController with class Init
      *
-     * WHEN: with type and nil complection
+     * WHEN: with type and nil completion
      *
-     * THEN: should return nill UIViewController object
+     * THEN: should return nil UIViewController object
      */
     func test_initController_WhenPaymentType_ShouldCreateController() {
         configuration.applePayConfiguration?.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]

@@ -300,7 +300,6 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     JPConfiguration *configuration = [[JPConfiguration alloc] initWithJudoID:Settings.defaultSettings.judoId
                                                                       amount:Settings.defaultSettings.amount
                                                                    reference:Settings.defaultSettings.reference];
-    configuration.siteId = Settings.defaultSettings.siteId;
     configuration.paymentMethods = Settings.defaultSettings.paymentMethods;
     configuration.uiConfiguration.isAVSEnabled = Settings.defaultSettings.isAVSEnabled;
     configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = Settings.defaultSettings.shouldPaymentMethodsDisplayAmount;

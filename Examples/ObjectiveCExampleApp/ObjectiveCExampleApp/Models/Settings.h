@@ -7,7 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString * const kSandboxedKey = @"is_sandboxed";
 static NSString * const kJudoIdKey = @"judo_id";
-static NSString * const kSiteIdKey = @"site_id";
 
 #pragma mark - Authorization section keys
 
@@ -69,7 +68,6 @@ static NSString * const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_s
 - (BOOL)isSandboxed;
 
 -(NSString *)judoId;
--(NSString *)siteId;
 
 #pragma mark - Authorization
 

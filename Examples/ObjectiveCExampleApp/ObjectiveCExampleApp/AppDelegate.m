@@ -82,7 +82,6 @@
 
     NSDictionary *secretsMapping = @{
         kJudoIdKey: judoId,
-        kSiteIdKey: siteId,
         kTokenKey: token,
         kSecretKey: secret,
         kMerchantIdKey: merchantId,

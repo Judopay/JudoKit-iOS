@@ -35,11 +35,6 @@
 @property (nonatomic, strong, readonly) NSString *_Nullable judoId;
 
 /**
- * The Site ID required for iDEAL transactions
- */
-@property (nonatomic, strong) NSString *_Nullable siteId;
-
-/**
  * The Receipt ID required for Refund, Void and Collection transactions
  */
 @property (nonatomic, strong, readonly) NSString *_Nullable receiptId;

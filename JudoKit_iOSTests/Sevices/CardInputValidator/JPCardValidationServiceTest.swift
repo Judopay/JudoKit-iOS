@@ -267,7 +267,7 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
      * GIVEN: validate Expiry Date
      *
-     * WHEN: more then 5 characthers
+     * WHEN: more then 5 characters
      *
      * THEN: should return isInputAllowed = false
      */

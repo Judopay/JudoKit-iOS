@@ -82,11 +82,6 @@
 - (void)navigateToIDEALModuleWithBank:(JPIDEALBank *)bank
                         andCompletion:(JPCompletionBlock)completion {
 
-    if (!self.configuration.siteId) {
-        completion(nil, JPError.judoParameterError);
-        return;
-    }
-
     JPIDEALViewController *controller;
     controller = [[JPIDEALViewController alloc] initWithIDEALBank:bank
                                                     configuration:self.configuration

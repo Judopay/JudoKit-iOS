@@ -44,26 +44,7 @@ class JPIDEALServiceTest: XCTestCase {
         HTTPStubs.removeAllStubs()
         super.tearDown()
     }
-    
-    /*
-     * GIVEN: JPIDEALService calling bank sale point
-     *
-     * WHEN: "siteId" is empty in configuration model
-     *
-     * THEN: should throw "Site ID is missing" in error
-     */
-    func test_RedirectURL_WhenSiteIdIsMissong_ShouldThrowError() {
-        let expectation = self.expectation(description: "site id is missing for iDeal")
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNil(response)
-            XCTAssertEqual(error?.localizedDescription, "Site ID is missing")
-            expectation.fulfill()
-        }
-        
-        sut.redirectURL(for: bank, completion: completion)
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
+  
     /*
      * GIVEN: JPIDEALService calling bank sale point
      *
@@ -72,7 +53,6 @@ class JPIDEALServiceTest: XCTestCase {
      * THEN: should return valid response
      */
     func test_RedirectURL_WhenBankiDeal_ShouldReturnValidiDealResponse() {
-        configuration.siteId = "siteId"
         
         let expectation = self.expectation(description: "get response from iDeal sale")
         let completion: JPCompletionBlock = { (response, error) in

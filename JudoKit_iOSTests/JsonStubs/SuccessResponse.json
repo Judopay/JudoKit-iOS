@@ -1,6 +1,6 @@
 {
     "paymentMethod":"IDEAL",
-    "siteId": "xxx-xxx-siteId",
+    "judoId": "xxx-xxx-judoId",
     "redirectUrl": "redirectUrl",
     "orderDetails": {
         "orderId": "xxx-orderid",
