@@ -1,5 +1,5 @@
 github "Judopay/DeviceDNA-iOS" "1.1.2"
-github "Judopay/JudoKit-iOS" "e2b06726c04441eb546236c4de3e544af07aca45"
+github "Judopay/JudoKit-iOS" "v2.0.1"
 github "Judopay/pbba-merchant-button-library-ios" "3.1.2"
 github "datatheorem/TrustKit" "1.6.4"
 github "faceterteam/PayCards_iOS" "1.1.7"
