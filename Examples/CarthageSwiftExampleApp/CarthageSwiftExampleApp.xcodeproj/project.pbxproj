@@ -13,7 +13,35 @@
 		4490AD6824DD5E6F00948F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4490AD6624DD5E6F00948F7F /* Main.storyboard */; };
 		4490AD6A24DD5E7100948F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4490AD6924DD5E7100948F7F /* Assets.xcassets */; };
 		4490AD6D24DD5E7100948F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4490AD6B24DD5E7100948F7F /* LaunchScreen.storyboard */; };
+		4490AD9A24DD8B1500948F7F /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7724DD77A400948F7F /* JudoKit_iOS.framework */; };
+		4490AD9B24DD8B1500948F7F /* JudoKit_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7724DD77A400948F7F /* JudoKit_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4490AD9C24DD8B1500948F7F /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7824DD77A400948F7F /* TrustKit.framework */; };
+		4490AD9D24DD8B1500948F7F /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7824DD77A400948F7F /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4490AD9E24DD8B1500948F7F /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7924DD77A400948F7F /* ZappMerchantLib.framework */; };
+		4490AD9F24DD8B1500948F7F /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7924DD77A400948F7F /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4490ADA524DD8B4500948F7F /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490ADA424DD8B4500948F7F /* PayCardsRecognizer.framework */; };
+		4490ADA624DD8B4500948F7F /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4490ADA424DD8B4500948F7F /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4490ADA824DD8B5000948F7F /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490ADA724DD8B5000948F7F /* DeviceDNA.framework */; };
+		4490ADA924DD8B5000948F7F /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4490ADA724DD8B5000948F7F /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4490ADA024DD8B1500948F7F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4490AD9F24DD8B1500948F7F /* ZappMerchantLib.framework in Embed Frameworks */,
+				4490AD9D24DD8B1500948F7F /* TrustKit.framework in Embed Frameworks */,
+				4490ADA624DD8B4500948F7F /* PayCardsRecognizer.framework in Embed Frameworks */,
+				4490AD9B24DD8B1500948F7F /* JudoKit_iOS.framework in Embed Frameworks */,
+				4490ADA924DD8B5000948F7F /* DeviceDNA.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4490AD5D24DD5E6F00948F7F /* CarthageSwiftExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarthageSwiftExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +52,12 @@
 		4490AD6924DD5E7100948F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4490AD6C24DD5E7100948F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4490AD6E24DD5E7100948F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4490AD7724DD77A400948F7F /* JudoKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoKit_iOS.framework; path = Carthage/Build/iOS/JudoKit_iOS.framework; sourceTree = "<group>"; };
+		4490AD7824DD77A400948F7F /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
+		4490AD7924DD77A400948F7F /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
+		4490ADA124DD8B3200948F7F /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
+		4490ADA424DD8B4500948F7F /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
+		4490ADA724DD8B5000948F7F /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Source/DeviceDNA.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +65,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4490AD9E24DD8B1500948F7F /* ZappMerchantLib.framework in Frameworks */,
+				4490AD9C24DD8B1500948F7F /* TrustKit.framework in Frameworks */,
+				4490ADA524DD8B4500948F7F /* PayCardsRecognizer.framework in Frameworks */,
+				4490AD9A24DD8B1500948F7F /* JudoKit_iOS.framework in Frameworks */,
+				4490ADA824DD8B5000948F7F /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +81,7 @@
 			children = (
 				4490AD5F24DD5E6F00948F7F /* CarthageSwiftExampleApp */,
 				4490AD5E24DD5E6F00948F7F /* Products */,
+				4490AD7624DD77A400948F7F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +107,19 @@
 			path = CarthageSwiftExampleApp;
 			sourceTree = "<group>";
 		};
+		4490AD7624DD77A400948F7F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4490ADA724DD8B5000948F7F /* DeviceDNA.framework */,
+				4490ADA424DD8B4500948F7F /* PayCardsRecognizer.framework */,
+				4490ADA124DD8B3200948F7F /* DeviceDNA.framework */,
+				4490AD7724DD77A400948F7F /* JudoKit_iOS.framework */,
+				4490AD7824DD77A400948F7F /* TrustKit.framework */,
+				4490AD7924DD77A400948F7F /* ZappMerchantLib.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,6 +130,8 @@
 				4490AD5924DD5E6F00948F7F /* Sources */,
 				4490AD5A24DD5E6F00948F7F /* Frameworks */,
 				4490AD5B24DD5E6F00948F7F /* Resources */,
+				4490ADA024DD8B1500948F7F /* Embed Frameworks */,
+				4490ADAA24DD8B6B00948F7F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -132,6 +187,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4490ADAA24DD8B6B00948F7F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/JudoKit_iOS.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4490AD5924DD5E6F00948F7F /* Sources */ = {
@@ -286,6 +362,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+				);
 				INFOPLIST_FILE = CarthageSwiftExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -295,7 +378,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -305,6 +388,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
+				);
 				INFOPLIST_FILE = CarthageSwiftExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,7 +404,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
