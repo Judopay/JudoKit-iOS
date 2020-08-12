@@ -238,7 +238,7 @@
 
     NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [[NSMutableArray alloc] init];
 
-    JPCardNetworkType cardNetworks = self.configuration.supportedCardNetworks;
+    JPCardNetworkType cardNetworks = self.configuration.applePayConfiguration.supportedCardNetworks;
 
     if (cardNetworks && JPCardNetworkTypeVisa) {
         [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
