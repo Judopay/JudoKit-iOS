@@ -8,15 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
-		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0701930224811DC400401E45 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; };
-		0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
 		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
-		072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0777B9E4247BC9BB00867B9F /* JPUKPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B985247BC9BB00867B9F /* JPUKPostCodeValidation.swift */; };
 		0777B9E5247BC9BB00867B9F /* JPUSAPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B986247BC9BB00867B9F /* JPUSAPostCodeValidation.swift */; };
 		0777B9E6247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B987247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift */; };
@@ -403,23 +399,6 @@
 			remoteInfo = JudoKit;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4494959F245112560050C6A0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */,
-				072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */,
-				01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */,
-				072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0701930124811DC400401E45 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
@@ -2983,7 +2962,6 @@
 				3B678B521C6CE5190001DC2F /* Frameworks */,
 				3B678B531C6CE5190001DC2F /* Headers */,
 				3B678B541C6CE5190001DC2F /* Resources */,
-				4494959F245112560050C6A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
