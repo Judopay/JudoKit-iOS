@@ -103,7 +103,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 }
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId completion:(JPCompletionBlock)completion {
-    [self showStatusViewWith:JPTransactionStatusPending];
     [self getStatusForOrderId:orderId completion:completion];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
