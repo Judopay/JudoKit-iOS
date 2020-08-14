@@ -100,17 +100,6 @@ static NSString *__nonnull const JudoKitVersion = @"2.0.1";
                          completion:(nullable JPCompletionBlock)completion;
 
 /**
- * A method used for fetching the Pay By Bank App transaction status, based on the Order ID
- * obtained from the initial bank request
- *
- * @param orderId - a String that is used to identify the PBBA transaction
- * @param completion - a completion block with an optional JPResponse object or an NSError.
- */
-
-- (void)getPBBAStatusForOrderId:(nonnull NSString *)orderId
-                     completion:(nonnull JPCompletionBlock)completion;
-
-/**
  * A method which invokes the Apple Pay sleeve which allows users to make Apple Pay transactions.
  *
  * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.

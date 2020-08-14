@@ -45,8 +45,10 @@
 
 - (IBAction)didTapCheckStatus:(id)sender {
     __weak typeof(self) weakSelf = self;
-    [self.judoKit getPBBAStatusForOrderId:self.orderIdValueLabel.text
-                               completion:^(JPResponse *response, JPError *error) {
+    JPApiService *apiService = [[JPApiService alloc] initWithAuthorization:self.judoKit.authorization
+                                                               isSandboxed:self.judoKit.isSandboxed];
+    [apiService invokeOrderStatusWithOrderId:self.orderIdValueLabel.text
+                               andCompletion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error];
     }];
 }
