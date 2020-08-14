@@ -54,4 +54,13 @@
  */
 - (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion;
 
+/**
+ * Method used for fetching the PBBA transaction status based on a provided Order ID
+ *
+ * @param orderId - the identifier of the PBBA transaction
+ * @param completion - a completion block that either returns the redirect URL string or returns an error
+ */
+- (void)getStatusForOrderId:(nonnull NSString *)orderId
+                 completion:(nonnull JPCompletionBlock)completion;
+
 @end

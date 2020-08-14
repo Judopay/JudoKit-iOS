@@ -45,7 +45,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) BOOL didTimeout;
 @property (nonatomic, assign) NSTimeInterval intTimer;
 @property (nonatomic, strong) JPTransactionStatusView *transactionStatusView;
 @end
@@ -91,42 +90,34 @@ static const int kNSPOSIXErrorDomainCode = 53;
         NSString *secureToken = response.rawData[@"secureToken"];
         NSString *brn = response.rawData[@"pbbaBrn"];
 
-        if ([PBBAAppUtils isCFIAppAvailable]) {
-            [self pollTransactionStatusForOrderId:response.orderDetails.orderId completion:completion];
-        }
-
         [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
                         secureToken:secureToken
                                 brn:brn
                      expiryInterval:0
                            delegate:nil];
+        
+        completion(response, nil);
     } else {
         completion(nil, JPError.judoResponseParseError);
     }
 }
 
 - (void)pollTransactionStatusForOrderId:(NSString *)orderId completion:(JPCompletionBlock)completion {
-    __weak typeof(self) weakSelf = self;
+    [self showStatusViewWith:JPTransactionStatusPending];
+    [self getStatusForOrderId:orderId completion:completion];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kTimerDuration
                                                  repeats:YES
                                                    block:^(__unused NSTimer *_Nonnull timer) {
-                                                       [weakSelf getStatusForOrderId:orderId completion:completion];
+                                                       [self getStatusForOrderId:orderId completion:completion];
                                                    }];
 }
 
 - (void)getStatusForOrderId:(NSString *)orderId completion:(JPCompletionBlock)completion {
-
-    if (self.didTimeout) {
-        return;
-    }
-
-    __weak typeof(self) weakSelf = self;
-
     [self.apiService invokeOrderStatusWithOrderId:orderId
                                     andCompletion:^(JPResponse *response, JPError *error) {
-                                        [weakSelf handleResponse:response
-                                                           error:error
-                                                      completion:completion];
+                                        [self handleResponse:response
+                                                       error:error
+                                                  completion:completion];
                                     }];
 }
 
@@ -151,11 +142,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
         return;
     }
 
-    if ([response.orderDetails.orderStatus isEqual:kPendingStatus]) {
-        [self showStatusViewWith:JPTransactionStatusPending];
-        return;
-    }
-
     if (error == nil) {
         response.receiptId = response.orderDetails.orderId;
         completion(response, error);
@@ -165,7 +151,6 @@ static const int kNSPOSIXErrorDomainCode = 53;
 }
 
 - (void)stopPollingTransactionStatus {
-    self.didTimeout = YES;
     [self.timer invalidate];
 }
 

@@ -171,6 +171,11 @@
     }
 }
 
+- (void)getPBBAStatusForOrderId:(NSString *)orderId
+                     completion:(JPCompletionBlock)completion {
+    [self.pbbaService getStatusForOrderId:orderId completion:completion];
+}
+
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JPCompletionBlock)completion {

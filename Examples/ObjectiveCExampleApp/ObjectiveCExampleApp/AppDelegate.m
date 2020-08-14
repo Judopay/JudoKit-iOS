@@ -30,10 +30,6 @@
 @import CocoaDebug;
 @import JudoKit_iOS;
 
-@interface AppDelegate()
-@property (nonatomic, assign) BOOL appIsLaunchedFromURL;
-@end
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -43,28 +39,26 @@
     // Enable debug inspector
     [CocoaDebug enable];
 
-    self.appIsLaunchedFromURL = false;
-    NSURL *applicationOpenURL = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    if (applicationOpenURL) {
-        self.appIsLaunchedFromURL = true;
+    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (url) {
+        [self startPBBADeeplinkWithURL:url];
     }
-
+    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if (self.appIsLaunchedFromURL) {
-        //TODO: this should be refactored, probably to move away from storyboards, will be addressed in the `Results` screen PR
-        UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
-        UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        self.window.rootViewController = homeNavigationController;
-        [self.window makeKeyAndVisible];
-        [viewController openPBBAScreen:url];
-    }
-    self.appIsLaunchedFromURL = false;
-
+    [self startPBBADeeplinkWithURL:url];
     return true;
+}
+
+- (void)startPBBADeeplinkWithURL:(NSURL *)url {
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
+    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = homeNavigationController;
+    [self.window makeKeyAndVisible];
+    [viewController openPBBAScreen:url];
 }
 
 - (void)registerDefaultsFromSettingsBundle {
