@@ -8,15 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; };
-		01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF442451E7C70038A417 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0701930224811DC400401E45 /* ZappMerchantLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; };
-		0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0701930124811DC400401E45 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
 		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
-		072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0777B9E4247BC9BB00867B9F /* JPUKPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B985247BC9BB00867B9F /* JPUKPostCodeValidation.swift */; };
 		0777B9E5247BC9BB00867B9F /* JPUSAPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B986247BC9BB00867B9F /* JPUSAPostCodeValidation.swift */; };
 		0777B9E6247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B987247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift */; };
@@ -77,7 +73,6 @@
 		0779B17A2490EC05000844AF /* JPCardInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0779B1722490EC05000844AF /* JPCardInputView.h */; };
 		077B285F24BF025D009A7183 /* UnSuccessResponsePBBA.json in Resources */ = {isa = PBXBuildFile; fileRef = 077B285E24BF025C009A7183 /* UnSuccessResponsePBBA.json */; };
 		077B286224BF0F13009A7183 /* JPRegisterCardRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077B286124BF0F13009A7183 /* JPRegisterCardRequestTest.swift */; };
-		077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		0783431B24754BCC000DA445 /* JPPBBAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431924754BCC000DA445 /* JPPBBAConfiguration.m */; };
 		0783431C24754BCC000DA445 /* JPPBBAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783431A24754BCC000DA445 /* JPPBBAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0783431F24755348000DA445 /* JPPBBAService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783431E24755348000DA445 /* JPPBBAService.m */; };
@@ -310,13 +305,17 @@
 		30D61DE623BE3976004E5CEE /* JPPaymentMethodsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D61DE423BE3976004E5CEE /* JPPaymentMethodsHeaderView.m */; };
 		30DB512123100E6B00B73D66 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB511A23100E6B00B73D66 /* Functions.m */; };
 		30DB512223100E6B00B73D66 /* Functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DB511B23100E6B00B73D66 /* Functions.h */; };
+		30E945BF24E5347E0097C889 /* TrustKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945BE24E5347E0097C889 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30E945C124E534950097C889 /* ZappMerchantLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C024E534950097C889 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30E945C324E534A00097C889 /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C224E534A00097C889 /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30E945C524E534BE0097C889 /* DeviceDNA.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C424E534BD0097C889 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30E945C724E534D60097C889 /* PayCardsRecognizer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C624E534D60097C889 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
 		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4431198C24B3345200BF961C /* JPRequest+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4431198A24B3345200BF961C /* JPRequest+Additions.m */; };
 		4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4431198B24B3345200BF961C /* JPRequest+Additions.h */; };
-		4490AD7524DD722800948F7F /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4490AD7424DD722800948F7F /* OHHTTPStubs.framework */; };
 		4492115F2469DC7200DF6D14 /* JPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000727523F6AB540099F3C5 /* JPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		449211622469E7A200DF6D14 /* JPTransactionMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211612469E7A200DF6D14 /* JPTransactionMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		449211642469E7F600DF6D14 /* JPTransactionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 449211632469E7F600DF6D14 /* JPTransactionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -405,18 +404,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4494959F245112560050C6A0 /* Embed Frameworks */ = {
+		30E945BD24E534580097C889 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0701930324811DC400401E45 /* ZappMerchantLib.framework in Embed Frameworks */,
-				072AFF412451E2AF0038A417 /* PayCardsRecognizer.framework in Embed Frameworks */,
-				01AE3A34246034D80050952E /* DeviceDNA.framework in Embed Frameworks */,
-				072AFF422451E2AF0038A417 /* TrustKit.framework in Embed Frameworks */,
+				30E945BF24E5347E0097C889 /* TrustKit.framework in CopyFiles */,
+				30E945C124E534950097C889 /* ZappMerchantLib.framework in CopyFiles */,
+				30E945C324E534A00097C889 /* OHHTTPStubs.framework in CopyFiles */,
+				30E945C524E534BE0097C889 /* DeviceDNA.framework in CopyFiles */,
+				30E945C724E534D60097C889 /* PayCardsRecognizer.framework in CopyFiles */,
 			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -724,6 +723,17 @@
 		30D61DE423BE3976004E5CEE /* JPPaymentMethodsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsHeaderView.m; sourceTree = "<group>"; };
 		30DB511A23100E6B00B73D66 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		30DB511B23100E6B00B73D66 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
+		30E945AF24E533020097C889 /* pbba-merchant-button-library-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "pbba-merchant-button-library-ios"; path = "Carthage/Checkouts/pbba-merchant-button-library-ios"; sourceTree = "<group>"; };
+		30E945B024E533020097C889 /* TrustKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TrustKit; path = Carthage/Checkouts/TrustKit; sourceTree = "<group>"; };
+		30E945B124E533020097C889 /* DeviceDNA-iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "DeviceDNA-iOS"; path = "Carthage/Checkouts/DeviceDNA-iOS"; sourceTree = "<group>"; };
+		30E945B224E533020097C889 /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
+		30E945B324E533020097C889 /* PayCards_iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PayCards_iOS; path = Carthage/Checkouts/PayCards_iOS; sourceTree = "<group>"; };
+		30E945BB24E533910097C889 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
+		30E945BE24E5347E0097C889 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
+		30E945C024E534950097C889 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
+		30E945C224E534A00097C889 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		30E945C424E534BD0097C889 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
+		30E945C624E534D60097C889 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		30F77E53241A650800D68BF9 /* UITextField+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Additions.m"; sourceTree = "<group>"; };
 		3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -831,8 +841,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */,
-				077F500F24757A6E004B81E2 /* PayCardsRecognizer.framework in Frameworks */,
-				4490AD7524DD722800948F7F /* OHHTTPStubs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,6 +1354,7 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30E945BB24E533910097C889 /* DeviceDNA.framework */,
 				4490AD7424DD722800948F7F /* OHHTTPStubs.framework */,
 				0701930124811DC400401E45 /* ZappMerchantLib.framework */,
 				072AFF442451E7C70038A417 /* DeviceDNA.framework */,
@@ -2533,6 +2542,16 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
+				30E945C624E534D60097C889 /* PayCardsRecognizer.framework */,
+				30E945C424E534BD0097C889 /* DeviceDNA.framework */,
+				30E945C224E534A00097C889 /* OHHTTPStubs.framework */,
+				30E945C024E534950097C889 /* ZappMerchantLib.framework */,
+				30E945BE24E5347E0097C889 /* TrustKit.framework */,
+				30E945B124E533020097C889 /* DeviceDNA-iOS */,
+				30E945B224E533020097C889 /* OHHTTPStubs */,
+				30E945B324E533020097C889 /* PayCards_iOS */,
+				30E945AF24E533020097C889 /* pbba-merchant-button-library-ios */,
+				30E945B024E533020097C889 /* TrustKit */,
 				0777B982247BC9BB00867B9F /* JudoKit_iOSTests */,
 				15779454211085A9007BD3E1 /* Frameworks */,
 				3B678B571C6CE5190001DC2F /* Products */,
@@ -2983,7 +3002,6 @@
 				3B678B521C6CE5190001DC2F /* Frameworks */,
 				3B678B531C6CE5190001DC2F /* Headers */,
 				3B678B541C6CE5190001DC2F /* Resources */,
-				4494959F245112560050C6A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3002,6 +3020,7 @@
 				4416C39A2451A4060002870C /* Frameworks */,
 				4416C39B2451A4060002870C /* Resources */,
 				01AE3A3A246051220050952E /* ShellScript */,
+				30E945BD24E534580097C889 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -3587,6 +3606,7 @@
 					"$(SRCROOT)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKit_iOSTests/Info.plist;
@@ -3627,6 +3647,7 @@
 					"$(SRCROOT)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JudoKit_iOSTests/Info.plist;

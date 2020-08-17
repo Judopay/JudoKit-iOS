@@ -149,19 +149,17 @@ jobs:
             if [ "$BRANCH_NAME" == "master" ]; then
               echo "On master branch. Running default scan."
             elif PR_INFO=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls | jq ".[] | select(.head.ref == \"$BRANCH_NAME\")"); then
-                PR_NUMBER=$(echo "$PR_INFO" | jq -r '.number')
-                PR_TARGET=$(echo "$PR_INFO" | jq -r '.base.ref')
-                if [ "$PR_NUMBER" != "" ]; then
-                  echo "Pull request $PR_NUMBER found. Running a pull request scan."
-                  PARAMS+=(-Dsonar.pullrequest.github.repository=${REPO_OWNER}/${REPO_NAME})
-                  PARAMS+=(-Dsonar.pullrequest.base=$PR_TARGET)
-                  PARAMS+=(-Dsonar.pullrequest.key=$PR_NUMBER)
-                  PARAMS+=(-Dsonar.pullrequest.branch=$BRANCH_NAME)
-                  PARAMS+=(-Dsonar.pullrequest.provider=GitHub)
-                fi
+              PR_NUMBER=$(echo "$PR_INFO" | jq -r '.number')
+              PR_TARGET=$(echo "$PR_INFO" | jq -r '.base.ref')
+              if [ "$PR_NUMBER" != "" ]; then
+                echo "Pull request $PR_NUMBER found. Running a pull request scan."
+                PARAMS+=(-Dsonar.pullrequest.github.repository=${REPO_OWNER}/${REPO_NAME})
+                PARAMS+=(-Dsonar.pullrequest.base=$PR_TARGET)
+                PARAMS+=(-Dsonar.pullrequest.key=$PR_NUMBER)
+                PARAMS+=(-Dsonar.pullrequest.branch=$BRANCH_NAME)
+                PARAMS+=(-Dsonar.pullrequest.provider=GitHub)
               fi
-            
-            if [ -z "$PR_NUMBER" ]; then
+            else
               echo "Couldnt find pull request. Running short-lived branch scan."
               PARAMS+=(-Dsonar.branch.name=$BRANCH_NAME)
               PARAMS+=(-Dsonar.branch.target=master)
