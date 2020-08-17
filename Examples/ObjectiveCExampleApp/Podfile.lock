@@ -2,7 +2,7 @@ PODS:
   - CocoaDebug (1.3.3)
   - DeviceDNA (1.1.2)
   - InAppSettingsKit (2.15)
-  - JudoKit-iOS (1.1.0):
+  - JudoKit-iOS (2.0.1):
     - DeviceDNA
     - PayCardsRecognizer
     - TrustKit
@@ -33,11 +33,11 @@ SPEC CHECKSUMS:
   CocoaDebug: 610b36f29558ac74fa5653fbbbd1574fc7de54ed
   DeviceDNA: 3e72fd28d345a5aa6f218af4287cb46dc74b62cb
   InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
-  JudoKit-iOS: 9f8d430373d748dd58f6c0bf3e9782fa458b2fb0
+  JudoKit-iOS: fafc3613c9b7e0d7e3d21e36e3a9a125852d2fa3
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
 PODFILE CHECKSUM: 097c01342213a828220f23575b34beff9e4688d4
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

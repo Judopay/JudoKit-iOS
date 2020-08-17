@@ -54,4 +54,11 @@
  */
 - (void)pollingOrderStatus:(nonnull JPCompletionBlock)completion;
 
+/**
+ * A method to display a progress indicator based on a provided transaction status
+ *
+ * @param status - the transaction status to be displayed
+ */
+- (void)showStatusViewWith:(JPTransactionStatus)status;
+
 @end

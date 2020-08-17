@@ -107,4 +107,90 @@ class JPPBBAServiceTest: XCTestCase {
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
+    
+    /*
+     * GIVEN: the initial PBBA request is sent
+     *
+     * WHEN:  the response returned is succesful
+     *
+     * THEN:  it should contain a [secureToken] and a [pbbaBrn]
+     */
+    func test_OnInitialSaleRequest_WhenPBBAParametersPresent_ReturnResponse() {
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        sut.openPBBAMerchantApp { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            XCTAssertNotNil(response?.rawData["secureToken"])
+            XCTAssertNotNil(response?.rawData["pbbaBrn"])
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: the initial PBBA request is sent
+     *
+     * WHEN:  the response returned is unsuccesful
+     *
+     * THEN:  an error should be returned in the callback
+     */
+    func test_OnInitialSaleRequest_WhenPBBAParametersMissing_ReturnError() {
+        stub(condition: isPath("/order/bank/sale")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("UnSuccessResponsePBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        sut.openPBBAMerchantApp { (response, error) in
+            XCTAssertNil(response)
+            XCTAssertEqual(error, JPError.judoResponseParseError())
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: the transaction status polling request is sent
+     *
+     * WHEN:  the response returned is succesful
+     *
+     * THEN:  the response's [orderStatus] should be 'Success'
+     */
+    func test_OnStatusPolling_WhenPBBATransactionSuccess_ReturnFailResponse() {
+        stub(condition: isPath("/order/bank/statusrequest")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessStatusPBBA.json", type(of: self))!, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await save transaction response")
+        sut.pollingOrderStatus { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertEqual(response?.orderDetails?.orderStatus, "Success")
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: the transaction status polling request is sent
+     *
+     * WHEN:  the there are issues with the request
+     *
+     * THEN:  an error callback should be returned to the user
+    */
+    func test_OnStatusPolling_WhenPBBATransactionError_ReturnError() {
+        HTTPStubs.removeAllStubs()
+        let expectation = self.expectation(description: "await save transaction response")
+        sut.pollingOrderStatus { (response, error) in
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error?.code, 7)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
 }

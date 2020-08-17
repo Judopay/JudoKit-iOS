@@ -427,18 +427,16 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     }
 }
 
-// TODO: to be refactored, will be addressed in the `Results` screen PR
 - (void)openPBBAScreen:(NSURL *)url {
+    
     self.deepLinkURL = url;
-    [self setupJudoSDK];
-
-    switch (ExampleAppStorage.sharedInstance.lastUsedFeature) {
-        case DemoFeatureTypePaymentMethods:
-            [self paymentMethodOperation];
-            break;
-        default:
-            break;
-    }
+    self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
+    
+    [self.judoKit invokePBBAWithConfiguration:self.configuration
+                                   completion:^(JPResponse *response, JPError *error) {
+        self.deepLinkURL = nil;
+        [self handleResponse:response error:error];
+    }];
 }
 
 @end

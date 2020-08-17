@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -208,17 +208,51 @@
                                     <constraint firstAttribute="width" constant="241" id="hMz-iR-idD"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Order ID:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdW-ef-7Bn">
+                                <rect key="frame" x="36" y="382" width="303" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay By Bank using your existing Bank app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnW-Sq-xhf">
                                 <rect key="frame" x="29" y="276.5" width="317.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Order ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ego-MS-V4V">
+                                <rect key="frame" x="36" y="407" width="303" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESI-XG-gvS">
+                                <rect key="frame" x="67.5" y="454" width="240" height="50"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="6Be-zB-lat"/>
+                                    <constraint firstAttribute="height" constant="50" id="a1B-hL-ZTH"/>
+                                </constraints>
+                                <state key="normal" title="Check Transaction Status">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapCheckStatus:" destination="roV-nE-oFc" eventType="touchUpInside" id="chu-Fc-LcJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="cVy-Ii-QA4" firstAttribute="firstBaseline" secondItem="bnW-Sq-xhf" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="5Tx-cu-O9S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tdW-ef-7Bn" secondAttribute="trailing" constant="20" id="7Vr-pM-7mH"/>
                             <constraint firstItem="cVy-Ii-QA4" firstAttribute="centerY" secondItem="7qM-xy-XFJ" secondAttribute="centerY" id="AzD-Fm-1ys"/>
+                            <constraint firstItem="Ego-MS-V4V" firstAttribute="top" secondItem="tdW-ef-7Bn" secondAttribute="bottom" constant="8" id="IQx-MA-mqj"/>
+                            <constraint firstItem="ESI-XG-gvS" firstAttribute="top" secondItem="Ego-MS-V4V" secondAttribute="bottom" constant="30" id="J8q-dE-jsJ"/>
+                            <constraint firstItem="ESI-XG-gvS" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="Lyv-cX-YQz"/>
+                            <constraint firstItem="tdW-ef-7Bn" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="20" id="P3o-G5-qjm"/>
+                            <constraint firstItem="Ego-MS-V4V" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="20" id="RMc-7E-ZgZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ego-MS-V4V" secondAttribute="trailing" constant="20" id="UDr-IH-mGv"/>
+                            <constraint firstItem="tdW-ef-7Bn" firstAttribute="top" secondItem="cVy-Ii-QA4" secondAttribute="bottom" constant="20" id="k5X-qh-isp"/>
                             <constraint firstItem="bnW-Sq-xhf" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="kt9-yg-t98"/>
                             <constraint firstItem="cVy-Ii-QA4" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="tdj-pE-lBO"/>
                         </constraints>
@@ -227,6 +261,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="buttonPlaceholder" destination="cVy-Ii-QA4" id="nU6-Jw-RE0"/>
+                        <outlet property="checkStatusButton" destination="ESI-XG-gvS" id="Tj2-DR-pGQ"/>
+                        <outlet property="orderIdSuffixLabel" destination="tdW-ef-7Bn" id="yBl-ST-hKD"/>
+                        <outlet property="orderIdValueLabel" destination="Ego-MS-V4V" id="Uiy-cX-RU1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vgZ-3z-BrU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

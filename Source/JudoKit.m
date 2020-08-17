@@ -165,6 +165,7 @@
                                                          apiService:self.apiService];
 
     if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
+        [self.pbbaService showStatusViewWith:JPTransactionStatusPending];
         [self.pbbaService pollingOrderStatus:completion];
     } else {
         [self.pbbaService openPBBAMerchantApp:completion];

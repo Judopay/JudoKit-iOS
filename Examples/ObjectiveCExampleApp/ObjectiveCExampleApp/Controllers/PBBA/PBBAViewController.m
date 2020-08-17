@@ -28,6 +28,9 @@
 @import JudoKit_iOS;
 
 @interface PBBAViewController () <JPPBBAButtonDelegate>
+@property (nonatomic, strong) IBOutlet UILabel *orderIdSuffixLabel;
+@property (nonatomic, strong) IBOutlet UILabel *orderIdValueLabel;
+@property (weak, nonatomic) IBOutlet UIButton *checkStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *buttonPlaceholder;
 @end
 
@@ -38,7 +41,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createButtonProgrammatically];
-    [self checkForDeeplink];
+}
+
+- (IBAction)didTapCheckStatus:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    JPApiService *apiService = [[JPApiService alloc] initWithAuthorization:self.judoKit.authorization
+                                                               isSandboxed:self.judoKit.isSandboxed];
+    [apiService invokeOrderStatusWithOrderId:self.orderIdValueLabel.text
+                               andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 #pragma mark - JPPBBAButtonDelegate
@@ -63,6 +75,7 @@
     JPPBBAButton *pbbaFromCode = [[JPPBBAButton alloc] initWithFrame:self.buttonPlaceholder.bounds];
     pbbaFromCode.delegate = self;
     [self.buttonPlaceholder addSubview:pbbaFromCode];
+    self.checkStatusButton.layer.cornerRadius = 4.0f;
 }
 
 #pragma mark - Handle Response
@@ -78,6 +91,16 @@
         return;
     }
 
+    if (!response.orderDetails.orderStatus) {
+        
+        self.orderIdValueLabel.text = response.orderDetails.orderId;
+        [self.orderIdValueLabel setHidden:!response.orderDetails.orderId];
+        [self.orderIdSuffixLabel setHidden:!response.orderDetails.orderId];
+        [self.checkStatusButton setHidden:!response.orderDetails.orderId];
+        return;
+    }
+    
+    self.configuration.pbbaConfiguration.deeplinkURL = nil;
     [self presentDetailsViewControllerWithResponse:response];
 }
 
@@ -85,20 +108,6 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     viewController.response = response;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
--(void)checkForDeeplink {
-    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
-        [self pollingPBBAMerchantApp];
-    }
-}
-
-- (void)pollingPBBAMerchantApp {
-    __weak typeof(self) weakSelf = self;
-    [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
-                                       completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
 }
 
 @end
