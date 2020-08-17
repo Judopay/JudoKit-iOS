@@ -69,7 +69,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
 #pragma mark - Public methods
 
-+ (bool)isBankAppAvailable {
++ (bool)isBankingAppAvailable {
     return PBBAAppUtils.isCFIAppAvailable;
 }
 

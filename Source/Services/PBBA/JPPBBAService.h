@@ -45,7 +45,7 @@
  *
  * @returns true - if a bank app has been found, false otherwise
  */
-+ (bool)isBankAppAvailable;
++ (bool)isBankingAppAvailable;
 
 /**
  * Method used for returning a redirect URL based on the PBBA

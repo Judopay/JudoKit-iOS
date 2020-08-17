@@ -94,7 +94,7 @@ static NSString *__nonnull const JudoKitVersion = @"2.0.1";
  *
  * @returns true - if a bank app has been found, false otherwise
  */
-+ (bool)isBankAppAvailable;
++ (bool)isBankingAppAvailable;
 
 /**
  * A method which invokes the PBBA which allows users to make pay by bank transactions.
