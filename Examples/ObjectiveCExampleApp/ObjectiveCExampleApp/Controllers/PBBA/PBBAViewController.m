@@ -40,7 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createButtonProgrammatically];
+    if (JudoKit.isBankAppAvailable) {
+        [self createButtonProgrammatically];
+    } else {
+        self.orderIdSuffixLabel.text = @"No PBBA Bank App Found.";
+        self.orderIdSuffixLabel.hidden = NO;
+    }
 }
 
 - (IBAction)didTapCheckStatus:(id)sender {

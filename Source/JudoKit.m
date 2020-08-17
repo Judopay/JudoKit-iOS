@@ -152,6 +152,10 @@
                                                      completion:completion];
 }
 
++ (bool)isBankAppAvailable {
+    return JPPBBAService.isBankAppAvailable;
+}
+
 - (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
                          completion:(nullable JPCompletionBlock)completion {
 

@@ -41,6 +41,13 @@
                                    apiService:(nonnull JPApiService *)apiService;
 
 /**
+ * A method used to determine if there are any PBBA supported bank apps installed on the device
+ *
+ * @returns true - if a bank app has been found, false otherwise
+ */
++ (bool)isBankAppAvailable;
+
+/**
  * Method used for returning a redirect URL based on the PBBA
  *
  * @param completion  A completion block that either returns the redirect URL string or returns an error
