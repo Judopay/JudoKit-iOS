@@ -92,10 +92,9 @@ static const int kNSPOSIXErrorDomainCode = 53;
 - (void)handlePBBAResponse:(JPResponse *)response completion:(JPCompletionBlock)completion {
     if (response.rawData[@"secureToken"] && response.rawData[@"pbbaBrn"]) {
         NSString *secureToken = response.rawData[@"secureToken"];
-        NSString *brn = response.rawData[@"pbbaBrn"];
 
         [PBBAAppUtils openBankingApp:secureToken];
-        
+                
         completion(response, nil);
     } else {
         completion(nil, JPError.judoResponseParseError);

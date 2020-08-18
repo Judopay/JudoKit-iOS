@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (JudoKit.isBankAppAvailable) {
+    if (JudoKit.isBankingAppAvailable) {
         [self createButtonProgrammatically];
     } else {
         self.orderIdSuffixLabel.text = @"No PBBA Bank App Found.";
