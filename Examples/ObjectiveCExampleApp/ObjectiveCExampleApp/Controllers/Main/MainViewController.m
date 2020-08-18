@@ -281,6 +281,10 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     if (!response) {
         return;
     }
+    
+    if ([response.paymentMethod isEqualToString:@"PBBA"] && !response.orderDetails.orderStatus) {
+        return;
+    }
 
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{

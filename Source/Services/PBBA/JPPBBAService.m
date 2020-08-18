@@ -69,6 +69,10 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
 #pragma mark - Public methods
 
++ (bool)isBankingAppAvailable {
+    return PBBAAppUtils.isCFIAppAvailable;
+}
+
 - (void)openPBBAMerchantApp:(JPCompletionBlock)completion {
 
     JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest pbbaRequestWithConfiguration:self.configuration];
@@ -88,14 +92,9 @@ static const int kNSPOSIXErrorDomainCode = 53;
 - (void)handlePBBAResponse:(JPResponse *)response completion:(JPCompletionBlock)completion {
     if (response.rawData[@"secureToken"] && response.rawData[@"pbbaBrn"]) {
         NSString *secureToken = response.rawData[@"secureToken"];
-        NSString *brn = response.rawData[@"pbbaBrn"];
 
-        [PBBAAppUtils showPBBAPopup:UIApplication.topMostViewController
-                        secureToken:secureToken
-                                brn:brn
-                     expiryInterval:0
-                           delegate:nil];
-        
+        [PBBAAppUtils openBankingApp:secureToken];
+                
         completion(response, nil);
     } else {
         completion(nil, JPError.judoResponseParseError);

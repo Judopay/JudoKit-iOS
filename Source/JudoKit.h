@@ -90,6 +90,13 @@ static NSString *__nonnull const JudoKitVersion = @"2.0.1";
                                                       completion:(nullable JPCompletionBlock)completion;
 
 /**
+ * A method used to determine if there are any PBBA supported bank apps installed on the device
+ *
+ * @returns true - if a bank app has been found, false otherwise
+ */
++ (bool)isBankingAppAvailable;
+
+/**
  * A method which invokes the PBBA which allows users to make pay by bank transactions.
  *
  * @param configuration - an instance of JPConfiguration used to configure the transaction.

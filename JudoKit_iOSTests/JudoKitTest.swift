@@ -325,4 +325,15 @@ class JudoKitTest: XCTestCase {
         })
         waitForExpectations(timeout: 3, handler: nil)
     }
+    
+    /*
+     * GIVEN: the user wants to check for PBBA supported bank apps
+     *
+     * WHEN:  the SDK is running on an emulator
+     *
+     * THEN:  the method should return false
+     */
+    func test_OnBankingAppCheck_WhenRunningEmulator_ReturnFalse() {
+        XCTAssertFalse(JudoKit.isBankingAppAvailable())
+    }
 }
