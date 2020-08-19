@@ -74,7 +74,7 @@ class JPPaymentRequestTests: XCTestCase {
                                             line2: "Line 2",
                                             line3: "Line 3",
                                             town: "Town",
-                                            countryCode:123,
+                                            countryCode:"GB",
                                             postCode: "Postcode")
         
         let paymentRequest = JPPaymentRequest(configuration: configuration, andCardDetails: cardDetails)
