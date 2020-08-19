@@ -37,7 +37,7 @@
 
         _paymentData = [NSJSONSerialization JSONObjectWithData:token.paymentData
                                                        options:NSJSONReadingAllowFragments
-                                                         error:nil]; //TODO: handle this error
+                                                         error:nil];
     }
     return self;
 }
@@ -79,12 +79,11 @@
         self.mobileNumber = billingContact.phoneNumber.stringValue;
     }
 
-    // TODO: billingContact.postalAddress.ISOCountryCode - alpha2 to numeric code
     self.cardAddress = [[JPAddress alloc] initWithLine1:postalAddress.street
                                                   line2:postalAddress.city
                                                   line3:postalAddress.postalCode
                                                    town:postalAddress.city
-                                            countryCode:@(-1)
+                                            countryCode:postalAddress.ISOCountryCode
                                                postCode:postalAddress.postalCode];
 }
 
