@@ -30,7 +30,7 @@
                         line2:(NSString *)line2
                         line3:(NSString *)line3
                          town:(NSString *)town
-                  countryCode:(NSNumber *)countryCode
+                  countryCode:(NSString *)countryCode
                      postCode:(NSString *)postCode {
 
     if (self = [super init]) {
