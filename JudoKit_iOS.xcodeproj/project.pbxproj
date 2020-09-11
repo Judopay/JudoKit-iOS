@@ -197,10 +197,10 @@
 		3000735123FACF540099F3C5 /* JPUIConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000734F23FACF540099F3C5 /* JPUIConfiguration.m */; };
 		3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000735023FACF540099F3C5 /* JPUIConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000737C23FBECCE0099F3C5 /* JP3DSConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000737A23FBECCE0099F3C5 /* JP3DSConfiguration.m */; };
-		3000737D23FBECCE0099F3C5 /* JP3DSConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000737B23FBECCE0099F3C5 /* JP3DSConfiguration.h */; };
+		3000737D23FBECCE0099F3C5 /* JP3DSConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000737B23FBECCE0099F3C5 /* JP3DSConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000738123FBED640099F3C5 /* JP3DSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000737F23FBED640099F3C5 /* JP3DSViewController.m */; };
 		3000738223FBED640099F3C5 /* JP3DSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738023FBED640099F3C5 /* JP3DSViewController.h */; };
-		3000738B23FBEDC80099F3C5 /* JP3DSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738923FBEDC80099F3C5 /* JP3DSService.h */; };
+		3000738B23FBEDC80099F3C5 /* JP3DSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 3000738923FBEDC80099F3C5 /* JP3DSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3000738C23FBEDC80099F3C5 /* JP3DSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000738A23FBEDC80099F3C5 /* JP3DSService.m */; };
 		300F938424C9B4A4003DECA5 /* JPPaymentRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F938324C9B4A4003DECA5 /* JPPaymentRequestTests.swift */; };
 		300F938624C9B9A0003DECA5 /* JPSaveCardRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F938524C9B9A0003DECA5 /* JPSaveCardRequestTests.swift */; };
