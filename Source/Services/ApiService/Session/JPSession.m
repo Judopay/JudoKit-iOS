@@ -80,14 +80,7 @@ static NSString *const kMethodPUT = @"PUT";
     NSDictionary *trustKitConfig =
         @{
             kTSKPinnedDomains : @{
-                @"judopay-sandbox.com" : @{
-                    kTSKPublicKeyHashes : @[
-                        @"mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
-                        @"SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
-                    ],
-                    kTSKIncludeSubdomains : @YES
-                },
-                @"gw1.judopay.com" : @{
+                @"judopay.com" : @{
                     kTSKPublicKeyHashes : @[
                         @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
                         @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
