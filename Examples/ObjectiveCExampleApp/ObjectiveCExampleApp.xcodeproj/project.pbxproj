@@ -12,12 +12,13 @@
 		07D84C042497B35E000D7197 /* PayWithCardTokenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */; };
 		0D39BA40400F0D8DF1F35225 /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */; };
 		23DCF27D58A18EF25392B811 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
+		3047749C250F983E00B13DDF /* ResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3047749B250F983E00B13DDF /* ResultTests.m */; };
+		304774A0250F99B700B13DDF /* JPResponseStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 3047749F250F99B700B13DDF /* JPResponseStub.json */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
 		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
-		448AB1BE2450DE93004A11CB /* ObjectiveCExampleAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */; };
 		448AB1C92450DE93004A11CB /* ObjectiveCExampleAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */; };
 		4490D14824882747004290DD /* ResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14324882747004290DD /* ResultTableViewController.m */; };
 		4490D14924882747004290DD /* ResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14524882747004290DD /* ResultItem.m */; };
@@ -59,6 +60,8 @@
 		0DCD412286DED20EC2028ACD /* Pods-ObjectiveCExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F6D6BF453CC23A5809E93BC /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		3047749B250F983E00B13DDF /* ResultTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultTests.m; sourceTree = "<group>"; };
+		3047749F250F99B700B13DDF /* JPResponseStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JPResponseStub.json; sourceTree = "<group>"; };
 		3AB03C618596FCEA7EC86A2F /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,7 +72,6 @@
 		448AB1B22450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1B32450DE93004A11CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		448AB1B92450DE93004A11CB /* ObjectiveCExampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCExampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExampleAppTests.m; sourceTree = "<group>"; };
 		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1C42450DE93004A11CB /* ObjectiveCExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1C82450DE93004A11CB /* ObjectiveCExampleAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExampleAppUITests.m; sourceTree = "<group>"; };
@@ -166,6 +168,22 @@
 			path = TokenPay;
 			sourceTree = "<group>";
 		};
+		3047749D250F999000B13DDF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3047749B250F983E00B13DDF /* ResultTests.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3047749E250F999B00B13DDF /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				3047749F250F99B700B13DDF /* JPResponseStub.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -211,7 +229,8 @@
 		448AB1BC2450DE93004A11CB /* ObjectiveCExampleAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				448AB1BD2450DE93004A11CB /* ObjectiveCExampleAppTests.m */,
+				3047749E250F999B00B13DDF /* Stubs */,
+				3047749D250F999000B13DDF /* Models */,
 				448AB1BF2450DE93004A11CB /* Info.plist */,
 			);
 			path = ObjectiveCExampleAppTests;
@@ -447,6 +466,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				304774A0250F99B700B13DDF /* JPResponseStub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				448AB1BE2450DE93004A11CB /* ObjectiveCExampleAppTests.m in Sources */,
+				3047749C250F983E00B13DDF /* ResultTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
