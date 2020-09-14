@@ -29,7 +29,6 @@
 @import JudoKit_iOS;
 
 #import "MainViewController.h"
-#import "DetailViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
 #import "DemoFeature.h"
@@ -67,12 +66,6 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
             kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
 
     [self requestLocationPermissions];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        Result *result = [Result resultFromObject:self.configuration];
-        UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
-        [self.navigationController pushViewController:controller animated:YES];
-    });
 
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
 }
@@ -296,14 +289,14 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        [weakSelf presentDetailsViewControllerWithResponse:response];
+        [weakSelf presentResultTableViewControllerWithResponse:response];
     }];
 }
 
-- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
-    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.response = response;
-    [self.navigationController pushViewController:viewController animated:YES];
+- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
+    Result *result = [Result resultFromObject:response];
+    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 // MARK: Lazy properties

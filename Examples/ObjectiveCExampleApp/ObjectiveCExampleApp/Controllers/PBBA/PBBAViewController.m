@@ -23,7 +23,8 @@
 //  SOFTWARE.
 
 #import "PBBAViewController.h"
-#import "DetailViewController.h"
+#import "Result.h"
+#import "ResultTableViewController.h"
 
 @import JudoKit_iOS;
 
@@ -106,13 +107,13 @@
     }
     
     self.configuration.pbbaConfiguration.deeplinkURL = nil;
-    [self presentDetailsViewControllerWithResponse:response];
+    [self presentResultTableViewControllerWithResponse:response];
 }
 
-- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
-    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.response = response;
-    [self.navigationController pushViewController:viewController animated:YES];
+- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
+    Result *result = [Result resultFromObject:response];
+    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

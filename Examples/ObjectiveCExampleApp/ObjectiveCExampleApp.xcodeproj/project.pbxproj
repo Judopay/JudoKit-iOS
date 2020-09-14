@@ -24,9 +24,6 @@
 		4490D14A24882747004290DD /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14724882747004290DD /* Result.m */; };
 		4490D14E24882CBE004290DD /* ResultItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14C24882CBE004290DD /* ResultItemTableViewCell.m */; };
 		4490D14F24882CBE004290DD /* ResultItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4490D14D24882CBE004290DD /* ResultItemTableViewCell.xib */; };
-		449495152450ED870050C6A0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495072450ED870050C6A0 /* DetailViewController.m */; };
-		449495162450ED870050C6A0 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449495092450ED870050C6A0 /* DetailViewController.xib */; };
-		449495172450ED870050C6A0 /* DetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950A2450ED870050C6A0 /* DetailsTableViewController.m */; };
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
@@ -88,11 +85,6 @@
 		4490D14D24882CBE004290DD /* ResultItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultItemTableViewCell.xib; sourceTree = "<group>"; };
 		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
-		449495072450ED870050C6A0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		449495082450ED870050C6A0 /* DetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsTableViewController.h; sourceTree = "<group>"; };
-		449495092450ED870050C6A0 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
-		4494950A2450ED870050C6A0 /* DetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsTableViewController.m; sourceTree = "<group>"; };
-		4494950B2450ED870050C6A0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4494950E2450ED870050C6A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4494950F2450ED870050C6A0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -272,29 +264,15 @@
 				07D84C012497B331000D7197 /* TokenPay */,
 				4490D14124882747004290DD /* Result */,
 				07B28227247D302C00F9862B /* PBBA */,
-				449495062450ED870050C6A0 /* Details */,
 				4494950C2450ED870050C6A0 /* Main */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		449495062450ED870050C6A0 /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				449495072450ED870050C6A0 /* DetailViewController.m */,
-				449495082450ED870050C6A0 /* DetailsTableViewController.h */,
-				449495092450ED870050C6A0 /* DetailViewController.xib */,
-				4494950A2450ED870050C6A0 /* DetailsTableViewController.m */,
-				4494950B2450ED870050C6A0 /* DetailViewController.h */,
-			);
-			path = Details;
 			sourceTree = "<group>";
 		};
 		4494950C2450ED870050C6A0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				07CD7C552488F64900B253B4 /* Service */,
-				4494950D2450ED870050C6A0 /* MainViewController.m */,
 				4494950E2450ED870050C6A0 /* MainViewController.h */,
 				4494950D2450ED870050C6A0 /* MainViewController.m */,
 			);
@@ -462,7 +440,6 @@
 				449495192450ED870050C6A0 /* Settings.bundle in Resources */,
 				4490D14F24882CBE004290DD /* ResultItemTableViewCell.xib in Resources */,
 				448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */,
-				449495162450ED870050C6A0 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,11 +575,9 @@
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
 				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				4490D14824882747004290DD /* ResultTableViewController.m in Sources */,
-				449495172450ED870050C6A0 /* DetailsTableViewController.m in Sources */,
 				4490D14A24882747004290DD /* Result.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				4490D14924882747004290DD /* ResultItem.m in Sources */,
-				449495152450ED870050C6A0 /* DetailViewController.m in Sources */,
 				4494951A2450ED870050C6A0 /* Settings.m in Sources */,
 				A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */,
 			);
