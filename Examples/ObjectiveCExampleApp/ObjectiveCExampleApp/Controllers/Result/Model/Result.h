@@ -28,9 +28,34 @@
 
 @interface Result : NSObject
 
+/**
+ * Stores the title of a Judo response property
+ */
 @property (nonatomic, strong) NSString *title;
+
+/**
+ * An array of ResultItem instances that store the value/values of a Judo response property
+ */
 @property (nonatomic, strong) NSArray<ResultItem *> *items;
 
-+ (instancetype)resultWithTitle:(NSString *)title andItems:(NSArray<ResultItem *> *)items;
+/**
+ * Designated initializer that creates a Result instance, by manually providing a title and result items
+ *
+ * @param title - the title of the Judo response property
+ * @param items - an array of ResultItem instances that store the value/values of a Judo response property
+ *
+ * @returns a configured instance of Result
+ */
++ (instancetype)resultWithTitle:(NSString *)title
+                       andItems:(NSArray<ResultItem *> *)items;
+
+/**
+ * Convenience initializer that creates a Result instance based on a dynamic object
+ *
+ * @param objectToBuildFrom - an instance of an object that is used to generate the Result
+ *
+ * @returns a configured instance of Result
+ */
 + (instancetype)resultFromObject:(id)objectToBuildFrom;
+
 @end

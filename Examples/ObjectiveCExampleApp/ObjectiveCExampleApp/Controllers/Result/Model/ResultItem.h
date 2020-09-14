@@ -28,10 +28,28 @@
 
 @interface ResultItem : NSObject
 
+/**
+ * The title of a result property
+ */
 @property (nonatomic, strong) NSString *title;
+
+/**
+ * The value of a result property represented as a NSString
+ */
 @property (nonatomic, strong) NSString *value;
+
+/**
+ * An optional Result used to storing nested properties
+ */
 @property (nonatomic, strong) Result *subResult;
 
-+ (instancetype)resultItemWithTitle:(NSString *)title value:(NSString *)value;
+/**
+ * Designated initializer that creates an instance of ResultItem based on a title and value
+ *
+ * @param title - the title of the result property
+ * @param value - the value of the result property
+ */
++ (instancetype)resultItemWithTitle:(NSString *)title
+                              value:(NSString *)value;
 
 @end

@@ -28,6 +28,11 @@
 
 @interface ResultItemTableViewCell : UITableViewCell
 
-- (void)configureWith:(nonnull ResultItem *)resultItem;
+/**
+ * Method that configures a Result Table View cell with the data from the ResultItem instance
+ *
+ * @param resultItem - instance of ResultItem that contains the title and value of a Judo transaction result property
+ */
+- (void)configureWithResultItem:(nonnull ResultItem *)resultItem;
 
 @end

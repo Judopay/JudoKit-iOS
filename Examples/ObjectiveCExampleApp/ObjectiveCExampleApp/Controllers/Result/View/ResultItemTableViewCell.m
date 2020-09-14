@@ -27,7 +27,7 @@
 
 @implementation ResultItemTableViewCell
 
-- (void)configureWith:(nonnull ResultItem *)resultItem {
+- (void)configureWithResultItem:(nonnull ResultItem *)resultItem {
     self.textLabel.text = resultItem.title;
     
     if (resultItem.subResult) {

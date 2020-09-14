@@ -35,8 +35,16 @@
 
 @implementation ResultTableViewController
 
+//------------------------------------------------------
+// MARK: - Constants
+//------------------------------------------------------
+
 static NSString * const kTableViewCellReuseIdentifier = @"ResultItemTableViewCellIdentifier";
 static CGFloat const kTableViewCellHeight = 64.F;
+
+//------------------------------------------------------
+// MARK: - Initializers
+//------------------------------------------------------
 
 - (instancetype)initWithResult:(nonnull Result*)result {
     if (self = [super initWithStyle: UITableViewStyleGrouped]) {
@@ -44,6 +52,10 @@ static CGFloat const kTableViewCellHeight = 64.F;
     }
     return self;
 }
+
+//------------------------------------------------------
+// MARK: - View lifecycle
+//------------------------------------------------------
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,7 +66,9 @@ static CGFloat const kTableViewCellHeight = 64.F;
     self.title = self.result.title;
 }
 
-#pragma mark - Table view data source
+//------------------------------------------------------
+// MARK: - UITableView Data Source
+//------------------------------------------------------
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -76,7 +90,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
     ResultItemTableViewCell *cell = (ResultItemTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellReuseIdentifier
                                                                                                forIndexPath:indexPath];
     ResultItem *item = self.result.items[indexPath.row];
-    [cell configureWith:item];
+    [cell configureWithResultItem:item];
     return cell;
 }
 
@@ -85,7 +99,8 @@ static CGFloat const kTableViewCellHeight = 64.F;
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    ResultItem *item = self.result.items[indexPath.row];
+    return ![item.value containsString:@"Contains"];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(nonnull SEL)action forRowAtIndexPath:(nonnull NSIndexPath *)indexPath withSender:(nullable id)sender {

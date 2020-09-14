@@ -28,6 +28,13 @@
 
 @interface ResultTableViewController : UITableViewController
 
+/**
+ * Designated initializer that creates an instance of ResultTableViewController populated
+ * with Result objects, that represent the Judo transaction response details
+ *
+ * @param result - reference to a Result instance, which contains the Judo transaction
+ * response parameter title and value.
+ */
 - (instancetype _Nullable)initWithResult:(nonnull Result*)result;
 
 @end
