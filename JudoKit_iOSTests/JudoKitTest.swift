@@ -237,7 +237,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["result"] = "Declined"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult ,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -262,7 +262,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "PreAuth"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult ,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -287,7 +287,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "Save"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult ,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -312,7 +312,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "RegisterCard"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult ,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
