@@ -36,6 +36,8 @@
 #import "Settings.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
+#import "Result.h"
+#import "ResultTableViewController.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
@@ -65,6 +67,15 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
             kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
 
     [self requestLocationPermissions];
+    [self setupPropertiesObservation];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        Result *result = [Result resultFromObject:self.configuration];
+        UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
+        [self.navigationController pushViewController:controller animated:YES];
+    });
+
 
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
 }
