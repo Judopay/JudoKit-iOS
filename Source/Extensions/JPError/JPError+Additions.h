@@ -30,48 +30,11 @@
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
-@interface JPError (Additions)
-
-+ (nonnull JPError *)judoRequestFailedError;
-+ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
-+ (nonnull JPError *)judoJudoIdMissingError;
-+ (nonnull JPError *)judoPaymentMethodMissingError;
-+ (nonnull JPError *)judoAmountMissingError;
-+ (nonnull JPError *)judoReferenceMissingError;
-+ (nonnull JPError *)judoTokenMissingError;
-+ (nonnull JPError *)judoDuplicateTransactionError;
-+ (nonnull JPError *)judo3DSRequestFailedErrorWithUnderlyingError:(nullable NSError *)underlyingError;
-+ (nonnull JPError *)judoUserDidCancelError;
-+ (nonnull JPError *)judoParameterError;
-+ (nonnull JPError *)judoInternetConnectionError;
-+ (nonnull JPError *)judoJPApplePayConfigurationError;
-+ (nonnull JPError *)judoResponseParseError;
-+ (nonnull JPError *)judoMissingChecksumError;
-+ (nonnull JPError *)judoRequestTimeoutError;
-+ (nonnull JPError *)judoInvalidCardNumberError;
-+ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
-+ (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
-+ (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
-+ (nonnull JPError *)judoErrorFromResponse:(nonnull JPResponse *)data;
-+ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
-+ (nonnull JPError *)judoErrorFromError:(nonnull NSError *)error;
-+ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
-+ (nonnull JPError *)judoInvalidIDEALCurrencyError;
-+ (nonnull JPError *)judoInvalidPBBACurrency;
-+ (nonnull JPError *)judoPBBAURLSchemeMissing;
-+ (nonnull JPError *)judoApplePayNotSupportedError;
-+ (nonnull JPError *)judoErrorCardDeclined;
-@end
-
 typedef NS_ENUM(NSUInteger, JudoError) {
+    JudoErrorGeneral_Error = 0,
     JudoErrorRequestFailed,
     JudoErrorJSONSerializationFailed,
-    JudoErrorJudoIdMissing,
-    JudoErrorPaymentMethodMissing,
-    JudoErrorAmountMissing,
-    JudoErrorReferenceMissing,
     JudoErrorTokenMissing,
-    JudoErrorDuplicateTransaction,
     JudoError3DSRequest,
     JudoErrorUnderlyingError,
     JudoErrorTransactionDeclined,
@@ -80,96 +43,152 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoErrorUserDidCancel,
     JudoErrorParameterError,
     JudoErrorResponseParseError,
-    JudoErrorInvalidJPApplePayConfiguration,
     JudoErrorInvalidCardNumberError,
     JudoErrorUnsupportedCardNetwork,
-    JudoErrorJailbrokenDeviceDisallowed,
-    JudoErrorGeneral_Error = 0,
-    JudoErrorGeneral_Model_Error = 1,
-    JudoErrorUnauthorized = 7,
-    JudoErrorPayment_System_Error = 9,
-    JudoErrorPayment_Declined = 11,
-    JudoErrorPayment_Failed = 12,
-    JudoErrorTransaction_Not_Found = 19,
-    JudoErrorValidation_Passed = 20,
-    JudoErrorUncaught_Error = 21,
-    JudoErrorServer_Error = 22,
-    JudoErrorInvalid_From_Date = 23,
-    JudoErrorInvalid_To_Date = 24,
-    JudoErrorCantFindWebPayment = 25,
-    JudoErrorGeneral_Error_Simple_Application = 26,
-    JudoErrorInvalidApiVersion = 40,
-    JudoErrorMissingApiVersion = 41,
-    JudoErrorPreAuthExpired = 42,
-    JudoErrorCollection_Original_Transaction_Wrong_Type = 43,
-    JudoErrorCurrency_Must_Equal_Original_Transaction = 44,
-    JudoErrorCannot_Collect_A_Voided_Transaction = 45,
-    JudoErrorCollection_Exceeds_PreAuth = 46,
-    JudoErrorRefund_Original_Transaction_Wrong_Type = 47,
-    JudoErrorCannot_Refund_A_Voided_Transaction = 48,
-    JudoErrorRefund_Exceeds_Original_Transaction = 49,
-    JudoErrorVoid_Original_Transaction_Wrong_Type = 50,
-    JudoErrorVoid_Original_Transaction_Is_Already_Void = 51,
-    JudoErrorVoid_Original_Transaction_Has_Been_Collected = 52,
-    JudoErrorVoid_Original_Transaction_Amount_Not_Equal_To_Preauth = 53,
-    JudoErrorUnableToAccept = 54,
-    JudoErrorAccountLocationNotFound = 55,
-    JudoErrorAccessDeniedToTransaction = 56,
-    JudoErrorNoConsumerForTransaction = 57,
-    JudoErrorTransactionNotEnrolledInThreeDSecure = 58,
-    JudoErrorTransactionAlreadyAuthorizedByThreeDSecure = 59,
-    JudoErrorThreeDSecureNotSuccessful = 60,
-    JudoErrorApUnableToDecrypt = 61,
-    JudoErrorReferencedTransactionNotFound = 62,
-    JudoErrorReferencedTransactionNotSuccessful = 63,
-    JudoErrorTestCardNotAllowed = 64,
-    JudoErrorCollection_Not_Valid = 65,
-    JudoErrorRefund_Original_Transaction_Null = 66,
-    JudoErrorRefund_Not_Valid = 67,
-    JudoErrorVoid_Not_Valid = 68,
-    JudoErrorUnknown = 69,
-    JudoErrorCardTokenInvalid = 70,
-    JudoErrorUnknownPaymentModel = 71,
-    JudoErrorUnableToRouteTransaction = 72,
-    JudoErrorCardTypeNotSupported = 73,
-    JudoErrorCardCv2Invalid = 74,
-    JudoErrorCardTokenDoesntMatchConsumer = 75,
-    JudoErrorWebPaymentReferenceInvalid = 76,
-    JudoErrorWebPaymentAccountLocationNotFound = 77,
-    JudoErrorRegisterCardWithWrongTransactionType = 78,
-    JudoErrorInvalidAmountToRegisterCard = 79,
-    JudoErrorContentTypeNotSpecifiedOrUnsupported = 80,
-    JudoErrorInternalErrorAuthenticating = 81,
-    JudoErrorTransactionNotFound = 82,
-    JudoErrorResourceNotFound = 83,
-    JudoErrorLackOfPermissionsUnauthorized = 84,
-    JudoErrorContentTypeNotSupported = 85,
-    JudoErrorAuthenticationFailure = 403,
-    JudoErrorNot_Found = 404,
-    JudoErrorMustProcessPreAuthByToken = 4002,
-    JudoErrorApplicationModelIsNull = 20000,
-    JudoErrorApplicationModelRequiresReference = 20001,
-    JudoErrorApplicationHasAlreadyGoneLive = 20002,
-    JudoErrorMissingProductSelection = 20003,
-    JudoErrorAccountNotInSandbox = 20004,
-    JudoErrorApplicationRecIdRequired = 20005,
-    JudoErrorRequestNotProperlyFormatted = 20006,
-    JudoErrorNoApplicationReferenceFound = 20007,
-    JudoErrorNotSupportedFileType = 20008,
-    JudoErrorErrorWithFileUpload = 20009,
-    JudoErrorEmptyApplicationReference = 20010,
-    JudoErrorApplicationDoesNotExist = 20011,
-    JudoErrorUnknownSortSpecified = 20013,
-    JudoErrorPageSizeLessThanOne = 20014,
-    JudoErrorPageSizeMoreThanFiveHundred = 20015,
-    JudoErrorOffsetLessThanZero = 20016,
-    JudoErrorInvalidMerchantId = 20017,
-    JudoErrorMerchantIdNotFound = 20018,
-    JudoErrorNoProductsWereFound = 20019,
-    JudoErrorOnlyTheJudoPartnerCanSubmitSimpleApplications = 20020,
-    JudoErrorUnableToParseDocument = 20021,
-    JudoErrorUnableToFindADefaultAccountLocation = 20022,
-    JudoErrorWebpaymentsShouldBeCreatedByPostingToUrl = 20023,
-    JudoErrorInvalidMd = 20025,
-    JudoErrorInvalidReceiptId = 20026,
 };
+
+@interface JPError (Additions)
+
+/**
+ * In JPSession:
+ *   - Called if the request URL could not be generated
+ *   - Called if the request responded with error or no data
+ */
++ (nonnull JPError *)judoRequestFailedError;
+
+/**
+ * In JPSession:
+ *   - Called if the response data could not be deserialized into JSON
+ */
++ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
+
+/**
+ * In JPTransactionPresenter:
+ *   - Called if no card token was returned from a Save Card transaction
+ */
++ (nonnull JPError *)judoTokenMissingError;
+
+/**
+ * In JPIDEALViewController:
+ *   - Called if the user cancelled during the IDEAL bank flow
+ *
+ * In JP3DSViewController:
+ *   - Called if the user tapped on the Cancel button on the 3DS modal controller
+ *
+ * In JPTransactionPresenter:
+ *   - Called if the user tapped on the Cancel button in the Judo transaction UI
+ *
+ * In JPTransactionInteractor:
+ *   - There's a condition that checks if the error is `judoUserDidCancelError`.
+ *    If yes, returns the stored transaction errors back to the merchant.
+ *
+ * In JPPaymentMethodsInteractor:
+ *   - There's a condition that checks if the error is `judoUserDidCancelError`.
+ *    If yes, returns the stored transaction errors back to the merchant.
+ *
+ * In JPPaymentMethodsPresenter:
+ *   - Called if the user tapped on the Back button in the Judo Wallet
+ */
++ (nonnull JPError *)judoUserDidCancelError;
+
+/**
+ * In JPApiService:
+ *   - Called if the HTTP request method is not GET, POST or PUT
+ */
++ (nonnull JPError *)judoParameterError;
+
+/**
+ * In JPSession:
+ *   - Called if during the request the Reachability service returns false
+ */
++ (nonnull JPError *)judoInternetConnectionError;
+
+/**
+ * In JPPBBAService:
+ *   - Called if the PBBA response does not contain an orderId or the redirect URL
+ *   - Called if the PBBA response does not contain a secureToken and pbbaBrn
+ *
+ * In JPIDEALService:
+ *   - Called if the IDEAL request does not return an orderId or the redirect URL
+ */
++ (nonnull JPError *)judoResponseParseError;
+
+/**
+ * In JPIDEALViewController:
+ *   - Called if the IDEAL redirect URL does not contain a checksum parameter
+ */
++ (nonnull JPError *)judoMissingChecksumError;
+
+/**
+ * In JPPBBAService:
+ *   - Called if the PBBA flow exceeds the maximum time limit
+ *
+ * In JPIDEALService:
+ *   - Called if the iDEAL flow exceeds the maximum time limit
+ *
+ * In JPIDEALViewController:
+ *   - Referenced when displaying the timeout status view during polling
+ */
++ (nonnull JPError *)judoRequestTimeoutError;
+
+/**
+ * In JPCardValidatorService:
+ *   - Called if the card number is not valid once all digits have been entered
+ */
++ (nonnull JPError *)judoInvalidCardNumberError;
+
+/**
+ * In JPCardValidatorService:
+ *   - Called if the card number is not part of the allowed card types
+ */
++ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
+
+/**
+ * In JPSession:
+ *   - Called if the transaction result is neither success nor declined
+ */
++ (nonnull JPError *)judoErrorFromResponse:(nonnull JPResponse *)data;
+
+/**
+ * In JPSession:
+ *   - Called if the transaction response contains the 'code' property
+ */
++ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
+
+/**
+ * In JPSession:
+ *   - Called if the transaction response contains 'acsUrl' and `paReq`
+ */
++ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
+
+/**
+ * In JPPaymentMethodsBuilder:
+ *   - Called if iDEAL is the only payment method and currency is not EUR
+ */
++ (nonnull JPError *)judoInvalidIDEALCurrencyError;
+
+/**
+ * In JPPaymentMethodsBuilder:
+ *   - Called if PBBA is the only payment method and currency is not GBP
+ */
++ (nonnull JPError *)judoInvalidPBBACurrency;
+
+/**
+ * In JPPaymentMethodsBuilder:
+ *   - Called if PBBA is the only payment method and 'deeplinkScheme' is missing
+ */
++ (nonnull JPError *)judoPBBAURLSchemeMissing;
+
+/**
+ * In JPPaymentMethodsBuilder:
+ *   - Called if ApplePay is the only payment method but is not supported
+ */
++ (nonnull JPError *)judoApplePayNotSupportedError;
+
+/**
+ * In JPSession:
+ *   - Called if the transaction result returns the 'Declined' status
+ */
++ (nonnull JPError *)judoErrorCardDeclined;
+
+@end
