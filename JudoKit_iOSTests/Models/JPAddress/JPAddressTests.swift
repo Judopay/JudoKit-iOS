@@ -30,7 +30,7 @@ class JPAddressTests: XCTestCase {
                              "line3":"line3",
                              "postCode":"postCode",
                              "town":"town",
-                             "countryCode":"GB"] as [String : Any]
+                             "countryCode":123] as [String : Any]
     
     var address: JPAddress! = nil
     
@@ -47,12 +47,18 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_InitDesignated() {
-        let address = JPAddress(line1: "line1", line2: "line2", line3: "line3", town: "town", countryCode: "GB", postCode: "postCode")
+        let address = JPAddress(line1: "line1",
+                                line2: "line2",
+                                line3: "line3",
+                                town: "town",
+                                countryCode: 123,
+                                postCode: "postCode")
+        
         XCTAssertEqual(address.line1, "line1")
         XCTAssertEqual(address.line2, "line2")
         XCTAssertEqual(address.line3, "line3")
         XCTAssertEqual(address.town, "town")
-        XCTAssertEqual(address.countryCode, "GB")
+        XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")
     }
     
@@ -68,7 +74,7 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.line2, "line2")
         XCTAssertEqual(address.line3, "line3")
         XCTAssertEqual(address.town, "town")
-        XCTAssertEqual(address.countryCode, "GB")
+        XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")
     }
 }

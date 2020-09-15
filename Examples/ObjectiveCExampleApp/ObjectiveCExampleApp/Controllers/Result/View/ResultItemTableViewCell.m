@@ -1,5 +1,5 @@
 //
-//  main.m
+//  ResultItemTableViewCell.m
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,11 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AppDelegate.h"
-#import <UIKit/UIKit.h>
+#import "ResultItemTableViewCell.h"
+#import "ResultItem.h"
 
-int main(int argc, char *argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+@implementation ResultItemTableViewCell
+
+- (void)configureWithResultItem:(nonnull ResultItem *)resultItem {
+    self.textLabel.text = resultItem.title;
+
+    if (resultItem.subResult) {
+        self.detailTextLabel.hidden = YES;
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+        self.detailTextLabel.hidden = NO;
+        self.detailTextLabel.text = resultItem.value;
+        self.accessoryType = UITableViewCellAccessoryNone;
     }
+
+    self.textLabel.text = resultItem.title;
 }
+
+@end

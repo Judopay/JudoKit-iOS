@@ -24,6 +24,7 @@
 
 #import "JPApplePayRequest.h"
 #import "JPAddress.h"
+#import "JPCountry.h"
 #import <PassKit/PassKit.h>
 
 @implementation JPApplePayPaymentToken
@@ -83,7 +84,7 @@
                                                   line2:postalAddress.city
                                                   line3:postalAddress.postalCode
                                                    town:postalAddress.city
-                                            countryCode:postalAddress.ISOCountryCode
+                                            countryCode:[JPCountry isoCodeForCountry:postalAddress.country]
                                                postCode:postalAddress.postalCode];
 }
 

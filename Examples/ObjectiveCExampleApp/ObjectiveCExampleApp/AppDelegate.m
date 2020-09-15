@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "AppDelegate.h"
-#import "Settings.h"
 #import "ExampleAppCredentials.h"
 #import "MainViewController.h"
+#import "Settings.h"
 
 @import CocoaDebug;
 @import JudoKit_iOS;
@@ -43,11 +43,11 @@
     if (url) {
         [self startPBBADeeplinkWithURL:url];
     }
-    
+
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     [self startPBBADeeplinkWithURL:url];
     return true;
 }
@@ -64,7 +64,7 @@
 - (void)registerDefaultsFromSettingsBundle {
     NSString *settingsBundle = [NSBundle.mainBundle pathForResource:@"Settings" ofType:@"bundle"];
 
-    if(!settingsBundle) {
+    if (!settingsBundle) {
         return;
     }
 
@@ -75,19 +75,19 @@
     NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
 
     NSDictionary *secretsMapping = @{
-        kJudoIdKey: judoId,
-        kTokenKey: token,
-        kSecretKey: secret,
-        kMerchantIdKey: merchantId,
+        kJudoIdKey : judoId,
+        kTokenKey : token,
+        kSecretKey : secret,
+        kMerchantIdKey : merchantId,
     };
 
-    for(NSDictionary *preference in preferences) {
+    for (NSDictionary *preference in preferences) {
         NSString *key = preference[@"Key"];
         if (!key) {
             continue;
         }
 
-        if([preference.allKeys containsObject:@"DefaultValue"]) {
+        if ([preference.allKeys containsObject:@"DefaultValue"]) {
             defaultsToRegister[key] = preference[@"DefaultValue"];
         } else if ([secretsMapping.allKeys containsObject:key]) {
             defaultsToRegister[key] = secretsMapping[key];

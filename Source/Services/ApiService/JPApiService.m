@@ -67,13 +67,13 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization
                           isSandboxed:(BOOL)sandboxed {
-    
+
     if (self = [super init]) {
         _isSandboxed = sandboxed;
         _authorization = authorization;
         _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kRegisterCardEndpoint, kSaveCardEndpoint ];
         _enricher = [JPRequestEnricher new];
-        
+
         [self setUpSession];
     }
     return self;
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)setUpSession {
     JPSessionConfiguration *configuration = [JPSessionConfiguration configurationWithAuthorization:self.authorization];
     configuration.isSandboxed = self.isSandboxed;
-    
+
     _session = [JPSession sessionWithConfiguration:configuration];
 }
 
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokePaymentWithRequest:(JPPaymentRequest *)request
                    andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokePreAuthPaymentWithRequest:(JPPaymentRequest *)request
                           andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
@@ -120,7 +120,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeTokenPaymentWithRequest:(JPTokenRequest *)request
                         andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokePreAuthTokenPaymentWithRequest:(JPTokenRequest *)request
                                andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
                        authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
                               andCompletion:(nullable JPCompletionBlock)completion {
-    
+
     NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
     NSDictionary *parameters = [result toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPUT
@@ -152,7 +152,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request
                         andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kRegisterCardEndpoint
@@ -162,7 +162,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeSaveCardWithRequest:(JPSaveCardRequest *)request
                     andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kSaveCardEndpoint
@@ -181,7 +181,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeApplePayPaymentWithRequest:(JPApplePayRequest *)request
                            andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokePreAuthApplePayPaymentWithRequest:(JPApplePayRequest *)request
                                   andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request
                     andCompletion:(JPCompletionBlock)completion {
-    
+
     NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kBankSaleEndpoint
@@ -211,7 +211,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeOrderStatusWithOrderId:(NSString *)orderId
                        andCompletion:(JPCompletionBlock)completion {
-    
+
     NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kBankStatusRequestEndpoint, orderId];
     [self performRequestWithMethod:JPHTTPMethodGET
                           endpoint:endpoint
@@ -225,28 +225,28 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                         endpoint:(NSString *)endpoint
                       parameters:(NSDictionary *)parameters
                    andCompletion:(JPCompletionBlock)completion {
-    
+
     BOOL shouldEnrich = [self.enricheablePaths containsObject:endpoint];
-    
+
     JPEnricherCompletionBlock enricherCompletion = ^(NSDictionary *enrichedRequest) {
         switch (method) {
             case JPHTTPMethodGET:
                 [self.session GET:endpoint parameters:enrichedRequest andCompletion:completion];
                 break;
-                
+
             case JPHTTPMethodPOST:
                 [self.session POST:endpoint parameters:enrichedRequest andCompletion:completion];
                 break;
-                
+
             case JPHTTPMethodPUT:
                 [self.session PUT:endpoint parameters:enrichedRequest andCompletion:completion];
                 break;
-                
+
             default:
                 completion(nil, JPError.judoParameterError);
         }
     };
-    
+
     if (shouldEnrich) {
         [self.enricher enrichRequestParameters:parameters withCompletion:enricherCompletion];
     } else {

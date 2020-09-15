@@ -57,7 +57,7 @@
 /**
  *  Billing country of the address
  */
-@property (nonatomic, strong, nullable) NSString *countryCode;
+@property (nonatomic, strong, nullable) NSNumber *countryCode;
 
 /**
  *  Designated Initializer
@@ -75,7 +75,7 @@
                                 line2:(nullable NSString *)line2
                                 line3:(nullable NSString *)line3
                                  town:(nullable NSString *)town
-                          countryCode:(nullable NSString *)countryCode
+                          countryCode:(nullable NSNumber *)countryCode
                              postCode:(nullable NSString *)postCode;
 
 /**

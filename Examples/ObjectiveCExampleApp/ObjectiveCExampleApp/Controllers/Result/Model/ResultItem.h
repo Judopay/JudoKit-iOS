@@ -1,5 +1,5 @@
 //
-//  DetailsTableViewController.h
+//  ResultItem.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,34 +22,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@class Result;
 
-@interface DetailsRow: NSObject
-@property (nonatomic, strong) NSString *_Nullable title;
-@property (nonatomic, strong) NSString *_Nullable value;
+@interface ResultItem : NSObject
 
-- (nonnull instancetype)initWithTitle:(nonnull NSString *)title
-                                value:(nonnull NSString *)value;
+/**
+ * The title of a result property
+ */
+@property (nonatomic, strong) NSString *title;
 
-+ (nonnull instancetype)withTitle:(nonnull NSString *)title andValue:(nonnull NSString *)value;
+/**
+ * The value of a result property represented as a NSString
+ */
+@property (nonatomic, strong) NSString *value;
+
+/**
+ * An optional Result used to storing nested properties
+ */
+@property (nonatomic, strong) Result *subResult;
+
+/**
+ * Designated initializer that creates an instance of ResultItem based on a title and value
+ *
+ * @param title - the title of the result property
+ * @param value - the value of the result property
+ */
++ (instancetype)resultItemWithTitle:(NSString *)title
+                              value:(NSString *)value;
 
 @end
-
-@interface DetailsSection: NSObject
-@property (nonatomic, strong) NSString *_Nullable title;
-@property (nonatomic, strong) NSArray<DetailsRow *> *rows;
-
-- (nonnull instancetype)initWithTitle:(nonnull NSString *)title
-                                 rows:(nonnull NSArray<DetailsRow *> *)rows;
-@end
-
-@interface DetailsTableViewController : UITableViewController
-@property (nonatomic, strong) NSArray<DetailsSection *> *data;
-
-- (instancetype _Nonnull)initWithData:(nonnull NSArray<DetailsSection *> *)data
-                             andTitle:(NSString *)title;
-@end
-
-NS_ASSUME_NONNULL_END

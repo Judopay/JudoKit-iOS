@@ -4,7 +4,7 @@
 @implementation IASKAppSettingsViewController (Additions)
 
 - (void)updateHiddenKeys {
-    NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey]];
+    NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey ]];
     [self setHiddenKeys:hiddenKeys];
 }
 
@@ -13,18 +13,18 @@
     NSSet *hiddenKeys;
 
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[kIsPaymentSessionOnKey]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[kIsTokenAndSecretOnKey]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey ]];
     }
-    
+
     if (hiddenKeys.count > 0) {
         [self setHiddenKeys:hiddenKeys animated:YES];
     }
 }
 
 - (NSSet *)computeHiddenKeysWithPriority:(NSArray *)keys {
-    NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:@[kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey]];
+    NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:@[ kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
         [hiddenKeys removeObject:kSessionTokenKey];

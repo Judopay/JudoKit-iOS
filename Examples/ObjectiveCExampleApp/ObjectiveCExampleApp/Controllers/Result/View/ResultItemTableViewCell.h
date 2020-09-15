@@ -1,5 +1,5 @@
 //
-//  main.m
+//  ResultItemTableViewCell.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,11 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AppDelegate.h"
 #import <UIKit/UIKit.h>
 
-int main(int argc, char *argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@class ResultItem;
+
+@interface ResultItemTableViewCell : UITableViewCell
+
+/**
+ * Method that configures a Result Table View cell with the data from the ResultItem instance
+ *
+ * @param resultItem - instance of ResultItem that contains the title and value of a Judo transaction result property
+ */
+- (void)configureWithResultItem:(ResultItem *)resultItem;
+
+@end
