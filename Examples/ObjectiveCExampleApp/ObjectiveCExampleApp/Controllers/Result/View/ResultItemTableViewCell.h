@@ -33,6 +33,6 @@
  *
  * @param resultItem - instance of ResultItem that contains the title and value of a Judo transaction result property
  */
-- (void)configureWithResultItem:(nonnull ResultItem *)resultItem;
+- (void)configureWithResultItem:(ResultItem *)resultItem;
 
 @end
