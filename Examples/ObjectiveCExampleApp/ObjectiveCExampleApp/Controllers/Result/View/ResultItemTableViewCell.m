@@ -29,7 +29,7 @@
 
 - (void)configureWithResultItem:(nonnull ResultItem *)resultItem {
     self.textLabel.text = resultItem.title;
-    
+
     if (resultItem.subResult) {
         self.detailTextLabel.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -38,7 +38,7 @@
         self.detailTextLabel.text = resultItem.value;
         self.accessoryType = UITableViewCellAccessoryNone;
     }
-    
+
     self.textLabel.text = resultItem.title;
 }
 

@@ -29,7 +29,7 @@
 
 + (instancetype)resultItemWithTitle:(NSString *)title
                               value:(NSString *)value {
-    
+
     ResultItem *resultItem = [ResultItem new];
     resultItem.title = title;
     resultItem.value = value;

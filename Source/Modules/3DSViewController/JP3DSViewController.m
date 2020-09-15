@@ -29,9 +29,9 @@
 #import "JPError+Additions.h"
 #import "JPLoadingView.h"
 #import "JPResponse.h"
+#import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
-#import "NSString+Additions.h"
 
 @interface JP3DSViewController ()
 @property (nonatomic, strong) JP3DSConfiguration *configuration;

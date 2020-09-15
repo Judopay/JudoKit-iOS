@@ -35,6 +35,6 @@
  * @param result - reference to a Result instance, which contains the Judo transaction
  * response parameter title and value.
  */
-- (instancetype _Nullable)initWithResult:(nonnull Result*)result;
+- (instancetype _Nullable)initWithResult:(nonnull Result *)result;
 
 @end

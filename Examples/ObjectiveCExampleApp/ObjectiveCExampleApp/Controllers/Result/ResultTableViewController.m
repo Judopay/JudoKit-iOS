@@ -39,15 +39,15 @@
 // MARK: - Constants
 //------------------------------------------------------
 
-static NSString * const kTableViewCellReuseIdentifier = @"ResultItemTableViewCellIdentifier";
+static NSString *const kTableViewCellReuseIdentifier = @"ResultItemTableViewCellIdentifier";
 static CGFloat const kTableViewCellHeight = 64.F;
 
 //------------------------------------------------------
 // MARK: - Initializers
 //------------------------------------------------------
 
-- (instancetype)initWithResult:(nonnull Result*)result {
-    if (self = [super initWithStyle: UITableViewStyleGrouped]) {
+- (instancetype)initWithResult:(nonnull Result *)result {
+    if (self = [super initWithStyle:UITableViewStyleGrouped]) {
         self.result = result;
     }
     return self;
@@ -62,7 +62,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
     UINib *cellNib = [UINib nibWithNibName:@"ResultItemTableViewCell" bundle:NSBundle.mainBundle];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:kTableViewCellReuseIdentifier];
-    
+
     self.title = self.result.title;
 }
 
@@ -117,7 +117,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     ResultItem *item = self.result.items[indexPath.row];
     if (item.subResult) {
         UIViewController *controller = [[ResultTableViewController alloc] initWithResult:item.subResult];

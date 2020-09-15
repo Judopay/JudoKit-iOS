@@ -32,4 +32,3 @@
 @property (nonatomic, strong) JPConfiguration *configuration;
 
 @end
-

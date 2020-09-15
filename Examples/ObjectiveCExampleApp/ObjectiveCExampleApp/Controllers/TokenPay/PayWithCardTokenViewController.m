@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "PayWithCardTokenViewController.h"
-#import "Settings.h"
 #import "Result.h"
 #import "ResultTableViewController.h"
+#import "Settings.h"
 
 @import JudoKit_iOS;
 
@@ -49,7 +49,7 @@
     [super viewDidLoad];
     [self shouldEnableButtons:NO];
     [self setupButtons];
-    
+
     self.apiService = [[JPApiService alloc] initWithAuthorization:Settings.defaultSettings.authorization
                                                       isSandboxed:Settings.defaultSettings.isSandboxed];
 }
@@ -63,22 +63,22 @@
     [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:false];
-    }];
+                                     [weakSelf handleResponse:response error:error showReceipt:false];
+                                 }];
 }
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
     if (error || !response) {
-        [self displayAlertWithError: error];
+        [self displayAlertWithError:error];
         return;
     }
-    
+
     self.cardToken = response.cardDetails.cardToken;
-    
+
     if (self.cardToken) {
         [self shouldEnableButtons:YES];
     }
-    
+
     if (showReceipt) {
         [self presentResultTableViewControllerWithResponse:response];
     }
@@ -93,29 +93,29 @@
 - (IBAction)payWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.payWithCardTokenButton startLoading];
-    
-    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken: self.cardToken];
+
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:self.cardToken];
     request.yourPaymentReference = [JPReference generatePaymentReference];
 
     [self.apiService invokeTokenPaymentWithRequest:request
                                      andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:true];
-        [weakSelf.payWithCardTokenButton stopLoading];
-    }];
+                                         [weakSelf handleResponse:response error:error showReceipt:true];
+                                         [weakSelf.payWithCardTokenButton stopLoading];
+                                     }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
     [self.preAuthWithCardTokenButton startLoading];
-    
-    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken: self.cardToken];
+
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:self.cardToken];
     request.yourPaymentReference = [JPReference generatePaymentReference];
-    
+
     [self.apiService invokePreAuthTokenPaymentWithRequest:request
                                             andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:true];
-        [weakSelf.preAuthWithCardTokenButton stopLoading];
-    }];
+                                                [weakSelf handleResponse:response error:error showReceipt:true];
+                                                [weakSelf.preAuthWithCardTokenButton stopLoading];
+                                            }];
 }
 
 - (void)setupButtons {

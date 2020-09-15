@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
                           title:(NSString *)title
                         details:(NSString *)details;
 
-+ (NSArray <DemoFeature *> *)defaultFeatures;
++ (NSArray<DemoFeature *> *)defaultFeatures;
 
 @end
 
