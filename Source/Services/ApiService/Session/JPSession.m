@@ -148,7 +148,7 @@ static NSString *const kMethodPUT = @"PUT";
         NSURLSessionDataTask *task = [self task:request completion:completion];
         [task resume];
     } else {
-        completion(nil, [JPError judoRequestFailedError]);
+        completion(nil, JPError.judoRequestFailedError);
     }
 }
 
@@ -205,19 +205,7 @@ static NSString *const kMethodPUT = @"PUT";
     }
 
     JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
-
-    switch (result.result) {
-        case JPTransactionResultSuccess:
-            completion(result, nil);
-            break;
-
-        case JPTransactionResultDeclined:
-            completion(nil, [JPError judoErrorCardDeclined]);
-            break;
-
-        default:
-            completion(nil, [JPError judoErrorFromResponse:result]);
-    }
+    completion(result, nil);
 }
 
 #pragma mark - URLSession SSL pinning

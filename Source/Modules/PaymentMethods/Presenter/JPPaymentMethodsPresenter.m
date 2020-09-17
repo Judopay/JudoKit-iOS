@@ -196,7 +196,7 @@
 
 - (void)handlePaymentError:(NSError *)error {
 
-    if (error.code == JudoError3DSRequest) {
+    if (error.code == Judo3DSRequestError) {
         [self handle3DSecureTransactionWithError:error];
         return;
     }

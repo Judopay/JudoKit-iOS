@@ -24,11 +24,22 @@
 
 #import <Foundation/Foundation.h>
 
+@class JPResponse;
+
 @interface JPError : NSError
 
 /**
  * A property that contains the list of errors returned from the Judo API
  */
 @property (nonatomic, strong, nullable) NSArray<NSError *> *details;
+
+/**
+ * A method that takes the JPError returned from the Judo backend and changes it to a standard NSError format.
+ *
+ * @param error - an instance of JPError that contains the error details
+ *
+ * @returns an instance of JPError where the details are represented as a localized description
+ */
++ (nonnull JPError *)formattedErrorFromError:(nonnull JPError *)error;
 
 @end

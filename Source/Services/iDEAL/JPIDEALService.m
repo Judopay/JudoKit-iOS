@@ -80,7 +80,7 @@ static const float kTimerDuration = 60.0F;
                                          return;
                                      }
 
-                                     completion(nil, JPError.judoResponseParseError);
+                                     completion(nil, error == nil ? JPError.judoResponseParseError : (JPError *)error);
                                  }];
 }
 

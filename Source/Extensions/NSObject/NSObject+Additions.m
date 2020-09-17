@@ -41,11 +41,9 @@
 
 - (id)objectForKey:(NSString *)key serializeNils:(BOOL)serializeNils {
     id value = [self valueForKey:key];
-    
+
     if (value) {
-        if ([value isKindOfClass:NSNumber.class]
-            || [value isKindOfClass:NSString.class]
-            || [value isKindOfClass:NSDictionary.class]) {
+        if ([value isKindOfClass:NSNumber.class] || [value isKindOfClass:NSString.class] || [value isKindOfClass:NSDictionary.class]) {
             return value;
         } else if ([value isKindOfClass:NSArray.class]) {
             NSArray *array = value;
@@ -56,7 +54,7 @@
             return [value toDictionary];
         }
     }
-    
+
     return serializeNils ? NSNull.null : nil;
 }
 

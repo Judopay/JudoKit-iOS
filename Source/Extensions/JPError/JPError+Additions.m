@@ -28,229 +28,196 @@
 #import "NSString+Additions.h"
 
 NSString *const JudoErrorDomain = @"com.judo.error";
-NSString *const UnableToProcessRequestErrorDesc = @"unable_to_process_request_error_desc";
-NSString *const UnableToProcessRequestErrorTitle = @"unable_to_process_request_error_title";
-NSString *const ErrorUnsupportedCardNetworkTitle = @"error_unsupported_card_network_title";
-NSString *const ErrorUnsupportedCardNetworkDescription = @"error_unsupported_card_network_desc";
-NSString *const JPErrorTitleKey = @"JPErrorTitleKey";
-NSString *const ErrorRequestFailed = @"error_request_failed";
-NSString *const ErrorPaymentMethodMissing = @"error_payment_method_missing";
-NSString *const ErrorAmountMissing = @"error_amount_missing";
-NSString *const ErrorReferenceMissing = @"error_reference_missing";
-NSString *const ErrorTokenMissing = @"error_token_missing";
-NSString *const ErrorResponseParseError = @"error_response_parse_error";
-NSString *const ErrorUserDidCancel = @"error_user_did_cancel";
-NSString *const ErrorParameterError = @"error_parameter_error";
-NSString *const ErrorFailed3DSRequest = @"error_failed_3DS_request";
-NSString *const ErrorJailbrokenDeviceDisallowed = @"error_jailbroken_device_disallowed";
-NSString *const Error3DSRequest = @"error_3DS_request";
-NSString *const ErrorUnderlyingError = @"error_underlying_error";
-NSString *const ErrorTransactionDeclined = @"error_transaction_declined";
-NSString *const ErrorInvalidIDEALCurrency = @"error_invalid_ideal_currency";
-NSString *const ErrorInvalidPBBACurrency = @"error_invalid_pbba_currency";
-NSString *const ErrorPBBAMissingURLScheme = @"error_pbba_missing_scheme";
-NSString *const ErrorApplePayNotSupported = @"error_apple_pay_unsupported";
 
 @implementation JPError (Additions)
 
 + (JPError *)judoInvalidIDEALCurrencyError {
-
-    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidIDEALCurrency.localized
-                                                 failureReason:nil
-                                                         title:nil];
-
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorParameterError
-                           userInfo:userInfo];
+    return [self errorWithDescription:@"error_invalid_ideal_currency_desc".localized
+                        failureReason:@"error_invalid_ideal_currency_reason".localized
+                               ofType:JudoParameterError];
 }
 
-+ (nonnull JPError *)judoInvalidPBBACurrency {
-    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorInvalidPBBACurrency.localized
-                                                 failureReason:nil
-                                                         title:nil];
-
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorParameterError
-                           userInfo:userInfo];
++ (JPError *)judoInvalidPBBACurrencyError {
+    return [self errorWithDescription:@"error_invalid_pbba_currency_desc".localized
+                        failureReason:@"error_invalid_pbba_currency_reason".localized
+                               ofType:JudoParameterError];
 }
 
-+ (NSError *)judoPBBAURLSchemeMissing {
-
-    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorPBBAMissingURLScheme.localized
-                                                 failureReason:nil
-                                                         title:nil];
-
-    return [NSError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorParameterError
-                           userInfo:userInfo];
++ (NSError *)judoPBBAURLSchemeMissingError {
+    return [self errorWithDescription:@"error_invalid_pbba_url_scheme_desc".localized
+                        failureReason:@"error_invalid_pbba_url_scheme_reason".localized
+                               ofType:JudoParameterError];
 }
 
 + (JPError *)judoApplePayNotSupportedError {
-
-    NSDictionary *userInfo = [self userDataDictWithDescription:ErrorApplePayNotSupported.localized
-                                                 failureReason:nil
-                                                         title:nil];
-
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorGeneral_Error
-                           userInfo:userInfo];
+    return [self errorWithDescription:@"error_apple_pay_not_supported_desc".localized
+                        failureReason:@"error_apple_pay_not_supported_reason".localized
+                               ofType:JudoParameterError];
 }
 
 + (JPError *)judoRequestFailedError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorRequestFailed
-                           userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc.localized
-                                                        failureReason:ErrorRequestFailed.localized
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
+    return [self errorWithDescription:@"error_request_failed_desc".localized
+                        failureReason:@"error_request_failed_reason".localized
+                               ofType:JudoRequestError];
 }
 
 + (JPError *)judoRequestTimeoutError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorRequestFailed
-                           userInfo:[self userDataDictWithDescription:@"error_timeout_description".localized
-                                                        failureReason:@"error_timeout_description".localized
-                                                                title:@"error_timeout_title".localized]];
+    return [self errorWithDescription:@"error_request_timeout_desc".localized
+                        failureReason:@"error_request_timeout_reason".localized
+                               ofType:JudoRequestError];
 }
 
-+ (JPError *)judoJSONSerializationFailedWithError:(nullable JPError *)error {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorJSONSerializationFailed
-                           userInfo:@{NSUnderlyingErrorKey : error}];
-}
-
-+ (JPError *)judoTokenMissingError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorTokenMissing
-                           userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc.localized
-                                                        failureReason:ErrorTokenMissing.localized
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
-}
-
-+ (JPError *)judoErrorFromResponse:(JPResponse *)data {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorTransactionDeclined
-                           userInfo:data.rawData];
-}
-
-+ (JPError *)judoErrorForDeclinedCard {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorTransactionDeclined
-                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
-                                                        failureReason:nil
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
-}
-
-+ (JPError *)judoErrorFromDictionary:(NSDictionary *)dict {
-    NSString *messageFromDict = dict[@"message"];
-    NSString *errorMessage = messageFromDict == nil ? UnableToProcessRequestErrorDesc.localized : messageFromDict;
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:[dict[@"code"] integerValue]
-                           userInfo:[self userDataDictWithDescription:errorMessage
-                                                        failureReason:nil
-                                                                title:UnableToProcessRequestErrorTitle.localized
-                                                          currentDict:dict]];
++ (JPError *)judoJSONSerializationFailedWithError:(JPError *)error {
+    return [self errorWithDescription:@"error_json_serialization_desc".localized
+                        failureReason:@"error_json_serialization_reason".localized
+                               ofType:JudoRequestError];
 }
 
 + (JPError *)judoUserDidCancelError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorUserDidCancel
-                           userInfo:[self userDataDictWithDescription:nil
-                                                        failureReason:ErrorUserDidCancel.localized
-                                                                title:nil]];
-}
-
-+ (JPError *)judoParameterError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorParameterError
-                           userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc.localized
-                                                        failureReason:ErrorParameterError.localized
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
+    return [self errorWithDescription:@"error_user_cancelled_desc".localized
+                        failureReason:@"error_user_cancelled_reason".localized
+                               ofType:JudoUserDidCancelError];
 }
 
 + (JPError *)judoInternetConnectionError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorGeneral_Error
-                           userInfo:[self userDataDictWithDescription:@"no_internet_error_description".localized
-                                                        failureReason:@"no_internet_error_description".localized
-                                                                title:@"no_internet_error_title".localized]];
+    return [self errorWithDescription:@"error_internet_connection_desc".localized
+                        failureReason:@"error_internet_connection_reason".localized
+                               ofType:JudoRequestError];
 }
 
 + (JPError *)judoInvalidCardNumberError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorInvalidCardNumberError
-                           userInfo:@{NSLocalizedDescriptionKey : @"check_card_number".localized}];
+    return [self errorWithDescription:@"error_invalid_card_number_desc".localized
+                        failureReason:@"error_invalid_card_number_reason".localized
+                               ofType:JudoParameterError];
 }
 
-+ (JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network {
++ (JPError *)judoApplePayMissingPaymentItemsError {
+    return [self errorWithDescription:@"error_apple_pay_missing_items_desc".localized
+                        failureReason:@"error_apple_pay_missing_items_reason".localized
+                               ofType:JudoParameterError];
+}
 
-    NSString *cardNetworkName = [JPCardNetwork nameOfCardNetwork:network];
-    NSString *description = [NSString stringWithFormat:ErrorUnsupportedCardNetworkDescription.localized, cardNetworkName];
++ (JPError *)judoApplePayMissingShippingMethodsError {
+    return [self errorWithDescription:@"error_apple_pay_missing_shipping_desc".localized
+                        failureReason:@"error_apple_pay_missing_shipping_reason".localized
+                               ofType:JudoParameterError];
+}
 
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorUnsupportedCardNetwork
-                           userInfo:[self userDataDictWithDescription:description
-                                                        failureReason:description
-                                                                title:ErrorUnsupportedCardNetworkTitle.localized]];
++ (JPError *)judoMissingJudoIdError {
+    return [self errorWithDescription:@"error_judo_id_missing_desc".localized
+                        failureReason:@"error_judo_id_missing_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoInvalidJudoIdError {
+    return [self errorWithDescription:@"error_invalid_judo_id_desc".localized
+                        failureReason:@"error_invalid_judo_id_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoMissingCurrencyError {
+    return [self errorWithDescription:@"error_currency_missing_desc".localized
+                        failureReason:@"error_currency_missing_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoInvalidCurrencyError {
+    return [self errorWithDescription:@"error_invalid_currency_desc".localized
+                        failureReason:@"error_invalid_currency_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoMissingMerchantIdError {
+    return [self errorWithDescription:@"error_apple_pay_merchant_id_missing_desc".localized
+                        failureReason:@"error_apple_pay_merchant_id_missing_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoInvalidCountryCodeError {
+    return [self errorWithDescription:@"error_invalid_country_code_desc".localized
+                        failureReason:@"error_invalid_country_code_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoMissingApplePayConfigurationError {
+    return [self errorWithDescription:@"error_apple_pay_config_missing_desc".localized
+                        failureReason:@"error_apple_pay_config_missing_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoInvalidAmountError {
+    return [self errorWithDescription:@"error_invalid_amount_desc".localized
+                        failureReason:@"error_invalid_amount_reason".localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)judoInvalidConsumerReferenceError {
+    return [self errorWithDescription:@"error_invalid_consumer_ref_desc".localized
+                        failureReason:@"error_invalid_consumer_ref_reason".localized
+                               ofType:JudoParameterError];
 }
 
 + (JPError *)judoResponseParseError {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorResponseParseError
-                           userInfo:[self userDataDictWithDescription:UnableToProcessRequestErrorDesc.localized
-                                                        failureReason:ErrorResponseParseError.localized
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
+    return [self errorWithDescription:@"error_response_parse_desc".localized
+                        failureReason:@"error_response_parse_reason".localized
+                               ofType:JudoRequestError];
 }
 
-+ (JPError *)judoMissingChecksumError {
++ (JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network {
+    NSString *cardNetworkName = [JPCardNetwork nameOfCardNetwork:network];
+    NSString *description = [NSString stringWithFormat:@"error_unsupported_card_desc".localized, cardNetworkName];
 
-    NSDictionary *userInfo = [self userDataDictWithDescription:@"error_checksum_missing_description".localized
-                                                 failureReason:@"error_checksum_missing_description".localized
-                                                         title:@"error_checksum_missing_title".localized];
+    return [self errorWithDescription:description
+                        failureReason:@"error_unsupported_card_reason".localized
+                               ofType:JudoParameterError];
+}
 
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorGeneral_Error
-                           userInfo:userInfo];
++ (JPError *)judoErrorFromDictionary:(NSDictionary *)dictionary {
+    NSString *defaultMessage = @"error_no_message_desc".localized;
+
+    NSDictionary *detailsDict = [[dictionary valueForKey:@"details"] firstObject];
+    NSString *detailsMessage = [detailsDict valueForKey:@"message"];
+    NSString *dictMessage = [dictionary valueForKey:@"message"];
+
+    NSString *serverMessage = detailsMessage == nil ? dictMessage : detailsMessage;
+    NSString *message = serverMessage == nil ? defaultMessage : serverMessage;
+
+    return [self errorWithDescription:message
+                        failureReason:@"error_no_message_reason".localized
+                               ofType:[dictionary[@"code"] integerValue]];
 }
 
 + (JPError *)judo3DSRequestWithPayload:(NSDictionary *)payload {
-    return [JPError errorWithDomain:JudoErrorDomain code:JudoError3DSRequest userInfo:payload];
-}
-
-+ (JPError *)judoErrorCardDeclined {
     return [JPError errorWithDomain:JudoErrorDomain
-                               code:JudoErrorTransactionDeclined
-                           userInfo:[self userDataDictWithDescription:ErrorTransactionDeclined.localized
-                                                        failureReason:nil
-                                                                title:UnableToProcessRequestErrorTitle.localized]];
+                               code:Judo3DSRequestError
+                           userInfo:payload];
+}
+
++ (JPError *)errorWithDescription:(NSString *)description
+                    failureReason:(NSString *)failureReason
+                           ofType:(JudoError)type {
+
+    NSDictionary *userInfo = [self userDataDictWithDescription:description
+                                                 failureReason:failureReason];
+
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:type
+                           userInfo:userInfo];
 }
 
 + (NSDictionary *)userDataDictWithDescription:(NSString *)description
-                                failureReason:(NSString *)failureReason
-                                        title:(NSString *)title {
-    NSDictionary *newDict = [NSDictionary new];
-    return [self userDataDictWithDescription:description
-                               failureReason:failureReason
-                                       title:title
-                                 currentDict:newDict];
-}
+                                failureReason:(NSString *)failureReason {
+    NSMutableDictionary *newDict = [NSMutableDictionary new];
 
-+ (NSDictionary *)userDataDictWithDescription:(NSString *)description
-                                failureReason:(NSString *)failureReason
-                                        title:(NSString *)title
-                                  currentDict:(NSDictionary *)currentDict {
-    NSMutableDictionary *mutableDict = [currentDict mutableCopy];
     if (description) {
-        mutableDict[NSLocalizedDescriptionKey] = description;
+        newDict[NSLocalizedDescriptionKey] = description;
     }
+
     if (failureReason) {
-        mutableDict[NSLocalizedFailureReasonErrorKey] = failureReason;
+        newDict[NSLocalizedFailureReasonErrorKey] = failureReason;
     }
 
-    if (title) {
-        mutableDict[JPErrorTitleKey] = title;
-    }
-
-    return [mutableDict copy];
+    return [newDict copy];
 }
 
 @end

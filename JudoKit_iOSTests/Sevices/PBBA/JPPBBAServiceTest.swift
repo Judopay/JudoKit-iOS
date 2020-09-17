@@ -81,7 +81,7 @@ class JPPBBAServiceTest: XCTestCase {
         
         sut.openPBBAMerchantApp { (res, error) in
             XCTAssertNotNil(error)
-            XCTAssertEqual(error?.code, Int(JudoError.errorResponseParseError.rawValue))
+            XCTAssertEqual(error?.code, Int(JudoError.JudoRequestError.rawValue))
             expectation.fulfill()
         }
         waitForExpectations(timeout: 3, handler: nil)
@@ -102,7 +102,7 @@ class JPPBBAServiceTest: XCTestCase {
         let expectation = self.expectation(description: "await save transaction response")
         sut.openPBBAMerchantApp { (res, error) in
             XCTAssertNotNil(error)
-            XCTAssertEqual(error?.code, Int(JudoError.errorResponseParseError.rawValue))
+            XCTAssertEqual(error?.code, Int(JudoError.JudoRequestError.rawValue))
             expectation.fulfill()
         }
         waitForExpectations(timeout: 3, handler: nil)

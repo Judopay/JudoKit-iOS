@@ -177,7 +177,7 @@ const float kPollingDelayTimer = 30.0;
             return;
         }
 
-        self.completionBlock(nil, JPError.judoMissingChecksumError);
+        self.completionBlock(nil, JPError.judoResponseParseError);
     }
 }
 

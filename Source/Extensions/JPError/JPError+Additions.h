@@ -31,164 +31,137 @@
 extern NSString *_Nonnull const JudoErrorDomain;
 
 typedef NS_ENUM(NSUInteger, JudoError) {
-    JudoErrorGeneral_Error = 0,
-    JudoErrorRequestFailed,
-    JudoErrorJSONSerializationFailed,
-    JudoErrorTokenMissing,
-    JudoError3DSRequest,
-    JudoErrorUnderlyingError,
-    JudoErrorTransactionDeclined,
-    JudoErrorFailed3DSRequest,
-    JudoErrorInputMismatchError,
-    JudoErrorUserDidCancel,
-    JudoErrorParameterError,
-    JudoErrorResponseParseError,
-    JudoErrorInvalidCardNumberError,
-    JudoErrorUnsupportedCardNetwork,
+    JudoParameterError,
+    JudoRequestError,
+    Judo3DSRequestError,
+    JudoUserDidCancelError,
 };
 
 @interface JPError (Additions)
 
 /**
- * In JPSession:
- *   - Called if the request URL could not be generated
- *   - Called if the request responded with error or no data
+ * The transaction response returned without any data or there was an error while forming the request.
  */
 + (nonnull JPError *)judoRequestFailedError;
 
 /**
- * In JPSession:
- *   - Called if the response data could not be deserialized into JSON
+ * The response data could not be serialized into a JSON.
  */
 + (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
 
 /**
- * In JPTransactionPresenter:
- *   - Called if no card token was returned from a Save Card transaction
- */
-+ (nonnull JPError *)judoTokenMissingError;
-
-/**
- * In JPIDEALViewController:
- *   - Called if the user cancelled during the IDEAL bank flow
- *
- * In JP3DSViewController:
- *   - Called if the user tapped on the Cancel button on the 3DS modal controller
- *
- * In JPTransactionPresenter:
- *   - Called if the user tapped on the Cancel button in the Judo transaction UI
- *
- * In JPTransactionInteractor:
- *   - There's a condition that checks if the error is `judoUserDidCancelError`.
- *    If yes, returns the stored transaction errors back to the merchant.
- *
- * In JPPaymentMethodsInteractor:
- *   - There's a condition that checks if the error is `judoUserDidCancelError`.
- *    If yes, returns the stored transaction errors back to the merchant.
- *
- * In JPPaymentMethodsPresenter:
- *   - Called if the user tapped on the Back button in the Judo Wallet
+ * The user closed the transaction flow without completing the transaction.
  */
 + (nonnull JPError *)judoUserDidCancelError;
 
 /**
- * In JPApiService:
- *   - Called if the HTTP request method is not GET, POST or PUT
- */
-+ (nonnull JPError *)judoParameterError;
-
-/**
- * In JPSession:
- *   - Called if during the request the Reachability service returns false
+ * The request could not be sent due to no internet connection.
  */
 + (nonnull JPError *)judoInternetConnectionError;
 
 /**
- * In JPPBBAService:
- *   - Called if the PBBA response does not contain an orderId or the redirect URL
- *   - Called if the PBBA response does not contain a secureToken and pbbaBrn
- *
- * In JPIDEALService:
- *   - Called if the IDEAL request does not return an orderId or the redirect URL
+ * The response did not contain some of the required parameters needed to complete the transaction.
  */
 + (nonnull JPError *)judoResponseParseError;
 
 /**
- * In JPIDEALViewController:
- *   - Called if the IDEAL redirect URL does not contain a checksum parameter
- */
-+ (nonnull JPError *)judoMissingChecksumError;
-
-/**
- * In JPPBBAService:
- *   - Called if the PBBA flow exceeds the maximum time limit
- *
- * In JPIDEALService:
- *   - Called if the iDEAL flow exceeds the maximum time limit
- *
- * In JPIDEALViewController:
- *   - Referenced when displaying the timeout status view during polling
+ * The request failed to complete in the allocated time frame.
  */
 + (nonnull JPError *)judoRequestTimeoutError;
 
 /**
- * In JPCardValidatorService:
- *   - Called if the card number is not valid once all digits have been entered
+ * The number entered is not a valid card number or is not supported by the SDK.
  */
 + (nonnull JPError *)judoInvalidCardNumberError;
 
 /**
- * In JPCardValidatorService:
- *   - Called if the card number is not part of the allowed card types
+ * The number entered belongs to a card network that is not allowed by the merchant.
  */
 + (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
 
 /**
- * In JPSession:
- *   - Called if the transaction result is neither success nor declined
- */
-+ (nonnull JPError *)judoErrorFromResponse:(nonnull JPResponse *)data;
-
-/**
- * In JPSession:
- *   - Called if the transaction response contains the 'code' property
- */
-+ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
-
-/**
- * In JPSession:
- *   - Called if the transaction response contains 'acsUrl' and `paReq`
+ * The transaction required a 3D Secure authentication.
  */
 + (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
 
 /**
- * In JPPaymentMethodsBuilder:
- *   - Called if iDEAL is the only payment method and currency is not EUR
+ * Invalid currency passed to iDEAL transaction configuration.
  */
 + (nonnull JPError *)judoInvalidIDEALCurrencyError;
 
 /**
- * In JPPaymentMethodsBuilder:
- *   - Called if PBBA is the only payment method and currency is not GBP
+ * Invalid currency passed to PBBA transaction configuration.
  */
-+ (nonnull JPError *)judoInvalidPBBACurrency;
++ (nonnull JPError *)judoInvalidPBBACurrencyError;
 
 /**
- * In JPPaymentMethodsBuilder:
- *   - Called if PBBA is the only payment method and 'deeplinkScheme' is missing
+ * Either the app's URL Scheme or the deeplink scheme parameter has not been set.
  */
-+ (nonnull JPError *)judoPBBAURLSchemeMissing;
++ (nonnull JPError *)judoPBBAURLSchemeMissingError;
 
 /**
- * In JPPaymentMethodsBuilder:
- *   - Called if ApplePay is the only payment method but is not supported
+ * An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.
  */
 + (nonnull JPError *)judoApplePayNotSupportedError;
 
 /**
- * In JPSession:
- *   - Called if the transaction result returns the 'Declined' status
+ * Some server errors come back as responses. This method maps them to our custom Judo Error object.
  */
-+ (nonnull JPError *)judoErrorCardDeclined;
++ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dictionary;
+
+/**
+ * The Payment Items array of the Apple Pay configuration is either empty or missing.
+ */
++ (nonnull JPError *)judoApplePayMissingPaymentItemsError;
+
+/**
+ * Shipping methods must be set if the required shipping contact fields are specified.
+ */
++ (nonnull JPError *)judoApplePayMissingShippingMethodsError;
+
+/**
+ * The required Judo ID parameter has not been set in the Judo configuration.
+ */
++ (nonnull JPError *)judoMissingJudoIdError;
+
+/**
+ * The specified Judo ID parameter has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidJudoIdError;
+
+/**
+ * The required Currency parameter has not been set in the Judo configuration.
+ */
++ (nonnull JPError *)judoMissingCurrencyError;
+
+/**
+ * The currency code entered is either not a valid ISO 4217 code or is not supported by the SDK.
+ */
++ (nonnull JPError *)judoInvalidCurrencyError;
+
+/**
+ * Apple Pay needs a valid merchant ID to be able to identify your transaction.
+ */
++ (nonnull JPError *)judoMissingMerchantIdError;
+
+/**
+ * The country code entered is either not a valid ISO 3166 2-letter code or is not supported by the SDK.
+ */
++ (nonnull JPError *)judoInvalidCountryCodeError;
+
+/**
+ * No Apple Pay configuration was found in your Judo configuration object.
+ */
++ (nonnull JPError *)judoMissingApplePayConfigurationError;
+
+/**
+ * The amount parameter has either not been set or has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidAmountError;
+
+/**
+ * The consumer reference parameter has either not been set or has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidConsumerReferenceError;
 
 @end
