@@ -3,7 +3,7 @@
 static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
 
 @interface Settings ()
-@property(nonatomic, strong) NSUserDefaults *defaults;
+@property (nonatomic, strong) NSUserDefaults *defaults;
 @end
 
 @implementation Settings
@@ -43,7 +43,7 @@ NSString *safeString(NSString *aString) {
     return @"";
 }
 
-- (id <JPAuthorization>)authorization {
+- (id<JPAuthorization>)authorization {
 
     if (self.isPaymentSessionAuthorizationOn) {
         NSString *token = safeString([self.defaults stringForKey:kSessionTokenKey]);
@@ -93,7 +93,7 @@ NSString *safeString(NSString *aString) {
     }
 
     JPReference *reference = [[JPReference alloc] initWithConsumerReference:consumerReference paymentReference:paymentReference];
-    reference.metaData = @{@"exampleMetaKey": @"exampleMetaValue"};
+    reference.metaData = @{@"exampleMetaKey" : @{@"exampleSubMetaKey" : @"exampleSubMetaValue"}};
 
     return reference;
 }

@@ -27,7 +27,7 @@
 static NSString *const kLastScreenType = @"lastUsedFeature";
 
 @interface ExampleAppStorage ()
-@property (nonatomic, strong) NSUserDefaults* defaults;
+@property (nonatomic, strong) NSUserDefaults *defaults;
 @end
 
 @implementation ExampleAppStorage

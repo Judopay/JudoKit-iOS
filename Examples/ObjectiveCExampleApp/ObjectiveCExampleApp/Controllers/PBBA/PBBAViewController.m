@@ -23,7 +23,8 @@
 //  SOFTWARE.
 
 #import "PBBAViewController.h"
-#import "DetailViewController.h"
+#import "Result.h"
+#import "ResultTableViewController.h"
 
 @import JudoKit_iOS;
 
@@ -54,8 +55,8 @@
                                                                isSandboxed:self.judoKit.isSandboxed];
     [apiService invokeOrderStatusWithOrderId:self.orderIdValueLabel.text
                                andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                                   [weakSelf handleResponse:response error:error];
+                               }];
 }
 
 #pragma mark - JPPBBAButtonDelegate
@@ -69,8 +70,8 @@
     __weak typeof(self) weakSelf = self;
     [weakSelf.judoKit invokePBBAWithConfiguration:weakSelf.configuration
                                        completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
+                                           [weakSelf handleResponse:response error:error];
+                                       }];
 }
 
 /**
@@ -87,32 +88,32 @@
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self displayAlertWithError: error];
+        [self displayAlertWithError:error];
         return;
     }
-    
+
     if (!response) {
-        [self displayAlertWithError: [JPError judoRequestFailedError]];
+        [self displayAlertWithError:[JPError judoRequestFailedError]];
         return;
     }
 
     if (!response.orderDetails.orderStatus) {
-        
+
         self.orderIdValueLabel.text = response.orderDetails.orderId;
         [self.orderIdValueLabel setHidden:!response.orderDetails.orderId];
         [self.orderIdSuffixLabel setHidden:!response.orderDetails.orderId];
         [self.checkStatusButton setHidden:!response.orderDetails.orderId];
         return;
     }
-    
+
     self.configuration.pbbaConfiguration.deeplinkURL = nil;
-    [self presentDetailsViewControllerWithResponse:response];
+    [self presentResultTableViewControllerWithResponse:response];
 }
 
-- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
-    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.response = response;
-    [self.navigationController pushViewController:viewController animated:YES];
+- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
+    Result *result = [Result resultFromObject:response];
+    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

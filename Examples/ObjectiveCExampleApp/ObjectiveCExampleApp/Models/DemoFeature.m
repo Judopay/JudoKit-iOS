@@ -15,47 +15,47 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
     return option;
 }
 
-+ (NSArray <DemoFeature *> *)defaultFeatures {
++ (NSArray<DemoFeature *> *)defaultFeatures {
     return @[
-            [DemoFeature featureWithType:DemoFeatureTypePayment
-                                   title:@"Pay with card"
-                                 details:@"by entering card details"],
-            [DemoFeature featureWithType:DemoFeatureTypePreAuth
-                                   title:@"PreAuth with card"
-                                 details:@"by entering card details"],
-            [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
-                                   title:@"Register card"
-                                 details:@"to be stored for future transactions"],
-            [DemoFeature featureWithType:DemoFeatureTypeCheckCard
-                                   title:@"Check card"
-                                 details:@"to validate a card"],
-            [DemoFeature featureWithType:DemoFeatureTypeSaveCard
-                                   title:@"Save card"
-                                 details:@"to be stored for future transactions"],
-            [DemoFeature featureWithType:DemoFeatureTypeApplePayPayment
-                                   title:@"Apple Pay payment"
-                                 details:@"with a wallet card"],
-            [DemoFeature featureWithType:DemoFeatureTypeApplePayPreAuth
-                                   title:@"Apple Pay preAuth"
-                                 details:@"with a wallet card"],
-            [DemoFeature featureWithType:DemoFeatureTypePaymentMethods
-                                   title:@"Payment Method"
-                                 details:@"with default payment methods"],
-            [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods
-                                   title:@"PreAuth Methods"
-                                 details:@"with default preauth methods"],
-            [DemoFeature featureWithType:DemoFeatureTypeServerToServer
-                                   title:@"Server-to-Server payment methods"
-                                 details:@"with default Server-to-Server payment methods"],
-            [DemoFeature featureWithType:DemoFeatureTypePBBA
-                                   title:@"Pay By Bank"
-                                 details:@"by using your existing Bank app"],
-            [DemoFeature featureWithType:DemoFeatureTokenPayments
-                                   title:@"Token Payments"
-                                 details:@"Token Payments (no UI)"],
-            [DemoFeature featureWithType:DemoFeatureGetTransactionDetails
-                                   title:@"Get Transaction"
-                                 details:@"Get Transaction for Receipt ID"],
+        [DemoFeature featureWithType:DemoFeatureTypePayment
+                               title:@"Pay with card"
+                             details:@"by entering card details"],
+        [DemoFeature featureWithType:DemoFeatureTypePreAuth
+                               title:@"PreAuth with card"
+                             details:@"by entering card details"],
+        [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
+                               title:@"Register card"
+                             details:@"to be stored for future transactions"],
+        [DemoFeature featureWithType:DemoFeatureTypeCheckCard
+                               title:@"Check card"
+                             details:@"to validate a card"],
+        [DemoFeature featureWithType:DemoFeatureTypeSaveCard
+                               title:@"Save card"
+                             details:@"to be stored for future transactions"],
+        [DemoFeature featureWithType:DemoFeatureTypeApplePayPayment
+                               title:@"Apple Pay payment"
+                             details:@"with a wallet card"],
+        [DemoFeature featureWithType:DemoFeatureTypeApplePayPreAuth
+                               title:@"Apple Pay preAuth"
+                             details:@"with a wallet card"],
+        [DemoFeature featureWithType:DemoFeatureTypePaymentMethods
+                               title:@"Payment Method"
+                             details:@"with default payment methods"],
+        [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods
+                               title:@"PreAuth Methods"
+                             details:@"with default preauth methods"],
+        [DemoFeature featureWithType:DemoFeatureTypeServerToServer
+                               title:@"Server-to-Server payment methods"
+                             details:@"with default Server-to-Server payment methods"],
+        [DemoFeature featureWithType:DemoFeatureTypePBBA
+                               title:@"Pay By Bank"
+                             details:@"by using your existing Bank app"],
+        [DemoFeature featureWithType:DemoFeatureTokenPayments
+                               title:@"Token Payments"
+                             details:@"Token Payments (no UI)"],
+        [DemoFeature featureWithType:DemoFeatureGetTransactionDetails
+                               title:@"Get Transaction"
+                             details:@"Get Transaction for Receipt ID"],
     ];
 }
 @end

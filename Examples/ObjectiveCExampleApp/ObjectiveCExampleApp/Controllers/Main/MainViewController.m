@@ -28,27 +28,28 @@
 
 @import JudoKit_iOS;
 
-#import "MainViewController.h"
-#import "DetailViewController.h"
-#import "PBBAViewController.h"
-#import "PayWithCardTokenViewController.h"
 #import "DemoFeature.h"
-#import "Settings.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
+#import "MainViewController.h"
+#import "PBBAViewController.h"
+#import "PayWithCardTokenViewController.h"
+#import "Result.h"
+#import "ResultTableViewController.h"
+#import "Settings.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
 @interface MainViewController ()
 
-@property(nonatomic, strong) JudoKit *judoKit;
-@property(strong, nonatomic) CLLocationManager *locationManager;
-@property(strong, nonatomic) NSArray <DemoFeature *> *features;
-@property(strong, nonatomic) NSSet <NSString *> *settingsToObserve;
+@property (nonatomic, strong) JudoKit *judoKit;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSArray<DemoFeature *> *features;
+@property (strong, nonatomic) NSSet<NSString *> *settingsToObserve;
 
-@property(nonatomic, assign) BOOL shouldSetupJudoSDK;
-@property(nonatomic, strong) NSURL *deepLinkURL;
+@property (nonatomic, assign) BOOL shouldSetupJudoSDK;
+@property (nonatomic, strong) NSURL *deepLinkURL;
 @end
 
 @implementation MainViewController
@@ -60,9 +61,9 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
     self.features = DemoFeature.defaultFeatures;
     self.shouldSetupJudoSDK = YES;
-    self.settingsToObserve = [NSSet setWithArray:@[kSandboxedKey,
-            kTokenKey, kSecretKey, kPaymentSessionKey, kSessionTokenKey,
-            kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
+    self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
+                                                    kTokenKey, kSecretKey, kPaymentSessionKey, kSessionTokenKey,
+                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
 
     [self requestLocationPermissions];
 
@@ -96,7 +97,7 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
         return;
     }
 
-    IASKAppSettingsViewController *settingsViewController = (IASKAppSettingsViewController *) notification.object;
+    IASKAppSettingsViewController *settingsViewController = (IASKAppSettingsViewController *)notification.object;
     NSSet *changes = [NSSet setWithArray:notification.userInfo.allKeys];
 
     if ([changes intersectsSet:self.settingsToObserve]) {
@@ -249,16 +250,16 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
     UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search"
                                                        style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text
-                                             completion:^(JPResponse *response, JPError *error) {
-            [weakSelf handleResponse:response error:error];
-        }];
-    }];
+                                                     handler:^(UIAlertAction *_Nonnull action) {
+                                                         [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text
+                                                                                              completion:^(JPResponse *response, JPError *error) {
+                                                                                                  [weakSelf handleResponse:response error:error];
+                                                                                              }];
+                                                     }];
 
     UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleDestructive
-                                                         handler: nil];
+                                                         handler:nil];
 
     [controller addTextFieldWithConfigurationHandler:^(UITextField *aTextField) {
         textField = aTextField;
@@ -281,21 +282,22 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     if (!response) {
         return;
     }
-    
+
     if ([response.paymentMethod isEqualToString:@"PBBA"] && !response.orderDetails.orderStatus) {
         return;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:YES completion:^{
-        [weakSelf presentDetailsViewControllerWithResponse:response];
-    }];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 [weakSelf presentResultTableViewControllerWithResponse:response];
+                             }];
 }
 
-- (void)presentDetailsViewControllerWithResponse:(JPResponse *)response {
-    DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    viewController.response = response;
-    [self.navigationController pushViewController:viewController animated:YES];
+- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
+    Result *result = [Result resultFromObject:response];
+    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 // MARK: Lazy properties
@@ -323,9 +325,11 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     NSDecimalNumber *itemTwoPrice = [NSDecimalNumber decimalNumberWithString:@"0.02"];
     NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:@"0.03"];
 
-    NSArray *items = @[[JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
-            [JPPaymentSummaryItem itemWithLabel:@"Item 2" amount:itemTwoPrice],
-            [JPPaymentSummaryItem itemWithLabel:@"Tim Apple" amount:totalPrice]];
+    NSArray *items = @[ [JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
+                        [JPPaymentSummaryItem itemWithLabel:@"Item 2"
+                                                     amount:itemTwoPrice],
+                        [JPPaymentSummaryItem itemWithLabel:@"Tim Apple"
+                                                     amount:totalPrice] ];
 
     JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:Settings.defaultSettings.applePayMerchantId
                                                                                         currency:Settings.defaultSettings.amount.currency
@@ -334,11 +338,11 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     configuration.requiredShippingContactFields = JPContactFieldAll;
     configuration.requiredBillingContactFields = JPContactFieldAll;
     configuration.returnedContactInfo = JPReturnedInfoAll;
-    configuration.shippingMethods = @[[[PaymentShippingMethod alloc] initWithIdentifier:@"method"
-                                                                                 detail:@"details"
-                                                                                  label:@"label"
-                                                                                 amount:totalPrice
-                                                                                   type:JPPaymentSummaryItemTypeFinal]];
+    configuration.shippingMethods = @[ [[PaymentShippingMethod alloc] initWithIdentifier:@"method"
+                                                                                  detail:@"details"
+                                                                                   label:@"label"
+                                                                                  amount:totalPrice
+                                                                                    type:JPPaymentSummaryItemTypeFinal] ];
     return configuration;
 }
 
@@ -420,11 +424,11 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
         case DemoFeatureTypePBBA:
             [self pbbaMethodOperation];
             break;
-            
+
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
             break;
-            
+
         case DemoFeatureGetTransactionDetails:
             [self transactionDetailsMethodOperation];
             break;
@@ -432,15 +436,15 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 }
 
 - (void)openPBBAScreen:(NSURL *)url {
-    
+
     self.deepLinkURL = url;
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
-    
+
     [self.judoKit invokePBBAWithConfiguration:self.configuration
                                    completion:^(JPResponse *response, JPError *error) {
-        self.deepLinkURL = nil;
-        [self handleResponse:response error:error];
-    }];
+                                       self.deepLinkURL = nil;
+                                       [self handleResponse:response error:error];
+                                   }];
 }
 
 @end

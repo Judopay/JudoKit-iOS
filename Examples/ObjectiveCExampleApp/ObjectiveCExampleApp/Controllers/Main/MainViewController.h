@@ -35,5 +35,5 @@
 *
 * @param url - deeplink url
 */
--(void)openPBBAScreen:(NSURL *)url;
+- (void)openPBBAScreen:(NSURL *)url;
 @end

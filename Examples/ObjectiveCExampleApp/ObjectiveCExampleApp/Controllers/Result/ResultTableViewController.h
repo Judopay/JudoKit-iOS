@@ -1,5 +1,5 @@
 //
-//  main.m
+//  ResultTableViewController.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,11 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AppDelegate.h"
 #import <UIKit/UIKit.h>
 
-int main(int argc, char *argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@class Result;
+
+@interface ResultTableViewController : UITableViewController
+
+/**
+ * Designated initializer that creates an instance of ResultTableViewController populated
+ * with Result objects, that represent the Judo transaction response details
+ *
+ * @param result - reference to a Result instance, which contains the Judo transaction
+ * response parameter title and value.
+ */
+- (nullable instancetype)initWithResult:(nonnull Result *)result;
+
+@end

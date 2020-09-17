@@ -75,7 +75,7 @@ class JudoKitTest: XCTestCase {
      */
     func test_InvokePBBAWithConfiguration_WhenCurrencyIsEUR_ShouldNotPassValidation() {
         judoKit.invokePBBA(with: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "PBBA transactions only support GBP as the currency.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Unsupported Currency")
         }
     }
     
@@ -104,7 +104,7 @@ class JudoKitTest: XCTestCase {
                                             amount: JPAmount("0.01", currency: "EUR"),
                                             reference: JPReference.init(consumerReference: "consumerReference"))
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "The Judo ID entered is invalid.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "JudoId is invalid")
         }
     }
     
@@ -118,7 +118,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeTransactionWithType_WhenRefernceBig_ShouldNotValidate() {
         configuration.reference = JPReference(consumerReference: "1234567890123456789012345678901234567890123456789012345678901")
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "The consumer reference entered is invalid.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Consumer Reference is invalid")
         }
     }
     
@@ -132,7 +132,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeTransactionWithType_WhenAmountNotNumber_ShouldNotValidate() {
         configuration.amount = JPAmount("aaa", currency: "USD")
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "The amount specified should be a positive number.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Amount should be a number")
         }
     }
     
@@ -160,7 +160,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenMerchant_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.merchantId = ""
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "The Apple Pay merchant ID cannot be null or empty.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Merchant Id cannot be empty")
         }
     }
     
@@ -174,7 +174,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenCurrenctEmpty_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.currency = ""
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Currency cannot be null or empty.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Currency cannot be empty")
         }
     }
     
@@ -188,7 +188,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenCurrenctNotValid_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.currency = "MDL"
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "The specified currency code is not supported.")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Unsupported Currency")
         }
     }
     
@@ -231,13 +231,13 @@ class JudoKitTest: XCTestCase {
      *
      * WHEN: transaction is declined
      *
-     * THEN: should return response
+     * THEN: should return right error
      */
     func test_FetchTransaction_WhenTransactionDeclined_ShouldReturnRightError() {
         jsonResult["result"] = "Declined"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult!,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -245,8 +245,7 @@ class JudoKitTest: XCTestCase {
         let expectation = self.expectation(description: "await save transaction response")
         
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
-            XCTAssertNotNil(res)
-            XCTAssertNil(error)
+            XCTAssertEqual(error?.localizedDescription, "A transaction that was sent to the backend returned declined")
             expectation.fulfill()
         })
         waitForExpectations(timeout: 3, handler: nil)
@@ -263,7 +262,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "PreAuth"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult!,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -288,7 +287,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "Save"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult!,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
@@ -313,7 +312,7 @@ class JudoKitTest: XCTestCase {
         jsonResult["type"] = "RegisterCard"
         stub(condition: isPath("/transactions/receiptId")) { _ in
             let theJSONData = try! JSONSerialization.data(
-                withJSONObject: self.jsonResult!,
+                withJSONObject: self.jsonResult! ,
                 options: JSONSerialization.WritingOptions(rawValue: 0))
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
