@@ -2,6 +2,10 @@ default_platform(:ios)
 
 platform :ios do
 
+  before_all do
+    setup_circle_ci
+  end
+
   desc "Look for formatting issues, run tests and generate code coverage reports"
   lane :test do
     sh("cd .. && ./clang-format.sh lint")
