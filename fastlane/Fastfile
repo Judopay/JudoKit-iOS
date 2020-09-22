@@ -1,15 +1,24 @@
 default_platform(:ios)
 
 platform :ios do
-  before_all do
-    en_ci_utils_init
+
+  desc "Look for formatting issues, run tests and generate code coverage reports"
+  lane :test do
+    sh("cd .. && ./clang-format.sh lint")
+    scan(use_clang_report_name: true)
+    slather
   end
-  
-  lane :generate_code_quality_reports do
-    sh("cd .. && ./clang-format.sh lint") # check code format
-    scan(use_clang_report_name: true)     # run tests and generate reports
-    oclint(report_type: 'html')           # run static code analyzer
-    slather                               # generate code coverage reports
+
+  desc "Build and distribe app via Firebase App Distribution"
+  lane :distribute_test_builds do |options|
+    match(username: "#{options[:apple_username]}")
+    gym
+    firebase_app_distribution(
+      app: "#{options[:firebase_app_id]}",
+      groups: "#{options[:testing_groups]}",
+      release_notes: "#{options[:release_notes]}",
+      firebase_cli_token: "#{options[:firebase_cli_token]}"
+    )
   end
 
 end
