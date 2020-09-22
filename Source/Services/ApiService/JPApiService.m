@@ -243,7 +243,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                 break;
 
             default:
-                break;
+                completion(nil, JPError.judoRequestFailedError);
         }
     };
 
