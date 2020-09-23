@@ -131,20 +131,6 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
-     * GIVEN: User taps on transaction
-     *
-     * WHEN: card model is valid, init jpresponse with no valid token
-     *
-     * THEN: should invoke interactor.trasactionSent and send error to view
-     */
-    func test_HandleTransactionButtonTap_WhenUserTap_ShouldCallInteractor() {
-        interactor.testSendTransaction = .noToken
-        sut.handleTransactionButtonTap()
-        XCTAssertTrue(interactor.trasactionSent)
-        XCTAssertEqual(controller.error.localizedDescription, "Sorry, we're currently unable to process this request.")
-    }
-    
-    /*
      * GIVEN: User taps on scan
      *
      * THEN: showedCameraAlert should be invoked

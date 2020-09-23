@@ -77,7 +77,7 @@ class JPIDEALServiceTest: XCTestCase {
         
         let completion: JPCompletionBlock = { (response, error) in
             XCTAssertNil(response)
-            XCTAssertEqual(error?.localizedDescription, "Request did not complete in the specified time")
+            XCTAssertEqual(error?.localizedDescription, "The request has timed out.")
             expectation.fulfill()
         }
         

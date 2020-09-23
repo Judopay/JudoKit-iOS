@@ -85,7 +85,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                          [weakSelf handlePBBAResponse:response completion:completion];
                                          return;
                                      }
-                                     completion(nil, JPError.judoResponseParseError);
+                                     completion(nil, error == nil ? JPError.judoResponseParseError : error);
                                  }];
 }
 

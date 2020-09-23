@@ -380,7 +380,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenIsInvalidCard_ShouldReturnErrorStringForInvalidCardNumber() {
         let result = sut.validateCardNumberInput("4129939187355598")
-        XCTAssertEqual(result!.errorMessage!,  "Check card number")
+        XCTAssertEqual(result!.errorMessage!,  "Invalid card number")
     }
     
     /*

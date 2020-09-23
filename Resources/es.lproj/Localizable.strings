@@ -22,170 +22,45 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//General
-"ok" = "OK";
-"error" = "Error";
-"cancel" = "Cancelar";
-"delete" = "Delete";
-
-//Add Card
-"scan_card" = "TARJETA DE ESCANEO";
-"card_number" = "Número de tarjeta";
-"cardholder_name" = "Nombre del titular";
-"expiry_date" = "MM/YY";
-"country" = "País";
-"postal_code" = "Código postal";
-"secure_code" = "CVV";
-"add_card_button" = "AGREGAR TARJETA";
-"invalid_expiry_date_value" = "Valor de fecha inválido ingresado";
-"invalid_postcode" = "Código postal no válido ingresado";
-"invalid_zip_code" = "Código postal no válido ingresado";
-
-//Scan Card
-"scan_card_message_title" = "Position card in this frame";
-"scan_card_message_subtitle" = "We will automatically scan it";
-"scan_card_no_permission_title" = "Camera permissions not granted";
-"scan_card_no_permission_message" = "Permissions must be granted in order to use the scan card functionality. Please go to Settings and toggle Camera on";
-"scan_card_restricted_title" = "Camera access restricted";
-"scan_card_restricted_message" = "Scan camera functionality is not available due to restriction on your device";
-"scan_card_simulator_title" = "Camera not available on iOS simulators";
-"scan_card_confirm" = "Got it";
-"scan_card_go_to_settings" = "Go to Settings";
-
-//Payment Method Screen
-"card_subtitle" = "%@ Ending %@";
-"no_connected_cards" = "You didn't connect any cards yet";
+"check_card" = "Check Card";
+"pay_now" = "Pay Now";
+"pay_amount" = "Pay %@";
 "connected_cards" = "Connected cards";
-"edit_capitalized" = "EDIT";
-"done_capitalized" = "DONE";
-"pay_now_capitalized" = "PAY NOW";
-"choose_payment_method" = "Choose a Payment Method";
-"no_cards_added"  = "You didn’t add any cards yet.\nAdd one right now or use any of the payment methods below";
+"button_edit" = "Edit";
+"button_done" = "DONE";
+"cancel" = "Cancel";
+"ok" = "Ok";
+"button_scan_card" = "Scan card";
+"add_card" = "Add card";
+"register_card" = "Register Card";
+"save_card" = "Save Card";
 "you_will_pay" = "You will pay";
-"card_transaction_unsuccesful_error" = "Card transaction unsuccessful - please try again";
-"card_transaction_unsuccesful_error" = "Card transaction unsuccessful - please try again";
-"delete_card_alert_title" = "Delete Card ?";
+"cards" = "Cards";
+"amazon_pay" = "Amazon Pay";
+"ideal_payment" = "iDeal";
+"secure_server_transmission" = "Your card details are encrypted using TLS before transmission to our secure payment service provider.";
+"date_hint" = "MM/YY";
+"cvv_hint" = "CVV";
+"card_number_hint" = "Card Number";
+"card_holder_hint" = "Cardholder Name";
+"country_hint" = "Country";
+"post_code_hint" = "Postcode";
+"check_card_number" = "Check card number";
+"check_expiry_date" = "Check expiry date";
+"check_cvv" = "Check CVV";
 "expired" = "Expired";
 "is_expired" = "is Expired";
 "will_expire_soon" = "will expire soon";
 "expire_soon" = "expire soon";
-
-//CardInputField
-"card_number_label" = "Número de tarjeta";
-"long_card_number" = "Número largo de la tarjeta";
-
-//SecurityCodeInputField
-"please_reenter_the_card_security_code" = "Por favor, vuelva a introducir el código de seguridad";
-"security_code" = "Código de seguridad";
-
-//IssueNumberInputField
-"issue_number_label" = "Número de expedición";
-"issue_number_front_of_card" = "Número de expedición en la parte delantera de su tarjeta";
-
-//DateInputField
-"check_expiry_date" = "Compruebe la fecha de caducidad";
-"check_start_date" = "Compruebe la fecha de comienzo";
-"start_date_label" = "Fecha de comienzo";
-"expiry_date_label" = "Fecha de caducidad";
-"date_hint" = "MM/YY";
-"date_format" = "MM/yy";
-
-//PostcodeInputField
-"billing_postcode" = "Código postal";
-"billing_zip_code" = "Código postal";
-"billing_postal_code" = "Código postal";
-
-//JPBillingCountryInputField
-"country_uk" = "Reino Unido";
-"country_usa" = "Estados Unidos";
-"country_canada" = "Canadá";
-"country_other" = "Otro";
-
-//IDEALFormViewController
-"ideal_transaction" = "Transacción iDEAL";
-"selected_bank" = "Banco seleccionado:";
-"select_ideal_bank" = "Seleccione el banco iDEAL";
-"enter_name" = "Ingrese su nombre";
-"name" = "Nombre";
-"select_bank" = "Seleccione %@ como su banco iDEAL";
-"ideal_transaction_success" = "¡Transacción exitosa!";
-"ideal_transaction_pending" = "Transacción pendiente ...";
-"ideal_transaction_pending_delay" = "Esto lleva más tiempo de lo esperado. Por favor espera...";
-"ideal_transaction_timeout" = "¡La transacción ha expirado!";
-"ideal_transaction_error" = "¡Uy! Algo salió mal.";
-"ideal_transaction_failed" = "¡Transacción fallida!";
-"retry" = "Procesar de nuevo";
-"close" = "Cerca";
-
-//Transaction Status View
-"transaction_pending" = "Transaction pending...";
-"transaction_delayed" = "This is taking longer than expected...";
-"transaction_timeout" = "Transaction timed out!";
-
-//JudoPayViewController
-"secure_server" = "Servidor seguro:";
-"pay" = "Pay";
-"check_card" = "Check Card";
-"add_card" = "Add Card";
-
-//JudoPaymentMethodsViewController
-
-"payment_method" = "Metodo de pago";
-"select_payment_method" = "Por favor, seleccione uno de los siguientes métodos de pago:";
-"card_payment" = "Pago con tarjeta";
-
-//NSError+Additions
-"unable_to_process_request_error_desc" = "Lo sentimos, actualmente no podemos procesar esta solicitud.";
-"unable_to_process_request_error_title" = "No se puede procesar";
-"error_request_failed" = "La solicitud respondió sin datos.";
-"error_payment_method_missing" = "El método de pago (detalles de la tarjeta, token o PKPayment) no se ha configurado para una transacción que lo requiere (IU personalizada)";
-"error_amount_missing" = "El importe no se ha establecido para una transacción que lo requiere (IU personalizada)";
-"error_reference_missing" = "La referencia no se ha establecido para una transacción que lo requiere (IU personalizada)";
-"error_response_parse_error" = "Un error con una respuesta de la API de servidor";
-"error_user_did_cancel" = "Recibido cuando el usuario cancela la sesión de pago";
-"error_parameter_error" = "Un parámetro ingresado en el diccionario (cuerpo de solicitud a la API de Judo) no está configurado";
-"error_failed_3DS_request" = "Después de recibir la carga útil 3DS, cuando la carga útil tiene datos defectuosos, WebView no puede cargar la página 3DS o la página de resolución";
-"error_jailbroken_device_disallowed" = "El dispositivo que el código está ejecutando actualmente es jailbroken. Los dispositivos jailbroken no están permitidos cuando se crea una instancia de una nueva sesión de Judo";
-"error_3DS_request" = "Error al enrutar a 3DS";
-"error_underlying_error" = "Un error en el sistema iOS con un error subyacente adjunto";
-"error_transaction_declined" = "Una transacción que se envió al servidor ha vuelto rechazada.";
-"error_checksum_missing_title" = "Falta la suma de control";
-"error_checksum_missing_description" = "No hay parámetros de suma de comprobación presentes en la URL de redireccionamiento de iDEAL";
-"error_timeout_title" = "La solicitud ha expirado";
-"error_timeout_description" = "La solicitud no se completó en el tiempo especificado";
-"no_internet_error_description" = "Verifique su conexión a Internet e intente nuevamente.";
-"no_internet_error_title" = "¡Sin conexión a Internet!";
-"error_unsupported_card_network_desc" = "%@ is not supported";
-"error_unsupported_card_network_title" = "Card type is not supported";
-"error_token_missing" = "The card token could not be retrieved from the response";
-"error_invalid_ideal_currency" = "Cannot make iDEAL transactions with currencies different than EUR";
-"error_invalid_pbba_currency" = "Cannot make PBBA transactions with currencies different than GBP";
-"error_apple_pay_unsupported" = "Apple Pay is not supported on your device";
-"error_site_id_missing" = "Site ID is missing";
-"error_pbba_missing_scheme" = "Pay By Bank requires a URL Scheme to be set in order to handle navigation between apps";
-
-//NSString+Card
-"check_card_number" = "Comprobar número de tarjeta";
-"error_card_not_supported" = "No aceptamos %@";
-
-//JPTheme
-"add_card" = "Añadir tarjeta";
-"add" = "Añadir";
-"back" = "Atrás";
-"payment" = "Pago";
-"refund" = "Reembolso";
-"authentication" = "Autenticación";
-"adding_card" = "Añadiendo tarjeta...";
-"processing_payment" = "Procesando pago";
-"redirecting" = "Redirigiendo";
-"verifying_payment" = "Verificando pago";
-"verifying_card" = "Verificando tarjeta";
-"secure_server_transmission" = " Los detalles de su tarjeta son encriptados usando TLS antes de su transmisión a nuestro procesador de pagos seguro. No se almacenarán en su dispositivo ni en nuestros servidores.";
-
-//Customize Card
-"customize_card" = "Customize Card";
-"enter_card_title" = "Enter a card title...";
-"card_title_length_warning" = "Card Name cannot be longer than 28 characters";
+"invalid_postcode" = "Invalid postcode entered";
+"invalid_zip_code" = "Invalid ZIP code entered";
+"close" = "Close";
+"no_connected_cards" = "You didn't connect any cards yet";
+"choose_payment_method" = "Choose a Payment Method";
+"no_cards_added"  = "You didn’t add any cards yet.\nAdd one right now or use any of the payment methods below";
+"delete" = "Delete";
+"delete_card_alert_title" = "Delete Card ?";
+"delete_card_alert_message" = "Are you sure you want to delete this card from your wallet?";
 "default_visa_card_title" = "My VISA Card";
 "default_mastercard_card_title" = "My MasterCard Card";
 "default_maestro_card_title" = "My Maestro Card";
@@ -194,9 +69,86 @@
 "default_chinaunionpay_card_title" = "My China Union Pay Card";
 "default_discover_card_title" = "My Discover Card";
 "default_dinnersclub_card_title" = "My Dinners Club Card";
-"save_as_default" = "Save as default payment method";
+"processing" = "Transaction pending...";
+"customize_card" = "Customize Card";
+"save_as_default_payment_method" = "Save as default payment method";
 "save" = "Save";
-
-//Payment Methods
+"error_card_title_too_long" = "Card Name cannot be longer than 28 characters";
+"there_is_a_delay" = "This is taking longer than expected. Please wait...";
+"ideal_transaction" = "iDEAL Transaction";
+"dismiss" = "Dismiss";
+"three_d_secure_check" = "3D Secure Check";
+"scan_card_no_permission_title" = "Camera permissions not granted";
+"scan_card_no_permission_message" = "Permissions must be granted in order to use the scan card functionality. Please go to Settings and toggle Camera on";
+"scan_card_confirm" = "Got it";
+"scan_card_go_to_settings" = "Go to Settings";
+"wocr_hint_position_card_in_frame" = "Position card in this frame";
+"wocr_automatically_scan" = "We will automatically scan it";
+"pay_by_bank" = "Pay by Bank app";
+"retry" = "Retry";
+"transaction_successful" = "Transaction success!";
+"error" = "Error";
+"expiry_date" = "MM/YY";
+"invalid_expiry_date_value" = "Invalid date value entered";
+"scan_card_restricted_title" = "Camera access restricted";
+"scan_card_restricted_message" = "Scan camera functionality is not available due to restriction on your device";
+"scan_card_simulator_title" = "Camera not available on iOS simulators";
+"card_subtitle" = "%@ Ending";
+"transaction_unsuccessful" = "Card transaction unsuccessful - please try again";
+"country_uk" = "UK";
+"country_usa" = "USA";
+"country_canada" = "Canada";
+"country_other" = "Other";
+"transaction_delayed" = "This is taking longer than expected...";
+"transaction_timeout" = "Transaction timed out!";
+"enter_card_title" = "Enter a card title...";
 "apple_pay" = "Apple Pay";
-"pbba_pay" = "Pay by Bank app";
+
+"error_invalid_ideal_currency_desc" = "iDEAL transactions only support EUR as the currency.";
+"error_invalid_ideal_currency_reason" = "Invalid currency passed to iDEAL transaction configuration.";
+"error_invalid_pbba_currency_desc" = "PBBA transactions only support GBP as the currency.";
+"error_invalid_pbba_currency_reason" = "Invalid currency passed to PBBA transaction configuration.";
+"error_invalid_pbba_url_scheme_desc" = "PBBA transactions require the deeplink scheme to be set.";
+"error_invalid_pbba_url_scheme_reason" = "Either the app's URL Scheme or the deeplink scheme parameter has not been set.";
+"error_apple_pay_not_supported_desc" = "Apple Pay is not supported on this device.";
+"error_apple_pay_not_supported_reason" = "An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.";
+"error_request_failed_desc" = "The request has failed or responded without data.";
+"error_request_failed_reason" = "The transaction response returned without any data or there was an error while forming the request.";
+"error_request_timeout_desc" = "The request has timed out.";
+"error_request_timeout_reason" = "The request failed to complete in the allocated time frame.";
+"error_json_serialization_desc" = "The response data could not be serialized into a JSON.";
+"error_json_serialization_reason" = "The server responded with an invalid data format.";
+"error_user_cancelled_desc" = "The transaction was cancelled by the user.";
+"error_user_cancelled_reason" = "The user closed the transaction flow without completing the transaction.";
+"error_internet_connection_desc" = "No internet connection found.";
+"error_internet_connection_reason" = "The request could not be sent due to no internet connection.";
+"error_invalid_card_number_desc" = "Invalid card number";
+"error_invalid_card_number_reason" = "The number entered is not a valid card number or is not supported by the SDK.";
+"error_unsupported_card_desc" = "%@ is not supported";
+"error_unsupported_card_reason" = "The number entered belongs to a card network that is not allowed by the merchant.";
+"error_response_parse_desc" = "Unexpected response format returned.";
+"error_response_parse_reason" = "The response did not contain some of the required parameters needed to complete the transaction.";
+"error_no_message_desc" = "The request has failed with no underlying message.";
+"error_no_message_reason" = "The server responded with an error.";
+"error_apple_pay_missing_items_desc" = "The Apple Pay configuration must have at least one payment item.";
+"error_apple_pay_missing_items_reason" = "The Payment Items array of the Apple Pay configuration is either empty or missing.";
+"error_apple_pay_missing_shipping_desc" = "The Apple Pay configuration must have at least one shipping method.";
+"error_apple_pay_missing_shipping_reason" = "Shipping methods must be set if the required shipping contact fields are specified.";
+"error_judo_id_missing_desc" = "The Judo ID parameter cannot be null or empty.";
+"error_judo_id_missing_reason" = "The required Judo ID parameter has not been set in the Judo configuration.";
+"error_invalid_judo_id_desc" = "The Judo ID entered is invalid.";
+"error_invalid_judo_id_reason" = "The specified Judo ID parameter has an incorrect format.";
+"error_currency_missing_desc" = "Currency cannot be null or empty.";
+"error_currency_missing_reason" = "The required Currency parameter has not been set in the Judo configuration.";
+"error_invalid_currency_desc" = "The specified currency code is not supported.";
+"error_invalid_currency_reason" = "The currency code entered is either not a valid ISO 4217 code or is not supported by the SDK.";
+"error_apple_pay_merchant_id_missing_desc" = "The Apple Pay merchant ID cannot be null or empty.";
+"error_apple_pay_merchant_id_missing_reason" = "Apple Pay needs a valid merchant ID to be able to identify your transaction.";
+"error_invalid_country_code_desc" = "The specified country code is not supported.";
+"error_invalid_country_code_reason" = "The country code entered is either not a valid ISO 3166 2-letter code or is not supported by the SDK.";
+"error_apple_pay_config_missing_desc" = "The Apple Pay transaction has not been configured.";
+"error_apple_pay_config_missing_reason" = "No Apple Pay configuration was found in your Judo configuration object.";
+"error_invalid_amount_desc" = "The amount specified should be a positive number.";
+"error_invalid_amount_reason" = "The amount parameter has either not been set or has an incorrect format.";
+"error_invalid_consumer_ref_desc" = "The consumer reference entered is invalid.";
+"error_invalid_consumer_ref_reason" = "The consumer reference parameter has either not been set or has an incorrect format.";

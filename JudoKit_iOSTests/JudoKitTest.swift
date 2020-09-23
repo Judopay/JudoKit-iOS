@@ -75,7 +75,7 @@ class JudoKitTest: XCTestCase {
      */
     func test_InvokePBBAWithConfiguration_WhenCurrencyIsEUR_ShouldNotPassValidation() {
         judoKit.invokePBBA(with: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Unsupported Currency")
+            XCTAssertEqual(error?.localizedDescription ?? "", "PBBA transactions only support GBP as the currency.")
         }
     }
     
@@ -104,7 +104,7 @@ class JudoKitTest: XCTestCase {
                                             amount: JPAmount("0.01", currency: "EUR"),
                                             reference: JPReference.init(consumerReference: "consumerReference"))
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "JudoId is invalid")
+            XCTAssertEqual(error?.localizedDescription ?? "", "The Judo ID entered is invalid.")
         }
     }
     
@@ -118,7 +118,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeTransactionWithType_WhenRefernceBig_ShouldNotValidate() {
         configuration.reference = JPReference(consumerReference: "1234567890123456789012345678901234567890123456789012345678901")
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Consumer Reference is invalid")
+            XCTAssertEqual(error?.localizedDescription ?? "", "The consumer reference entered is invalid.")
         }
     }
     
@@ -132,7 +132,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeTransactionWithType_WhenAmountNotNumber_ShouldNotValidate() {
         configuration.amount = JPAmount("aaa", currency: "USD")
         judoKit.invokeTransaction(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Amount should be a number")
+            XCTAssertEqual(error?.localizedDescription ?? "", "The amount specified should be a positive number.")
         }
     }
     
@@ -160,7 +160,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenMerchant_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.merchantId = ""
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Merchant Id cannot be empty")
+            XCTAssertEqual(error?.localizedDescription ?? "", "The Apple Pay merchant ID cannot be null or empty.")
         }
     }
     
@@ -174,7 +174,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenCurrenctEmpty_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.currency = ""
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Currency cannot be empty")
+            XCTAssertEqual(error?.localizedDescription ?? "", "Currency cannot be null or empty.")
         }
     }
     
@@ -188,7 +188,7 @@ class JudoKitTest: XCTestCase {
     func test_InvokeApplePayWithMode_WhenCurrenctNotValid_ShouldNotPassValidation() {
         configuration.applePayConfiguration?.currency = "MDL"
         judoKit.invokeApplePay(with: .payment, configuration: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "Unsupported Currency")
+            XCTAssertEqual(error?.localizedDescription ?? "", "The specified currency code is not supported.")
         }
     }
     
@@ -231,7 +231,7 @@ class JudoKitTest: XCTestCase {
      *
      * WHEN: transaction is declined
      *
-     * THEN: should return right error
+     * THEN: should return response with Declined result
      */
     func test_FetchTransaction_WhenTransactionDeclined_ShouldReturnRightError() {
         jsonResult["result"] = "Declined"
@@ -245,7 +245,9 @@ class JudoKitTest: XCTestCase {
         let expectation = self.expectation(description: "await save transaction response")
         
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
-            XCTAssertEqual(error?.localizedDescription, "A transaction that was sent to the backend returned declined")
+            XCTAssertNotNil(res)
+            XCTAssertEqual(res?.result, JPTransactionResult.declined)
+            XCTAssertNil(error)
             expectation.fulfill()
         })
         waitForExpectations(timeout: 3, handler: nil)

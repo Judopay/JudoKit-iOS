@@ -23,7 +23,27 @@
 //  SOFTWARE.
 
 #import "JPError.h"
+#import "JPResponse.h"
 
 @implementation JPError
+
++ (JPError *)formattedErrorFromError:(JPError *)error {
+    NSArray *errorDetails = [error.userInfo valueForKey:@"details"];
+    NSDictionary *details = errorDetails.firstObject;
+
+    if (!details) {
+        return error;
+    }
+
+    NSString *message = [details valueForKey:@"message"];
+
+    if (!message) {
+        return error;
+    }
+
+    return [JPError errorWithDomain:error.domain
+                               code:error.code
+                           userInfo:@{NSLocalizedDescriptionKey : message}];
+}
 
 @end

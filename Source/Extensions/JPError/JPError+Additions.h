@@ -30,146 +30,138 @@
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
+typedef NS_ENUM(NSUInteger, JudoError) {
+    JudoParameterError,
+    JudoRequestError,
+    Judo3DSRequestError,
+    JudoUserDidCancelError,
+};
+
 @interface JPError (Additions)
 
+/**
+ * The transaction response returned without any data or there was an error while forming the request.
+ */
 + (nonnull JPError *)judoRequestFailedError;
-+ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
-+ (nonnull JPError *)judoJudoIdMissingError;
-+ (nonnull JPError *)judoPaymentMethodMissingError;
-+ (nonnull JPError *)judoAmountMissingError;
-+ (nonnull JPError *)judoReferenceMissingError;
-+ (nonnull JPError *)judoTokenMissingError;
-+ (nonnull JPError *)judoDuplicateTransactionError;
-+ (nonnull JPError *)judo3DSRequestFailedErrorWithUnderlyingError:(nullable NSError *)underlyingError;
-+ (nonnull JPError *)judoUserDidCancelError;
-+ (nonnull JPError *)judoParameterError;
-+ (nonnull JPError *)judoInternetConnectionError;
-+ (nonnull JPError *)judoJPApplePayConfigurationError;
-+ (nonnull JPError *)judoResponseParseError;
-+ (nonnull JPError *)judoMissingChecksumError;
-+ (nonnull JPError *)judoRequestTimeoutError;
-+ (nonnull JPError *)judoInvalidCardNumberError;
-+ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
-+ (nonnull JPError *)judoJailbrokenDeviceDisallowedError;
-+ (nonnull JPError *)judoInputMismatchErrorWithMessage:(nullable NSString *)message;
-+ (nonnull JPError *)judoErrorFromResponse:(nonnull JPResponse *)data;
-+ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dict;
-+ (nonnull JPError *)judoErrorFromError:(nonnull NSError *)error;
-+ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
-+ (nonnull JPError *)judoInvalidIDEALCurrencyError;
-+ (nonnull JPError *)judoInvalidPBBACurrency;
-+ (nonnull JPError *)judoPBBAURLSchemeMissing;
-+ (nonnull JPError *)judoApplePayNotSupportedError;
-+ (nonnull JPError *)judoErrorCardDeclined;
-@end
 
-typedef NS_ENUM(NSUInteger, JudoError) {
-    JudoErrorRequestFailed,
-    JudoErrorJSONSerializationFailed,
-    JudoErrorJudoIdMissing,
-    JudoErrorPaymentMethodMissing,
-    JudoErrorAmountMissing,
-    JudoErrorReferenceMissing,
-    JudoErrorTokenMissing,
-    JudoErrorDuplicateTransaction,
-    JudoError3DSRequest,
-    JudoErrorUnderlyingError,
-    JudoErrorTransactionDeclined,
-    JudoErrorFailed3DSRequest,
-    JudoErrorInputMismatchError,
-    JudoErrorUserDidCancel,
-    JudoErrorParameterError,
-    JudoErrorResponseParseError,
-    JudoErrorInvalidJPApplePayConfiguration,
-    JudoErrorInvalidCardNumberError,
-    JudoErrorUnsupportedCardNetwork,
-    JudoErrorJailbrokenDeviceDisallowed,
-    JudoErrorGeneral_Error = 0,
-    JudoErrorGeneral_Model_Error = 1,
-    JudoErrorUnauthorized = 7,
-    JudoErrorPayment_System_Error = 9,
-    JudoErrorPayment_Declined = 11,
-    JudoErrorPayment_Failed = 12,
-    JudoErrorTransaction_Not_Found = 19,
-    JudoErrorValidation_Passed = 20,
-    JudoErrorUncaught_Error = 21,
-    JudoErrorServer_Error = 22,
-    JudoErrorInvalid_From_Date = 23,
-    JudoErrorInvalid_To_Date = 24,
-    JudoErrorCantFindWebPayment = 25,
-    JudoErrorGeneral_Error_Simple_Application = 26,
-    JudoErrorInvalidApiVersion = 40,
-    JudoErrorMissingApiVersion = 41,
-    JudoErrorPreAuthExpired = 42,
-    JudoErrorCollection_Original_Transaction_Wrong_Type = 43,
-    JudoErrorCurrency_Must_Equal_Original_Transaction = 44,
-    JudoErrorCannot_Collect_A_Voided_Transaction = 45,
-    JudoErrorCollection_Exceeds_PreAuth = 46,
-    JudoErrorRefund_Original_Transaction_Wrong_Type = 47,
-    JudoErrorCannot_Refund_A_Voided_Transaction = 48,
-    JudoErrorRefund_Exceeds_Original_Transaction = 49,
-    JudoErrorVoid_Original_Transaction_Wrong_Type = 50,
-    JudoErrorVoid_Original_Transaction_Is_Already_Void = 51,
-    JudoErrorVoid_Original_Transaction_Has_Been_Collected = 52,
-    JudoErrorVoid_Original_Transaction_Amount_Not_Equal_To_Preauth = 53,
-    JudoErrorUnableToAccept = 54,
-    JudoErrorAccountLocationNotFound = 55,
-    JudoErrorAccessDeniedToTransaction = 56,
-    JudoErrorNoConsumerForTransaction = 57,
-    JudoErrorTransactionNotEnrolledInThreeDSecure = 58,
-    JudoErrorTransactionAlreadyAuthorizedByThreeDSecure = 59,
-    JudoErrorThreeDSecureNotSuccessful = 60,
-    JudoErrorApUnableToDecrypt = 61,
-    JudoErrorReferencedTransactionNotFound = 62,
-    JudoErrorReferencedTransactionNotSuccessful = 63,
-    JudoErrorTestCardNotAllowed = 64,
-    JudoErrorCollection_Not_Valid = 65,
-    JudoErrorRefund_Original_Transaction_Null = 66,
-    JudoErrorRefund_Not_Valid = 67,
-    JudoErrorVoid_Not_Valid = 68,
-    JudoErrorUnknown = 69,
-    JudoErrorCardTokenInvalid = 70,
-    JudoErrorUnknownPaymentModel = 71,
-    JudoErrorUnableToRouteTransaction = 72,
-    JudoErrorCardTypeNotSupported = 73,
-    JudoErrorCardCv2Invalid = 74,
-    JudoErrorCardTokenDoesntMatchConsumer = 75,
-    JudoErrorWebPaymentReferenceInvalid = 76,
-    JudoErrorWebPaymentAccountLocationNotFound = 77,
-    JudoErrorRegisterCardWithWrongTransactionType = 78,
-    JudoErrorInvalidAmountToRegisterCard = 79,
-    JudoErrorContentTypeNotSpecifiedOrUnsupported = 80,
-    JudoErrorInternalErrorAuthenticating = 81,
-    JudoErrorTransactionNotFound = 82,
-    JudoErrorResourceNotFound = 83,
-    JudoErrorLackOfPermissionsUnauthorized = 84,
-    JudoErrorContentTypeNotSupported = 85,
-    JudoErrorAuthenticationFailure = 403,
-    JudoErrorNot_Found = 404,
-    JudoErrorMustProcessPreAuthByToken = 4002,
-    JudoErrorApplicationModelIsNull = 20000,
-    JudoErrorApplicationModelRequiresReference = 20001,
-    JudoErrorApplicationHasAlreadyGoneLive = 20002,
-    JudoErrorMissingProductSelection = 20003,
-    JudoErrorAccountNotInSandbox = 20004,
-    JudoErrorApplicationRecIdRequired = 20005,
-    JudoErrorRequestNotProperlyFormatted = 20006,
-    JudoErrorNoApplicationReferenceFound = 20007,
-    JudoErrorNotSupportedFileType = 20008,
-    JudoErrorErrorWithFileUpload = 20009,
-    JudoErrorEmptyApplicationReference = 20010,
-    JudoErrorApplicationDoesNotExist = 20011,
-    JudoErrorUnknownSortSpecified = 20013,
-    JudoErrorPageSizeLessThanOne = 20014,
-    JudoErrorPageSizeMoreThanFiveHundred = 20015,
-    JudoErrorOffsetLessThanZero = 20016,
-    JudoErrorInvalidMerchantId = 20017,
-    JudoErrorMerchantIdNotFound = 20018,
-    JudoErrorNoProductsWereFound = 20019,
-    JudoErrorOnlyTheJudoPartnerCanSubmitSimpleApplications = 20020,
-    JudoErrorUnableToParseDocument = 20021,
-    JudoErrorUnableToFindADefaultAccountLocation = 20022,
-    JudoErrorWebpaymentsShouldBeCreatedByPostingToUrl = 20023,
-    JudoErrorInvalidMd = 20025,
-    JudoErrorInvalidReceiptId = 20026,
-};
+/**
+ * The response data could not be serialized into a JSON.
+ */
++ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
+
+/**
+ * The user closed the transaction flow without completing the transaction.
+ */
++ (nonnull JPError *)judoUserDidCancelError;
+
+/**
+ * The request could not be sent due to no internet connection.
+ */
++ (nonnull JPError *)judoInternetConnectionError;
+
+/**
+ * The response did not contain some of the required parameters needed to complete the transaction.
+ */
++ (nonnull JPError *)judoResponseParseError;
+
+/**
+ * The request failed to complete in the allocated time frame.
+ */
++ (nonnull JPError *)judoRequestTimeoutError;
+
+/**
+ * The number entered is not a valid card number or is not supported by the SDK.
+ */
++ (nonnull JPError *)judoInvalidCardNumberError;
+
+/**
+ * The number entered belongs to a card network that is not allowed by the merchant.
+ */
++ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
+
+/**
+ * The transaction required a 3D Secure authentication.
+ */
++ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
+
+/**
+ * Invalid currency passed to iDEAL transaction configuration.
+ */
++ (nonnull JPError *)judoInvalidIDEALCurrencyError;
+
+/**
+ * Invalid currency passed to PBBA transaction configuration.
+ */
++ (nonnull JPError *)judoInvalidPBBACurrencyError;
+
+/**
+ * Either the app's URL Scheme or the deeplink scheme parameter has not been set.
+ */
++ (nonnull JPError *)judoPBBAURLSchemeMissingError;
+
+/**
+ * An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.
+ */
++ (nonnull JPError *)judoApplePayNotSupportedError;
+
+/**
+ * Some server errors come back as responses. This method maps them to our custom Judo Error object.
+ */
++ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dictionary;
+
+/**
+ * The Payment Items array of the Apple Pay configuration is either empty or missing.
+ */
++ (nonnull JPError *)judoApplePayMissingPaymentItemsError;
+
+/**
+ * Shipping methods must be set if the required shipping contact fields are specified.
+ */
++ (nonnull JPError *)judoApplePayMissingShippingMethodsError;
+
+/**
+ * The required Judo ID parameter has not been set in the Judo configuration.
+ */
++ (nonnull JPError *)judoMissingJudoIdError;
+
+/**
+ * The specified Judo ID parameter has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidJudoIdError;
+
+/**
+ * The required Currency parameter has not been set in the Judo configuration.
+ */
++ (nonnull JPError *)judoMissingCurrencyError;
+
+/**
+ * The currency code entered is either not a valid ISO 4217 code or is not supported by the SDK.
+ */
++ (nonnull JPError *)judoInvalidCurrencyError;
+
+/**
+ * Apple Pay needs a valid merchant ID to be able to identify your transaction.
+ */
++ (nonnull JPError *)judoMissingMerchantIdError;
+
+/**
+ * The country code entered is either not a valid ISO 3166 2-letter code or is not supported by the SDK.
+ */
++ (nonnull JPError *)judoInvalidCountryCodeError;
+
+/**
+ * No Apple Pay configuration was found in your Judo configuration object.
+ */
++ (nonnull JPError *)judoMissingApplePayConfigurationError;
+
+/**
+ * The amount parameter has either not been set or has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidAmountError;
+
+/**
+ * The consumer reference parameter has either not been set or has an incorrect format.
+ */
++ (nonnull JPError *)judoInvalidConsumerReferenceError;
+
+@end

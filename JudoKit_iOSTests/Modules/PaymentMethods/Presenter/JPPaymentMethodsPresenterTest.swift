@@ -119,7 +119,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     func test_HandleBackButtonTap_WhenUserClickBackButton_ShouldDismissController() {
         sut.handleBackButtonTap()
         XCTAssertNotNil(interactor.transactionCompleteError)
-        XCTAssertEqual(interactor.transactionCompleteError!.localizedDescription, "The operation couldn’t be completed. Received when user cancels the payment journey")
+        XCTAssertEqual(interactor.transactionCompleteError!.localizedDescription, "The transaction was cancelled by the user.")
         XCTAssertTrue(router.dismissController)
     }
     

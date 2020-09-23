@@ -136,12 +136,15 @@
 }
 
 - (void)handleError:(JPError *)error {
-    if (error.code == JudoError3DSRequest) {
+    if (error.code == Judo3DSRequestError) {
         [self handle3DSecureTransactionFromError:error];
         return;
     }
-    [self.view updateViewWithError:error];
-    [self.interactor storeError:error];
+
+    JPError *transactionError = [JPError formattedErrorFromError:error];
+
+    [self.view updateViewWithError:transactionError];
+    [self.interactor storeError:transactionError];
 }
 
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
@@ -161,12 +164,6 @@
 
     if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
         NSString *token = response.cardDetails.cardToken;
-
-        if (!token) {
-            [self.view updateViewWithError:JPError.judoTokenMissingError];
-            return;
-        }
-
         [self.interactor updateKeychainWithCardModel:self.addCardViewModel
                                             andToken:token];
     }

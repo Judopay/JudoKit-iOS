@@ -67,12 +67,12 @@
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
-            completion(nil, JPError.judoInvalidPBBACurrency);
+            completion(nil, JPError.judoInvalidPBBACurrencyError);
             return nil;
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
-            completion(nil, JPError.judoPBBAURLSchemeMissing);
+            completion(nil, JPError.judoPBBAURLSchemeMissingError);
             return nil;
         }
     }

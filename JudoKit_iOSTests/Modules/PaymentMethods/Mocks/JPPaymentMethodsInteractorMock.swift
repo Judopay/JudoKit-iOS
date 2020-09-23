@@ -83,11 +83,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
     func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
-        switch errorType {
-        case .duplicateeError:
-            let error = JPError.judoDuplicateTransactionError()
-            completion?(nil, error)
-        case .threeDSRequest:
+        if errorType == .threeDSRequest {
             let error = JPError.judo3DSRequest(withPayload: ["":""])
             completion?(nil, error)
         }
