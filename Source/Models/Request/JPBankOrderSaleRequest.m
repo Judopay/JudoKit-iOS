@@ -46,7 +46,7 @@ static NSString *const kPbBABIC = @"RABONL2U";
 
         _judoId = configuration.judoId;
 
-        _amount = @(amount.amount.doubleValue);
+        _amount = amount.amount;
         _currency = amount.currency;
 
         _merchantPaymentReference = reference.paymentReference;

@@ -31,7 +31,7 @@
 /**
  * A reference to the amount value
  */
-@property (nonatomic, strong, nullable) NSNumber *amount;
+@property (nonatomic, strong, nullable) NSString *amount;
 
 /**
  * A reference to the site ID
