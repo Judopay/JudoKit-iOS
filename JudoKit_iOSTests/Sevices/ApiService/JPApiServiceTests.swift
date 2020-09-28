@@ -327,7 +327,7 @@ class JPApiServiceTests: XCTestCase {
         transactionConfigurations.pbbaConfiguration = pbbaconfig
 
         let pbbaRequest = JPBankOrderSaleRequest.pbbaRequest(with: transactionConfigurations)
-        XCTAssertEqual(String(Double(truncating: pbbaRequest.amount!)), transactionConfigurations.amount.amount)
+        XCTAssertEqual(String(pbbaRequest.amount!), transactionConfigurations.amount.amount)
         XCTAssertEqual(pbbaRequest.currency, transactionConfigurations.amount.currency)
         XCTAssertEqual(pbbaRequest.bic, "RABONL2U")
         XCTAssertEqual(pbbaRequest.mobileNumber, "mobileNumber")

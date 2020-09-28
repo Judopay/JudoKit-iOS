@@ -57,7 +57,7 @@ class JPBankOrderRequestTests: XCTestCase {
         
         XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
-        XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
+        XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
         
         XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
@@ -77,7 +77,7 @@ class JPBankOrderRequestTests: XCTestCase {
         
         XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
-        XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
+        XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
         
         XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
@@ -102,7 +102,7 @@ class JPBankOrderRequestTests: XCTestCase {
         
         XCTAssertEqual(bankRequest.judoId, configuration.judoId)
         
-        XCTAssertEqual(bankRequest.amount?.stringValue, configuration.amount.amount)
+        XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
         
         XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
