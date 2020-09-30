@@ -338,11 +338,11 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     configuration.requiredShippingContactFields = JPContactFieldAll;
     configuration.requiredBillingContactFields = JPContactFieldAll;
     configuration.returnedContactInfo = JPReturnedInfoAll;
-    configuration.shippingMethods = @[ [[PaymentShippingMethod alloc] initWithIdentifier:@"method"
-                                                                                  detail:@"details"
-                                                                                   label:@"label"
-                                                                                  amount:totalPrice
-                                                                                    type:JPPaymentSummaryItemTypeFinal] ];
+    configuration.shippingMethods = @[ [[JPPaymentShippingMethod alloc] initWithIdentifier:@"method"
+                                                                                    detail:@"details"
+                                                                                     label:@"label"
+                                                                                    amount:totalPrice
+                                                                                      type:JPPaymentSummaryItemTypeFinal] ];
     return configuration;
 }
 

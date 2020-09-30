@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPApplePayController.h"
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import "JPSectionViewDelegate.h"
 #import "JPTransactionStatusView.h"
@@ -30,7 +31,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
-@class JPPaymentMethodsViewModel, JPUIConfiguration;
+@class JPPaymentMethodsViewModel, JPConfiguration;
 
 #pragma mark - JPPaymentMethodsView
 
@@ -40,7 +41,7 @@
  * A method that configures the view based on a passed view model
  *
  * @param viewModel - a view model detailing the layout details
- * @param shouldAnimate - if set to NO, will propmt the table view to reloadData instead of animating insertions/deletions
+ * @param shouldAnimate - if set to NO, will prompt the table view to reloadData instead of animating insertions/deletions
  */
 - (void)configureWithViewModel:(nonnull JPPaymentMethodsViewModel *)viewModel
            shouldAnimateChange:(BOOL)shouldAnimate;
@@ -54,6 +55,13 @@
 - (void)displayAlertWithTitle:(nullable NSString *)title
                      andError:(nonnull NSError *)error;
 
+/**
+ * A method that is used to present the Apple Pay sheet while providing a block for handling authorization responses.
+ *
+ * @param authorizationBlock - a block used to capture the Apple Pay authorization PKPayment object
+ */
+- (void)presentApplePayWithAuthorizationBlock:(nonnull JPApplePayAuthorizationBlock)authorizationBlock;
+
 @end
 
 #pragma mark - JPPaymentMethodsViewController
@@ -61,9 +69,9 @@
 @interface JPPaymentMethodsViewController : UIViewController <JPPaymentMethodsView>
 
 /**
- * A reference to the JPUIConfiguration instance responsible for customizing the user interface
+ * A reference to the JPConfiguration instance responsible for customizing the user interface and setting Apple Pay
  */
-@property (nonatomic, strong) JPUIConfiguration *_Nullable uiConfiguration;
+@property (nonatomic, strong) JPConfiguration *_Nullable configuration;
 
 /**
  * A strong reference to a presenter object that adopts the JPTransactionPresenter protocol

@@ -2,7 +2,7 @@
 //  JPApplePayService.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 
 @class JPConfiguration, JPApiService;
 
-@interface JPApplePayService : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+@interface JPApplePayService : NSObject
 
 /**
  * Designated initalizer that creates a configured instance of JPApplePayService for making Apple Pay transactions.
@@ -53,14 +53,14 @@
 - (bool)isApplePaySetUp;
 
 /**
- * A method that returns a configured Apple Pay UIViewController instance that can be presented to complete
- * Apple Pay transactions.
+ * A method that makes a payment or pre-auth transaction transaction based on a PKPayment object returned from Apple Pay.
  *
- * @param mode - an instance of JPTransactionMode that sets the transaction as either Payment or Pre Auth.
- * @param completion - a completion block with an optional JPResponse or an NSError;
- *
- * @returns a fully configured UIViewController instance
+ * @param payment - the PKPayment object returned after Apple Pay authorization.
+ * @param transactionMode - a value that sets the transaction as either payment or pre-auth
+ * @param completion - a completion block used to handle the transaction result
  */
-- (nullable UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
-                                                   completion:(nullable JPCompletionBlock)completion;
+- (void)processApplePayment:(nonnull PKPayment *)payment
+         forTransactionMode:(JPTransactionMode)transactionMode
+             withCompletion:(nonnull JPCompletionBlock)completion;
+
 @end
