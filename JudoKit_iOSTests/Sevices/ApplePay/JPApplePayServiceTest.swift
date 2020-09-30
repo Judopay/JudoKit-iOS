@@ -35,7 +35,7 @@ class JPApplePayServiceTest: XCTestCase {
     override func setUp() {
         super.setUp()
         let appleConfig = JPApplePayConfiguration(merchantId: "merchantId", currency: "USD", countryCode: "UK", paymentSummaryItems: [JPPaymentSummaryItem(label: "item", amount: 0.15)])
-        appleConfig.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
+        appleConfig.shippingMethods = [JPPaymentShippingMethod(label: "method", amount: 0.15)]
         configuration.applePayConfiguration = appleConfig
         sut = JPApplePayService(configuration:configuration,
                                 andApiService:service)
@@ -96,18 +96,6 @@ class JPApplePayServiceTest: XCTestCase {
         let sut = JPApplePayService()
         XCTAssertNotNil(sut)
     }
-    
-    /*
-     * GIVEN: Creating UIViewController with class Init
-     *
-     * WHEN: with type and nil completion
-     *
-     * THEN: should return nil UIViewController object
-     */
-    func test_initController_WhenPaymentType_ShouldCreateController() {
-        configuration.applePayConfiguration?.shippingMethods = [PaymentShippingMethod(label: "method", amount: 0.15)]
-        sut = JPApplePayService()
-        let controller = sut.applePayViewController(with: .payment, completion: nil)
-        XCTAssertNil(controller)
-    }
+
+    //TODO: ADD PROCESS STEP
 }

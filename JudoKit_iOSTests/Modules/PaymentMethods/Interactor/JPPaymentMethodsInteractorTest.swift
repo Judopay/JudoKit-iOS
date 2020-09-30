@@ -57,19 +57,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: User is calling apple pay with server to server mode
-     *
-     * THEN: should call and return not nil response
-     */
-    func test_ServerToServerApple_WhenCallingApplePay_ShouldReturnNotNilResponse()  {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-        }
-        sut.startApplePay(completion: completion)
-    }
-    
-    /*
      * GIVEN: Set up ammount in config object
      *
      * WHEN: getting ammount in interactor
