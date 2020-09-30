@@ -26,76 +26,85 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPApplePayServiceTest: XCTestCase {
-    lazy var service = JPApiServiceiDealStub()
-    lazy var configuration = JPConfiguration(judoID: "judoId",
-                                             amount: JPAmount("123", currency: "EUR"),
-                                             reference: JPReference(consumerReference: "consumerReference"))
-    var sut: JPApplePayService! = nil
-    
+
+    private var sut: JPApplePayService!
+
+    lazy var amount = JPAmount("0.01", currency: "GBP")
+    lazy var reference = JPReference(consumerReference: "consumerReference")
+    lazy var configuration = JPConfiguration(judoID: "123456", amount: amount, reference: reference)
+    lazy var authorization: JPAuthorization = JPBasicAuthorization(token: "token", andSecret: "secret")
+    lazy var apiService = JPApiService(authorization: authorization, isSandboxed: true)
+
     override func setUp() {
         super.setUp()
-        let appleConfig = JPApplePayConfiguration(merchantId: "merchantId", currency: "USD", countryCode: "UK", paymentSummaryItems: [JPPaymentSummaryItem(label: "item", amount: 0.15)])
-        appleConfig.shippingMethods = [JPPaymentShippingMethod(label: "method", amount: 0.15)]
-        configuration.applePayConfiguration = appleConfig
-        sut = JPApplePayService(configuration:configuration,
-                                andApiService:service)
-    }
-    
-    /*
-     * GIVEN: Checking apple method using simulated device
-     *
-     * THEN: should return true
-     */
-    func test_IsApplePaySetUp_WhenCallingApplePay_ShouldReturnTrueForSimulator() {
-        let isApplePaySetUp = sut.isApplePaySetUp()
-        XCTAssertTrue(isApplePaySetUp)
-    }
-    
-    /*
-     * GIVEN: Checking apple pay supported method for simulated device
-     *
-     * THEN: should return true
-     */
-    func test_IsApplePaySupported_WhenCheckingForSupport_ShouldReturnTrue() {
-        let supported = JPApplePayService.isApplePaySupported()
-        XCTAssertTrue(supported)
-    }
-    
-    /*
-     * GIVEN: a new instance of JPApplePayService is created
-     *
-     * WHEN: when a valid configuration and apiService is provided
-     *
-     * THEN: the returned instance of JPApplePayService should not be nil
-     */
-    func test_InitWithConfiguration_WhenParametresValid_ShouldReturnValidObject() {
-        let applePayService = JPApplePayService(configuration: configuration, andApiService: service)
-        XCTAssertNotNil(applePayService)
-    }
-    
-    /*
-     * GIVEN: Creating JPApplePayService with class Init
-     *
-     * WHEN: raw init
-     *
-     * THEN: should create correct non nill JPApplePayService object
-     */
-    func test_InitAppleService_WhenDesignatedInit_ShouldCreateObject() {
-        let sut = JPApplePayService.init()
-        XCTAssertNotNil(sut)
-    }
-    
-    /*
-     * GIVEN: Creating JPApplePayService with class Init
-     *
-     * WHEN: with configuration and service
-     *
-     * THEN: should create correct non nil JPApplePayService object
-     */
-    func test_InitAppleService_WhenClassInit_ShouldCreateObject() {
-        let sut = JPApplePayService()
-        XCTAssertNotNil(sut)
+        HTTPStubs.setEnabled(true)
+
+        stub(condition: isHost("api-sandbox.judopay.com")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
+                                     statusCode: 200,
+                                     headers: nil)
+        }
+
+        sut = JPApplePayService(configuration: configuration,
+                                andApiService: apiService)
     }
 
-    //TODO: ADD PROCESS STEP
+    override func tearDown() {
+        HTTPStubs.setEnabled(false)
+        sut = nil
+        super.tearDown()
+    }
+
+    /**
+     * GIVEN: Apple Pay is being veririfed
+     *
+     * WHEN: the app is executed on an iOS Simulator
+     *
+     * THEN: Apple Pay should be set up by default
+     */
+    func test_WhenUsingSimulator_ApplePayShouldBeSetUp() {
+        XCTAssertTrue(sut.isApplePaySetUp())
+    }
+
+    /**
+     * GIVEN: Apple Pay Service checks for Apple Pay support
+     *
+     * WHEN: the app is executed on an iOS Simulator
+     *
+     * THEN: Apple Pay should be supported by default
+     */
+    func test_WhenUsingSimulator_ApplePayShouldBeSupported() {
+        XCTAssertTrue(JPApplePayService.isApplePaySupported())
+    }
+
+    /**
+     * GIVEN:  Apple Pay Service attempts to execute a payment transaction
+     *
+     * WHEN: if the passed PKPayment object is correctly formatted
+     *
+     * THEN: the transaction should succesfully execute
+     */
+    func test_WhenUsingValidPKPaymentObject_PaymentShouldExecute() {
+
+        let paymentMethod = PKPaymentMethod()
+        paymentMethod.setValue("displayName", forKey: "displayName")
+        paymentMethod.setValue("network", forKey: "network")
+
+        let token = PKPaymentToken()
+        token.setValue(paymentMethod, forKey: "paymentMethod")
+        token.setValue("paymentData".data(using: .unicode), forKey: "paymentData")
+
+        let payment = PKPayment()
+        payment.setValue(token, forKey: "token")
+
+        let expectation = self.expectation(description: "awaiting payment transaction")
+
+        sut.processApplePayment(payment, for: .payment) { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
 }

@@ -137,11 +137,26 @@
 
 + (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration {
 
-    NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [[NSMutableArray alloc] init];
+    NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [NSMutableArray new];
 
     JPCardNetworkType cardNetworks = configuration.applePayConfiguration.supportedCardNetworks;
 
-    if (cardNetworks && JPCardNetworkTypeVisa) {
+    if (cardNetworks & JPCardNetworkTypeAll) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
+        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
+        [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
+        [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
+        [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
+        [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
+
+        if (@available(iOS 12.0, *)) {
+            [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
+        }
+
+        return pkPaymentNetworks;
+    }
+
+    if (cardNetworks & JPCardNetworkTypeVisa) {
         [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
     }
 
