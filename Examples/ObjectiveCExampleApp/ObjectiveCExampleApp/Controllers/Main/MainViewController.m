@@ -439,6 +439,7 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
     self.deepLinkURL = url;
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
+    self.judoKit.isSandboxed = Settings.defaultSettings.isSandboxed;
 
     [self.judoKit invokePBBAWithConfiguration:self.configuration
                                    completion:^(JPResponse *response, JPError *error) {
