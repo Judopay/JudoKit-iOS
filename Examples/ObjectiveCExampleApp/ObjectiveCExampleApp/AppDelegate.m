@@ -54,10 +54,14 @@
 
 - (void)startPBBADeeplinkWithURL:(NSURL *)url {
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
     MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
+
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+
     self.window.rootViewController = homeNavigationController;
     [self.window makeKeyAndVisible];
+
     [viewController openPBBAScreen:url];
 }
 
