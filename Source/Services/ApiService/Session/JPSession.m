@@ -140,8 +140,7 @@ static NSString *const kMethodPUT = @"PUT";
             [request addValue:obj forHTTPHeaderField:key];
         }];
 
-        //TODO: Temporary fix for bank/sale requests
-        if ([path isEqualToString:@"order/bank/sale"] || [path containsString:@"order/bank/statusrequest"]) {
+        if ([path hasPrefix:@"order/bank"]) {
             [request setValue:@"2.0.0" forHTTPHeaderField:@"API-Version"];
         }
 
