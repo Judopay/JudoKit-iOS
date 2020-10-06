@@ -75,18 +75,18 @@ const float kiDEALBankStackViewSpacing = 10.0F;
     [self.stackView addArrangedSubview:self.titleLabel];
     [self.stackView addArrangedSubview:self.checkmarkImageView];
 
-    [self.contentView addSubview:self.stackView];
-    [self.contentView addSubview:self.separatorView];
+    [self addSubview:self.stackView];
+    [self addSubview:self.separatorView];
 }
 
 - (void)setupConstraints {
 
     NSArray *stackViewConstraints = @[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
+        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
                                                  constant:kiDEALBankVerticalPadding],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
                                                      constant:kiDEALBankStackViewHorizontalPadding],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
                                                       constant:-kiDEALBankStackViewHorizontalPadding],
         [self.stackView.heightAnchor constraintEqualToConstant:kiDEALBankStackViewHeight],
     ];
