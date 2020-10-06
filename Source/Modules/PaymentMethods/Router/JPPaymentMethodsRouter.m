@@ -30,6 +30,7 @@
 #import "JPError+Additions.h"
 #import "JPIDEALViewController.h"
 #import "JPPaymentMethodsViewController.h"
+#import "JPPaymentMethodsPresenter.h"
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
@@ -66,13 +67,20 @@
 - (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode
                             cardNetwork:(JPCardNetworkType)cardNetwork
                      andTransactionType:(JPTransactionType)transactionType {
+
+    __weak typeof(self) weakSelf = self;
     JPTransactionViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
                                               configuration:self.configuration
                                             transactionType:transactionType
                                             cardDetailsMode:mode
                                                 cardNetwork:cardNetwork
-                                                 completion:nil];
+                                                 completion:^(JPResponse *response, JPError *error) {
+            if (error.code == JudoUserDidCancelError) {
+                [weakSelf.viewController.presenter viewModelNeedsUpdate];
+            }
+        }];
+
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;

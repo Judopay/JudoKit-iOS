@@ -54,7 +54,7 @@ static const int kConstraintPriority = 999;
 #pragma mark - Layout setup
 
 - (void)setupSectionViewWithSections:(NSArray *)sections {
-    [self removeAllSubviews];
+    [self.contentView removeAllSubviews];
 
     self.sectionView = [[JPSectionView alloc] initWithSections:sections
                                                       andTheme:self.theme];

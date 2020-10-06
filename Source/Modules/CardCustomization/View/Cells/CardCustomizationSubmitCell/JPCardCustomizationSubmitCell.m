@@ -100,20 +100,20 @@ const float kSubmitSaveButtonWidth = 200.0F;
     self.backgroundColor = UIColor.whiteColor;
     [self.stackView addArrangedSubview:self.cancelButton];
     [self.stackView addArrangedSubview:self.saveButton];
-    [self addSubview:self.stackView];
+    [self.contentView addSubview:self.stackView];
 
     [self setupConstraints];
 }
 
 - (void)setupConstraints {
     NSArray *constraints = @[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                  constant:kSubmitStackViewTop],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                     constant:-kSubmitStackViewBottom],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
                                                      constant:kSubmitStackViewLeading],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                       constant:-kSubmitStackViewTrailing],
         [self.stackView.heightAnchor constraintEqualToConstant:kSubmitStackViewHeight],
         [self.saveButton.widthAnchor constraintEqualToConstant:kSubmitSaveButtonWidth * getWidthAspectRatio()],

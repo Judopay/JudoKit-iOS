@@ -92,22 +92,22 @@ const float kCardListHeaderCenterOffset = 10.0F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.actionButton];
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.actionButton];
 
     [self.titleLabel pinToAnchors:JPAnchorTypeLeading
-                          forView:self
+                          forView:self.contentView
                       withPadding:kCardListHeaderHorizontalPadding];
 
     [self.actionButton pinToAnchors:JPAnchorTypeTrailing
-                            forView:self
+                            forView:self.contentView
                         withPadding:kCardListHeaderHorizontalPadding];
 
-    [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor
+    [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
                                                   constant:kCardListHeaderCenterOffset]
         .active = YES;
 
-    [self.actionButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor
+    [self.actionButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
                                                     constant:kCardListHeaderCenterOffset]
         .active = YES;
 }
