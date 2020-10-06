@@ -37,7 +37,17 @@
 /**
  * A method which returns YES if the string represents a valid card number
  */
-@property (nonatomic, assign, readonly) BOOL isCardNumberValid;
+@property (nonatomic, assign, readonly) BOOL isValidCardNumber;
+
+/**
+ * A method which returns YES if the string represents a valid expiry date format
+ */
+@property (nonatomic, assign, readonly) BOOL isExpiryDate;
+
+/**
+ * A method which returns YES if the string contains only digits
+ */
+@property (nonatomic, assign, readonly) BOOL isNumeric;
 
 /**
  * Returns the localized string based on the input key

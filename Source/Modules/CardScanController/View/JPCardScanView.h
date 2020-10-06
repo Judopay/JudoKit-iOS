@@ -1,8 +1,8 @@
 //
-//  JPTransactionRouter.h
+//  JPCardScanView.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,33 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPCardScanControllerDelegate.h"
+#import <UIKit/UIKit.h>
 
-@class JPTransactionViewController, JPTheme;
-@protocol JPTransactionPresenter;
-
-@protocol JPTransactionRouter
+@interface JPCardScanView : UIView
 
 /**
- * A method that, when called, will dismiss the Add Card view controller
+ * The scan card back button
  */
-- (void)dismissViewController;
+@property (nonatomic, strong) UIButton *backButton;
 
 /**
- * A method that starts the scan camera flow and returns a completion result
+ * The scan card flash toggle button
  */
-- (void)navigateToScanCamera;
-
-@end
-
-@interface JPTransactionRouterImpl : NSObject <JPTransactionRouter, JPCardScanControllerDelegate>
+@property (nonatomic, strong) UIButton *flashButton;
 
 /**
- * A reference to the JPTheme instance responsible for customizing the user interface
+ * The stack view that contains the overlay title and subtitle
  */
-@property (nonatomic, strong) JPTheme *_Nullable theme;
+@property (nonatomic, strong) UIStackView *cardTextStackView;
 
 /**
- * A weak reference to the JPTransactionViewController instance
+ * The overlay title displayed on top of the card region
  */
-@property (nonatomic, weak) JPTransactionViewController *_Nullable viewController;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 /**
- * A weak reference to a JPTransactionPresenter-conforming instance
+ * The overlay subtitle displayed on top of the card region
  */
-@property (nonatomic, weak) id<JPTransactionPresenter> _Nullable presenter;
+@property (nonatomic, strong) UILabel *subtitleLabel;
 
 @end

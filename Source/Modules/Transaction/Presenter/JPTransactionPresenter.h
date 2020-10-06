@@ -25,7 +25,6 @@
 #import "JPInputType.h"
 #import "JPTransactionViewModel.h"
 #import <Foundation/Foundation.h>
-#import <PayCardsRecognizer/PayCardsRecognizer.h>
 
 @protocol JPTransactionView
 , JPTransactionRouter, JPTransactionInteractor;
@@ -57,12 +56,8 @@
  */
 - (void)handleCancelButtonTap;
 
-/**
- * A method that updates the view model with a card scan result
- *
- * @param result - the PayCardsRecognizerResult object that contains the scan result
- */
-- (void)updateViewModelWithScanCardResult:(PayCardsRecognizerResult *)result;
+- (void)updateViewModelWithCardNumber:(NSString *)cardNumber
+                        andExpiryDate:(NSString *)expiryDate;
 
 @end
 

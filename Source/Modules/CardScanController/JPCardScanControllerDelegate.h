@@ -1,8 +1,8 @@
 //
-//  JPTransactionRouter.h
+//  JPCardScanControllerDelegate.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPCardScanControllerDelegate.h"
+#import <UIKit/UIKit.h>
 
-@class JPTransactionViewController, JPTheme;
-@protocol JPTransactionPresenter;
-
-@protocol JPTransactionRouter
+@protocol JPCardScanControllerDelegate <NSObject>
 
 /**
- * A method that, when called, will dismiss the Add Card view controller
+ * A delegate method of the JPCardScanController that is called once a valid card number
+ * and expiry date is identified.
+ *
+ * @param cardScanController - a reference to the JPCardScanController instance
+ * @param cardNumber - the scanned card number
+ * @param expirationDate - the scanned expiration date
  */
-- (void)dismissViewController;
-
-/**
- * A method that starts the scan camera flow and returns a completion result
- */
-- (void)navigateToScanCamera;
-
-@end
-
-@interface JPTransactionRouterImpl : NSObject <JPTransactionRouter, JPCardScanControllerDelegate>
-
-/**
- * A reference to the JPTheme instance responsible for customizing the user interface
- */
-@property (nonatomic, strong) JPTheme *_Nullable theme;
-
-/**
- * A weak reference to the JPTransactionViewController instance
- */
-@property (nonatomic, weak) JPTransactionViewController *_Nullable viewController;
-
-/**
- * A weak reference to a JPTransactionPresenter-conforming instance
- */
-@property (nonatomic, weak) id<JPTransactionPresenter> _Nullable presenter;
+- (void)cardScanController:(UIViewController *)cardScanController
+       didDetectCardNumber:(NSString *)cardNumber
+         andExpirationDate:(NSString *)expirationDate;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  JPScanCardViewController.h
+//  JPCardScanController.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,45 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <PayCardsRecognizer/PayCardsRecognizer.h>
+#import "JPCardScanControllerDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-@class JPTheme;
-
-@interface JPScanCardViewController : UIViewController
-
-- (instancetype)initWithRecognizerDelegate:(id<PayCardsRecognizerPlatformDelegate>)delegate;
+@interface JPCardScanController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
 
 /**
- * The container view which hosts the scan card camera
+ * A reference to the instance implementing the JPCardScanControllerDelegate protocol.
  */
-@property (nonatomic, strong) UIView *containerView;
-
-/**
- * The stack view containing the scan card labels displayed on top of the camera view
- */
-@property (nonatomic, strong) UIStackView *labelStackView;
-
-/**
- * The back button displayed on top of the camera view that cancels the scanning process
- */
-@property (nonatomic, strong) UIButton *backButton;
-
-/**
- * The title displayed on top of the scan card camera view
- */
-@property (nonatomic, strong) UILabel *titleLabel;
-
-/**
- * The subtitle displayed on top of the scan card camera view
- */
-@property (nonatomic, strong) UILabel *subtitleLabel;
-
-/**
- * A method used to apply a theme to the view
- *
- * @param theme - the JPTheme object used to configure the user interface
- */
-- (void)applyTheme:(JPTheme *)theme;
+@property (nonatomic, strong) id<JPCardScanControllerDelegate> delegate;
 
 @end

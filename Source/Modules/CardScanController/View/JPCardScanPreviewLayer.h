@@ -1,8 +1,8 @@
 //
-//  JPTransactionRouter.h
+//  JPCardScanView.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,40 +23,14 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "JPCardScanControllerDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
-@class JPTransactionViewController, JPTheme;
-@protocol JPTransactionPresenter;
-
-@protocol JPTransactionRouter
+@interface JPCardScanPreviewLayer : AVCaptureVideoPreviewLayer
 
 /**
- * A method that, when called, will dismiss the Add Card view controller
+ * A property that, if set, adds a 40% opacity black fill to the card area.
+ * This is done to make the text displayed on top more readable.
  */
-- (void)dismissViewController;
-
-/**
- * A method that starts the scan camera flow and returns a completion result
- */
-- (void)navigateToScanCamera;
-
-@end
-
-@interface JPTransactionRouterImpl : NSObject <JPTransactionRouter, JPCardScanControllerDelegate>
-
-/**
- * A reference to the JPTheme instance responsible for customizing the user interface
- */
-@property (nonatomic, strong) JPTheme *_Nullable theme;
-
-/**
- * A weak reference to the JPTransactionViewController instance
- */
-@property (nonatomic, weak) JPTransactionViewController *_Nullable viewController;
-
-/**
- * A weak reference to a JPTransactionPresenter-conforming instance
- */
-@property (nonatomic, weak) id<JPTransactionPresenter> _Nullable presenter;
+@property (nonatomic, assign) BOOL shouldDimCardBackground;
 
 @end

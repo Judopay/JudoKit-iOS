@@ -23,35 +23,28 @@
 //  SOFTWARE.
 
 #import "JPTransactionRouter.h"
-#import "JPScanCardViewController.h"
 #import "JPTheme.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionViewController.h"
-
-@interface JPTransactionRouterImpl ()
-@property (nonatomic, strong) PayCardsRecognizer *recognizer;
-@end
+#import "JPCardScanController.h"
 
 @implementation JPTransactionRouterImpl
 
 - (void)navigateToScanCamera {
-    JPScanCardViewController *scanCardViewController = [[JPScanCardViewController alloc] initWithRecognizerDelegate:self];
-    scanCardViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-    [scanCardViewController applyTheme:self.theme];
-    [self.viewController presentViewController:scanCardViewController animated:YES completion:nil];
+    JPCardScanController *cardScanController = [JPCardScanController new];
+    cardScanController.delegate = self;
+    cardScanController.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.viewController presentViewController:cardScanController animated:YES completion:nil];
 }
 
 - (void)dismissViewController {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-@end
-
-@implementation JPTransactionRouterImpl (RecognizerDelegate)
-
-- (void)payCardsRecognizer:(PayCardsRecognizer *)payCardsRecognizer didRecognize:(PayCardsRecognizerResult *)result {
-    [self.presenter updateViewModelWithScanCardResult:result];
-    [self.viewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+- (void)cardScanController:(UIViewController *)cardScanController
+       didDetectCardNumber:(NSString *)cardNumber
+         andExpirationDate:(NSString *)expirationDate {
+    [self.presenter updateViewModelWithCardNumber:cardNumber andExpiryDate:expirationDate];
 }
 
 @end

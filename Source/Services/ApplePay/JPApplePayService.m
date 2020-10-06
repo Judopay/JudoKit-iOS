@@ -158,7 +158,6 @@
     JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
 
     if (@available(iOS 11.0, *)) {
-
         NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
         NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
 
