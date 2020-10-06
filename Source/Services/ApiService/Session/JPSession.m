@@ -37,7 +37,7 @@
 #pragma mark - Constants
 
 static NSString *const kAPIVersion = @"5.7.0.0";
-static NSString *const kBankPrefix = @"order/sale";
+static NSString *const kBankPrefix = @"order/bank";
 static NSString *const kBankSaleAPIVersion = @"2.0.0.0";
 static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
