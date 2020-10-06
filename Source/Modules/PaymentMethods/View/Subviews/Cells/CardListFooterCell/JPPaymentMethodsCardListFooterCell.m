@@ -105,9 +105,9 @@
 
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
-    [self addSubview:self.addCardButton];
-    [self.addCardButton pinToAnchors:JPAnchorTypeTrailing forView:self withPadding:24.0];
-    [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    [self.contentView addSubview:self.addCardButton];
+    [self.addCardButton pinToAnchors:JPAnchorTypeTrailing forView:self.contentView withPadding:24.0];
+    [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
 }
 
 #pragma mark - Lazy instantiated properties

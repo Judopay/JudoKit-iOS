@@ -105,16 +105,16 @@ static const int kConstraintPriority = 999;
     self.stackView.alignment = UIStackViewAlignmentCenter;
     [self.stackView addArrangedSubview:self.titleLabel];
     [self.stackView addArrangedSubview:self.addCardButton];
-    [self addSubview:self.stackView];
+    [self.contentView addSubview:self.stackView];
 }
 
 - (void)setupConstraints {
     NSArray *constraints = @[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                  constant:kStackViewTopPadding],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
         [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
     ];
 

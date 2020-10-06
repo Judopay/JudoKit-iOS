@@ -68,19 +68,19 @@ const float kInputFieldHeight = 44.0F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
-    [self addSubview:self.inputField];
+    [self.contentView addSubview:self.inputField];
     [self setupConstraints];
 }
 
 - (void)setupConstraints {
     NSArray *constraints = @[
-        [self.inputField.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.inputField.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                   constant:kInputFieldTopPadding],
-        [self.inputField.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+        [self.inputField.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                      constant:-kInputFieldBottomPadding],
-        [self.inputField.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+        [self.inputField.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
                                                       constant:kInputFieldHorizontalPadding],
-        [self.inputField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+        [self.inputField.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                        constant:-kInputFieldHorizontalPadding],
         [self.inputField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
     ];
