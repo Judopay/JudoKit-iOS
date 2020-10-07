@@ -80,19 +80,19 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
     self.backgroundColor = UIColor.whiteColor;
     [self.stackView addArrangedSubview:self.checkmarkImageView];
     [self.stackView addArrangedSubview:self.titleLabel];
-    [self addSubview:self.stackView];
+    [self.contentView addSubview:self.stackView];
     [self setupConstraints];
 }
 
 - (void)setupConstraints {
     NSArray *constraints = @[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                  constant:kIsDefaultStackViewVerticalPadding],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                     constant:-kIsDefaultStackViewVerticalPadding],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
                                                      constant:kIsDefaultStackViewHorizontalPadding],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                       constant:-kIsDefaultStackViewHorizontalPadding],
         [self.stackView.heightAnchor constraintEqualToConstant:kIsDefaultStackViewHeight],
         [self.checkmarkImageView.widthAnchor constraintEqualToConstant:kIsDefaultCheckmarkImageWidth],

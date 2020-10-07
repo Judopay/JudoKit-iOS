@@ -69,20 +69,20 @@ const float kHeaderCardAspectRatio = 0.583F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
-    [self addSubview:self.cardView];
+    [self.contentView addSubview:self.cardView];
 
     [self setupConstraints];
 }
 
 - (void)setupConstraints {
     NSArray *constraints = @[
-        [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.cardView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                 constant:kHeaderCardAnchorConstants],
-        [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+        [self.cardView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                    constant:-kHeaderCardAnchorConstants],
-        [self.cardView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+        [self.cardView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
                                                     constant:kHeaderCardAnchorConstants],
-        [self.cardView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+        [self.cardView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                      constant:-kHeaderCardAnchorConstants],
         [self.cardView.heightAnchor constraintEqualToAnchor:self.cardView.widthAnchor
                                                  multiplier:kHeaderCardAspectRatio],

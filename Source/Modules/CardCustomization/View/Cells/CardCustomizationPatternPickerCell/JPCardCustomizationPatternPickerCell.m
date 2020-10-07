@@ -65,13 +65,13 @@ const float kPatternCollectionViewPadding = 24.0F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
-    [self addSubview:self.collectionView];
+    [self.contentView addSubview:self.collectionView];
 
     NSArray *constraints = @[
-        [self.collectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [self.collectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [self.collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.collectionView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+        [self.collectionView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+        [self.collectionView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+        [self.collectionView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints withPriority:999];

@@ -54,22 +54,22 @@ static const int kConstraintPriority = 999;
 #pragma mark - Layout setup
 
 - (void)setupSectionViewWithSections:(NSArray *)sections {
-    [self removeAllSubviews];
+    [self.contentView removeAllSubviews];
 
     self.sectionView = [[JPSectionView alloc] initWithSections:sections
                                                       andTheme:self.theme];
     self.sectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [self addSubview:self.sectionView];
+    [self.contentView addSubview:self.sectionView];
     [self setupSectionViewConstraints];
 }
 
 - (void)setupSectionViewConstraints {
     NSArray *constraints = @[
-        [self.sectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.sectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [self.sectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [self.sectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.sectionView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+        [self.sectionView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+        [self.sectionView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+        [self.sectionView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
         [self.sectionView.heightAnchor constraintEqualToConstant:kSectionViewHeight],
     ];
 

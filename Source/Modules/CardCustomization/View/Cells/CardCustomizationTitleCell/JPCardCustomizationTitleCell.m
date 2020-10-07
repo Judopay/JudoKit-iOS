@@ -67,16 +67,16 @@ const float kTitleLabelVerticalPadding = 10.0F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.whiteColor;
-    [self addSubview:self.titleLabel];
+    [self.contentView addSubview:self.titleLabel];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.titleLabel.topAnchor constraintEqualToAnchor:self.topAnchor
+        [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor
                                                   constant:kTitleLabelVerticalPadding],
-        [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+        [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                      constant:-kTitleLabelVerticalPadding],
-        [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+        [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor
                                                       constant:kTitleLabelHorizontalPadding],
-        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                        constant:-kTitleLabelHorizontalPadding]
     ]];
 }
