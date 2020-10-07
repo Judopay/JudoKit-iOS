@@ -40,8 +40,6 @@ API_AVAILABLE(ios(13.0))
 @property (nonatomic, strong) JPCardScanView *cardScanView;
 @property (nonatomic, strong) VNSequenceRequestHandler *requestHandler;
 @property (nonatomic, strong) VNRectangleObservation *rectangleObservation;
-@property (nonatomic, strong) CAShapeLayer *detectedShape;
-@property (nonatomic, strong) NSTimer *scanTimer;
 
 @property (nonatomic, strong) NSString *detectedCardNumber;
 @property (nonatomic, strong) NSString *detectedExpiryDate;
@@ -134,10 +132,7 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
 - (void)detectRectangleInPixelBuffer:(CVPixelBufferRef)pixelBuffer {
     if (self.rectangleObservation) {
         [self handleObservedPaymentCard:self.rectangleObservation inBuffer:pixelBuffer];
-        return;
-    }
-
-    if (!self.rectangleObservation) {
+    } else {
         self.rectangleObservation = [self detectPaymentCardForBuffer:pixelBuffer];
     }
 }

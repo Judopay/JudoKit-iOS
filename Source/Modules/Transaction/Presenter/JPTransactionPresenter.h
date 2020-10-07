@@ -39,7 +39,8 @@
 /**
  * A method that updates the view model whenever a input field value changes
  */
-- (void)handleInputChange:(NSString *)input forType:(JPInputType)type;
+- (void)handleInputChange:(nonnull NSString *)input
+                  forType:(JPInputType)type;
 
 /**
  * A method that handles Add Card button tap
@@ -56,8 +57,14 @@
  */
 - (void)handleCancelButtonTap;
 
-- (void)updateViewModelWithCardNumber:(NSString *)cardNumber
-                        andExpiryDate:(NSString *)expiryDate;
+/**
+ * A method used to notify the JPTransactionPresenter that the card scan returned valid card details
+ *
+ * @param cardNumber - the detected card number
+ * @param expiryDate - the detected card expiration date
+ */
+- (void)updateViewModelWithCardNumber:(nonnull NSString *)cardNumber
+                        andExpiryDate:(nullable NSString *)expiryDate;
 
 @end
 
@@ -66,16 +73,16 @@
 /**
  * A weak reference to the view that adops the  JPTransactionView protocol
  */
-@property (nonatomic, weak) id<JPTransactionView> view;
+@property (nonatomic, weak, nullable) id<JPTransactionView> view;
 
 /**
  * A strong reference to the router that adops the  JPTransactionRouter protocol
  */
-@property (nonatomic, strong) id<JPTransactionRouter> router;
+@property (nonatomic, strong, nonnull) id<JPTransactionRouter> router;
 
 /**
  * A strong reference to the interactor that adops the  JPTransactionInteractor protocol
  */
-@property (nonatomic, strong) id<JPTransactionInteractor> interactor;
+@property (nonatomic, strong, nonnull) id<JPTransactionInteractor> interactor;
 
 @end
