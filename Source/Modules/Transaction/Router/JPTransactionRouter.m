@@ -23,10 +23,10 @@
 //  SOFTWARE.
 
 #import "JPTransactionRouter.h"
+#import "JPCardScanController.h"
 #import "JPTheme.h"
 #import "JPTransactionPresenter.h"
 #import "JPTransactionViewController.h"
-#import "JPCardScanController.h"
 
 @implementation JPTransactionRouterImpl
 

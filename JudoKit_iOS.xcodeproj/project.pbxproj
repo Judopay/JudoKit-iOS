@@ -12,7 +12,6 @@
 		070F1FF4243B23FF005D8FAB /* JPConfigurationValidationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 070F1FF2243B23FF005D8FAB /* JPConfigurationValidationService.h */; };
 		070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 070F1FF3243B23FF005D8FAB /* JPConfigurationValidationService.m */; };
 		072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3A2451DE5E0038A417 /* TrustKit.framework */; };
-		072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072AFF3C2451DE720038A417 /* PayCardsRecognizer.framework */; };
 		0777B9E4247BC9BB00867B9F /* JPUKPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B985247BC9BB00867B9F /* JPUKPostCodeValidation.swift */; };
 		0777B9E5247BC9BB00867B9F /* JPUSAPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B986247BC9BB00867B9F /* JPUSAPostCodeValidation.swift */; };
 		0777B9E6247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B987247BC9BB00867B9F /* JPCanadaPostCodeValidation.swift */; };
@@ -307,7 +306,6 @@
 		30E945C124E534950097C889 /* ZappMerchantLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C024E534950097C889 /* ZappMerchantLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30E945C324E534A00097C889 /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C224E534A00097C889 /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30E945C524E534BE0097C889 /* DeviceDNA.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C424E534BD0097C889 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		30E945C724E534D60097C889 /* PayCardsRecognizer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30E945C624E534D60097C889 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
@@ -419,7 +417,6 @@
 				30E945C124E534950097C889 /* ZappMerchantLib.framework in CopyFiles */,
 				30E945C324E534A00097C889 /* OHHTTPStubs.framework in CopyFiles */,
 				30E945C524E534BE0097C889 /* DeviceDNA.framework in CopyFiles */,
-				30E945C724E534D60097C889 /* PayCardsRecognizer.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,13 +727,11 @@
 		30E945B024E533020097C889 /* TrustKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TrustKit; path = Carthage/Checkouts/TrustKit; sourceTree = "<group>"; };
 		30E945B124E533020097C889 /* DeviceDNA-iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "DeviceDNA-iOS"; path = "Carthage/Checkouts/DeviceDNA-iOS"; sourceTree = "<group>"; };
 		30E945B224E533020097C889 /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = Carthage/Checkouts/OHHTTPStubs; sourceTree = "<group>"; };
-		30E945B324E533020097C889 /* PayCards_iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PayCards_iOS; path = Carthage/Checkouts/PayCards_iOS; sourceTree = "<group>"; };
 		30E945BB24E533910097C889 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
 		30E945BE24E5347E0097C889 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
 		30E945C024E534950097C889 /* ZappMerchantLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappMerchantLib.framework; path = Carthage/Build/iOS/ZappMerchantLib.framework; sourceTree = "<group>"; };
 		30E945C224E534A00097C889 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		30E945C424E534BD0097C889 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
-		30E945C624E534D60097C889 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		30F77E53241A650800D68BF9 /* UITextField+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Additions.m"; sourceTree = "<group>"; };
 		3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -841,7 +836,6 @@
 				52EDC2E62371BC2B00FEC9C1 /* WebKit.framework in Frameworks */,
 				072AFF3B2451DE5E0038A417 /* TrustKit.framework in Frameworks */,
 				0701930224811DC400401E45 /* ZappMerchantLib.framework in Frameworks */,
-				072AFF3D2451DE730038A417 /* PayCardsRecognizer.framework in Frameworks */,
 				01AE3A33246034D80050952E /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2542,14 +2536,12 @@
 		3B678B4C1C6CE5190001DC2F = {
 			isa = PBXGroup;
 			children = (
-				30E945C624E534D60097C889 /* PayCardsRecognizer.framework */,
 				30E945C424E534BD0097C889 /* DeviceDNA.framework */,
 				30E945C224E534A00097C889 /* OHHTTPStubs.framework */,
 				30E945C024E534950097C889 /* ZappMerchantLib.framework */,
 				30E945BE24E5347E0097C889 /* TrustKit.framework */,
 				30E945B124E533020097C889 /* DeviceDNA-iOS */,
 				30E945B224E533020097C889 /* OHHTTPStubs */,
-				30E945B324E533020097C889 /* PayCards_iOS */,
 				30E945AF24E533020097C889 /* pbba-merchant-button-library-ios */,
 				30E945B024E533020097C889 /* TrustKit */,
 				0777B982247BC9BB00867B9F /* JudoKit_iOSTests */,

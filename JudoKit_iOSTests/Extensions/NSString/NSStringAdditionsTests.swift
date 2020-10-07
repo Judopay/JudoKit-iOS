@@ -63,7 +63,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
         let cardValid = "4929939187355598"
-        XCTAssertTrue(cardValid.isCardNumberValid)
+        XCTAssertTrue(cardValid.isValidCardNumber)
     }
     
     /*

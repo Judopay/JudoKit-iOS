@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardScanView.h"
 #import "JPCardScanController.h"
-#import "JPCardScanPreviewLayer.h"
 #import "JPCardNetwork.h"
+#import "JPCardScanPreviewLayer.h"
+#import "JPCardScanView.h"
 #import "NSString+Additions.h"
 #import <Vision/Vision.h>
 
@@ -51,9 +51,17 @@ API_AVAILABLE(ios(13.0))
 API_AVAILABLE(ios(13.0))
 @implementation JPCardScanController
 
-//------------------------------------------------
-// MARK: - View lifecycle
-//------------------------------------------------
+#pragma mark - Constants
+
+static const CGFloat kScanAreaStartX = 0.0f;
+static const CGFloat kScanAreaStartY = 0.3f;
+static const CGFloat kScanAreaEndX = 1.0f;
+static const CGFloat kScanAreaEndY = 0.4f;
+static const CGFloat kCardAspectRatio = 0.682f;
+static const CGFloat kMinCardErrorMargin = 0.8f;
+static const CGFloat kMaxCardErrorMargin = 1.2f;
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -114,8 +122,8 @@ API_AVAILABLE(ios(13.0))
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)output
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
-       fromConnection:(AVCaptureConnection *)connection {
+    didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+           fromConnection:(AVCaptureConnection *)connection {
 
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     [self detectRectangleInPixelBuffer:pixelBuffer];
@@ -137,17 +145,21 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (VNRectangleObservation *)detectPaymentCardForBuffer:(CVPixelBufferRef)pixelBuffer {
 
     VNDetectRectanglesRequest *rectRequest = [VNDetectRectanglesRequest new];
-    rectRequest.regionOfInterest = CGRectMake(0, 0.3, 1, 0.4);
+    rectRequest.regionOfInterest = CGRectMake(kScanAreaStartX,
+                                              kScanAreaStartY,
+                                              kScanAreaEndX,
+                                              kScanAreaEndY);
 
-    CGFloat cardAspectRatio = 0.682;
+    CGFloat cardAspectRatio = kCardAspectRatio;
 
-    rectRequest.minimumAspectRatio = cardAspectRatio * 0.8;
-    rectRequest.maximumAspectRatio = cardAspectRatio * 1.2;
+    rectRequest.minimumAspectRatio = cardAspectRatio * kMinCardErrorMargin;
+    rectRequest.maximumAspectRatio = cardAspectRatio * kMaxCardErrorMargin;
 
     VNDetectTextRectanglesRequest *textRequest = [VNDetectTextRectanglesRequest new];
 
-    [self.requestHandler performRequests:@[rectRequest, textRequest]
-                         onCVPixelBuffer:pixelBuffer error:nil];
+    [self.requestHandler performRequests:@[ rectRequest, textRequest ]
+                         onCVPixelBuffer:pixelBuffer
+                                   error:nil];
 
     VNRectangleObservation *rectangleObservation;
     VNTextObservation *textObservation;
@@ -193,7 +205,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     VNTrackRectangleRequest *trackRequest = [[VNTrackRectangleRequest alloc] initWithRectangleObservation:observation];
     trackRequest.trackingLevel = VNRequestTrackingLevelFast;
 
-    [self.requestHandler performRequests:@[trackRequest] onCVPixelBuffer:imageBuffer error:nil];
+    [self.requestHandler performRequests:@[ trackRequest ] onCVPixelBuffer:imageBuffer error:nil];
 
     for (VNObservation *observation in trackRequest.results) {
         if ([observation isKindOfClass:VNRectangleObservation.class]) {
@@ -214,7 +226,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     textRequest.recognitionLevel = VNRequestTrackingLevelAccurate;
 
     VNImageRequestHandler *requestHandler = [[VNImageRequestHandler alloc] initWithCIImage:image options:@{}];
-    [requestHandler performRequests:@[textRequest] error:nil];
+    [requestHandler performRequests:@[ textRequest ] error:nil];
 
     for (VNObservation *observation in textRequest.results) {
 
@@ -224,27 +236,37 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             NSArray<VNRecognizedText *> *recognizedText = [textObservation topCandidates:1];
 
             for (VNRecognizedText *text in recognizedText) {
-
-                NSString *compactText = [text.string stringByRemovingWhitespaces];
-
-                if (compactText.isNumeric && compactText.length > 15 && compactText.isValidCardNumber) {
-                    self.detectedCardNumber = text.string;
-                };
-
-                if (text.string.isExpiryDate) {
-                    self.detectedExpiryDate = text.string;
-                }
-
-                if (self.detectedCardNumber && self.detectedExpiryDate) {
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                        [self.delegate cardScanController:self
-                                      didDetectCardNumber:self.detectedCardNumber
-                                        andExpirationDate:self.detectedExpiryDate];
-                    });
-                }
+                [self handleTextDetection:text.string];
             }
         }
+    }
+}
+
+- (void)handleTextDetection:(NSString *)detectedText {
+    NSString *compactText = [detectedText stringByRemovingWhitespaces];
+
+    if (compactText.isExpiryDate) {
+        self.detectedExpiryDate = detectedText;
+    }
+
+    JPCardNetworkType cardNetwork = [JPCardNetwork cardNetworkForCardNumber:compactText];
+
+    BOOL isNumeric = compactText.isNumeric;
+    BOOL isAmex = cardNetwork == JPCardNetworkTypeAMEX;
+    BOOL isCorrectLength = isAmex ? compactText.length == 15 : compactText.length == 16;
+    BOOL isValid = compactText.isValidCardNumber;
+
+    if (isNumeric && isCorrectLength && isValid) {
+        self.detectedCardNumber = detectedText;
+    };
+
+    if (self.detectedCardNumber && (self.detectedExpiryDate || isAmex)) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.delegate cardScanController:self
+                          didDetectCardNumber:self.detectedCardNumber
+                            andExpirationDate:self.detectedExpiryDate];
+        });
     }
 }
 
@@ -273,7 +295,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         _videoOutput = [AVCaptureVideoDataOutput new];
         [_videoOutput setSampleBufferDelegate:self queue:dispatch_queue_create("scan_card_output", nil)];
 
-        NSDictionary* videoSettingsDictionary = @{
+        NSDictionary *videoSettingsDictionary = @{
             (id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
         };
 

@@ -74,8 +74,8 @@
 }
 
 - (BOOL)isNumeric {
-    NSCharacterSet* nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-    NSRange r = [self rangeOfCharacterFromSet: nonNumbers];
+    NSCharacterSet *nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    NSRange r = [self rangeOfCharacterFromSet:nonNumbers];
     return r.location == NSNotFound;
 }
 

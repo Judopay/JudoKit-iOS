@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import "JPCardScanPreviewLayer.h"
+#import <UIKit/UIKit.h>
 
 @interface JPCardScanPreviewLayer ()
 @property (nonatomic, strong) CAShapeLayer *cardLayer;
@@ -32,31 +32,27 @@
 
 @implementation JPCardScanPreviewLayer
 
-//-------------------------------------------------
-// MARK: - Constants
-//-------------------------------------------------
+#pragma mark - Constants
 
-static CGFloat kCardOffset  = 20.0;
-static CGFloat kCardRadius  = 10.0;
-static CGFloat kStrokeWidth = 3.0;
-static CGFloat kCardRatio   = 0.628;
-static CGFloat kBackgroundAlpha = 0.8;
-static CGFloat kCardAlpha = 0.4;
+static const CGFloat kCardOffset = 20.0f;
+static const CGFloat kCardRadius = 10.0f;
+static const CGFloat kStrokeWidth = 3.0f;
+static const CGFloat kCardRatio = 0.628f;
+static const CGFloat kBackgroundAlpha = 0.8f;
+static const CGFloat kCardAlpha = 0.4f;
 
-//-------------------------------------------------
-// MARK: - Public methods
-//-------------------------------------------------
+#pragma mark - Public methods
 
 - (void)setShouldDimCardBackground:(BOOL)shouldDimCardBackground {
     _shouldDimCardBackground = shouldDimCardBackground;
+
     CGFloat alphaValue = shouldDimCardBackground ? kCardAlpha : 0.0;
     UIColor *fillColor = [UIColor colorWithWhite:0.0 alpha:alphaValue];
+
     [self.cardLayer setFillColor:fillColor.CGColor];
 }
 
-//-------------------------------------------------
-// MARK: - Overrides
-//-------------------------------------------------
+#pragma mark - Overrides
 
 - (void)drawInContext:(CGContextRef)ctx {
     [super drawInContext:ctx];
@@ -69,9 +65,7 @@ static CGFloat kCardAlpha = 0.4;
     [self setNeedsDisplay];
 }
 
-//-------------------------------------------------
-// MARK: - Lazy initializers
-//-------------------------------------------------
+#pragma mark - Lazy initializers
 
 - (CAShapeLayer *)backgroundLayer {
     if (!_backgroundLayer) {
@@ -107,9 +101,7 @@ static CGFloat kCardAlpha = 0.4;
     return _cardLayer;
 }
 
-//-------------------------------------------------
-// MARK: - Helper methods
-//-------------------------------------------------
+#pragma mark - Helper methods
 
 - (CGFloat)screenWidth {
     return UIScreen.mainScreen.bounds.size.width;

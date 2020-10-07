@@ -23,23 +23,22 @@
 //  SOFTWARE.
 
 #import "JPCardScanView.h"
+#import "NSString+Additions.h"
 #import "UIImage+Additions.h"
+#import "UIView+Additions.h"
 
 @implementation JPCardScanView
 
-//------------------------------------------------
-// MARK: - Constants
-//------------------------------------------------
+#pragma mark - Constants
 
-static CGFloat kHorizontalPadding = 10.0f;
-static CGFloat kTitleFontSize = 20.0f;
-static CGFloat kSubtitleFontSize = 18.0f;
-static CGFloat kTextSpacing = 10.0f;
-static CGFloat kVerticalPadding = 60.0f;
+static const CGFloat kHorizontalPadding = 10.0f;
+static const CGFloat kTitleFontSize = 20.0f;
+static const CGFloat kSubtitleFontSize = 18.0f;
+static const CGFloat kTextSpacing = 10.0f;
+static const CGFloat kVerticalPadding = 30.0f;
+static const CGFloat kFlashButtonHeight = 30.0f;
 
-//------------------------------------------------
-// MARK: - Initializers
-//------------------------------------------------
+#pragma mark - Initializers
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -65,9 +64,7 @@ static CGFloat kVerticalPadding = 60.0f;
     return self;
 }
 
-//------------------------------------------------
-// MARK: - Layout setup
-//------------------------------------------------
+#pragma mark - Layout setup
 
 - (void)setupLayout {
     [self.cardTextStackView addArrangedSubview:self.titleLabel];
@@ -80,19 +77,25 @@ static CGFloat kVerticalPadding = 60.0f;
 - (void)setupConstraints {
     NSArray *stackViewConstraints = @[
         [self.cardTextStackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [self.cardTextStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:kHorizontalPadding],
-        [self.cardTextStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-kHorizontalPadding],
+        [self.cardTextStackView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor
+                                                          constant:kHorizontalPadding],
+        [self.cardTextStackView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor
+                                                           constant:-kHorizontalPadding],
     ];
 
     NSArray *backButtonConstraints = @[
-        [self.backButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:kHorizontalPadding * 2],
-        [self.backButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:kVerticalPadding], //todo: safe anchor
+        [self.backButton.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor
+                                                   constant:kHorizontalPadding * 2],
+        [self.backButton.topAnchor constraintEqualToAnchor:self.safeTopAnchor
+                                                  constant:kVerticalPadding],
     ];
 
     NSArray *flashButtonConstraints = @[
-        [self.flashButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:kHorizontalPadding],
-        [self.flashButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:kVerticalPadding],
-        [self.flashButton.heightAnchor constraintEqualToConstant:30.0],
+        [self.flashButton.rightAnchor constraintEqualToAnchor:self.safeRightAnchor
+                                                     constant:kHorizontalPadding],
+        [self.flashButton.topAnchor constraintEqualToAnchor:self.safeTopAnchor
+                                                   constant:kVerticalPadding],
+        [self.flashButton.heightAnchor constraintEqualToConstant:kFlashButtonHeight],
     ];
 
     [NSLayoutConstraint activateConstraints:stackViewConstraints];
@@ -100,16 +103,14 @@ static CGFloat kVerticalPadding = 60.0f;
     [NSLayoutConstraint activateConstraints:flashButtonConstraints];
 }
 
-//------------------------------------------------
-// MARK: - Lazy initializers
-//------------------------------------------------
+#pragma mark - Lazy initializers
 
 - (UIButton *)backButton {
     if (!_backButton) {
         _backButton = [UIButton new];
         _backButton.translatesAutoresizingMaskIntoConstraints = NO;
         _backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_backButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [_backButton setTitle:@"cancel".localized forState:UIControlStateNormal];
     }
     return _backButton;
 }
@@ -138,7 +139,7 @@ static CGFloat kVerticalPadding = 60.0f;
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"Position your card in this frame";
+        _titleLabel.text = @"scan_card_hint_title".localized;
         _titleLabel.font = [UIFont systemFontOfSize:kTitleFontSize weight:UIFontWeightBold];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -148,7 +149,7 @@ static CGFloat kVerticalPadding = 60.0f;
 - (UILabel *)subtitleLabel {
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
-        _subtitleLabel.text = @"We will do our best to scan it";
+        _subtitleLabel.text = @"scan_card_hint_subtitle".localized;
         _subtitleLabel.font = [UIFont systemFontOfSize:kSubtitleFontSize];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     }

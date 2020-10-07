@@ -54,6 +54,12 @@
     [self.addCardView applyTheme:self.theme];
     [self addTargets];
     [self addGestureRecognizers];
+
+    if (@available(iOS 13.0, *)) {
+        self.addCardView.scanCardButton.hidden = NO;
+    } else {
+        self.addCardView.scanCardButton.hidden = YES;
+    }
 }
 
 - (void)viewDidLoad {
