@@ -15,10 +15,9 @@ Pod::Spec.new do |s|
 
   s.dependency 'DeviceDNA'
   s.dependency 'TrustKit'
-  s.dependency 'PayCardsRecognizer'
   s.dependency 'ZappMerchantLib'
 
-  s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
+  s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }
   s.resource_bundles      = { "JudoKit_iOS" => ["Resources/*.lproj/*.strings"] }
   s.resources             = ['Resources/icons.bundle', 'Resources/resources.bundle']

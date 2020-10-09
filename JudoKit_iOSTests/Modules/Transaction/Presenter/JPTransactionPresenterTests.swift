@@ -158,15 +158,8 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should receive same field in View
      */
     func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
-        let scanResult = PayCardsRecognizerResult()
-        scanResult.recognizedNumber = "4445"
-        scanResult.recognizedHolderName = "Alex"
-        scanResult.recognizedExpireDateYear = "20"
-        scanResult.recognizedExpireDateMonth = "10"
-        sut.updateViewModel(withScanCardResult: scanResult)
-        
+        sut.updateViewModel(withCardNumber: "4445", andExpiryDate: "10/20")
         XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.text, "4445")
-        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.text, "Alex")
         XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.text, "10/20")
     }
     

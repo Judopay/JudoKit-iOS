@@ -29,8 +29,8 @@
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALViewController.h"
-#import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsPresenter.h"
+#import "JPPaymentMethodsViewController.h"
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
@@ -76,10 +76,10 @@
                                             cardDetailsMode:mode
                                                 cardNetwork:cardNetwork
                                                  completion:^(JPResponse *response, JPError *error) {
-            if (error.code == JudoUserDidCancelError) {
-                [weakSelf.viewController.presenter viewModelNeedsUpdate];
-            }
-        }];
+                                                     if (error.code == JudoUserDidCancelError) {
+                                                         [weakSelf.viewController.presenter viewModelNeedsUpdate];
+                                                     }
+                                                 }];
 
     controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;

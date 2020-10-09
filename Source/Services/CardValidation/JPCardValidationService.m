@@ -74,7 +74,7 @@ static int const kCardHolderNameLength = 3;
         cardNumber = [cardNumber substringToIndex:maxCardLength];
     }
 
-    if ((cardNumber.length == maxCardLength) && (![cardNumber isCardNumberValid])) {
+    if ((cardNumber.length == maxCardLength) && (![cardNumber isValidCardNumber])) {
         error = JPError.judoInvalidCardNumberError;
     }
 

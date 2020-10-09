@@ -63,7 +63,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
         let cardValid = "4929939187355598"
-        XCTAssertTrue(cardValid.isCardNumberValid)
+        XCTAssertTrue(cardValid.isValidCardNumber)
     }
     
     /*
@@ -101,5 +101,38 @@ class NSStringAdditionsTests: XCTestCase {
         let sut = keyForTranslate.attributedString(withBoldSubstring: "1")
         let attributes = sut.attributes(at: 0, effectiveRange: nil)
         XCTAssertEqual((attributes.first?.value as! UIFont).fontName, ".SFUI-Semibold")
+    }
+
+    /*
+     * GIVEN: A string is checked for a numeric pattern
+     *
+     * WHEN: the pattern contains only digits
+     *
+     * THEN: the method should return true
+     */
+    func test_WhenNumericCheck_IfContainsOnlyDigits_ReturnTrue() {
+        XCTAssertTrue("12345".isNumeric)
+        XCTAssertFalse("123.45".isNumeric)
+        XCTAssertFalse("-12345".isNumeric)
+        XCTAssertFalse("12 34 5".isNumeric)
+    }
+
+    /*
+     * GIVEN: A string is checked for expiry date format
+     *
+     * WHEN: the format is either dd/dd or dd-dd, where d is a digit
+     *
+     * THEN: the method should return true
+     */
+    func test_WhenExpiryDateFormatCheck_IfContainsValidFormat_ReturnTrue() {
+        XCTAssertTrue("00/00".isExpiryDate)
+        XCTAssertTrue("00-00".isExpiryDate)
+        XCTAssertFalse("0/00".isExpiryDate)
+        XCTAssertFalse("00/0".isExpiryDate)
+        XCTAssertFalse("-00/00".isExpiryDate)
+        XCTAssertFalse("0.0/00".isExpiryDate)
+        XCTAssertFalse("00 00".isExpiryDate)
+        XCTAssertFalse("00 - 00".isExpiryDate)
+        XCTAssertFalse("00 / 00".isExpiryDate)
     }
 }

@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardScanControllerDelegate.h"
 #import <Foundation/Foundation.h>
-#import <PayCardsRecognizer/PayCardsRecognizer.h>
 
 @class JPTransactionViewController, JPTheme;
 @protocol JPTransactionPresenter;
@@ -42,7 +42,7 @@
 
 @end
 
-@interface JPTransactionRouterImpl : NSObject <JPTransactionRouter>
+@interface JPTransactionRouterImpl : NSObject <JPTransactionRouter, JPCardScanControllerDelegate>
 
 /**
  * A reference to the JPTheme instance responsible for customizing the user interface
@@ -59,10 +59,4 @@
  */
 @property (nonatomic, weak) id<JPTransactionPresenter> _Nullable presenter;
 
-@end
-
-/**
- * An extension for handling the pay card recognizer delegate
- */
-@interface JPTransactionRouterImpl (RecognizerDelegate) <PayCardsRecognizerPlatformDelegate>
 @end

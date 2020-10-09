@@ -1,8 +1,8 @@
 //
-//  JPTransactionRouter.m
+//  JPCardScanControllerDelegate.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionRouter.h"
-#import "JPCardScanController.h"
-#import "JPTheme.h"
-#import "JPTransactionPresenter.h"
-#import "JPTransactionViewController.h"
+#import <UIKit/UIKit.h>
 
-@implementation JPTransactionRouterImpl
+@protocol JPCardScanControllerDelegate <NSObject>
 
-- (void)navigateToScanCamera {
-    JPCardScanController *cardScanController = [JPCardScanController new];
-    cardScanController.delegate = self;
-    cardScanController.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.viewController presentViewController:cardScanController animated:YES completion:nil];
-}
-
-- (void)dismissViewController {
-    [self.viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
+/**
+ * A delegate method of the JPCardScanController that is called once a valid card number
+ * and expiry date is identified.
+ *
+ * @param cardScanController - a reference to the JPCardScanController instance
+ * @param cardNumber - the scanned card number
+ * @param expirationDate - the scanned expiration date
+ */
 - (void)cardScanController:(UIViewController *)cardScanController
        didDetectCardNumber:(NSString *)cardNumber
-         andExpirationDate:(NSString *)expirationDate {
-    [self.presenter updateViewModelWithCardNumber:cardNumber andExpiryDate:expirationDate];
-}
+         andExpirationDate:(NSString *)expirationDate;
 
 @end

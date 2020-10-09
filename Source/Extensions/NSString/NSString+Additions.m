@@ -46,10 +46,6 @@
     return [JPCardNetwork cardNetworkForCardNumber:self];
 }
 
-- (BOOL)isCardNumberValid {
-    return self.isLuhnValid;
-}
-
 - (NSString *)stringByRemovingWhitespaces {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
@@ -77,7 +73,13 @@
     return returnString;
 }
 
-- (BOOL)isLuhnValid {
+- (BOOL)isNumeric {
+    NSCharacterSet *nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    NSRange range = [self rangeOfCharacterFromSet:nonNumbers];
+    return range.location == NSNotFound;
+}
+
+- (BOOL)isValidCardNumber {
     NSUInteger total = 0;
     NSUInteger len = [self length];
 
@@ -98,6 +100,17 @@
     }
 
     return (total % 10) == 0;
+}
+
+- (BOOL)isExpiryDate {
+    NSString *expiryDateFormay = @"^\\d{2}(\\/|-)\\d{2}$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expiryDateFormay
+                                                                           options:NSRegularExpressionAnchorsMatchLines
+                                                                             error:nil];
+
+    NSRange range = NSMakeRange(0, self.length);
+    NSUInteger matches = [regex numberOfMatchesInString:self options:0 range:range];
+    return matches > 0;
 }
 
 - (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {

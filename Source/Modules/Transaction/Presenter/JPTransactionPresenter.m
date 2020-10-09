@@ -150,9 +150,9 @@
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, JPError *error) {
+                                             completion:^(JPResponse *response, JPError *transactionError) {
                                                  if (error) {
-                                                     [weakSelf handleError:error];
+                                                     [weakSelf handleError:transactionError];
                                                      return;
                                                  }
 
@@ -211,24 +211,15 @@
 
 #pragma mark - Helper methods
 
-- (void)updateViewModelWithScanCardResult:(PayCardsRecognizerResult *)result {
+- (void)updateViewModelWithCardNumber:(NSString *)cardNumber
+                        andExpiryDate:(NSString *)expiryDate {
 
     [self.interactor resetCardValidationResults];
-    if (result.recognizedNumber != nil) {
-        [self updateCardNumberViewModelForInput:result.recognizedNumber];
-    }
 
-    if (result.recognizedHolderName != nil) {
-        [self updateCardholderNameViewModelForInput:result.recognizedHolderName];
-    }
-
-    if (result.recognizedExpireDateMonth != nil && result.recognizedExpireDateYear != nil) {
-        [self updateExpiryDateViewModelForInput:[NSString stringWithFormat:@"%@/%@",
-                                                                           result.recognizedExpireDateMonth,
-                                                                           result.recognizedExpireDateYear]];
-    }
-
+    [self updateCardNumberViewModelForInput:cardNumber];
+    [self updateExpiryDateViewModelForInput:expiryDate];
     [self updateTransactionButtonModelIfNeeded];
+
     [self.view updateViewWithViewModel:self.addCardViewModel];
 }
 
@@ -243,7 +234,6 @@
             return @"register_card".localized;
         case JPTransactionTypeCheckCard:
             return @"check_card".localized;
-
         default:
             return nil;
     }

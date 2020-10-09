@@ -1,8 +1,8 @@
 //
-//  JPTransactionRouter.m
+//  JPCardScanView.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionRouter.h"
-#import "JPCardScanController.h"
-#import "JPTheme.h"
-#import "JPTransactionPresenter.h"
-#import "JPTransactionViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 
-@implementation JPTransactionRouterImpl
+@interface JPCardScanPreviewLayer : AVCaptureVideoPreviewLayer
 
-- (void)navigateToScanCamera {
-    JPCardScanController *cardScanController = [JPCardScanController new];
-    cardScanController.delegate = self;
-    cardScanController.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.viewController presentViewController:cardScanController animated:YES completion:nil];
-}
-
-- (void)dismissViewController {
-    [self.viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cardScanController:(UIViewController *)cardScanController
-       didDetectCardNumber:(NSString *)cardNumber
-         andExpirationDate:(NSString *)expirationDate {
-    [self.presenter updateViewModelWithCardNumber:cardNumber andExpiryDate:expirationDate];
-}
+/**
+ * A property that, if set, adds a 40% opacity black fill to the card area.
+ * This is done to make the text displayed on top more readable.
+ */
+@property (nonatomic, assign) BOOL shouldDimCardBackground;
 
 @end

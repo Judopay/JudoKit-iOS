@@ -82,8 +82,8 @@
 "scan_card_no_permission_message" = "Permissions must be granted in order to use the scan card functionality. Please go to Settings and toggle Camera on";
 "scan_card_confirm" = "Got it";
 "scan_card_go_to_settings" = "Go to Settings";
-"wocr_hint_position_card_in_frame" = "Position card in this frame";
-"wocr_automatically_scan" = "We will automatically scan it";
+"scan_card_hint_title" = "Position card in this frame";
+"scan_card_hint_subtitle" = "We will do our best to scan it";
 "pay_by_bank" = "Pay by Bank app";
 "retry" = "Retry";
 "transaction_successful" = "Transaction success!";
