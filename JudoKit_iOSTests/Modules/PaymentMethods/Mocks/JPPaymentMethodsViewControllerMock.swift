@@ -25,6 +25,7 @@
 import Foundation
 
 @objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
+    var didPresentApplePay = false
     var cardsList:[JPPaymentMethodsCardModel] = []
     var idealBankModel: JPPaymentMethodsIDEALBankModel?
     var viewModelSut: JPPaymentMethodsViewModel?
@@ -49,6 +50,13 @@ import Foundation
     
     func displayAlert(withTitle title: String?, andError error: Error) {
         
+    }
+
+    func presentApplePay(authorizationBlock: @escaping JPApplePayAuthorizationBlock) {
+        didPresentApplePay = true
+
+        let authBlock: (PKPaymentAuthorizationStatus) -> () = { _ in }
+        authorizationBlock(PKPayment(), authBlock)
     }
     
 }

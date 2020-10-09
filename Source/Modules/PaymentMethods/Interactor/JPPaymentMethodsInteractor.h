@@ -26,6 +26,7 @@
 #import "JPTransactionStatusView.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 #import <ZappMerchantLib/PBBAAppUtils.h>
 
 @class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
@@ -60,11 +61,6 @@
 - (void)paymentTransactionWithToken:(nonnull NSString *)token
                     andSecurityCode:(nullable NSString *)securityCode
                       andCompletion:(nullable JPCompletionBlock)completion;
-
-/**
- * Starts the Apple Pay payment / preAuth flow
- */
-- (void)startApplePayWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the PBBA payment
@@ -103,6 +99,16 @@
  * A boolean value that returns YES if Apple Pay is set up on the device
  */
 - (bool)isApplePaySetUp;
+
+/**
+ * A method that calls the Apple Pay service to complete the payment/pre-auth transaction
+ * via the passed PKPayment object.
+ *
+ * @param payment - a PKPayment object containing the payment token from Apple Pay
+ * @param completion - the JPResponse / NSError completion block
+ */
+- (void)processApplePayment:(nonnull PKPayment *)payment
+             withCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that handles 3D Secure transactions

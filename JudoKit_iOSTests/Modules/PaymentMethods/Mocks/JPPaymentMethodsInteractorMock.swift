@@ -89,10 +89,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         }
     }
     
-    func orederCards() {
-        
-    }
-    
     func selectCard(at index: UInt) {
         cardSelected = true
     }
@@ -119,10 +115,10 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         return [JPPaymentMethod.card(), JPPaymentMethod.iDeal()]
     }
     
-    func startApplePay(completion: JPCompletionBlock?) {
-        let response = JPResponse()
-        completion?(response,nil)
+    func processApplePayment(_ payment: PKPayment,
+                             withCompletion completion: @escaping JPCompletionBlock) {
         startApplePay = true
+        completion(JPResponse(), nil)
     }
     
     func isApplePaySetUp() -> Bool {

@@ -66,7 +66,7 @@
 
             case JPPaymentMethodTypePbba:
                 _title = nil;
-                _iconName = @"PbBA-logo";
+                _iconName = @"pbba-pay-icon";
                 break;
         }
         _type = type;

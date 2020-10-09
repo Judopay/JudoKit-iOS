@@ -1,8 +1,8 @@
 //
-//  JPApplePayWrappers.h
+//  JPApplePayController.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,30 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <PassKit/PassKit.h>
+#import "JPApplePayTypedefs.h"
+#import <UIKit/UIKit.h>
 
 @class JPConfiguration;
 
-@interface JPApplePayWrappers : NSObject
+@interface JPApplePayController : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
- * A method that returns a mapped PKPaymentAuthorizationViewController instance based on the provided JPConfiguration object
+ * Designated initalizer that creates a configured instance of JPApplePayController for making Apple Pay transactions.
  *
- * @param configuration - a JPConfiguration object containing information about the Apple Pay transaction
+ * @param configuration - an instance of JPConfiguration used to configure the Apple Pay flow.
  *
- * @returns a configured instance of PKPaymentAuthorizationViewController
+ * @returns - a configured instance of JPApplePayController.
  */
-+ (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
- * A method that returns an array of Apple Pay supported payment networks based on the ones provided in the JPConfiguration object
+ * A method that returns a configured Apple Pay UIViewController instance that can be presented to complete
+ * Apple Pay transactions.
  *
- * @param configuration - a JPConfiguration object containing merchant-specified payment networks
+ * @param authorizationBlock - a block that is called when Apple Pay authorizes the payment.
  *
- * @returns an array of mapped PKPaymentNetwork instances
+ * @returns a fully configured UIViewController instance
  */
-+ (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration;
+- (nullable UIViewController *)applePayViewControllerWithAuthorizationBlock:(JPApplePayAuthorizationBlock _Nonnull)authorizationBlock;
 
 @end

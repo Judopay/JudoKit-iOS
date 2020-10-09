@@ -1,8 +1,6 @@
 //
-//  JPApplePayWrappers.h
-//  JudoKit_iOS
-//
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  JPPaymentShippingMethodTests.swift
+//  JudoKit_iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +20,33 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <PassKit/PassKit.h>
+import XCTest
+@testable import JudoKit_iOS
 
-@class JPConfiguration;
+class JPPaymentShippingMethodTests: XCTestCase {
 
-@interface JPApplePayWrappers : NSObject
+    private var sut: JPPaymentShippingMethod!
 
-/**
- * A method that returns a mapped PKPaymentAuthorizationViewController instance based on the provided JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing information about the Apple Pay transaction
- *
- * @returns a configured instance of PKPaymentAuthorizationViewController
- */
-+ (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration;
+    /**
+     * GIVEN: JPPaymentShippingMethod is being initialized
+     *
+     * WHEN: the designated initializer is used
+     *
+     * THEN: all parameters must be set
+     */
+    func test_OnInitialization_SetProperties() {
+        sut = JPPaymentShippingMethod(identifier: "identifier",
+                                      detail: "detail",
+                                      label: "label",
+                                      amount: 0.01,
+                                      type: .final)
 
-/**
- * A method that returns an array of Apple Pay supported payment networks based on the ones provided in the JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing merchant-specified payment networks
- *
- * @returns an array of mapped PKPaymentNetwork instances
- */
-+ (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration;
+        XCTAssertEqual(sut.identifier, "identifier")
+        XCTAssertEqual(sut.detail, "detail")
+        XCTAssertEqual(sut.label, "label")
+        XCTAssertEqual(sut.amount, 0.01)
+        XCTAssertEqual(sut.type, .final)
+    }
 
-@end
+
+}

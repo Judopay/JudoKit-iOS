@@ -76,4 +76,60 @@ class JPPaymentMethodTest: XCTestCase {
         XCTAssertEqual(sut?.title, nil)
         XCTAssertNotNil(sut)
     }
+
+    /**
+     * GIVEN: a JPPaymentMethod is initialized
+     *
+     * WHEN: the [.applePay] is selected as the type
+     *
+     * THEN: the correct icon and type must be set, and no title should be present
+     */
+    func test_OnInitialization_WhenApplePayType_SetApplePayProperties() {
+        let sut = JPPaymentMethod(paymentMethodType: .applePay)
+        XCTAssertEqual(sut!.iconName, "apple-pay-icon")
+        XCTAssertNil(sut!.title)
+        XCTAssertEqual(sut!.type, .applePay)
+    }
+
+    /**
+     * GIVEN: a JPPaymentMethod is initialized
+     *
+     * WHEN: the [.cards] is selected as the type
+     *
+     * THEN: the correct icon, title and type must be set
+     */
+    func test_OnInitialization_WhenCardType_SetCardProperties() {
+        let sut = JPPaymentMethod(paymentMethodType: .card)
+        XCTAssertEqual(sut!.iconName, "cards-pay-icon")
+        XCTAssertEqual(sut!.title, "Cards")
+        XCTAssertEqual(sut!.type, .card)
+    }
+
+    /**
+     * GIVEN: a JPPaymentMethod is initialized
+     *
+     * WHEN: the [.iDeal] is selected as the type
+     *
+     * THEN: the correct icon, title and type must be set
+     */
+    func test_OnInitialization_WhenIDEALType_SetIDEALProperties() {
+        let sut = JPPaymentMethod(paymentMethodType: .iDeal)
+        XCTAssertEqual(sut!.iconName, "ideal-pay-icon")
+        XCTAssertEqual(sut!.title, "iDeal")
+        XCTAssertEqual(sut!.type, .iDeal)
+    }
+
+    /**
+     * GIVEN: a JPPaymentMethod is initialized
+     *
+     * WHEN: the [.pbba] is selected as the type
+     *
+     * THEN: the correct icon and type must be set, and no title should be present
+     */
+    func test_OnInitialization_WhenPBBAType_SetPBBAProperties() {
+        let sut = JPPaymentMethod(paymentMethodType: .pbba)
+        XCTAssertEqual(sut!.iconName, "pbba-pay-icon")
+        XCTAssertNil(sut!.title)
+        XCTAssertEqual(sut!.type, .pbba)
+    }
 }

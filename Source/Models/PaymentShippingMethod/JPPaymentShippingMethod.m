@@ -1,8 +1,8 @@
 //
-//  JPApplePayWrappers.h
+//  JPPaymentShippingMethod.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <PassKit/PassKit.h>
+#import "JPPaymentShippingMethod.h"
 
-@class JPConfiguration;
+@implementation JPPaymentShippingMethod
 
-@interface JPApplePayWrappers : NSObject
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                            detail:(NSString *)detail
+                             label:(NSString *)label
+                            amount:(NSDecimalNumber *)amount
+                              type:(JPPaymentSummaryItemType)type {
 
-/**
- * A method that returns a mapped PKPaymentAuthorizationViewController instance based on the provided JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing information about the Apple Pay transaction
- *
- * @returns a configured instance of PKPaymentAuthorizationViewController
- */
-+ (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration;
+    if (self = [super initWithLabel:label amount:amount type:type]) {
+        self.identifier = identifier;
+        self.detail = detail;
+    }
 
-/**
- * A method that returns an array of Apple Pay supported payment networks based on the ones provided in the JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing merchant-specified payment networks
- *
- * @returns an array of mapped PKPaymentNetwork instances
- */
-+ (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration;
+    return self;
+}
 
 @end
