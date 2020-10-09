@@ -25,62 +25,28 @@ import XCTest
 
 class JPPaymentShippingMethodTests: XCTestCase {
 
-    private var sut: JPPaymentMethod!
+    private var sut: JPPaymentShippingMethod!
 
     /**
-     * GIVEN: a JPPaymentMethod is initialized
+     * GIVEN: JPPaymentShippingMethod is being initialized
      *
-     * WHEN: the [.applePay] is selected as the type
+     * WHEN: the designated initializer is used
      *
-     * THEN: the correct icon and type must be set, and no title should be present
+     * THEN: all parameters must be set
      */
-    func test_OnInitialization_WhenApplePayType_SetApplePayProperties() {
-        sut = JPPaymentMethod(paymentMethodType: .applePay)
-        XCTAssertEqual(sut.iconName, "apple-pay-icon")
-        XCTAssertNil(sut.title)
-        XCTAssertEqual(sut.type, .applePay)
+    func test_OnInitialization_SetProperties() {
+        sut = JPPaymentShippingMethod(identifier: "identifier",
+                                      detail: "detail",
+                                      label: "label",
+                                      amount: 0.01,
+                                      type: .final)
+
+        XCTAssertEqual(sut.identifier, "identifier")
+        XCTAssertEqual(sut.detail, "detail")
+        XCTAssertEqual(sut.label, "label")
+        XCTAssertEqual(sut.amount, 0.01)
+        XCTAssertEqual(sut.type, .final)
     }
 
-    /**
-     * GIVEN: a JPPaymentMethod is initialized
-     *
-     * WHEN: the [.cards] is selected as the type
-     *
-     * THEN: the correct icon, title and type must be set
-     */
-    func test_OnInitialization_WhenCardType_SetCardProperties() {
-        sut = JPPaymentMethod(paymentMethodType: .card)
-        XCTAssertEqual(sut.iconName, "cards-pay-icon")
-        XCTAssertEqual(sut.title, "Cards")
-        XCTAssertEqual(sut.type, .card)
-    }
-
-    /**
-     * GIVEN: a JPPaymentMethod is initialized
-     *
-     * WHEN: the [.iDeal] is selected as the type
-     *
-     * THEN: the correct icon, title and type must be set
-     */
-    func test_OnInitialization_WhenIDEALType_SetIDEALProperties() {
-        sut = JPPaymentMethod(paymentMethodType: .iDeal)
-        XCTAssertEqual(sut.iconName, "ideal-pay-icon")
-        XCTAssertEqual(sut.title, "iDeal")
-        XCTAssertEqual(sut.type, .iDeal)
-    }
-
-    /**
-     * GIVEN: a JPPaymentMethod is initialized
-     *
-     * WHEN: the [.pbba] is selected as the type
-     *
-     * THEN: the correct icon and type must be set, and no title should be present
-     */
-    func test_OnInitialization_WhenPBBAType_SetPBBAProperties() {
-        sut = JPPaymentMethod(paymentMethodType: .pbba)
-        XCTAssertEqual(sut.iconName, "pbba-pay-icon")
-        XCTAssertNil(sut.title)
-        XCTAssertEqual(sut.type, .pbba)
-    }
 
 }
