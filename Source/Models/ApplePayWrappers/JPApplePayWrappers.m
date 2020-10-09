@@ -23,65 +23,208 @@
 //  SOFTWARE.
 
 #import "JPApplePayWrappers.h"
+#import "JPApplePayConfiguration.h"
+#import "JPApplePayTypes.h"
+#import "JPConfiguration.h"
 
-#pragma mark - JPPaymentSummaryItem
+@implementation JPApplePayWrappers
 
-@implementation JPPaymentSummaryItem
++ (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration {
 
-+ (instancetype)itemWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount {
-    return [[JPPaymentSummaryItem alloc] initWithLabel:label
-                                                amount:amount];
+    PKPaymentAuthorizationViewController *viewController;
+
+    PKPaymentRequest *request = [self pkPaymentRequestForConfiguration:configuration];
+    viewController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
+    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+
+    return viewController;
 }
 
-+ (instancetype)itemWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                         type:(JPPaymentSummaryItemType)type {
++ (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {
 
-    return [[JPPaymentSummaryItem alloc] initWithLabel:label
-                                                amount:amount
-                                                  type:type];
-}
+    PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
+    JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                         type:(JPPaymentSummaryItemType)type {
+    paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
+    paymentRequest.countryCode = applePayConfiguration.countryCode;
+    paymentRequest.currencyCode = applePayConfiguration.currency;
+    paymentRequest.supportedNetworks = [self pkPaymentNetworksForConfiguration:configuration];
+    ;
+    paymentRequest.merchantCapabilities = [self pkMerchantCapabilitiesForConfiguration:configuration];
+    ;
+    paymentRequest.shippingType = [self pkShippingTypeForConfiguration:configuration];
+    paymentRequest.shippingMethods = [self pkShippingMethodsForConfiguration:configuration];
 
-    if (self = [super init]) {
-        self.label = label;
-        self.amount = amount;
-        self.type = type;
+    JPContactField requiredShippingContactFields = applePayConfiguration.requiredShippingContactFields;
+    JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
+
+    if (@available(iOS 11.0, *)) {
+
+        NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
+        NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
+
+        paymentRequest.requiredShippingContactFields = pkShippingFields;
+        paymentRequest.requiredBillingContactFields = pkBillingFields;
+
+    } else {
+        PKAddressField pkShippingFields = [self pkAddressFieldsFromFields:requiredShippingContactFields];
+        PKAddressField pkBillingFields = [self pkAddressFieldsFromFields:requiredBillingContactFields];
+
+        paymentRequest.requiredShippingAddressFields = pkShippingFields;
+        paymentRequest.requiredBillingAddressFields = pkBillingFields;
     }
 
-    return self;
+    paymentRequest.paymentSummaryItems = [self pkPaymentSummaryItemsForConfiguration:configuration];
+
+    return paymentRequest;
 }
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount {
-
-    return [self initWithLabel:label
-                        amount:amount
-                          type:JPPaymentSummaryItemTypeFinal];
++ (PKMerchantCapability)pkMerchantCapabilitiesForConfiguration:(JPConfiguration *)configuration {
+    switch (configuration.applePayConfiguration.merchantCapabilities) {
+        case JPMerchantCapability3DS:
+            return PKMerchantCapability3DS;
+        case JPMerchantCapabilityEMV:
+            return PKMerchantCapabilityEMV;
+        case JPMerchantCapabilityCredit:
+            return PKMerchantCapabilityCredit;
+        case JPMerchantCapabilityDebit:
+            return PKMerchantCapabilityDebit;
+    }
 }
 
-@end
++ (PKShippingType)pkShippingTypeForConfiguration:(JPConfiguration *)configuration {
+    switch (configuration.applePayConfiguration.shippingType) {
+        case JPShippingTypeShipping:
+            return PKShippingTypeShipping;
+        case JPShippingTypeDelivery:
+            return PKShippingTypeDelivery;
+        case JPShippingTypeStorePickup:
+            return PKShippingTypeStorePickup;
+        case JPShippingTypeServicePickup:
+            return PKShippingTypeServicePickup;
+    }
+}
 
-#pragma mark - PaymentShippingMethod
++ (NSArray<PKShippingMethod *> *)pkShippingMethodsForConfiguration:(JPConfiguration *)configuration {
+    NSMutableArray *pkShippingMethods = [NSMutableArray new];
 
-@implementation PaymentShippingMethod
-
-- (instancetype)initWithIdentifier:(NSString *)identifier
-                            detail:(NSString *)detail
-                             label:(nonnull NSString *)label
-                            amount:(nonnull NSDecimalNumber *)amount
-                              type:(JPPaymentSummaryItemType)type {
-
-    if (self = [super initWithLabel:label amount:amount type:type]) {
-        self.identifier = identifier;
-        self.detail = detail;
+    for (JPPaymentShippingMethod *shippingMethod in configuration.applePayConfiguration.shippingMethods) {
+        PKShippingMethod *pkShippingMethod = [PKShippingMethod new];
+        pkShippingMethod.identifier = shippingMethod.identifier;
+        pkShippingMethod.detail = shippingMethod.detail;
+        pkShippingMethod.label = shippingMethod.label;
+        pkShippingMethod.amount = shippingMethod.amount;
+        pkShippingMethod.type = [self pkSummaryItemTypeFromType:shippingMethod.type];
+        [pkShippingMethods addObject:pkShippingMethod];
     }
 
-    return self;
+    return pkShippingMethods;
+}
+
++ (NSArray<PKPaymentSummaryItem *> *)pkPaymentSummaryItemsForConfiguration:(JPConfiguration *)configuration {
+
+    NSMutableArray<PKPaymentSummaryItem *> *pkPaymentSummaryItems = [NSMutableArray new];
+
+    for (JPPaymentSummaryItem *item in configuration.applePayConfiguration.paymentSummaryItems) {
+        PKPaymentSummaryItemType summaryItemType = [self pkSummaryItemTypeFromType:item.type];
+        [pkPaymentSummaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:item.label
+                                                                             amount:item.amount
+                                                                               type:summaryItemType]];
+    }
+
+    return pkPaymentSummaryItems;
+}
+
++ (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration {
+
+    NSMutableArray<PKPaymentNetwork> *pkPaymentNetworks = [NSMutableArray new];
+
+    JPCardNetworkType cardNetworks = configuration.applePayConfiguration.supportedCardNetworks;
+
+    if (cardNetworks & JPCardNetworkTypeAll) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
+        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
+        [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
+        [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
+        [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
+        [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
+
+        if (@available(iOS 12.0, *)) {
+            [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
+        }
+
+        return pkPaymentNetworks;
+    }
+
+    if (cardNetworks & JPCardNetworkTypeVisa) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
+    }
+
+    if (cardNetworks & JPCardNetworkTypeAMEX) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
+    }
+
+    if (cardNetworks & JPCardNetworkTypeMasterCard) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
+    }
+
+    if (cardNetworks & JPCardNetworkTypeMaestro) {
+        if (@available(iOS 12.0, *)) {
+            [pkPaymentNetworks addObject:PKPaymentNetworkMaestro];
+        }
+    }
+
+    if (cardNetworks & JPCardNetworkTypeJCB) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkJCB];
+    }
+
+    if (cardNetworks & JPCardNetworkTypeDiscover) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkDiscover];
+    }
+
+    if (cardNetworks & JPCardNetworkTypeChinaUnionPay) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkChinaUnionPay];
+    }
+
+    return pkPaymentNetworks;
+}
+
++ (NSSet<PKContactField> *)pkContactFieldsFromFields:(JPContactField)contactFields {
+
+    NSMutableSet *pkContactFields = [NSMutableSet new];
+
+    if (@available(iOS 11.0, *)) {
+
+        if (contactFields & JPContactFieldPostalAddress) {
+            [pkContactFields addObject:PKContactFieldPostalAddress];
+        }
+
+        if (contactFields & JPContactFieldPhone) {
+            [pkContactFields addObject:PKContactFieldPhoneNumber];
+        }
+
+        if (contactFields & JPContactFieldEmail) {
+            [pkContactFields addObject:PKContactFieldEmailAddress];
+        }
+
+        if (contactFields & JPContactFieldName) {
+            [pkContactFields addObject:PKContactFieldName];
+        }
+    }
+
+    return pkContactFields;
+}
+
++ (PKPaymentSummaryItemType)pkSummaryItemTypeFromType:(JPPaymentSummaryItemType)type {
+    if (type == JPPaymentSummaryItemTypeFinal) {
+        return PKPaymentSummaryItemTypeFinal;
+    }
+
+    return PKPaymentSummaryItemTypePending;
+}
+
++ (PKAddressField)pkAddressFieldsFromFields:(JPContactField)contactFields {
+    return (PKAddressField)contactFields;
 }
 
 @end

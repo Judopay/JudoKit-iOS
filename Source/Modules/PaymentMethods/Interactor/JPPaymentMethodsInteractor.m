@@ -245,18 +245,11 @@
 
 #pragma mark - Apple Pay payment
 
-- (void)startApplePayWithCompletion:(JPCompletionBlock)completion {
-
-    UIViewController *controller = [self.applePayService applePayViewControllerWithMode:self.transactionMode
-                                                                             completion:completion];
-
-    if (!controller) {
-        return;
-    }
-
-    [UIApplication.topMostViewController presentViewController:controller
-                                                      animated:YES
-                                                    completion:nil];
+- (void)processApplePayment:(PKPayment *)payment
+             withCompletion:(JPCompletionBlock)completion {
+    [self.applePayService processApplePayment:payment
+                           forTransactionMode:self.transactionMode
+                               withCompletion:completion];
 }
 
 #pragma mark - Delete card at index

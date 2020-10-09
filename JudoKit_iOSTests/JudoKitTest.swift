@@ -217,8 +217,8 @@ class JudoKitTest: XCTestCase {
         stub(condition: isPath("/transactions/receiptId")) { _ in
             return HTTPStubsResponse(fileAtPath: OHPathForFile("TransactionData.json", type(of: self))!, statusCode: 200, headers: nil)
         }
-        let expectation = self.expectation(description: "await save transaction response")
-        
+        let expectation = self.expectation(description: "await transaction response")
+
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
             XCTAssertNotNil(res)
             expectation.fulfill()
@@ -242,7 +242,7 @@ class JudoKitTest: XCTestCase {
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
         
-        let expectation = self.expectation(description: "await save transaction response")
+        let expectation = self.expectation(description: "await declined transaction response")
         
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
             XCTAssertNotNil(res)
@@ -269,7 +269,7 @@ class JudoKitTest: XCTestCase {
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
         
-        let expectation = self.expectation(description: "await save transaction response")
+        let expectation = self.expectation(description: "await preauth transaction response")
         
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
             XCTAssertEqual(res?.type, .preAuth)
@@ -319,7 +319,7 @@ class JudoKitTest: XCTestCase {
             return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
         }
         
-        let expectation = self.expectation(description: "await save transaction response")
+        let expectation = self.expectation(description: "await register transaction response")
         
         judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
             XCTAssertEqual(res?.type, .registerCard)

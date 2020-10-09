@@ -22,8 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApplePayWrappers.h"
 #import "JPCardNetworkType.h"
+#import "JPPaymentShippingMethod.h"
+#import "JPPaymentSummaryItem.h"
 #import <Foundation/Foundation.h>
 
 /**
@@ -81,7 +82,7 @@
 /**
  * [OPTIONAL] An array that describes the supported shipping methods
  */
-@property (nonatomic, strong) NSArray<PaymentShippingMethod *> *_Nullable shippingMethods;
+@property (nonatomic, strong) NSArray<JPPaymentShippingMethod *> *_Nullable shippingMethods;
 
 /**
  * [DEFAULT] The type of shipping used for this request.

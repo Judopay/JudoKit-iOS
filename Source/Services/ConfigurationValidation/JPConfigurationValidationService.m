@@ -131,6 +131,7 @@
 - (void)checkIfAmountIsNumber:(NSString *)amount error:(NSError **)error {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    formatter.decimalSeparator = @".";
     NSNumber *number = [formatter numberFromString:amount];
     if (!number || number.intValue < 0) {
         *error = JPError.judoInvalidAmountError;

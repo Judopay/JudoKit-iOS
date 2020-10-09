@@ -179,9 +179,16 @@
 
 - (void)handleApplePayButtonTap {
     __weak typeof(self) weakSelf = self;
-    [self.interactor startApplePayWithCompletion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleCallbackWithResponse:response
-                                    andError:error];
+    [self.view presentApplePayWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock completion) {
+        [self.interactor processApplePayment:payment
+                              withCompletion:^(JPResponse *response, JPError *error) {
+                                  if (error) {
+                                      completion(PKPaymentAuthorizationStatusFailure);
+                                  }
+
+                                  completion(PKPaymentAuthorizationStatusSuccess);
+                                  [weakSelf handleCallbackWithResponse:response andError:error];
+                              }];
     }];
 }
 
@@ -209,9 +216,9 @@
 
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, NSError *error) {
+                                             completion:^(JPResponse *response, NSError *transactionError) {
                                                  if (error) {
-                                                     [weakSelf handlePaymentError:error];
+                                                     [weakSelf handlePaymentError:transactionError];
                                                      return;
                                                  }
                                                  [weakSelf handlePaymentResponse:response];

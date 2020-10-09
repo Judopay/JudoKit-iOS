@@ -99,7 +99,7 @@
     router.viewController = viewController;
 
     viewController.presenter = presenter;
-    viewController.uiConfiguration = configuration.uiConfiguration;
+    viewController.configuration = configuration;
 
     return viewController;
 }

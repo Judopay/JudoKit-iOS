@@ -1,8 +1,8 @@
 //
-//  JPApplePayWrappers.h
+//  JPApplePayTypedefs.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,16 @@
 
 #import <PassKit/PassKit.h>
 
-@class JPConfiguration;
-
-@interface JPApplePayWrappers : NSObject
+/**
+ * A completion block called after the JPApplePayService finishes processing the Apple Pay transaction.
+ * Depending on the response, this block is called with either a PKPaymentAuthorizationStatusSuccess or PKPaymentAuthorizationStatusFailure
+ * used to tell the Apple Pay sheet how to proceed further.
+ */
+typedef void (^JPApplePayAuthStatusBlock)(PKPaymentAuthorizationStatus status);
 
 /**
- * A method that returns a mapped PKPaymentAuthorizationViewController instance based on the provided JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing information about the Apple Pay transaction
- *
- * @returns a configured instance of PKPaymentAuthorizationViewController
+ * This block is used to capture the `didAuthorizePayment` delegate call inside a block.
+ * This is used to take the asynchronous PKPayment object from the delegate call and pass it to the Apple Pay service, where it is processed.
  */
-+ (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration;
-
-/**
- * A method that returns an array of Apple Pay supported payment networks based on the ones provided in the JPConfiguration object
- *
- * @param configuration - a JPConfiguration object containing merchant-specified payment networks
- *
- * @returns an array of mapped PKPaymentNetwork instances
- */
-+ (NSArray<PKPaymentNetwork> *)pkPaymentNetworksForConfiguration:(JPConfiguration *)configuration;
-
-@end
+typedef void (^JPApplePayAuthorizationBlock)(PKPayment *_Nonnull payment,
+                                             JPApplePayAuthStatusBlock _Nonnull completion);

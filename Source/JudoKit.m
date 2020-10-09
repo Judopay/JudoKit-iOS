@@ -37,11 +37,13 @@
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
+#import <PassKit/PassKit.h>
 
 @interface JudoKit ()
 
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
@@ -148,8 +150,21 @@
     self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
                                                               andApiService:self.apiService];
 
-    return [self.applePayService applePayViewControllerWithMode:mode
-                                                     completion:completion];
+    self.applePayController = [[JPApplePayController alloc] initWithConfiguration:configuration];
+
+    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
+        [self.applePayService processApplePayment:payment
+                               forTransactionMode:mode
+                                   withCompletion:^(JPResponse *response, JPError *error) {
+                                       if (error) {
+                                           statusCompletion(PKPaymentAuthorizationStatusFailure);
+                                       }
+
+                                       statusCompletion(PKPaymentAuthorizationStatusSuccess);
+                                       completion(response, error);
+                                   }];
+    }];
+    return controller;
 }
 
 + (bool)isBankingAppAvailable {

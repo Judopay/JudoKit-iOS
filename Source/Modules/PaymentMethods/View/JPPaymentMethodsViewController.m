@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
+#import "JPConfiguration.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -40,6 +41,7 @@
 
 @interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>
 
+@property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
 
@@ -81,6 +83,10 @@
     [self.presenter handleApplePayButtonTap];
 }
 
+- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
+    [self.presenter handlePayButtonTap];
+}
+
 #pragma mark - Layout Setup
 
 - (void)configureView {
@@ -94,7 +100,7 @@
     backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];
-    UIImage *customImage = self.uiConfiguration.theme.backButtonImage;
+    UIImage *customImage = self.configuration.uiConfiguration.theme.backButtonImage;
     UIImage *backButtonImage = customImage ? customImage : defaultIcon;
     [backButton setImage:backButtonImage forState:UIControlStateNormal];
 
@@ -108,10 +114,6 @@
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
     self.paymentMethodsView.headerView.pbbaButton.delegate = self;
-}
-
-- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
-    [self.presenter handlePayButtonTap];
 }
 
 - (void)configureTargets {
@@ -130,7 +132,7 @@
            shouldAnimateChange:(BOOL)shouldAnimate {
     self.viewModel = viewModel;
 
-    [self.paymentMethodsView.headerView applyUIConfiguration:self.uiConfiguration];
+    [self.paymentMethodsView.headerView applyUIConfiguration:self.configuration.uiConfiguration];
     [self.paymentMethodsView.headerView configureWithViewModel:viewModel.headerModel];
 
     for (JPPaymentMethodsModel *item in viewModel.items) {
@@ -171,6 +173,12 @@
     self.paymentMethodsView.userInteractionEnabled = YES;
     [self triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
     [super displayAlertWithTitle:title andError:error];
+}
+
+- (void)presentApplePayWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock {
+    self.applePayController = [[JPApplePayController alloc] initWithConfiguration:self.configuration];
+    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -220,7 +228,7 @@
         UITableViewCell<JPThemable> *themableCell;
         themableCell = (UITableViewCell<JPThemable> *)cell;
 
-        [themableCell applyTheme:self.uiConfiguration.theme];
+        [themableCell applyTheme:self.configuration.uiConfiguration.theme];
     }
 
     if ([cell conformsToProtocol:@protocol(JPPaymentMethodConfigurable)]) {

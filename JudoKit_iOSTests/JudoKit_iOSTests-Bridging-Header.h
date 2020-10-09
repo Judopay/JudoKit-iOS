@@ -17,6 +17,8 @@
 #import "JP3DSViewController.h"
 #import "JPIDEALService.h"
 #import "JPApplePayService.h"
+#import "JPApplePayWrappers.h"
+#import "JPApplePayController.h"
 
 #import "JPPaymentMethodsRouter.h"
 #import "JPIDEALBank.h"

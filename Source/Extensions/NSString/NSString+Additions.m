@@ -75,8 +75,8 @@
 
 - (BOOL)isNumeric {
     NSCharacterSet *nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-    NSRange r = [self rangeOfCharacterFromSet:nonNumbers];
-    return r.location == NSNotFound;
+    NSRange range = [self rangeOfCharacterFromSet:nonNumbers];
+    return range.location == NSNotFound;
 }
 
 - (BOOL)isValidCardNumber {
