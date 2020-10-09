@@ -117,7 +117,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     
     func processApplePayment(_ payment: PKPayment,
                              withCompletion completion: @escaping JPCompletionBlock) {
-        //TODO
+        startApplePay = true
+        completion(JPResponse(), nil)
     }
     
     func isApplePaySetUp() -> Bool {

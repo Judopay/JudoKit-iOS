@@ -27,7 +27,14 @@ import XCTest
 
 class JPPaymentMethodsInteractorTest: XCTestCase {
     var sut: JPPaymentMethodsInteractor!
-    let configuration = JPConfiguration(judoID: "judoId", amount: JPAmount("123", currency: "GBP"), reference: JPReference(consumerReference: "consumerReference"))
+    let configuration = JPConfiguration(judoID: "judoId",
+                                        amount: JPAmount("123", currency: "GBP"),
+                                        reference: JPReference(consumerReference: "consumerReference"))
+
+    let applePayConfig = JPApplePayConfiguration(merchantId: "123456",
+                                                 currency: "GBP",
+                                                 countryCode: "GB",
+                                                 paymentSummaryItems: [])
     
     override func setUp() {
         super.setUp()
@@ -36,11 +43,21 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                         JPPaymentMethod(paymentMethodType: .pbba),
                                         JPPaymentMethod(paymentMethodType: .card),
                                         JPPaymentMethod(paymentMethodType: .iDeal)]
-        let service = JPApiService()
+        configuration.applePayConfiguration = applePayConfig
+        let authorization: JPAuthorization = JPBasicAuthorization(token: "123456", andSecret: "123456")
+        let service = JPApiService(authorization: authorization, isSandboxed: true)
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer,
                                              configuration: configuration,
                                              apiService: service,
                                              completion: nil)
+
+        HTTPStubs.setEnabled(true)
+
+        stub(condition: isHost("api-sandbox.judopay.com")) { _ in
+            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
+                                     statusCode: 200,
+                                     headers: nil)
+        }
     }
     
     /*
@@ -177,10 +194,41 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * WHEN: testing on simulator
      *
-     * THEN: should return false
+     * THEN: should return true
      */
-    func test_IsApplePaySetUp_WhenSimulator_ShouldReturnFalse() {
-        XCTAssertFalse(sut.isApplePaySetUp())
+    func test_IsApplePaySetUp_WhenSimulator_ShouldReturnTrue() {
+        XCTAssertTrue(sut.isApplePaySetUp())
+    }
+
+    /*
+     * GIVEN: JPPaymentMethods interactor has been called to process Apple Pay authentication results
+     *
+     * WHEN: the passed PKPayment has a valid format and contains a token
+     *
+     * THEN: the method should expect a successful response
+     */
+    func test_OnProcessApplePay_WhenValidPKPayment_ReturnResponse() {
+
+        let paymentMethod = PKPaymentMethod()
+        paymentMethod.setValue("displayName", forKey: "displayName")
+        paymentMethod.setValue("network", forKey: "network")
+
+        let token = PKPaymentToken()
+        token.setValue(paymentMethod, forKey: "paymentMethod")
+        token.setValue("paymentData".data(using: .unicode), forKey: "paymentData")
+
+        let payment = PKPayment()
+        payment.setValue(token, forKey: "token")
+
+        let expectation = self.expectation(description: "awaiting payment transaction")
+
+        sut.processApplePayment(payment) { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 30, handler: nil)
     }
     
     /*

@@ -28,8 +28,8 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                             detail:(NSString *)detail
-                             label:(nonnull NSString *)label
-                            amount:(nonnull NSDecimalNumber *)amount
+                             label:(NSString *)label
+                            amount:(NSDecimalNumber *)amount
                               type:(JPPaymentSummaryItemType)type {
 
     if (self = [super initWithLabel:label amount:amount type:type]) {

@@ -174,7 +174,11 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         firstStoredCard?.isSelected = true
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.handleApplePayButtonTap()
-        //TODO
+
+        let view = sut.view as! JPPaymentMethodsViewControllerMock
+        let interactor = sut.interactor as! JPPaymentMethodsInteractorMock
+        XCTAssertTrue(view.didPresentApplePay)
+        XCTAssertTrue(interactor.startApplePay)
     }
     
     /*
