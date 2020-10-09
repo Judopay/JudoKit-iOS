@@ -150,9 +150,9 @@
 - (void)handle3DSecureTransactionFromError:(NSError *)error {
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, JPError *error) {
+                                             completion:^(JPResponse *response, JPError *transactionError) {
                                                  if (error) {
-                                                     [weakSelf handleError:error];
+                                                     [weakSelf handleError:transactionError];
                                                      return;
                                                  }
 
