@@ -358,20 +358,4 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         
         sut.completeTransaction(with: response, andError: error)
     }
-
-    /*
-    * GIVEN: object of JPPaymentMethodsInteractor
-    *
-    * WHEN: open PBBA on simulator
-    *
-    * THEN: should return error and nil response in completion
-    */
-    func test_pbbaService() {
-        let completion: JPCompletionBlock = { (response, error) in
-            XCTAssertNil(response)
-            XCTAssertNotNil(error)
-        }
-        
-        sut.openPBBA(completion: completion)
-    }
 }

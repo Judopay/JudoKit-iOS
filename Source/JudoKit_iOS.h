@@ -72,6 +72,8 @@
 #import "Typedefs.h"
 
 #import "JPApiService.h"
+#import "JPApplePayController.h"
+#import "JPApplePayWrappers.h"
 #import "JPApplePayRequest.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
