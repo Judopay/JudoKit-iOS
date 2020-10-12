@@ -23,11 +23,54 @@
 //  SOFTWARE.
 
 #import "JPUITestSteps.h"
+#import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestSteps
 
 + (void)setUp {
-    
+
+    Given(@"^I am on the (.*) (?:screen|view|page)$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *screenName = args[0];
+        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ Screen", screenName];
+        XCTAssert(application.otherElements[screenIdentifier].exists);
+    });
+
+    When(@"^I tap on the \"(.*)\" (?:option|cell|item)$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *cellTitle = args[0];
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"label CONTAINS[c] %@",
+                                  cellTitle];
+
+        XCUIElement *cell = [application.cells containingPredicate:predicate].firstMatch;
+        [cell tap];
+    });
+
+    When(@"^I enter \"(.*)\" (?:in|into) the (.*) (?:text|input) field$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+
+        NSString *textInput = args[0];
+        NSString *textFieldName = args[1];
+
+        NSString *textFieldIdentifier = [NSString stringWithFormat:@"%@ Field", textFieldName];
+
+        XCUIElement *textField = application.otherElements[textFieldIdentifier];
+
+        [textField tap];
+        [textField typeText:textInput];
+    });
+
+    When(@"^I (?:tap|press) on the \"(.*)\" button$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *buttonTitle = args[0];
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"label CONTAINS[c] %@",
+                                  buttonTitle];
+
+        XCUIElement *button = [application.buttons containingPredicate:predicate].firstMatch;
+        [button tap];
+    });
 }
 
 @end

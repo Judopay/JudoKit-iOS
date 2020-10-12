@@ -296,6 +296,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardNumberField *)cardNumberTextField {
     if (!_cardNumberTextField) {
         _cardNumberTextField = [JPCardNumberField new];
+        _cardNumberTextField.accessibilityIdentifier = @"Card Number Field";
         _cardNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _cardNumberTextField;
@@ -304,6 +305,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardInputField *)cardHolderTextField {
     if (!_cardHolderTextField) {
         _cardHolderTextField = [JPCardInputField new];
+        _cardHolderTextField.accessibilityIdentifier = @"Cardholder Name Field";
         _cardHolderTextField.keyboardType = UIKeyboardTypeDefault;
     }
     return _cardHolderTextField;
@@ -312,6 +314,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardInputField *)cardExpiryTextField {
     if (!_cardExpiryTextField) {
         _cardExpiryTextField = [JPCardInputField new];
+        _cardExpiryTextField.accessibilityIdentifier = @"Expiry Date Field";
         _cardExpiryTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _cardExpiryTextField;
@@ -320,6 +323,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (JPCardInputField *)secureCodeTextField {
     if (!_secureCodeTextField) {
         _secureCodeTextField = [JPCardInputField new];
+        _secureCodeTextField.accessibilityIdentifier = @"Secure Code Field";
         _secureCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _secureCodeTextField;
@@ -352,6 +356,7 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_addCardButton) {
         _addCardButton = [JPTransactionButton new];
         _addCardButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _addCardButton.accessibilityIdentifier = @"Transaction Button";
         _addCardButton.clipsToBounds = YES;
     }
     return _addCardButton;

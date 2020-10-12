@@ -59,6 +59,8 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setupAccessibilityIdentifiers];
+
     self.features = DemoFeature.defaultFeatures;
     self.shouldSetupJudoSDK = YES;
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
@@ -90,6 +92,10 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
                                            selector:@selector(settingDidChanged:)
                                                name:kIASKAppSettingChanged
                                              object:nil];
+}
+
+- (void)setupAccessibilityIdentifiers {
+    self.view.accessibilityIdentifier = @"Main Screen";
 }
 
 - (void)settingDidChanged:(NSNotification *)notification {

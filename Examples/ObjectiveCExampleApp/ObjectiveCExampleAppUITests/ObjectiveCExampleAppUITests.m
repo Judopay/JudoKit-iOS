@@ -32,7 +32,8 @@ void CucumberishInit() {
         [[XCUIApplication new] launch];
     });
 
-    [JPActions prepareSteps];
+    [JPUITestSteps setUp];
+
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSteps class]];
     [Cucumberish executeFeaturesInDirectory:@"Features"
                                  fromBundle:bundle

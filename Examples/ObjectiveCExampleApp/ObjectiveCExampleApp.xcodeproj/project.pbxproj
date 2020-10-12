@@ -793,15 +793,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZPX8K2P3Z7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -815,15 +815,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZPX8K2P3Z7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
