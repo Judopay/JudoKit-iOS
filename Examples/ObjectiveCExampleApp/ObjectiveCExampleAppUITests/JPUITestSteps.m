@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestSteps.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,19 +23,11 @@
 //  SOFTWARE.
 
 #import "JPUITestSteps.h"
-#import "Cucumberish.h"
-__attribute__((constructor))
 
-void CucumberishInit() {
+@implementation JPUITestSteps
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
-
-    [JPActions prepareSteps];
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSteps class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:nil];
++ (void)setUp {
+    
 }
+
+@end

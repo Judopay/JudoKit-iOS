@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestSteps.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,20 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSteps.h"
-#import "Cucumberish.h"
-__attribute__((constructor))
+#import <Foundation/Foundation.h>
 
-void CucumberishInit() {
+@interface JPUITestSteps : NSObject
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
+/**
+ * A method for setting up all the basic. reusable steps.
+ */
++ (void)setUp;
 
-    [JPActions prepareSteps];
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSteps class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:nil];
-}
+@end
