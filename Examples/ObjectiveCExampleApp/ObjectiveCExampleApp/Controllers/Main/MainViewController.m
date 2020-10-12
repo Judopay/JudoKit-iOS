@@ -73,7 +73,6 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    // When isSandbox | token | secret, payment session, changes in the settings, update JudoKit authorization
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
