@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     if (self = [super init]) {
         _isSandboxed = sandboxed;
         _authorization = authorization;
-        _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kRegisterCardEndpoint, kSaveCardEndpoint ];
+        _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kRegisterCardEndpoint, kSaveCardEndpoint, kCheckCardEndpoint ];
         _enricher = [JPRequestEnricher new];
 
         [self setUpSession];
