@@ -11,7 +11,5 @@ Scenario: Card Payment
   And I enter "1220" in the Expiry Date text field
   And I enter "123" in the Secure Code text field
   And I tap on the "PAY NOW" button
-  # And I wait for "10" seconds
-  # Then the Receipt screen should be visible
-  # When I tap on the "status" option
-  # Then a "Success" text should be visible
+  And I wait for "10" seconds
+  Then the Receipt screen should be visible

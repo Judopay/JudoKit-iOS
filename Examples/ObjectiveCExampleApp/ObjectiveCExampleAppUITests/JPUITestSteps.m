@@ -71,6 +71,22 @@
         XCUIElement *button = [application.buttons containingPredicate:predicate].firstMatch;
         [button tap];
     });
+
+    When(@"^I wait for \"(.*)\" seconds$", ^void(NSArray *args, id userInfo) {
+        NSString *duration = args[0];
+        [NSThread sleepForTimeInterval:duration.doubleValue];
+    });
+
+    Then(@"^the (.*) (?:screen|page|view) should be visible$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *screenName = args[0];
+        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ Screen", screenName];
+
+        BOOL isViewVisible = application.otherElements[screenIdentifier].exists;
+        BOOL isTableVisible = application.tables[screenIdentifier].exists;
+
+        XCTAssert(isViewVisible || isTableVisible);
+    });
 }
 
 @end

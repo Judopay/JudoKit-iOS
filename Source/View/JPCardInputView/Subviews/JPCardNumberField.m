@@ -128,8 +128,4 @@
     return _cardLogoImageView;
 }
 
-- (NSString *)accessibilityIdentifier {
-    return @"Card Number Field";
-}
-
 @end
