@@ -73,8 +73,8 @@
 
 #import "JPApiService.h"
 #import "JPApplePayController.h"
-#import "JPApplePayWrappers.h"
 #import "JPApplePayRequest.h"
+#import "JPApplePayWrappers.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
 
