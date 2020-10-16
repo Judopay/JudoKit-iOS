@@ -35,6 +35,7 @@
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
 
+@property (strong, nonatomic) JP3DSService *threeDSecureService;
 @property (strong, nonatomic) JPApiService *apiService;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) NSString *cardToken;
@@ -60,14 +61,22 @@
 
 - (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
-    [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
+    [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
                                      [weakSelf handleResponse:response error:error showReceipt:false];
                                  }];
 }
 
-- (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
+- (void)handleResponse:(JPResponse *)response
+                 error:(NSError *)error
+           showReceipt:(BOOL)showReceipt {
+
+    if (error.code == Judo3DSRequestError) {
+        [self handle3DSecureTransactionFromError:error];
+        return;
+    }
+
     if (error || !response) {
         [self displayAlertWithError:error];
         return;
@@ -118,6 +127,21 @@
                                             }];
 }
 
+- (void)handle3DSecureTransactionFromError:(NSError *)error {
+    __weak typeof(self) weakSelf = self;
+    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
+    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration
+                                                   completion:^(JPResponse *response, JPError *transactionError) {
+
+        if (response) {
+            [weakSelf presentResultTableViewControllerWithResponse:response];
+            return;
+        }
+
+        [weakSelf displayAlertWithError:error];
+    }];
+}
+
 - (void)setupButtons {
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
@@ -129,6 +153,13 @@
 - (void)shouldEnableButtons:(BOOL)shouldEnable {
     self.payWithCardTokenButton.enabled = shouldEnable;
     self.preAuthWithCardTokenButton.enabled = shouldEnable;
+}
+
+- (JP3DSService *)threeDSecureService {
+    if (!_threeDSecureService) {
+        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
+    }
+    return _threeDSecureService;
 }
 
 @end
