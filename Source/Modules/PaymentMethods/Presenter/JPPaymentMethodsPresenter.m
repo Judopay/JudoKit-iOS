@@ -130,9 +130,9 @@
 }
 
 - (void)handleBackButtonTap {
+    [self.router dismissViewController];
     [self.interactor completeTransactionWithResponse:nil
                                             andError:JPError.judoUserDidCancelError];
-    [self.router dismissViewController];
 }
 
 - (void)handlePayButtonTap {
@@ -197,8 +197,8 @@
     if (selectedCardIndex >= 0) {
         [self.interactor setLastUsedCardAtIndex:selectedCardIndex];
     }
-    [self.interactor completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
+    [self.interactor completeTransactionWithResponse:response andError:nil];
 }
 
 - (void)handlePaymentError:(NSError *)error {
@@ -287,8 +287,8 @@
         [self handlePaymentError:error];
         return;
     }
-    [self.interactor completeTransactionWithResponse:response andError:nil];
     [self.router dismissViewController];
+    [self.interactor completeTransactionWithResponse:response andError:nil];
 }
 
 - (void)handleCallbackWithResponse:(JPResponse *)response

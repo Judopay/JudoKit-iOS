@@ -27,7 +27,26 @@
 
 @class JPConfiguration;
 
+@class JPConfiguration, JPApplePayController;
+
+@protocol JPApplePayControllerDelegate
+
+/**
+ * A method triggered once the user taps on "Cancel" and dismisses the Apple Pay sheet.
+ * Used to notify the merchant of a "User Cancelled" event via the completion block.
+ *
+ * @param controller - a reference to the JPApplePayController
+ */
+- (void)applePayControllerDidCancelTransaction:(nonnull JPApplePayController *)controller;
+
+@end
+
 @interface JPApplePayController : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+
+/**
+ * A weak reference to an object implementing the JPApplePayControllerDelegate protocol
+ */
+@property (nullable, nonatomic, weak) id<JPApplePayControllerDelegate> delegate;
 
 /**
  * Designated initalizer that creates a configured instance of JPApplePayController for making Apple Pay transactions.

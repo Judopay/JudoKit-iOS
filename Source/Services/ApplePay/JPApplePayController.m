@@ -67,6 +67,7 @@
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate applePayControllerDidCancelTransaction:self];
 }
 
 @end

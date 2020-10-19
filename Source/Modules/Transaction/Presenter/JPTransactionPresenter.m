@@ -205,8 +205,8 @@
 }
 
 - (void)handleCancelButtonTap {
-    [self.interactor completeTransactionWithResponse:nil error:JPError.judoUserDidCancelError];
     [self.router dismissViewController];
+    [self.interactor completeTransactionWithResponse:nil error:JPError.judoUserDidCancelError];
 }
 
 #pragma mark - Helper methods
