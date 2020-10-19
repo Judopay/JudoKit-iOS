@@ -151,7 +151,7 @@
     __weak typeof(self) weakSelf = self;
     [self.interactor handle3DSecureTransactionFromError:error
                                              completion:^(JPResponse *response, JPError *transactionError) {
-                                                 if (error) {
+                                                 if (transactionError) {
                                                      [weakSelf handleError:transactionError];
                                                      return;
                                                  }

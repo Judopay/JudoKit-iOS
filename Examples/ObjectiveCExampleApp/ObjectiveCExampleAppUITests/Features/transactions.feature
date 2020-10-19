@@ -12,4 +12,4 @@ Scenario: Card Payment
   And I enter "123" in the Secure Code text field
   And I tap on the "PAY NOW" button
   And I wait for "10" seconds
-  Then the Receipt screen should be visible
+  Then the Results screen should be visible
