@@ -44,11 +44,15 @@
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
+@property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
 
+@end
+
+@interface JudoKit (JPApplePayDelegate) <JPApplePayControllerDelegate>
 @end
 
 @implementation JudoKit
@@ -151,6 +155,9 @@
                                                               andApiService:self.apiService];
 
     self.applePayController = [[JPApplePayController alloc] initWithConfiguration:configuration];
+    self.applePayController.delegate = self;
+
+    self.applePayCompletionBlock = completion;
 
     UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
         [self.applePayService processApplePayment:payment
@@ -244,6 +251,14 @@
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
                            completion:(nullable JPCompletionBlock)completion {
     [self.apiService fetchTransactionWithReceiptId:receiptId completion:completion];
+}
+
+@end
+
+@implementation JudoKit (JPApplePayDelegate)
+
+- (void)applePayControllerDidCancelTransaction:(JPApplePayController *)controller {
+    self.applePayCompletionBlock(nil, JPError.judoUserDidCancelError);
 }
 
 @end
