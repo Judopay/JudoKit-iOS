@@ -16,6 +16,7 @@ target 'ObjectiveCExampleApp' do
 
   target 'ObjectiveCExampleAppUITests' do
     # Pods for testing
+    pod 'Cucumberish', :git => 'https://github.com/mpetrenco/Cucumberish.git'
   end
 
 end
