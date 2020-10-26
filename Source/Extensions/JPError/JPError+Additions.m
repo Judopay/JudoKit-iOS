@@ -175,7 +175,17 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 + (JPError *)judoErrorFromDictionary:(NSDictionary *)dictionary {
     NSString *defaultMessage = @"error_no_message_desc".localized;
 
-    NSString *parsedMessage = [dictionary valueForKey:@"message"];
+    NSString *parsedMessage;
+    NSString *parsedDetails = [dictionary valueForKey:@"details"];
+
+    if ([parsedDetails isKindOfClass:NSArray.class]) {
+        parsedMessage = [parsedDetails valueForKey:@"message"];
+    }
+
+    if (parsedMessage == nil) {
+        parsedMessage = [dictionary valueForKey:@"message"];
+    }
+
     NSString *message = parsedMessage == nil ? defaultMessage : parsedMessage;
 
     return [self errorWithDescription:message
