@@ -209,7 +209,7 @@ class JPErrorAdditionsTests: XCTestCase {
 
         let sampleResponseFormat: [String: Any] = [
             "code":404,
-            "sample": "Page not found!"
+            "sample": "Page not found!!"
         ]
 
         let error = JPError.judoError(from: sampleResponseFormat)
