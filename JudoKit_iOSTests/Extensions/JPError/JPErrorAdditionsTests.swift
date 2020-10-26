@@ -174,4 +174,158 @@ class JPErrorAdditionsTests: XCTestCase {
         let error = JPError.judoPBBAURLSchemeMissingError()
         XCTAssertEqual(error.localizedDescription, "PBBA transactions require the deeplink scheme to be set.")
     }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'message' field is present
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryContainsMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "message": "Page not found!"
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "Page not found!")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'message' field is not present
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryDoesNotContainsMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "sample": "Page not found!"
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'details' field is present with a 'message' parameter
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryContainsDetailsWithMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "details": ["message": "Page not found!"]
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "Page not found!")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'details' field is present with no 'message' parameter
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryContainsDetailsWithNoMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "details": ["sample": "Page not found!"]
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'details' field is present as the first element of an array dictionary with a 'message' parameter
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryContainsDetailsArrayWithMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "details": [
+                ["message": "Page not found!"],
+            ]
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "Page not found!")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'details' field is present as the first element of an array dictionary with no 'message' parameter
+     *
+     * THEN:  the correct error should be generated
+     */
+    func test_WhenJudoDictionaryContainsDetailsArrayWithNoMessage_ParseCorrectError() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "details": [
+                ["sample": "Page not found!"],
+            ]
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
+    }
+
+    /*
+     * GIVEN: the JPError is initialized from an NSDictionary
+     *
+     * WHEN:  a 'code' field is present
+     *
+     * AND:   a 'details' dictionary as well as a 'message' field are present
+     *
+     * THEN:  the 'details' dictionary message should be prioritized
+     */
+    func test_WhenJudoDictionaryContainsDetailsAndMessage_PrioritizeDetails() {
+
+        let sampleResponseFormat: [String: Any] = [
+            "code":404,
+            "message": "Another error message!",
+            "details": [
+                "message": "Page not found!",
+            ]
+        ]
+
+        let error = JPError.judoError(from: sampleResponseFormat)
+        XCTAssertEqual(error.code, 404)
+        XCTAssertEqual(error.localizedDescription, "Page not found!")
+    }
 }
