@@ -180,7 +180,11 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
     if ([parsedDetails isKindOfClass:NSArray.class]) {
         NSArray *parsedArray = (NSArray *)parsedDetails;
-        parsedMessage = [parsedArray.firstObject valueForKey:@"message"];
+
+        if ([parsedArray.firstObject isKindOfClass:NSDictionary.class]) {
+            NSDictionary *parsedDictionary = (NSDictionary *)parsedArray.firstObject;
+            parsedMessage = [parsedDictionary valueForKey:@"message"];
+        }
     }
 
     if ([parsedDetails isKindOfClass:NSDictionary.class]) {
