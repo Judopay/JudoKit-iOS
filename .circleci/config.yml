@@ -336,16 +336,6 @@ jobs:
           paths:
             - Examples/SwiftExampleApp/DerivedData
             - Examples/SwiftExampleApp/build-wrapper-output
-  instrumented_test_carthage_sample:
-    executor: macos
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: Run Instrumented Tests
-          command: |
-
   validate_podspec:
     executor: macos
     steps:
