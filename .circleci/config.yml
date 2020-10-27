@@ -313,7 +313,7 @@ workflows:
       - pod_install_swift_sample
       - build_sdk:
           requires:
-            - carthage_update
+            - carthage_update_sdk
           filters:
             tags:
               only:
