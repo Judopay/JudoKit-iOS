@@ -306,7 +306,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - carthage_update
+      - carthage_update_sdk
       - bundle_install
       - carthage_update_sample
       - pod_install_objc_sample
