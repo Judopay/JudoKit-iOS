@@ -74,13 +74,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
       - run:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
           command: pod install
       - save_cache:
-          key: judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+          key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
           paths:
             - Examples/ObjectiveCExampleApp/Pods
             - Examples/ObjectiveCExampleApp/Podfile.lock
@@ -90,13 +90,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+            - judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: pod install
       - save_cache:
-          key: judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+          key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
           paths:
             - Examples/SwiftExampleApp/Pods
             - Examples/SwiftExampleApp/Podfile.lock
@@ -136,13 +136,17 @@ jobs:
               -configuration Release \
               -sdk iphonesimulator \
               -derivedDataPath Examples/CarthageExampleApp/DerivedData
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Examples/CarthageExampleApp/DerivedData
   build_objc_sample:
     executor: macos
     steps:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
       - run:
           name: Build ObjC Sample
           command: |
@@ -152,13 +156,17 @@ jobs:
               -configuration Release \
               -sdk iphonesimulator \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Examples/ObjectiveCExampleApp/DerivedData
   build_swift_sample:
     executor: macos
     steps:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+            - judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
       - run:
           name: Build Swift Sample
           command: |
@@ -168,6 +176,10 @@ jobs:
               -configuration Release \
               -sdk iphonesimulator \
               -derivedDataPath Examples/SwiftExampleApp/DerivedData
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Examples/SwiftExampleApp/DerivedData
   unit_test_sdk:
     executor: macos
     steps:
@@ -207,6 +219,45 @@ jobs:
           paths:
             - DerivedData
             - build-wrapper-output
+  unit_test_carthage_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Install Sonar Build Wrapper
+          command: |
+            curl -o /var/tmp/build-wrapper-macosx-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
+            unzip /var/tmp/build-wrapper-macosx-x86.zip -d /var/tmp
+            sudo mkdir -p /opt/build-wrapper-macosx/bin
+            sudo mv /var/tmp/build-wrapper-macosx-x86/* /opt/build-wrapper-macosx/bin/
+            rm -rf /var/tmp/build-wrapper-macosx-x86
+            ln -s /opt/build-wrapper-macosx/bin/build-wrapper-macosx-x86 /usr/local/bin/build-wrapper-macosx-x86
+      - run:
+          name: Run SDK Unit Tests
+          command: |
+            build-wrapper-macosx-x86 --out-dir Examples/CarthageExampleApp/build-wrapper-output xcodebuild \
+              -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
+              -scheme CarthageExampleApp \
+              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -derivedDataPath Examples/CarthageExampleApp/DerivedData \
+              test
+      - run:
+          name: Covert XCode Coverage Reports to SonarQube Format
+          command: |
+            curl -o xccov-to-sonarqube-generic.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
+            chmod +x xccov-to-sonarqube-generic.sh
+            ./xccov-to-sonarqube-generic.sh Examples/CarthageExampleApp/DerivedData/Logs/Test/*.xcresult/ > Examples/CarthageExampleApp/build-wrapper-output/sonarqube-generic-coverage.xml
+            rm xccov-to-sonarqube-generic.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Examples/CarthageExampleApp/DerivedData
+            - Examples/CarthageExampleApp/build-wrapper-output
   validate_podspec:
     executor: macos
     steps:
