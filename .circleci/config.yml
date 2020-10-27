@@ -74,13 +74,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+            - judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
       - run:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
           command: pod install
       - save_cache:
-          key: judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+          key: judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
           paths:
             - Examples/ObjectiveCExampleApp/Pods
   pod_install_swift_sample:
@@ -89,13 +89,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+            - judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: pod install
       - save_cache:
-          key: judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+          key: judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
           paths:
             - Examples/SwiftExampleApp/Pods
   build_sdk:
@@ -140,7 +140,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+            - judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
       - run:
           name: Build ObjC Sample
           command: |
@@ -156,7 +156,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+            - judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
       - run:
           name: Build Swift Sample
           command: |
