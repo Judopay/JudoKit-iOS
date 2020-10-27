@@ -6,7 +6,7 @@ executors:
       xcode: 11.3.0
 
 jobs:
-  carthage_update:
+  carthage_update_sdk:
     executor: macos
     steps:
       - checkout
@@ -43,6 +43,61 @@ jobs:
       - save_cache:
           key: judokit-ios-{{ checksum "Gemfile" }}
           paths: ~/.bundle/cache
+  carthage_update_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+      - run:
+          name: Carthage Update Sample App
+          working_directory: Examples/CarthageExampleApp
+          command: carthage update
+      - save_cache:
+          key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+          paths:
+            - Examples/CarthageExampleApp/Carthage
+      - save_cache:
+          key: judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+          paths:
+            - ~/Library/Caches/org.carthage.CarthageKit
+      - save_cache:
+          key: judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+          paths:
+            - ~/Library/Caches/carthage
+  pod_install_objc_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+      - run:
+          name: Pod Install ObjC Sample App
+          working_directory: Examples/ObjectiveCExampleApp
+          command: pod install
+      - save_cache:
+          key: judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+          paths:
+            - Examples/ObjectiveCExampleApp/Something
+  pod_install_swift_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+      - run:
+          name: Pod Install Swift Sample App
+          working_directory: Examples/SwiftExampleApp
+          command: pod install
+      - save_cache:
+          key: judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+          paths:
+            - Examples/SwiftExampleApp/Something
   build_sdk:
     executor: macos
     steps:
@@ -63,6 +118,54 @@ jobs:
           root: .
           paths:
             - DerivedData
+  build_carthage_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+      - run:
+          name: Build Carthage Sample
+          command: |
+            xcodebuild clean build \
+              -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
+              -scheme CarthageExampleApp \
+              -configuration Release \
+              -sdk iphonesimulator \
+              -derivedDataPath Examples/CarthageExampleApp/DerivedData
+  build_objc_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-objc-pod-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+      - run:
+          name: Build ObjC Sample
+          command: |
+            xcodebuild clean build \
+              -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
+              -scheme ObjectiveCExampleApp \
+              -configuration Release \
+              -sdk iphonesimulator \
+              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData
+  build_swift_sample:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-swift-pod-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
+      - run:
+          name: Build Swift Sample
+          command: |
+            xcodebuild clean build \
+              -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
+              -scheme SwiftExampleApp \
+              -configuration Release \
+              -sdk iphonesimulator \
+              -derivedDataPath Examples/SwiftExampleApp/DerivedData
   unit_test_sdk:
     executor: macos
     steps:
@@ -194,7 +297,7 @@ jobs:
     executor: macos
     steps:
       - attach_workspace:
-          at: /home/circleci/project
+          at: ~/project
       - run:
           name: Release SDK to CocoaPods
           command: pod trunk push JudoKit-iOS.podspec --allow-warnings
@@ -205,9 +308,33 @@ workflows:
     jobs:
       - carthage_update
       - bundle_install
+      - carthage_update_sample
+      - pod_install_objc_sample
+      - pod_install_swift_sample
       - build_sdk:
           requires:
             - carthage_update
+          filters:
+            tags:
+              only:
+                - /^v((\d)+\.){1,2}(\d+)/i
+      - build_carthage_sample:
+          requires:
+            - carthage_update_sample
+          filters:
+            tags:
+              only:
+                - /^v((\d)+\.){1,2}(\d+)/i
+      - build_objc_sample:
+          requires:
+            - pod_install_objc_sample
+          filters:
+            tags:
+              only:
+                - /^v((\d)+\.){1,2}(\d+)/i
+      - build_swift_sample:
+          requires:
+            - pod_install_swift_sample
           filters:
             tags:
               only:
@@ -225,6 +352,7 @@ workflows:
           requires:
             - unit_test_sdk
             - validate_podspec
+            - build_objc_sample
           filters:
             branches:
               only:
