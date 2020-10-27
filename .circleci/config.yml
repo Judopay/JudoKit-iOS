@@ -83,6 +83,7 @@ jobs:
           key: judokit-sample-objc-pods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
           paths:
             - Examples/ObjectiveCExampleApp/Pods
+            - Examples/ObjectiveCExampleApp/Podfile.lock
   pod_install_swift_sample:
     executor: macos
     steps:
@@ -98,6 +99,7 @@ jobs:
           key: judokit-sample-swift-pods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
           paths:
             - Examples/SwiftExampleApp/Pods
+            - Examples/SwiftExampleApp/Podfile.lock
   build_sdk:
     executor: macos
     steps:
