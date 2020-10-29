@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 #import <CoreLocation/CoreLocation.h>
-#import <JudoKit-iOS/JudoKit_iOS.h>
+#import <JudoKit_iOS/JudoKit_iOS.h>
 #import "ExampleAppCredentials.h"
 #import "MainViewController.h"
 
