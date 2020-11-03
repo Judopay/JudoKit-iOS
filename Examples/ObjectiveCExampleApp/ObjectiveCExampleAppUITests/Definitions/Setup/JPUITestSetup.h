@@ -24,11 +24,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JPUITestSteps : NSObject
+@interface JPUITestSetup : NSObject
 
-/**
- * A method for setting up all the basic. reusable steps.
- */
 + (void)setUp;
 
 @end
