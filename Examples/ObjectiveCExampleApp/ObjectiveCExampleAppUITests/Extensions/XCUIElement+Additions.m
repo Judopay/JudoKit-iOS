@@ -23,13 +23,12 @@
         XCTFail(@"XCUIElement value is not a valid string");
     }
 
-    NSString *stringValue = (NSString *)self.value;
-    NSString *deletePattern = [@"" stringByPaddingToLength:stringValue.length
-                                                withString:XCUIKeyboardKeyDelete
-                                           startingAtIndex:0];
+    while (((NSString *)self.value).length != 0) {
+        [self doubleTap];
+        [self typeText:XCUIKeyboardKeyDelete];
+    }
 
     [self tap];
-    [self typeText:deletePattern];
     [self typeText:text];
 }
 

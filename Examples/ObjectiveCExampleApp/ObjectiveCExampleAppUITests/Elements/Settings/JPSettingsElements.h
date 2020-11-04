@@ -17,5 +17,21 @@
 + (XCUIElement *)basicTokenTextField;
 + (XCUIElement *)basicSecretTextField;
 
++ (XCUIElement *)visaSwitch;
+
++ (XCUIElement *)masterCardSwitch;
+
++ (XCUIElement *)maestroSwitch;
+
++ (XCUIElement *)amexSwitch;
+
++ (XCUIElement *)chinaUnionPaySwitch;
+
++ (XCUIElement *)jcbSwitch;
+
++ (XCUIElement *)discoverSwitch;
+
++ (XCUIElement *)dinersClubSwitch;
+
 @end
 

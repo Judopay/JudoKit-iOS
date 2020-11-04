@@ -39,29 +39,78 @@
 
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
 
-        // 1. Tap the Settings icon button from the Main screen
         [JPMainElements.settingsButton tap];
 
-        // 2. Clear out the Judo ID textfield and
         [JPSettingsElements.judoIDTextField clearAndEnterText:judoId];
 
-        // 3. Toggle the Session Authorization switch off if needed
         if ([JPSettingsElements.sessionAuthenticationSwitch.value isEqualToString:@"1"]) {
             [JPSettingsElements.sessionAuthenticationSwitch tap];
         }
 
-        // 4. Toggle the Basic Authorization switch on if needed
         if ([JPSettingsElements.basicAuthenticationSwitch.value isEqualToString:@"0"]) {
             [JPSettingsElements.basicAuthenticationSwitch tap];
         }
 
-        // 5. Enter the token/secret credentials
         [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
         [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
 
-        // 6. Navigate back to the Main screen
         [JPGenericElements.backButton tap];
     });
+
+    beforeTagged(@[@"require-all-card-networks"], ^(CCIScenarioDefinition *scenario) {
+
+        [JPMainElements.settingsButton tap];
+
+        if ([JPSettingsElements.visaSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.visaSwitch tap];
+        }
+
+        if ([JPSettingsElements.masterCardSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.masterCardSwitch tap];
+        }
+
+        if ([JPSettingsElements.maestroSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.maestroSwitch tap];
+        }
+
+        if ([JPSettingsElements.amexSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.amexSwitch tap];
+        }
+
+        if ([JPSettingsElements.chinaUnionPaySwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.chinaUnionPaySwitch tap];
+        }
+
+        if ([JPSettingsElements.jcbSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.jcbSwitch tap];
+        }
+
+        if ([JPSettingsElements.discoverSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.discoverSwitch tap];
+        }
+
+        if ([JPSettingsElements.dinersClubSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.dinersClubSwitch tap];
+        }
+
+        [JPGenericElements.backButton tap];
+    });
+
+    after(^(CCIScenarioDefinition *scenario) {
+
+        XCUIApplication *application = [XCUIApplication new];
+        XCUIElement *mainScreen = application.otherElements[@"Main Screen"];
+        XCUIElement *cancelButton = application.buttons[@"Cancel"];
+
+        if (cancelButton.exists) {
+            [cancelButton tap];
+        }
+
+        while (!mainScreen.exists) {
+            [JPGenericElements.backButton tap];
+        }
+    });
+
 }
 
 @end

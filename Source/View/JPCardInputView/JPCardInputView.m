@@ -273,7 +273,8 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:@"cancel".localized forState:UIControlStateNormal];
+        [_cancelButton setTitle:@"cancel".uppercaseString.localized
+                       forState:UIControlStateNormal];
     }
     return _cancelButton;
 }

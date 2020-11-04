@@ -36,4 +36,44 @@
     return cell.textFields.firstMatch;
 }
 
++ (XCUIElement *)visaSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Visa"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)masterCardSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Master Card"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)maestroSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Maestro"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)amexSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"AMEX"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)chinaUnionPaySwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"China Union Pay"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)jcbSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"JCB"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)discoverSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Discover"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)dinersClubSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Diners Club"];
+    return cell.switches.firstMatch;
+}
+
 @end

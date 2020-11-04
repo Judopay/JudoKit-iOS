@@ -44,6 +44,6 @@ void CucumberishInit() {
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
     [Cucumberish executeFeaturesInDirectory:@"Features"
                                  fromBundle:bundle
-                                includeTags:@[@"judo-transactions"]
+                                includeTags:@[@"test-cancel-payment"]
                                 excludeTags:nil];
 }

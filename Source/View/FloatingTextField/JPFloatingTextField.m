@@ -104,6 +104,9 @@ static const float kErrorConstraintOffset = -15.0F;
 
 - (void)setupViews {
     [self addSubview:self.floatingLabel];
+    self.isAccessibilityElement = NO;
+    self.floatingLabel.isAccessibilityElement = YES;
+    self.floatingLabel.accessibilityIdentifier = @"Error Floating Label";
     NSArray *constraints = @[
         [self.floatingLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.floatingLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
