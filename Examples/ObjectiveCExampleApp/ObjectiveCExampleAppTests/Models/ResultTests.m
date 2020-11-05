@@ -45,8 +45,6 @@
         if ([item.title isEqualToString:@"judoId"]) {
             XCTAssertTrue([item.value isEqualToString:@"123456"]);
             XCTAssertNil(item.subResult);
-        } else {
-            XCTFail(@"Judo ID must be a part of the Result object");
         }
         
         // Consumer should resolve to a JPConsumer and should have subresults
@@ -56,8 +54,6 @@
             
             XCTAssertTrue([item.subResult.title isEqualToString:@"JPConsumer"]);
             XCTAssertEqual(item.subResult.items.count, 2);
-        } else {
-            XCTFail(@"Consumer must be part of the Result object");
         }
     }
 }

@@ -4,7 +4,7 @@ import JudoKit_iOS
 extension NSError {
 
     var userDidCancelOperation: Bool {
-        return domain == JudoErrorDomain && code == JudoError.errorUserDidCancel.rawValue
+        return domain == JudoErrorDomain && code == JudoError.JudoUserDidCancelError.rawValue
     }
 
     var judoMessage: String {

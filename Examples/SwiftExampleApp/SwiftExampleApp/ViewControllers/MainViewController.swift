@@ -3,9 +3,9 @@ import JudoKit_iOS
 
 class MainViewController: UITableViewController {
     var settings = Settings(isAVSEnabled: false, currency: .GBP)
-    var judoKit = JudoKit(token: token, secret: secret)
+    var basicAuthorization: JPAuthorization = JPBasicAuthorization(token: token, andSecret: secret)
+    var judoKit: JudoKit?
     var locationManager = CLLocationManager()
-    var transactionData: JPTransactionData?
     let consumerReference = "judoPay-sample-app"
     lazy var reference = JPReference(consumerReference: consumerReference)
     
@@ -71,13 +71,14 @@ class MainViewController: UITableViewController {
                                                      countryCode: "GB",
                                                      paymentSummaryItems: items)
         configurations.requiredShippingContactFields = .all
-        configurations.shippingMethods = [PaymentShippingMethod(identifier: "shiping", detail: "details", label: "label", amount: 0.01, type: .final)]
+        configurations.shippingMethods = [JPPaymentShippingMethod(identifier: "shiping", detail: "details", label: "label", amount: 0.01, type: .final)]
         return configurations
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isToolbarHidden = false
+        judoKit = JudoKit(authorization: basicAuthorization)
         judoKit?.isSandboxed = true
         locationManager.requestWhenInUseAuthorization()
     }

@@ -120,26 +120,6 @@ jobs:
           root: .
           paths:
             - DerivedData
-  build_carthage_sample:
-    executor: macos
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-      - run:
-          name: Build Carthage Sample
-          command: |
-            xcodebuild clean build \
-              -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
-              -scheme CarthageExampleApp \
-              -configuration Release \
-              -sdk iphonesimulator \
-              -derivedDataPath Examples/CarthageExampleApp/DerivedData
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Examples/CarthageExampleApp/DerivedData
   build_objc_sample:
     executor: macos
     steps:

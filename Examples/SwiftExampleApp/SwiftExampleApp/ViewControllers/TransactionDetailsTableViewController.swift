@@ -78,42 +78,40 @@ class TransactionDetailsTableViewController: UITableViewController {
         
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
-        
-        if let transactionData = response.items?.first {
-            var stampDate = ""
-            if let createdAtDate = inputDateFormatter.date(from: transactionData.createdAt) {
-                stampDate = outputDateFormatter.string(from: createdAtDate)
-            }
-            
-            var formattedAmount = ""
-            if let transactionAmount = transactionData.amount, let amount = Double(transactionAmount.amount) {
-                currencyFormatter.currencyCode = transactionAmount.currency
-                formattedAmount = currencyFormatter.string(from: NSNumber(value: amount)) ?? ""
-            }
-            
-            // General
-            let generalRows = [
-                DetailsTableViewRow(title: "Date", value: stampDate),
-                DetailsTableViewRow(title: "Amount", value: formattedAmount),
-                DetailsTableViewRow(title: "Resolution", value: transactionData.message ?? "")
+
+        var stampDate = ""
+        if let createdAtDate = inputDateFormatter.date(from: response.createdAt) {
+            stampDate = outputDateFormatter.string(from: createdAtDate)
+        }
+
+        var formattedAmount = ""
+        if let transactionAmount = response.amount, let amount = Double(transactionAmount.amount) {
+            currencyFormatter.currencyCode = transactionAmount.currency
+            formattedAmount = currencyFormatter.string(from: NSNumber(value: amount)) ?? ""
+        }
+
+        // General
+        let generalRows = [
+            DetailsTableViewRow(title: "Date", value: stampDate),
+            DetailsTableViewRow(title: "Amount", value: formattedAmount),
+            DetailsTableViewRow(title: "Resolution", value: response.message ?? "")
+        ]
+        data.append(DetailsTableViewSection(title: "General", rows: generalRows))
+
+        // Card details
+        if let cardDetails = response.cardDetails {
+            let cardDetailsRows = [
+                DetailsTableViewRow(title: "Card last 4 digits", value: cardDetails.cardLastFour ?? ""),
+                DetailsTableViewRow(title: "Expiry date", value:self.formatExpiryDate(date: cardDetails.endDate)),
+                DetailsTableViewRow(title: "Card token", value: cardDetails.cardToken ?? ""),
+                DetailsTableViewRow(title: "Card type", value: "\(cardDetails.cardNetwork.rawValue)"),
+                DetailsTableViewRow(title: "Bank", value: cardDetails.bank ?? ""),
+                DetailsTableViewRow(title: "Card category", value: cardDetails.cardCategory ?? ""),
+                DetailsTableViewRow(title: "Card country", value: cardDetails.cardCountry ?? ""),
+                DetailsTableViewRow(title: "Card funding", value: cardDetails.cardFunding ?? ""),
+                DetailsTableViewRow(title: "Card scheme", value: cardDetails.cardScheme ?? "")
             ]
-            data.append(DetailsTableViewSection(title: "General", rows: generalRows))
-            
-            // Card details
-            if let cardDetails = transactionData.cardDetails {
-                let cardDetailsRows = [
-                    DetailsTableViewRow(title: "Card last 4 digits", value: cardDetails.cardLastFour ?? ""),
-                    DetailsTableViewRow(title: "Expiry date", value:self.formatExpiryDate(date: cardDetails.endDate)),
-                    DetailsTableViewRow(title: "Card token", value: cardDetails.cardToken ?? ""),
-                    DetailsTableViewRow(title: "Card type", value: "\(cardDetails.cardNetwork.rawValue)"),
-                    DetailsTableViewRow(title: "Bank", value: cardDetails.bank ?? ""),
-                    DetailsTableViewRow(title: "Card category", value: cardDetails.cardCategory ?? ""),
-                    DetailsTableViewRow(title: "Card country", value: cardDetails.cardCountry ?? ""),
-                    DetailsTableViewRow(title: "Card funding", value: cardDetails.cardFunding ?? ""),
-                    DetailsTableViewRow(title: "Card scheme", value: cardDetails.cardScheme ?? "")
-                ]
-                data.append(DetailsTableViewSection(title: "Card Details", rows: cardDetailsRows))
-            }
+            data.append(DetailsTableViewSection(title: "Card Details", rows: cardDetailsRows))
         }
         
         if let billingInfo = response.billingInfo {
