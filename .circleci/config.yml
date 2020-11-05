@@ -106,7 +106,7 @@ jobs:
           name: Build ObjC Sample
           command: |
             xcodebuild clean build \
-              -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
+              -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
@@ -126,7 +126,7 @@ jobs:
           name: Build Swift Sample
           command: |
             xcodebuild clean build \
-              -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
+              -workspace Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace \
               -scheme SwiftExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
