@@ -236,7 +236,7 @@ jobs:
           command: |
             build-wrapper-macosx-x86 --out-dir Examples/SwiftExampleApp/build-wrapper-output xcodebuild \
               -workspace Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace \
-              -scheme SwiftExampleAppTests \
+              -scheme SwiftExampleApp \
               -destination 'platform=iOS Simulator,name=iPhone 11' \
               -derivedDataPath Examples/SwiftExampleApp/DerivedData \
               test
