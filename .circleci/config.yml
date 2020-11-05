@@ -43,31 +43,6 @@ jobs:
       - save_cache:
           key: judokit-ios-{{ checksum "Gemfile" }}
           paths: ~/.bundle/cache
-  carthage_update_sample:
-    executor: macos
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-      - run:
-          name: Carthage Update Sample App
-          working_directory: Examples/CarthageExampleApp
-          command: carthage update
-      - save_cache:
-          key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-          paths:
-            - Examples/CarthageExampleApp/Carthage
-      - save_cache:
-          key: judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-          paths:
-            - ~/Library/Caches/org.carthage.CarthageKit
-      - save_cache:
-          key: judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-          paths:
-            - ~/Library/Caches/carthage
   pod_install_objc_sample:
     executor: macos
     steps:
@@ -375,7 +350,6 @@ workflows:
     jobs:
       - carthage_update_sdk
       - bundle_install
-      - carthage_update_sample
       - pod_install_objc_sample
       - pod_install_swift_sample
       - build_sdk:
