@@ -8,7 +8,6 @@ target 'SwiftExampleApp' do
   # Pods for SwiftExampleApp
   pod 'JudoKit-iOS', :path => '../../'
 
-  pod 'InAppSettingsKit'
   pod 'CocoaDebug'
 
   target 'SwiftExampleAppTests' do
