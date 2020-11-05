@@ -460,9 +460,6 @@ workflows:
           context: shared-secrets
           requires:
             - unit_test_sdk
-            - unit_test_carthage_sample
-            - unit_test_objc_sample
-            - unit_test_swift_sample
       - release_sample:
           context: shared-secrets
           requires:
