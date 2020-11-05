@@ -437,9 +437,6 @@ workflows:
             tags:
               only:
                 - /^v((\d)+\.){1,2}(\d+)/i
-      - unit_test_carthage_sample:
-          requires:
-            - build_carthage_sample
       - unit_test_objc_sample:
           requires:
             - build_objc_sample
