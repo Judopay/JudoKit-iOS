@@ -199,45 +199,6 @@ jobs:
           paths:
             - DerivedData
             - build-wrapper-output
-  unit_test_carthage_sample:
-    executor: macos
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: Install Sonar Build Wrapper
-          command: |
-            curl -o /var/tmp/build-wrapper-macosx-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
-            unzip /var/tmp/build-wrapper-macosx-x86.zip -d /var/tmp
-            sudo mkdir -p /opt/build-wrapper-macosx/bin
-            sudo mv /var/tmp/build-wrapper-macosx-x86/* /opt/build-wrapper-macosx/bin/
-            rm -rf /var/tmp/build-wrapper-macosx-x86
-            ln -s /opt/build-wrapper-macosx/bin/build-wrapper-macosx-x86 /usr/local/bin/build-wrapper-macosx-x86
-      - run:
-          name: Run Unit Tests
-          command: |
-            build-wrapper-macosx-x86 --out-dir Examples/CarthageExampleApp/build-wrapper-output xcodebuild \
-              -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
-              -scheme CarthageExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
-              -derivedDataPath Examples/CarthageExampleApp/DerivedData \
-              test
-      - run:
-          name: Covert XCode Coverage Reports to SonarQube Format
-          command: |
-            curl -o xccov-to-sonarqube-generic.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
-            chmod +x xccov-to-sonarqube-generic.sh
-            ./xccov-to-sonarqube-generic.sh Examples/CarthageExampleApp/DerivedData/Logs/Test/*.xcresult/ > Examples/CarthageExampleApp/build-wrapper-output/sonarqube-generic-coverage.xml
-            rm xccov-to-sonarqube-generic.sh
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Examples/CarthageExampleApp/DerivedData
-            - Examples/CarthageExampleApp/build-wrapper-output
   unit_test_objc_sample:
     executor: macos
     steps:
@@ -452,7 +413,6 @@ workflows:
           context: shared-secrets
           requires:
             - unit_test_sdk
-            - unit_test_carthage_sample
             - unit_test_objc_sample
             - unit_test_swift_sample
       - release_sample:
