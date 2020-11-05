@@ -197,7 +197,7 @@ jobs:
           command: |
             build-wrapper-macosx-x86 --out-dir Examples/ObjectiveCExampleApp/build-wrapper-output xcodebuild \
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
-              -scheme ObjectiveCExampleAppTests \
+              -scheme ObjectiveCExampleApp \
               -destination 'platform=iOS Simulator,name=iPhone 11' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               test
