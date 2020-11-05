@@ -24,6 +24,7 @@
 		449495452450F6AA0050C6A0 /* DemoFeatureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449495352450F6A90050C6A0 /* DemoFeatureType.swift */; };
 		449495462450F6AA0050C6A0 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449495382450F6AA0050C6A0 /* NSError.swift */; };
 		449495472450F6AA0050C6A0 /* HalfHeightPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449495392450F6AA0050C6A0 /* HalfHeightPresentationController.swift */; };
+		530F690669E3B982D38E80F7 /* Pods_SwiftExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */; };
 		C82C2B8CD5388E644731B189 /* Pods_SwiftExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530F690669E3B982D38E80F7 /* Pods_SwiftExampleAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +227,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 529AB14025541C49008FC5F4 /* Build configuration list for PBXNativeTarget "SwiftExampleAppTests" */;
 			buildPhases = (
+				2752F9764B5DF4E3138FEF84 /* [CP] Check Pods Manifest.lock */,
 				529AB13525541C49008FC5F4 /* Sources */,
 				529AB13625541C49008FC5F4 /* Frameworks */,
 				529AB13725541C49008FC5F4 /* Resources */,
@@ -314,6 +317,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SwiftExampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2752F9764B5DF4E3138FEF84 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftExampleAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -554,6 +579,7 @@
 		};
 		529AB14125541C49008FC5F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59582CF274093B83FB4DC7FC /* Pods-SwiftExampleAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -575,6 +601,7 @@
 		};
 		529AB14225541C49008FC5F4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A177A2DBBC2751C575930C16 /* Pods-SwiftExampleAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;

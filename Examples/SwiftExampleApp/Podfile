@@ -16,8 +16,4 @@ target 'SwiftExampleApp' do
     # Pods for testing
   end
 
-  target 'SwiftExampleAppUITests' do
-    # Pods for testing
-  end
-
 end
