@@ -53,7 +53,9 @@ jobs:
       - run:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
-          command: pod install
+          command: |
+            pod deintegrate;
+            pod install
       - save_cache:
           key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
           paths:
@@ -69,7 +71,9 @@ jobs:
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
-          command: pod install
+          command: |
+            pod deintegrate;
+            pod install
       - save_cache:
           key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile" }}
           paths:
