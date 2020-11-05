@@ -196,8 +196,8 @@ jobs:
           name: Run Unit Tests
           command: |
             build-wrapper-macosx-x86 --out-dir Examples/ObjectiveCExampleApp/build-wrapper-output xcodebuild \
-              -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
-              -scheme ObjectiveCExampleApp \
+              -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -scheme ObjectiveCExampleAppTests \
               -destination 'platform=iOS Simulator,name=iPhone 11' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               test
@@ -235,8 +235,8 @@ jobs:
           name: Run Unit Tests
           command: |
             build-wrapper-macosx-x86 --out-dir Examples/SwiftExampleApp/build-wrapper-output xcodebuild \
-              -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
-              -scheme SwiftExampleApp \
+              -workspace Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace \
+              -scheme SwiftExampleAppTests \
               -destination 'platform=iOS Simulator,name=iPhone 11' \
               -derivedDataPath Examples/SwiftExampleApp/DerivedData \
               test
