@@ -444,15 +444,6 @@ workflows:
             tags:
               only:
                 - /^v((\d)+\.){1,2}(\d+)/i
-      - build_carthage_sample:
-          requires:
-            - carthage_update_sample
-      - build_objc_sample:
-          requires:
-            - pod_install_objc_sample
-      - build_swift_sample:
-          requires:
-            - pod_install_swift_sample
       - unit_test_sdk:
           requires:
             - build_sdk
@@ -460,15 +451,6 @@ workflows:
             tags:
               only:
                 - /^v((\d)+\.){1,2}(\d+)/i
-      - unit_test_carthage_sample:
-          requires:
-            - build_carthage_sample
-      - unit_test_objc_sample:
-          requires:
-            - build_objc_sample
-      - unit_test_swift_sample:
-          requires:
-            - build_swift_sample
       - validate_podspec:
           filters:
             tags:
