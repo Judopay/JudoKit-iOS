@@ -422,8 +422,7 @@ jobs:
   release_sdk:
     executor: macos
     steps:
-      - attach_workspace:
-          at: ~/project
+      - checkout
       - run:
           name: Release SDK to CocoaPods
           command: pod trunk push JudoKit-iOS.podspec --allow-warnings
