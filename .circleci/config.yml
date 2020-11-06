@@ -443,15 +443,7 @@ workflows:
       - unit_test_sdk:
           requires:
             - build_sdk
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
-      - validate_podspec:
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
+      - validate_podspec
       - sonar_scan:
           context: shared-secrets
           requires:
@@ -474,4 +466,4 @@ workflows:
                 - /.*/
             tags:
               only:
-                - /.*/
+                - /^v((\d)+\.){1,2}(\d+)/
