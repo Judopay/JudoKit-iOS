@@ -27,7 +27,7 @@
 @interface JPUITestSteps : NSObject
 
 /**
- * A method for setting up all the basic. reusable steps.
+ * A method for setting up all the basic, reusable steps.
  */
 + (void)setUp;
 
