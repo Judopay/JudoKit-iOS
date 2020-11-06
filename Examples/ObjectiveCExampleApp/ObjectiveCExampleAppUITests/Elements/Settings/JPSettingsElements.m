@@ -76,4 +76,14 @@
     return cell.switches.firstMatch;
 }
 
++ (XCUIElement *)avsSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Address Verification Service"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)buttonAmountSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Display amount label in Payment Button"];
+    return cell.switches.firstMatch;
+}
+
 @end

@@ -334,6 +334,7 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_countryTextField) {
         _countryTextField = [JPCardInputField new];
         _countryTextField.inputView = self.countryPickerView;
+        _countryTextField.accessibilityIdentifier = @"Country Field";
     }
     return _countryTextField;
 }
@@ -341,6 +342,7 @@ static const float kLooseContentSpacing = 16.0F;
 - (UIPickerView *)countryPickerView {
     if (!_countryPickerView) {
         _countryPickerView = [UIPickerView new];
+        _countryPickerView.accessibilityIdentifier = @"Country Picker";
     }
     return _countryPickerView;
 }
@@ -349,6 +351,7 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_postcodeTextField) {
         _postcodeTextField = [JPCardInputField new];
         _postcodeTextField.keyboardType = UIKeyboardTypeDefault;
+        _postcodeTextField.accessibilityIdentifier = @"Post Code Field";
     }
     return _postcodeTextField;
 }
@@ -357,7 +360,7 @@ static const float kLooseContentSpacing = 16.0F;
     if (!_addCardButton) {
         _addCardButton = [JPTransactionButton new];
         _addCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _addCardButton.accessibilityIdentifier = @"Transaction Button";
+        _addCardButton.accessibilityIdentifier = @"Submit Button";
         _addCardButton.clipsToBounds = YES;
     }
     return _addCardButton;

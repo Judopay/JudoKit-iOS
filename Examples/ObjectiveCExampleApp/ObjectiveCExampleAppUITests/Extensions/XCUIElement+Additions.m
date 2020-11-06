@@ -32,4 +32,16 @@
     [self typeText:text];
 }
 
+- (void)swipeUpToElement {
+    while (!self.exists) {
+        [[XCUIApplication new] swipeUp];
+    }
+}
+
+- (void)swipeDownToElement {
+    while (!self.exists) {
+        [[XCUIApplication new] swipeDown];
+    }
+}
+
 @end

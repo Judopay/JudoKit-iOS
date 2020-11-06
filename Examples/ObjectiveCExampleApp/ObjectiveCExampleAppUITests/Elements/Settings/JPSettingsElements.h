@@ -33,5 +33,9 @@
 
 + (XCUIElement *)dinersClubSwitch;
 
++ (XCUIElement *)avsSwitch;
+
++ (XCUIElement *)buttonAmountSwitch;
+
 @end
 

@@ -96,11 +96,63 @@
         [JPGenericElements.backButton tap];
     });
 
+    beforeTagged(@[@"require-avs-enabled"], ^(CCIScenarioDefinition *scenario) {
+
+        [JPMainElements.settingsButton tap];
+
+        [JPSettingsElements.avsSwitch swipeUpToElement];
+
+        if ([JPSettingsElements.avsSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.avsSwitch tap];
+        }
+
+        [JPGenericElements.backButton tap];
+    });
+
+    beforeTagged(@[@"require-avs-disabled"], ^(CCIScenarioDefinition *scenario) {
+
+        [JPMainElements.settingsButton tap];
+
+        [JPSettingsElements.avsSwitch swipeUpToElement];
+
+        if ([JPSettingsElements.avsSwitch.value isEqualToString:@"1"]) {
+            [JPSettingsElements.avsSwitch tap];
+        }
+
+        [JPGenericElements.backButton tap];
+    });
+
+    beforeTagged(@[@"require-button-amount-enabled"], ^(CCIScenarioDefinition *scenario) {
+
+        [JPMainElements.settingsButton tap];
+
+        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
+
+        if ([JPSettingsElements.buttonAmountSwitch.value isEqualToString:@"0"]) {
+            [JPSettingsElements.buttonAmountSwitch tap];
+        }
+
+        [JPGenericElements.backButton tap];
+    });
+
+    beforeTagged(@[@"require-button-amount-disabled"], ^(CCIScenarioDefinition *scenario) {
+
+        [JPMainElements.settingsButton tap];
+
+        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
+
+        if ([JPSettingsElements.buttonAmountSwitch.value isEqualToString:@"1"]) {
+            [JPSettingsElements.buttonAmountSwitch tap];
+        }
+
+        [JPGenericElements.backButton tap];
+    });
+
     after(^(CCIScenarioDefinition *scenario) {
 
         XCUIApplication *application = [XCUIApplication new];
         XCUIElement *mainScreen = application.otherElements[@"Main Screen"];
-        XCUIElement *cancelButton = application.buttons[@"Cancel"];
+        XCUIElement *cancelButton = application.buttons[@"CANCEL"];
 
         if (cancelButton.exists) {
             [cancelButton tap];

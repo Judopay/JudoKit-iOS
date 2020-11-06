@@ -14,4 +14,8 @@
 
 - (void)clearAndEnterText:(NSString *)text;
 
+- (void)swipeDownToElement;
+
+- (void)swipeUpToElement;
+
 @end

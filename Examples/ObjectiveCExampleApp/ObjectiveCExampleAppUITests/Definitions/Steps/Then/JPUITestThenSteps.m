@@ -31,6 +31,8 @@
 
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
 
+        [selectedCell swipeUpToElement];
+
         if (selectedCell.staticTexts[cellValue].exists) {
             XCTAssertTrue(selectedCell.staticTexts[cellValue].exists);
             return;
@@ -49,7 +51,7 @@
     });
 
     // an/a/the for all test cases | should/must/would for all widgets
-    Then(@"^an \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
+    Then(@"^(?:the|an|a) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
         NSString *text = args[0];
         XCTAssertTrue(application.staticTexts[text].exists);
@@ -59,6 +61,27 @@
         XCUIApplication *application = [XCUIApplication new];
         NSString *buttonTitle = args[0];
         XCTAssertFalse(application.buttons[buttonTitle].isEnabled);
+    });
+
+    Then(@"^the value in (.*) input field should be \"(.*)\"$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+
+        NSString *fieldName = args[0];
+        NSString *fieldIdentifier = [NSString stringWithFormat:@"%@ Field", fieldName];
+        NSString *fieldValue = args[1];
+
+        XCTAssertEqual(application.otherElements[fieldIdentifier].textFields.element.value, fieldValue);
+    });
+
+    Then(@"^the (.*) button title should be \"(.*)\"$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+
+        NSString *buttonTitle = args[0];
+        NSString *buttonIdentifier = [NSString stringWithFormat:@"%@ Button", buttonTitle];
+        NSString *buttonValue = args[1];
+
+        NSString *actualValue = application.buttons[buttonIdentifier].label;
+        XCTAssertTrue([actualValue isEqualToString:buttonValue]);
     });
 }
 

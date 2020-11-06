@@ -49,6 +49,26 @@
         [button tap];
     });
 
+    When(@"^I (?:tap|press) on the (.*) (?:text|input) field$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *textFieldName = args[0];
+        NSString *textFieldIdentifier = [NSString stringWithFormat:@"%@ Field", textFieldName];
+
+        XCUIElement *textField = application.otherElements[textFieldIdentifier];
+        [textField tap];
+    });
+
+    When(@"^I select \"(.*)\" from the (.*) dropdown$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *selectedOption = args[0];
+        NSString *pickerName = args[1];
+        NSString *pickerIdentifier = [NSString stringWithFormat:@"%@ Picker", pickerName];
+
+        XCUIElement *picker = application.pickers[pickerIdentifier].pickerWheels.element;
+
+        [picker adjustToPickerWheelValue:selectedOption];
+    });
+
     When(@"^I wait for \"(.*)\" seconds$", ^void(NSArray *args, id userInfo) {
         NSString *duration = args[0];
         [NSThread sleepForTimeInterval:duration.doubleValue];
