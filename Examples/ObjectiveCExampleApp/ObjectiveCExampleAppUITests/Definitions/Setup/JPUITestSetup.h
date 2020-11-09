@@ -1,5 +1,5 @@
 //
-//  JPUITestSteps.h
+//  JPUITestSetup.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -26,6 +26,10 @@
 
 @interface JPUITestSetup : NSObject
 
+/**
+ * A method that is used to register all the initial configuration steps that have to run before the scenario executes.
+ * Used for things such as: setting the credentials, enabling/disabling AVS, selecting card networks, etc.
+ */
 + (void)setUp;
 
 @end

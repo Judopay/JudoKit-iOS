@@ -1,5 +1,5 @@
 //
-//  JPUITestSteps.m
+//  JPUITestSetup.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -37,19 +37,20 @@
     NSString *token = @"XFQTtOV37sEw5k4E";
     NSString *secret = @"dc5ad09eff27a0af576c30922e48197a36720d0f8fe1c53142525077a23f9d10";
 
+    /**
+     * [TAG] require-non-3ds-config
+     *
+     * A tag that is used to specify that non-3DS credentials (Judo ID, Token & Secret) must be set before the
+     * scenario executes.
+     */
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.judoIDTextField clearAndEnterText:judoId];
 
-        if ([JPSettingsElements.sessionAuthenticationSwitch.value isEqualToString:@"1"]) {
-            [JPSettingsElements.sessionAuthenticationSwitch tap];
-        }
-
-        if ([JPSettingsElements.basicAuthenticationSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.basicAuthenticationSwitch tap];
-        }
+        [JPSettingsElements.sessionAuthenticationSwitch switchOff];
+        [JPSettingsElements.basicAuthenticationSwitch switchOn];
 
         [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
         [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
@@ -57,97 +58,94 @@
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * [TAG] require-all-card-networks
+     *
+     * A tag that is used to specify that all card networks must be accepted before the scenario executes.
+     */
     beforeTagged(@[@"require-all-card-networks"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
-        if ([JPSettingsElements.visaSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.visaSwitch tap];
-        }
-
-        if ([JPSettingsElements.masterCardSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.masterCardSwitch tap];
-        }
-
-        if ([JPSettingsElements.maestroSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.maestroSwitch tap];
-        }
-
-        if ([JPSettingsElements.amexSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.amexSwitch tap];
-        }
-
-        if ([JPSettingsElements.chinaUnionPaySwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.chinaUnionPaySwitch tap];
-        }
-
-        if ([JPSettingsElements.jcbSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.jcbSwitch tap];
-        }
-
-        if ([JPSettingsElements.discoverSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.discoverSwitch tap];
-        }
-
-        if ([JPSettingsElements.dinersClubSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.dinersClubSwitch tap];
-        }
+        [JPSettingsElements.visaSwitch switchOn];
+        [JPSettingsElements.masterCardSwitch switchOn];
+        [JPSettingsElements.maestroSwitch switchOn];
+        [JPSettingsElements.amexSwitch switchOn];
+        [JPSettingsElements.chinaUnionPaySwitch switchOn];
+        [JPSettingsElements.jcbSwitch switchOn];
+        [JPSettingsElements.discoverSwitch switchOn];
+        [JPSettingsElements.dinersClubSwitch switchOn];
 
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * [TAG] require-avs-enabled
+     *
+     * A tag that is used to specify that AVS must be enabled before the scenario executes
+     */
     beforeTagged(@[@"require-avs-enabled"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.avsSwitch swipeUpToElement];
-
-        if ([JPSettingsElements.avsSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.avsSwitch tap];
-        }
+        [JPSettingsElements.avsSwitch switchOn];
 
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * [TAG] require-avs-disabled
+     *
+     * A tag that is used to specify that AVS must be disabled before the scenario executes
+     */
     beforeTagged(@[@"require-avs-disabled"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.avsSwitch swipeUpToElement];
-
-        if ([JPSettingsElements.avsSwitch.value isEqualToString:@"1"]) {
-            [JPSettingsElements.avsSwitch tap];
-        }
+        [JPSettingsElements.avsSwitch switchOff];
 
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * [TAG] require-button-amount-enabled
+     *
+     * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
+     * enabled before the scenario executes.
+     */
     beforeTagged(@[@"require-button-amount-enabled"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-
-        if ([JPSettingsElements.buttonAmountSwitch.value isEqualToString:@"0"]) {
-            [JPSettingsElements.buttonAmountSwitch tap];
-        }
+        [JPSettingsElements.buttonAmountSwitch switchOn];
 
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * [TAG] require-button-amount-disabled
+     *
+     * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
+     * disabled before the scenario executes.
+     */
     beforeTagged(@[@"require-button-amount-disabled"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-
-        if ([JPSettingsElements.buttonAmountSwitch.value isEqualToString:@"1"]) {
-            [JPSettingsElements.buttonAmountSwitch tap];
-        }
+        [JPSettingsElements.buttonAmountSwitch switchOff];
 
         [JPGenericElements.backButton tap];
     });
 
+    /**
+     * A code block that is going to execute after each transaction. This does the following things:
+     * - if there is a 'CANCEL' button visible, it will tap it, thus  returning back to the Main screen.;
+     * - if the Main screen is not visible, as in the case of the Receipt page, tap on the navigation back button;
+     */
     after(^(CCIScenarioDefinition *scenario) {
 
         XCUIApplication *application = [XCUIApplication new];
