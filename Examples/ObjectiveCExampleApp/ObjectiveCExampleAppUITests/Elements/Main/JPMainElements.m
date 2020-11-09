@@ -1,5 +1,5 @@
 //
-//  JPUITestSteps.h
+//  JPMainElements.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JPMainElements.h"
 
-@interface JPUITestSteps : NSObject
+@implementation JPMainElements
 
-/**
- * A method for setting up all the basic, reusable steps.
- */
-+ (void)setUp;
++ (XCUIElement *)settingsButton {
+    XCUIApplication *application = [XCUIApplication new];
+    return application.buttons[@"Settings Button"];
+}
 
 @end

@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  XCUIElement+Additions.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,44 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import <XCTest/XCTest.h>
 
-__attribute__((constructor))
+@interface XCUIElement (Additions)
 
-void CucumberishInit() {
+/**
+ * A method used to find a UITableViewCell XCUIElement based on it's child text elements.
+ *
+ * @param staticText - the NSString that is used to identify the cell
+ *
+ * @returns an instance of XCUIElement used to represent the UITableViewCell instance
+ */
++ (XCUIElement *)cellWithStaticText:(NSString *)staticText;
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
+/**
+ * A method used for clearing the existing text from a UITextField and replacing it with new input.
+ *
+ * @param text - the new text value to be added after the text field is cleared
+ */
+- (void)clearAndEnterText:(NSString *)text;
 
-    [JPUITestSetup setUp];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUp];
-    [JPUITestThenSteps setUp];
+/**
+ * A method that will continuously perform a swipe down action until it finds the XCUIElement.
+ */
+- (void)swipeDownToElement;
 
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:@[
-                                    @"test-secure-code-validation",
-                                    @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation"
-                                ]];
-}
+/**
+ * A method that will continuously perform a swipe up action until it finds the XCUIElement.
+ */
+- (void)swipeUpToElement;
+
+/**
+ * A method that will toggle on any XCUIElement switch buttons.
+ */
+- (void)switchOn;
+
+/**
+ * A method that will toggle off any XCUIElement switch buttons.
+ */
+- (void)switchOff;
+
+@end

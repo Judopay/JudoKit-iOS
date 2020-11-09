@@ -65,6 +65,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
     self.title = self.result.title;
     self.view.accessibilityIdentifier = @"Results Screen";
+    self.tableView.accessibilityIdentifier = @"Results Screen";
 }
 
 //------------------------------------------------------

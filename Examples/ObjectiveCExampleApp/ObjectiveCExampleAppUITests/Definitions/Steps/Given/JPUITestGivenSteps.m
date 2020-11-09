@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestGivenSteps.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSetup.h"
 #import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import <Cucumberish/Cucumberish.h>
 
-__attribute__((constructor))
+@implementation JPUITestGivenSteps
 
-void CucumberishInit() {
++ (void)setUp {
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
+    /**
+     * [GIVEN] ^I am on the (.*) (?:screen|view|page)$
+     *
+     * Description:
+     *    A test step that is used to validate if a specific screen is visible.
+     *
+     * Valid examples:
+     *    - Given I am on the Main screen
+     *    - Given I am on the Settings page
+     *    - Given I am on the Receipt view
+     */
+    Given(@"^I am on the (.*) (?:screen|view|page)$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+        NSString *screenName = args[0];
+        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ Screen", screenName];
+        XCTAssert(application.otherElements[screenIdentifier].exists);
     });
 
-    [JPUITestSetup setUp];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUp];
-    [JPUITestThenSteps setUp];
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:@[
-                                    @"test-secure-code-validation",
-                                    @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation"
-                                ]];
 }
+
+@end

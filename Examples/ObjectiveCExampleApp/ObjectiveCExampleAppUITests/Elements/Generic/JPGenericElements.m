@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPGenericElements.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import "JPGenericElements.h"
 
-__attribute__((constructor))
+@implementation JPGenericElements
 
-void CucumberishInit() {
-
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
-
-    [JPUITestSetup setUp];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUp];
-    [JPUITestThenSteps setUp];
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:@[
-                                    @"test-secure-code-validation",
-                                    @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation"
-                                ]];
++ (XCUIElement *)backButton {
+    XCUIApplication *application = [XCUIApplication new];
+    XCUIElement *navigationBar = application.navigationBars.firstMatch;
+    return navigationBar.buttons.firstMatch;
 }
+
+@end

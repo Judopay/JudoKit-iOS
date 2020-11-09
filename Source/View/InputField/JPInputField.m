@@ -153,6 +153,8 @@
     self.backgroundColor = UIColor.jpLightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
+    self.isAccessibilityElement = NO;
+
     [self addSubview:self.stackView];
     [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor constant:14.0].active = YES;
     [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-14.0].active = YES;

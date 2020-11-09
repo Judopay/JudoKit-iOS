@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestThenSteps.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import <Foundation/Foundation.h>
 
-__attribute__((constructor))
+@interface JPUITestThenSteps : NSObject
 
-void CucumberishInit() {
+/**
+ * A method that is used to register all the [THEN] steps of the UI test scenarios.
+ */
++ (void)setUp;
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
+@end
 
-    [JPUITestSetup setUp];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUp];
-    [JPUITestThenSteps setUp];
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:@[
-                                    @"test-secure-code-validation",
-                                    @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation"
-                                ]];
-}
