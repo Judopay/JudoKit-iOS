@@ -99,7 +99,7 @@
         completion(response, (JPError *)error);
     };
 
-    if (self.transactionMode == JPTransactionModePreAuth) {
+    if (transactionMode == JPTransactionModePreAuth) {
         [self.apiService invokePreAuthApplePayPaymentWithRequest:request andCompletion:resultBlock];
     } else {
         [self.apiService invokeApplePayPaymentWithRequest:request andCompletion:resultBlock];

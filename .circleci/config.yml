@@ -422,8 +422,7 @@ jobs:
   release_sdk:
     executor: macos
     steps:
-      - attach_workspace:
-          at: ~/project
+      - checkout
       - run:
           name: Release SDK to CocoaPods
           command: pod trunk push JudoKit-iOS.podspec --allow-warnings
@@ -440,47 +439,14 @@ workflows:
       - build_sdk:
           requires:
             - carthage_update_sdk
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
-      - build_carthage_sample:
-          requires:
-            - carthage_update_sample
-      - build_objc_sample:
-          requires:
-            - pod_install_objc_sample
-      - build_swift_sample:
-          requires:
-            - pod_install_swift_sample
       - unit_test_sdk:
           requires:
             - build_sdk
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
-      - unit_test_carthage_sample:
-          requires:
-            - build_carthage_sample
-      - unit_test_objc_sample:
-          requires:
-            - build_objc_sample
-      - unit_test_swift_sample:
-          requires:
-            - build_swift_sample
-      - validate_podspec:
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
+      - validate_podspec
       - sonar_scan:
           context: shared-secrets
           requires:
             - unit_test_sdk
-            - unit_test_carthage_sample
-            - unit_test_objc_sample
-            - unit_test_swift_sample
       - release_sample:
           context: shared-secrets
           requires:
@@ -499,4 +465,4 @@ workflows:
                 - /.*/
             tags:
               only:
-                - /^v((\d)+\.){1,2}(\d+)/i
+                - /^v((\d)+\.){1,2}(\d+)/
