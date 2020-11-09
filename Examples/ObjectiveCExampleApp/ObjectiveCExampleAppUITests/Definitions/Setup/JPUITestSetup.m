@@ -33,9 +33,9 @@
 
 + (void)setUp {
 
-    NSString *judoId = @"100108620";
-    NSString *token = @"XFQTtOV37sEw5k4E";
-    NSString *secret = @"dc5ad09eff27a0af576c30922e48197a36720d0f8fe1c53142525077a23f9d10";
+    NSString *judoId = @"<#YOUR JUDO ID#>";
+    NSString *token = @"<#YOUR TOKEN#>";
+    NSString *secret = @"<#YOUR SECRET#>";
 
     /**
      * [TAG] require-non-3ds-config
