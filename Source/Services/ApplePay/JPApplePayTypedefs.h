@@ -26,10 +26,10 @@
 
 /**
  * A completion block called after the JPApplePayService finishes processing the Apple Pay transaction.
- * Depending on the response, this block is called with either a PKPaymentAuthorizationStatusSuccess or PKPaymentAuthorizationStatusFailure
+ * Depending on the response, this block contains a result with either a PKPaymentAuthorizationStatusSuccess or PKPaymentAuthorizationStatusFailure
  * used to tell the Apple Pay sheet how to proceed further.
  */
-typedef void (^JPApplePayAuthStatusBlock)(PKPaymentAuthorizationStatus status);
+typedef void (^JPApplePayAuthStatusBlock)(PKPaymentAuthorizationResult *_Nonnull result);
 
 /**
  * This block is used to capture the `didAuthorizePayment` delegate call inside a block.

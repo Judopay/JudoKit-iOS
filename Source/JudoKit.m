@@ -163,11 +163,17 @@
         [self.applePayService processApplePayment:payment
                                forTransactionMode:mode
                                    withCompletion:^(JPResponse *response, JPError *error) {
+                                       PKPaymentAuthorizationResult *result;
+
                                        if (error) {
-                                           statusCompletion(PKPaymentAuthorizationStatusFailure);
+                                           result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
+                                                                                                  errors:@[ error ]];
+                                           statusCompletion(result);
                                        }
 
-                                       statusCompletion(PKPaymentAuthorizationStatusSuccess);
+                                       result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
+                                                                                              errors:nil];
+                                       statusCompletion(result);
                                        completion(response, error);
                                    }];
     }];
