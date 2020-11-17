@@ -44,7 +44,7 @@ void CucumberishInit() {
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
     [Cucumberish executeFeaturesInDirectory:@"Features"
                                  fromBundle:bundle
-                                includeTags:@[@"test-all-card-networks-save-card"]
+                                includeTags:@[@"test-judo-transactions"]
                                 excludeTags:@[
                                     @"test-secure-code-validation",
                                     @"test-avs-post-code-validation",

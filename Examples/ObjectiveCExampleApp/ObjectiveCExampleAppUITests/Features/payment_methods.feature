@@ -4,7 +4,7 @@ Feature: Payment methods tests
 
   @test-judo-payment-methods-card-selected
   @require-non-3ds-config
-  @require-card-payment-only-enabled
+  @require-card-payment-method
   Scenario: Successful add card
     Given I am on the Main screen
     When I tap on the "Payment methods" option

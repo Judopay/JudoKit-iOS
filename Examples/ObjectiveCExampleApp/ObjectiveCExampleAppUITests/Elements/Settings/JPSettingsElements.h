@@ -93,6 +93,26 @@
 + (XCUIElement *)dinersClubSwitch;
 
 /**
+ * The switch element used to toggle Card Payments in the Judo wallet;
+ */
++ (XCUIElement *)cardPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle iDEAL in the Judo wallet;
+ */
++ (XCUIElement *)iDEALPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle Apple Pay in the Judo wallet;
+ */
++ (XCUIElement *)applePayPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle Pay By Bank App in the Judo wallet;
+ */
++ (XCUIElement *)pbbaPaymentMethodSwitch;
+
+/**
  * The switch element used to toggle Address Verification Service as a transaction requirement
  */
 + (XCUIElement *)avsSwitch;

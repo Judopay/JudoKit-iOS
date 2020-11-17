@@ -92,6 +92,26 @@
     return cell.switches.firstMatch;
 }
 
++ (XCUIElement *)cardPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Card"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)iDEALPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"iDeal"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)applePayPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Apple Pay"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)pbbaPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"PBBA"];
+    return cell.switches.firstMatch;
+}
+
 + (XCUIElement *)avsSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Address Verification Service"];
     return cell.switches.firstMatch;
