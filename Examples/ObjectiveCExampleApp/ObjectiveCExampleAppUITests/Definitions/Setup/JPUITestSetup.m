@@ -67,24 +67,39 @@
 
         [JPMainElements.settingsButton tap];
 
+        [JPSettingsElements.visaSwitch swipeUpToElement];
         [JPSettingsElements.visaSwitch switchOn];
+
+        [JPSettingsElements.masterCardSwitch swipeUpToElement];
         [JPSettingsElements.masterCardSwitch switchOn];
+
+        [JPSettingsElements.maestroSwitch swipeUpToElement];
         [JPSettingsElements.maestroSwitch switchOn];
+
+        [JPSettingsElements.amexSwitch swipeUpToElement];
         [JPSettingsElements.amexSwitch switchOn];
+
+        [JPSettingsElements.chinaUnionPaySwitch swipeUpToElement];
         [JPSettingsElements.chinaUnionPaySwitch switchOn];
+
+        [JPSettingsElements.jcbSwitch swipeUpToElement];
         [JPSettingsElements.jcbSwitch switchOn];
+
+        [JPSettingsElements.discoverSwitch swipeUpToElement];
         [JPSettingsElements.discoverSwitch switchOn];
+
+        [JPSettingsElements.dinersClubSwitch swipeUpToElement];
         [JPSettingsElements.dinersClubSwitch switchOn];
 
         [JPGenericElements.backButton tap];
     });
 
     /**
-     * [TAG] require-avs-enabled
+     * [TAG] require-avs
      *
      * A tag that is used to specify that AVS must be enabled before the scenario executes
      */
-    beforeTagged(@[@"require-avs-enabled"], ^(CCIScenarioDefinition *scenario) {
+    beforeTagged(@[@"require-avs"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
@@ -95,48 +110,17 @@
     });
 
     /**
-     * [TAG] require-avs-disabled
-     *
-     * A tag that is used to specify that AVS must be disabled before the scenario executes
-     */
-    beforeTagged(@[@"require-avs-disabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.avsSwitch swipeUpToElement];
-        [JPSettingsElements.avsSwitch switchOff];
-
-        [JPGenericElements.backButton tap];
-    });
-
-    /**
-     * [TAG] require-button-amount-enabled
+     * [TAG] require-button-amount
      *
      * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
      * enabled before the scenario executes.
      */
-    beforeTagged(@[@"require-button-amount-enabled"], ^(CCIScenarioDefinition *scenario) {
+    beforeTagged(@[@"require-button-amount"], ^(CCIScenarioDefinition *scenario) {
 
         [JPMainElements.settingsButton tap];
 
         [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
         [JPSettingsElements.buttonAmountSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
-    });
-
-    /**
-     * [TAG] require-button-amount-disabled
-     *
-     * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
-     * disabled before the scenario executes.
-     */
-    beforeTagged(@[@"require-button-amount-disabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-        [JPSettingsElements.buttonAmountSwitch switchOff];
 
         [JPGenericElements.backButton tap];
     });
@@ -159,6 +143,41 @@
         while (!mainScreen.exists) {
             [JPGenericElements.backButton tap];
         }
+
+        [JPMainElements.settingsButton tap];
+
+        [JPSettingsElements.visaSwitch swipeUpToElement];
+        [JPSettingsElements.visaSwitch switchOff];
+
+        [JPSettingsElements.masterCardSwitch swipeUpToElement];
+        [JPSettingsElements.masterCardSwitch switchOff];
+
+        [JPSettingsElements.maestroSwitch swipeUpToElement];
+        [JPSettingsElements.maestroSwitch switchOff];
+
+        [JPSettingsElements.amexSwitch swipeUpToElement];
+        [JPSettingsElements.amexSwitch switchOff];
+
+        [JPSettingsElements.chinaUnionPaySwitch swipeUpToElement];
+        [JPSettingsElements.chinaUnionPaySwitch switchOff];
+
+        [JPSettingsElements.jcbSwitch swipeUpToElement];
+        [JPSettingsElements.jcbSwitch switchOff];
+
+        [JPSettingsElements.discoverSwitch swipeUpToElement];
+        [JPSettingsElements.discoverSwitch switchOff];
+
+        [JPSettingsElements.dinersClubSwitch swipeUpToElement];
+        [JPSettingsElements.dinersClubSwitch switchOff];
+
+        [JPSettingsElements.avsSwitch swipeUpToElement];
+        [JPSettingsElements.avsSwitch switchOff];
+
+        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
+        [JPSettingsElements.buttonAmountSwitch switchOff];
+
+        [JPGenericElements.backButton tap];
+
     });
 
 }
