@@ -31,4 +31,14 @@
     return application.buttons[@"Settings Button"];
 }
 
++ (XCUIElement *)paymentMethodsOption {
+    return [self cellWithTitle:@"Payment methods"];
+}
+
++ (XCUIElement *)cellWithTitle:(NSString *)title {
+    XCUIApplication *application = [XCUIApplication new];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"label CONTAINS[c] %@", title];
+    return [application.cells containingPredicate:predicate].firstMatch;
+}
+
 @end

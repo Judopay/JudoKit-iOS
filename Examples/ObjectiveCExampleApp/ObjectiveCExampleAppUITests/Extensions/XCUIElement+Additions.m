@@ -50,13 +50,15 @@
 
 - (void)swipeUpToElement {
     while (!self.exists) {
-        [[XCUIApplication new] swipeUp];
+        XCUIApplication *app = [XCUIApplication new];
+        [app swipeUp];
     }
 }
 
 - (void)swipeDownToElement {
     while (!self.exists) {
-        [[XCUIApplication new] swipeDown];
+        XCUIApplication *app = [XCUIApplication new];
+        [app swipeDown];
     }
 }
 

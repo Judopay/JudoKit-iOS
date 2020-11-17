@@ -1,5 +1,5 @@
 //
-//  JPMainElements.h
+//  JPHelpers.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,16 +25,10 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-@interface JPMainElements : NSObject
+@interface JPHelpers : NSObject
 
-/**
- * The "Settings" icon button on the UINavigationBar, used to navigate to the app's Settings page.
- */
-+ (XCUIElement *)settingsButton;
++ (void)toggleOnSwitches:(NSArray <XCUIElement *> *)switches;
++ (void)toggleOffSwitches:(NSArray <XCUIElement *> *)switches;
 
-/**
- * The "Payment methods" option cell used to navigate to the Judo wallet
- */
-+ (XCUIElement *)paymentMethodsOption;
 
 @end

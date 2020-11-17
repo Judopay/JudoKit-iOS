@@ -1,13 +1,15 @@
 PODS:
-  - CocoaDebug (1.3.3)
+  - CocoaDebug (1.4.8):
+    - FBRetainCycleDetector
   - Cucumberish (1.4.0)
-  - DeviceDNA (1.1.2)
+  - DeviceDNA (1.1.3)
+  - FBRetainCycleDetector (0.1.4)
   - InAppSettingsKit (2.15)
-  - JudoKit-iOS (2.1.3):
+  - JudoKit-iOS (2.2.0):
     - DeviceDNA
     - TrustKit
     - ZappMerchantLib
-  - TrustKit (1.6.5)
+  - TrustKit (1.7.0)
   - ZappMerchantLib (3.1.0)
 
 DEPENDENCIES:
@@ -20,6 +22,7 @@ SPEC REPOS:
   trunk:
     - CocoaDebug
     - DeviceDNA
+    - FBRetainCycleDetector
     - InAppSettingsKit
     - TrustKit
     - ZappMerchantLib
@@ -36,14 +39,15 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mpetrenco/Cucumberish.git
 
 SPEC CHECKSUMS:
-  CocoaDebug: 610b36f29558ac74fa5653fbbbd1574fc7de54ed
+  CocoaDebug: 438fed049090d61c777d464eb2771ca87e1430ed
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
-  DeviceDNA: 3e72fd28d345a5aa6f218af4287cb46dc74b62cb
+  DeviceDNA: c3d7ba1669cebf7965407e7022769e5a5eda8c35
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
-  JudoKit-iOS: a4dcdce1a3dc9c5de0f49343b952e6f9daef0ee1
-  TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
+  JudoKit-iOS: 6db2c25618ddf2fd279902f90ab9e99b8e9768e3
+  TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 5c269b41354a7a58f7674d45095cde2f7fbee513
+PODFILE CHECKSUM: e49825f56b6d76b782b38e6d465f4c23637c54a4
 
 COCOAPODS: 1.10.0

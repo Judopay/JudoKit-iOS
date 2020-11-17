@@ -23,19 +23,13 @@
 //  SOFTWARE.
 
 #import "JPUITestSetup.h"
-#import "JPGenericElements.h"
-#import "JPMainElements.h"
-#import "JPSettingsElements.h"
-#import "XCUIElement+Additions.h"
+#import "JPTagHandlers.h"
+#import "JPAfterHandlers.h"
 #import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestSetup
 
 + (void)setUp {
-
-    NSString *judoId = @"<#YOUR JUDO ID#>";
-    NSString *token = @"<#YOUR TOKEN#>";
-    NSString *secret = @"<#YOUR SECRET#>";
 
     /**
      * [TAG] require-non-3ds-config
@@ -44,18 +38,7 @@
      * scenario executes.
      */
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.judoIDTextField clearAndEnterText:judoId];
-
-        [JPSettingsElements.sessionAuthenticationSwitch switchOff];
-        [JPSettingsElements.basicAuthenticationSwitch switchOn];
-
-        [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
-        [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireNon3DSConfig];
     });
 
     /**
@@ -64,34 +47,7 @@
      * A tag that is used to specify that all card networks must be accepted before the scenario executes.
      */
     beforeTagged(@[@"require-all-card-networks"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.visaSwitch swipeUpToElement];
-        [JPSettingsElements.visaSwitch switchOn];
-
-        [JPSettingsElements.masterCardSwitch swipeUpToElement];
-        [JPSettingsElements.masterCardSwitch switchOn];
-
-        [JPSettingsElements.maestroSwitch swipeUpToElement];
-        [JPSettingsElements.maestroSwitch switchOn];
-
-        [JPSettingsElements.amexSwitch swipeUpToElement];
-        [JPSettingsElements.amexSwitch switchOn];
-
-        [JPSettingsElements.chinaUnionPaySwitch swipeUpToElement];
-        [JPSettingsElements.chinaUnionPaySwitch switchOn];
-
-        [JPSettingsElements.jcbSwitch swipeUpToElement];
-        [JPSettingsElements.jcbSwitch switchOn];
-
-        [JPSettingsElements.discoverSwitch swipeUpToElement];
-        [JPSettingsElements.discoverSwitch switchOn];
-
-        [JPSettingsElements.dinersClubSwitch swipeUpToElement];
-        [JPSettingsElements.dinersClubSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireAllCardNetworks];
     });
 
     /**
@@ -100,13 +56,7 @@
      * A tag that is used to specify that AVS must be enabled before the scenario executes
      */
     beforeTagged(@[@"require-avs"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.avsSwitch swipeUpToElement];
-        [JPSettingsElements.avsSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireAVS];
     });
 
     /**
@@ -116,13 +66,7 @@
      * enabled before the scenario executes.
      */
     beforeTagged(@[@"require-button-amount"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-        [JPSettingsElements.buttonAmountSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireButtonAmount];
     });
 
     /**
@@ -131,53 +75,7 @@
      * - if the Main screen is not visible, as in the case of the Receipt page, tap on the navigation back button;
      */
     after(^(CCIScenarioDefinition *scenario) {
-
-        XCUIApplication *application = [XCUIApplication new];
-        XCUIElement *mainScreen = application.otherElements[@"Main Screen"];
-        XCUIElement *cancelButton = application.buttons[@"CANCEL"];
-
-        if (cancelButton.exists) {
-            [cancelButton tap];
-        }
-
-        while (!mainScreen.exists) {
-            [JPGenericElements.backButton tap];
-        }
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.visaSwitch swipeUpToElement];
-        [JPSettingsElements.visaSwitch switchOff];
-
-        [JPSettingsElements.masterCardSwitch swipeUpToElement];
-        [JPSettingsElements.masterCardSwitch switchOff];
-
-        [JPSettingsElements.maestroSwitch swipeUpToElement];
-        [JPSettingsElements.maestroSwitch switchOff];
-
-        [JPSettingsElements.amexSwitch swipeUpToElement];
-        [JPSettingsElements.amexSwitch switchOff];
-
-        [JPSettingsElements.chinaUnionPaySwitch swipeUpToElement];
-        [JPSettingsElements.chinaUnionPaySwitch switchOff];
-
-        [JPSettingsElements.jcbSwitch swipeUpToElement];
-        [JPSettingsElements.jcbSwitch switchOff];
-
-        [JPSettingsElements.discoverSwitch swipeUpToElement];
-        [JPSettingsElements.discoverSwitch switchOff];
-
-        [JPSettingsElements.dinersClubSwitch swipeUpToElement];
-        [JPSettingsElements.dinersClubSwitch switchOff];
-
-        [JPSettingsElements.avsSwitch swipeUpToElement];
-        [JPSettingsElements.avsSwitch switchOff];
-
-        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-        [JPSettingsElements.buttonAmountSwitch switchOff];
-
-        [JPGenericElements.backButton tap];
-
+        [JPAfterHandlers cleanUp];
     });
 
 }

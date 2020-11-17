@@ -117,8 +117,18 @@
     return cell.switches.firstMatch;
 }
 
++ (XCUIElement *)paymentMethodsAmountSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Display amount label in Payment Methods"];
+    return cell.switches.firstMatch;
+}
+
 + (XCUIElement *)buttonAmountSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Display amount label in Payment Button"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)securityCodeSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Security code"];
     return cell.switches.firstMatch;
 }
 

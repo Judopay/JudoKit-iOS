@@ -127,6 +127,7 @@ const float kCardSmallPadding = 3.0F;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
+    self.accessibilityIdentifier = @"Card List Cell";
     [self setupIconView];
     [self setupStackView];
     [self setupDisclosureIndicator];

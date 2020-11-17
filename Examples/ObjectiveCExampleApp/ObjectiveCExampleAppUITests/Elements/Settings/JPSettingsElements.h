@@ -118,9 +118,20 @@
 + (XCUIElement *)avsSwitch;
 
 /**
+ * The switch element used to toggle amount visibility in the Judo wallet screen
+ */
++ (XCUIElement *)paymentMethodsAmountSwitch;
+
+/**
  * The switch element used to toggle amount visibility on the Judo UI Payment button
  */
 + (XCUIElement *)buttonAmountSwitch;
+
+/**
+ * The switch element used to toggle security code confirmation during token payments on the Judo Wallet
+ */
++ (XCUIElement *)securityCodeSwitch;
+
 
 @end
 
