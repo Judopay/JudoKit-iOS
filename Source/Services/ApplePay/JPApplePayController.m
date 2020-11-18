@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApplePayAuthorizationBlock authorizationBlock;
+@property (nonatomic, assign) BOOL isPaymentAuthorized;
 
 @end
 
@@ -61,13 +62,16 @@
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
                        didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+                                   handler:(void (^)(PKPaymentAuthorizationResult *_Nonnull))completion {
+    self.isPaymentAuthorized = YES;
     self.authorizationBlock(payment, completion);
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
-    [self.delegate applePayControllerDidCancelTransaction:self];
+    if (!self.isPaymentAuthorized) {
+        [self.delegate applePayControllerDidCancelTransaction:self];
+    }
 }
 
 @end
