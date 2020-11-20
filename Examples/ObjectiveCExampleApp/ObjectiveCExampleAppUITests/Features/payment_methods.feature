@@ -19,8 +19,7 @@ Feature: Payment methods tests
 
   @test-judo-payment-methods-card-transaction
   @require-non-3ds-config
-  @disable-security-code
-  @require-card-payment-only-enabled
+  @require-card-payment-method
   Scenario: Successful card transaction
     Given I am on the Main screen
     When I tap on the "Payment methods" option
