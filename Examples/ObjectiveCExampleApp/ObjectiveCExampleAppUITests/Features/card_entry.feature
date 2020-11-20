@@ -354,6 +354,7 @@ Feature: Judo Transactions
 
   @test-validate-button-amount
     @require-non-3ds-config
+    @require-currency-gbp
     @require-button-amount
   Scenario Outline: Validate the transaction button title for enabled display amount setting in <paymentWidgetType>.
     Given I am on the Main screen
