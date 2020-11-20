@@ -48,9 +48,9 @@
         NSString *screenName = args[0];
         NSString *screenIdentifier = [NSString stringWithFormat:@"%@ View", screenName];
 
-        BOOL isViewVisible = application.otherElements[screenIdentifier].exists;
-        BOOL isTableVisible = application.tables[screenIdentifier].exists;
-        BOOL isImageViewVisible = application.images[screenIdentifier].exists;
+        BOOL isViewVisible = [application.otherElements[screenIdentifier] waitForExistenceWithTimeout:3.0];
+        BOOL isTableVisible = [application.tables[screenIdentifier] waitForExistenceWithTimeout:3.0];
+        BOOL isImageViewVisible = [application.images[screenIdentifier] waitForExistenceWithTimeout:3.0];
 
         XCTAssert(isViewVisible || isTableVisible || isImageViewVisible);
     });
@@ -71,10 +71,9 @@
         NSString *cellValue = args[1];
 
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
-
         [selectedCell swipeUpToElement];
 
-        if (selectedCell.staticTexts[cellValue].exists) {
+        if ([selectedCell.staticTexts[cellValue] waitForExistenceWithTimeout:3.0]) {
             XCTAssertTrue(selectedCell.staticTexts[cellValue].exists);
             return;
         }
@@ -82,7 +81,7 @@
         [selectedCell tap];
 
         selectedCell = [XCUIElement cellWithStaticText:cellTitle];
-        XCTAssertTrue(selectedCell.staticTexts[cellValue].exists);
+        XCTAssertTrue([selectedCell.staticTexts[cellValue] waitForExistenceWithTimeout:3.0]);
     });
 
     /**
@@ -98,7 +97,7 @@
     Then(@"^(?:the|an|a) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
         NSString *text = args[0];
-        XCTAssertTrue(application.staticTexts[text].exists);
+        XCTAssertTrue([application.staticTexts[text] waitForExistenceWithTimeout:3.0]);
     });
 
     /**
@@ -172,7 +171,7 @@
         NSString *cellTitle = args[0];
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
 
-        XCTAssertTrue(selectedCell.exists);
+        XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
         XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);
     });
 

@@ -27,6 +27,11 @@
 @interface XCUIElement (Additions)
 
 /**
+ * A method that returns YES if the element is visible on the screen.
+ */
+- (BOOL)isVisible;
+
+/**
  * A method used to find a UITableViewCell XCUIElement based on it's child text elements.
  *
  * @param staticText - the NSString that is used to identify the cell
