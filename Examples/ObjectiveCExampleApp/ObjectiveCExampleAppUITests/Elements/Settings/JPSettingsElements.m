@@ -52,6 +52,10 @@
     return cell.textFields.firstMatch;
 }
 
++ (XCUIElement *)currencyCell {
+    return [XCUIElement cellWithStaticText:@"Currency"];
+}
+
 + (XCUIElement *)visaSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Visa"];
     return cell.switches.firstMatch;

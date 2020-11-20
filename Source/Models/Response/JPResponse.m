@@ -118,16 +118,14 @@
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {
-    if ([typeString isEqualToString:@"Payment"]) {
-        return JPTransactionTypePayment;
-    } else if ([typeString isEqualToString:@"PreAuth"]) {
+    if ([typeString isEqualToString:@"PreAuth"]) {
         return JPTransactionTypePreAuth;
     } else if ([typeString isEqualToString:@"RegisterCard"]) {
         return JPTransactionTypeRegisterCard;
     } else if ([typeString isEqualToString:@"Save"]) {
         return JPTransactionTypeSaveCard;
     }
-    return JPTransactionTypeRefund;
+    return JPTransactionTypePayment;
 }
 
 @end

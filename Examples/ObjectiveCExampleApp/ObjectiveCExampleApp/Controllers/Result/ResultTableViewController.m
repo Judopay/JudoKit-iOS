@@ -64,8 +64,8 @@ static CGFloat const kTableViewCellHeight = 64.F;
     [self.tableView registerNib:cellNib forCellReuseIdentifier:kTableViewCellReuseIdentifier];
 
     self.title = self.result.title;
-    self.view.accessibilityIdentifier = @"Results Screen";
-    self.tableView.accessibilityIdentifier = @"Results Screen";
+    self.view.accessibilityIdentifier = @"Results View";
+    self.tableView.accessibilityIdentifier = @"Results View";
 }
 
 //------------------------------------------------------

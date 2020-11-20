@@ -53,6 +53,11 @@
 + (XCUIElement *)basicSecretTextField;
 
 /**
+ * The table view cell that navigates to the currency selection list
+ */
++ (XCUIElement *)currencyCell;
+
+/**
  * The switch element used to toggle Visa as an accepted card network
  */
 + (XCUIElement *)visaSwitch;

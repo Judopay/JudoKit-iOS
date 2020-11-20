@@ -27,7 +27,24 @@
 
 @interface JPHelpers : NSObject
 
+/**
+ * A convenience method for toggling on all XCUIElement switch elements.
+ *
+ * This method will scroll down till it finds the switch, and enable it if needed, meaning that the array elements
+ * must be added in order of appearance.
+ *
+ * @param switches - an array of XCUIElement switches to be enabled
+ */
 + (void)toggleOnSwitches:(NSArray <XCUIElement *> *)switches;
+
+/**
+ * A convenience method for toggling off all XCUIElement switch elements.
+ *
+ * This method will scroll down till it finds the switch, and disable it if needed, meaning that the array elements
+ * must be added in order of appearance.
+ *
+ * @param switches - an array of XCUIElement switches to be enabled
+ */
 + (void)toggleOffSwitches:(NSArray <XCUIElement *> *)switches;
 
 

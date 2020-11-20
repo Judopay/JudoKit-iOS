@@ -95,7 +95,7 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 }
 
 - (void)setupAccessibilityIdentifiers {
-    self.view.accessibilityIdentifier = @"Main Screen";
+    self.view.accessibilityIdentifier = @"Main View";
     self.settingsButton.accessibilityIdentifier = @"Settings Button";
 }
 

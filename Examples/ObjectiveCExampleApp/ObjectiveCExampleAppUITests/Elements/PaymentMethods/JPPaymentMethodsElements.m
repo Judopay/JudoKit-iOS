@@ -1,6 +1,6 @@
 //
-//  JPTransactionType.h
-//  JudoKit_iOS
+//  JPPaymentMethodsElements.m
+//  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -22,12 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JPPaymentMethodsElements.h"
 
-typedef NS_ENUM(NSUInteger, JPTransactionType) {
-    JPTransactionTypePayment,
-    JPTransactionTypePreAuth,
-    JPTransactionTypeRegisterCard,
-    JPTransactionTypeCheckCard,
-    JPTransactionTypeSaveCard
-};
+@implementation JPPaymentMethodsElements
+
++ (XCUIElement *)backButton {
+    XCUIApplication *application = [XCUIApplication new];
+    return application.buttons[@"Back Button"];
+}
+
+@end

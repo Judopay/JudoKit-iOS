@@ -1,6 +1,6 @@
 //
-//  JPTransactionType.h
-//  JudoKit_iOS
+//  JPAfterHandlers.h
+//  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,10 +24,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPTransactionType) {
-    JPTransactionTypePayment,
-    JPTransactionTypePreAuth,
-    JPTransactionTypeRegisterCard,
-    JPTransactionTypeCheckCard,
-    JPTransactionTypeSaveCard
-};
+@interface JPAfterHandlers : NSObject
+
+/**
+ * A method used to reset the app to a clean state after each UI test.
+ * - deletes all cards from the Payment Methods screen.
+ * - toggles all switches off on the Settings page
+ */
++ (void)cleanUp;
+
+@end

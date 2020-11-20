@@ -32,6 +32,13 @@
 + (void)setUp {
 
     /**
+     * A handler that ensures that the application is executed before the test scenarios start running.
+     */
+    beforeStart(^{
+        [[XCUIApplication new] launch];
+    });
+
+    /**
      * [TAG] require-non-3ds-config
      *
      * A tag that is used to specify that non-3DS credentials (Judo ID, Token & Secret) must be set before the
@@ -70,14 +77,75 @@
     });
 
     /**
-     * A code block that is going to execute after each transaction. This does the following things:
-     * - if there is a 'CANCEL' button visible, it will tap it, thus  returning back to the Main screen.;
-     * - if the Main screen is not visible, as in the case of the Receipt page, tap on the navigation back button;
+     * [TAG] require-card-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support Card transactions.
+     */
+    beforeTagged(@[@"require-card-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCardPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-ideal-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support iDEAL transactions.
+     */
+    beforeTagged(@[@"require-ideal-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireIDEALPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-apple-pay-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support Apple Pay transactions.
+     */
+    beforeTagged(@[@"require-apple-pay-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireApplePayPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-pbba-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support PBBA transactions.
+     */
+    beforeTagged(@[@"require-pbba-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequirePBBAPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-all-payment-methods
+     *
+     * A tag that is used to specify that the Judo wallet should support all transaction methods.
+     */
+    beforeTagged(@[@"require-all-payment-methods"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireAllPaymentMethods];
+    });
+
+    /**
+     * [TAG] require-currency-gbp
+     *
+     * A tag that is used to specify that the selected currency should be GBP
+     */
+    beforeTagged(@[@"require-currency-gbp"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCurrencyGBP];
+    });
+
+    /**
+     * [TAG] require-currency-eur
+     *
+     * A tag that is used to specify that the selected currency should be EUR
+     */
+    beforeTagged(@[@"require-currency-eur"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCurrencyEUR];
+    });
+
+    /**
+     * A code block that is going to execute after each transaction.
+     * Used to reset the app to a clean state.
      */
     after(^(CCIScenarioDefinition *scenario) {
         [JPAfterHandlers cleanUp];
     });
-
 }
 
 @end

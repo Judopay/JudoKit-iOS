@@ -49,16 +49,24 @@
 }
 
 - (void)swipeUpToElement {
-    while (!self.exists) {
+    while (!self.exists && !self.isHittable) {
         XCUIApplication *app = [XCUIApplication new];
-        [app swipeUp];
+
+        XCUICoordinate *start = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
+        XCUICoordinate *end = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.6)];
+
+        [start pressForDuration:0.1 thenDragToCoordinate:end];
     }
 }
 
 - (void)swipeDownToElement {
-    while (!self.exists) {
+    while (!self.exists  && !self.isHittable) {
         XCUIApplication *app = [XCUIApplication new];
-        [app swipeDown];
+
+        XCUICoordinate *start = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
+        XCUICoordinate *end = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.4)];
+
+        [start pressForDuration:0.1 thenDragToCoordinate:end];
     }
 }
 
