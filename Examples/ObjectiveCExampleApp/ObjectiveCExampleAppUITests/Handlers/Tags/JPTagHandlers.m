@@ -29,28 +29,28 @@
 #import "XCUIElement+Additions.h"
 #import "JPHelpers.h"
 
-NSString *judoId = @"<#YOUR JUDO ID#>";
-NSString *token = @"<#YOUR TOKEN#>";
-NSString *secret = @"<#YOUR SECRET#>";
+NSString *kJudoId = @"<#YOUR JUDO ID#>";
+NSString *kToken = @"<#YOUR TOKEN#>";
+NSString *kSecret = @"<#YOUR SECRET#>";
 
 @implementation JPTagHandlers
 
-+ (void)handleRequireNon3DSConfig {
+void handleRequireNon3DSConfig() {
 
     [JPMainElements.settingsButton tap];
 
-    [JPSettingsElements.judoIDTextField clearAndEnterText:judoId];
+    [JPSettingsElements.judoIDTextField clearAndEnterText:kJudoId];
 
     [JPSettingsElements.sessionAuthenticationSwitch switchOff];
     [JPSettingsElements.basicAuthenticationSwitch switchOn];
 
-    [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
-    [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
+    [JPSettingsElements.basicTokenTextField clearAndEnterText:kToken];
+    [JPSettingsElements.basicSecretTextField clearAndEnterText:kSecret];
 
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireAllCardNetworks {
+void handleRequireAllCardNetworks() {
     [JPMainElements.settingsButton tap];
 
     [JPHelpers toggleOnSwitches:@[
@@ -67,7 +67,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireAVS {
+void handleRequireAVS() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.avsSwitch swipeUpToElement];
@@ -76,7 +76,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireButtonAmount {
+void handleRequireButtonAmount() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
@@ -85,7 +85,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireCardPaymentMethod {
+void handleRequireCardPaymentMethod() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.cardPaymentMethodSwitch swipeUpToElement];
@@ -94,7 +94,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireIDEALPaymentMethod {
+void handleRequireIDEALPaymentMethod() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.iDEALPaymentMethodSwitch swipeUpToElement];
@@ -103,7 +103,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireApplePayPaymentMethod {
+void handleRequireApplePayPaymentMethod() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.applePayPaymentMethodSwitch swipeUpToElement];
@@ -112,7 +112,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequirePBBAPaymentMethod {
+void handleRequirePBBAPaymentMethod() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.pbbaPaymentMethodSwitch swipeUpToElement];
@@ -121,7 +121,7 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireAllPaymentMethods {
+void handleRequireAllPaymentMethods() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.cardPaymentMethodSwitch swipeUpToElement];
@@ -139,31 +139,31 @@ NSString *secret = @"<#YOUR SECRET#>";
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireCurrencyGBP {
+void handleRequireCurrencyGBP() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.currencyCell swipeUpToElement];
     [JPSettingsElements.currencyCell tap];
 
-    [self switchToCurrency:@"GBP"];
+    switchToCurrency(@"GBP");
 
     [JPGenericElements.backButton tap];
     [JPGenericElements.backButton tap];
 }
 
-+ (void)handleRequireCurrencyEUR {
+void handleRequireCurrencyEUR() {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.currencyCell swipeUpToElement];
     [JPSettingsElements.currencyCell tap];
 
-    [self switchToCurrency:@"EUR"];
+    switchToCurrency(@"EUR");
 
     [JPGenericElements.backButton tap];
     [JPGenericElements.backButton tap];
 }
 
-+ (void)switchToCurrency:(NSString *)currency {
+void switchToCurrency(NSString *currency) {
     XCUIElement *cell = [XCUIElement cellWithStaticText:currency];
     [cell tap];
 }

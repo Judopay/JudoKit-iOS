@@ -35,7 +35,7 @@
  *
  * @param switches - an array of XCUIElement switches to be enabled
  */
-+ (void)toggleOnSwitches:(NSArray <XCUIElement *> *)switches;
+void toggleOnSwitches(NSArray <XCUIElement *> *switches);
 
 /**
  * A convenience method for toggling off all XCUIElement switch elements.
@@ -45,7 +45,6 @@
  *
  * @param switches - an array of XCUIElement switches to be enabled
  */
-+ (void)toggleOffSwitches:(NSArray <XCUIElement *> *)switches;
-
+void toggleOffSwitches(NSArray <XCUIElement *> *switches);
 
 @end

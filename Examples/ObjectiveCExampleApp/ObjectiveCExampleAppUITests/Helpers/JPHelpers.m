@@ -28,14 +28,14 @@
 
 @implementation JPHelpers
 
-+ (void)toggleOnSwitches:(NSArray <XCUIElement *> *)switches {
+void toggleOnSwitches(NSArray <XCUIElement *> *switches) {
     for (XCUIElement *switchElement in switches) {
         [switchElement swipeUpToElement];
         [switchElement switchOn];
     }
 }
 
-+ (void)toggleOffSwitches:(NSArray <XCUIElement *> *)switches {
+void toggleOffSwitches(NSArray <XCUIElement *> *switches) {
     for (XCUIElement *switchElement in switches) {
         [switchElement swipeUpToElement];
         [switchElement switchOff];

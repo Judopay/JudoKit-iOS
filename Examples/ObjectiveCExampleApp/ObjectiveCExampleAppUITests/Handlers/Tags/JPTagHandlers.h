@@ -29,56 +29,56 @@
 /**
  * A method used to toggle the basic authorization switch and enter the non-3DS credentials.
  */
-+ (void)handleRequireNon3DSConfig;
+void handleRequireNon3DSConfig(void);
 
 /**
  * A method used to toggle on all the card networks on the Settings page.
  */
-+ (void)handleRequireAllCardNetworks;
+void handleRequireAllCardNetworks(void);
 
 /**
  * A method used to toggle on AVS on the Settings page.
  */
-+ (void)handleRequireAVS;
+void handleRequireAVS(void);
 
 /**
  * A method used to toggle on the "Display Button Amount" on the Settings page.
  */
-+ (void)handleRequireButtonAmount;
+void handleRequireButtonAmount(void);
 
 /**
  * A method used to toggle on Card Payments on the Settings page.
  */
-+ (void)handleRequireCardPaymentMethod;
+void handleRequireCardPaymentMethod(void);
 
 /**
  * A method used to toggle on iDEAL Payments on the Settings page.
  */
-+ (void)handleRequireIDEALPaymentMethod;
+void handleRequireIDEALPaymentMethod(void);
 
 /**
  * A method used to toggle on Apple Pay Payments on the Settings page.
  */
-+ (void)handleRequireApplePayPaymentMethod;
+void handleRequireApplePayPaymentMethod(void);
 
 /**
  * A method used to toggle on PBBA Payments on the Settings page.
  */
-+ (void)handleRequirePBBAPaymentMethod;
+void handleRequirePBBAPaymentMethod(void);
 
 /**
  * A method used to toggle on all payment methods on the Settings page.
  */
-+ (void)handleRequireAllPaymentMethods;
+void handleRequireAllPaymentMethods(void);
 
 /**
  * A method used to select GBP as the transaction currency on the Settings page.
  */
-+ (void)handleRequireCurrencyGBP;
+void handleRequireCurrencyGBP(void);
 
 /**
  * A method used to select EUR as the transaction currency on the Settings page.
  */
-+ (void)handleRequireCurrencyEUR;
+void handleRequireCurrencyEUR(void);
 
 @end
