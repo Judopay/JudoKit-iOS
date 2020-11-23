@@ -27,7 +27,6 @@
 typedef NS_ENUM(NSUInteger, JPTransactionType) {
     JPTransactionTypePayment,
     JPTransactionTypePreAuth,
-    JPTransactionTypeRefund,
     JPTransactionTypeRegisterCard,
     JPTransactionTypeCheckCard,
     JPTransactionTypeSaveCard

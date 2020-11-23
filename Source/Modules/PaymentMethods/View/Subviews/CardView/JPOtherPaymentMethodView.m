@@ -87,17 +87,20 @@ static const float kContentPadding = 28.0F;
         case JPPaymentMethodTypeApplePay:
             self.leadingImageView.image = [UIImage imageWithIconName:@"apple-pay-icon"];
             self.titleLabel.text = @"apple_pay".localized;
+            self.accessibilityIdentifier = @"Apple Pay Header View";
             break;
 
         case JPPaymentMethodTypeIDeal:
             self.titleLabel.text = viewModel.bankModel.bankTitle;
             self.leadingImageView.image = [UIImage imageWithIconName:viewModel.bankModel.bankIconName];
             self.trailingImageView.image = [UIImage imageWithIconName:@"ideal-pay-icon"];
+            self.accessibilityIdentifier = @"iDEAL Header View";
             break;
 
         case JPPaymentMethodTypePbba:
             self.leadingImageView.image = [UIImage imageWithIconName:@"pbba-pay-icon"];
             self.titleLabel.text = @"pay_by_bank".localized;
+            self.accessibilityIdentifier = @"PBBA Header View";
             break;
 
         default:

@@ -5,8 +5,6 @@ Feature: Judo Transactions
   @test-judo-transactions
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <paymentWidgetType>
     Given I am on the Main screen
     When I tap on the <optionLabel> option
@@ -28,8 +26,6 @@ Feature: Judo Transactions
   @test-all-card-networks-payment
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <cardNetwork> card payment
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -51,8 +47,6 @@ Feature: Judo Transactions
   @test-all-card-networks-preauth
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <cardNetwork> pre-auth
     Given I am on the Main screen
     When I tap on the "Pre-auth with card" option
@@ -74,8 +68,6 @@ Feature: Judo Transactions
   @test-all-card-networks-register-card
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <cardNetwork> register card
     Given I am on the Main screen
     When I tap on the "Register card" option
@@ -98,8 +90,6 @@ Feature: Judo Transactions
   @test-all-card-networks-check-card
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <cardNetwork> check card
     Given I am on the Main screen
     When I tap on the "Check card" option
@@ -122,8 +112,6 @@ Feature: Judo Transactions
   @test-all-card-networks-save-card
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Successful <cardNetwork> save card
     Given I am on the Main screen
     When I tap on the "Save card" option
@@ -146,8 +134,6 @@ Feature: Judo Transactions
   @test-card-number-validation
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Invalid <cardNetwork> card number
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -190,8 +176,6 @@ Feature: Judo Transactions
   @test-submit-transaction-button-state
     @require-non-3ds-config
     @require-all-card-networks
-    @require-avs-disabled
-    @require-button-amount-disabled
   Scenario Outline: Payment button disabled when <criteria> invalid
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -217,8 +201,8 @@ Feature: Judo Transactions
 
   @test-avs-card-payment
     @require-non-3ds-config
-    @require-avs-enabled
-    @require-button-amount-disabled
+    @require-all-card-networks
+    @require-avs
   Scenario Outline: Successful AVS card payment with country <country>
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -241,8 +225,8 @@ Feature: Judo Transactions
 
   @test-avs-card-preauth
     @require-non-3ds-config
-    @require-avs-enabled
-    @require-button-amount-disabled
+    @require-all-card-networks
+    @require-avs
   Scenario Outline: Successful AVS pre-auth card payment with country <country>
     Given I am on the Main screen
     When I tap on the "Pre-auth with card" option
@@ -265,7 +249,8 @@ Feature: Judo Transactions
 
   @test-avs-card-register-card
     @require-non-3ds-config
-    @require-avs-enabled
+    @require-all-card-networks
+    @require-avs
   Scenario Outline: Successful AVS register card with country <country>
     Given I am on the Main screen
     When I tap on the "Register card" option
@@ -288,7 +273,8 @@ Feature: Judo Transactions
 
   @test-avs-card-check-card
     @require-non-3ds-config
-    @require-avs-enabled
+    @require-all-card-networks
+    @require-avs
   Scenario Outline: Successful AVS check card with country <country>
     Given I am on the Main screen
     When I tap on the "Check card" option
@@ -311,7 +297,8 @@ Feature: Judo Transactions
 
   @test-avs-card-save-card
     @require-non-3ds-config
-    @require-avs-enabled
+    @require-all-card-networks
+    @require-avs
   Scenario Outline: Successful AVS save card with country <country>
     Given I am on the Main screen
     When I tap on the "Save card" option
@@ -334,7 +321,7 @@ Feature: Judo Transactions
 
   @test-avs-post-code-validation
     @require-non-3ds-config
-    @require-avs-enabled
+    @require-avs
   Scenario Outline: Post code field validation for invalid <country> post code
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -350,7 +337,7 @@ Feature: Judo Transactions
 
   @test-avs-post-code-length-validation
     @require-non-3ds-config
-    @require-avs-enabled
+    @require-avs
   Scenario Outline: Post code field length validation for <country> post code
     Given I am on the Main screen
     When I tap on the "Pay with card" option
@@ -367,7 +354,8 @@ Feature: Judo Transactions
 
   @test-validate-button-amount
     @require-non-3ds-config
-    @require-button-amount-enabled
+    @require-currency-gbp
+    @require-button-amount
   Scenario Outline: Validate the transaction button title for enabled display amount setting in <paymentWidgetType>.
     Given I am on the Main screen
     When I tap on the <optionLabel> option

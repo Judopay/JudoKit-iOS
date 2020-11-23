@@ -245,19 +245,6 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
-     * GIVEN: creating view model for card view
-     *
-     * WHEN: getting data from interactor mock for refund
-     *
-     * THEN: should fill correct pay button title
-     */
-    func test_PrepareInitialViewModel_WhenPreparingModelFoRrefund_ShouldSetRightButtonTitle() {
-        interactor.type = .refund
-        sut.prepareInitialViewModel()
-        XCTAssertNil(controller.viewModelSut.addCardButtonViewModel.title)
-    }
-    
-    /*
      * GIVEN: handleInputChange is invoked
      *
      * WHEN: securityCode is securityCode mode, invalid input

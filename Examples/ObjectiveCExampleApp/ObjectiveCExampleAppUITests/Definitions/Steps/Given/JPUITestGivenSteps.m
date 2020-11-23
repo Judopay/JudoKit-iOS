@@ -43,7 +43,7 @@
     Given(@"^I am on the (.*) (?:screen|view|page)$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
         NSString *screenName = args[0];
-        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ Screen", screenName];
+        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ View", screenName];
         XCTAssert(application.otherElements[screenIdentifier].exists);
     });
 

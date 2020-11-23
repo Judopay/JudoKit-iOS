@@ -52,6 +52,10 @@
     return cell.textFields.firstMatch;
 }
 
++ (XCUIElement *)currencyCell {
+    return [XCUIElement cellWithStaticText:@"Currency"];
+}
+
 + (XCUIElement *)visaSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Visa"];
     return cell.switches.firstMatch;
@@ -92,13 +96,43 @@
     return cell.switches.firstMatch;
 }
 
++ (XCUIElement *)cardPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Card"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)iDEALPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"iDeal"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)applePayPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Apple Pay"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)pbbaPaymentMethodSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"PBBA"];
+    return cell.switches.firstMatch;
+}
+
 + (XCUIElement *)avsSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Address Verification Service"];
     return cell.switches.firstMatch;
 }
 
++ (XCUIElement *)paymentMethodsAmountSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Display amount label in Payment Methods"];
+    return cell.switches.firstMatch;
+}
+
 + (XCUIElement *)buttonAmountSwitch {
     XCUIElement *cell = [XCUIElement cellWithStaticText:@"Display amount label in Payment Button"];
+    return cell.switches.firstMatch;
+}
+
++ (XCUIElement *)securityCodeSwitch {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:@"Security code"];
     return cell.switches.firstMatch;
 }
 

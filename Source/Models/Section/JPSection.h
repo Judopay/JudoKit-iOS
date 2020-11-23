@@ -26,6 +26,8 @@
 
 @interface JPSection : NSObject
 
+@property (nonatomic, strong) NSString *_Nullable accessibilityIdentifier;
+
 /**
  * The image of the section
  */

@@ -32,22 +32,21 @@ __attribute__((constructor))
 
 void CucumberishInit() {
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
-
     [JPUITestSetup setUp];
     [JPUITestGivenSteps setUp];
     [JPUITestWhenSteps setUp];
     [JPUITestThenSteps setUp];
 
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
+    
     [Cucumberish executeFeaturesInDirectory:@"Features"
                                  fromBundle:bundle
                                 includeTags:nil
                                 excludeTags:@[
                                     @"test-secure-code-validation",
                                     @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation"
+                                    @"test-avs-post-code-length-validation",
+                                    @"test-judo-payment-methods-all-disabled",
+                                    @"test-judo-payment-methods-pbba",
                                 ]];
 }

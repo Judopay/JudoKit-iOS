@@ -53,6 +53,11 @@
 + (XCUIElement *)basicSecretTextField;
 
 /**
+ * The table view cell that navigates to the currency selection list
+ */
++ (XCUIElement *)currencyCell;
+
+/**
  * The switch element used to toggle Visa as an accepted card network
  */
 + (XCUIElement *)visaSwitch;
@@ -93,14 +98,45 @@
 + (XCUIElement *)dinersClubSwitch;
 
 /**
+ * The switch element used to toggle Card Payments in the Judo wallet;
+ */
++ (XCUIElement *)cardPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle iDEAL in the Judo wallet;
+ */
++ (XCUIElement *)iDEALPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle Apple Pay in the Judo wallet;
+ */
++ (XCUIElement *)applePayPaymentMethodSwitch;
+
+/**
+ * The switch element used to toggle Pay By Bank App in the Judo wallet;
+ */
++ (XCUIElement *)pbbaPaymentMethodSwitch;
+
+/**
  * The switch element used to toggle Address Verification Service as a transaction requirement
  */
 + (XCUIElement *)avsSwitch;
 
 /**
+ * The switch element used to toggle amount visibility in the Judo wallet screen
+ */
++ (XCUIElement *)paymentMethodsAmountSwitch;
+
+/**
  * The switch element used to toggle amount visibility on the Judo UI Payment button
  */
 + (XCUIElement *)buttonAmountSwitch;
+
+/**
+ * The switch element used to toggle security code confirmation during token payments on the Judo Wallet
+ */
++ (XCUIElement *)securityCodeSwitch;
+
 
 @end
 

@@ -29,7 +29,11 @@
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
+		52189DE2256536A300B8B57A /* JPPaymentMethodsElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 52189DE1256536A300B8B57A /* JPPaymentMethodsElements.m */; };
 		52566D7F25345E8F00474D82 /* Features in Resources */ = {isa = PBXBuildFile; fileRef = 52566D7E25345E8F00474D82 /* Features */; };
+		526D95E92563EDA700B0ECCC /* JPHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 526D95E82563EDA700B0ECCC /* JPHelpers.m */; };
+		526D95F52563F07F00B0ECCC /* JPTagHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 526D95F42563F07F00B0ECCC /* JPTagHandlers.m */; };
+		526D95FB2563F29400B0ECCC /* JPAfterHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 526D95FA2563F29400B0ECCC /* JPAfterHandlers.m */; };
 		52A89B5E2551574100DA2F0D /* JPUITestSetup.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B5D2551574100DA2F0D /* JPUITestSetup.m */; };
 		52A89B642551621500DA2F0D /* JPSettingsElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B632551621500DA2F0D /* JPSettingsElements.m */; };
 		52A89B6D2551632600DA2F0D /* JPMainElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B6C2551632600DA2F0D /* JPMainElements.m */; };
@@ -114,7 +118,15 @@
 		449495242450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		449495252450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52189DE0256536A300B8B57A /* JPPaymentMethodsElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsElements.h; sourceTree = "<group>"; };
+		52189DE1256536A300B8B57A /* JPPaymentMethodsElements.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsElements.m; sourceTree = "<group>"; };
 		52566D7E25345E8F00474D82 /* Features */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Features; sourceTree = "<group>"; };
+		526D95E72563EDA700B0ECCC /* JPHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPHelpers.h; sourceTree = "<group>"; };
+		526D95E82563EDA700B0ECCC /* JPHelpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPHelpers.m; sourceTree = "<group>"; };
+		526D95F32563F07E00B0ECCC /* JPTagHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPTagHandlers.h; sourceTree = "<group>"; };
+		526D95F42563F07F00B0ECCC /* JPTagHandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPTagHandlers.m; sourceTree = "<group>"; };
+		526D95F92563F29400B0ECCC /* JPAfterHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPAfterHandlers.h; sourceTree = "<group>"; };
+		526D95FA2563F29400B0ECCC /* JPAfterHandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPAfterHandlers.m; sourceTree = "<group>"; };
 		52A89B5C2551574100DA2F0D /* JPUITestSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestSetup.h; sourceTree = "<group>"; };
 		52A89B5D2551574100DA2F0D /* JPUITestSetup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestSetup.m; sourceTree = "<group>"; };
 		52A89B622551621500DA2F0D /* JPSettingsElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPSettingsElements.h; sourceTree = "<group>"; };
@@ -265,6 +277,8 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				52189DDB25651E7F00B8B57A /* Helpers */,
+				526D95E62563ED7100B0ECCC /* Handlers */,
 				52A89B7B2551647800DA2F0D /* Definitions */,
 				52A89B712551639900DA2F0D /* Extensions */,
 				52A89B68255162C600DA2F0D /* Elements */,
@@ -339,9 +353,55 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		52189DD925651E6800B8B57A /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				526D95F32563F07E00B0ECCC /* JPTagHandlers.h */,
+				526D95F42563F07F00B0ECCC /* JPTagHandlers.m */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		52189DDA25651E7200B8B57A /* After */ = {
+			isa = PBXGroup;
+			children = (
+				526D95F92563F29400B0ECCC /* JPAfterHandlers.h */,
+				526D95FA2563F29400B0ECCC /* JPAfterHandlers.m */,
+			);
+			path = After;
+			sourceTree = "<group>";
+		};
+		52189DDB25651E7F00B8B57A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				526D95E72563EDA700B0ECCC /* JPHelpers.h */,
+				526D95E82563EDA700B0ECCC /* JPHelpers.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		52189DDF2565368300B8B57A /* PaymentMethods */ = {
+			isa = PBXGroup;
+			children = (
+				52189DE0256536A300B8B57A /* JPPaymentMethodsElements.h */,
+				52189DE1256536A300B8B57A /* JPPaymentMethodsElements.m */,
+			);
+			path = PaymentMethods;
+			sourceTree = "<group>";
+		};
+		526D95E62563ED7100B0ECCC /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				52189DD925651E6800B8B57A /* Tags */,
+				52189DDA25651E7200B8B57A /* After */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
 		52A89B68255162C600DA2F0D /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				52189DDF2565368300B8B57A /* PaymentMethods */,
 				52A89B9C2551741300DA2F0D /* Generic */,
 				52A89B69255162D100DA2F0D /* Main */,
 				52A89B6A255162DA00DA2F0D /* Settings */,
@@ -752,10 +812,14 @@
 				52A89B9F2551742B00DA2F0D /* JPGenericElements.m in Sources */,
 				52A89B5E2551574100DA2F0D /* JPUITestSetup.m in Sources */,
 				52A89B83255164EA00DA2F0D /* JPUITestGivenSteps.m in Sources */,
+				52189DE2256536A300B8B57A /* JPPaymentMethodsElements.m in Sources */,
+				526D95FB2563F29400B0ECCC /* JPAfterHandlers.m in Sources */,
 				52A89B8F2551650900DA2F0D /* JPUITestThenSteps.m in Sources */,
 				448AB1C92450DE93004A11CB /* ObjectiveCExampleAppUITests.m in Sources */,
+				526D95F52563F07F00B0ECCC /* JPTagHandlers.m in Sources */,
 				52A89B74255163B100DA2F0D /* XCUIElement+Additions.m in Sources */,
 				52A89B89255164FA00DA2F0D /* JPUITestWhenSteps.m in Sources */,
+				526D95E92563EDA700B0ECCC /* JPHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,15 @@
 
 @implementation XCUIElement (Additions)
 
+- (BOOL)isVisible {
+    @try {
+        return self.isHittable;
+    }
+    @catch(NSException *e) {
+        return NO;
+    }
+}
+
 + (XCUIElement *)cellWithStaticText:(NSString *)staticText {
     XCUIApplication *application = [XCUIApplication new];
     NSString *stringFormat = [NSString stringWithFormat:@"label BEGINSWITH[c] '%@'", staticText];
@@ -49,14 +58,24 @@
 }
 
 - (void)swipeUpToElement {
-    while (!self.exists) {
-        [[XCUIApplication new] swipeUp];
+    while (!self.isVisible) {
+        XCUIApplication *app = [XCUIApplication new];
+
+        XCUICoordinate *start = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
+        XCUICoordinate *end = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.4)];
+
+        [start pressForDuration:0.1 thenDragToCoordinate:end];
     }
 }
 
 - (void)swipeDownToElement {
-    while (!self.exists) {
-        [[XCUIApplication new] swipeDown];
+    while (!self.isVisible) {
+        XCUIApplication *app = [XCUIApplication new];
+
+        XCUICoordinate *start = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
+        XCUICoordinate *end = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.6)];
+
+        [start pressForDuration:0.1 thenDragToCoordinate:end];
     }
 }
 

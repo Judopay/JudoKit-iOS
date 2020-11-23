@@ -31,7 +31,7 @@
 + (void)setUp {
 
     /**
-     * [THEN] ^the (.*) (?:screen|page|view) should be visible
+     * [THEN] ^the (.*) (?:screen|page|view|option|item) should be visible
      *
      * Description:
      *    A test step used to validate that a screen is visible.
@@ -40,16 +40,19 @@
      *    - Then the Receipt screen should be visible
      *    - Then the Settings page should be visible
      *    - Then the Main view should be visible
+     *    - Then the Card Selector option should be visible
+     *    - Then the Apple Pay Header item should be visible
      */
-    Then(@"^the (.*) (?:screen|page|view) should be visible$", ^void(NSArray *args, id userInfo) {
+    Then(@"^the (.*) (?:screen|page|view|option|item) should be visible$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
         NSString *screenName = args[0];
-        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ Screen", screenName];
+        NSString *screenIdentifier = [NSString stringWithFormat:@"%@ View", screenName];
 
-        BOOL isViewVisible = application.otherElements[screenIdentifier].exists;
-        BOOL isTableVisible = application.tables[screenIdentifier].exists;
+        BOOL isViewVisible = [application.otherElements[screenIdentifier] waitForExistenceWithTimeout:3.0];
+        BOOL isTableVisible = [application.tables[screenIdentifier] waitForExistenceWithTimeout:3.0];
+        BOOL isImageViewVisible = [application.images[screenIdentifier] waitForExistenceWithTimeout:3.0];
 
-        XCTAssert(isViewVisible || isTableVisible);
+        XCTAssert(isViewVisible || isTableVisible || isImageViewVisible);
     });
 
     /**
@@ -68,10 +71,9 @@
         NSString *cellValue = args[1];
 
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
-
         [selectedCell swipeUpToElement];
 
-        if (selectedCell.staticTexts[cellValue].exists) {
+        if ([selectedCell.staticTexts[cellValue] waitForExistenceWithTimeout:3.0]) {
             XCTAssertTrue(selectedCell.staticTexts[cellValue].exists);
             return;
         }
@@ -79,7 +81,7 @@
         [selectedCell tap];
 
         selectedCell = [XCUIElement cellWithStaticText:cellTitle];
-        XCTAssertTrue(selectedCell.staticTexts[cellValue].exists);
+        XCTAssertTrue([selectedCell.staticTexts[cellValue] waitForExistenceWithTimeout:3.0]);
     });
 
     /**
@@ -95,7 +97,7 @@
     Then(@"^(?:the|an|a) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
         NSString *text = args[0];
-        XCTAssertTrue(application.staticTexts[text].exists);
+        XCTAssertTrue([application.staticTexts[text] waitForExistenceWithTimeout:3.0]);
     });
 
     /**
@@ -141,8 +143,8 @@
      *    A test step used to validate that a button, identified by its accessibility identifier, should have a specified title.
      *
      * Valid examples:
-     *    - Then Transaction button title should be "Register Card"
-     *    - Then PBBA button title should be "Pay by Bank App"
+     *    - Then the Transaction button title should be "Register Card"
+     *    - Then the PBBA button title should be "Pay by Bank App"
      */
     Then(@"^the (.*) button title should be \"(.*)\"$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
@@ -153,6 +155,40 @@
 
         NSString *actualValue = application.buttons[buttonIdentifier].label;
         XCTAssertTrue([actualValue isEqualToString:buttonValue]);
+    });
+
+    /**
+     * [THEN] ^(?:the|an|a) \"(.*)\" (?:item|cell|option) should be selected$
+     *
+     * Description:
+     *    A test step used to validate that an item/cell, identified by its title, should be selected
+     *
+     * Valid examples:
+     *    - Then the "Visa Ending 1111" item should be selected
+     *    - Then the "Card for shopping" item should be selected
+     */
+    Then(@"^(?:the|an|a) \"(.*)\" (?:item|cell|option) should be selected$", ^void(NSArray *args, id userInfo) {
+        NSString *cellTitle = args[0];
+        XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
+
+        XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
+        XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);
+    });
+
+    /**
+     * [THEN] ^(?:the|an|a) \"(.*)\" alert should be visible$
+     *
+     * Description:
+     *    A test step used to validate that an alert, containing a specific title, should be visible
+     *
+     * Valid examples:
+     *    - Then the "Transaction Cancelled" alert should be visible
+     *    - Then the "GBP is not supported for iDEAL transactions" alert should be visible
+     */
+    Then(@"^(?:the|an|a) \"(.*)\" alert should be visible$", ^void(NSArray *args, id userInfo) {
+        NSString *alertText = args[0];
+        XCUIApplication *app = [XCUIApplication new];
+        XCTAssertTrue(app.alerts.staticTexts[alertText].exists);
     });
 }
 

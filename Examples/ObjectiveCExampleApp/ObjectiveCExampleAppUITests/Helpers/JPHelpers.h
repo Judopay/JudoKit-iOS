@@ -1,5 +1,5 @@
 //
-//  JPMainElements.h
+//  JPHelpers.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -25,16 +25,26 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-@interface JPMainElements : NSObject
+@interface JPHelpers : NSObject
 
 /**
- * The "Settings" icon button on the UINavigationBar, used to navigate to the app's Settings page.
+ * A convenience method for toggling on all XCUIElement switch elements.
+ *
+ * This method will scroll down till it finds the switch, and enable it if needed, meaning that the array elements
+ * must be added in order of appearance.
+ *
+ * @param switches - an array of XCUIElement switches to be enabled
  */
-+ (XCUIElement *)settingsButton;
+void toggleOnSwitches(NSArray <XCUIElement *> *switches);
 
 /**
- * The "Payment methods" option cell used to navigate to the Judo wallet
+ * A convenience method for toggling off all XCUIElement switch elements.
+ *
+ * This method will scroll down till it finds the switch, and disable it if needed, meaning that the array elements
+ * must be added in order of appearance.
+ *
+ * @param switches - an array of XCUIElement switches to be enabled
  */
-+ (XCUIElement *)paymentMethodsOption;
+void toggleOffSwitches(NSArray <XCUIElement *> *switches);
 
 @end

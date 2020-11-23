@@ -87,6 +87,24 @@ static const int kConstraintPriority = 999;
     for (JPPaymentMethod *paymentMethod in selectionModel.paymentMethods) {
         UIImage *image = [UIImage imageWithIconName:paymentMethod.iconName];
         JPSection *section = [JPSection sectionWithImage:image andTitle:paymentMethod.title];
+
+        switch (paymentMethod.type) {
+            case JPPaymentMethodTypeCard:
+                section.accessibilityIdentifier = @"Card Selector View";
+                break;
+
+            case JPPaymentMethodTypeIDeal:
+                section.accessibilityIdentifier = @"iDEAL Selector View";
+                break;
+
+            case JPPaymentMethodTypePbba:
+                section.accessibilityIdentifier = @"PBBA Selector View";
+                break;
+
+            case JPPaymentMethodTypeApplePay:
+                section.accessibilityIdentifier = @"Apple Pay Selector View";
+        }
+
         [sections addObject:section];
     }
 

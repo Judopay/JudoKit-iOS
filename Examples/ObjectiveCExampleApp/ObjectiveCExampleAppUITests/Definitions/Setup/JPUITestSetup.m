@@ -23,19 +23,20 @@
 //  SOFTWARE.
 
 #import "JPUITestSetup.h"
-#import "JPGenericElements.h"
-#import "JPMainElements.h"
-#import "JPSettingsElements.h"
-#import "XCUIElement+Additions.h"
+#import "JPTagHandlers.h"
+#import "JPAfterHandlers.h"
 #import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestSetup
 
 + (void)setUp {
 
-    NSString *judoId = @"<#YOUR JUDO ID#>";
-    NSString *token = @"<#YOUR TOKEN#>";
-    NSString *secret = @"<#YOUR SECRET#>";
+    /**
+     * A handler that ensures that the application is executed before the test scenarios start running.
+     */
+    beforeStart(^{
+        [[XCUIApplication new] launch];
+    });
 
     /**
      * [TAG] require-non-3ds-config
@@ -44,18 +45,7 @@
      * scenario executes.
      */
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.judoIDTextField clearAndEnterText:judoId];
-
-        [JPSettingsElements.sessionAuthenticationSwitch switchOff];
-        [JPSettingsElements.basicAuthenticationSwitch switchOn];
-
-        [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
-        [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireNon3DSConfig];
     });
 
     /**
@@ -64,103 +54,98 @@
      * A tag that is used to specify that all card networks must be accepted before the scenario executes.
      */
     beforeTagged(@[@"require-all-card-networks"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.visaSwitch switchOn];
-        [JPSettingsElements.masterCardSwitch switchOn];
-        [JPSettingsElements.maestroSwitch switchOn];
-        [JPSettingsElements.amexSwitch switchOn];
-        [JPSettingsElements.chinaUnionPaySwitch switchOn];
-        [JPSettingsElements.jcbSwitch switchOn];
-        [JPSettingsElements.discoverSwitch switchOn];
-        [JPSettingsElements.dinersClubSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+        [JPTagHandlers handleRequireAllCardNetworks];
     });
 
     /**
-     * [TAG] require-avs-enabled
+     * [TAG] require-avs
      *
      * A tag that is used to specify that AVS must be enabled before the scenario executes
      */
-    beforeTagged(@[@"require-avs-enabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.avsSwitch swipeUpToElement];
-        [JPSettingsElements.avsSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+    beforeTagged(@[@"require-avs"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireAVS];
     });
 
     /**
-     * [TAG] require-avs-disabled
-     *
-     * A tag that is used to specify that AVS must be disabled before the scenario executes
-     */
-    beforeTagged(@[@"require-avs-disabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.avsSwitch swipeUpToElement];
-        [JPSettingsElements.avsSwitch switchOff];
-
-        [JPGenericElements.backButton tap];
-    });
-
-    /**
-     * [TAG] require-button-amount-enabled
+     * [TAG] require-button-amount
      *
      * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
      * enabled before the scenario executes.
      */
-    beforeTagged(@[@"require-button-amount-enabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-        [JPSettingsElements.buttonAmountSwitch switchOn];
-
-        [JPGenericElements.backButton tap];
+    beforeTagged(@[@"require-button-amount"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireButtonAmount];
     });
 
     /**
-     * [TAG] require-button-amount-disabled
+     * [TAG] require-card-payment-method
      *
-     * A tag that is used to specify that the amount on the "Submit Transaction" button on the Judo UI widget must be
-     * disabled before the scenario executes.
+     * A tag that is used to specify that the Judo wallet should support Card transactions.
      */
-    beforeTagged(@[@"require-button-amount-disabled"], ^(CCIScenarioDefinition *scenario) {
-
-        [JPMainElements.settingsButton tap];
-
-        [JPSettingsElements.buttonAmountSwitch swipeUpToElement];
-        [JPSettingsElements.buttonAmountSwitch switchOff];
-
-        [JPGenericElements.backButton tap];
+    beforeTagged(@[@"require-card-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCardPaymentMethod];
     });
 
     /**
-     * A code block that is going to execute after each transaction. This does the following things:
-     * - if there is a 'CANCEL' button visible, it will tap it, thus  returning back to the Main screen.;
-     * - if the Main screen is not visible, as in the case of the Receipt page, tap on the navigation back button;
+     * [TAG] require-ideal-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support iDEAL transactions.
+     */
+    beforeTagged(@[@"require-ideal-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireIDEALPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-apple-pay-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support Apple Pay transactions.
+     */
+    beforeTagged(@[@"require-apple-pay-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireApplePayPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-pbba-payment-method
+     *
+     * A tag that is used to specify that the Judo wallet should support PBBA transactions.
+     */
+    beforeTagged(@[@"require-pbba-payment-method"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequirePBBAPaymentMethod];
+    });
+
+    /**
+     * [TAG] require-all-payment-methods
+     *
+     * A tag that is used to specify that the Judo wallet should support all transaction methods.
+     */
+    beforeTagged(@[@"require-all-payment-methods"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireAllPaymentMethods];
+    });
+
+    /**
+     * [TAG] require-currency-gbp
+     *
+     * A tag that is used to specify that the selected currency should be GBP
+     */
+    beforeTagged(@[@"require-currency-gbp"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCurrencyGBP];
+    });
+
+    /**
+     * [TAG] require-currency-eur
+     *
+     * A tag that is used to specify that the selected currency should be EUR
+     */
+    beforeTagged(@[@"require-currency-eur"], ^(CCIScenarioDefinition *scenario) {
+        [JPTagHandlers handleRequireCurrencyEUR];
+    });
+
+    /**
+     * A code block that is going to execute after each transaction.
+     * Used to reset the app to a clean state.
      */
     after(^(CCIScenarioDefinition *scenario) {
-
-        XCUIApplication *application = [XCUIApplication new];
-        XCUIElement *mainScreen = application.otherElements[@"Main Screen"];
-        XCUIElement *cancelButton = application.buttons[@"CANCEL"];
-
-        if (cancelButton.exists) {
-            [cancelButton tap];
-        }
-
-        while (!mainScreen.exists) {
-            [JPGenericElements.backButton tap];
-        }
+        [JPAfterHandlers cleanUp];
     });
-
 }
 
 @end
