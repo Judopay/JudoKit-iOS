@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  HomeInteractor.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,24 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+protocol HomeInteractorInput {
+    func viewDidLoad()
+}
+
+protocol HomeInteractorOutput: class {
+    func configure(with viewModels: [FeatureViewModel])
+}
+
+class HomeInteractor: HomeInteractorInput {
     
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        
-        let homeModule = HomeModule.make()
+    // MARK: - Variables
     
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController(with: homeModule.rootViewController)
-        window?.makeKeyAndVisible()
+    weak var output: HomeInteractorOutput?
+    private let repository: FeatureRepository
+    
+    // MARK: - Initializers
+    
+    init(with repository: FeatureRepository) {
+        self.repository = repository
     }
     
-    private func navigationController(with controller: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
+    // MARK: - Protocol methods
+    
+    func viewDidLoad() {
+        output?.configure(with: repository.features)
     }
 }

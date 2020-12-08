@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  HomeModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,22 +24,31 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+final class HomeModule {
+
+    // MARK: - Variables
     
-    func applicationDidFinishLaunching(_ application: UIApplication) {
+    let rootViewController: UIViewController
+
+    // MARK: - Initializers
+    
+    private init(rootViewController: HomeViewController) {
+        self.rootViewController = rootViewController
+    }
+
+    // MARK: - Public methods
+    
+    static func make() -> HomeModule {
         
-        let homeModule = HomeModule.make()
-    
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController(with: homeModule.rootViewController)
-        window?.makeKeyAndVisible()
+        let repository = FeatureRepository()
+        
+        let interactor = HomeInteractor(with: repository)
+        let viewController = HomeViewController()
+        
+        interactor.output = viewController
+        viewController.interactor = interactor
+
+        return HomeModule(rootViewController: viewController)
     }
-    
-    private func navigationController(with controller: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
-    }
+
 }

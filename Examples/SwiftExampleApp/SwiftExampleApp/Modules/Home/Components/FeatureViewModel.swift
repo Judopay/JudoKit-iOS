@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  FeatureViewModel.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,24 +22,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-    
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        
-        let homeModule = HomeModule.make()
-    
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController(with: homeModule.rootViewController)
-        window?.makeKeyAndVisible()
-    }
-    
-    private func navigationController(with controller: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
-    }
+enum Feature {
+    case payment
+    case preAuth
+    case registerCard
+    case checkCard
+    case saveCard
+    case applePay
+    case applePreAuth
+    case paymentMethods
+    case preAuthMethods
+    case serverToServer
+    case payByBank
+    case tokenPayments
+    case transactionDetails
+}
+
+struct FeatureViewModel {
+    let type: Feature
+    let title: String
+    let subtitle: String
 }
