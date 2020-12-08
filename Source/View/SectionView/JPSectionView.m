@@ -101,7 +101,8 @@ static const float kSliderCornerRadius = 10.0F;
 - (void)setupSections {
     for (JPSection *section in self.sections) {
         [self addSectionWithImage:section.image
-                         andTitle:section.title];
+                            title:section.title
+          accessibilityIdentifier:section.accessibilityIdentifier];
     }
 }
 
@@ -117,7 +118,8 @@ static const float kSliderCornerRadius = 10.0F;
 #pragma mark - Public methods
 
 - (void)addSectionWithImage:(UIImage *)image
-                   andTitle:(NSString *)title {
+                      title:(NSString *)title
+    accessibilityIdentifier:(NSString *)accessibilityIdentifier {
 
     self.contentWidth += self.adaptiveSectionWidth;
 
@@ -133,6 +135,8 @@ static const float kSliderCornerRadius = 10.0F;
     UIStackView *verticalStackView = [self generateVerticalStackView];
 
     UIImageView *imageView = [self generateSectionImageViewFromImage:image];
+    imageView.isAccessibilityElement = YES;
+    imageView.accessibilityIdentifier = accessibilityIdentifier;
     [horizontalStackView addArrangedSubview:imageView];
 
     if (title && title.length > 0) {

@@ -101,6 +101,7 @@ const int kSubstringPatternOffset = 4;
 
     self.titleLabel.text = title;
     self.expiryDateLabel.text = expiryDate;
+    self.accessibilityIdentifier = @"Card Header View";
     NSString *cardNetworkPatern = [JPCardNetwork cardPatternForType:cardNetwork];
     NSString *substringPattern = [cardNetworkPatern substringToIndex:cardNetworkPatern.length - kSubstringPatternOffset];
     NSString *stylizedPattern = [substringPattern stringByReplacingOccurrencesOfString:@"X" withString:@"•"];

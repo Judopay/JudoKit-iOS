@@ -22,21 +22,31 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestSteps.h"
+#import "JPUITestSetup.h"
+#import "JPUITestGivenSteps.h"
+#import "JPUITestWhenSteps.h"
+#import "JPUITestThenSteps.h"
 #import "Cucumberish.h"
+
 __attribute__((constructor))
 
 void CucumberishInit() {
 
-    beforeStart(^{
-        [[XCUIApplication new] launch];
-    });
+    [JPUITestSetup setUp];
+    [JPUITestGivenSteps setUp];
+    [JPUITestWhenSteps setUp];
+    [JPUITestThenSteps setUp];
 
-    [JPUITestSteps setUp];
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSteps class]];
+    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
+    
     [Cucumberish executeFeaturesInDirectory:@"Features"
                                  fromBundle:bundle
                                 includeTags:nil
-                                excludeTags:nil];
+                                excludeTags:@[
+                                    @"test-secure-code-validation",
+                                    @"test-avs-post-code-validation",
+                                    @"test-avs-post-code-length-validation",
+                                    @"test-judo-payment-methods-all-disabled",
+                                    @"test-judo-payment-methods-pbba",
+                                ]];
 }

@@ -21,7 +21,7 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
                                title:@"Pay with card"
                              details:@"by entering card details"],
         [DemoFeature featureWithType:DemoFeatureTypePreAuth
-                               title:@"PreAuth with card"
+                               title:@"Pre-auth with card"
                              details:@"by entering card details"],
         [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
                                title:@"Register card"
@@ -39,10 +39,10 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
                                title:@"Apple Pay preAuth"
                              details:@"with a wallet card"],
         [DemoFeature featureWithType:DemoFeatureTypePaymentMethods
-                               title:@"Payment Method"
+                               title:@"Payment methods"
                              details:@"with default payment methods"],
         [DemoFeature featureWithType:DemoFeatureTypePreAuthMethods
-                               title:@"PreAuth Methods"
+                               title:@"PreAuth methods"
                              details:@"with default preauth methods"],
         [DemoFeature featureWithType:DemoFeatureTypeServerToServer
                                title:@"Server-to-Server payment methods"

@@ -58,21 +58,11 @@
     JPContactField requiredShippingContactFields = applePayConfiguration.requiredShippingContactFields;
     JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
 
-    if (@available(iOS 11.0, *)) {
+    NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
+    NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
 
-        NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
-        NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
-
-        paymentRequest.requiredShippingContactFields = pkShippingFields;
-        paymentRequest.requiredBillingContactFields = pkBillingFields;
-
-    } else {
-        PKAddressField pkShippingFields = [self pkAddressFieldsFromFields:requiredShippingContactFields];
-        PKAddressField pkBillingFields = [self pkAddressFieldsFromFields:requiredBillingContactFields];
-
-        paymentRequest.requiredShippingAddressFields = pkShippingFields;
-        paymentRequest.requiredBillingAddressFields = pkBillingFields;
-    }
+    paymentRequest.requiredShippingContactFields = pkShippingFields;
+    paymentRequest.requiredBillingContactFields = pkBillingFields;
 
     paymentRequest.paymentSummaryItems = [self pkPaymentSummaryItemsForConfiguration:configuration];
 
@@ -193,23 +183,20 @@
 
     NSMutableSet *pkContactFields = [NSMutableSet new];
 
-    if (@available(iOS 11.0, *)) {
+    if (contactFields & JPContactFieldPostalAddress) {
+        [pkContactFields addObject:PKContactFieldPostalAddress];
+    }
 
-        if (contactFields & JPContactFieldPostalAddress) {
-            [pkContactFields addObject:PKContactFieldPostalAddress];
-        }
+    if (contactFields & JPContactFieldPhone) {
+        [pkContactFields addObject:PKContactFieldPhoneNumber];
+    }
 
-        if (contactFields & JPContactFieldPhone) {
-            [pkContactFields addObject:PKContactFieldPhoneNumber];
-        }
+    if (contactFields & JPContactFieldEmail) {
+        [pkContactFields addObject:PKContactFieldEmailAddress];
+    }
 
-        if (contactFields & JPContactFieldEmail) {
-            [pkContactFields addObject:PKContactFieldEmailAddress];
-        }
-
-        if (contactFields & JPContactFieldName) {
-            [pkContactFields addObject:PKContactFieldName];
-        }
+    if (contactFields & JPContactFieldName) {
+        [pkContactFields addObject:PKContactFieldName];
     }
 
     return pkContactFields;
@@ -221,10 +208,6 @@
     }
 
     return PKPaymentSummaryItemTypePending;
-}
-
-+ (PKAddressField)pkAddressFieldsFromFields:(JPContactField)contactFields {
-    return (PKAddressField)contactFields;
 }
 
 @end

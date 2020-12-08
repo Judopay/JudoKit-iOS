@@ -97,6 +97,7 @@
     self.navigationController.navigationBar.translucent = YES;
 
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.accessibilityIdentifier = @"Back Button";
     backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];

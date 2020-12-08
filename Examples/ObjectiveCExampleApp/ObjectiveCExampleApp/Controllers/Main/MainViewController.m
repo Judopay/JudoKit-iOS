@@ -48,6 +48,7 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 @property (strong, nonatomic) NSArray<DemoFeature *> *features;
 @property (strong, nonatomic) NSSet<NSString *> *settingsToObserve;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (nonatomic, assign) BOOL shouldSetupJudoSDK;
 @property (nonatomic, strong) NSURL *deepLinkURL;
 @end
@@ -94,7 +95,8 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 }
 
 - (void)setupAccessibilityIdentifiers {
-    self.view.accessibilityIdentifier = @"Main Screen";
+    self.view.accessibilityIdentifier = @"Main View";
+    self.settingsButton.accessibilityIdentifier = @"Settings Button";
 }
 
 - (void)settingDidChanged:(NSNotification *)notification {

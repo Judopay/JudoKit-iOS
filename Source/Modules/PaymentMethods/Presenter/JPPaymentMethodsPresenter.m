@@ -182,11 +182,17 @@
     [self.view presentApplePayWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock completion) {
         [self.interactor processApplePayment:payment
                               withCompletion:^(JPResponse *response, JPError *error) {
+                                  PKPaymentAuthorizationResult *result;
+
                                   if (error) {
-                                      completion(PKPaymentAuthorizationStatusFailure);
+                                      result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
+                                                                                             errors:@[ error ]];
+                                      completion(result);
                                   }
 
-                                  completion(PKPaymentAuthorizationStatusSuccess);
+                                  result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
+                                                                                         errors:nil];
+                                  completion(result);
                                   [weakSelf handleCallbackWithResponse:response andError:error];
                               }];
     }];

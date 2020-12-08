@@ -1,5 +1,5 @@
 //
-//  JPUITestSteps.h
+//  JPMainElements.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -23,12 +23,18 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-@interface JPUITestSteps : NSObject
+@interface JPMainElements : NSObject
 
 /**
- * A method for setting up all the basic. reusable steps.
+ * The "Settings" icon button on the UINavigationBar, used to navigate to the app's Settings page.
  */
-+ (void)setUp;
++ (XCUIElement *)settingsButton;
+
+/**
+ * The "Payment methods" option cell used to navigate to the Judo wallet
+ */
++ (XCUIElement *)paymentMethodsOption;
 
 @end

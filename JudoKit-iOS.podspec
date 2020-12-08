@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'JudoKit-iOS'
-  s.version               = '2.1.2'
+  s.version               = '2.2.1'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'https://www.judopay.com/'
   s.license               = 'MIT'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 
   s.documentation_url     = 'https://docs.judopay.com'
 
-  s.ios.deployment_target = '10.3'
+  s.ios.deployment_target = '11.0'
   s.requires_arc          = true
   s.source_files          = 'Source/**/*.{m,h}'
 

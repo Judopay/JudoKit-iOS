@@ -44,7 +44,7 @@
 @property (nonatomic, strong) NSString *_Nonnull paymentReference;
 
 /**
- *  The type of Transaction, either "Payment" or "Refund"
+ *  The type of Transaction
  */
 @property (nonatomic, assign) JPTransactionType type;
 

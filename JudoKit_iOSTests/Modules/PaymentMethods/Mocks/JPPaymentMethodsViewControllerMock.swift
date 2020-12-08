@@ -55,7 +55,7 @@ import Foundation
     func presentApplePay(authorizationBlock: @escaping JPApplePayAuthorizationBlock) {
         didPresentApplePay = true
 
-        let authBlock: (PKPaymentAuthorizationStatus) -> () = { _ in }
+        let authBlock: (PKPaymentAuthorizationResult) -> () = { _ in }
         authorizationBlock(PKPayment(), authBlock)
     }
     
