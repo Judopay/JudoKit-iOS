@@ -26,6 +26,12 @@ import UIKit
 
 class FeatureCell: UITableViewCell {
     
+    // MARK: - Constants
+    
+    private let kContentOffset: CGFloat = 10.0
+    private let kContentSpacing: CGFloat = 5.0
+    private let kFontSize: CGFloat = 16.0
+    
     // MARK: - Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -57,10 +63,10 @@ class FeatureCell: UITableViewCell {
     
     private func setupConstraints() {
         let constraints = [
-            contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
-            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10.0),
-            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10.0),
-            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10.0)
+            contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: kContentOffset),
+            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: kContentOffset),
+            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -kContentOffset),
+            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -kContentOffset)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -70,21 +76,21 @@ class FeatureCell: UITableViewCell {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 5.0
+        stackView.spacing = kContentSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: kFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var subtitleLabel: UILabel = {
        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: kFontSize)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

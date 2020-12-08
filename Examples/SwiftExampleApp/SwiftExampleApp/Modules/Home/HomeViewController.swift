@@ -29,6 +29,8 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     // MARK: - Constants
     
     private let kCellIdentifier = "FeatureCell"
+    private let kNavigationItemTitle = "JudoPay Examples"
+    private let kHeaderTitle = "FEATURES"
     private var viewModels: [FeatureViewModel] = []
     
     // MARK: - Variables
@@ -55,7 +57,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     // MARK: - Layout setup
     
     private func setupLayout() {
-        navigationItem.title = "JudoPay Examples"
+        navigationItem.title = kNavigationItemTitle
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
     }
@@ -116,8 +118,8 @@ extension HomeViewController: UITableViewDataSource {
         return cell ?? UITableViewCell()
     }
     
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "FEATURES"
+    func tableView(_ tableView: UITableView,
+                   titleForHeaderInSection section: Int) -> String? {
+        return kHeaderTitle
     }
 }
