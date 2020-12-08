@@ -13,6 +13,8 @@
 		305853CF257F813D000B00DF /* HomeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853CE257F813D000B00DF /* HomeModule.swift */; };
 		305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853D3257F8171000B00DF /* HomeInteractor.swift */; };
 		305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853DB257F83D0000B00DF /* FeatureRepository.swift */; };
+		3058541E257F9F32000B00DF /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
+		30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30585426257FABA4000B00DF /* UIViewController+Additions.swift */; };
 		448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1E22450DF22004A11CB /* AppDelegate.swift */; };
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
@@ -48,6 +50,8 @@
 		305853CE257F813D000B00DF /* HomeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModule.swift; sourceTree = "<group>"; };
 		305853D3257F8171000B00DF /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		305853DB257F83D0000B00DF /* FeatureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRepository.swift; sourceTree = "<group>"; };
+		3058541D257F9F32000B00DF /* FeatureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureService.swift; sourceTree = "<group>"; };
+		30585426257FABA4000B00DF /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		448AB1DF2450DF22004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1E22450DF22004A11CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		448AB1EB2450DF24004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		305853B6257F79AF000B00DF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				30585425257FAB89000B00DF /* Extensions */,
 				305853B7257F79B7000B00DF /* Home */,
 			);
 			path = Modules;
@@ -109,6 +114,7 @@
 		305853B7257F79B7000B00DF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3058541C257F9F15000B00DF /* Services */,
 				305853BD257F7B6A000B00DF /* Components */,
 				305853B8257F79CC000B00DF /* HomeViewController.swift */,
 				305853CE257F813D000B00DF /* HomeModule.swift */,
@@ -122,9 +128,25 @@
 			children = (
 				305853BE257F7C9F000B00DF /* FeatureCell.swift */,
 				305853C6257F7EC9000B00DF /* FeatureViewModel.swift */,
-				305853DB257F83D0000B00DF /* FeatureRepository.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3058541C257F9F15000B00DF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				305853DB257F83D0000B00DF /* FeatureRepository.swift */,
+				3058541D257F9F32000B00DF /* FeatureService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		30585425257FAB89000B00DF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				30585426257FABA4000B00DF /* UIViewController+Additions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		448AB1D62450DF22004A11CB = {
@@ -445,6 +467,8 @@
 				448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */,
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
+				3058541E257F9F32000B00DF /* FeatureService.swift in Sources */,
+				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
 				305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */,
 				305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */,
 				305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */,

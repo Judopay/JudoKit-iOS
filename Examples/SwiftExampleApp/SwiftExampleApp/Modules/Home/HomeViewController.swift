@@ -31,6 +31,8 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     private let kCellIdentifier = "FeatureCell"
     private let kNavigationItemTitle = "JudoPay Examples"
     private let kHeaderTitle = "FEATURES"
+    private let kReceiptIDAlertTitle = "Enter your Receipt ID"
+    private let kReceiptIDAlertPlaceholder = "Your Receipt ID"
     private var viewModels: [FeatureViewModel] = []
     
     // MARK: - Variables
@@ -52,6 +54,13 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     func configure(with viewModels: [FeatureViewModel]) {
         self.viewModels = viewModels
         tableView.reloadData()
+    }
+    
+    func displayReceiptInputAlert() {
+        displayInputAlert(with: kReceiptIDAlertTitle,
+                          placeholder: kReceiptIDAlertPlaceholder) { [weak self] input in
+            self?.interactor.getTransactionDetails(for: input)
+        }
     }
     
     // MARK: - Layout setup
@@ -96,6 +105,12 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        let type = viewModels[indexPath.row].type
+        interactor.didSelectFeature(with: type)
     }
 }
 

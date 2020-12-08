@@ -24,7 +24,7 @@
 
 import Foundation
 
-enum Feature {
+enum FeatureType {
     case payment
     case preAuth
     case registerCard
@@ -41,7 +41,7 @@ enum Feature {
 }
 
 struct FeatureViewModel {
-    let type: Feature
+    let type: FeatureType
     let title: String
     let subtitle: String
 }
