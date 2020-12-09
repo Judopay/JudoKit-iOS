@@ -23,13 +23,17 @@
 //  SOFTWARE.
 
 import Foundation
+import JudoKit_iOS
 
 protocol HomeInteractorInput {
     func viewDidLoad()
+    func didSelectFeature(with type: FeatureType)
+    func getTransactionDetails(for receiptID: String)
 }
 
 protocol HomeInteractorOutput: class {
     func configure(with viewModels: [FeatureViewModel])
+    func displayReceiptInputAlert()
 }
 
 class HomeInteractor: HomeInteractorInput {
@@ -38,16 +42,69 @@ class HomeInteractor: HomeInteractorInput {
     
     weak var output: HomeInteractorOutput?
     private let repository: FeatureRepository
+    private let service: FeatureService
     
     // MARK: - Initializers
     
-    init(with repository: FeatureRepository) {
+    init(with repository: FeatureRepository, and service: FeatureService) {
         self.repository = repository
+        self.service = service
     }
     
     // MARK: - Protocol methods
     
     func viewDidLoad() {
         output?.configure(with: repository.features)
+    }
+    
+    func didSelectFeature(with type: FeatureType) {
+        switch type {
+        case .payment:
+            service.invokePayment(with: completion)
+        case .preAuth:
+            service.invokePreAuth(with: completion)
+        case .registerCard:
+            service.invokeRegisterCard(with: completion)
+        case .checkCard:
+            service.invokeCheckCard(with: completion)
+        case .saveCard:
+            service.invokeSaveCard(with: completion)
+        case .applePay:
+            service.invokeApplePay(with: completion)
+        case .applePreAuth:
+            service.invokeApplePreAuth(with: completion)
+        case .paymentMethods:
+            service.invokePaymentMethods(with: completion)
+        case .preAuthMethods:
+            service.invokePreAuthMethods(with: completion)
+        case .serverToServer:
+            service.invokeServerToServerMethods(with: completion)
+        case .payByBank:
+            navigateToPayByBankModule()
+        case .tokenPayments:
+            navigateToTokenPaymentsModule()
+        case .transactionDetails:
+            output?.displayReceiptInputAlert()
+        }
+    }
+    
+    func getTransactionDetails(for receiptID: String) {
+        service.getTransactionDetails(with: receiptID, and: completion)
+    }
+    
+    // MARK: - Helper methods
+    
+    private func navigateToPayByBankModule() {
+        // Navigate to PBBA module
+    }
+    
+    private func navigateToTokenPaymentsModule() {
+        // Navigate to Token Payments module
+    }
+    
+    // MARK: - Lazy instantiations
+    
+    private lazy var completion: JPCompletionBlock = { response, error in
+        // Handle response/error
     }
 }
