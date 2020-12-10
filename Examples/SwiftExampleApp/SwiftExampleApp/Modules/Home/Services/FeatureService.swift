@@ -26,110 +26,115 @@ import Foundation
 import JudoKit_iOS
 
 class FeatureService {
-    
+
+    private let settings = Settings.standard
+
     // MARK: - SDK Methods
-    
-    func invokePayment(with completion: @escaping JPCompletionBlock) {
-        invokeTransaction(with: .payment, completion: completion)
-    }
-    
-    func invokePreAuth(with completion: @escaping JPCompletionBlock) {
-        invokeTransaction(with: .preAuth, completion: completion)
-    }
-    
-    func invokeRegisterCard(with completion: @escaping JPCompletionBlock) {
-        invokeTransaction(with: .registerCard, completion: completion)
-    }
-    
-    func invokeCheckCard(with completion: @escaping JPCompletionBlock) {
-        invokeTransaction(with: .checkCard, completion: completion)
-    }
-    
-    func invokeSaveCard(with completion: @escaping JPCompletionBlock) {
-        invokeTransaction(with: .saveCard, completion: completion)
-    }
-    
-    func invokeApplePay(with completion: @escaping JPCompletionBlock) {
-        invokeApplePay(with: .payment, completion: completion)
-    }
-    
-    func invokeApplePreAuth(with completion: @escaping JPCompletionBlock) {
-        invokeApplePay(with: .preAuth, completion: completion)
-    }
-    
-    func invokePaymentMethods(with completion: @escaping JPCompletionBlock) {
-        invokePaymentMethods(with: .payment, completion: completion)
-    }
-    
-    func invokePreAuthMethods(with completion: @escaping JPCompletionBlock) {
-        invokePaymentMethods(with: .preAuth, completion: completion)
-    }
-    
-    func invokeServerToServerMethods(with completion: @escaping JPCompletionBlock) {
-        invokePaymentMethods(with: .serverToServer, completion: completion)
-    }
-    
-    func getTransactionDetails(with receiptID: String,
-                               and completion: @escaping JPCompletionBlock) {
-        apiService?.fetchTransaction(withReceiptId: receiptID, completion: completion)
-    }
-    
-    // MARK: - Helper methods
-    
-    private func invokeTransaction(with type: JPTransactionType,
-                                   completion: @escaping JPCompletionBlock) {
-        
+
+    func invokeTransaction(with type: JPTransactionType,
+                           completion: @escaping JPCompletionBlock) {
+
         judoKit?.invokeTransaction(with: type,
                                    configuration: configuration,
                                    completion: completion)
     }
-    
-    private func invokePaymentMethods(with mode: JPTransactionMode,
-                                      completion: @escaping JPCompletionBlock) {
-        
-        judoKit?.invokePaymentMethodScreen(with: mode,
-                                           configuration: configuration,
-                                           completion: completion)
-    }
-    
-    private func invokeApplePay(with mode: JPTransactionMode,
-                                completion: @escaping JPCompletionBlock) {
-        
+
+    func invokeApplePay(with mode: JPTransactionMode,
+                        completion: @escaping JPCompletionBlock) {
+
         judoKit?.invokeApplePay(with: mode,
                                 configuration: configuration,
                                 completion: completion)
     }
-    
-    // MARK: - Lazy instantiation
-    
-    private lazy var judoKit: JudoKit? = {
-        let authorization: JPAuthorization = JPBasicAuthorization(token: "", andSecret: "")
-        let judoKit = JudoKit(authorization: authorization)
-        judoKit?.isSandboxed = true
+
+    func invokePaymentMethods(with mode: JPTransactionMode,
+                              completion: @escaping JPCompletionBlock) {
+
+        judoKit?.invokePaymentMethodScreen(with: mode,
+                                           configuration: configuration,
+                                           completion: completion)
+    }
+
+    func getTransactionDetails(with receiptID: String,
+                               and completion: @escaping JPCompletionBlock) {
+        apiService.fetchTransaction(withReceiptId: receiptID, completion: completion)
+    }
+
+    // MARK: - Getters
+
+    private var judoKit: JudoKit? {
+        let judoKit = JudoKit(authorization: settings.authorization)
+        judoKit?.isSandboxed = settings.isSandboxed
         return judoKit
-    }()
-    
-    private lazy var apiService: JPApiService? = {
-        let authorization: JPAuthorization = JPBasicAuthorization(token: "", andSecret: "")
-        let apiService = JPApiService(authorization: authorization, isSandboxed: true)
-        return apiService
-    }()
-    
-    private lazy var configuration: JPConfiguration = {
-        let amount = JPAmount(amount: "0.01", currency: "GBP")
-        let reference = JPReference(consumerReference: "consumerReference")
-        
-        let summaryItem = JPPaymentSummaryItem(label: "Tim Cook", amount: 99.99)
-        let applePayConfiguration = JPApplePayConfiguration(merchantId: "123456",
-                                                            currency: "GBP",
-                                                            countryCode: "GB", paymentSummaryItems: [summaryItem])
-        
-        let configuration = JPConfiguration(judoID: "123456",
-                                            amount: amount,
-                                            reference: reference)
-        
+    }
+
+    private var apiService: JPApiService {
+        return JPApiService(authorization: settings.authorization,
+                            isSandboxed: settings.isSandboxed)
+    }
+
+    private var configuration: JPConfiguration {
+        let configuration = JPConfiguration(judoID: settings.judoID,
+                                            amount: settings.amount,
+                                            reference: settings.reference)
+
+        configuration.paymentMethods = settings.paymentMethods
+        configuration.supportedCardNetworks = settings.supportedCardNetworks
         configuration.applePayConfiguration = applePayConfiguration
-        
+        configuration.pbbaConfiguration = pbbaConfiguration
+        configuration.uiConfiguration = uiConfiguration
+
         return configuration
-    }()
+    }
+
+    private var applePayConfiguration: JPApplePayConfiguration {
+
+        let item = JPPaymentSummaryItem(label: "Tim Cook",
+                                         amount: NSDecimalNumber(string: settings.amount.amount))
+
+        let configuration = JPApplePayConfiguration(merchantId: settings.applePayMerchantID,
+                                                    currency: settings.amount.currency,
+                                                    countryCode: "GB",
+                                                    paymentSummaryItems: [item])
+
+        let expressDelivery = JPPaymentShippingMethod(identifier: "1",
+                                                      detail: "Next day delivery to your location",
+                                                      label: "Express Delivery",
+                                                      amount: 25.0,
+                                                      type: .final)
+
+        let freeDelivery = JPPaymentShippingMethod(identifier: "2",
+                                                   detail: "Delivery by Monday next week",
+                                                   label: "Free Delivery",
+                                                   amount: 0.0,
+                                                   type: .final)
+
+        configuration.shippingType = .shippingTypeDelivery
+        configuration.shippingMethods = [ freeDelivery, expressDelivery ]
+
+        configuration.requiredBillingContactFields = .all
+        configuration.requiredShippingContactFields = .all
+
+        return configuration
+    }
+
+    private var pbbaConfiguration: JPPBBAConfiguration {
+        let configuration = JPPBBAConfiguration(deeplinkScheme: "judo://",
+                                                andDeeplinkURL: nil)
+
+        configuration.appearsOnStatement = "JudoPay"
+        configuration.emailAddress = "developersupport@judopay.com"
+        configuration.mobileNumber = "111-222-333"
+
+        return configuration
+    }
+
+    private var uiConfiguration: JPUIConfiguration {
+        let configuration = JPUIConfiguration()
+        configuration.isAVSEnabled = settings.isAVSEnabled
+        configuration.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
+        configuration.shouldPaymentMethodsDisplayAmount = settings.shouldPaymentMethodsDisplayAmount
+        configuration.shouldPaymentMethodsVerifySecurityCode = settings.shouldPaymentMethodsVerifySecurityCode
+        return configuration
+    }
 }

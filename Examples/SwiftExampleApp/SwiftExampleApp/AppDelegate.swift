@@ -27,19 +27,10 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    
+
     func applicationDidFinishLaunching(_ application: UIApplication) {
-        
-        let homeModule = HomeModule.make()
-    
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController(with: homeModule.rootViewController)
-        window?.makeKeyAndVisible()
-    }
-    
-    private func navigationController(with controller: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
+        let appCoordinator = AppCoordinator(window: window!)
+        appCoordinator.start()
     }
 }
