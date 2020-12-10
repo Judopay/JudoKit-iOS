@@ -63,9 +63,9 @@ class FeatureService {
     // MARK: - Getters
 
     private var judoKit: JudoKit? {
-        let judoKit = JudoKit(authorization: settings.authorization)
-        judoKit?.isSandboxed = settings.isSandboxed
-        return judoKit
+        let judo = JudoKit(authorization: settings.authorization)
+        judo?.isSandboxed = settings.isSandboxed
+        return judo
     }
 
     private var apiService: JPApiService {
@@ -74,28 +74,28 @@ class FeatureService {
     }
 
     private var configuration: JPConfiguration {
-        let configuration = JPConfiguration(judoID: settings.judoID,
-                                            amount: settings.amount,
-                                            reference: settings.reference)
+        let config = JPConfiguration(judoID: settings.judoID,
+                                     amount: settings.amount,
+                                     reference: settings.reference)
 
-        configuration.paymentMethods = settings.paymentMethods
-        configuration.supportedCardNetworks = settings.supportedCardNetworks
-        configuration.applePayConfiguration = applePayConfiguration
-        configuration.pbbaConfiguration = pbbaConfiguration
-        configuration.uiConfiguration = uiConfiguration
+        config.paymentMethods = settings.paymentMethods
+        config.supportedCardNetworks = settings.supportedCardNetworks
+        config.applePayConfiguration = applePayConfiguration
+        config.pbbaConfiguration = pbbaConfiguration
+        config.uiConfiguration = uiConfiguration
 
-        return configuration
+        return config
     }
 
     private var applePayConfiguration: JPApplePayConfiguration {
 
         let item = JPPaymentSummaryItem(label: "Tim Cook",
-                                         amount: NSDecimalNumber(string: settings.amount.amount))
+                                        amount: NSDecimalNumber(string: settings.amount.amount))
 
-        let configuration = JPApplePayConfiguration(merchantId: settings.applePayMerchantID,
-                                                    currency: settings.amount.currency,
-                                                    countryCode: "GB",
-                                                    paymentSummaryItems: [item])
+        let appleConfig = JPApplePayConfiguration(merchantId: settings.applePayMerchantID,
+                                                  currency: settings.amount.currency,
+                                                  countryCode: "GB",
+                                                  paymentSummaryItems: [item])
 
         let expressDelivery = JPPaymentShippingMethod(identifier: "1",
                                                       detail: "Next day delivery to your location",
@@ -109,32 +109,32 @@ class FeatureService {
                                                    amount: 0.0,
                                                    type: .final)
 
-        configuration.shippingType = .shippingTypeDelivery
-        configuration.shippingMethods = [ freeDelivery, expressDelivery ]
+        appleConfig.shippingType = .shippingTypeDelivery
+        appleConfig.shippingMethods = [ freeDelivery, expressDelivery ]
 
-        configuration.requiredBillingContactFields = .all
-        configuration.requiredShippingContactFields = .all
+        appleConfig.requiredBillingContactFields = .all
+        appleConfig.requiredShippingContactFields = .all
 
-        return configuration
+        return appleConfig
     }
 
     private var pbbaConfiguration: JPPBBAConfiguration {
-        let configuration = JPPBBAConfiguration(deeplinkScheme: "judo://",
-                                                andDeeplinkURL: nil)
+        let pbbaConfig = JPPBBAConfiguration(deeplinkScheme: "judo://",
+                                             andDeeplinkURL: nil)
 
-        configuration.appearsOnStatement = "JudoPay"
-        configuration.emailAddress = "developersupport@judopay.com"
-        configuration.mobileNumber = "111-222-333"
+        pbbaConfig.appearsOnStatement = "JudoPay"
+        pbbaConfig.emailAddress = "developersupport@judopay.com"
+        pbbaConfig.mobileNumber = "111-222-333"
 
-        return configuration
+        return pbbaConfig
     }
 
     private var uiConfiguration: JPUIConfiguration {
-        let configuration = JPUIConfiguration()
-        configuration.isAVSEnabled = settings.isAVSEnabled
-        configuration.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
-        configuration.shouldPaymentMethodsDisplayAmount = settings.shouldPaymentMethodsDisplayAmount
-        configuration.shouldPaymentMethodsVerifySecurityCode = settings.shouldPaymentMethodsVerifySecurityCode
-        return configuration
+        let uiConfig = JPUIConfiguration()
+        uiConfig.isAVSEnabled = settings.isAVSEnabled
+        uiConfig.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
+        uiConfig.shouldPaymentMethodsDisplayAmount = settings.shouldPaymentMethodsDisplayAmount
+        uiConfig.shouldPaymentMethodsVerifySecurityCode = settings.shouldPaymentMethodsVerifySecurityCode
+        return uiConfig
     }
 }
