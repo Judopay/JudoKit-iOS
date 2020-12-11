@@ -14,6 +14,14 @@
 		305687452581280600195C93 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687442581280600195C93 /* SettingsKeys.swift */; };
 		3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */; };
 		3056875225812F5600195C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056875125812F5600195C93 /* SettingsViewController.swift */; };
+		30568809258238A400195C93 /* ResultsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568808258238A400195C93 /* ResultsModule.swift */; };
+		3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056880D258238AE00195C93 /* ResultsViewController.swift */; };
+		30568813258238B600195C93 /* ResultsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568812258238B600195C93 /* ResultsInteractor.swift */; };
+		3056881925823CF000195C93 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056881825823CF000195C93 /* Result.swift */; };
+		3056882125823D1300195C93 /* ResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056882025823D1300195C93 /* ResultItem.swift */; };
+		305689F125836F3000195C93 /* NSObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F025836F3000195C93 /* NSObject+Additions.swift */; };
+		305689F7258377FB00195C93 /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F6258377FB00195C93 /* ResultsCell.swift */; };
+		305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689FB2583786700195C93 /* ResultsViewModel.swift */; };
 		305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853B8257F79CC000B00DF /* HomeViewController.swift */; };
 		305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853BE257F7C9F000B00DF /* FeatureCell.swift */; };
 		305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853C6257F7EC9000B00DF /* FeatureViewModel.swift */; };
@@ -56,6 +64,14 @@
 		305687442581280600195C93 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IASKAppSettingsViewController+Additions.swift"; sourceTree = "<group>"; };
 		3056875125812F5600195C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		30568808258238A400195C93 /* ResultsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModule.swift; sourceTree = "<group>"; };
+		3056880D258238AE00195C93 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		30568812258238B600195C93 /* ResultsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsInteractor.swift; sourceTree = "<group>"; };
+		3056881825823CF000195C93 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		3056882025823D1300195C93 /* ResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultItem.swift; sourceTree = "<group>"; };
+		305689F025836F3000195C93 /* NSObject+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Additions.swift"; sourceTree = "<group>"; };
+		305689F6258377FB00195C93 /* ResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCell.swift; sourceTree = "<group>"; };
+		305689FB2583786700195C93 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
 		305853B8257F79CC000B00DF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		305853BE257F7C9F000B00DF /* FeatureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		305853C6257F7EC9000B00DF /* FeatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureViewModel.swift; sourceTree = "<group>"; };
@@ -131,11 +147,42 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		305687EF2582385B00195C93 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				305689F5258377EE00195C93 /* Components */,
+				3056881725823CE000195C93 /* Models */,
+				30568808258238A400195C93 /* ResultsModule.swift */,
+				3056880D258238AE00195C93 /* ResultsViewController.swift */,
+				30568812258238B600195C93 /* ResultsInteractor.swift */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		3056881725823CE000195C93 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3056881825823CF000195C93 /* Result.swift */,
+				3056882025823D1300195C93 /* ResultItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		305689F5258377EE00195C93 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				305689F6258377FB00195C93 /* ResultsCell.swift */,
+				305689FB2583786700195C93 /* ResultsViewModel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		305853B6257F79AF000B00DF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				305853B7257F79B7000B00DF /* Home */,
 				3056872B2581196500195C93 /* Settings */,
+				305687EF2582385B00195C93 /* Results */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -175,6 +222,7 @@
 			children = (
 				30585426257FABA4000B00DF /* UIViewController+Additions.swift */,
 				3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */,
+				305689F025836F3000195C93 /* NSObject+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -514,15 +562,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				305853CF257F813D000B00DF /* HomeModule.swift in Sources */,
+				3056882125823D1300195C93 /* ResultItem.swift in Sources */,
+				305689F125836F3000195C93 /* NSObject+Additions.swift in Sources */,
+				30568813258238B600195C93 /* ResultsInteractor.swift in Sources */,
+				3056881925823CF000195C93 /* Result.swift in Sources */,
 				3056872D2581197100195C93 /* SettingsModule.swift in Sources */,
 				305687402581227500195C93 /* Settings.swift in Sources */,
 				448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */,
 				305687272581193500195C93 /* AppCoordinator.swift in Sources */,
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,
+				30568809258238A400195C93 /* ResultsModule.swift in Sources */,
+				3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */,
 				305687452581280600195C93 /* SettingsKeys.swift in Sources */,
 				3056875225812F5600195C93 /* SettingsViewController.swift in Sources */,
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
+				305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */,
+				305689F7258377FB00195C93 /* ResultsCell.swift in Sources */,
 				3058541E257F9F32000B00DF /* FeatureService.swift in Sources */,
 				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
 				305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */,

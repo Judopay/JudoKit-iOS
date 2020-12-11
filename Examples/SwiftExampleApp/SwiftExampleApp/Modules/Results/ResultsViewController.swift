@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  ResultsViewController.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,21 +24,17 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, HomeInteractorOutput {
+class ResultsViewController: UIViewController, ResultsInteractorOutput {
 
     // MARK: - Constants
 
-    private let kCellIdentifier = "FeatureCell"
-    private let kNavigationItemTitle = "JudoPay Examples"
-    private let kHeaderTitle = "FEATURES"
-    private let kReceiptIDAlertTitle = "Enter your Receipt ID"
-    private let kReceiptIDAlertPlaceholder = "Your Receipt ID"
-    private var viewModels: [FeatureViewModel] = []
+    private let kCellIdentifier = "ResultsCell"
 
     // MARK: - Variables
 
-    var interactor: HomeInteractorInput!
+    var interactor: ResultsInteractorInput!
     var coordinator: Coordinator?
+    private var viewModels: [ResultsViewModel] = []
 
     // MARK: - View lifecycle
 
@@ -50,35 +46,20 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         interactor.viewDidLoad()
     }
 
-    // MARK: - User actions
-
-    @objc private func didTapSettingsButton() {
-        coordinator?.pushTo(.settings)
-    }
-
     // MARK: - View model configuration
 
-    func configure(with viewModels: [FeatureViewModel]) {
+    func configure(with viewModels: [ResultsViewModel]) {
         self.viewModels = viewModels
         tableView.reloadData()
     }
 
-    func displayReceiptInputAlert() {
-        displayInputAlert(with: kReceiptIDAlertTitle,
-                          placeholder: kReceiptIDAlertPlaceholder) { [weak self] input in
-            self?.interactor.getTransactionDetails(for: input)
-        }
-    }
-
-    func navigateToResultsModule(with result: Result) {
-        coordinator?.pushTo(.results(result))
+    func setNavigationTitle(_ title: String) {
+        navigationItem.title = title
     }
 
     // MARK: - Layout setup
 
     private func setupLayout() {
-        navigationItem.title = kNavigationItemTitle
-        navigationItem.rightBarButtonItem = settingsButton
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
     }
@@ -94,19 +75,11 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     }
 
     private func registerCells() {
-        tableView.register(FeatureCell.self, forCellReuseIdentifier: kCellIdentifier)
+        tableView.register(ResultsCell.self,
+                           forCellReuseIdentifier: kCellIdentifier)
     }
 
     // MARK: - Lazy instantiations
-
-    private lazy var settingsButton: UIBarButtonItem = {
-        let settingsIcon = UIImage(named: "settings-black")
-        let button = UIBarButtonItem(image: settingsIcon,
-                                     style: .done,
-                                     target: self,
-                                     action: #selector(didTapSettingsButton))
-        return button
-    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -117,25 +90,18 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     }()
 }
 
-extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt
-                    indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    func tableView(_ tableView: UITableView,
-                   heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
+extension ResultsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        let type = viewModels[indexPath.row].type
-        interactor.didSelectFeature(with: type)
+        let selectedModel = viewModels[indexPath.row]
+
+        if let subResult = selectedModel.subResult {
+            coordinator?.pushTo(.results(subResult))
+        }
     }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension ResultsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
@@ -145,17 +111,14 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: kCellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: kCellIdentifier,
+                                                 for: indexPath)
 
-        if let featureCell = cell as? FeatureCell {
-            featureCell.configure(with: viewModels[indexPath.row])
+        if let resultsCell = cell as? ResultsCell {
+            resultsCell.configure(with: viewModels[indexPath.row])
         }
 
-        return cell ?? UITableViewCell()
+        return cell
     }
 
-    func tableView(_ tableView: UITableView,
-                   titleForHeaderInSection section: Int) -> String? {
-        return kHeaderTitle
-    }
 }

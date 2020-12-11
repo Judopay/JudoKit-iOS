@@ -1,5 +1,5 @@
 //
-//  FeatureCell.swift
+//  ResultsCell.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,7 +24,7 @@
 
 import UIKit
 
-class FeatureCell: UITableViewCell {
+class ResultsCell: UITableViewCell {
 
     // MARK: - Constants
 
@@ -48,7 +48,7 @@ class FeatureCell: UITableViewCell {
 
     // MARK: - View model configuration
 
-    func configure(with viewModel: FeatureViewModel) {
+    func configure(with viewModel: ResultsViewModel) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
     }

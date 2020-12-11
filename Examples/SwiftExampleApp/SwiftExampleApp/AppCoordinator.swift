@@ -27,6 +27,7 @@ import UIKit
 enum AppScreen {
     case home
     case settings
+    case results(Result)
 }
 
 protocol Coordinator: class {
@@ -58,6 +59,11 @@ class AppCoordinator: Coordinator {
                                                     animated: true)
         case .settings:
             navigationController.pushViewController(settingsModule.rootViewController,
+                                                    animated: true)
+        case .results(let result):
+            let resultsModule = ResultsModule.make(with: result)
+            resultsModule.rootViewController.coordinator = self
+            navigationController.pushViewController(resultsModule.rootViewController,
                                                     animated: true)
         }
     }

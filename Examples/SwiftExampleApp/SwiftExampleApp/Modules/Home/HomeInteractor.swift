@@ -34,6 +34,8 @@ protocol HomeInteractorInput {
 protocol HomeInteractorOutput: class {
     func configure(with viewModels: [FeatureViewModel])
     func displayReceiptInputAlert()
+    func displayErrorAlert(with error: NSError)
+    func navigateToResultsModule(with result: Result)
 }
 
 class HomeInteractor: HomeInteractorInput {
@@ -107,7 +109,6 @@ class HomeInteractor: HomeInteractorInput {
         ]
 
         return featureMap[feature] ?? .payment
-
     }
 
     // MARK: - Helper methods
@@ -122,7 +123,17 @@ class HomeInteractor: HomeInteractorInput {
 
     // MARK: - Lazy instantiations
 
-    private lazy var completion: JPCompletionBlock = { response, error in
-        // Handle response/error
+    private lazy var completion: JPCompletionBlock = { [weak self] response, error in
+
+        if let error = error {
+            self?.output?.displayErrorAlert(with: error)
+            return
+        }
+
+        if let response = response {
+            let result = Result(from: response)
+            self?.output?.navigateToResultsModule(with: result)
+            return
+        }
     }
 }
