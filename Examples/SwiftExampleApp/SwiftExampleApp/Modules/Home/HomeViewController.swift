@@ -25,22 +25,23 @@
 import UIKit
 
 class HomeViewController: UIViewController, HomeInteractorOutput {
-    
+
     // MARK: - Constants
-    
+
     private let kCellIdentifier = "FeatureCell"
     private let kNavigationItemTitle = "JudoPay Examples"
     private let kHeaderTitle = "FEATURES"
     private let kReceiptIDAlertTitle = "Enter your Receipt ID"
     private let kReceiptIDAlertPlaceholder = "Your Receipt ID"
     private var viewModels: [FeatureViewModel] = []
-    
+
     // MARK: - Variables
-    
+
     var interactor: HomeInteractorInput!
-    
+    var coordinator: Coordinator?
+
     // MARK: - View lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -48,29 +49,36 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         registerCells()
         interactor.viewDidLoad()
     }
-    
+
+    // MARK: - User actions
+
+    @objc private func didTapSettingsButton() {
+        coordinator?.pushTo(.settings)
+    }
+
     // MARK: - View model configuration
-    
+
     func configure(with viewModels: [FeatureViewModel]) {
         self.viewModels = viewModels
         tableView.reloadData()
     }
-    
+
     func displayReceiptInputAlert() {
         displayInputAlert(with: kReceiptIDAlertTitle,
                           placeholder: kReceiptIDAlertPlaceholder) { [weak self] input in
             self?.interactor.getTransactionDetails(for: input)
         }
     }
-    
+
     // MARK: - Layout setup
-    
+
     private func setupLayout() {
         navigationItem.title = kNavigationItemTitle
+        navigationItem.rightBarButtonItem = settingsButton
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -80,13 +88,22 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     private func registerCells() {
         tableView.register(FeatureCell.self, forCellReuseIdentifier: kCellIdentifier)
     }
-    
+
     // MARK: - Lazy instantiations
-    
+
+    private lazy var settingsButton: UIBarButtonItem = {
+        let settingsIcon = UIImage(named: "settings-black")
+        let button = UIBarButtonItem(image: settingsIcon,
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(didTapSettingsButton))
+        return button
+    }()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,12 +118,12 @@ extension HomeViewController: UITableViewDelegate {
                     indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         let type = viewModels[indexPath.row].type
@@ -115,24 +132,24 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 extension HomeViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
-    
+
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: kCellIdentifier)
-        
+
         if let featureCell = cell as? FeatureCell {
             featureCell.configure(with: viewModels[indexPath.row])
         }
-        
+
         return cell ?? UITableViewCell()
     }
-    
+
     func tableView(_ tableView: UITableView,
                    titleForHeaderInSection section: Int) -> String? {
         return kHeaderTitle

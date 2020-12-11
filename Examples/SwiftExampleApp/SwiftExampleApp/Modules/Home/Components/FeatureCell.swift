@@ -25,42 +25,42 @@
 import UIKit
 
 class FeatureCell: UITableViewCell {
-    
+
     // MARK: - Constants
-    
+
     private let kContentOffset: CGFloat = 10.0
     private let kContentSpacing: CGFloat = 5.0
     private let kFontSize: CGFloat = 16.0
-    
+
     // MARK: - Initializers
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupLayout()
         setupConstraints()
     }
-    
+
     // MARK: - View model configuration
-    
+
     func configure(with viewModel: FeatureViewModel) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
     }
-    
+
     // MARK: - Layout setup
-    
+
     private func setupLayout() {
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(subtitleLabel)
         addSubview(contentStackView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: kContentOffset),
@@ -70,9 +70,9 @@ class FeatureCell: UITableViewCell {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Lazy instantiation
-    
+
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -80,14 +80,14 @@ class FeatureCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: kFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var subtitleLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: kFontSize)

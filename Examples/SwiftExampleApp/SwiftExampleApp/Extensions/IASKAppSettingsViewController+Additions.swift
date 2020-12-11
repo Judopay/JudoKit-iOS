@@ -1,5 +1,5 @@
 //
-//  HomeModule.swift
+//  IASKAppSettingsViewController+Additions.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,35 +22,35 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import InAppSettingsKit
 
-final class HomeModule {
+extension IASKAppSettingsViewController {
 
-    // MARK: - Variables
-
-    let rootViewController: HomeViewController
-
-    // MARK: - Initializers
-
-    private init(rootViewController: HomeViewController) {
-        self.rootViewController = rootViewController
+    public func updateHiddenKeys() {
+        let hiddenKeys = computeHiddenKeys(from: [kIsPaymentSessionOnKey,
+                                                  kIsTokenAndSecretOnKey])
+        setHiddenKeys(hiddenKeys, animated: false)
     }
 
-    // MARK: - Public methods
+    func computeHiddenKeys(from keys: [String]) -> Set<String> {
 
-    static func make() -> HomeModule {
+        var hiddenKeys: Set<String> = [kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey]
 
-        let repository = FeatureRepository()
-        let service = FeatureService()
+        if keys.contains(kIsPaymentSessionOnKey)
+            && Settings.standard.isSessionAuthorizationOn {
+            hiddenKeys.remove(kSessionTokenKey)
+            hiddenKeys.remove(kPaymentSessionKey)
+            UserDefaults.standard.setValue(false, forKey: kIsTokenAndSecretOnKey)
+        }
 
-        let interactor = HomeInteractor(with: repository, and: service)
+        if keys.contains(kIsTokenAndSecretOnKey)
+            && Settings.standard.isBasicAuthorizationOn {
+            hiddenKeys.remove(kTokenKey)
+            hiddenKeys.remove(kSecretKey)
+            UserDefaults.standard.setValue(false, forKey: kIsPaymentSessionOnKey)
+        }
 
-        let viewController = HomeViewController()
-
-        interactor.output = viewController
-        viewController.interactor = interactor
-
-        return HomeModule(rootViewController: viewController)
+        return hiddenKeys
     }
 
 }

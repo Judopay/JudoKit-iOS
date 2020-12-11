@@ -8,6 +8,7 @@ PODS:
     - DeviceDNA
     - TrustKit
     - ZappMerchantLib
+  - SwiftLint (0.41.0)
   - TrustKit (1.7.0)
   - ZappMerchantLib (3.1.0)
 
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - CocoaDebug
   - InAppSettingsKit
   - JudoKit-iOS (from `../../`)
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - DeviceDNA
     - FBRetainCycleDetector
     - InAppSettingsKit
+    - SwiftLint
     - TrustKit
     - ZappMerchantLib
 
@@ -35,9 +38,10 @@ SPEC CHECKSUMS:
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   InAppSettingsKit: 01fb9774c74a11fefc521f29cb2338909e1c2b61
   JudoKit-iOS: f232ce6ea73a8202925a7811895aecfcdfd82432
+  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 3d7dee496f8f1a73254297333309db51fe0adcbb
+PODFILE CHECKSUM: 5a0cc97c7830908acd116668e4e1bb6be36bae36
 
 COCOAPODS: 1.10.0

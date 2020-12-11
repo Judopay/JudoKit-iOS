@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  SettingsModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,34 +24,24 @@
 
 import UIKit
 
-extension UIViewController {
-    
-    typealias TextInputCompletion = (String) -> Void
-    
-    func displayInputAlert(with title: String,
-                           placeholder: String?,
-                           completion: @escaping TextInputCompletion) {
-        
-        let alertController = UIAlertController(title: title,
-                                                message: nil,
-                                                preferredStyle: .alert)
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = placeholder
-        }
-        
-        let confirmAction = UIAlertAction(title: "Done", style: .default) { _ in
-            if let textField = alertController.textFields?.first,
-               let text = textField.text, !text.isEmpty {
-               completion(text)
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
+class SettingsModule {
+
+    // MARK: - Variables
+
+    let rootViewController: UIViewController
+
+    // MARK: - Initializers
+
+    private init(rootViewController: SettingsViewController) {
+        self.rootViewController = rootViewController
+    }
+
+    // MARK: - Public methods
+
+    static func make() -> SettingsModule {
+        let viewController = SettingsViewController()
+        viewController.neverShowPrivacySettings = true
+        viewController.updateHiddenKeys()
+        return SettingsModule(rootViewController: viewController)
     }
 }

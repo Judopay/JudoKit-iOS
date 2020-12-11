@@ -10,6 +10,7 @@ target 'SwiftExampleApp' do
 
   pod 'InAppSettingsKit'
   pod 'CocoaDebug'
+  pod 'SwiftLint'
 
   target 'SwiftExampleAppTests' do
     inherit! :search_paths

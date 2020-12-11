@@ -37,48 +37,39 @@ protocol HomeInteractorOutput: class {
 }
 
 class HomeInteractor: HomeInteractorInput {
-    
+
     // MARK: - Variables
-    
+
     weak var output: HomeInteractorOutput?
     private let repository: FeatureRepository
     private let service: FeatureService
-    
+    private let settings: Settings
+
     // MARK: - Initializers
-    
+
     init(with repository: FeatureRepository, and service: FeatureService) {
         self.repository = repository
         self.service = service
+        settings = Settings.standard
     }
-    
+
     // MARK: - Protocol methods
-    
+
     func viewDidLoad() {
         output?.configure(with: repository.features)
     }
-    
-    func didSelectFeature(with type: FeatureType) {
-        switch type {
-        case .payment:
-            service.invokePayment(with: completion)
-        case .preAuth:
-            service.invokePreAuth(with: completion)
-        case .registerCard:
-            service.invokeRegisterCard(with: completion)
-        case .checkCard:
-            service.invokeCheckCard(with: completion)
-        case .saveCard:
-            service.invokeSaveCard(with: completion)
-        case .applePay:
-            service.invokeApplePay(with: completion)
-        case .applePreAuth:
-            service.invokeApplePreAuth(with: completion)
-        case .paymentMethods:
-            service.invokePaymentMethods(with: completion)
-        case .preAuthMethods:
-            service.invokePreAuthMethods(with: completion)
-        case .serverToServer:
-            service.invokeServerToServerMethods(with: completion)
+
+    func didSelectFeature(with featureType: FeatureType) {
+        switch featureType {
+        case .payment, .preAuth, .registerCard, .checkCard, .saveCard:
+            let type = transactionType(for: featureType)
+            service.invokeTransaction(with: type, completion: completion)
+        case .applePay, .applePreAuth:
+            let mode = transactionMode(for: featureType)
+            service.invokeApplePay(with: mode, completion: completion)
+        case .paymentMethods, .preAuthMethods, .serverToServer:
+            let mode = transactionMode(for: featureType)
+            service.invokePaymentMethods(with: mode, completion: completion)
         case .payByBank:
             navigateToPayByBankModule()
         case .tokenPayments:
@@ -87,23 +78,50 @@ class HomeInteractor: HomeInteractorInput {
             output?.displayReceiptInputAlert()
         }
     }
-    
+
     func getTransactionDetails(for receiptID: String) {
         service.getTransactionDetails(with: receiptID, and: completion)
     }
-    
+
+    private func transactionType(for feature: FeatureType) -> JPTransactionType {
+
+        let featureMap: [ FeatureType: JPTransactionType ] = [
+            .payment: .payment,
+            .preAuth: .preAuth,
+            .registerCard: .registerCard,
+            .checkCard: .checkCard,
+            .saveCard: .saveCard
+        ]
+
+        return featureMap[feature] ?? .payment
+    }
+
+    private func transactionMode(for feature: FeatureType) -> JPTransactionMode {
+
+        let featureMap: [ FeatureType: JPTransactionMode ] = [
+            .applePay: .payment,
+            .applePreAuth: .preAuth,
+            .paymentMethods: .payment,
+            .preAuthMethods: .preAuth,
+            .serverToServer: .serverToServer
+        ]
+
+        return featureMap[feature] ?? .payment
+
+    }
+
     // MARK: - Helper methods
-    
+
     private func navigateToPayByBankModule() {
         // Navigate to PBBA module
     }
-    
+
     private func navigateToTokenPaymentsModule() {
         // Navigate to Token Payments module
     }
-    
+
     // MARK: - Lazy instantiations
-    
+
     private lazy var completion: JPCompletionBlock = { response, error in
         // Handle response/error
     }

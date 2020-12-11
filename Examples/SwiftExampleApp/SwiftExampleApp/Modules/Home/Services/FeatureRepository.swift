@@ -25,59 +25,59 @@
 import Foundation
 
 class FeatureRepository {
-    
+
     let features = [
         FeatureViewModel(type: .payment,
                          title: "Pay with card",
                          subtitle: "by entering card details"),
-        
+
         FeatureViewModel(type: .preAuth,
                          title: "PreAuth with card",
                          subtitle: "by entering card details"),
-        
+
         FeatureViewModel(type: .registerCard,
                          title: "Register card",
                          subtitle: "to be stored for future transactions"),
-        
+
         FeatureViewModel(type: .checkCard,
                          title: "Check card",
                          subtitle: "to validate card"),
-        
+
         FeatureViewModel(type: .saveCard,
                          title: "Save card",
                          subtitle: "to be stored for future transactions"),
-        
+
         FeatureViewModel(type: .applePay,
                          title: "Apple Pay payment",
                          subtitle: "with a wallet card"),
-        
+
         FeatureViewModel(type: .applePreAuth,
                          title: "Apple Pay preAuth",
                          subtitle: "with a wallet card"),
-        
+
         FeatureViewModel(type: .paymentMethods,
                          title: "Payment methods",
                          subtitle: "with default payment methods"),
-        
+
         FeatureViewModel(type: .preAuthMethods,
                          title: "PreAuth methods",
                          subtitle: "with default pre-auth methods"),
-        
+
         FeatureViewModel(type: .serverToServer,
                          title: "Server-to-Server payment methods",
                          subtitle: "with default server-to-server payment methods"),
-        
+
         FeatureViewModel(type: .payByBank,
                          title: "Pay By Bank App",
                          subtitle: "by using your existing Bank app"),
-        
+
         FeatureViewModel(type: .tokenPayments,
                          title: "Token payments",
                          subtitle: "by using your stored card token"),
-        
+
         FeatureViewModel(type: .transactionDetails,
                          title: "Get transaction details",
-                         subtitle: "by using your receipt ID"),
+                         subtitle: "by using your receipt ID")
     ]
-    
+
 }
