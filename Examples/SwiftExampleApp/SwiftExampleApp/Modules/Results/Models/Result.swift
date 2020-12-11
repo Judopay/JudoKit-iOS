@@ -27,12 +27,12 @@ import Foundation
 struct Result {
 
     // MARK: - Variables
-    
+
     let title: String
     let items: [ResultItem]
 
     // MARK: - Initialization
-    
+
     init(with title: String, and items: [ResultItem]) {
         self.title = title
         self.items = items
@@ -63,7 +63,7 @@ struct Result {
     }
 
     // MARK: - Helpers
-    
+
     private init(with title: String, from dictionary: NSDictionary) {
         self.title = title
 

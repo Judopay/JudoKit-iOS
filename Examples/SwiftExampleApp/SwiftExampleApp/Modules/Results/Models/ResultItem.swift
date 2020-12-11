@@ -33,7 +33,7 @@ struct ResultItem {
     public var subResult: Result?
 
     // MARK: - Initialization
-    
+
     init(with title: String,
          value: String,
          and subResult: Result? = nil) {

@@ -31,6 +31,7 @@ class ResultsCell: UITableViewCell {
     private let kContentOffset: CGFloat = 10.0
     private let kContentSpacing: CGFloat = 5.0
     private let kFontSize: CGFloat = 16.0
+    private let kCellSize: CGFloat = 50.0
 
     // MARK: - Initializers
 
@@ -51,6 +52,7 @@ class ResultsCell: UITableViewCell {
     func configure(with viewModel: ResultsViewModel) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
+        accessoryType = (viewModel.subResult != nil) ? .disclosureIndicator : .none
     }
 
     // MARK: - Layout setup
@@ -73,7 +75,9 @@ class ResultsCell: UITableViewCell {
                                                        constant: -kContentOffset),
 
             contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                     constant: -kContentOffset)
+                                                     constant: -kContentOffset),
+
+            contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: kCellSize)
         ]
         NSLayoutConstraint.activate(constraints)
     }
