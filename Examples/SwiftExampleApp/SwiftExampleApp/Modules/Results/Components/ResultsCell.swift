@@ -58,6 +58,7 @@ class ResultsCell: UITableViewCell {
     // MARK: - Layout setup
 
     private func setupLayout() {
+        backgroundColor = .systemBackground
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(subtitleLabel)
         addSubview(contentStackView)

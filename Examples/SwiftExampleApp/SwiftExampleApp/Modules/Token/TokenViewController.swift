@@ -27,10 +27,10 @@ import UIKit
 class TokenViewController: UIViewController, TokenInteractorOutput {
 
     // MARK: - Constants
-    
+
     private let kButtonHeight: CGFloat = 50.0
     private let kHorizontalOffset: CGFloat = 20.0
-    
+
     // MARK: - Variables
 
     var interactor: TokenInteractorInput!
@@ -49,8 +49,8 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
     // MARK: - Protocol methods
 
     func areTokenTransactionButtonsEnabled(_ isEnabled: Bool) {
-        tokenPaymentButton.backgroundColor = isEnabled ? .black : .gray
-        tokenPreAuthButton.backgroundColor = isEnabled ? .black : .gray
+        tokenPaymentButton.backgroundColor = isEnabled ? .systemPurple : .systemGray
+        tokenPreAuthButton.backgroundColor = isEnabled ? .systemPurple : .systemGray
 
         tokenPaymentButton.isEnabled = isEnabled
         tokenPreAuthButton.isEnabled = isEnabled
@@ -77,7 +77,7 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
     // MARK: - Layout setup
 
     private func setupLayout() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         tokenButtonsStackView.addArrangedSubview(tokenPaymentButton)
         tokenButtonsStackView.addArrangedSubview(tokenPreAuthButton)
@@ -148,9 +148,9 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
 
     private static func button(named name: String) -> UIButton {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .systemPurple
         button.setTitle(name, for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         button.layer.cornerRadius = 10.0
         return button

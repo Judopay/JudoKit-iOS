@@ -55,6 +55,38 @@ class FeatureService {
                                            completion: completion)
     }
 
+    func invokeTokenTransaction(with mode: JPTransactionMode,
+                                cardToken: String,
+                                completion: @escaping JPCompletionBlock) {
+
+        let tokenRequest = JPTokenRequest(configuration: configuration,
+                                          andCardToken: cardToken)
+
+        if mode == .payment {
+            apiService.invokeTokenPayment(with: tokenRequest,
+                                          andCompletion: completion)
+            return
+        }
+
+        apiService.invokePreAuthTokenPayment(with: tokenRequest,
+                                             andCompletion: completion)
+    }
+
+    func handle3DSTransaction(with error: JPError,
+                              completion: @escaping JPCompletionBlock) {
+
+        let threeDSConfiguration = JP3DSConfiguration(error: error)
+        let threeDSService = JP3DSService(apiService: apiService)
+        threeDSService.invoke3DSecure(with: threeDSConfiguration, completion: completion)
+    }
+
+    func invokePBBATransaction(with url: URL?,
+                               completion: @escaping JPCompletionBlock) {
+        let currentConfiguration = configuration
+        currentConfiguration.pbbaConfiguration?.deeplinkURL = url
+        judoKit?.invokePBBA(with: currentConfiguration, completion: completion)
+    }
+
     func getTransactionDetails(with receiptID: String,
                                and completion: @escaping JPCompletionBlock) {
         apiService.fetchTransaction(withReceiptId: receiptID, completion: completion)
@@ -119,7 +151,7 @@ class FeatureService {
     }
 
     private var pbbaConfiguration: JPPBBAConfiguration {
-        let pbbaConfig = JPPBBAConfiguration(deeplinkScheme: "judo://",
+        let pbbaConfig = JPPBBAConfiguration(deeplinkScheme: "judoSwift://pay",
                                              andDeeplinkURL: nil)
 
         pbbaConfig.appearsOnStatement = "JudoPay"

@@ -26,11 +26,34 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
     var window: UIWindow?
 
-    func applicationDidFinishLaunching(_ application: UIApplication) {
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+
         window = UIWindow(frame: UIScreen.main.bounds)
         let appCoordinator = AppCoordinator(window: window!)
+        appCoordinator.start(with: url)
+
+        return true
+    }
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let appCoordinator = AppCoordinator(window: window!)
+
+        if let url = launchOptions?[.url] as? URL {
+            appCoordinator.start(with: url)
+            return true
+        }
+
         appCoordinator.start()
+        return true
     }
 }
