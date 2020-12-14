@@ -74,6 +74,10 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         coordinator?.pushTo(.results(result))
     }
 
+    func navigateToTokenModule() {
+        coordinator?.pushTo(.tokenTransactions)
+    }
+
     // MARK: - Layout setup
 
     private func setupLayout() {

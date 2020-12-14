@@ -36,6 +36,7 @@ protocol HomeInteractorOutput: class {
     func displayReceiptInputAlert()
     func displayErrorAlert(with error: NSError)
     func navigateToResultsModule(with result: Result)
+    func navigateToTokenModule()
 }
 
 class HomeInteractor: HomeInteractorInput {
@@ -75,7 +76,7 @@ class HomeInteractor: HomeInteractorInput {
         case .payByBank:
             navigateToPayByBankModule()
         case .tokenPayments:
-            navigateToTokenPaymentsModule()
+            output?.navigateToTokenModule()
         case .transactionDetails:
             output?.displayReceiptInputAlert()
         }
@@ -115,10 +116,6 @@ class HomeInteractor: HomeInteractorInput {
 
     private func navigateToPayByBankModule() {
         // Navigate to PBBA module
-    }
-
-    private func navigateToTokenPaymentsModule() {
-        // Navigate to Token Payments module
     }
 
     // MARK: - Lazy instantiations

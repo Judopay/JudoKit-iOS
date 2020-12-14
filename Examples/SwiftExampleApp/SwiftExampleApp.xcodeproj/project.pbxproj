@@ -22,6 +22,9 @@
 		305689F125836F3000195C93 /* NSObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F025836F3000195C93 /* NSObject+Additions.swift */; };
 		305689F7258377FB00195C93 /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F6258377FB00195C93 /* ResultsCell.swift */; };
 		305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689FB2583786700195C93 /* ResultsViewModel.swift */; };
+		30568A0E2583AD8900195C93 /* TokenModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A0D2583AD8900195C93 /* TokenModule.swift */; };
+		30568A162583AD9200195C93 /* TokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A152583AD9200195C93 /* TokenViewController.swift */; };
+		30568A1B2583AD9A00195C93 /* TokenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A1A2583AD9A00195C93 /* TokenInteractor.swift */; };
 		305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853B8257F79CC000B00DF /* HomeViewController.swift */; };
 		305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853BE257F7C9F000B00DF /* FeatureCell.swift */; };
 		305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853C6257F7EC9000B00DF /* FeatureViewModel.swift */; };
@@ -72,6 +75,9 @@
 		305689F025836F3000195C93 /* NSObject+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Additions.swift"; sourceTree = "<group>"; };
 		305689F6258377FB00195C93 /* ResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCell.swift; sourceTree = "<group>"; };
 		305689FB2583786700195C93 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
+		30568A0D2583AD8900195C93 /* TokenModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModule.swift; sourceTree = "<group>"; };
+		30568A152583AD9200195C93 /* TokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewController.swift; sourceTree = "<group>"; };
+		30568A1A2583AD9A00195C93 /* TokenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInteractor.swift; sourceTree = "<group>"; };
 		305853B8257F79CC000B00DF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		305853BE257F7C9F000B00DF /* FeatureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		305853C6257F7EC9000B00DF /* FeatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureViewModel.swift; sourceTree = "<group>"; };
@@ -177,10 +183,21 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		30568A0C2583AD7100195C93 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				30568A0D2583AD8900195C93 /* TokenModule.swift */,
+				30568A152583AD9200195C93 /* TokenViewController.swift */,
+				30568A1A2583AD9A00195C93 /* TokenInteractor.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
 		305853B6257F79AF000B00DF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				305853B7257F79B7000B00DF /* Home */,
+				30568A0C2583AD7100195C93 /* Token */,
 				3056872B2581196500195C93 /* Settings */,
 				305687EF2582385B00195C93 /* Results */,
 			);
@@ -573,13 +590,16 @@
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,
 				30568809258238A400195C93 /* ResultsModule.swift in Sources */,
 				3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */,
+				30568A162583AD9200195C93 /* TokenViewController.swift in Sources */,
 				305687452581280600195C93 /* SettingsKeys.swift in Sources */,
 				3056875225812F5600195C93 /* SettingsViewController.swift in Sources */,
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
 				305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */,
+				30568A1B2583AD9A00195C93 /* TokenInteractor.swift in Sources */,
 				305689F7258377FB00195C93 /* ResultsCell.swift in Sources */,
 				3058541E257F9F32000B00DF /* FeatureService.swift in Sources */,
+				30568A0E2583AD8900195C93 /* TokenModule.swift in Sources */,
 				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
 				305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */,
 				305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */,

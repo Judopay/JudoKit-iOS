@@ -28,6 +28,7 @@ enum AppScreen {
     case home
     case settings
     case results(Result)
+    case tokenTransactions
 }
 
 protocol Coordinator: class {
@@ -41,6 +42,7 @@ class AppCoordinator: Coordinator {
     private let window: UIWindow
     private let homeModule = HomeModule.make()
     private let settingsModule = SettingsModule.make()
+    private let tokenModule = TokenModule.make()
 
     init(window: UIWindow) {
         self.window = window
@@ -64,6 +66,10 @@ class AppCoordinator: Coordinator {
             let resultsModule = ResultsModule.make(with: result)
             resultsModule.rootViewController.coordinator = self
             navigationController.pushViewController(resultsModule.rootViewController,
+                                                    animated: true)
+        case .tokenTransactions:
+            tokenModule.rootViewController.coordinator = self
+            navigationController.pushViewController(tokenModule.rootViewController,
                                                     animated: true)
         }
     }
