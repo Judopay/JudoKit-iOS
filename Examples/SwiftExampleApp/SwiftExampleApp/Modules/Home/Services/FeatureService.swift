@@ -92,6 +92,11 @@ class FeatureService {
         apiService.fetchTransaction(withReceiptId: receiptID, completion: completion)
     }
 
+    func checkTransactionStatus(for orderID: String,
+                                completion: @escaping JPCompletionBlock) {
+        apiService.invokeOrderStatus(withOrderId: orderID, andCompletion: completion)
+    }
+
     // MARK: - Getters
 
     private var judoKit: JudoKit? {

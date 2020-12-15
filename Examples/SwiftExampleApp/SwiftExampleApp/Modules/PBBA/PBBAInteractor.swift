@@ -25,11 +25,14 @@
 import JudoKit_iOS
 
 protocol PBBAInteractorInput {
+    func viewDidLoad()
     func didTapPBBAButton()
+    func checkTransactionStatus()
 }
 
 protocol PBBAInteractorOutput: class {
     func displayErrorAlert(with error: NSError)
+    func shouldDisplayTransactionStatusElements(_ shouldDisplay: Bool)
     func navigateToResultsModule(with result: Result)
 }
 
@@ -39,6 +42,7 @@ class PBBAInteractor: PBBAInteractorInput {
 
     weak var output: PBBAInteractorOutput?
     private let featureService: FeatureService
+    private var orderID: String?
 
     // MARK: - Initializers
 
@@ -48,9 +52,19 @@ class PBBAInteractor: PBBAInteractorInput {
 
     // MARK: - Protocol methods
 
+    func viewDidLoad() {
+        output?.shouldDisplayTransactionStatusElements(false)
+    }
+
     func didTapPBBAButton() {
         featureService.invokePBBATransaction(with: nil,
                                              completion: completion)
+    }
+
+    func checkTransactionStatus() {
+        guard let orderID = orderID else { return }
+        featureService.checkTransactionStatus(for: orderID,
+                                              completion: completion)
     }
 
     // MARK: - Lazy instantiations
@@ -72,5 +86,8 @@ class PBBAInteractor: PBBAInteractorInput {
             self?.output?.navigateToResultsModule(with: result)
             return
         }
+
+        self?.output?.shouldDisplayTransactionStatusElements(true)
+        self?.orderID = response.orderDetails?.orderId
     }
 }

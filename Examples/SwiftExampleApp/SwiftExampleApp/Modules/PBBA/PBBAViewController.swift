@@ -31,6 +31,7 @@ class PBBAViewController: UIViewController, PBBAInteractorOutput {
 
     private let kButtonHeight: CGFloat = 50.0
     private let kButtonWidth: CGFloat = 310.0
+    private let kContentBottomOffset: CGFloat = 100.0
 
     // MARK: - Variables
 
@@ -42,6 +43,9 @@ class PBBAViewController: UIViewController, PBBAInteractorOutput {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupConstraints()
+        setupTargets()
+        interactor.viewDidLoad()
     }
 
     // MARK: - Protocol methods
@@ -50,12 +54,44 @@ class PBBAViewController: UIViewController, PBBAInteractorOutput {
         coordinator?.pushTo(.results(result))
     }
 
+    func shouldDisplayTransactionStatusElements(_ shouldDisplay: Bool) {
+        contentStackView.isHidden = !shouldDisplay
+    }
+
+    // MARK: - User actions
+
+    @objc private func didTapGetTransactionButton() {
+        interactor.checkTransactionStatus()
+    }
+
     // MARK: - Layout setup
 
     private func setupLayout() {
         pbbaButton.delegate = self
         view.backgroundColor = .systemBackground
         view.addSubview(pbbaButton)
+
+        contentStackView.addArrangedSubview(orderIDLabel)
+        contentStackView.addArrangedSubview(getTransactionStatusButton)
+
+        view.addSubview(contentStackView)
+    }
+
+    private func setupConstraints() {
+        let constraints = [
+            getTransactionStatusButton.widthAnchor.constraint(equalToConstant: kButtonWidth),
+            getTransactionStatusButton.heightAnchor.constraint(equalToConstant: kButtonHeight),
+            contentStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                     constant: -kContentBottomOffset)
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    private func setupTargets() {
+        getTransactionStatusButton.addTarget(self,
+                                             action: #selector(didTapGetTransactionButton),
+                                             for: .touchDown)
     }
 
     // MARK: - Lazy instantiations
@@ -71,6 +107,31 @@ class PBBAViewController: UIViewController, PBBAInteractorOutput {
                            height: kButtonHeight)
 
         return JPPBBAButton(frame: frame)
+    }()
+
+    private lazy var orderIDLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
+        label.textColor = .systemGreen
+        return label
+    }()
+
+    private lazy var getTransactionStatusButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemOrange
+        button.setTitle("Check transaction status", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.layer.cornerRadius = 5.0
+        return button
+    }()
+
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 20.0
+        return stackView
     }()
 }
 
