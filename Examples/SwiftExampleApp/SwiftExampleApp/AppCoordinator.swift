@@ -28,28 +28,56 @@ enum AppScreen {
     case home
     case settings
     case results(Result)
+    case tokenTransactions
+    case payByBankApp
 }
 
 protocol Coordinator: class {
     func start()
+    func start(with deeplinkURL: URL)
     func pushTo(_ screen: AppScreen)
     func pop()
 }
 
 class AppCoordinator: Coordinator {
 
+    // MARK: - Variables
+
     private let window: UIWindow
-    private let homeModule = HomeModule.make()
-    private let settingsModule = SettingsModule.make()
+    private let featureService: FeatureService
+    private let featureRepository: FeatureRepository
+    private let homeModule: HomeModule
+    private let settingsModule: SettingsModule
+    private let tokenModule: TokenModule
+    private let pbbaModule: PBBAModule
+
+    // MARK: - Initializers
 
     init(window: UIWindow) {
         self.window = window
+
+        featureService = FeatureService()
+        featureRepository = FeatureRepository()
+
+        homeModule = HomeModule.make(with: featureRepository, service: featureService)
+        settingsModule = SettingsModule.make()
+        tokenModule = TokenModule.make(with: featureService)
+        pbbaModule = PBBAModule.make(with: featureService)
     }
+
+    // MARK: - Protocol methods
 
     func start() {
         homeModule.rootViewController.coordinator = self
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+    }
+
+    func start(with deeplinkURL: URL) {
+        homeModule.rootViewController.coordinator = self
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        homeModule.rootViewController.handlePBBAStatus(with: deeplinkURL)
     }
 
     func pushTo(_ screen: AppScreen) {
@@ -64,6 +92,14 @@ class AppCoordinator: Coordinator {
             let resultsModule = ResultsModule.make(with: result)
             resultsModule.rootViewController.coordinator = self
             navigationController.pushViewController(resultsModule.rootViewController,
+                                                    animated: true)
+        case .tokenTransactions:
+            tokenModule.rootViewController.coordinator = self
+            navigationController.pushViewController(tokenModule.rootViewController,
+                                                    animated: true)
+        case .payByBankApp:
+            pbbaModule.rootViewController.coordinator = self
+            navigationController.pushViewController(pbbaModule.rootViewController,
                                                     animated: true)
         }
     }

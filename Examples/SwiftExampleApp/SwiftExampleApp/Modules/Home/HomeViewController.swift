@@ -74,6 +74,20 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         coordinator?.pushTo(.results(result))
     }
 
+    func navigateToTokenModule() {
+        coordinator?.pushTo(.tokenTransactions)
+    }
+
+    func navigateToPBBAModule() {
+        coordinator?.pushTo(.payByBankApp)
+    }
+
+    // MARK: - PBBA Deeplinking
+
+    func handlePBBAStatus(with url: URL) {
+        interactor.handlePBBAStatus(with: url)
+    }
+
     // MARK: - Layout setup
 
     private func setupLayout() {

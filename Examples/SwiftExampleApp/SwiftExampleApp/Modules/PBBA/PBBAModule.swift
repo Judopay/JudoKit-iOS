@@ -1,5 +1,5 @@
 //
-//  HomeModule.swift
+//  PBBAModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,30 +24,29 @@
 
 import UIKit
 
-final class HomeModule {
+class PBBAModule {
 
     // MARK: - Variables
 
-    let rootViewController: HomeViewController
+    let rootViewController: PBBAViewController
 
     // MARK: - Initializers
 
-    private init(rootViewController: HomeViewController) {
+    private init(rootViewController: PBBAViewController) {
         self.rootViewController = rootViewController
     }
 
     // MARK: - Public methods
 
-    static func make(with repository: FeatureRepository,
-                     service: FeatureService) -> HomeModule {
+    static func make(with featureService: FeatureService) -> PBBAModule {
 
-        let interactor = HomeInteractor(with: repository, and: service)
-        let viewController = HomeViewController()
+        let interactor = PBBAInteractor(with: featureService)
+        let viewController = PBBAViewController()
 
         interactor.output = viewController
         viewController.interactor = interactor
 
-        return HomeModule(rootViewController: viewController)
+        return PBBAModule(rootViewController: viewController)
     }
 
 }
