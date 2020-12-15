@@ -27,8 +27,10 @@ import XCTest
 
 class JPTransactionRouterMock: JPTransactionRouter {
     var dimissController = false
-    func dismissViewController() {
+    
+    func dismissViewController(completion: (() -> Void)? = nil) {
         dimissController = true
+        completion?()
     }
     
     func navigateToScanCamera() {
