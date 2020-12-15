@@ -1,5 +1,5 @@
 //
-//  HomeModule.swift
+//  ResultsInteractor.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import JudoKit_iOS
 
-final class HomeModule {
+protocol ResultsInteractorInput {
+    func viewDidLoad()
+}
+
+protocol ResultsInteractorOutput: class {
+    func configure(with viewModels: [ResultsViewModel])
+    func setNavigationTitle(_ title: String)
+}
+
+class ResultsInteractor: ResultsInteractorInput {
 
     // MARK: - Variables
 
-    let rootViewController: HomeViewController
+    weak var output: ResultsInteractorOutput?
+    private let result: Result
 
     // MARK: - Initializers
 
-    private init(rootViewController: HomeViewController) {
-        self.rootViewController = rootViewController
+    init(with result: Result) {
+        self.result = result
     }
 
-    // MARK: - Public methods
+    // MARK: - Protocol methods
 
-    static func make(with repository: FeatureRepository,
-                     service: FeatureService) -> HomeModule {
+    func viewDidLoad() {
+        output?.setNavigationTitle(result.title)
 
-        let interactor = HomeInteractor(with: repository, and: service)
-        let viewController = HomeViewController()
+        let viewModels = result.items.map {
+            ResultsViewModel(title: $0.title,
+                             subtitle: $0.value,
+                             subResult: $0.subResult)
+        }
 
-        interactor.output = viewController
-        viewController.interactor = interactor
-
-        return HomeModule(rootViewController: viewController)
+        output?.configure(with: viewModels)
     }
-
 }

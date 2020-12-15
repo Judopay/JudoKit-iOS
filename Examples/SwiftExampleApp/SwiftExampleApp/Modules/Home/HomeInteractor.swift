@@ -29,11 +29,16 @@ protocol HomeInteractorInput {
     func viewDidLoad()
     func didSelectFeature(with type: FeatureType)
     func getTransactionDetails(for receiptID: String)
+    func handlePBBAStatus(with url: URL)
 }
 
 protocol HomeInteractorOutput: class {
     func configure(with viewModels: [FeatureViewModel])
     func displayReceiptInputAlert()
+    func displayErrorAlert(with error: NSError)
+    func navigateToResultsModule(with result: Result)
+    func navigateToTokenModule()
+    func navigateToPBBAModule()
 }
 
 class HomeInteractor: HomeInteractorInput {
@@ -71,9 +76,9 @@ class HomeInteractor: HomeInteractorInput {
             let mode = transactionMode(for: featureType)
             service.invokePaymentMethods(with: mode, completion: completion)
         case .payByBank:
-            navigateToPayByBankModule()
+            output?.navigateToPBBAModule()
         case .tokenPayments:
-            navigateToTokenPaymentsModule()
+            output?.navigateToTokenModule()
         case .transactionDetails:
             output?.displayReceiptInputAlert()
         }
@@ -82,6 +87,12 @@ class HomeInteractor: HomeInteractorInput {
     func getTransactionDetails(for receiptID: String) {
         service.getTransactionDetails(with: receiptID, and: completion)
     }
+
+    func handlePBBAStatus(with url: URL) {
+        service.invokePBBATransaction(with: url, completion: completion)
+    }
+
+    // MARK: - Helper methods
 
     private func transactionType(for feature: FeatureType) -> JPTransactionType {
 
@@ -107,22 +118,21 @@ class HomeInteractor: HomeInteractorInput {
         ]
 
         return featureMap[feature] ?? .payment
-
-    }
-
-    // MARK: - Helper methods
-
-    private func navigateToPayByBankModule() {
-        // Navigate to PBBA module
-    }
-
-    private func navigateToTokenPaymentsModule() {
-        // Navigate to Token Payments module
     }
 
     // MARK: - Lazy instantiations
 
-    private lazy var completion: JPCompletionBlock = { response, error in
-        // Handle response/error
+    private lazy var completion: JPCompletionBlock = { [weak self] response, error in
+
+        if let error = error {
+            self?.output?.displayErrorAlert(with: error)
+            return
+        }
+
+        if let response = response {
+            let result = Result(from: response)
+            self?.output?.navigateToResultsModule(with: result)
+            return
+        }
     }
 }

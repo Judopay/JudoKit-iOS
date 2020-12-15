@@ -1,5 +1,5 @@
 //
-//  HomeModule.swift
+//  ResultsViewModel.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,32 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
-final class HomeModule {
-
-    // MARK: - Variables
-
-    let rootViewController: HomeViewController
-
-    // MARK: - Initializers
-
-    private init(rootViewController: HomeViewController) {
-        self.rootViewController = rootViewController
-    }
-
-    // MARK: - Public methods
-
-    static func make(with repository: FeatureRepository,
-                     service: FeatureService) -> HomeModule {
-
-        let interactor = HomeInteractor(with: repository, and: service)
-        let viewController = HomeViewController()
-
-        interactor.output = viewController
-        viewController.interactor = interactor
-
-        return HomeModule(rootViewController: viewController)
-    }
-
+struct ResultsViewModel {
+    let title: String
+    let subtitle: String
+    let subResult: Result?
 }

@@ -28,6 +28,17 @@ extension UIViewController {
 
     typealias TextInputCompletion = (String) -> Void
 
+    func displayErrorAlert(with error: NSError) {
+        let alertController = UIAlertController(title: error.localizedDescription,
+                                                message: error.localizedFailureReason,
+                                                preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(confirmAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+
     func displayInputAlert(with title: String,
                            placeholder: String?,
                            completion: @escaping TextInputCompletion) {

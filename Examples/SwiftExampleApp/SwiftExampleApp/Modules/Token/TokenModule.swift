@@ -1,5 +1,5 @@
 //
-//  HomeModule.swift
+//  TokenModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,30 +24,29 @@
 
 import UIKit
 
-final class HomeModule {
+class TokenModule {
 
     // MARK: - Variables
 
-    let rootViewController: HomeViewController
+    let rootViewController: TokenViewController
 
     // MARK: - Initializers
 
-    private init(rootViewController: HomeViewController) {
+    private init(rootViewController: TokenViewController) {
         self.rootViewController = rootViewController
     }
 
     // MARK: - Public methods
 
-    static func make(with repository: FeatureRepository,
-                     service: FeatureService) -> HomeModule {
+    static func make(with featureService: FeatureService) -> TokenModule {
 
-        let interactor = HomeInteractor(with: repository, and: service)
-        let viewController = HomeViewController()
+        let interactor = TokenInteractor(with: featureService)
+        let viewController = TokenViewController()
 
         interactor.output = viewController
         viewController.interactor = interactor
 
-        return HomeModule(rootViewController: viewController)
+        return TokenModule(rootViewController: viewController)
     }
 
 }

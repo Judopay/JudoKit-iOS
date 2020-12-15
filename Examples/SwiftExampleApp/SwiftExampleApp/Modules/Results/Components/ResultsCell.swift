@@ -1,5 +1,5 @@
 //
-//  FeatureCell.swift
+//  ResultsCell.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,13 +24,14 @@
 
 import UIKit
 
-class FeatureCell: UITableViewCell {
+class ResultsCell: UITableViewCell {
 
     // MARK: - Constants
 
     private let kContentOffset: CGFloat = 10.0
     private let kContentSpacing: CGFloat = 5.0
     private let kFontSize: CGFloat = 16.0
+    private let kCellSize: CGFloat = 50.0
 
     // MARK: - Initializers
 
@@ -48,9 +49,10 @@ class FeatureCell: UITableViewCell {
 
     // MARK: - View model configuration
 
-    func configure(with viewModel: FeatureViewModel) {
+    func configure(with viewModel: ResultsViewModel) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
+        accessoryType = (viewModel.subResult != nil) ? .disclosureIndicator : .none
     }
 
     // MARK: - Layout setup
@@ -74,7 +76,9 @@ class FeatureCell: UITableViewCell {
                                                        constant: -kContentOffset),
 
             contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                     constant: -kContentOffset)
+                                                     constant: -kContentOffset),
+
+            contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: kCellSize)
         ]
         NSLayoutConstraint.activate(constraints)
     }
