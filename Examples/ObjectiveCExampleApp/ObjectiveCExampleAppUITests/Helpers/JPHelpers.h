@@ -25,8 +25,6 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-@interface JPHelpers : NSObject
-
 /**
  * A convenience method for toggling on all XCUIElement switch elements.
  *
@@ -46,5 +44,3 @@ void toggleOnSwitches(NSArray <XCUIElement *> *switches);
  * @param switches - an array of XCUIElement switches to be enabled
  */
 void toggleOffSwitches(NSArray <XCUIElement *> *switches);
-
-@end

@@ -24,13 +24,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JPAfterHandlers : NSObject
-
 /**
  * A method used to reset the app to a clean state after each UI test.
  * - deletes all cards from the Payment Methods screen.
  * - toggles all switches off on the Settings page
  */
-+ (void)cleanUp;
-
-@end
+void cleanUp(void);

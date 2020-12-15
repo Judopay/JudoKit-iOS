@@ -29,14 +29,15 @@
 #import "XCUIElement+Additions.h"
 #import "JPHelpers.h"
 
-NSString *kJudoId = @"<#YOUR JUDO ID#>";
-NSString *kToken = @"<#YOUR TOKEN#>";
-NSString *kSecret = @"<#YOUR SECRET#>";
+NSString *kJudoId = @"<#YOUR-JUDO-ID#>";
+NSString *kToken = @"<#YOUR-TOKEN#>";
+NSString *kSecret = @"<#YOUR-SECRET#>";
+NSString *k3DSToken = @"<#YOUR-3DS-TOKEN#>";
+NSString *k3DSSecret = @"<#YOUR-3DS-SECRET#>";
 
-@implementation JPTagHandlers
+#pragma mark - Basic authorization configuration
 
-void handleRequireNon3DSConfig() {
-
+void handleRequireConfig(NSString *token, NSString *secret) {
     [JPMainElements.settingsButton tap];
 
     [JPSettingsElements.judoIDTextField clearAndEnterText:kJudoId];
@@ -44,16 +45,26 @@ void handleRequireNon3DSConfig() {
     [JPSettingsElements.sessionAuthenticationSwitch switchOff];
     [JPSettingsElements.basicAuthenticationSwitch switchOn];
 
-    [JPSettingsElements.basicTokenTextField clearAndEnterText:kToken];
-    [JPSettingsElements.basicSecretTextField clearAndEnterText:kSecret];
+    [JPSettingsElements.basicTokenTextField clearAndEnterText:token];
+    [JPSettingsElements.basicSecretTextField clearAndEnterText:secret];
 
     [JPGenericElements.backButton tap];
 }
 
+void handleRequireNon3DSConfig() {
+    handleRequireConfig(kToken, kSecret);
+}
+
+void handleRequire3DSConfig() {
+    handleRequireConfig(k3DSToken, k3DSSecret);
+}
+
+#pragma mark - Card network configuration
+
 void handleRequireAllCardNetworks() {
     [JPMainElements.settingsButton tap];
 
-    [JPHelpers toggleOnSwitches:@[
+    NSArray *switches = @[
         JPSettingsElements.visaSwitch,
         JPSettingsElements.masterCardSwitch,
         JPSettingsElements.maestroSwitch,
@@ -62,10 +73,14 @@ void handleRequireAllCardNetworks() {
         JPSettingsElements.jcbSwitch,
         JPSettingsElements.discoverSwitch,
         JPSettingsElements.dinersClubSwitch
-    ]];
+    ];
+    
+    toggleOnSwitches(switches);
 
     [JPGenericElements.backButton tap];
 }
+
+#pragma mark - AVS configuration
 
 void handleRequireAVS() {
     [JPMainElements.settingsButton tap];
@@ -76,6 +91,8 @@ void handleRequireAVS() {
     [JPGenericElements.backButton tap];
 }
 
+#pragma mark - Transaction button amount configuration
+
 void handleRequireButtonAmount() {
     [JPMainElements.settingsButton tap];
 
@@ -84,6 +101,8 @@ void handleRequireButtonAmount() {
 
     [JPGenericElements.backButton tap];
 }
+
+#pragma mark - Payment method configuration
 
 void handleRequireCardPaymentMethod() {
     [JPMainElements.settingsButton tap];
@@ -139,6 +158,13 @@ void handleRequireAllPaymentMethods() {
     [JPGenericElements.backButton tap];
 }
 
+#pragma mark - Currency configuration
+
+void switchToCurrency(NSString *currency) {
+    XCUIElement *cell = [XCUIElement cellWithStaticText:currency];
+    [cell tap];
+}
+
 void handleRequireCurrencyGBP() {
     [JPMainElements.settingsButton tap];
 
@@ -162,10 +188,3 @@ void handleRequireCurrencyEUR() {
     [JPGenericElements.backButton tap];
     [JPGenericElements.backButton tap];
 }
-
-void switchToCurrency(NSString *currency) {
-    XCUIElement *cell = [XCUIElement cellWithStaticText:currency];
-    [cell tap];
-}
-
-@end

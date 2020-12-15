@@ -32,8 +32,10 @@
 
 /**
  * A method that, when called, will dismiss the Add Card view controller
+ *
+ * @param completion - a block called after the view controller finishes dismissing
  */
-- (void)dismissViewController;
+- (void)dismissViewControllerWithCompletion:(void (^_Nullable)(void))completion;
 
 /**
  * A method that starts the scan camera flow and returns a completion result

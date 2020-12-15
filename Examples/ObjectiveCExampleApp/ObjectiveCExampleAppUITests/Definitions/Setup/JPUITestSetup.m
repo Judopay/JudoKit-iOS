@@ -30,7 +30,7 @@
 @implementation JPUITestSetup
 
 + (void)setUp {
-
+    
     /**
      * A handler that ensures that the application is executed before the test scenarios start running.
      */
@@ -45,7 +45,17 @@
      * scenario executes.
      */
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireNon3DSConfig];
+        handleRequireNon3DSConfig();
+    });
+    
+    /**
+     * [TAG] require-3ds-config
+     *
+     * A tag that is used to specify that 3DS credentials (Judo ID, Token & Secret) must be set before the
+     * scenario executes.
+     */
+    beforeTagged(@[@"require-3ds-config"], ^(CCIScenarioDefinition *scenario) {
+        handleRequire3DSConfig();
     });
 
     /**
@@ -54,7 +64,7 @@
      * A tag that is used to specify that all card networks must be accepted before the scenario executes.
      */
     beforeTagged(@[@"require-all-card-networks"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireAllCardNetworks];
+        handleRequireAllCardNetworks();
     });
 
     /**
@@ -63,7 +73,7 @@
      * A tag that is used to specify that AVS must be enabled before the scenario executes
      */
     beforeTagged(@[@"require-avs"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireAVS];
+        handleRequireAVS();
     });
 
     /**
@@ -73,7 +83,7 @@
      * enabled before the scenario executes.
      */
     beforeTagged(@[@"require-button-amount"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireButtonAmount];
+        handleRequireButtonAmount();
     });
 
     /**
@@ -82,7 +92,7 @@
      * A tag that is used to specify that the Judo wallet should support Card transactions.
      */
     beforeTagged(@[@"require-card-payment-method"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireCardPaymentMethod];
+        handleRequireCardPaymentMethod();
     });
 
     /**
@@ -91,7 +101,7 @@
      * A tag that is used to specify that the Judo wallet should support iDEAL transactions.
      */
     beforeTagged(@[@"require-ideal-payment-method"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireIDEALPaymentMethod];
+        handleRequireIDEALPaymentMethod();
     });
 
     /**
@@ -100,7 +110,7 @@
      * A tag that is used to specify that the Judo wallet should support Apple Pay transactions.
      */
     beforeTagged(@[@"require-apple-pay-payment-method"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireApplePayPaymentMethod];
+        handleRequireApplePayPaymentMethod();
     });
 
     /**
@@ -109,7 +119,7 @@
      * A tag that is used to specify that the Judo wallet should support PBBA transactions.
      */
     beforeTagged(@[@"require-pbba-payment-method"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequirePBBAPaymentMethod];
+        handleRequirePBBAPaymentMethod();
     });
 
     /**
@@ -118,7 +128,7 @@
      * A tag that is used to specify that the Judo wallet should support all transaction methods.
      */
     beforeTagged(@[@"require-all-payment-methods"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireAllPaymentMethods];
+        handleRequireAllPaymentMethods();
     });
 
     /**
@@ -127,7 +137,7 @@
      * A tag that is used to specify that the selected currency should be GBP
      */
     beforeTagged(@[@"require-currency-gbp"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireCurrencyGBP];
+        handleRequireCurrencyGBP();
     });
 
     /**
@@ -136,7 +146,7 @@
      * A tag that is used to specify that the selected currency should be EUR
      */
     beforeTagged(@[@"require-currency-eur"], ^(CCIScenarioDefinition *scenario) {
-        [JPTagHandlers handleRequireCurrencyEUR];
+        handleRequireCurrencyEUR();
     });
 
     /**
@@ -144,7 +154,7 @@
      * Used to reset the app to a clean state.
      */
     after(^(CCIScenarioDefinition *scenario) {
-        [JPAfterHandlers cleanUp];
+        cleanUp();
     });
 }
 
