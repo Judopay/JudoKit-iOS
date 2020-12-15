@@ -26,7 +26,6 @@
 #import "JPAddress.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
-#import "JPCardDetailsMode.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPResponse.h"
