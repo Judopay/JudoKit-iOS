@@ -24,6 +24,7 @@
 
 #import "JPTransactionType.h"
 #import "JPTransactionViewModel.h"
+#import "JPCardDetailsMode.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>

@@ -30,7 +30,6 @@
 #import "JPApiService.h"
 #import "JPCard.h"
 #import "JPCardPattern.h"
-#import "JPCardDetailsMode.h"
 #import "JPCardStorage.h"
 #import "JPCardValidationService.h"
 #import "JPCheckCardRequest.h"
