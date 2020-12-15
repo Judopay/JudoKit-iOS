@@ -132,14 +132,13 @@
     JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
     [self.threeDSecureService invoke3DSecureWithConfiguration:configuration
                                                    completion:^(JPResponse *response, JPError *transactionError) {
+                                                       if (response) {
+                                                           [weakSelf presentResultTableViewControllerWithResponse:response];
+                                                           return;
+                                                       }
 
-        if (response) {
-            [weakSelf presentResultTableViewControllerWithResponse:response];
-            return;
-        }
-
-        [weakSelf displayAlertWithError:error];
-    }];
+                                                       [weakSelf displayAlertWithError:error];
+                                                   }];
 }
 
 - (void)setupButtons {
