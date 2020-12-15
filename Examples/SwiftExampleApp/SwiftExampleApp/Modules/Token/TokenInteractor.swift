@@ -42,7 +42,14 @@ class TokenInteractor: TokenInteractorInput {
     // MARK: - Variables
 
     private var cardToken: String?
+    private let featureService: FeatureService
     weak var output: TokenInteractorOutput?
+
+    // MARK: - Initializer
+
+    init(with featureService: FeatureService) {
+        self.featureService = featureService
+    }
 
     // MARK: - Protocol methods
 
@@ -51,25 +58,20 @@ class TokenInteractor: TokenInteractorInput {
     }
 
     func didTapSaveCardButton() {
-        judoKit?.invokeTransaction(with: .saveCard,
-                                   configuration: configuration,
-                                   completion: completion)
+        featureService.invokeTransaction(with: .saveCard,
+                                         completion: completion)
     }
 
     func didTapTokenPaymentButton() {
-        let tokenRequest = JPTokenRequest(configuration: configuration,
-                                          andCardToken: cardToken ?? "")
-
-        apiService.invokeTokenPayment(with: tokenRequest,
-                                      andCompletion: completion)
+        featureService.invokeTokenTransaction(with: .payment,
+                                              cardToken: cardToken ?? "",
+                                              completion: completion)
     }
 
     func didTapTokenPreAuthButton() {
-        let tokenRequest = JPTokenRequest(configuration: configuration,
-                                          andCardToken: cardToken ?? "")
-
-        apiService.invokePreAuthTokenPayment(with: tokenRequest,
-                                             andCompletion: completion)
+        featureService.invokeTokenTransaction(with: .preAuth,
+                                              cardToken: cardToken ?? "",
+                                              completion: completion)
     }
 
     // MARK: - Helpers
@@ -77,17 +79,12 @@ class TokenInteractor: TokenInteractorInput {
     private func handleError(_ error: JPError) {
 
         if error.code == JudoError.Judo3DSRequestError.rawValue {
-            handle3DSTransaction(with: error)
+            featureService.handle3DSTransaction(with: error,
+                                                completion: completion)
             return
         }
 
         output?.displayErrorAlert(with: error)
-    }
-
-    private func handle3DSTransaction(with error: JPError) {
-        let threeDSConfiguration = JP3DSConfiguration(error: error)
-        let threeDSService = JP3DSService(apiService: apiService)
-        threeDSService.invoke3DSecure(with: threeDSConfiguration, completion: completion)
     }
 
     private func handleResponse(_ response: JPResponse) {
@@ -109,28 +106,6 @@ class TokenInteractor: TokenInteractorInput {
     }
 
     // MARK: - Lazy instantiations
-
-    private var judoKit: JudoKit? {
-        let judo = JudoKit(authorization: Settings.standard.authorization)
-        judo?.isSandboxed = Settings.standard.isSandboxed
-        return judo
-    }
-
-    private var apiService: JPApiService {
-        let service = JPApiService(authorization: Settings.standard.authorization,
-                                   isSandboxed: Settings.standard.isSandboxed)
-        return service
-    }
-
-    private var configuration: JPConfiguration {
-        let config = JPConfiguration(judoID: Settings.standard.judoID,
-                                     amount: Settings.standard.amount,
-                                     reference: Settings.standard.reference)
-
-        config.supportedCardNetworks = Settings.standard.supportedCardNetworks
-
-        return config
-    }
 
     private lazy var completion: JPCompletionBlock = { [weak self] response, error in
         if let error = error {

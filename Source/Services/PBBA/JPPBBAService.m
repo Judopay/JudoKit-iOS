@@ -77,12 +77,10 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
     JPBankOrderSaleRequest *request = [JPBankOrderSaleRequest pbbaRequestWithConfiguration:self.configuration];
 
-    __weak typeof(self) weakSelf = self;
-
     [self.apiService invokeBankSaleWithRequest:request
                                  andCompletion:^(JPResponse *response, __unused JPError *error) {
                                      if (response.orderDetails.orderId && response.redirectUrl) {
-                                         [weakSelf handlePBBAResponse:response completion:completion];
+                                         [self handlePBBAResponse:response completion:completion];
                                          return;
                                      }
                                      completion(nil, error == nil ? JPError.judoResponseParseError : error);

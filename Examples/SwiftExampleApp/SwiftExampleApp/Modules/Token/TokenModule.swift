@@ -38,9 +38,9 @@ class TokenModule {
 
     // MARK: - Public methods
 
-    static func make() -> TokenModule {
+    static func make(with featureService: FeatureService) -> TokenModule {
 
-        let interactor = TokenInteractor()
+        let interactor = TokenInteractor(with: featureService)
         let viewController = TokenViewController()
 
         interactor.output = viewController
