@@ -23,13 +23,16 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPUITestConfiguration.h"
 
 @interface JPUITestSetup : NSObject
 
 /**
  * A method that is used to register all the initial configuration steps that have to run before the scenario executes.
  * Used for things such as: setting the credentials, enabling/disabling AVS, selecting card networks, etc.
+ *
+ * @param configuration - an instance of JPUITestConfiguration, containing the test data to be used
  */
-+ (void)setUp;
++ (void)setUpWithConfiguration:(nonnull JPUITestConfiguration *)configuration;
 
 @end

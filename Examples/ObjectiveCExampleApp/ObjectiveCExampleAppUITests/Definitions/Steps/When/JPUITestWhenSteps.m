@@ -23,12 +23,17 @@
 //  SOFTWARE.
 
 #import "JPUITestWhenSteps.h"
+#import "JPTagHandlers.h"
 #import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestWhenSteps
 
-+ (void)setUp {
-
++ (void)setUpWithConfiguration:(JPUITestConfiguration *)configuration {
+    
+    before(^(CCIScenarioDefinition *scenario) {
+        tags = scenario.tags;
+    });
+    
     /**
      * [WHEN] ^I tap on the \"(.*)\" (?:option|cell|item)$
      *
@@ -65,14 +70,43 @@
     When(@"^I enter \"(.*)\" (?:in|into) the (.*) (?:text|input) field$", ^void(NSArray *args, id userInfo) {
         XCUIApplication *application = [XCUIApplication new];
 
-        NSString *textInput = args[0];
-        NSString *textFieldName = args[1];
+        NSString *input = args[0];
+        NSString *fieldName = args[1];
 
+        NSString *textFieldIdentifier = [NSString stringWithFormat:@"%@ Field", fieldName];
+        XCUIElement *textField = application.otherElements[textFieldIdentifier];
+
+        [textField tap];
+        [textField typeText:input];
+    });
+    
+    /**
+     * [WHEN] ^I enter (<.*>) \"(.*)\" (?:in|into) the (.*) (?:text|input) field$
+     *
+     * Description:
+     *    A test step used to execute a tap and type input into a text field identified by its accessibility identifier
+     *
+     * Valid examples:
+     *    - When I enter VISA "4123 1234 1234 1234" into the Card Number text field
+     *    - When I enter VISA "John Rambo" in the Cardholder Name input field
+     *    - When I enter VISA  "425" into the Secure Code field
+     */
+    When(@"^I enter (.*) \"(.*)\" (?:in|into) the (.*) (?:text|input) field$", ^void(NSArray *args, id userInfo) {
+        XCUIApplication *application = [XCUIApplication new];
+
+        NSString *fieldType = args[0];
+        NSString *identifier = args[1];
+        NSString *textFieldName = args[2];
+
+        NSString *fieldInput = [configuration fetchFieldForTag:tags.firstObject
+                                                    identifier:identifier
+                                                       andType:fieldType];
+        
         NSString *textFieldIdentifier = [NSString stringWithFormat:@"%@ Field", textFieldName];
         XCUIElement *textField = application.otherElements[textFieldIdentifier];
 
         [textField tap];
-        [textField typeText:textInput];
+        [textField typeText:fieldInput];
     });
 
     /**
@@ -136,7 +170,7 @@
 
         [picker adjustToPickerWheelValue:selectedOption];
     });
-
+    
     /**
      * [WHEN] ^I wait for \"(.*)\" seconds$
      *

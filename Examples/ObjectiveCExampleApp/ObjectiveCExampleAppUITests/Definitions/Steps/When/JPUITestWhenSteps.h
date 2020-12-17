@@ -23,12 +23,15 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPUITestConfiguration.h"
 
 @interface JPUITestWhenSteps : NSObject
 
 /**
  * A method that is used to register all the [WHEN] steps of the UI test scenarios.
+ *
+ * @param configuration - an instance of JPUITestConfiguration, containing the test data to be used
  */
-+ (void)setUp;
++ (void)setUpWithConfiguration:(nonnull JPUITestConfiguration *)configuration;
 
 @end

@@ -22,13 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTagHandlers.h"
 #import "JPUITestThenSteps.h"
 #import "XCUIElement+Additions.h"
 #import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestThenSteps
 
-+ (void)setUp {
++ (void)setUpWithConfiguration:(JPUITestConfiguration *)configuration {
 
     /**
      * [THEN] ^the (.*) (?:screen|page|view|option|item) should be visible
@@ -95,9 +96,34 @@
      *    - Then the "Settings" text should be visible
      */
     Then(@"^(?:the|an|a) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
+    
+        NSString *input = args[0];
+
         XCUIApplication *application = [XCUIApplication new];
-        NSString *text = args[0];
-        XCTAssertTrue([application.staticTexts[text] waitForExistenceWithTimeout:3.0]);
+        XCTAssertTrue([application.staticTexts[input] waitForExistenceWithTimeout:3.0]);
+    });
+    
+    /**
+     * [THEN] ^(?:the|an|a) (.*) \"(.*)\" (?:label|text) should be visible$
+     *
+     * Description:
+     *    A test step used to validate that a label/text element is visible on the screen
+     *
+     * Valid examples:
+     *    - Then a "Transaction Successful!" label should be visible
+     *    - Then the "Settings" text should be visible
+     */
+    Then(@"^(?:the|an|a) (.*) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
+        
+        NSString *fieldType = args[0];
+        NSString *identifier = args[1];
+
+        NSString *fieldInput = [configuration fetchFieldForTag:tags.firstObject
+                                                     identifier:identifier
+                                                       andType:fieldType];
+        
+        XCUIApplication *application = [XCUIApplication new];
+        XCTAssertTrue([application.staticTexts[fieldInput] waitForExistenceWithTimeout:3.0]);
     });
 
     /**

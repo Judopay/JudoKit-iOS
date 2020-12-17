@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestAddress.h
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,28 +22,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestConfiguration.h"
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import <Foundation/Foundation.h>
 
-__attribute__((constructor))
+@interface JPUITestAddress : NSObject
 
-void CucumberishInit() {
+/**
+ * The NSString value of the country
+ */
+@property (nonatomic, strong, nullable) NSString *country;
 
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    
-    JPUITestConfiguration *configuration = JPUITestConfiguration.defaultConfiguration;
-    
-    [JPUITestSetup setUpWithConfiguration:configuration];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUpWithConfiguration:configuration];
-    [JPUITestThenSteps setUpWithConfiguration:configuration];
+/**
+ * The NSString value of the post code
+ */
+@property (nonatomic, strong, nullable) NSString *postCode;
 
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:configuration.testsToInclude
-                                excludeTags:configuration.testsToSkip];
-}
+/**
+ * Designated initializer that creates a JPUITestAddress object by parsing a JSON dictionary
+ *
+ * @returns a configured instance of JPUITestAddress
+ */
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
+
+@end

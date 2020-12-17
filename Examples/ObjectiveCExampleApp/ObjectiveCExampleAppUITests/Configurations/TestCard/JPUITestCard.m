@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestCard.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,28 +22,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestConfiguration.h"
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import "JPUITestCard.h"
 
-__attribute__((constructor))
+@implementation JPUITestCard
 
-void CucumberishInit() {
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    
-    JPUITestConfiguration *configuration = JPUITestConfiguration.defaultConfiguration;
-    
-    [JPUITestSetup setUpWithConfiguration:configuration];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUpWithConfiguration:configuration];
-    [JPUITestThenSteps setUpWithConfiguration:configuration];
-
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:configuration.testsToInclude
-                                excludeTags:configuration.testsToSkip];
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        self.cardType = dictionary[@"cardType"];
+        self.cardNumber = dictionary[@"cardNumber"];
+        self.cardholderName = dictionary[@"cardHolder"];
+        self.expiryDate = dictionary[@"expiryDate"];
+        self.securityCode = dictionary[@"securityCode"];
+        self.secureCodeErrorMessage = dictionary[@"secureCodeErrorMessage"];
+    }
+    return self;
 }
+
+- (NSString *)valueForField:(NSString *)field {
+    
+    NSDictionary *valueDict = @{
+        @"CARD NUMBER": self.cardNumber ? self.cardNumber : [NSNull null],
+        @"CARDHOLDER NAME": self.cardholderName ? self.cardholderName : [NSNull null],
+        @"EXPIRY DATE": self.expiryDate ? self.expiryDate : [NSNull null],
+        @"SECURE CODE": self.securityCode ? self.securityCode : [NSNull null],
+        @"SECURE CODE ERROR MESSAGE": self.secureCodeErrorMessage ? self.secureCodeErrorMessage : [NSNull null]
+    };
+    
+    NSObject *value = [valueDict objectForKey:field];
+    return (value != [NSNull null]) ? (NSString *)value : nil;
+}
+
+@end

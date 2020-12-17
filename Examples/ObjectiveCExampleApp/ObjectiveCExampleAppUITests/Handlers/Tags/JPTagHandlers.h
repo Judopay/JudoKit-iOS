@@ -23,16 +23,19 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPUITestConfiguration.h"
+
+static NSArray *tags;
 
 /**
  * A method used to toggle the basic authorization switch and enter the non-3DS credentials.
  */
-void handleRequireNon3DSConfig(void);
+void handleRequireNon3DSConfig(JPUITestConfiguration *);
 
 /**
  * A method used to toggle the basic authorization switch and enter the 3DS credentials.
  */
-void handleRequire3DSConfig(void);
+void handleRequire3DSConfig(JPUITestConfiguration *);
 
 /**
  * A method used to toggle on all the card networks on the Settings page.

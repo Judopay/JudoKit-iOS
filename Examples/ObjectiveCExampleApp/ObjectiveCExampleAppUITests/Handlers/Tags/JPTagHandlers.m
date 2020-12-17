@@ -27,20 +27,15 @@
 #import "JPSettingsElements.h"
 #import "JPGenericElements.h"
 #import "XCUIElement+Additions.h"
+#import "JPUITestConfiguration.h"
 #import "JPHelpers.h"
-
-NSString *kJudoId = @"<#YOUR-JUDO-ID#>";
-NSString *kToken = @"<#YOUR-TOKEN#>";
-NSString *kSecret = @"<#YOUR-SECRET#>";
-NSString *k3DSToken = @"<#YOUR-3DS-TOKEN#>";
-NSString *k3DSSecret = @"<#YOUR-3DS-SECRET#>";
 
 #pragma mark - Basic authorization configuration
 
-void handleRequireConfig(NSString *token, NSString *secret) {
+void handleRequireConfig(NSString *judoID, NSString *token, NSString *secret) {
     [JPMainElements.settingsButton tap];
 
-    [JPSettingsElements.judoIDTextField clearAndEnterText:kJudoId];
+    [JPSettingsElements.judoIDTextField clearAndEnterText:judoID];
 
     [JPSettingsElements.sessionAuthenticationSwitch switchOff];
     [JPSettingsElements.basicAuthenticationSwitch switchOn];
@@ -51,12 +46,16 @@ void handleRequireConfig(NSString *token, NSString *secret) {
     [JPGenericElements.backButton tap];
 }
 
-void handleRequireNon3DSConfig() {
-    handleRequireConfig(kToken, kSecret);
+void handleRequireNon3DSConfig(JPUITestConfiguration *configuration) {
+    handleRequireConfig(configuration.judoID,
+                        configuration.token,
+                        configuration.secret);
 }
 
-void handleRequire3DSConfig() {
-    handleRequireConfig(k3DSToken, k3DSSecret);
+void handleRequire3DSConfig(JPUITestConfiguration *configuration) {
+    handleRequireConfig(configuration.judoID,
+                        configuration.threeDSToken,
+                        configuration.threeDSSecret);
 }
 
 #pragma mark - Card network configuration

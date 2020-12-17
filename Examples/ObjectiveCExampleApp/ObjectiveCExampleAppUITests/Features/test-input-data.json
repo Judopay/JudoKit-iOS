@@ -1,0 +1,149 @@
+{
+    "judoId": "100108620",
+    "token": "XFQTtOV37sEw5k4E",
+    "secret": "dc5ad09eff27a0af576c30922e48197a36720d0f8fe1c53142525077a23f9d10",
+    "threeDSToken": "nPpGDu4uoGPilUox",
+    "threeDSSecret": "a0c6f3dafdccd556fb13923443486ca7de3926bf5234674301e8e480b178cc9f",
+    "sandbox": true,
+    "testsToSkip": [
+        "test-secure-code-validation",
+        "test-avs-post-code-validation",
+        "test-avs-post-code-length-validation",
+        "test-judo-payment-methods-all-disabled",
+        "test-judo-payment-methods-pbba"
+    ],
+    "testsToInclude": [
+        "test-avs-card-payment",
+        "test-avs-card-preauth",
+        "test-avs-card-register-card",
+        "test-avs-card-check-card",
+        "test-avs-card-save-card",
+    ],
+    "defaultCards": [
+        {
+            "cardType": "AMEX",
+            "cardNumber": "3782 8224 6310 005",
+            "securityCode": "1234",
+            "expiryDate": "1229",
+            "cardHolder": "Cardholder name"
+        },
+        {
+            "cardType": "VISA",
+            "cardNumber": "4111 1111 1111 1111",
+            "securityCode": "123",
+            "expiryDate": "1229",
+            "cardHolder": "Cardholder name"
+        },
+        {
+            "cardType": "JCB",
+            "cardNumber": "3566 1111 1111 1113",
+            "securityCode": "123",
+            "expiryDate": "1229",
+            "cardHolder": "Cardholder name"
+        },
+        {
+            "cardType": "DISCOVER",
+            "cardNumber": "6011 1111 1111 1117",
+            "securityCode": "123",
+            "expiryDate": "1229",
+            "cardHolder": "Cardholder name"
+        },
+        {
+            "cardType": "MASTERCARD",
+            "cardNumber": "5555 5555 5555 4444",
+            "securityCode": "123",
+            "expiryDate": "1229",
+            "cardHolder": "Cardholder name"
+        }
+    ],
+    "testData": [
+        {
+            "tags": [
+                "test-card-number-validation",
+            ],
+            "cards": [
+                {
+                    "cardType": "AMEX",
+                    "cardNumber": "3782 8224 6310 004",
+                },
+                {
+                    "cardType": "VISA",
+                    "cardNumber": "4111 1111 1111 1112",
+                },
+                {
+                    "cardType": "JCB",
+                    "cardNumber": "3566 1111 1111 1114",
+                },
+                {
+                    "cardType": "DISCOVER",
+                    "cardNumber": "6011 1111 1111 1118",
+                },
+                {
+                    "cardType": "MASTERCARD",
+                    "cardNumber": "5555 5555 5555 4445",
+                }
+            ]
+        },
+        {
+            "tags": [
+                "test-expiry-date-validation"
+            ],
+            "cards": [
+                {
+                    "cardType": "VISA",
+                    "expiryDate": "01/10",
+                },
+            ]
+        },
+        {
+            "tags": [
+                "test-submit-transaction-button-state"
+            ],
+            "cards": [
+                {
+                    "cardType": "AMEX",
+                    "cardHolder": "Joe",
+                },
+                {
+                    "cardType": "VISA",
+                    "cardNumber": "4111 1111 1111 1112",
+                },
+                {
+                    "cardType": "JCB",
+                    "expiryDate": "01/10",
+                },
+                {
+                    "cardType": "MASTERCARD",
+                    "securityCode": "12",
+                }
+            ]
+        },
+        {
+            "tags": [
+                "test-avs-card-payment",
+                "test-avs-card-preauth",
+                "test-avs-card-register-card",
+                "test-avs-card-check-card",
+                "test-avs-card-save-card"
+            ],
+            "avs": [
+                {
+                    "country": "UK",
+                    "postCode": "SW15 5PU"
+                },
+                {
+                    "country": "USA",
+                    "postCode": "94102"
+                },
+                {
+                    "country": "Canada",
+                    "postCode": "K1A0B1"
+                },
+                {
+                    "country": "Other",
+                    "postCode": "10115"
+                }
+            ]
+        }
+    ]
+}

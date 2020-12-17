@@ -1,5 +1,5 @@
 //
-//  ObjectiveCExampleAppUITests.m
+//  JPUITestAddress.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,28 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUITestConfiguration.h"
-#import "JPUITestSetup.h"
-#import "JPUITestGivenSteps.h"
-#import "JPUITestWhenSteps.h"
-#import "JPUITestThenSteps.h"
-#import "Cucumberish.h"
+#import "JPUITestAddress.h"
 
-__attribute__((constructor))
+@implementation JPUITestAddress
 
-void CucumberishInit() {
-
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
-    
-    JPUITestConfiguration *configuration = JPUITestConfiguration.defaultConfiguration;
-    
-    [JPUITestSetup setUpWithConfiguration:configuration];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUpWithConfiguration:configuration];
-    [JPUITestThenSteps setUpWithConfiguration:configuration];
-
-    [Cucumberish executeFeaturesInDirectory:@"Features"
-                                 fromBundle:bundle
-                                includeTags:configuration.testsToInclude
-                                excludeTags:configuration.testsToSkip];
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        self.country = dictionary[@"country"];
+        self.postCode = dictionary[@"postCode"];
+    }
+    return self;
 }
+
+@end

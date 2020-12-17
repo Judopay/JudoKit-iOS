@@ -14,6 +14,10 @@
 		23DCF27D58A18EF25392B811 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 		3047749C250F983E00B13DDF /* ResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3047749B250F983E00B13DDF /* ResultTests.m */; };
 		304774A0250F99B700B13DDF /* JPResponseStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 3047749F250F99B700B13DDF /* JPResponseStub.json */; };
+		30711FE5258A07B000D92BCF /* JPUITestConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FE4258A07B000D92BCF /* JPUITestConfiguration.m */; };
+		30711FEB258A0AC700D92BCF /* JPUITestCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FEA258A0AC700D92BCF /* JPUITestCard.m */; };
+		30711FF1258A74C500D92BCF /* JPUITestData.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FF0258A74C500D92BCF /* JPUITestData.m */; };
+		30711FFD258B523700D92BCF /* JPUITestAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FFC258B523700D92BCF /* JPUITestAddress.m */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
 		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
@@ -75,6 +79,14 @@
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		3047749B250F983E00B13DDF /* ResultTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultTests.m; sourceTree = "<group>"; };
 		3047749F250F99B700B13DDF /* JPResponseStub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JPResponseStub.json; sourceTree = "<group>"; };
+		30711FE3258A07B000D92BCF /* JPUITestConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestConfiguration.h; sourceTree = "<group>"; };
+		30711FE4258A07B000D92BCF /* JPUITestConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestConfiguration.m; sourceTree = "<group>"; };
+		30711FE9258A0AC700D92BCF /* JPUITestCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestCard.h; sourceTree = "<group>"; };
+		30711FEA258A0AC700D92BCF /* JPUITestCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestCard.m; sourceTree = "<group>"; };
+		30711FEF258A74C500D92BCF /* JPUITestData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestData.h; sourceTree = "<group>"; };
+		30711FF0258A74C500D92BCF /* JPUITestData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestData.m; sourceTree = "<group>"; };
+		30711FFB258B523700D92BCF /* JPUITestAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestAddress.h; sourceTree = "<group>"; };
+		30711FFC258B523700D92BCF /* JPUITestAddress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestAddress.m; sourceTree = "<group>"; };
 		3AB03C618596FCEA7EC86A2F /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -222,6 +234,53 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		30711FE2258A079200D92BCF /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				30712001258BABEA00D92BCF /* TestAddress */,
+				30711FF7258A7A8D00D92BCF /* TestData */,
+				30711FF6258A7A5600D92BCF /* TestCard */,
+				30711FF5258A7A4C00D92BCF /* TestConfiguration */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		30711FF5258A7A4C00D92BCF /* TestConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				30711FE3258A07B000D92BCF /* JPUITestConfiguration.h */,
+				30711FE4258A07B000D92BCF /* JPUITestConfiguration.m */,
+			);
+			path = TestConfiguration;
+			sourceTree = "<group>";
+		};
+		30711FF6258A7A5600D92BCF /* TestCard */ = {
+			isa = PBXGroup;
+			children = (
+				30711FE9258A0AC700D92BCF /* JPUITestCard.h */,
+				30711FEA258A0AC700D92BCF /* JPUITestCard.m */,
+			);
+			path = TestCard;
+			sourceTree = "<group>";
+		};
+		30711FF7258A7A8D00D92BCF /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				30711FEF258A74C500D92BCF /* JPUITestData.h */,
+				30711FF0258A74C500D92BCF /* JPUITestData.m */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
+		30712001258BABEA00D92BCF /* TestAddress */ = {
+			isa = PBXGroup;
+			children = (
+				30711FFB258B523700D92BCF /* JPUITestAddress.h */,
+				30711FFC258B523700D92BCF /* JPUITestAddress.m */,
+			);
+			path = TestAddress;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +336,7 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				30711FE2258A079200D92BCF /* Configurations */,
 				52189DDB25651E7F00B8B57A /* Helpers */,
 				526D95E62563ED7100B0ECCC /* Handlers */,
 				52A89B7B2551647800DA2F0D /* Definitions */,
@@ -807,15 +867,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30711FFD258B523700D92BCF /* JPUITestAddress.m in Sources */,
 				52A89B642551621500DA2F0D /* JPSettingsElements.m in Sources */,
 				52A89B6D2551632600DA2F0D /* JPMainElements.m in Sources */,
 				52A89B9F2551742B00DA2F0D /* JPGenericElements.m in Sources */,
 				52A89B5E2551574100DA2F0D /* JPUITestSetup.m in Sources */,
+				30711FE5258A07B000D92BCF /* JPUITestConfiguration.m in Sources */,
 				52A89B83255164EA00DA2F0D /* JPUITestGivenSteps.m in Sources */,
 				52189DE2256536A300B8B57A /* JPPaymentMethodsElements.m in Sources */,
 				526D95FB2563F29400B0ECCC /* JPAfterHandlers.m in Sources */,
 				52A89B8F2551650900DA2F0D /* JPUITestThenSteps.m in Sources */,
+				30711FEB258A0AC700D92BCF /* JPUITestCard.m in Sources */,
 				448AB1C92450DE93004A11CB /* ObjectiveCExampleAppUITests.m in Sources */,
+				30711FF1258A74C500D92BCF /* JPUITestData.m in Sources */,
 				526D95F52563F07F00B0ECCC /* JPTagHandlers.m in Sources */,
 				52A89B74255163B100DA2F0D /* XCUIElement+Additions.m in Sources */,
 				52A89B89255164FA00DA2F0D /* JPUITestWhenSteps.m in Sources */,
