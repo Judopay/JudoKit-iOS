@@ -31,6 +31,10 @@
 
 + (void)setUpWithConfiguration:(JPUITestConfiguration *)configuration {
 
+    before(^(CCIScenarioDefinition *scenario) {
+        tags = scenario.tags;
+    });
+
     /**
      * [THEN] ^the (.*) (?:screen|page|view|option|item) should be visible
      *
@@ -196,6 +200,31 @@
     Then(@"^(?:the|an|a) \"(.*)\" (?:item|cell|option) should be selected$", ^void(NSArray *args, id userInfo) {
         NSString *cellTitle = args[0];
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
+
+        XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
+        XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);
+    });
+    
+    /**
+     * [THEN] ^(?:the|an|a) (.*) \"(.*)\" (?:item|cell|option) should be selected$
+     *
+     * Description:
+     *    A test step used to validate that an item/cell, identified by its title, should be selected
+     *
+     * Valid examples:
+     *    - Then the "Visa Ending 1111" item should be selected
+     *    - Then the "Card for shopping" item should be selected
+     */
+    Then(@"^(?:the|an|a) (.*) \"(.*)\" (?:item|cell|option) should be selected$", ^void(NSArray *args, id userInfo) {
+        
+        NSString *type = args[0];
+        NSString *identifier = args[1];
+        
+        NSString *input = [configuration fetchFieldForTag:tags.firstObject
+                                               identifier:identifier
+                                                  andType:type];
+        
+        XCUIElement *selectedCell = [XCUIElement cellWithStaticText:input];
 
         XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
         XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);

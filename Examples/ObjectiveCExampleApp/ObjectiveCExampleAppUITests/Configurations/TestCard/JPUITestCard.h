@@ -57,6 +57,11 @@
 @property (nonatomic, strong, nullable) NSString *secureCodeErrorMessage;
 
 /**
+ * The NSString value representing the subtitle of the card in the Payment Methods Screen card list
+ */
+@property (nonatomic, strong, nullable) NSString *paymentMethodsSubtitle;
+
+/**
  * Designated initializer that creates a JPUITestCard object by parsing a JSON dictionary
  *
  * @returns a configured instance of JPUITestCard

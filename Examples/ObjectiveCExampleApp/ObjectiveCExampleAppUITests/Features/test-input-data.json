@@ -1,9 +1,9 @@
 {
-    "judoId": "100108620",
-    "token": "XFQTtOV37sEw5k4E",
-    "secret": "dc5ad09eff27a0af576c30922e48197a36720d0f8fe1c53142525077a23f9d10",
-    "threeDSToken": "nPpGDu4uoGPilUox",
-    "threeDSSecret": "a0c6f3dafdccd556fb13923443486ca7de3926bf5234674301e8e480b178cc9f",
+    "judoId": "YOUR-JUDO-ID",
+    "token": "YOUR-TOKEN",
+    "secret": "YOUR-SECRET",
+    "threeDSToken": "YOUR-3DS-TOKEN",
+    "threeDSSecret": "YOUR-3DS-SECRET",
     "sandbox": true,
     "testsToSkip": [
         "test-secure-code-validation",
@@ -12,13 +12,7 @@
         "test-judo-payment-methods-all-disabled",
         "test-judo-payment-methods-pbba"
     ],
-    "testsToInclude": [
-        "test-avs-card-payment",
-        "test-avs-card-preauth",
-        "test-avs-card-register-card",
-        "test-avs-card-check-card",
-        "test-avs-card-save-card",
-    ],
+    "testsToInclude": [],
     "defaultCards": [
         {
             "cardType": "AMEX",
@@ -142,6 +136,49 @@
                 {
                     "country": "Other",
                     "postCode": "10115"
+                }
+            ]
+        },
+        {
+            "tags": [
+                "test-judo-payment-methods-card-selected"
+            ],
+            "cards": [
+                {
+                    "cardType": "AMEX",
+                    "paymentMethodsSubtitle": "American Express Ending 0005"
+                },
+                {
+                    "cardType": "VISA",
+                    "paymentMethodsSubtitle": "Visa Ending 1111"
+                },
+                {
+                    "cardType": "JCB",
+                    "paymentMethodsSubtitle": "JCB Ending 1113",
+                },
+                {
+                    "cardType": "DISCOVER",
+                    "paymentMethodsSubtitle": "Discover Ending 1117",
+                },
+                {
+                    "cardType": "MASTERCARD",
+                    "paymentMethodsSubtitle": "Mastercard Ending 4444",
+                }
+            ]
+        },
+        {
+            "tags": [
+                "test-judo-3ds-transactions",
+                "test-judo-3ds-transaction-cancel"
+            ],
+            "cards": [
+                {
+                    "cardType": "VISA",
+                    "cardNumber": "4000 0000 0000 0002",
+                },
+                {
+                    "cardType": "MASTERCARD",
+                    "cardNumber": "5200 0000 0000 0007",
                 }
             ]
         }

@@ -34,6 +34,7 @@
         self.expiryDate = dictionary[@"expiryDate"];
         self.securityCode = dictionary[@"securityCode"];
         self.secureCodeErrorMessage = dictionary[@"secureCodeErrorMessage"];
+        self.paymentMethodsSubtitle = dictionary[@"paymentMethodsSubtitle"];
     }
     return self;
 }
@@ -45,7 +46,8 @@
         @"CARDHOLDER NAME": self.cardholderName ? self.cardholderName : [NSNull null],
         @"EXPIRY DATE": self.expiryDate ? self.expiryDate : [NSNull null],
         @"SECURE CODE": self.securityCode ? self.securityCode : [NSNull null],
-        @"SECURE CODE ERROR MESSAGE": self.secureCodeErrorMessage ? self.secureCodeErrorMessage : [NSNull null]
+        @"SECURE CODE ERROR MESSAGE": self.secureCodeErrorMessage ? self.secureCodeErrorMessage : [NSNull null],
+        @"PAYMENT METHODS SUBTITLE": self.paymentMethodsSubtitle ? self.paymentMethodsSubtitle : [NSNull null],
     };
     
     NSObject *value = [valueDict objectForKey:field];
