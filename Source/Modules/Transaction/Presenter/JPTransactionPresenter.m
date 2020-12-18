@@ -143,6 +143,15 @@
 
     JPError *transactionError = [JPError formattedErrorFromError:error];
 
+    if (error.code == JudoUserDidCancelError) {
+        __weak typeof(self) weakSelf = self;
+        [self.router dismissViewControllerWithCompletion:^{
+            [weakSelf.interactor completeTransactionWithResponse:nil
+                                                           error:JPError.judoUserDidCancelError];
+        }];
+        return;
+    }
+    
     [self.view updateViewWithError:transactionError];
     [self.interactor storeError:transactionError];
 }
@@ -170,8 +179,11 @@
 
     [self.interactor completeTransactionWithResponse:response
                                                error:nil];
-    [self.router dismissViewController];
-    [self.view didFinishAddingCard];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.router dismissViewControllerWithCompletion:^{
+        [weakSelf.view didFinishAddingCard];
+    }];
 }
 
 #pragma mark - Scan Card Tap
@@ -205,8 +217,11 @@
 }
 
 - (void)handleCancelButtonTap {
-    [self.router dismissViewController];
-    [self.interactor completeTransactionWithResponse:nil error:JPError.judoUserDidCancelError];
+    __weak typeof(self) weakSelf = self;
+    [self.router dismissViewControllerWithCompletion:^{
+        [weakSelf.interactor completeTransactionWithResponse:nil
+                                                       error:JPError.judoUserDidCancelError];
+    }];
 }
 
 #pragma mark - Helper methods

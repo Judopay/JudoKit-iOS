@@ -24,12 +24,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JPTagHandlers : NSObject
-
 /**
  * A method used to toggle the basic authorization switch and enter the non-3DS credentials.
  */
 void handleRequireNon3DSConfig(void);
+
+/**
+ * A method used to toggle the basic authorization switch and enter the 3DS credentials.
+ */
+void handleRequire3DSConfig(void);
 
 /**
  * A method used to toggle on all the card networks on the Settings page.
@@ -80,5 +83,3 @@ void handleRequireCurrencyGBP(void);
  * A method used to select EUR as the transaction currency on the Settings page.
  */
 void handleRequireCurrencyEUR(void);
-
-@end

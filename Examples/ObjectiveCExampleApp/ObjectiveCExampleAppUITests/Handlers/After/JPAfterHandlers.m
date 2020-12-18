@@ -30,15 +30,7 @@
 #import "XCUIElement+Additions.h"
 #import "JPHelpers.h"
 
-@implementation JPAfterHandlers
-
-+ (void)cleanUp {
-    [self returnToMainScreen];
-    [self resetStoredCards];
-    [self resetSettings];
-}
-
-+ (void)returnToMainScreen {
+void returnToMainScreen() {
     XCUIApplication *application = [XCUIApplication new];
     XCUIElement *mainScreen = application.otherElements[@"Main View"];
     XCUIElement *cancelButton = application.buttons[@"CANCEL"];
@@ -56,7 +48,13 @@
     }
 }
 
-+ (void)resetStoredCards {
+void swipeAndDeleteCardCell(XCUIElement *cardCell) {
+    [cardCell swipeLeft];
+    [[XCUIApplication new].buttons[@"Delete"] tap];
+    [[XCUIApplication new].alerts.buttons[@"Delete"] tap];
+}
+
+void resetStoredCards() {
     [JPMainElements.settingsButton tap];
     [JPSettingsElements.cardPaymentMethodSwitch switchOn];
     [JPGenericElements.backButton tap];
@@ -74,12 +72,12 @@
 
     while ([app.cells[@"Card List Cell"] exists]) {
         XCUIElement *firstMatch = app.cells[@"Card List Cell"].firstMatch;
-        [self swipeAndDeleteCardCell:firstMatch];
+        swipeAndDeleteCardCell(firstMatch);
     }
 
     if ([app.cells[@"Card List Cell [SELECTED]"] exists]) {
         XCUIElement *firstMatch = app.cells[@"Card List Cell [SELECTED]"].firstMatch;
-        [self swipeAndDeleteCardCell:firstMatch];
+        swipeAndDeleteCardCell(firstMatch);
     }
 
     if (JPPaymentMethodsElements.backButton.exists) {
@@ -87,16 +85,10 @@
     }
 }
 
-+ (void)swipeAndDeleteCardCell:(XCUIElement *)cardCell {
-    [cardCell swipeLeft];
-    [[XCUIApplication new].buttons[@"Delete"] tap];
-    [[XCUIApplication new].alerts.buttons[@"Delete"] tap];
-}
-
-+ (void)resetSettings {
+void resetSettings() {
     [JPMainElements.settingsButton tap];
 
-    [JPHelpers toggleOffSwitches:@[
+    NSArray *switches = @[
         JPSettingsElements.visaSwitch,
         JPSettingsElements.masterCardSwitch,
         JPSettingsElements.maestroSwitch,
@@ -113,9 +105,15 @@
         JPSettingsElements.paymentMethodsAmountSwitch,
         JPSettingsElements.buttonAmountSwitch,
         JPSettingsElements.securityCodeSwitch,
-    ]];
+    ];
+    
+    toggleOffSwitches(switches);
 
     [JPGenericElements.backButton tap];
 }
 
-@end
+void cleanUp() {
+    returnToMainScreen();
+    resetStoredCards();
+    resetSettings();
+}

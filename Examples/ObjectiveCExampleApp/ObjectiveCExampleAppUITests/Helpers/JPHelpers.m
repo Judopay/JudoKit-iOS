@@ -22,11 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-
 #import "JPHelpers.h"
 #import "XCUIElement+Additions.h"
-
-@implementation JPHelpers
 
 void toggleOnSwitches(NSArray <XCUIElement *> *switches) {
     for (XCUIElement *switchElement in switches) {
@@ -41,5 +38,3 @@ void toggleOffSwitches(NSArray <XCUIElement *> *switches) {
         [switchElement switchOff];
     }
 }
-
-@end

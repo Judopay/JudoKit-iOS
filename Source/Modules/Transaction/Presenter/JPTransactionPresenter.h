@@ -24,6 +24,7 @@
 
 #import "JPInputType.h"
 #import "JPTransactionViewModel.h"
+#import "JPCardDetailsMode.h"
 #import <Foundation/Foundation.h>
 
 @protocol JPTransactionView

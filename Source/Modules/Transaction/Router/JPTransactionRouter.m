@@ -37,8 +37,9 @@
     [self.viewController presentViewController:cardScanController animated:YES completion:nil];
 }
 
-- (void)dismissViewController {
-    [self.viewController dismissViewControllerAnimated:YES completion:nil];
+- (void)dismissViewControllerWithCompletion:(void (^)(void))completion {
+    [self.viewController dismissViewControllerAnimated:true
+                                            completion:completion];
 }
 
 - (void)cardScanController:(UIViewController *)cardScanController
