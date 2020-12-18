@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  ResultsInteractor.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,38 +22,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import JudoKit_iOS
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+protocol ResultsInteractorInput {
+    func viewDidLoad()
+}
 
-    var window: UIWindow?
+protocol ResultsInteractorOutput: class {
+    func configure(with viewModels: [ResultsViewModel])
+    func setNavigationTitle(_ title: String)
+}
 
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+class ResultsInteractor: ResultsInteractorInput {
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
+    // MARK: - Variables
 
-        return true
+    weak var output: ResultsInteractorOutput?
+    private let result: Result
+
+    // MARK: - Initializers
+
+    init(with result: Result) {
+        self.result = result
     }
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+    // MARK: - Protocol methods
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
+    func viewDidLoad() {
+        output?.setNavigationTitle(result.title)
 
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
+        let viewModels = result.items.map {
+            ResultsViewModel(title: $0.title,
+                             subtitle: $0.value,
+                             subResult: $0.subResult)
         }
 
-        appCoordinator.start()
-        return true
+        output?.configure(with: viewModels)
     }
 }
