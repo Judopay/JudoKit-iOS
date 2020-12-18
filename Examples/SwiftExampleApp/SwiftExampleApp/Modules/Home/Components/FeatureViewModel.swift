@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  FeatureViewModel.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,38 +22,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+enum FeatureType {
+    case payment
+    case preAuth
+    case registerCard
+    case checkCard
+    case saveCard
+    case applePay
+    case applePreAuth
+    case paymentMethods
+    case preAuthMethods
+    case serverToServer
+    case payByBank
+    case tokenPayments
+    case transactionDetails
+}
 
-    var window: UIWindow?
-
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
-
-        return true
-    }
-
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
-        }
-
-        appCoordinator.start()
-        return true
-    }
+struct FeatureViewModel {
+    let type: FeatureType
+    let title: String
+    let subtitle: String
 }

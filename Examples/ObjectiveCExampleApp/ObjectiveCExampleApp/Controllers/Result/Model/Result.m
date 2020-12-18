@@ -45,6 +45,7 @@
     NSMutableArray *items = [NSMutableArray new];
     for (NSString *key in dictionary.allKeys) {
         id value = [dictionary valueForKey:key];
+        
         NSString *stringValue = [self formattedRepresentationOfObject:value];
         ResultItem *item = [ResultItem resultItemWithTitle:key value:stringValue];
 

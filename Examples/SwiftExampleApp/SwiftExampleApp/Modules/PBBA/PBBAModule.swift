@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  PBBAModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,36 +24,29 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class PBBAModule {
 
-    var window: UIWindow?
+    // MARK: - Variables
 
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    let rootViewController: PBBAViewController
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
+    // MARK: - Initializers
 
-        return true
+    private init(rootViewController: PBBAViewController) {
+        self.rootViewController = rootViewController
     }
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+    // MARK: - Public methods
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
+    static func make(with featureService: FeatureService) -> PBBAModule {
 
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
-        }
+        let interactor = PBBAInteractor(with: featureService)
+        let viewController = PBBAViewController()
 
-        appCoordinator.start()
-        return true
+        interactor.output = viewController
+        viewController.interactor = interactor
+
+        return PBBAModule(rootViewController: viewController)
     }
+
 }
