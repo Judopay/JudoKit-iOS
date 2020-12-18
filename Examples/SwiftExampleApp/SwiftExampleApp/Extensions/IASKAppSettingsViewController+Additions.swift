@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  IASKAppSettingsViewController+Additions.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,38 +22,35 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import InAppSettingsKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+extension IASKAppSettingsViewController {
 
-    var window: UIWindow?
-
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
-
-        return true
+    public func updateHiddenKeys() {
+        let hiddenKeys = computeHiddenKeys(from: [kIsPaymentSessionOnKey,
+                                                  kIsTokenAndSecretOnKey])
+        setHiddenKeys(hiddenKeys, animated: false)
     }
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+    func computeHiddenKeys(from keys: [String]) -> Set<String> {
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
+        var hiddenKeys: Set<String> = [kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey]
 
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
+        if keys.contains(kIsPaymentSessionOnKey)
+            && Settings.standard.isSessionAuthorizationOn {
+            hiddenKeys.remove(kSessionTokenKey)
+            hiddenKeys.remove(kPaymentSessionKey)
+            UserDefaults.standard.setValue(false, forKey: kIsTokenAndSecretOnKey)
         }
 
-        appCoordinator.start()
-        return true
+        if keys.contains(kIsTokenAndSecretOnKey)
+            && Settings.standard.isBasicAuthorizationOn {
+            hiddenKeys.remove(kTokenKey)
+            hiddenKeys.remove(kSecretKey)
+            UserDefaults.standard.setValue(false, forKey: kIsPaymentSessionOnKey)
+        }
+
+        return hiddenKeys
     }
+
 }

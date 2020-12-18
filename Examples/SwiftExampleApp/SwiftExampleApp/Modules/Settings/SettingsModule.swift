@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  SettingsModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,36 +24,24 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class SettingsModule {
 
-    var window: UIWindow?
+    // MARK: - Variables
 
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    let rootViewController: UIViewController
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
+    // MARK: - Initializers
 
-        return true
+    private init(rootViewController: SettingsViewController) {
+        self.rootViewController = rootViewController
     }
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+    // MARK: - Public methods
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
-        }
-
-        appCoordinator.start()
-        return true
+    static func make() -> SettingsModule {
+        let viewController = SettingsViewController()
+        viewController.neverShowPrivacySettings = true
+        viewController.updateHiddenKeys()
+        return SettingsModule(rootViewController: viewController)
     }
 }

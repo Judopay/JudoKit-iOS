@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  ResultsModule.swift
 //  SwiftExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -24,36 +24,30 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class ResultsModule {
 
-    var window: UIWindow?
+    // MARK: - Variables
 
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    let rootViewController: ResultsViewController
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
+    // MARK: - Initializers
 
-        return true
+    private init(rootViewController: ResultsViewController) {
+        self.rootViewController = rootViewController
     }
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+    // MARK: - Public methods
 
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
+    static func make(with result: Result) -> ResultsModule {
 
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
-        }
+        let interactor = ResultsInteractor(with: result)
 
-        appCoordinator.start()
-        return true
+        let viewController = ResultsViewController()
+
+        interactor.output = viewController
+        viewController.interactor = interactor
+
+        return ResultsModule(rootViewController: viewController)
     }
+
 }
