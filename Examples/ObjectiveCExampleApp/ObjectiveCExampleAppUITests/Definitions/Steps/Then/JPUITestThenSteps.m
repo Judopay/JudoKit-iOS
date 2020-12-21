@@ -22,13 +22,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTagHandlers.h"
 #import "JPUITestThenSteps.h"
 #import "XCUIElement+Additions.h"
 #import <Cucumberish/Cucumberish.h>
 
 @implementation JPUITestThenSteps
 
-+ (void)setUp {
++ (void)setUpWithConfiguration:(JPUITestConfiguration *)configuration {
+
+    before(^(CCIScenarioDefinition *scenario) {
+        tags = scenario.tags;
+    });
 
     /**
      * [THEN] ^the (.*) (?:screen|page|view|option|item) should be visible
@@ -95,9 +100,34 @@
      *    - Then the "Settings" text should be visible
      */
     Then(@"^(?:the|an|a) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
+    
+        NSString *input = args[0];
+
         XCUIApplication *application = [XCUIApplication new];
-        NSString *text = args[0];
-        XCTAssertTrue([application.staticTexts[text] waitForExistenceWithTimeout:3.0]);
+        XCTAssertTrue([application.staticTexts[input] waitForExistenceWithTimeout:3.0]);
+    });
+    
+    /**
+     * [THEN] ^(?:the|an|a) (.*) \"(.*)\" (?:label|text) should be visible$
+     *
+     * Description:
+     *    A test step used to validate that a label/text element is visible on the screen
+     *
+     * Valid examples:
+     *    - Then a "Transaction Successful!" label should be visible
+     *    - Then the "Settings" text should be visible
+     */
+    Then(@"^(?:the|an|a) (.*) \"(.*)\" (?:label|text) should be visible$", ^void(NSArray *args, id userInfo) {
+        
+        NSString *fieldType = args[0];
+        NSString *identifier = args[1];
+
+        NSString *fieldInput = [configuration fetchFieldForTag:tags.firstObject
+                                                     identifier:identifier
+                                                       andType:fieldType];
+        
+        XCUIApplication *application = [XCUIApplication new];
+        XCTAssertTrue([application.staticTexts[fieldInput] waitForExistenceWithTimeout:3.0]);
     });
 
     /**
@@ -170,6 +200,31 @@
     Then(@"^(?:the|an|a) \"(.*)\" (?:item|cell|option) should be selected$", ^void(NSArray *args, id userInfo) {
         NSString *cellTitle = args[0];
         XCUIElement *selectedCell = [XCUIElement cellWithStaticText:cellTitle];
+
+        XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
+        XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);
+    });
+    
+    /**
+     * [THEN] ^(?:the|an|a) (.*) \"(.*)\" (?:item|cell|option) should be selected$
+     *
+     * Description:
+     *    A test step used to validate that an item/cell, identified by its title, should be selected
+     *
+     * Valid examples:
+     *    - Then the "Visa Ending 1111" item should be selected
+     *    - Then the "Card for shopping" item should be selected
+     */
+    Then(@"^(?:the|an|a) (.*) \"(.*)\" (?:item|cell|option) should be selected$", ^void(NSArray *args, id userInfo) {
+        
+        NSString *type = args[0];
+        NSString *identifier = args[1];
+        
+        NSString *input = [configuration fetchFieldForTag:tags.firstObject
+                                               identifier:identifier
+                                                  andType:type];
+        
+        XCUIElement *selectedCell = [XCUIElement cellWithStaticText:input];
 
         XCTAssertTrue([selectedCell waitForExistenceWithTimeout:3.0]);
         XCTAssertTrue([selectedCell.identifier containsString:@"[SELECTED]"]);

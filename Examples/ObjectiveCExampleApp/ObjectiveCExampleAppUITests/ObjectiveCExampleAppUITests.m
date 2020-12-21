@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPUITestConfiguration.h"
 #import "JPUITestSetup.h"
 #import "JPUITestGivenSteps.h"
 #import "JPUITestWhenSteps.h"
@@ -32,21 +33,17 @@ __attribute__((constructor))
 
 void CucumberishInit() {
 
-    [JPUITestSetup setUp];
-    [JPUITestGivenSteps setUp];
-    [JPUITestWhenSteps setUp];
-    [JPUITestThenSteps setUp];
-
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
     
-    [Cucumberish executeFeaturesInDirectory:@"Features"
+    JPUITestConfiguration *configuration = JPUITestConfiguration.defaultConfiguration;
+
+    [JPUITestSetup setUpWithConfiguration:configuration];
+    [JPUITestGivenSteps setUp];
+    [JPUITestWhenSteps setUpWithConfiguration:configuration];
+    [JPUITestThenSteps setUpWithConfiguration:configuration];
+
+    [Cucumberish executeFeaturesInDirectory:@"JudoKit-Automation-Scenarios/features"
                                  fromBundle:bundle
-                                includeTags:nil
-                                excludeTags:@[
-                                    @"test-secure-code-validation",
-                                    @"test-avs-post-code-validation",
-                                    @"test-avs-post-code-length-validation",
-                                    @"test-judo-payment-methods-all-disabled",
-                                    @"test-judo-payment-methods-pbba",
-                                ]];
+                                includeTags:configuration.testsToInclude
+                                excludeTags:configuration.testsToSkip];
 }

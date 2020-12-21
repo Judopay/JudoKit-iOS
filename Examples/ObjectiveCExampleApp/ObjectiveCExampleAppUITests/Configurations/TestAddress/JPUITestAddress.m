@@ -1,5 +1,5 @@
 //
-//  JPUITestWhenSteps.h
+//  JPUITestAddress.m
 //  ObjectiveCExampleAppUITests
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,16 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "JPUITestConfiguration.h"
+#import "JPUITestAddress.h"
 
-@interface JPUITestWhenSteps : NSObject
+@implementation JPUITestAddress
 
-/**
- * A method that is used to register all the [WHEN] steps of the UI test scenarios.
- *
- * @param configuration - an instance of JPUITestConfiguration, containing the test data to be used
- */
-+ (void)setUpWithConfiguration:(nonnull JPUITestConfiguration *)configuration;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        self.country = dictionary[@"country"];
+        self.postCode = dictionary[@"postCode"];
+    }
+    return self;
+}
 
 @end

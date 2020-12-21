@@ -29,7 +29,7 @@
 
 @implementation JPUITestSetup
 
-+ (void)setUp {
++ (void)setUpWithConfiguration:(JPUITestConfiguration *)configuration {
     
     /**
      * A handler that ensures that the application is executed before the test scenarios start running.
@@ -45,7 +45,7 @@
      * scenario executes.
      */
     beforeTagged(@[@"require-non-3ds-config"], ^(CCIScenarioDefinition *scenario) {
-        handleRequireNon3DSConfig();
+        handleRequireNon3DSConfig(configuration);
     });
     
     /**
@@ -55,7 +55,7 @@
      * scenario executes.
      */
     beforeTagged(@[@"require-3ds-config"], ^(CCIScenarioDefinition *scenario) {
-        handleRequire3DSConfig();
+        handleRequire3DSConfig(configuration);
     });
 
     /**
