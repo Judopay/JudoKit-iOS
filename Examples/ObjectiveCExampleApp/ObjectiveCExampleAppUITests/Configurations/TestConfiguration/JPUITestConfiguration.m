@@ -30,7 +30,7 @@
 #pragma mark - Initializers
 
 + (instancetype)defaultConfiguration {
-    NSString *path = @"/Features/test-input-data.json";
+    NSString *path = @"/JudoKit-Automation-Scenarios/test-input-data.json";
     return [[JPUITestConfiguration alloc] initWithRelativePath:path];
 }
 

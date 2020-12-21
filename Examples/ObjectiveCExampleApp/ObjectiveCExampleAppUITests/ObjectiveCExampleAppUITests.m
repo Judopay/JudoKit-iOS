@@ -36,13 +36,13 @@ void CucumberishInit() {
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
     
     JPUITestConfiguration *configuration = JPUITestConfiguration.defaultConfiguration;
-    
+
     [JPUITestSetup setUpWithConfiguration:configuration];
     [JPUITestGivenSteps setUp];
     [JPUITestWhenSteps setUpWithConfiguration:configuration];
     [JPUITestThenSteps setUpWithConfiguration:configuration];
 
-    [Cucumberish executeFeaturesInDirectory:@"Features"
+    [Cucumberish executeFeaturesInDirectory:@"JudoKit-Automation-Scenarios/features"
                                  fromBundle:bundle
                                 includeTags:configuration.testsToInclude
                                 excludeTags:configuration.testsToSkip];

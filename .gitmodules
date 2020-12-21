@@ -1,0 +1,4 @@
+[submodule "Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios"]
+	path = Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios
+	url = git@github.com:Judopay/JudoKit-Automation-Scenarios.git
+	branch = master
