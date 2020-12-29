@@ -10,6 +10,7 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
     DemoFeatureTypeCheckCard,
     DemoFeatureTypeApplePayPayment,
     DemoFeatureTypeApplePayPreAuth,
+    DemoFeatureTypeApplePayStandalone,
     DemoFeatureTypePaymentMethods,
     DemoFeatureTypePreAuthMethods,
     DemoFeatureTypeServerToServer,

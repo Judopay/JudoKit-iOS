@@ -36,6 +36,8 @@
 		30E1098B25877428000284CD /* PBBAModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1098A25877428000284CD /* PBBAModule.swift */; };
 		30E1099325877436000284CD /* PBBAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1099225877436000284CD /* PBBAViewController.swift */; };
 		30E109982587743E000284CD /* PBBAInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E109972587743E000284CD /* PBBAInteractor.swift */; };
+		30FF8EB5259B37200077B5C8 /* ApplePayModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */; };
+		30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */; };
 		448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1E22450DF22004A11CB /* AppDelegate.swift */; };
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
@@ -92,6 +94,8 @@
 		30E1098A25877428000284CD /* PBBAModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBAModule.swift; sourceTree = "<group>"; };
 		30E1099225877436000284CD /* PBBAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBAViewController.swift; sourceTree = "<group>"; };
 		30E109972587743E000284CD /* PBBAInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBAInteractor.swift; sourceTree = "<group>"; };
+		30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayModule.swift; sourceTree = "<group>"; };
+		30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayViewController.swift; sourceTree = "<group>"; };
 		448AB1DF2450DF22004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1E22450DF22004A11CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		448AB1EB2450DF24004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 		305853B6257F79AF000B00DF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				30FF8EAD259B370B0077B5C8 /* ApplePay */,
 				30E1098925877417000284CD /* PBBA */,
 				305853B7257F79B7000B00DF /* Home */,
 				30568A0C2583AD7100195C93 /* Token */,
@@ -259,6 +264,15 @@
 				30E109972587743E000284CD /* PBBAInteractor.swift */,
 			);
 			path = PBBA;
+			sourceTree = "<group>";
+		};
+		30FF8EAD259B370B0077B5C8 /* ApplePay */ = {
+			isa = PBXGroup;
+			children = (
+				30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */,
+				30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */,
+			);
+			path = ApplePay;
 			sourceTree = "<group>";
 		};
 		448AB1D62450DF22004A11CB = {
@@ -623,7 +637,9 @@
 				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
 				305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */,
 				305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */,
+				30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */,
 				305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */,
+				30FF8EB5259B37200077B5C8 /* ApplePayModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

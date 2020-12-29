@@ -34,12 +34,14 @@
 #import "MainViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
+#import "ApplePayViewController.h"
 #import "Result.h"
 #import "ResultTableViewController.h"
 #import "Settings.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
+static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 
 @interface MainViewController ()
 
@@ -239,6 +241,10 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
     [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
 }
 
+- (void)applePayOperation {
+    [self performSegueWithIdentifier:kApplePayScreenSegue sender:nil];
+}
+
 - (void)serverToServerMethodOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
@@ -413,6 +419,10 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
+            break;
+            
+        case DemoFeatureTypeApplePayStandalone:
+            [self applePayOperation];
             break;
 
         case DemoFeatureTypePaymentMethods:

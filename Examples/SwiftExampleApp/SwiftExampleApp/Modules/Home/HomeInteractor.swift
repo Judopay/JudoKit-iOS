@@ -39,6 +39,7 @@ protocol HomeInteractorOutput: class {
     func navigateToResultsModule(with result: Result)
     func navigateToTokenModule()
     func navigateToPBBAModule()
+    func navigateToApplePayModule()
 }
 
 class HomeInteractor: HomeInteractorInput {
@@ -72,6 +73,8 @@ class HomeInteractor: HomeInteractorInput {
         case .applePay, .applePreAuth:
             let mode = transactionMode(for: featureType)
             service.invokeApplePay(with: mode, completion: completion)
+        case .applePayButtons:
+            output?.navigateToApplePayModule()
         case .paymentMethods, .preAuthMethods, .serverToServer:
             let mode = transactionMode(for: featureType)
             service.invokePaymentMethods(with: mode, completion: completion)

@@ -82,6 +82,10 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         coordinator?.pushTo(.payByBankApp)
     }
 
+    func navigateToApplePayModule() {
+        coordinator?.pushTo(.applePay)
+    }
+
     // MARK: - PBBA Deeplinking
 
     func handlePBBAStatus(with url: URL) {

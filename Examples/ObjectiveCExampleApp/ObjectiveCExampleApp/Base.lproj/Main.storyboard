@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,11 +78,94 @@
                         <outlet property="settingsButton" destination="OAR-Ow-eeI" id="sOO-g6-20C"/>
                         <segue destination="roV-nE-oFc" kind="show" identifier="showPbbaScreen" id="ace-IV-qgw"/>
                         <segue destination="UWo-Q7-j0K" kind="show" identifier="tokenPayments" id="MxX-bg-KUN"/>
+                        <segue destination="qIB-ON-fdd" kind="show" identifier="showApplePayScreen" id="R2W-bn-ToH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="892" y="669.71514242878561"/>
+        </scene>
+        <!--Apple Pay View Controller-->
+        <scene sceneID="zTx-54-dE4">
+            <objects>
+                <viewController id="qIB-ON-fdd" customClass="ApplePayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7SJ-m9-6kU"/>
+                        <viewControllerLayoutGuide type="bottom" id="vtX-aO-oDO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cVA-qe-HQX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Dni-N0-LHi">
+                                <rect key="frame" x="16" y="116" width="343" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="rcL-EI-Wau"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Button Types"/>
+                                    <segment title="Button Styles"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didSwitchSection:" destination="qIB-ON-fdd" eventType="valueChanged" id="wQj-0Q-zYL"/>
+                                </connections>
+                            </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAt-nI-iuG">
+                                <rect key="frame" x="0.0" y="216" width="375" height="451"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6j-DC-9hv">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="451"/>
+                                        <subviews>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="PBy-He-vC6">
+                                                <rect key="frame" x="50" y="0.0" width="275" height="451"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QLW-NN-igr">
+                                                <rect key="frame" x="50" y="0.0" width="275" height="451"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="QLW-NN-igr" firstAttribute="leading" secondItem="b6j-DC-9hv" secondAttribute="leading" constant="50" id="8JP-wA-ryX"/>
+                                            <constraint firstItem="PBy-He-vC6" firstAttribute="leading" secondItem="b6j-DC-9hv" secondAttribute="leading" constant="50" id="8sR-eI-eaG"/>
+                                            <constraint firstItem="PBy-He-vC6" firstAttribute="top" secondItem="b6j-DC-9hv" secondAttribute="top" id="FbO-Zf-26E"/>
+                                            <constraint firstAttribute="bottom" secondItem="QLW-NN-igr" secondAttribute="bottom" id="Kdh-sz-WsU"/>
+                                            <constraint firstAttribute="trailing" secondItem="PBy-He-vC6" secondAttribute="trailing" constant="50" id="Ra5-la-HCV"/>
+                                            <constraint firstAttribute="bottom" secondItem="PBy-He-vC6" secondAttribute="bottom" id="W1f-Xx-htH"/>
+                                            <constraint firstAttribute="trailing" secondItem="QLW-NN-igr" secondAttribute="trailing" constant="50" id="phU-0X-wi5"/>
+                                            <constraint firstItem="QLW-NN-igr" firstAttribute="top" secondItem="b6j-DC-9hv" secondAttribute="top" id="uFj-7A-of4"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="centerX" secondItem="cAt-nI-iuG" secondAttribute="centerX" id="0v6-Vr-4X5"/>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="bottom" secondItem="cAt-nI-iuG" secondAttribute="bottom" priority="250" id="CqA-dT-97l"/>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="leading" secondItem="cAt-nI-iuG" secondAttribute="leading" id="JaT-9k-nZJ"/>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="trailing" secondItem="cAt-nI-iuG" secondAttribute="trailing" id="VXw-nY-uTo"/>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="centerY" secondItem="cAt-nI-iuG" secondAttribute="centerY" priority="250" id="waM-dm-qKR"/>
+                                    <constraint firstItem="b6j-DC-9hv" firstAttribute="top" secondItem="cAt-nI-iuG" secondAttribute="top" id="yjp-8l-LkE"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cAt-nI-iuG" secondAttribute="trailing" id="Dwt-mt-gls"/>
+                            <constraint firstItem="cAt-nI-iuG" firstAttribute="leading" secondItem="cVA-qe-HQX" secondAttribute="leading" id="Jhc-pP-Abt"/>
+                            <constraint firstItem="cAt-nI-iuG" firstAttribute="top" secondItem="Dni-N0-LHi" secondAttribute="bottom" constant="50" id="Pvz-1p-oKf"/>
+                            <constraint firstItem="vtX-aO-oDO" firstAttribute="top" secondItem="cAt-nI-iuG" secondAttribute="bottom" id="Ugc-mf-RPX"/>
+                            <constraint firstItem="Dni-N0-LHi" firstAttribute="top" secondItem="7SJ-m9-6kU" secondAttribute="bottom" constant="20" id="iYw-tX-hjI"/>
+                            <constraint firstItem="Dni-N0-LHi" firstAttribute="leading" secondItem="cVA-qe-HQX" secondAttribute="leadingMargin" id="kbr-Xr-84g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dni-N0-LHi" secondAttribute="trailing" id="tEB-pJ-RMZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Exp-mO-wnq"/>
+                    <connections>
+                        <outlet property="buttonStylesStackView" destination="PBy-He-vC6" id="YVK-zu-kXc"/>
+                        <outlet property="buttonTypesStackView" destination="QLW-NN-igr" id="mcu-FJ-yso"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cpo-6q-zsu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="1460.4197901049477"/>
         </scene>
         <!--Pay With Card Token View Controller-->
         <scene sceneID="hHt-gy-Nk0">
@@ -188,7 +271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5yh-Yf-Atc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892" y="1342.5787106446778"/>
+            <point key="canvasLocation" x="892" y="1463"/>
         </scene>
         <!--PBBA-->
         <scene sceneID="1N5-xj-n68">
@@ -270,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vgZ-3z-BrU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="1343"/>
+            <point key="canvasLocation" x="1654" y="1462"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nYt-DK-Zkg">
@@ -314,9 +397,6 @@
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -328,6 +408,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
