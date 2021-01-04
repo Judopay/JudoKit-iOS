@@ -43,9 +43,34 @@
         self.cardCountry = dictionary[@"cardCountry"];
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
-        self.cardNetwork = ((NSNumber *)dictionary[@"cardType"]).integerValue;
+        self.cardNetwork = [self cardNetworkTypeFromRawValue:dictionary[@"cardType"]];
     }
     return self;
+}
+
+- (JPCardNetworkType)cardNetworkTypeFromRawValue:(NSNumber *)rawValue {
+    
+    NSDictionary *supportedNetworks = @{
+        @(1):@(JPCardNetworkTypeVisa),
+        @(2):@(JPCardNetworkTypeMasterCard),
+        @(3):@(JPCardNetworkTypeVisa), // VISA ELECTRON
+        @(7):@(JPCardNetworkTypeChinaUnionPay),
+        @(8):@(JPCardNetworkTypeAMEX),
+        @(9):@(JPCardNetworkTypeJCB),
+        @(10):@(JPCardNetworkTypeMaestro),
+        @(11):@(JPCardNetworkTypeVisa), // VISA DEBIT
+        @(12):@(JPCardNetworkTypeMasterCard), // MASTERCARD DEBIT
+        @(13):@(JPCardNetworkTypeVisa), // VISA PURCHASING
+        @(14):@(JPCardNetworkTypeDiscover),
+        @(17):@(JPCardNetworkTypeDinersClub),
+    };
+    
+    if (supportedNetworks[rawValue] != nil) {
+        NSNumber *networkValue = supportedNetworks[rawValue];
+        return networkValue.intValue;
+    }
+    
+    return JPCardNetworkTypeUnknown;
 }
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber
