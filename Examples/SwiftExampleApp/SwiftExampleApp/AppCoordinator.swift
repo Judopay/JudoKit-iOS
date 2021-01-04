@@ -30,6 +30,7 @@ enum AppScreen {
     case results(Result)
     case tokenTransactions
     case payByBankApp
+    case applePay
 }
 
 protocol Coordinator: class {
@@ -50,6 +51,7 @@ class AppCoordinator: Coordinator {
     private let settingsModule: SettingsModule
     private let tokenModule: TokenModule
     private let pbbaModule: PBBAModule
+    private let applePayModule: ApplePayModule
 
     // MARK: - Initializers
 
@@ -63,6 +65,7 @@ class AppCoordinator: Coordinator {
         settingsModule = SettingsModule.make()
         tokenModule = TokenModule.make(with: featureService)
         pbbaModule = PBBAModule.make(with: featureService)
+        applePayModule = ApplePayModule.make()
     }
 
     // MARK: - Protocol methods
@@ -100,6 +103,10 @@ class AppCoordinator: Coordinator {
         case .payByBankApp:
             pbbaModule.rootViewController.coordinator = self
             navigationController.pushViewController(pbbaModule.rootViewController,
+                                                    animated: true)
+
+        case .applePay:
+            navigationController.pushViewController(applePayModule.rootViewController,
                                                     animated: true)
         }
     }

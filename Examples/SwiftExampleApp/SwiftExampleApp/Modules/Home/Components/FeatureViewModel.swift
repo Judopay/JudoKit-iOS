@@ -32,6 +32,7 @@ enum FeatureType {
     case saveCard
     case applePay
     case applePreAuth
+    case applePayButtons
     case paymentMethods
     case preAuthMethods
     case serverToServer

@@ -38,6 +38,9 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
         [DemoFeature featureWithType:DemoFeatureTypeApplePayPreAuth
                                title:@"Apple Pay preAuth"
                              details:@"with a wallet card"],
+        [DemoFeature featureWithType:DemoFeatureTypeApplePayStandalone
+                               title:@"Standalone Apple Pay buttons"
+                             details:@"with all supported types and styles"],
         [DemoFeature featureWithType:DemoFeatureTypePaymentMethods
                                title:@"Payment methods"
                              details:@"with default payment methods"],

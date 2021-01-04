@@ -55,6 +55,10 @@ class FeatureRepository {
                          title: "Apple Pay preAuth",
                          subtitle: "with a wallet card"),
 
+        FeatureViewModel(type: .applePayButtons,
+                         title: "Standalone Apple Pay buttons",
+                         subtitle: "with supported button types and styles"),
+
         FeatureViewModel(type: .paymentMethods,
                          title: "Payment methods",
                          subtitle: "with default payment methods"),

@@ -1,8 +1,8 @@
 //
-//  JPPaymentMethodsHeaderView.h
-//  JudoKit_iOS
+//  ApplePayModule.swift
+//  SwiftExampleApp
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPBBAButton.h"
-#import "JPApplePayButton.h"
-#import <UIKit/UIKit.h>
+import UIKit
 
-@class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
+class ApplePayModule {
 
-@interface JPPaymentMethodsHeaderView : UIView
+    // MARK: - Variables
 
-/**
- * The Pay button that triggers the payment flow
- */
-@property (nonatomic, strong) JPTransactionButton *payButton;
+    let rootViewController: ApplePayViewController
 
-/**
- * The Apple Pay branded button that triggers the Apple Pay flow
- */
-@property (nonatomic, strong) JPApplePayButton *applePayButton;
+    // MARK: - Initializers
 
-/**
- * The PBBA branded button that triggers the PBBA flow
- */
-@property (nonatomic, strong) JPPBBAButton *pbbaButton;
+    private init(rootViewController: ApplePayViewController) {
+        self.rootViewController = rootViewController
+    }
 
-/**
- * A method used to apply a theme to the view
- *
- * @param uiConfiguration - the JPUIConfiguration object used to configure the user interface
- */
-- (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration;
+    // MARK: - Public methods
 
-/**
- * A method that configures the header of the payment method screen based on a view model
- */
-- (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel;
+    static func make() -> ApplePayModule {
+        let viewController = ApplePayViewController()
+        return ApplePayModule(rootViewController: viewController)
+    }
 
-@end
+}

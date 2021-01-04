@@ -1,8 +1,8 @@
 //
-//  JPPaymentMethodsHeaderView.h
+//  JPApplePayButton.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2020 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPBBAButton.h"
 #import "JPApplePayButton.h"
-#import <UIKit/UIKit.h>
 
-@class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
+@implementation JPApplePayButton
 
-@interface JPPaymentMethodsHeaderView : UIView
++ (instancetype)buttonWithType:(JPApplePayButtonType)buttonType
+                         style:(JPApplePayButtonStyle)buttonStyle {
+    
+    return [[JPApplePayButton alloc] initWithType:buttonType
+                                            style:buttonStyle];
+}
 
-/**
- * The Pay button that triggers the payment flow
- */
-@property (nonatomic, strong) JPTransactionButton *payButton;
+- (instancetype)initWithType:(JPApplePayButtonType)buttonType
+                       style:(JPApplePayButtonStyle)buttonStyle API_AVAILABLE(ios(9.0)) {
 
-/**
- * The Apple Pay branded button that triggers the Apple Pay flow
- */
-@property (nonatomic, strong) JPApplePayButton *applePayButton;
-
-/**
- * The PBBA branded button that triggers the PBBA flow
- */
-@property (nonatomic, strong) JPPBBAButton *pbbaButton;
-
-/**
- * A method used to apply a theme to the view
- *
- * @param uiConfiguration - the JPUIConfiguration object used to configure the user interface
- */
-- (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration;
-
-/**
- * A method that configures the header of the payment method screen based on a view model
- */
-- (void)configureWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel;
+    return [self initWithPaymentButtonType:buttonType
+                        paymentButtonStyle:buttonStyle];
+}
 
 @end

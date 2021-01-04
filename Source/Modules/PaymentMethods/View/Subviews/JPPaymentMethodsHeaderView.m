@@ -142,11 +142,13 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     [self configureAmountWithViewModel:viewModel];
 
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
+        
+        JPApplePayButtonType type = viewModel.isApplePaySetUp
+            ? JPApplePayButtonTypeBuy
+            : JPApplePayButtonTypeSetUp;
 
-        PKPaymentButtonType type;
-        type = viewModel.isApplePaySetUp ? PKPaymentButtonTypeBuy : PKPaymentButtonTypeSetUp;
-
-        self.applePayButton = [self applePayButtonWithType:type];
+        self.applePayButton = [JPApplePayButton buttonWithType:type
+                                                         style:JPApplePayButtonStyleBlack];
 
         [self.paymentStackView addArrangedSubview:self.applePayButton];
         [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
@@ -354,18 +356,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         _pbbaButton = [[JPPBBAButton alloc] initWithFrame:buttonRect];
     }
     return _pbbaButton;
-}
-
-- (PKPaymentButton *)applePayButton {
-    if (!_applePayButton) {
-        _applePayButton = [self applePayButtonWithType:PKPaymentButtonTypeSetUp];
-    }
-    return _applePayButton;
-}
-
-- (PKPaymentButton *)applePayButtonWithType:(PKPaymentButtonType)type {
-    return [PKPaymentButton buttonWithType:type
-                                     style:PKPaymentButtonStyleBlack];
 }
 
 - (UIImageView *)backgroundImageView {
