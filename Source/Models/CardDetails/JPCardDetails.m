@@ -49,28 +49,38 @@
 }
 
 - (JPCardNetworkType)cardNetworkTypeFromRawValue:(NSNumber *)rawValue {
-    
-    NSDictionary *supportedNetworks = @{
-        @(1):@(JPCardNetworkTypeVisa),
-        @(2):@(JPCardNetworkTypeMasterCard),
-        @(3):@(JPCardNetworkTypeVisa), // VISA ELECTRON
-        @(7):@(JPCardNetworkTypeChinaUnionPay),
-        @(8):@(JPCardNetworkTypeAMEX),
-        @(9):@(JPCardNetworkTypeJCB),
-        @(10):@(JPCardNetworkTypeMaestro),
-        @(11):@(JPCardNetworkTypeVisa), // VISA DEBIT
-        @(12):@(JPCardNetworkTypeMasterCard), // MASTERCARD DEBIT
-        @(13):@(JPCardNetworkTypeVisa), // VISA PURCHASING
-        @(14):@(JPCardNetworkTypeDiscover),
-        @(17):@(JPCardNetworkTypeDinersClub),
-    };
-    
-    if (supportedNetworks[rawValue] != nil) {
-        NSNumber *networkValue = supportedNetworks[rawValue];
-        return networkValue.intValue;
+    switch (rawValue.unsignedIntegerValue) {
+        case 1:
+        case 3:  // VISA ELECTRON
+        case 11: // VISA DEBIT
+        case 13: // VISA PURCHASING
+            return JPCardNetworkTypeVisa;
+            
+        case 2:
+        case 12: // MASTERCARD DEBIT
+            return JPCardNetworkTypeMasterCard;
+            
+        case 7:
+            return JPCardNetworkTypeChinaUnionPay;
+            
+        case 8:
+            return JPCardNetworkTypeAMEX;
+            
+        case 9:
+            return JPCardNetworkTypeJCB;
+            
+        case 10:
+            return JPCardNetworkTypeMaestro;
+            
+        case 14:
+            return JPCardNetworkTypeDiscover;
+            
+        case 17:
+            return JPCardNetworkTypeDinersClub;
+
+        default:
+            return JPCardNetworkTypeUnknown;
     }
-    
-    return JPCardNetworkTypeUnknown;
 }
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber
