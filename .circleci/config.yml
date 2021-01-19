@@ -345,7 +345,6 @@ jobs:
           command: pod lib lint --no-subspecs --allow-warnings
   sonar_scan:
     executor: macos
-    resource_class: large
     steps:
       - checkout
       - attach_workspace:
