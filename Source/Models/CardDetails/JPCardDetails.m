@@ -92,7 +92,9 @@
         comp.year = year;
         comp.month = month;
         NSDate *expiryDate = [calendar dateFromComponents:comp];
-        self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+        if (expiryDate) {
+            self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+        }
         self.cardNumber = cardNumber;
     }
     return self;
