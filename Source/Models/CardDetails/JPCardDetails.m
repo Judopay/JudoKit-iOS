@@ -43,9 +43,44 @@
         self.cardCountry = dictionary[@"cardCountry"];
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
-        self.cardNetwork = ((NSNumber *)dictionary[@"cardType"]).integerValue;
+        self.cardNetwork = [self cardNetworkTypeFromRawValue:dictionary[@"cardType"]];
     }
     return self;
+}
+
+- (JPCardNetworkType)cardNetworkTypeFromRawValue:(NSNumber *)rawValue {
+    switch (rawValue.unsignedIntegerValue) {
+        case 1:
+        case 3:  // VISA ELECTRON
+        case 11: // VISA DEBIT
+        case 13: // VISA PURCHASING
+            return JPCardNetworkTypeVisa;
+            
+        case 2:
+        case 12: // MASTERCARD DEBIT
+            return JPCardNetworkTypeMasterCard;
+            
+        case 7:
+            return JPCardNetworkTypeChinaUnionPay;
+            
+        case 8:
+            return JPCardNetworkTypeAMEX;
+            
+        case 9:
+            return JPCardNetworkTypeJCB;
+            
+        case 10:
+            return JPCardNetworkTypeMaestro;
+            
+        case 14:
+            return JPCardNetworkTypeDiscover;
+            
+        case 17:
+            return JPCardNetworkTypeDinersClub;
+
+        default:
+            return JPCardNetworkTypeUnknown;
+    }
 }
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber
@@ -57,7 +92,9 @@
         comp.year = year;
         comp.month = month;
         NSDate *expiryDate = [calendar dateFromComponents:comp];
-        self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+        if (expiryDate) {
+            self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+        }
         self.cardNumber = cardNumber;
     }
     return self;
