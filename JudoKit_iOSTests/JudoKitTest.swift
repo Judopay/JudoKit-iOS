@@ -306,6 +306,31 @@ class JudoKitTest: XCTestCase {
     /*
      * GIVEN: Invoke fetch transaction with receipt Id
      *
+     * WHEN: transaction type is check card
+     *
+     * THEN: should return result type of: checkCard
+     */
+    func test_FetchTransaction_WhenTransactionCheckCard_ShouldReturnRightTransactionType() {
+        jsonResult["type"] = "CheckCard"
+        stub(condition: isPath("/transactions/receiptId")) { _ in
+            let theJSONData = try! JSONSerialization.data(
+                withJSONObject: self.jsonResult! ,
+                options: JSONSerialization.WritingOptions(rawValue: 0))
+            return HTTPStubsResponse(data: theJSONData, statusCode: 200, headers: nil)
+        }
+        
+        let expectation = self.expectation(description: "await check card transaction response")
+        
+        judoKit.fetchTransaction(withReceiptId: "receiptId", completion:{ (res, error) in
+            XCTAssertEqual(res?.type, .checkCard)
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    /*
+     * GIVEN: Invoke fetch transaction with receipt Id
+     *
      * WHEN: transaction type is register card
      *
      * THEN: should return result type of: registerCard
