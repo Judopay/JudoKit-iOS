@@ -124,6 +124,8 @@
         return JPTransactionTypeRegisterCard;
     } else if ([typeString isEqualToString:@"Save"]) {
         return JPTransactionTypeSaveCard;
+    } else if ([typeString isEqualToString:@"CheckCard"]) {
+        return JPTransactionTypeCheckCard;
     }
     return JPTransactionTypePayment;
 }
