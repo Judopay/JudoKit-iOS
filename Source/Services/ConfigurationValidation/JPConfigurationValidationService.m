@@ -160,9 +160,10 @@
               @"CAD", @"CHF", @"CZK",
               @"DKK", @"EUR", @"GBP",
               @"HKD", @"HUF", @"JPY",
-              @"NOK", @"NZD", @"PLN",
-              @"SEK", @"SGD", @"QAR",
-              @"SAR", @"USD", @"ZAR" ];
+              @"NOK", @"NZD", @"PKR",
+              @"PLN", @"SEK", @"SGD",
+              @"QAR", @"SAR", @"USD",
+              @"ZAR" ];
 }
 
 @end

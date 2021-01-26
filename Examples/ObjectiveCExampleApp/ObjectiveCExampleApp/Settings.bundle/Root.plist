@@ -64,7 +64,6 @@
 			<key>Key</key>
 			<string>payment_session</string>
 		</dict>
-
 		<dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
@@ -158,6 +157,7 @@
 				<string>JPY</string>
 				<string>NOK</string>
 				<string>NZD</string>
+				<string>PKR</string>
 				<string>PLN</string>
 				<string>SEK</string>
 				<string>SGD</string>
@@ -182,6 +182,7 @@
 				<string>currency_jpy</string>
 				<string>currency_nok</string>
 				<string>currency_nzd</string>
+				<string>currency_pkr</string>
 				<string>currency_pln</string>
 				<string>currency_sek</string>
 				<string>currency_sgd</string>
