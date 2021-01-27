@@ -47,11 +47,11 @@ jobs:
     executor: macos
     steps:
       - checkout
-#      - restore_cache:
-#          keys:
-#            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-#            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
-#            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+      - restore_cache:
+          keys:
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
       - run:
           name: Carthage Update Sample App
           working_directory: Examples/CarthageExampleApp
