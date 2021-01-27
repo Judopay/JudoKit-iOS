@@ -18,7 +18,6 @@
 		30711FEB258A0AC700D92BCF /* JPUITestCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FEA258A0AC700D92BCF /* JPUITestCard.m */; };
 		30711FF1258A74C500D92BCF /* JPUITestData.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FF0258A74C500D92BCF /* JPUITestData.m */; };
 		30711FFD258B523700D92BCF /* JPUITestAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FFC258B523700D92BCF /* JPUITestAddress.m */; };
-		30ED66442590789D00854D6E /* JudoKit-Automation-Scenarios in Resources */ = {isa = PBXBuildFile; fileRef = 30ED66432590789D00854D6E /* JudoKit-Automation-Scenarios */; };
 		30FF8E98259AC4100077B5C8 /* ApplePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8E97259AC4100077B5C8 /* ApplePayViewController.m */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
 		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
@@ -88,7 +87,6 @@
 		30711FF0258A74C500D92BCF /* JPUITestData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestData.m; sourceTree = "<group>"; };
 		30711FFB258B523700D92BCF /* JPUITestAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUITestAddress.h; sourceTree = "<group>"; };
 		30711FFC258B523700D92BCF /* JPUITestAddress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPUITestAddress.m; sourceTree = "<group>"; };
-		30ED66432590789D00854D6E /* JudoKit-Automation-Scenarios */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "JudoKit-Automation-Scenarios"; sourceTree = SOURCE_ROOT; };
 		30FF8E96259AC4100077B5C8 /* ApplePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplePayViewController.h; sourceTree = "<group>"; };
 		30FF8E97259AC4100077B5C8 /* ApplePayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplePayViewController.m; sourceTree = "<group>"; };
 		3AB03C618596FCEA7EC86A2F /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				30ED66432590789D00854D6E /* JudoKit-Automation-Scenarios */,
 				30711FE2258A079200D92BCF /* Configurations */,
 				52189DDB25651E7F00B8B57A /* Helpers */,
 				526D95E62563ED7100B0ECCC /* Handlers */,
@@ -738,7 +735,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30ED66442590789D00854D6E /* JudoKit-Automation-Scenarios in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1073,7 +1069,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1096,7 +1092,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
