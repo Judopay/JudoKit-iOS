@@ -336,6 +336,37 @@ jobs:
           paths:
             - Examples/SwiftExampleApp/DerivedData
             - Examples/SwiftExampleApp/build-wrapper-output
+  instrumentation_test_objc_sample:
+    executor: macos
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Clone JudoKit-Automation-Scenarios
+          command: |
+            echo "$GITHUB_SSH_KEY" | base64 -d > ~/.ssh/id_rsa_judoci
+            chmod 600 ~/.ssh/id_rsa_judoci
+            export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_judoci -o IdentitiesOnly=yes"
+            git clone git@github.com:Judopay/JudoKit-Automation-Scenarios.git \
+              Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios
+      - run:
+          name: Inject Test Credentials
+          command: |
+            sed -i "s/YOUR-JUDO-ID/$JUDO_API_ID/g" Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios/test-input-data.json
+            sed -i "s/YOUR-TOKEN/$JUDO_API_TOKEN/g" Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios/test-input-data.json
+            sed -i "s/YOUR-SECRET/$JUDO_API_SECRET/g" Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios/test-input-data.json
+            sed -i "s/YOUR-3DS-TOKEN/$JUDO_API_TOKEN/g" Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios/test-input-data.json
+            sed -i "s/YOUR-3DS-SECRET/$JUDO_API_SECRET/g" Examples/ObjectiveCExampleApp/JudoKit-Automation-Scenarios/test-input-data.json
+      - run:
+          name: Run Instrumentation Tests
+          command: |
+            xcodebuild \
+              -project ObjectiveCExampleApp.xcodeproj \
+              -scheme ObjectiveCExampleAppUITests \
+              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -derivedDataPath DerivedData \
+              test
   validate_podspec:
     executor: macos
     steps:
@@ -458,6 +489,14 @@ workflows:
       - unit_test_sdk:
           requires:
             - build_sdk
+      - build_objc_sample
+      - unit_test_objc_sample:
+          requires:
+            - build_objc_sample
+      - instrumentation_test_objc_sample:
+          context: shared-secrets
+          requires:
+            - unit_test_objc_sample
       - validate_podspec
       - sonar_scan:
           context: shared-secrets
