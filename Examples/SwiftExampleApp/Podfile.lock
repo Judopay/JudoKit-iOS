@@ -4,7 +4,7 @@ PODS:
   - DeviceDNA (1.1.3)
   - FBRetainCycleDetector (0.1.4)
   - InAppSettingsKit (3.1.4)
-  - JudoKit-iOS (2.2.1):
+  - JudoKit-iOS (2.3.1):
     - DeviceDNA
     - TrustKit
     - ZappMerchantLib
@@ -37,11 +37,11 @@ SPEC CHECKSUMS:
   DeviceDNA: c3d7ba1669cebf7965407e7022769e5a5eda8c35
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   InAppSettingsKit: 01fb9774c74a11fefc521f29cb2338909e1c2b61
-  JudoKit-iOS: f232ce6ea73a8202925a7811895aecfcdfd82432
+  JudoKit-iOS: 1e69702af7678a3c0c6013b3ac9fde1d325e65ba
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
 PODFILE CHECKSUM: 5a0cc97c7830908acd116668e4e1bb6be36bae36
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
