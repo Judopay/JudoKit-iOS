@@ -478,6 +478,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - validate_podspec
       - carthage_update_sdk
       - bundle_install
       - carthage_update_sample
@@ -486,28 +487,44 @@ workflows:
       - build_sdk:
           requires:
             - carthage_update_sdk
+      # - build_carthage_sample:
+      #     requires:
+      #       - carthage_update_sample
+      # - build_objc_sample:
+      #     requires:
+      #       - pod_install_objc_sample
+      # - build_swift_sample:
+      #     requires:
+      #       - pod_install_swift_sample
       - unit_test_sdk:
           requires:
             - build_sdk
-      - build_objc_sample
-      - unit_test_objc_sample:
-          requires:
-            - build_objc_sample
+      # - unit_test_carthage_sample:
+      #     requires:
+      #       - build_carthage_sample
+      # - unit_test_objc_sample:
+      #     requires:
+      #       - build_objc_sample
+      # - unit_test_swift_sample:
+      #     requires:
+      #       - build_swift_sample
       - instrumentation_test_objc_sample:
           context: shared-secrets
-          requires:
-            - unit_test_objc_sample
-      - validate_podspec
+          # requires:
+          #   - unit_test_objc_sample
       - sonar_scan:
           context: shared-secrets
           requires:
             - unit_test_sdk
+            # - unit_test_carthage_sample
+            # - unit_test_objc_sample
+            # - unit_test_swift_sample
       - release_sample:
           context: shared-secrets
           requires:
-            - build_sdk
-            - unit_test_sdk
             - validate_podspec
+            - sonar_scan
+            - instrumentation_test_objc_sample
           filters:
             branches:
               only:
@@ -529,5 +546,9 @@ workflows:
       - report_to_jira:
           context: shared-secrets
           environment: prod
+          filters:
+            tags:
+              only:
+                - /^v((\d)+\.){1,2}(\d+)/
           requires:
             - release_sdk
