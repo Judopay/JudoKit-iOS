@@ -346,6 +346,14 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
+          name: Pod Deintegrate
+          command: pod deintegrate
+          working_directory: Examples/ObjectiveCExampleApp
+      - run:
+          name: Pod Install
+          command: pod install
+          working_directory: Examples/ObjectiveCExampleApp
+      - run:
           name: Clone JudoKit-Automation-Scenarios
           command: |
             echo "$GITHUB_SSH_KEY" | base64 -d > ~/.ssh/id_rsa_judoci
