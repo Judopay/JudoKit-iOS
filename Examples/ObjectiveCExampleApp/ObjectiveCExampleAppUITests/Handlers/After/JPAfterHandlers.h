@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
 /**
  * A method used to reset the app to a clean state after each UI test.
