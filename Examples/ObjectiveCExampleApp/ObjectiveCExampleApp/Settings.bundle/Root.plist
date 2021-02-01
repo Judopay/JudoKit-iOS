@@ -143,53 +143,99 @@
 			<string>currency</string>
 			<key>Values</key>
 			<array>
-				<string>AED</string>
+				<string>GBP</string>
+				<string>USD</string>
+				<string>EUR</string>
 				<string>AUD</string>
-				<string>BRL</string>
+				<string>SEK</string>
 				<string>CAD</string>
+				<string>NOK</string>
+				<string>BRL</string>
 				<string>CHF</string>
 				<string>CZK</string>
 				<string>DKK</string>
-				<string>EUR</string>
-				<string>GBP</string>
 				<string>HKD</string>
 				<string>HUF</string>
 				<string>JPY</string>
-				<string>NOK</string>
 				<string>NZD</string>
-				<string>PKR</string>
 				<string>PLN</string>
-				<string>SEK</string>
-				<string>SGD</string>
-				<string>QAR</string>
-				<string>SAR</string>
-				<string>USD</string>
 				<string>ZAR</string>
+				<string>ARS</string>
+				<string>BHD</string>
+				<string>MMK</string>
+				<string>KYD</string>
+				<string>CLP</string>
+				<string>CNY</string>
+				<string>COP</string>
+				<string>ISK</string>
+				<string>INR</string>
+				<string>IDR</string>
+				<string>JOD</string>
+				<string>KWD</string>
+				<string>OMR</string>
+				<string>NGN</string>
+				<string>PKR</string>
+				<string>NIO</string>
+				<string>PAB</string>
+				<string>PHP</string>
+				<string>QAR</string>
+				<string>RUB</string>
+				<string>SAR</string>
+				<string>SGD</string>
+				<string>VND</string>
+				<string>AED</string>
+				<string>RSD</string>
+				<string>RON</string>
+				<string>MXN</string>
+				<string>UAH</string>
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>currency_aed</string>
+				<string>currency_gbp</string>
+				<string>currency_usd</string>
+				<string>currency_eur</string>
 				<string>currency_aud</string>
-				<string>currency_brl</string>
+				<string>currency_sek</string>
 				<string>currency_cad</string>
+				<string>currency_nok</string>
+				<string>currency_brl</string>
 				<string>currency_chf</string>
 				<string>currency_czk</string>
 				<string>currency_dkk</string>
-				<string>currency_eur</string>
-				<string>currency_gbp</string>
 				<string>currency_hkd</string>
 				<string>currency_huf</string>
 				<string>currency_jpy</string>
-				<string>currency_nok</string>
 				<string>currency_nzd</string>
-				<string>currency_pkr</string>
 				<string>currency_pln</string>
-				<string>currency_sek</string>
-				<string>currency_sgd</string>
-				<string>currency_qar</string>
-				<string>currency_sar</string>
-				<string>currency_usd</string>
 				<string>currency_zar</string>
+				<string>currency_ars</string>
+				<string>currency_bhd</string>
+				<string>currency_mmk</string>
+				<string>currency_kyd</string>
+				<string>currency_clp</string>
+				<string>currency_cny</string>
+				<string>currency_cop</string>
+				<string>currency_isk</string>
+				<string>currency_inr</string>
+				<string>currency_idr</string>
+				<string>currency_jod</string>
+				<string>currency_kwd</string>
+				<string>currency_omr</string>
+				<string>currency_ngn</string>
+				<string>currency_pkr</string>
+				<string>currency_nio</string>
+				<string>currency_pab</string>
+				<string>currency_php</string>
+				<string>currency_qar</string>
+				<string>currency_rub</string>
+				<string>currency_sar</string>
+				<string>currency_sgd</string>
+				<string>currency_vnd</string>
+				<string>currency_aed</string>
+				<string>currency_rsd</string>
+				<string>currency_ron</string>
+				<string>currency_mxn</string>
+				<string>currency_uah</string>
 			</array>
 			<key>DefaultValue</key>
 			<string>GBP</string>
