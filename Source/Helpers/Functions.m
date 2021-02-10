@@ -102,3 +102,15 @@ NSString *generateBasicAuthHeader(NSString *token, NSString *secret) {
     NSString *base64String = [encodedStringData base64EncodedStringWithOptions:0];
     return [NSString stringWithFormat:@"Basic %@", base64String];
 }
+
+NSString *getSafeStringRepresentation(id object) {
+    if (!object || [object isKindOfClass:NSString.class]) {
+        return object;
+    }
+
+    if ([object isKindOfClass:NSNumber.class]) {
+        return [object stringValue];
+    }
+
+    return [NSString stringWithFormat:@"%@", object];
+}

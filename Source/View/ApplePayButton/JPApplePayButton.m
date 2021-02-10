@@ -28,7 +28,7 @@
 
 + (instancetype)buttonWithType:(JPApplePayButtonType)buttonType
                          style:(JPApplePayButtonStyle)buttonStyle {
-    
+
     return [[JPApplePayButton alloc] initWithType:buttonType
                                             style:buttonStyle];
 }

@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPCardDetailsMode.h"
 #import "JPTransactionType.h"
 #import "JPTransactionViewModel.h"
-#import "JPCardDetailsMode.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>

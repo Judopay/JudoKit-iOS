@@ -101,12 +101,12 @@
 /**
  *  This is the original value of this transaction before refunds
  */
-@property (nonatomic, strong) JPAmount *_Nullable originalAmount;
+@property (nonatomic, strong) NSString *_Nullable originalAmount;
 
 /**
  *  This will show the remaining balance of the transaction after refunds. You cannot refund more than the original payment
  */
-@property (nonatomic, strong) JPAmount *_Nullable netAmount;
+@property (nonatomic, strong) NSString *_Nullable netAmount;
 
 /**
  *  This is the value of this transaction (if refunds available it is the amount after refunds)

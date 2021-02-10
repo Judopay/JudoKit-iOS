@@ -70,12 +70,12 @@
 @property (nonatomic, assign) JPMerchantCapability merchantCapabilities;
 
 /**
- * [OPTIONAL] A bitmask specifying the required billing contant fields in order to process the transaction
+ * [OPTIONAL] A bitmask specifying the required billing contact fields in order to process the transaction
  */
 @property (nonatomic, assign) JPContactField requiredBillingContactFields;
 
 /**
- * [OPTIONAL] A bitmask specifying the required shipping contant fields in order to process the transaction
+ * [OPTIONAL] A bitmask specifying the required shipping contact fields in order to process the transaction
  */
 @property (nonatomic, assign) JPContactField requiredShippingContactFields;
 

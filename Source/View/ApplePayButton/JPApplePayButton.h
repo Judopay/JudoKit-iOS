@@ -48,16 +48,16 @@ typedef NS_ENUM(NSUInteger, JPApplePayButtonType) {
     JPApplePayButtonTypeInStore,
     JPApplePayButtonTypeDonate,
     JPApplePayButtonTypeCheckout API_AVAILABLE(ios(12.0)),
-    JPApplePayButtonTypeBook  API_AVAILABLE(ios(12.0)),
-    JPApplePayButtonTypeSubscribe  API_AVAILABLE(ios(12.0)),
-    JPApplePayButtonTypeReload  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeAddMoney  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeTopUp  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeOrder  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeRent  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeSupport  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeContribute  API_AVAILABLE(ios(14.0)),
-    JPApplePayButtonTypeTip  API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeBook API_AVAILABLE(ios(12.0)),
+    JPApplePayButtonTypeSubscribe API_AVAILABLE(ios(12.0)),
+    JPApplePayButtonTypeReload API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeAddMoney API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeTopUp API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeOrder API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeRent API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeSupport API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeContribute API_AVAILABLE(ios(14.0)),
+    JPApplePayButtonTypeTip API_AVAILABLE(ios(14.0)),
 };
 
 /**
@@ -83,4 +83,3 @@ typedef NS_ENUM(NSUInteger, JPApplePayButtonType) {
                                style:(JPApplePayButtonStyle)buttonStyle;
 
 @end
-

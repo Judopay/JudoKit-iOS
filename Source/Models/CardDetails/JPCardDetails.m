@@ -55,26 +55,26 @@
         case 11: // VISA DEBIT
         case 13: // VISA PURCHASING
             return JPCardNetworkTypeVisa;
-            
+
         case 2:
         case 12: // MASTERCARD DEBIT
             return JPCardNetworkTypeMasterCard;
-            
+
         case 7:
             return JPCardNetworkTypeChinaUnionPay;
-            
+
         case 8:
             return JPCardNetworkTypeAMEX;
-            
+
         case 9:
             return JPCardNetworkTypeJCB;
-            
+
         case 10:
             return JPCardNetworkTypeMaestro;
-            
+
         case 14:
             return JPCardNetworkTypeDiscover;
-            
+
         case 17:
             return JPCardNetworkTypeDinersClub;
 
