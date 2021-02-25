@@ -28,8 +28,17 @@
 @implementation JPInitialReccuringPaymentRequest
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
-    self = [super initWithConfiguration:configuration];
-    _initialRecurringPayment = configuration.initialRecurringPayment;
+    if (self = [super initWithConfiguration:configuration]) {
+        _initialRecurringPayment = configuration.initialRecurringPayment;
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        _initialRecurringPayment = configuration.initialRecurringPayment;
+    }
     return self;
 }
 

@@ -67,8 +67,10 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     self.features = DemoFeature.defaultFeatures;
     self.shouldSetupJudoSDK = YES;
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
-                                                    kTokenKey, kSecretKey, kPaymentSessionKey, kSessionTokenKey,
-                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
+                                                    kTokenKey, kSecretKey, kPaymentSessionKey,
+                                                    kSessionTokenKey,
+                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey,
+                                                    kIsInitialRecurringPaymentKey ]];
 
     [self requestLocationPermissions];
 
@@ -328,7 +330,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     configuration.applePayConfiguration = self.applePayConfiguration;
 
     configuration.pbbaConfiguration = [JPPBBAConfiguration configurationWithDeeplinkScheme:@"judo://pay" andDeeplinkURL:self.deepLinkURL];
-
+    configuration.initialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     return configuration;
 }
 
