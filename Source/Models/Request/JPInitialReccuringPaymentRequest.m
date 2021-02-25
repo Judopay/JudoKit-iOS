@@ -1,8 +1,8 @@
 //
-//  JPTokenRequest.h
-//  JudoKit_iOS
+//  JPInitialReccuringPaymentRequest.m
+//  JudoKit-iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,41 +23,14 @@
 //  SOFTWARE.
 
 #import "JPInitialReccuringPaymentRequest.h"
-#import <Foundation/Foundation.h>
+#import "JPConfiguration.h"
 
-@class JPConfiguration;
+@implementation JPInitialReccuringPaymentRequest
 
-@interface JPTokenRequest : JPInitialReccuringPaymentRequest
-
-/**
- * A reference to the card expiry date
- */
-@property (nonatomic, strong, nullable) NSString *endDate;
-
-/**
- * A reference to the card last four digits
- */
-@property (nonatomic, strong, nullable) NSString *cardLastFour;
-
-/**
- * A reference to the card token
- */
-@property (nonatomic, strong, nullable) NSString *cardToken;
-
-/**
- * A reference to the card type
- */
-@property (nonatomic, strong, nullable) NSNumber *cardType;
-
-/**
- * Designated initializer based on the provided configuration and card token
- *
- * @param configuration - an instance of JPConfiguration that describe the merchant configuration values
- * @param cardToken - the card token obtained from a Save Card transaction
- *
- * @return a configured JPTokenRequest instance
- */
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 andCardToken:(nonnull NSString *)cardToken;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    self = [super initWithConfiguration:configuration];
+    _initialRecurringPayment = configuration.initialRecurringPayment;
+    return self;
+}
 
 @end

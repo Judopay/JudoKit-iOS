@@ -22,9 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
+#import "JPInitialReccuringPaymentRequest.h"
 #import <Foundation/Foundation.h>
 
-@interface JPRegisterCardRequest : JPRequest
+@interface JPRegisterCardRequest : JPInitialReccuringPaymentRequest
 
 @end
