@@ -89,7 +89,7 @@
 /**
  * A  flag to sign up for a subscription-based service
  */
-@property (nonatomic, assign) BOOL initialRecurringPayment;
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

@@ -24,6 +24,7 @@
 
 #import "JPRegisterCardRequest.h"
 #import "JPConstants.h"
+#import "JPConfiguration.h"
 
 @implementation JPRegisterCardRequest
 
@@ -41,6 +42,21 @@
     }
 
     return super.currency;
+}
+
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super initWithConfiguration:configuration]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
 }
 
 @end

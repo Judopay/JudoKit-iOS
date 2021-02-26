@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTokenRequest.h"
+#import "JPConfiguration.h"
 
 @implementation JPTokenRequest
 
@@ -30,6 +31,7 @@
                                  andCardToken:(nonnull NSString *)cardToken {
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
     }
     return self;
 }

@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPInitialReccuringPaymentRequest.h"
+#import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
 @class PKPayment, PKPaymentToken;
@@ -73,7 +73,7 @@
 
 @end
 
-@interface JPApplePayRequest : JPInitialReccuringPaymentRequest
+@interface JPApplePayRequest : JPRequest
 
 /**
  * A reference to the JPApplePayPayment instance describing the Apple Pay transaction

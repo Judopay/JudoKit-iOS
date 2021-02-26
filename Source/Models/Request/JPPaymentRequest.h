@@ -22,9 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPInitialReccuringPaymentRequest.h"
+#import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
-@interface JPPaymentRequest : JPInitialReccuringPaymentRequest
+@interface JPPaymentRequest : JPRequest
+/**
+ * A  flag to sign up for a subscription-based service
+ */
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 @end
