@@ -142,10 +142,10 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     [self configureAmountWithViewModel:viewModel];
 
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
-        
+
         JPApplePayButtonType type = viewModel.isApplePaySetUp
-            ? JPApplePayButtonTypeBuy
-            : JPApplePayButtonTypeSetUp;
+                                        ? JPApplePayButtonTypeBuy
+                                        : JPApplePayButtonTypeSetUp;
 
         self.applePayButton = [JPApplePayButton buttonWithType:type
                                                          style:JPApplePayButtonStyleBlack];

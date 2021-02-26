@@ -49,9 +49,7 @@
     paymentRequest.countryCode = applePayConfiguration.countryCode;
     paymentRequest.currencyCode = applePayConfiguration.currency;
     paymentRequest.supportedNetworks = [self pkPaymentNetworksForConfiguration:configuration];
-    ;
     paymentRequest.merchantCapabilities = [self pkMerchantCapabilitiesForConfiguration:configuration];
-    ;
     paymentRequest.shippingType = [self pkShippingTypeForConfiguration:configuration];
     paymentRequest.shippingMethods = [self pkShippingMethodsForConfiguration:configuration];
 
@@ -63,7 +61,6 @@
 
     paymentRequest.requiredShippingContactFields = pkShippingFields;
     paymentRequest.requiredBillingContactFields = pkBillingFields;
-
     paymentRequest.paymentSummaryItems = [self pkPaymentSummaryItemsForConfiguration:configuration];
 
     return paymentRequest;
@@ -71,7 +68,7 @@
 
 + (PKMerchantCapability)pkMerchantCapabilitiesForConfiguration:(JPConfiguration *)configuration {
     switch (configuration.applePayConfiguration.merchantCapabilities) {
-        case JPMerchantCapability3DS:
+        case JPMerchantCapabilityThreeDS:
             return PKMerchantCapability3DS;
         case JPMerchantCapabilityEMV:
             return PKMerchantCapabilityEMV;

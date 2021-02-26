@@ -40,3 +40,5 @@ NSString *getUserAgent(void);
 NSString *getIPAddress(void);
 
 NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
+
+NSString *getSafeStringRepresentation(id object);

@@ -29,7 +29,7 @@
  * Default is MerchantCapability3DS.
  */
 typedef NS_ENUM(NSUInteger, JPMerchantCapability) {
-    JPMerchantCapability3DS,
+    JPMerchantCapabilityThreeDS,
     JPMerchantCapabilityEMV,
     JPMerchantCapabilityCredit,
     JPMerchantCapabilityDebit

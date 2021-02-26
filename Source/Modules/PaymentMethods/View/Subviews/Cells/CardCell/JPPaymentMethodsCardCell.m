@@ -104,8 +104,8 @@ const float kCardSmallPadding = 3.0F;
     NSString *iconName = cardModel.isSelected ? @"radio-on" : @"radio-off";
 
     self.accessibilityIdentifier = cardModel.isSelected
-    ? @"Card List Cell [SELECTED]"
-    : @"Card List Cell";
+                                       ? @"Card List Cell [SELECTED]"
+                                       : @"Card List Cell";
 
     UIImage *accesoryImage = [UIImage imageWithIconName:iconName];
     UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:accesoryImage];

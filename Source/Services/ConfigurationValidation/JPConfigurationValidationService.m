@@ -170,7 +170,7 @@
               @"PAB", @"PHP", @"QAR",
               @"RUB", @"SAR", @"SGD",
               @"VND", @"AED", @"RSD",
-              @"RON", @"MXN", @"UAH"];
+              @"RON", @"MXN", @"UAH" ];
 }
 
 @end

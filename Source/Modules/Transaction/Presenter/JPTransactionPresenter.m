@@ -151,7 +151,7 @@
         }];
         return;
     }
-    
+
     [self.view updateViewWithError:transactionError];
     [self.interactor storeError:transactionError];
 }
@@ -179,7 +179,7 @@
 
     [self.interactor completeTransactionWithResponse:response
                                                error:nil];
-    
+
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
         [weakSelf.view didFinishAddingCard];
