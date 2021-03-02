@@ -32,6 +32,7 @@ class JPCheckCardRequestTests: XCTestCase {
         reference.metaData = ["exampleKey": "exampleValue"];
         
         let configuration = JPConfiguration(judoID: "judoID", amount: amount, reference: reference)
+        configuration.isInitialRecurringPayment = true;
         
         return configuration
     }
@@ -42,6 +43,8 @@ class JPCheckCardRequestTests: XCTestCase {
      *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
      *
      *  THEN: The amount defaults to 0.0 GBP regardless of passed value
+     *
+     *   AND: The "isInitialRecurringPayment" should be set.
      */
     func test_onInitialization_SetValidProperties() {
         let checkCardRequest = JPCheckCardRequest(configuration: configuration)
@@ -54,5 +57,32 @@ class JPCheckCardRequestTests: XCTestCase {
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
         XCTAssertEqual(checkCardRequest.yourPaymentReference, configuration.reference.paymentReference)
         XCTAssertEqual(checkCardRequest.yourPaymentMetaData, configuration.reference.metaData)
+        XCTAssertTrue(checkCardRequest.isInitialRecurringPayment)
+    }
+    
+    /*
+     * GIVEN: A [JPCheckCardRequest] is being initialized
+     *
+     *  WHEN: A valid parameters are being passed to the initializer
+     *
+     *  THEN: The amount defaults to 0.0 GBP regardless of passed value
+     *
+     *   AND: The "isInitialRecurringPayment" should be set.
+     */
+    func test_onCardDetailsInitialization_SetValidProperties() {
+        
+        let cardDetails = JPCardDetails(cardNumber: "4000000000000001", expiryMonth: 12, expiryYear: 12)
+    
+        let checkCardRequest = JPCheckCardRequest(configuration: configuration, andCardDetails: cardDetails)
+        
+        XCTAssertEqual(checkCardRequest.judoId, "judoID")
+        
+        XCTAssertEqual(checkCardRequest.amount, "0.00")
+        XCTAssertEqual(checkCardRequest.currency, "GBP")
+        
+        XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
+        XCTAssertEqual(checkCardRequest.yourPaymentReference, configuration.reference.paymentReference)
+        XCTAssertEqual(checkCardRequest.yourPaymentMetaData, configuration.reference.metaData)
+        XCTAssertTrue(checkCardRequest.isInitialRecurringPayment)
     }
 }

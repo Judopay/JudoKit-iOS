@@ -25,6 +25,18 @@ import XCTest
 
 class JPRegisterCardRequestTest: XCTestCase {
     
+    var configuration: JPConfiguration {
+        let amount = JPAmount("1.01", currency: "EUR")
+        
+        let reference = JPReference(consumerReference: "consumer", paymentReference: "payment")
+        reference.metaData = ["exampleKey": "exampleValue"];
+        
+        let configuration = JPConfiguration(judoID: "judoID", amount: amount, reference: reference)
+        configuration.isInitialRecurringPayment = true;
+        
+        return configuration
+    }
+    
     /*
      * GIVEN: creating JPRegisterCardRequest object
      *
@@ -33,9 +45,39 @@ class JPRegisterCardRequestTest: XCTestCase {
      * THEN: should return default amount and currency
      */
     func test_CardRequest_WhenNoSuperClass_ShouldReturnDefaultFields() {
-        let cardRequest = JPRegisterCardRequest()
+        let cardRequest = JPRegisterCardRequest(configuration: configuration)
+        
+        XCTAssertEqual(cardRequest.judoId, "judoID")
         XCTAssertEqual(cardRequest.amount, "0.01")
         XCTAssertEqual(cardRequest.currency, "GBP")
+        
+        XCTAssertEqual(cardRequest.yourConsumerReference, configuration.reference.consumerReference)
+        XCTAssertEqual(cardRequest.yourPaymentReference, configuration.reference.paymentReference)
+        XCTAssertEqual(cardRequest.yourPaymentMetaData, configuration.reference.metaData)
+        XCTAssertTrue(cardRequest.isInitialRecurringPayment)
+    }
+    
+    /*
+     * GIVEN: A [JPRegisterCardRequest] is being initialized
+     *
+     *  WHEN: A valid parameters are being passed to the initializer
+     *
+     *   AND: The "isInitialRecurringPayment" should be set.
+     */
+    func test_onCardDetailsInitialization_SetValidProperties() {
+        
+        let cardDetails = JPCardDetails(cardNumber: "4000000000000001", expiryMonth: 12, expiryYear: 12)
+    
+        let cardRequest = JPRegisterCardRequest(configuration: configuration, andCardDetails: cardDetails)
+        
+        XCTAssertEqual(cardRequest.judoId, "judoID")
+        XCTAssertEqual(cardRequest.amount, "0.01")
+        XCTAssertEqual(cardRequest.currency, "GBP")
+        
+        XCTAssertEqual(cardRequest.yourConsumerReference, configuration.reference.consumerReference)
+        XCTAssertEqual(cardRequest.yourPaymentReference, configuration.reference.paymentReference)
+        XCTAssertEqual(cardRequest.yourPaymentMetaData, configuration.reference.metaData)
+        XCTAssertTrue(cardRequest.isInitialRecurringPayment)
     }
   
 }
