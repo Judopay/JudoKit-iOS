@@ -26,7 +26,7 @@ import XCTest
 class JPCheckCardRequestTests: XCTestCase {
     
     var configuration: JPConfiguration {
-        let amount = JPAmount("1.01", currency: "EUR")
+        let amount = JPAmount("0.01", currency: "GBP")
         
         let reference = JPReference(consumerReference: "consumer", paymentReference: "payment")
         reference.metaData = ["exampleKey": "exampleValue"];
@@ -42,16 +42,14 @@ class JPCheckCardRequestTests: XCTestCase {
      *
      *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
      *
-     *  THEN: The amount defaults to 0.0 GBP regardless of passed value
-     *
-     *   AND: The "isInitialRecurringPayment" should be set.
+     *  THEN: The "isInitialRecurringPayment" should be set.
      */
     func test_onInitialization_SetValidProperties() {
         let checkCardRequest = JPCheckCardRequest(configuration: configuration)
         
         XCTAssertEqual(checkCardRequest.judoId, "judoID")
         
-        XCTAssertEqual(checkCardRequest.amount, "0.00")
+        XCTAssertEqual(checkCardRequest.amount, "0.01")
         XCTAssertEqual(checkCardRequest.currency, "GBP")
         
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
@@ -65,9 +63,7 @@ class JPCheckCardRequestTests: XCTestCase {
      *
      *  WHEN: A valid parameters are being passed to the initializer
      *
-     *  THEN: The amount defaults to 0.0 GBP regardless of passed value
-     *
-     *   AND: The "isInitialRecurringPayment" should be set.
+     *  THEN: The "isInitialRecurringPayment" should be set.
      */
     func test_onCardDetailsInitialization_SetValidProperties() {
         
@@ -81,7 +77,7 @@ class JPCheckCardRequestTests: XCTestCase {
         
         XCTAssertEqual(checkCardRequest.judoId, "judoID")
         
-        XCTAssertEqual(checkCardRequest.amount, "0.00")
+        XCTAssertEqual(checkCardRequest.amount, "0.01")
         XCTAssertEqual(checkCardRequest.currency, "GBP")
         
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)

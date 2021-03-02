@@ -26,7 +26,7 @@ import XCTest
 class JPRegisterCardRequestTest: XCTestCase {
     
     var configuration: JPConfiguration {
-        let amount = JPAmount("1.01", currency: "EUR")
+        let amount = JPAmount("0.01", currency: "GBP")
         
         let reference = JPReference(consumerReference: "consumer", paymentReference: "payment")
         reference.metaData = ["exampleKey": "exampleValue"];
