@@ -49,7 +49,7 @@ class JPCheckCardRequestTests: XCTestCase {
         
         XCTAssertEqual(checkCardRequest.judoId, "judoID")
         
-        XCTAssertEqual(checkCardRequest.amount, "0.01")
+        XCTAssertEqual(checkCardRequest.amount, "0.00")
         XCTAssertEqual(checkCardRequest.currency, "GBP")
         
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
@@ -77,7 +77,7 @@ class JPCheckCardRequestTests: XCTestCase {
         
         XCTAssertEqual(checkCardRequest.judoId, "judoID")
         
-        XCTAssertEqual(checkCardRequest.amount, "0.01")
+        XCTAssertEqual(checkCardRequest.amount, "0.00")
         XCTAssertEqual(checkCardRequest.currency, "GBP")
         
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
