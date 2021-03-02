@@ -66,9 +66,13 @@ class JPRegisterCardRequestTest: XCTestCase {
      */
     func test_onCardDetailsInitialization_SetValidProperties() {
         
-        let cardDetails = JPCardDetails(cardNumber: "4000000000000001", expiryMonth: 12, expiryYear: 12)
-    
-        let cardRequest = JPRegisterCardRequest(configuration: configuration, andCardDetails: cardDetails)
+        let cardDetails = JPCard(cardNumber: "4000000000000001",
+                          cardholderName: "John",
+                          expiryDate: "12/20",
+                          secureCode: "123")
+        
+        let cardRequest = JPRegisterCardRequest(configuration: configuration,
+                                                andCardDetails: cardDetails)
         
         XCTAssertEqual(cardRequest.judoId, "judoID")
         XCTAssertEqual(cardRequest.amount, "0.01")
