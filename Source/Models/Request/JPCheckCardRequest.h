@@ -27,4 +27,9 @@
 
 @interface JPCheckCardRequest : JPRequest
 
+/**
+ * A  flag to sign up for a subscription-based service
+ */
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
+
 @end

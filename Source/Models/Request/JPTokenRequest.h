@@ -25,8 +25,6 @@
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
-@class JPConfiguration;
-
 @interface JPTokenRequest : JPRequest
 
 /**
@@ -48,6 +46,11 @@
  * A reference to the card type
  */
 @property (nonatomic, strong, nullable) NSNumber *cardType;
+
+/**
+ * A  flag to sign up for a subscription-based service
+ */
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
  * Designated initializer based on the provided configuration and card token

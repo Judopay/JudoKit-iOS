@@ -56,6 +56,7 @@ static NSString *const kAVSEnabledKey = @"is_avs_enabled";
 static NSString *const kShouldPaymentMethodsDisplayAmount = @"should_payment_methods_display_amount";
 static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_button_display_amount";
 static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
+static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 
 @interface Settings : NSObject
 
@@ -102,6 +103,7 @@ static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_se
 - (BOOL)shouldPaymentMethodsDisplayAmount;
 - (BOOL)shouldPaymentButtonDisplayAmount;
 - (BOOL)shouldPaymentMethodsVerifySecurityCode;
+- (BOOL)isInitialRecurringPaymentEnabled;
 
 @end
 

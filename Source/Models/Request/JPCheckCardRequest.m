@@ -24,6 +24,7 @@
 
 #import "JPCheckCardRequest.h"
 #import "JPConstants.h"
+#import "JPConfiguration.h"
 
 @implementation JPCheckCardRequest
 
@@ -33,6 +34,21 @@
 
 - (NSString *)currency {
     return kCurrencyPounds;
+}
+
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super initWithConfiguration:configuration]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
 }
 
 @end

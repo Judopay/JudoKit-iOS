@@ -23,6 +23,23 @@
 //  SOFTWARE.
 
 #import "JPPaymentRequest.h"
+#import "JPConfiguration.h"
 
 @implementation JPPaymentRequest
+
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super initWithConfiguration:configuration]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    }
+    return self;
+}
+
 @end
