@@ -34,15 +34,15 @@ void returnToMainScreen() {
     XCUIApplication *application = [XCUIApplication new];
     XCUIElement *mainScreen = application.otherElements[@"Main View"];
     XCUIElement *cancelButton = application.buttons[@"CANCEL"];
-
+    
     if (JPPaymentMethodsElements.backButton.exists) {
         [JPPaymentMethodsElements.backButton tap];
     }
-
+    
     if (cancelButton.exists) {
         [cancelButton tap];
     }
-
+    
     while (!mainScreen.exists) {
         [JPGenericElements.backButton tap];
     }
@@ -58,28 +58,31 @@ void resetStoredCards() {
     [JPMainElements.settingsButton tap];
     [JPSettingsElements.cardPaymentMethodSwitch switchOn];
     [JPGenericElements.backButton tap];
-
+    
     [JPMainElements.paymentMethodsOption tap];
-
+    
     XCUIApplication *app = [XCUIApplication new];
-
+    
     XCUICoordinate *coord = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.6)];
     XCUICoordinate *coord2 = [app coordinateWithNormalizedOffset:CGVectorMake(0.5, 1)];
+#if __clang_major__ >= 12
     [coord pressForDuration:0.1
        thenDragToCoordinate:coord2
                withVelocity:XCUIGestureVelocityFast
         thenHoldForDuration:0];
-
+#else
+    [coord pressForDuration:0.1 thenDragToCoordinate:coord2];
+#endif
     while ([app.cells[@"Card List Cell"] exists]) {
         XCUIElement *firstMatch = app.cells[@"Card List Cell"].firstMatch;
         swipeAndDeleteCardCell(firstMatch);
     }
-
+    
     if ([app.cells[@"Card List Cell [SELECTED]"] exists]) {
         XCUIElement *firstMatch = app.cells[@"Card List Cell [SELECTED]"].firstMatch;
         swipeAndDeleteCardCell(firstMatch);
     }
-
+    
     if (JPPaymentMethodsElements.backButton.exists) {
         [JPPaymentMethodsElements.backButton tap];
     }
@@ -87,7 +90,7 @@ void resetStoredCards() {
 
 void resetSettings() {
     [JPMainElements.settingsButton tap];
-
+    
     NSArray *switches = @[
         JPSettingsElements.visaSwitch,
         JPSettingsElements.masterCardSwitch,
@@ -108,7 +111,7 @@ void resetSettings() {
     ];
     
     toggleOffSwitches(switches);
-
+    
     [JPGenericElements.backButton tap];
 }
 
