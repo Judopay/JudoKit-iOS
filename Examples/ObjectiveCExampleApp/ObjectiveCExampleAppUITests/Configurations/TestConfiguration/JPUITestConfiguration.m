@@ -30,8 +30,9 @@
 #pragma mark - Initializers
 
 + (instancetype)defaultConfiguration {
-    NSString *path = @"/JudoKit-Automation-Scenarios/test-input-data.json";
-    return [[JPUITestConfiguration alloc] initWithRelativePath:path];
+    NSString *path = [[NSBundle bundleForClass:JPUITestConfiguration.class] pathForResource:@"test-input-data" ofType:@".json" inDirectory:nil];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    return [[JPUITestConfiguration alloc] initWithData:data];
 }
 
 - (instancetype)initWithRelativePath:(NSString *)relativePath {
