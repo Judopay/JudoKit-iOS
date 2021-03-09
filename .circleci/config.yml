@@ -336,7 +336,7 @@ jobs:
           paths:
             - Examples/SwiftExampleApp/DerivedData
             - Examples/SwiftExampleApp/build-wrapper-output
-  instrumentation_test_objc_sample:
+instrumentation_test_objc_sample:
   executor: macos
   steps:
     - checkout
