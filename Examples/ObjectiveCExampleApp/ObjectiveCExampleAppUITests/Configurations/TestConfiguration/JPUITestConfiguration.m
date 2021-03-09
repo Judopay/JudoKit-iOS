@@ -30,7 +30,8 @@
 #pragma mark - Initializers
 
 + (instancetype)defaultConfiguration {
-    NSString *path = [[NSBundle bundleForClass:JPUITestConfiguration.class] pathForResource:@"test-input-data" ofType:@".json" inDirectory:nil];
+    NSString *path = [[NSBundle bundleForClass:JPUITestConfiguration.class]
+                      pathForResource:@"test-input-data" ofType:@".json" inDirectory:nil];
     NSData *data = [NSData dataWithContentsOfFile:path];
     return [[JPUITestConfiguration alloc] initWithData:data];
 }
