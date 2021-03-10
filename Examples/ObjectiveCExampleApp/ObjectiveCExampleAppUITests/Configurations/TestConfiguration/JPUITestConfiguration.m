@@ -30,18 +30,29 @@
 #pragma mark - Initializers
 
 + (instancetype)defaultConfiguration {
-    NSString *path = [[NSBundle bundleForClass:JPUITestConfiguration.class]
-                      pathForResource:@"test-input-data" ofType:@".json" inDirectory:nil];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    return [[JPUITestConfiguration alloc] initWithData:data];
+    NSString *path = @"/JudoKit-Automation-Scenarios/test-input-data.json";
+    return [[JPUITestConfiguration alloc] initWithRelativePath:path];
 }
 
 - (instancetype)initWithRelativePath:(NSString *)relativePath {
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSString *configPath = [SRC_ROOT stringByAppendingString:relativePath];
     
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestConfiguration class]];
-    NSString *configPath = [bundle.bundlePath stringByAppendingString:relativePath];
+    if ([fileManager fileExistsAtPath:configPath]) {
+        NSLog(@"Config file founnd");
+        NSData *data = [fileManager contentsAtPath:configPath];
+           
+           if (data == nil) {
+               NSLog(@"Sorry!!! cannnot read data from config file");
+           }
+           
+    } else {
+        NSLog(@"Sorry!!! config file not founnd");
+    }
     
+   
     NSURL *url = [NSURL fileURLWithPath:configPath];
+    
     return [self initWithContentsOfURL:url];
 }
 
