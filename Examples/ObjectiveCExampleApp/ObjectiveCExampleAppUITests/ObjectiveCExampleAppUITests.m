@@ -43,7 +43,7 @@ void CucumberishInit() {
     [JPUITestThenSteps setUpWithConfiguration:configuration];
 
     [Cucumberish executeFeaturesInDirectory:@"JudoKit-Automation-Scenarios/features"
-                                 fromBundle:bundle
+                                 fromBundle:nil
                                 includeTags:configuration.testsToInclude
                                 excludeTags:configuration.testsToSkip];
 }
