@@ -46,6 +46,7 @@
 		52A89B89255164FA00DA2F0D /* JPUITestWhenSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B88255164FA00DA2F0D /* JPUITestWhenSteps.m */; };
 		52A89B8F2551650900DA2F0D /* JPUITestThenSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B8E2551650900DA2F0D /* JPUITestThenSteps.m */; };
 		52A89B9F2551742B00DA2F0D /* JPGenericElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A89B9E2551742B00DA2F0D /* JPGenericElements.m */; };
+		A5E86C4825FF35830035DBF6 /* JudoKit-Automation-Scenarios in Resources */ = {isa = PBXBuildFile; fileRef = A5E86C4725FF35820035DBF6 /* JudoKit-Automation-Scenarios */; };
 		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
 		D9E096B89DC711101BD2C6D6 /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -159,6 +160,7 @@
 		9094333EC6A81530650D05FE /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48506C24BC1772C11EA8BC /* Pods-ObjectiveCExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CEFF4FFEB0483C186BE3DDB /* Pods-ObjectiveCExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A5E86C4725FF35820035DBF6 /* JudoKit-Automation-Scenarios */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "JudoKit-Automation-Scenarios"; sourceTree = "<group>"; };
 		A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IASKAppSettingsViewController+Additions.h"; sourceTree = "<group>"; };
 		A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IASKAppSettingsViewController+Additions.m"; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A5E86C4725FF35820035DBF6 /* JudoKit-Automation-Scenarios */,
 				30711FE2258A079200D92BCF /* Configurations */,
 				52189DDB25651E7F00B8B57A /* Helpers */,
 				526D95E62563ED7100B0ECCC /* Handlers */,
@@ -735,6 +738,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E86C4825FF35830035DBF6 /* JudoKit-Automation-Scenarios in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
