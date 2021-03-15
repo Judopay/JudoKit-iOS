@@ -35,21 +35,6 @@
 }
 
 - (instancetype)initWithRelativePath:(NSString *)relativePath {
-    
-    
-    NSString *configPathInput = [SRC_ROOT stringByAppendingString:@"/JudoKit-Automation-Scenarios/"];
-    NSError * error;
-    
-    NSArray * directoryContentsInput = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:configPathInput  error:&error];
-    
-    NSLog(@"directoryContentsInput = %@ \n\n error = %@", directoryContentsInput, error);
-    
-    NSString *configPathFeatures = [SRC_ROOT stringByAppendingString:@"/JudoKit-Automation-Scenarios/features/"];
-    NSArray * directoryContentsFeatures = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:configPathFeatures  error:&error];
-    
-    NSLog(@"directoryContentsFeatures = %@ \n\n error = %@", directoryContentsFeatures, error);
-    
-    
     NSString *configPath = [SRC_ROOT stringByAppendingString:relativePath];
     NSURL *url = [NSURL fileURLWithPath:configPath];
     return [self initWithContentsOfURL:url];
