@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPResponse.h"
-#import "Functions.h"
 #import "JPAmount.h"
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
@@ -48,33 +47,44 @@
     self.merchantName = dictionary[@"merchantName"];
     self.appearsOnStatementAs = dictionary[@"appearsOnStatementAs"];
     self.paymentMethod = dictionary[@"paymentMethod"];
-    self.judoId = getSafeStringRepresentation(dictionary[@"judoId"]);
 
+    [self setupJudoIDFromDictionary:dictionary];
     [self setupPaymentReferenceFromDictionary:dictionary];
     [self setupConsumerFromDictionary:dictionary];
     [self setupIDEALFromDictionary:dictionary];
 
     NSString *currency = dictionary[@"currency"];
+
     if (dictionary[@"refunds"]) {
-        self.refunds = [[JPAmount alloc] initWithAmount:getSafeStringRepresentation(dictionary[@"refunds"])
-                                               currency:currency];
+        self.refunds = [[JPAmount alloc] initWithAmount:dictionary[@"refunds"] currency:currency];
     }
 
-    self.originalAmount = getSafeStringRepresentation(dictionary[@"originalAmount"]);
-    self.netAmount = getSafeStringRepresentation(dictionary[@"netAmount"]);
-
-    NSString *amount = getSafeStringRepresentation(dictionary[@"amount"]);
-
-    if (amount != nil) {
-        self.amount = [[JPAmount alloc] initWithAmount:amount currency:currency];
+    if (dictionary[@"originalAmount"]) {
+        self.originalAmount = [[JPAmount alloc] initWithAmount:dictionary[@"originalAmount"] currency:currency];
     }
 
-    NSDictionary *cardDetailsDictionary = dictionary[@"cardDetails"];
-    if (cardDetailsDictionary) {
-        self.cardDetails = [[JPCardDetails alloc] initWithDictionary:cardDetailsDictionary];
+    if (dictionary[@"netAmount"]) {
+        self.netAmount = [[JPAmount alloc] initWithAmount:dictionary[@"netAmount"] currency:currency];
+    }
+
+    if (dictionary[@"amount"]) {
+        self.amount = [[JPAmount alloc] initWithAmount:dictionary[@"amount"] currency:currency];
+    }
+
+    if (dictionary[@"cardDetails"]) {
+        self.cardDetails = [[JPCardDetails alloc] initWithDictionary:dictionary[@"cardDetails"]];
     }
 
     self.rawData = dictionary;
+}
+
+- (void)setupJudoIDFromDictionary:(NSDictionary *)dictionary {
+    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+    NSString *judoID = [numberFormatter stringFromNumber:dictionary[@"judoId"]];
+
+    if (judoID) {
+        self.judoId = judoID;
+    }
 }
 
 - (void)setupPaymentReferenceFromDictionary:(NSDictionary *)dictionary {
