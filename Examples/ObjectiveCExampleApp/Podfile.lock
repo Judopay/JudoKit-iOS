@@ -3,7 +3,7 @@ PODS:
   - Cucumberish (1.4.0)
   - DeviceDNA (1.1.3)
   - InAppSettingsKit (2.15)
-  - JudoKit-iOS (2.3.1):
+  - JudoKit-iOS (2.4.0):
     - DeviceDNA
     - TrustKit
     - ZappMerchantLib
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: c3d7ba1669cebf7965407e7022769e5a5eda8c35
   InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
-  JudoKit-iOS: 1e69702af7678a3c0c6013b3ac9fde1d325e65ba
+  JudoKit-iOS: 7f1ae2ebab78ba1eb99ddb9e358cc414a6f88896
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
