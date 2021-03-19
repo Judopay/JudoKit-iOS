@@ -91,7 +91,7 @@
 #pragma mark - Public methods
 
 - (void)start3DSecureTransaction {
-    if (self.configuration.acsURL && self.configuration.mdValue && self.configuration.paReqValue && self.encodedPaReq && self.terminationURL) {
+    if (self.configuration.acsURL && self.configuration.paReqValue && self.encodedPaReq && self.terminationURL) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.configuration.acsURL];
         request.HTTPMethod = @"POST";
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -114,9 +114,14 @@
 }
 
 - (NSData *)httpBody {
-    NSString *mdValue = self.configuration.mdValue;
-    NSString *format = @"MD=%@&PaReq=%@&TermUrl=%@";
-    NSString *bodyString = [NSString stringWithFormat:format, mdValue, self.encodedPaReq, self.terminationURL];
+    NSMutableString *bodyString = [NSMutableString stringWithFormat:@"PaReq=%@&TermUrl=%@",
+                                                                    self.encodedPaReq,
+                                                                    self.terminationURL];
+
+    if (self.configuration.mdValue) {
+        [bodyString appendString:[NSString stringWithFormat:@"&MD=%@", self.configuration.mdValue]];
+    }
+
     return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
 }
 
