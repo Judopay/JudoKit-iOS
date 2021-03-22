@@ -101,8 +101,8 @@ static const float kSliderCornerRadius = 10.0F;
 - (void)setupSections {
     for (JPSection *section in self.sections) {
         [self addSectionWithImage:section.image
-                            title:section.title
-          accessibilityIdentifier:section.accessibilityIdentifier];
+                              title:section.title
+            accessibilityIdentifier:section.accessibilityIdentifier];
     }
 }
 

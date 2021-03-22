@@ -129,8 +129,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     BOOL isIpAddress = [self isIpAddress:host];
 
     if (isIpAddress) {
-        NSNumber *port = url.port ?: [url.scheme isEqualToString:@"https"] ? @(443)
-                                                                           : @(80);
+        NSNumber *port = url.port ?: [url.scheme isEqualToString:@"https"] ? @(443) : @(80);
 
         struct sockaddr_in address;
         address.sin_len = sizeof(address);

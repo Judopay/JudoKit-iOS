@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPCheckCardRequest.h"
-#import "JPConstants.h"
 #import "JPConfiguration.h"
+#import "JPConstants.h"
 
 @implementation JPCheckCardRequest
 
