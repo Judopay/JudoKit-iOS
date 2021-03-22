@@ -24,6 +24,7 @@
 
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "NSString+Additions.h"
 
 @implementation JPCardNetwork
 
@@ -32,7 +33,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _networkNames = @{
-            @(JPCardNetworkTypeUnknown) : @"Unknown Card Network",
+            @(JPCardNetworkTypeUnknown) : @"unknown_card_network".localized,
             @(JPCardNetworkTypeVisa) : @"Visa",
             @(JPCardNetworkTypeMasterCard) : @"Mastercard",
             @(JPCardNetworkTypeChinaUnionPay) : @"China UnionPay",
