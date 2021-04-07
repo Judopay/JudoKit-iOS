@@ -198,4 +198,45 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
 }
 
+- (NSString *)cardAddress1 {
+    return [self.defaults stringForKey:kCardAddress1];
+}
+
+- (NSString *)cardAddress2 {
+    return [self.defaults stringForKey:kCardAddress2];
+}
+
+- (NSString *)cardAddressTown {
+    return [self.defaults stringForKey:kCardAddressTown];
+}
+
+- (NSNumber*)cardAddressCountryCode {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSString *code = [self.defaults stringForKey:kCardAddressCountryCode];
+    code = [code isKindOfClass:NSString.class] ? code : @"";
+    return [formatter numberFromString: code];
+}
+
+- (NSString*)cardAddressPostCode {
+    return [self.defaults stringForKey:kCardAddressPostCode];
+}
+
+- (JPAddress*)cardAddress {
+    return [[JPAddress alloc] initWithLine1:self.cardAddress1
+                                      line2:self.cardAddress2
+                                      line3:nil
+                                       town:self.cardAddressTown
+                                countryCode:self.cardAddressCountryCode
+                                   postCode:self.cardAddressPostCode];
+}
+
+- (nullable NSString *)emailAddress {
+    return [self.defaults stringForKey:kCardHolderEmailAddress];
+}
+
+- (nullable NSString *)mobileNumber {
+    return [self.defaults stringForKey:kCardHolderMobileNumber];
+}
+
 @end

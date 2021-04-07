@@ -92,6 +92,16 @@
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
+ * The card holder email
+ */
+@property (nonatomic, assign) NSString *_Nullable emailAddress;
+
+/**
+ * The card holder mobile number
+ */
+@property (nonatomic, assign) NSString *_Nullable mobileNumber;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.

@@ -330,6 +330,9 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 
     configuration.pbbaConfiguration = [JPPBBAConfiguration configurationWithDeeplinkScheme:@"judo://pay" andDeeplinkURL:self.deepLinkURL];
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
+    configuration.cardAddress = Settings.defaultSettings.cardAddress;
+    configuration.emailAddress = Settings.defaultSettings.emailAddress;
+    configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
     return configuration;
 }
 

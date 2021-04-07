@@ -442,6 +442,68 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>card_address_header</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_address_1_title</string>
+			<key>Key</key>
+			<string>card_address_1</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_address_2_title</string>
+			<key>Key</key>
+			<string>card_address_2</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_address_town_title</string>
+			<key>Key</key>
+			<string>card_address_town</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_address_post_code_title</string>
+			<key>Key</key>
+			<string>card_address_post_code</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_address_country_code_title</string>
+			<key>Key</key>
+			<string>card_address_country_code</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_holder_email_title</string>
+			<key>Key</key>
+			<string>card_holder_email_address</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>card_holder_mobile_number_title</string>
+			<key>Key</key>
+			<string>card_holder_mobile_number</string>
+		</dict>
 	</array>
 </dict>
 </plist>

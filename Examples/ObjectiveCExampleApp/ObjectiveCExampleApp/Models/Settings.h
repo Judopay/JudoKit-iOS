@@ -58,6 +58,16 @@ static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_butt
 static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 
+#pragma mark - Address section keys
+
+static NSString *const kCardAddress1 = @"card_address_1";
+static NSString *const kCardAddress2 = @"card_address_2";
+static NSString *const kCardAddressTown = @"card_address_town";
+static NSString *const kCardAddressPostCode = @"card_address_post_code";
+static NSString *const kCardAddressCountryCode = @"card_address_country_code";
+static NSString *const kCardHolderEmailAddress = @"card_holder_email_address";
+static NSString *const kCardHolderMobileNumber = @"card_holder_mobile_number";
+
 @interface Settings : NSObject
 
 + (instancetype)defaultSettings;
@@ -104,6 +114,16 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (BOOL)shouldPaymentButtonDisplayAmount;
 - (BOOL)shouldPaymentMethodsVerifySecurityCode;
 - (BOOL)isInitialRecurringPaymentEnabled;
+
+#pragma mark - Card Address
+
+- (nullable JPAddress *)cardAddress;
+
+#pragma mark - Card Holder Contacts
+
+- (nullable NSString *)emailAddress;
+
+- (nullable NSString *)mobileNumber;
 
 @end
 
