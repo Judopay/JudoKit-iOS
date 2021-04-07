@@ -28,13 +28,13 @@
 
 @import JudoKit_iOS;
 
+#import "ApplePayViewController.h"
 #import "DemoFeature.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
 #import "MainViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
-#import "ApplePayViewController.h"
 #import "Result.h"
 #import "ResultTableViewController.h"
 #import "Settings.h"
@@ -69,7 +69,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
                                                     kTokenKey, kSecretKey, kPaymentSessionKey,
                                                     kSessionTokenKey,
-                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
+                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
 
     [self requestLocationPermissions];
 
@@ -333,6 +333,8 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     configuration.cardAddress = Settings.defaultSettings.cardAddress;
     configuration.emailAddress = Settings.defaultSettings.emailAddress;
     configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
+    configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
+    configuration.scaExemption = Settings.defaultSettings.scaExemption;
     return configuration;
 }
 
@@ -424,7 +426,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-            
+
         case DemoFeatureTypeApplePayStandalone:
             [self applePayOperation];
             break;

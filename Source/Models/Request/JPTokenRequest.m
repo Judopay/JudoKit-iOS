@@ -32,6 +32,8 @@
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
         _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+        _challengeRequestIndicator = configuration.challengeRequestIndicator;
+        _scaExemption = configuration.scaExemption;
     }
     return self;
 }

@@ -53,6 +53,16 @@
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
+ * 3DS Challenge Request Indicator
+ */
+@property (nonatomic, assign) NSString *_Nullable challengeRequestIndicator;
+
+/**
+ * 3DS Sca Exemption
+ */
+@property (nonatomic, assign) NSString *_Nullable scaExemption;
+
+/**
  * Designated initializer based on the provided configuration and card token
  *
  * @param configuration - an instance of JPConfiguration that describe the merchant configuration values

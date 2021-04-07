@@ -102,6 +102,16 @@
 @property (nonatomic, assign) NSString *_Nullable mobileNumber;
 
 /**
+ * 3DS Challenge Request Indicator
+ */
+@property (nonatomic, assign) NSString *_Nullable challengeRequestIndicator;
+
+/**
+ * 3DS Sca Exemption
+ */
+@property (nonatomic, assign) NSString *_Nullable scaExemption;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.

@@ -210,19 +210,19 @@ NSString *safeString(NSString *aString) {
     return [self.defaults stringForKey:kCardAddressTown];
 }
 
-- (NSNumber*)cardAddressCountryCode {
+- (NSNumber *)cardAddressCountryCode {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     NSString *code = [self.defaults stringForKey:kCardAddressCountryCode];
     code = [code isKindOfClass:NSString.class] ? code : @"";
-    return [formatter numberFromString: code];
+    return [formatter numberFromString:code];
 }
 
-- (NSString*)cardAddressPostCode {
+- (NSString *)cardAddressPostCode {
     return [self.defaults stringForKey:kCardAddressPostCode];
 }
 
-- (JPAddress*)cardAddress {
+- (JPAddress *)cardAddress {
     return [[JPAddress alloc] initWithLine1:self.cardAddress1
                                       line2:self.cardAddress2
                                       line3:nil
@@ -237,6 +237,14 @@ NSString *safeString(NSString *aString) {
 
 - (nullable NSString *)mobileNumber {
     return [self.defaults stringForKey:kCardHolderMobileNumber];
+}
+
+- (nullable NSString *)challengeRequestIndicator {
+    return [self.defaults stringForKey:kChallengeRequestIndicator];
+}
+
+- (nullable NSString *)scaExemption {
+    return [self.defaults stringForKey:kScaExemption];
 }
 
 @end

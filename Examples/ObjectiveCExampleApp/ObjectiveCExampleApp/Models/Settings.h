@@ -68,6 +68,11 @@ static NSString *const kCardAddressCountryCode = @"card_address_country_code";
 static NSString *const kCardHolderEmailAddress = @"card_holder_email_address";
 static NSString *const kCardHolderMobileNumber = @"card_holder_mobile_number";
 
+#pragma mark - 3DS 2.0 section keys
+
+static NSString *const kChallengeRequestIndicator = @"challenge_request_indicator";
+static NSString *const kScaExemption = @"sca_exemption";
+
 @interface Settings : NSObject
 
 + (instancetype)defaultSettings;
@@ -124,6 +129,11 @@ static NSString *const kCardHolderMobileNumber = @"card_holder_mobile_number";
 - (nullable NSString *)emailAddress;
 
 - (nullable NSString *)mobileNumber;
+
+#pragma mark - Card Holder Contacts
+
+- (nullable NSString *)challengeRequestIndicator;
+- (nullable NSString *)scaExemption;
 
 @end
 

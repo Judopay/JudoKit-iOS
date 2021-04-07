@@ -39,6 +39,8 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {
         _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+        _challengeRequestIndicator = configuration.challengeRequestIndicator;
+        _scaExemption = configuration.scaExemption;
     }
     return self;
 }
@@ -47,6 +49,8 @@
                        andCardDetails:(JPCard *)card {
     if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
         _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+        _challengeRequestIndicator = configuration.challengeRequestIndicator;
+        _scaExemption = configuration.scaExemption;
     }
     return self;
 }
