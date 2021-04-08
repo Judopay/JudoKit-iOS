@@ -223,12 +223,12 @@ NSString *safeString(NSString *aString) {
 }
 
 - (JPAddress *)cardAddress {
-    return [[JPAddress alloc] initWithLine1:self.cardAddress1
-                                      line2:self.cardAddress2
-                                      line3:nil
-                                       town:self.cardAddressTown
-                                countryCode:self.cardAddressCountryCode
-                                   postCode:self.cardAddressPostCode];
+    return [[JPAddress alloc] initWithAddress1:self.cardAddress1
+                                      address2:self.cardAddress2
+                                      address3:nil
+                                          town:self.cardAddressTown
+                                   countryCode:self.cardAddressCountryCode
+                                      postCode:self.cardAddressPostCode];
 }
 
 - (nullable NSString *)emailAddress {
@@ -245,6 +245,12 @@ NSString *safeString(NSString *aString) {
 
 - (nullable NSString *)scaExemption {
     return [self.defaults stringForKey:kScaExemption];
+}
+
+- (nonnull NSString *)threeDSTwoMaxTimeout {
+    NSString *timeout = [self.defaults stringForKey:kThreeDSTwoMaxTimeout];
+    NSInteger timeoutInSeconds = [timeout intValue] * 60;
+    return timeoutInSeconds == 0 ? @"600" : [NSString stringWithFormat:@"%ld", (long)timeoutInSeconds];
 }
 
 @end

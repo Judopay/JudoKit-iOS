@@ -36,8 +36,8 @@
         _maxTimeout = dictionary[@"maxTimeout"];
         _referenceNumber = dictionary[@"referenceNumber"];
         _transactionId = dictionary[@"transactionId"];
-        _ephemeralPublicKey = [[JPEphemeralPublicKey alloc] initWithDictionary:dictionary[@"ephemeralPublicKey"]];
-        _ephemeralPublicKey = [[JPDeviceRenderOptions alloc] initWithDictionary:dictionary[@"deviceRenderOptions"]];
+        _ephemeral_public_key = [[JPEphemeralPublicKey alloc] initWithDictionary:dictionary[@"ephemeral_public_key"]];
+        _deviceRenderOptions = [[JPDeviceRenderOptions alloc] initWithDictionary:dictionary[@"deviceRenderOptions"]];
     }
     return self;
 }

@@ -29,7 +29,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         _sdkInterface = dictionary[@"sdkInterface"];
-        _sdkUIType = dictionary[@"sdkUIType"];
+        _sdkUiType = dictionary[@"sdkUiType"];
     }
     return self;
 }

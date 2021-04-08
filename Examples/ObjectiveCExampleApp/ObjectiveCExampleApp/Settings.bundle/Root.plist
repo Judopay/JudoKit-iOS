@@ -558,6 +558,14 @@
 			<key>DefaultValue</key>
 			<string>lowValue</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>three_ds_two_max_timeout_title</string>
+			<key>Key</key>
+			<string>three_ds_two_max_timeout</string>
+		</dict>
 	</array>
 </dict>
 </plist>

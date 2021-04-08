@@ -33,7 +33,7 @@
 @property (nonatomic, nullable, copy)   NSString *maxTimeout;
 @property (nonatomic, nullable, copy)   NSString *referenceNumber;
 @property (nonatomic, nullable, copy)   NSString *transactionId;
-@property (nonatomic, nullable, strong) JPEphemeralPublicKey *ephemeralPublicKey;
+@property (nonatomic, nullable, strong) JPEphemeralPublicKey *ephemeral_public_key;
 @property (nonatomic, nullable, strong) JPDeviceRenderOptions *deviceRenderOptions;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;

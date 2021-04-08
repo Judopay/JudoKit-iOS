@@ -32,17 +32,17 @@
 /**
  *  Line one of the address
  */
-@property (nonatomic, strong, nullable) NSString *line1;
+@property (nonatomic, strong, nullable) NSString *address1;
 
 /**
  *  Line two of the address
  */
-@property (nonatomic, strong, nullable) NSString *line2;
+@property (nonatomic, strong, nullable) NSString *address2;
 
 /**
  *  Line three of the address
  */
-@property (nonatomic, strong, nullable) NSString *line3;
+@property (nonatomic, strong, nullable) NSString *address3;
 
 /**
  *  Post code of the address
@@ -62,21 +62,21 @@
 /**
  *  Designated Initializer
  *
- *  @param line1 - the primary card address line
- *  @param line2 - an optional secondary address line
- *  @param line3 - an optional third address line
+ *  @param address1 - the primary card address line
+ *  @param address2 - an optional secondary address line
+ *  @param address3 - an optional third address line
  *  @param town - a string that represents the town name
  *  @param countryCode - the billing country code of the card
  *  @param postCode the postal code of the card
  *
  *  @return a JPAddress object
  */
-- (nonnull instancetype)initWithLine1:(nullable NSString *)line1
-                                line2:(nullable NSString *)line2
-                                line3:(nullable NSString *)line3
-                                 town:(nullable NSString *)town
-                          countryCode:(nullable NSNumber *)countryCode
-                             postCode:(nullable NSString *)postCode;
+- (nonnull instancetype)initWithAddress1:(nullable NSString *)address1
+                                address2:(nullable NSString *)address2
+                                address3:(nullable NSString *)address3
+                                    town:(nullable NSString *)town
+                             countryCode:(nullable NSNumber *)countryCode
+                                postCode:(nullable NSString *)postCode;
 
 /**
  *  Initializer

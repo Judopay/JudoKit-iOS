@@ -36,6 +36,8 @@
             if (array.count > 0) {
                 [dictArray addObject:[array toArrayOfDictionaries]];
             }
+        } else if ([item isKindOfClass:NSString.class]){
+            [dictArray addObject:item];
         } else {
             [dictArray addObject:[item toDictionary]];
         }

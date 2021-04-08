@@ -342,7 +342,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
         @"sdk" : @{
             @"applicationId" : @"f283b3ec-27da-42a1-acea-f3f70e75bbdc",
             @"encodedData" : @"ew0KCSJEViI6ICIxLjAiLA0KCSJERCI6IHsNCgkJIkMwMDEiOiAiQW5kcm9pZCIsDQoJCSJDMDAyIjogIkhUQyBPbmVfTTgiLA0KCQkiQzAwNCI6ICI1LjAuMSIsDQoJCSJDMDA1IjogImVuX1VTIiwNCgkJIkMwMDYiOiAiRWFzdGVybiBTdGFuZGFyZCBUaW1lIiwNCgkJIkMwMDciOiAiMDY3OTc5MDMtZmI2MS00MWVkLTk0YzItNGQyYjc0ZTI3ZDE4IiwNCgkJIkMwMDkiOiAiSm9obidzIEFuZHJvaWQgRGV2aWNlIg0KCX0sDQoJIkRQTkEiOiB7DQoJCSJDMDEwIjogIlJFMDEiLA0KCQkiQzAxMSI6ICJSRTAzIg0KCX0sDQoJIlNXIjogWyJTVzAxIiwgIlNXMDQiXQ0KfQ0K",
-            @"maxTimeout" : @"42",
+            @"maxTimeout" : Settings.defaultSettings.threeDSTwoMaxTimeout,
             @"referenceNumber" : @"3DS_LOA_SDK_PPFU_020100_00007",
             @"transactionId" : @"b2385523-a66c-4907-ac3c-91848e8c0067",
             @"ephemeral_public_key" : @{
@@ -353,17 +353,18 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
             },
             @"deviceRenderOptions" : @{
                 @"sdkInterface" : @"BOTH",
-                @"sdkUiType" : @[ @"TEXT",
-                                  @"SINGLE_SELECT",
-                                  @"MULTI_SELECT",
-                                  @"OOB",
-
-                                  @"HTML_OTHER" ]
+                @"sdkUiType" : @[
+                    @"TEXT",
+                    @"SINGLE_SELECT",
+                    @"MULTI_SELECT",
+                    @"OOB",
+                    @"HTML_OTHER"
+                ]
             }
         }
     };
-    configuration.threeDSecure = [[JPThreeDSecureTwo alloc] initWithDictionary:jpThreeDSecureTwo];
 
+    configuration.threeDSecure = [[JPThreeDSecureTwo alloc] initWithDictionary:jpThreeDSecureTwo];
     return configuration;
 }
 
