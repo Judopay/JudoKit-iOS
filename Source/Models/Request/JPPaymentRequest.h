@@ -25,6 +25,8 @@
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
+@class JPThreeDSecureTwo;
+
 @interface JPPaymentRequest : JPRequest
 /**
  * A  flag to sign up for a subscription-based service
@@ -32,13 +34,8 @@
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
- * 3DS Challenge Request Indicator
+ * An instance of JPThreeDSecureTwo required for 3DS
  */
-@property (nonatomic, assign) NSString *_Nullable challengeRequestIndicator;
-
-/**
- * 3DS Sca Exemption
- */
-@property (nonatomic, assign) NSString *_Nullable scaExemption;
+@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
 
 @end

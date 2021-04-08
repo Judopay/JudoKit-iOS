@@ -1,8 +1,8 @@
 //
-//  JPPaymentRequest.m
+//  JPDeviceRenderOptions.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPaymentRequest.h"
-#import "JPConfiguration.h"
+#import <Foundation/Foundation.h>
 
-@implementation JPPaymentRequest
+@interface JPDeviceRenderOptions : NSObject
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
-    if (self = [super initWithConfiguration:configuration]) {
-        [self addConfiguration:configuration];
-    }
-    return self;
-}
+@property (nonatomic, nullable, copy) NSString *sdkInterface;
+@property (nonatomic, nullable, copy) NSArray<NSString *> *sdkUIType;
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                       andCardDetails:(JPCard *)card {
-    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        [self addConfiguration:configuration];
-    }
-    return self;
-}
-
-- (void)addConfiguration:(JPConfiguration *)configuration {
-    _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-    _threeDSecure = configuration.threeDSecure;
-}
+- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

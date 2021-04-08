@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPTokenRequest.h"
+#import "JPThreeDSecureTwo.h"
 #import "JPConfiguration.h"
 
 @implementation JPTokenRequest
@@ -32,8 +33,7 @@
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
         _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-        _challengeRequestIndicator = configuration.challengeRequestIndicator;
-        _scaExemption = configuration.scaExemption;
+        _threeDSecure = configuration.threeDSecure;
     }
     return self;
 }

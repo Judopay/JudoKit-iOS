@@ -36,6 +36,6 @@
 @property (nonatomic, nullable, strong) JPEphemeralPublicKey *ephemeralPublicKey;
 @property (nonatomic, nullable, strong) JPDeviceRenderOptions *deviceRenderOptions;
 
-- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 
 @end

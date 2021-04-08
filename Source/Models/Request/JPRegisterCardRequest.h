@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPRequest.h"
+#import "JPThreeDSecureTwo.h"
 #import <Foundation/Foundation.h>
 
 @interface JPRegisterCardRequest : JPRequest
@@ -33,13 +34,8 @@
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
- * 3DS Challenge Request Indicator
+ * An instance of JPThreeDSecureTwo required for 3DS
  */
-@property (nonatomic, assign) NSString *_Nullable challengeRequestIndicator;
-
-/**
- * 3DS Sca Exemption
- */
-@property (nonatomic, assign) NSString *_Nullable scaExemption;
+@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
 
 @end

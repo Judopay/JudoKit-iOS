@@ -61,8 +61,7 @@
 
 - (void)addConfiguration:(JPConfiguration *)configuration {
     _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-    _challengeRequestIndicator = configuration.challengeRequestIndicator;
-    _scaExemption = configuration.scaExemption;
+    _threeDSecure = configuration.threeDSecure;
 }
 
 @end
