@@ -25,9 +25,9 @@ import XCTest
 
 class JPAddressTests: XCTestCase {
     
-    let dictionaryForInit = ["address1":"Address1",
-                             "address2":"Address2",
-                             "address3":"Address3",
+    let dictionaryForInit = ["address1":"address1",
+                             "address2":"address2",
+                             "address3":"address3",
                              "postCode":"postCode",
                              "town":"town",
                              "countryCode":123] as [String : Any]
