@@ -23,8 +23,9 @@
 //  SOFTWARE.
 
 #import "JPRequest.h"
-#import "JPThreeDSecureTwo.h"
 #import <Foundation/Foundation.h>
+
+@class JPThreeDSecureTwo;
 
 @interface JPTokenRequest : JPRequest
 

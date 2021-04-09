@@ -25,6 +25,7 @@
 #import "JPRegisterCardRequest.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
+#import "JPThreeDSecureTwo.h"
 
 @implementation JPRegisterCardRequest
 
