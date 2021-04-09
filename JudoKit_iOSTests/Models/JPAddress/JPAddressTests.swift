@@ -25,9 +25,9 @@ import XCTest
 
 class JPAddressTests: XCTestCase {
     
-    let dictionaryForInit = ["line1":"line1",
-                             "line2":"line2",
-                             "line3":"line3",
+    let dictionaryForInit = ["address1":"Address1",
+                             "address2":"Address2",
+                             "address3":"Address3",
                              "postCode":"postCode",
                              "town":"town",
                              "countryCode":123] as [String : Any]
@@ -47,16 +47,16 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_InitDesignated() {
-        let address = JPAddress(line1: "line1",
-                                line2: "line2",
-                                line3: "line3",
+        let address = JPAddress(address1: "address1",
+                                address2: "address2",
+                                address3: "address3",
                                 town: "town",
                                 countryCode: 123,
                                 postCode: "postCode")
         
-        XCTAssertEqual(address.line1, "line1")
-        XCTAssertEqual(address.line2, "line2")
-        XCTAssertEqual(address.line3, "line3")
+        XCTAssertEqual(address.address1, "address1")
+        XCTAssertEqual(address.address2, "address2")
+        XCTAssertEqual(address.address3, "address3")
         XCTAssertEqual(address.town, "town")
         XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")
@@ -70,9 +70,9 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_initWithDictionary() {
-        XCTAssertEqual(address.line1, "line1")
-        XCTAssertEqual(address.line2, "line2")
-        XCTAssertEqual(address.line3, "line3")
+        XCTAssertEqual(address.address1, "address1")
+        XCTAssertEqual(address.address2, "address2")
+        XCTAssertEqual(address.address3, "address3")
         XCTAssertEqual(address.town, "town")
         XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")

@@ -70,9 +70,9 @@ class JPPaymentRequestTests: XCTestCase {
                                  expiryDate: "01/00",
                                  secureCode: "123")
         
-        cardDetails.cardAddress = JPAddress(line1: "Line 1",
-                                            line2: "Line 2",
-                                            line3: "Line 3",
+        cardDetails.cardAddress = JPAddress(address1: "Address 1",
+                                            address2: "Address 2",
+                                            address3: "Address 3",
                                             town: "Town",
                                             countryCode:123,
                                             postCode: "Postcode")
@@ -92,9 +92,9 @@ class JPPaymentRequestTests: XCTestCase {
         XCTAssertEqual(paymentRequest.expiryDate, cardDetails.expiryDate)
         XCTAssertEqual(paymentRequest.cv2, cardDetails.secureCode)
         
-        XCTAssertEqual(paymentRequest.cardAddress?.line1, cardDetails.cardAddress?.line1)
-        XCTAssertEqual(paymentRequest.cardAddress?.line2, cardDetails.cardAddress?.line2)
-        XCTAssertEqual(paymentRequest.cardAddress?.line3, cardDetails.cardAddress?.line3)
+        XCTAssertEqual(paymentRequest.cardAddress?.address1, cardDetails.cardAddress?.address1)
+        XCTAssertEqual(paymentRequest.cardAddress?.address2, cardDetails.cardAddress?.address2)
+        XCTAssertEqual(paymentRequest.cardAddress?.address3, cardDetails.cardAddress?.address3)
         XCTAssertEqual(paymentRequest.cardAddress?.town, cardDetails.cardAddress?.town)
         XCTAssertEqual(paymentRequest.cardAddress?.countryCode, cardDetails.cardAddress?.countryCode)
         XCTAssertEqual(paymentRequest.cardAddress?.postCode, cardDetails.cardAddress?.postCode)
