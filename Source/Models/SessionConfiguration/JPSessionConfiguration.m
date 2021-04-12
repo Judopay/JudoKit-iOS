@@ -26,7 +26,7 @@
 #import "JPAuthorization.h"
 
 static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
-static NSString *const kJudoSandboxBaseURL = @"https://gw1.karatepay-sandbox.com/";
+static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";
 
 @implementation JPSessionConfiguration
 
