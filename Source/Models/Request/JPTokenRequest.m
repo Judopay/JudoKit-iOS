@@ -26,7 +26,6 @@
 #import "JPConfiguration.h"
 #import "JPThreeDSecureTwo.h"
 
-
 @implementation JPTokenRequest
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
