@@ -31,6 +31,6 @@
 @property (nonatomic, nullable, copy) NSString *x;
 @property (nonatomic, nullable, copy) NSString *y;
 
-- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (nullable instancetype)initWithDictionary:(NSDictionary *_Nonnull)dictionary;
 
 @end

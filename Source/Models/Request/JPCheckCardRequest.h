@@ -22,21 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
+#import "JP3DSecureRequest.h"
 #import <Foundation/Foundation.h>
 
-@class JPThreeDSecureTwo;
-
-@interface JPCheckCardRequest : JPRequest
-
-/**
- * A  flag to sign up for a subscription-based service
- */
-@property (nonatomic, assign) BOOL isInitialRecurringPayment;
-
-/**
- * An instance of JPThreeDSecureTwo required for 3DS
- */
-@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
+@interface JPCheckCardRequest : JP3DSecureRequest
 
 @end

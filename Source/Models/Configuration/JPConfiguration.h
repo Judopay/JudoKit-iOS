@@ -102,11 +102,19 @@
 @property (nonatomic, assign) NSString *_Nullable mobileNumber;
 
 /**
- * An instance of JPThreeDSecureTwo required for 3DS
+ * 3DS  Max Timeout
  */
+@property (nonatomic, nullable, copy) NSString *threeDSTwoMaxTimeout;
 
-@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
+/**
+ * 3DS  Challenge Request Indicator
+ */
+@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
 
+/**
+ * 3DS  SCA Exemption
+ */
+@property (nonatomic, nullable, copy) NSString *scaExemption;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

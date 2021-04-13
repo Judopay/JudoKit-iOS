@@ -1,8 +1,8 @@
 //
-//  JPTokenRequest.h
-//  JudoKit_iOS
+//  JP3DSecureRequest.h
+//  JudoKit-iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,44 +22,45 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
 #import <Foundation/Foundation.h>
+#import "JPRequest.h"
 
-@interface JPTokenRequest : JP3DSecureRequest
+@class JPThreeDSecureTwo;
+
+@interface JP3DSecureRequest : JPRequest
 
 /**
- * A reference to the card expiry date
+ * A  flag to sign up for a subscription-based service
  */
-@property (nonatomic, strong, nullable) NSString *endDate;
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
 
 /**
- * A reference to the card last four digits
+ * An instance of JPThreeDSecureTwo required for 3DS
  */
-@property (nonatomic, strong, nullable) NSString *cardLastFour;
+@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
 
 /**
- * A reference to the card token
- */
-@property (nonatomic, strong, nullable) NSString *cardToken;
-
-/**
- * A reference to the card type
- */
-@property (nonatomic, strong, nullable) NSNumber *cardType;
-
-/**
- * Designated initializer based on the provided configuration and card token
+ * Designated initializer that creates a JPRequest based on the configurations provided
  *
- * @param configuration - an instance of JPConfiguration that describe the merchant configuration values
- * @param cardToken - the card token obtained from a Save Card transaction
+ * @param configuration - an instance of JPConfiguration that contains the configuration information
+ * @param threeDSecure - an instance of JPThreeDSecureTwo that contains the 3DS flow request information
  *
- * @return a configured JPTokenRequest instance
+ * @returns a configured JPRequest instance
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 andCardToken:(nonnull NSString *)cardToken;
+                                 threeDSecure:(nonnull JPThreeDSecureTwo *)threeDSecure;
 
+/**
+ * Designated initializer that creates a JPRequest based on the configurations and card details provided
+ *
+ * @param configuration - an instance of JPConfiguration that contains the configuration information
+ * @param card - an instance of JPCard that contains the card information
+ *
+ * @returns a configured JPRequest instance
+ */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 andCardToken:(nonnull NSString *)cardToken
+                               andCardDetails:(nonnull JPCard *)card
                                  threeDSecure:(nonnull JPThreeDSecureTwo *)threeDSecure;
 
 @end
+

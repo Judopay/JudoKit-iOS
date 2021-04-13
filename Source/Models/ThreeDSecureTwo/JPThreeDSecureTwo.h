@@ -28,9 +28,9 @@
 
 @interface JPThreeDSecureTwo : NSObject
 
-@property (nonatomic, nullable, copy)   NSString *authenticationSource;
-@property (nonatomic, nullable, copy)   NSString *challengeRequestIndicator;
-@property (nonatomic, nullable, copy)   NSString *scaExemption;
+@property (nonatomic, nullable, copy) NSString *authenticationSource;
+@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
+@property (nonatomic, nullable, copy) NSString *scaExemption;
 @property (nonatomic, nullable, strong) JPSDK *sdk;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
