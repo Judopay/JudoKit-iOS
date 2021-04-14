@@ -45,6 +45,21 @@ class JPPaymentRequestTests: XCTestCase {
         return JPThreeDSecureTwo(dictionary: dictionary)
     }
     
+    var cardDetails: JPCard {
+        let cardDetails = JPCard(cardNumber: "1111 2222 3333 4444",
+                                 cardholderName: "Silvester Stallone",
+                                 expiryDate: "01/00",
+                                 secureCode: "123")
+        
+        cardDetails.cardAddress = JPAddress(address1: "Address 1",
+                                            address2: "Address 2",
+                                            address3: "Address 3",
+                                            town: "Town",
+                                            countryCode:123,
+                                            postCode: "Postcode")
+        return cardDetails
+    }
+    
     /*
      * GIVEN: A [JPPaymentRequest] is being initialized
      *
@@ -73,18 +88,6 @@ class JPPaymentRequestTests: XCTestCase {
      *  THEN: The request parameters are going to be set correctly
      */
     func test_OnCardDetailsInitialization_SetValidProperties() {
-        
-        let cardDetails = JPCard(cardNumber: "1111 2222 3333 4444",
-                                 cardholderName: "Silvester Stallone",
-                                 expiryDate: "01/00",
-                                 secureCode: "123")
-        
-        cardDetails.cardAddress = JPAddress(address1: "Address 1",
-                                            address2: "Address 2",
-                                            address3: "Address 3",
-                                            town: "Town",
-                                            countryCode:123,
-                                            postCode: "Postcode")
         
         let paymentRequest = JPPaymentRequest(configuration: configuration, andCardDetails: cardDetails)
         
@@ -118,6 +121,22 @@ class JPPaymentRequestTests: XCTestCase {
      */
     func test_onInitialization_SetValid_ThreeDSecure() {
         let tokenRequest = JPPaymentRequest(configuration: configuration,
+                                            threeDSecure: threeDSecure)
+        XCTAssertEqual(tokenRequest.threeDSecure?.challengeRequestIndicator, threeDSecure.challengeRequestIndicator)
+        XCTAssertEqual(tokenRequest.threeDSecure?.scaExemption, threeDSecure.scaExemption)
+        XCTAssertEqual(tokenRequest.threeDSecure?.authenticationSource, threeDSecure.authenticationSource)
+    }
+    
+    /*
+     * GIVEN: A [JPPaymentRequest] is being initialized
+     *
+     *  WHEN: A valid [JPThreeDSecureTwo] instance and a card token are passed as parameters
+     *
+     *  THEN: The properties are set with the correct values
+     */
+    func test_onInitialization_SetValid_ThreeDSecure_And_Card_Details() {
+        let tokenRequest = JPPaymentRequest(configuration: configuration,
+                                            andCardDetails: cardDetails,
                                             threeDSecure: threeDSecure)
         XCTAssertEqual(tokenRequest.threeDSecure?.challengeRequestIndicator, threeDSecure.challengeRequestIndicator)
         XCTAssertEqual(tokenRequest.threeDSecure?.scaExemption, threeDSecure.scaExemption)
