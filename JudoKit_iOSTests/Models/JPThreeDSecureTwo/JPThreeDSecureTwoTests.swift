@@ -25,7 +25,7 @@ import XCTest
 
 class JPThreeDSecureTwoTests: XCTestCase {
 
-    func test_Example() {
+    func test_init_JPThreeDSecureTwo() {
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "ThreeDSecureTwo", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)

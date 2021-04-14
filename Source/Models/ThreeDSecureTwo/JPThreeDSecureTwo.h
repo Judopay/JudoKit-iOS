@@ -33,5 +33,5 @@
 @property (nonatomic, nullable, copy) NSString *scaExemption;
 @property (nonatomic, nullable, strong) JPSDK *sdk;
 
-- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+- (nonnull instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 @end
