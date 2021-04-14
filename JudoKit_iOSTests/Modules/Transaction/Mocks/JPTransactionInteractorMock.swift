@@ -65,7 +65,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     }
     
     func handleCameraPermissions(completion: ((AVAuthorizationStatus) -> Void)!) {
-        
+        completion(.denied)
     }
     
     func getSelectableCountryNames() -> [String]! {

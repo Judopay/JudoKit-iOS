@@ -38,17 +38,14 @@
     Result *result = [Result resultFromObject:mockedResponse];
     
     XCTAssertTrue([result.title isEqualToString:@"JPResponse"]);
+    NSMutableArray *titles = [NSMutableArray new];
     
     for (ResultItem *item in result.items) {
-        
         // Judo ID should resolve to NSString and should not have subresults
         if ([item.title isEqualToString:@"judoId"]) {
             XCTAssertTrue([item.value isEqualToString:@"123456"]);
             XCTAssertNil(item.subResult);
-        } else {
-            XCTFail(@"Judo ID must be a part of the Result object");
         }
-        
         // Consumer should resolve to a JPConsumer and should have subresults
         if ([item.title isEqualToString:@"consumer"]) {
             XCTAssertTrue([item.value isEqualToString:@"JPConsumer"]);
@@ -56,10 +53,12 @@
             
             XCTAssertTrue([item.subResult.title isEqualToString:@"JPConsumer"]);
             XCTAssertEqual(item.subResult.items.count, 2);
-        } else {
-            XCTFail(@"Consumer must be part of the Result object");
         }
+        [titles addObject:item.title];
     }
+    
+    XCTAssertTrue([titles containsObject:@"judoId"],@"Judo ID must be a part of the Result object");
+    XCTAssertTrue([titles containsObject:@"consumer"],@"Consumer must be part of the Result object");
 }
 
 - (JPResponse *)mockedResponse {

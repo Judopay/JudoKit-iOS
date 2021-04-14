@@ -1,8 +1,6 @@
 //
-//  JPCheckCardRequest.h
-//  JudoKit_iOS
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  JPThreeDSecureTwoTests.swift
+//  JudoKit_iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +20,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
-#import <Foundation/Foundation.h>
+import XCTest
+@testable import JudoKit_iOS
 
-@interface JPCheckCardRequest : JP3DSecureRequest
+class JPThreeDSecureTwoTests: XCTestCase {
 
-@end
+    func test_init_JPThreeDSecureTwo() {
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: "ThreeDSecureTwo", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+        let dictionary = jsonResult as? Dictionary<String, AnyObject>
+        XCTAssertNotNil(dictionary)
+        let threeDSecureTwo = JPThreeDSecureTwo(dictionary: dictionary)
+        XCTAssertNotNil(threeDSecureTwo)
+    }
+
+}

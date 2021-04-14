@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPThreeDSecureTwo;
 
 @interface JPConfiguration : NSObject
 
@@ -90,6 +90,31 @@
  * A  flag to sign up for a subscription-based service
  */
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
+
+/**
+ * The card holder email
+ */
+@property (nonatomic, assign) NSString *_Nullable emailAddress;
+
+/**
+ * The card holder mobile number
+ */
+@property (nonatomic, assign) NSString *_Nullable mobileNumber;
+
+/**
+ * 3DS  Max Timeout
+ */
+@property (nonatomic, nullable, copy) NSString *threeDSTwoMaxTimeout;
+
+/**
+ * 3DS  Challenge Request Indicator
+ */
+@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
+
+/**
+ * 3DS  SCA Exemption
+ */
+@property (nonatomic, nullable, copy) NSString *scaExemption;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

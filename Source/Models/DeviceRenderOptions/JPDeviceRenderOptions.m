@@ -1,8 +1,8 @@
 //
-//  JPCheckCardRequest.h
+//  JPDeviceRenderOptions.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
-#import <Foundation/Foundation.h>
+#import "JPDeviceRenderOptions.h"
 
-@interface JPCheckCardRequest : JP3DSecureRequest
+@implementation JPDeviceRenderOptions
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        _sdkInterface = dictionary[@"sdkInterface"];
+        _sdkUiType = dictionary[@"sdkUiType"];
+    }
+    return self;
+}
 
 @end
