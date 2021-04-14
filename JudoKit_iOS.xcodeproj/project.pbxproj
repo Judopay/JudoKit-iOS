@@ -387,6 +387,8 @@
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
 		A50F30C026203EF000774F8F /* JPDeviceRenderOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = A50F30BE26203EF000774F8F /* JPDeviceRenderOptions.m */; };
 		A50F30C126203EF000774F8F /* JPDeviceRenderOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = A50F30BF26203EF000774F8F /* JPDeviceRenderOptions.h */; };
+		A56B6FB42626F46C008C9E51 /* ThreeDSecureTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = A56B6FB32626F46C008C9E51 /* ThreeDSecureTwo.json */; };
+		A56B6FB72626F8B1008C9E51 /* JPThreeDSecureTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56B6FB62626F8B1008C9E51 /* JPThreeDSecureTwoTests.swift */; };
 		A5A0FD55261E7999002ED1E4 /* JPSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A0FD53261E7999002ED1E4 /* JPSDK.h */; };
 		A5A0FD56261E7999002ED1E4 /* JPSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0FD54261E7999002ED1E4 /* JPSDK.m */; };
 		A5A0FDEE261E8D28002ED1E4 /* JPThreeDSecureTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0FDEC261E8D28002ED1E4 /* JPThreeDSecureTwo.m */; };
@@ -840,6 +842,8 @@
 		82933107230C3C8800689DC4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A50F30BE26203EF000774F8F /* JPDeviceRenderOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPDeviceRenderOptions.m; sourceTree = "<group>"; };
 		A50F30BF26203EF000774F8F /* JPDeviceRenderOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPDeviceRenderOptions.h; sourceTree = "<group>"; };
+		A56B6FB32626F46C008C9E51 /* ThreeDSecureTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ThreeDSecureTwo.json; sourceTree = "<group>"; };
+		A56B6FB62626F8B1008C9E51 /* JPThreeDSecureTwoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPThreeDSecureTwoTests.swift; sourceTree = "<group>"; };
 		A5A0FD53261E7999002ED1E4 /* JPSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPSDK.h; sourceTree = "<group>"; };
 		A5A0FD54261E7999002ED1E4 /* JPSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSDK.m; sourceTree = "<group>"; };
 		A5A0FDEC261E8D28002ED1E4 /* JPThreeDSecureTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPThreeDSecureTwo.m; sourceTree = "<group>"; };
@@ -992,6 +996,7 @@
 				0777B996247BC9BB00867B9F /* PendingResponse.json */,
 				0777B997247BC9BB00867B9F /* SuccessResponse.json */,
 				0777B998247BC9BB00867B9F /* OrderDetails.json */,
+				A56B6FB32626F46C008C9E51 /* ThreeDSecureTwo.json */,
 			);
 			path = JsonStubs;
 			sourceTree = "<group>";
@@ -999,6 +1004,7 @@
 		0777B99A247BC9BB00867B9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A56B6FB52626F855008C9E51 /* JPThreeDSecureTwo */,
 				52D23DCD252495BC007C79EB /* JPApplePayWrappers */,
 				52D23DC82524919F007C79EB /* JPPaymentShippingMethod */,
 				52D23DC325248FBE007C79EB /* JPPaymentSummaryItem */,
@@ -2918,6 +2924,14 @@
 			path = DeviceRenderOptions;
 			sourceTree = "<group>";
 		};
+		A56B6FB52626F855008C9E51 /* JPThreeDSecureTwo */ = {
+			isa = PBXGroup;
+			children = (
+				A56B6FB62626F8B1008C9E51 /* JPThreeDSecureTwoTests.swift */,
+			);
+			path = JPThreeDSecureTwo;
+			sourceTree = "<group>";
+		};
 		A5A0FD52261E78EA002ED1E4 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -3273,6 +3287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D3640524B5FF730029BC86 /* SuccessStatusPBBA.json in Resources */,
+				A56B6FB42626F46C008C9E51 /* ThreeDSecureTwo.json in Resources */,
 				0777B9EE247BC9BB00867B9F /* PendingResponse.json in Resources */,
 				077B285F24BF025D009A7183 /* UnSuccessResponsePBBA.json in Resources */,
 				0777B9ED247BC9BB00867B9F /* CardDetails.json in Resources */,
@@ -3472,6 +3487,7 @@
 				0777B9F5247BC9BB00867B9F /* JPCardDetailsTest.swift in Sources */,
 				30D3642324B873DF0029BC86 /* JPPrimaryAccountDetailsTest.swift in Sources */,
 				0777BA04247BC9BB00867B9F /* JPTransactionInteractorMock.swift in Sources */,
+				A56B6FB72626F8B1008C9E51 /* JPThreeDSecureTwoTests.swift in Sources */,
 				52D23DD32524BE5C007C79EB /* JPApplePayControllerTest.swift in Sources */,
 				0777BA0D247BC9BB00867B9F /* JPCardCustomizationInteractorTest.swift in Sources */,
 				0777BA0B247BC9BB00867B9F /* JPCardCustomizationViewMock.swift in Sources */,
