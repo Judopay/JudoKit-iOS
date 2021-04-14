@@ -100,16 +100,20 @@
 }
 
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion {
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    #if TARGET_OS_SIMULATOR
+    completion(AVAuthorizationStatusDenied);
+    #else
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
 
-    if (status == AVAuthorizationStatusNotDetermined) {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
-                                 completionHandler:^(BOOL granted) {
-                                     completion(granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
-                                 }];
-    } else {
-        completion(status);
-    }
+        if (status == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
+                                     completionHandler:^(BOOL granted) {
+                                         completion(granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
+                                     }];
+        } else {
+            completion(status);
+        }
+    #endif
 }
 
 - (NSString *)generatePayButtonTitle {

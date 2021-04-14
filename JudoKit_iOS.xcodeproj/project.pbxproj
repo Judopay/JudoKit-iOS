@@ -394,7 +394,7 @@
 		A5A0FDF4261E8D7D002ED1E4 /* JPEphemeralPublicKey.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A0FDF2261E8D7D002ED1E4 /* JPEphemeralPublicKey.h */; };
 		A5A0FDF5261E8D7D002ED1E4 /* JPEphemeralPublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0FDF3261E8D7D002ED1E4 /* JPEphemeralPublicKey.m */; };
 		A5F5562A2626CA0E0006771E /* JP3DSecureRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F556282626CA0D0006771E /* JP3DSecureRequest.m */; };
-		A5F5562B2626CA0E0006771E /* JP3DSecureRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A5F556292626CA0E0006771E /* JP3DSecureRequest.h */; };
+		A5F5562B2626CA0E0006771E /* JP3DSecureRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A5F556292626CA0E0006771E /* JP3DSecureRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */; };
 		A75B318D92F5E917D7D945DF /* JPBankOrderSaleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B33A3353048CF004566BB /* JPBankOrderSaleRequest.m */; };
@@ -3000,6 +3000,7 @@
 			files = (
 				4492117E246A052300DF6D14 /* JPSectionViewDelegate.h in Headers */,
 				30D61D6D23BB741A004E5CEE /* JPPaymentMethodsInteractor.h in Headers */,
+				A5F5562B2626CA0E0006771E /* JP3DSecureRequest.h in Headers */,
 				30ABAC0324A36503005550E1 /* JudoKit_iOS.h in Headers */,
 				30D61D6423BB741A004E5CEE /* JPPaymentMethodsCardListFooterCell.h in Headers */,
 				30D61D5A23BB741A004E5CEE /* JPPaymentMethodsCardListHeaderCell.h in Headers */,
@@ -3148,7 +3149,6 @@
 				300072D423F6AB560099F3C5 /* JPBillingCountry.h in Headers */,
 				449211682469E8DD00DF6D14 /* Typedefs.h in Headers */,
 				0779B1752490EC05000844AF /* JPCardNumberField.h in Headers */,
-				A5F5562B2626CA0E0006771E /* JP3DSecureRequest.h in Headers */,
 				30D363A824B5BB430029BC86 /* NSObject+Additions.h in Headers */,
 				300072D223F6AB560099F3C5 /* JPPaymentMethod.h in Headers */,
 				3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */,
