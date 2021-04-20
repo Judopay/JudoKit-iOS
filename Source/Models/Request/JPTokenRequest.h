@@ -58,8 +58,4 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                                  andCardToken:(nonnull NSString *)cardToken;
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 andCardToken:(nonnull NSString *)cardToken
-                                 threeDSecure:(nonnull JPThreeDSecureTwo *)threeDSecure;
-
 @end

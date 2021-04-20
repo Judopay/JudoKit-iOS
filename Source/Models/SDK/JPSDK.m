@@ -25,19 +25,34 @@
 #import "JPSDK.h"
 #import "JPEphemeralPublicKey.h"
 #import "JPDeviceRenderOptions.h"
+#import "JPConfiguration.h"
+#import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
+@interface JPSDK ()
+
+@property (nonatomic, nullable, copy) NSString *applicationId;
+@property (nonatomic, nullable, copy) NSString *encodedData;
+@property (nonatomic, nullable, copy) NSString *maxTimeout;
+@property (nonatomic, nullable, copy) NSString *referenceNumber;
+@property (nonatomic, nullable, copy) NSString *transactionId;
+@property (nonatomic, nullable, strong) JPEphemeralPublicKey *ephemeral_public_key;
+@property (nonatomic, nullable, strong) JPDeviceRenderOptions *deviceRenderOptions;
+
+@end
 
 @implementation JPSDK
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                           authParams:(JP3DSAuthenticationRequestParameters *)authParams {
     if (self = [super init]) {
-       _applicationId = dictionary[@"applicationID"];
-       
-        _encodedData = dictionary[@"encodedData"];
-        _maxTimeout = dictionary[@"maxTimeout"];
-        _referenceNumber = dictionary[@"referenceNumber"];
-        _transactionId = dictionary[@"transactionId"];
-        _ephemeral_public_key = [[JPEphemeralPublicKey alloc] initWithDictionary:dictionary[@"ephemeral_public_key"]];
-        _deviceRenderOptions = [[JPDeviceRenderOptions alloc] initWithDictionary:dictionary[@"deviceRenderOptions"]];
+        NSData *data = [authParams.sdkEphemeralPublicKey dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary * ephemeralPublicKeyDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        _applicationId = authParams.sdkAppID;
+        _encodedData = authParams.deviceData;
+        _maxTimeout = configuration.threeDSTwoMaxTimeout;
+        _referenceNumber = authParams.sdkReferenceNumber;
+        _transactionId = authParams.sdkTransactionID;
+        _ephemeral_public_key = [[JPEphemeralPublicKey alloc] initWithDictionary:ephemeralPublicKeyDict];
+        _deviceRenderOptions = [JPDeviceRenderOptions new];
     }
     return self;
 }

@@ -24,6 +24,15 @@
 
 #import "JPEphemeralPublicKey.h"
 
+@interface JPEphemeralPublicKey()
+
+@property (nonatomic, nullable, copy) NSString *kty;
+@property (nonatomic, nullable, copy) NSString *crv;
+@property (nonatomic, nullable, copy) NSString *x;
+@property (nonatomic, nullable, copy) NSString *y;
+
+@end
+
 @implementation JPEphemeralPublicKey
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {

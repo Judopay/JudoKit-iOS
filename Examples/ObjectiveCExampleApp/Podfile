@@ -4,8 +4,9 @@ target 'ObjectiveCExampleApp' do
   use_frameworks!
 
   # Pods for ObjectiveCExampleApp
+  #pod 'Judo3DS2_iOS'
   pod 'JudoKit-iOS', :path => '../../'
-
+  
   pod 'InAppSettingsKit', '2.15'
   pod 'CocoaDebug'
 

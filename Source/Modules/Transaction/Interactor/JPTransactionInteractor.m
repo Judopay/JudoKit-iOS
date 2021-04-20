@@ -130,7 +130,7 @@
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-
+    
     switch (self.transactionType) {
 
         case JPTransactionTypePayment:

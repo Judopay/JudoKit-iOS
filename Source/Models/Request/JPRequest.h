@@ -49,6 +49,11 @@
 @property (nonatomic, strong, nullable) NSString *cardNumber;
 
 /**
+ * A reference to the card holder name number
+ */
+@property (nonatomic, strong, nullable) NSString *cardHolderName;
+
+/**
  * A reference to the card secure code
  */
 @property (nonatomic, strong, nullable) NSString *cv2; //TODO: <- Change to secureCode

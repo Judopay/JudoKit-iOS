@@ -24,14 +24,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class JPSDK;
+@class JPSDK, JP3DSAuthenticationRequestParameters, JPConfiguration;
 
 @interface JPThreeDSecureTwo : NSObject
 
-@property (nonatomic, nullable, copy) NSString *authenticationSource;
-@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
-@property (nonatomic, nullable, copy) NSString *scaExemption;
-@property (nonatomic, nullable, strong) JPSDK *sdk;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                           authParams:(nonnull JP3DSAuthenticationRequestParameters *)authParams;
 
-- (nonnull instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 @end

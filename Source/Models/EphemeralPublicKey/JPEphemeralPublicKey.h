@@ -26,11 +26,6 @@
 
 @interface JPEphemeralPublicKey : NSObject
 
-@property (nonatomic, nullable, copy) NSString *kty;
-@property (nonatomic, nullable, copy) NSString *crv;
-@property (nonatomic, nullable, copy) NSString *x;
-@property (nonatomic, nullable, copy) NSString *y;
-
 - (nullable instancetype)initWithDictionary:(NSDictionary *_Nonnull)dictionary;
 
 @end

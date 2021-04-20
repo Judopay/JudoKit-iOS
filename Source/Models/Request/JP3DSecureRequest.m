@@ -24,12 +24,31 @@
 
 #import "JP3DSecureRequest.h"
 #import "JPConfiguration.h"
+#import "JPThreeDSecureTwo.h"
+#import <Judo3DS2_iOS/JP3DS2Service.h>
+#import <Judo3DS2_iOS/JP3DSTransaction.h>
+#import <Judo3DS2_iOS/JP3DSConfigParameters.h>
+#import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
+
+@interface JP3DSecureRequest ()
+
+/**
+ * An instance of JPThreeDSecureTwo required for 3DS2 flow
+ */
+@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
+
+/**
+ * A  flag to sign up for a subscription-based service
+ */
+@property (nonatomic, assign) BOOL isInitialRecurringPayment;
+
+@end
 
 @implementation JP3DSecureRequest
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {
-        [self addConfiguration:configuration threeDSecure:NULL];
+        [self addConfiguration:configuration];
     }
     return self;
 }
@@ -37,32 +56,20 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                        andCardDetails:(JPCard *)card {
     if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        [self addConfiguration:configuration threeDSecure:NULL];
+        [self addConfiguration:configuration];
     }
     return self;
 }
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                         threeDSecure:(JPThreeDSecureTwo *)threeDSecure {
-    if (self = [super initWithConfiguration:configuration]) {
-        [self addConfiguration:configuration threeDSecure:threeDSecure];
-    }
-    return self;
-}
-
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                       andCardDetails:(JPCard *)card
-                         threeDSecure:(JPThreeDSecureTwo *)threeDSecure {
-    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        [self addConfiguration:configuration threeDSecure:threeDSecure];
-    }
-    return self;
-}
-
-- (void)addConfiguration:(JPConfiguration *)configuration
-            threeDSecure:(JPThreeDSecureTwo *_Nullable)threeDSecure{
+- (void)addConfiguration:(JPConfiguration *)configuration {
     _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-    _threeDSecure = threeDSecure;
+    self.mobileNumber = configuration.mobileNumber;
+    self.emailAddress = configuration.emailAddress;
+    JP3DS2Service *jp3DS2Service = [JP3DS2Service new];
+    [jp3DS2Service initializeWithConfigParameters:[JP3DSConfigParameters new] locale:nil uiCustomization:nil];
+    JP3DSTransaction *transaction = [jp3DS2Service createTransactionWithDirectoryServerID:@"F000000000" messageVersion:nil];
+    JP3DSAuthenticationRequestParameters *authParams = [transaction getAuthenticationRequestParameters];
+    self.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration authParams:authParams];
 }
 
 @end

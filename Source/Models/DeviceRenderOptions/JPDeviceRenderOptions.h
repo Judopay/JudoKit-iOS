@@ -26,9 +26,4 @@
 
 @interface JPDeviceRenderOptions : NSObject
 
-@property (nonatomic, nullable, copy) NSString *sdkInterface;
-@property (nonatomic, nullable, copy) NSArray<NSString *> *sdkUiType;
-
-- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
-
 @end

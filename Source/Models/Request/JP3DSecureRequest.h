@@ -30,25 +30,13 @@
 @interface JP3DSecureRequest : JPRequest
 
 /**
- * A  flag to sign up for a subscription-based service
- */
-@property (nonatomic, assign) BOOL isInitialRecurringPayment;
-
-/**
- * An instance of JPThreeDSecureTwo required for 3DS
- */
-@property (nonatomic, strong) JPThreeDSecureTwo *_Nullable threeDSecure;
-
-/**
  * Designated initializer that creates a JPRequest based on the configurations provided
  *
  * @param configuration - an instance of JPConfiguration that contains the configuration information
- * @param threeDSecure - an instance of JPThreeDSecureTwo that contains the 3DS flow request information
  *
  * @returns a configured JPRequest instance
  */
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 threeDSecure:(nonnull JPThreeDSecureTwo *)threeDSecure;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
  * Designated initializer that creates a JPRequest based on the configurations and card details provided
@@ -59,8 +47,8 @@
  * @returns a configured JPRequest instance
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                               andCardDetails:(nonnull JPCard *)card
-                                 threeDSecure:(nonnull JPThreeDSecureTwo *)threeDSecure;
+                               andCardDetails:(nonnull JPCard *)card;
 
+- (void)addConfiguration:(nonnull JPConfiguration *)configuration;
 @end
 

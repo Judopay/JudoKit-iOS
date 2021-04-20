@@ -24,18 +24,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class JPEphemeralPublicKey, JPDeviceRenderOptions;
-
+@class JPConfiguration, JP3DSAuthenticationRequestParameters;
 @interface JPSDK : NSObject
 
-@property (nonatomic, nullable, copy) NSString *applicationId;
-@property (nonatomic, nullable, copy) NSString *encodedData;
-@property (nonatomic, nullable, copy) NSString *maxTimeout;
-@property (nonatomic, nullable, copy) NSString *referenceNumber;
-@property (nonatomic, nullable, copy) NSString *transactionId;
-@property (nonatomic, nullable, strong) JPEphemeralPublicKey *ephemeral_public_key;
-@property (nonatomic, nullable, strong) JPDeviceRenderOptions *deviceRenderOptions;
-
-- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                           authParams:(JP3DSAuthenticationRequestParameters *)authParams;
 
 @end
