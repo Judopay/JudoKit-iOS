@@ -49,6 +49,16 @@
 - (void)handleTransactionButtonTap;
 
 /**
+ * A method that handles Continue button tap when 3DS2 is used
+ */
+- (void)handleContinueButtonTap;
+
+/**
+ * A method that handles Back button tap when 3DS2 is used
+ */
+- (void)handleBackButtonTap;
+
+/**
  * A method that handles Scan Card button tap
  */
 - (void)handleScanCardButtonTap;
@@ -57,6 +67,11 @@
  * A method that handles Cancel button tap
  */
 - (void)handleCancelButtonTap;
+
+/**
+ * A method that handles add addres line button tap
+ */
+- (void)handleAddAddressLineTap;
 
 /**
  * A method used to notify the JPTransactionPresenter that the card scan returned valid card details

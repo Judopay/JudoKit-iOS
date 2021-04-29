@@ -29,7 +29,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme;
 
 @protocol JPTransactionInteractor
 
@@ -42,6 +42,11 @@
  * A method that returns YES if the Address Verification Service is enabled
  */
 - (BOOL)isAVSEnabled;
+
+/**
+ * A method that returns JPTheme from UI Configuration
+ */
+- (JPTheme*)getConfiguredTheme;
 
 /**
  * A method that returns the current transaction type
@@ -99,6 +104,24 @@
  * @returns a JPValidationResult with the validation status details
  */
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input;
+
+/**
+ * A method for validating the email
+ *
+ * @param input - the input email string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
+
+/**
+ * A method for validating the phone code
+ *
+ * @param input - the input email string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
 
 /**
  * A method for validating the cardholder name

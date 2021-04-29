@@ -63,6 +63,33 @@
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input;
 
 /**
+ *  A method for validating the cardholder email
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
+
+/**
+ *  A method for validating the cardholder phone code
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
+
+/**
+ *  A method for validating the cardholder phone code
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
+
+/**
  *  A method for validating the expiry date
  *
  *  @param input - an input string

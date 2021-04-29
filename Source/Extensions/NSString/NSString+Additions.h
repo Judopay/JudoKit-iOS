@@ -50,6 +50,21 @@
 - (nullable NSString *)sanitizedExpiryDate;
 
 /**
+ * A method which returns YES if the string represents a valid email format
+ */
+@property (nonatomic, assign, readonly) BOOL isEmail;
+
+/**
+ * A method which returns YES if the string represents a valid email format
+ */
+@property (nonatomic, assign, readonly) BOOL isPhoneNumber;
+
+/**
+ * A method which returns YES if the string represents a valid email format
+ */
+@property (nonatomic, assign, readonly) BOOL isPhoneCode;
+
+/**
  * A method which returns YES if the string contains only digits
  */
 @property (nonatomic, assign, readonly) BOOL isNumeric;

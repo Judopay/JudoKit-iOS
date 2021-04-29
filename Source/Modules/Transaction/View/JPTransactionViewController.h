@@ -37,12 +37,13 @@
 /**
  * A method that updates the view based on the provided view model
  */
-- (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel;
+- (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel
+            shouldUpdateTargets:(BOOL)shouldUpdateTargets;
 
 /**
- * A method that updates the view based on the provided view model
+ * A method that sets the view theme
  */
-- (void)loadViewWithMode:(JPCardDetailsMode)mode;
+- (void)applyConfiguredTheme:(nonnull JPTheme *)theme;
 
 /**
  * A method that updates the view with an error
@@ -79,11 +80,6 @@
 #pragma mark - JPTransactionViewController
 
 @interface JPTransactionViewController : UIViewController <JPTransactionView>
-
-/**
- * A reference to the JPTheme instance responsible for customizing the user interface
- */
-@property (nonatomic, strong) JPTheme *_Nullable theme;
 
 /**
  * An object conforming to the JPTransactionViewDelegate protocol

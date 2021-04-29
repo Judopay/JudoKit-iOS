@@ -36,35 +36,25 @@
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPCardInputView *addCardView;
 @property (nonatomic, strong) NSArray *countryNames;
-@property (nonatomic, assign) JPCardDetailsMode mode;
 @end
 
 @implementation JPTransactionViewController
 
 #pragma mark - View Lifecycle
 
-- (void)loadView {
-    [self.presenter prepareInitialViewModel];
-}
-
-- (void)loadViewWithMode:(JPCardDetailsMode)mode {
-    self.mode = mode;
-    self.addCardView = [[JPCardInputView alloc] initWithCardDetailsMode:self.mode];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.addCardView = [JPCardInputView new];
     self.view = self.addCardView;
-    [self.addCardView applyTheme:self.theme];
-    [self addTargets];
+    [self.presenter prepareInitialViewModel];
+    [self registerKeyboardObservers];
     [self addGestureRecognizers];
-
     if (@available(iOS 13.0, *)) {
         self.addCardView.scanCardButton.hidden = NO;
     } else {
         self.addCardView.scanCardButton.hidden = YES;
     }
-}
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self registerKeyboardObservers];
 }
 
 - (void)dealloc {
@@ -93,6 +83,14 @@
     [self.presenter handleTransactionButtonTap];
 }
 
+- (void)onContinueButtonTap {
+    [self.presenter handleContinueButtonTap];
+}
+
+- (void)onBackButtonTap {
+    [self.presenter handleBackButtonTap];
+}
+
 - (void)onPayWithSecurityCodeButtonTap {
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:true
@@ -108,13 +106,19 @@
 
 #pragma mark - View protocol methods
 
-- (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel {
+- (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel
+            shouldUpdateTargets:(BOOL)shouldUpdateTargets {
     if (viewModel.mode == JPCardDetailsModeAVS) {
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
         self.countryNames = viewModel.countryPickerViewModel.pickerTitles;
     }
+    shouldUpdateTargets ? [self updateTargets:viewModel] : NULL;
     [self.addCardView configureWithViewModel:viewModel];
+}
+
+- (void)applyConfiguredTheme:(nonnull JPTheme *)theme {
+    [self.addCardView applyTheme:theme];
 }
 
 - (void)updateViewWithError:(NSError *)error {
@@ -177,13 +181,20 @@
 
 #pragma mark - Layout setup
 
-- (void)addTargets {
+- (void)updateTargets:(JPTransactionViewModel *)viewModel {
     [self connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    switch (self.mode) {
+    [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
+    switch (viewModel.mode) {
         case JPCardDetailsModeDefault:
         case JPCardDetailsModeAVS:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
-            [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
+            break;
+        case JPCardDetailsMode3DS2:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
+            break;
+        case JPCardDetailsMode3DS2BillingDetails:
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
+            [self connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
             break;
         case JPCardDetailsModeSecurityCode:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
@@ -193,6 +204,14 @@
 
     self.addCardView.cardNumberTextField.delegate = self;
     self.addCardView.cardHolderTextField.delegate = self;
+    self.addCardView.cardHolderCountryTextField.delegate = self;
+    self.addCardView.cardHolderPhoneTextField.delegate = self;
+    self.addCardView.cardHolderCityTextField.delegate = self;
+    self.addCardView.cardHolderAddressLine1TextField.delegate = self;
+    self.addCardView.cardHolderAddressLine2TextField.delegate = self;
+    self.addCardView.cardHolderAddressLine3TextField.delegate = self;
+    self.addCardView.cardHolderPhoneCodeTextField.delegate = self;
+    self.addCardView.cardHolderEmailTextField.delegate = self;
     self.addCardView.cardExpiryTextField.delegate = self;
     self.addCardView.secureCodeTextField.delegate = self;
     self.addCardView.countryTextField.delegate = self;
@@ -206,37 +225,39 @@
 #pragma mark - Keyboard handling logic
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-
+    
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-
+    
     CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     self.addCardView.bottomSliderConstraint.constant = -keyboardSize.height;
-
+    
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0.0
                         options:curve
                      animations:^{
-                         [weakSelf.view layoutIfNeeded];
-                     }
-                     completion:nil];
+        [weakSelf.addCardView adjustTopSpace];
+        [weakSelf.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-
+    
     self.addCardView.bottomSliderConstraint.constant = 0;
-
+    
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0.0
                         options:curve
                      animations:^{
-                         [weakSelf.view layoutIfNeeded];
-                     }
-                     completion:nil];
+        [weakSelf.addCardView adjustTopSpace];
+        [weakSelf.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 @end
