@@ -337,7 +337,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
     configuration.scaExemption = Settings.defaultSettings.scaExemption;
     configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDSTwoMaxTimeout;
-
+    configuration.is3DS2Enabled = Settings.defaultSettings.is3DS2Enabled;
     return configuration;
 }
 

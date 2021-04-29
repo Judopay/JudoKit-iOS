@@ -2,6 +2,7 @@
 #import "JPConfiguration.h"
 #import "JPReference.h"
 #import "JPRequest+Additions.h"
+#import "JPAddress.h"
 
 @implementation JPRequest (Additions)
 
@@ -30,6 +31,7 @@
 
     self.primaryAccountDetails = configuration.primaryAccountDetails;
     self.cardAddress = configuration.cardAddress;
+    self.phoneCountryCode = [configuration.cardAddress.countryCode stringValue];
 }
 
 @end

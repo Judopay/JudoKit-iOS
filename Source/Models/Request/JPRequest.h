@@ -84,6 +84,11 @@
 @property (nonatomic, strong, nullable) NSString *mobileNumber;
 
 /**
+ * A reference to the user's phone country code number
+ */
+@property (nonatomic, strong, nullable) NSString *phoneCountryCode;
+
+/**
  * A reference to the card address
  */
 @property (nonatomic, strong, nullable) JPAddress *cardAddress;

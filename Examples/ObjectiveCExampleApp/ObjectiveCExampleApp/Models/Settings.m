@@ -247,10 +247,14 @@ NSString *safeString(NSString *aString) {
     return [self.defaults stringForKey:kScaExemption];
 }
 
-- (nonnull NSString *)threeDSTwoMaxTimeout {
+- (nonnull NSNumber *)threeDSTwoMaxTimeout {
     NSString *timeout = [self.defaults stringForKey:kThreeDSTwoMaxTimeout];
     NSInteger timeoutInSeconds = [timeout intValue] * 60;
-    return timeoutInSeconds == 0 ? @"600" : [NSString stringWithFormat:@"%ld", (long)timeoutInSeconds];
+    return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
+}
+
+- (BOOL)is3DS2Enabled {
+    return [self.defaults boolForKey:kis3DS2Enabled];
 }
 
 @end

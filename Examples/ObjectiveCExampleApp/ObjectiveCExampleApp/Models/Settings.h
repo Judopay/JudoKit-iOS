@@ -73,6 +73,7 @@ static NSString *const kCardHolderMobileNumber = @"card_holder_mobile_number";
 static NSString *const kChallengeRequestIndicator = @"challenge_request_indicator";
 static NSString *const kScaExemption = @"sca_exemption";
 static NSString *const kThreeDSTwoMaxTimeout = @"three_ds_two_max_timeout";
+static NSString *const kis3DS2Enabled = @"is_3DS2_Enabled";
 
 @interface Settings : NSObject
 
@@ -135,7 +136,8 @@ static NSString *const kThreeDSTwoMaxTimeout = @"three_ds_two_max_timeout";
 
 - (nullable NSString *)challengeRequestIndicator;
 - (nullable NSString *)scaExemption;
-- (nonnull NSString *)threeDSTwoMaxTimeout;
+- (nonnull NSNumber *)threeDSTwoMaxTimeout;
+- (BOOL)is3DS2Enabled;
 
 @end
 

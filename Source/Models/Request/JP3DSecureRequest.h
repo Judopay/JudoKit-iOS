@@ -49,6 +49,5 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
                                andCardDetails:(nonnull JPCard *)card;
 
-- (void)addConfiguration:(nonnull JPConfiguration *)configuration;
 @end
 

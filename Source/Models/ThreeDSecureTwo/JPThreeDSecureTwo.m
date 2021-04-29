@@ -43,7 +43,7 @@
     
     if (self = [super init]) {
         self.authenticationSource = @"MOBILE_SDK";
-        self.authenticationSource = configuration.challengeRequestIndicator;
+        self.challengeRequestIndicator = configuration.challengeRequestIndicator;
         self.scaExemption = configuration.scaExemption;
         self.sdk = [[JPSDK alloc] initWithConfiguration:configuration authParams:authParams];
     }

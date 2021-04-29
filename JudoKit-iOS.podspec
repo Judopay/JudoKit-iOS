@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.dependency 'DeviceDNA'
   s.dependency 'TrustKit'
   s.dependency 'ZappMerchantLib'
-  #s.dependency 'Judo3DS2_iOS'
+  s.dependency 'Judo3DS2_iOS'
   
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }

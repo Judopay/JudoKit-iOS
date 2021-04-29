@@ -566,6 +566,16 @@
 			<key>Key</key>
 			<string>three_ds_two_max_timeout</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>is_3DS2_Enabled_title</string>
+			<key>Key</key>
+			<string>is_3DS2_Enabled</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
 	</array>
 </dict>
 </plist>

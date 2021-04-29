@@ -104,7 +104,7 @@
 /**
  * 3DS  Max Timeout
  */
-@property (nonatomic, nullable, copy) NSString *threeDSTwoMaxTimeout;
+@property (nonatomic, nullable, copy) NSNumber *threeDSTwoMaxTimeout;
 
 /**
  * 3DS  Challenge Request Indicator
@@ -115,6 +115,11 @@
  * 3DS  SCA Exemption
  */
 @property (nonatomic, nullable, copy) NSString *scaExemption;
+
+/**
+ * Use 3DS V2
+ */
+@property (nonatomic, assign) BOOL is3DS2Enabled;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.
