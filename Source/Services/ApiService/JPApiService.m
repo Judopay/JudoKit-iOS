@@ -46,6 +46,7 @@ static NSString *const kCheckCardEndpoint = @"transactions/checkcard";
 static NSString *const kBankSaleEndpoint = @"order/bank/sale";
 static NSString *const kBankStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kTransactionsEndpoint = @"transactions";
+static NSString *const kComplete3DSEndpoint = @"transactions/%@/complete3ds";
 
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     JPHTTPMethodGET,
@@ -144,6 +145,19 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
     NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
     NSDictionary *parameters = [result toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPUT
+                          endpoint:endpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeComplete3dSecureTwoWithReceiptId:(nonnull NSString *)receiptId
+                                 andCompletion:(nullable JPCompletionBlock)completion {
+    NSString *endpoint = [NSString stringWithFormat:kComplete3DSEndpoint, receiptId];
+    NSDictionary *parameters = @{
+        @"Version": @"dadasasd",
+        @"cV2": @"452"
+    };
     [self performRequestWithMethod:JPHTTPMethodPUT
                           endpoint:endpoint
                         parameters:parameters

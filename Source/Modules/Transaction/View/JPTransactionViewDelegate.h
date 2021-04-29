@@ -40,4 +40,8 @@
  */
 - (void)didCancel;
 
+/**
+ * A method that is called once the Add Card flow completes
+ */
+- (void)didCancel;
 @end

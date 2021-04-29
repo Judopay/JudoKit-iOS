@@ -77,6 +77,10 @@ static int const kCardHolderNameLength = 3;
     if ((cardNumber.length == maxCardLength) && (![cardNumber isValidCardNumber])) {
         error = JPError.judoInvalidCardNumberError;
     }
+    
+    if ((cardNumber.length == maxCardLength) && (![cardNumber isValidCardNumber])) {
+        error = JPError.judoInvalidCardNumberError;
+    }
 
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
         error = [JPError judoUnsupportedCardNetwork:input.cardNetwork];
@@ -99,6 +103,28 @@ static int const kCardHolderNameLength = 3;
                                        errorMessage:nil
                                      formattedInput:input];
 }
+
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
+    return [JPValidationResult validationWithResult: input.isEmail
+                                       inputAllowed:YES
+                                       errorMessage:@"invalid_email_value".localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
+    return [JPValidationResult validationWithResult: input.isPhoneCode
+                                       inputAllowed:YES
+                                       errorMessage:@"invalid_phone_code_value".localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
+    return [JPValidationResult validationWithResult: input.isPhoneNumber
+                                       inputAllowed:YES
+                                       errorMessage:@"invalid_phone_value".localized
+                                     formattedInput:input];
+}
+
 
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {
 

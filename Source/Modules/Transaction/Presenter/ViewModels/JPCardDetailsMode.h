@@ -28,4 +28,6 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
     JPCardDetailsModeDefault,
     JPCardDetailsModeAVS,
     JPCardDetailsModeSecurityCode,
+    JPCardDetailsMode3DS2,
+    JPCardDetailsMode3DS2BillingDetails
 };

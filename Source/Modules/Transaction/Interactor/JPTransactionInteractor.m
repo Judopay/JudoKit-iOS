@@ -89,14 +89,22 @@
 }
 
 - (JPCardDetailsMode)cardDetailsMode {
-    if (_cardDetailsMode == JPCardDetailsModeDefault) {
-        return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault; // WTF??!!
+    if (self.configuration.is3DS2Enabled && _cardDetailsMode == JPCardDetailsModeDefault) {
+        _cardDetailsMode = JPCardDetailsMode3DS2;
+        return _cardDetailsMode;
+    }
+    else if (_cardDetailsMode == JPCardDetailsModeDefault) {
+        return self.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault; // WTF??!!
     }
     return _cardDetailsMode;
 }
 
 - (JPAddress *)getConfiguredCardAddress {
     return self.configuration.cardAddress;
+}
+
+- (JPTheme*)getConfiguredTheme {
+    return self.configuration.uiConfiguration.theme;
 }
 
 - (void)handleCameraPermissionsWithCompletion:(void (^)(AVAuthorizationStatus))completion {
@@ -117,7 +125,10 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
+    if ([self cardDetailsMode] == JPCardDetailsMode3DS2) {
+        return @"continue".localized;
+    }
+    else if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
         return @"pay_now".localized;
     }
     if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
@@ -272,6 +283,14 @@
 
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
     return [self.cardValidationService validateCardholderNameInput:input];
+}
+
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
+    return [self.cardValidationService validateCardholderEmailInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
+    return [self.cardValidationService validateCardholderPhoneInput:input];
 }
 
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {

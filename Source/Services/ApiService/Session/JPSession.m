@@ -36,7 +36,7 @@
 
 #pragma mark - Constants
 
-static NSString *const kAPIVersion = @"5.7.0.0";
+static NSString *const kAPIVersion = @"6.4.0";
 static NSString *const kBankPrefix = @"order/bank";
 static NSString *const kBankSaleAPIVersion = @"2.0.0.0";
 static NSString *const kContentTypeJSON = @"application/json";
@@ -169,7 +169,7 @@ static NSString *const kMethodPUT = @"PUT";
                              if (!completion) {
                                  return;
                              }
-
+        
                              dispatch_async(dispatch_get_main_queue(), ^{
                                  [self handleResult:data error:error andCompletion:completion];
                              });

@@ -336,6 +336,7 @@
     [self.paymentMethodsView.headerView.payButton stopLoading];
     self.paymentMethodsView.userInteractionEnabled = YES;
 }
+
 @end
 
 @implementation JPPaymentMethodsViewController (EditCardsDelegate)

@@ -187,8 +187,28 @@
 @implementation JPInputField (UITextFieldDelegate)
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(self.type == JPInputTypeCardholderPhoneCode) {
+        NSRange prefixRange = NSMakeRange(0, 2);
+        NSRange sufixRange = NSMakeRange(textField.text.length - 2, 1);
+        NSRange prefixIntersection = NSIntersectionRange(prefixRange, range);
+        NSRange sufixIntersection = NSIntersectionRange(sufixRange, range);
+        if (prefixIntersection.length > 0 || sufixIntersection.length > 0) {
+            return NO;
+        }
+    }
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [self.delegate inputField:self shouldChangeText:newString];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    if(self.type == JPInputTypeCardholderPhoneCode) {
+        NSUInteger start = textField.text.length - 2;
+        NSUInteger end = textField.text.length - 1;
+        UITextPosition *startPosition = [textField positionFromPosition:textField.beginningOfDocument offset:start];
+        UITextPosition *endPosition = [textField positionFromPosition:textField.beginningOfDocument offset:end];
+        UITextRange *selection = [textField textRangeFromPosition:startPosition toPosition:endPosition];
+        [textField setSelectedTextRange: selection];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

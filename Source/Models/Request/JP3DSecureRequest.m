@@ -70,6 +70,7 @@
     JP3DSTransaction *transaction = [jp3DS2Service createTransactionWithDirectoryServerID:@"F000000000" messageVersion:nil];
     JP3DSAuthenticationRequestParameters *authParams = [transaction getAuthenticationRequestParameters];
     self.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration authParams:authParams];
+    [jp3DS2Service cleanUp];
 }
 
 @end
