@@ -132,6 +132,46 @@
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderNameViewModel;
 
 /**
+ * The JPTransactionInputFieldViewModel for the cardholder name email field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderEmailViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder name phone number field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderPhoneViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder name phone number field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderCityViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 1 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine1ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 2 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine2ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 3 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine3ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder phone code field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderPhoneCodeViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder country input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderCountryViewModel;
+
+/**
  * The JPTransactionInputFieldViewModel for the expiry date input field
  */
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull expiryDateViewModel;
@@ -155,5 +195,11 @@
  * The JPTransactionButtonViewModel for the add card button
  */
 @property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull addCardButtonViewModel;
+
+/**
+ * The JPTransactionButtonViewModel for the back from billing details button
+ */
+@property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull backButtonViewModel;
+
 
 @end
