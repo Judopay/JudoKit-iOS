@@ -24,6 +24,7 @@
 
 #import "JPTokenRequest.h"
 #import "JPConfiguration.h"
+#import "JPThreeDSecureTwo.h"
 
 @implementation JPTokenRequest
 
@@ -31,7 +32,6 @@
                                  andCardToken:(nonnull NSString *)cardToken {
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
-        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
     }
     return self;
 }

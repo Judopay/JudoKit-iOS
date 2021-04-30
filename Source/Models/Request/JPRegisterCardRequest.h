@@ -22,14 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
+#import "JP3DSecureRequest.h"
 #import <Foundation/Foundation.h>
 
-@interface JPRegisterCardRequest : JPRequest
-
-/**
- * A  flag to sign up for a subscription-based service
- */
-@property (nonatomic, assign) BOOL isInitialRecurringPayment;
+@interface JPRegisterCardRequest : JP3DSecureRequest
 
 @end

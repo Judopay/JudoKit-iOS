@@ -9,6 +9,7 @@
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JP3DSService.h"
+#import "JPThreeDSecureTwo.h"
 #import "JPTransactionInteractor.h"
 #import "JPCardValidationService.h"
 #import "JPCardDetails.h"

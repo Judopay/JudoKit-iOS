@@ -1,8 +1,8 @@
 //
-//  JPCheckCardRequest.h
+//  JPEphemeralPublicKey.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
-#import <Foundation/Foundation.h>
+#import "JPEphemeralPublicKey.h"
 
-@interface JPCheckCardRequest : JP3DSecureRequest
+@interface JPEphemeralPublicKey()
+
+@property (nonatomic, nullable, copy) NSString *kty;
+@property (nonatomic, nullable, copy) NSString *crv;
+@property (nonatomic, nullable, copy) NSString *x;
+@property (nonatomic, nullable, copy) NSString *y;
+
+@end
+
+@implementation JPEphemeralPublicKey
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        _kty = dictionary[@"kty"];
+        _crv = dictionary[@"crv"];
+        _x = dictionary[@"x"];
+        _y = dictionary[@"y"];
+    }
+    return self;
+}
 
 @end

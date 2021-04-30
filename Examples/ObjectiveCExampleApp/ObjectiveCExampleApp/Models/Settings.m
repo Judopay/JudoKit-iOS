@@ -198,4 +198,63 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
 }
 
+- (NSString *)cardAddress1 {
+    return [self.defaults stringForKey:kCardAddress1];
+}
+
+- (NSString *)cardAddress2 {
+    return [self.defaults stringForKey:kCardAddress2];
+}
+
+- (NSString *)cardAddressTown {
+    return [self.defaults stringForKey:kCardAddressTown];
+}
+
+- (NSNumber *)cardAddressCountryCode {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSString *code = [self.defaults stringForKey:kCardAddressCountryCode];
+    code = [code isKindOfClass:NSString.class] ? code : @"";
+    return [formatter numberFromString:code];
+}
+
+- (NSString *)cardAddressPostCode {
+    return [self.defaults stringForKey:kCardAddressPostCode];
+}
+
+- (JPAddress *)cardAddress {
+    return [[JPAddress alloc] initWithAddress1:self.cardAddress1
+                                      address2:self.cardAddress2
+                                      address3:nil
+                                          town:self.cardAddressTown
+                                   countryCode:self.cardAddressCountryCode
+                                      postCode:self.cardAddressPostCode];
+}
+
+- (nullable NSString *)emailAddress {
+    return [self.defaults stringForKey:kCardHolderEmailAddress];
+}
+
+- (nullable NSString *)mobileNumber {
+    return [self.defaults stringForKey:kCardHolderMobileNumber];
+}
+
+- (nullable NSString *)challengeRequestIndicator {
+    return [self.defaults stringForKey:kChallengeRequestIndicator];
+}
+
+- (nullable NSString *)scaExemption {
+    return [self.defaults stringForKey:kScaExemption];
+}
+
+- (nonnull NSNumber *)threeDSTwoMaxTimeout {
+    NSString *timeout = [self.defaults stringForKey:kThreeDSTwoMaxTimeout];
+    NSInteger timeoutInSeconds = [timeout intValue] * 60;
+    return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
+}
+
+- (BOOL)is3DS2Enabled {
+    return [self.defaults boolForKey:kis3DS2Enabled];
+}
+
 @end

@@ -28,13 +28,14 @@
 
 @import JudoKit_iOS;
 
+#import "ApplePayViewController.h"
 #import "DemoFeature.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
+#import "JPThreeDSecureTwo.h"
 #import "MainViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
-#import "ApplePayViewController.h"
 #import "Result.h"
 #import "ResultTableViewController.h"
 #import "Settings.h"
@@ -69,7 +70,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
                                                     kTokenKey, kSecretKey, kPaymentSessionKey,
                                                     kSessionTokenKey,
-                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
+                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
 
     [self requestLocationPermissions];
 
@@ -330,6 +331,13 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 
     configuration.pbbaConfiguration = [JPPBBAConfiguration configurationWithDeeplinkScheme:@"judo://pay" andDeeplinkURL:self.deepLinkURL];
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
+    configuration.cardAddress = Settings.defaultSettings.cardAddress;
+    configuration.emailAddress = Settings.defaultSettings.emailAddress;
+    configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
+    configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
+    configuration.scaExemption = Settings.defaultSettings.scaExemption;
+    configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDSTwoMaxTimeout;
+    configuration.is3DS2Enabled = Settings.defaultSettings.is3DS2Enabled;
     return configuration;
 }
 
@@ -421,7 +429,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-            
+
         case DemoFeatureTypeApplePayStandalone:
             [self applePayOperation];
             break;

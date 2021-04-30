@@ -1,8 +1,8 @@
 //
-//  JPCheckCardRequest.h
+//  JPThreeDSecureTwo.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,33 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
-#import <Foundation/Foundation.h>
+#import "JPThreeDSecureTwo.h"
+#import "JPSDK.h"
+#import "JPConfiguration.h"
+#import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
 
-@interface JPCheckCardRequest : JP3DSecureRequest
+@interface JPThreeDSecureTwo()
+
+@property (nonatomic, nullable, copy) NSString *authenticationSource;
+@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
+@property (nonatomic, nullable, copy) NSString *scaExemption;
+@property (nonatomic, nullable, strong) JPSDK *sdk;
+
+@end
+
+@implementation JPThreeDSecureTwo
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                           authParams:(JP3DSAuthenticationRequestParameters *)authParams {
+    
+    if (self = [super init]) {
+        self.authenticationSource = @"MOBILE_SDK";
+        self.challengeRequestIndicator = configuration.challengeRequestIndicator;
+        self.scaExemption = configuration.scaExemption;
+        self.sdk = [[JPSDK alloc] initWithConfiguration:configuration authParams:authParams];
+    }
+    
+    return self;
+}
 
 @end

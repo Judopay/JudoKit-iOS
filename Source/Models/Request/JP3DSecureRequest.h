@@ -1,8 +1,8 @@
 //
-//  JPCheckCardRequest.h
-//  JudoKit_iOS
+//  JP3DSecureRequest.h
+//  JudoKit-iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2021 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSecureRequest.h"
 #import <Foundation/Foundation.h>
+#import "JPRequest.h"
 
-@interface JPCheckCardRequest : JP3DSecureRequest
+@class JPThreeDSecureTwo;
+
+@interface JP3DSecureRequest : JPRequest
+
+/**
+ * Designated initializer that creates a JPRequest based on the configurations provided
+ *
+ * @param configuration - an instance of JPConfiguration that contains the configuration information
+ *
+ * @returns a configured JPRequest instance
+ */
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
+
+/**
+ * Designated initializer that creates a JPRequest based on the configurations and card details provided
+ *
+ * @param configuration - an instance of JPConfiguration that contains the configuration information
+ * @param card - an instance of JPCard that contains the card information
+ *
+ * @returns a configured JPRequest instance
+ */
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                               andCardDetails:(nonnull JPCard *)card;
 
 @end
+

@@ -36,6 +36,15 @@ class JPRegisterCardRequestTests: XCTestCase {
         return configuration
     }
     
+    var threeDSecure: JPThreeDSecureTwo {
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: "ThreeDSecureTwo", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+        let dictionary = jsonResult as? Dictionary<String, AnyObject>
+        return JPThreeDSecureTwo(dictionary: dictionary)
+    }
+    
     /*
      * GIVEN: A [JPRegisterCardRequest] is being initialized
      *
@@ -77,5 +86,20 @@ class JPRegisterCardRequestTests: XCTestCase {
         XCTAssertEqual(registerCardRequest.yourConsumerReference, configuration.reference.consumerReference)
         XCTAssertEqual(registerCardRequest.yourPaymentReference, configuration.reference.paymentReference)
         XCTAssertEqual(registerCardRequest.yourPaymentMetaData, configuration.reference.metaData)
+    }
+    
+    /*
+     * GIVEN: A [JPRegisterCardRequest] is being initialized
+     *
+     *  WHEN: A valid [JPThreeDSecureTwo] instance and a card token are passed as parameters
+     *
+     *  THEN: The properties are set with the correct values
+     */
+    func test_onInitialization_SetValid_ThreeDSecure() {
+        let tokenRequest = JPRegisterCardRequest(configuration: configuration,
+                                                 threeDSecure: threeDSecure)
+        XCTAssertEqual(tokenRequest.threeDSecure?.challengeRequestIndicator, threeDSecure.challengeRequestIndicator)
+        XCTAssertEqual(tokenRequest.threeDSecure?.scaExemption, threeDSecure.scaExemption)
+        XCTAssertEqual(tokenRequest.threeDSecure?.authenticationSource, threeDSecure.authenticationSource)
     }
 }

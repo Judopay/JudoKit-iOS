@@ -26,17 +26,17 @@
 
 @implementation JPAddress
 
-- (instancetype)initWithLine1:(NSString *)line1
-                        line2:(NSString *)line2
-                        line3:(NSString *)line3
-                         town:(NSString *)town
-                  countryCode:(NSNumber *)countryCode
-                     postCode:(NSString *)postCode {
-
+- (instancetype)initWithAddress1:(NSString *)address1
+                        address2:(NSString *)address2
+                        address3:(NSString *)address3
+                            town:(NSString *)town
+                     countryCode:(NSNumber *)countryCode
+                        postCode:(NSString *)postCode {
+    
     if (self = [super init]) {
-        self.line1 = line1;
-        self.line2 = line2;
-        self.line3 = line3;
+        self.address1 = address1;
+        self.address2 = address2;
+        self.address3 = address3;
         self.postCode = postCode;
         self.town = town;
         self.countryCode = countryCode;
@@ -46,14 +46,14 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        if (dictionary[@"line1"]) {
-            self.line1 = dictionary[@"line1"];
+        if (dictionary[@"address1"]) {
+            self.address1 = dictionary[@"address1"];
         }
-        if (dictionary[@"line2"]) {
-            self.line2 = dictionary[@"line2"];
+        if (dictionary[@"address2"]) {
+            self.address2 = dictionary[@"address2"];
         }
-        if (dictionary[@"line3"]) {
-            self.line3 = dictionary[@"line3"];
+        if (dictionary[@"address3"]) {
+            self.address3 = dictionary[@"address3"];
         }
         if (dictionary[@"postCode"]) {
             self.postCode = dictionary[@"postCode"];
