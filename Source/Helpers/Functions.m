@@ -73,7 +73,9 @@ NSString *RFC3986PercentEscapedStringFromString(NSString *string) {
 
         NSString *substring = [string substringWithRange:range];
         NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
-        [escaped appendString:encoded];
+        if (encoded) {
+            [escaped appendString:encoded];
+        }
 
         index += range.length;
     }
@@ -130,7 +132,7 @@ NSString *getUserAgent() {
 }
 
 NSString *getIPAddress() {
-    NSString *address = @"error";
+    NSString *address;
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;
@@ -155,7 +157,7 @@ NSString *getIPAddress() {
     }
 
     freeifaddrs(interfaces);
-    return address;
+    return address ? address : @"";
 }
 
 NSString *generateBasicAuthHeader(NSString *token, NSString *secret) {
