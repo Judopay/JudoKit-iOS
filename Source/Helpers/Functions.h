@@ -24,6 +24,21 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JPQueryStringPair : NSObject
+
+@property (readwrite, nonatomic, strong, nonnull) NSString *field;
+@property (readwrite, nonatomic, strong, nullable) NSString *value;
+
+- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
+- (NSString *)URLEncodedValue;
+
+@end
+
+NSString *RFC3986PercentEscapedStringFromString(NSString *string);
+NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
+
 /**
  * A method which returns the width aspect ratio (compared to an iPhone XR)
  */
@@ -42,3 +57,5 @@ NSString *getIPAddress(void);
 NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
 
 NSString *getSafeStringRepresentation(id object);
+
+NS_ASSUME_NONNULL_END

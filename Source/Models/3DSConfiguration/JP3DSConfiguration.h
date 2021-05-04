@@ -34,7 +34,7 @@
 /**
  * The MD value obtained from the NSError's payload
  */
-@property (nonatomic, strong, readonly) NSString *_Nonnull mdValue;
+@property (nonatomic, strong, readonly) NSString *_Nullable mdValue;
 
 /**
  * The Receipt ID obtained from the NSError's payload

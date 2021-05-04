@@ -29,7 +29,7 @@
 /**
  * A reference to the MD value returned from the 3D Secure ACS URL
  */
-@property (nonatomic, strong, nonnull) NSString *md;
+@property (nonatomic, strong, nullable) NSString *md;
 
 /**
  * A reference to the PaRes value returned from the 3D Secure ACS URL
@@ -45,6 +45,6 @@
  * @returns a configured JP3DSecureAuthenticationResult instance
  */
 - (nonnull instancetype)initWithPaRes:(nonnull NSString *)paRes
-                                andMd:(nonnull NSString *)md;
+                                andMd:(nullable NSString *)md;
 
 @end

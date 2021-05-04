@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JP3DSViewController.h"
+#import "Functions.h"
 #import "JP3DSConfiguration.h"
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApiService.h"
@@ -33,12 +34,38 @@
 #import "UIColor+Additions.h"
 #import "UIView+Additions.h"
 
-@interface JP3DSViewController ()
+@interface JP3DSViewController () <UIScrollViewDelegate>
 @property (nonatomic, strong) JP3DSConfiguration *configuration;
 @property (nonatomic, strong) JPCompletionBlock completionBlock;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) JPLoadingView *loadingView;
 @end
+
+NSString *const kTermURL = @"https://pay.judopay.com/Android/Parse3DS";
+
+NSString *const kAppendViewportMetaScript =
+    @"let jpViewportElement = document.querySelector('meta[name=viewport]');"
+    @"if (jpViewportElement) {"
+    @"    jpViewportElement.content = 'width=device-width';"
+    @"} else {"
+    @"   jpViewportElement = document.createElement('meta');"
+    @"   jpViewportElement.name = 'viewport';"
+    @"   jpViewportElement.content = 'width=device-width';"
+    @"   document.getElementsByTagName('head')[0].appendChild(jpViewportElement);"
+    @"};"
+    @"const jpPaResField = document.getElementById('pnPaRESPanel');"
+    @"if (jpPaResField) paResField.parentElement.removeChild(jpPaResField);"
+    @"undefined;";
+
+NSString *const kExtractResultScript =
+    @"let jpResult = {MD: null, PaRes: null};"
+    @"const jpPreElements = document.getElementsByTagName('pre');"
+    @"if (jpPreElements.length > 0) {"
+    @"   try {"
+    @"       jpResult = JSON.parse(jpPreElements[0].innerText);"
+    @"   } catch {}"
+    @"}"
+    @"jpResult;";
 
 @implementation JP3DSViewController
 
@@ -56,7 +83,12 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [self setupViews];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self start3DSecureTransaction];
 }
 
@@ -65,6 +97,7 @@
 - (void)setupViews {
     [self.view addSubview:self.webView];
     [self.view addSubview:self.loadingView];
+
     [self.webView pinToView:self.view withPadding:0.0];
     [self.loadingView pinToView:self.view withPadding:0.0];
     [self setupNavigationItems];
@@ -91,48 +124,39 @@
 #pragma mark - Public methods
 
 - (void)start3DSecureTransaction {
-    if (self.configuration.acsURL && self.configuration.mdValue && self.configuration.paReqValue && self.encodedPaReq && self.terminationURL) {
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.configuration.acsURL];
-        request.HTTPMethod = @"POST";
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%li", (unsigned long)self.httpBody.length] forHTTPHeaderField:@"Content-Length"];
-        request.HTTPBody = self.httpBody;
-        [self.webView loadRequest:request];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.configuration.acsURL];
+    request.HTTPMethod = @"POST";
+
+    NSMutableArray<JPQueryStringPair *> *parameters = [NSMutableArray arrayWithArray:@[
+        [[JPQueryStringPair alloc] initWithField:@"PaReq"
+                                           value:self.configuration.paReqValue],
+        [[JPQueryStringPair alloc] initWithField:@"TermUrl"
+                                           value:kTermURL]
+    ]];
+
+    if (self.configuration.mdValue) {
+        [parameters addObject:[[JPQueryStringPair alloc] initWithField:@"MD" value:self.configuration.mdValue]];
     }
+
+    NSData *HTTPBody = [queryParameters(parameters) dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSString *contentLength = [NSString stringWithFormat:@"%li", (unsigned long)HTTPBody.length];
+    [request setValue:contentLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
+    request.HTTPBody = HTTPBody;
+
+    [self.webView loadRequest:request];
 }
 
-#pragma mark - Getters
-
-- (NSString *)encodedPaReq {
-    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
-    return [self.configuration.paReqValue stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-}
-
-- (NSString *)terminationURL {
-    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@":/=,!$&'()*+;[]@#?"].invertedSet;
-    return [@"https://pay.judopay.com/iOS/Parse3DS" stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-}
-
-- (NSData *)httpBody {
-    NSString *mdValue = self.configuration.mdValue;
-    NSString *format = @"MD=%@&PaReq=%@&TermUrl=%@";
-    NSString *bodyString = [NSString stringWithFormat:format, mdValue, self.encodedPaReq, self.terminationURL];
-    return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-}
-
-#pragma mark - WKWebView delegate methods
+#pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
-    NSString *urlString = navigationAction.request.URL.absoluteString;
-
-    if ([urlString rangeOfString:@"Parse3DS"].location == NSNotFound) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-        return;
+    if ([navigationAction.request.URL.absoluteString isEqual:kTermURL]) {
+        [self.loadingView startLoading];
     }
 
-    [self handleRedirectForWebView:webView redirectURL:urlString decisionHandler:decisionHandler];
-    return;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -144,75 +168,48 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSMutableString *scriptContent = [NSMutableString stringWithString:@"const meta = document.createElement('meta');"];
-    [scriptContent appendString:@"meta.name='viewport';"];
-    [scriptContent appendString:@"meta.content='width=device-width';"];
-    [scriptContent appendString:@"const head = document.getElementsByTagName('head')[0];"];
-    [scriptContent appendString:@"head.appendChild(meta);"];
-    [scriptContent appendString:@"meta.name"];
-
-    [self.webView evaluateJavaScript:scriptContent
-                   completionHandler:^(id response, NSError *error) {
-                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                           NSString *metaSizingContent = @"meta.content = 'width=' + document.documentElement.scrollWidth + ', maximum-scale=1.0'";
-                           [self->_webView evaluateJavaScript:metaSizingContent completionHandler:nil];
-                       });
+    [self.webView evaluateJavaScript:kAppendViewportMetaScript
+                   completionHandler:^(id result, NSError *error) {
+                       if (error) {
+                           NSLog(@"Error executing the viewport adjustments script.");
+                       }
                    }];
 
-    NSMutableString *removePaResFieldScript = [NSMutableString stringWithString:@"const paResField = document.getElementById('pnPaRESPanel');"];
-    [removePaResFieldScript appendString:@"paResField.parentElement.removeChild(paResField);"];
-    [removePaResFieldScript appendString:@"paResField.name"];
+    if ([webView.URL.absoluteString isEqual:kTermURL]) {
+        __weak typeof(self) weakSelf = self;
+        [self.webView evaluateJavaScript:kExtractResultScript
+                       completionHandler:^(NSDictionary *result, NSError *error) {
+                           if (error) {
+                               weakSelf.completionBlock(nil, (JPError *)error);
+                               return;
+                           }
 
-    [self.webView evaluateJavaScript:removePaResFieldScript completionHandler:nil];
+                           [weakSelf handleResult:result];
+                       }];
+    }
+}
+
+#pragma marl - UIScrollViewDelegate
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    [scrollView setZoomScale:1.0 animated:NO];
 }
 
 #pragma mark - Helper methods
 
-- (void)handleRedirectForWebView:(WKWebView *)webView
-                     redirectURL:(NSString *)redirectURL
-                 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)handleResult:(NSDictionary *)result {
 
-    [self.loadingView startLoading];
-
-    __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSMutableString *javascriptCode = [NSMutableString new];
-        [javascriptCode appendString:@"const paRes = document.getElementsByName('PaRes')[0].value;"];
-        [javascriptCode appendString:@"const md = document.getElementsByName('MD')[0].value;"];
-        [javascriptCode appendString:@"[paRes, md]"];
-        [webView evaluateJavaScript:javascriptCode
-                  completionHandler:^(NSArray *response, NSError *error) {
-                      [weakSelf handleACSFormWithResponse:response decisionHandler:decisionHandler];
-                  }];
-    });
-}
-
-- (void)handleACSFormWithResponse:(NSArray *)response
-                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    if (response.count != 2) {
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    }
-
-    NSString *paRes = response[0];
-    NSString *md = [response[1] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-
-    JP3DSecureAuthenticationResult *result = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:paRes andMd:md];
+    JP3DSecureAuthenticationResult *authenticationResult = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:result[@"PaRes"] andMd:result[@"MD"]];
 
     __weak typeof(self) weakSelf = self;
 
     [self.apiService invokeComplete3dSecureWithReceiptId:self.configuration.receiptId
-                                    authenticationResult:result
+                                    authenticationResult:authenticationResult
                                            andCompletion:^(JPResponse *response, JPError *error) {
-                                               if (error) {
-                                                   decisionHandler(WKNavigationActionPolicyCancel);
-                                               } else {
-                                                   decisionHandler(WKNavigationActionPolicyAllow);
-                                               }
-
-                                               [weakSelf.loadingView stopLoading];
-                                               [weakSelf dismissViewControllerAnimated:YES completion:nil];
-
+                                               [weakSelf dismissViewControllerAnimated:YES
+                                                                            completion:^{
+                                                                                [weakSelf.loadingView stopLoading];
+                                                                            }];
                                                weakSelf.completionBlock(response, error);
                                            }];
 }
@@ -224,7 +221,9 @@
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
         _webView.translatesAutoresizingMaskIntoConstraints = NO;
         _webView.backgroundColor = UIColor.whiteColor;
+        _webView.contentMode = UIViewContentModeScaleToFill;
         _webView.navigationDelegate = self;
+        _webView.scrollView.delegate = self;
     }
     return _webView;
 }
@@ -233,6 +232,7 @@
     if (!_loadingView) {
         _loadingView = [[JPLoadingView alloc] initWithTitle:@"Processing..."];
         _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+        _loadingView.backgroundColor = UIColor.whiteColor;
         [_loadingView stopLoading];
     }
     return _loadingView;
