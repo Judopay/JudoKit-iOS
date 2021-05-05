@@ -151,19 +151,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokeComplete3dSecureTwoWithReceiptId:(nonnull NSString *)receiptId
-                                 andCompletion:(nullable JPCompletionBlock)completion {
-    NSString *endpoint = [NSString stringWithFormat:kComplete3DSEndpoint, receiptId];
-    NSDictionary *parameters = @{
-        @"Version": @"dadasasd",
-        @"cV2": @"452"
-    };
-    [self performRequestWithMethod:JPHTTPMethodPUT
-                          endpoint:endpoint
-                        parameters:parameters
-                     andCompletion:completion];
-}
-
 - (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request
                         andCompletion:(JPCompletionBlock)completion {
 

@@ -26,9 +26,9 @@
 #import "JPConfiguration.h"
 #import "JPThreeDSecureTwo.h"
 #import <Judo3DS2_iOS/JP3DS2Service.h>
-#import <Judo3DS2_iOS/JP3DSTransaction.h>
-#import <Judo3DS2_iOS/JP3DSConfigParameters.h>
 #import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
+#import <Judo3DS2_iOS/JP3DSConfigParameters.h>
+#import <Judo3DS2_iOS/JP3DSTransaction.h>
 
 @interface JP3DSecureRequest ()
 

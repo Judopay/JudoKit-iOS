@@ -98,10 +98,6 @@
 
 @interface JPTransactionPickerViewModel : JPTransactionInputFieldViewModel
 
-/**
- * An array of strings that act as picker titles
- */
-@property (nonatomic, strong) NSArray *_Nonnull pickerTitles;
 
 @end
 
@@ -120,6 +116,11 @@
  * A enum parameter to specify the card details mode
  */
 @property (nonatomic, assign) JPCardDetailsMode mode;
+
+/**
+ * An array of JPCountries that act as picker titles
+ */
+@property (nonatomic, strong) NSArray *_Nonnull pickerCountries;
 
 /**
  * The JPTransactionInputFieldViewModel for the card number input field
@@ -167,11 +168,6 @@
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderPhoneCodeViewModel;
 
 /**
- * The JPTransactionInputFieldViewModel for the cardholder country input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderCountryViewModel;
-
-/**
  * The JPTransactionInputFieldViewModel for the expiry date input field
  */
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull expiryDateViewModel;
@@ -184,7 +180,7 @@
 /**
  * The JPTransactionPickerViewModel for the country picker
  */
-@property (nonatomic, strong) JPTransactionPickerViewModel *_Nonnull countryPickerViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull countryPickerViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the postal code input field
@@ -200,6 +196,5 @@
  * The JPTransactionButtonViewModel for the back from billing details button
  */
 @property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull backButtonViewModel;
-
 
 @end

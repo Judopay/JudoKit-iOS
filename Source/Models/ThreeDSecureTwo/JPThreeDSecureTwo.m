@@ -23,11 +23,11 @@
 //  SOFTWARE.
 
 #import "JPThreeDSecureTwo.h"
-#import "JPSDK.h"
 #import "JPConfiguration.h"
+#import "JPSDK.h"
 #import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
 
-@interface JPThreeDSecureTwo()
+@interface JPThreeDSecureTwo ()
 
 @property (nonatomic, nullable, copy) NSString *authenticationSource;
 @property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
@@ -40,14 +40,14 @@
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                            authParams:(JP3DSAuthenticationRequestParameters *)authParams {
-    
+
     if (self = [super init]) {
         self.authenticationSource = @"MOBILE_SDK";
         self.challengeRequestIndicator = configuration.challengeRequestIndicator;
         self.scaExemption = configuration.scaExemption;
         self.sdk = [[JPSDK alloc] initWithConfiguration:configuration authParams:authParams];
     }
-    
+
     return self;
 }
 

@@ -1,8 +1,8 @@
+#import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPConfiguration.h"
 #import "JPReference.h"
 #import "JPRequest+Additions.h"
-#import "JPAddress.h"
 
 @implementation JPRequest (Additions)
 
@@ -13,7 +13,7 @@
     self.startDate = card.startDate;
     self.issueNumber = card.issueNumber;
     self.cardHolderName = card.cardholderName;
-    
+
     if (card.cardAddress) {
         self.cardAddress = card.cardAddress;
     }

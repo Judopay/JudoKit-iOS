@@ -171,15 +171,6 @@
                               andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
- * A method that is called for 3D 2.0  Secure transactions, after the user authenticates the transaction
- *
- * @param receiptId - the receipt ID obtained from the ACS page
- * @param completion - the completion block that contains the optional JPResponse or JPError
- */
-- (void)invokeComplete3dSecureTwoWithReceiptId:(nonnull NSString *)receiptId
-                              andCompletion:(nullable JPCompletionBlock)completion;
-
-/**
 
  * A method used to fetch the details of a transaction based on a provided receipt ID
  *

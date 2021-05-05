@@ -29,6 +29,6 @@
 @interface JPThreeDSecureTwo : NSObject
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                           authParams:(nonnull JP3DSAuthenticationRequestParameters *)authParams;
+                                   authParams:(nonnull JP3DSAuthenticationRequestParameters *)authParams;
 
 @end

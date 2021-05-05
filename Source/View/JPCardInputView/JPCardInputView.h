@@ -60,11 +60,6 @@
 @property (nonatomic, strong) JPCardInputField *_Nullable cardHolderTextField;
 
 /**
- * The input field for adding the cardholder name
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderCountryTextField;
-
-/**
  * The input field for adding the cardholder email
  */
 @property (nonatomic, strong) JPCardInputField *_Nullable cardHolderEmailTextField;
@@ -146,7 +141,6 @@
  */
 - (void)applyTheme:(JPTheme *_Nullable)theme;
 
-
 /**
  * A method that configures the view based on a view model
  *
@@ -165,6 +159,6 @@
  * A method that adjusts view top space
  *
  */
--(void)adjustTopSpace;
+- (void)adjustTopSpace;
 
 @end

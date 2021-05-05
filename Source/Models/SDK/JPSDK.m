@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPSDK.h"
-#import "JPEphemeralPublicKey.h"
-#import "JPDeviceRenderOptions.h"
 #import "JPConfiguration.h"
+#import "JPDeviceRenderOptions.h"
+#import "JPEphemeralPublicKey.h"
 #import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
 @interface JPSDK ()
 
@@ -45,10 +45,10 @@
                            authParams:(JP3DSAuthenticationRequestParameters *)authParams {
     if (self = [super init]) {
         NSData *data = [authParams.sdkEphemeralPublicKey dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary * ephemeralPublicKeyDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDictionary *ephemeralPublicKeyDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         _applicationId = authParams.sdkAppID;
         _encodedData = authParams.deviceData;
-        _maxTimeout = configuration.threeDSTwoMaxTimeout;
+        _maxTimeout = [NSString stringWithFormat:@"%@", configuration.threeDSTwoMaxTimeout];
         _referenceNumber = authParams.sdkReferenceNumber;
         _transactionId = authParams.sdkTransactionID;
         _ephemeral_public_key = [[JPEphemeralPublicKey alloc] initWithDictionary:ephemeralPublicKeyDict];

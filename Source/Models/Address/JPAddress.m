@@ -32,7 +32,7 @@
                             town:(NSString *)town
                      countryCode:(NSNumber *)countryCode
                         postCode:(NSString *)postCode {
-    
+
     if (self = [super init]) {
         self.address1 = address1;
         self.address2 = address2;

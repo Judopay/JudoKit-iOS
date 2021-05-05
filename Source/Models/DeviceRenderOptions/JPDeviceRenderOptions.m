@@ -24,7 +24,7 @@
 
 #import "JPDeviceRenderOptions.h"
 
-@interface JPDeviceRenderOptions()
+@interface JPDeviceRenderOptions ()
 
 @property (nonatomic, nullable, copy) NSString *sdkInterface;
 @property (nonatomic, nullable, copy) NSArray<NSString *> *sdkUiType;
@@ -38,11 +38,11 @@
         NSDictionary *dictionary = @{
             @"sdkInterface" : @"BOTH",
             @"sdkUiType" : @[
-                    @"TEXT",
-                    @"SINGLE_SELECT",
-                    @"MULTI_SELECT",
-                    @"OOB",
-                    @"HTML_OTHER"
+                @"TEXT",
+                @"SINGLE_SELECT",
+                @"MULTI_SELECT",
+                @"OOB",
+                @"HTML_OTHER"
             ]
         };
         _sdkInterface = dictionary[@"sdkInterface"];

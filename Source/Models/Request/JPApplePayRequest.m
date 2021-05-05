@@ -68,18 +68,18 @@
 
 - (void)populateApplePayMetadataWithPayment:(PKPayment *)payment {
     self.pkPayment = [[JPApplePayPayment alloc] initWithPayment:payment];
-    
+
     PKContact *billingContact = payment.billingContact;
     CNPostalAddress *postalAddress = billingContact.postalAddress;
-    
+
     if (billingContact.emailAddress != nil) {
         self.emailAddress = billingContact.emailAddress;
     }
-    
+
     if (billingContact.phoneNumber != nil) {
         self.mobileNumber = billingContact.phoneNumber.stringValue;
     }
-    
+
     self.cardAddress = [[JPAddress alloc] initWithAddress1:postalAddress.street
                                                   address2:postalAddress.city
                                                   address3:postalAddress.postalCode

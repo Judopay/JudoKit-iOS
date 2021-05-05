@@ -24,37 +24,21 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPCountryType) {
-    JPCountryTypeUSA,
-    JPCountryTypeUK,
-    JPCountryTypeCanada,
-    JPCountryTypeOther
-};
+@class JPCountryList, JPCountry;
+
+@interface JPCountryList : NSObject
+@property (nonatomic, nullable, copy) NSArray<JPCountry *> *countries;
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
++ (nullable instancetype)defaultCountryList;
+@end
 
 @interface JPCountry : NSObject
-/**
- * A string value representing the country's name
- */
-@property (nonatomic, strong) NSString *name;
-
-/**
- * Instantiates a country based on a specified country type
- *
- * @param countryType - a JPCountryType value identifying the country
- */
-+ (instancetype)countryWithType:(JPCountryType)countryType;
-
-/**
- * Instantiates a country based on a specified country type
- *
- * @param countryType - a JPCountryType value identifying the country
- */
-- (instancetype)initWithType:(JPCountryType)countryType;
-
-/**
- * Get ISO country code by country String
- *
- * @param country - country name, based on localization
- */
-+ (NSNumber *)isoCodeForCountry:(NSString *)country;
+@property (nonatomic, nullable, copy) NSString *alpha2Code;
+@property (nonatomic, nullable, copy) NSString *name;
+@property (nonatomic, nullable, copy) NSString *dialCode;
+@property (nonatomic, nullable, copy) NSString *numericCode;
+@property (nonatomic, nullable, copy) NSString *phoneNumberFormat;
++ (nullable NSNumber *)isoCodeForCountry:(nonnull NSString *)countryName;
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
 @end
+
