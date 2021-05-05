@@ -72,7 +72,7 @@
 - (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
 
 /**
- *  A method for validating the cardholder phone code
+ *  A method for validating the cardholder phone country code
  *
  *  @param input - an input string
  *

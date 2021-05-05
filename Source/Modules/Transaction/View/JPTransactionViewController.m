@@ -32,10 +32,11 @@
 #import "JPTransactionPresenter.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
+#import "JPCountry.h"
 
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPCardInputView *addCardView;
-@property (nonatomic, strong) NSArray *countryNames;
+@property (nonatomic, strong) NSArray *countries;
 @end
 
 @implementation JPTransactionViewController
@@ -54,7 +55,6 @@
     } else {
         self.addCardView.scanCardButton.hidden = YES;
     }
-
 }
 
 - (void)dealloc {
@@ -108,10 +108,10 @@
 
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel
             shouldUpdateTargets:(BOOL)shouldUpdateTargets {
-    if (viewModel.mode == JPCardDetailsModeAVS) {
+    if (viewModel.mode == JPCardDetailsModeAVS || viewModel.mode == JPCardDetailsMode3DS2BillingDetails) {
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
-        self.countryNames = viewModel.countryPickerViewModel.pickerTitles;
+        self.countries = viewModel.pickerCountries;
     }
     shouldUpdateTargets ? [self updateTargets:viewModel] : NULL;
     [self.addCardView configureWithViewModel:viewModel];
@@ -136,11 +136,11 @@
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-
+    
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm".localized
                                                             style:UIAlertActionStyleDefault
                                                           handler:nil];
-
+    
     [controller addAction:confirmAction];
     return controller;
 }
@@ -148,15 +148,15 @@
 - (void)displayCameraPermissionsAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
                                                         andMessage:@"scan_card_no_permission_message".localized];
-
+    
     UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *_Nonnull action) {
-                                                                   [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
-                                                                                                    options:@{}
-                                                                                          completionHandler:nil];
-                                                               }];
-
+        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                         options:@{}
+                               completionHandler:nil];
+    }];
+    
     [controller addAction:goToSettingsAction];
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -164,14 +164,14 @@
 - (void)displayCameraRestrictionAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title".localized
                                                         andMessage:@"scan_card_restricted_message".localized];
-
+    
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)displayCameraSimulatorAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title".localized
                                                         andMessage:nil];
-
+    
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -201,10 +201,9 @@
         default:
             break;
     }
-
+    
     self.addCardView.cardNumberTextField.delegate = self;
     self.addCardView.cardHolderTextField.delegate = self;
-    self.addCardView.cardHolderCountryTextField.delegate = self;
     self.addCardView.cardHolderPhoneTextField.delegate = self;
     self.addCardView.cardHolderCityTextField.delegate = self;
     self.addCardView.cardHolderAddressLine1TextField.delegate = self;
@@ -239,8 +238,8 @@
                      animations:^{
         [weakSelf.addCardView adjustTopSpace];
         [weakSelf.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    }
+                     completion:^(BOOL finished){}];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -256,8 +255,8 @@
                      animations:^{
         [weakSelf.addCardView adjustTopSpace];
         [weakSelf.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    }
+                     completion:^(BOOL finished){}];
 }
 
 @end
@@ -271,20 +270,21 @@
 }
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.countryNames.count;
+    return self.countries.count;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
-    [self.presenter handleInputChange:self.countryNames[row]
-                              forType:JPInputTypeCardCountry];
+    JPCountry *country = self.countries[row];
+    [self.presenter handleInputChange:country.name forType:JPInputTypeCardCountry showError:YES];
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component {
-    return self.countryNames[row];
+    JPCountry *country = self.countries[row];
+    return country.name;
 }
 
 @end
@@ -294,8 +294,19 @@
 @implementation JPTransactionViewController (InputFieldDelegate)
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
-    [self.presenter handleInputChange:text forType:inputField.type];
+    
+    BOOL showError = inputField.type != JPInputTypeCardholderEmail ||
+    inputField.type != JPInputTypeCardholderPhone;
+    
+    [self.presenter handleInputChange:text forType:inputField.type
+                            showError:showError];
     return NO;
 }
+
+- (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
+    [self.presenter handleInputChange:text forType:inputField.type
+                            showError:inputField.type == JPInputTypeCardholderEmail];
+}
+
 
 @end

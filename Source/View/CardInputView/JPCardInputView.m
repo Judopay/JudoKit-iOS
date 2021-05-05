@@ -68,9 +68,9 @@ static const float kSliderCornerRadius = 10.0F;
 static const float kTightContentSpacing = 8.0F;
 static const float kLooseContentSpacing = 16.0F;
 static const float kSeparatorContentSpacing = 1.0F;
-static const float kPhoneCodeContentWidth = 120.0F;
 static const float kButtonsContentSpacing = 40.0F;
 static const float kAnimationTimeInterval = 0.3F;
+static const float kPhoneCodeWidth = 45.0F;
 
 #pragma mark - Initializers
 
@@ -97,34 +97,33 @@ static const float kAnimationTimeInterval = 0.3F;
     [self.mainStackView addArrangedSubview:self.topButtonStackView];
     [self.mainStackView addArrangedSubview:self.secureCodeTextField];
     [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
-    
+
     UIScrollView *scrollView = [UIScrollView new];
     [self.mainStackView addArrangedSubview:scrollView];
-    
+
     UIView *contentView = [UIView new];
     [scrollView addSubview:contentView];
     [contentView pinToView:scrollView withPadding:0];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
     CGFloat topPadding = window.safeAreaInsets.top;
-    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self.safeTopAnchor constant: 20 + topPadding];
+    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self.safeTopAnchor constant: topPadding];
     [_topConstraint setActive:YES];
-    
+
     _billingDetailsHeightConstraint = [scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
     _billingDetailsHeightConstraint.priority = UILayoutPriorityDefaultLow;
     [_billingDetailsHeightConstraint setActive:YES];
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card".localized, @(2)];
-    [_addAddressLineButton setTitle: title forState:UIControlStateNormal];
+    [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
     _billingDetailsHeightConstraint.constant = 0;
-    
+
     [[contentView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor] setActive:YES];
     [contentView addSubview:[self billingDetails]];
     [_billingDetails pinToView:contentView withPadding:0];
-    
+
     [self.mainStackView addArrangedSubview:self.buttonStackView];
-    
     _bottomButtons.layoutMarginsRelativeArrangement = YES;
 }
 
@@ -134,33 +133,33 @@ static const float kAnimationTimeInterval = 0.3F;
     self.cancelButton.titleLabel.font = theme.bodyBold;
     [self.cancelButton setTitleColor:theme.jpBlackColor
                             forState:UIControlStateNormal];
-    
+
     self.addAddressLineButton.titleLabel.font = theme.bodyBold;
     [self.addAddressLineButton setTitleColor:theme.jpBlackColor
                                     forState:UIControlStateNormal];
-    
+
     self.scanCardButton.titleLabel.font = theme.bodyBold;
     [self.scanCardButton setTitleColor:theme.jpBlackColor
                               forState:UIControlStateNormal];
     [self.scanCardButton setBorderWithColor:theme.jpBlackColor
                                       width:kScanButtonBorderWidth
                             andCornerRadius:kScanButtonCornerRadius];
-    
+
     self.addCardButton.titleLabel.font = theme.headline;
     self.addCardButton.layer.cornerRadius = theme.buttonCornerRadius;
     [self.addCardButton setBackgroundImage:theme.buttonColor.asImage
                                   forState:UIControlStateNormal];
     [self.addCardButton setTitleColor:theme.buttonTitleColor
                              forState:UIControlStateNormal];
-    
+
     self.backButton.titleLabel.font = theme.bodyBold;
     [self.backButton setTitleColor:theme.jpBlackColor
                           forState:UIControlStateNormal];
     self.backButton.titleLabel.font = theme.headline;
-    
+
     self.securityMessageLabel.font = theme.caption;
     self.securityMessageLabel.textColor = theme.jpDarkGrayColor;
-    
+
     [self.cardHolderEmailTextField applyTheme:theme];
     [self.cardHolderAddressLine1TextField applyTheme:theme];
     [self.cardHolderAddressLine2TextField applyTheme:theme];
@@ -168,7 +167,6 @@ static const float kAnimationTimeInterval = 0.3F;
     [self.cardHolderPhoneTextField applyTheme:theme];
     [self.cardHolderCityTextField applyTheme:theme];
     [self.cardHolderPhoneCodeTextField applyTheme:theme];
-    [self.cardHolderCountryTextField applyTheme:theme];
     [self.cardNumberTextField applyTheme:theme];
     [self.cardHolderTextField applyTheme:theme];
     [self.cardExpiryTextField applyTheme:theme];
@@ -177,32 +175,36 @@ static const float kAnimationTimeInterval = 0.3F;
     [self.postcodeTextField applyTheme:theme];
 }
 
--(void)setMode:(JPCardDetailsMode)mode {
+- (void)setMode:(JPCardDetailsMode)mode {
     if (self.mode != mode) {
         [self endEditing:YES];
-        [UIView animateWithDuration:kAnimationTimeInterval animations:^{
-            [self.mainStackView setAlpha:0.0];
-        } completion:^(BOOL finished) {
-            [self adjustSubviews];
-            [UIView animateWithDuration:kAnimationTimeInterval animations:^{
-                [self.mainStackView setAlpha:1.0];
-            } completion:nil];
-        }];
+        [UIView animateWithDuration:kAnimationTimeInterval
+            animations:^{
+                [self.mainStackView setAlpha:0.0];
+            }
+            completion:^(BOOL finished) {
+                [self adjustSubviews];
+                [UIView animateWithDuration:kAnimationTimeInterval
+                                 animations:^{
+                                     [self.mainStackView setAlpha:1.0];
+                                 }
+                                 completion:nil];
+            }];
         _mode = mode;
     }
 }
 
--(void)adjustSubviews {
+- (void)adjustSubviews {
     [_topConstraint setActive:NO];
     [_scanCardButton setHidden:_mode == JPCardDetailsModeSecurityCode];
     [_avsStackView setHidden:_mode != JPCardDetailsModeAVS];
     [_billingDetails setHidden:_mode != JPCardDetailsMode3DS2BillingDetails];
     [_inputFieldsStackView setHidden:_mode == JPCardDetailsMode3DS2BillingDetails];
     [_backButton setHidden:_mode != JPCardDetailsMode3DS2BillingDetails];
-    [_scanCardButton setHidden: (_mode == JPCardDetailsMode3DS2BillingDetails || _mode ==  JPCardDetailsModeSecurityCode)];
+    [_scanCardButton setHidden:(_mode == JPCardDetailsMode3DS2BillingDetails || _mode == JPCardDetailsModeSecurityCode)];
     _mode == JPCardDetailsModeAVS
-    ? [_avsStackView addArrangedSubview:_postcodeTextField]
-    : [_billingDetails addArrangedSubview:_postcodeTextField];
+        ? [_avsStackView addArrangedSubview:_postcodeTextField]
+        : [_billingDetails addArrangedSubview:_postcodeTextField];
     CGFloat leftPadding = _mode == JPCardDetailsMode3DS2BillingDetails ? 30 : 0;
     _bottomButtons.layoutMargins = UIEdgeInsetsMake(0, leftPadding, 0, 0);
     _securityMessageStackView.hidden = _mode == JPCardDetailsMode3DS2BillingDetails;
@@ -210,23 +212,23 @@ static const float kAnimationTimeInterval = 0.3F;
     [self adjustTopSpace];
 }
 
--(IBAction)showNewAddressLine:(UIButton *)sender {
+- (IBAction)showNewAddressLine:(UIButton *)sender {
     NSInteger tag = sender.tag;
     _cardHolderAddressLine2TextField.hidden = NO;
     _cardHolderAddressLine3TextField.hidden = tag < 1;
     _addAddressLineButton.hidden = tag > 0;
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card".localized, @(tag + 3)];
-    [_addAddressLineButton setTitle: title forState:UIControlStateNormal];
-    sender.tag ++;
+    [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
+    sender.tag++;
     [self adjustTopSpace];
 }
 
--(void)adjustTopSpace {
+- (void)adjustTopSpace {
     [_topConstraint setActive:NO];
     [_bottomSlider layoutIfNeeded];
     UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
     CGFloat topPadding = window.safeAreaInsets.top;
-    [_topConstraint setActive:_bottomSlider.frame.origin.y < 20 + topPadding];
+    [_topConstraint setActive:_bottomSlider.frame.origin.y < topPadding];
 }
 
 #pragma mark - View model configuration
@@ -260,10 +262,11 @@ static const float kAnimationTimeInterval = 0.3F;
             [self.cardHolderAddressLine2TextField configureWithViewModel:viewModel.cardholderAddressLine2ViewModel];
             [self.cardHolderAddressLine3TextField configureWithViewModel:viewModel.cardholderAddressLine3ViewModel];
             [self.cardHolderPhoneCodeTextField configureWithViewModel:viewModel.cardholderPhoneCodeViewModel];
-            [self.cardHolderCountryTextField configureWithViewModel:viewModel.cardholderCountryViewModel];
+            [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
             [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
             break;
     }
+    [_countryPickerView reloadAllComponents];
     [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
     [self.backButton configureWithViewModel:viewModel.backButtonViewModel];
 }
@@ -279,7 +282,6 @@ static const float kAnimationTimeInterval = 0.3F;
     self.cardHolderCityTextField.enabled = shouldEnable;
     self.cardHolderPhoneCodeTextField.enabled = shouldEnable;
     self.cardHolderEmailTextField.enabled = shouldEnable;
-    self.cardHolderCountryTextField.enabled = shouldEnable;
     self.cardExpiryTextField.enabled = shouldEnable;
     self.secureCodeTextField.enabled = shouldEnable;
     self.countryTextField.enabled = shouldEnable;
@@ -297,23 +299,23 @@ static const float kAnimationTimeInterval = 0.3F;
 }
 
 - (void)setupBottomSliderConstraints {
-    
+
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
     [self.bottomSlider pinToAnchors:JPAnchorTypeBottom forView:self];
-    
+
     if (self.bottomSliderConstraint == nil) {
         self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
     }
-    
+
     self.bottomSliderConstraint.active = YES;
 }
 
 - (void)setupMainStackViewConstraints {
-    
+
     [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                              forView:self.bottomSlider
                          withPadding:kContentVerticalPadding];
-    
+
     [self.mainStackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
                              forView:self.bottomSlider
                          withPadding:kContentHorizontalPadding];
@@ -325,13 +327,12 @@ static const float kAnimationTimeInterval = 0.3F;
         [self.cardHolderAddressLine1TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardHolderAddressLine2TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardHolderAddressLine3TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cardHolderPhoneCodeTextField.heightAnchor constraintEqualToConstant:kPhoneCodeContentWidth],
-        [self.cardHolderPhoneCodeTextField.widthAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.cardHolderPhoneCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.cardHolderPhoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
         [self.cardHolderPhoneTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardHolderCityTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.scanCardButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
         [self.cardNumberTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cardHolderCountryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardHolderEmailTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardHolderTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.cardExpiryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
@@ -342,7 +343,7 @@ static const float kAnimationTimeInterval = 0.3F;
         [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
         [self.lockImageView.widthAnchor constraintEqualToConstant:kLockImageWidth],
     ];
-    
+
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
@@ -392,7 +393,7 @@ static const float kAnimationTimeInterval = 0.3F;
     if (!_scanCardButton) {
         _scanCardButton = [UIButton new];
         _scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-        
+
         [_scanCardButton setTitle:@"button_scan_card".localized.uppercaseString forState:UIControlStateNormal];
         [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"]
                          forState:UIControlStateNormal];
@@ -420,15 +421,6 @@ static const float kAnimationTimeInterval = 0.3F;
         _cardHolderTextField.keyboardType = UIKeyboardTypeDefault;
     }
     return _cardHolderTextField;
-}
-
-- (JPCardInputField *)cardHolderCountryTextField {
-    if (!_cardHolderCountryTextField) {
-        _cardHolderCountryTextField = [JPCardInputField new];
-        _cardHolderCountryTextField.accessibilityIdentifier = @"Cardholder country Field";
-        _cardHolderCountryTextField.keyboardType = UIKeyboardTypeDefault;
-    }
-    return _cardHolderCountryTextField;
 }
 
 - (JPCardInputField *)cardHolderEmailTextField {
@@ -495,7 +487,6 @@ static const float kAnimationTimeInterval = 0.3F;
     }
     return _cardHolderCityTextField;
 }
-
 
 - (JPCardInputField *)cardExpiryTextField {
     if (!_cardExpiryTextField) {
@@ -591,12 +582,14 @@ static const float kAnimationTimeInterval = 0.3F;
 }
 
 - (UIStackView *)billingDetails {
-    
+
     if (!_billingDetails) {
         UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
-        
+
         [stackView addArrangedSubview:self.cardHolderEmailTextField];
-        [stackView addArrangedSubview:self.cardHolderCountryTextField];
+        if (_mode != JPCardDetailsModeAVS) {
+            [stackView addArrangedSubview:self.countryTextField];
+        }
         [stackView addArrangedSubview:self.phoneStackView];
         [stackView addArrangedSubview:self.cardHolderAddressLine1TextField];
         [stackView addArrangedSubview:self.cardHolderAddressLine2TextField];
@@ -619,11 +612,16 @@ static const float kAnimationTimeInterval = 0.3F;
 }
 
 - (UIStackView *)phoneStackView {
+
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kSeparatorContentSpacing];
-    
     [stackView addArrangedSubview:self.cardHolderPhoneCodeTextField];
     [stackView addArrangedSubview:self.cardHolderPhoneTextField];
-    
+    NSLayoutConstraint *widthLayout = [self.cardHolderPhoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth];
+    [widthLayout setActive:YES];
+    widthLayout.priority = UILayoutPriorityDefaultHigh;
+    NSLayoutConstraint *widthCodeLayout = [self.cardHolderPhoneCodeTextField.widthAnchor constraintEqualToConstant:43];
+    [widthCodeLayout setActive:YES];
+    widthCodeLayout.priority = UILayoutPriorityDefaultLow;
     return stackView;
 }
 
@@ -635,14 +633,13 @@ static const float kAnimationTimeInterval = 0.3F;
     return stackView;
 }
 
-
 - (UIStackView *)additionalInputFieldsStackView {
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
-    
+
     [stackView addArrangedSubview:self.cardExpiryTextField];
     [stackView addArrangedSubview:self.secureCodeTextField];
-    
+
     return stackView;
 }
 

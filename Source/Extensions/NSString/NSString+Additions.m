@@ -156,17 +156,16 @@
 }
 
 - (BOOL)isPhoneCode {
-//    NSString *emailRegEx = @"[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
-//    NSPredicate *emailPred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-//    return [emailPred evaluateWithObject:self];
+    //    NSString *emailRegEx = @"[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
+    //    NSPredicate *emailPred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    //    return [emailPred evaluateWithObject:self];
     return true;
 }
 
 - (BOOL)isPhoneNumber {
-//    NSString *emailRegEx = @"[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
-//    NSPredicate *emailPred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-//    return [emailPred evaluateWithObject:self];
-    return true;
+    NSString *phoneRegEx = @"[235689][0-9]{6}([0-9]{3})?";
+    NSPredicate *pred= [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegEx];
+    return [pred evaluateWithObject:self];
 }
 
 - (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {

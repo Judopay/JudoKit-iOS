@@ -26,43 +26,58 @@
 #import "JPConstants.h"
 #import "NSString+Additions.h"
 
-@implementation JPCountry
+@implementation JPCountryList
 
-+ (instancetype)countryWithType:(JPCountryType)countryType {
-    return [[JPCountry alloc] initWithType:countryType];
++ (instancetype)defaultCountryList {
+    NSBundle *bundle = [NSBundle bundleForClass:[JPCountryList class]];
+    NSString *str = [bundle pathForResource:@"CountriesList" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:str];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    JPCountryList *list = [[JPCountryList alloc] initWithDictionary:dict];
+    return list;
 }
 
-- (instancetype)initWithType:(JPCountryType)countryType {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    if (!dict) {
+        return nil;
+    }
     if (self = [super init]) {
-        self.name = [self countryNameForType:countryType];
+        NSArray *countriesDictionaries = dict[@"countries"];
+        NSMutableArray *countries = [NSMutableArray new];
+        for (NSDictionary *coutryDict in countriesDictionaries) {
+            [countries addObject:[[JPCountry alloc] initWithDictionary:coutryDict]];
+        }
+        self.countries = countries;
     }
     return self;
 }
 
-- (NSString *)countryNameForType:(JPCountryType)type {
-    switch (type) {
-        case JPCountryTypeUSA:
-            return @"country_usa".localized;
-        case JPCountryTypeUK:
-            return @"country_uk".localized;
-        case JPCountryTypeCanada:
-            return @"country_canada".localized;
-        case JPCountryTypeOther:
-            return @"country_other".localized;
-    }
-}
+@end
 
-+ (NSNumber *)isoCodeForCountry:(NSString *)country {
-    if ([country isEqualToString:@"country_usa".localized]) {
-        return @(kJPCountryNumericCodeUSA);
-    }
-    if ([country isEqualToString:@"country_uk".localized]) {
-        return @(kJPCountryNumericCodeUK);
-    }
-    if ([country isEqualToString:@"country_canada".localized]) {
-        return @(kJPCountryNumericCodeCanada);
+@implementation JPCountry
+
++ (NSNumber *)isoCodeForCountry:(NSString *)countryName {
+    JPCountryList *list = [JPCountryList defaultCountryList];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
+    JPCountry *country = [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+    if (country) {
+        return @([country.numericCode intValue]);
     }
     return nil;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    if (!dict) {
+        return nil;
+    }
+    if (self = [super init]) {
+        self.alpha2Code = dict[@"alpha2Code"];
+        self.name = dict[@"name"];
+        self.dialCode = dict[@"dialCode"];
+        self.numericCode = dict[@"numericCode"];
+        self.phoneNumberFormat = dict[@"phoneNumberFormat"];
+    }
+    return self;
 }
 
 @end

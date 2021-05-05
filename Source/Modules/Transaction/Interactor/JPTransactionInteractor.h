@@ -29,7 +29,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry;
 
 @protocol JPTransactionInteractor
 
@@ -46,7 +46,7 @@
 /**
  * A method that returns JPTheme from UI Configuration
  */
-- (JPTheme*)getConfiguredTheme;
+- (JPTheme *)getConfiguredTheme;
 
 /**
  * A method that returns the current transaction type
@@ -68,12 +68,12 @@
 /**
  * A method which returns the countries which the user can select in the country picker
  */
-- (NSArray<NSString *> *)getSelectableCountryNames;
+- (nonnull NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(nullable NSString *)searchString;
 
 /**
  * A method for returning merchant-set card address details
  */
-- (JPAddress *)getConfiguredCardAddress;
+- (nonnull JPAddress *)getConfiguredCardAddress;
 
 /**
  * A method for returning the transaction response / error to the merchant
@@ -115,9 +115,18 @@
 - (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
 
 /**
- * A method for validating the phone code
+ * A method for validating the phone number
  *
- * @param input - the input email string
+ * @param input - the input phone code string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
+
+/**
+ * A method for validating the phone number
+ *
+ * @param input - the input phone string
  *
  * @returns a JPValidationResult with the validation status details
  */

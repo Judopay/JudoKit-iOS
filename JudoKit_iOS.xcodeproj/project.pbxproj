@@ -2658,8 +2658,8 @@
 		4431198924B3345200BF961C /* JPRequest */ = {
 			isa = PBXGroup;
 			children = (
-				4431198A24B3345200BF961C /* JPRequest+Additions.m */,
 				4431198B24B3345200BF961C /* JPRequest+Additions.h */,
+				4431198A24B3345200BF961C /* JPRequest+Additions.m */,
 			);
 			name = JPRequest;
 			path = Extensions/JPRequest;
@@ -2939,8 +2939,8 @@
 		ADB514AD286DECB600332E47 /* JPResponse */ = {
 			isa = PBXGroup;
 			children = (
-				ADB514AE286DECB600332E47 /* JPResponse+Additions.m */,
 				ADB514AF286DECB600332E47 /* JPResponse+Additions.h */,
+				ADB514AE286DECB600332E47 /* JPResponse+Additions.m */,
 			);
 			name = JPResponse;
 			path = Extensions/JPResponse;

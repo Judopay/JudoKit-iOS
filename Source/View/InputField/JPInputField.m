@@ -105,6 +105,26 @@
     [self.floatingTextField placeholderWithText:placeholder color:color andFont:font];
 }
 
+- (void)setType:(JPInputType)type {
+    if (type == JPInputTypeCardholderPhoneCode && !_floatingTextField.leftView) {
+
+        _floatingTextField.leftView = [self sideViewWithText:@"+("];
+        _floatingTextField.rightView = [self sideViewWithText:@")"];
+        _floatingTextField.leftViewMode = UITextFieldViewModeAlways;
+        _floatingTextField.rightViewMode = UITextFieldViewModeAlways;
+    }
+    _type = type;
+}
+
+- (UILabel *)sideViewWithText:(NSString *)text {
+    UILabel *label = [UILabel new];
+    label.text = text;
+    label.textColor = _theme.jpBlackColor;
+    label.font = _theme.headlineLight;
+    [label sizeToFit];
+    return label;
+}
+
 - (void)setInputView:(UIView *)inputView {
     _inputView = inputView;
     self.floatingTextField.inputView = inputView;
@@ -187,33 +207,17 @@
 @implementation JPInputField (UITextFieldDelegate)
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(self.type == JPInputTypeCardholderPhoneCode) {
-        NSRange prefixRange = NSMakeRange(0, 2);
-        NSRange sufixRange = NSMakeRange(textField.text.length - 2, 1);
-        NSRange prefixIntersection = NSIntersectionRange(prefixRange, range);
-        NSRange sufixIntersection = NSIntersectionRange(sufixRange, range);
-        if (prefixIntersection.length > 0 || sufixIntersection.length > 0) {
-            return NO;
-        }
-    }
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [self.delegate inputField:self shouldChangeText:newString];
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    if(self.type == JPInputTypeCardholderPhoneCode) {
-        NSUInteger start = textField.text.length - 2;
-        NSUInteger end = textField.text.length - 1;
-        UITextPosition *startPosition = [textField positionFromPosition:textField.beginningOfDocument offset:start];
-        UITextPosition *endPosition = [textField positionFromPosition:textField.beginningOfDocument offset:end];
-        UITextRange *selection = [textField textRangeFromPosition:startPosition toPosition:endPosition];
-        [textField setSelectedTextRange: selection];
-    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.delegate inputField:self didEndEditing:textField.text];
 }
 
 @end

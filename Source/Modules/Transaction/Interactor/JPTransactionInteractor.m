@@ -102,7 +102,7 @@
     return self.configuration.cardAddress;
 }
 
-- (JPTheme*)getConfiguredTheme {
+- (JPTheme *)getConfiguredTheme {
     return self.configuration.uiConfiguration.theme;
 }
 
@@ -122,8 +122,7 @@
 - (NSString *)generatePayButtonTitle {
     if ([self cardDetailsMode] == JPCardDetailsMode3DS2) {
         return @"continue".localized;
-    }
-    else if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
+    } else if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
         return @"pay_now".localized;
     }
     if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
@@ -231,13 +230,15 @@
     [self.cardValidationService resetCardValidationResults];
 }
 
-- (NSArray<NSString *> *)getSelectableCountryNames {
-    return @[
-        [JPCountry countryWithType:JPCountryTypeUK].name,
-        [JPCountry countryWithType:JPCountryTypeUSA].name,
-        [JPCountry countryWithType:JPCountryTypeCanada].name,
-        [JPCountry countryWithType:JPCountryTypeOther].name,
-    ];
+- (NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(NSString *)searchString {
+    NSArray *countries = [[JPCountryList defaultCountryList] countries];
+    if(!searchString || searchString.length == 0) {
+        return [[JPCountryList defaultCountryList] countries];
+    }
+    // TODO: Use predicate which searches by containing string
+    //    NSPredicate *sPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] 's'"];
+    NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.name beginswith[c] %@", searchString];
+    return [countries filteredArrayUsingPredicate:bPredicate];
 }
 
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input {
@@ -255,6 +256,10 @@
 
 - (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
     return [self.cardValidationService validateCardholderPhoneInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
+    return [self.cardValidationService validateCardholderPhoneCodeInput:input];
 }
 
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {

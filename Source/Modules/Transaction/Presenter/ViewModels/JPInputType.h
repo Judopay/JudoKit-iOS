@@ -37,7 +37,6 @@ typedef NS_ENUM(NSUInteger, JPInputType) {
     JPInputTypeCardholderAddressLine3,
     JPInputTypeCardholderPhoneCode,
     JPInputTypeCardholderCity,
-    JPInputTypeCardholderCountry,
     JPInputTypeCardExpiryDate,
     JPInputTypeCardSecureCode,
     JPInputTypeCardCountry,
