@@ -199,7 +199,14 @@ NSString *const kExtractResultScript =
 
 - (void)handleResult:(NSDictionary *)result {
 
-    JP3DSecureAuthenticationResult *authenticationResult = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:result[@"PaRes"] andMd:result[@"MD"]];
+    NSString *mdValue = result[@"MD"];
+    if(mdValue == nil || [mdValue isKindOfClass:NSNull.class]) {
+        if (self.configuration.mdValue) {
+            mdValue = self.configuration.mdValue;
+        }
+    }
+    
+    JP3DSecureAuthenticationResult *authenticationResult = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:result[@"PaRes"] andMd:mdValue];
 
     __weak typeof(self) weakSelf = self;
 
