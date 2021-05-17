@@ -61,4 +61,76 @@ class FunctionsHelpersTest: XCTestCase {
         let sutIPAddress = getIPAddress()
         XCTAssertNotNil(sutIPAddress)
     }
+    
+    /*
+     * GIVEN: global func for getting the string representation of an object
+     *
+     * WHEN: object is nil
+     *
+     * THEN: should return the null string representation
+     */
+    func test_getSafeStringRepresentation_WhenNilIsProvided_ShouldReturnNilRepresentation() {
+        let result = getSafeStringRepresentation(nil)
+        XCTAssertTrue(result == "(null)")
+    }
+    
+    /*
+     * GIVEN: global func for getting the string representation of an object
+     *
+     * WHEN: object is a number
+     *
+     * THEN: should return the number string representation
+     */
+    func test_getSafeStringRepresentation_WhenNumberIsProvided_ShouldReturnNumberRepresentation() {
+        let result = getSafeStringRepresentation(1)
+        XCTAssertTrue(result == "1")
+    }
+    
+    /*
+     * GIVEN: global func for getting the string representation of an object
+     *
+     * WHEN: object is a string
+     *
+     * THEN: should return the given string
+     */
+    func test_getSafeStringRepresentation_WhenStringIsProvided_ShouldReturnTheGivenString() {
+        let result = getSafeStringRepresentation("string")
+        XCTAssertTrue(result == "string")
+    }
+    
+    /*
+     * GIVEN: global func to get query parameters RFC3986 escaped
+     *
+     * WHEN: a single query string pair is provided as a parameter
+     *
+     * THEN: should return the expected string
+     */
+    func test_queryParameters_WhenASingleQueryStringPairIsProvided_ShouldReturnTheExpectedString() {
+        let result = queryParameters([JPQueryStringPair("name", "value")])
+        XCTAssertTrue(result == "name=value")
+    }
+    
+    /*
+     * GIVEN: global func to get query parameters RFC3986 escaped
+     *
+     * WHEN: multiple query string pairs are provided as a parameter
+     *
+     * THEN: should return the expected string
+     */
+    func test_queryParameters_WhenMultipleQueryStringPairsAreProvided_ShouldReturnTheExpectedString() {
+        let result = queryParameters([JPQueryStringPair("name1", "value1"), JPQueryStringPair("name2", "value2")])
+        XCTAssertTrue(result == "name1=value1&name2=value2")
+    }
+    
+    /*
+     * GIVEN: global func to get query parameters RFC3986 escaped
+     *
+     * WHEN: multiple query string pairs are provided as a parameter
+     *
+     * THEN: should return the expected string escaped
+     */
+    func test_queryParameters_WhenMultipleQueryStringPairsAreProvided_ShouldReturnTheExpectedEscapedString() {
+        let result = queryParameters([JPQueryStringPair("na@me", "val#ue-to-escape["), JPQueryStringPair("na:m e", "val:ue-to-esc]")])
+        XCTAssertTrue(result == "na%40me=val%23ue-to-escape%5B&na%3Am%20e=val%3Aue-to-esc%5D")
+    }
 }

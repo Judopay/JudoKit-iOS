@@ -291,7 +291,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (UIStackView *)amountStackView {
     if (!_amountStackView) {
         _amountStackView = [UIStackView verticalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
-        _amountStackView.alignment = NSLayoutAttributeLeading;
+        _amountStackView.alignment = UIStackViewAlignmentLeading;
     }
     return _amountStackView;
 }
