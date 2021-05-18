@@ -70,8 +70,8 @@ class FunctionsHelpersTest: XCTestCase {
      * THEN: should return the null string representation
      */
     func test_getSafeStringRepresentation_WhenNilIsProvided_ShouldReturnNilRepresentation() {
-        let result = getSafeStringRepresentation(nil)
-        XCTAssertTrue(result == "(null)")
+        let result = getSafeStringRepresentation(NSNull())
+        XCTAssertTrue(result == "<null>")
     }
     
     /*
@@ -106,7 +106,7 @@ class FunctionsHelpersTest: XCTestCase {
      * THEN: should return the expected string
      */
     func test_queryParameters_WhenASingleQueryStringPairIsProvided_ShouldReturnTheExpectedString() {
-        let result = queryParameters([JPQueryStringPair("name", "value")])
+        let result = queryParameters([JPQueryStringPair(field:"name", value:"value")])
         XCTAssertTrue(result == "name=value")
     }
     
@@ -118,7 +118,8 @@ class FunctionsHelpersTest: XCTestCase {
      * THEN: should return the expected string
      */
     func test_queryParameters_WhenMultipleQueryStringPairsAreProvided_ShouldReturnTheExpectedString() {
-        let result = queryParameters([JPQueryStringPair("name1", "value1"), JPQueryStringPair("name2", "value2")])
+        let result = queryParameters([JPQueryStringPair(field:"name1", value:"value1"),
+                                      JPQueryStringPair(field:"name2", value:"value2")])
         XCTAssertTrue(result == "name1=value1&name2=value2")
     }
     
@@ -130,7 +131,8 @@ class FunctionsHelpersTest: XCTestCase {
      * THEN: should return the expected string escaped
      */
     func test_queryParameters_WhenMultipleQueryStringPairsAreProvided_ShouldReturnTheExpectedEscapedString() {
-        let result = queryParameters([JPQueryStringPair("na@me", "val#ue-to-escape["), JPQueryStringPair("na:m e", "val:ue-to-esc]")])
+        let result = queryParameters([JPQueryStringPair(field:"na@me", value:"val#ue-to-escape["),
+                                      JPQueryStringPair(field:"na:m e", value:"val:ue-to-esc]")])
         XCTAssertTrue(result == "na%40me=val%23ue-to-escape%5B&na%3Am%20e=val%3Aue-to-esc%5D")
     }
 }
