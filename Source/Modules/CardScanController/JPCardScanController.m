@@ -218,7 +218,7 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
     CIImage *image = [[CIImage alloc] initWithCVImageBuffer:imageBuffer];
 
     VNRecognizeTextRequest *textRequest = [VNRecognizeTextRequest new];
-    textRequest.recognitionLevel = VNRequestTrackingLevelAccurate;
+    textRequest.recognitionLevel = VNRequestTextRecognitionLevelAccurate;
 
     VNImageRequestHandler *requestHandler = [[VNImageRequestHandler alloc] initWithCIImage:image options:@{}];
     [requestHandler performRequests:@[ textRequest ] error:nil];

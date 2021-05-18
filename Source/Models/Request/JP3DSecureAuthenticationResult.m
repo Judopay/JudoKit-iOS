@@ -29,7 +29,7 @@
 #pragma mark - Initializers
 
 - (nonnull instancetype)initWithPaRes:(nonnull NSString *)paRes
-                                andMd:(nonnull NSString *)md {
+                                andMd:(nullable NSString *)md {
     if (self = [super init]) {
         _paRes = paRes;
         _md = md;

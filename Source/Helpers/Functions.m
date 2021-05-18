@@ -29,6 +29,70 @@
 #import "JudoKit.h"
 #import "NSString+Additions.h"
 
+@implementation JPQueryStringPair
+
+- (instancetype)initWithField:(NSString *)field value:(NSString *)value {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+
+    self.field = field;
+    self.value = value;
+
+    return self;
+}
+
+- (NSString *)URLEncodedValue {
+    if (!self.value || [self.value isEqual:NSNull.null]) {
+        return RFC3986PercentEscapedStringFromString([self.field description]);
+    } else {
+        return [NSString stringWithFormat:@"%@=%@", RFC3986PercentEscapedStringFromString([self.field description]), RFC3986PercentEscapedStringFromString([self.value description])];
+    }
+}
+
+@end
+
+NSString *RFC3986PercentEscapedStringFromString(NSString *string) {
+    static NSString *const kCharactersGeneralDelimitersToEncode = @":#[]@";
+    static NSString *const kCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
+
+    NSMutableCharacterSet *allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+    [allowedCharacterSet removeCharactersInString:[kCharactersGeneralDelimitersToEncode stringByAppendingString:kCharactersSubDelimitersToEncode]];
+
+    static NSUInteger const batchSize = 50;
+
+    NSUInteger index = 0;
+    NSMutableString *escaped = @"".mutableCopy;
+
+    while (index < string.length) {
+        NSUInteger length = MIN(string.length - index, batchSize);
+        NSRange range = NSMakeRange(index, length);
+
+        range = [string rangeOfComposedCharacterSequencesForRange:range];
+
+        NSString *substring = [string substringWithRange:range];
+        NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+        if (encoded) {
+            [escaped appendString:encoded];
+        }
+
+        index += range.length;
+    }
+
+    return escaped;
+}
+
+NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters) {
+    NSMutableArray<NSString *> *components = [NSMutableArray new];
+
+    for (JPQueryStringPair *parameter in parameters) {
+        [components addObject:[parameter URLEncodedValue]];
+    }
+
+    return [components componentsJoinedByString:@"&"];
+}
+
 double getWidthAspectRatio() {
     return UIScreen.mainScreen.bounds.size.width / 414;
 }
@@ -68,7 +132,7 @@ NSString *getUserAgent() {
 }
 
 NSString *getIPAddress() {
-    NSString *address = @"error";
+    NSString *address;
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;
@@ -93,7 +157,7 @@ NSString *getIPAddress() {
     }
 
     freeifaddrs(interfaces);
-    return address;
+    return address ? address : @"";
 }
 
 NSString *generateBasicAuthHeader(NSString *token, NSString *secret) {

@@ -28,6 +28,14 @@
 
 @implementation UIViewController (Additions)
 
+- (UIViewController *)parentController {
+    UIViewController *parentController = UIApplication.sharedApplication.keyWindow.rootViewController;
+    while (parentController.presentedViewController && parentController != parentController.presentedViewController) {
+        parentController = parentController.presentedViewController;
+    }
+    return parentController;
+}
+
 - (void)connectButton:(UIButton *)button withSelector:(SEL)selector {
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }
@@ -51,7 +59,7 @@
                                                        style:UIAlertActionStyleDefault
                                                      handler:nil];
     [controller addAction:okAction];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.parentController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type {

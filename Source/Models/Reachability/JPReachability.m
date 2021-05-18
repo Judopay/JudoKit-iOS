@@ -129,7 +129,8 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     BOOL isIpAddress = [self isIpAddress:host];
 
     if (isIpAddress) {
-        NSNumber *port = url.port ?: [url.scheme isEqualToString:@"https"] ? @(443) : @(80);
+        NSNumber *port = url.port ?: [url.scheme isEqualToString:@"https"] ? @(443)
+                                                                           : @(80);
 
         struct sockaddr_in address;
         address.sin_len = sizeof(address);
@@ -419,14 +420,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
         [[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChangedNotification
                                                             object:self];
     });
-}
-
-#pragma mark - Debug Description
-
-- (NSString *)description {
-    NSString *description = [NSString stringWithFormat:@"<%@: %#x (%@)>",
-                                                       NSStringFromClass([self class]), (unsigned int)self, [self currentReachabilityFlags]];
-    return description;
 }
 
 @end
