@@ -35,10 +35,7 @@
 }
 
 - (instancetype)initWithRelativePath:(NSString *)relativePath {
-    
-    NSBundle *bundle = [NSBundle bundleForClass:[JPUITestConfiguration class]];
-    NSString *configPath = [bundle.bundlePath stringByAppendingString:relativePath];
-    
+    NSString *configPath = [SRC_ROOT stringByAppendingString:relativePath];
     NSURL *url = [NSURL fileURLWithPath:configPath];
     return [self initWithContentsOfURL:url];
 }
