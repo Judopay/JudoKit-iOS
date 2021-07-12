@@ -53,8 +53,10 @@
 
 /**
  * A method that dismisses the current view
+ *
+ * @param completion - a block called after the view controller finishes dismissing
  */
-- (void)dismissViewController;
+- (void)dismissViewControllerWithCompletion:(void (^_Nullable)(void))completion;
 
 @end
 

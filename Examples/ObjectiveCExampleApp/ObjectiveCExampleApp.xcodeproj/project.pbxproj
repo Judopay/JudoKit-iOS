@@ -34,6 +34,7 @@
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
+		44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */; };
 		52189DE2256536A300B8B57A /* JPPaymentMethodsElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 52189DE1256536A300B8B57A /* JPPaymentMethodsElements.m */; };
 		526D95E92563EDA700B0ECCC /* JPHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 526D95E82563EDA700B0ECCC /* JPHelpers.m */; };
 		526D95F52563F07F00B0ECCC /* JPTagHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 526D95F42563F07F00B0ECCC /* JPTagHandlers.m */; };
@@ -131,6 +132,8 @@
 		449495232450F1540050C6A0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		449495242450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		449495252450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
+		44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		4F1C6C7A3E45A66E61A869C2 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52189DE0256536A300B8B57A /* JPPaymentMethodsElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsElements.h; sourceTree = "<group>"; };
 		52189DE1256536A300B8B57A /* JPPaymentMethodsElements.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsElements.m; sourceTree = "<group>"; };
@@ -585,6 +588,8 @@
 			children = (
 				A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */,
 				A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */,
+				44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */,
+				44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -857,6 +862,7 @@
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
 				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				4490D14824882747004290DD /* ResultTableViewController.m in Sources */,
+				44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */,
 				4490D14A24882747004290DD /* Result.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				4490D14924882747004290DD /* ResultItem.m in Sources */,

@@ -45,7 +45,6 @@
     [self.buttonStylesStackView setHidden:sender.selectedSegmentIndex == 0];
 }
 
-
 #pragma mark - Layout setup
 
 - (void)setupLayout {
@@ -56,14 +55,14 @@
 
 - (void)setupButtonTypes {
     NSArray *buttonTypes = [self getApplePayButtonTypes];
-    
+
     for (NSNumber *type in buttonTypes) {
         JPApplePayButton *button = [JPApplePayButton buttonWithType:type.intValue
                                                               style:JPApplePayButtonStyleBlack];
         [self.buttonTypesStackView addArrangedSubview:button];
-        
+
         [NSLayoutConstraint activateConstraints:@[
-            [button.heightAnchor constraintEqualToConstant: 40.0]
+            [button.heightAnchor constraintEqualToConstant:40.0]
         ]];
     }
     [self.buttonTypesStackView addArrangedSubview:[UIView new]];
@@ -71,14 +70,14 @@
 
 - (void)setupButtonStyles {
     NSArray *buttonStyles = [self getApplePayButtonStyles];
-    
+
     for (NSNumber *style in buttonStyles) {
         JPApplePayButton *button = [JPApplePayButton buttonWithType:JPApplePayButtonTypeBuy
                                                               style:style.intValue];
         [self.buttonStylesStackView addArrangedSubview:button];
-        
+
         [NSLayoutConstraint activateConstraints:@[
-            [button.heightAnchor constraintEqualToConstant: 40.0]
+            [button.heightAnchor constraintEqualToConstant:40.0]
         ]];
     }
     [self.buttonStylesStackView addArrangedSubview:[UIView new]];
@@ -88,25 +87,25 @@
 
 - (NSArray *)getApplePayButtonStyles {
     NSMutableArray *buttonStyles = [NSMutableArray new];
-    
+
     NSArray *generalStyles = @[
         @(JPApplePayButtonStyleWhite),
         @(JPApplePayButtonStyleWhiteOutline),
         @(JPApplePayButtonStyleBlack)
     ];
-    
+
     [buttonStyles addObjectsFromArray:generalStyles];
-    
+
     if (@available(iOS 14.0, *)) {
         [buttonStyles addObject:@(JPApplePayButtonStyleAutomatic)];
     }
-    
+
     return buttonStyles;
 }
 
 - (NSArray *)getApplePayButtonTypes {
     NSMutableArray *buttonTypes = [NSMutableArray new];
-    
+
     NSArray *generalTypes = @[
         @(JPApplePayButtonTypePlain),
         @(JPApplePayButtonTypeBuy),
@@ -114,9 +113,9 @@
         @(JPApplePayButtonTypeInStore),
         @(JPApplePayButtonTypeDonate),
     ];
-    
+
     [buttonTypes addObjectsFromArray:generalTypes];
-    
+
     if (@available(iOS 12.0, *)) {
         NSArray *ios12Types = @[
             @(JPApplePayButtonTypeCheckout),
@@ -125,7 +124,7 @@
         ];
         [buttonTypes addObjectsFromArray:ios12Types];
     }
-    
+
     if (@available(iOS 14.0, *)) {
         NSArray *ios14Types = @[
             @(JPApplePayButtonTypeReload),
@@ -139,7 +138,7 @@
         ];
         [buttonTypes addObjectsFromArray:ios14Types];
     }
-    
+
     return buttonTypes;
 }
 
