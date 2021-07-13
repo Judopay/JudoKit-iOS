@@ -66,6 +66,15 @@ static CGFloat const kTableViewCellHeight = 64.F;
     self.title = self.result.title;
     self.view.accessibilityIdentifier = @"Results View";
     self.tableView.accessibilityIdentifier = @"Results View";
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss"
+                                                                              style:UIBarButtonItemStyleDone
+                                                                             target:self
+                                                                             action:@selector(onClose)];
+}
+
+- (void)onClose {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 //------------------------------------------------------

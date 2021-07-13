@@ -68,10 +68,13 @@
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    if (!self.isPaymentAuthorized) {
-        [self.delegate applePayControllerDidCancelTransaction:self];
-    }
+    __weak typeof(self) weakSelf = self;
+    [controller dismissViewControllerAnimated:YES
+                                   completion:^{
+                                       if (!weakSelf.isPaymentAuthorized) {
+                                           [weakSelf.delegate applePayControllerDidCancelTransaction:weakSelf];
+                                       }
+                                   }];
 }
 
 @end

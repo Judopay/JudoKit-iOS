@@ -111,8 +111,9 @@
                                                         animated:YES];
 }
 
-- (void)dismissViewController {
-    [self.viewController dismissViewControllerAnimated:YES completion:nil];
+- (void)dismissViewControllerWithCompletion:(void (^)(void))completion {
+    [self.viewController dismissViewControllerAnimated:YES
+                                            completion:completion];
 }
 
 @end

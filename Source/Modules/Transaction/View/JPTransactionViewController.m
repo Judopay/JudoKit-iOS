@@ -94,8 +94,11 @@
 }
 
 - (void)onPayWithSecurityCodeButtonTap {
-    [self.delegate didInputSecurityCode:self.addCardView.secureCodeTextField.text];
-    [self dismissViewControllerAnimated:true completion:nil];
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:true
+                             completion:^{
+                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text];
+                             }];
 }
 
 - (void)onScanCardButtonTap {

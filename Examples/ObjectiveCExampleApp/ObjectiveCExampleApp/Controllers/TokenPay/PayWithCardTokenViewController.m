@@ -23,9 +23,8 @@
 //  SOFTWARE.
 
 #import "PayWithCardTokenViewController.h"
-#import "Result.h"
-#import "ResultTableViewController.h"
 #import "Settings.h"
+#import "UIViewController+Additions.h"
 
 @import JudoKit_iOS;
 
@@ -89,14 +88,8 @@
     }
 
     if (showReceipt) {
-        [self presentResultTableViewControllerWithResponse:response];
+        [self presentResultViewControllerWithResponse:response];
     }
-}
-
-- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
-    Result *result = [Result resultFromObject:response];
-    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)payWithCardToken:(UIButton *)sender {
@@ -133,7 +126,7 @@
     [self.threeDSecureService invoke3DSecureWithConfiguration:configuration
                                                    completion:^(JPResponse *response, JPError *transactionError) {
                                                        if (response) {
-                                                           [weakSelf presentResultTableViewControllerWithResponse:response];
+                                                           [weakSelf presentResultViewControllerWithResponse:response];
                                                            return;
                                                        }
 

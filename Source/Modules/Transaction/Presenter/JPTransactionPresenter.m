@@ -177,11 +177,9 @@
                                             andToken:token];
     }
 
-    [self.interactor completeTransactionWithResponse:response
-                                               error:nil];
-
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
+        [weakSelf.interactor completeTransactionWithResponse:response error:nil];
         [weakSelf.view didFinishAddingCard];
     }];
 }

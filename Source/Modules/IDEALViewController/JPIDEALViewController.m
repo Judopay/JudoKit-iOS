@@ -210,16 +210,22 @@ const float kPollingDelayTimer = 30.0;
         return;
     }
 
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(self.redirectResponse, (JPError *)error);
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 weakSelf.completionBlock(weakSelf.redirectResponse, (JPError *)error);
+                             }];
     return;
 }
 
 - (void)handleResponse:(JPResponse *)response {
     JPOrderDetails *orderDetails = response.orderDetails;
     if (orderDetails && [orderDetails.orderFailureReason isEqualToString:kFailureReasonUserAbort]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        self.completionBlock(response, JPError.judoUserDidCancelError);
+        __weak typeof(self) weakSelf = self;
+        [self dismissViewControllerAnimated:YES
+                                 completion:^{
+                                     weakSelf.completionBlock(response, JPError.judoUserDidCancelError);
+                                 }];
         return;
     }
 
@@ -228,8 +234,11 @@ const float kPollingDelayTimer = 30.0;
     response.createdAt = orderDetails.timestamp;
     response.message = orderDetails.orderStatus;
 
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(response, nil);
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 weakSelf.completionBlock(response, nil);
+                             }];
 }
 
 @end

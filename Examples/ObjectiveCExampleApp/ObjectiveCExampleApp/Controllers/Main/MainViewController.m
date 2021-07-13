@@ -28,16 +28,15 @@
 
 @import JudoKit_iOS;
 
+#import "ApplePayViewController.h"
 #import "DemoFeature.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
 #import "MainViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
-#import "ApplePayViewController.h"
-#import "Result.h"
-#import "ResultTableViewController.h"
 #import "Settings.h"
+#import "UIViewController+Additions.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
@@ -69,7 +68,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
                                                     kTokenKey, kSecretKey, kPaymentSessionKey,
                                                     kSessionTokenKey,
-                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey]];
+                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
 
     [self requestLocationPermissions];
 
@@ -301,17 +300,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
         return;
     }
 
-    __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [weakSelf presentResultTableViewControllerWithResponse:response];
-                             }];
-}
-
-- (void)presentResultTableViewControllerWithResponse:(JPResponse *)response {
-    Result *result = [Result resultFromObject:response];
-    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
-    [self.navigationController pushViewController:controller animated:YES];
+    [self presentResultViewControllerWithResponse:response];
 }
 
 // MARK: Lazy properties
@@ -421,7 +410,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-            
+
         case DemoFeatureTypeApplePayStandalone:
             [self applePayOperation];
             break;

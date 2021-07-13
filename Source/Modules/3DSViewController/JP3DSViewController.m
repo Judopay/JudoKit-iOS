@@ -117,8 +117,11 @@ NSString *const kExtractResultScript =
 }
 
 - (void)onDismissTap {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.completionBlock(nil, JPError.judoUserDidCancelError);
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 weakSelf.completionBlock(nil, JPError.judoUserDidCancelError);
+                             }];
 }
 
 #pragma mark - Public methods
@@ -200,10 +203,10 @@ NSString *const kExtractResultScript =
 - (void)handleResult:(NSDictionary *)result {
 
     NSString *mdValue = result[@"MD"];
-    if(mdValue == nil || [mdValue isKindOfClass:NSNull.class]) {
-            mdValue = self.configuration.mdValue;
+    if (mdValue == nil || [mdValue isKindOfClass:NSNull.class]) {
+        mdValue = self.configuration.mdValue;
     }
-    
+
     JP3DSecureAuthenticationResult *authenticationResult = [[JP3DSecureAuthenticationResult alloc] initWithPaRes:result[@"PaRes"] andMd:mdValue];
 
     __weak typeof(self) weakSelf = self;
