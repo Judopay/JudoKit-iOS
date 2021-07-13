@@ -44,7 +44,8 @@ class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
         completion(response, nil)
     }
     
-    func dismissViewController() {
+    func dismissViewController(completion: (() -> Void)? = nil) {
+        completion!()
         dismissController = true
     }
 }
