@@ -26,6 +26,7 @@ import Foundation
 
 @objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
     var didPresentApplePay = false
+    var isPaymentAuthorized = true
     var cardsList:[JPPaymentMethodsCardModel] = []
     var idealBankModel: JPPaymentMethodsIDEALBankModel?
     var viewModelSut: JPPaymentMethodsViewModel?
@@ -57,6 +58,7 @@ import Foundation
 
         let authBlock: (PKPaymentAuthorizationResult) -> () = { _ in }
         authorizationBlock(PKPayment(), authBlock)
+        didFinishBlock(isPaymentAuthorized)
     }
     
 }
