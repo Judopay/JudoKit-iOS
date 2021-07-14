@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApplePayAuthorizationBlock authorizationBlock;
+@property (nonatomic, strong) JPApplePayDidFinishBlock didFinishBlock;
 @property (nonatomic, assign) BOOL isPaymentAuthorized;
 
 @end
@@ -48,8 +49,10 @@
 
 #pragma mark - Public methods
 
-- (UIViewController *)applePayViewControllerWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock {
+- (UIViewController *)applePayViewControllerWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock
+                                                    didFinishBlock:(JPApplePayDidFinishBlock)didFinishBlock {
     self.authorizationBlock = authorizationBlock;
+    self.didFinishBlock = didFinishBlock;
 
     PKPaymentAuthorizationViewController *controller;
     controller = [JPApplePayWrappers pkPaymentControllerForConfiguration:self.configuration];
@@ -71,9 +74,7 @@
     __weak typeof(self) weakSelf = self;
     [controller dismissViewControllerAnimated:YES
                                    completion:^{
-                                       if (!weakSelf.isPaymentAuthorized) {
-                                           [weakSelf.delegate applePayControllerDidCancelTransaction:weakSelf];
-                                       }
+                                       weakSelf.didFinishBlock(weakSelf.isPaymentAuthorized);
                                    }];
 }
 

@@ -59,8 +59,10 @@
  * A method that is used to present the Apple Pay sheet while providing a block for handling authorization responses.
  *
  * @param authorizationBlock - a block used to capture the Apple Pay authorization PKPayment object
+ * @param didFinishBlock - a completion block called after the PKPaymentAuthorizationViewController did finish.
  */
-- (void)presentApplePayWithAuthorizationBlock:(nonnull JPApplePayAuthorizationBlock)authorizationBlock;
+- (void)presentApplePayWithAuthorizationBlock:(nonnull JPApplePayAuthorizationBlock)authorizationBlock
+                               didFinishBlock:(nonnull JPApplePayDidFinishBlock)didFinishBlock;
 
 @end
 

@@ -176,9 +176,11 @@
     [super displayAlertWithTitle:title andError:error];
 }
 
-- (void)presentApplePayWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock {
+- (void)presentApplePayWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock
+                               didFinishBlock:(JPApplePayDidFinishBlock)didFinishBlock {
     self.applePayController = [[JPApplePayController alloc] initWithConfiguration:self.configuration];
-    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock];
+    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
+                                                                                          didFinishBlock:didFinishBlock];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

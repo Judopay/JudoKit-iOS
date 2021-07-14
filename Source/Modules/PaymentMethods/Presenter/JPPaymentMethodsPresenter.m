@@ -181,23 +181,33 @@
 
 - (void)handleApplePayButtonTap {
     __weak typeof(self) weakSelf = self;
-    [self.view presentApplePayWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock completion) {
-        [self.interactor processApplePayment:payment
-                              withCompletion:^(JPResponse *response, JPError *error) {
-                                  PKPaymentAuthorizationResult *result;
+    __block JPResponse *applePayServiceResponse;
+    __block JPError *applePayServiceError;
 
-                                  if (error) {
-                                      result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
-                                                                                             errors:@[ error ]];
-                                      completion(result);
-                                  }
+    [self.view
+        presentApplePayWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock completion) {
+            [weakSelf.interactor processApplePayment:payment
+                                      withCompletion:^(JPResponse *response, JPError *error) {
+                                          PKPaymentAuthorizationResult *result;
 
-                                  result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
-                                                                                         errors:nil];
-                                  completion(result);
-                                  [weakSelf handleCallbackWithResponse:response andError:error];
-                              }];
-    }];
+                                          if (error) {
+                                              result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
+                                                                                                     errors:@[ error ]];
+                                              completion(result);
+                                          }
+
+                                          result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
+                                                                                                 errors:nil];
+                                          completion(result);
+                                          applePayServiceResponse = response;
+                                          applePayServiceError = error;
+                                      }];
+        }
+        didFinishBlock:^(BOOL isPaymentAuthorized) {
+            if (isPaymentAuthorized) {
+                [weakSelf handleCallbackWithResponse:applePayServiceResponse andError:applePayServiceError];
+            }
+        }];
 }
 
 - (void)handlePaymentResponse:(JPResponse *)response {

@@ -52,9 +52,6 @@
 
 @end
 
-@interface JudoKit (JPApplePayDelegate) <JPApplePayControllerDelegate>
-@end
-
 @implementation JudoKit
 
 #pragma mark - Initializers
@@ -155,14 +152,18 @@
                                                               andApiService:self.apiService];
 
     self.applePayController = [[JPApplePayController alloc] initWithConfiguration:configuration];
-    self.applePayController.delegate = self;
-
     self.applePayCompletionBlock = completion;
 
-    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
+    __block JPResponse *applePayServiceResponse;
+    __block JPError *applePayServiceError;
+    __weak typeof(self) weakSelf = self;
+
+    JPApplePayAuthorizationBlock authorizationBlock = ^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
         [self.applePayService processApplePayment:payment
                                forTransactionMode:mode
                                    withCompletion:^(JPResponse *response, JPError *error) {
+                                       applePayServiceResponse = response;
+                                       applePayServiceError = error;
                                        PKPaymentAuthorizationResult *result;
 
                                        if (error) {
@@ -174,10 +175,18 @@
                                        result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
                                                                                               errors:nil];
                                        statusCompletion(result);
-                                       completion(response, error);
                                    }];
-    }];
-    return controller;
+    };
+
+    JPApplePayDidFinishBlock didFinishBlock = ^(BOOL isPaymentAuthorized) {
+        if (!isPaymentAuthorized) {
+            applePayServiceError = JPError.judoUserDidCancelError;
+        }
+        weakSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
+    };
+
+    return [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
+                                                                  didFinishBlock:didFinishBlock];
 }
 
 + (bool)isBankingAppAvailable {
@@ -257,14 +266,6 @@
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
                            completion:(nullable JPCompletionBlock)completion {
     [self.apiService fetchTransactionWithReceiptId:receiptId completion:completion];
-}
-
-@end
-
-@implementation JudoKit (JPApplePayDelegate)
-
-- (void)applePayControllerDidCancelTransaction:(JPApplePayController *)controller {
-    self.applePayCompletionBlock(nil, JPError.judoUserDidCancelError);
 }
 
 @end
