@@ -52,7 +52,7 @@ import Foundation
         
     }
 
-    func presentApplePay(authorizationBlock: @escaping JPApplePayAuthorizationBlock) {
+    func presentApplePay(authorizationBlock: @escaping JPApplePayAuthorizationBlock, didFinish didFinishBlock: @escaping JPApplePayDidFinishBlock) {
         didPresentApplePay = true
 
         let authBlock: (PKPaymentAuthorizationResult) -> () = { _ in }

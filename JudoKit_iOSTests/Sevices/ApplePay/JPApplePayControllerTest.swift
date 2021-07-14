@@ -33,6 +33,7 @@ class JPApplePayControllerTest: XCTestCase {
     lazy var reference = JPReference(consumerReference: "consumerReference")
     lazy var configuration = JPConfiguration(judoID: "123456", amount: amount, reference: reference)
     lazy var authBlock: JPApplePayAuthorizationBlock = { _,_ in }
+    lazy var didFinishBlock: JPApplePayDidFinishBlock = { _ in }
 
     lazy var summaryItems = [JPPaymentSummaryItem(label: "item", amount: 0.15)];
     lazy var appleConfig = JPApplePayConfiguration(merchantId: "merchantId",
@@ -50,7 +51,7 @@ class JPApplePayControllerTest: XCTestCase {
     func test_WhenValidApplePayConfiguration_ReturnConfiguredUIViewController() {
         configuration.applePayConfiguration = appleConfig
         sut = JPApplePayController(configuration: configuration)
-        let controller = sut.applePayViewController(authorizationBlock: authBlock)
+        let controller = sut.applePayViewController(authorizationBlock: authBlock, didFinish: didFinishBlock)
         XCTAssertNotNil(controller)
     }
 
