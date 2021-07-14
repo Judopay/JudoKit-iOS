@@ -37,3 +37,8 @@ typedef void (^JPApplePayAuthStatusBlock)(PKPaymentAuthorizationResult *_Nonnull
  */
 typedef void (^JPApplePayAuthorizationBlock)(PKPayment *_Nonnull payment,
                                              JPApplePayAuthStatusBlock _Nonnull completion);
+
+/**
+ * A completion block called after the PKPaymentAuthorizationViewController did finish.
+ */
+typedef void (^JPApplePayDidFinishBlock)(BOOL isPaymentAuthorized);

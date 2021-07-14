@@ -38,7 +38,9 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var startPolling = false
     var shouldVerify = false
     var handle3DSecureTransaction = false
-    
+    var shouldFailWhenProcessApplePayment = false
+    var storeError = false
+
     var errorType: PaymentError = .duplicateeError
     
     func shouldVerifySecurityCode() -> Bool {
@@ -62,7 +64,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
     
     func storeError(_ error: Error) {
-        
+        storeError = true
     }
     
     func setCardAsSelectedAt(_ index: UInt) {
@@ -118,7 +120,11 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     func processApplePayment(_ payment: PKPayment,
                              withCompletion completion: @escaping JPCompletionBlock) {
         startApplePay = true
-        completion(JPResponse(), nil)
+        if shouldFailWhenProcessApplePayment {
+            completion(nil, JPError(domain: "Domain test", code: 123, userInfo: nil))
+        } else {
+            completion(JPResponse(), nil)
+        }
     }
     
     func isApplePaySetUp() -> Bool {
