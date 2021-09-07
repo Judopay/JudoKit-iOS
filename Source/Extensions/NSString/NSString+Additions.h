@@ -45,6 +45,11 @@
 @property (nonatomic, assign, readonly) BOOL isExpiryDate;
 
 /**
+ * A method which returns a sanitized string that represents a expire date in a valid format
+ */
+- (nullable NSString *)sanitizedExpiryDate;
+
+/**
  * A method which returns YES if the string contains only digits
  */
 @property (nonatomic, assign, readonly) BOOL isNumeric;

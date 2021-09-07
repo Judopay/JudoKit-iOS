@@ -103,7 +103,13 @@
 }
 
 - (BOOL)isExpiryDate {
-    NSString *expiryDateFormay = @"^\\d{2}(\\/|-)\\d{2}$";
+    /* Expected date formats:
+     * 12/22
+     * 12-22
+     * 12-2022
+     * 12/2022
+     */
+    NSString *expiryDateFormay = @"^\\d{2}(\\/|-)(\\d{2}|\\d{4})$";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expiryDateFormay
                                                                            options:NSRegularExpressionAnchorsMatchLines
                                                                              error:nil];
@@ -111,6 +117,36 @@
     NSRange range = NSMakeRange(0, self.length);
     NSUInteger matches = [regex numberOfMatchesInString:self options:0 range:range];
     return matches > 0;
+}
+
+- (NSString *)sanitizedExpiryDate {
+
+    if (!self.isExpiryDate) {
+        return nil;
+    }
+
+    // 1. in case of a '-' character, replace it with '/'
+    NSString *sanitized = [self stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
+
+    // 2. expected length is 5 or 7 chars, everithing else is not valid
+    // (at this point only these 2 options are possible because of `self.isExpiryDate` validation from above)
+    if (sanitized.length == 7) {
+        // in case the date format is '12/2021', transform it to '12/21'
+        NSArray *components = [sanitized componentsSeparatedByString:@"/"];
+        if (components.count == 2) {
+            NSString *fullYear = components.lastObject;
+            if (fullYear.length == 4) {
+                NSString *yearLastTwo = [fullYear substringFromIndex:fullYear.length - 2];
+                return [NSString stringWithFormat:@"%@/%@", components.firstObject, yearLastTwo];
+            } else {
+                return nil;
+            }
+        } else {
+            return nil;
+        }
+    }
+
+    return sanitized;
 }
 
 - (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {

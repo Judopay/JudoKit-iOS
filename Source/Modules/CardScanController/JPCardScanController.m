@@ -241,7 +241,7 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
     NSString *compactText = [detectedText stringByRemovingWhitespaces];
 
     if (compactText.isExpiryDate) {
-        self.detectedExpiryDate = detectedText;
+        self.detectedExpiryDate = [detectedText sanitizedExpiryDate];
     }
 
     JPCardNetworkType cardNetwork = [JPCardNetwork cardNetworkForCardNumber:compactText];
