@@ -109,8 +109,8 @@
      * 12-2022
      * 12/2022
      */
-    NSString *expiryDateFormay = @"^\\d{2}(\\/|-)(\\d{2}|\\d{4})$";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expiryDateFormay
+    NSString *expiryDateFormat = @"^\\d{2}(\\/|-)(\\d{2}|\\d{4})$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expiryDateFormat
                                                                            options:NSRegularExpressionAnchorsMatchLines
                                                                              error:nil];
 
