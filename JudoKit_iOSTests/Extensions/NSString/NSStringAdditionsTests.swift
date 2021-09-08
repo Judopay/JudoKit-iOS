@@ -127,6 +127,8 @@ class NSStringAdditionsTests: XCTestCase {
     func test_WhenExpiryDateFormatCheck_IfContainsValidFormat_ReturnTrue() {
         XCTAssertTrue("00/00".isExpiryDate)
         XCTAssertTrue("00-00".isExpiryDate)
+        XCTAssertTrue("00/2000".isExpiryDate)
+        XCTAssertTrue("00-2000".isExpiryDate)
         XCTAssertFalse("0/00".isExpiryDate)
         XCTAssertFalse("00/0".isExpiryDate)
         XCTAssertFalse("-00/00".isExpiryDate)
@@ -135,4 +137,20 @@ class NSStringAdditionsTests: XCTestCase {
         XCTAssertFalse("00 - 00".isExpiryDate)
         XCTAssertFalse("00 / 00".isExpiryDate)
     }
+    
+    /*
+     * GIVEN: A string is sanitized and addapted to expected expiry date format
+     *
+     * WHEN: the format is either dd/dd or dd-dd or dd/dddd or dd-dddd, where d is a digit
+     *
+     * THEN: the method should return a date formatted as dd/dd or nil
+     */
+    func test_WhenSanitizedExpiryDate_ReturnExpectedDateFormat() {
+        XCTAssertTrue("00/00".sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00-00".sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00/2000".sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00-2000".sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("0000-2000".sanitizedExpiryDate() == nil)
+    }
+    
 }
