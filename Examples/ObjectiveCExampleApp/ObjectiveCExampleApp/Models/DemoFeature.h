@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, DemoFeatureType) {
     DemoFeatureTypeServerToServer,
     DemoFeatureTypePBBA,
     DemoFeatureTokenPayments,
+    DemoFeatureNoUIPayments,
     DemoFeatureGetTransactionDetails,
 };
 

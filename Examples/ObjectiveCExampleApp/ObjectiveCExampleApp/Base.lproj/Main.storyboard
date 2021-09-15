@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="44"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.judo.judopaysample.tableviewcellidentifier" textLabel="Sw2-DS-jRp" detailTextLabel="JwE-fr-ajh" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="fRt-3J-neQ">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRt-3J-neQ" id="awB-Hl-Zff">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -79,6 +79,7 @@
                         <segue destination="roV-nE-oFc" kind="show" identifier="showPbbaScreen" id="ace-IV-qgw"/>
                         <segue destination="UWo-Q7-j0K" kind="show" identifier="tokenPayments" id="MxX-bg-KUN"/>
                         <segue destination="qIB-ON-fdd" kind="show" identifier="showApplePayScreen" id="R2W-bn-ToH"/>
+                        <segue destination="aAh-VN-Jhb" kind="show" identifier="noUIPayments" id="fzY-Ry-O4l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -167,10 +168,10 @@
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="1460.4197901049477"/>
         </scene>
-        <!--Pay With Card Token View Controller-->
+        <!--Token and no UI-->
         <scene sceneID="hHt-gy-Nk0">
             <objects>
-                <viewController id="UWo-Q7-j0K" customClass="PayWithCardTokenViewController" sceneMemberID="viewController">
+                <viewController title="Token and no UI" id="UWo-Q7-j0K" customClass="PayWithCardTokenViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MHk-TG-oSf"/>
                         <viewControllerLayoutGuide type="bottom" id="MgC-wc-mMW"/>
@@ -390,6 +391,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C8Y-lT-Pca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="158" y="671"/>
+        </scene>
+        <!--No UI-->
+        <scene sceneID="4i3-D0-9Pc">
+            <objects>
+                <viewController title="No UI" id="aAh-VN-Jhb" customClass="NoUICardPayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FCZ-6H-HBT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jqw-KT-Vh3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sYn-yi-9v9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gB7-OJ-fpW">
+                                <rect key="frame" x="37" y="283.5" width="301" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9M5-RS-0Zi" customClass="JPLoadingButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="301" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="mwe-Oe-HnA"/>
+                                        </constraints>
+                                        <state key="normal" title="Pay with card">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="payWithCardToken:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="pAs-Wc-1hd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpm-JD-nhS" customClass="JPLoadingButton">
+                                        <rect key="frame" x="0.0" y="54" width="301" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="PreAuth with card ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="preAuthWithCardToken:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="yId-53-TpU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Zpm-JD-nhS" firstAttribute="height" secondItem="9M5-RS-0Zi" secondAttribute="height" id="JIz-k0-COk"/>
+                                    <constraint firstItem="Zpm-JD-nhS" firstAttribute="width" secondItem="9M5-RS-0Zi" secondAttribute="width" id="KSg-Cy-d6f"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gB7-OJ-fpW" secondAttribute="trailing" constant="37" id="6a8-i8-pPa"/>
+                            <constraint firstItem="gB7-OJ-fpW" firstAttribute="leading" secondItem="sYn-yi-9v9" secondAttribute="leading" constant="37" id="a27-RQ-Ia6"/>
+                            <constraint firstItem="gB7-OJ-fpW" firstAttribute="centerY" secondItem="sYn-yi-9v9" secondAttribute="centerY" id="t9i-Yk-WKz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SNa-gu-KHn"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="payWithCardButton" destination="9M5-RS-0Zi" id="ghh-7E-9g6"/>
+                        <outlet property="preAuthWithCardButton" destination="Zpm-JD-nhS" id="d4D-vf-wTK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pUc-hZ-31I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892" y="2134"/>
         </scene>
     </scenes>
     <resources>

@@ -35,12 +35,14 @@
 #import "MainViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
+#import "NoUICardPayViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
+static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 @interface MainViewController ()
 
@@ -134,6 +136,10 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {
         PayWithCardTokenViewController *controller = segue.destinationViewController;
         controller.judoKit = self.judoKit;
+        controller.configuration = self.configuration;
+    }
+    if ([segue.destinationViewController isKindOfClass:NoUICardPayViewController.class]) {
+        NoUICardPayViewController *controller = segue.destinationViewController;
         controller.configuration = self.configuration;
     }
 }
@@ -239,6 +245,10 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 
 - (void)tokenPaymentsMethodOperation {
     [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
+}
+
+- (void)noUIPaymentsMethodOperation {
+    [self performSegueWithIdentifier:kNoUIPaymentsScreenSegue sender:nil];
 }
 
 - (void)applePayOperation {
@@ -437,6 +447,10 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
+            break;
+
+        case DemoFeatureNoUIPayments:
+            [self noUIPaymentsMethodOperation];
             break;
 
         case DemoFeatureGetTransactionDetails:
