@@ -4,7 +4,12 @@
 @implementation IASKAppSettingsViewController (Additions)
 
 - (void)updateHiddenKeys {
-    NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey ]];
+    NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[
+        kIsPaymentSessionOnKey,
+        kIsTokenAndSecretOnKey,
+        kIsAddressOnKey,
+        kIsPrimaryAccountDetailsOnKey
+    ]];
     [self setHiddenKeys:hiddenKeys];
 }
 
@@ -13,9 +18,11 @@
     NSSet *hiddenKeys;
 
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -24,21 +31,58 @@
 }
 
 - (NSSet *)computeHiddenKeysWithPriority:(NSArray *)keys {
-    NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:@[ kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey ]];
+    NSMutableArray *hiddenKeys = [NSMutableArray arrayWithArray:@[
+        kTokenKey,
+        kSecretKey,
+        
+        kSessionTokenKey,
+        kPaymentSessionKey,
+        
+        kAddressLine1Key,
+        kAddressLine2Key,
+        kAddressLine3Key,
+        kAddressTownKey,
+        kAddressPostCodeKey,
+        kAddressBillingCountryKey,
+        
+        kPrimaryAccountNameKey,
+        kPrimaryAccountAccountNumberKey,
+        kPrimaryAccountDateOfBirthKey,
+        kPrimaryAccountPostCodeKey
+    ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
-        [hiddenKeys removeObject:kSessionTokenKey];
-        [hiddenKeys removeObject:kPaymentSessionKey];
+        [hiddenKeys removeObjectsInArray:@[kSessionTokenKey, kPaymentSessionKey]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsTokenAndSecretOnKey];
     }
 
     if ([keys containsObject:kIsTokenAndSecretOnKey] && Settings.defaultSettings.isTokenAndSecretAuthorizationOn) {
-        [hiddenKeys removeObject:kTokenKey];
-        [hiddenKeys removeObject:kSecretKey];
+        [hiddenKeys removeObjectsInArray:@[kTokenKey, kSecretKey]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsPaymentSessionOnKey];
     }
+    
+    if ([keys containsObject:kIsAddressOnKey] && Settings.defaultSettings.isAddressOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kAddressLine1Key,
+            kAddressLine2Key,
+            kAddressLine3Key,
+            kAddressTownKey,
+            kAddressPostCodeKey,
+            kAddressBillingCountryKey
+        ]];
+    }
 
-    return hiddenKeys;
+    if ([keys containsObject:kIsPrimaryAccountDetailsOnKey] && Settings.defaultSettings.isPrimaryAccountDetailsOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kPrimaryAccountNameKey,
+            kPrimaryAccountAccountNumberKey,
+            kPrimaryAccountDateOfBirthKey,
+            kPrimaryAccountPostCodeKey
+        ]];
+    }
+
+    
+    return [NSSet setWithArray:hiddenKeys];
 }
 
 @end

@@ -2,8 +2,8 @@ PODS:
   - CocoaDebug (1.6.3)
   - Cucumberish (1.4.0)
   - DeviceDNA (1.1.3)
-  - InAppSettingsKit (2.15)
-  - JudoKit-iOS (2.4.2):
+  - InAppSettingsKit (3.3.3)
+  - JudoKit-iOS (2.4.3):
     - DeviceDNA
     - TrustKit
     - ZappMerchantLib
@@ -13,7 +13,7 @@ PODS:
 DEPENDENCIES:
   - CocoaDebug
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
-  - InAppSettingsKit (= 2.15)
+  - InAppSettingsKit (= 3.3.3)
   - JudoKit-iOS (from `../../`)
 
 SPEC REPOS:
@@ -39,11 +39,11 @@ SPEC CHECKSUMS:
   CocoaDebug: 188ea707c3728402e16efffa8d309a4704f1c59a
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: c3d7ba1669cebf7965407e7022769e5a5eda8c35
-  InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
-  JudoKit-iOS: 8031e8c58385459739ef1107efea788dae971de4
+  InAppSettingsKit: b115427a8c8041597fd89279db901c82f3f0e21f
+  JudoKit-iOS: 1a7dcf70f450065a90167c857299e05e265ba760
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: e49825f56b6d76b782b38e6d465f4c23637c54a4
+PODFILE CHECKSUM: 10dddbb831dd069cb60d15783d7ef87eddab1709
 
 COCOAPODS: 1.10.1
