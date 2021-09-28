@@ -314,7 +314,7 @@
 			<key>Key</key>
 			<string>address_billing_country</string>
 			<key>DefaultValue</key>
-			<string>UK</string>
+			<string>826</string>
 		</dict>
 		<dict>
 			<key>Type</key>

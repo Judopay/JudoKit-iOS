@@ -34,17 +34,17 @@
     NSMutableArray *hiddenKeys = [NSMutableArray arrayWithArray:@[
         kTokenKey,
         kSecretKey,
-        
+
         kSessionTokenKey,
         kPaymentSessionKey,
-        
+
         kAddressLine1Key,
         kAddressLine2Key,
         kAddressLine3Key,
         kAddressTownKey,
         kAddressPostCodeKey,
         kAddressBillingCountryKey,
-        
+
         kPrimaryAccountNameKey,
         kPrimaryAccountAccountNumberKey,
         kPrimaryAccountDateOfBirthKey,
@@ -52,15 +52,15 @@
     ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
-        [hiddenKeys removeObjectsInArray:@[kSessionTokenKey, kPaymentSessionKey]];
+        [hiddenKeys removeObjectsInArray:@[ kSessionTokenKey, kPaymentSessionKey ]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsTokenAndSecretOnKey];
     }
 
     if ([keys containsObject:kIsTokenAndSecretOnKey] && Settings.defaultSettings.isTokenAndSecretAuthorizationOn) {
-        [hiddenKeys removeObjectsInArray:@[kTokenKey, kSecretKey]];
+        [hiddenKeys removeObjectsInArray:@[ kTokenKey, kSecretKey ]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsPaymentSessionOnKey];
     }
-    
+
     if ([keys containsObject:kIsAddressOnKey] && Settings.defaultSettings.isAddressOn) {
         [hiddenKeys removeObjectsInArray:@[
             kAddressLine1Key,
@@ -81,7 +81,6 @@
         ]];
     }
 
-    
     return [NSSet setWithArray:hiddenKeys];
 }
 

@@ -208,11 +208,12 @@ NSString *safeString(NSString *aString) {
 
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
+        NSNumber *countryCode = @([self.defaults stringForKey:kAddressBillingCountryKey].intValue);
         return [[JPAddress alloc] initWithLine1:[self.defaults stringForKey:kAddressLine1Key]
                                           line2:[self.defaults stringForKey:kAddressLine2Key]
                                           line3:[self.defaults stringForKey:kAddressLine3Key]
                                            town:[self.defaults stringForKey:kAddressTownKey]
-                                    countryCode:[self.defaults stringForKey:kAddressBillingCountryKey]
+                                    countryCode:countryCode
                                        postCode:[self.defaults stringForKey:kAddressPostCodeKey]];
     }
     return nil;

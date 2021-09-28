@@ -321,7 +321,7 @@ static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
-    
+
     return configuration;
 }
 
