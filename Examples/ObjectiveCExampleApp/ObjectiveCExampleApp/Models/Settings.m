@@ -78,6 +78,14 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsPaymentSessionOnKey];
 }
 
+- (BOOL)isAddressOn {
+    return [self.defaults boolForKey:kIsAddressOnKey];
+}
+
+- (BOOL)isPrimaryAccountDetailsOn {
+    return [self.defaults boolForKey:kIsPrimaryAccountDetailsOnKey];
+}
+
 #pragma mark - Reference section
 
 - (JPReference *)reference {
@@ -196,6 +204,31 @@ NSString *safeString(NSString *aString) {
 
 - (BOOL)isInitialRecurringPaymentEnabled {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
+}
+
+- (JPAddress *)address {
+    if (Settings.defaultSettings.isAddressOn) {
+        NSNumber *countryCode = @([self.defaults stringForKey:kAddressBillingCountryKey].intValue);
+        return [[JPAddress alloc] initWithLine1:[self.defaults stringForKey:kAddressLine1Key]
+                                          line2:[self.defaults stringForKey:kAddressLine2Key]
+                                          line3:[self.defaults stringForKey:kAddressLine3Key]
+                                           town:[self.defaults stringForKey:kAddressTownKey]
+                                    countryCode:countryCode
+                                       postCode:[self.defaults stringForKey:kAddressPostCodeKey]];
+    }
+    return nil;
+}
+
+- (JPPrimaryAccountDetails *)primaryAccountDetails {
+    if (Settings.defaultSettings.isPrimaryAccountDetailsOn) {
+        JPPrimaryAccountDetails *accountDetails = [JPPrimaryAccountDetails new];
+        accountDetails.accountNumber = [self.defaults stringForKey:kPrimaryAccountAccountNumberKey];
+        accountDetails.name = [self.defaults stringForKey:kPrimaryAccountNameKey];
+        accountDetails.dateOfBirth = [self.defaults stringForKey:kPrimaryAccountDateOfBirthKey];
+        accountDetails.postCode = [self.defaults stringForKey:kPrimaryAccountPostCodeKey];
+        return accountDetails;
+    }
+    return nil;
 }
 
 @end

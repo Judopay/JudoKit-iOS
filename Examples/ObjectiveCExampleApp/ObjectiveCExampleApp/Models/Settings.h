@@ -19,6 +19,21 @@ static NSString *const kSecretKey = @"secret";
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
 
+static NSString *const kIsAddressOnKey = @"is_address_enabled";
+static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
+
+static NSString *const kAddressLine1Key = @"address_line_1";
+static NSString *const kAddressLine2Key = @"address_line_2";
+static NSString *const kAddressLine3Key = @"address_line_3";
+static NSString *const kAddressTownKey = @"address_town";
+static NSString *const kAddressPostCodeKey = @"address_post_code";
+static NSString *const kAddressBillingCountryKey = @"address_billing_country";
+
+static NSString *const kPrimaryAccountNameKey = @"primary_account_name";
+static NSString *const kPrimaryAccountAccountNumberKey = @"primary_account_account_number";
+static NSString *const kPrimaryAccountDateOfBirthKey = @"primary_account_date_of_birth";
+static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code";
+
 #pragma mark - Reference section keys
 static NSString *const kPaymentReferenceKey = @"payment_reference";
 static NSString *const kConsumerReferenceKey = @"consumer_reference";
@@ -104,7 +119,11 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (BOOL)shouldPaymentButtonDisplayAmount;
 - (BOOL)shouldPaymentMethodsVerifySecurityCode;
 - (BOOL)isInitialRecurringPaymentEnabled;
+- (BOOL)isAddressOn;
+- (BOOL)isPrimaryAccountDetailsOn;
 
+- (JPAddress *)address;
+- (JPPrimaryAccountDetails *)primaryAccountDetails;
 @end
 
 NS_ASSUME_NONNULL_END

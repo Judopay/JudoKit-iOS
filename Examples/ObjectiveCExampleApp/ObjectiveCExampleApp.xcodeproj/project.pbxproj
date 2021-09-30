@@ -19,6 +19,7 @@
 		30711FF1258A74C500D92BCF /* JPUITestData.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FF0258A74C500D92BCF /* JPUITestData.m */; };
 		30711FFD258B523700D92BCF /* JPUITestAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 30711FFC258B523700D92BCF /* JPUITestAddress.m */; };
 		30FF8E98259AC4100077B5C8 /* ApplePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8E97259AC4100077B5C8 /* ApplePayViewController.m */; };
+		4436A9F426F2A12E00A6C371 /* NoUICardPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4436A9F326F2A12E00A6C371 /* NoUICardPayViewController.m */; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
 		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
@@ -91,6 +92,8 @@
 		30FF8E96259AC4100077B5C8 /* ApplePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplePayViewController.h; sourceTree = "<group>"; };
 		30FF8E97259AC4100077B5C8 /* ApplePayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplePayViewController.m; sourceTree = "<group>"; };
 		3AB03C618596FCEA7EC86A2F /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4436A9F226F2A12E00A6C371 /* NoUICardPayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoUICardPayViewController.h; sourceTree = "<group>"; };
+		4436A9F326F2A12E00A6C371 /* NoUICardPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoUICardPayViewController.m; sourceTree = "<group>"; };
 		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		448AB1A22450DE8F004A11CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -114,7 +117,6 @@
 		4490D14C24882CBE004290DD /* ResultItemTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultItemTableViewCell.m; sourceTree = "<group>"; };
 		4490D14D24882CBE004290DD /* ResultItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultItemTableViewCell.xib; sourceTree = "<group>"; };
 		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
-		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4494950E2450ED870050C6A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4494950F2450ED870050C6A0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -294,6 +296,15 @@
 			path = ApplePay;
 			sourceTree = "<group>";
 		};
+		4436A9F126F2A10000A6C371 /* NoUICardPay */ = {
+			isa = PBXGroup;
+			children = (
+				4436A9F226F2A12E00A6C371 /* NoUICardPayViewController.h */,
+				4436A9F326F2A12E00A6C371 /* NoUICardPayViewController.m */,
+			);
+			path = NoUICardPay;
+			sourceTree = "<group>";
+		};
 		448AB1952450DE8F004A11CB = {
 			isa = PBXGroup;
 			children = (
@@ -322,7 +333,6 @@
 				448AB1B32450DE93004A11CB /* main.m */,
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
 				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
-				449495042450ED870050C6A0 /* ExampleAppCredentials.h */,
 				A75B33187564297D32751980 /* Extensions */,
 				449495102450ED870050C6A0 /* Models */,
 				449495052450ED870050C6A0 /* Controllers */,
@@ -396,6 +406,7 @@
 		449495052450ED870050C6A0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4436A9F126F2A10000A6C371 /* NoUICardPay */,
 				30FF8E95259AC3F30077B5C8 /* ApplePay */,
 				07D84C012497B331000D7197 /* TokenPay */,
 				4490D14124882747004290DD /* Result */,
@@ -418,9 +429,9 @@
 		449495102450ED870050C6A0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				449495112450ED870050C6A0 /* DemoFeature.h */,
 				449495122450ED870050C6A0 /* Settings.h */,
 				449495132450ED870050C6A0 /* Settings.m */,
+				449495112450ED870050C6A0 /* DemoFeature.h */,
 				449495142450ED870050C6A0 /* DemoFeature.m */,
 			);
 			path = Models;
@@ -857,6 +868,7 @@
 				07D84C042497B35E000D7197 /* PayWithCardTokenViewController.m in Sources */,
 				4490D14E24882CBE004290DD /* ResultItemTableViewCell.m in Sources */,
 				4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */,
+				4436A9F426F2A12E00A6C371 /* NoUICardPayViewController.m in Sources */,
 				30FF8E98259AC4100077B5C8 /* ApplePayViewController.m in Sources */,
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
@@ -1068,7 +1080,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1091,7 +1103,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "AppDelegate.h"
-#import "ExampleAppCredentials.h"
 #import "MainViewController.h"
 #import "Settings.h"
 
@@ -78,13 +77,6 @@
 
     NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
 
-    NSDictionary *secretsMapping = @{
-        kJudoIdKey : judoId,
-        kTokenKey : token,
-        kSecretKey : secret,
-        kMerchantIdKey : merchantId,
-    };
-
     for (NSDictionary *preference in preferences) {
         NSString *key = preference[@"Key"];
         if (!key) {
@@ -93,8 +85,6 @@
 
         if ([preference.allKeys containsObject:@"DefaultValue"]) {
             defaultsToRegister[key] = preference[@"DefaultValue"];
-        } else if ([secretsMapping.allKeys containsObject:key]) {
-            defaultsToRegister[key] = secretsMapping[key];
         }
     }
 

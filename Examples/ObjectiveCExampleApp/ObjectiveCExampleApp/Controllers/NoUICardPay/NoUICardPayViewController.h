@@ -1,5 +1,5 @@
 //
-//  ExampleAppCredentials.m
+//  NoUICardPayViewController.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+@import JudoKit_iOS;
 
-#pragma warning "set your own token and secret to see testing results"
+@interface NoUICardPayViewController : UIViewController
 
-static NSString *const judoId = @"<#YOUR JUDOID#>";
-static NSString *const token = @"<#YOUR TOKEN#>";
-static NSString *const secret = @"<#YOUR SECRET#>";
-static NSString *const merchantId = @"<#YOUR MERCHANT ID#>";
+@property (nonatomic, strong) JPConfiguration *configuration;
+
+@end
