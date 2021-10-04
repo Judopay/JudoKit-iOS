@@ -32,7 +32,7 @@
 @protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"2.4.3";
+static NSString *__nonnull const JudoKitVersion = @"2.4.4";
 
 @interface JudoKit : NSObject
 
