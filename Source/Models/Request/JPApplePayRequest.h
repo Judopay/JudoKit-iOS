@@ -25,7 +25,7 @@
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
-@class PKPayment, PKPaymentToken;
+@class PKPayment, PKPaymentToken, PKContact;
 
 @interface JPApplePayPaymentToken : NSObject
 
@@ -55,12 +55,36 @@
 
 @end
 
+@interface JPApplePayBillingContact : NSObject
+
+@property (nonatomic, strong, nullable) NSString *street;
+@property (nonatomic, strong, nullable) NSString *subLocality;
+@property (nonatomic, strong, nullable) NSString *city;
+@property (nonatomic, strong, nullable) NSString *subAdministrativeArea;
+@property (nonatomic, strong, nullable) NSString *state;
+@property (nonatomic, strong, nullable) NSString *postalCode;
+@property (nonatomic, strong, nullable) NSString *country;
+@property (nonatomic, strong, nullable) NSString *ISOCountryCode;
+
+@property (nonatomic, strong, nullable) NSString *namePrefix;
+@property (nonatomic, strong, nullable) NSString *givenName;
+@property (nonatomic, strong, nullable) NSString *middleName;
+@property (nonatomic, strong, nullable) NSString *familyName;
+@property (nonatomic, strong, nullable) NSString *nameSuffix;
+@property (nonatomic, strong, nullable) NSString *nickname;
+
+- (nonnull instancetype)initWithContact:(PKContact *_Nonnull)contact;
+
+@end
+
 @interface JPApplePayPayment : NSObject
 
 /**
  * A reference to the JPApplePayPaymentToken instance containing information about the Apple Pay token
  */
 @property (nonatomic, strong, nonnull) JPApplePayPaymentToken *token;
+
+@property (nonatomic, strong, nullable) JPApplePayBillingContact *billingContact;
 
 /**
  * Designated initializer based on a provided PKPayment instance

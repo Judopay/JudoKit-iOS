@@ -45,11 +45,46 @@
 
 @end
 
+@implementation JPApplePayBillingContact : NSObject
+
+- (instancetype)initWithContact:(PKContact *_Nonnull)contact {
+    if (self = [super init]) {
+        CNPostalAddress *address = contact.postalAddress;
+
+        _street = address.street;
+        _subLocality = address.subLocality;
+        _city = address.city;
+        _subAdministrativeArea = address.subAdministrativeArea;
+        _state = address.state;
+        _postalCode = address.postalCode;
+        _country = address.country;
+        _ISOCountryCode = address.ISOCountryCode;
+
+        NSPersonNameComponents *name = contact.name;
+
+        _namePrefix = name.namePrefix;
+        _givenName = name.givenName;
+        _middleName = name.middleName;
+        _familyName = name.familyName;
+        _nameSuffix = name.nameSuffix;
+        _nickname = name.nickname;
+    }
+    return self;
+}
+
+@end
+
 @implementation JPApplePayPayment
 
 - (instancetype)initWithPayment:(PKPayment *)payment {
     if (self = [super init]) {
         _token = [[JPApplePayPaymentToken alloc] initWithPaymentToken:payment.token];
+
+        PKContact *billingContact = payment.billingContact;
+
+        if (billingContact) {
+            _billingContact = [[JPApplePayBillingContact alloc] initWithContact:billingContact];
+        }
     }
     return self;
 }
@@ -70,7 +105,6 @@
     self.pkPayment = [[JPApplePayPayment alloc] initWithPayment:payment];
 
     PKContact *billingContact = payment.billingContact;
-    CNPostalAddress *postalAddress = billingContact.postalAddress;
 
     if (billingContact.emailAddress != nil) {
         self.emailAddress = billingContact.emailAddress;
@@ -79,13 +113,6 @@
     if (billingContact.phoneNumber != nil) {
         self.mobileNumber = billingContact.phoneNumber.stringValue;
     }
-
-    self.cardAddress = [[JPAddress alloc] initWithLine1:postalAddress.street
-                                                  line2:postalAddress.city
-                                                  line3:postalAddress.postalCode
-                                                   town:postalAddress.city
-                                            countryCode:[JPCountry isoCodeForCountry:postalAddress.country]
-                                               postCode:postalAddress.postalCode];
 }
 
 @end
