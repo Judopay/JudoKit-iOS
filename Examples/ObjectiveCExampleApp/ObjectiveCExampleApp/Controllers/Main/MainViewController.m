@@ -395,6 +395,17 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
+    
+    BOOL isApplePayRelatedFeature = feature.type == DemoFeatureTypeApplePayPayment
+    || feature.type == DemoFeatureTypeApplePayPreAuth
+    || feature.type == DemoFeatureTypeApplePayStandalone;
+
+    JPConfiguration *configuration = self.configuration;
+    if (isApplePayRelatedFeature && ![JudoKit isApplePayAvailableWithConfiguration:configuration]) {
+        [self displayAlertWithTitle:@"Error" andMessage:@"ApplePay is not available for given configuration."];
+        return;
+    }
+    
     switch (feature.type) {
         case DemoFeatureTypePayment:
             [self paymentOperation];

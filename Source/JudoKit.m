@@ -38,6 +38,7 @@
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
 #import <PassKit/PassKit.h>
+#import "JPApplePayWrappers.h"
 
 @interface JudoKit ()
 
@@ -191,6 +192,15 @@
 
 + (bool)isBankingAppAvailable {
     return JPPBBAService.isBankingAppAvailable;
+}
+
++ (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
+    if ([PKPaymentAuthorizationController canMakePayments]) {
+        NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:configuration];
+        PKMerchantCapability capabilities = [JPApplePayWrappers pkMerchantCapabilitiesForConfiguration:configuration];
+        return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks capabilities:capabilities];
+    }
+    return NO;
 }
 
 - (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration

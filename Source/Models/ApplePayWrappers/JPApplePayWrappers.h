@@ -37,6 +37,8 @@
  */
 + (PKPaymentAuthorizationViewController *)pkPaymentControllerForConfiguration:(JPConfiguration *)configuration;
 
++ (PKMerchantCapability)pkMerchantCapabilitiesForConfiguration:(JPConfiguration *)configuration;
+
 /**
  * A method that returns an array of Apple Pay supported payment networks based on the ones provided in the JPConfiguration object
  *
