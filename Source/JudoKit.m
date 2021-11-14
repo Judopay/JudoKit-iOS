@@ -133,9 +133,11 @@
         return;
     }
 
-    [UIApplication.topMostViewController presentViewController:controller
-                                                      animated:YES
-                                                    completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication.topMostViewController presentViewController:controller
+                                                          animated:YES
+                                                        completion:nil];
+    });
 }
 
 - (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
