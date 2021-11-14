@@ -103,20 +103,20 @@ NSString *getUserAgent() {
 
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
 
-    //Base user agent
+    // Base user agent
     [userAgentParts addObject:[NSString stringWithFormat:@"JudoKit_iOS/%@", JudoKitVersion]];
 
-    //Model
+    // Model
     [userAgentParts addObject:device.model];
 
-    //Operating system
+    // Operating system
     [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", device.systemName, device.systemVersion]];
 
     NSString *appName = [mainBundle objectForInfoDictionaryKey:@"CFBundleName"];
     NSString *appVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 
     if (appName && appVersion) {
-        //App Name and version
+        // App Name and version
         NSString *appNameMinusSpaces = [appName stringByRemovingWhitespaces];
         [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appNameMinusSpaces, appVersion]];
     }
@@ -124,7 +124,7 @@ NSString *getUserAgent() {
     NSString *platformName = [mainBundle objectForInfoDictionaryKey:@"DTPlatformName"];
 
     if (platformName) {
-        //Platform running on (simulator or device)
+        // Platform running on (simulator or device)
         [userAgentParts addObject:platformName];
     }
 

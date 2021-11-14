@@ -25,6 +25,7 @@
 #import "JudoKit.h"
 #import "JPApiService.h"
 #import "JPApplePayService.h"
+#import "JPApplePayWrappers.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -38,7 +39,6 @@
 #import "JPTransactionViewController.h"
 #import "UIApplication+Additions.h"
 #import <PassKit/PassKit.h>
-#import "JPApplePayWrappers.h"
 
 @interface JudoKit ()
 

@@ -58,7 +58,7 @@ static NSString *__nonnull const JudoKitVersion = @"2.4.6";
  * Convenience initializer that returns a configured JudoKit instance that allows jailbroken devices.
  *
  * @returns - a configured instance of JudoKit.
-*/
+ */
 
 - (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 

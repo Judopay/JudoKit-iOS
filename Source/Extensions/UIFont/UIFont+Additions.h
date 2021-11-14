@@ -38,7 +38,7 @@
 
 /**
  * The headline font of size 16 and weight semibold
-*/
+ */
 + (nonnull UIFont *)headline;
 
 /**

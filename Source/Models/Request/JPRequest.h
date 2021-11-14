@@ -51,7 +51,7 @@
 /**
  * A reference to the card secure code
  */
-@property (nonatomic, strong, nullable) NSString *cv2; //TODO: <- Change to secureCode
+@property (nonatomic, strong, nullable) NSString *cv2; // TODO: <- Change to secureCode
 
 /**
  * A reference to the card expiry date

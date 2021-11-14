@@ -101,12 +101,12 @@
  * A method that sets a card as default based on an index
  * @param isDefault - a boolean value that indicates the the default state to be set
  * @param index - the index of the card in the list
-*/
+ */
 - (void)setCardDefaultState:(BOOL)isDefault atIndex:(NSUInteger)index;
 
 /**
  * A method that reorders cards so that the default card is always on top
-*/
+ */
 - (void)orderCards;
 
 @end

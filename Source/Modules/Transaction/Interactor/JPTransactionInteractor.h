@@ -142,7 +142,7 @@
  * @param input - the input country string
  *
  * @returns a JPValidationResult with the validation status details
-*/
+ */
 - (JPValidationResult *)validateCountryInput:(NSString *)input;
 
 /**
@@ -173,8 +173,8 @@
                            andToken:(NSString *)token;
 
 /**
-* A method for generating pay button title
-*/
+ * A method for generating pay button title
+ */
 - (NSString *)generatePayButtonTitle;
 
 @end

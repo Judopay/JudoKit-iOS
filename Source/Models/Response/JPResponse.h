@@ -54,8 +54,8 @@
 @property (nonatomic, strong) NSString *_Nullable redirectUrl;
 
 /**
-*  An object describing the current payment method
-*/
+ *  An object describing the current payment method
+ */
 @property (nonatomic, strong) NSString *_Nullable paymentMethod;
 
 /**
