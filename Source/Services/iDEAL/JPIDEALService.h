@@ -60,7 +60,7 @@
 
 /**
  * Method used to invalidate the timer and stop the polling process
-*/
+ */
 - (void)stopPollingTransactionStatus;
 
 @end

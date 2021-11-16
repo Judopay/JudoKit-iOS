@@ -64,12 +64,12 @@
 
 /**
  * Starts the PBBA payment
-*/
+ */
 - (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the PBBA polling
-*/
+ */
 - (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
@@ -87,12 +87,12 @@
 /**
  * A method that sets a card as last used card to make a successfull payment
  * @param index - the index of the card in the list
-*/
+ */
 - (void)setLastUsedCardAtIndex:(NSUInteger)index;
 
 /**
-* A method that sets a card as default based on an index
-*/
+ * A method that sets a card as default based on an index
+ */
 - (void)setCardAsDefaultAtIndex:(NSInteger)index;
 
 /**
@@ -130,13 +130,13 @@
 - (nonnull NSArray *)getIDEALBankTypes;
 
 /**
-* A method which returns index of pbba method
-*/
+ * A method which returns index of pbba method
+ */
 - (NSInteger)indexOfPBBAMethod;
 
 /**
-* A method which returns bool value for security code
-*/
+ * A method which returns bool value for security code
+ */
 - (BOOL)shouldVerifySecurityCode;
 
 /**

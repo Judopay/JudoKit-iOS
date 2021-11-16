@@ -361,9 +361,9 @@
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
     }
 
-    //TODO: Handle Maestro-specific logic
-    // card.startDate = viewModel.startDateViewModel.text;
-    // card.issueNumber = viewModel.issueNumberViewModel.text;
+    // TODO: Handle Maestro-specific logic
+    //  card.startDate = viewModel.startDateViewModel.text;
+    //  card.issueNumber = viewModel.issueNumberViewModel.text;
 
     return card;
 }

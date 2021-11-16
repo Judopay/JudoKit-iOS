@@ -25,6 +25,7 @@
 #import "JudoKit.h"
 #import "JPApiService.h"
 #import "JPApplePayService.h"
+#import "JPApplePayWrappers.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -132,9 +133,11 @@
         return;
     }
 
-    [UIApplication.topMostViewController presentViewController:controller
-                                                      animated:YES
-                                                    completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication.topMostViewController presentViewController:controller
+                                                          animated:YES
+                                                        completion:nil];
+    });
 }
 
 - (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
@@ -191,6 +194,15 @@
 
 + (bool)isBankingAppAvailable {
     return JPPBBAService.isBankingAppAvailable;
+}
+
++ (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
+    if ([PKPaymentAuthorizationController canMakePayments]) {
+        NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:configuration];
+        PKMerchantCapability capabilities = [JPApplePayWrappers pkMerchantCapabilitiesForConfiguration:configuration];
+        return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks capabilities:capabilities];
+    }
+    return NO;
 }
 
 - (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration

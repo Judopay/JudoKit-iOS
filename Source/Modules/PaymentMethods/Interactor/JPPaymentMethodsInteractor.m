@@ -238,7 +238,7 @@
             break;
 
         default:
-            //noop
+            // noop
             break;
     }
 }

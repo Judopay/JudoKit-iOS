@@ -56,7 +56,7 @@
  * @param title - the optional NSString instance of the section
  *
  * @returns a configured instance of JPSection
-*/
+ */
 - (nonnull instancetype)initWithImage:(nonnull UIImage *)image
                              andTitle:(nullable NSString *)title;
 

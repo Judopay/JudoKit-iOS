@@ -51,8 +51,12 @@
 }
 
 - (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
+    [self displayAlertWithTitle:title andMessage:error.localizedDescription];
+}
+
+- (void)displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
-                                                                        message:error.localizedDescription
+                                                                        message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok".localized.uppercaseString

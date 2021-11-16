@@ -55,8 +55,8 @@
 + (nonnull instancetype)detailsWithDictionary:(nonnull NSDictionary *)dictionary;
 
 /*
-*  Convenience initialized based on a provided NSDictionary object
-*/
+ *  Convenience initialized based on a provided NSDictionary object
+ */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

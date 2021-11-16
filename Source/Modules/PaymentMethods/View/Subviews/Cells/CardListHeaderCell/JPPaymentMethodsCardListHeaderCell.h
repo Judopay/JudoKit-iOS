@@ -40,7 +40,7 @@
 @property (nonatomic, strong) UIButton *_Nullable actionButton;
 
 /**
-*  The delegate that will handle action button logic
-*/
+ *  The delegate that will handle action button logic
+ */
 @property (nonatomic, weak) id<JPPaymentMethodsCardListHeaderCellDelegate> _Nullable delegate;
 @end

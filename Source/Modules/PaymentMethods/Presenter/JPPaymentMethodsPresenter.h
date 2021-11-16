@@ -32,8 +32,8 @@
 @protocol JPPaymentMethodsPresenter
 
 /**
-* A method that hadle payment
-*/
+ * A method that hadle payment
+ */
 - (void)handlePaymentWithSecurityCode:(nullable NSString *)code;
 
 /**
@@ -102,7 +102,7 @@
 
 /**
  * A method that reorders cards so that the default card is always on top
-*/
+ */
 - (void)orderCards;
 
 @end

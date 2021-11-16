@@ -1087,7 +1087,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.5;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1110,7 +1110,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.5;
+				MARKETING_VERSION = 2.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";

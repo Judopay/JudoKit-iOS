@@ -32,7 +32,7 @@
 @protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"2.4.5";
+static NSString *__nonnull const JudoKitVersion = @"2.4.6";
 
 @interface JudoKit : NSObject
 
@@ -58,7 +58,7 @@ static NSString *__nonnull const JudoKitVersion = @"2.4.5";
  * Convenience initializer that returns a configured JudoKit instance that allows jailbroken devices.
  *
  * @returns - a configured instance of JudoKit.
-*/
+ */
 
 - (nullable instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
@@ -94,7 +94,14 @@ static NSString *__nonnull const JudoKitVersion = @"2.4.5";
  *
  * @returns true - if a bank app has been found, false otherwise
  */
-+ (bool)isBankingAppAvailable;
++ (BOOL)isBankingAppAvailable;
+
+/**
+ * A method used to determine if ApplePay is available on the device
+ *
+ * @returns true - if canMakePayments and canMakePaymentsUsingNetworks, false otherwise
+ */
++ (BOOL)isApplePayAvailableWithConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
  * A method which invokes the PBBA which allows users to make pay by bank transactions.

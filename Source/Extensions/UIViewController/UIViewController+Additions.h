@@ -68,6 +68,9 @@
 - (void)displayAlertWithTitle:(nullable NSString *)title
                      andError:(nonnull NSError *)error;
 
+- (void)displayAlertWithTitle:(nullable NSString *)title
+                   andMessage:(nonnull NSString *)message;
+
 /**
  * A convenience method for quickly registering keyboard observers
  */

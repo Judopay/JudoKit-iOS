@@ -79,7 +79,7 @@
  * @param substring - the substring to be made bold
  * @return - a  NSMutableAttributedString where provided word is bold
  *
-*/
+ */
 - (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring;
 
 @end
