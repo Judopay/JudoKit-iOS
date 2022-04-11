@@ -4,6 +4,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
+  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2_iOS'
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'InAppSettingsKit', '3.3.3'

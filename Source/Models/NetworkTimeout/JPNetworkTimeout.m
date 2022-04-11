@@ -1,8 +1,8 @@
 //
-//  JPUIConfiguration.m
+//  JPNetworkTimeout.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPUIConfiguration.h"
-#import "JPTheme.h"
+#import "JPNetworkTimeout.h"
 
-@implementation JPUIConfiguration
+@implementation JPNetworkTimeout
 
 - (instancetype)init {
-    if (self = [super init]) {
-        self.shouldPaymentMethodsDisplayAmount = YES;
-        self.isAVSEnabled = NO;
-        self.shouldPaymentButtonDisplayAmount = NO;
-        self.shouldPaymentMethodsVerifySecurityCode = YES;
-        self.shouldAskForBillingInformation = NO;
-    }
-    return self;
+    return [self initWithConnectTimeout:5
+                         andReadTimeout:180
+                        andWriteTimeout:30];
 }
 
-- (JPTheme *)theme {
-    if (!_theme) {
-        _theme = [JPTheme new];
+- (instancetype)initWithConnectTimeout:(NSTimeInterval)connectTimeout
+                        andReadTimeout:(NSTimeInterval)readTimeout
+                       andWriteTimeout:(NSTimeInterval)writeTimeout {
+    if (self = [super init]) {
+        self.connectTimeout = connectTimeout;
+        self.readTimeout = readTimeout;
+        self.writeTimeout = writeTimeout;
     }
-    return _theme;
+    
+    return self;
 }
 
 @end

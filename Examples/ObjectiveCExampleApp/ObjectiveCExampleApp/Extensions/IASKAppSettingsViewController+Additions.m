@@ -44,6 +44,10 @@
         kAddressTownKey,
         kAddressPostCodeKey,
         kAddressBillingCountryKey,
+        kAddressCountryCodeKey,
+        kAddressPhoneCountryCodeKey,
+        kAddressMobileNumberKey,
+        kAddressEmailAddressKey,
 
         kPrimaryAccountNameKey,
         kPrimaryAccountAccountNumberKey,
@@ -68,7 +72,11 @@
             kAddressLine3Key,
             kAddressTownKey,
             kAddressPostCodeKey,
-            kAddressBillingCountryKey
+            kAddressBillingCountryKey,
+            kAddressCountryCodeKey,
+            kAddressPhoneCountryCodeKey,
+            kAddressMobileNumberKey,
+            kAddressEmailAddressKey,
         ]];
     }
 

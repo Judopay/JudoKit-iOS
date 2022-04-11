@@ -1,8 +1,8 @@
 //
-//  JPUIConfiguration.h
+//  JPNetworkTimeout.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,37 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+
 #import <Foundation/Foundation.h>
 
-@class JPTheme;
-
-@interface JPUIConfiguration : NSObject
+/**
+ * Class for setting custom network timeout values.
+ * Values must be specified in seconds.
+ */
+@interface JPNetworkTimeout : NSObject
 
 /**
- * A boolean property that defines if the amount should be displayed on the payment method screen
+ * The connect timeout.
+ * Defaults to 5 seconds.
  */
-@property (nonatomic, assign) BOOL shouldPaymentMethodsDisplayAmount;
+@property (nonatomic, assign) NSTimeInterval connectTimeout;
 
 /**
- * A boolean property that defines if the amount should be displayed on the transaction screen
+ * The read timeout.
+ * Defaults to 180 seconds.
  */
-@property (nonatomic, assign) BOOL shouldPaymentButtonDisplayAmount;
+@property (nonatomic, assign) NSTimeInterval readTimeout;
 
 /**
- * A boolean property that defines if the SDK should verify security code when paying with card token
+ * The write timeout.
+ * defaults to 30 seconds.
  */
-@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
+@property (nonatomic, assign) NSTimeInterval writeTimeout;
 
-/**
- * A boolean property that defines if AVS should be enabled during the payment flow
- */
-@property (nonatomic, assign) BOOL isAVSEnabled;
+- (instancetype)init;
 
-/**
- * A boolean property that defines whether Billing Information should be enabled or disabled
- */
-@property (nonatomic, assign) BOOL shouldAskForBillingInformation;
-
-/**
- * A reference to the JPTheme object that customizes the user interface
- */
-@property (nonatomic, strong) JPTheme *theme;
+- (instancetype)initWithConnectTimeout:(NSTimeInterval)connectTimeout
+                        andReadTimeout:(NSTimeInterval)readTimeout
+                       andWriteTimeout:(NSTimeInterval)writeTimeout;
 
 @end

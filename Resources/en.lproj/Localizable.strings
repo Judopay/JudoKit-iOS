@@ -66,6 +66,10 @@
 "invalid_expiry_date_value" = "Invalid date value entered";
 "invalid_postcode" = "Invalid postcode entered";
 "invalid_zip_code" = "Invalid ZIP code entered";
+"invalid_email_address" = "Please enter a valid email";
+"invalid_address" = "Please enter a valid address";
+"invalid_mobile_number" = "Please enter a valid mobile number";
+"invalid_city" = "Please enter a valid city";
 "is_expired" = "is Expired";
 "no_cards_added" = "You didn’t add any cards yet.\nAdd one right now or use any of the payment methods below";
 "no_connected_cards" = "You didn't connect any cards yet";
@@ -74,6 +78,13 @@
 "pay_by_bank" = "Pay by Bank app";
 "pay_now" = "Pay Now";
 "post_code_hint" = "Postcode";
+"email_hint" = "Email";
+"phone_country_code_hint" = "+()";
+"mobile_number_hint" = "Mobile number";
+"address_line_1_hint" = "Address line 1";
+"address_line_2_hint" = "Address line 2";
+"address_line_3_hint" = "Address line 3";
+"city_hint" = "City";
 "processing" = "Transaction pending...";
 "register_card" = "Register Card";
 "retry" = "Retry";
@@ -145,3 +156,7 @@
 "error_invalid_amount_reason" = "The amount parameter has either not been set or has an incorrect format.";
 "error_invalid_consumer_ref_desc" = "The consumer reference entered is invalid.";
 "error_invalid_consumer_ref_reason" = "The consumer reference parameter has either not been set or has an incorrect format.";
+"continue_text" = "Continue";
+"add_address_line" = "Add address line %@ (optional)";
+"billing_details_title" = "Billing Details";
+"back" = "Back";

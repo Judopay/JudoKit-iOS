@@ -26,6 +26,7 @@
 #import "JPAmount.h"
 #import "JPReference.h"
 #import "JPUIConfiguration.h"
+#import "JPConstants.h"
 
 @interface JPConfiguration ()
 @property (nonatomic, strong) NSString *_Nullable judoId;
@@ -43,6 +44,7 @@
         self.judoId = judoId;
         self.amount = amount;
         self.reference = reference;
+        self.threeDSTwoMaxTimeout = kDefaultThreeDSTwoMaxTimeout;
     }
     return self;
 }
