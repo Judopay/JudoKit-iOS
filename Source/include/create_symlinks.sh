@@ -77,3 +77,4 @@ ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
 ln -s -f ../Models/Request/JP3DSecureAuthenticationResult.h JP3DSecureAuthenticationResult.h
 ln -s -f ../View/LoadingButton/JPLoadingButton.h JPLoadingButton.h
 ln -s -f ../Extensions/NSString/NSString+Additions.h NSString+Additions.h
+ln -s -f ../Extensions/NSBundle/NSBundle+Additions.h NSBundle+Additions.h
