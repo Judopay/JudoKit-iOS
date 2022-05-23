@@ -27,10 +27,10 @@ let package = Package(
                 .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
             ],
             path: "Source",
-            cSettings: [
-                .headerSearchPath("..")
-            ],
             resources: [
                 .process("../Resources", localization: Resource.Localization.default)
+            ],
+            cSettings: [
+                .headerSearchPath("..")
             ])
     ])
