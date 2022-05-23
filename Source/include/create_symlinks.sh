@@ -127,3 +127,14 @@ ln -s -f ../Extensions/NSLayoutConstraint/NSLayoutConstraint+Additions.h NSLayou
 ln -s -f ../Extensions/UIApplication/UIApplication+Additions.h UIApplication+Additions.h
 ln -s -f ../View/LoadingView/JPLoadingView.h JPLoadingView.h
 ln -s -f ../Modules/CardScanController/View/JPCardScanView.h JPCardScanView.h
+ln -s -f ../View/JPCardInputView/JPCardInputView.h JPCardInputView.h
+ln -s -f ../Services/PBBA/JPPBBAService.h JPPBBAService.h
+ln -s -f ../Modules/IDEALViewController/JPIDEALViewController.h JPIDEALViewController.h
+ln -s -f ../Modules/Transaction/View/JPTransactionViewDelegate.h JPTransactionViewDelegate.h
+ln -s -f ../View/SectionView/JPSectionView.h JPSectionView.h
+ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h
+ln -s -f ../View/JPCardInputView/Subviews/JPCardNumberField.h JPCardNumberField.h
+ln -s -f ../Modules/Transaction/Router/JPTransactionRouter.h JPTransactionRouter.h
+ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationHeaderCell/JPCardCustomizationHeaderCell.h JPCardCustomizationHeaderCell.h
+ln -s -f ../Modules/Transaction/Presenter/JPTransactionPresenter.h JPTransactionPresenter.h
+ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
