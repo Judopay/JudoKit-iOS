@@ -31,6 +31,6 @@ let package = Package(
                 .process("../Resources", localization: Resource.Localization.default)
             ],
             cSettings: [
-                .headerSearchPath(".")
+                .headerSearchPath("./")
             ])
     ])
