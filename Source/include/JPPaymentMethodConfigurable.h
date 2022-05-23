@@ -1,0 +1,1 @@
+../Modules/PaymentMethods/View/Subviews/Cells/JPPaymentMethodConfigurable.h

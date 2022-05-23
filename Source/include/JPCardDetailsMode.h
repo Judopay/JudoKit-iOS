@@ -1,0 +1,1 @@
+../Modules/Transaction/Presenter/ViewModels/JPCardDetailsMode.h
