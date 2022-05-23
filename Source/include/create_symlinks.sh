@@ -143,3 +143,6 @@ ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsPresenter.h JPPayme
 ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
 ln -s -f ../Modules/Transaction/View/JPTransactionViewController.h JPTransactionViewController.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationIsDefaultCell/JPCardCustomizationIsDefaultCell.h JPCardCustomizationIsDefaultCell.h
+ln -s -f ../Extensions/UIViewController/UIViewController+Additions.h UIViewController+Additions.h
+ln -s -f ../Modules/PaymentMethods/View/JPPaymentMethodsViewController.h JPPaymentMethodsViewController.h
+ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerCell/JPCardCustomizationPatternPickerCell.h JPCardCustomizationPatternPickerCell.h
