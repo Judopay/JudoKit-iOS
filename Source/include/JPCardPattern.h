@@ -1,0 +1,1 @@
+../Models/CardPattern/JPCardPattern.h

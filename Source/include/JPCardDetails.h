@@ -1,0 +1,1 @@
+../Models/CardDetails/JPCardDetails.h

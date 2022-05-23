@@ -1,0 +1,1 @@
+../Models/ConsumerDevice/JPConsumerDevice.h
