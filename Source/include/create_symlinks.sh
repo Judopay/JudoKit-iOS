@@ -146,3 +146,4 @@ ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationIsDefaultCell/
 ln -s -f ../Extensions/UIViewController/UIViewController+Additions.h UIViewController+Additions.h
 ln -s -f ../Modules/PaymentMethods/View/JPPaymentMethodsViewController.h JPPaymentMethodsViewController.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerCell/JPCardCustomizationPatternPickerCell.h JPCardCustomizationPatternPickerCell.h
+ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationSubmitCell/JPCardCustomizationSubmitCell.h JPCardCustomizationSubmitCell.h
