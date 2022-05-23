@@ -138,3 +138,8 @@ ln -s -f ../Modules/Transaction/Router/JPTransactionRouter.h JPTransactionRouter
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationHeaderCell/JPCardCustomizationHeaderCell.h JPCardCustomizationHeaderCell.h
 ln -s -f ../Modules/Transaction/Presenter/JPTransactionPresenter.h JPTransactionPresenter.h
 ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
+ln -s -f ../View/JPCardInputView/Subviews/JPTransactionButton.h JPTransactionButton.h
+ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsPresenter.h JPPaymentMethodsPresenter.h
+ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
+ln -s -f ../Modules/Transaction/View/JPTransactionViewController.h JPTransactionViewController.h
+ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationIsDefaultCell/JPCardCustomizationIsDefaultCell.h JPCardCustomizationIsDefaultCell.h
