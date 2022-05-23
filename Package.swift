@@ -21,7 +21,7 @@ let package = Package(
     targets: [
         .target(
             name: "JudoKit_iOSTarget",
-            dependencies: ["DeviceDNA", "TrustKit", "pbba-merchant-button-library-ios"],
+            dependencies: ["DeviceDNA-iOS", "TrustKit", "pbba-merchant-button-library-ios"],
             path: "Source",
             resources: [
                 .process("../Resources", localization: Resource.Localization.default)
