@@ -1,0 +1,1 @@
+../Extensions/NSString/NSString+Additions.h
