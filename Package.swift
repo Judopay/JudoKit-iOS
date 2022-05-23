@@ -23,14 +23,11 @@ let package = Package(
             name: "JudoKit_iOSTarget",
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
-                .product(name: "TrustKit", package: "TrustKit"),
+                "TrustKit",
                 .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
             ],
             path: "Source",
             resources: [
                 .process("../Resources", localization: Resource.Localization.default)
-            ],
-            cSettings: [
-                .headerSearchPath("./**")
             ])
     ])
