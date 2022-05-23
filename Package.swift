@@ -29,8 +29,5 @@ let package = Package(
             path: "Source",
             resources: [
                 .process("../Resources", localization: Resource.Localization.default)
-            ],
-            cSettings: [
-                .headerSearchPath("..")
             ])
     ])

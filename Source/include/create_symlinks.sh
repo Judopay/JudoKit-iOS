@@ -75,3 +75,4 @@ ln -s -f ../Models/Request/JPSaveCardRequest.h JPSaveCardRequest.h
 ln -s -f ../Models/Request/JPCheckCardRequest.h JPCheckCardRequest.h
 ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
 ln -s -f ../Models/Request/JP3DSecureAuthenticationResult.h JP3DSecureAuthenticationResult.h
+ln -s -f ../View/LoadingButton/JPLoadingButton.h JPLoadingButton.h
