@@ -28,7 +28,7 @@ protocol ResultsInteractorInput {
     func viewDidLoad()
 }
 
-protocol ResultsInteractorOutput: class {
+protocol ResultsInteractorOutput: AnyObject {
     func configure(with viewModels: [ResultsViewModel])
     func setNavigationTitle(_ title: String)
 }

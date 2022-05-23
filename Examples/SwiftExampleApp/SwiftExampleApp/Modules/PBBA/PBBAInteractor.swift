@@ -30,7 +30,7 @@ protocol PBBAInteractorInput {
     func checkTransactionStatus()
 }
 
-protocol PBBAInteractorOutput: class {
+protocol PBBAInteractorOutput: AnyObject {
     func displayErrorAlert(with error: NSError)
     func shouldDisplayTransactionStatusElements(_ shouldDisplay: Bool)
     func navigateToResultsModule(with result: Result)
