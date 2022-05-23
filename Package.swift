@@ -23,7 +23,7 @@ let package = Package(
             name: "JudoKit_iOSTarget",
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
-                "TrustKit",
+                .product(name: "TrustKit", package: "TrustKit"),
                 .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
             ],
             path: "Source",
