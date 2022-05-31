@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "JudoKit_iOSTarget",
             dependencies: [
-                "DeviceDNA",
+                .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
                 .target(name: "TrustKitTarget"),
                 .target(name: "ZappMerchantLibTarget")
             ],
@@ -35,5 +35,5 @@ let package = Package(
             dependencies: ["TrustKit"]),
         .target(
             name: "ZappMerchantLibTarget",
-            dependencies: ["ZappMerchantLib"])
+            dependencies: [.product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")])
     ])
