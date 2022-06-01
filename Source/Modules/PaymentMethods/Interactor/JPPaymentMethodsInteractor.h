@@ -27,7 +27,11 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#if SWIFT_PACKAGE
+@import ZappMerchantLib;
+#else
 #import <ZappMerchantLib/PBBAAppUtils.h>
+#endif
 
 @class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
 
