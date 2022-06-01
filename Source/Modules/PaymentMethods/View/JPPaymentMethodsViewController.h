@@ -27,13 +27,6 @@
 #import "JPSectionViewDelegate.h"
 #import "JPTransactionStatusView.h"
 #import "JPTransactionViewDelegate.h"
-
-#if SWIFT_PACKAGE
-@import ZappMerchantLib;
-#else
-#import <ZappMerchantLib/ZappMerchantLib.h>
-#endif
-
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
