@@ -14,17 +14,17 @@ let package = Package(
             targets: ["JudoKit_iOSTarget"])
     ],
     dependencies: [
-        .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
-        "TrustKit",
-        .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
+        .package(url: "https://github.com/Judopay/DeviceDNA-iOS", from: "2.0.0"),
+        .package(url: "https://github.com/datatheorem/TrustKit", exact: "1.7.0"),
+        .package(url: "https://github.com/Judopay/pbba-merchant-button-library-ios", from: "3.1.3")
     ],
     targets: [
         .target(
             name: "JudoKit_iOSTarget",
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
-                .target(name: "TrustKitTarget"),
-                .target(name: "ZappMerchantLibTarget")
+                .product(name: "TrustKit", package: "TrustKit"),
+                .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
             ],
             path: "Source",
             resources: [
