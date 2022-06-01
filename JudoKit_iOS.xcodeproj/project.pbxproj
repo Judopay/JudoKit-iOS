@@ -402,7 +402,6 @@
 		A75B3FB7980DC7CC153F9204 /* JPApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3B523C4EF504C4CCC82D /* JPApiService.m */; };
 		A75B3FC43AFB859D7E8A504D /* JPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B34102B39C638D6972605 /* JPSession.m */; };
 		ADA50D70282C1C7B00846943 /* ZappMerchantLib.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6C282C1C7B00846943 /* ZappMerchantLib.xcframework */; };
-		ADA50D72282C1C7B00846943 /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6D282C1C7B00846943 /* OHHTTPStubs.xcframework */; };
 		ADA50D74282C1C7B00846943 /* DeviceDNA.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */; };
 		ADA50D76282C1C7B00846943 /* TrustKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6F282C1C7B00846943 /* TrustKit.xcframework */; };
 		ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D79282C35DE00846943 /* OpenSSL.xcframework */; };
@@ -838,7 +837,6 @@
 				ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */,
 				ADA50D70282C1C7B00846943 /* ZappMerchantLib.xcframework in Frameworks */,
 				525FF51B25307B89001F030E /* Vision.framework in Frameworks */,
-				ADA50D72282C1C7B00846943 /* OHHTTPStubs.xcframework in Frameworks */,
 				ADA50D76282C1C7B00846943 /* TrustKit.xcframework in Frameworks */,
 				ADA50D74282C1C7B00846943 /* DeviceDNA.xcframework in Frameworks */,
 			);
