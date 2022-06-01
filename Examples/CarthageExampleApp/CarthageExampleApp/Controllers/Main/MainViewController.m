@@ -50,7 +50,7 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
 // MARK: Setup methods
 
 - (void)setupJudoSDK {
-    self.judoKit = [[JudoKit alloc] initWithToken:token secret:secret];
+    self.judoKit = [[JudoKit alloc] initWithAuthorization:[[JPBasicAuthorization alloc] initWithToken:token andSecret:secret]];
     self.judoKit.isSandboxed = YES;
 }
 
@@ -105,7 +105,6 @@ static NSString * const kConsumerReference = @"judoPay-sample-app-objc";
     JPConfiguration *configuration = [[JPConfiguration alloc] initWithJudoID:judoId
                                                                       amount:amount
                                                                    reference:reference];
-    configuration.siteId = siteId;
     return configuration;
 }
 
