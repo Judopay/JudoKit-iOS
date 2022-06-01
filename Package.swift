@@ -14,9 +14,9 @@ let package = Package(
             targets: ["JudoKit_iOSTarget"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Judopay/DeviceDNA-iOS", from: "2.0.0"),
-        .package(url: "https://github.com/datatheorem/TrustKit", exact: "1.7.0"),
-        .package(url: "https://github.com/Judopay/pbba-merchant-button-library-ios", from: "3.1.3")
+        .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
+        "TrustKit",
+        .product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")
     ],
     targets: [
         .target(
@@ -29,11 +29,5 @@ let package = Package(
             path: "Source",
             resources: [
                 .process("../Resources", localization: Resource.Localization.default)
-            ]),
-        .target(
-            name: "TrustKitTarget",
-            dependencies: ["TrustKit"]),
-        .target(
-            name: "ZappMerchantLibTarget",
-            dependencies: [.product(name: "ZappMerchantLib", package: "pbba-merchant-button-library-ios")])
+            ])
     ])
