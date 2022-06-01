@@ -11,7 +11,7 @@ let package = Package(
     products: [
         .library(
             name: "JudoKit_iOS",
-            targets: ["JudoKit_iOSTarget"])
+            targets: ["JudoKit_iOS"])
     ],
     dependencies: [
         .package(url: "https://github.com/Judopay/DeviceDNA-iOS", from: "2.0.0"),
@@ -20,7 +20,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "JudoKit_iOSTarget",
+            name: "JudoKit_iOS",
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
                 .product(name: "TrustKit", package: "TrustKit"),
