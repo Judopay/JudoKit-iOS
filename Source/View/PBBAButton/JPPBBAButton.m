@@ -24,6 +24,12 @@
 
 #import "JPPBBAButton.h"
 
+#if SWIFT_PACKAGE
+@import ZappMerchantLib;
+#else
+#import <ZappMerchantLib/PBBAButton.h>
+#endif
+
 @interface JPPBBAButton () <PBBAButtonDelegate>
 @property (nonatomic, strong) PBBAButton *pbbaButton;
 @end

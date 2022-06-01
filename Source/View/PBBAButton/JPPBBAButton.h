@@ -22,12 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#if SWIFT_PACKAGE
-@import ZappMerchantLib;
-#else
-#import <ZappMerchantLib/PBBAButton.h>
-#endif
-
 #import <UIKit/UIKit.h>
 
 @class JPPBBAButton;
