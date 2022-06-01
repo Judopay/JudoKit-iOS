@@ -25,7 +25,7 @@
 #if SWIFT_PACKAGE
 @import ZappMerchantLib;
 #else
-#import <ZappMerchantLib/ZappMerchantLib.h>
+#import <ZappMerchantLib/PBBAButton.h>
 #endif
 
 #import <UIKit/UIKit.h>
