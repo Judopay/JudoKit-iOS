@@ -149,3 +149,8 @@ ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerC
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationSubmitCell/JPCardCustomizationSubmitCell.h JPCardCustomizationSubmitCell.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTextInputCell/JPCardCustomizationTextInputCell.h JPCardCustomizationTextInputCell.h
 ln -s -f ../Transitions/JPSliderTransitioningDelegate.h JPSliderTransitioningDelegate.h
+ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListHeaderCell/JPPaymentMethodsCardListHeaderCell.h JPPaymentMethodsCardListHeaderCell.h
+ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsCardHeaderView.h JPPaymentMethodsCardHeaderView.h
+ln -s -f ../Modules/PaymentMethods/Builder/JPPaymentMethodsBuilder.h JPPaymentMethodsBuilder.h
+ln -s -f ../Modules/PaymentMethods/Router/JPPaymentMethodsRouter.h JPPaymentMethodsRouter.h
+ln -s -f ../Modules/Transaction/Builder/JPTransactionBuilder.h JPTransactionBuilder.h
