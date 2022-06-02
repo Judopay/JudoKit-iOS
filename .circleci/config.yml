@@ -204,7 +204,8 @@ jobs:
             build-wrapper-macosx-x86 --out-dir build-wrapper-output xcodebuild \
               -project JudoKit_iOS.xcodeproj \
               -scheme JudoKit_iOS \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
+              -enableCodeCoverage YES \
               -derivedDataPath DerivedData \
               test
       - run:
