@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 13.3.1
+      xcode: 13.4.0
 
 jobs:
   carthage_update_sdk:
@@ -244,7 +244,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/CarthageExampleApp/build-wrapper-output xcodebuild \
               -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
               -scheme CarthageExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/CarthageExampleApp/DerivedData \
               test
       - run:
@@ -283,7 +283,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/ObjectiveCExampleApp/build-wrapper-output xcodebuild \
               -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
               -scheme ObjectiveCExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               test
       - run:
@@ -322,7 +322,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/SwiftExampleApp/build-wrapper-output xcodebuild \
               -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
               -scheme SwiftExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/SwiftExampleApp/DerivedData \
               test
       - run:
