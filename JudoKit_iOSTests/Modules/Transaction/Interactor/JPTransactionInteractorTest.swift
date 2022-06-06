@@ -461,11 +461,11 @@ class JPTransactionInteractorTest: XCTestCase {
      *
      * WHEN: on simulator, test
      *
-     * THEN: should be denied
+     * THEN: should be authorized
      */
-    func test_HandleCameraPermissionsWithCompletion_WhenInTest_ShouldBeDenied() {
+    func test_HandleCameraPermissionsWithCompletion_WhenInTest_ShouldBeAuthorized() {
         sut.handleCameraPermissions { (auth) in
-            XCTAssertEqual(auth, .denied)
+            XCTAssertEqual(auth, .authorized)
         }
     }
     

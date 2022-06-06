@@ -1,1 +1,1 @@
-github "Judopay/JudoKit-iOS"
+github "Judopay/JudoKit-iOS" "feature/spm" # TODO: once this PR is merged, remove branch spec

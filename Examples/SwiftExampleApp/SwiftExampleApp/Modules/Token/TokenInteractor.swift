@@ -31,7 +31,7 @@ protocol TokenInteractorInput {
     func didTapTokenPreAuthButton()
 }
 
-protocol TokenInteractorOutput: class {
+protocol TokenInteractorOutput: AnyObject {
     func navigateToResultsModule(with result: Result)
     func areTokenTransactionButtonsEnabled(_ isEnabled: Bool)
     func displayErrorAlert(with error: NSError)

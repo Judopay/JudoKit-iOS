@@ -3,24 +3,26 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		076841BC246E98EF00A49EB9 /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BB246E98EF00A49EB9 /* TrustKit.framework */; };
-		076841BD246E98EF00A49EB9 /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BB246E98EF00A49EB9 /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		076841C0246E990000A49EB9 /* JudoKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BF246E990000A49EB9 /* JudoKit-iOS.framework */; };
-		076841C1246E990000A49EB9 /* JudoKit-iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841BF246E990000A49EB9 /* JudoKit-iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		076841C3246E990E00A49EB9 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C2246E990E00A49EB9 /* DeviceDNA.framework */; };
-		076841C4246E990E00A49EB9 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C2246E990E00A49EB9 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		076841C6246E991900A49EB9 /* PayCardsRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */; };
-		076841C7246E991900A49EB9 /* PayCardsRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		448AB1A32450DE8F004A11CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1A22450DE8F004A11CB /* AppDelegate.m */; };
 		448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AA2450DE8F004A11CB /* Main.storyboard */; };
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
+		ADFF51D92847A83D00DA884C /* DeviceDNA.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */; };
+		ADFF51DA2847A83D00DA884C /* DeviceDNA.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ADFF51DC2847A84F00DA884C /* TrustKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */; };
+		ADFF51DD2847A84F00DA884C /* TrustKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ADFF51DF2847A85F00DA884C /* JudoKit_iOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */; };
+		ADFF51E02847A85F00DA884C /* JudoKit_iOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ADFF51E22847A9A400DA884C /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */; };
+		ADFF51E32847A9A400DA884C /* OpenSSL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ADFF51E52847A9BA00DA884C /* ZappMerchantLib.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */; };
+		ADFF51E62847A9BA00DA884C /* ZappMerchantLib.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,10 +49,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				076841BD246E98EF00A49EB9 /* TrustKit.framework in Embed Frameworks */,
-				076841C4246E990E00A49EB9 /* DeviceDNA.framework in Embed Frameworks */,
-				076841C1246E990000A49EB9 /* JudoKit-iOS.framework in Embed Frameworks */,
-				076841C7246E991900A49EB9 /* PayCardsRecognizer.framework in Embed Frameworks */,
+				ADFF51E62847A9BA00DA884C /* ZappMerchantLib.xcframework in Embed Frameworks */,
+				ADFF51DA2847A83D00DA884C /* DeviceDNA.xcframework in Embed Frameworks */,
+				ADFF51DD2847A84F00DA884C /* TrustKit.xcframework in Embed Frameworks */,
+				ADFF51E32847A9A400DA884C /* OpenSSL.xcframework in Embed Frameworks */,
+				ADFF51E02847A85F00DA884C /* JudoKit_iOS.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,10 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		076841BB246E98EF00A49EB9 /* TrustKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustKit.framework; path = Carthage/Build/iOS/TrustKit.framework; sourceTree = "<group>"; };
-		076841BF246E990000A49EB9 /* JudoKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "JudoKit-iOS.framework"; path = "Carthage/Build/iOS/JudoKit-iOS.framework"; sourceTree = "<group>"; };
-		076841C2246E990E00A49EB9 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
-		076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayCardsRecognizer.framework; path = Carthage/Checkouts/PayCards_iOS/Source/PayCardsRecognizer.framework; sourceTree = "<group>"; };
 		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		448AB1A22450DE8F004A11CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +77,11 @@
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4494950E2450ED870050C6A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = DeviceDNA.xcframework; path = Carthage/Build/DeviceDNA.xcframework; sourceTree = "<group>"; };
+		ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TrustKit.xcframework; path = Carthage/Build/TrustKit.xcframework; sourceTree = "<group>"; };
+		ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = JudoKit_iOS.xcframework; path = Carthage/Build/JudoKit_iOS.xcframework; sourceTree = "<group>"; };
+		ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OpenSSL.xcframework; path = Carthage/Build/OpenSSL.xcframework; sourceTree = "<group>"; };
+		ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ZappMerchantLib.xcframework; path = Carthage/Build/ZappMerchantLib.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +89,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076841BC246E98EF00A49EB9 /* TrustKit.framework in Frameworks */,
-				076841C3246E990E00A49EB9 /* DeviceDNA.framework in Frameworks */,
-				076841C0246E990000A49EB9 /* JudoKit-iOS.framework in Frameworks */,
-				076841C6246E991900A49EB9 /* PayCardsRecognizer.framework in Frameworks */,
+				ADFF51E52847A9BA00DA884C /* ZappMerchantLib.xcframework in Frameworks */,
+				ADFF51D92847A83D00DA884C /* DeviceDNA.xcframework in Frameworks */,
+				ADFF51DC2847A84F00DA884C /* TrustKit.xcframework in Frameworks */,
+				ADFF51E22847A9A400DA884C /* OpenSSL.xcframework in Frameworks */,
+				ADFF51DF2847A85F00DA884C /* JudoKit_iOS.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,10 +188,11 @@
 		9B9F9602B30C65E77C8697F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				076841C5246E991900A49EB9 /* PayCardsRecognizer.framework */,
-				076841C2246E990E00A49EB9 /* DeviceDNA.framework */,
-				076841BF246E990000A49EB9 /* JudoKit-iOS.framework */,
-				076841BB246E98EF00A49EB9 /* TrustKit.framework */,
+				ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */,
+				ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */,
+				ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */,
+				ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */,
+				ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,7 +261,7 @@
 		448AB1962450DE8F004A11CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = Judopay;
 				TargetAttributes = {
 					448AB19D2450DE8F004A11CB = {
@@ -335,7 +341,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -450,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -503,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -518,14 +524,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
-				);
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,14 +543,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/PayCards_iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Source",
-					"$(PROJECT_DIR)/Carthage/Checkouts/OHHTTPStubs/Source",
-				);
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 11.3.0
+      xcode: 13.4.0
 
 jobs:
   carthage_update_sdk:
@@ -17,7 +17,7 @@ jobs:
             - judokit-ios-carthagecache-{{ checksum "Cartfile" }}
       - run:
           name: Carthage Update
-          command: carthage update
+          command: carthage update --use-xcframeworks
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile" }}
           paths:
@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Carthage Update Sample App
           working_directory: Examples/CarthageExampleApp
-          command: carthage update
+          command: carthage update --use-xcframeworks
       - save_cache:
           key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
           paths:
@@ -204,7 +204,8 @@ jobs:
             build-wrapper-macosx-x86 --out-dir build-wrapper-output xcodebuild \
               -project JudoKit_iOS.xcodeproj \
               -scheme JudoKit_iOS \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
+              -enableCodeCoverage YES \
               -derivedDataPath DerivedData \
               test
       - run:
@@ -243,7 +244,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/CarthageExampleApp/build-wrapper-output xcodebuild \
               -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
               -scheme CarthageExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/CarthageExampleApp/DerivedData \
               test
       - run:
@@ -282,7 +283,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/ObjectiveCExampleApp/build-wrapper-output xcodebuild \
               -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
               -scheme ObjectiveCExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               test
       - run:
@@ -321,7 +322,7 @@ jobs:
             build-wrapper-macosx-x86 --out-dir Examples/SwiftExampleApp/build-wrapper-output xcodebuild \
               -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
               -scheme SwiftExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 11' \
+              -destination 'platform=iOS Simulator,name=iPhone 13' \
               -derivedDataPath Examples/SwiftExampleApp/DerivedData \
               test
       - run:

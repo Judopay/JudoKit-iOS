@@ -33,7 +33,7 @@ enum AppScreen {
     case applePay
 }
 
-protocol Coordinator: class {
+protocol Coordinator: AnyObject {
     func start()
     func start(with deeplinkURL: URL)
     func pushTo(_ screen: AppScreen)

@@ -32,7 +32,11 @@
 #import "JudoKit.h"
 #import "NSObject+Additions.h"
 
+#if SWIFT_PACKAGE
+@import TrustKit;
+#else
 #import <TrustKit/TrustKit.h>
+#endif
 
 #pragma mark - Constants
 

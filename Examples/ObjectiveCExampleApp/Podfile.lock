@@ -1,12 +1,14 @@
 PODS:
   - CocoaDebug (1.7.2)
   - Cucumberish (1.4.0)
-  - DeviceDNA (1.1.3)
+  - DeviceDNA (2.0.0):
+    - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.3)
-  - JudoKit-iOS (2.4.5):
-    - DeviceDNA
+  - JudoKit-iOS (2.4.7):
+    - DeviceDNA (~> 2.0.0)
     - TrustKit
     - ZappMerchantLib
+  - OpenSSL-Universal (1.1.1500)
   - TrustKit (1.7.0)
   - ZappMerchantLib (3.1.0)
 
@@ -21,6 +23,7 @@ SPEC REPOS:
     - CocoaDebug
     - DeviceDNA
     - InAppSettingsKit
+    - OpenSSL-Universal
     - TrustKit
     - ZappMerchantLib
 
@@ -38,12 +41,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
-  DeviceDNA: c3d7ba1669cebf7965407e7022769e5a5eda8c35
+  DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: b115427a8c8041597fd89279db901c82f3f0e21f
-  JudoKit-iOS: ba087b3ed32f321a1b9ad251af92b5b86cdff994
+  JudoKit-iOS: b46f9e724dc8e8ecea21a66f79672efd7b1af3ce
+  OpenSSL-Universal: 5d1de8d199ea9684d7ee48a8caa38d5dbfee1981
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 10dddbb831dd069cb60d15783d7ef87eddab1709
+PODFILE CHECKSUM: c053a5efc58318c97b999097132ced79c525ff82
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

@@ -1,9 +1,9 @@
-platform :ios, '11.0'
+platform :ios, '12.0'
+
+use_frameworks!
+inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
-  use_frameworks!
-
-  # Pods for ObjectiveCExampleApp
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'InAppSettingsKit', '3.3.3'
@@ -11,12 +11,9 @@ target 'ObjectiveCExampleApp' do
 
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
   target 'ObjectiveCExampleAppUITests' do
-    # Pods for testing
     pod 'Cucumberish', :git => 'https://github.com/mpetrenco/Cucumberish.git'
   end
-
 end

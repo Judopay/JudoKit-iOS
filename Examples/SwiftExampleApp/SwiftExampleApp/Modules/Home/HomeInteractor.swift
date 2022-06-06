@@ -32,7 +32,7 @@ protocol HomeInteractorInput {
     func handlePBBAStatus(with url: URL)
 }
 
-protocol HomeInteractorOutput: class {
+protocol HomeInteractorOutput: AnyObject {
     func configure(with viewModels: [FeatureViewModel])
     func displayReceiptInputAlert()
     func displayErrorAlert(with error: NSError)

@@ -91,7 +91,7 @@ class NSNumberFormatterTests: XCTestCase {
      */
     func test_OnValidAmountAndInvalidCurrency_ReturnGeneratedValue() {
         let formattedNumber = NumberFormatter.formattedAmount("12", withCurrencyCode: "Silvester Stallone")
-        XCTAssertEqual("Sil 12", formattedNumber)
+        XCTAssertEqual("SIL 12", formattedNumber)
     }
     
 }
