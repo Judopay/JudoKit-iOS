@@ -35,6 +35,7 @@
     JPCheckCardRequest,
     JPSaveCardRequest,
     JPRegisterCardRequest,
+    JPComplete3DS2Request,
     JP3DSecureAuthenticationResult;
 
 @interface JPApiService : NSObject
@@ -170,6 +171,9 @@
                        authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
                               andCompletion:(nullable JPCompletionBlock)completion;
 
+- (void)invokeComplete3dSecureTwoWithReceiptId:(nonnull NSString *)receiptId
+                                       request:(nonnull JPComplete3DS2Request *)request
+                                 andCompletion:(nullable JPCompletionBlock)completion;
 /**
  * A method used to fetch the details of a transaction based on a provided receipt ID
  *

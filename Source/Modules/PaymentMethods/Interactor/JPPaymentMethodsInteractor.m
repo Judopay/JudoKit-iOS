@@ -24,7 +24,6 @@
 
 #import "JPPaymentMethodsInteractor.h"
 #import "JP3DSConfiguration.h"
-#import "JP3DSService.h"
 #import "JPAmount.h"
 #import "JPApiService.h"
 #import "JPApplePayConfiguration.h"
@@ -48,17 +47,21 @@
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
+#import "JPCardTransactionService.h"
+#import "JPCardTransactionDetails.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
-@property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPPBBAService *pbbaService;
-@property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSArray<JPPaymentMethod *> *paymentMethods;
 @property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
+
+@property (nonatomic, strong) JPApplePayService *applePayService;
+@property (nonatomic, strong) JPPBBAService *pbbaService;
+@property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) JPCardTransactionService *transactionService;
+
 @end
 
 @implementation JPPaymentMethodsInteractorImpl
@@ -216,25 +219,25 @@
 
 #pragma mark - Payment transaction
 
-- (void)paymentTransactionWithToken:(nonnull NSString *)token
-                    andSecurityCode:(nullable NSString *)securityCode
-                      andCompletion:(nullable JPCompletionBlock)completion {
+- (void)paymentTransactionWithStoredCardDetails:(JPStoredCardDetails *)details
+                                   securityCode:(NSString *)securityCode
+                                  andCompletion:(JPCompletionBlock)completion {
 
     if (self.transactionMode == JPTransactionModeServerToServer) {
         [self processServerToServer:completion];
         return;
     }
-
-    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:token];
-    request.cv2 = securityCode;
+    
+    JPCardTransactionDetails *transactionDetails = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
+                                                                                      andStoredCardDetails:details];
 
     switch (self.transactionMode) {
         case JPTransactionTypePreAuth:
-            [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completion];
+            [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
 
         case JPTransactionModePayment:
-            [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completion];
+            [self.transactionService invokeTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
 
         default:
@@ -270,11 +273,6 @@
     return [self.applePayService isApplePaySetUp];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error completion:(JPCompletionBlock)completion {
-    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
-    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration completion:completion];
-}
-
 - (JPApplePayService *)applePayService {
     if (!_applePayService && self.configuration.applePayConfiguration) {
         _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration
@@ -283,19 +281,20 @@
     return _applePayService;
 }
 
-- (JP3DSService *)threeDSecureService {
-    if (!_threeDSecureService) {
-        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
-    }
-    return _threeDSecureService;
-}
-
 - (JPPBBAService *)pbbaService {
     if (!_pbbaService && self.configuration) {
         _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
                                                          apiService:self.apiService];
     }
     return _pbbaService;
+}
+
+- (JPCardTransactionService *)transactionService {
+    if (!_transactionService) {
+        _transactionService = [[JPCardTransactionService alloc] initWithAPIService:self.apiService
+                                                                  andConfiguration:self.configuration];
+    }
+    return _transactionService;
 }
 
 - (JPStoredCardDetails *)selectedCard {
@@ -316,6 +315,7 @@
     response.consumer.consumerReference = self.configuration.reference.consumerReference;
     response.amount = self.configuration.amount;
     response.cardDetails = [JPCardDetails new];
+    
     JPStoredCardDetails *selectedCard = [self selectedCard];
     response.cardDetails.cardLastFour = selectedCard.cardLastFour;
     response.cardDetails.cardToken = selectedCard.cardToken;

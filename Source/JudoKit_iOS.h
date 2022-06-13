@@ -95,7 +95,8 @@
 #import "UIFont+Additions.h"
 
 #import "JP3DSConfiguration.h"
-#import "JP3DSService.h"
+#import "JPCardTransactionService.h"
+#import "JPCardTransactionDetails.h"
 
 //! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;

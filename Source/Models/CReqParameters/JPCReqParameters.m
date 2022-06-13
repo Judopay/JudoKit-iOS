@@ -1,8 +1,8 @@
 //
-//  JP3DSConfiguration.h
+//  JPCReqParameters.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,37 +22,30 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSConfiguration.h"
-#import "JPResponse.h"
+#import "JPCReqParameters.h"
 
-@implementation JP3DSConfiguration
+@implementation JPCReqParameters
 
-+ (instancetype)configurationWithError:(NSError *)error {
-    return [[JP3DSConfiguration alloc] initWithError:error];
-}
-
-- (instancetype)initWithError:(NSError *)error {
+- (instancetype)initWithStrsing:(NSString *)cReq {
     if (self = [super init]) {
-        NSDictionary *payload = error.userInfo;
-        _mdValue = payload[@"md"];
-        _paReqValue = payload[@"paReq"];
-        _receiptId = payload[@"receiptId"];
-        _acsURL = [NSURL URLWithString:payload[@"acsUrl"]];
-    }
-    return self;
-}
+        NSError *error = nil;
+        NSData *base64String = [[NSData alloc] initWithBase64EncodedString:cReq options:0];
+        NSData *data = [[NSData alloc] initWithBase64EncodedData:base64String options:NSUTF8StringEncoding];
+        
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:NSJSONReadingAllowFragments
+                                                               error:&error];
 
-+ (instancetype)configurationWithResponse:(JPResponse *)response {
-    return [[JP3DSConfiguration alloc] initWithResponse:response];
-}
-
-- (instancetype)initWithResponse:(JPResponse *)response {
-    if (self = [super init]) {
-        _mdValue = response.rawData[@"md"];
-        _paReqValue = response.rawData[@"paReq"];
-        _receiptId = response.rawData[@"receiptId"];
-        _acsURL = [NSURL URLWithString:response.rawData[@"acsUrl"]];
+        _messageVersion = @"2.1.0";
+        
+        if (!error && json) {
+            _messageType = json[@"messageType"];
+            _messageVersion = json[@"messageVersion"];
+            _threeDSServerTransID = json[@"threeDSServerTransID"];
+            _acsTransID = json[@"acsTransID"];
+        }
     }
+    
     return self;
 }
 

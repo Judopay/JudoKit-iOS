@@ -62,9 +62,9 @@
 /**
  * Sends a payment transaction based on a stored card token
  */
-- (void)paymentTransactionWithToken:(nonnull NSString *)token
-                    andSecurityCode:(nullable NSString *)securityCode
-                      andCompletion:(nullable JPCompletionBlock)completion;
+- (void)paymentTransactionWithStoredCardDetails:(nonnull JPStoredCardDetails *)details
+                                   securityCode:(nullable NSString *)securityCode
+                                  andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the PBBA payment
@@ -113,15 +113,6 @@
  */
 - (void)processApplePayment:(nonnull PKPayment *)payment
              withCompletion:(nonnull JPCompletionBlock)completion;
-
-/**
- * A method that handles 3D Secure transactions
- *
- * @param error - the NSError object that triggers a 3D Secure transaction
- * @param completion - the JPResponse / NSError completion block
- */
-- (void)handle3DSecureTransactionFromError:(nonnull NSError *)error
-                                completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method that reorders cards so that the default card is always on top

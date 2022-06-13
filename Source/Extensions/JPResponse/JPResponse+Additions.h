@@ -1,8 +1,8 @@
 //
-//  JP3DSConfiguration.h
+//  JPResponse+Additions.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,38 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSConfiguration.h"
-#import "JPResponse.h"
+#import <JudoKit_iOS/JudoKit_iOS.h>
 
-@implementation JP3DSConfiguration
+@class JPCReqParameters;
 
-+ (instancetype)configurationWithError:(NSError *)error {
-    return [[JP3DSConfiguration alloc] initWithError:error];
-}
+@interface JPResponse (Additions)
 
-- (instancetype)initWithError:(NSError *)error {
-    if (self = [super init]) {
-        NSDictionary *payload = error.userInfo;
-        _mdValue = payload[@"md"];
-        _paReqValue = payload[@"paReq"];
-        _receiptId = payload[@"receiptId"];
-        _acsURL = [NSURL URLWithString:payload[@"acsUrl"]];
-    }
-    return self;
-}
+- (BOOL)isThreeDSecureOneRequired;
+- (BOOL)isThreeDSecureTwoRequired;
 
-+ (instancetype)configurationWithResponse:(JPResponse *)response {
-    return [[JP3DSConfiguration alloc] initWithResponse:response];
-}
-
-- (instancetype)initWithResponse:(JPResponse *)response {
-    if (self = [super init]) {
-        _mdValue = response.rawData[@"md"];
-        _paReqValue = response.rawData[@"paReq"];
-        _receiptId = response.rawData[@"receiptId"];
-        _acsURL = [NSURL URLWithString:response.rawData[@"acsUrl"]];
-    }
-    return self;
-}
+- (nonnull JPCReqParameters *)cReqParameters;
 
 @end

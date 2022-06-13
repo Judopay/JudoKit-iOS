@@ -144,6 +144,7 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (JPPrimaryAccountDetails *)primaryAccountDetails;
 
 - (nullable NSString *)emailAddress;
+- (nullable NSString *)phoneCountryCode;
 - (nullable NSString *)mobileNumber;
 
 #pragma mark - 3DS v2.0
@@ -151,7 +152,7 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (BOOL)shouldAskForBillingInformation;
 - (nullable NSString *)challengeRequestIndicator;
 - (nullable NSString *)scaExemption;
-- (nonnull NSNumber *)threeDsTwoMaxTimeout;
+- (int)threeDsTwoMaxTimeout;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;

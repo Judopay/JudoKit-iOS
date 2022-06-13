@@ -25,7 +25,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
 #import <InAppSettingsKit/IASKSettingsReader.h>
-
+#import "MaterialSnackbar.h"
 @import JudoKit_iOS;
 
 #import "ApplePayViewController.h"
@@ -264,41 +264,40 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                          }];
 }
 
+- (void)presentTextFieldAlertControllerWithCompletion:()completion {
+    
+}
+
 - (void)transactionDetailsMethodOperation {
-    __block UITextField *textField = [UITextField new];
     __weak typeof(self) weakSelf = self;
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Get transaction"
-                                                                        message:@"For receipt Id:"
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:@"Search"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction *_Nonnull action) {
-                                                         [weakSelf.judoKit fetchTransactionWithReceiptId:textField.text
-                                                                                              completion:^(JPResponse *response, JPError *error) {
-                                                                                                  [weakSelf handleResponse:response error:error];
-                                                                                              }];
-                                                     }];
-
-    UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:nil];
-
-    [controller addTextFieldWithConfigurationHandler:^(UITextField *aTextField) {
-        textField = aTextField;
-        textField.placeholder = @"Receipt ID";
+    [self presentTextFieldAlertControllerWithTitle:@"Get transaction"
+                                           message:@"For receipt Id:"
+                               positiveButtonTitle:@"Search"
+                               negativeButtonTitle:@"Cancel"
+                              textFieldPlaceholder:@"Receipt ID"
+                                     andCompletion:^(NSString *text) {
+        if (!text || text.length == 0) {
+            return;
+        }
+        
+        [weakSelf.judoKit fetchTransactionWithReceiptId:text
+                                             completion:^(JPResponse *response, JPError *error) {
+                                                 [weakSelf handleResponse:response error:error];
+                                             }];
     }];
-
-    [controller addAction:buttonCancel];
-    [controller addAction:buttonOk];
-    [self presentViewController:controller animated:YES completion:nil];
 }
 
 // MARK: Helper methods
 
+- (void)displaySnackBarWith:(NSString *)text {
+    MDCSnackbarMessage *message = [MDCSnackbarMessage new];
+    message.text = text;
+    [MDCSnackbarManager.defaultManager showMessage:message];
+}
+
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self displayAlertWithError:error];
+        [self displaySnackBarWith:error.localizedDescription];
         return;
     }
 
@@ -324,6 +323,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = Settings.defaultSettings.shouldPaymentMethodsDisplayAmount;
     configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = Settings.defaultSettings.shouldPaymentButtonDisplayAmount;
     configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = Settings.defaultSettings.shouldPaymentMethodsVerifySecurityCode;
+    configuration.uiConfiguration.shouldAskForBillingInformation = Settings.defaultSettings.shouldAskForBillingInformation;
     configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
 
@@ -331,6 +331,13 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
+    
+    configuration.emailAddress = Settings.defaultSettings.emailAddress;
+    configuration.phoneCountryCode = Settings.defaultSettings.phoneCountryCode;
+    configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
+    configuration.scaExemption = Settings.defaultSettings.scaExemption;
+    configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
+    configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDsTwoMaxTimeout;
 
     return configuration;
 }

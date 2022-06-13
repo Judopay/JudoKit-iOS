@@ -29,7 +29,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress;
+@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService;
 
 @protocol JPTransactionInteractor
 
@@ -69,15 +69,6 @@
  * A method for returning merchant-set card address details
  */
 - (JPAddress *)getConfiguredCardAddress;
-
-/**
- * A method for handling 3D Secure transactions
- *
- * @param error - the error that contains the 3D Secure details
- * @param completion - the completion block with an optional JPResponse or NSError
- */
-- (void)handle3DSecureTransactionFromError:(NSError *)error
-                                completion:(JPCompletionBlock)completion;
 
 /**
  * A method for returning the transaction response / error to the merchant
@@ -185,12 +176,12 @@
  * Designated initializer which creates a configured JPTransactionInteractorImpl instance
  *
  * @param cardValidationService - the service which is used to validate card details
- * @param apiService - the service which sends requests to the Judo backend
+ * @param transactionService - the service which sends requests to the Judo backend and handles 3DS checks
  * @param configuration - the JPConfiguration object used for customizing the payment flow
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                                   apiService:(JPApiService *)apiService
+                           transactionService:(JPCardTransactionService *)transactionService
                               transactionType:(JPTransactionType)type
                               cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration

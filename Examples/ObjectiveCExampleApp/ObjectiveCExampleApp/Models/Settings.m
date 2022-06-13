@@ -241,6 +241,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults stringForKey:kAddressMobileNumberKey];
 }
 
+- (NSString *)phoneCountryCode {
+    return [self.defaults stringForKey:kAddressCountryCodeKey];
+}
+
 #pragma mark - 3DS v2.0
 
 - (BOOL)shouldAskForBillingInformation {
@@ -261,8 +265,9 @@ NSString *safeString(NSString *aString) {
     return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
 }
 
-- (NSNumber *)threeDsTwoMaxTimeout {
-    return [self timeoutForKey:kThreeDsTwoMaxTimeoutKey];
+- (int)threeDsTwoMaxTimeout {
+    NSString *timeout = [self.defaults stringForKey:kThreeDsTwoMaxTimeoutKey];
+    return timeout.intValue;
 }
 
 - (NSNumber *)connectTimeout {

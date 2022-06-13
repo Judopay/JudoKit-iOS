@@ -24,7 +24,6 @@
 
 #import "JPTransactionInteractor.h"
 #import "JP3DSConfiguration.h"
-#import "JP3DSService.h"
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPApiService.h"
@@ -45,17 +44,21 @@
 #import "JPValidationResult.h"
 #import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
+#import "JPCardTransactionService.h"
+#import "JPCardTransactionDetails.h"
 
 @interface JPTransactionInteractorImpl ()
+
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
-@property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) JPApiService *apiService;
-@property (nonatomic, strong) JP3DSService *threeDSecureService;
 @property (nonatomic, strong) NSMutableArray *storedErrors;
 @property (nonatomic, assign) JPTransactionType transactionType;
 @property (nonatomic, assign) JPCardDetailsMode cardDetailsMode;
 @property (nonatomic, assign) JPCardNetworkType cardNetworkType;
+
+@property (nonatomic, strong) JPCardValidationService *cardValidationService;
+@property (nonatomic, strong) JPCardTransactionService *transactionService;
+
 @end
 
 @implementation JPTransactionInteractorImpl
@@ -63,7 +66,7 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
-                                   apiService:(JPApiService *)apiService
+                           transactionService:(JPCardTransactionService *)transactionService
                               transactionType:(JPTransactionType)type
                               cardDetailsMode:(JPCardDetailsMode)mode
                                 configuration:(JPConfiguration *)configuration
@@ -72,7 +75,7 @@
 
     if (self = [super init]) {
         _cardValidationService = cardValidationService;
-        _apiService = apiService;
+        _transactionService = transactionService;
         _configuration = configuration;
         _completionHandler = completion;
         _transactionType = type;
@@ -126,27 +129,27 @@
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
+    JPCardTransactionDetails *details = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration andCard:card];
 
     switch (self.transactionType) {
-
         case JPTransactionTypePayment:
-            [self createTransactionTypePayment:card completionHandler:completionHandler];
+            [self.transactionService invokePaymentWithDetails:details andCompletion:completionHandler];
             break;
 
         case JPTransactionTypePreAuth:
-            [self createTransactionTypePreAuth:card completionHandler:completionHandler];
+            [self.transactionService invokePreAuthPaymentWithDetails:details andCompletion:completionHandler];
             break;
 
         case JPTransactionTypeSaveCard:
-            [self createTransactionTypeSaveCard:card completionHandler:completionHandler];
+            [self.transactionService invokeSaveCardWithDetails:details andCompletion:completionHandler];
             break;
 
         case JPTransactionTypeCheckCard:
-            [self createTransactionTypeCheckCard:card completionHandler:completionHandler];
+            [self.transactionService invokeCheckCardWithDetails:details andCompletion:completionHandler];
             break;
 
         case JPTransactionTypeRegisterCard:
-            [self createTransactionTypeRegisterCard:card completionHandler:completionHandler];
+            [self.transactionService invokeRegisterCardWithDetails:details andCompletion:completionHandler];
             break;
 
         default:
@@ -154,33 +157,7 @@
     }
 }
 
-- (void)createTransactionTypePayment:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
-}
-
-- (void)createTransactionTypePreAuth:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
-}
-
-- (void)createTransactionTypeSaveCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    [self.apiService invokeSaveCardWithRequest:request andCompletion:completionHandler];
-}
-
-- (void)createTransactionTypeCheckCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
-}
-
-- (void)createTransactionTypeRegisterCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
-}
-
 - (void)completeTransactionWithResponse:(JPResponse *)response error:(JPError *)error {
-
     if (!self.completionHandler)
         return;
 
@@ -247,11 +224,6 @@
     [self.cardValidationService resetCardValidationResults];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error completion:(JPCompletionBlock)completion {
-    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
-    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration completion:completion];
-}
-
 - (NSArray<NSString *> *)getSelectableCountryNames {
     return @[
         [JPCountry countryWithType:JPCountryTypeUK].name,
@@ -284,13 +256,6 @@
 
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
     return [self.cardValidationService validatePostalCodeInput:input];
-}
-
-- (JP3DSService *)threeDSecureService {
-    if (!_threeDSecureService) {
-        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
-    }
-    return _threeDSecureService;
 }
 
 - (JPCardNetworkType)supportedNetworks {
