@@ -50,6 +50,7 @@
 #import "JPResponse+Additions.h"
 #import "UIApplication+Additions.h"
 #import "JP3DSViewController.h"
+#import "JP3DSConfiguration.h"
 
 @interface JP3DSChallengeStatusReceiverImpl: NSObject <JP3DSChallengeStatusReceiver>
 
