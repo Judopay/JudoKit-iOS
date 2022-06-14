@@ -160,3 +160,4 @@ ln -s -f ../Modules/PaymentMethods/Router/JPPaymentMethodsRouter.h JPPaymentMeth
 ln -s -f ../Modules/Transaction/Builder/JPTransactionBuilder.h JPTransactionBuilder.h
 ln -s -f ../Models/Request/JPComplete3DS2Request.h JPComplete3DS2Request.h
 ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
+ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
