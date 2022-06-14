@@ -40,6 +40,7 @@ ln -s -f ../Models/Reference/JPReference.h JPReference.h
 ln -s -f ../Models/Authorization/Session/JPSessionAuthorization.h JPSessionAuthorization.h
 ln -s -f ../Models/Reachability/JPReachability.h JPReachability.h
 ln -s -f ../Models/ThreeDSecure/JPThreeDSecure.h JPThreeDSecure.h
+ln -s -f ../Models/ThreeDSecureTwo/JPThreeDSecureTwo.h JPThreeDSecureTwo.h
 ln -s -f ../Services/ApplePay/JPApplePayTypedefs.h JPApplePayTypedefs.h
 ln -s -f ../Extensions/UIColor/UIColor+Additions.h UIColor+Additions.h
 ln -s -f ../Models/StoredCardDetails/JPStoredCardDetails.h JPStoredCardDetails.h
@@ -157,3 +158,5 @@ ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsEmptyHea
 ln -s -f ../Modules/PaymentMethods/Builder/JPPaymentMethodsBuilder.h JPPaymentMethodsBuilder.h
 ln -s -f ../Modules/PaymentMethods/Router/JPPaymentMethodsRouter.h JPPaymentMethodsRouter.h
 ln -s -f ../Modules/Transaction/Builder/JPTransactionBuilder.h JPTransactionBuilder.h
+ln -s -f ../Models/Request/JPComplete3DS2Request.h JPComplete3DS2Request.h
+ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
