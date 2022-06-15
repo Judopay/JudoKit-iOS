@@ -161,7 +161,25 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                            details:(JPCardTransactionDetails *)details
                      andCompletion:(JPCompletionBlock)completion {
     @try {
-        JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:@"F000000000"
+        NSString *dsServerID;
+        switch (details.cardType) {
+            case JPCardNetworkTypeVisa:
+                dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";
+                break;
+            case JPCardNetworkTypeMasterCard:
+                dsServerID = _apiService.isSandboxed ? @"F155545342" : @"A000000004";
+                break;
+            case JPCardNetworkTypeDiscover:
+                dsServerID = @"A000000324";
+                break;
+            case JPCardNetworkTypeAMEX:
+                dsServerID = @"A000000025";
+                break;
+            default:
+                break;
+        }
+
+        JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
                                                                                         messageVersion:@"2.1.0"];
         
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {

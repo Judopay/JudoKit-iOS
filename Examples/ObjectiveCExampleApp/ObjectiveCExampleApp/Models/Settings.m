@@ -242,7 +242,7 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSString *)phoneCountryCode {
-    return [self.defaults stringForKey:kAddressCountryCodeKey];
+    return [self.defaults stringForKey:kAddressPhoneCountryCodeKey];
 }
 
 #pragma mark - 3DS v2.0
