@@ -57,6 +57,7 @@
     if (self = [super init]) {
         [self setConfiguration:configuration];
         [self setCard:card];
+        _cardType = [JPCardNetwork cardNetworkForCardNumber:card.cardNumber];
     }
     return self;
 }
