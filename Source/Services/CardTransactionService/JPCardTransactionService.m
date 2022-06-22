@@ -200,8 +200,15 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                                                                            details:details
                                                                           response:response
                                                                      andCompletion:completion];
+
+                    JPCReqParameters *cReqParameters = [response cReqParameters];
+                    JP3DSChallengeParameters *params = [[JP3DSChallengeParameters alloc] initWithThreeDSServerTransactionID:cReqParameters.threeDSServerTransID
+                                                                                                           acsTransactionID:cReqParameters.acsTransID
+                                                                                                               acsRefNumber:response.rawData[@"acsReferenceNumber"]
+                                                                                                           acsSignedContent:response.rawData[@"acsSignedContent"]
+                                                                                                     threeDSRequestorAppURL:nil];
                     
-                    [transaction doChallengeWithChallengeParameters:[JP3DSChallengeParameters new]
+                    [transaction doChallengeWithChallengeParameters:params
                                             challengeStatusReceiver:receiverImpl
                                                             timeOut:30];
                 } else {

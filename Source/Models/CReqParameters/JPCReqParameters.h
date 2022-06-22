@@ -24,13 +24,17 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface JPCReqParameters : NSObject
 
-@property (nonatomic, strong, nonnull) NSString *messageType;
-@property (nonatomic, strong, nonnull) NSString *messageVersion;
-@property (nonatomic, strong, nonnull) NSString *threeDSServerTransID;
-@property (nonatomic, strong, nonnull) NSString *acsTransID;
+@property (nonatomic, readonly) NSString *messageType;
+@property (nonatomic, readonly) NSString *messageVersion;
+@property (nonatomic, readonly) NSString *threeDSServerTransID;
+@property (nonatomic, readonly) NSString *acsTransID;
 
-- (nonnull instancetype)initWithStrsing:(nonnull NSString *)cReq;
+- (instancetype)initWithString:(NSString *)cReq;
 
 @end
+
+NS_ASSUME_NONNULL_END

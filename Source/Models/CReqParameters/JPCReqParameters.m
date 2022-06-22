@@ -24,20 +24,33 @@
 
 #import "JPCReqParameters.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation JPCReqParameters
 
-- (instancetype)initWithStrsing:(NSString *)cReq {
+- (instancetype)initWithString:(NSString *)cReq {
     if (self = [super init]) {
+        NSMutableString *decodedString = [cReq mutableCopy];
+        switch (decodedString.length % 4) {
+            case 0:
+                break; // no padding
+            case 2:
+                [decodedString appendString:@"=="]; // pad with 2
+                break;
+            case 3:
+                [decodedString appendString:@"="]; // pad with 1
+                break;
+            default:
+                return nil; // invalid base64url string
+        }
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:decodedString options:0];
         NSError *error = nil;
-        NSData *base64String = [[NSData alloc] initWithBase64EncodedString:cReq options:0];
-        NSData *data = [[NSData alloc] initWithBase64EncodedData:base64String options:NSUTF8StringEncoding];
-        
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                              options:NSJSONReadingAllowFragments
                                                                error:&error];
 
         _messageVersion = @"2.1.0";
-        
+
         if (!error && json) {
             _messageType = json[@"messageType"];
             _messageVersion = json[@"messageVersion"];
@@ -45,8 +58,10 @@
             _acsTransID = json[@"acsTransID"];
         }
     }
-    
+
     return self;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

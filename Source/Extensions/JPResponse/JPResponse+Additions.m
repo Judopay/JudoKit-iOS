@@ -26,7 +26,9 @@
 #import "JPCReqParameters.h"
 #import "NSString+Additions.h"
 
-static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
+NS_ASSUME_NONNULL_BEGIN
+
+static NSString * const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
 
 @implementation JPResponse (Additions)
 
@@ -43,7 +45,9 @@ static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challe
 
 - (JPCReqParameters *)cReqParameters {
     NSString *cReq = self.rawData[@"cReq"];
-    return [[JPCReqParameters alloc] initWithStrsing:cReq];
+    return [[JPCReqParameters alloc] initWithString:cReq];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

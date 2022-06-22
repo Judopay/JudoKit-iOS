@@ -24,6 +24,8 @@
 
 #import "JPResponse.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class JPCReqParameters;
 
 @interface JPResponse (Additions)
@@ -31,6 +33,8 @@
 - (BOOL)isThreeDSecureOneRequired;
 - (BOOL)isThreeDSecureTwoRequired;
 
-- (nonnull JPCReqParameters *)cReqParameters;
+- (JPCReqParameters *)cReqParameters;
 
 @end
+
+NS_ASSUME_NONNULL_END
