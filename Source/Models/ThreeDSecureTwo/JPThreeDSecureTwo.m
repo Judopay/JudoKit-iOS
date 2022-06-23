@@ -87,6 +87,9 @@
    andAuthenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params {
     if (self = [super init]) {
         _challengeRequestIndicator = configuration.challengeRequestIndicator;
+        if (!_challengeRequestIndicator.length) {
+            _challengeRequestIndicator = @"challengeAsMandate";
+        }
         _scaExemption = configuration.scaExemption;
         _authenticationSource = @"MOBILE_SDK";
         _sdk = [[JPSDKParameters alloc] initWithConfiguration:configuration
