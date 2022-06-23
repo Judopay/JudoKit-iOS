@@ -181,7 +181,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         // TODO: handle when them mapping doesn't work
 
         JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
-                                                                                        messageVersion:@"2.1.0"];
+                                                                                        messageVersion:@"2.2.0"];
         
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
