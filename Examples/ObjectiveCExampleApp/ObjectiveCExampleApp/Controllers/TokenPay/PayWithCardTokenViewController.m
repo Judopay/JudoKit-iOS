@@ -97,7 +97,8 @@
         JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
                                                                                 andCardDetails:weakSelf.cardDetails];
         details.secureCode = text;
-        
+        details.cardholderName = @"CHALLENGE";
+
         [weakSelf.transactionService invokeTokenPaymentWithDetails:details
                                                      andCompletion:^(JPResponse *response, JPError *error) {
             [weakSelf handleResponse:response error:error showReceipt:true];
@@ -125,7 +126,8 @@
         JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
                                                                                 andCardDetails:weakSelf.cardDetails];
         details.secureCode = text;
-        
+        details.cardholderName = @"CHALLENGE";
+
         [weakSelf.transactionService invokePreAuthTokenPaymentWithDetails:details
                                                             andCompletion:^(JPResponse *response, JPError *error) {
             [weakSelf handleResponse:response error:error showReceipt:true];

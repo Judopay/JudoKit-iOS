@@ -66,7 +66,16 @@
     request.cardToken = self.cardToken;
     request.cardType = @(self.cardType);
     request.cv2 = self.secureCode;
-    
+    request.cardHolderName = self.cardholderName;
+    request.phoneCountryCode = self.phoneCountryCode;
+    request.mobileNumber = self.mobileNumber;
+    request.emailAddress = self.emailAddress;
+
+    JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
+
+    request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
+                                         andAuthenticationRequestParameters:params];
+
     return request;
 }
 
