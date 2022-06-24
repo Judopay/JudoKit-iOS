@@ -59,30 +59,72 @@
 
 - (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
                                      andTransaction:(JP3DSTransaction *)transaction {
-    JPTokenRequest *tokenRequest = [[JPTokenRequest alloc] initWithConfiguration:configuration];
+    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:configuration];
     
-    tokenRequest.endDate = self.endDate;
-    tokenRequest.cardLastFour = self.cardLastFour;
-    tokenRequest.cardToken = self.cardToken;
-    tokenRequest.cardType = @(self.cardType);
-    tokenRequest.cv2 = self.secureCode;
+    request.endDate = self.endDate;
+    request.cardLastFour = self.cardLastFour;
+    request.cardToken = self.cardToken;
+    request.cardType = @(self.cardType);
+    request.cv2 = self.secureCode;
     
-    return tokenRequest;
+    return request;
 }
 
 - (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
                                                    andTransaction:(JP3DSTransaction *)transaction {
-    return [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
+    JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
+    request.cardNumber = self.cardNumber;
+    request.expiryDate = self.expiryDate;
+    request.cv2 = self.secureCode;
+    request.cardHolderName = self.cardholderName;
+    request.phoneCountryCode = self.phoneCountryCode;
+    request.mobileNumber = self.mobileNumber;
+    request.emailAddress = self.emailAddress;
+
+    JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
+
+    request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
+                                         andAuthenticationRequestParameters:params];
+
+    return request;
 }
 
 - (JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(JPConfiguration *)configuration
                                            andTransaction:(JP3DSTransaction *)transaction {
-    return [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
+    JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
+    request.cardNumber = self.cardNumber;
+    request.expiryDate = self.expiryDate;
+    request.cv2 = self.secureCode;
+    request.cardHolderName = self.cardholderName;
+    request.phoneCountryCode = self.phoneCountryCode;
+    request.mobileNumber = self.mobileNumber;
+    request.emailAddress = self.emailAddress;
+
+    JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
+
+    request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
+                                         andAuthenticationRequestParameters:params];
+
+    return request;
 }
 
 - (JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
                                              andTransaction:(JP3DSTransaction *)transaction {
-    return [[JPCheckCardRequest alloc] initWithConfiguration:configuration];
+    JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:configuration];
+    request.cardNumber = self.cardNumber;
+    request.expiryDate = self.expiryDate;
+    request.cv2 = self.secureCode;
+    request.cardHolderName = self.cardholderName;
+    request.phoneCountryCode = self.phoneCountryCode;
+    request.mobileNumber = self.mobileNumber;
+    request.emailAddress = self.emailAddress;
+
+    JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
+
+    request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
+                                         andAuthenticationRequestParameters:params];
+
+    return request;
 }
 
 @end

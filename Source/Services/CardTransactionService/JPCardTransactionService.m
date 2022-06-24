@@ -195,12 +195,10 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                     navController.modalPresentationStyle = UIModalPresentationFullScreen;
                     [UIApplication.topMostViewController presentViewController:navController animated:YES completion:nil];
                 } else if ([response isThreeDSecureTwoRequired]) {
-                    
-                    JP3DSChallengeStatusReceiverImpl *receiverImpl
-                    = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
-                                                                           details:details
-                                                                          response:response
-                                                                     andCompletion:completion];
+                    JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
+                                                                                                                          details:details
+                                                                                                                         response:response
+                                                                                                                    andCompletion:completion];
 
                     JPCReqParameters *cReqParameters = [response cReqParameters];
                     JP3DSChallengeParameters *params = [[JP3DSChallengeParameters alloc] initWithThreeDSServerTransactionID:cReqParameters.threeDSServerTransID
@@ -208,7 +206,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                                                                                                                acsRefNumber:response.rawData[@"acsReferenceNumber"]
                                                                                                            acsSignedContent:response.rawData[@"acsSignedContent"]
                                                                                                      threeDSRequestorAppURL:nil];
-                    
+
                     [transaction doChallengeWithChallengeParameters:params
                                             challengeStatusReceiver:receiverImpl
                                                             timeOut:30];
