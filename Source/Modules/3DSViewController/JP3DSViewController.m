@@ -201,6 +201,7 @@ NSString *const kExtractResultScript =
 #pragma mark - Helper methods
 
 - (void)handleResult:(NSDictionary *)result {
+    [self.loadingView startLoading];
 
     NSString *mdValue = result[@"MD"];
     if (mdValue == nil || [mdValue isKindOfClass:NSNull.class]) {
