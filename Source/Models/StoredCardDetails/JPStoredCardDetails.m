@@ -24,10 +24,10 @@
 
 #import "JPStoredCardDetails.h"
 #import "JPConstants.h"
+#import "JPFormatters.h"
 
 @interface JPStoredCardDetails ()
 
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) NSDate *currentDate;
 
 @end
@@ -103,7 +103,7 @@
 - (JPCardExpirationStatus)determineCardExpirationStatus {
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *cardExpirationDate = [self.dateFormatter dateFromString:self.expiryDate];
+    NSDate *cardExpirationDate = [JPFormatters.sharedInstance.expiryDateFormatter dateFromString:self.expiryDate];
     NSDate *dateInTwoMonths = [calendar dateByAddingUnit:NSCalendarUnitMonth
                                                    value:2
                                                   toDate:self.currentDate
@@ -123,14 +123,6 @@
     }
 
     return JPCardExpirationStatusNotExpired;
-}
-
-- (NSDateFormatter *)dateFormatter {
-    if (!_dateFormatter) {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDateFormat:kMonthYearDateFormat];
-    }
-    return _dateFormatter;
 }
 
 - (NSDate *)currentDate {

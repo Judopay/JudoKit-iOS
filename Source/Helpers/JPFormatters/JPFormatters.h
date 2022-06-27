@@ -27,6 +27,7 @@
 @interface JPFormatters : NSObject
 
 @property (nonatomic, strong) NSDateFormatter *rfc3339DateFormatter;
+@property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;
 
 /**
  * The shared JPFormatters instance

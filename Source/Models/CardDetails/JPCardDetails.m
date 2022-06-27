@@ -25,10 +25,7 @@
 #import "JPCardDetails.h"
 #import "JPConstants.h"
 #import "NSString+Additions.h"
-
-@interface JPCardDetails ()
-@property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;
-@end
+#import "JPFormatters.h"
 
 @implementation JPCardDetails
 
@@ -93,7 +90,7 @@
         comp.month = month;
         NSDate *expiryDate = [calendar dateFromComponents:comp];
         if (expiryDate) {
-            self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+            self.endDate = [JPFormatters.sharedInstance.expiryDateFormatter stringFromDate:expiryDate];
         }
         self.cardNumber = cardNumber;
     }
@@ -136,16 +133,6 @@
         return [NSString stringWithFormat:@"%@/%@", prefix, suffix];
     }
     return self.endDate;
-}
-
-#pragma mark - Lazy Loading
-
-- (NSDateFormatter *)expiryDateFormatter {
-    if (!_expiryDateFormatter) {
-        _expiryDateFormatter = [NSDateFormatter new];
-        _expiryDateFormatter.dateFormat = kMonthYearDateFormat;
-    }
-    return _expiryDateFormatter;
 }
 
 @end
