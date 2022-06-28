@@ -52,6 +52,11 @@
 @property (nonatomic, assign) JPCardNetworkType cardNetwork;
 
 /**
+ * The raw card network
+ */
+@property (nonatomic, assign) NSNumber *_Nullable rawCardNetwork;
+
+/**
  * The card number if available
  */
 @property (nonatomic, strong) NSString *_Nullable cardNumber;

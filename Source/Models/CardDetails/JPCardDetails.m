@@ -40,7 +40,10 @@
         self.cardCountry = dictionary[@"cardCountry"];
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
-        self.cardNetwork = [self cardNetworkTypeFromRawValue:dictionary[@"cardType"]];
+        
+        NSNumber *cardType = dictionary[@"cardType"];
+        self.rawCardNetwork = cardType;
+        self.cardNetwork = [self cardNetworkTypeFromRawValue:cardType];
     }
     return self;
 }
