@@ -24,7 +24,7 @@
 
 #import "JPInputField.h"
 
-@class JPTransactionViewModel, JPTransactionInputFieldViewModel;
+@class JPTransactionInputFieldViewModel;
 
 /**
  * A custom implementation of the JPInputField class used for displaying card details input
