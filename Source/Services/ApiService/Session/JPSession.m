@@ -208,10 +208,10 @@ static NSString *const kMethodPUT = @"PUT";
         return;
     }
 
-//    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
-//        completion(nil, [JPError judo3DSRequestWithPayload:responseJSON]);
-//        return;
-//    }
+    //    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
+    //        completion(nil, [JPError judo3DSRequestWithPayload:responseJSON]);
+    //        return;
+    //    }
 
     JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
     completion(result, nil);

@@ -51,7 +51,10 @@
         _mdValue = response.rawData[@"md"];
         _paReqValue = response.rawData[@"paReq"];
         _receiptId = response.rawData[@"receiptId"];
-        _acsURL = [NSURL URLWithString:response.rawData[@"acsUrl"]];
+        NSString *acsUrl = response.rawData[@"acsUrl"];
+        if (acsUrl) {
+            _acsURL = [NSURL URLWithString:acsUrl];
+        }
     }
     return self;
 }

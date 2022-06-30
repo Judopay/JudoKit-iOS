@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPCardTransactionDetails.h"
-#import "JPConfiguration.h"
-#import "JPCardDetails.h"
 #import "JPCard.h"
+#import "JPCardDetails.h"
+#import "JPConfiguration.h"
 #import "JPStoredCardDetails.h"
 
 @implementation JPCardTransactionDetails

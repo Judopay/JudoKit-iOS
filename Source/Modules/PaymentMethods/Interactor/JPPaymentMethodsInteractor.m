@@ -31,6 +31,8 @@
 #import "JPCardDetails.h"
 #import "JPCardNetwork.h"
 #import "JPCardStorage.h"
+#import "JPCardTransactionDetails.h"
+#import "JPCardTransactionService.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPConsumer.h"
@@ -47,8 +49,6 @@
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
 #import "UIApplication+Additions.h"
-#import "JPCardTransactionService.h"
-#import "JPCardTransactionDetails.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
 @property (nonatomic, assign) JPTransactionMode transactionMode;
@@ -227,7 +227,7 @@
         [self processServerToServer:completion];
         return;
     }
-    
+
     JPCardTransactionDetails *transactionDetails = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
                                                                                       andStoredCardDetails:details];
 
@@ -315,7 +315,7 @@
     response.consumer.consumerReference = self.configuration.reference.consumerReference;
     response.amount = self.configuration.amount;
     response.cardDetails = [JPCardDetails new];
-    
+
     JPStoredCardDetails *selectedCard = [self selectedCard];
     response.cardDetails.cardLastFour = selectedCard.cardLastFour;
     response.cardDetails.cardToken = selectedCard.cardToken;

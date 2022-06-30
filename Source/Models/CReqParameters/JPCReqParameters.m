@@ -45,9 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
         }
         NSData *data = [[NSData alloc] initWithBase64EncodedString:decodedString options:0];
         NSError *error = nil;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:NSJSONReadingAllowFragments
-                                                               error:&error];
+        NSDictionary *json = @{};
+        if (data) {
+            json = [NSJSONSerialization JSONObjectWithData:data
+                                                   options:NSJSONReadingAllowFragments
+                                                     error:&error];
+        }
 
         _messageVersion = @"2.1.0";
 

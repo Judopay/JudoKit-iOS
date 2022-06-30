@@ -27,12 +27,12 @@
 @implementation JPAddress
 
 - (instancetype)initWithAddress1:(nullable NSString *)address1
-                                address2:(nullable NSString *)address2
-                                address3:(nullable NSString *)address3
-                                    town:(nullable NSString *)town
-                          billingCountry:(nullable NSString *)billingCountry
-                                postCode:(nullable NSString *)postCode
-                             countryCode:(nullable NSNumber *)countryCode {
+                        address2:(nullable NSString *)address2
+                        address3:(nullable NSString *)address3
+                            town:(nullable NSString *)town
+                  billingCountry:(nullable NSString *)billingCountry
+                        postCode:(nullable NSString *)postCode
+                     countryCode:(nullable NSNumber *)countryCode {
 
     if (self = [super init]) {
         self.address1 = address1;
@@ -63,11 +63,11 @@
         if (dictionary[@"town"]) {
             self.town = dictionary[@"town"];
         }
-        
+
         if (dictionary[@"billingCountry"]) {
             self.billingCountry = dictionary[@"billingCountry"];
         }
-        
+
         if (dictionary[@"postCode"]) {
             self.postCode = dictionary[@"postCode"];
         }

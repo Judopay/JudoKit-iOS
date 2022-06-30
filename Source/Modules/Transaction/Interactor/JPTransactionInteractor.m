@@ -30,6 +30,8 @@
 #import "JPCard.h"
 #import "JPCardPattern.h"
 #import "JPCardStorage.h"
+#import "JPCardTransactionDetails.h"
+#import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
 #import "JPCheckCardRequest.h"
 #import "JPConfiguration.h"
@@ -44,8 +46,6 @@
 #import "JPValidationResult.h"
 #import "NSNumberFormatter+Additions.h"
 #import "NSString+Additions.h"
-#import "JPCardTransactionService.h"
-#import "JPCardTransactionDetails.h"
 
 @interface JPTransactionInteractorImpl ()
 

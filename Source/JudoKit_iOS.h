@@ -75,9 +75,9 @@
 #import "JPApplePayController.h"
 #import "JPApplePayRequest.h"
 #import "JPApplePayWrappers.h"
+#import "JPComplete3DS2Request.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
-#import "JPComplete3DS2Request.h"
 
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"
@@ -91,14 +91,14 @@
 
 #import "JPAuthorization.h"
 #import "JPBasicAuthorization.h"
+#import "JPLoadingButton.h"
 #import "JPSessionAuthorization.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
-#import "JPLoadingButton.h"
 
 #import "JP3DSConfiguration.h"
-#import "JPCardTransactionService.h"
 #import "JPCardTransactionDetails.h"
+#import "JPCardTransactionService.h"
 
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"

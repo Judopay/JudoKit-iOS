@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardNetworkType.h"
+#import <Foundation/Foundation.h>
 
 @class JPAddress, JPConfiguration, JPCardDetails, JPCard, JPStoredCardDetails;
 
 @interface JPCardTransactionDetails : NSObject
- 
+
 @property (nonatomic, strong, nullable) NSString *cardNumber;
 @property (nonatomic, strong, nullable) NSString *cardholderName;
 @property (nonatomic, strong, nullable) NSString *expiryDate;

@@ -27,6 +27,7 @@
 #import "JPApplePayRequest.h"
 #import "JPBankOrderSaleRequest.h"
 #import "JPCheckCardRequest.h"
+#import "JPComplete3DS2Request.h"
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
 #import "JPRegisterCardRequest.h"
@@ -36,7 +37,6 @@
 #import "JPSessionConfiguration.h"
 #import "JPTokenRequest.h"
 #import "NSObject+Additions.h"
-#import "JPComplete3DS2Request.h"
 
 static NSString *const kPaymentEndpoint = @"transactions/payments";
 static NSString *const kPreauthEndpoint = @"transactions/preauths";

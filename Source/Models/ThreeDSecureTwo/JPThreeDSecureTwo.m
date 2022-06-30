@@ -31,9 +31,9 @@
 - (instancetype)init {
     if (self = [super init]) {
         _sdkInterface = @"BOTH";
-        _sdkUiType = @[@"TEXT", @"SINGLE_SELECT", @"MULTI_SELECT", @"OOB", @"HTML_OTHER"];
+        _sdkUiType = @[ @"TEXT", @"SINGLE_SELECT", @"MULTI_SELECT", @"OOB", @"HTML_OTHER" ];
     }
-    
+
     return self;
 }
 
@@ -45,7 +45,7 @@
     if (self = [super init]) {
         NSError *error = nil;
         NSData *data = [key dataUsingEncoding:NSUTF8StringEncoding];
-        
+
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                              options:NSJSONReadingAllowFragments
                                                                error:&error];
@@ -57,7 +57,7 @@
             _y = json[@"y"];
         }
     }
-    
+
     return self;
 }
 
@@ -66,7 +66,7 @@
 @implementation JPSDKParameters
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-   andAuthenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params {
+    andAuthenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params {
     if (self = [super init]) {
         _applicationId = params.sdkAppID;
         _encodedData = params.deviceData;
@@ -84,7 +84,7 @@
 @implementation JPThreeDSecureTwo
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-   andAuthenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params {
+    andAuthenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params {
     if (self = [super init]) {
         _challengeRequestIndicator = configuration.challengeRequestIndicator;
         if (!_challengeRequestIndicator.length) {
@@ -95,7 +95,7 @@
         _sdk = [[JPSDKParameters alloc] initWithConfiguration:configuration
                            andAuthenticationRequestParameters:params];
     }
-    
+
     return self;
 }
 

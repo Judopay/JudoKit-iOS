@@ -24,9 +24,9 @@
 
 #import "JPConfiguration.h"
 #import "JPAmount.h"
+#import "JPConstants.h"
 #import "JPReference.h"
 #import "JPUIConfiguration.h"
-#import "JPConstants.h"
 
 @interface JPConfiguration ()
 @property (nonatomic, strong) NSString *_Nullable judoId;

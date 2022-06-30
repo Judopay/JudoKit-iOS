@@ -25,12 +25,12 @@
 #import "JPCardTransactionDetails.h"
 
 @class JPPaymentRequest,
-JPTokenRequest,
-JPRegisterCardRequest,
-JPSaveCardRequest,
-JPCheckCardRequest,
-JPConfiguration,
-JP3DSTransaction;
+    JPTokenRequest,
+    JPRegisterCardRequest,
+    JPSaveCardRequest,
+    JPCheckCardRequest,
+    JPConfiguration,
+    JP3DSTransaction;
 
 @interface JPCardTransactionDetails (Additions)
 

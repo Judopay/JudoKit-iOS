@@ -22,13 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPResponse+Additions.h"
 #import "JPCReqParameters.h"
+#import "JPResponse+Additions.h"
 #import "NSString+Additions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
+static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
 
 @implementation JPResponse (Additions)
 

@@ -40,7 +40,7 @@
         self.readTimeout = readTimeout;
         self.writeTimeout = writeTimeout;
     }
-    
+
     return self;
 }
 

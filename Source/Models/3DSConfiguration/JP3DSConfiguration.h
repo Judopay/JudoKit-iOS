@@ -55,7 +55,7 @@
  * @returns - a configured instance of JP3DSConfiguration
  */
 
-//TODO: remove it and cleanup
+// TODO: remove it and cleanup
 + (nonnull instancetype)configurationWithError:(nonnull NSError *)error;
 
 /**
@@ -65,8 +65,6 @@
  * @returns - a configured instance of JP3DSConfiguration
  */
 - (nonnull instancetype)initWithError:(nonnull NSError *)error;
-
-
 
 + (nonnull instancetype)configurationWithResponse:(nonnull JPResponse *)response;
 - (nonnull instancetype)initWithResponse:(nonnull JPResponse *)response;

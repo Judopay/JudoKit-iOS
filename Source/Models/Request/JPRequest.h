@@ -103,7 +103,6 @@
  */
 @property (nonatomic, strong, nullable) JPPrimaryAccountDetails *primaryAccountDetails;
 
-
 @property (nonatomic, strong, nullable) NSString *phoneCountryCode;
 @property (nonatomic, strong, nullable) JPThreeDSecureTwo *threeDSecure;
 @property (nonatomic, strong, nullable) NSString *cardHolderName;

@@ -22,17 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardTransactionDetails+Additions.h"
+#import <Foundation/Foundation.h>
 
+#import "JPAddress.h"
+#import "JPCheckCardRequest.h"
+#import "JPConfiguration.h"
 #import "JPPaymentRequest.h"
-#import "JPTokenRequest.h"
 #import "JPRegisterCardRequest.h"
 #import "JPSaveCardRequest.h"
-#import "JPCheckCardRequest.h"
 #import "JPThreeDSecureTwo.h"
-#import "JPConfiguration.h"
-#import "JPAddress.h"
+#import "JPTokenRequest.h"
 
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
@@ -48,9 +48,9 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
-    
+
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
-    
+
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
                                          andAuthenticationRequestParameters:params];
     return request;
@@ -59,7 +59,7 @@
 - (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
                                      andTransaction:(JP3DSTransaction *)transaction {
     JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:configuration];
-    
+
     request.endDate = self.endDate;
     request.cardLastFour = self.cardLastFour;
     request.cardToken = self.cardToken;
