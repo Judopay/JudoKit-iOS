@@ -30,7 +30,7 @@ enum PaymentError {
 }
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
-    
+
     var calledTransactionPayment = false
     var transactionCompleteError: Error?
     var cardSelected = false
@@ -83,14 +83,14 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
-    func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
+    func paymentTransaction(with details: JPStoredCardDetails, securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
         if errorType == .threeDSRequest {
             let error = JPError.judo3DSRequest(withPayload: ["":""])
             completion?(nil, error)
         }
     }
-    
+
     func selectCard(at index: UInt) {
         cardSelected = true
     }

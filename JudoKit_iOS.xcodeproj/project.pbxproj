@@ -2012,13 +2012,12 @@
 			path = Modules/3DSViewController;
 			sourceTree = "<group>";
 		};
-		3000738823FBEDC80099F3C5 /* 3DSService */ = {
+		3000738823FBEDC80099F3C5 /* CardTransactionService */ = {
 			isa = PBXGroup;
 			children = (
 				3000738923FBEDC80099F3C5 /* JPCardTransactionService.h */,
 				3000738A23FBEDC80099F3C5 /* JPCardTransactionService.m */,
 			);
-			name = 3DSService;
 			path = CardTransactionService;
 			sourceTree = "<group>";
 		};
@@ -2543,7 +2542,7 @@
 			children = (
 				0783431D247552FA000DA445 /* PBBA */,
 				070F1FE9243B2391005D8FAB /* ConfigurationValidation */,
-				3000738823FBEDC80099F3C5 /* 3DSService */,
+				3000738823FBEDC80099F3C5 /* CardTransactionService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
 				30006F2923F697B60099F3C5 /* CardValidation */,
 				30006F2C23F697B60099F3C5 /* iDEAL */,

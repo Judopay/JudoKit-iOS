@@ -77,6 +77,7 @@
 #import "JPApplePayWrappers.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
+#import "JPComplete3DS2Request.h"
 
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"
@@ -93,10 +94,14 @@
 #import "JPSessionAuthorization.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
+#import "JPLoadingButton.h"
 
 #import "JP3DSConfiguration.h"
 #import "JPCardTransactionService.h"
 #import "JPCardTransactionDetails.h"
+
+#import "NSBundle+Additions.h"
+#import "NSString+Additions.h"
 
 //! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;
