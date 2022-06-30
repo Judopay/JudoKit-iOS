@@ -4,7 +4,7 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (0.0.1)
+  - Judo3DS2_iOS (1.0.0)
   - JudoKit-iOS (2.4.7):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS
@@ -87,7 +87,7 @@ DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (from `../../../Judo3DS2-iOS`)
+  - Judo3DS2_iOS (from `../../../Judo3DS2-iOS-Source`)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
 
@@ -107,7 +107,7 @@ EXTERNAL SOURCES:
   Cucumberish:
     :git: https://github.com/mpetrenco/Cucumberish.git
   Judo3DS2_iOS:
-    :path: "../../../Judo3DS2-iOS"
+    :path: "../../../Judo3DS2-iOS-Source"
   JudoKit-iOS:
     :path: "../../"
 
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: c45cda166fd10cc5a06fa75cd14a962da750c26e
+  Judo3DS2_iOS: 61d6e24fbbb173038a56f02ad3d7f831b2b8c3c1
   JudoKit-iOS: 2ce7579192a1817f07d5ff0ebd0661c0d8f2c978
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
@@ -130,6 +130,6 @@ SPEC CHECKSUMS:
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: c330a77abe2bfa5393aed22102749d10e6b6ea2c
+PODFILE CHECKSUM: 7532ae4aea75edfde4ec390177db53a6ed413cc1
 
 COCOAPODS: 1.11.3
