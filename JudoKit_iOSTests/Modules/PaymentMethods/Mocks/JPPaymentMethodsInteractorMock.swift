@@ -37,7 +37,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var startApplePay = false
     var startPolling = false
     var shouldVerify = false
-    var handle3DSecureTransaction = false
     var shouldFailWhenProcessApplePayment = false
     var storeError = false
 
@@ -130,13 +129,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     func isApplePaySetUp() -> Bool {
         return false
     }
-    
-    func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
-        handle3DSecureTransaction = true
-        let response = JPResponse()
-        completion?(response,nil)
-    }
-    
+
     func saveMockCards() {
         let calendar = Calendar.current
         

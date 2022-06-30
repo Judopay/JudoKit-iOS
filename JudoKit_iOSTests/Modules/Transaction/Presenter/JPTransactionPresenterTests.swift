@@ -195,14 +195,14 @@ class JPTransactionPresenterTests: XCTestCase {
     /*
      * GIVEN: User taps on transaction
      *
-     * WHEN: card model is valid amnd 3dsError
+     * WHEN: card model is valid and 3dsError
      *
      * THEN: should invoke interactor.trasactionSent and dismiss view
      */
     func test_HandleTransactionButtonTap_WhenUserTapAnThreeDSError_ShouldCallInteractor() {
         interactor.testSendTransaction = .threedDSError
         sut.handleTransactionButtonTap()
-        XCTAssertTrue(interactor.handle3DS)
+        XCTAssertTrue(interactor.trasactionSent)
     }
     
     /*
