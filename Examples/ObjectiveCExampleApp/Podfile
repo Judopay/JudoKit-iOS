@@ -4,7 +4,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
-  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+#  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+  pod 'Judo3DS2_iOS'
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'MaterialComponents/Snackbar'
