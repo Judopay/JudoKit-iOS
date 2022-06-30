@@ -34,8 +34,7 @@
 #import "JPConfiguration.h"
 #import "JPAddress.h"
 
-#import <Judo3DS2_iOS/JP3DSTransaction.h>
-#import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 @implementation JPCardTransactionDetails (Additions)
 

@@ -24,15 +24,7 @@
 
 #import "JPCardTransactionService.h"
 
-#import <Judo3DS2_iOS/JP3DS2Service.h>
-#import <Judo3DS2_iOS/JP3DSConfigParameters.h>
-#import <Judo3DS2_iOS/JP3DSAuthenticationRequestParameters.h>
-#import <Judo3DS2_iOS/JP3DSTransaction.h>
-#import <Judo3DS2_iOS/JP3DSChallengeStatusReceiver.h>
-#import <Judo3DS2_iOS/JP3DSCompletionEvent.h>
-#import <Judo3DS2_iOS/JP3DSProtocolErrorEvent.h>
-#import <Judo3DS2_iOS/JP3DSRuntimeErrorEvent.h>
-#import <Judo3DS2_iOS/JP3DSChallengeParameters.h>
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 #import "JPConfiguration.h"
 #import "JPApiService.h"
