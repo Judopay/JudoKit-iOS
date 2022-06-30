@@ -33,6 +33,7 @@
         self.isAVSEnabled = NO;
         self.shouldPaymentButtonDisplayAmount = NO;
         self.shouldPaymentMethodsVerifySecurityCode = YES;
+        self.shouldAskForBillingInformation = NO;
     }
     return self;
 }

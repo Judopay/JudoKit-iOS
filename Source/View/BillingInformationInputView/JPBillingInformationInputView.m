@@ -1,8 +1,8 @@
 //
-//  JP3DSService.h
+//  JPBillingInformationInputView.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2019 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "Typedefs.h"
-#import <Foundation/Foundation.h>
+#import "JPBillingInformationInputView.h"
 
-@class JPApiService, JP3DSConfiguration;
-
-@interface JP3DSService : NSObject
-
-- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService;
-
-/**
- * A method for invoking the 3D Secure View Controller based on a 3DS Error
- *
- * @param configuration - an instance of JP3DSConfiguration which contains the 3D Secure payload (PaRes, MD, ACS URL, Receipt ID)
- * @param completion - a completion handler with an optional JPResponse / NSError
- */
-- (void)invoke3DSecureWithConfiguration:(nonnull JP3DSConfiguration *)configuration
-                             completion:(nonnull JPCompletionBlock)completion;
+@implementation JPBillingInformationInputView
 
 @end

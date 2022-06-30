@@ -1,8 +1,8 @@
 //
-//  JPCardInputField.h
+//  JPResponse+Additions.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,18 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPInputField.h"
+#import "JPCReqParameters.h"
+#import "JPResponse+Additions.h"
+#import "NSString+Additions.h"
 
-@class JPTransactionViewModel, JPTransactionInputFieldViewModel;
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- * A custom implementation of the JPInputField class used for displaying card details input
- */
-@interface JPCardInputField : JPInputField
+static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
 
-/**
- * A method that configures the text field based on a specified view model
- */
-- (void)configureWithViewModel:(JPTransactionInputFieldViewModel *)viewModel;
+@implementation JPResponse (Additions)
+
+- (BOOL)isThreeDSecureOneRequired {
+    NSString *acsUrl = self.rawData[@"acsUrl"];
+    NSString *md = self.rawData[@"md"];
+    NSString *paReq = self.rawData[@"paReq"];
+    return acsUrl.isNotNullOrEmpty && md.isNotNullOrEmpty && paReq.isNotNullOrEmpty;
+}
+
+- (BOOL)isThreeDSecureTwoRequired {
+    return self.message.length > 0 && [self.message.lowercaseString isEqualToString:k3DSTwoMessage.lowercaseString];
+}
+
+- (JPCReqParameters *)cReqParameters {
+    NSString *cReq = self.rawData[@"cReq"];
+    return [[JPCReqParameters alloc] initWithString:cReq];
+}
 
 @end
+
+NS_ASSUME_NONNULL_END

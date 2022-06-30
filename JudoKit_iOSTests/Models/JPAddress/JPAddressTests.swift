@@ -20,25 +20,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
 @testable import JudoKit_iOS
+import XCTest
 
 class JPAddressTests: XCTestCase {
-    
-    let dictionaryForInit = ["line1":"line1",
-                             "line2":"line2",
-                             "line3":"line3",
-                             "postCode":"postCode",
-                             "town":"town",
-                             "countryCode":123] as [String : Any]
-    
-    var address: JPAddress! = nil
-    
+    let dictionaryForInit = ["address1": "line1",
+                             "address2": "line2",
+                             "address3": "line3",
+                             "town": "town",
+                             "billingCountry": "billingCountry",
+                             "postCode": "postCode",
+                             "countryCode": 123] as [String: Any]
+
+    var address: JPAddress!
+
     override func setUp() {
         super.setUp()
         address = JPAddress(dictionary: dictionaryForInit)
     }
-    
+
     /*
      * GIVEN: Creating JPAddress designated init
      *
@@ -47,21 +47,22 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_InitDesignated() {
-        let address = JPAddress(line1: "line1",
-                                line2: "line2",
-                                line3: "line3",
+        let address = JPAddress(address1: "line1",
+                                address2: "line2",
+                                address3: "line3",
                                 town: "town",
-                                countryCode: 123,
-                                postCode: "postCode")
-        
-        XCTAssertEqual(address.line1, "line1")
-        XCTAssertEqual(address.line2, "line2")
-        XCTAssertEqual(address.line3, "line3")
+                                billingCountry: "billingCountry",
+                                postCode: "postCode",
+                                countryCode: 123)
+
+        XCTAssertEqual(address.address1, "line1")
+        XCTAssertEqual(address.address2, "line2")
+        XCTAssertEqual(address.address3, "line3")
         XCTAssertEqual(address.town, "town")
-        XCTAssertEqual(address.countryCode, 123)
         XCTAssertEqual(address.postCode, "postCode")
+        XCTAssertEqual(address.countryCode, 123)
     }
-    
+
     /*
      * GIVEN: Creating JPAddress from dictionary
      *
@@ -70,11 +71,12 @@ class JPAddressTests: XCTestCase {
      * THEN: should create correct fields in JPAddress object
      */
     func test_initWithDictionary() {
-        XCTAssertEqual(address.line1, "line1")
-        XCTAssertEqual(address.line2, "line2")
-        XCTAssertEqual(address.line3, "line3")
+        XCTAssertEqual(address.address1, "line1")
+        XCTAssertEqual(address.address2, "line2")
+        XCTAssertEqual(address.address3, "line3")
         XCTAssertEqual(address.town, "town")
-        XCTAssertEqual(address.countryCode, 123)
+        XCTAssertEqual(address.billingCountry, "billingCountry")
         XCTAssertEqual(address.postCode, "postCode")
+        XCTAssertEqual(address.countryCode, 123)
     }
 }

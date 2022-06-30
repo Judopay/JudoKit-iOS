@@ -26,15 +26,13 @@
 #import "UIViewController+Additions.h"
 #import "Settings.h"
 
+@import JudoKit_iOS;
+
 @interface NoUICardPayViewController ()
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardButton;
 
-@property (strong, nonatomic) JP3DSService *threeDSecureService;
-@property (strong, nonatomic) JPApiService *apiService;
-
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
-
+@property (strong, nonatomic) JPCardTransactionService *transactionService;
 @end
 
 @implementation NoUICardPayViewController
@@ -45,21 +43,55 @@
 
     [self.preAuthWithCardButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
     [self.payWithCardButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
+}
 
-    self.apiService = [[JPApiService alloc] initWithAuthorization:Settings.defaultSettings.authorization
-                                                      isSandboxed:Settings.defaultSettings.isSandboxed];
+- (IBAction)payWithCardToken:(UIButton *)sender {
+    self.configuration.reference = Settings.defaultSettings.reference;
+    [self.payWithCardButton startLoading];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.transactionService invokePaymentWithDetails:self.cardTransactionDetails
+                                        andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf.payWithCardButton stopLoading];
+        [weakSelf handleResponse:response error:error showReceipt:true];
+    }];
+}
 
+- (IBAction)preAuthWithCardToken:(UIButton *)sender {
+    self.configuration.reference = Settings.defaultSettings.reference;
+    [self.preAuthWithCardButton startLoading];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.transactionService invokePreAuthPaymentWithDetails:self.cardTransactionDetails
+                                               andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf.preAuthWithCardButton stopLoading];
+        [weakSelf handleResponse:response error:error showReceipt:true];
+    }];
+}
+
+- (JPCardTransactionDetails *)cardTransactionDetails {
+    JPCardTransactionDetails *details = [JPCardTransactionDetails new];
+    details.cardNumber = @"4976350000006891";
+    details.cardholderName = @"CHALLENGE";
+    details.expiryDate = @"12/25";
+    details.secureCode = @"341";
+    details.emailAddress = @"federico.onco@gmail.com";
+    details.mobileNumber = @"7866868430";
+    details.phoneCountryCode = @"44";
+    details.billingAddress = [[JPAddress alloc] initWithAddress1:@"Holbeck Row"
+                                                        address2:nil
+                                                        address3:nil
+                                                            town:@"London"
+                                                  billingCountry:nil
+                                                        postCode:@"se151qa"
+                                                     countryCode:@826];
+    
+    return details;
 }
 
 - (void)handleResponse:(JPResponse *)response
                  error:(NSError *)error
            showReceipt:(BOOL)showReceipt {
-
-    if (error.code == Judo3DSRequestError) {
-        [self handle3DSecureTransactionFromError:error];
-        return;
-    }
-
     if (error || !response) {
         [self displayAlertWithError:error];
         return;
@@ -68,58 +100,13 @@
     [self presentResultViewControllerWithResponse:response];
 }
 
-- (JPPaymentRequest *)paymentRequest {
-    JPCard *card = [[JPCard alloc] initWithCardNumber:@"4000 0000 0000 0002"
-                                       cardholderName:@"Name Here"
-                                           expiryDate:@"12/25"
-                                           secureCode:@"452"];
-    
-    JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:self.configuration andCardDetails:card];
-    request.yourPaymentReference = [JPReference generatePaymentReference];
-    return request;
-}
-
-- (IBAction)payWithCardToken:(UIButton *)sender {
-    __weak typeof(self) weakSelf = self;
-    [self.payWithCardButton startLoading];
-    
-    [self.apiService invokePaymentWithRequest:self.paymentRequest
-                                     andCompletion:^(JPResponse *response, JPError *error) {
-                                         [weakSelf handleResponse:response error:error showReceipt:true];
-                                         [weakSelf.payWithCardButton stopLoading];
-                                     }];
-}
-
-- (IBAction)preAuthWithCardToken:(UIButton *)sender {
-    __weak typeof(self) weakSelf = self;
-    [self.preAuthWithCardButton startLoading];
-
-    [self.apiService invokePreAuthPaymentWithRequest:self.paymentRequest
-                                       andCompletion:^(JPResponse *response, JPError *error) {
-                                                [weakSelf handleResponse:response error:error showReceipt:true];
-                                                [weakSelf.preAuthWithCardButton stopLoading];
-                                            }];
-}
-
-- (void)handle3DSecureTransactionFromError:(NSError *)error {
-    __weak typeof(self) weakSelf = self;
-    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
-    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration
-                                                   completion:^(JPResponse *response, JPError *transactionError) {
-                                                       if (response) {
-                                                           [weakSelf presentResultViewControllerWithResponse:response];
-                                                           return;
-                                                       }
-
-                                                       [weakSelf displayAlertWithError:error];
-                                                   }];
-}
-
-- (JP3DSService *)threeDSecureService {
-    if (!_threeDSecureService) {
-        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
+- (JPCardTransactionService *)transactionService {
+    if (!_transactionService) {
+        _transactionService = [[JPCardTransactionService alloc] initWithAuthorization:Settings.defaultSettings.authorization
+                                                                          isSandboxed:Settings.defaultSettings.isSandboxed
+                                                                     andConfiguration:self.configuration];
     }
-    return _threeDSecureService;
+    return  _transactionService;
 }
 
 @end

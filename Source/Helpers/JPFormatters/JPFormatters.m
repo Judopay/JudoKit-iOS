@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPFormatters.h"
+#import "JPConstants.h"
 
 @implementation JPFormatters
 
@@ -43,6 +44,14 @@
         [_rfc3339DateFormatter setLocale:enUSPOSIXLocale];
     }
     return _rfc3339DateFormatter;
+}
+
+- (NSDateFormatter *)expiryDateFormatter {
+    if (!_expiryDateFormatter) {
+        _expiryDateFormatter = [NSDateFormatter new];
+        _expiryDateFormatter.dateFormat = kMonthYearDateFormat;
+    }
+    return _expiryDateFormatter;
 }
 
 @end

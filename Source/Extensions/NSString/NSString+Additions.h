@@ -82,4 +82,7 @@
  */
 - (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring;
 
+- (BOOL)isNotNullOrEmpty;
+- (BOOL)isNullOrEmpty;
+
 @end

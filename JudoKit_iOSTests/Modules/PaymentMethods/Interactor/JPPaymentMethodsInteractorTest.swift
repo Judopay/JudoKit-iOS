@@ -70,7 +70,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
-        sut.paymentTransaction(withToken: "", andSecurityCode: nil, andCompletion: completion)
+        sut.paymentTransaction(with: JPStoredCardDetails(), securityCode: nil, andCompletion: completion)
     }
     
     /*
@@ -322,7 +322,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                                  configuration: configuration,
                                                  apiService: service,
                                                  completion: nil)
-        sut.paymentTransaction(withToken: "token", andSecurityCode: "secure", andCompletion:nil)
+        sut.paymentTransaction(with: JPStoredCardDetails(lastFour: "", expiryDate: "", cardNetwork: .masterCard, cardToken: "token"), securityCode: "secure", andCompletion:nil)
     }
     
     /*

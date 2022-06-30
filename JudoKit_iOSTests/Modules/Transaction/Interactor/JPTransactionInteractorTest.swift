@@ -30,7 +30,7 @@ class JPTransactionInteractorTest: XCTestCase {
     let validationService = JPCardValidationService()
     var sut: JPTransactionInteractor! = nil
     lazy var reference = JPReference(consumerReference: "consumerReference")
-    let apiService = JPApiService()
+    let transactionService = JPCardTransactionService()
     
     override func setUp() {
         super.setUp()
@@ -42,7 +42,7 @@ class JPTransactionInteractorTest: XCTestCase {
         let completion: JPCompletionBlock = { (response, error) in
         }
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
-                                          apiService: apiService,
+                                          transactionService: transactionService,
                                           transactionType: .payment,
                                           cardDetailsMode: .default,
                                           configuration: configuration,
@@ -568,7 +568,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_completeTransactionWithResponse_WhenNoComplection() {
         let sut = JPTransactionInteractorImpl(cardValidationService: validationService,
-                                              apiService: apiService,
+                                              transactionService: transactionService,
                                               transactionType: .payment,
                                               cardDetailsMode: .default,
                                               configuration: configuration,

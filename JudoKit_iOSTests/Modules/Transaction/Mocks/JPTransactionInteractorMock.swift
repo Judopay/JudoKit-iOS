@@ -38,8 +38,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     lazy var validationService = JPCardValidationService()
     var trasactionSent = false
     var completeTransaction = false
-    var handle3DS = false
-    
+
     var mode: JPCardDetailsMode = .default
     func cardDetailsMode() -> JPCardDetailsMode {
         return mode
@@ -74,12 +73,6 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     
     func getConfiguredCardAddress() -> JPAddress! {
         return JPAddress()
-    }
-    
-    func handle3DSecureTransaction(fromError error: Error!, completion: JPCompletionBlock!) {
-        let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
-        completion(nil, jpError)
-        handle3DS = true
     }
     
     func completeTransaction(with response: JPResponse!, error: JPError!) {

@@ -30,14 +30,13 @@ enum PaymentError {
 }
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
-    
+
     var calledTransactionPayment = false
     var transactionCompleteError: Error?
     var cardSelected = false
     var startApplePay = false
     var startPolling = false
     var shouldVerify = false
-    var handle3DSecureTransaction = false
     var shouldFailWhenProcessApplePayment = false
     var storeError = false
 
@@ -83,14 +82,14 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         
     }
     
-    func paymentTransaction(withToken token: String, andSecurityCode securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
+    func paymentTransaction(with details: JPStoredCardDetails, securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
         if errorType == .threeDSRequest {
             let error = JPError.judo3DSRequest(withPayload: ["":""])
             completion?(nil, error)
         }
     }
-    
+
     func selectCard(at index: UInt) {
         cardSelected = true
     }
@@ -130,13 +129,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     func isApplePaySetUp() -> Bool {
         return false
     }
-    
-    func handle3DSecureTransaction(fromError error: Error, completion: JPCompletionBlock?) {
-        handle3DSecureTransaction = true
-        let response = JPResponse()
-        completion?(response,nil)
-    }
-    
+
     func saveMockCards() {
         let calendar = Calendar.current
         

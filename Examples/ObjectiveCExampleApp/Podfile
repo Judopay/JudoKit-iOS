@@ -4,11 +4,14 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
+#  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+  pod 'Judo3DS2_iOS'
   pod 'JudoKit-iOS', :path => '../../'
 
-  pod 'InAppSettingsKit', '3.3.3'
-  pod 'CocoaDebug'
-
+  pod 'MaterialComponents/Snackbar'
+  pod 'InAppSettingsKit', '3.3.6'
+  pod 'CocoaDebug', '1.7.2'
+  
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths
   end

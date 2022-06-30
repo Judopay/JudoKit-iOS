@@ -24,11 +24,8 @@
 
 #import "JPCardDetails.h"
 #import "JPConstants.h"
+#import "JPFormatters.h"
 #import "NSString+Additions.h"
-
-@interface JPCardDetails ()
-@property (nonatomic, strong) NSDateFormatter *expiryDateFormatter;
-@end
 
 @implementation JPCardDetails
 
@@ -43,7 +40,10 @@
         self.cardCountry = dictionary[@"cardCountry"];
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
-        self.cardNetwork = [self cardNetworkTypeFromRawValue:dictionary[@"cardType"]];
+
+        NSNumber *cardType = dictionary[@"cardType"];
+        self.rawCardNetwork = cardType;
+        self.cardNetwork = [self cardNetworkTypeFromRawValue:cardType];
     }
     return self;
 }
@@ -93,7 +93,7 @@
         comp.month = month;
         NSDate *expiryDate = [calendar dateFromComponents:comp];
         if (expiryDate) {
-            self.endDate = [self.expiryDateFormatter stringFromDate:expiryDate];
+            self.endDate = [JPFormatters.sharedInstance.expiryDateFormatter stringFromDate:expiryDate];
         }
         self.cardNumber = cardNumber;
     }
@@ -136,16 +136,6 @@
         return [NSString stringWithFormat:@"%@/%@", prefix, suffix];
     }
     return self.endDate;
-}
-
-#pragma mark - Lazy Loading
-
-- (NSDateFormatter *)expiryDateFormatter {
-    if (!_expiryDateFormatter) {
-        _expiryDateFormatter = [NSDateFormatter new];
-        _expiryDateFormatter.dateFormat = kMonthYearDateFormat;
-    }
-    return _expiryDateFormatter;
 }
 
 @end

@@ -171,12 +171,12 @@
 
 - (void)handlePaymentWithSecurityCode:(nullable NSString *)code {
     __weak typeof(self) weakSelf = self;
-    [self.interactor paymentTransactionWithToken:self.selectedCard.cardToken
-                                 andSecurityCode:code
-                                   andCompletion:^(JPResponse *response, NSError *error) {
-                                       [weakSelf handleCallbackWithResponse:response
-                                                                   andError:error];
-                                   }];
+    [self.interactor paymentTransactionWithStoredCardDetails:self.selectedCard
+                                                securityCode:code
+                                               andCompletion:^(JPResponse *response, NSError *error) {
+                                                   [weakSelf handleCallbackWithResponse:response
+                                                                               andError:error];
+                                               }];
 }
 
 - (void)handleApplePayButtonTap {
@@ -223,27 +223,8 @@
 }
 
 - (void)handlePaymentError:(NSError *)error {
-
-    if (error.code == Judo3DSRequestError) {
-        [self handle3DSecureTransactionWithError:error];
-        return;
-    }
-
     [self.interactor storeError:error];
     [self.view displayAlertWithTitle:@"transaction_unsuccessful".localized andError:error];
-}
-
-- (void)handle3DSecureTransactionWithError:(NSError *)error {
-
-    __weak typeof(self) weakSelf = self;
-    [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, NSError *transactionError) {
-                                                 if (transactionError) {
-                                                     [weakSelf handlePaymentError:transactionError];
-                                                     return;
-                                                 }
-                                                 [weakSelf handlePaymentResponse:response];
-                                             }];
 }
 
 - (void)deleteCardWithIndex:(NSUInteger)index {

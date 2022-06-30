@@ -24,6 +24,7 @@
 
 #import "JPConfiguration.h"
 #import "JPAmount.h"
+#import "JPConstants.h"
 #import "JPReference.h"
 #import "JPUIConfiguration.h"
 
@@ -43,6 +44,7 @@
         self.judoId = judoId;
         self.amount = amount;
         self.reference = reference;
+        self.threeDSTwoMaxTimeout = kDefaultThreeDSTwoMaxTimeout;
     }
     return self;
 }

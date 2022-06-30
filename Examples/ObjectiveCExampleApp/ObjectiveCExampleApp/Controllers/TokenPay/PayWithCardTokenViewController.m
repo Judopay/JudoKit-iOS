@@ -30,14 +30,14 @@
 
 @interface PayWithCardTokenViewController ()
 
-@property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
-@property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
 
-@property (strong, nonatomic) JP3DSService *threeDSecureService;
-@property (strong, nonatomic) JPApiService *apiService;
+@property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
+@property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
+
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
-@property (strong, nonatomic) NSString *cardToken;
+@property (strong, nonatomic) JPCardDetails *cardDetails;
+@property (strong, nonatomic) JPCardTransactionService *transactionService;
 
 @end
 
@@ -50,42 +50,27 @@
     self.title = @"Token and no UI payments";
     [self shouldEnableButtons:NO];
     [self setupButtons];
-
-    self.apiService = [[JPApiService alloc] initWithAuthorization:Settings.defaultSettings.authorization
-                                                      isSandboxed:Settings.defaultSettings.isSandboxed];
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
-    [self createCardTokenOperation];
-}
-
-- (void)createCardTokenOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error showReceipt:false];
-                                 }];
+        [weakSelf handleResponse:response error:error showReceipt:false];
+        
+        weakSelf.cardDetails = response.cardDetails;
+        
+        if (weakSelf.cardDetails) {
+            [weakSelf shouldEnableButtons:YES];
+        }
+    }];
 }
 
-- (void)handleResponse:(JPResponse *)response
-                 error:(NSError *)error
-           showReceipt:(BOOL)showReceipt {
-
-    if (error.code == Judo3DSRequestError) {
-        [self handle3DSecureTransactionFromError:error];
-        return;
-    }
-
+- (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
     if (error || !response) {
         [self displayAlertWithError:error];
         return;
-    }
-
-    self.cardToken = response.cardDetails.cardToken;
-
-    if (self.cardToken) {
-        [self shouldEnableButtons:YES];
     }
 
     if (showReceipt) {
@@ -95,50 +80,66 @@
 
 - (IBAction)payWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [self.payWithCardTokenButton startLoading];
 
-    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:self.cardToken];
-    request.yourPaymentReference = [JPReference generatePaymentReference];
+    [self presentTextFieldAlertControllerWithTitle:@"Please provide the security code"
+                                           message:@""
+                               positiveButtonTitle:@"Ok"
+                               negativeButtonTitle:@"Cancel"
+                              textFieldPlaceholder:@"Security code"
+                                     andCompletion:^(NSString *text) {
+        if (!text || text.length == 0) {
+            return;
+        }
+        
+        [weakSelf.payWithCardTokenButton startLoading];
+        
+        weakSelf.configuration.reference = Settings.defaultSettings.reference;
+        JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
+                                                                                andCardDetails:weakSelf.cardDetails];
+        details.secureCode = text;
+        details.cardholderName = @"CHALLENGE";
 
-    [self.apiService invokeTokenPaymentWithRequest:request
-                                     andCompletion:^(JPResponse *response, JPError *error) {
-                                         [weakSelf handleResponse:response error:error showReceipt:true];
-                                         [weakSelf.payWithCardTokenButton stopLoading];
-                                     }];
+        [weakSelf.transactionService invokeTokenPaymentWithDetails:details
+                                                     andCompletion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error showReceipt:true];
+            [weakSelf.payWithCardTokenButton stopLoading];
+        }];
+    }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [self.preAuthWithCardTokenButton startLoading];
 
-    JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:self.configuration andCardToken:self.cardToken];
-    request.yourPaymentReference = [JPReference generatePaymentReference];
+    [self presentTextFieldAlertControllerWithTitle:@"Please provide the security code"
+                                           message:@""
+                               positiveButtonTitle:@"Ok"
+                               negativeButtonTitle:@"Cancel"
+                              textFieldPlaceholder:@"Security code"
+                                     andCompletion:^(NSString *text) {
+        if (!text || text.length == 0) {
+            return;
+        }
+        
+        [weakSelf.preAuthWithCardTokenButton startLoading];
+        
+        weakSelf.configuration.reference = Settings.defaultSettings.reference;
+        JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
+                                                                                andCardDetails:weakSelf.cardDetails];
+        details.secureCode = text;
+        details.cardholderName = @"CHALLENGE";
 
-    [self.apiService invokePreAuthTokenPaymentWithRequest:request
-                                            andCompletion:^(JPResponse *response, JPError *error) {
-                                                [weakSelf handleResponse:response error:error showReceipt:true];
-                                                [weakSelf.preAuthWithCardTokenButton stopLoading];
-                                            }];
-}
-
-- (void)handle3DSecureTransactionFromError:(NSError *)error {
-    __weak typeof(self) weakSelf = self;
-    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithError:error];
-    [self.threeDSecureService invoke3DSecureWithConfiguration:configuration
-                                                   completion:^(JPResponse *response, JPError *transactionError) {
-                                                       if (response) {
-                                                           [weakSelf presentResultViewControllerWithResponse:response];
-                                                           return;
-                                                       }
-
-                                                       [weakSelf displayAlertWithError:error];
-                                                   }];
+        [weakSelf.transactionService invokePreAuthTokenPaymentWithDetails:details
+                                                            andCompletion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error showReceipt:true];
+            [weakSelf.preAuthWithCardTokenButton stopLoading];
+        }];
+    }];
 }
 
 - (void)setupButtons {
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
     [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
-
+    
     [self.payWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
     [self.payWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
 }
@@ -148,11 +149,13 @@
     self.preAuthWithCardTokenButton.enabled = shouldEnable;
 }
 
-- (JP3DSService *)threeDSecureService {
-    if (!_threeDSecureService) {
-        _threeDSecureService = [[JP3DSService alloc] initWithApiService:self.apiService];
+- (JPCardTransactionService *)transactionService {
+    if (!_transactionService) {
+        _transactionService = [[JPCardTransactionService alloc] initWithAuthorization:Settings.defaultSettings.authorization
+                                                                          isSandboxed:Settings.defaultSettings.isSandboxed
+                                                                     andConfiguration:self.configuration];
     }
-    return _threeDSecureService;
+    return  _transactionService;
 }
 
 @end

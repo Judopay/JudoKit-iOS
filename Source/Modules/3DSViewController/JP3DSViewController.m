@@ -154,7 +154,7 @@ NSString *const kExtractResultScript =
 
 #pragma mark - WKNavigationDelegate
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisi100915867onHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if ([navigationAction.request.URL.absoluteString isEqual:kTermURL]) {
         [self.loadingView startLoading];
     }
@@ -201,6 +201,7 @@ NSString *const kExtractResultScript =
 #pragma mark - Helper methods
 
 - (void)handleResult:(NSDictionary *)result {
+    [self.loadingView startLoading];
 
     NSString *mdValue = result[@"MD"];
     if (mdValue == nil || [mdValue isKindOfClass:NSNull.class]) {

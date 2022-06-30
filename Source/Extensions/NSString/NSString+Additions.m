@@ -158,4 +158,12 @@
     return attributedString;
 }
 
+- (BOOL)isNotNullOrEmpty {
+    return ![self isNullOrEmpty];
+}
+
+- (BOOL)isNullOrEmpty {
+    return !self || self.length == 0;
+}
+
 @end

@@ -24,6 +24,7 @@
 
 #import "JPTransactionBuilder.h"
 #import "JPApiService.h"
+#import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
 #import "JPConfiguration.h"
 #import "JPTheme.h"
@@ -46,9 +47,12 @@
     cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
     cardValidationService.lastCardNumberValidationResult.cardNetwork = cardNetwork;
 
+    JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
+                                                                                       andConfiguration:configuration];
+
     JPTransactionInteractorImpl *interactor =
         [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
-                                                                apiService:apiService
+                                                        transactionService:transactionService
                                                            transactionType:type
                                                            cardDetailsMode:mode
                                                              configuration:configuration

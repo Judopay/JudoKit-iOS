@@ -208,13 +208,15 @@ NSString *safeString(NSString *aString) {
 
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
-        NSNumber *countryCode = @([self.defaults stringForKey:kAddressBillingCountryKey].intValue);
-        return [[JPAddress alloc] initWithLine1:[self.defaults stringForKey:kAddressLine1Key]
-                                          line2:[self.defaults stringForKey:kAddressLine2Key]
-                                          line3:[self.defaults stringForKey:kAddressLine3Key]
-                                           town:[self.defaults stringForKey:kAddressTownKey]
-                                    countryCode:countryCode
-                                       postCode:[self.defaults stringForKey:kAddressPostCodeKey]];
+        NSNumber *addressCountryCode = @([self.defaults stringForKey:kAddressCountryCodeKey].intValue);
+
+        return [[JPAddress alloc] initWithAddress1:[self.defaults stringForKey:kAddressLine1Key]
+                                          address2:[self.defaults stringForKey:kAddressLine2Key]
+                                          address3:[self.defaults stringForKey:kAddressLine3Key]
+                                              town:[self.defaults stringForKey:kAddressTownKey]
+                                    billingCountry:[self.defaults stringForKey:kAddressBillingCountryKey]
+                                          postCode:[self.defaults stringForKey:kAddressPostCodeKey]
+                                       countryCode:addressCountryCode];
     }
     return nil;
 }
@@ -229,6 +231,55 @@ NSString *safeString(NSString *aString) {
         return accountDetails;
     }
     return nil;
+}
+
+- (NSString *)emailAddress {
+    return [self.defaults stringForKey:kAddressEmailAddressKey];
+}
+
+- (NSString *)mobileNumber {
+    return [self.defaults stringForKey:kAddressMobileNumberKey];
+}
+
+- (NSString *)phoneCountryCode {
+    return [self.defaults stringForKey:kAddressPhoneCountryCodeKey];
+}
+
+#pragma mark - 3DS v2.0
+
+- (BOOL)shouldAskForBillingInformation {
+    return [self.defaults boolForKey:kShouldAskForBillingInformationKey];
+}
+
+- (NSString *)challengeRequestIndicator {
+    return [self.defaults stringForKey:kChallengeRequestIndicatorKey];
+}
+
+- (NSString *)scaExemption {
+    return [self.defaults stringForKey:kScaExemptionKey];
+}
+
+- (NSNumber *)timeoutForKey:(NSString *)key {
+    NSString *timeout = [self.defaults stringForKey:key];
+    NSInteger timeoutInSeconds = [timeout intValue] * 60;
+    return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
+}
+
+- (int)threeDsTwoMaxTimeout {
+    NSString *timeout = [self.defaults stringForKey:kThreeDsTwoMaxTimeoutKey];
+    return timeout.intValue;
+}
+
+- (NSNumber *)connectTimeout {
+    return [self timeoutForKey:kConnectTimeoutKey];
+}
+
+- (NSNumber *)readTimeout {
+    return [self timeoutForKey:kReadTimeoutKey];
+}
+
+- (NSNumber *)writeTimeout {
+    return [self timeoutForKey:kWriteTimeoutKey];
 }
 
 @end

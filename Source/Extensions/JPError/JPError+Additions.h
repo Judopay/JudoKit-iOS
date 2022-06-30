@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoRequestError,
     Judo3DSRequestError,
     JudoUserDidCancelError,
+    JudoErrorThreeDSTwo
 };
 
 @interface JPError (Additions)

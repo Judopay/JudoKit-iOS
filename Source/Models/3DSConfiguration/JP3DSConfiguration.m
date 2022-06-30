@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JP3DSConfiguration.h"
+#import "JPResponse.h"
 
 @implementation JP3DSConfiguration
 
@@ -37,6 +38,23 @@
         _paReqValue = payload[@"paReq"];
         _receiptId = payload[@"receiptId"];
         _acsURL = [NSURL URLWithString:payload[@"acsUrl"]];
+    }
+    return self;
+}
+
++ (instancetype)configurationWithResponse:(JPResponse *)response {
+    return [[JP3DSConfiguration alloc] initWithResponse:response];
+}
+
+- (instancetype)initWithResponse:(JPResponse *)response {
+    if (self = [super init]) {
+        _mdValue = response.rawData[@"md"];
+        _paReqValue = response.rawData[@"paReq"];
+        _receiptId = response.rawData[@"receiptId"];
+        NSString *acsUrl = response.rawData[@"acsUrl"];
+        if (acsUrl) {
+            _acsURL = [NSURL URLWithString:acsUrl];
+        }
     }
     return self;
 }

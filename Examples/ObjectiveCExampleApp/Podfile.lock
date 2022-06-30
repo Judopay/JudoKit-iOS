@@ -3,26 +3,103 @@ PODS:
   - Cucumberish (1.4.0)
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
-  - InAppSettingsKit (3.3.3)
-  - JudoKit-iOS (2.4.7):
+  - InAppSettingsKit (3.3.6)
+  - Judo3DS2_iOS (1.0.0)
+  - JudoKit-iOS (3.0.0):
     - DeviceDNA (~> 2.0.0)
+    - Judo3DS2_iOS
     - TrustKit
     - ZappMerchantLib
+  - MaterialComponents/AnimationTiming (124.2.0)
+  - MaterialComponents/Availability (124.2.0)
+  - MaterialComponents/Buttons (124.2.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/Shadow
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/ShapeLibrary
+    - MaterialComponents/Shapes
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - MaterialComponents/Elevation (124.2.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (124.2.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/OverlayWindow (124.2.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Application (124.2.0)
+  - MaterialComponents/private/Color (124.2.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/private/KeyboardWatcher (124.2.0):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Math (124.2.0)
+  - MaterialComponents/private/Overlay (124.2.0)
+  - MaterialComponents/Ripple (124.2.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Shadow (124.2.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/ShadowElevations (124.2.0)
+  - MaterialComponents/ShadowLayer (124.2.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/ShapeLibrary (124.2.0):
+    - MaterialComponents/private/Math
+    - MaterialComponents/Shapes
+  - MaterialComponents/Shapes (124.2.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
+  - MaterialComponents/Snackbar (124.2.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/OverlayWindow
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/Overlay
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+  - MaterialComponents/Typography (124.2.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+    - MDFTextAccessibility
+  - MDFInternationalization (3.0.0)
+  - MDFTextAccessibility (2.0.1)
   - OpenSSL-Universal (1.1.1500)
-  - TrustKit (1.7.0)
+  - TrustKit (2.0.0)
   - ZappMerchantLib (3.1.0)
 
 DEPENDENCIES:
-  - CocoaDebug
+  - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
-  - InAppSettingsKit (= 3.3.3)
+  - InAppSettingsKit (= 3.3.6)
+  - Judo3DS2_iOS
   - JudoKit-iOS (from `../../`)
+  - MaterialComponents/Snackbar
 
 SPEC REPOS:
   trunk:
     - CocoaDebug
     - DeviceDNA
     - InAppSettingsKit
+    - Judo3DS2_iOS
+    - MaterialComponents
+    - MDFInternationalization
+    - MDFTextAccessibility
     - OpenSSL-Universal
     - TrustKit
     - ZappMerchantLib
@@ -42,12 +119,16 @@ SPEC CHECKSUMS:
   CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
-  InAppSettingsKit: b115427a8c8041597fd89279db901c82f3f0e21f
-  JudoKit-iOS: b46f9e724dc8e8ecea21a66f79672efd7b1af3ce
+  InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
+  Judo3DS2_iOS: 9a8e9c625ba09f2a6247cf4b10cf10be73ead7af
+  JudoKit-iOS: 4020fe1f5e9d4e263bb8f203432718bac6745f21
+  MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
+  MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
+  MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   OpenSSL-Universal: 5d1de8d199ea9684d7ee48a8caa38d5dbfee1981
-  TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
+  TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: c053a5efc58318c97b999097132ced79c525ff82
+PODFILE CHECKSUM: 5d99c3e6e2741bc28c0eebf68012981c540012d3
 
 COCOAPODS: 1.11.3

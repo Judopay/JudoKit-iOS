@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPNetworkTimeout;
 
 @interface JPConfiguration : NSObject
 
@@ -90,6 +90,37 @@
  * A  flag to sign up for a subscription-based service
  */
 @property (nonatomic, assign) BOOL isInitialRecurringPayment;
+
+/**
+ * Sets the network read, write and connect timeouts.
+ */
+@property (nonatomic, nullable, strong) JPNetworkTimeout *networkTimeout;
+
+/**
+ * 3DS  Challenge Request Indicator
+ */
+@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
+
+/**
+ * 3DS  SCA Exemption
+ */
+@property (nonatomic, nullable, copy) NSString *scaExemption;
+
+/**
+ * The card holder email
+ */
+@property (nonatomic, assign) NSString *_Nullable emailAddress;
+
+/**
+ * The card holder mobile number
+ */
+@property (nonatomic, assign) NSString *_Nullable phoneCountryCode;
+@property (nonatomic, assign) NSString *_Nullable mobileNumber;
+
+/**
+ * Sets the maximum timeout for 3DS 2.0 transactions in minutes.
+ */
+@property (nonatomic, assign) int threeDSTwoMaxTimeout;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

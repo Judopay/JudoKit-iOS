@@ -161,7 +161,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         interactor.errorType = .threeDSRequest
         sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
         sut.handlePayButtonTap()
-        XCTAssertTrue(interactor.handle3DSecureTransaction)
+        XCTAssertTrue(interactor.calledTransactionPayment)
     }
     
     /*

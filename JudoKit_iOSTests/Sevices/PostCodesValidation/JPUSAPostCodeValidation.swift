@@ -37,7 +37,7 @@ class JPUSAPostCodeValidation: XCTestCase {
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         validationService.validateCountryInput("USA")
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
-                                          apiService: nil,
+                                          transactionService: nil,
                                           transactionType: .payment,
                                           cardDetailsMode: .default,
                                           configuration: configuration,

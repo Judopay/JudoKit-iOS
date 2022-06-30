@@ -136,11 +136,6 @@
 }
 
 - (void)handleError:(JPError *)error {
-    if (error.code == Judo3DSRequestError) {
-        [self handle3DSecureTransactionFromError:error];
-        return;
-    }
-
     JPError *transactionError = [JPError formattedErrorFromError:error];
 
     if (error.code == JudoUserDidCancelError) {
@@ -156,21 +151,7 @@
     [self.interactor storeError:transactionError];
 }
 
-- (void)handle3DSecureTransactionFromError:(NSError *)error {
-    __weak typeof(self) weakSelf = self;
-    [self.interactor handle3DSecureTransactionFromError:error
-                                             completion:^(JPResponse *response, JPError *transactionError) {
-                                                 if (transactionError) {
-                                                     [weakSelf handleError:transactionError];
-                                                     return;
-                                                 }
-
-                                                 [weakSelf handleResponse:response];
-                                             }];
-}
-
 - (void)handleResponse:(JPResponse *)response {
-
     if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
         NSString *token = response.cardDetails.cardToken;
         [self.interactor updateKeychainWithCardModel:self.addCardViewModel

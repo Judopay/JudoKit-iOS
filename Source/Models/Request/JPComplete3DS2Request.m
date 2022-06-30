@@ -1,5 +1,5 @@
 //
-//  JP3DSService.m
+//  JPComplete3DS2Request.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -22,37 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JP3DSService.h"
-#import "JP3DSConfiguration.h"
-#import "JP3DSViewController.h"
-#import "JPApiService.h"
-#import "UIApplication+Additions.h"
+#import "JPComplete3DS2Request.h"
 
-@interface JP3DSService ()
-@property (strong, nonatomic) JPApiService *apiService;
-@end
+@implementation JPComplete3DS2Request
 
-@implementation JP3DSService
-
-- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService {
+- (instancetype)initWithVersion:(NSString *)version andSecureCode:(NSString *)code {
     if (self = [super init]) {
-        _apiService = apiService;
+        _version = version;
+        _cv2 = code;
     }
     return self;
-}
-
-- (void)invoke3DSecureWithConfiguration:(JP3DSConfiguration *)configuration completion:(JPCompletionBlock)completion {
-
-    JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration
-                                                                              completion:completion];
-    controller.apiService = self.apiService;
-
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-    navController.modalPresentationStyle = UIModalPresentationFullScreen;
-
-    [UIApplication.topMostViewController presentViewController:navController
-                                                      animated:YES
-                                                    completion:nil];
 }
 
 @end

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'JudoKit-iOS'
-  s.version               = '2.4.7'
+  s.version               = '3.0.0'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'https://www.judopay.com/'
   s.license               = 'MIT'
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.dependency 'DeviceDNA', '~> 2.0.0'
   s.dependency 'TrustKit'
   s.dependency 'ZappMerchantLib'
+  s.dependency 'Judo3DS2_iOS'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.resource_bundles      = { "JudoKit_iOS" => ["Resources/*.lproj/*.strings"] }

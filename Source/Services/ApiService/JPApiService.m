@@ -27,6 +27,7 @@
 #import "JPApplePayRequest.h"
 #import "JPBankOrderSaleRequest.h"
 #import "JPCheckCardRequest.h"
+#import "JPComplete3DS2Request.h"
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
 #import "JPRegisterCardRequest.h"
@@ -46,6 +47,7 @@ static NSString *const kCheckCardEndpoint = @"transactions/checkcard";
 static NSString *const kBankSaleEndpoint = @"order/bank/sale";
 static NSString *const kBankStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kTransactionsEndpoint = @"transactions";
+static NSString *const kComplete3DS2TransactionsEndpoint = @"transactions/%@/complete3ds";
 
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     JPHTTPMethodGET,
@@ -138,12 +140,23 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
-                       authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
-                              andCompletion:(nullable JPCompletionBlock)completion {
+- (void)invokeComplete3dSecureWithReceiptId:(NSString *)receiptId
+                       authenticationResult:(JP3DSecureAuthenticationResult *)result
+                              andCompletion:(JPCompletionBlock)completion {
 
     NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
     NSDictionary *parameters = [result toDictionary];
+    [self performRequestWithMethod:JPHTTPMethodPUT
+                          endpoint:endpoint
+                        parameters:parameters
+                     andCompletion:completion];
+}
+
+- (void)invokeComplete3dSecureTwoWithReceiptId:(NSString *)receiptId
+                                       request:(JPComplete3DS2Request *)request
+                                 andCompletion:(JPCompletionBlock)completion {
+    NSString *endpoint = [NSString stringWithFormat:kComplete3DS2TransactionsEndpoint, receiptId];
+    NSDictionary *parameters = [request toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPUT
                           endpoint:endpoint
                         parameters:parameters

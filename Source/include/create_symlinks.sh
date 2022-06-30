@@ -18,7 +18,8 @@ ln -s -f ../Models/TransactionEnricher/JPRequestEnricher.h JPRequestEnricher.h
 ln -s -f ../Models/PBBAConfiguration/JPPBBAConfiguration.h JPPBBAConfiguration.h
 ln -s -f ../Models/CardStorage/JPCardStorage.h JPCardStorage.h
 ln -s -f ../Models/IDEALBank/JPIDEALBank.h JPIDEALBank.h
-ln -s -f ../Services/3DSService/JP3DSService.h JP3DSService.h
+ln -s -f ../Services/CardTransactionService/JPCardTransactionService.h JPCardTransactionService.h
+ln -s -f ../Models/CardTransactionDetails/JPCardTransactionDetails.h JPCardTransactionDetails.h
 ln -s -f ../Models/ConsumerDevice/JPConsumerDevice.h JPConsumerDevice.h
 ln -s -f ../Services/ApplePay/JPApplePayController.h JPApplePayController.h
 ln -s -f ../Models/DictionaryConvertible/JPDictionaryConvertible.h JPDictionaryConvertible.h
@@ -39,6 +40,7 @@ ln -s -f ../Models/Reference/JPReference.h JPReference.h
 ln -s -f ../Models/Authorization/Session/JPSessionAuthorization.h JPSessionAuthorization.h
 ln -s -f ../Models/Reachability/JPReachability.h JPReachability.h
 ln -s -f ../Models/ThreeDSecure/JPThreeDSecure.h JPThreeDSecure.h
+ln -s -f ../Models/ThreeDSecureTwo/JPThreeDSecureTwo.h JPThreeDSecureTwo.h
 ln -s -f ../Services/ApplePay/JPApplePayTypedefs.h JPApplePayTypedefs.h
 ln -s -f ../Extensions/UIColor/UIColor+Additions.h UIColor+Additions.h
 ln -s -f ../Models/StoredCardDetails/JPStoredCardDetails.h JPStoredCardDetails.h
@@ -110,7 +112,7 @@ ln -s -f ../Modules/3DSViewController/JP3DSViewController.h JP3DSViewController.
 ln -s -f ../Modules/CardScanController/View/JPCardScanPreviewLayer.h JPCardScanPreviewLayer.h
 ln -s -f ../Modules/Transaction/Interactor/JPTransactionInteractor.h JPTransactionInteractor.h
 ln -s -f ../Modules/CardScanController/JPCardScanController.h JPCardScanController.h
-ln -s -f ../View/JPCardInputView/Subviews/JPCardInputField.h JPCardInputField.h
+ln -s -f ../View/CardInputView/Subviews/JPCardInputField.h JPCardInputField.h
 ln -s -f ../Services/CardValidation/JPCardValidationService.h JPCardValidationService.h
 ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsViewModel.h JPPaymentMethodsViewModel.h
 ln -s -f ../Modules/CardCustomization/Builder/JPCardCustomizationBuilder.h JPCardCustomizationBuilder.h
@@ -127,18 +129,18 @@ ln -s -f ../Extensions/NSLayoutConstraint/NSLayoutConstraint+Additions.h NSLayou
 ln -s -f ../Extensions/UIApplication/UIApplication+Additions.h UIApplication+Additions.h
 ln -s -f ../View/LoadingView/JPLoadingView.h JPLoadingView.h
 ln -s -f ../Modules/CardScanController/View/JPCardScanView.h JPCardScanView.h
-ln -s -f ../View/JPCardInputView/JPCardInputView.h JPCardInputView.h
+ln -s -f ../View/CardInputView/JPCardInputView.h JPCardInputView.h
 ln -s -f ../Services/PBBA/JPPBBAService.h JPPBBAService.h
 ln -s -f ../Modules/IDEALViewController/JPIDEALViewController.h JPIDEALViewController.h
 ln -s -f ../Modules/Transaction/View/JPTransactionViewDelegate.h JPTransactionViewDelegate.h
 ln -s -f ../View/SectionView/JPSectionView.h JPSectionView.h
 ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h
-ln -s -f ../View/JPCardInputView/Subviews/JPCardNumberField.h JPCardNumberField.h
+ln -s -f ../View/CardInputView/Subviews/JPCardNumberField.h JPCardNumberField.h
 ln -s -f ../Modules/Transaction/Router/JPTransactionRouter.h JPTransactionRouter.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationHeaderCell/JPCardCustomizationHeaderCell.h JPCardCustomizationHeaderCell.h
 ln -s -f ../Modules/Transaction/Presenter/JPTransactionPresenter.h JPTransactionPresenter.h
 ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
-ln -s -f ../View/JPCardInputView/Subviews/JPTransactionButton.h JPTransactionButton.h
+ln -s -f ../View/CardInputView/Subviews/JPTransactionButton.h JPTransactionButton.h
 ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsPresenter.h JPPaymentMethodsPresenter.h
 ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
 ln -s -f ../Modules/Transaction/View/JPTransactionViewController.h JPTransactionViewController.h
@@ -156,3 +158,6 @@ ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsEmptyHea
 ln -s -f ../Modules/PaymentMethods/Builder/JPPaymentMethodsBuilder.h JPPaymentMethodsBuilder.h
 ln -s -f ../Modules/PaymentMethods/Router/JPPaymentMethodsRouter.h JPPaymentMethodsRouter.h
 ln -s -f ../Modules/Transaction/Builder/JPTransactionBuilder.h JPTransactionBuilder.h
+ln -s -f ../Models/Request/JPComplete3DS2Request.h JPComplete3DS2Request.h
+ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
+ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h

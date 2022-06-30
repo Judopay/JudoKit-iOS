@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class JPPrimaryAccountDetails, JPAddress, JPConfiguration, JPCard;
+@class JPPrimaryAccountDetails, JPAddress, JPConfiguration, JPCard, JPThreeDSecureTwo;
 
 @interface JPRequest : NSObject
 
@@ -102,6 +102,10 @@
  * A reference to the primary account details
  */
 @property (nonatomic, strong, nullable) JPPrimaryAccountDetails *primaryAccountDetails;
+
+@property (nonatomic, strong, nullable) NSString *phoneCountryCode;
+@property (nonatomic, strong, nullable) JPThreeDSecureTwo *threeDSecure;
+@property (nonatomic, strong, nullable) NSString *cardHolderName;
 
 /**
  * Designated initializer that creates a JPRequest based on the configurations provided

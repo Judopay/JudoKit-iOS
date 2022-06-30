@@ -49,6 +49,11 @@
 @property (nonatomic, assign) BOOL isAVSEnabled;
 
 /**
+ * A boolean property that defines whether Billing Information should be enabled or disabled
+ */
+@property (nonatomic, assign) BOOL shouldAskForBillingInformation;
+
+/**
  * A reference to the JPTheme object that customizes the user interface
  */
 @property (nonatomic, strong) JPTheme *theme;

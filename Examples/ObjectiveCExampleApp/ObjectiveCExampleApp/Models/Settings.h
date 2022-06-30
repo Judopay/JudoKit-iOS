@@ -28,13 +28,28 @@ static NSString *const kAddressLine3Key = @"address_line_3";
 static NSString *const kAddressTownKey = @"address_town";
 static NSString *const kAddressPostCodeKey = @"address_post_code";
 static NSString *const kAddressBillingCountryKey = @"address_billing_country";
+static NSString *const kAddressCountryCodeKey = @"address_country_code";
+static NSString *const kAddressPhoneCountryCodeKey = @"address_phone_country_code";
+static NSString *const kAddressMobileNumberKey = @"address_mobile_number";
+static NSString *const kAddressEmailAddressKey = @"address_email_address";
 
 static NSString *const kPrimaryAccountNameKey = @"primary_account_name";
 static NSString *const kPrimaryAccountAccountNumberKey = @"primary_account_account_number";
 static NSString *const kPrimaryAccountDateOfBirthKey = @"primary_account_date_of_birth";
 static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code";
 
+#pragma mark - 3DS 2.0 section keys
+
+static NSString *const kShouldAskForBillingInformationKey = @"should_ask_for_billing_information";
+static NSString *const kChallengeRequestIndicatorKey = @"challenge_request_indicator";
+static NSString *const kScaExemptionKey = @"sca_exemption";
+static NSString *const kThreeDsTwoMaxTimeoutKey = @"three_ds_two_max_timeout";
+static NSString *const kConnectTimeoutKey = @"connect_timeout";
+static NSString *const kReadTimeoutKey = @"read_timeout";
+static NSString *const kWriteTimeoutKey = @"write_timeout";
+
 #pragma mark - Reference section keys
+
 static NSString *const kPaymentReferenceKey = @"payment_reference";
 static NSString *const kConsumerReferenceKey = @"consumer_reference";
 
@@ -122,8 +137,26 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 
+#pragma mark - Card Address
+
 - (JPAddress *)address;
+
 - (JPPrimaryAccountDetails *)primaryAccountDetails;
+
+- (nullable NSString *)emailAddress;
+- (nullable NSString *)phoneCountryCode;
+- (nullable NSString *)mobileNumber;
+
+#pragma mark - 3DS v2.0
+
+- (BOOL)shouldAskForBillingInformation;
+- (nullable NSString *)challengeRequestIndicator;
+- (nullable NSString *)scaExemption;
+- (int)threeDsTwoMaxTimeout;
+- (nonnull NSNumber *)connectTimeout;
+- (nonnull NSNumber *)readTimeout;
+- (nonnull NSNumber *)writeTimeout;
+
 @end
 
 NS_ASSUME_NONNULL_END

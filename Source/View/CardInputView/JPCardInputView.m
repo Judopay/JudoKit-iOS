@@ -288,8 +288,9 @@ static const float kLooseContentSpacing = 16.0F;
         [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"]
                          forState:UIControlStateNormal];
         _scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 0);
-        _scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, -20, 5, 5);
+        _scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 0);
+        _scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5);
+        _scanCardButton.imageView.bounds = CGRectMake(0, 0, 24, 24);
     }
     return _scanCardButton;
 }
@@ -397,6 +398,8 @@ static const float kLooseContentSpacing = 16.0F;
 
 - (UIStackView *)topButtonStackView {
     UIStackView *stackView = [UIStackView new];
+    stackView.distribution = UIStackViewDistributionFill;
+    stackView.axis = UILayoutConstraintAxisHorizontal;
 
     [stackView addArrangedSubview:self.cancelButton];
     [stackView addArrangedSubview:[UIView new]];
