@@ -47,6 +47,7 @@ static NSString *const kThreeDsTwoMaxTimeoutKey = @"three_ds_two_max_timeout";
 static NSString *const kConnectTimeoutKey = @"connect_timeout";
 static NSString *const kReadTimeoutKey = @"read_timeout";
 static NSString *const kWriteTimeoutKey = @"write_timeout";
+static NSString *const kThreeDSTwoMessageVersionKey = @"three_ds_two_message_version";
 
 #pragma mark - Reference section keys
 
@@ -153,6 +154,7 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (nullable NSString *)challengeRequestIndicator;
 - (nullable NSString *)scaExemption;
 - (int)threeDsTwoMaxTimeout;
+- (nullable NSString *)threeDSTwoMessageVersion;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;
