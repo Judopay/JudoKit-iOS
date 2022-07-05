@@ -44,6 +44,7 @@ static NSString *const kShouldAskForBillingInformationKey = @"should_ask_for_bil
 static NSString *const kChallengeRequestIndicatorKey = @"challenge_request_indicator";
 static NSString *const kScaExemptionKey = @"sca_exemption";
 static NSString *const kThreeDsTwoMaxTimeoutKey = @"three_ds_two_max_timeout";
+static NSString *const kThreeDS2MessageVersionKey = @"three_ds_two_message_version";
 static NSString *const kConnectTimeoutKey = @"connect_timeout";
 static NSString *const kReadTimeoutKey = @"read_timeout";
 static NSString *const kWriteTimeoutKey = @"write_timeout";
@@ -153,6 +154,7 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (nullable NSString *)challengeRequestIndicator;
 - (nullable NSString *)scaExemption;
 - (int)threeDsTwoMaxTimeout;
+- (nullable NSString *)threeDS2MessageVersion;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;

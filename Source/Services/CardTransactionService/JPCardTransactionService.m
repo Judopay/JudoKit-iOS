@@ -173,8 +173,14 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             return;
         }
 
-        JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
-                                                                                        messageVersion:_apiService.isSandboxed ? @"2.1.0" : @"2.2.0"];
+        NSString *messageVersion = _apiService.isSandboxed ? @"2.1.0" : @"2.2.0";
+        if ([_configuration.threeDS2MessageVersion isEqualToString:@"2.1.0"]) {
+            messageVersion = @"2.1.0";
+        } else if ([_configuration.threeDS2MessageVersion isEqualToString:@"2.2.0"]) {
+            messageVersion = @"2.2.0";
+        }
+
+        JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID messageVersion:messageVersion];
 
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {

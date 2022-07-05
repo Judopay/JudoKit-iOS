@@ -270,6 +270,10 @@ NSString *safeString(NSString *aString) {
     return timeout.intValue;
 }
 
+- (NSString *)threeDS2MessageVersion {
+    return [self.defaults stringForKey:kThreeDS2MessageVersionKey];
+}
+
 - (NSNumber *)connectTimeout {
     return [self timeoutForKey:kConnectTimeoutKey];
 }

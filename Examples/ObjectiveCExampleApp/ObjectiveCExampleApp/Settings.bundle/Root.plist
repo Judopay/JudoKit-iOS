@@ -166,6 +166,16 @@
 			<string>three_ds_two_max_timeout</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>three_ds2_message_version_title</string>
+			<key>Key</key>
+			<string>three_ds_two_message_version</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
