@@ -17,7 +17,7 @@ jobs:
             - judokit-ios-carthagecache-{{ checksum "Cartfile.resolved" }}
       - run:
           name: Carthage Update
-          command: carthage bootstrap
+          command: carthage bootstrap --use-xcframeworks
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
           paths:
