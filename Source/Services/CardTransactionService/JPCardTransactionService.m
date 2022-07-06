@@ -200,7 +200,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                                                                                                                acsRefNumber:response.rawData[@"acsReferenceNumber"]
                                                                                                            acsSignedContent:response.rawData[@"acsSignedContent"]
                                                                                                      threeDSRequestorAppURL:nil
-                    messageVersion:version];
+                                                                                                             messageVersion:version];
 
                     [transaction doChallengeWithChallengeParameters:params
                                             challengeStatusReceiver:receiverImpl

@@ -247,7 +247,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
     if (exception.reason) {
         info[NSLocalizedDescriptionKey] = exception.reason;
     }
-    
+
     return [JPError judoThreeDSTwoErrorWithUserInfo:[NSDictionary dictionaryWithDictionary:info]];
 }
 
@@ -256,7 +256,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
     NSString *details = message.errorDetails;
 
     NSDictionary *info = @{
-        NSLocalizedDescriptionKey: details
+        NSLocalizedDescriptionKey : details
     };
 
     return [JPError judoThreeDSTwoErrorWithUserInfo:info];
@@ -264,9 +264,9 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
 + (JPError *)judoThreeDSTwoErrorFromRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)event {
     NSDictionary *info = @{
-        NSLocalizedDescriptionKey: event.errorMessage
+        NSLocalizedDescriptionKey : event.errorMessage
     };
-    
+
     return [JPError judoThreeDSTwoErrorWithUserInfo:info];
 }
 
