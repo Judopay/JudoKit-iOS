@@ -94,11 +94,11 @@
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    self.completion(nil, JPError.judoRequestFailedError);
+    self.completion(nil, [JPError judoThreeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    self.completion(nil, JPError.judoRequestFailedError);
+    self.completion(nil, [JPError judoThreeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
 }
 
 @end
@@ -194,11 +194,13 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                                                                                                                     andCompletion:completion];
 
                     JPCReqParameters *cReqParameters = [response cReqParameters];
+                    NSString *version = cReqParameters.messageVersion ? cReqParameters.messageVersion : messageVersion;
                     JP3DSChallengeParameters *params = [[JP3DSChallengeParameters alloc] initWithThreeDSServerTransactionID:cReqParameters.threeDSServerTransID
                                                                                                            acsTransactionID:cReqParameters.acsTransID
                                                                                                                acsRefNumber:response.rawData[@"acsReferenceNumber"]
                                                                                                            acsSignedContent:response.rawData[@"acsSignedContent"]
-                                                                                                     threeDSRequestorAppURL:nil];
+                                                                                                     threeDSRequestorAppURL:nil
+                    messageVersion:version];
 
                     [transaction doChallengeWithChallengeParameters:params
                                             challengeStatusReceiver:receiverImpl
