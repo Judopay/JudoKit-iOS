@@ -83,7 +83,7 @@ jobs:
           key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
           paths:
             - Examples/ObjectiveCExampleApp/Pods
-            - Examples/ObjectiveCExampleApp/Podfile.resolved
+            - Examples/ObjectiveCExampleApp/Podfile.lock
   pod_install_swift_sample:
     executor: macos
     steps:
