@@ -165,4 +165,5 @@ typedef NS_ENUM(NSUInteger, JudoError) {
  */
 + (nonnull JPError *)judoInvalidConsumerReferenceError;
 
++ (nonnull JPError *)judoThreeDSTwoErrorFromException:(nonnull NSException *)exception;
 @end

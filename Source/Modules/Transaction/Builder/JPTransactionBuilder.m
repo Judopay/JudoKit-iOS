@@ -50,14 +50,15 @@
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
                                                                                        andConfiguration:configuration];
 
+    JPTransactionInteractorImpl *extractedExpr = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
+                                                                                                 transactionService:transactionService
+                                                                                                    transactionType:type
+                                                                                                    cardDetailsMode:mode
+                                                                                                      configuration:configuration
+                                                                                                        cardNetwork:cardNetwork
+                                                                                                         completion:completion];
     JPTransactionInteractorImpl *interactor =
-        [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
-                                                        transactionService:transactionService
-                                                           transactionType:type
-                                                           cardDetailsMode:mode
-                                                             configuration:configuration
-                                                               cardNetwork:cardNetwork
-                                                                completion:completion];
+        extractedExpr;
 
     JPTransactionViewController *viewController = [JPTransactionViewController new];
     JPTransactionPresenterImpl *presenter = [JPTransactionPresenterImpl new];

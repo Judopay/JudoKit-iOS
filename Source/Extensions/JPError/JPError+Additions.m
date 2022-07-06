@@ -236,4 +236,20 @@ NSString *const JudoErrorDomain = @"com.judo.error";
     return [newDict copy];
 }
 
++ (nonnull JPError *)judoThreeDSTwoErrorFromException:(nonnull NSException *)exception {
+    NSMutableDictionary *info = [NSMutableDictionary new];
+
+    if (exception.name) {
+        info[NSUnderlyingErrorKey] = exception.name;
+    }
+
+    if (exception.reason) {
+        info[NSLocalizedDescriptionKey] = exception.reason;
+    }
+
+    return [[JPError alloc] initWithDomain:JudoErrorDomain
+                                      code:JudoErrorThreeDSTwo
+                                  userInfo:[NSDictionary dictionaryWithDictionary:info]];
+}
+
 @end

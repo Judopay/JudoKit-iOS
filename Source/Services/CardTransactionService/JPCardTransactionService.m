@@ -266,15 +266,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             }
         }
     } @catch (NSException *exception) {
-        NSDictionary *info = @{
-            @"ExceptionName" : exception.name,
-            @"ExceptionReason" : exception.reason,
-            @"ExceptionCallStackReturnAddresses" : exception.callStackReturnAddresses,
-            @"ExceptionCallStackSymbols" : exception.callStackSymbols,
-            @"ExceptionUserInfo" : exception.userInfo
-        };
-
-        JPError *error = [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:info];
+        NSError *error = [JPError judoThreeDSTwoErrorFromException:exception];
         completion(nil, error);
     }
 }
