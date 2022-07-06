@@ -12,22 +12,22 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}-2
-            - judokit-ios-carthagekit-{{ checksum "Cartfile.resolved" }}-2
-            - judokit-ios-carthagecache-{{ checksum "Cartfile.resolved" }}-2
+            - judokit-ios-carthage-{{ checksum "Cartfile" }}
+            - judokit-ios-carthagekit-{{ checksum "Cartfile" }}
+            - judokit-ios-carthagecache-{{ checksum "Cartfile" }}
       - run:
           name: Carthage Update
           command: carthage bootstrap --use-xcframeworks
       - save_cache:
-          key: judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}-2
+          key: judokit-ios-carthage-{{ checksum "Cartfile" }}
           paths:
             - Carthage
       - save_cache:
-          key: judokit-ios-carthagekit-{{ checksum "Cartfile.resolved" }}-2
+          key: judokit-ios-carthagekit-{{ checksum "Cartfile" }}
           paths:
             - ~/Library/Caches/org.carthage.CarthageKit
       - save_cache:
-          key: judokit-ios-carthagecache-{{ checksum "Cartfile.resolved" }}-2
+          key: judokit-ios-carthagecache-{{ checksum "Cartfile" }}
           paths:
             - ~/Library/Caches/carthage
   bundle_install:
@@ -49,23 +49,23 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
-            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
-            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
       - run:
           name: Carthage Update Sample App
           working_directory: Examples/CarthageExampleApp
           command: carthage update --use-xcframeworks
       - save_cache:
-          key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
+          key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
           paths:
             - Examples/CarthageExampleApp/Carthage
       - save_cache:
-          key: judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
+          key: judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
           paths:
             - ~/Library/Caches/org.carthage.CarthageKit
       - save_cache:
-          key: judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
+          key: judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
           paths:
             - ~/Library/Caches/carthage
   pod_install_objc_sample:
@@ -106,7 +106,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}-2
+            - judokit-ios-carthage-{{ checksum "Cartfile" }}
       - run:
           name: Build SDK
           command: |
@@ -126,9 +126,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
-            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
-            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}-2
+            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagekit-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
+            - judokit-sample-carthagecache-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
       - run:
           name: Build Carthage Sample
           command: |
@@ -210,7 +210,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}-2
+            - judokit-ios-carthage-{{ checksum "Cartfile" }}
       - attach_workspace:
           at: ~/project
       - run:
