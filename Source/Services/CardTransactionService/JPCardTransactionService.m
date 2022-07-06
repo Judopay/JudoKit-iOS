@@ -215,54 +215,53 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
                                                                         andTransaction:transaction];
                 [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
-                break;
             }
+                break;
 
             case JPCardTransactionTypePreAuth: {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
                                                                         andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
-                break;
             }
+                break;
 
             case JPCardTransactionTypePaymentWithToken: {
                 JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
                                                                     andTransaction:transaction];
                 [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completionHandler];
-                break;
             }
+                break;
 
             case JPCardTransactionTypePreAuthWithToken: {
                 JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
                                                                     andTransaction:transaction];
                 [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completionHandler];
-                break;
             }
+                break;
 
             case JPCardTransactionTypeSave: {
                 JPSaveCardRequest *request = [details toSaveCardRequestWithConfiguration:self.configuration
                                                                           andTransaction:transaction];
                 [self.apiService invokeSaveCardWithRequest:request andCompletion:completionHandler];
-                break;
             }
+                break;
 
             case JPCardTransactionTypeCheck: {
                 JPCheckCardRequest *request = [details toCheckCardRequestWithConfiguration:self.configuration
                                                                             andTransaction:transaction];
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
-                break;
             }
-
+                break;
+                
             case JPCardTransactionTypeRegister: {
                 JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
                                                                                   andTransaction:transaction];
                 [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
-                break;
             }
-            default: {
+                break;
+            default:
                 completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:nil]);
                 break;
-            }
         }
     } @catch (NSException *exception) {
         NSDictionary *info = @{
