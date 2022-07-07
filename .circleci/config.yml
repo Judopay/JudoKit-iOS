@@ -344,7 +344,7 @@ jobs:
           command: |
             export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json
             firebase appdistribution:distribute \
-              Examples/ObjectiveCExampleApp/build/ObjectiveCExampleApp/ObjectiveCExampleApp.ipa \
+              Examples/ObjectiveCExampleApp/build/ObjectiveCExampleApp.ipa \
               --app "$IOS_FIREBASE_APP_ID" \
               --groups "default-testers" \
               --release-notes-file ./notes.txt
