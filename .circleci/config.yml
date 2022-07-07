@@ -160,7 +160,7 @@ jobs:
           name: Build Swift Sample
           command: |
             xcodebuild clean build \
-              -project Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj \
+              -workspace Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace \
               -scheme SwiftExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
@@ -254,7 +254,7 @@ jobs:
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               test
       - run:
-          name: Covert XCode Coverage Reports to SonarQube Format
+          name: Convert XCode Coverage Reports to SonarQube Format
           command: |
             curl -o xccov-to-sonarqube-generic.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
             chmod +x xccov-to-sonarqube-generic.sh
