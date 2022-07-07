@@ -15,7 +15,10 @@ jobs:
             - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
       - run:
           name: Carthage Bootstrap
-          command: carthage bootstrap --use-xcframeworks
+          command: |
+            if ! [ -f ./Carthage ]; then
+              carthage bootstrap --use-xcframeworks
+            fi
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
           paths:
@@ -45,7 +48,10 @@ jobs:
       - run:
           name: Carthage Bootstrap Sample App
           working_directory: Examples/CarthageExampleApp
-          command: carthage bootstrap --use-xcframeworks
+          command: |
+            if ! [ -f ./Carthage ]; then
+              carthage bootstrap --use-xcframeworks
+            fi
       - save_cache:
           key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
           paths:
@@ -62,7 +68,10 @@ jobs:
       - run:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
-          command: pod install --repo-update
+          command: |
+            if ! [ -f Pods ]; then
+              pod install --repo-update
+            fi
       - save_cache:
           key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
           paths:
@@ -78,7 +87,10 @@ jobs:
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
-          command: pod install --repo-update
+          command: |
+            if ! [ -f Pods ]; then
+              pod install --repo-update
+            fi
       - save_cache:
           key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
           paths:
