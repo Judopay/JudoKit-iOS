@@ -26,6 +26,7 @@
 #import "JPError+Additions.h"
 #import "JPResponse.h"
 #import "NSString+Additions.h"
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 NSString *const JudoErrorDomain = @"com.judo.error";
 
@@ -236,7 +237,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
     return [newDict copy];
 }
 
-+ (nonnull JPError *)judoThreeDSTwoErrorFromException:(nonnull NSException *)exception {
++ (JPError *)judoThreeDSTwoErrorFromException:(NSException *)exception {
     NSMutableDictionary *info = [NSMutableDictionary new];
 
     if (exception.name) {
@@ -247,9 +248,32 @@ NSString *const JudoErrorDomain = @"com.judo.error";
         info[NSLocalizedDescriptionKey] = exception.reason;
     }
 
+    return [JPError judoThreeDSTwoErrorWithUserInfo:[NSDictionary dictionaryWithDictionary:info]];
+}
+
++ (JPError *)judoThreeDSTwoErrorFromProtocolErrorEvent:(JP3DSProtocolErrorEvent *)event {
+    JP3DSErrorMessage *message = event.errorMessage;
+    NSString *details = message.errorDetails;
+
+    NSDictionary *info = @{
+        NSLocalizedDescriptionKey : details
+    };
+
+    return [JPError judoThreeDSTwoErrorWithUserInfo:info];
+}
+
++ (JPError *)judoThreeDSTwoErrorFromRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)event {
+    NSDictionary *info = @{
+        NSLocalizedDescriptionKey : event.errorMessage
+    };
+
+    return [JPError judoThreeDSTwoErrorWithUserInfo:info];
+}
+
++ (JPError *)judoThreeDSTwoErrorWithUserInfo:(NSDictionary *)userInfo {
     return [[JPError alloc] initWithDomain:JudoErrorDomain
                                       code:JudoErrorThreeDSTwo
-                                  userInfo:[NSDictionary dictionaryWithDictionary:info]];
+                                  userInfo:userInfo];
 }
 
 @end
