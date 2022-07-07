@@ -50,16 +50,13 @@
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
                                                                                        andConfiguration:configuration];
 
-    JPTransactionInteractorImpl *extractedExpr = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
-                                                                                                 transactionService:transactionService
-                                                                                                    transactionType:type
-                                                                                                    cardDetailsMode:mode
-                                                                                                      configuration:configuration
-                                                                                                        cardNetwork:cardNetwork
-                                                                                                         completion:completion];
-    JPTransactionInteractorImpl *interactor =
-        extractedExpr;
-
+    JPTransactionInteractorImpl *interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
+                                                                                              transactionService:transactionService
+                                                                                                 transactionType:type
+                                                                                                 cardDetailsMode:mode
+                                                                                                   configuration:configuration
+                                                                                                     cardNetwork:cardNetwork
+                                                                                                      completion:completion];
     JPTransactionViewController *viewController = [JPTransactionViewController new];
     JPTransactionPresenterImpl *presenter = [JPTransactionPresenterImpl new];
     JPTransactionRouterImpl *router = [JPTransactionRouterImpl new];
