@@ -429,7 +429,7 @@ jobs:
           command: pod trunk push JudoKit-iOS.podspec --allow-warnings
   report_to_jira:
     docker:
-      - image: gcr.io/opnf-management/deployer:latest
+      - image: europe-docker.pkg.dev/opnf-management/docker/deployer:latest
         auth:
           username: _json_key
           password: $GCLOUD_SERVICE_KEY
