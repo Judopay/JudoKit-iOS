@@ -24,16 +24,11 @@
 
 #import "JPCheckCardRequest.h"
 #import "JPConfiguration.h"
-#import "JPConstants.h"
 
 @implementation JPCheckCardRequest
 
 - (NSString *)amount {
     return @"0.00";
-}
-
-- (NSString *)currency {
-    return kCurrencyPounds;
 }
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {

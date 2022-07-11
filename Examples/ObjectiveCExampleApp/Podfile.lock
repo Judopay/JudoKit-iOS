@@ -4,10 +4,10 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.0.0)
-  - JudoKit-iOS (3.0.0):
+  - Judo3DS2_iOS (1.0.1)
+  - JudoKit-iOS (3.0.1):
     - DeviceDNA (~> 2.0.0)
-    - Judo3DS2_iOS
+    - Judo3DS2_iOS (~> 1.0.1)
     - TrustKit
     - ZappMerchantLib
   - MaterialComponents/AnimationTiming (124.2.0)
@@ -120,8 +120,8 @@ SPEC CHECKSUMS:
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: 9a8e9c625ba09f2a6247cf4b10cf10be73ead7af
-  JudoKit-iOS: 4020fe1f5e9d4e263bb8f203432718bac6745f21
+  Judo3DS2_iOS: c1ccf49ecacddb4559a73fb7eae6e680e2355b21
+  JudoKit-iOS: ff5d3b707ad4882137f96873dc269ab0bff6e030
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
