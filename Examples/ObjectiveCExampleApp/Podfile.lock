@@ -87,7 +87,7 @@ DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS
+  - Judo3DS2_iOS (= 1.0.1)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
 
@@ -129,6 +129,6 @@ SPEC CHECKSUMS:
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 5d99c3e6e2741bc28c0eebf68012981c540012d3
+PODFILE CHECKSUM: 318b83e3472d63980f572a1deeb22952cc3d2e82
 
 COCOAPODS: 1.11.3
