@@ -45,6 +45,7 @@
         self.amount = amount;
         self.reference = reference;
         self.threeDSTwoMaxTimeout = kDefaultThreeDSTwoMaxTimeout;
+        self.threeDSTwoMessageVersion = kThreeDSTwoMessageVersionTwoDotTwo;
     }
     return self;
 }

@@ -9,7 +9,6 @@ AlignAfterOpenBracket: true
 AlignTrailingComments: true
 SortIncludes: true
 AllowShortBlocksOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
@@ -27,7 +26,6 @@ IndentCaseLabels: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 DerivePointerBinding: false
 ExperimentalAutoDetectBinPacking: false
-IndentCaseLabels: true
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
 ObjCSpaceAfterProperty: true

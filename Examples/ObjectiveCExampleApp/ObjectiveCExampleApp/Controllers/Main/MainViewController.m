@@ -338,7 +338,13 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.scaExemption = Settings.defaultSettings.scaExemption;
     configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
     configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDsTwoMaxTimeout;
-
+    
+    NSString *messageVersion = Settings.defaultSettings.threeDSTwoMessageVersion;
+    
+    if (messageVersion.length > 0) {
+        configuration.threeDSTwoMessageVersion = messageVersion;
+    }
+    
     return configuration;
 }
 

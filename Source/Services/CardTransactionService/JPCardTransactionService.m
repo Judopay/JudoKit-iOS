@@ -94,11 +94,11 @@
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    self.completion(nil, JPError.judoRequestFailedError);
+    self.completion(nil, [JPError judoThreeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    self.completion(nil, JPError.judoRequestFailedError);
+    self.completion(nil, [JPError judoThreeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
 }
 
 @end
@@ -173,8 +173,9 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             return;
         }
 
+        NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;
         JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
-                                                                                        messageVersion:_apiService.isSandboxed ? @"2.1.0" : @"2.2.0"];
+                                                                                        messageVersion:messageVersion];
 
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
@@ -193,11 +194,13 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                                                                                                                     andCompletion:completion];
 
                     JPCReqParameters *cReqParameters = [response cReqParameters];
+                    NSString *version = cReqParameters.messageVersion ? cReqParameters.messageVersion : messageVersion;
                     JP3DSChallengeParameters *params = [[JP3DSChallengeParameters alloc] initWithThreeDSServerTransactionID:cReqParameters.threeDSServerTransID
                                                                                                            acsTransactionID:cReqParameters.acsTransID
                                                                                                                acsRefNumber:response.rawData[@"acsReferenceNumber"]
                                                                                                            acsSignedContent:response.rawData[@"acsSignedContent"]
-                                                                                                     threeDSRequestorAppURL:nil];
+                                                                                                     threeDSRequestorAppURL:nil
+                                                                                                             messageVersion:version];
 
                     [transaction doChallengeWithChallengeParameters:params
                                             challengeStatusReceiver:receiverImpl
@@ -264,15 +267,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 break;
         }
     } @catch (NSException *exception) {
-        NSDictionary *info = @{
-            @"ExceptionName" : exception.name,
-            @"ExceptionReason" : exception.reason,
-            @"ExceptionCallStackReturnAddresses" : exception.callStackReturnAddresses,
-            @"ExceptionCallStackSymbols" : exception.callStackSymbols,
-            @"ExceptionUserInfo" : exception.userInfo
-        };
-
-        JPError *error = [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:info];
+        JPError *error = [JPError judoThreeDSTwoErrorFromException:exception];
         completion(nil, error);
     }
 }

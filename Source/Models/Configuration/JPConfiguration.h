@@ -123,6 +123,11 @@
 @property (nonatomic, assign) int threeDSTwoMaxTimeout;
 
 /**
+ * Sets the protocol message version for 3DS 2.0 transactions.
+ */
+@property (nonatomic, assign) NSString *_Nullable threeDSTwoMessageVersion;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.

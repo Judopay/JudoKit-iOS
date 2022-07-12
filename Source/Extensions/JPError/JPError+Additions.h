@@ -26,7 +26,7 @@
 #import "JPError.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionData, JPCardNetwork, JPResponse;
+@class JPTransactionData, JPCardNetwork, JPResponse, JP3DSProtocolErrorEvent, JP3DSRuntimeErrorEvent;
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
@@ -164,5 +164,9 @@ typedef NS_ENUM(NSUInteger, JudoError) {
  * The consumer reference parameter has either not been set or has an incorrect format.
  */
 + (nonnull JPError *)judoInvalidConsumerReferenceError;
+
++ (nonnull JPError *)judoThreeDSTwoErrorFromException:(nonnull NSException *)exception;
++ (nonnull JPError *)judoThreeDSTwoErrorFromProtocolErrorEvent:(nonnull JP3DSProtocolErrorEvent *)event;
++ (nonnull JPError *)judoThreeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
 
 @end
