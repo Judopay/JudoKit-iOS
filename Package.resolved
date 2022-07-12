@@ -1,0 +1,50 @@
+{
+  "pins" : [
+    {
+      "identity" : "devicedna-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Judopay/DeviceDNA-iOS",
+      "state" : {
+        "revision" : "c40984708c854065312285d7b87b64b78e56687d",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "judo3ds2-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Judopay/Judo3DS2-iOS",
+      "state" : {
+        "revision" : "c6caf9f1f2cb02c794f44f960eec3e0a6e57d946",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "openssl",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/OpenSSL",
+      "state" : {
+        "revision" : "9429bf89fe0df2d2f25f3a9a51cbf7092e69640f",
+        "version" : "1.1.1700"
+      }
+    },
+    {
+      "identity" : "pbba-merchant-button-library-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Judopay/pbba-merchant-button-library-ios",
+      "state" : {
+        "revision" : "7eafa5d12f1ab5b4683a0f86886819ec51306944",
+        "version" : "3.1.3"
+      }
+    },
+    {
+      "identity" : "trustkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/datatheorem/TrustKit",
+      "state" : {
+        "revision" : "3c953558d61fdd9b136d981764e3242bd92b2648",
+        "version" : "1.7.0"
+      }
+    }
+  ],
+  "version" : 2
+}
