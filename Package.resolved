@@ -5,7 +5,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/DeviceDNA-iOS",
       "state" : {
-        "revision" : "c40984708c854065312285d7b87b64b78e56687d",
+        "revision" : "2694dba25a98f7d724922bcb119688e47ce4ddd6",
         "version" : "2.0.0"
       }
     },

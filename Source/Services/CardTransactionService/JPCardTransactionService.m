@@ -268,7 +268,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             }
         }
     } @catch (NSException *exception) {
-        NSError *error = [JPError judoThreeDSTwoErrorFromException:exception];
+        JPError *error = [JPError judoThreeDSTwoErrorFromException:exception];
         completion(nil, error);
     }
 }
