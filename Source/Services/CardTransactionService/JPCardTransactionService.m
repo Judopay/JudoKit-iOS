@@ -156,21 +156,21 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         NSString *dsServerID;
         switch (details.cardType) {
             case JPCardNetworkTypeVisa:
-                dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";
+                dsServerID = @"A000000003";
                 break;
             case JPCardNetworkTypeMasterCard:
-                dsServerID = _apiService.isSandboxed ? @"F155545342" : @"A000000004";
+                dsServerID = @"A000000004";
+                break;
+            case JPCardNetworkTypeAMEX:
+                dsServerID = @"A000000025";
                 break;
             default:
+                dsServerID = @"unknown-id";
                 break;
         }
-        if (!dsServerID) {
-            NSDictionary *info = @{
-                NSLocalizedDescriptionKey : @"Unsupported card type. Only Visa and Mastercard are supported at this time."
-            };
-            JPError *error = [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:info];
-            completion(nil, error);
-            return;
+        
+        if (_apiService.isSandboxed) {
+            dsServerID = @"F000000000";
         }
 
         NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;

@@ -4,8 +4,8 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.0.1)
-  - JudoKit-iOS (3.0.1):
+  - Judo3DS2_iOS (1.0.2)
+  - JudoKit-iOS (3.0.2):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.0.1)
     - TrustKit
@@ -79,7 +79,7 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
-  - OpenSSL-Universal (1.1.1500)
+  - OpenSSL-Universal (1.1.1700)
   - TrustKit (2.0.0)
   - ZappMerchantLib (3.1.0)
 
@@ -87,7 +87,7 @@ DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.0.1)
+  - Judo3DS2_iOS (from `../../../Judo3DS2-iOS-Source`)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
 
@@ -96,7 +96,6 @@ SPEC REPOS:
     - CocoaDebug
     - DeviceDNA
     - InAppSettingsKit
-    - Judo3DS2_iOS
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -107,6 +106,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Cucumberish:
     :git: https://github.com/mpetrenco/Cucumberish.git
+  Judo3DS2_iOS:
+    :path: "../../../Judo3DS2-iOS-Source"
   JudoKit-iOS:
     :path: "../../"
 
@@ -120,15 +121,15 @@ SPEC CHECKSUMS:
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: c1ccf49ecacddb4559a73fb7eae6e680e2355b21
-  JudoKit-iOS: ff5d3b707ad4882137f96873dc269ab0bff6e030
+  Judo3DS2_iOS: 51bf22c60e28f99f3ddfa60b97fd12fb8ac970d5
+  JudoKit-iOS: 4a96c63d4cfb45bb1a68a1891b2ebaeaa8a46be1
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
-  OpenSSL-Universal: 5d1de8d199ea9684d7ee48a8caa38d5dbfee1981
+  OpenSSL-Universal: ee0a7a25f2042782e2df405e66db3e429198e392
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 318b83e3472d63980f572a1deeb22952cc3d2e82
+PODFILE CHECKSUM: 280352243dcee2576c15a048e9e235d5a9fb5e56
 
 COCOAPODS: 1.11.3
