@@ -79,7 +79,7 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
-  - OpenSSL-Universal (1.1.1500)
+  - OpenSSL-Universal (1.1.1700)
   - TrustKit (2.0.0)
   - ZappMerchantLib (3.1.0)
 
@@ -125,10 +125,10 @@ SPEC CHECKSUMS:
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
-  OpenSSL-Universal: 5d1de8d199ea9684d7ee48a8caa38d5dbfee1981
+  OpenSSL-Universal: ee0a7a25f2042782e2df405e66db3e429198e392
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 318b83e3472d63980f572a1deeb22952cc3d2e82
+PODFILE CHECKSUM: e513dd98c78f189d054453334228bab058aec825
 
 COCOAPODS: 1.11.3
