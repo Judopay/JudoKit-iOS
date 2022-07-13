@@ -77,13 +77,6 @@ class TokenInteractor: TokenInteractorInput {
     // MARK: - Helpers
 
     private func handleError(_ error: JPError) {
-
-        if error.code == JudoError.Judo3DSRequestError.rawValue {
-            featureService.handle3DSTransaction(with: error,
-                                                completion: completion)
-            return
-        }
-
         output?.displayErrorAlert(with: error)
     }
 

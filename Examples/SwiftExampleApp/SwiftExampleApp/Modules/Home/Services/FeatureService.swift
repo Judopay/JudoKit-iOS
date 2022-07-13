@@ -72,14 +72,6 @@ class FeatureService {
                                              andCompletion: completion)
     }
 
-    func handle3DSTransaction(with error: JPError,
-                              completion: @escaping JPCompletionBlock) {
-
-        let threeDSConfiguration = JP3DSConfiguration(error: error)
-        let threeDSService = JP3DSService(apiService: apiService)
-        threeDSService.invoke3DSecure(with: threeDSConfiguration, completion: completion)
-    }
-
     func invokePBBATransaction(with url: URL?,
                                completion: @escaping JPCompletionBlock) {
         let currentConfiguration = configuration
