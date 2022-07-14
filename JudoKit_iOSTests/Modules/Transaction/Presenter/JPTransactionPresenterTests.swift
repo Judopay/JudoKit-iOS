@@ -197,7 +197,7 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: card model is valid and 3dsError
      *
-     * THEN: should invoke interactor.trasactionSent and dismiss view
+     * THEN: should invoke interactor.trasactionSent
      */
     func test_HandleTransactionButtonTap_WhenUserTapAnThreeDSError_ShouldCallInteractor() {
         interactor.testSendTransaction = .threedDSError

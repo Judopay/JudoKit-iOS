@@ -2968,8 +2968,8 @@
 		ADB514BC286DF03900332E47 /* ThreeDSecureTwo */ = {
 			isa = PBXGroup;
 			children = (
-				ADB514BD286DF03900332E47 /* JPThreeDSecureTwo.m */,
 				ADB514BE286DF03900332E47 /* JPThreeDSecureTwo.h */,
+				ADB514BD286DF03900332E47 /* JPThreeDSecureTwo.m */,
 			);
 			path = ThreeDSecureTwo;
 			sourceTree = "<group>";
