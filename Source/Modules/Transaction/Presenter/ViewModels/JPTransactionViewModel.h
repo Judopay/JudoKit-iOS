@@ -98,7 +98,6 @@
 
 @interface JPTransactionPickerViewModel : JPTransactionInputFieldViewModel
 
-
 @end
 
 #pragma mark - JPTransactionScanButtonViewModel

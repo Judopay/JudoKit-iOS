@@ -216,7 +216,7 @@
     return YES;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     [self.delegate inputField:self didEndEditing:textField.text];
 }
 

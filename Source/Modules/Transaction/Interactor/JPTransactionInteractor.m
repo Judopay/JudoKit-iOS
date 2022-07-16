@@ -232,7 +232,7 @@
 
 - (NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(NSString *)searchString {
     NSArray *countries = [[JPCountryList defaultCountryList] countries];
-    if(!searchString || searchString.length == 0) {
+    if (!searchString || searchString.length == 0) {
         return [[JPCountryList defaultCountryList] countries];
     }
     // TODO: Use predicate which searches by containing string

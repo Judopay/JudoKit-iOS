@@ -97,7 +97,7 @@
     self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
 
     NSArray *selectableCountries = [self.interactor getFilteredCountriesBySearchString:nil];
-    
+
     if (selectableCountries.count > 0) {
         self.addCardViewModel.countryPickerViewModel.placeholder = @"card_holder_country_hint".localized;
         self.addCardViewModel.pickerCountries = selectableCountries;
@@ -105,7 +105,7 @@
         self.addCardViewModel.countryPickerViewModel.text = country.name;
         self.addCardViewModel.cardholderPhoneCodeViewModel.text = country.dialCode;
     }
-   
+
     self.addCardViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
 
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
@@ -419,7 +419,7 @@
     JPValidationResult *result = [self.interactor validateCountryInput:input];
     self.addCardViewModel.countryPickerViewModel.errorText = result.errorMessage;
     self.addCardViewModel.cardholderPhoneCodeViewModel.text = [[JPCountry isoCodeForCountry:input] stringValue];
-   // self.addCardViewModel.pickerCountries = [self.interactor getFilteredCountriesBySearchString:input];
+    // self.addCardViewModel.pickerCountries = [self.interactor getFilteredCountriesBySearchString:input];
     [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:NO];
     if (result.isInputAllowed) {
         self.addCardViewModel.countryPickerViewModel.text = result.formattedInput;

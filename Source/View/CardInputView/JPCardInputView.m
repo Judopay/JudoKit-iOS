@@ -109,7 +109,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
     CGFloat topPadding = window.safeAreaInsets.top;
-    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self.safeTopAnchor constant: topPadding];
+    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self.safeTopAnchor constant:topPadding];
     [_topConstraint setActive:YES];
 
     _billingDetailsHeightConstraint = [scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];

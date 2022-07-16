@@ -26,13 +26,13 @@
 #import "JPCardInputField.h"
 #import "JPCardInputView.h"
 #import "JPCardNumberField.h"
+#import "JPCountry.h"
 #import "JPLoadingButton.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
-#import "JPCountry.h"
 
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPCardInputView *addCardView;
@@ -136,11 +136,11 @@
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-    
+
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm".localized
                                                             style:UIAlertActionStyleDefault
                                                           handler:nil];
-    
+
     [controller addAction:confirmAction];
     return controller;
 }
@@ -148,15 +148,15 @@
 - (void)displayCameraPermissionsAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
                                                         andMessage:@"scan_card_no_permission_message".localized];
-    
+
     UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *_Nonnull action) {
-        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
-                                         options:@{}
-                               completionHandler:nil];
-    }];
-    
+                                                                   [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                                                                                    options:@{}
+                                                                                          completionHandler:nil];
+                                                               }];
+
     [controller addAction:goToSettingsAction];
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -164,14 +164,14 @@
 - (void)displayCameraRestrictionAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title".localized
                                                         andMessage:@"scan_card_restricted_message".localized];
-    
+
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)displayCameraSimulatorAlert {
     UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title".localized
                                                         andMessage:nil];
-    
+
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -201,7 +201,7 @@
         default:
             break;
     }
-    
+
     self.addCardView.cardNumberTextField.delegate = self;
     self.addCardView.cardHolderTextField.delegate = self;
     self.addCardView.cardHolderPhoneTextField.delegate = self;
@@ -224,38 +224,38 @@
 #pragma mark - Keyboard handling logic
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
+
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
+
     CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     self.addCardView.bottomSliderConstraint.constant = -keyboardSize.height;
-    
+
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0.0
                         options:curve
                      animations:^{
-        [weakSelf.addCardView adjustTopSpace];
-        [weakSelf.view layoutIfNeeded];
-    }
+                         [weakSelf.addCardView adjustTopSpace];
+                         [weakSelf.view layoutIfNeeded];
+                     }
                      completion:^(BOOL finished){}];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
+
     self.addCardView.bottomSliderConstraint.constant = 0;
-    
+
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0.0
                         options:curve
                      animations:^{
-        [weakSelf.addCardView adjustTopSpace];
-        [weakSelf.view layoutIfNeeded];
-    }
+                         [weakSelf.addCardView adjustTopSpace];
+                         [weakSelf.view layoutIfNeeded];
+                     }
                      completion:^(BOOL finished){}];
 }
 
@@ -294,19 +294,20 @@
 @implementation JPTransactionViewController (InputFieldDelegate)
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
-    
+
     BOOL showError = inputField.type != JPInputTypeCardholderEmail ||
-    inputField.type != JPInputTypeCardholderPhone;
-    
-    [self.presenter handleInputChange:text forType:inputField.type
+                     inputField.type != JPInputTypeCardholderPhone;
+
+    [self.presenter handleInputChange:text
+                              forType:inputField.type
                             showError:showError];
     return NO;
 }
 
 - (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
-    [self.presenter handleInputChange:text forType:inputField.type
+    [self.presenter handleInputChange:text
+                              forType:inputField.type
                             showError:inputField.type == JPInputTypeCardholderEmail];
 }
-
 
 @end

@@ -41,7 +41,8 @@
  * A method that updates the view model whenever a input field value changes
  */
 - (void)handleInputChange:(nonnull NSString *)input
-                  forType:(JPInputType)type showError:(BOOL)showError;
+                  forType:(JPInputType)type
+                showError:(BOOL)showError;
 
 /**
  * A method that handles Add Card button tap

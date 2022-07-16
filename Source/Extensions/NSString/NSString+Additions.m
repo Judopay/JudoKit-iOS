@@ -164,7 +164,7 @@
 
 - (BOOL)isPhoneNumber {
     NSString *phoneRegEx = @"[235689][0-9]{6}([0-9]{3})?";
-    NSPredicate *pred= [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegEx];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegEx];
     return [pred evaluateWithObject:self];
 }
 

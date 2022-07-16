@@ -253,7 +253,6 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
 }
 
 - (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
-    
 }
 
 @end

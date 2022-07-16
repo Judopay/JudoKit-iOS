@@ -31,7 +31,7 @@
 
 __attribute__((constructor))
 
-void CucumberishInit() {
+void CucumberishInit(void) {
 
     NSBundle *bundle = [NSBundle bundleForClass:[JPUITestSetup class]];
     
