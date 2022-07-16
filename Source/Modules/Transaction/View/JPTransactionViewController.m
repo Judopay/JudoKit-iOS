@@ -108,7 +108,7 @@
 
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel
             shouldUpdateTargets:(BOOL)shouldUpdateTargets {
-    if (viewModel.mode == JPCardDetailsModeAVS || viewModel.mode == JPCardDetailsMode3DS2BillingDetails) {
+    if (viewModel.mode == JPCardDetailsModeAVS || viewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
         self.countries = viewModel.pickerCountries;
@@ -189,10 +189,10 @@
         case JPCardDetailsModeAVS:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
             break;
-        case JPCardDetailsMode3DS2:
+        case JPCardDetailsModeThreeDS2:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
             break;
-        case JPCardDetailsMode3DS2BillingDetails:
+        case JPCardDetailsModeThreeDS2BillingDetails:
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
             [self connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
             break;

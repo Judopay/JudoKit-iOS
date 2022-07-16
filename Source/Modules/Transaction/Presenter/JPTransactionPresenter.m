@@ -183,12 +183,12 @@
 }
 
 - (void)handleContinueButtonTap {
-    self.addCardViewModel.mode = JPCardDetailsMode3DS2BillingDetails;
+    self.addCardViewModel.mode = JPCardDetailsModeThreeDS2BillingDetails;
     [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:YES];
 }
 
 - (void)handleBackButtonTap {
-    self.addCardViewModel.mode = JPCardDetailsMode3DS2;
+    self.addCardViewModel.mode = JPCardDetailsModeThreeDS2;
     [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:YES];
 }
 
@@ -299,10 +299,10 @@
     BOOL isDefaultValid = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
     switch (mode) {
         case JPCardDetailsModeSecurityCode:
-        case JPCardDetailsMode3DS2:
+        case JPCardDetailsModeThreeDS2:
             self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
             break;
-        case JPCardDetailsMode3DS2BillingDetails: {
+        case JPCardDetailsModeThreeDS2BillingDetails: {
             BOOL is3DS2Valid = self.isEmailValid && self.isCountryNameValid && self.isAddressLine1Valid && self.isPhoneNumberValid && self.isCityNameValid && self.isPostalCodeValid;
             self.addCardViewModel.addCardButtonViewModel.isEnabled = is3DS2Valid;
         } break;

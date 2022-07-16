@@ -120,7 +120,7 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if ([self cardDetailsMode] == JPCardDetailsMode3DS2) {
+    if ([self cardDetailsMode] == JPCardDetailsModeThreeDS2) {
         return @"continue".localized;
     } else if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
         return @"pay_now".localized;

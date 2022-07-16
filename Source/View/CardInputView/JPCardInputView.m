@@ -198,17 +198,17 @@ static const float kPhoneCodeWidth = 45.0F;
     [_topConstraint setActive:NO];
     [_scanCardButton setHidden:_mode == JPCardDetailsModeSecurityCode];
     [_avsStackView setHidden:_mode != JPCardDetailsModeAVS];
-    [_billingDetails setHidden:_mode != JPCardDetailsMode3DS2BillingDetails];
-    [_inputFieldsStackView setHidden:_mode == JPCardDetailsMode3DS2BillingDetails];
-    [_backButton setHidden:_mode != JPCardDetailsMode3DS2BillingDetails];
-    [_scanCardButton setHidden:(_mode == JPCardDetailsMode3DS2BillingDetails || _mode == JPCardDetailsModeSecurityCode)];
+    [_billingDetails setHidden:_mode != JPCardDetailsModeThreeDS2BillingDetails];
+    [_inputFieldsStackView setHidden:_mode == JPCardDetailsModeThreeDS2BillingDetails];
+    [_backButton setHidden:_mode != JPCardDetailsModeThreeDS2BillingDetails];
+    [_scanCardButton setHidden:(_mode == JPCardDetailsModeThreeDS2BillingDetails || _mode == JPCardDetailsModeSecurityCode)];
     _mode == JPCardDetailsModeAVS
         ? [_avsStackView addArrangedSubview:_postcodeTextField]
         : [_billingDetails addArrangedSubview:_postcodeTextField];
-    CGFloat leftPadding = _mode == JPCardDetailsMode3DS2BillingDetails ? 30 : 0;
+    CGFloat leftPadding = _mode == JPCardDetailsModeThreeDS2BillingDetails ? 30 : 0;
     _bottomButtons.layoutMargins = UIEdgeInsetsMake(0, leftPadding, 0, 0);
-    _securityMessageStackView.hidden = _mode == JPCardDetailsMode3DS2BillingDetails;
-    _billingDetailsHeightConstraint.constant = _mode == JPCardDetailsMode3DS2BillingDetails ? _billingDetails.frame.size.height : 0;
+    _securityMessageStackView.hidden = _mode == JPCardDetailsModeThreeDS2BillingDetails;
+    _billingDetailsHeightConstraint.constant = _mode == JPCardDetailsModeThreeDS2BillingDetails ? _billingDetails.frame.size.height : 0;
     [self adjustTopSpace];
 }
 
@@ -240,7 +240,7 @@ static const float kPhoneCodeWidth = 45.0F;
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
             break;
         case JPCardDetailsModeDefault:
-        case JPCardDetailsMode3DS2:
+        case JPCardDetailsModeThreeDS2:
             [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
             [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
             [self.cardExpiryTextField configureWithViewModel:viewModel.expiryDateViewModel];
@@ -254,7 +254,7 @@ static const float kPhoneCodeWidth = 45.0F;
             [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
             [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
             break;
-        case JPCardDetailsMode3DS2BillingDetails:
+        case JPCardDetailsModeThreeDS2BillingDetails:
             [self.cardHolderEmailTextField configureWithViewModel:viewModel.cardholderEmailViewModel];
             [self.cardHolderPhoneTextField configureWithViewModel:viewModel.cardholderPhoneViewModel];
             [self.cardHolderCityTextField configureWithViewModel:viewModel.cardholderCityViewModel];

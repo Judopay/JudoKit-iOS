@@ -33,10 +33,13 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
     func load(with mode: JPCardDetailsMode) {
     }
     
-    func updateView(with viewModel: JPTransactionViewModel) {
+    func updateView(with viewModel: JPTransactionViewModel, shouldUpdateTargets: Bool) {
         viewModelSut = viewModel
     }
-    
+
+    func applyConfiguredTheme(_ theme: JPTheme) {
+    }
+
     var error: Error! = nil
     func updateWithError(_ error: Error) {
         self.error = error

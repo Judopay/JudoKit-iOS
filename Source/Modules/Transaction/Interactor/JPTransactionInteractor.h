@@ -29,6 +29,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry;
 
 @protocol JPTransactionInteractor
@@ -81,8 +83,8 @@
  * @param response - the JPResponse returned from the transaction
  * @param error - the JPError returned from the transaction
  */
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                                  error:(JPError *)error;
+- (void)completeTransactionWithResponse:(nullable JPResponse *)response
+                                  error:(nullable JPError *)error;
 
 /**
  * A method that stores the errors returned from the Judo API to be sent back to the merchant once the user cancels the payment.
@@ -220,3 +222,5 @@
                                   cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion;
 @end
+
+NS_ASSUME_NONNULL_END

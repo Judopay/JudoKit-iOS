@@ -33,7 +33,7 @@ class JPCountryTest: XCTestCase {
      * THEN: should return 826 numeric code
      */
     func test_isoCodeForCountry_WhenUK_ShouldReturnRightISOCode() {
-        XCTAssertEqual(JPCountry.isoCode(forCountry: "UK"), 826)
+        XCTAssertEqual(JPCountry.isoCode(forCountry: "United Kingdom"), 826)
     }
     
     /*
@@ -44,7 +44,7 @@ class JPCountryTest: XCTestCase {
      * THEN: should return 840 numeric code
      */
     func test_isoCodeForCountry_WhenUSA_ShouldReturnRightISOCode() {
-        XCTAssertEqual(JPCountry.isoCode(forCountry: "USA"), 840)
+        XCTAssertEqual(JPCountry.isoCode(forCountry: "United States"), 840)
     }
     
     /*
