@@ -32,6 +32,7 @@ class JPPaymentMethodsTest: XCTestCase {
         let presenter = JPPaymentMethodsPresenterImpl()
         let viewController = JPPaymentMethodsViewControllerMock()
         let interactor = JPPaymentMethodsInteractorMock()
+        interactor.saveMockCards()
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.viewModelNeedsUpdate()
