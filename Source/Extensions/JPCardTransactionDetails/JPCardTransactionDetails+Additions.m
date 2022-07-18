@@ -38,8 +38,8 @@
 
 @implementation JPCardTransactionDetails (Additions)
 
-- (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
-                                         andTransaction:(JP3DSTransaction *)transaction {
+- (JPPaymentRequest *)_jp_toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                             andTransaction:(JP3DSTransaction *)transaction {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:configuration];
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
@@ -56,8 +56,8 @@
     return request;
 }
 
-- (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
-                                     andTransaction:(JP3DSTransaction *)transaction {
+- (JPTokenRequest *)_jp_toTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                                         andTransaction:(JP3DSTransaction *)transaction {
     JPTokenRequest *request = [[JPTokenRequest alloc] initWithConfiguration:configuration];
 
     request.endDate = self.endDate;
@@ -78,8 +78,8 @@
     return request;
 }
 
-- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                                   andTransaction:(JP3DSTransaction *)transaction {
+- (JPRegisterCardRequest *)_jp_toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                                       andTransaction:(JP3DSTransaction *)transaction {
     JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
@@ -97,8 +97,8 @@
     return request;
 }
 
-- (JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                           andTransaction:(JP3DSTransaction *)transaction {
+- (JPSaveCardRequest *)_jp_toSaveCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                               andTransaction:(JP3DSTransaction *)transaction {
     JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
@@ -116,8 +116,8 @@
     return request;
 }
 
-- (JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                             andTransaction:(JP3DSTransaction *)transaction {
+- (JPCheckCardRequest *)_jp_toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                                 andTransaction:(JP3DSTransaction *)transaction {
     JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:configuration];
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;

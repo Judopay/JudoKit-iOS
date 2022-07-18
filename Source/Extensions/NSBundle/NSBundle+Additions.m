@@ -27,7 +27,7 @@
 
 @implementation NSBundle (Additions)
 
-+ (NSBundle *)frameworkBundle {
++ (NSBundle *)_jp_frameworkBundle {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -36,7 +36,7 @@
     return bundle;
 }
 
-+ (NSBundle *)iconsBundle {
++ (NSBundle *)_jp_iconsBundle {
     static NSBundle *__nullable iconsBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -46,18 +46,18 @@
     return iconsBundle;
 }
 
-+ (instancetype)stringsBundle {
++ (instancetype)_jp_stringsBundle {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *podPath = [NSBundle.frameworkBundle pathForResource:@"JudoKit_iOS"
-                                                               ofType:@"bundle"];
+        NSString *podPath = [NSBundle._jp_frameworkBundle pathForResource:@"JudoKit_iOS"
+                                                                   ofType:@"bundle"];
         bundle = [NSBundle bundleWithPath:podPath];
     });
     return bundle;
 }
 
-+ (instancetype)resourcesBundle {
++ (instancetype)_jp_resourcesBundle {
     static NSBundle *__nullable resourcesBundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -84,7 +84,7 @@
     return nil;
 }
 
-+ (NSString *)appURLScheme {
++ (NSString *)_jp_appURLScheme {
     NSBundle *bundle = NSBundle.mainBundle;
     NSMutableArray *urlTypes = bundle.infoDictionary[@"CFBundleURLTypes"];
     NSMutableDictionary *urlType = urlTypes.firstObject;

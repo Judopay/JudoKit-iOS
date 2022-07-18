@@ -59,7 +59,7 @@
 
 - (void)setupActivityIndicator {
     [self addSubview:self.activityIndicator];
-    [self.activityIndicator pinToView:self withPadding:0.0];
+    [self.activityIndicator _jp_pinToView:self withPadding:0.0];
 }
 
 #pragma mark - Public methods

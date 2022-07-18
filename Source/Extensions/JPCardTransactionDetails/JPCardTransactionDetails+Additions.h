@@ -34,19 +34,19 @@
 
 @interface JPCardTransactionDetails (Additions)
 
-- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+- (nonnull JPPaymentRequest *)_jp_toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPTokenRequest *)_jp_toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                  andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                             andTransaction:(nonnull JP3DSTransaction *)transaction;
+- (nonnull JPRegisterCardRequest *)_jp_toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                               andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
+- (nonnull JPSaveCardRequest *)_jp_toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                       andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                   andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+- (nonnull JPCheckCardRequest *)_jp_toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                         andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 @end

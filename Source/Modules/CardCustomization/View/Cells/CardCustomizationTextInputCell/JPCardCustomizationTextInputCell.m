@@ -50,7 +50,7 @@ const float kInputFieldHeight = 44.0F;
 
 - (void)applyTheme:(JPTheme *)theme {
     [self.inputField applyTheme:theme];
-    self.inputField.placeholder = @"enter_card_title".localized;
+    self.inputField.placeholder = @"enter_card_title"._jp_localized;
 }
 
 #pragma mark - View Model Configuration

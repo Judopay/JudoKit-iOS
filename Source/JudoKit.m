@@ -65,7 +65,7 @@
                allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
     self = [super init];
-    BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication.isCurrentDeviceJailbroken);
+    BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication._jp_isCurrentDeviceJailbroken);
 
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
@@ -90,9 +90,9 @@
         return;
     }
 
-    [UIApplication.topMostViewController presentViewController:controller
-                                                      animated:YES
-                                                    completion:nil];
+    [UIApplication._jp_topMostViewController presentViewController:controller
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 - (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
@@ -134,9 +134,9 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication.topMostViewController presentViewController:controller
-                                                          animated:YES
-                                                        completion:nil];
+        [UIApplication._jp_topMostViewController presentViewController:controller
+                                                              animated:YES
+                                                            completion:nil];
     });
 }
 
@@ -183,7 +183,7 @@
 
     JPApplePayDidFinishBlock didFinishBlock = ^(BOOL isPaymentAuthorized) {
         if (!isPaymentAuthorized) {
-            applePayServiceError = JPError.judoUserDidCancelError;
+            applePayServiceError = JPError._jp_userDidCancelError;
         }
         weakSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
     };
@@ -240,9 +240,9 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 
-    [UIApplication.topMostViewController presentViewController:navController
-                                                      animated:YES
-                                                    completion:nil];
+    [UIApplication._jp_topMostViewController presentViewController:navController
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 - (UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode

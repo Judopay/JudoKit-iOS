@@ -30,10 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JPResponse (Additions)
 
-- (BOOL)isThreeDSecureOneRequired;
-- (BOOL)isThreeDSecureTwoRequired;
+- (BOOL)_jp_isThreeDSecureOneRequired;
+- (BOOL)_jp_isThreeDSecureTwoRequired;
 
-- (JPCReqParameters *)cReqParameters;
+- (JPCReqParameters *)_jp_cReqParameters;
 
 @end
 

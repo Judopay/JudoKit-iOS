@@ -69,7 +69,7 @@
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
     if (error || !response) {
-        [self displayAlertWithError:error];
+        [self _jp_displayAlertWithError:error];
         return;
     }
 
@@ -137,11 +137,11 @@
 }
 
 - (void)setupButtons {
-    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
-    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
+    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor._jp_asImage forState:UIControlStateDisabled];
+    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
     
-    [self.payWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor.asImage forState:UIControlStateDisabled];
-    [self.payWithCardTokenButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
+    [self.payWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor._jp_asImage forState:UIControlStateDisabled];
+    [self.payWithCardTokenButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
 }
 
 - (void)shouldEnableButtons:(BOOL)shouldEnable {

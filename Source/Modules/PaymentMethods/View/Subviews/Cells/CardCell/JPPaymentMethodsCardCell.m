@@ -87,7 +87,7 @@ const float kCardSmallPadding = 3.0F;
 
     JPPaymentMethodsCardModel *cardModel = (JPPaymentMethodsCardModel *)viewModel;
     self.titleLabel.text = cardModel.cardTitle;
-    NSString *cardTypeSubtitle = [NSString stringWithFormat:@"card_subtitle".localized, [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork]];
+    NSString *cardTypeSubtitle = [NSString stringWithFormat:@"card_subtitle"._jp_localized, [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork]];
     NSString *subtitleText = [NSString stringWithFormat:@"%@ %@", cardTypeSubtitle, cardModel.cardNumberLastFour];
 
     NSMutableAttributedString *subtitleLabelText = [[NSMutableAttributedString alloc] initWithString:subtitleText];
@@ -99,7 +99,7 @@ const float kCardSmallPadding = 3.0F;
 
     self.subtitleLabel.attributedText = subtitleLabelText;
 
-    self.iconImageView.image = [UIImage imageForCardNetwork:cardModel.cardNetwork];
+    self.iconImageView.image = [UIImage _jp_imageForCardNetwork:cardModel.cardNetwork];
 
     NSString *iconName = cardModel.isSelected ? @"radio-on" : @"radio-off";
 
@@ -107,7 +107,7 @@ const float kCardSmallPadding = 3.0F;
                                        ? @"Card List Cell [SELECTED]"
                                        : @"Card List Cell";
 
-    UIImage *accesoryImage = [UIImage imageWithIconName:iconName];
+    UIImage *accesoryImage = [UIImage _jp_imageWithIconName:iconName];
     UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:accesoryImage];
     accessoryImageView.contentMode = UIViewContentModeScaleAspectFit;
     accessoryImageView.frame = CGRectMake(0, 0, kCardHorizontalPadding, kCardHorizontalPadding);
@@ -138,7 +138,7 @@ const float kCardSmallPadding = 3.0F;
 
 - (void)setupIconView {
     [self.iconContainerView addSubview:self.iconImageView];
-    [self.iconImageView pinToView:self.iconContainerView withPadding:kCardDefaultPadding];
+    [self.iconImageView _jp_pinToView:self.iconContainerView withPadding:kCardDefaultPadding];
 
     [NSLayoutConstraint activateConstraints:@[
         [self.iconContainerView.heightAnchor constraintEqualToConstant:kCardIconHeight],
@@ -147,8 +147,8 @@ const float kCardSmallPadding = 3.0F;
 }
 
 - (void)setupStackView {
-    UIStackView *horizontalStackView = [UIStackView horizontalStackViewWithSpacing:kCardDefaultPadding];
-    UIStackView *verticalStackView = [UIStackView verticalStackViewWithSpacing:kCardSmallPadding];
+    UIStackView *horizontalStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kCardDefaultPadding];
+    UIStackView *verticalStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardSmallPadding];
 
     [verticalStackView addArrangedSubview:self.titleLabel];
     [verticalStackView addArrangedSubview:self.subtitleLabel];
@@ -169,11 +169,11 @@ const float kCardSmallPadding = 3.0F;
                                                            constant:-kCardHorizontalPadding]
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints withPriority:999];
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:999];
 }
 
 - (void)setupDisclosureIndicator {
-    UIImage *disclosureIcon = [UIImage imageWithIconName:@"disclosure-icon"];
+    UIImage *disclosureIcon = [UIImage _jp_imageWithIconName:@"disclosure-icon"];
     UIImageView *disclosureImageView = [[UIImageView alloc] initWithImage:disclosureIcon];
     disclosureImageView.contentMode = UIViewContentModeScaleAspectFit;
     disclosureImageView.frame = CGRectMake(0, 0, kCardHorizontalPadding, kCardHorizontalPadding);
@@ -189,19 +189,19 @@ const float kCardSmallPadding = 3.0F;
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;
             break;
         case JPCardExpirationStatusExpired:
-            expirationStatus = @"is_expired".localized;
-            boldWord = @"expired".localized;
+            expirationStatus = @"is_expired"._jp_localized;
+            boldWord = @"expired"._jp_localized;
             self.subtitleLabel.textColor = self.theme.jpRedColor;
             break;
         case JPCardExpirationStatusExpiresSoon:
-            expirationStatus = @"will_expire_soon".localized;
-            boldWord = @"expire_soon".localized;
+            expirationStatus = @"will_expire_soon"._jp_localized;
+            boldWord = @"expire_soon"._jp_localized;
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;
             break;
     }
 
     NSString *isExpiredString = [NSString stringWithFormat:@"%@%@", @" ", expirationStatus];
-    NSMutableAttributedString *isExpiredText = [isExpiredString attributedStringWithBoldSubstring:boldWord];
+    NSMutableAttributedString *isExpiredText = [isExpiredString _jp_attributedStringWithBoldSubstring:boldWord];
     NSMutableAttributedString *subtitleText = [[NSMutableAttributedString alloc] initWithAttributedString:self.subtitleLabel.attributedText];
     [subtitleText appendAttributedString:isExpiredText];
     self.subtitleLabel.attributedText = subtitleText;

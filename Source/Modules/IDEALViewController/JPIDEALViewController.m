@@ -126,8 +126,8 @@ const float kPollingDelayTimer = 30.0;
     [self.view addSubview:self.transactionStatusView];
     [self.transactionStatusView applyTheme:self.theme];
 
-    [self.webView pinToView:self.view withPadding:0.0];
-    [self.transactionStatusView pinToView:self.view withPadding:0.0];
+    [self.webView _jp_pinToView:self.view withPadding:0.0];
+    [self.transactionStatusView _jp_pinToView:self.view withPadding:0.0];
     self.transactionStatusView.hidden = YES;
 }
 
@@ -177,7 +177,7 @@ const float kPollingDelayTimer = 30.0;
             return;
         }
 
-        self.completionBlock(nil, JPError.judoResponseParseError);
+        self.completionBlock(nil, JPError._jp_responseParseError);
     }
 }
 
@@ -204,9 +204,9 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleError:(NSError *)error {
-    if (error.localizedDescription == JPError.judoRequestTimeoutError.localizedDescription) {
+    if (error.localizedDescription == JPError._jp_requestTimeoutError.localizedDescription) {
         [self.transactionStatusView changeToTransactionStatus:JPTransactionStatusTimeout];
-        self.completionBlock(self.redirectResponse, JPError.judoRequestTimeoutError);
+        self.completionBlock(self.redirectResponse, JPError._jp_requestTimeoutError);
         return;
     }
 
@@ -224,7 +224,7 @@ const float kPollingDelayTimer = 30.0;
         __weak typeof(self) weakSelf = self;
         [self dismissViewControllerAnimated:YES
                                  completion:^{
-                                     weakSelf.completionBlock(response, JPError.judoUserDidCancelError);
+                                     weakSelf.completionBlock(response, JPError._jp_userDidCancelError);
                                  }];
         return;
     }

@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokePaymentWithRequest:(JPPaymentRequest *)request
                    andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
                         parameters:parameters
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokePreAuthPaymentWithRequest:(JPPaymentRequest *)request
                           andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
                         parameters:parameters
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeTokenPaymentWithRequest:(JPTokenRequest *)request
                         andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
                         parameters:parameters
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokePreAuthTokenPaymentWithRequest:(JPTokenRequest *)request
                                andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
                         parameters:parameters
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                               andCompletion:(JPCompletionBlock)completion {
 
     NSString *endpoint = [NSString stringWithFormat:@"%@/%@", kTransactionsEndpoint, receiptId];
-    NSDictionary *parameters = [result toDictionary];
+    NSDictionary *parameters = [result _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPUT
                           endpoint:endpoint
                         parameters:parameters
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                                        request:(JPComplete3DS2Request *)request
                                  andCompletion:(JPCompletionBlock)completion {
     NSString *endpoint = [NSString stringWithFormat:kComplete3DS2TransactionsEndpoint, receiptId];
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPUT
                           endpoint:endpoint
                         parameters:parameters
@@ -166,7 +166,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request
                         andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kRegisterCardEndpoint
                         parameters:parameters
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeSaveCardWithRequest:(JPSaveCardRequest *)request
                     andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kSaveCardEndpoint
                         parameters:parameters
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeCheckCardWithRequest:(JPCheckCardRequest *)request
                      andCompletion:(JPCompletionBlock)completion {
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kCheckCardEndpoint
                         parameters:parameters
@@ -195,7 +195,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeApplePayPaymentWithRequest:(JPApplePayRequest *)request
                            andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPaymentEndpoint
                         parameters:parameters
@@ -205,7 +205,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokePreAuthApplePayPaymentWithRequest:(JPApplePayRequest *)request
                                   andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
                         parameters:parameters
@@ -215,7 +215,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request
                     andCompletion:(JPCompletionBlock)completion {
 
-    NSDictionary *parameters = [request toDictionary];
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kBankSaleEndpoint
                         parameters:parameters
@@ -256,7 +256,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                 break;
 
             default:
-                completion(nil, JPError.judoRequestFailedError);
+                completion(nil, JPError._jp_requestFailedError);
         }
     };
 

@@ -32,7 +32,7 @@
  * @param constraints - an array of NSLayoutConstraints that are to be activated
  * @param priority - a UILayoutPriority value that sets the priority of the constraints
  */
-+ (void)activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints
-               withPriority:(UILayoutPriority)priority;
++ (void)_jp_activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints
+                   withPriority:(UILayoutPriority)priority;
 
 @end

@@ -77,7 +77,7 @@
 
 - (void)transactionCompletedWithCompletionEvent:(JP3DSCompletionEvent *)completionEvent {
 
-    JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
+    JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response._jp_cReqParameters.messageVersion
                                                                       andSecureCode:self.details.secureCode];
 
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
@@ -86,19 +86,19 @@
 }
 
 - (void)transactionCancelled {
-    self.completion(nil, JPError.judoUserDidCancelError);
+    self.completion(nil, JPError._jp_userDidCancelError);
 }
 
 - (void)transactionTimedOut {
-    self.completion(nil, JPError.judoRequestTimeoutError);
+    self.completion(nil, JPError._jp_requestTimeoutError);
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    self.completion(nil, [JPError judoThreeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
+    self.completion(nil, [JPError _jp_threeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    self.completion(nil, [JPError judoThreeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
+    self.completion(nil, [JPError _jp_threeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
 }
 
 @end
@@ -168,7 +168,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 dsServerID = @"unknown-id";
                 break;
         }
-        
+
         if (_apiService.isSandboxed) {
             dsServerID = @"F000000000";
         }
@@ -179,21 +179,21 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
-                if ([response isThreeDSecureOneRequired]) {
+                if ([response _jp_isThreeDSecureOneRequired]) {
                     JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithResponse:response];
                     JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration completion:completion];
                     controller.apiService = self.apiService;
 
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
                     navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                    [UIApplication.topMostViewController presentViewController:navController animated:YES completion:nil];
-                } else if ([response isThreeDSecureTwoRequired]) {
+                    [UIApplication._jp_topMostViewController presentViewController:navController animated:YES completion:nil];
+                } else if ([response _jp_isThreeDSecureTwoRequired]) {
                     JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
                                                                                                                           details:details
                                                                                                                          response:response
                                                                                                                     andCompletion:completion];
 
-                    JPCReqParameters *cReqParameters = [response cReqParameters];
+                    JPCReqParameters *cReqParameters = [response _jp_cReqParameters];
                     NSString *version = cReqParameters.messageVersion ? cReqParameters.messageVersion : messageVersion;
                     JP3DSChallengeParameters *params = [[JP3DSChallengeParameters alloc] initWithThreeDSServerTransactionID:cReqParameters.threeDSServerTransID
                                                                                                            acsTransactionID:cReqParameters.acsTransID
@@ -215,59 +215,52 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
         switch (type) {
             case JPCardTransactionTypePayment: {
-                JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
-                                                                        andTransaction:transaction];
+                JPPaymentRequest *request = [details _jp_toPaymentRequestWithConfiguration:self.configuration
+                                                                            andTransaction:transaction];
                 [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
 
             case JPCardTransactionTypePreAuth: {
-                JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
-                                                                        andTransaction:transaction];
+                JPPaymentRequest *request = [details _jp_toPaymentRequestWithConfiguration:self.configuration
+                                                                            andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
 
             case JPCardTransactionTypePaymentWithToken: {
-                JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
-                                                                    andTransaction:transaction];
+                JPTokenRequest *request = [details _jp_toTokenRequestWithConfiguration:self.configuration
+                                                                        andTransaction:transaction];
                 [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
 
             case JPCardTransactionTypePreAuthWithToken: {
-                JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
-                                                                    andTransaction:transaction];
+                JPTokenRequest *request = [details _jp_toTokenRequestWithConfiguration:self.configuration
+                                                                        andTransaction:transaction];
                 [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
 
             case JPCardTransactionTypeSave: {
-                JPSaveCardRequest *request = [details toSaveCardRequestWithConfiguration:self.configuration
-                                                                          andTransaction:transaction];
+                JPSaveCardRequest *request = [details _jp_toSaveCardRequestWithConfiguration:self.configuration
+                                                                              andTransaction:transaction];
                 [self.apiService invokeSaveCardWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
 
             case JPCardTransactionTypeCheck: {
-                JPCheckCardRequest *request = [details toCheckCardRequestWithConfiguration:self.configuration
-                                                                            andTransaction:transaction];
+                JPCheckCardRequest *request = [details _jp_toCheckCardRequestWithConfiguration:self.configuration
+                                                                                andTransaction:transaction];
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
-            }
-                break;
-                
+            } break;
+
             case JPCardTransactionTypeRegister: {
-                JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
-                                                                                  andTransaction:transaction];
+                JPRegisterCardRequest *request = [details _jp_toRegisterCardRequestWithConfiguration:self.configuration
+                                                                                      andTransaction:transaction];
                 [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
-            }
-                break;
+            } break;
             default:
                 completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:nil]);
                 break;
         }
     } @catch (NSException *exception) {
-        JPError *error = [JPError judoThreeDSTwoErrorFromException:exception];
+        JPError *error = [JPError _jp_threeDSTwoErrorFromException:exception];
         completion(nil, error);
     }
 }

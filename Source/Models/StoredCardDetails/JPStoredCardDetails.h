@@ -129,6 +129,6 @@
 /**
  * A convenience method that converts the properties into a dictionary
  */
-- (NSDictionary *)toDictionary;
+- (NSDictionary *)_jp_toDictionary;
 
 @end

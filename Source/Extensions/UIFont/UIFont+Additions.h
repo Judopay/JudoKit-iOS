@@ -29,41 +29,41 @@
 /**
  * The font used for prominent UI elements of size 24 and weight semibold
  */
-+ (nonnull UIFont *)largeTitle;
++ (nonnull UIFont *)_jp_largeTitle;
 
 /**
  * The font used for smaller prominent UI elements  of size 18 and weight semibold
  */
-+ (nonnull UIFont *)title;
++ (nonnull UIFont *)_jp_title;
 
 /**
  * The headline font of size 16 and weight semibold
  */
-+ (nonnull UIFont *)headline;
++ (nonnull UIFont *)_jp_headline;
 
 /**
  * The headline light font of size 16 and weight regular
  */
-+ (nonnull UIFont *)headlineLight;
++ (nonnull UIFont *)_jp_headlineLight;
 
 /**
  * Body font of size 14 and weight regular
  */
-+ (nonnull UIFont *)body;
++ (nonnull UIFont *)_jp_body;
 
 /**
  * The bold version of the body font of size 14 and weight semibold
  */
-+ (nonnull UIFont *)bodyBold;
++ (nonnull UIFont *)_jp_bodyBold;
 
 /**
  * The caption font of size 10 and weight regular
  */
-+ (nonnull UIFont *)caption;
++ (nonnull UIFont *)_jp_caption;
 
 /**
  * The bold version of the caption font of size 10 and weight semibold
  */
-+ (nonnull UIFont *)captionBold;
++ (nonnull UIFont *)_jp_captionBold;
 
 @end

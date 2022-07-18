@@ -54,25 +54,25 @@
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
-        BOOL isURLSchemeMissing = ((!NSBundle.appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
+        BOOL isURLSchemeMissing = ((!NSBundle._jp_appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
-            completion(nil, JPError.judoInvalidIDEALCurrencyError);
+            completion(nil, JPError._jp_invalidIDEALCurrencyError);
             return nil;
         }
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
-            completion(nil, JPError.judoApplePayNotSupportedError);
+            completion(nil, JPError._jp_applePayNotSupportedError);
             return nil;
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
-            completion(nil, JPError.judoInvalidPBBACurrencyError);
+            completion(nil, JPError._jp_invalidPBBACurrencyError);
             return nil;
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
-            completion(nil, JPError.judoPBBAURLSchemeMissingError);
+            completion(nil, JPError._jp_PBBAURLSchemeMissingError);
             return nil;
         }
     }
