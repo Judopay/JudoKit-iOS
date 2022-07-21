@@ -47,10 +47,6 @@
 
 @end
 
-@implementation JPTransactionPickerViewModel
-
-@end
-
 @implementation JPTransactionViewModel
 
 @end

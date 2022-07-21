@@ -37,6 +37,7 @@
 }
 
 - (void)connectButton:(UIButton *)button withSelector:(SEL)selector {
+    [button removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 

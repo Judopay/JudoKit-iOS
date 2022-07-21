@@ -22,13 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetailsMode.h"
-#import "JPInputType.h"
-#import "JPTransactionViewModel.h"
 #import <Foundation/Foundation.h>
 
-@protocol JPTransactionView
-, JPTransactionRouter, JPTransactionInteractor;
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol JPTransactionView;
+@protocol JPTransactionRouter;
+@protocol JPTransactionInteractor;
+typedef NS_ENUM(NSUInteger, JPInputType);
 
 @protocol JPTransactionPresenter
 
@@ -40,22 +41,22 @@
 /**
  * A method that updates the view model whenever a input field value changes
  */
-- (void)handleInputChange:(nonnull NSString *)input
+- (void)handleInputChange:(NSString *)input
                   forType:(JPInputType)type
                 showError:(BOOL)showError;
 
 /**
- * A method that handles Add Card button tap
+ * A method that handles the Pay Now button tap
  */
 - (void)handleTransactionButtonTap;
 
 /**
- * A method that handles Continue button tap when 3DS2 is used
+ * A method that handles Continue button tap when the Billing details screen is used
  */
 - (void)handleContinueButtonTap;
 
 /**
- * A method that handles Back button tap when 3DS2 is used
+ * A method that handles Back button tap when the Billing details screen is used
  */
 - (void)handleBackButtonTap;
 
@@ -80,7 +81,7 @@
  * @param cardNumber - the detected card number
  * @param expiryDate - the detected card expiration date
  */
-- (void)updateViewModelWithCardNumber:(nonnull NSString *)cardNumber
+- (void)updateViewModelWithCardNumber:(NSString *)cardNumber
                         andExpiryDate:(nullable NSString *)expiryDate;
 
 @end
@@ -93,13 +94,15 @@
 @property (nonatomic, weak, nullable) id<JPTransactionView> view;
 
 /**
- * A strong reference to the router that adops the  JPTransactionRouter protocol
- */
-@property (nonatomic, strong, nonnull) id<JPTransactionRouter> router;
-
-/**
  * A strong reference to the interactor that adops the  JPTransactionInteractor protocol
  */
-@property (nonatomic, strong, nonnull) id<JPTransactionInteractor> interactor;
+@property (nonatomic, strong) id<JPTransactionInteractor> interactor;
+
+/**
+ * A strong reference to the router that adops the  JPTransactionRouter protocol
+ */
+@property (nonatomic, strong) id<JPTransactionRouter> router;
 
 @end
+
+NS_ASSUME_NONNULL_END

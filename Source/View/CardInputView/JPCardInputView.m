@@ -22,6 +22,7 @@
 //  SOFTWARE.
 
 #import "JPCardInputView.h"
+#import "JPCardDetailsMode.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
 #import "JPLoadingButton.h"
@@ -177,6 +178,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setMode:(JPCardDetailsMode)mode {
     if (self.mode != mode) {
+        _mode = mode;
         [self endEditing:YES];
         [UIView animateWithDuration:kAnimationTimeInterval
             animations:^{
@@ -190,7 +192,6 @@ static const float kPhoneCodeWidth = 45.0F;
                                  }
                                  completion:nil];
             }];
-        _mode = mode;
     }
 }
 
@@ -299,7 +300,6 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (void)setupBottomSliderConstraints {
-
     [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
     [self.bottomSlider pinToAnchors:JPAnchorTypeBottom forView:self];
 
@@ -311,7 +311,6 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (void)setupMainStackViewConstraints {
-
     [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
                              forView:self.bottomSlider
                          withPadding:kContentVerticalPadding];
@@ -361,8 +360,7 @@ static const float kPhoneCodeWidth = 45.0F;
 - (UIView *)bottomSlider {
     if (!_bottomSlider) {
         UIRectCorner corners = UIRectCornerTopRight | UIRectCornerTopLeft;
-        _bottomSlider = [[JPRoundedCornerView alloc] initWithRadius:kSliderCornerRadius
-                                                         forCorners:corners];
+        _bottomSlider = [[JPRoundedCornerView alloc] initWithRadius:kSliderCornerRadius forCorners:corners];
         _bottomSlider.translatesAutoresizingMaskIntoConstraints = NO;
         _bottomSlider.backgroundColor = UIColor.whiteColor;
     }
@@ -373,8 +371,7 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:@"cancel".localized.uppercaseString
-                       forState:UIControlStateNormal];
+        [_cancelButton setTitle:@"cancel".localized.uppercaseString forState:UIControlStateNormal];
     }
     return _cancelButton;
 }
@@ -393,10 +390,8 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!_scanCardButton) {
         _scanCardButton = [UIButton new];
         _scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-
         [_scanCardButton setTitle:@"button_scan_card".localized.uppercaseString forState:UIControlStateNormal];
-        [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"]
-                         forState:UIControlStateNormal];
+        [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"] forState:UIControlStateNormal];
         _scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 0);
         _scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5);
@@ -428,6 +423,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderEmailTextField = [JPCardInputField new];
         _cardHolderEmailTextField.accessibilityIdentifier = @"Cardholder Email Field";
         _cardHolderEmailTextField.keyboardType = UIKeyboardTypeEmailAddress;
+        _cardHolderEmailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     return _cardHolderEmailTextField;
 }
@@ -582,10 +578,8 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)billingDetails {
-
     if (!_billingDetails) {
         UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
-
         [stackView addArrangedSubview:self.cardHolderEmailTextField];
         if (_mode != JPCardDetailsModeAVS) {
             [stackView addArrangedSubview:self.countryTextField];
@@ -612,7 +606,6 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)phoneStackView {
-
     UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kSeparatorContentSpacing];
     [stackView addArrangedSubview:self.cardHolderPhoneCodeTextField];
     [stackView addArrangedSubview:self.cardHolderPhoneTextField];

@@ -24,6 +24,7 @@
 
 #import "JPInputField.h"
 #import "JPFloatingTextField.h"
+#import "JPInputType.h"
 #import "JPTheme.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
@@ -107,7 +108,6 @@
 
 - (void)setType:(JPInputType)type {
     if (type == JPInputTypeCardholderPhoneCode && !_floatingTextField.leftView) {
-
         _floatingTextField.leftView = [self sideViewWithText:@"+("];
         _floatingTextField.rightView = [self sideViewWithText:@")"];
         _floatingTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -140,6 +140,11 @@
     self.floatingTextField.keyboardType = keyboardType;
 }
 
+- (void)setAutocapitalizationType:(UITextAutocapitalizationType)autocapitalizationType {
+    _autocapitalizationType = autocapitalizationType;
+    self.floatingTextField.autocapitalizationType = autocapitalizationType;
+}
+
 - (void)setReturnType:(UIReturnKeyType)returnType {
     _returnType = returnType;
     self.floatingTextField.returnKeyType = returnType;
@@ -168,7 +173,6 @@
 #pragma mark - Layout setup
 
 - (void)setupViews {
-
     self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor.jpLightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;

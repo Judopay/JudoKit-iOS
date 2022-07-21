@@ -23,10 +23,12 @@
 //  SOFTWARE.
 
 #import "JPTransactionViewController.h"
+#import "JPCardDetailsMode.h"
 #import "JPCardInputField.h"
 #import "JPCardInputView.h"
 #import "JPCardNumberField.h"
 #import "JPCountry.h"
+#import "JPInputType.h"
 #import "JPLoadingButton.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
@@ -193,7 +195,7 @@
             [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
             break;
         case JPCardDetailsModeThreeDS2BillingDetails:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
+            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
             [self connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
             break;
         case JPCardDetailsModeSecurityCode:
@@ -224,7 +226,6 @@
 #pragma mark - Keyboard handling logic
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
 
@@ -294,9 +295,7 @@
 @implementation JPTransactionViewController (InputFieldDelegate)
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
-
-    BOOL showError = inputField.type != JPInputTypeCardholderEmail ||
-                     inputField.type != JPInputTypeCardholderPhone;
+    BOOL showError = inputField.type != JPInputTypeCardholderEmail && inputField.type != JPInputTypeCardholderPhone;
 
     [self.presenter handleInputChange:text
                               forType:inputField.type

@@ -113,17 +113,18 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
-    return [JPValidationResult validationWithResult:input.isPhoneCode
+    BOOL isValid = input.isPhoneCode;
+    return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:@"invalid_phone_code_value".localized
+                                       errorMessage:isValid ? nil : @"invalid_phone_code_value".localized
                                      formattedInput:input];
 }
 
 - (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
-    BOOL isValid = input.isEmail;
+    BOOL isValid = input.isPhoneNumber;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? @"invalid_phone_value".localized : nil
+                                       errorMessage:isValid ? nil : @"invalid_phone_value".localized
                                      formattedInput:input];
 }
 
@@ -178,7 +179,6 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
-
     if ([self.selectedJPBillingCountry isEqualToString:@"country_usa".localized]) {
         return [self validatePostalCodeInput:input country:JPBillingCountryUSA];
     }

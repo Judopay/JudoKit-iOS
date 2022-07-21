@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.requires_arc          = true
   s.source_files          = 'Source/**/*.{m,h}'
+  s.exclude_files         = 'Source/include/'
 
   s.dependency 'DeviceDNA', '~> 2.0.0'
   s.dependency 'TrustKit'
@@ -20,5 +21,5 @@ Pod::Spec.new do |s|
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.resource_bundles      = { "JudoKit_iOS" => ["Resources/*.lproj/*.strings"] }
-  s.resources             = ['Resources/icons.bundle', 'Resources/resources.bundle']
+  s.resources             = ['Resources/icons.bundle', 'Resources/resources.bundle', 'Resources/CountriesList.json']
 end

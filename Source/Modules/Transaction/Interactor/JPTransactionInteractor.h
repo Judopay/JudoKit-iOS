@@ -22,16 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetailsMode.h"
-#import "JPTransactionType.h"
-#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
-#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry;
+@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry;
+typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
+typedef NS_ENUM(NSUInteger, JPTransactionType);
+typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 
 @protocol JPTransactionInteractor
 
@@ -70,12 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * A method which returns the countries which the user can select in the country picker
  */
-- (nonnull NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(nullable NSString *)searchString;
+- (NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(nullable NSString *)searchString;
 
 /**
  * A method for returning merchant-set card address details
  */
-- (nonnull JPAddress *)getConfiguredCardAddress;
+- (JPAddress *)getConfiguredCardAddress;
 
 /**
  * A method for returning the transaction response / error to the merchant
@@ -117,9 +116,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
 
 /**
- * A method for validating the phone number
+ * A method for validating the phone dial code
  *
- * @param input - the input phone code string
+ * @param input - the input phone dial code string
  *
  * @returns a JPValidationResult with the validation status details
  */
@@ -211,7 +210,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param cardValidationService - the service which is used to validate card details
  * @param transactionService - the service which sends requests to the Judo backend and handles 3DS checks
+ * @param type - the transaction type
+ * @param mode - the card details mode
  * @param configuration - the JPConfiguration object used for customizing the payment flow
+ * @param cardNetwork - the card network
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService

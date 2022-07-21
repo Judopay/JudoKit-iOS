@@ -28,7 +28,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol JPTransactionPresenter;
-@class JPTheme, JPTransactionViewModel, JPInputField;
+@class JPTheme, JPTransactionViewModel;
 
 #pragma mark - JPTransactionView
 

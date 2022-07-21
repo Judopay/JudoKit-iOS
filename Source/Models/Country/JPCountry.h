@@ -25,17 +25,29 @@
 #import <Foundation/Foundation.h>
 
 @interface JPCountry : NSObject
+
 @property (nonatomic, nullable, copy) NSString *alpha2Code;
 @property (nonatomic, nullable, copy) NSString *name;
 @property (nonatomic, nullable, copy) NSString *dialCode;
 @property (nonatomic, nullable, copy) NSString *numericCode;
 @property (nonatomic, nullable, copy) NSString *phoneNumberFormat;
+
 + (nullable NSNumber *)isoCodeForCountry:(nonnull NSString *)countryName;
+
++ (nullable NSNumber *)dialCodeForCountry:(nonnull NSString *)countryName;
+
++ (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName;
+
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
+
 @end
 
 @interface JPCountryList : NSObject
+
 @property (nonatomic, nullable, copy) NSArray<JPCountry *> *countries;
+
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
+
 + (nullable instancetype)defaultCountryList;
+
 @end

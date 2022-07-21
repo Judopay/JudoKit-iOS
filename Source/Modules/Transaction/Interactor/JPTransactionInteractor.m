@@ -23,25 +23,21 @@
 //  SOFTWARE.
 
 #import "JPTransactionInteractor.h"
-#import "JP3DSConfiguration.h"
 #import "JPAddress.h"
 #import "JPAmount.h"
-#import "JPApiService.h"
 #import "JPCard.h"
+#import "JPCardDetailsMode.h"
 #import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
-#import "JPCheckCardRequest.h"
 #import "JPConfiguration.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
-#import "JPPaymentRequest.h"
-#import "JPRegisterCardRequest.h"
 #import "JPResponse.h"
-#import "JPSaveCardRequest.h"
 #import "JPStoredCardDetails.h"
+#import "JPTransactionViewModel.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "NSNumberFormatter+Additions.h"
@@ -49,15 +45,14 @@
 
 @interface JPTransactionInteractorImpl ()
 
-@property (nonatomic, strong) JPCompletionBlock completionHandler;
-@property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, strong) NSMutableArray *storedErrors;
-@property (nonatomic, assign) JPTransactionType transactionType;
-@property (nonatomic, assign) JPCardDetailsMode cardDetailsMode;
-@property (nonatomic, assign) JPCardNetworkType cardNetworkType;
-
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
+@property (nonatomic, assign) JPTransactionType transactionType;
+@property (nonatomic, assign) JPCardDetailsMode cardDetailsMode;
+@property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, assign) JPCardNetworkType cardNetworkType;
+@property (nonatomic, strong) JPCompletionBlock completionHandler;
+@property (nonatomic, strong) NSMutableArray *storedErrors;
 
 @end
 
@@ -76,11 +71,11 @@
     if (self = [super init]) {
         _cardValidationService = cardValidationService;
         _transactionService = transactionService;
-        _configuration = configuration;
-        _completionHandler = completion;
         _transactionType = type;
         _cardDetailsMode = mode;
+        _configuration = configuration;
         _cardNetworkType = cardNetwork;
+        _completionHandler = completion;
     }
     return self;
 }
@@ -93,7 +88,11 @@
 
 - (JPCardDetailsMode)cardDetailsMode {
     if (_cardDetailsMode == JPCardDetailsModeDefault) {
-        return self.configuration.uiConfiguration.isAVSEnabled ? JPCardDetailsModeAVS : JPCardDetailsModeDefault; // WTF??!!
+        if (self.configuration.uiConfiguration.isAVSEnabled) {
+            return JPCardDetailsModeAVS;
+        } else if (self.transactionType != JPTransactionTypeSaveCard && self.configuration.uiConfiguration.shouldAskForBillingInformation) {
+            return JPCardDetailsModeThreeDS2;
+        }
     }
     return _cardDetailsMode;
 }
@@ -120,12 +119,12 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if ([self cardDetailsMode] == JPCardDetailsModeThreeDS2) {
+    if (self.cardDetailsMode == JPCardDetailsModeThreeDS2) {
         return @"continue".localized;
-    } else if ([self cardDetailsMode] == JPCardDetailsModeSecurityCode) {
+    } else if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
         return @"pay_now".localized;
     }
-    if ((self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount)) {
+    if (self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount) {
         JPAmount *amount = self.configuration.amount;
         NSString *formattedAmount = [NSNumberFormatter formattedAmount:amount.amount withCurrencyCode:amount.currency];
 
@@ -179,10 +178,8 @@
 }
 
 - (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
-
     JPCardNetworkType cardNetwork = viewModel.cardNumberViewModel.cardNetwork;
     NSString *cardNumberString = viewModel.cardNumberViewModel.text;
-
     NSString *lastFour = [cardNumberString substringFromIndex:cardNumberString.length - 4];
     NSString *expiryDate = viewModel.expiryDateViewModel.text;
 

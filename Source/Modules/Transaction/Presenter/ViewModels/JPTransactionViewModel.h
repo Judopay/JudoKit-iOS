@@ -22,11 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetailsMode.h"
-#import "JPCardNetwork.h"
-#import "JPInputType.h"
-#import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSUInteger, JPInputType);
+typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
+typedef NS_ENUM(NSUInteger, JPTransactionType);
+typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
 
 #pragma mark - JPTransactionInputFieldViewModel
 
@@ -37,33 +40,33 @@
 @property (nonatomic, assign) JPInputType type;
 
 /**
- * Designated initializer that is configured based on an input type
- *
- * @param inputType - An instance of JPInputType that is used to define the view model
- */
-+ (instancetype _Nonnull)viewModelWithType:(JPInputType)inputType;
-
-/**
- * Designated initializer that is configured based on an input type
- *
- * @param inputType - An instance of JPInputType that is used to define the view model
- */
-- (instancetype _Nonnull)initWithType:(JPInputType)inputType;
-
-/**
  * The text string of the input field
  */
-@property (nonatomic, strong) NSString *_Nullable text;
+@property (nonatomic, strong, nullable) NSString *text;
 
 /**
  * The placeholder string of the input field
  */
-@property (nonatomic, strong) NSString *_Nonnull placeholder;
+@property (nonatomic, strong, nullable) NSString *placeholder;
 
 /**
  * The error string of the input field
  */
-@property (nonatomic, strong) NSString *_Nullable errorText;
+@property (nonatomic, strong, nullable) NSString *errorText;
+
+/**
+ * Designated initializer that is configured based on an input type
+ *
+ * @param inputType - An instance of JPInputType that is used to define the view model
+ */
++ (instancetype)viewModelWithType:(JPInputType)inputType;
+
+/**
+ * Designated initializer that is configured based on an input type
+ *
+ * @param inputType - An instance of JPInputType that is used to define the view model
+ */
+- (instancetype)initWithType:(JPInputType)inputType;
 
 @end
 
@@ -85,7 +88,7 @@
 /**
  * The title of the button
  */
-@property (nonatomic, strong) NSString *_Nullable title;
+@property (nonatomic, strong, nullable) NSString *title;
 
 /**
  * A boolean value that indicates if the button is enabled
@@ -93,14 +96,6 @@
 @property (nonatomic, assign) BOOL isEnabled;
 
 @end
-
-#pragma mark - JPTransactionPickerViewModel
-
-@interface JPTransactionPickerViewModel : JPTransactionInputFieldViewModel
-
-@end
-
-#pragma mark - JPTransactionScanButtonViewModel
 
 #pragma mark - JPTransactionViewModel
 
@@ -119,81 +114,83 @@
 /**
  * An array of JPCountries that act as picker titles
  */
-@property (nonatomic, strong) NSArray *_Nonnull pickerCountries;
+@property (nonatomic, strong) NSArray *pickerCountries;
 
 /**
  * The JPTransactionInputFieldViewModel for the card number input field
  */
-@property (nonatomic, strong) JPTransactionNumberInputViewModel *_Nonnull cardNumberViewModel;
+@property (nonatomic, strong) JPTransactionNumberInputViewModel *cardNumberViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the cardholder name input field
  */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderNameViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name email field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderEmailViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name phone number field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderPhoneViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name phone number field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderCityViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 1 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine1ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 2 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine2ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 3 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderAddressLine3ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder phone code field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull cardholderPhoneCodeViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderNameViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the expiry date input field
  */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull expiryDateViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *expiryDateViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the secure code input field
  */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull secureCodeViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *secureCodeViewModel;
 
 /**
- * The JPTransactionPickerViewModel for the country picker
+ * The JPTransactionInputFieldViewModel for the cardholder name email field
  */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull countryPickerViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderEmailViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the country picker
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *countryPickerViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder phone code field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderPhoneCodeViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder name phone number field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderPhoneViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 1 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine1ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 2 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine2ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder adress line 3 input field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine3ViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the cardholder name phone number field
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderCityViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the postal code input field
  */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *_Nonnull postalCodeInputViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *postalCodeInputViewModel;
 
 /**
  * The JPTransactionButtonViewModel for the add card button
  */
-@property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull addCardButtonViewModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *addCardButtonViewModel;
 
 /**
  * The JPTransactionButtonViewModel for the back from billing details button
  */
-@property (nonatomic, strong) JPTransactionButtonViewModel *_Nonnull backButtonViewModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *backButtonViewModel;
 
 @end
+
+NS_ASSUME_NONNULL_END

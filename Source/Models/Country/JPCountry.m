@@ -66,6 +66,22 @@
     return nil;
 }
 
++ (NSNumber *)dialCodeForCountry:(NSString *)countryName {
+    JPCountryList *list = [JPCountryList defaultCountryList];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
+    JPCountry *country = [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+    if (country) {
+        return @([country.dialCode intValue]);
+    }
+    return nil;
+}
+
++ (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName {
+    JPCountryList *list = [JPCountryList defaultCountryList];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
+    return [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (!dict) {
         return nil;

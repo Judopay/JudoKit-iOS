@@ -2,7 +2,7 @@
 //  JPCardDetailsMode.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * An enum that defines the card details mode
+ */
 typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
     JPCardDetailsModeDefault,
     JPCardDetailsModeAVS,

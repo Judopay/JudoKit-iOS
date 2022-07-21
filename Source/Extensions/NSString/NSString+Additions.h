@@ -60,7 +60,7 @@
 @property (nonatomic, assign, readonly) BOOL isPhoneNumber;
 
 /**
- * A method which returns YES if the string represents a valid email format
+ * A method which returns YES if the string represents a valid phone dial number (country calling code)
  */
 @property (nonatomic, assign, readonly) BOOL isPhoneCode;
 

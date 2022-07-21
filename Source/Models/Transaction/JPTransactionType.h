@@ -24,6 +24,9 @@
 
 #import <Foundation/Foundation.h>
 
+/*
+ * An enum that defines the transaction type
+ */
 typedef NS_ENUM(NSUInteger, JPTransactionType) {
     JPTransactionTypePayment,
     JPTransactionTypePreAuth,

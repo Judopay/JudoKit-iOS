@@ -102,7 +102,7 @@
 			<key>Title</key>
 			<string>is_3ds2_enabled_title</string>
 			<key>Key</key>
-			<string>is_billing_info_screen_enabled</string>
+			<string>should_ask_for_billing_information</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

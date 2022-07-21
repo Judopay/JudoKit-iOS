@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPValidationResult;
+@class JPValidationResult;
 
 /**
  * A class that handles credit card validation
@@ -81,7 +81,7 @@
 - (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
 
 /**
- *  A method for validating the cardholder phone code
+ *  A method for validating the cardholder phone number
  *
  *  @param input - an input string
  *

@@ -26,8 +26,11 @@
 #import "JPAddress.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
+#import "JPCardDetailsMode.h"
+#import "JPCardNetwork.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
+#import "JPInputType.h"
 #import "JPResponse.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
@@ -36,13 +39,12 @@
 #import "NSString+Additions.h"
 
 @interface JPTransactionPresenterImpl ()
-@property (nonatomic, strong) JPTransactionViewModel *addCardViewModel;
+@property (nonatomic, strong) JPTransactionViewModel *transactionViewModel;
 @property (nonatomic, assign) BOOL isCardNumberValid;
 @property (nonatomic, assign) BOOL isCardholderNameValid;
 @property (nonatomic, assign) BOOL isExpiryDateValid;
 @property (nonatomic, assign) BOOL isSecureCodeValid;
 @property (nonatomic, assign) BOOL isPostalCodeValid;
-
 @property (nonatomic, assign) BOOL isEmailValid;
 @property (nonatomic, assign) BOOL isPhoneCodeValid;
 @property (nonatomic, assign) BOOL isCountryNameValid;
@@ -59,14 +61,15 @@
     if (self = [super init]) {
         self.isCardNumberValid = NO;
         self.isCardholderNameValid = NO;
-        self.isEmailValid = NO;
         self.isExpiryDateValid = NO;
         self.isSecureCodeValid = NO;
         self.isPostalCodeValid = NO;
-        self.isCountryNameValid = NO;
-        self.isCityNameValid = NO;
-        self.isPhoneNumberValid = NO;
-        self.isAddressLine1Valid = NO;
+        self.isEmailValid = YES;
+        self.isPhoneCodeValid = YES;
+        self.isCountryNameValid = YES;
+        self.isCityNameValid = YES;
+        self.isPhoneNumberValid = YES;
+        self.isAddressLine1Valid = YES;
     }
     return self;
 }
@@ -74,54 +77,48 @@
 #pragma mark - Protocol methods
 
 - (void)prepareInitialViewModel {
-
     JPTransactionType type = self.interactor.transactionType;
-    NSString *buttonTitle = [self transactionButtonTitleForType:type];
-    self.addCardViewModel.type = type;
-    self.addCardViewModel.mode = [self.interactor cardDetailsMode];
+    self.transactionViewModel.type = type;
+    self.transactionViewModel.mode = [self.interactor cardDetailsMode];
 
-    self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number_hint".localized;
+    self.transactionViewModel.cardNumberViewModel.placeholder = @"card_number_hint".localized;
+    self.transactionViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint".localized;
+    self.transactionViewModel.cardholderEmailViewModel.placeholder = @"card_holder_email_hint".localized;
+    self.transactionViewModel.cardholderAddressLine1ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(1)];
+    self.transactionViewModel.cardholderAddressLine2ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(2)];
+    self.transactionViewModel.cardholderAddressLine3ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(3)];
+    self.transactionViewModel.cardholderPhoneViewModel.placeholder = @"card_holder_phone_hint".localized;
+    self.transactionViewModel.cardholderCityViewModel.placeholder = @"card_holder_city_hint".localized;
+    self.transactionViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
 
-    self.addCardViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint".localized;
-    self.addCardViewModel.cardholderEmailViewModel.placeholder = @"card_holder_email_hint".localized;
-
-    self.addCardViewModel.cardholderAddressLine1ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(1)];
-    self.addCardViewModel.cardholderAddressLine2ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(2)];
-    self.addCardViewModel.cardholderAddressLine3ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(3)];
-    self.addCardViewModel.cardholderPhoneViewModel.placeholder = @"card_holder_phone_hint".localized;
-    self.addCardViewModel.cardholderCityViewModel.placeholder = @"card_holder_city_hint".localized;
-
-    self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
-
-    NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
-    self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
+    NSString *secureCodePlaceholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
+    self.transactionViewModel.secureCodeViewModel.placeholder = secureCodePlaceholder;
 
     NSArray *selectableCountries = [self.interactor getFilteredCountriesBySearchString:nil];
-
     if (selectableCountries.count > 0) {
-        self.addCardViewModel.countryPickerViewModel.placeholder = @"card_holder_country_hint".localized;
-        self.addCardViewModel.pickerCountries = selectableCountries;
+        self.transactionViewModel.countryPickerViewModel.placeholder = @"card_holder_country_hint".localized;
+        self.transactionViewModel.pickerCountries = selectableCountries;
         JPCountry *country = selectableCountries.firstObject;
-        self.addCardViewModel.countryPickerViewModel.text = country.name;
-        self.addCardViewModel.cardholderPhoneCodeViewModel.text = country.dialCode;
+        self.transactionViewModel.countryPickerViewModel.text = country.name;
+        self.transactionViewModel.cardholderPhoneCodeViewModel.text = country.dialCode;
     }
 
-    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
+    self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
 
-    self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
-    self.addCardViewModel.addCardButtonViewModel.isEnabled = false;
+    NSString *buttonTitle = [self transactionButtonTitleForType:type];
+    self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
+    self.transactionViewModel.addCardButtonViewModel.isEnabled = NO;
 
-    self.addCardViewModel.backButtonViewModel.title = @"back".uppercaseString;
-    self.addCardViewModel.backButtonViewModel.isEnabled = YES;
+    self.transactionViewModel.backButtonViewModel.title = @"back".uppercaseString;
+    self.transactionViewModel.backButtonViewModel.isEnabled = YES;
 
     [self.view applyConfiguredTheme:[self.interactor getConfiguredTheme]];
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:YES];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:YES];
 }
 
 #pragma mark - Input Handler
 
 - (void)handleInputChange:(NSString *)input forType:(JPInputType)type showError:(BOOL)showError {
-
     switch (type) {
         case JPInputTypeCardNumber:
             [self updateCardNumberViewModelForInput:input];
@@ -162,14 +159,13 @@
     }
 
     [self updateTransactionButtonModelIfNeeded];
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:NO];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
 }
 
 #pragma mark - Transaction Button Tap
 
 - (void)handleTransactionButtonTap {
-    self.addCardViewModel.mode = [self.interactor cardDetailsMode];
-    JPCard *card = [self cardFromViewModel:self.addCardViewModel];
+    JPCard *card = [self cardFromViewModel:self.transactionViewModel];
 
     __weak typeof(self) weakSelf = self;
     [self.interactor sendTransactionWithCard:card
@@ -183,13 +179,16 @@
 }
 
 - (void)handleContinueButtonTap {
-    self.addCardViewModel.mode = JPCardDetailsModeThreeDS2BillingDetails;
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:YES];
+    self.transactionViewModel.mode = JPCardDetailsModeThreeDS2BillingDetails;
+    [self updatePostalCodeViewModelForInput:self.transactionViewModel.postalCodeInputViewModel.text];
+    [self updateTransactionButtonModelIfNeeded];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:YES];
 }
 
 - (void)handleBackButtonTap {
-    self.addCardViewModel.mode = JPCardDetailsModeThreeDS2;
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:YES];
+    self.transactionViewModel.mode = JPCardDetailsModeThreeDS2;
+    [self updateTransactionButtonModelIfNeeded];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:YES];
 }
 
 - (void)handleError:(JPError *)error {
@@ -211,7 +210,7 @@
 - (void)handleResponse:(JPResponse *)response {
     if (self.interactor.transactionType == JPTransactionTypeSaveCard) {
         NSString *token = response.cardDetails.cardToken;
-        [self.interactor updateKeychainWithCardModel:self.addCardViewModel
+        [self.interactor updateKeychainWithCardModel:self.transactionViewModel
                                             andToken:token];
     }
 
@@ -261,7 +260,7 @@
 }
 
 - (void)handleAddAddressLineTap {
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:NO];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
 }
 
 #pragma mark - Helper methods
@@ -275,7 +274,7 @@
     [self updateExpiryDateViewModelForInput:expiryDate];
     [self updateTransactionButtonModelIfNeeded];
 
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:NO];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
 }
 
 - (NSString *)transactionButtonTitleForType:(JPTransactionType)type {
@@ -295,22 +294,21 @@
 }
 
 - (void)updateTransactionButtonModelIfNeeded {
-    JPCardDetailsMode mode = [self.interactor cardDetailsMode];
     BOOL isDefaultValid = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
-    switch (mode) {
+    switch (self.transactionViewModel.mode) {
         case JPCardDetailsModeSecurityCode:
-        case JPCardDetailsModeThreeDS2:
-            self.addCardViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
             break;
         case JPCardDetailsModeThreeDS2BillingDetails: {
             BOOL is3DS2Valid = self.isEmailValid && self.isCountryNameValid && self.isAddressLine1Valid && self.isPhoneNumberValid && self.isCityNameValid && self.isPostalCodeValid;
-            self.addCardViewModel.addCardButtonViewModel.isEnabled = is3DS2Valid;
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = is3DS2Valid;
         } break;
         case JPCardDetailsModeDefault:
-            self.addCardViewModel.addCardButtonViewModel.isEnabled = isDefaultValid;
+        case JPCardDetailsModeThreeDS2:
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = isDefaultValid;
             break;
         case JPCardDetailsModeAVS:
-            self.addCardViewModel.addCardButtonViewModel.isEnabled = isDefaultValid && self.isPostalCodeValid;
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = isDefaultValid && self.isPostalCodeValid;
             break;
         default:
             break;
@@ -319,55 +317,65 @@
 
 - (void)updateCardNumberViewModelForInput:(NSString *)input {
     JPValidationResult *result = [self.interactor validateCardNumberInput:input];
-    self.addCardViewModel.cardNumberViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.cardNumberViewModel.errorText = result.errorMessage;
     self.isCardNumberValid = result.isValid;
 
     [self updateSecureCodePlaceholderForNetworkType:result.cardNetwork];
 
     if (result.isInputAllowed) {
-        self.addCardViewModel.cardNumberViewModel.text = result.formattedInput;
-        self.addCardViewModel.cardNumberViewModel.cardNetwork = result.cardNetwork;
-        return;
+        self.transactionViewModel.cardNumberViewModel.text = result.formattedInput;
+        self.transactionViewModel.cardNumberViewModel.cardNetwork = result.cardNetwork;
     }
 }
 
 - (void)updateCardholderEmailViewModelForInput:(NSString *)input showError:(BOOL)showError {
-    JPValidationResult *result = [self.interactor validateCardholderEmailInput:input];
-    self.addCardViewModel.cardholderEmailViewModel.errorText = showError ? result.errorMessage : nil;
-    self.isEmailValid = result.isValid;
-    self.addCardViewModel.cardholderEmailViewModel.text = result.formattedInput;
+    if ([input length] > 0) {
+        JPValidationResult *result = [self.interactor validateCardholderEmailInput:input];
+        self.transactionViewModel.cardholderEmailViewModel.errorText = showError ? result.errorMessage : nil;
+        self.isEmailValid = result.isValid;
+        self.transactionViewModel.cardholderEmailViewModel.text = result.formattedInput;
+    } else {
+        self.transactionViewModel.cardholderEmailViewModel.errorText = nil;
+        self.isEmailValid = YES;
+        self.transactionViewModel.cardholderEmailViewModel.text = nil;
+    }
 }
 
 - (void)updateCardholderPhoneCodeViewModelForInput:(NSString *)input showError:(BOOL)showError {
-    JPValidationResult *result = [self.interactor validateCardholderPhoneInput:input];
-    self.addCardViewModel.cardholderPhoneCodeViewModel.text = result.formattedInput;
-    self.addCardViewModel.cardholderPhoneCodeViewModel.errorText = showError ? result.errorMessage : nil;
-    self.isPhoneCodeValid = result.isValid;
+    if ([input length] > 0) {
+        JPValidationResult *result = [self.interactor validateCardholderPhoneInput:input];
+        self.transactionViewModel.cardholderPhoneCodeViewModel.text = result.formattedInput;
+        self.transactionViewModel.cardholderPhoneCodeViewModel.errorText = showError ? result.errorMessage : nil;
+        self.isPhoneCodeValid = result.isValid;
+    } else {
+        self.transactionViewModel.cardholderPhoneCodeViewModel.errorText = nil;
+        self.isPhoneCodeValid = YES;
+    }
 }
 
 - (void)updateCardholderCityViewModelForInput:(NSString *)input {
     self.isCityNameValid = YES;
-    self.addCardViewModel.cardholderCityViewModel.text = input;
+    self.transactionViewModel.cardholderCityViewModel.text = input;
 }
 
 - (void)updateCardholderPhoneViewModelForInput:(NSString *)input {
     JPValidationResult *result = [self.interactor validateCardholderPhoneInput:input];
-    self.addCardViewModel.cardholderPhoneViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.cardholderPhoneViewModel.errorText = result.errorMessage;
     self.isPhoneNumberValid = result.isValid;
-    self.addCardViewModel.cardholderPhoneViewModel.text = result.formattedInput;
+    self.transactionViewModel.cardholderPhoneViewModel.text = result.formattedInput;
 }
 
 - (void)updateCardholderAddressLineViewModelForInput:(NSString *)input inputType:(JPInputType)inputType {
     switch (inputType) {
         case JPInputTypeCardholderAddressLine1: {
             _isAddressLine1Valid = YES;
-            self.addCardViewModel.cardholderAddressLine1ViewModel.text = input;
+            self.transactionViewModel.cardholderAddressLine1ViewModel.text = input;
         } break;
         case JPInputTypeCardholderAddressLine2:
-            self.addCardViewModel.cardholderAddressLine2ViewModel.text = input;
+            self.transactionViewModel.cardholderAddressLine2ViewModel.text = input;
             break;
         case JPInputTypeCardholderAddressLine3:
-            self.addCardViewModel.cardholderAddressLine3ViewModel.text = input;
+            self.transactionViewModel.cardholderAddressLine3ViewModel.text = input;
             break;
         default:
             break;
@@ -375,66 +383,82 @@
 }
 
 - (void)updateSecureCodePlaceholderForNetworkType:(JPCardNetworkType)cardNetwork {
-    if (self.addCardViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
-        self.addCardViewModel.secureCodeViewModel.text = @"";
+    if (self.transactionViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
+        self.transactionViewModel.secureCodeViewModel.text = @"";
         self.isSecureCodeValid = false;
         NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
-        self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
+        self.transactionViewModel.secureCodeViewModel.placeholder = placeholder;
     }
 }
 
 - (void)updateCardholderNameViewModelForInput:(NSString *)input {
     JPValidationResult *result = [self.interactor validateCardholderNameInput:input];
-    self.addCardViewModel.cardholderNameViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.cardholderNameViewModel.errorText = result.errorMessage;
     self.isCardholderNameValid = result.isValid;
 
     if (result.isInputAllowed) {
-        self.addCardViewModel.cardholderNameViewModel.text = result.formattedInput;
+        self.transactionViewModel.cardholderNameViewModel.text = result.formattedInput;
     }
 }
 
 - (void)updateExpiryDateViewModelForInput:(NSString *)input {
     JPValidationResult *result = [self.interactor validateExpiryDateInput:input];
-    self.addCardViewModel.expiryDateViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.expiryDateViewModel.errorText = result.errorMessage;
     self.isExpiryDateValid = result.isValid;
 
-    if (result.isValid && result.formattedInput.length > 4) {
-        [self.view changeFocusToSecurityCodeField];
+    if (result.isInputAllowed) {
+        self.transactionViewModel.expiryDateViewModel.text = result.formattedInput;
     }
 
-    if (result.isInputAllowed) {
-        self.addCardViewModel.expiryDateViewModel.text = result.formattedInput;
-        return;
+    if (result.isValid && result.formattedInput.length > 4) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.view changeFocusToSecurityCodeField];
+        });
     }
 }
 
 - (void)updateSecureCodeViewModelForInput:(NSString *)input {
     JPValidationResult *result = [self.interactor validateSecureCodeInput:input];
-    self.addCardViewModel.secureCodeViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.secureCodeViewModel.errorText = result.errorMessage;
     self.isSecureCodeValid = result.isValid;
-    self.addCardViewModel.secureCodeViewModel.text = result.formattedInput;
+    self.transactionViewModel.secureCodeViewModel.text = result.formattedInput;
 }
 
 - (void)updateCountryViewModelForInput:(NSString *)input {
-    JPValidationResult *result = [self.interactor validateCountryInput:input];
-    self.addCardViewModel.countryPickerViewModel.errorText = result.errorMessage;
-    self.addCardViewModel.cardholderPhoneCodeViewModel.text = [[JPCountry isoCodeForCountry:input] stringValue];
-    // self.addCardViewModel.pickerCountries = [self.interactor getFilteredCountriesBySearchString:input];
-    [self.view updateViewWithViewModel:self.addCardViewModel shouldUpdateTargets:NO];
+    JPCountry *country = [JPCountry forCountryName:input];
+    NSString *postcodeValidationCountryName;
+    if ([country.alpha2Code isEqualToString:@"US"]) {
+        postcodeValidationCountryName = @"country_usa".localized;
+    } else if ([country.alpha2Code isEqualToString:@"GB"]) {
+        postcodeValidationCountryName = @"country_uk".localized;
+    } else if ([country.alpha2Code isEqualToString:@"CA"]) {
+        postcodeValidationCountryName = @"country_canada".localized;
+    } else {
+        postcodeValidationCountryName = @"country_other".localized;
+    }
+
+    JPValidationResult *result = [self.interactor validateCountryInput:postcodeValidationCountryName];
+    self.transactionViewModel.countryPickerViewModel.errorText = result.errorMessage;
+    self.transactionViewModel.cardholderPhoneCodeViewModel.text = [[JPCountry dialCodeForCountry:input] stringValue];
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
     if (result.isInputAllowed) {
-        self.addCardViewModel.countryPickerViewModel.text = result.formattedInput;
-        return;
+        self.transactionViewModel.countryPickerViewModel.text = country.name;
     }
 }
 
 - (void)updatePostalCodeViewModelForInput:(NSString *)input {
-    JPValidationResult *result = [self.interactor validatePostalCodeInput:input];
-    self.addCardViewModel.postalCodeInputViewModel.errorText = result.errorMessage;
-    self.isPostalCodeValid = result.isValid;
-
-    if (result.isInputAllowed) {
-        self.addCardViewModel.postalCodeInputViewModel.text = result.formattedInput;
+    if (!input && self.transactionViewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
+        self.transactionViewModel.postalCodeInputViewModel.errorText = nil;
+        self.isPostalCodeValid = YES;
+        self.transactionViewModel.postalCodeInputViewModel.text = nil;
         return;
+    }
+
+    JPValidationResult *result = [self.interactor validatePostalCodeInput:input];
+    self.transactionViewModel.postalCodeInputViewModel.errorText = result.errorMessage;
+    self.isPostalCodeValid = result.isValid;
+    if (result.isInputAllowed) {
+        self.transactionViewModel.postalCodeInputViewModel.text = result.formattedInput;
     }
 }
 
@@ -452,6 +476,17 @@
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
     }
 
+    if (viewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
+        JPAddress *billingAddress = [[JPAddress alloc] initWithAddress1:viewModel.cardholderAddressLine1ViewModel.text
+                                                               address2:viewModel.cardholderAddressLine2ViewModel.text
+                                                               address3:viewModel.cardholderAddressLine3ViewModel.text
+                                                                   town:viewModel.cardholderCityViewModel.text
+                                                         billingCountry:nil
+                                                               postCode:viewModel.postalCodeInputViewModel.text
+                                                            countryCode:[JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text]];
+        card.cardAddress = billingAddress;
+    }
+
     // TODO: Handle Maestro-specific logic
     //  card.startDate = viewModel.startDateViewModel.text;
     //  card.issueNumber = viewModel.issueNumberViewModel.text;
@@ -461,26 +496,26 @@
 
 #pragma mark - Lazy properties
 
-- (JPTransactionViewModel *)addCardViewModel {
-    if (!_addCardViewModel) {
-        _addCardViewModel = [JPTransactionViewModel new];
-        _addCardViewModel.cardNumberViewModel = [JPTransactionNumberInputViewModel new];
-        _addCardViewModel.cardholderNameViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderName];
-        _addCardViewModel.cardholderEmailViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderEmail];
-        _addCardViewModel.cardholderPhoneViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderPhone];
-        _addCardViewModel.cardholderCityViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderCity];
-        _addCardViewModel.cardholderAddressLine1ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine1];
-        _addCardViewModel.cardholderAddressLine2ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine2];
-        _addCardViewModel.cardholderAddressLine3ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine3];
-        _addCardViewModel.cardholderPhoneCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderPhoneCode];
-        _addCardViewModel.expiryDateViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardExpiryDate];
-        _addCardViewModel.secureCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardSecureCode];
-        _addCardViewModel.countryPickerViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardCountry];
-        _addCardViewModel.postalCodeInputViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardPostalCode];
-        _addCardViewModel.addCardButtonViewModel = [JPTransactionButtonViewModel new];
-        _addCardViewModel.backButtonViewModel = [JPTransactionButtonViewModel new];
+- (JPTransactionViewModel *)transactionViewModel {
+    if (!_transactionViewModel) {
+        _transactionViewModel = [JPTransactionViewModel new];
+        _transactionViewModel.cardNumberViewModel = [JPTransactionNumberInputViewModel new];
+        _transactionViewModel.cardholderNameViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderName];
+        _transactionViewModel.cardholderEmailViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderEmail];
+        _transactionViewModel.cardholderPhoneViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderPhone];
+        _transactionViewModel.cardholderCityViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderCity];
+        _transactionViewModel.cardholderAddressLine1ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine1];
+        _transactionViewModel.cardholderAddressLine2ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine2];
+        _transactionViewModel.cardholderAddressLine3ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderAddressLine3];
+        _transactionViewModel.cardholderPhoneCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderPhoneCode];
+        _transactionViewModel.expiryDateViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardExpiryDate];
+        _transactionViewModel.secureCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardSecureCode];
+        _transactionViewModel.countryPickerViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardCountry];
+        _transactionViewModel.postalCodeInputViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardPostalCode];
+        _transactionViewModel.addCardButtonViewModel = [JPTransactionButtonViewModel new];
+        _transactionViewModel.backButtonViewModel = [JPTransactionButtonViewModel new];
     }
-    return _addCardViewModel;
+    return _transactionViewModel;
 }
 
 @end
