@@ -114,8 +114,8 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should fill country Picker ViewModel
      */
     func test_handleInputChange_WhenTypeIsCardCountry_ShouldUpdateViewModelWithCardNumber() {
-        sut.handleInputChange("UK", for: .cardCountry, showError: true)
-        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.text, "UK")
+        sut.handleInputChange("United Kingdom", for: .cardCountry, showError: true)
+        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.text, "United Kingdom")
     }
     
     /*
