@@ -230,10 +230,8 @@
 - (NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(NSString *)searchString {
     NSArray *countries = [[JPCountryList defaultCountryList] countries];
     if (!searchString || searchString.length == 0) {
-        return [[JPCountryList defaultCountryList] countries];
+        return countries ? countries : @[];
     }
-    // TODO: Use predicate which searches by containing string
-    //    NSPredicate *sPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] 's'"];
     NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.name beginswith[c] %@", searchString];
     return [countries filteredArrayUsingPredicate:bPredicate];
 }
