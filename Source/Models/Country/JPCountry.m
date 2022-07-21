@@ -33,9 +33,11 @@
     NSString *str = [bundle pathForResource:@"CountriesList" ofType:@"json"];
     if (str) {
         NSData *data = [NSData dataWithContentsOfFile:str];
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        JPCountryList *list = [[JPCountryList alloc] initWithDictionary:dict];
-        return list;
+        if (data) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            JPCountryList *list = [[JPCountryList alloc] initWithDictionary:dict];
+            return list;
+        }
     }
     return nil;
 }
@@ -49,7 +51,10 @@
         NSMutableArray *countries = [NSMutableArray new];
         for (NSDictionary *countryDict in countriesDictionaries) {
             if (countryDict) {
-                [countries addObject:[[JPCountry alloc] initWithDictionary:countryDict]];
+                JPCountry *country = [[JPCountry alloc] initWithDictionary:countryDict];
+                if (country) {
+                    [countries addObject:country];
+                }
             }
         }
         self.countries = countries;
