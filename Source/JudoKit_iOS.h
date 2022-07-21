@@ -78,6 +78,7 @@
 #import "JPComplete3DS2Request.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
+#import "JPNetworkTimeout.h"
 
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"
