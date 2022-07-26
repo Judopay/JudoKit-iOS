@@ -20,6 +20,7 @@ ln -s -f ../Models/CardStorage/JPCardStorage.h JPCardStorage.h
 ln -s -f ../Models/IDEALBank/JPIDEALBank.h JPIDEALBank.h
 ln -s -f ../Services/CardTransactionService/JPCardTransactionService.h JPCardTransactionService.h
 ln -s -f ../Models/CardTransactionDetails/JPCardTransactionDetails.h JPCardTransactionDetails.h
+ln -s -f ../Extensions/JPCardTransactionDetails/JPCardTransactionDetails+Additions.h JPCardTransactionDetails+Additions.h
 ln -s -f ../Models/ConsumerDevice/JPConsumerDevice.h JPConsumerDevice.h
 ln -s -f ../Services/ApplePay/JPApplePayController.h JPApplePayController.h
 ln -s -f ../Models/DictionaryConvertible/JPDictionaryConvertible.h JPDictionaryConvertible.h
