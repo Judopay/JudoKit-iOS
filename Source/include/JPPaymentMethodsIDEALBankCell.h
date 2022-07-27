@@ -1,0 +1,1 @@
+../Modules/PaymentMethods/View/Subviews/Cells/iDEALBankCell/JPPaymentMethodsIDEALBankCell.h
