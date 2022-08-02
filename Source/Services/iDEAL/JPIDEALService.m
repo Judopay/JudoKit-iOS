@@ -80,7 +80,7 @@ static const float kTimerDuration = 60.0F;
                                          return;
                                      }
 
-                                     completion(nil, error == nil ? JPError._jp_responseParseError : (JPError *)error);
+                                     completion(nil, error == nil ? JPError.responseParseError : (JPError *)error);
                                  }];
 }
 
@@ -92,7 +92,7 @@ static const float kTimerDuration = 60.0F;
                                                  repeats:NO
                                                    block:^(NSTimer *_Nonnull timer) {
                                                        weakSelf.didTimeout = true;
-                                                       completion(nil, JPError._jp_requestTimeoutError);
+                                                       completion(nil, JPError.requestTimeoutError);
                                                        return;
                                                    }];
 

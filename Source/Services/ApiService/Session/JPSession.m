@@ -133,7 +133,7 @@ static NSString *const kMethodPUT = @"PUT";
                    andCompletion:(JPCompletionBlock)completion {
 
     if (!self.reachability.isReachable) {
-        completion(nil, JPError._jp_internetConnectionError);
+        completion(nil, JPError.internetConnectionError);
         return;
     }
 
@@ -157,7 +157,7 @@ static NSString *const kMethodPUT = @"PUT";
         NSURLSessionDataTask *task = [self task:request completion:completion];
         [task resume];
     } else {
-        completion(nil, JPError._jp_requestFailedError);
+        completion(nil, JPError.requestFailedError);
     }
 }
 
@@ -185,7 +185,7 @@ static NSString *const kMethodPUT = @"PUT";
        andCompletion:(JPCompletionBlock)completion {
 
     if (error || !data) {
-        JPError *jpError = error ? (JPError *)error : JPError._jp_requestFailedError;
+        JPError *jpError = error ? (JPError *)error : JPError.requestFailedError;
         completion(nil, jpError);
         return;
     }
@@ -197,19 +197,19 @@ static NSString *const kMethodPUT = @"PUT";
 
     if (jsonError || !responseJSON) {
         if (!jsonError) {
-            jsonError = [JPError _jp_JSONSerializationFailedWithError:jsonError];
+            jsonError = [JPError JSONSerializationFailedWithError:jsonError];
         }
         completion(nil, jsonError);
         return;
     }
 
     if (responseJSON[@"code"]) {
-        completion(nil, [JPError _jp_errorFromDictionary:responseJSON]);
+        completion(nil, [JPError errorFromDictionary:responseJSON]);
         return;
     }
 
     //    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
-    //        completion(nil, [JPError judo3DSRequestWithPayload:responseJSON]);
+    //        completion(nil, [JPError threeDSRequestWithPayload:responseJSON]);
     //        return;
     //    }
 

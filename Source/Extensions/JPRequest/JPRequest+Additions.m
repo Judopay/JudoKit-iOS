@@ -5,7 +5,7 @@
 
 @implementation JPRequest (Additions)
 
-- (void)_jp_setCardDetails:(nonnull JPCard *)card {
+- (void)setCardDetails:(nonnull JPCard *)card {
     self.cardNumber = card.cardNumber;
     self.expiryDate = card.expiryDate;
     self.cv2 = card.secureCode;
@@ -17,7 +17,7 @@
     }
 }
 
-- (void)_jp_setConfigurationDetails:(nonnull JPConfiguration *)configuration {
+- (void)setConfigurationDetails:(nonnull JPConfiguration *)configuration {
     self.judoId = configuration.judoId;
 
     self.amount = configuration.amount.amount;

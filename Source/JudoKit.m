@@ -183,7 +183,7 @@
 
     JPApplePayDidFinishBlock didFinishBlock = ^(BOOL isPaymentAuthorized) {
         if (!isPaymentAuthorized) {
-            applePayServiceError = JPError._jp_userDidCancelError;
+            applePayServiceError = JPError.userDidCancelError;
         }
         weakSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
     };

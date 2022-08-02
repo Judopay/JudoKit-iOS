@@ -177,7 +177,7 @@ const float kPollingDelayTimer = 30.0;
             return;
         }
 
-        self.completionBlock(nil, JPError._jp_responseParseError);
+        self.completionBlock(nil, JPError.responseParseError);
     }
 }
 
@@ -204,9 +204,9 @@ const float kPollingDelayTimer = 30.0;
 }
 
 - (void)handleError:(NSError *)error {
-    if (error.localizedDescription == JPError._jp_requestTimeoutError.localizedDescription) {
+    if (error.localizedDescription == JPError.requestTimeoutError.localizedDescription) {
         [self.transactionStatusView changeToTransactionStatus:JPTransactionStatusTimeout];
-        self.completionBlock(self.redirectResponse, JPError._jp_requestTimeoutError);
+        self.completionBlock(self.redirectResponse, JPError.requestTimeoutError);
         return;
     }
 
@@ -224,7 +224,7 @@ const float kPollingDelayTimer = 30.0;
         __weak typeof(self) weakSelf = self;
         [self dismissViewControllerAnimated:YES
                                  completion:^{
-                                     weakSelf.completionBlock(response, JPError._jp_userDidCancelError);
+                                     weakSelf.completionBlock(response, JPError.userDidCancelError);
                                  }];
         return;
     }

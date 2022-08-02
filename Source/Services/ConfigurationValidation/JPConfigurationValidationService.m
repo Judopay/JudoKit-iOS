@@ -64,7 +64,7 @@
     JPError *error;
 
     if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
-        error = JPError._jp_invalidPBBACurrencyError;
+        error = JPError.invalidPBBACurrencyError;
     }
 
     return error;
@@ -74,22 +74,22 @@
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.applePayConfiguration.paymentSummaryItems count] == 0) {
-        *error = JPError._jp_applePayMissingPaymentItemsError;
+        *error = JPError.applePayMissingPaymentItemsError;
     }
 }
 
 - (void)checkForShippingMethodsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ((configuration.applePayConfiguration.requiredShippingContactFields != JPContactFieldNone) &&
         ([configuration.applePayConfiguration.shippingMethods count] == 0)) {
-        *error = JPError._jp_applePayMissingShippingMethodsError;
+        *error = JPError.applePayMissingShippingMethodsError;
     }
 }
 
 - (void)checkForValidJudoId:(JPConfiguration *)configuration error:(NSError **)error {
     if (![configuration.judoId length]) {
-        *error = JPError._jp_missingJudoIdError;
+        *error = JPError.missingJudoIdError;
     } else if (![self isJudoIdValid:configuration.judoId]) {
-        *error = JPError._jp_invalidJudoIdError;
+        *error = JPError.invalidJudoIdError;
     }
 }
 
@@ -104,27 +104,27 @@
 
 - (void)checkForValidCurrency:(NSString *)currency error:(NSError **)error {
     if ([currency length] == 0) {
-        *error = JPError._jp_missingCurrencyError;
+        *error = JPError.missingCurrencyError;
     } else if (![self.validCurrencies containsObject:currency]) {
-        *error = JPError._jp_invalidCurrencyError;
+        *error = JPError.invalidCurrencyError;
     }
 }
 
 - (void)checkForEmptyMerchantId:(NSString *)merchantId error:(NSError **)error {
     if ([merchantId length] == 0) {
-        *error = JPError._jp_missingMerchantIdError;
+        *error = JPError.missingMerchantIdError;
     }
 }
 
 - (void)checkForValidCountryCode:(NSString *)countryCode error:(NSError **)error {
     if ([countryCode length] != 2) {
-        *error = JPError._jp_invalidCountryCodeError;
+        *error = JPError.invalidCountryCodeError;
     }
 }
 
 - (void)checkIfAppleConfigNonNull:(JPConfiguration *)configuration error:(NSError **)error {
     if (!configuration.applePayConfiguration) {
-        *error = JPError._jp_missingApplePayConfigurationError;
+        *error = JPError.missingApplePayConfigurationError;
     }
 }
 
@@ -134,13 +134,13 @@
     formatter.decimalSeparator = @".";
     NSNumber *number = [formatter numberFromString:amount];
     if (!number || number.intValue < 0) {
-        *error = JPError._jp_invalidAmountError;
+        *error = JPError.invalidAmountError;
     }
 }
 
 - (void)checkIfConsumerReferenceIsValid:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.reference.consumerReference length] > kMaximumLengthForConsumerReference) {
-        *error = JPError._jp_invalidConsumerReferenceError;
+        *error = JPError.invalidConsumerReferenceError;
     }
 }
 

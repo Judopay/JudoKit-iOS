@@ -57,22 +57,22 @@
         BOOL isURLSchemeMissing = ((!NSBundle._jp_appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
-            completion(nil, JPError._jp_invalidIDEALCurrencyError);
+            completion(nil, JPError.invalidIDEALCurrencyError);
             return nil;
         }
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
-            completion(nil, JPError._jp_applePayNotSupportedError);
+            completion(nil, JPError.applePayNotSupportedError);
             return nil;
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
-            completion(nil, JPError._jp_invalidPBBACurrencyError);
+            completion(nil, JPError.invalidPBBACurrencyError);
             return nil;
         }
 
         if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
-            completion(nil, JPError._jp_PBBAURLSchemeMissingError);
+            completion(nil, JPError.PBBAURLSchemeMissingError);
             return nil;
         }
     }

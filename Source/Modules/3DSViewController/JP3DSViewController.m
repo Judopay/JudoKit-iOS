@@ -120,7 +120,7 @@ NSString *const kExtractResultScript =
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 weakSelf.completionBlock(nil, JPError._jp_userDidCancelError);
+                                 weakSelf.completionBlock(nil, JPError.userDidCancelError);
                              }];
 }
 

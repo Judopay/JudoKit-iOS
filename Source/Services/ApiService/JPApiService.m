@@ -256,7 +256,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                 break;
 
             default:
-                completion(nil, JPError._jp_requestFailedError);
+                completion(nil, JPError.requestFailedError);
         }
     };
 

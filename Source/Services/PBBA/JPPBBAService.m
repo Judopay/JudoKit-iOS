@@ -83,7 +83,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                          [self handlePBBAResponse:response completion:completion];
                                          return;
                                      }
-                                     completion(nil, error == nil ? JPError._jp_responseParseError : error);
+                                     completion(nil, error == nil ? JPError.responseParseError : error);
                                  }];
 }
 
@@ -95,7 +95,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
         completion(response, nil);
     } else {
-        completion(nil, JPError._jp_responseParseError);
+        completion(nil, JPError.responseParseError);
     }
 }
 
@@ -124,7 +124,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     self.intTimer += kTimerDuration;
 
     if (self.intTimer > kTimerDurationLimit) {
-        completion(nil, JPError._jp_requestTimeoutError);
+        completion(nil, JPError.requestTimeoutError);
         [self.timer invalidate];
         [self hideStatusView];
         self.intTimer = 0;

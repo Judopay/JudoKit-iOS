@@ -75,11 +75,11 @@ static int const kCardHolderNameLength = 3;
     }
 
     if ((cardNumber.length == maxCardLength) && (![cardNumber _jp_isValidCardNumber])) {
-        error = JPError._jp_invalidCardNumberError;
+        error = JPError.invalidCardNumberError;
     }
 
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
-        error = [JPError _jp_unsupportedCardNetwork:input._jp_cardNetwork];
+        error = [JPError unsupportedCardNetwork:input._jp_cardNetwork];
     }
 
     cardNumber = [cardNumber _jp_formatWithPattern:cardNetworkPatern];

@@ -92,7 +92,7 @@
     }
 
     if (!response) {
-        [self _jp_displayAlertWithError:[JPError _jp_requestFailedError]];
+        [self _jp_displayAlertWithError:[JPError requestFailedError]];
         return;
     }
 

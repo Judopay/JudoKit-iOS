@@ -337,7 +337,7 @@
     if (!self.completionHandler)
         return;
 
-    if (error.code == JPError._jp_userDidCancelError.code) {
+    if (error.code == JPError.userDidCancelError.code) {
         error.details = self.storedErrors;
     }
 

@@ -33,7 +33,7 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
 
     if (self = [super init]) {
-        [self _jp_setConfigurationDetails:configuration];
+        [self setConfigurationDetails:configuration];
     }
     return self;
 }
@@ -42,8 +42,8 @@
                        andCardDetails:(JPCard *)card {
 
     if (self = [super init]) {
-        [self _jp_setConfigurationDetails:configuration];
-        [self _jp_setCardDetails:card];
+        [self setConfigurationDetails:configuration];
+        [self setCardDetails:card];
     }
     return self;
 }

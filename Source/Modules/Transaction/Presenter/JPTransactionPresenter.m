@@ -142,7 +142,7 @@
         __weak typeof(self) weakSelf = self;
         [self.router dismissViewControllerWithCompletion:^{
             [weakSelf.interactor completeTransactionWithResponse:nil
-                                                           error:JPError._jp_userDidCancelError];
+                                                           error:JPError.userDidCancelError];
         }];
         return;
     }
@@ -199,7 +199,7 @@
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
         [weakSelf.interactor completeTransactionWithResponse:nil
-                                                       error:JPError._jp_userDidCancelError];
+                                                       error:JPError.userDidCancelError];
     }];
 }
 
