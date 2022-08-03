@@ -26,12 +26,13 @@
 
 @implementation UITextField (Additions)
 
-- (void)placeholderWithText:(NSString *)text
-                      color:(UIColor *)color
-                    andFont:(UIFont *)font {
+- (void)_jp_placeholderWithText:(NSString *)text
+                          color:(UIColor *)color
+                        andFont:(UIFont *)font {
     if (text == nil) {
         return;
     }
+    
     NSDictionary *attributes = @{
         NSForegroundColorAttributeName : color,
         NSFontAttributeName : font

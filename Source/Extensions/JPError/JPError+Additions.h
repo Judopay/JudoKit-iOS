@@ -43,130 +43,130 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 /**
  * The transaction response returned without any data or there was an error while forming the request.
  */
-+ (nonnull JPError *)judoRequestFailedError;
++ (nonnull JPError *)requestFailedError;
 
 /**
  * The response data could not be serialized into a JSON.
  */
-+ (nonnull JPError *)judoJSONSerializationFailedWithError:(nullable NSError *)error;
++ (nonnull JPError *)JSONSerializationFailedWithError:(nullable NSError *)error;
 
 /**
  * The user closed the transaction flow without completing the transaction.
  */
-+ (nonnull JPError *)judoUserDidCancelError;
++ (nonnull JPError *)userDidCancelError;
 
 /**
  * The request could not be sent due to no internet connection.
  */
-+ (nonnull JPError *)judoInternetConnectionError;
++ (nonnull JPError *)internetConnectionError;
 
 /**
  * The response did not contain some of the required parameters needed to complete the transaction.
  */
-+ (nonnull JPError *)judoResponseParseError;
++ (nonnull JPError *)responseParseError;
 
 /**
  * The request failed to complete in the allocated time frame.
  */
-+ (nonnull JPError *)judoRequestTimeoutError;
++ (nonnull JPError *)requestTimeoutError;
 
 /**
  * The number entered is not a valid card number or is not supported by the SDK.
  */
-+ (nonnull JPError *)judoInvalidCardNumberError;
++ (nonnull JPError *)invalidCardNumberError;
 
 /**
  * The number entered belongs to a card network that is not allowed by the merchant.
  */
-+ (nonnull JPError *)judoUnsupportedCardNetwork:(JPCardNetworkType)network;
++ (nonnull JPError *)unsupportedCardNetwork:(JPCardNetworkType)network;
 
 /**
  * The transaction required a 3D Secure authentication.
  */
-+ (nonnull JPError *)judo3DSRequestWithPayload:(nonnull NSDictionary *)payload;
++ (nonnull JPError *)threeDSRequestWithPayload:(nonnull NSDictionary *)payload;
 
 /**
  * Invalid currency passed to iDEAL transaction configuration.
  */
-+ (nonnull JPError *)judoInvalidIDEALCurrencyError;
++ (nonnull JPError *)invalidIDEALCurrencyError;
 
 /**
  * Invalid currency passed to PBBA transaction configuration.
  */
-+ (nonnull JPError *)judoInvalidPBBACurrencyError;
++ (nonnull JPError *)invalidPBBACurrencyError;
 
 /**
  * Either the app's URL Scheme or the deeplink scheme parameter has not been set.
  */
-+ (nonnull JPError *)judoPBBAURLSchemeMissingError;
++ (nonnull JPError *)PBBAURLSchemeMissingError;
 
 /**
  * An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.
  */
-+ (nonnull JPError *)judoApplePayNotSupportedError;
++ (nonnull JPError *)applePayNotSupportedError;
 
 /**
  * Some server errors come back as responses. This method maps them to our custom Judo Error object.
  */
-+ (nonnull JPError *)judoErrorFromDictionary:(nonnull NSDictionary *)dictionary;
++ (nonnull JPError *)errorFromDictionary:(nonnull NSDictionary *)dictionary;
 
 /**
  * The Payment Items array of the Apple Pay configuration is either empty or missing.
  */
-+ (nonnull JPError *)judoApplePayMissingPaymentItemsError;
++ (nonnull JPError *)applePayMissingPaymentItemsError;
 
 /**
  * Shipping methods must be set if the required shipping contact fields are specified.
  */
-+ (nonnull JPError *)judoApplePayMissingShippingMethodsError;
++ (nonnull JPError *)applePayMissingShippingMethodsError;
 
 /**
  * The required Judo ID parameter has not been set in the Judo configuration.
  */
-+ (nonnull JPError *)judoMissingJudoIdError;
++ (nonnull JPError *)missingJudoIdError;
 
 /**
  * The specified Judo ID parameter has an incorrect format.
  */
-+ (nonnull JPError *)judoInvalidJudoIdError;
++ (nonnull JPError *)invalidJudoIdError;
 
 /**
  * The required Currency parameter has not been set in the Judo configuration.
  */
-+ (nonnull JPError *)judoMissingCurrencyError;
++ (nonnull JPError *)missingCurrencyError;
 
 /**
  * The currency code entered is either not a valid ISO 4217 code or is not supported by the SDK.
  */
-+ (nonnull JPError *)judoInvalidCurrencyError;
++ (nonnull JPError *)invalidCurrencyError;
 
 /**
  * Apple Pay needs a valid merchant ID to be able to identify your transaction.
  */
-+ (nonnull JPError *)judoMissingMerchantIdError;
++ (nonnull JPError *)missingMerchantIdError;
 
 /**
  * The country code entered is either not a valid ISO 3166 2-letter code or is not supported by the SDK.
  */
-+ (nonnull JPError *)judoInvalidCountryCodeError;
++ (nonnull JPError *)invalidCountryCodeError;
 
 /**
  * No Apple Pay configuration was found in your Judo configuration object.
  */
-+ (nonnull JPError *)judoMissingApplePayConfigurationError;
++ (nonnull JPError *)missingApplePayConfigurationError;
 
 /**
  * The amount parameter has either not been set or has an incorrect format.
  */
-+ (nonnull JPError *)judoInvalidAmountError;
++ (nonnull JPError *)invalidAmountError;
 
 /**
  * The consumer reference parameter has either not been set or has an incorrect format.
  */
-+ (nonnull JPError *)judoInvalidConsumerReferenceError;
++ (nonnull JPError *)invalidConsumerReferenceError;
 
-+ (nonnull JPError *)judoThreeDSTwoErrorFromException:(nonnull NSException *)exception;
-+ (nonnull JPError *)judoThreeDSTwoErrorFromProtocolErrorEvent:(nonnull JP3DSProtocolErrorEvent *)event;
-+ (nonnull JPError *)judoThreeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
++ (nonnull JPError *)threeDSTwoErrorFromException:(nonnull NSException *)exception;
++ (nonnull JPError *)threeDSTwoErrorFromProtocolErrorEvent:(nonnull JP3DSProtocolErrorEvent *)event;
++ (nonnull JPError *)threeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
 
 @end

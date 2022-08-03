@@ -32,22 +32,22 @@
 /**
  * A method which returns the card network from the string
  */
-@property (nonatomic, assign, readonly) JPCardNetworkType cardNetwork;
+@property (nonatomic, assign, readonly) JPCardNetworkType _jp_cardNetwork;
 
 /**
  * A method which returns YES if the string represents a valid card number
  */
-@property (nonatomic, assign, readonly) BOOL isValidCardNumber;
+@property (nonatomic, assign, readonly) BOOL _jp_isValidCardNumber;
 
 /**
  * A method which returns YES if the string represents a valid expiry date format
  */
-@property (nonatomic, assign, readonly) BOOL isExpiryDate;
+@property (nonatomic, assign, readonly) BOOL _jp_isExpiryDate;
 
 /**
  * A method which returns a sanitized string that represents a expire date in a valid format
  */
-- (nullable NSString *)sanitizedExpiryDate;
+- (nullable NSString *)_jp_sanitizedExpiryDate;
 
 /**
  * A method which returns YES if the string represents a valid email format
@@ -67,27 +67,27 @@
 /**
  * A method which returns YES if the string contains only digits
  */
-@property (nonatomic, assign, readonly) BOOL isNumeric;
+@property (nonatomic, assign, readonly) BOOL _jp_isNumeric;
 
 /**
  * Returns the localized string based on the input key
  */
-- (nonnull NSString *)localized;
+- (nonnull NSString *)_jp_localized;
 
 /**
  * Converts ISO 4217 currency codes into their symbolic equivalent
  */
-- (nullable NSString *)toCurrencySymbol;
+- (nullable NSString *)_jp_toCurrencySymbol;
 
 /**
  * A method which returns an instance of the NSString without any whitespaces
  */
-- (nonnull NSString *)stringByRemovingWhitespaces;
+- (nonnull NSString *)_jp_stringByRemovingWhitespaces;
 
 /**
  * A method which formats the string based on a specified pattern
  */
-- (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern;
+- (nonnull NSString *)_jp_formatWithPattern:(nonnull NSString *)pattern;
 
 /**
  * A method which makes a word in string bold
@@ -95,9 +95,9 @@
  * @return - a  NSMutableAttributedString where provided word is bold
  *
  */
-- (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring;
+- (nonnull NSMutableAttributedString *)_jp_attributedStringWithBoldSubstring:(nonnull NSString *)substring;
 
-- (BOOL)isNotNullOrEmpty;
-- (BOOL)isNullOrEmpty;
+- (BOOL)_jp_isNotNullOrEmpty;
+- (BOOL)_jp_isNullOrEmpty;
 
 @end

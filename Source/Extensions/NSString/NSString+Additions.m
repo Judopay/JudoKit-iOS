@@ -31,26 +31,26 @@
 
 @implementation NSString (Additions)
 
-- (nonnull NSString *)localized {
-    if (NSBundle.stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.stringsBundle, nil);
+- (nonnull NSString *)_jp_localized {
+    if (NSBundle._jp_stringsBundle != nil) {
+        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle._jp_stringsBundle, nil);
     }
-    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle.frameworkBundle, nil);
+    return NSLocalizedStringFromTableInBundle(self, nil, NSBundle._jp_frameworkBundle, nil);
 }
 
-- (NSString *)toCurrencySymbol {
+- (NSString *)_jp_toCurrencySymbol {
     return [NSLocale.currentLocale displayNameForKey:NSLocaleCurrencySymbol value:self];
 }
 
-- (JPCardNetworkType)cardNetwork {
+- (JPCardNetworkType)_jp_cardNetwork {
     return [JPCardNetwork cardNetworkForCardNumber:self];
 }
 
-- (NSString *)stringByRemovingWhitespaces {
+- (NSString *)_jp_stringByRemovingWhitespaces {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
-- (nonnull NSString *)formatWithPattern:(nonnull NSString *)pattern {
+- (nonnull NSString *)_jp_formatWithPattern:(nonnull NSString *)pattern {
     const char *patternString = pattern.UTF8String;
     NSString *returnString = @"";
     NSUInteger patternIndex = 0;
@@ -73,13 +73,13 @@
     return returnString;
 }
 
-- (BOOL)isNumeric {
+- (BOOL)_jp_isNumeric {
     NSCharacterSet *nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
     NSRange range = [self rangeOfCharacterFromSet:nonNumbers];
     return range.location == NSNotFound;
 }
 
-- (BOOL)isValidCardNumber {
+- (BOOL)_jp_isValidCardNumber {
     NSUInteger total = 0;
     NSUInteger len = [self length];
 
@@ -102,7 +102,7 @@
     return (total % 10) == 0;
 }
 
-- (BOOL)isExpiryDate {
+- (BOOL)_jp_isExpiryDate {
     /* Expected date formats:
      * 12/22
      * 12-22
@@ -119,9 +119,9 @@
     return matches > 0;
 }
 
-- (NSString *)sanitizedExpiryDate {
+- (NSString *)_jp_sanitizedExpiryDate {
 
-    if (!self.isExpiryDate) {
+    if (!self._jp_isExpiryDate) {
         return nil;
     }
 
@@ -163,20 +163,20 @@
     return [self isNumeric];
 }
 
-- (nonnull NSMutableAttributedString *)attributedStringWithBoldSubstring:(nonnull NSString *)substring {
+- (nonnull NSMutableAttributedString *)_jp_attributedStringWithBoldSubstring:(nonnull NSString *)substring {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self];
     NSRange substringRange = [self rangeOfString:substring];
     if (substringRange.location != NSNotFound) {
-        [attributedString addAttributes:@{NSFontAttributeName : UIFont.captionBold} range:substringRange];
+        [attributedString addAttributes:@{NSFontAttributeName : UIFont._jp_captionBold} range:substringRange];
     }
     return attributedString;
 }
 
-- (BOOL)isNotNullOrEmpty {
-    return ![self isNullOrEmpty];
+- (BOOL)_jp_isNotNullOrEmpty {
+    return ![self _jp_isNullOrEmpty];
 }
 
-- (BOOL)isNullOrEmpty {
+- (BOOL)_jp_isNullOrEmpty {
     return !self || self.length == 0;
 }
 

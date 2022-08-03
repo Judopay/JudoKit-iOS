@@ -36,68 +36,67 @@
     return parentController;
 }
 
-- (void)connectButton:(UIButton *)button withSelector:(SEL)selector {
-    [button removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+- (void)_jp_connectButton:(UIButton *)button withSelector:(SEL)selector {
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)addTapGestureForView:(UIView *)view withSelector:(SEL)selector {
+- (void)_jp_addTapGestureForView:(UIView *)view withSelector:(SEL)selector {
     UIGestureRecognizer *tapGesture;
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:selector];
     [view addGestureRecognizer:tapGesture];
 }
 
-- (void)displayAlertWithError:(NSError *)error {
-    [self displayAlertWithTitle:@"error".localized andError:error];
+- (void)_jp_displayAlertWithError:(NSError *)error {
+    [self _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
 }
 
-- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    [self displayAlertWithTitle:title andMessage:error.localizedDescription];
+- (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
+    [self _jp_displayAlertWithTitle:title andMessage:error.localizedDescription];
 }
 
-- (void)displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
+- (void)_jp_displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok".localized.uppercaseString
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok"._jp_localized.uppercaseString
                                                        style:UIAlertActionStyleDefault
                                                      handler:nil];
     [controller addAction:okAction];
     [self.parentController presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type {
+- (void)_jp_triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type {
     UINotificationFeedbackGenerator *feedbackGenerator = [UINotificationFeedbackGenerator new];
     [feedbackGenerator notificationOccurred:type];
 }
 
-- (void)registerKeyboardObservers {
+- (void)_jp_registerKeyboardObservers {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 
     [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillShow:)
+                           selector:@selector(_jp_keyboardWillShow:)
                                name:UIKeyboardWillShowNotification
                              object:nil];
 
     [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillHide:)
+                           selector:@selector(_jp_keyboardWillHide:)
                                name:UIKeyboardWillHideNotification
                              object:nil];
 }
 
-- (void)removeKeyboardObservers {
+- (void)_jp_removeKeyboardObservers {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter removeObserver:self];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification {
+- (void)_jp_keyboardWillShow:(NSNotification *)notification {
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
+- (void)_jp_keyboardWillHide:(NSNotification *)notification {
 }
 
-- (CGFloat)topBarHeight {
+- (CGFloat)_jp_topBarHeight {
     CGFloat statusBarHeight = UIApplication.sharedApplication.statusBarFrame.size.height;
     CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
     return statusBarHeight + navigationBarHeight;

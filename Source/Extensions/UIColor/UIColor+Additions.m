@@ -26,7 +26,7 @@
 
 @implementation UIColor (Judo)
 
-- (UIImage *)asImage {
+- (UIImage *)_jp_asImage {
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -37,35 +37,35 @@
     return image;
 }
 
-+ (UIColor *)colorFromHex:(int)hex {
++ (UIColor *)_jp_colorFromHex:(int)hex {
     return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16)) / 255.0
                            green:((float)((hex & 0x00FF00) >> 8)) / 255.0
                             blue:((float)((hex & 0x0000FF) >> 0)) / 255.0
                            alpha:1.0];
 }
 
-+ (UIColor *)jpBlackColor {
-    return [UIColor colorFromHex:0x262626];
++ (UIColor *)_jp_blackColor {
+    return [UIColor _jp_colorFromHex:0x262626];
 }
 
-+ (UIColor *)jpDarkGrayColor {
-    return [UIColor colorFromHex:0x999999];
++ (UIColor *)_jp_darkGrayColor {
+    return [UIColor _jp_colorFromHex:0x999999];
 }
 
-+ (UIColor *)jpGrayColor {
-    return [UIColor colorFromHex:0xE5E5E5];
++ (UIColor *)_jp_grayColor {
+    return [UIColor _jp_colorFromHex:0xE5E5E5];
 }
 
-+ (UIColor *)jpLightGrayColor {
-    return [UIColor colorFromHex:0xF6F6F6];
++ (UIColor *)_jp_lightGrayColor {
+    return [UIColor _jp_colorFromHex:0xF6F6F6];
 }
 
-+ (UIColor *)jpRedColor {
-    return [UIColor colorFromHex:0xE21900];
++ (UIColor *)_jp_redColor {
+    return [UIColor _jp_colorFromHex:0xE21900];
 }
 
-+ (UIColor *)jpWhiteColor {
-    return [UIColor colorFromHex:0xFFFFFF];
++ (UIColor *)_jp_whiteColor {
+    return [UIColor _jp_colorFromHex:0xFFFFFF];
 }
 
 @end

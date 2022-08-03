@@ -198,7 +198,7 @@
         __weak typeof(self) weakSelf = self;
         [self.router dismissViewControllerWithCompletion:^{
             [weakSelf.interactor completeTransactionWithResponse:nil
-                                                           error:JPError.judoUserDidCancelError];
+                                                           error:JPError.userDidCancelError];
         }];
         return;
     }
@@ -255,7 +255,7 @@
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
         [weakSelf.interactor completeTransactionWithResponse:nil
-                                                       error:JPError.judoUserDidCancelError];
+                                                       error:JPError.userDidCancelError];
     }];
 }
 
@@ -283,11 +283,11 @@
         case JPTransactionTypePreAuth:
             return [self.interactor generatePayButtonTitle];
         case JPTransactionTypeSaveCard:
-            return @"save_card".localized;
+            return @"save_card"._jp_localized;
         case JPTransactionTypeRegisterCard:
-            return @"register_card".localized;
+            return @"register_card"._jp_localized;
         case JPTransactionTypeCheckCard:
-            return @"check_card".localized;
+            return @"check_card"._jp_localized;
         default:
             return nil;
     }

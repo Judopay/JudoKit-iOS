@@ -29,7 +29,7 @@
 static NSString *const kLatitudeKey = @"latitude";
 static NSString *const kLongitudeKey = @"longitude";
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
         kLatitudeKey : @(self.coordinate.latitude),
         kLongitudeKey : @(self.coordinate.longitude)

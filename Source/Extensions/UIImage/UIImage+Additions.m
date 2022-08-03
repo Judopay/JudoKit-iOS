@@ -28,39 +28,39 @@
 
 @implementation UIImage (Additions)
 
-+ (UIImage *)imageWithIconName:(NSString *)iconName {
-    return [UIImage imageNamed:iconName inBundle:NSBundle.iconsBundle compatibleWithTraitCollection:nil];
++ (UIImage *)_jp_imageWithIconName:(NSString *)iconName {
+    return [UIImage imageNamed:iconName inBundle:NSBundle._jp_iconsBundle compatibleWithTraitCollection:nil];
 }
 
-+ (UIImage *)imageWithResourceName:(NSString *)resourceName {
-    return [UIImage imageNamed:resourceName inBundle:NSBundle.resourcesBundle compatibleWithTraitCollection:nil];
++ (UIImage *)_jp_imageWithResourceName:(NSString *)resourceName {
+    return [UIImage imageNamed:resourceName inBundle:NSBundle._jp_resourcesBundle compatibleWithTraitCollection:nil];
 }
 
-+ (UIImage *)headerImageForCardNetwork:(JPCardNetworkType)network {
++ (UIImage *)_jp_headerImageForCardNetwork:(JPCardNetworkType)network {
     if (network == JPCardNetworkTypeVisa) {
-        return [UIImage imageWithIconName:@"card-visa-white"];
+        return [UIImage _jp_imageWithIconName:@"card-visa-white"];
     }
-    return [UIImage imageForCardNetwork:network];
+    return [UIImage _jp_imageForCardNetwork:network];
 }
 
-+ (UIImage *)imageForCardNetwork:(JPCardNetworkType)network {
++ (UIImage *)_jp_imageForCardNetwork:(JPCardNetworkType)network {
     switch (network) {
         case JPCardNetworkTypeAMEX:
-            return [UIImage imageWithIconName:@"card-amex"];
+            return [UIImage _jp_imageWithIconName:@"card-amex"];
         case JPCardNetworkTypeDinersClub:
-            return [UIImage imageWithIconName:@"card-diners"];
+            return [UIImage _jp_imageWithIconName:@"card-diners"];
         case JPCardNetworkTypeDiscover:
-            return [UIImage imageWithIconName:@"card-discover"];
+            return [UIImage _jp_imageWithIconName:@"card-discover"];
         case JPCardNetworkTypeJCB:
-            return [UIImage imageWithIconName:@"card-jcb"];
+            return [UIImage _jp_imageWithIconName:@"card-jcb"];
         case JPCardNetworkTypeMaestro:
-            return [UIImage imageWithIconName:@"card-maestro"];
+            return [UIImage _jp_imageWithIconName:@"card-maestro"];
         case JPCardNetworkTypeMasterCard:
-            return [UIImage imageWithIconName:@"card-mastercard"];
+            return [UIImage _jp_imageWithIconName:@"card-mastercard"];
         case JPCardNetworkTypeChinaUnionPay:
-            return [UIImage imageWithIconName:@"card-unionpay"];
+            return [UIImage _jp_imageWithIconName:@"card-unionpay"];
         case JPCardNetworkTypeVisa:
-            return [UIImage imageWithIconName:@"card-visa"];
+            return [UIImage _jp_imageWithIconName:@"card-visa"];
         default:
             return nil;
     }

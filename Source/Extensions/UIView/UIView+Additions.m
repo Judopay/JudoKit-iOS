@@ -26,7 +26,7 @@
 
 @implementation UIView (Additions)
 
-- (void)roundCorners:(UIRectCorner)corners withRadius:(CGFloat)radius {
+- (void)_jp_roundCorners:(UIRectCorner)corners withRadius:(CGFloat)radius {
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                byRoundingCorners:corners
                                                      cornerRadii:CGSizeMake(radius, radius)];
@@ -35,15 +35,15 @@
     self.layer.mask = mask;
 }
 
-- (void)setBorderWithColor:(UIColor *)color
-                     width:(CGFloat)width
-           andCornerRadius:(CGFloat)cornerRadius {
+- (void)_jp_setBorderWithColor:(UIColor *)color
+                         width:(CGFloat)width
+               andCornerRadius:(CGFloat)cornerRadius {
     self.layer.borderColor = color.CGColor;
     self.layer.borderWidth = width;
     self.layer.cornerRadius = cornerRadius;
 }
 
-- (void)pinToView:(UIView *)view withPadding:(CGFloat)padding {
+- (void)_jp_pinToView:(UIView *)view withPadding:(CGFloat)padding {
     NSArray *constraints = @[
         [self.topAnchor constraintEqualToAnchor:view.topAnchor
                                        constant:padding],
@@ -58,11 +58,11 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
-- (void)pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view {
-    [self pinToAnchors:anchors forView:view withPadding:0.0];
+- (void)_jp_pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view {
+    [self _jp_pinToAnchors:anchors forView:view withPadding:0.0];
 }
 
-- (void)pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view withPadding:(CGFloat)padding {
+- (void)_jp_pinToAnchors:(JPAnchorType)anchors forView:(UIView *)view withPadding:(CGFloat)padding {
 
     if (anchors & JPAnchorTypeTop) {
         [self.topAnchor constraintEqualToAnchor:view.topAnchor
@@ -89,34 +89,34 @@
     }
 }
 
-- (void)removeAllSubviews {
+- (void)_jp_removeAllSubviews {
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
     }
 }
 
-- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor {
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)_jp_safeTopAnchor {
     if (@available(iOS 11.0, *)) {
         return self.safeAreaLayoutGuide.topAnchor;
     }
     return self.topAnchor;
 }
 
-- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor {
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)_jp_safeLeftAnchor {
     if (@available(iOS 11.0, *)) {
         return self.safeAreaLayoutGuide.leftAnchor;
     }
     return self.leftAnchor;
 }
 
-- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor {
+- (NSLayoutAnchor<NSLayoutXAxisAnchor *> *)_jp_safeRightAnchor {
     if (@available(iOS 11.0, *)) {
         return self.safeAreaLayoutGuide.rightAnchor;
     }
     return self.rightAnchor;
 }
 
-- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor {
+- (NSLayoutAnchor<NSLayoutYAxisAnchor *> *)_jp_safeBottomAnchor {
     if (@available(iOS 11.0, *)) {
         return self.safeAreaLayoutGuide.bottomAnchor;
     }

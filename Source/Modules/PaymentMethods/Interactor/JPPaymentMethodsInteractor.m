@@ -185,7 +185,7 @@
 
     BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
     BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
-    BOOL isURLSchemeSet = ((NSBundle.appURLScheme.length > 0) && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
+    BOOL isURLSchemeSet = ((NSBundle._jp_appURLScheme.length > 0) && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
 
     if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
         [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
@@ -337,7 +337,7 @@
     if (!self.completionHandler)
         return;
 
-    if (error.code == JPError.judoUserDidCancelError.code) {
+    if (error.code == JPError.userDidCancelError.code) {
         error.details = self.storedErrors;
     }
 

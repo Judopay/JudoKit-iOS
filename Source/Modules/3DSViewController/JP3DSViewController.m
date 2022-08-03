@@ -98,14 +98,14 @@ NSString *const kExtractResultScript =
     [self.view addSubview:self.webView];
     [self.view addSubview:self.loadingView];
 
-    [self.webView pinToView:self.view withPadding:0.0];
-    [self.loadingView pinToView:self.view withPadding:0.0];
+    [self.webView _jp_pinToView:self.view withPadding:0.0];
+    [self.loadingView _jp_pinToView:self.view withPadding:0.0];
     [self setupNavigationItems];
 }
 
 - (void)setupNavigationItems {
-    self.navigationItem.title = @"three_d_secure_check".localized;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"dismiss".localized
+    self.navigationItem.title = @"three_d_secure_check"._jp_localized;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"dismiss"._jp_localized
                                                                              style:UIBarButtonItemStyleDone
                                                                             target:self
                                                                             action:@selector(onDismissTap)];
@@ -113,14 +113,14 @@ NSString *const kExtractResultScript =
     NSDictionary *titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor};
     self.navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
     self.navigationItem.leftBarButtonItem.tintColor = UIColor.whiteColor;
-    self.navigationController.navigationBar.backgroundColor = UIColor.jpBlackColor;
+    self.navigationController.navigationBar.backgroundColor = UIColor._jp_blackColor;
 }
 
 - (void)onDismissTap {
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 weakSelf.completionBlock(nil, JPError.judoUserDidCancelError);
+                                 weakSelf.completionBlock(nil, JPError.userDidCancelError);
                              }];
 }
 

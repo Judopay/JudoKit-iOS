@@ -26,6 +26,6 @@
 
 @interface NSArray (Additions)
 
-- (nonnull NSArray *)toArrayOfDictionaries;
+- (nonnull NSArray *)_jp_toArrayOfDictionaries;
 
 @end

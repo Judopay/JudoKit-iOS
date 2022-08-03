@@ -120,7 +120,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     self.navigationController.navigationBar.translucent = YES;
 
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];
+    UIImage *defaultIcon = [UIImage _jp_imageWithIconName:@"back-icon"];
     UIImage *backButtonImage = self.theme.backButtonImage ? self.theme.backButtonImage : defaultIcon;
     [backButton setImage:backButtonImage forState:UIControlStateNormal];
     backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -139,7 +139,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
         [self.fadedView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
         [self.fadedView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.fadedView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.fadedView.heightAnchor constraintEqualToConstant:self.topBarHeight + kCustomizationViewTopBarPadding],
+        [self.fadedView.heightAnchor constraintEqualToConstant:self._jp_topBarHeight + kCustomizationViewTopBarPadding],
     ]];
 }
 
@@ -157,7 +157,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
 - (CAGradientLayer *)fadedViewGradient {
     CAGradientLayer *gradient = [CAGradientLayer layer];
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
-    CGRect gradientFrame = CGRectMake(0, 0, screenWidth, self.topBarHeight + kCustomizationViewTopBarPadding);
+    CGRect gradientFrame = CGRectMake(0, 0, screenWidth, self._jp_topBarHeight + kCustomizationViewTopBarPadding);
     gradient.frame = gradientFrame;
     gradient.locations = @[ @(kCustomizationViewWhiteGradientLocation), @(kCustomizationViewClearGradientLocation) ];
     gradient.colors = @[
@@ -244,7 +244,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
     if (text.length > kCustomizationViewMaxInputLength) {
-        [inputField displayErrorWithText:@"error_card_title_too_long".localized];
+        [inputField displayErrorWithText:@"error_card_title_too_long"._jp_localized];
         return NO;
     }
     [inputField clearError];

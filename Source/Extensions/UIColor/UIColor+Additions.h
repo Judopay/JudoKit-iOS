@@ -29,41 +29,41 @@
 /**
  * A method which converts the color into an UIImage instance
  */
-- (nonnull UIImage *)asImage;
+- (nonnull UIImage *)_jp_asImage;
 
 /**
  * A method which returns an UIImage based on a HEX value
  */
-+ (UIColor *_Nonnull)colorFromHex:(int)hex;
++ (UIColor *_Nonnull)_jp_colorFromHex:(int)hex;
 
 /**
  * The black color value (0x262626) used in the application
  */
-+ (UIColor *_Nonnull)jpBlackColor;
++ (UIColor *_Nonnull)_jp_blackColor;
 
 /**
  * The dark gray color value (0x999999) used in the application
  */
-+ (UIColor *_Nonnull)jpDarkGrayColor;
++ (UIColor *_Nonnull)_jp_darkGrayColor;
 
 /**
  * The gray color value (0xE5E5E5) used in the application
  */
-+ (UIColor *_Nonnull)jpGrayColor;
++ (UIColor *_Nonnull)_jp_grayColor;
 
 /**
  * The light gray color value (0xF6F6F6) used in the application
  */
-+ (UIColor *_Nonnull)jpLightGrayColor;
++ (UIColor *_Nonnull)_jp_lightGrayColor;
 
 /**
  * The red color value (0xE21900) used in the application
  */
-+ (UIColor *_Nonnull)jpRedColor;
++ (UIColor *_Nonnull)_jp_redColor;
 
 /**
  * The white color value (0xFFFFFF) used in the application
  */
-+ (UIColor *_Nonnull)jpWhiteColor;
++ (UIColor *_Nonnull)_jp_whiteColor;
 
 @end

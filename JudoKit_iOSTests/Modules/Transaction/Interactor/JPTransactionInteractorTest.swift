@@ -502,7 +502,7 @@ class JPTransactionInteractorTest: XCTestCase {
         let savedEerror = NSError(domain: "domain", code: 111, userInfo: nil)
         sut.storeError(savedEerror)
         
-        let error = JPError(domain: "domain", code: JPError.judoUserDidCancelError().code, userInfo: nil)
+        let error = JPError(domain: "domain", code: JPError.userDidCancelError().code, userInfo: nil)
         sut.completeTransaction(with: JPResponse(), error: error)
         XCTAssertNotNil(error)
         XCTAssertEqual(error.details!.count, 1)
@@ -575,7 +575,7 @@ class JPTransactionInteractorTest: XCTestCase {
                                               cardNetwork: .all,
                                               completion: { _, _ in })
         
-        let error = JPError(domain: "domain", code: JPError.judoUserDidCancelError().code, userInfo: nil)
+        let error = JPError(domain: "domain", code: JPError.userDidCancelError().code, userInfo: nil)
         
         sut.completeTransaction(with: JPResponse(), error: error)
     }

@@ -177,3 +177,4 @@ ln -s -f ../Models/SessionConfiguration/JPSessionConfiguration.h JPSessionConfig
 ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
 ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
 ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPCardDetailsMode.h JPCardDetailsMode.h
+ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h

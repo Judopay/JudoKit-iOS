@@ -142,13 +142,13 @@ static const float kPhoneCodeWidth = 45.0F;
     self.scanCardButton.titleLabel.font = theme.bodyBold;
     [self.scanCardButton setTitleColor:theme.jpBlackColor
                               forState:UIControlStateNormal];
-    [self.scanCardButton setBorderWithColor:theme.jpBlackColor
-                                      width:kScanButtonBorderWidth
-                            andCornerRadius:kScanButtonCornerRadius];
+    [self.scanCardButton _jp_setBorderWithColor:theme.jpBlackColor
+                                          width:kScanButtonBorderWidth
+                                andCornerRadius:kScanButtonCornerRadius];
 
     self.addCardButton.titleLabel.font = theme.headline;
     self.addCardButton.layer.cornerRadius = theme.buttonCornerRadius;
-    [self.addCardButton setBackgroundImage:theme.buttonColor.asImage
+    [self.addCardButton setBackgroundImage:theme.buttonColor._jp_asImage
                                   forState:UIControlStateNormal];
     [self.addCardButton setTitleColor:theme.buttonTitleColor
                              forState:UIControlStateNormal];
@@ -293,15 +293,15 @@ static const float kPhoneCodeWidth = 45.0F;
 #pragma mark - Layout setup
 
 - (void)setupConstraints {
-    [self.backgroundView pinToView:self withPadding:0.0];
+    [self.backgroundView _jp_pinToView:self withPadding:0.0];
     [self setupBottomSliderConstraints];
     [self setupMainStackViewConstraints];
     [self setupContentsConstraints];
 }
 
 - (void)setupBottomSliderConstraints {
-    [self.bottomSlider pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
-    [self.bottomSlider pinToAnchors:JPAnchorTypeBottom forView:self];
+    [self.bottomSlider _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
+    [self.bottomSlider _jp_pinToAnchors:JPAnchorTypeBottom forView:self];
 
     if (self.bottomSliderConstraint == nil) {
         self.bottomSliderConstraint = [self.bottomSlider.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
@@ -311,13 +311,13 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (void)setupMainStackViewConstraints {
-    [self.mainStackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
-                             forView:self.bottomSlider
-                         withPadding:kContentVerticalPadding];
+    [self.mainStackView _jp_pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
+                                 forView:self.bottomSlider
+                             withPadding:kContentVerticalPadding];
 
-    [self.mainStackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
-                             forView:self.bottomSlider
-                         withPadding:kContentHorizontalPadding];
+    [self.mainStackView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
+                                 forView:self.bottomSlider
+                             withPadding:kContentHorizontalPadding];
 }
 
 - (void)setupContentsConstraints {
@@ -371,7 +371,8 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:@"cancel".localized.uppercaseString forState:UIControlStateNormal];
+        [_cancelButton setTitle:@"cancel"._jp_localized.uppercaseString
+                       forState:UIControlStateNormal];
     }
     return _cancelButton;
 }
@@ -390,8 +391,9 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!_scanCardButton) {
         _scanCardButton = [UIButton new];
         _scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_scanCardButton setTitle:@"button_scan_card".localized.uppercaseString forState:UIControlStateNormal];
-        [_scanCardButton setImage:[UIImage imageWithIconName:@"scan-card"] forState:UIControlStateNormal];
+        [_scanCardButton setTitle:@"button_scan_card"._jp_localized.uppercaseString forState:UIControlStateNormal];
+        [_scanCardButton setImage:[UIImage _jp_imageWithIconName:@"scan-card"]
+                         forState:UIControlStateNormal];
         _scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 0);
         _scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5);
@@ -553,7 +555,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _lockImageView = [UIImageView new];
         _lockImageView.contentMode = UIViewContentModeScaleAspectFit;
         _lockImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _lockImageView.image = [UIImage imageWithIconName:@"lock-icon"];
+        _lockImageView.image = [UIImage _jp_imageWithIconName:@"lock-icon"];
     }
     return _lockImageView;
 }
@@ -562,7 +564,7 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!_securityMessageLabel) {
         _securityMessageLabel = [UILabel new];
         _securityMessageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _securityMessageLabel.text = @"secure_server_transmission".localized;
+        _securityMessageLabel.text = @"secure_server_transmission"._jp_localized;
         _securityMessageLabel.numberOfLines = 0;
     }
     return _securityMessageLabel;
@@ -572,7 +574,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (UIStackView *)mainStackView {
     if (!_mainStackView) {
-        _mainStackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
+        _mainStackView = [UIStackView _jp_verticalStackViewWithSpacing:kLooseContentSpacing];
     }
     return _mainStackView;
 }
@@ -627,7 +629,7 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)additionalInputFieldsStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
 
     [stackView addArrangedSubview:self.cardExpiryTextField];
@@ -637,7 +639,18 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)inputFieldsStackView {
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
+
+    [stackView addArrangedSubview:self.cardNumberTextField];
+    [stackView addArrangedSubview:self.cardHolderTextField];
+    [stackView addArrangedSubview:self.additionalInputFieldsStackView];
+
+    return stackView;
+}
+
+- (UIStackView *)inputFieldsStackViewForAVS {
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
+
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
     [stackView addArrangedSubview:self.additionalInputFieldsStackView];
@@ -648,7 +661,7 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)avsStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kTightContentSpacing];
     stackView.distribution = UIStackViewDistributionFillEqually;
     [stackView addArrangedSubview:self.countryTextField];
     [stackView addArrangedSubview:self.postcodeTextField];
@@ -657,7 +670,7 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)securityMessageStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kTightContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kTightContentSpacing];
     [stackView addArrangedSubview:self.lockImageView];
     [stackView addArrangedSubview:self.securityMessageLabel];
     _securityMessageStackView = stackView;
@@ -665,8 +678,8 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)buttonStackView {
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kLooseContentSpacing];
-    [stackView addArrangedSubview:self.bottomButtons];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kLooseContentSpacing];
+    [stackView addArrangedSubview:self.addCardButton];
     [stackView addArrangedSubview:self.securityMessageStackView];
     return stackView;
 }

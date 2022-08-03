@@ -86,19 +86,19 @@
 }
 
 - (void)transactionCancelled {
-    self.completion(nil, JPError.judoUserDidCancelError);
+    self.completion(nil, JPError.userDidCancelError);
 }
 
 - (void)transactionTimedOut {
-    self.completion(nil, JPError.judoRequestTimeoutError);
+    self.completion(nil, JPError.requestTimeoutError);
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    self.completion(nil, [JPError judoThreeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
+    self.completion(nil, [JPError threeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    self.completion(nil, [JPError judoThreeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
+    self.completion(nil, [JPError threeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
 }
 
 @end
@@ -156,21 +156,21 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         NSString *dsServerID;
         switch (details.cardType) {
             case JPCardNetworkTypeVisa:
-                dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";
+                dsServerID = @"A000000003";
                 break;
             case JPCardNetworkTypeMasterCard:
-                dsServerID = _apiService.isSandboxed ? @"F155545342" : @"A000000004";
+                dsServerID = @"A000000004";
+                break;
+            case JPCardNetworkTypeAMEX:
+                dsServerID = @"A000000025";
                 break;
             default:
+                dsServerID = @"unknown-id";
                 break;
         }
-        if (!dsServerID) {
-            NSDictionary *info = @{
-                NSLocalizedDescriptionKey : @"Unsupported card type. Only Visa and Mastercard are supported at this time."
-            };
-            JPError *error = [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:info];
-            completion(nil, error);
-            return;
+
+        if (_apiService.isSandboxed) {
+            dsServerID = @"F000000000";
         }
 
         NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;
@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
                     navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                    [UIApplication.topMostViewController presentViewController:navController animated:YES completion:nil];
+                    [UIApplication._jp_topMostViewController presentViewController:navController animated:YES completion:nil];
                 } else if ([response isThreeDSecureTwoRequired]) {
                     JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
                                                                                                                           details:details
@@ -260,7 +260,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 break;
         }
     } @catch (NSException *exception) {
-        JPError *error = [JPError judoThreeDSTwoErrorFromException:exception];
+        JPError *error = [JPError threeDSTwoErrorFromException:exception];
         completion(nil, error);
     }
 }

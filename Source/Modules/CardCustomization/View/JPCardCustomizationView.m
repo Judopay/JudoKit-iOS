@@ -54,7 +54,7 @@
 
 - (void)setupViews {
     [self addSubview:self.tableView];
-    [self.tableView pinToView:self withPadding:0.0];
+    [self.tableView _jp_pinToView:self withPadding:0.0];
 }
 
 - (UITableView *)tableView {

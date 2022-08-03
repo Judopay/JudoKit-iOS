@@ -27,11 +27,11 @@
 
 @implementation UIStackView (Additions)
 
-+ (UIStackView *)verticalStackViewWithSpacing:(CGFloat)spacing {
++ (UIStackView *)_jp_verticalStackViewWithSpacing:(CGFloat)spacing {
     return [self stackViewWithAxis:UILayoutConstraintAxisVertical andSpacing:spacing];
 }
 
-+ (UIStackView *)horizontalStackViewWithSpacing:(CGFloat)spacing {
++ (UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing {
     return [self stackViewWithAxis:UILayoutConstraintAxisHorizontal andSpacing:spacing];
 }
 

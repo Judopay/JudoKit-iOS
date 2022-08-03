@@ -101,9 +101,9 @@
 
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
-    UIColor *color = self.placeholderColor ? self.placeholderColor : UIColor.jpRedColor;
-    UIFont *font = self.placeholderFont ? self.placeholderFont : UIFont.caption;
-    [self.floatingTextField placeholderWithText:placeholder color:color andFont:font];
+    UIColor *color = self.placeholderColor ? self.placeholderColor : UIColor._jp_redColor;
+    UIFont *font = self.placeholderFont ? self.placeholderFont : UIFont._jp_caption;
+    [self.floatingTextField _jp_placeholderWithText:placeholder color:color andFont:font];
 }
 
 - (void)setType:(JPInputType)type {
@@ -174,7 +174,7 @@
 
 - (void)setupViews {
     self.layer.cornerRadius = 6.0F;
-    self.backgroundColor = UIColor.jpLightGrayColor;
+    self.backgroundColor = UIColor._jp_lightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.isAccessibilityElement = NO;
@@ -192,7 +192,7 @@
     if (!_floatingTextField) {
         _floatingTextField = [JPFloatingTextField new];
         _floatingTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        _floatingTextField.font = UIFont.headlineLight;
+        _floatingTextField.font = UIFont._jp_headlineLight;
         _floatingTextField.delegate = self;
     }
     return _floatingTextField;

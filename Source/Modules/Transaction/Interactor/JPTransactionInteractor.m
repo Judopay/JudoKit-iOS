@@ -120,17 +120,17 @@
 
 - (NSString *)generatePayButtonTitle {
     if (self.cardDetailsMode == JPCardDetailsModeThreeDS2) {
-        return @"continue".localized;
+        return @"continue"._jp_localized;
     } else if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
-        return @"pay_now".localized;
+        return @"pay_now"._jp_localized;
     }
     if (self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount) {
         JPAmount *amount = self.configuration.amount;
-        NSString *formattedAmount = [NSNumberFormatter formattedAmount:amount.amount withCurrencyCode:amount.currency];
+        NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount withCurrencyCode:amount.currency];
 
-        return [NSString stringWithFormat:@"pay_amount".localized, formattedAmount];
+        return [NSString stringWithFormat:@"pay_amount"._jp_localized, formattedAmount];
     }
-    return @"pay_now".localized;
+    return @"pay_now"._jp_localized;
 }
 
 - (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
@@ -166,7 +166,7 @@
     if (!self.completionHandler)
         return;
 
-    if (error.code == JPError.judoUserDidCancelError.code) {
+    if (error.code == JPError.userDidCancelError.code) {
         error.details = self.storedErrors;
     }
 
@@ -195,28 +195,28 @@
 - (NSString *)defaultCardTitleForCardNetwork:(JPCardNetworkType)network {
     switch (network) {
         case JPCardNetworkTypeVisa:
-            return @"default_visa_card_title".localized;
+            return @"default_visa_card_title"._jp_localized;
 
         case JPCardNetworkTypeAMEX:
-            return @"default_amex_card_title".localized;
+            return @"default_amex_card_title"._jp_localized;
 
         case JPCardNetworkTypeMaestro:
-            return @"default_maestro_card_title".localized;
+            return @"default_maestro_card_title"._jp_localized;
 
         case JPCardNetworkTypeMasterCard:
-            return @"default_mastercard_card_title".localized;
+            return @"default_mastercard_card_title"._jp_localized;
 
         case JPCardNetworkTypeChinaUnionPay:
-            return @"default_chinaunionpay_card_title".localized;
+            return @"default_chinaunionpay_card_title"._jp_localized;
 
         case JPCardNetworkTypeJCB:
-            return @"default_jcb_card_title".localized;
+            return @"default_jcb_card_title"._jp_localized;
 
         case JPCardNetworkTypeDiscover:
-            return @"default_discover_card_title".localized;
+            return @"default_discover_card_title"._jp_localized;
 
         case JPCardNetworkTypeDinersClub:
-            return @"default_dinnersclub_card_title".localized;
+            return @"default_dinnersclub_card_title"._jp_localized;
 
         default:
             return @"";

@@ -117,7 +117,7 @@ NSString *getUserAgent() {
 
     if (appName && appVersion) {
         // App Name and version
-        NSString *appNameMinusSpaces = [appName stringByRemovingWhitespaces];
+        NSString *appNameMinusSpaces = [appName _jp_stringByRemovingWhitespaces];
         [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appNameMinusSpaces, appVersion]];
     }
 

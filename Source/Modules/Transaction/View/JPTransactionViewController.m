@@ -59,8 +59,13 @@
     }
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self _jp_registerKeyboardObservers];
+}
+
 - (void)dealloc {
-    [self removeKeyboardObservers];
+    [self _jp_removeKeyboardObservers];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -126,8 +131,8 @@
 - (void)updateViewWithError:(NSError *)error {
     [self.addCardView enableUserInterface:YES];
     [self.addCardView.addCardButton stopLoading];
-    [self displayAlertWithError:error];
-    [self triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
+    [self _jp_displayAlertWithError:error];
+    [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
 }
 
 - (void)didFinishAddingCard {
@@ -139,7 +144,7 @@
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm".localized
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm"._jp_localized
                                                             style:UIAlertActionStyleDefault
                                                           handler:nil];
 
@@ -148,10 +153,10 @@
 }
 
 - (void)displayCameraPermissionsAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title".localized
-                                                        andMessage:@"scan_card_no_permission_message".localized];
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title"._jp_localized
+                                                        andMessage:@"scan_card_no_permission_message"._jp_localized];
 
-    UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings".localized
+    UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings"._jp_localized
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *_Nonnull action) {
                                                                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
@@ -164,14 +169,14 @@
 }
 
 - (void)displayCameraRestrictionAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title".localized
-                                                        andMessage:@"scan_card_restricted_message".localized];
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title"._jp_localized
+                                                        andMessage:@"scan_card_restricted_message"._jp_localized];
 
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)displayCameraSimulatorAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title".localized
+    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title"._jp_localized
                                                         andMessage:nil];
 
     [self presentViewController:controller animated:YES completion:nil];
@@ -199,7 +204,7 @@
             [self connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
             break;
         case JPCardDetailsModeSecurityCode:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
         default:
             break;
     }
@@ -220,12 +225,12 @@
 }
 
 - (void)addGestureRecognizers {
-    [self addTapGestureForView:self.addCardView.backgroundView withSelector:@selector(onBackgroundViewTap)];
+    [self _jp_addTapGestureForView:self.addCardView.backgroundView withSelector:@selector(onBackgroundViewTap)];
 }
 
 #pragma mark - Keyboard handling logic
 
-- (void)keyboardWillShow:(NSNotification *)notification {
+- (void)_jp_keyboardWillShow:(NSNotification *)notification {
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
 
@@ -243,7 +248,7 @@
                      completion:^(BOOL finished){}];
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
+- (void)_jp_keyboardWillHide:(NSNotification *)notification {
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
 

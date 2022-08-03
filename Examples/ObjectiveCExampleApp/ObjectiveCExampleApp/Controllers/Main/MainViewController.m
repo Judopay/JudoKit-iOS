@@ -415,7 +415,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
     JPConfiguration *configuration = self.configuration;
     if (isApplePayRelatedFeature && ![JudoKit isApplePayAvailableWithConfiguration:configuration]) {
-        [self displayAlertWithTitle:@"Error" andMessage:@"ApplePay is not available for given configuration."];
+        [self _jp_displayAlertWithTitle:@"Error" andMessage:@"ApplePay is not available for given configuration."];
         return;
     }
     

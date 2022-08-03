@@ -85,21 +85,21 @@
 - (UIColor *)backgroundColorForType:(JPCardPatternType)type {
     switch (type) {
         case JPCardPatternTypeBlack:
-            return [UIColor colorFromHex:0x262626];
+            return [UIColor _jp_colorFromHex:0x262626];
         case JPCardPatternTypeBlue:
-            return [UIColor colorFromHex:0x10316b];
+            return [UIColor _jp_colorFromHex:0x10316b];
         case JPCardPatternTypeGreen:
-            return [UIColor colorFromHex:0x216338];
+            return [UIColor _jp_colorFromHex:0x216338];
         case JPCardPatternTypeRed:
-            return [UIColor colorFromHex:0xc2151b];
+            return [UIColor _jp_colorFromHex:0xc2151b];
         case JPCardPatternTypeOrange:
-            return [UIColor colorFromHex:0xe25822];
+            return [UIColor _jp_colorFromHex:0xe25822];
         case JPCardPatternTypeGold:
-            return [UIColor colorFromHex:0xf9a01b];
+            return [UIColor _jp_colorFromHex:0xf9a01b];
         case JPCardPatternTypeCyan:
-            return [UIColor colorFromHex:0x719192];
+            return [UIColor _jp_colorFromHex:0x719192];
         case JPCardPatternTypeOlive:
-            return [UIColor colorFromHex:0x808c12];
+            return [UIColor _jp_colorFromHex:0x808c12];
     }
     return UIColor.whiteColor;
 }
@@ -107,21 +107,21 @@
 - (UIImage *)imageForType:(JPCardPatternType)type {
     switch (type) {
         case JPCardPatternTypeBlack:
-            return [UIImage imageWithResourceName:@"pattern-lines"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-lines"];
         case JPCardPatternTypeBlue:
-            return [UIImage imageWithResourceName:@"pattern-waves"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-waves"];
         case JPCardPatternTypeGreen:
-            return [UIImage imageWithResourceName:@"pattern-triangles"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-triangles"];
         case JPCardPatternTypeRed:
-            return [UIImage imageWithResourceName:@"pattern-lines"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-lines"];
         case JPCardPatternTypeOrange:
-            return [UIImage imageWithResourceName:@"pattern-bubbles"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-bubbles"];
         case JPCardPatternTypeGold:
-            return [UIImage imageWithResourceName:@"pattern-erratic"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-erratic"];
         case JPCardPatternTypeCyan:
-            return [UIImage imageWithResourceName:@"pattern-triangles"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-triangles"];
         case JPCardPatternTypeOlive:
-            return [UIImage imageWithResourceName:@"pattern-erratic"];
+            return [UIImage _jp_imageWithResourceName:@"pattern-erratic"];
     }
     return [UIImage new];
 }

@@ -36,7 +36,7 @@ static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challe
     NSString *acsUrl = self.rawData[@"acsUrl"];
     NSString *md = self.rawData[@"md"];
     NSString *paReq = self.rawData[@"paReq"];
-    return acsUrl.isNotNullOrEmpty && md.isNotNullOrEmpty && paReq.isNotNullOrEmpty;
+    return acsUrl._jp_isNotNullOrEmpty && md._jp_isNotNullOrEmpty && paReq._jp_isNotNullOrEmpty;
 }
 
 - (BOOL)isThreeDSecureTwoRequired {

@@ -34,7 +34,7 @@
  *
  * @returns a formatted instance of NSString describing the amount
  */
-+ (nullable NSString *)formattedAmount:(nonnull NSString *)amount
-                      withCurrencyCode:(nonnull NSString *)currencyCode;
++ (nullable NSString *)_jp_formattedAmount:(nonnull NSString *)amount
+                          withCurrencyCode:(nonnull NSString *)currencyCode;
 
 @end

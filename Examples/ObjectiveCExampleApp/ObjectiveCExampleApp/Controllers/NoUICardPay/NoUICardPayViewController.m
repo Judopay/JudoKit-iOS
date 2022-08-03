@@ -41,8 +41,8 @@
     [super viewDidLoad];
     self.title = @"No UI payments";
 
-    [self.preAuthWithCardButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
-    [self.payWithCardButton setBackgroundImage:UIColor.blackColor.asImage forState:UIControlStateNormal];
+    [self.preAuthWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
+    [self.payWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
 }
 
 - (IBAction)payWithCardToken:(UIButton *)sender {
@@ -93,7 +93,7 @@
                  error:(NSError *)error
            showReceipt:(BOOL)showReceipt {
     if (error || !response) {
-        [self displayAlertWithError:error];
+        [self _jp_displayAlertWithError:error];
         return;
     }
 

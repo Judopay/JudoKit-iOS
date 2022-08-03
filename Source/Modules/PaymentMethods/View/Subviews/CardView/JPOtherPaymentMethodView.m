@@ -85,21 +85,21 @@ static const float kContentPadding = 28.0F;
 
     switch (viewModel.paymentMethodType) {
         case JPPaymentMethodTypeApplePay:
-            self.leadingImageView.image = [UIImage imageWithIconName:@"apple-pay-icon"];
-            self.titleLabel.text = @"apple_pay".localized;
+            self.leadingImageView.image = [UIImage _jp_imageWithIconName:@"apple-pay-icon"];
+            self.titleLabel.text = @"apple_pay"._jp_localized;
             self.accessibilityIdentifier = @"Apple Pay Header View";
             break;
 
         case JPPaymentMethodTypeIDeal:
             self.titleLabel.text = viewModel.bankModel.bankTitle;
-            self.leadingImageView.image = [UIImage imageWithIconName:viewModel.bankModel.bankIconName];
-            self.trailingImageView.image = [UIImage imageWithIconName:@"ideal-pay-icon"];
+            self.leadingImageView.image = [UIImage _jp_imageWithIconName:viewModel.bankModel.bankIconName];
+            self.trailingImageView.image = [UIImage _jp_imageWithIconName:@"ideal-pay-icon"];
             self.accessibilityIdentifier = @"iDEAL Header View";
             break;
 
         case JPPaymentMethodTypePbba:
-            self.leadingImageView.image = [UIImage imageWithIconName:@"pbba-pay-icon"];
-            self.titleLabel.text = @"pay_by_bank".localized;
+            self.leadingImageView.image = [UIImage _jp_imageWithIconName:@"pbba-pay-icon"];
+            self.titleLabel.text = @"pay_by_bank"._jp_localized;
             self.accessibilityIdentifier = @"PBBA Header View";
             break;
 
@@ -123,18 +123,18 @@ static const float kContentPadding = 28.0F;
         [self.trailingImageView.widthAnchor constraintEqualToConstant:kTrailingImageViewWidth],
     ]];
 
-    UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:0.0];
+    UIStackView *bottomStackView = [UIStackView _jp_horizontalStackViewWithSpacing:0.0];
     [bottomStackView addArrangedSubview:self.leadingImageView];
     [bottomStackView addArrangedSubview:[UIView new]];
     [bottomStackView addArrangedSubview:self.trailingImageView];
 
-    UIStackView *mainStackView = [UIStackView verticalStackViewWithSpacing:0.0];
+    UIStackView *mainStackView = [UIStackView _jp_verticalStackViewWithSpacing:0.0];
     [mainStackView addArrangedSubview:self.titleLabel];
     [mainStackView addArrangedSubview:[UIView new]];
     [mainStackView addArrangedSubview:bottomStackView];
 
     [self addSubview:mainStackView];
-    [mainStackView pinToView:self withPadding:kContentPadding * getWidthAspectRatio()];
+    [mainStackView _jp_pinToView:self withPadding:kContentPadding * getWidthAspectRatio()];
 }
 
 #pragma mark - Lazy Properties

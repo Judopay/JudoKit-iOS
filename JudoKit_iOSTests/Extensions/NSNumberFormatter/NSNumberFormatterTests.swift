@@ -34,7 +34,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the localized & formatted amount string should be returned
      */
     func test_OnValidAmountAndCurrency_ReturnFormattedString() {
-        let formattedNumber = NumberFormatter.formattedAmount("12", withCurrencyCode: "GBP")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("12", withCurrencyCode: "GBP")
         XCTAssertEqual("£12", formattedNumber)
     }
     
@@ -46,7 +46,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the fractional digits should not be displayed on the formatted string
      */
     func test_OnRoundedAmount_DoNotDisplayFractionalDigits() {
-        let formattedNumber = NumberFormatter.formattedAmount("12.00", withCurrencyCode: "GBP")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("12.00", withCurrencyCode: "GBP")
         XCTAssertEqual("£12", formattedNumber)
     }
     
@@ -58,7 +58,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the fractional digits should be displayed on the formatted string
      */
     func test_OnNonRoundedAmount_DisplayTwoFractionalDigits() {
-        let formattedNumber = NumberFormatter.formattedAmount("12.20", withCurrencyCode: "GBP")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("12.20", withCurrencyCode: "GBP")
         XCTAssertEqual("£12.20", formattedNumber)
     }
     
@@ -70,7 +70,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the formatted number should be separated by a comma
      */
     func test_OnLargeAmount_SeparateWithComma() {
-        let formattedNumber = NumberFormatter.formattedAmount("1000", withCurrencyCode: "GBP")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("1000", withCurrencyCode: "GBP")
         XCTAssertEqual("£1,000", formattedNumber)
     }
     
@@ -80,7 +80,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the returned string should represent the [NaN] value
      */
     func test_OnInvalidAmountAndValidCurrency_ReturnNaN() {
-        let formattedNumber = NumberFormatter.formattedAmount("asd", withCurrencyCode: "GBP")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("asd", withCurrencyCode: "GBP")
         XCTAssertEqual("NaN", formattedNumber)
     }
     
@@ -90,7 +90,7 @@ class NSNumberFormatterTests: XCTestCase {
      * THEN: the returned amount should display a generated currency based on the input
      */
     func test_OnValidAmountAndInvalidCurrency_ReturnGeneratedValue() {
-        let formattedNumber = NumberFormatter.formattedAmount("12", withCurrencyCode: "Silvester Stallone")
+        let formattedNumber = NumberFormatter._jp_formattedAmount("12", withCurrencyCode: "Silvester Stallone")
         XCTAssertEqual("SIL 12", formattedNumber)
     }
     

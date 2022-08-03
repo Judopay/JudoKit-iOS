@@ -57,7 +57,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
     [self.cancelButton setTitleColor:theme.jpBlackColor
                             forState:UIControlStateNormal];
     self.saveButton.titleLabel.font = theme.headline;
-    [self.saveButton setBackgroundImage:theme.buttonColor.asImage
+    [self.saveButton setBackgroundImage:theme.buttonColor._jp_asImage
                                forState:UIControlStateNormal];
     [self.saveButton setTitleColor:theme.buttonTitleColor
                           forState:UIControlStateNormal];
@@ -125,7 +125,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
 
 - (UIStackView *)stackView {
     if (!_stackView) {
-        _stackView = [UIStackView horizontalStackViewWithSpacing:kSubmitStackViewSpacing];
+        _stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSubmitStackViewSpacing];
         _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _stackView;
@@ -135,7 +135,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:@"cancel".localized.uppercaseString
+        [_cancelButton setTitle:@"cancel"._jp_localized.uppercaseString
                        forState:UIControlStateNormal];
         [_cancelButton addTarget:self
                           action:@selector(didTapCancelButton)
@@ -149,7 +149,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
         _saveButton = [UIButton new];
         _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
         _saveButton.layer.masksToBounds = YES;
-        [_saveButton setTitle:@"save".localized.uppercaseString
+        [_saveButton setTitle:@"save"._jp_localized.uppercaseString
                      forState:UIControlStateNormal];
         [_saveButton addTarget:self
                         action:@selector(didTapSaveButton)

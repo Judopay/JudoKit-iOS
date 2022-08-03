@@ -5,7 +5,7 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.0.1)
-  - JudoKit-iOS (3.0.1):
+  - JudoKit-iOS (3.0.2):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.0.1)
     - TrustKit
@@ -88,7 +88,7 @@ DEPENDENCIES:
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.0.1)
-  - JudoKit-iOS (from `../../`)
+  - JudoKit-iOS (= 3.0.2)
   - MaterialComponents/Snackbar
 
 SPEC REPOS:
@@ -97,6 +97,7 @@ SPEC REPOS:
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
+    - JudoKit-iOS
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -107,8 +108,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Cucumberish:
     :git: https://github.com/mpetrenco/Cucumberish.git
-  JudoKit-iOS:
-    :path: "../../"
 
 CHECKOUT OPTIONS:
   Cucumberish:
@@ -129,6 +128,6 @@ SPEC CHECKSUMS:
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: e513dd98c78f189d054453334228bab058aec825
+PODFILE CHECKSUM: 19338ddb7cdb0fea4f3595c840eb51d5d5e71db9
 
 COCOAPODS: 1.11.3
