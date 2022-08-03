@@ -32,6 +32,6 @@
 /**
  * A property which represents the current location coordinates as a dictionary.
  */
-- (NSDictionary *)toDictionary;
+- (NSDictionary *)_jp_toDictionary;
 
 @end

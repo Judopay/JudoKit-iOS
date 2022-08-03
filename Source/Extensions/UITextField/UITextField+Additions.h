@@ -34,8 +34,8 @@
  * @param color - the color of the placeholder
  * @param font - the font of the placeholder
  */
-- (void)placeholderWithText:(nonnull NSString *)text
-                      color:(nonnull UIColor *)color
-                    andFont:(nonnull UIFont *)font;
+- (void)_jp_placeholderWithText:(nonnull NSString *)text
+                          color:(nonnull UIColor *)color
+                        andFont:(nonnull UIFont *)font;
 
 @end

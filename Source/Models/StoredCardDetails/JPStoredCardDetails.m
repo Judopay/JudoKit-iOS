@@ -86,7 +86,7 @@
     return [[JPStoredCardDetails new] initFromDictionary:dictionary];
 }
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     NSDictionary *data = @{
         @"cardTitle" : self.cardTitle ? self.cardTitle : @"",
         @"cardPatternType" : @(self.patternType),

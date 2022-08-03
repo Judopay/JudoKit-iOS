@@ -69,7 +69,7 @@
 #pragma mark - Layout Setup
 
 - (void)setupViews {
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:8.0];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:8.0];
 
     [stackView addArrangedSubview:self.titleLabel];
     [stackView addArrangedSubview:self.textLabel];
@@ -86,7 +86,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"choose_payment_method".localized;
+        _titleLabel.text = @"choose_payment_method"._jp_localized;
         _titleLabel.numberOfLines = 0;
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -97,7 +97,7 @@
     if (!_textLabel) {
         _textLabel = [UILabel new];
         _textLabel.numberOfLines = 0;
-        _textLabel.text = @"no_cards_added".localized;
+        _textLabel.text = @"no_cards_added"._jp_localized;
         _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _textLabel;

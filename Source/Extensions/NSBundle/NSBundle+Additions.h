@@ -32,22 +32,22 @@
 /**
  * An initializer that points to the JudoKit framework
  */
-+ (nonnull instancetype)frameworkBundle;
++ (nonnull instancetype)_jp_frameworkBundle;
 
 /**
  * An initializer that points to the icons bundle inside the JudoKit framework
  */
-+ (nullable instancetype)iconsBundle;
++ (nullable instancetype)_jp_iconsBundle;
 
 /**
  * An initializer that points to the strings bundle inside the JudoKit framework
  */
-+ (nullable instancetype)stringsBundle;
++ (nullable instancetype)_jp_stringsBundle;
 
 /**
  * An initializer that points to the resources bundle inside the JudoKit framework
  */
-+ (nullable instancetype)resourcesBundle;
++ (nullable instancetype)_jp_resourcesBundle;
 
 /**
  * A getter that returns the URL Scheme from the app's Info.plist, used for app redirect calls.
@@ -55,6 +55,6 @@
  *
  * @returns a nullable NSString instance containing the URL Scheme name
  */
-+ (nullable NSString *)appURLScheme;
++ (nullable NSString *)_jp_appURLScheme;
 
 @end

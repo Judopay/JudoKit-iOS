@@ -35,8 +35,8 @@
  * @param button - the target button
  * @param selector - the selector attributed to the button
  */
-- (void)connectButton:(nonnull UIButton *)button
-         withSelector:(nonnull SEL)selector;
+- (void)_jp_connectButton:(nonnull UIButton *)button
+             withSelector:(nonnull SEL)selector;
 
 /**
  * Convenience method for adding tap gesture recognizers to views
@@ -44,20 +44,20 @@
  * @param view - the target view
  * @param selector - the selector attributed to the tap gesture
  */
-- (void)addTapGestureForView:(nonnull UIView *)view
-                withSelector:(nonnull SEL)selector;
+- (void)_jp_addTapGestureForView:(nonnull UIView *)view
+                    withSelector:(nonnull SEL)selector;
 
 /**
  * Convenience method for displaying alert controllers based on a specified error
  *
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithError:(nonnull NSError *)error;
+- (void)_jp_displayAlertWithError:(nonnull NSError *)error;
 
 /**
  * Method that triggers haptic feedback based on a specified feedback type
  */
-- (void)triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type;
+- (void)_jp_triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type;
 
 /**
  * Convenience method for displaying alert controllers based on a specified error with an optional title
@@ -65,35 +65,35 @@
  * @param title - an optional NSString that defines the title of the alert
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithTitle:(nullable NSString *)title
-                     andError:(nonnull NSError *)error;
+- (void)_jp_displayAlertWithTitle:(nullable NSString *)title
+                         andError:(nonnull NSError *)error;
 
-- (void)displayAlertWithTitle:(nullable NSString *)title
-                   andMessage:(nonnull NSString *)message;
+- (void)_jp_displayAlertWithTitle:(nullable NSString *)title
+                       andMessage:(nonnull NSString *)message;
 
 /**
  * A convenience method for quickly registering keyboard observers
  */
-- (void)registerKeyboardObservers;
+- (void)_jp_registerKeyboardObservers;
 
 /**
  * A convenience method for quickly removing keyboard observsers
  */
-- (void)removeKeyboardObservers;
+- (void)_jp_removeKeyboardObservers;
 
 /**
  * Methods that have to be overriden by the view controller with custom showing behaviour
  */
-- (void)keyboardWillShow:(nonnull NSNotification *)notification;
+- (void)_jp_keyboardWillShow:(nonnull NSNotification *)notification;
 
 /**
  * Methods that have to be overriden by the view controller with custom hiding behaviour
  */
-- (void)keyboardWillHide:(nonnull NSNotification *)notification;
+- (void)_jp_keyboardWillHide:(nonnull NSNotification *)notification;
 
 /**
  * A method that returns the combined height of the status view and the navigation bar
  */
-- (CGFloat)topBarHeight;
+- (CGFloat)_jp_topBarHeight;
 
 @end

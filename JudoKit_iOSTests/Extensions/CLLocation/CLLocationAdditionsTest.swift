@@ -41,7 +41,7 @@ class CLLocationAdditionsTest: XCTestCase {
     * THEN: should be parsed in valid dictionary of coordinates
     */
     func testToDictionary() {
-        let coordinateDictionary = myLocation.toDictionary() as! [String: Double]
+        let coordinateDictionary = myLocation._jp_toDictionary() as! [String: Double]
         XCTAssertEqual(coordinateDictionary.count, 2)
         XCTAssertEqual(coordinateDictionary["latitude"], 51.5074)
         XCTAssertEqual(coordinateDictionary["longitude"], 0.1278)

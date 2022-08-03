@@ -42,9 +42,9 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * @param width - the border width
  * @param cornerRadius - the border's corner radius
  */
-- (void)setBorderWithColor:(nonnull UIColor *)color
-                     width:(CGFloat)width
-           andCornerRadius:(CGFloat)cornerRadius;
+- (void)_jp_setBorderWithColor:(nonnull UIColor *)color
+                         width:(CGFloat)width
+               andCornerRadius:(CGFloat)cornerRadius;
 
 /**
  * Convenience method for rounding only specific corners of the view
@@ -52,8 +52,8 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * @param corners - rectangle corner values that have to be rounded
  * @param radius - the radius for rounding the corners
  */
-- (void)roundCorners:(UIRectCorner)corners
-          withRadius:(CGFloat)radius;
+- (void)_jp_roundCorners:(UIRectCorner)corners
+              withRadius:(CGFloat)radius;
 
 /**
  * Constraints the view to the superview with a specified padding
@@ -61,8 +61,8 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * @param view - the view to achor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToView:(nonnull UIView *)view
-      withPadding:(CGFloat)padding;
+- (void)_jp_pinToView:(nonnull UIView *)view
+          withPadding:(CGFloat)padding;
 
 /**
  * Constraints the view to the superview only for specific anchors
@@ -70,8 +70,8 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * @param anchors - the anchor values to be constrained to
  * @param view - the view to anchor to
  */
-- (void)pinToAnchors:(JPAnchorType)anchors
-             forView:(nonnull UIView *)view;
+- (void)_jp_pinToAnchors:(JPAnchorType)anchors
+                 forView:(nonnull UIView *)view;
 
 /**
  * Constraints the view to the superview only for specific anchors with padding
@@ -80,33 +80,33 @@ typedef NS_OPTIONS(NSUInteger, JPAnchorType) {
  * @param view - the view to anchor to
  * @param padding - the padding between the view and self
  */
-- (void)pinToAnchors:(JPAnchorType)anchors
-             forView:(nonnull UIView *)view
-         withPadding:(CGFloat)padding;
+- (void)_jp_pinToAnchors:(JPAnchorType)anchors
+                 forView:(nonnull UIView *)view
+             withPadding:(CGFloat)padding;
 
 /**
  * A method for removing all subviews from a view
  */
-- (void)removeAllSubviews;
+- (void)_jp_removeAllSubviews;
 
 /**
  * A method which returns the safe top area anchor
  */
-- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeTopAnchor;
+- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)_jp_safeTopAnchor;
 
 /**
  * A method which returns the safe top area anchor
  */
-- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeLeftAnchor;
+- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)_jp_safeLeftAnchor;
 
 /**
  * A method which returns the safe top area anchor
  */
-- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)safeRightAnchor;
+- (nonnull NSLayoutAnchor<NSLayoutXAxisAnchor *> *)_jp_safeRightAnchor;
 
 /**
  * A method which returns the safe top area anchor
  */
-- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)safeBottomAnchor;
+- (nonnull NSLayoutAnchor<NSLayoutYAxisAnchor *> *)_jp_safeBottomAnchor;
 
 @end

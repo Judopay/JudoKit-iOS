@@ -238,18 +238,18 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
 }
 
 - (void)handleTextDetection:(NSString *)detectedText {
-    NSString *compactText = [detectedText stringByRemovingWhitespaces];
+    NSString *compactText = [detectedText _jp_stringByRemovingWhitespaces];
 
-    if (compactText.isExpiryDate) {
-        self.detectedExpiryDate = [detectedText sanitizedExpiryDate];
+    if (compactText._jp_isExpiryDate) {
+        self.detectedExpiryDate = [detectedText _jp_sanitizedExpiryDate];
     }
 
     JPCardNetworkType cardNetwork = [JPCardNetwork cardNetworkForCardNumber:compactText];
 
-    BOOL isNumeric = compactText.isNumeric;
+    BOOL isNumeric = compactText._jp_isNumeric;
     BOOL isAmex = cardNetwork == JPCardNetworkTypeAMEX;
     BOOL isCorrectLength = isAmex ? compactText.length == 15 : compactText.length == 16;
-    BOOL isValid = compactText.isValidCardNumber;
+    BOOL isValid = compactText._jp_isValidCardNumber;
 
     if (isNumeric && isCorrectLength && isValid) {
         self.detectedCardNumber = detectedText;

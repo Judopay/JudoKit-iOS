@@ -110,7 +110,7 @@ const int kSubstringPatternOffset = 4;
                                                            stylizedPattern,
                                                            cardLastFour];
 
-    self.logoImageView.image = [UIImage headerImageForCardNetwork:cardNetwork];
+    self.logoImageView.image = [UIImage _jp_headerImageForCardNetwork:cardNetwork];
 
     JPCardPattern *pattern = [JPCardPattern patternWithType:patternType];
     self.backgroundColor = pattern.color;
@@ -128,21 +128,21 @@ const int kSubstringPatternOffset = 4;
 - (void)setupViews {
 
     [self addSubview:self.backgroundImageView];
-    [self.backgroundImageView pinToView:self withPadding:kCardDefaultStackViewsSpacing];
+    [self.backgroundImageView _jp_pinToView:self withPadding:kCardDefaultStackViewsSpacing];
 
-    UIStackView *bottomStackView = [UIStackView horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
+    UIStackView *bottomStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
     [bottomStackView addArrangedSubview:self.cardNumberLabel];
     [bottomStackView addArrangedSubview:self.expiryDateLabel];
 
-    UIStackView *cardTitleStackView = [UIStackView verticalStackViewWithSpacing:kCardTitleStackViewSpacing * getWidthAspectRatio()];
+    UIStackView *cardTitleStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardTitleStackViewSpacing * getWidthAspectRatio()];
     [cardTitleStackView addArrangedSubview:self.titleLabel];
     [cardTitleStackView addArrangedSubview:bottomStackView];
 
-    UIStackView *logoStackView = [UIStackView horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
+    UIStackView *logoStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
     [logoStackView addArrangedSubview:self.logoImageView];
     [logoStackView addArrangedSubview:[UIView new]];
 
-    UIStackView *mainStackView = [UIStackView verticalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
+    UIStackView *mainStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardDefaultStackViewsSpacing];
     [mainStackView addArrangedSubview:logoStackView];
     [mainStackView addArrangedSubview:[UIView new]];
     [mainStackView addArrangedSubview:cardTitleStackView];
@@ -151,7 +151,7 @@ const int kSubstringPatternOffset = 4;
     [self.logoImageView.heightAnchor constraintEqualToConstant:kCardLogoSize * getWidthAspectRatio()].active = YES;
 
     [self addSubview:mainStackView];
-    [mainStackView pinToView:self withPadding:kCardMainStackViewPadding * getWidthAspectRatio()];
+    [mainStackView _jp_pinToView:self withPadding:kCardMainStackViewPadding * getWidthAspectRatio()];
 }
 
 - (void)setCardAsExpired {
@@ -159,7 +159,7 @@ const int kSubstringPatternOffset = 4;
     self.expiryDateLabel.textColor = self.theme.jpRedColor;
     self.expiryDateLabel.numberOfLines = kExpiryDateNumberOfLines;
     NSDictionary *attrDict = @{NSFontAttributeName : self.theme.caption};
-    NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"expired".localized, @"\r"];
+    NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"expired"._jp_localized, @"\r"];
     NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:expiredString attributes:attrDict];
     NSAttributedString *expiryDate = [[NSAttributedString alloc] initWithString:self.expiryDateLabel.text];
     [expiredText appendAttributedString:expiryDate];

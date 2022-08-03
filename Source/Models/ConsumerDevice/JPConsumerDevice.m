@@ -65,7 +65,7 @@ static NSString *const kPaymentTypeEcomm = @"ECOMM";
     return @{
         kIPAddressKey : self.ipAddress,
         kClientDetailsKey : [self.clientDetails toDictionary],
-        kGeoLocationKey : [self.geoLocation toDictionary],
+        kGeoLocationKey : [self.geoLocation _jp_toDictionary],
         kThreeDSecureKey : [self.threeDSecure toDictionary],
         kPaymentTypeKey : self.paymentType
     };

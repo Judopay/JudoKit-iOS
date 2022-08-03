@@ -68,16 +68,16 @@
 
 - (void)setupConstraints {
     [self.tableView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [self.tableView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor].active = YES;
-    [self.tableView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor].active = YES;
+    [self.tableView.leftAnchor constraintEqualToAnchor:self._jp_safeLeftAnchor].active = YES;
+    [self.tableView.rightAnchor constraintEqualToAnchor:self._jp_safeRightAnchor].active = YES;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.judoHeadlineImageView.topAnchor].active = YES;
 
     self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:20.0F];
     self.judoHeadlineHeightConstraint.active = YES;
 
-    [self.judoHeadlineImageView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor].active = YES;
-    [self.judoHeadlineImageView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor].active = YES;
-    [self.judoHeadlineImageView.bottomAnchor constraintEqualToAnchor:self.safeBottomAnchor].active = YES;
+    [self.judoHeadlineImageView.leftAnchor constraintEqualToAnchor:self._jp_safeLeftAnchor].active = YES;
+    [self.judoHeadlineImageView.rightAnchor constraintEqualToAnchor:self._jp_safeRightAnchor].active = YES;
+    [self.judoHeadlineImageView.bottomAnchor constraintEqualToAnchor:self._jp_safeBottomAnchor].active = YES;
 }
 
 #pragma mark - Lazy properties
@@ -104,7 +104,7 @@
 
 - (UIImageView *)judoHeadlineImageView {
     if (!_judoHeadlineImageView) {
-        UIImage *logoImage = [UIImage imageWithIconName:@"judo-headline"];
+        UIImage *logoImage = [UIImage _jp_imageWithIconName:@"judo-headline"];
         _judoHeadlineImageView = [[UIImageView alloc] initWithImage:logoImage];
         _judoHeadlineImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _judoHeadlineImageView.contentMode = UIViewContentModeScaleAspectFit;

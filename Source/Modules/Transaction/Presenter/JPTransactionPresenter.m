@@ -68,18 +68,18 @@
     self.addCardViewModel.type = type;
     self.addCardViewModel.mode = [self.interactor cardDetailsMode];
 
-    self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number_hint".localized;
-    self.addCardViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint".localized;
-    self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
+    self.addCardViewModel.cardNumberViewModel.placeholder = @"card_number_hint"._jp_localized;
+    self.addCardViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint"._jp_localized;
+    self.addCardViewModel.expiryDateViewModel.placeholder = @"expiry_date"._jp_localized;
     NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
     self.addCardViewModel.secureCodeViewModel.placeholder = placeholder;
 
     NSArray *selectableCountryNames = [self.interactor getSelectableCountryNames];
-    self.addCardViewModel.countryPickerViewModel.placeholder = @"country".localized;
+    self.addCardViewModel.countryPickerViewModel.placeholder = @"country"._jp_localized;
     self.addCardViewModel.countryPickerViewModel.pickerTitles = selectableCountryNames;
     self.addCardViewModel.countryPickerViewModel.text = selectableCountryNames.firstObject;
 
-    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
+    self.addCardViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint"._jp_localized;
 
     self.addCardViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.addCardViewModel.addCardButtonViewModel.isEnabled = false;
@@ -142,7 +142,7 @@
         __weak typeof(self) weakSelf = self;
         [self.router dismissViewControllerWithCompletion:^{
             [weakSelf.interactor completeTransactionWithResponse:nil
-                                                           error:JPError.judoUserDidCancelError];
+                                                           error:JPError.userDidCancelError];
         }];
         return;
     }
@@ -199,7 +199,7 @@
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
         [weakSelf.interactor completeTransactionWithResponse:nil
-                                                       error:JPError.judoUserDidCancelError];
+                                                       error:JPError.userDidCancelError];
     }];
 }
 
@@ -223,11 +223,11 @@
         case JPTransactionTypePreAuth:
             return [self.interactor generatePayButtonTitle];
         case JPTransactionTypeSaveCard:
-            return @"save_card".localized;
+            return @"save_card"._jp_localized;
         case JPTransactionTypeRegisterCard:
-            return @"register_card".localized;
+            return @"register_card"._jp_localized;
         case JPTransactionTypeCheckCard:
-            return @"check_card".localized;
+            return @"check_card"._jp_localized;
         default:
             return nil;
     }

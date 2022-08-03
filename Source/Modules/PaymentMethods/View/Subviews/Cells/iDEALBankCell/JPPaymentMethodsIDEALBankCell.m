@@ -116,11 +116,11 @@ const float kiDEALBankStackViewSpacing = 10.0F;
     if ([viewModel isKindOfClass:JPPaymentMethodsIDEALBankModel.class]) {
         JPPaymentMethodsIDEALBankModel *bankModel;
         bankModel = (JPPaymentMethodsIDEALBankModel *)viewModel;
-        self.iconImageView.image = [UIImage imageWithIconName:bankModel.bankIconName];
+        self.iconImageView.image = [UIImage _jp_imageWithIconName:bankModel.bankIconName];
         self.titleLabel.text = bankModel.bankTitle;
 
         NSString *checkmarkIconName = bankModel.isSelected ? @"radio-on" : @"radio-off";
-        self.checkmarkImageView.image = [UIImage imageWithIconName:checkmarkIconName];
+        self.checkmarkImageView.image = [UIImage _jp_imageWithIconName:checkmarkIconName];
     }
 }
 
@@ -162,7 +162,7 @@ const float kiDEALBankStackViewSpacing = 10.0F;
 
 - (UIStackView *)stackView {
     if (!_stackView) {
-        _stackView = [UIStackView horizontalStackViewWithSpacing:kiDEALBankStackViewSpacing];
+        _stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kiDEALBankStackViewSpacing];
     }
     return _stackView;
 }

@@ -50,7 +50,7 @@
 - (void)prepareViewModel {
     JPStoredCardDetails *cardDetails = self.interactor.cardDetails;
 
-    self.titleModel.title = @"customize_card".localized;
+    self.titleModel.title = @"customize_card"._jp_localized;
     self.textInputModel.text = self.selectedCardTitle;
     self.submitModel.isSaveEnabled = self.isSaveButtonEnabled;
     [self updateHeaderModelWithCardDetails:cardDetails];

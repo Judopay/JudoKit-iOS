@@ -4,7 +4,7 @@
 
 @implementation NSObject (Additions)
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     NSMutableDictionary *dictionary = [NSMutableDictionary new];
     [self appendFieldsOfClass:self.class toDictionary:dictionary serializeNils:NO];
     return [NSDictionary dictionaryWithDictionary:dictionary];
@@ -48,26 +48,26 @@
         } else if ([value isKindOfClass:NSArray.class]) {
             NSArray *array = value;
             if (array.count > 0) {
-                return [array toArrayOfDictionaries];
+                return [array _jp_toArrayOfDictionaries];
             }
         } else if ([value isKindOfClass:NSObject.class]) {
-            return [value toDictionary];
+            return [value _jp_toDictionary];
         }
     }
 
     return serializeNils ? NSNull.null : nil;
 }
 
-- (nullable NSData *)toJSONObjectData {
+- (nullable NSData *)_jp_toJSONObjectData {
     id toSerialize = nil;
     NSError *error = nil;
 
     if ([self isKindOfClass:NSArray.class]) {
-        toSerialize = [(NSArray *)self toArrayOfDictionaries];
+        toSerialize = [(NSArray *)self _jp_toArrayOfDictionaries];
     } else if ([self isKindOfClass:NSDictionary.class]) {
         toSerialize = self;
     } else {
-        toSerialize = [self toDictionary];
+        toSerialize = [self _jp_toDictionary];
     }
 
     NSData *data = [NSJSONSerialization dataWithJSONObject:toSerialize options:NSJSONWritingPrettyPrinted error:&error];

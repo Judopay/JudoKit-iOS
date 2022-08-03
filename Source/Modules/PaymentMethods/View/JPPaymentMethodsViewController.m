@@ -100,7 +100,7 @@
     backButton.accessibilityIdentifier = @"Back Button";
     backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
-    UIImage *defaultIcon = [UIImage imageWithIconName:@"back-icon"];
+    UIImage *defaultIcon = [UIImage _jp_imageWithIconName:@"back-icon"];
     UIImage *customImage = self.configuration.uiConfiguration.theme.backButtonImage;
     UIImage *backButtonImage = customImage ? customImage : defaultIcon;
     [backButton setImage:backButtonImage forState:UIControlStateNormal];
@@ -169,11 +169,11 @@
     [self.paymentMethodsView.tableView endUpdates];
 }
 
-- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
+- (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
     [self.paymentMethodsView.headerView.payButton stopLoading];
     self.paymentMethodsView.userInteractionEnabled = YES;
-    [self triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
-    [super displayAlertWithTitle:title andError:error];
+    [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
+    [super _jp_displayAlertWithTitle:title andError:error];
 }
 
 - (void)presentApplePayWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock
@@ -302,16 +302,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"delete_card_alert_title".localized
-                                                                             message:@"delete_card_alert_message".localized
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"delete_card_alert_title"._jp_localized
+                                                                             message:@"delete_card_alert_message"._jp_localized
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel".localized
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel"._jp_localized
                                                            style:UIAlertActionStyleDefault
                                                          handler:nil];
 
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"delete".localized
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"delete"._jp_localized
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
                                                              [weakSelf.presenter deleteCardWithIndex:indexPath.row];

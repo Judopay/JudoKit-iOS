@@ -88,8 +88,8 @@ const float kHeaderCardAspectRatio = 0.583F;
                                                  multiplier:kHeaderCardAspectRatio],
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints
-                               withPriority:999];
+    [NSLayoutConstraint _jp_activateConstraints:constraints
+                                   withPriority:999];
 }
 
 #pragma mark - Lazy Properties

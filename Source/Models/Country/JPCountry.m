@@ -42,24 +42,24 @@
 - (NSString *)countryNameForType:(JPCountryType)type {
     switch (type) {
         case JPCountryTypeUSA:
-            return @"country_usa".localized;
+            return @"country_usa"._jp_localized;
         case JPCountryTypeUK:
-            return @"country_uk".localized;
+            return @"country_uk"._jp_localized;
         case JPCountryTypeCanada:
-            return @"country_canada".localized;
+            return @"country_canada"._jp_localized;
         case JPCountryTypeOther:
-            return @"country_other".localized;
+            return @"country_other"._jp_localized;
     }
 }
 
 + (NSNumber *)isoCodeForCountry:(NSString *)country {
-    if ([country isEqualToString:@"country_usa".localized]) {
+    if ([country isEqualToString:@"country_usa"._jp_localized]) {
         return @(kJPCountryNumericCodeUSA);
     }
-    if ([country isEqualToString:@"country_uk".localized]) {
+    if ([country isEqualToString:@"country_uk"._jp_localized]) {
         return @(kJPCountryNumericCodeUK);
     }
-    if ([country isEqualToString:@"country_canada".localized]) {
+    if ([country isEqualToString:@"country_canada"._jp_localized]) {
         return @(kJPCountryNumericCodeCanada);
     }
     return nil;

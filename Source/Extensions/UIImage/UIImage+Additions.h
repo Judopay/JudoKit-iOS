@@ -35,7 +35,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)imageWithIconName:(nonnull NSString *)iconName;
++ (nonnull UIImage *)_jp_imageWithIconName:(nonnull NSString *)iconName;
 
 /**
  * Initializes an UIImage based on a resource name contained in the resources bundle
@@ -44,7 +44,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)imageWithResourceName:(nonnull NSString *)resourceName;
++ (nonnull UIImage *)_jp_imageWithResourceName:(nonnull NSString *)resourceName;
 
 /**
  * Initializes an UIImage based on a card network
@@ -53,7 +53,7 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)imageForCardNetwork:(JPCardNetworkType)network;
++ (nonnull UIImage *)_jp_imageForCardNetwork:(JPCardNetworkType)network;
 
 /**
  * Initializes an UIImage to be displayed on top of a card.
@@ -63,6 +63,6 @@
  *
  * @return a configured UIImage instance
  */
-+ (nonnull UIImage *)headerImageForCardNetwork:(JPCardNetworkType)network;
++ (nonnull UIImage *)_jp_headerImageForCardNetwork:(JPCardNetworkType)network;
 
 @end

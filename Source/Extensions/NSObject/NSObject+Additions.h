@@ -2,7 +2,7 @@
 
 @interface NSObject (Additions)
 
-- (nonnull NSDictionary *)toDictionary;
-- (nullable NSData *)toJSONObjectData;
+- (nonnull NSDictionary *)_jp_toDictionary;
+- (nullable NSData *)_jp_toJSONObjectData;
 
 @end

@@ -26,11 +26,11 @@
 
 @implementation UIApplication (Additions)
 
-+ (BOOL)isCurrentDeviceJailbroken {
++ (BOOL)_jp_isCurrentDeviceJailbroken {
     return [NSFileManager.defaultManager fileExistsAtPath:@"/private/var/lib/apt/"];
 }
 
-+ (UIViewController *)topMostViewController {
++ (UIViewController *)_jp_topMostViewController {
     UIViewController *topViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
 
     while (topViewController.presentedViewController) {

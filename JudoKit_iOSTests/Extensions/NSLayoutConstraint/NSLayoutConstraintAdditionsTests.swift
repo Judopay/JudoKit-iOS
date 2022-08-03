@@ -45,7 +45,7 @@ class NSLayoutConstraintAdditionsTests: XCTestCase {
         let yCenterConstraint = NSLayoutConstraint(item: view1, attribute: .centerY, relatedBy: .equal, toItem: view2, attribute: .centerY, multiplier: 1, constant: 0)
         view1.addConstraint(yCenterConstraint)
         
-        NSLayoutConstraint.activate([xCenterConstraint, yCenterConstraint], withPriority: UILayoutPriority(2))
+        NSLayoutConstraint._jp_activate([xCenterConstraint, yCenterConstraint], withPriority: UILayoutPriority(2))
         XCTAssertEqual(xCenterConstraint.priority.rawValue, 2.0)
         XCTAssertEqual(yCenterConstraint.priority.rawValue, 2.0)
     }

@@ -79,7 +79,7 @@
     [self.addCardButton setTitle:footerModel.addCardButtonTitle
                         forState:UIControlStateNormal];
 
-    UIImage *buttonImage = [UIImage imageWithIconName:footerModel.addCardButtonIconName];
+    UIImage *buttonImage = [UIImage _jp_imageWithIconName:footerModel.addCardButtonIconName];
 
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -106,7 +106,7 @@
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
     [self.contentView addSubview:self.addCardButton];
-    [self.addCardButton pinToAnchors:JPAnchorTypeTrailing forView:self.contentView withPadding:24.0];
+    [self.addCardButton _jp_pinToAnchors:JPAnchorTypeTrailing forView:self.contentView withPadding:24.0];
     [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
 }
 

@@ -36,7 +36,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_CardNetwork_WhenStringIsValid_ShouldReturnRightType() {
         let cardNumber = "4444"
-        let type = cardNumber.cardNetwork
+        let type = cardNumber._jp_cardNetwork
         XCTAssertEqual(type, JPCardNetworkType.visa)
     }
     
@@ -49,7 +49,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_CardNetwork_WhenStringIsInValid_ShouldReturnTypeUnknown() {
         let cardNumber = "1111"
-        let type = cardNumber.cardNetwork
+        let type = cardNumber._jp_cardNetwork
         let unKnownType = JPCardNetworkType(rawValue: 0)
         XCTAssertEqual(type, unKnownType)
     }
@@ -63,7 +63,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_IsCardNumberValid_WhenNumberLuhnValid_ShouldReturnValid() {
         let cardValid = "4929939187355598"
-        XCTAssertTrue(cardValid.isValidCardNumber)
+        XCTAssertTrue(cardValid._jp_isValidCardNumber)
     }
     
     /*
@@ -73,7 +73,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_Localized_WhenKeyFromTranslate_ShouldReturnTranslatedString() {
         let keyForTranslate = "post_code_hint"
-        XCTAssertEqual(keyForTranslate.localized(), "Postcode")
+        XCTAssertEqual(keyForTranslate._jp_localized(), "Postcode")
     }
     
     /*
@@ -85,7 +85,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_ToCurrencySymbol_WhenSupportedCurrencyString_ShouldReturnSymbolForCurrency(){
         let usdSymbol = "USD"
-        let symbol = usdSymbol.toCurrencySymbol()
+        let symbol = usdSymbol._jp_toCurrencySymbol()
         XCTAssertEqual(symbol, "$")
     }
     
@@ -98,7 +98,7 @@ class NSStringAdditionsTests: XCTestCase {
      */
     func test_AttributedStringWithBoldSubstring_WhenSgtringFromNumbers_Shouldtrue() {
         let keyForTranslate = "122"
-        let sut = keyForTranslate.attributedString(withBoldSubstring: "1")
+        let sut = keyForTranslate._jp_attributedString(withBoldSubstring: "1")
         let attributes = sut.attributes(at: 0, effectiveRange: nil)
         XCTAssertEqual((attributes.first?.value as! UIFont).fontName, ".SFUI-Semibold")
     }
@@ -111,10 +111,10 @@ class NSStringAdditionsTests: XCTestCase {
      * THEN: the method should return true
      */
     func test_WhenNumericCheck_IfContainsOnlyDigits_ReturnTrue() {
-        XCTAssertTrue("12345".isNumeric)
-        XCTAssertFalse("123.45".isNumeric)
-        XCTAssertFalse("-12345".isNumeric)
-        XCTAssertFalse("12 34 5".isNumeric)
+        XCTAssertTrue("12345"._jp_isNumeric)
+        XCTAssertFalse("123.45"._jp_isNumeric)
+        XCTAssertFalse("-12345"._jp_isNumeric)
+        XCTAssertFalse("12 34 5"._jp_isNumeric)
     }
 
     /*
@@ -125,17 +125,17 @@ class NSStringAdditionsTests: XCTestCase {
      * THEN: the method should return true
      */
     func test_WhenExpiryDateFormatCheck_IfContainsValidFormat_ReturnTrue() {
-        XCTAssertTrue("00/00".isExpiryDate)
-        XCTAssertTrue("00-00".isExpiryDate)
-        XCTAssertTrue("00/2000".isExpiryDate)
-        XCTAssertTrue("00-2000".isExpiryDate)
-        XCTAssertFalse("0/00".isExpiryDate)
-        XCTAssertFalse("00/0".isExpiryDate)
-        XCTAssertFalse("-00/00".isExpiryDate)
-        XCTAssertFalse("0.0/00".isExpiryDate)
-        XCTAssertFalse("00 00".isExpiryDate)
-        XCTAssertFalse("00 - 00".isExpiryDate)
-        XCTAssertFalse("00 / 00".isExpiryDate)
+        XCTAssertTrue("00/00"._jp_isExpiryDate)
+        XCTAssertTrue("00-00"._jp_isExpiryDate)
+        XCTAssertTrue("00/2000"._jp_isExpiryDate)
+        XCTAssertTrue("00-2000"._jp_isExpiryDate)
+        XCTAssertFalse("0/00"._jp_isExpiryDate)
+        XCTAssertFalse("00/0"._jp_isExpiryDate)
+        XCTAssertFalse("-00/00"._jp_isExpiryDate)
+        XCTAssertFalse("0.0/00"._jp_isExpiryDate)
+        XCTAssertFalse("00 00"._jp_isExpiryDate)
+        XCTAssertFalse("00 - 00"._jp_isExpiryDate)
+        XCTAssertFalse("00 / 00"._jp_isExpiryDate)
     }
     
     /*
@@ -146,11 +146,11 @@ class NSStringAdditionsTests: XCTestCase {
      * THEN: the method should return a date formatted as dd/dd or nil
      */
     func test_WhenSanitizedExpiryDate_ReturnExpectedDateFormat() {
-        XCTAssertTrue("00/00".sanitizedExpiryDate() == "00/00")
-        XCTAssertTrue("00-00".sanitizedExpiryDate() == "00/00")
-        XCTAssertTrue("00/2000".sanitizedExpiryDate() == "00/00")
-        XCTAssertTrue("00-2000".sanitizedExpiryDate() == "00/00")
-        XCTAssertTrue("0000-2000".sanitizedExpiryDate() == nil)
+        XCTAssertTrue("00/00"._jp_sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00-00"._jp_sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00/2000"._jp_sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("00-2000"._jp_sanitizedExpiryDate() == "00/00")
+        XCTAssertTrue("0000-2000"._jp_sanitizedExpiryDate() == nil)
     }
     
 }

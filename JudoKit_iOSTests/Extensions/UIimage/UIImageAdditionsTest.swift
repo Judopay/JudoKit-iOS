@@ -36,7 +36,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return non nil image
      */
     func test_HeaderImage_WhenGettingImageByType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .discover)
+        let image = UIImage._jp_headerImage(for: .discover)
         XCTAssertNotNil(image)
     }
     
@@ -48,7 +48,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByVisaType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .visa)
+        let image = UIImage._jp_headerImage(for: .visa)
         XCTAssertNotNil(image)
     }
     
@@ -60,7 +60,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByAMEXType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .AMEX)
+        let image = UIImage._jp_headerImage(for: .AMEX)
         XCTAssertNotNil(image)
     }
     
@@ -72,7 +72,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByDinersClubType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .dinersClub)
+        let image = UIImage._jp_headerImage(for: .dinersClub)
         XCTAssertNotNil(image)
     }
     
@@ -84,7 +84,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByJCBType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .JCB)
+        let image = UIImage._jp_headerImage(for: .JCB)
         XCTAssertNotNil(image)
     }
     
@@ -96,7 +96,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByMaestroType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .maestro)
+        let image = UIImage._jp_headerImage(for: .maestro)
         XCTAssertNotNil(image)
     }
     
@@ -108,7 +108,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByMasterCardType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .masterCard)
+        let image = UIImage._jp_headerImage(for: .masterCard)
         XCTAssertNotNil(image)
     }
     
@@ -120,7 +120,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: a valid header image must be returned
      */
     func test_HeaderImage_WhenGettingImageByChinaUnionPayType_ShouldReturnNonNil() {
-        let image = UIImage.headerImage(for: .chinaUnionPay)
+        let image = UIImage._jp_headerImage(for: .chinaUnionPay)
         XCTAssertNotNil(image)
     }
     
@@ -132,7 +132,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return non nil image
      */
     func test_InitImage_WhenIconNameIsValid_ShouldReturnNonNil() {
-        let image = UIImage.init(iconName: "lock-icon")
+        let image = UIImage._jp_image(withIconName: "lock-icon")
         XCTAssertNotNil(image)
     }
     
@@ -144,7 +144,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return non nil image
      */
     func test_InitImage_WhenTypeIsDiscover_ShouldReturnNonNil() {
-        let image = UIImage.init(for: .discover)
+        let image = UIImage._jp_image(for: .discover)
         XCTAssertNotNil(image)
     }
     
@@ -156,7 +156,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return nil image
      */
     func test_HeaderImage_WhenTypeAll_ShouldReturnNil() {
-        let image = UIImage.headerImage(for: .all)
+        let image = UIImage._jp_headerImage(for: .all)
         XCTAssertEqual(image, nil)
     }
     
@@ -168,7 +168,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return nil image
      */
     func test_InitImage_WhenTypeAll_ShouldReturnNil() {
-        let image = UIImage(for: .all)
+        let image = UIImage._jp_image(for: .all)
         XCTAssertEqual(image, nil)
     }
     
@@ -180,7 +180,7 @@ class UIImageAdditionsTest: XCTestCase {
      * THEN: should return non nil image
      */
     func test_InitImage_WhenTypeVisa_ShouldReturnNonNil() {
-        let image = UIImage(for: .visa)
+        let image = UIImage._jp_image(for: .visa)
         XCTAssertNotNil(image)
     }
 }
