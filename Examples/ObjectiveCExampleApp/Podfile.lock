@@ -5,7 +5,7 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.0.2)
-  - JudoKit-iOS (3.0.2):
+  - JudoKit-iOS (3.0.3):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.0.1)
     - TrustKit
