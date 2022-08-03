@@ -1,24 +1,31 @@
-# Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '12.0'
+
+use_frameworks!
+inhibit_all_warnings!
 
 target 'SwiftExampleApp' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for SwiftExampleApp
+  #  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+  pod 'Judo3DS2_iOS', '1.0.1'
   pod 'JudoKit-iOS', :path => '../../'
 
-  pod 'InAppSettingsKit'
-  pod 'CocoaDebug'
+  pod 'InAppSettingsKit', '3.3.6'
+  pod 'CocoaDebug', '1.7.2'
   pod 'SwiftLint'
 
   target 'SwiftExampleAppTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
   target 'SwiftExampleAppUITests' do
-    # Pods for testing
   end
+end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings.delete 'SWIFT_VERSION'
+      # https://www.jessesquires.com/blog/2020/07/20/xcode-12-drops-support-for-ios-8-fix-for-cocoapods/
+      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+  end
 end

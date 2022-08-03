@@ -20,18 +20,15 @@
 		3056881925823CF000195C93 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056881825823CF000195C93 /* Result.swift */; };
 		3056882125823D1300195C93 /* ResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056882025823D1300195C93 /* ResultItem.swift */; };
 		305689F125836F3000195C93 /* NSObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F025836F3000195C93 /* NSObject+Additions.swift */; };
-		305689F7258377FB00195C93 /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F6258377FB00195C93 /* ResultsCell.swift */; };
 		305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689FB2583786700195C93 /* ResultsViewModel.swift */; };
 		30568A0E2583AD8900195C93 /* TokenModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A0D2583AD8900195C93 /* TokenModule.swift */; };
 		30568A162583AD9200195C93 /* TokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A152583AD9200195C93 /* TokenViewController.swift */; };
-		30568A1B2583AD9A00195C93 /* TokenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A1A2583AD9A00195C93 /* TokenInteractor.swift */; };
 		305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853B8257F79CC000B00DF /* HomeViewController.swift */; };
 		305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853BE257F7C9F000B00DF /* FeatureCell.swift */; };
 		305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853C6257F7EC9000B00DF /* FeatureViewModel.swift */; };
 		305853CF257F813D000B00DF /* HomeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853CE257F813D000B00DF /* HomeModule.swift */; };
 		305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853D3257F8171000B00DF /* HomeInteractor.swift */; };
 		305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305853DB257F83D0000B00DF /* FeatureRepository.swift */; };
-		3058541E257F9F32000B00DF /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
 		30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30585426257FABA4000B00DF /* UIViewController+Additions.swift */; };
 		30E1098B25877428000284CD /* PBBAModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1098A25877428000284CD /* PBBAModule.swift */; };
 		30E1099325877436000284CD /* PBBAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1099225877436000284CD /* PBBAViewController.swift */; };
@@ -42,6 +39,9 @@
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
 		49584B8CB009346FCBBF5DC0 /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */; };
+		ADE6EA16287F311B007448DE /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F6258377FB00195C93 /* ResultsCell.swift */; };
+		ADE6EA17287F3144007448DE /* TokenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A1A2583AD9A00195C93 /* TokenInteractor.swift */; };
+		ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
 		B763B0BA0E70403D0411DB3C /* Pods_SwiftExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */; };
 		C82C2B8CD5388E644731B189 /* Pods_SwiftExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */; };
 /* End PBXBuildFile section */
@@ -421,7 +421,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = Judopay;
 				TargetAttributes = {
 					448AB1DE2450DF22004A11CB = {
@@ -619,22 +619,22 @@
 				3056872D2581197100195C93 /* SettingsModule.swift in Sources */,
 				305687402581227500195C93 /* Settings.swift in Sources */,
 				448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */,
+				ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */,
 				305687272581193500195C93 /* AppCoordinator.swift in Sources */,
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,
 				30568809258238A400195C93 /* ResultsModule.swift in Sources */,
 				3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */,
 				30568A162583AD9200195C93 /* TokenViewController.swift in Sources */,
+				ADE6EA16287F311B007448DE /* ResultsCell.swift in Sources */,
 				305687452581280600195C93 /* SettingsKeys.swift in Sources */,
 				30E1099325877436000284CD /* PBBAViewController.swift in Sources */,
 				3056875225812F5600195C93 /* SettingsViewController.swift in Sources */,
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
 				305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */,
-				30568A1B2583AD9A00195C93 /* TokenInteractor.swift in Sources */,
-				305689F7258377FB00195C93 /* ResultsCell.swift in Sources */,
-				3058541E257F9F32000B00DF /* FeatureService.swift in Sources */,
 				30568A0E2583AD8900195C93 /* TokenModule.swift in Sources */,
 				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
+				ADE6EA17287F3144007448DE /* TokenInteractor.swift in Sources */,
 				305853D4257F8171000B00DF /* HomeInteractor.swift in Sources */,
 				305853C7257F7EC9000B00DF /* FeatureViewModel.swift in Sources */,
 				30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */,

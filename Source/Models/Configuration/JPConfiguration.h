@@ -32,38 +32,38 @@
 /**
  * The Judo ID required for most JudoKit transactions
  */
-@property (nonatomic, strong, readonly) NSString *_Nullable judoId;
+@property (nonatomic, strong, readonly, nullable) NSString *judoId;
 
 /**
  * The Receipt ID required for Refund, Void and Collection transactions
  */
-@property (nonatomic, strong, readonly) NSString *_Nullable receiptId;
+@property (nonatomic, strong, readonly, nullable) NSString *receiptId;
 
 /**
  * An object describing the amount of the transaction
  */
-@property (nonatomic, strong) JPAmount *_Nonnull amount;
+@property (nonatomic, strong, nonnull) JPAmount *amount;
 
 /**
  * An object containing transaction-related references
  */
-@property (nonatomic, strong) JPReference *_Nonnull reference;
+@property (nonatomic, strong, nonnull) JPReference *reference;
 
 /**
  * An object containing information about the card address.
  * If set, will be sent to the Judo backend as part of the card details
  */
-@property (nonatomic, strong) JPAddress *_Nullable cardAddress;
+@property (nonatomic, strong, nullable) JPAddress *cardAddress;
 
 /**
  * An object responsible for handling UI-related configurations
  */
-@property (nonatomic, strong) JPUIConfiguration *_Nonnull uiConfiguration;
+@property (nonatomic, strong, nonnull) JPUIConfiguration *uiConfiguration;
 
 /**
  * An array of JPPaymentMethod instances used to specify the payment methods that are to be displayed on the Judo Payment Method screen.
  */
-@property (nonatomic, strong) NSArray<JPPaymentMethod *> *_Nullable paymentMethods;
+@property (nonatomic, strong, nullable) NSArray<JPPaymentMethod *> *paymentMethods;
 
 /**
  * An NS_OPTION property used to pick between a set of supported card network values.
@@ -73,18 +73,18 @@
 /**
  * An instance of JPPrimaryAccountDetails that, if set, will be passed in the transaction's request body.
  */
-@property (nonatomic, strong) JPPrimaryAccountDetails *_Nullable primaryAccountDetails;
+@property (nonatomic, strong, nullable) JPPrimaryAccountDetails *primaryAccountDetails;
 
 /**
  * An instance of JPApplePayConfiguration required for Apple Pay-related transactions.
  * Not setting this property will hide Apple Pay from the Judo Payment Method screen, even though it has been set as one of the payment methods.
  */
-@property (nonatomic, strong) JPApplePayConfiguration *_Nullable applePayConfiguration;
+@property (nonatomic, strong, nullable) JPApplePayConfiguration *applePayConfiguration;
 
 /**
  * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
  */
-@property (nonatomic, strong) JPPBBAConfiguration *_Nullable pbbaConfiguration;
+@property (nonatomic, strong, nullable) JPPBBAConfiguration *pbbaConfiguration;
 
 /**
  * A  flag to sign up for a subscription-based service
@@ -94,28 +94,28 @@
 /**
  * Sets the network read, write and connect timeouts.
  */
-@property (nonatomic, nullable, strong) JPNetworkTimeout *networkTimeout;
+@property (nonatomic, strong, nullable) JPNetworkTimeout *networkTimeout;
 
 /**
  * 3DS  Challenge Request Indicator
  */
-@property (nonatomic, nullable, copy) NSString *challengeRequestIndicator;
+@property (nonatomic, strong, nonnull) NSString *challengeRequestIndicator;
 
 /**
  * 3DS  SCA Exemption
  */
-@property (nonatomic, nullable, copy) NSString *scaExemption;
+@property (nonatomic, strong, nonnull) NSString *scaExemption;
 
 /**
  * The card holder email
  */
-@property (nonatomic, assign) NSString *_Nullable emailAddress;
+@property (nonatomic, strong, nullable) NSString *emailAddress;
 
 /**
  * The card holder mobile number
  */
-@property (nonatomic, assign) NSString *_Nullable phoneCountryCode;
-@property (nonatomic, assign) NSString *_Nullable mobileNumber;
+@property (nonatomic, strong, nullable) NSString *phoneCountryCode;
+@property (nonatomic, strong, nullable) NSString *mobileNumber;
 
 /**
  * Sets the maximum timeout for 3DS 2.0 transactions in minutes.
@@ -125,7 +125,7 @@
 /**
  * Sets the protocol message version for 3DS 2.0 transactions.
  */
-@property (nonatomic, assign) NSString *_Nullable threeDSTwoMessageVersion;
+@property (nonatomic, strong, nullable) NSString *threeDSTwoMessageVersion;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

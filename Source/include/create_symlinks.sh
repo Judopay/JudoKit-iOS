@@ -161,3 +161,4 @@ ln -s -f ../Modules/Transaction/Builder/JPTransactionBuilder.h JPTransactionBuil
 ln -s -f ../Models/Request/JPComplete3DS2Request.h JPComplete3DS2Request.h
 ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
 ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
+ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h
