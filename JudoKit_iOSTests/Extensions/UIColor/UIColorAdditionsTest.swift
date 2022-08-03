@@ -34,7 +34,7 @@ class UIColorAdditionsTest: XCTestCase {
      */
     func test_AsImage_WhenInitAColor_ShouldReturnNonNilImage() {
         let color = UIColor.black
-        let image = color.asImage()
+        let image = color._jp_asImage()
         XCTAssertNotNil(image)
     }
     
@@ -46,7 +46,7 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_ColorFromHex_WhenInitColor_ShouldReturnRightColor() {
-        let sut = UIColor.init(fromHex: 0xFFFFFF)
+        let sut = UIColor._jp_color(fromHex: 0xFFFFFF)
         let colorWhite = UIColor.white
         XCTAssertTrue(compareColors(c1: sut, c2: colorWhite))
     }
@@ -59,8 +59,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpBlackColor_WhenInit_ShouldReturnRightColor() {
-        let jpBlackColor = UIColor.init(fromHex: 0x262626)
-        let sutColor = UIColor.jpBlack()
+        let jpBlackColor = UIColor._jp_color(fromHex: 0x262626)
+        let sutColor = UIColor._jp_black()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpBlackColor))
     }
     
@@ -72,8 +72,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpDarkGrayColor_WhenInit_ShouldReturnRightColor() {
-        let jpDarkGrayColor = UIColor.init(fromHex: 0x999999)
-        let sutColor = UIColor.jpDarkGray()
+        let jpDarkGrayColor = UIColor._jp_color(fromHex: 0x999999)
+        let sutColor = UIColor._jp_darkGray()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpDarkGrayColor))
     }
     
@@ -85,8 +85,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpGrayColor_WhenInit_ShouldReturnRightColor() {
-        let jpGrayColor = UIColor.init(fromHex: 0xE5E5E5)
-        let sutColor = UIColor.jpGray()
+        let jpGrayColor = UIColor._jp_color(fromHex: 0xE5E5E5)
+        let sutColor = UIColor._jp_gray()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpGrayColor))
     }
     
@@ -98,8 +98,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpLightGrayColor_WhenInit_ShouldReturnRightColor() {
-        let jpLightGrayColor = UIColor.init(fromHex: 0xF6F6F6)
-        let sutColor = UIColor.jpLightGray()
+        let jpLightGrayColor = UIColor._jp_color(fromHex: 0xF6F6F6)
+        let sutColor = UIColor._jp_lightGray()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpLightGrayColor))
     }
     
@@ -111,8 +111,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpRedColor_WhenInit_ShouldReturnRightColor() {
-        let jpRedColor = UIColor.init(fromHex: 0xE21900)
-        let sutColor = UIColor.jpRed()
+        let jpRedColor = UIColor._jp_color(fromHex: 0xE21900)
+        let sutColor = UIColor._jp_red()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpRedColor))
     }
     
@@ -124,8 +124,8 @@ class UIColorAdditionsTest: XCTestCase {
      * THEN: the result should be an instance of UIImage with the correct color
      */
     func test_JpWhiteColor_WhenInit_ShouldReturnRightColor() {
-        let jpWhiteColor = UIColor.init(fromHex: 0xFFFFFF)
-        let sutColor = UIColor.jpWhite()
+        let jpWhiteColor = UIColor._jp_color(fromHex: 0xFFFFFF)
+        let sutColor = UIColor._jp_white()
         XCTAssertTrue(compareColors(c1: sutColor, c2: jpWhiteColor))
     }
     

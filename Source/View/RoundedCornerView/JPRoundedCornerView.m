@@ -43,7 +43,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self roundCorners:self.corners withRadius:self.radius];
+    [self _jp_roundCorners:self.corners withRadius:self.radius];
 }
 
 @end

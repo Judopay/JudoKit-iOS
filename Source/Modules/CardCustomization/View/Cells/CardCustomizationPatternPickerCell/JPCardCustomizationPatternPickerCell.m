@@ -74,7 +74,7 @@ const float kPatternCollectionViewPadding = 24.0F;
         [self.collectionView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints withPriority:999];
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:999];
     [self.collectionView.heightAnchor constraintEqualToConstant:kPatternSelectedCellSize].active = YES;
 }
 

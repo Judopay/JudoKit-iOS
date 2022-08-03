@@ -33,7 +33,7 @@ class NSBundleAdditionsTests: XCTestCase {
      * THEN: should return non nil bundle path
      */
     func test_frameworkBundle() {
-        let bundle = Bundle.framework()
+        let bundle = Bundle._jp_framework()
         XCTAssertNotNil(bundle)
     }
     
@@ -43,7 +43,7 @@ class NSBundleAdditionsTests: XCTestCase {
      * THEN: should return non nil bundle path
      */
     func test_iconsBundle() {
-        let bundle = Bundle.icons()
+        let bundle = Bundle._jp_icons()
         XCTAssertNotNil(bundle)
     }
     
@@ -53,7 +53,7 @@ class NSBundleAdditionsTests: XCTestCase {
      * THEN: should return non nil bundle path
      */
     func test_resourcesBundle() {
-        let bundle = Bundle.resources()
+        let bundle = Bundle._jp_resources()
         XCTAssertNotNil(bundle)
     }
 }

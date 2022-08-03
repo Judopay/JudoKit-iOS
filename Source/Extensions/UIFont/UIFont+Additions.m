@@ -26,35 +26,35 @@
 
 @implementation UIFont (Additions)
 
-+ (UIFont *)largeTitle {
++ (UIFont *)_jp_largeTitle {
     return [UIFont systemFontOfSize:24.0 weight:UIFontWeightSemibold];
 }
 
-+ (UIFont *)title {
++ (UIFont *)_jp_title {
     return [UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold];
 }
 
-+ (UIFont *)headline {
++ (UIFont *)_jp_headline {
     return [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
 }
 
-+ (UIFont *)headlineLight {
++ (UIFont *)_jp_headlineLight {
     return [UIFont systemFontOfSize:16.0];
 }
 
-+ (UIFont *)body {
++ (UIFont *)_jp_body {
     return [UIFont systemFontOfSize:14.0];
 }
 
-+ (UIFont *)bodyBold {
++ (UIFont *)_jp_bodyBold {
     return [UIFont systemFontOfSize:14.0 weight:UIFontWeightSemibold];
 }
 
-+ (UIFont *)caption {
++ (UIFont *)_jp_caption {
     return [UIFont systemFontOfSize:10.0];
 }
 
-+ (UIFont *)captionBold {
++ (UIFont *)_jp_captionBold {
     return [UIFont systemFontOfSize:10.0 weight:UIFontWeightSemibold];
 }
 

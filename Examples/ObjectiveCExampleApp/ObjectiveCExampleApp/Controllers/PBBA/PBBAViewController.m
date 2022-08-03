@@ -87,12 +87,12 @@
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self displayAlertWithError:error];
+        [self _jp_displayAlertWithError:error];
         return;
     }
 
     if (!response) {
-        [self displayAlertWithError:[JPError judoRequestFailedError]];
+        [self _jp_displayAlertWithError:[JPError requestFailedError]];
         return;
     }
 

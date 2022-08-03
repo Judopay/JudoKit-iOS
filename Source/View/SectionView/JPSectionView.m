@@ -264,7 +264,7 @@ static const float kSliderCornerRadius = 10.0F;
 - (UIView *)backgroundView {
     if (!_backgroundView) {
         _backgroundView = [UIView new];
-        _backgroundView.backgroundColor = UIColor.jpLightGrayColor;
+        _backgroundView.backgroundColor = UIColor._jp_lightGrayColor;
         _backgroundView.layer.cornerRadius = kBackgroundCornerRadius;
     }
     return _backgroundView;
@@ -282,12 +282,12 @@ static const float kSliderCornerRadius = 10.0F;
     if (!_sliderView) {
         _sliderView = [UIView new];
         _sliderView.translatesAutoresizingMaskIntoConstraints = NO;
-        _sliderView.backgroundColor = UIColor.jpWhiteColor;
+        _sliderView.backgroundColor = UIColor._jp_whiteColor;
         _sliderView.layer.cornerRadius = kSliderCornerRadius;
         _sliderView.layer.shadowRadius = 1.0F;
         _sliderView.layer.shadowOffset = CGSizeMake(0, 2);
         _sliderView.layer.shadowOpacity = 1.0F;
-        _sliderView.layer.shadowColor = UIColor.jpGrayColor.CGColor;
+        _sliderView.layer.shadowColor = UIColor._jp_grayColor.CGColor;
     }
     return _sliderView;
 }

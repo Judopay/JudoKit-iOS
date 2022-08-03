@@ -32,56 +32,56 @@
 
 - (UIFont *)largeTitle {
     if (!_largeTitle) {
-        _largeTitle = UIFont.largeTitle;
+        _largeTitle = UIFont._jp_largeTitle;
     }
     return _largeTitle;
 }
 
 - (UIFont *)title {
     if (!_title) {
-        _title = UIFont.title;
+        _title = UIFont._jp_title;
     }
     return _title;
 }
 
 - (UIFont *)headline {
     if (!_headline) {
-        _headline = UIFont.headline;
+        _headline = UIFont._jp_headline;
     }
     return _headline;
 }
 
 - (UIFont *)headlineLight {
     if (!_headlineLight) {
-        _headlineLight = UIFont.headlineLight;
+        _headlineLight = UIFont._jp_headlineLight;
     }
     return _headlineLight;
 }
 
 - (UIFont *)body {
     if (!_body) {
-        _body = UIFont.body;
+        _body = UIFont._jp_body;
     }
     return _body;
 }
 
 - (UIFont *)bodyBold {
     if (!_bodyBold) {
-        _bodyBold = UIFont.bodyBold;
+        _bodyBold = UIFont._jp_bodyBold;
     }
     return _bodyBold;
 }
 
 - (UIFont *)caption {
     if (!_caption) {
-        _caption = UIFont.caption;
+        _caption = UIFont._jp_caption;
     }
     return _caption;
 }
 
 - (UIFont *)captionBold {
     if (!_captionBold) {
-        _captionBold = UIFont.captionBold;
+        _captionBold = UIFont._jp_captionBold;
     }
     return _captionBold;
 }
@@ -90,42 +90,42 @@
 
 - (UIColor *)jpBlackColor {
     if (!_jpBlackColor) {
-        _jpBlackColor = UIColor.jpBlackColor;
+        _jpBlackColor = UIColor._jp_blackColor;
     }
     return _jpBlackColor;
 }
 
 - (UIColor *)jpDarkGrayColor {
     if (!_jpDarkGrayColor) {
-        _jpDarkGrayColor = UIColor.jpDarkGrayColor;
+        _jpDarkGrayColor = UIColor._jp_darkGrayColor;
     }
     return _jpDarkGrayColor;
 }
 
 - (UIColor *)jpGrayColor {
     if (!_jpGrayColor) {
-        _jpGrayColor = UIColor.jpGrayColor;
+        _jpGrayColor = UIColor._jp_grayColor;
     }
     return _jpGrayColor;
 }
 
 - (UIColor *)jpLightGrayColor {
     if (!_jpLightGrayColor) {
-        _jpLightGrayColor = UIColor.jpLightGrayColor;
+        _jpLightGrayColor = UIColor._jp_lightGrayColor;
     }
     return _jpLightGrayColor;
 }
 
 - (UIColor *)jpRedColor {
     if (!_jpRedColor) {
-        _jpRedColor = UIColor.jpRedColor;
+        _jpRedColor = UIColor._jp_redColor;
     }
     return _jpRedColor;
 }
 
 - (UIColor *)jpWhiteColor {
     if (!_jpWhiteColor) {
-        _jpWhiteColor = UIColor.jpWhiteColor;
+        _jpWhiteColor = UIColor._jp_whiteColor;
     }
     return _jpWhiteColor;
 }

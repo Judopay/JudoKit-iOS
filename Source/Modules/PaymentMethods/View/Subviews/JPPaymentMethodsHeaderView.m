@@ -106,7 +106,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     self.amountValueLabel.font = uiConfiguration.theme.largeTitle;
     self.amountValueLabel.textColor = uiConfiguration.theme.jpBlackColor;
     self.payButton.titleLabel.font = uiConfiguration.theme.headline;
-    [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor.asImage forState:UIControlStateNormal];
+    [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor._jp_asImage forState:UIControlStateNormal];
     [self.payButton setTitleColor:uiConfiguration.theme.buttonTitleColor forState:UIControlStateNormal];
     self.payButton.layer.cornerRadius = uiConfiguration.theme.buttonCornerRadius;
     [self.cardHeaderView applyTheme:uiConfiguration.theme];
@@ -125,18 +125,18 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     [self removePreviousTopHeader];
 
     if (viewModel.cardModel == nil && viewModel.paymentMethodType == JPPaymentMethodTypeCard) {
-        self.backgroundImageView.image = [UIImage imageWithResourceName:@"no-cards"];
+        self.backgroundImageView.image = [UIImage _jp_imageWithResourceName:@"no-cards"];
         [self displayEmptyHeaderView];
         return;
     }
 
-    self.backgroundImageView.image = [UIImage imageWithResourceName:@"gradient-background"];
+    self.backgroundImageView.image = [UIImage _jp_imageWithResourceName:@"gradient-background"];
     [self displayCardHeaderViewWithViewModel:viewModel];
 }
 
 - (void)configureBottomHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
 
-    [self.paymentStackView removeAllSubviews];
+    [self.paymentStackView _jp_removeAllSubviews];
     [self.paymentStackView addArrangedSubview:self.amountStackView];
     [self.paymentStackView addArrangedSubview:[UIView new]];
     [self configureAmountWithViewModel:viewModel];
@@ -167,8 +167,8 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 }
 
 - (void)configureAmountWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    self.amountValueLabel.text = [NSNumberFormatter formattedAmount:viewModel.amount.amount
-                                                   withCurrencyCode:viewModel.amount.currency];
+    self.amountValueLabel.text = [NSNumberFormatter _jp_formattedAmount:viewModel.amount.amount
+                                                       withCurrencyCode:viewModel.amount.currency];
 }
 
 #pragma mark - Helper methods
@@ -184,7 +184,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)displayEmptyHeaderView {
     [self.topView addSubview:self.emptyHeaderView];
-    [self.emptyHeaderView pinToView:self.topView withPadding:kHeaderDefaultPadding];
+    [self.emptyHeaderView _jp_pinToView:self.topView withPadding:kHeaderDefaultPadding];
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5
@@ -197,7 +197,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)displayCardHeaderViewWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
     [self.topView addSubview:self.cardHeaderView];
-    [self.cardHeaderView pinToView:self.topView withPadding:kHeaderDefaultPadding];
+    [self.cardHeaderView _jp_pinToView:self.topView withPadding:kHeaderDefaultPadding];
     [self.cardHeaderView configureWithViewModel:viewModel];
 
     [self insertSubview:self.bottomView aboveSubview:self.topView];
@@ -237,7 +237,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)setupBackgroundImageView {
     [self addSubview:self.backgroundImageView];
-    [self.backgroundImageView pinToView:self withPadding:kHeaderDefaultPadding];
+    [self.backgroundImageView _jp_pinToView:self withPadding:kHeaderDefaultPadding];
 }
 
 - (void)setupAmountStackView {
@@ -290,7 +290,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (UIStackView *)amountStackView {
     if (!_amountStackView) {
-        _amountStackView = [UIStackView verticalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
+        _amountStackView = [UIStackView _jp_verticalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
         _amountStackView.alignment = UIStackViewAlignmentLeading;
     }
     return _amountStackView;
@@ -298,7 +298,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (UIStackView *)paymentStackView {
     if (!_paymentStackView) {
-        _paymentStackView = [UIStackView horizontalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
+        _paymentStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
     }
     return _paymentStackView;
 }
@@ -333,7 +333,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (UILabel *)amountPrefixLabel {
     if (!_amountPrefixLabel) {
         _amountPrefixLabel = [UILabel new];
-        _amountPrefixLabel.text = @"you_will_pay".localized;
+        _amountPrefixLabel.text = @"you_will_pay"._jp_localized;
         _amountPrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _amountPrefixLabel.adjustsFontSizeToFitWidth = YES;
         _amountPrefixLabel.textAlignment = NSTextAlignmentCenter;
@@ -360,7 +360,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (UIImageView *)backgroundImageView {
     if (!_backgroundImageView) {
-        UIImage *image = [UIImage imageWithResourceName:@"no-cards"];
+        UIImage *image = [UIImage _jp_imageWithResourceName:@"no-cards"];
         _backgroundImageView = [[UIImageView alloc] initWithImage:image];
         _backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;

@@ -63,7 +63,7 @@
     self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     [self addSubview:self.loadingContainerView];
 
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:0.0];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:0.0];
     stackView.distribution = UIStackViewDistributionFillEqually;
     [self.loadingContainerView addSubview:stackView];
 
@@ -74,12 +74,12 @@
         [self.loadingContainerView.widthAnchor constraintEqualToConstant:200.0]
     ]];
 
-    [stackView pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
-                    forView:self.loadingContainerView];
+    [stackView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing
+                        forView:self.loadingContainerView];
 
-    [stackView pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
-                    forView:self.loadingContainerView
-                withPadding:30.0];
+    [stackView _jp_pinToAnchors:JPAnchorTypeTop | JPAnchorTypeBottom
+                        forView:self.loadingContainerView
+                    withPadding:30.0];
 
     [stackView addArrangedSubview:self.activityIndicatorView];
     [stackView addArrangedSubview:self.titleLabel];
@@ -92,8 +92,8 @@
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = UIColor.jpBlackColor;
-        _titleLabel.font = UIFont.title;
+        _titleLabel.textColor = UIColor._jp_blackColor;
+        _titleLabel.font = UIFont._jp_title;
     }
     return _titleLabel;
 }
@@ -104,7 +104,7 @@
         _loadingContainerView.translatesAutoresizingMaskIntoConstraints = NO;
         _loadingContainerView.backgroundColor = UIColor.whiteColor;
         _loadingContainerView.layer.cornerRadius = 10.0;
-        _loadingContainerView.layer.shadowColor = UIColor.jpBlackColor.CGColor;
+        _loadingContainerView.layer.shadowColor = UIColor._jp_blackColor.CGColor;
         _loadingContainerView.layer.shadowOpacity = 0.5;
         _loadingContainerView.layer.shadowOffset = CGSizeMake(0, 2);
     }
@@ -114,7 +114,7 @@
 - (UIActivityIndicatorView *)activityIndicatorView {
     if (!_activityIndicatorView) {
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _activityIndicatorView.color = UIColor.jpBlackColor;
+        _activityIndicatorView.color = UIColor._jp_blackColor;
     }
     return _activityIndicatorView;
 }

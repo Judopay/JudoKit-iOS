@@ -30,11 +30,11 @@
 /**
  * Creates a vertical UIStackView with specified spacing values
  */
-+ (nonnull UIStackView *)verticalStackViewWithSpacing:(CGFloat)spacing;
++ (nonnull UIStackView *)_jp_verticalStackViewWithSpacing:(CGFloat)spacing;
 
 /**
  * Creates a horizontal UIStackView with specified spacing values
  */
-+ (nonnull UIStackView *)horizontalStackViewWithSpacing:(CGFloat)spacing;
++ (nonnull UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing;
 
 @end

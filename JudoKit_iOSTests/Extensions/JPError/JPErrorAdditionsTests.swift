@@ -33,7 +33,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoRequestFailedError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoRequestFailedError()
+        let error = JPError.requestFailedError()
         XCTAssertEqual(error.localizedDescription, "The request has failed or responded without data.")
     }
     
@@ -44,7 +44,7 @@ class JPErrorAdditionsTests: XCTestCase {
      */
     func test_WhenJudoJSONSerializationFailedWithError_SetCorrectErrorCode() {
         let testError = NSError(domain: "test", code: 400, userInfo: nil)
-        let error = JPError.judoJSONSerializationFailedWithError(testError)
+        let error = JPError.jsonSerializationFailedWithError(testError)
         let judoErrorJSONSerializationFailed = Int(JudoError(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, judoErrorJSONSerializationFailed)
     }
@@ -55,7 +55,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoUserDidCancelError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoUserDidCancelError()
+        let error = JPError.userDidCancelError()
         XCTAssertEqual(error.localizedFailureReason, "The user closed the transaction flow without completing the transaction.")
     }
     
@@ -65,7 +65,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoParameterError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoResponseParseError()
+        let error = JPError.responseParseError()
         let parameterError = Int(JudoError(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, parameterError)
         XCTAssertEqual(error.localizedDescription, "Unexpected response format returned.")
@@ -77,7 +77,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoInternetConnectionError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoInternetConnectionError()
+        let error = JPError.internetConnectionError()
         XCTAssertEqual(error.localizedFailureReason, "The request could not be sent due to no internet connection.")
     }
     
@@ -87,7 +87,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoResponseParseError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoResponseParseError()
+        let error = JPError.responseParseError()
         XCTAssertEqual(error.localizedFailureReason, "The response did not contain some of the required parameters needed to complete the transaction.")
         XCTAssertEqual(error.localizedDescription, "Unexpected response format returned.")
     }
@@ -98,7 +98,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct error code
      */
     func test_WhenJudoRequestTimeoutError_SetCorrectErrorCode() {
-        let error = JPError.judoRequestTimeoutError()
+        let error = JPError.requestTimeoutError()
         let timeoutError = Int(JudoError(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, timeoutError)
     }
@@ -109,7 +109,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct error code
      */
     func test_WhenJudoInvalidCardNumberError_SetCorrectErrorCode() {
-        let error = JPError.judoInvalidCardNumberError()
+        let error = JPError.invalidCardNumberError()
         let cardNumberError = Int(JudoError(rawValue: 0)!.rawValue)
         XCTAssertEqual(error.code, cardNumberError)
     }
@@ -120,7 +120,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoUnsupportedCardNetwork_SetCorrectLocalizedDescription() {
-        let error = JPError.judoUnsupportedCardNetwork(.AMEX)
+        let error = JPError.unsupportedCardNetwork(.AMEX)
         XCTAssertEqual(error.localizedDescription, "American Express is not supported")
     }
     
@@ -130,7 +130,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudo3DSRequest_SetCorrectLocalizedDescription() {
-        let error = JPError.judo3DSRequest(withPayload: ["test": "testData"])
+        let error = JPError.threeDSRequest(withPayload: ["test": "testData"])
         let errorUserInfo = error.userInfo["test"] as! String
         XCTAssertEqual(errorUserInfo, "testData")
     }
@@ -141,7 +141,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoInvalidIDEALCurrencyError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoInvalidIDEALCurrencyError()
+        let error = JPError.invalidIDEALCurrencyError()
         XCTAssertEqual(error.localizedDescription, "iDEAL transactions only support EUR as the currency.")
     }
     
@@ -151,7 +151,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoApplePayNotSupportedError_SetCorrectLocalizedDescription() {
-        let error = JPError.judoApplePayNotSupportedError()
+        let error = JPError.applePayNotSupportedError()
         XCTAssertEqual(error.localizedDescription, "Apple Pay is not supported on this device.")
     }
    
@@ -161,7 +161,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoInvalidPBBACurrency_SetCorrectLocalizedDescription() {
-        let error = JPError.judoInvalidPBBACurrencyError()
+        let error = JPError.invalidPBBACurrencyError()
         XCTAssertEqual(error.localizedDescription, "PBBA transactions only support GBP as the currency.")
     }
     
@@ -171,7 +171,7 @@ class JPErrorAdditionsTests: XCTestCase {
      * THEN:  it should set the correct localizedDescription parameter
      */
     func test_WhenJudoPBBAURLSchemeMissing_SetCorrectLocalizedDescription() {
-        let error = JPError.judoPBBAURLSchemeMissingError()
+        let error = JPError.pbbaurlSchemeMissingError()
         XCTAssertEqual(error.localizedDescription, "PBBA transactions require the deeplink scheme to be set.")
     }
 
@@ -191,7 +191,7 @@ class JPErrorAdditionsTests: XCTestCase {
             "message": "Page not found!"
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "Page not found!")
     }
@@ -212,7 +212,7 @@ class JPErrorAdditionsTests: XCTestCase {
             "sample": "Page not found!!"
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
     }
@@ -233,7 +233,7 @@ class JPErrorAdditionsTests: XCTestCase {
             "details": ["message": "Page not found!"]
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "Page not found!")
     }
@@ -254,7 +254,7 @@ class JPErrorAdditionsTests: XCTestCase {
             "details": ["sample": "Page not found!"]
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
     }
@@ -277,7 +277,7 @@ class JPErrorAdditionsTests: XCTestCase {
             ]
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "Page not found!")
     }
@@ -300,7 +300,7 @@ class JPErrorAdditionsTests: XCTestCase {
             ]
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "The request has failed with no underlying message.")
     }
@@ -324,7 +324,7 @@ class JPErrorAdditionsTests: XCTestCase {
             ]
         ]
 
-        let error = JPError.judoError(from: sampleResponseFormat)
+        let error = JPError.init(from: sampleResponseFormat)
         XCTAssertEqual(error.code, 404)
         XCTAssertEqual(error.localizedDescription, "Page not found!")
     }

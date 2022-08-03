@@ -93,7 +93,7 @@
 
 - (void)setCardNetwork:(JPCardNetworkType)network {
 
-    UIImage *cardIcon = [UIImage imageForCardNetwork:network];
+    UIImage *cardIcon = [UIImage _jp_imageForCardNetwork:network];
     cardIcon.accessibilityLabel = @"CardNumberCardTypeIcon";
     if (cardIcon)
         self.cardLogoImageView.image = cardIcon;

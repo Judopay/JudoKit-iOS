@@ -126,7 +126,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             completionHandler(jpResponse, nil)
             trasactionSent = true
         case .threedDSError:
-            let jpError = JPError.judo3DSRequest(withPayload: ["":""])
+            let jpError = JPError.threeDSRequest(withPayload: ["":""])
             completionHandler(nil, jpError)
             trasactionSent = true
         }

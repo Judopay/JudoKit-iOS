@@ -70,7 +70,7 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
         isDefaultModel = (JPCardCustomizationIsDefaultModel *)viewModel;
 
         NSString *iconName = isDefaultModel.isDefault ? @"radio-on" : @"radio-off";
-        self.checkmarkImageView.image = [UIImage imageWithIconName:iconName];
+        self.checkmarkImageView.image = [UIImage _jp_imageWithIconName:iconName];
     }
 }
 
@@ -104,7 +104,7 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
 
 - (UIStackView *)stackView {
     if (!_stackView) {
-        _stackView = [UIStackView horizontalStackViewWithSpacing:kIsDefaultStackViewSpacing];
+        _stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kIsDefaultStackViewSpacing];
         _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _stackView;
@@ -123,7 +123,7 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.text = @"save_as_default_payment_method".localized;
+        _titleLabel.text = @"save_as_default_payment_method"._jp_localized;
     }
     return _titleLabel;
 }

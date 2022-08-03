@@ -35,7 +35,7 @@ class UIApplicationAdditionsTests: XCTestCase {
      * THEN: the result should be false
      */
     func test_isCurrentDeviceJailbroken() {
-        let isJailBreak = UIApplication.isCurrentDeviceJailbroken()
+        let isJailBreak = UIApplication._jp_isCurrentDeviceJailbroken()
         XCTAssertFalse(isJailBreak)
     }
     
@@ -47,7 +47,7 @@ class UIApplicationAdditionsTests: XCTestCase {
     * THEN: the result should return nil
     */
     func test_topMostViewController() {
-        let topController = UIApplication.topMostViewController()
+        let topController = UIApplication._jp_topMostViewController()
         XCTAssertNil(topController)
     }
 }

@@ -102,7 +102,7 @@
 
 - (JPCardNetworkType)cardNetwork {
     if (_cardNetwork == JPCardNetworkTypeUnknown && self.cardNumber) {
-        _cardNetwork = self.cardNumber.cardNetwork;
+        _cardNetwork = self.cardNumber._jp_cardNetwork;
     }
     return _cardNetwork;
 }

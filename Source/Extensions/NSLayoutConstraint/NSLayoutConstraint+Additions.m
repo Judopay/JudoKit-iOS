@@ -26,8 +26,8 @@
 
 @implementation NSLayoutConstraint (Additions)
 
-+ (void)activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints
-               withPriority:(UILayoutPriority)priority {
++ (void)_jp_activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints
+                   withPriority:(UILayoutPriority)priority {
 
     for (NSLayoutConstraint *constraint in constraints) {
         constraint.priority = priority;

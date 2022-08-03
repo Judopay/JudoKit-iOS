@@ -26,7 +26,7 @@
 
 @implementation NSNumberFormatter (Additions)
 
-+ (NSString *)formattedAmount:(NSString *)amount withCurrencyCode:(NSString *)currencyCode {
++ (NSString *)_jp_formattedAmount:(NSString *)amount withCurrencyCode:(NSString *)currencyCode {
 
     NSDecimalNumber *amountNumber = [NSDecimalNumber decimalNumberWithString:amount];
     BOOL isFractional = amountNumber.doubleValue != (int)amountNumber.doubleValue;

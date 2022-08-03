@@ -73,12 +73,12 @@
 #pragma mark - View Model Configuration
 
 - (void)configureWithPaymentMethodModel:(JPPaymentMethodsHeaderModel *)viewModel {
-    [self.contentView removeAllSubviews];
+    [self.contentView _jp_removeAllSubviews];
 
     switch (viewModel.paymentMethodType) {
         case JPPaymentMethodTypeCard:
             [self.contentView addSubview:self.cardPaymentView];
-            [self.cardPaymentView pinToView:self.contentView withPadding:0.0];
+            [self.cardPaymentView _jp_pinToView:self.contentView withPadding:0.0];
             [self.cardPaymentView applyTheme:self.theme];
             [self.cardPaymentView configureWithTitle:viewModel.cardModel.cardTitle
                                           expiryDate:viewModel.cardModel.cardExpiryDate
@@ -91,7 +91,7 @@
 
         default:
             [self.contentView addSubview:self.otherPaymentView];
-            [self.otherPaymentView pinToView:self.contentView withPadding:0.0];
+            [self.otherPaymentView _jp_pinToView:self.contentView withPadding:0.0];
             [self.otherPaymentView applyTheme:self.theme];
             [self.otherPaymentView configureWithViewModel:viewModel];
             break;
@@ -101,7 +101,7 @@
 - (void)configureWithCustomizationModel:(JPCardCustomizationHeaderModel *)viewModel {
     [self.contentView addSubview:self.cardPaymentView];
     [self.cardPaymentView applyTheme:self.theme];
-    [self.cardPaymentView pinToView:self.contentView withPadding:0.0];
+    [self.cardPaymentView _jp_pinToView:self.contentView withPadding:0.0];
     [self.cardPaymentView configureWithTitle:viewModel.cardTitle
                                   expiryDate:viewModel.cardExpiryDate
                                      network:viewModel.cardNetwork
@@ -115,7 +115,7 @@
 
 - (void)setupViews {
     [self addSubview:self.contentView];
-    [self.contentView pinToView:self withPadding:0.0];
+    [self.contentView _jp_pinToView:self withPadding:0.0];
 }
 
 #pragma mark - Lazy Properties

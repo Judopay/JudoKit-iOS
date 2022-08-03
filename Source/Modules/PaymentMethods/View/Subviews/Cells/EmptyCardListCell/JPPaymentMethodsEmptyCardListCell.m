@@ -67,7 +67,7 @@ static const int kConstraintPriority = 999;
     [self.addCardButton setTitle:emptyViewModel.addCardButtonTitle
                         forState:UIControlStateNormal];
 
-    UIImage *buttonImage = [UIImage imageWithIconName:emptyViewModel.addCardButtonIconName];
+    UIImage *buttonImage = [UIImage _jp_imageWithIconName:emptyViewModel.addCardButtonIconName];
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -90,9 +90,9 @@ static const int kConstraintPriority = 999;
     self.titleLabel.font = theme.headline;
     self.titleLabel.textColor = theme.jpBlackColor;
     self.addCardButton.titleLabel.font = theme.bodyBold;
-    [self.addCardButton setBorderWithColor:theme.jpBlackColor
-                                     width:kAddCardBorderWidth
-                           andCornerRadius:kAddCardCornerRadius];
+    [self.addCardButton _jp_setBorderWithColor:theme.jpBlackColor
+                                         width:kAddCardBorderWidth
+                               andCornerRadius:kAddCardCornerRadius];
     [self.addCardButton setTitleColor:theme.jpBlackColor
                              forState:UIControlStateNormal];
 }
@@ -101,7 +101,7 @@ static const int kConstraintPriority = 999;
 
 - (void)setupViews {
     self.backgroundColor = UIColor.clearColor;
-    self.stackView = [UIStackView verticalStackViewWithSpacing:kStackViewSpacing];
+    self.stackView = [UIStackView _jp_verticalStackViewWithSpacing:kStackViewSpacing];
     self.stackView.alignment = UIStackViewAlignmentCenter;
     [self.stackView addArrangedSubview:self.titleLabel];
     [self.stackView addArrangedSubview:self.addCardButton];
@@ -118,7 +118,7 @@ static const int kConstraintPriority = 999;
         [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints withPriority:kConstraintPriority];
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:kConstraintPriority];
 }
 
 #pragma mark - Lazy properties

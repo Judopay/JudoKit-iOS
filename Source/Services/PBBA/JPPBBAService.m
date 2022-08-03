@@ -83,7 +83,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
                                          [self handlePBBAResponse:response completion:completion];
                                          return;
                                      }
-                                     completion(nil, error == nil ? JPError.judoResponseParseError : error);
+                                     completion(nil, error == nil ? JPError.responseParseError : error);
                                  }];
 }
 
@@ -95,7 +95,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
 
         completion(response, nil);
     } else {
-        completion(nil, JPError.judoResponseParseError);
+        completion(nil, JPError.responseParseError);
     }
 }
 
@@ -124,7 +124,7 @@ static const int kNSPOSIXErrorDomainCode = 53;
     self.intTimer += kTimerDuration;
 
     if (self.intTimer > kTimerDurationLimit) {
-        completion(nil, JPError.judoRequestTimeoutError);
+        completion(nil, JPError.requestTimeoutError);
         [self.timer invalidate];
         [self hideStatusView];
         self.intTimer = 0;
@@ -151,11 +151,11 @@ static const int kNSPOSIXErrorDomainCode = 53;
 }
 
 - (void)showStatusViewWith:(JPTransactionStatus)status {
-    UIViewController *viewController = UIApplication.topMostViewController;
+    UIViewController *viewController = UIApplication._jp_topMostViewController;
 
     [self hideStatusView];
     [viewController.view addSubview:self.transactionStatusView];
-    [self.transactionStatusView pinToView:viewController.view withPadding:0.0];
+    [self.transactionStatusView _jp_pinToView:viewController.view withPadding:0.0];
     [self.transactionStatusView applyTheme:self.configuration.uiConfiguration.theme];
     [self.transactionStatusView changeToTransactionStatus:status];
 }

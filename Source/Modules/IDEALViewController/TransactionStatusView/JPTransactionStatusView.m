@@ -92,13 +92,13 @@ const float kStatusViewRetryButtonRadius = 4.0F;
 
     switch (status) {
         case JPTransactionStatusPending:
-            self.titleLabel.text = @"processing".localized;
+            self.titleLabel.text = @"processing"._jp_localized;
             break;
         case JPTransactionStatusPendingDelayed:
-            self.titleLabel.text = @"transaction_delayed".localized;
+            self.titleLabel.text = @"transaction_delayed"._jp_localized;
             break;
         case JPTransactionStatusTimeout:
-            self.titleLabel.text = @"transaction_timeout".localized;
+            self.titleLabel.text = @"transaction_timeout"._jp_localized;
             break;
     }
 }
@@ -121,7 +121,7 @@ const float kStatusViewRetryButtonRadius = 4.0F;
 
     [NSLayoutConstraint activateConstraints:containerConstraints];
 
-    UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kStatusViewStackSpacing];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kStatusViewStackSpacing];
     stackView.alignment = UIStackViewAlignmentCenter;
     [stackView addArrangedSubview:self.activityIndicatorView];
     [stackView addArrangedSubview:self.titleLabel];
@@ -178,7 +178,7 @@ const float kStatusViewRetryButtonRadius = 4.0F;
         _retryButton = [UIButton new];
         _retryButton.translatesAutoresizingMaskIntoConstraints = NO;
         _retryButton.layer.cornerRadius = kStatusViewRetryButtonRadius;
-        [_retryButton setTitle:@"retry".localized forState:UIControlStateNormal];
+        [_retryButton setTitle:@"retry"._jp_localized forState:UIControlStateNormal];
         [_retryButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     }
     return _retryButton;

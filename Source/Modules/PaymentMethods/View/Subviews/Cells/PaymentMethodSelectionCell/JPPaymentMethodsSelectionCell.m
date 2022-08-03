@@ -54,7 +54,7 @@ static const int kConstraintPriority = 999;
 #pragma mark - Layout setup
 
 - (void)setupSectionViewWithSections:(NSArray *)sections {
-    [self.contentView removeAllSubviews];
+    [self.contentView _jp_removeAllSubviews];
 
     self.sectionView = [[JPSectionView alloc] initWithSections:sections
                                                       andTheme:self.theme];
@@ -73,8 +73,8 @@ static const int kConstraintPriority = 999;
         [self.sectionView.heightAnchor constraintEqualToConstant:kSectionViewHeight],
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints
-                               withPriority:kConstraintPriority];
+    [NSLayoutConstraint _jp_activateConstraints:constraints
+                                   withPriority:kConstraintPriority];
 }
 
 #pragma mark - View model configuration
@@ -85,7 +85,7 @@ static const int kConstraintPriority = 999;
     NSMutableArray *sections = [NSMutableArray new];
 
     for (JPPaymentMethod *paymentMethod in selectionModel.paymentMethods) {
-        UIImage *image = [UIImage imageWithIconName:paymentMethod.iconName];
+        UIImage *image = [UIImage _jp_imageWithIconName:paymentMethod.iconName];
         JPSection *section = [JPSection sectionWithImage:image andTitle:paymentMethod.title];
 
         switch (paymentMethod.type) {

@@ -27,19 +27,19 @@
 
 @implementation NSArray (Additions)
 
-- (NSArray *)toArrayOfDictionaries {
+- (NSArray *)_jp_toArrayOfDictionaries {
     NSMutableArray *dictArray = [NSMutableArray new];
 
     for (NSObject *item in self) {
         if ([item isKindOfClass:NSArray.class]) {
             NSArray *array = (NSArray *)item;
             if (array.count > 0) {
-                [dictArray addObject:[array toArrayOfDictionaries]];
+                [dictArray addObject:[array _jp_toArrayOfDictionaries]];
             }
         } else if ([item isKindOfClass:NSString.class]) {
             [dictArray addObject:item];
         } else {
-            [dictArray addObject:[item toDictionary]];
+            [dictArray addObject:[item _jp_toDictionary]];
         }
     }
 

@@ -77,23 +77,23 @@ static const CGFloat kFlashButtonHeight = 30.0f;
 - (void)setupConstraints {
     NSArray *stackViewConstraints = @[
         [self.cardTextStackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [self.cardTextStackView.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor
+        [self.cardTextStackView.leftAnchor constraintEqualToAnchor:self._jp_safeLeftAnchor
                                                           constant:kHorizontalPadding],
-        [self.cardTextStackView.rightAnchor constraintEqualToAnchor:self.safeRightAnchor
+        [self.cardTextStackView.rightAnchor constraintEqualToAnchor:self._jp_safeRightAnchor
                                                            constant:-kHorizontalPadding],
     ];
 
     NSArray *backButtonConstraints = @[
-        [self.backButton.leftAnchor constraintEqualToAnchor:self.safeLeftAnchor
+        [self.backButton.leftAnchor constraintEqualToAnchor:self._jp_safeLeftAnchor
                                                    constant:kHorizontalPadding * 2],
-        [self.backButton.topAnchor constraintEqualToAnchor:self.safeTopAnchor
+        [self.backButton.topAnchor constraintEqualToAnchor:self._jp_safeTopAnchor
                                                   constant:kVerticalPadding],
     ];
 
     NSArray *flashButtonConstraints = @[
-        [self.flashButton.rightAnchor constraintEqualToAnchor:self.safeRightAnchor
+        [self.flashButton.rightAnchor constraintEqualToAnchor:self._jp_safeRightAnchor
                                                      constant:kHorizontalPadding],
-        [self.flashButton.topAnchor constraintEqualToAnchor:self.safeTopAnchor
+        [self.flashButton.topAnchor constraintEqualToAnchor:self._jp_safeTopAnchor
                                                    constant:kVerticalPadding],
         [self.flashButton.heightAnchor constraintEqualToConstant:kFlashButtonHeight],
     ];
@@ -110,7 +110,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
         _backButton = [UIButton new];
         _backButton.translatesAutoresizingMaskIntoConstraints = NO;
         _backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_backButton setTitle:@"cancel".localized forState:UIControlStateNormal];
+        [_backButton setTitle:@"cancel"._jp_localized forState:UIControlStateNormal];
     }
     return _backButton;
 }
@@ -120,7 +120,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
         _flashButton = [UIButton new];
         _flashButton.translatesAutoresizingMaskIntoConstraints = NO;
         _flashButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_flashButton setImage:[UIImage imageWithIconName:@"flash"] forState:UIControlStateNormal];
+        [_flashButton setImage:[UIImage _jp_imageWithIconName:@"flash"] forState:UIControlStateNormal];
     }
     return _flashButton;
 }
@@ -139,7 +139,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"scan_card_hint_title".localized;
+        _titleLabel.text = @"scan_card_hint_title"._jp_localized;
         _titleLabel.font = [UIFont systemFontOfSize:kTitleFontSize weight:UIFontWeightBold];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -149,7 +149,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
 - (UILabel *)subtitleLabel {
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
-        _subtitleLabel.text = @"scan_card_hint_subtitle".localized;
+        _subtitleLabel.text = @"scan_card_hint_subtitle"._jp_localized;
         _subtitleLabel.font = [UIFont systemFontOfSize:kSubtitleFontSize];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     }
