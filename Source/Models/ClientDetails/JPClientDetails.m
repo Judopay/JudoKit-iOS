@@ -47,7 +47,7 @@ static NSString *const kClientDetailsValueKey = @"value";
 
 #pragma mark - JPDictionaryConvertible
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
         kClientDetailsKey : self.key,
         kClientDetailsValueKey : self.value

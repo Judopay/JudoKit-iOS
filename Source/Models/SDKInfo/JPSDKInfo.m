@@ -42,7 +42,7 @@ static NSString *const kNameKey = @"Name";
 }
 
 #pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
         kVersionKey : self.version,
         kNameKey : self.name

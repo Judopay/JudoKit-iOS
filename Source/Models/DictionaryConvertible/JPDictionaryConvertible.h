@@ -25,5 +25,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol JPDictionaryConvertible <NSObject>
-- (nonnull NSDictionary *)toDictionary;
+- (nonnull NSDictionary *)_jp_toDictionary;
 @end
