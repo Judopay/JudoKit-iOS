@@ -81,29 +81,29 @@
     self.transactionViewModel.type = type;
     self.transactionViewModel.mode = [self.interactor cardDetailsMode];
 
-    self.transactionViewModel.cardNumberViewModel.placeholder = @"card_number_hint".localized;
-    self.transactionViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint".localized;
-    self.transactionViewModel.cardholderEmailViewModel.placeholder = @"card_holder_email_hint".localized;
-    self.transactionViewModel.cardholderAddressLine1ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(1)];
-    self.transactionViewModel.cardholderAddressLine2ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(2)];
-    self.transactionViewModel.cardholderAddressLine3ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint".localized, @(3)];
-    self.transactionViewModel.cardholderPhoneViewModel.placeholder = @"card_holder_phone_hint".localized;
-    self.transactionViewModel.cardholderCityViewModel.placeholder = @"card_holder_city_hint".localized;
-    self.transactionViewModel.expiryDateViewModel.placeholder = @"expiry_date".localized;
+    self.transactionViewModel.cardNumberViewModel.placeholder = @"card_number_hint"._jp_localized;
+    self.transactionViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint"._jp_localized;
+    self.transactionViewModel.cardholderEmailViewModel.placeholder = @"card_holder_email_hint"._jp_localized;
+    self.transactionViewModel.cardholderAddressLine1ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(1)];
+    self.transactionViewModel.cardholderAddressLine2ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(2)];
+    self.transactionViewModel.cardholderAddressLine3ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(3)];
+    self.transactionViewModel.cardholderPhoneViewModel.placeholder = @"card_holder_phone_hint"._jp_localized;
+    self.transactionViewModel.cardholderCityViewModel.placeholder = @"card_holder_city_hint"._jp_localized;
+    self.transactionViewModel.expiryDateViewModel.placeholder = @"expiry_date"._jp_localized;
 
     NSString *secureCodePlaceholder = [JPCardNetwork secureCodePlaceholderForNetworkType:[self.interactor cardNetworkType]];
     self.transactionViewModel.secureCodeViewModel.placeholder = secureCodePlaceholder;
 
     NSArray *selectableCountries = [self.interactor getFilteredCountriesBySearchString:nil];
     if (selectableCountries.count > 0) {
-        self.transactionViewModel.countryPickerViewModel.placeholder = @"card_holder_country_hint".localized;
+        self.transactionViewModel.countryPickerViewModel.placeholder = @"card_holder_country_hint"._jp_localized;
         self.transactionViewModel.pickerCountries = selectableCountries;
         JPCountry *country = selectableCountries.firstObject;
         self.transactionViewModel.countryPickerViewModel.text = country.name;
         self.transactionViewModel.cardholderPhoneCodeViewModel.text = country.dialCode;
     }
 
-    self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint".localized;
+    self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint"._jp_localized;
 
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
     self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
@@ -428,13 +428,13 @@
     JPCountry *country = [JPCountry forCountryName:input];
     NSString *postcodeValidationCountryName;
     if ([country.alpha2Code isEqualToString:@"US"]) {
-        postcodeValidationCountryName = @"country_usa".localized;
+        postcodeValidationCountryName = @"country_usa"._jp_localized;
     } else if ([country.alpha2Code isEqualToString:@"GB"]) {
-        postcodeValidationCountryName = @"country_uk".localized;
+        postcodeValidationCountryName = @"country_uk"._jp_localized;
     } else if ([country.alpha2Code isEqualToString:@"CA"]) {
-        postcodeValidationCountryName = @"country_canada".localized;
+        postcodeValidationCountryName = @"country_canada"._jp_localized;
     } else {
-        postcodeValidationCountryName = @"country_other".localized;
+        postcodeValidationCountryName = @"country_other"._jp_localized;
     }
 
     JPValidationResult *result = [self.interactor validateCountryInput:postcodeValidationCountryName];

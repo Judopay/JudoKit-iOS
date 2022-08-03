@@ -78,8 +78,8 @@ static int const kCardHolderNameLength = 3;
         error = JPError.invalidCardNumberError;
     }
 
-    if ((cardNumber.length == maxCardLength) && (![cardNumber isValidCardNumber])) {
-        error = JPError.judoInvalidCardNumberError;
+    if ((cardNumber.length == maxCardLength) && (![cardNumber _jp_isValidCardNumber])) {
+        error = JPError.invalidCardNumberError;
     }
 
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
@@ -105,26 +105,26 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
-    BOOL isValid = input.isEmail;
+    BOOL isValid = input._jp_isEmail;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_email_value".localized
+                                       errorMessage:isValid ? nil : @"invalid_email_value"._jp_localized
                                      formattedInput:input];
 }
 
 - (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
-    BOOL isValid = input.isPhoneCode;
+    BOOL isValid = input._jp_isPhoneCode;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_phone_code_value".localized
+                                       errorMessage:isValid ? nil : @"invalid_phone_code_value"._jp_localized
                                      formattedInput:input];
 }
 
 - (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
-    BOOL isValid = input.isPhoneNumber;
+    BOOL isValid = input._jp_isPhoneNumber;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_phone_value".localized
+                                       errorMessage:isValid ? nil : @"invalid_phone_value"._jp_localized
                                      formattedInput:input];
 }
 

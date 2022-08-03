@@ -76,20 +76,6 @@
     return nil;
 }
 
-- (NSString *)countryNameForType:(JPCountryType)type {
-    switch (type) {
-        case JPCountryTypeUSA:
-            return @"country_usa"._jp_localized;
-        case JPCountryTypeUK:
-            return @"country_uk"._jp_localized;
-        case JPCountryTypeCanada:
-            return @"country_canada"._jp_localized;
-        case JPCountryTypeOther:
-            return @"country_other"._jp_localized;
-    }
-    return nil;
-}
-
 + (NSNumber *)dialCodeForCountry:(NSString *)countryName {
     JPCountryList *list = [JPCountryList defaultCountryList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
@@ -118,19 +104,6 @@
         self.phoneNumberFormat = dict[@"phoneNumberFormat"];
     }
     return self;
-}
-
-+ (NSNumber *)isoCodeForCountry:(NSString *)country {
-    if ([country isEqualToString:@"country_usa"._jp_localized]) {
-        return @(kJPCountryNumericCodeUSA);
-    }
-    if ([country isEqualToString:@"country_uk"._jp_localized]) {
-        return @(kJPCountryNumericCodeUK);
-    }
-    if ([country isEqualToString:@"country_canada"._jp_localized]) {
-        return @(kJPCountryNumericCodeCanada);
-    }
-    return nil;
 }
 
 @end

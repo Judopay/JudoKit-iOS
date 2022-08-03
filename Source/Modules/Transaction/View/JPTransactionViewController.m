@@ -50,18 +50,13 @@
     self.addCardView = [JPCardInputView new];
     self.view = self.addCardView;
     [self.presenter prepareInitialViewModel];
-    [self registerKeyboardObservers];
+    [self _jp_registerKeyboardObservers];
     [self addGestureRecognizers];
     if (@available(iOS 13.0, *)) {
         self.addCardView.scanCardButton.hidden = NO;
     } else {
         self.addCardView.scanCardButton.hidden = YES;
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self _jp_registerKeyboardObservers];
 }
 
 - (void)dealloc {
@@ -189,19 +184,19 @@
 #pragma mark - Layout setup
 
 - (void)updateTargets:(JPTransactionViewModel *)viewModel {
-    [self connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    [self connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
+    [self _jp_connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
+    [self _jp_connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
     switch (viewModel.mode) {
         case JPCardDetailsModeDefault:
         case JPCardDetailsModeAVS:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
             break;
         case JPCardDetailsModeThreeDS2:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
             break;
         case JPCardDetailsModeThreeDS2BillingDetails:
-            [self connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
-            [self connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
+            [self _jp_connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
             break;
         case JPCardDetailsModeSecurityCode:
             [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];

@@ -52,17 +52,17 @@
 /**
  * A method which returns YES if the string represents a valid email format
  */
-@property (nonatomic, assign, readonly) BOOL isEmail;
+@property (nonatomic, assign, readonly) BOOL _jp_isEmail;
 
 /**
  * A method which returns YES if the string represents a valid email format
  */
-@property (nonatomic, assign, readonly) BOOL isPhoneNumber;
+@property (nonatomic, assign, readonly) BOOL _jp_isPhoneNumber;
 
 /**
  * A method which returns YES if the string represents a valid phone dial number (country calling code)
  */
-@property (nonatomic, assign, readonly) BOOL isPhoneCode;
+@property (nonatomic, assign, readonly) BOOL _jp_isPhoneCode;
 
 /**
  * A method which returns YES if the string contains only digits

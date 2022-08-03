@@ -104,25 +104,25 @@ static const float kPhoneCodeWidth = 45.0F;
 
     UIView *contentView = [UIView new];
     [scrollView addSubview:contentView];
-    [contentView pinToView:scrollView withPadding:0];
+    [contentView _jp_pinToView:scrollView withPadding:0];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
 
     UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
     CGFloat topPadding = window.safeAreaInsets.top;
-    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self.safeTopAnchor constant:topPadding];
+    _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self._jp_safeTopAnchor constant:topPadding];
     [_topConstraint setActive:YES];
 
     _billingDetailsHeightConstraint = [scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
     _billingDetailsHeightConstraint.priority = UILayoutPriorityDefaultLow;
     [_billingDetailsHeightConstraint setActive:YES];
-    NSString *title = [NSString stringWithFormat:@"button_add_address_line_card".localized, @(2)];
+    NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
     [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
     _billingDetailsHeightConstraint.constant = 0;
 
     [[contentView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor] setActive:YES];
     [contentView addSubview:[self billingDetails]];
-    [_billingDetails pinToView:contentView withPadding:0];
+    [_billingDetails _jp_pinToView:contentView withPadding:0];
 
     [self.mainStackView addArrangedSubview:self.buttonStackView];
     _bottomButtons.layoutMarginsRelativeArrangement = YES;
@@ -218,7 +218,7 @@ static const float kPhoneCodeWidth = 45.0F;
     _cardHolderAddressLine2TextField.hidden = NO;
     _cardHolderAddressLine3TextField.hidden = tag < 1;
     _addAddressLineButton.hidden = tag > 0;
-    NSString *title = [NSString stringWithFormat:@"button_add_address_line_card".localized, @(tag + 3)];
+    NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(tag + 3)];
     [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
     sender.tag++;
     [self adjustTopSpace];
@@ -581,7 +581,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (UIStackView *)billingDetails {
     if (!_billingDetails) {
-        UIStackView *stackView = [UIStackView verticalStackViewWithSpacing:kTightContentSpacing];
+        UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
         [stackView addArrangedSubview:self.cardHolderEmailTextField];
         if (_mode != JPCardDetailsModeAVS) {
             [stackView addArrangedSubview:self.countryTextField];
@@ -600,7 +600,7 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)bottomButtons {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kButtonsContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kButtonsContentSpacing];
     [stackView addArrangedSubview:self.backButton];
     [stackView addArrangedSubview:self.addCardButton];
     _bottomButtons = stackView;
@@ -608,7 +608,7 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (UIStackView *)phoneStackView {
-    UIStackView *stackView = [UIStackView horizontalStackViewWithSpacing:kSeparatorContentSpacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSeparatorContentSpacing];
     [stackView addArrangedSubview:self.cardHolderPhoneCodeTextField];
     [stackView addArrangedSubview:self.cardHolderPhoneTextField];
     NSLayoutConstraint *widthLayout = [self.cardHolderPhoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth];
@@ -644,7 +644,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
     [stackView addArrangedSubview:self.additionalInputFieldsStackView];
-
+    _inputFieldsStackView = stackView;
     return stackView;
 }
 
