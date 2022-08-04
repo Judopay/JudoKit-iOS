@@ -4,10 +4,10 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.0.1)
-  - JudoKit-iOS (3.0.2):
+  - Judo3DS2_iOS (1.1.0)
+  - JudoKit-iOS (3.0.3):
     - DeviceDNA (~> 2.0.0)
-    - Judo3DS2_iOS (~> 1.0.1)
+    - Judo3DS2_iOS (~> 1.1.0)
     - TrustKit
     - ZappMerchantLib
   - MaterialComponents/AnimationTiming (124.2.0)
@@ -87,8 +87,8 @@ DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.0.1)
-  - JudoKit-iOS (= 3.0.2)
+  - Judo3DS2_iOS (= 1.1.0)
+  - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
 
 SPEC REPOS:
@@ -97,7 +97,6 @@ SPEC REPOS:
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
-    - JudoKit-iOS
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -108,6 +107,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Cucumberish:
     :git: https://github.com/mpetrenco/Cucumberish.git
+  JudoKit-iOS:
+    :path: "../../"
 
 CHECKOUT OPTIONS:
   Cucumberish:
@@ -119,8 +120,8 @@ SPEC CHECKSUMS:
   Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: c1ccf49ecacddb4559a73fb7eae6e680e2355b21
-  JudoKit-iOS: c61121b3a0a50392b9bbe4648b77f2cdc08c83ac
+  Judo3DS2_iOS: 88276544805c5db040e90c0e597d84da302480af
+  JudoKit-iOS: eb123ac21dde4e14e92d497e4a98f1aff7e23f60
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
@@ -128,6 +129,6 @@ SPEC CHECKSUMS:
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 19338ddb7cdb0fea4f3595c840eb51d5d5e71db9
+PODFILE CHECKSUM: a15c5b473dbfa7199cb2fbc9de48e3a6a4302ca9
 
 COCOAPODS: 1.11.3
