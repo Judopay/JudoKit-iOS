@@ -231,6 +231,7 @@
 
     CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     self.addCardView.bottomSliderConstraint.constant = -keyboardSize.height;
+    [self.view layoutIfNeeded];
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
@@ -248,6 +249,7 @@
     UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
 
     self.addCardView.bottomSliderConstraint.constant = 0;
+    [self.view layoutIfNeeded];
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
@@ -310,14 +312,13 @@
 }
 
 - (void)inputFieldDidBeginEditing:(JPInputField *)inputField {
-    UIScrollView *scrollView = self.addCardView.scrollView;
-    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
-    CGRect fieldFrame = inputField.frame;
-    
-    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
-        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, -60) animated:YES];
-    }
-
+    //    UIScrollView *scrollView = self.addCardView.scrollView;
+    //    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
+    //    CGRect fieldFrame = inputField.frame;
+    //
+    //    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
+    //        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, 80) animated:YES];
+    //    }
 }
 
 @end

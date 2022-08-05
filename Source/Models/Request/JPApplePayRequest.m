@@ -119,7 +119,6 @@
                                                   address2:postalAddress.city
                                                   address3:postalAddress.postalCode
                                                       town:postalAddress.city
-                                            billingCountry:postalAddress.ISOCountryCode
                                                   postCode:postalAddress.postalCode
                                                countryCode:[JPCountry isoCodeForCountry:postalAddress.country]];
 }

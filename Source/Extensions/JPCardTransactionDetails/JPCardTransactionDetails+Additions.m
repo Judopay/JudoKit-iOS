@@ -48,6 +48,7 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
+    request.cardAddress = self.billingAddress;
 
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
@@ -69,6 +70,7 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
+    request.cardAddress = self.billingAddress;
 
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
@@ -88,6 +90,7 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
+    request.cardAddress = self.billingAddress;
 
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
@@ -107,6 +110,7 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
+    request.cardAddress = self.billingAddress;
 
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
@@ -126,6 +130,7 @@
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
     request.emailAddress = self.emailAddress;
+    request.cardAddress = self.billingAddress;
 
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 

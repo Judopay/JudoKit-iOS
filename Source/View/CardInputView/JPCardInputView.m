@@ -113,13 +113,14 @@ static const float kPhoneCodeWidth = 45.0F;
 
     _billingDetailsHeightConstraint = [self.scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
     _billingDetailsHeightConstraint.priority = UILayoutPriorityDefaultLow;
+    _billingDetailsHeightConstraint.constant = 0;
     [_billingDetailsHeightConstraint setActive:YES];
+
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
     [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
-    _billingDetailsHeightConstraint.constant = 0;
 
     [[contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor] setActive:YES];
-    [contentView addSubview:[self billingDetails]];
+    [contentView addSubview:self.billingDetails];
     [_billingDetails _jp_pinToView:contentView withPadding:0];
 
     [self.mainStackView addArrangedSubview:self.buttonStackView];
@@ -158,7 +159,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     self.securityMessageLabel.font = theme.caption;
     self.securityMessageLabel.textColor = theme.jpDarkGrayColor;
-    
+
     self.billingDetailsLabel.font = theme.headline;
     self.billingDetailsLabel.textColor = theme.jpDarkGrayColor;
 

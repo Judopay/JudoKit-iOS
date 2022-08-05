@@ -32,7 +32,7 @@
     if (text == nil) {
         return;
     }
-    
+
     NSDictionary *attributes = @{
         NSForegroundColorAttributeName : color,
         NSFontAttributeName : font

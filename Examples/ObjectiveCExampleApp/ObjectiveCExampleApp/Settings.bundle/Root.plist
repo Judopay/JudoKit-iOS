@@ -425,16 +425,6 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>address_billing_country_title</string>
-			<key>Key</key>
-			<string>address_billing_country</string>
-			<key>DefaultValue</key>
-			<string>826</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
 			<string>address_country_code_title</string>
 			<key>Key</key>
 			<string>address_country_code</string>

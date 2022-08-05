@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry;
+@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry, JPCardTransactionDetails;
 typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
 typedef NS_ENUM(NSUInteger, JPTransactionType);
 typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
@@ -178,14 +178,8 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-/**
- * A method for sending a transaction to the Judo backend with specified card details
- *
- * @param card - the JPCard object which stores the card details
- * @param completionHandler - the completion block with an optional JPResponse / NSError
- */
-- (void)sendTransactionWithCard:(JPCard *)card
-              completionHandler:(JPCompletionBlock)completionHandler;
+- (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details
+                 completionHandler:(JPCompletionBlock)completionHandler;
 
 /**
  * A method for updating the keychain information about the card
@@ -200,6 +194,8 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  * A method for generating pay button title
  */
 - (NSString *)generatePayButtonTitle;
+
+- (JPConfiguration *)configuration;
 
 @end
 

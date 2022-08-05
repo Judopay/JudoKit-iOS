@@ -30,7 +30,6 @@
                         address2:(nullable NSString *)address2
                         address3:(nullable NSString *)address3
                             town:(nullable NSString *)town
-                  billingCountry:(nullable NSString *)billingCountry
                         postCode:(nullable NSString *)postCode
                      countryCode:(nullable NSNumber *)countryCode {
 
@@ -39,7 +38,6 @@
         self.address2 = address2;
         self.address3 = address3;
         self.town = town;
-        self.billingCountry = billingCountry;
         self.postCode = postCode;
         self.countryCode = countryCode;
     }
@@ -62,10 +60,6 @@
 
         if (dictionary[@"town"]) {
             self.town = dictionary[@"town"];
-        }
-
-        if (dictionary[@"billingCountry"]) {
-            self.billingCountry = dictionary[@"billingCountry"];
         }
 
         if (dictionary[@"postCode"]) {

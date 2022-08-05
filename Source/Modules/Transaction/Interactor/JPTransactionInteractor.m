@@ -122,20 +122,19 @@
     if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
         return @"pay_now"._jp_localized;
     }
-    
+
     if (self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount) {
         JPAmount *amount = self.configuration.amount;
         NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount
                                                           withCurrencyCode:amount.currency];
         return [NSString stringWithFormat:@"pay_amount"._jp_localized, formattedAmount];
     }
-    
+
     return @"pay_now"._jp_localized;
 }
 
-- (void)sendTransactionWithCard:(JPCard *)card completionHandler:(JPCompletionBlock)completionHandler {
-    JPCardTransactionDetails *details = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration andCard:card];
-
+- (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details
+                 completionHandler:(JPCompletionBlock)completionHandler {
     switch (self.transactionType) {
         case JPTransactionTypePayment:
             [self.transactionService invokePaymentWithDetails:details andCompletion:completionHandler];

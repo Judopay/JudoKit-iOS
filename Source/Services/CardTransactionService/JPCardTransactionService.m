@@ -154,7 +154,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                      andCompletion:(JPCompletionBlock)completion {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
-        
+
         switch (details.cardType) {
             case JPCardNetworkTypeVisa:
                 dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";

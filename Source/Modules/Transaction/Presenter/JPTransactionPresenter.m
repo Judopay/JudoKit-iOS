@@ -28,6 +28,7 @@
 #import "JPCardDetails.h"
 #import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
+#import "JPCardTransactionDetails.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPInputType.h"
@@ -106,11 +107,11 @@
     self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint"._jp_localized;
 
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
-    
+
     if (self.transactionViewModel.mode == JPCardDetailsModeThreeDS2) {
         buttonTitle = @"continue"._jp_localized;
     }
-    
+
     self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.transactionViewModel.addCardButtonViewModel.isEnabled = NO;
 
@@ -170,17 +171,17 @@
 #pragma mark - Transaction Button Tap
 
 - (void)handleTransactionButtonTap {
-    JPCard *card = [self cardFromViewModel:self.transactionViewModel];
+    JPCardTransactionDetails *details = [self cardTransactionDetailsFromViewModel:self.transactionViewModel];
 
     __weak typeof(self) weakSelf = self;
-    [self.interactor sendTransactionWithCard:card
-                           completionHandler:^(JPResponse *response, JPError *error) {
-                               if (error) {
-                                   [weakSelf handleError:error];
-                                   return;
-                               }
-                               [weakSelf handleResponse:response];
-                           }];
+    [self.interactor sendTransactionWithDetails:details
+                              completionHandler:^(JPResponse *response, JPError *error) {
+                                  if (error) {
+                                      [weakSelf handleError:error];
+                                      return;
+                                  }
+                                  [weakSelf handleResponse:response];
+                              }];
 }
 
 - (void)handleContinueButtonTap {
@@ -306,7 +307,7 @@
     }
 
     self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
-    
+
     BOOL isDefaultValid = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
     switch (self.transactionViewModel.mode) {
         case JPCardDetailsModeSecurityCode:
@@ -475,16 +476,36 @@
     }
 }
 
+- (JPCardTransactionDetails *)cardTransactionDetailsFromViewModel:(JPTransactionViewModel *)viewModel {
+    JPCard *card = [self cardFromViewModel:viewModel];
+    JPConfiguration *configuration = self.interactor.configuration;
+    JPCardTransactionDetails *details = [[JPCardTransactionDetails alloc] initWithConfiguration:configuration
+                                                                                        andCard:card];
+
+    if (viewModel.cardholderEmailViewModel.text.length > 0) {
+        details.emailAddress = viewModel.cardholderEmailViewModel.text;
+    }
+
+    if (viewModel.cardholderPhoneCodeViewModel.text.length > 0 && viewModel.cardholderPhoneViewModel.text.length > 0) {
+        details.phoneCountryCode = viewModel.cardholderPhoneCodeViewModel.text;
+        details.mobileNumber = viewModel.cardholderPhoneViewModel.text;
+    }
+
+    return details;
+}
+
 - (JPCard *)cardFromViewModel:(JPTransactionViewModel *)viewModel {
     JPCard *card = [[JPCard alloc] initWithCardNumber:viewModel.cardNumberViewModel.text
                                        cardholderName:viewModel.cardholderNameViewModel.text
                                            expiryDate:viewModel.expiryDateViewModel.text
                                            secureCode:viewModel.secureCodeViewModel.text];
 
-    JPAddress *configuredAddress = [self.interactor getConfiguredCardAddress];
-    card.cardAddress = configuredAddress ? configuredAddress : [JPAddress new];
+    card.cardAddress = [self.interactor getConfiguredCardAddress];
 
     if ([self.interactor isAVSEnabled]) {
+        if (!card.cardAddress) {
+            card.cardAddress = [JPAddress new];
+        }
         card.cardAddress.countryCode = [JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text];
         card.cardAddress.postCode = viewModel.postalCodeInputViewModel.text;
     }
@@ -494,7 +515,6 @@
                                                                address2:viewModel.cardholderAddressLine2ViewModel.text
                                                                address3:viewModel.cardholderAddressLine3ViewModel.text
                                                                    town:viewModel.cardholderCityViewModel.text
-                                                         billingCountry:nil
                                                                postCode:viewModel.postalCodeInputViewModel.text
                                                             countryCode:[JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text]];
         card.cardAddress = billingAddress;

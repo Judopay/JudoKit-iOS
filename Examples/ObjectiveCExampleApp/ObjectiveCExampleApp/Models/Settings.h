@@ -27,7 +27,6 @@ static NSString *const kAddressLine2Key = @"address_line_2";
 static NSString *const kAddressLine3Key = @"address_line_3";
 static NSString *const kAddressTownKey = @"address_town";
 static NSString *const kAddressPostCodeKey = @"address_post_code";
-static NSString *const kAddressBillingCountryKey = @"address_billing_country";
 static NSString *const kAddressCountryCodeKey = @"address_country_code";
 static NSString *const kAddressPhoneCountryCodeKey = @"address_phone_country_code";
 static NSString *const kAddressMobileNumberKey = @"address_mobile_number";
