@@ -8,7 +8,7 @@ target 'ObjectiveCExampleApp' do
   pod 'Judo3DS2_iOS', '1.1.0'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '3.0.2'
+  # pod 'JudoKit-iOS', '3.1.0'
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
