@@ -32,7 +32,7 @@
 /**
  * An initializer that points to the JudoKit framework
  */
-+ (nonnull instancetype)_jp_frameworkBundle;
++ (nullable instancetype)_jp_frameworkBundle;
 
 /**
  * An initializer that points to the icons bundle inside the JudoKit framework

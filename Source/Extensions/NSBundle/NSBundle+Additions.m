@@ -31,17 +31,17 @@
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:[JudoKit class]];
+        bundle = [NSBundle bundleForClass:JudoKit.class];
     });
     return bundle;
 }
 
 + (NSBundle *)_jp_iconsBundle {
-    static NSBundle *__nullable iconsBundle;
+    static NSBundle *iconsBundle;
     static dispatch_once_t onceToken;
+    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"icons"];
     dispatch_once(&onceToken, ^{
-        NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"icons"];
-        iconsBundle = [NSBundle bundleWithPath:iconBundlePath];
+        iconsBundle = [[NSBundle alloc] initWithPath:iconBundlePath];
     });
     return iconsBundle;
 }
@@ -49,33 +49,35 @@
 + (instancetype)_jp_stringsBundle {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
+    NSString *podPath = [NSBundle._jp_frameworkBundle pathForResource:@"JudoKit_iOS"
+                                                               ofType:@"bundle"];
+
     dispatch_once(&onceToken, ^{
-        NSString *podPath = [NSBundle._jp_frameworkBundle pathForResource:@"JudoKit_iOS"
-                                                                   ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:podPath];
+        bundle = [[NSBundle alloc] initWithPath:podPath];
     });
     return bundle;
 }
 
 + (instancetype)_jp_resourcesBundle {
-    static NSBundle *__nullable resourcesBundle;
+    static NSBundle *resourcesBundle;
     static dispatch_once_t onceToken;
+    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"resources"];
+
     dispatch_once(&onceToken, ^{
-        NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"resources"];
-        resourcesBundle = [NSBundle bundleWithPath:iconBundlePath];
+        resourcesBundle = [[NSBundle alloc] initWithPath:iconBundlePath];
     });
     return resourcesBundle;
 }
 
 + (NSString *)pathForResourceBundle:(NSString *)resourceBundle {
-    for (NSBundle *bundle in [NSBundle allBundles]) {
+    for (NSBundle *bundle in NSBundle.allBundles) {
         NSString *bundlePath = [bundle pathForResource:resourceBundle ofType:@"bundle"];
         if (bundlePath) {
             return bundlePath;
         }
     }
 
-    for (NSBundle *bundle in [NSBundle allFrameworks]) {
+    for (NSBundle *bundle in NSBundle.allFrameworks) {
         NSString *bundlePath = [bundle pathForResource:resourceBundle ofType:@"bundle"];
         if (bundlePath) {
             return bundlePath;
