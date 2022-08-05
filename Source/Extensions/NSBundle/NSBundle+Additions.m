@@ -52,6 +52,10 @@
     NSString *podPath = [NSBundle._jp_frameworkBundle pathForResource:@"JudoKit_iOS"
                                                                ofType:@"bundle"];
 
+    if (!podPath) {
+        return nil;
+    }
+    
     dispatch_once(&onceToken, ^{
         bundle = [[NSBundle alloc] initWithPath:podPath];
     });
