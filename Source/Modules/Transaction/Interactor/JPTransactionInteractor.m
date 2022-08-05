@@ -119,17 +119,17 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if (self.cardDetailsMode == JPCardDetailsModeThreeDS2) {
-        return @"continue"._jp_localized;
-    } else if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
+    if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
         return @"pay_now"._jp_localized;
     }
+    
     if (self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount) {
         JPAmount *amount = self.configuration.amount;
-        NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount withCurrencyCode:amount.currency];
-
+        NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount
+                                                          withCurrencyCode:amount.currency];
         return [NSString stringWithFormat:@"pay_amount"._jp_localized, formattedAmount];
     }
+    
     return @"pay_now"._jp_localized;
 }
 

@@ -106,6 +106,11 @@
     self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint"._jp_localized;
 
     NSString *buttonTitle = [self transactionButtonTitleForType:type];
+    
+    if (self.transactionViewModel.mode == JPCardDetailsModeThreeDS2) {
+        buttonTitle = @"continue"._jp_localized;
+    }
+    
     self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
     self.transactionViewModel.addCardButtonViewModel.isEnabled = NO;
 
@@ -180,7 +185,8 @@
 
 - (void)handleContinueButtonTap {
     self.transactionViewModel.mode = JPCardDetailsModeThreeDS2BillingDetails;
-    [self updatePostalCodeViewModelForInput:self.transactionViewModel.postalCodeInputViewModel.text];
+    NSString *postalCode = self.transactionViewModel.postalCodeInputViewModel.text;
+    [self updatePostalCodeViewModelForInput:postalCode];
     [self updateTransactionButtonModelIfNeeded];
     [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:YES];
 }
@@ -294,6 +300,13 @@
 }
 
 - (void)updateTransactionButtonModelIfNeeded {
+    NSString *buttonTitle = [self transactionButtonTitleForType:self.transactionViewModel.type];
+    if (self.transactionViewModel.mode == JPCardDetailsModeThreeDS2) {
+        buttonTitle = @"continue"._jp_localized;
+    }
+
+    self.transactionViewModel.addCardButtonViewModel.title = buttonTitle.uppercaseString;
+    
     BOOL isDefaultValid = self.isCardNumberValid && self.isCardholderNameValid && self.isExpiryDateValid && self.isSecureCodeValid;
     switch (self.transactionViewModel.mode) {
         case JPCardDetailsModeSecurityCode:

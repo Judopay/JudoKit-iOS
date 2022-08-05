@@ -121,6 +121,7 @@
     label.text = text;
     label.textColor = _theme.jpBlackColor;
     label.font = _theme.headlineLight;
+    label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     [label sizeToFit];
     return label;
 }
@@ -222,6 +223,10 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self.delegate inputField:self didEndEditing:textField.text];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.delegate inputFieldDidBeginEditing:self];
 }
 
 @end

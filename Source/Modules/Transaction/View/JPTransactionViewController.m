@@ -309,4 +309,15 @@
                             showError:inputField.type == JPInputTypeCardholderEmail];
 }
 
+- (void)inputFieldDidBeginEditing:(JPInputField *)inputField {
+    UIScrollView *scrollView = self.addCardView.scrollView;
+    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
+    CGRect fieldFrame = inputField.frame;
+    
+    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
+        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, -60) animated:YES];
+    }
+
+}
+
 @end

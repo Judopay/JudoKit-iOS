@@ -29,6 +29,7 @@
 
 @interface JPCardInputView : UIView
 
+@property (nonatomic, strong) UIScrollView *_Nullable scrollView;
 /**
  * The dimmed, semi-transparent background view that fades in when the add card slider appears
  */

@@ -46,6 +46,7 @@
 @property (nonatomic, strong) UIStackView *securityMessageStackView;
 @property (nonatomic, strong) UIImageView *lockImageView;
 @property (nonatomic, strong) UILabel *securityMessageLabel;
+@property (nonatomic, strong) UILabel *billingDetailsLabel;
 @property (nonatomic, strong) NSLayoutConstraint *billingDetailsHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *topConstraint;
 @property (nonatomic, copy) void (^onScanCardButtonTapHandler)(void);
@@ -70,7 +71,7 @@ static const float kTightContentSpacing = 8.0F;
 static const float kLooseContentSpacing = 16.0F;
 static const float kSeparatorContentSpacing = 1.0F;
 static const float kButtonsContentSpacing = 40.0F;
-static const float kAnimationTimeInterval = 0.3F;
+static const float kAnimationTimeInterval = 0.2F;
 static const float kPhoneCodeWidth = 45.0F;
 
 #pragma mark - Initializers
@@ -98,14 +99,11 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.mainStackView addArrangedSubview:self.topButtonStackView];
     [self.mainStackView addArrangedSubview:self.secureCodeTextField];
     [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
-
-    UIScrollView *scrollView = [UIScrollView new];
-    [self.mainStackView addArrangedSubview:scrollView];
+    [self.mainStackView addArrangedSubview:self.scrollView];
 
     UIView *contentView = [UIView new];
-    [scrollView addSubview:contentView];
-    [contentView _jp_pinToView:scrollView withPadding:0];
-    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.scrollView addSubview:contentView];
+    [contentView _jp_pinToView:self.scrollView withPadding:0];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
 
     UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
@@ -113,14 +111,14 @@ static const float kPhoneCodeWidth = 45.0F;
     _topConstraint = [_bottomSlider.topAnchor constraintGreaterThanOrEqualToAnchor:self._jp_safeTopAnchor constant:topPadding];
     [_topConstraint setActive:YES];
 
-    _billingDetailsHeightConstraint = [scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
+    _billingDetailsHeightConstraint = [self.scrollView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
     _billingDetailsHeightConstraint.priority = UILayoutPriorityDefaultLow;
     [_billingDetailsHeightConstraint setActive:YES];
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
     [_addAddressLineButton setTitle:title forState:UIControlStateNormal];
     _billingDetailsHeightConstraint.constant = 0;
 
-    [[contentView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor] setActive:YES];
+    [[contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor] setActive:YES];
     [contentView addSubview:[self billingDetails]];
     [_billingDetails _jp_pinToView:contentView withPadding:0];
 
@@ -160,6 +158,9 @@ static const float kPhoneCodeWidth = 45.0F;
 
     self.securityMessageLabel.font = theme.caption;
     self.securityMessageLabel.textColor = theme.jpDarkGrayColor;
+    
+    self.billingDetailsLabel.font = theme.headline;
+    self.billingDetailsLabel.textColor = theme.jpDarkGrayColor;
 
     [self.cardHolderEmailTextField applyTheme:theme];
     [self.cardHolderAddressLine1TextField applyTheme:theme];
@@ -570,6 +571,16 @@ static const float kPhoneCodeWidth = 45.0F;
     return _securityMessageLabel;
 }
 
+- (UILabel *)billingDetailsLabel {
+    if (!_billingDetailsLabel) {
+        _billingDetailsLabel = [UILabel new];
+        _billingDetailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _billingDetailsLabel.text = @"billing_details_title"._jp_localized;
+        _billingDetailsLabel.numberOfLines = 0;
+    }
+    return _billingDetailsLabel;
+}
+
 #pragma mark - Stack Views
 
 - (UIStackView *)mainStackView {
@@ -582,6 +593,7 @@ static const float kPhoneCodeWidth = 45.0F;
 - (UIStackView *)billingDetails {
     if (!_billingDetails) {
         UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
+        [stackView addArrangedSubview:self.billingDetailsLabel];
         [stackView addArrangedSubview:self.cardHolderEmailTextField];
         if (_mode != JPCardDetailsModeAVS) {
             [stackView addArrangedSubview:self.countryTextField];
@@ -679,9 +691,18 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (UIStackView *)buttonStackView {
     UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kLooseContentSpacing];
-    [stackView addArrangedSubview:self.addCardButton];
+    [stackView addArrangedSubview:self.bottomButtons];
     [stackView addArrangedSubview:self.securityMessageStackView];
     return stackView;
+}
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [UIScrollView new];
+        [_scrollView setShowsVerticalScrollIndicator:NO];
+        _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _scrollView;
 }
 
 @end

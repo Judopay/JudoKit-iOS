@@ -36,5 +36,5 @@
  */
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text;
 - (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text;
-
+- (void)inputFieldDidBeginEditing:(JPInputField *)inputField;
 @end
