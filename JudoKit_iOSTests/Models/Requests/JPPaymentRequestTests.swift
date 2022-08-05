@@ -72,7 +72,6 @@ class JPPaymentRequestTests: XCTestCase {
                                             address2: "Line 2",
                                             address3: "Line 3",
                                             town: "Town",
-                                            billingCountry: "Billing Country",
                                             postCode: "Postcode",
                                             countryCode: 123)
 
@@ -95,7 +94,6 @@ class JPPaymentRequestTests: XCTestCase {
         XCTAssertEqual(paymentRequest.cardAddress?.address2, cardDetails.cardAddress?.address2)
         XCTAssertEqual(paymentRequest.cardAddress?.address3, cardDetails.cardAddress?.address3)
         XCTAssertEqual(paymentRequest.cardAddress?.town, cardDetails.cardAddress?.town)
-        XCTAssertEqual(paymentRequest.cardAddress?.billingCountry, cardDetails.cardAddress?.billingCountry)
         XCTAssertEqual(paymentRequest.cardAddress?.countryCode, cardDetails.cardAddress?.countryCode)
         XCTAssertEqual(paymentRequest.cardAddress?.postCode, cardDetails.cardAddress?.postCode)
     }

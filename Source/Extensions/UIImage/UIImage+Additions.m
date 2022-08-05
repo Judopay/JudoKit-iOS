@@ -25,15 +25,18 @@
 
 #import "NSBundle+Additions.h"
 #import "UIImage+Additions.h"
+#import <UIKit/UITraitCollection.h>
 
 @implementation UIImage (Additions)
 
 + (UIImage *)_jp_imageWithIconName:(NSString *)iconName {
-    return [UIImage imageNamed:iconName inBundle:NSBundle._jp_iconsBundle compatibleWithTraitCollection:nil];
+    NSBundle *bundle = NSBundle._jp_iconsBundle;
+    return [UIImage imageNamed:iconName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
 + (UIImage *)_jp_imageWithResourceName:(NSString *)resourceName {
-    return [UIImage imageNamed:resourceName inBundle:NSBundle._jp_resourcesBundle compatibleWithTraitCollection:nil];
+    NSBundle *bundle = NSBundle._jp_resourcesBundle;
+    return [UIImage imageNamed:resourceName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
 + (UIImage *)_jp_headerImageForCardNetwork:(JPCardNetworkType)network {

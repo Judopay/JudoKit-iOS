@@ -616,20 +616,6 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: send Transaction
-     *
-     * WHEN: with valid card
-     *
-     * THEN: should send transaction
-     */
-    func test_sendTransactionWithCard() {
-        sut.sendTransaction(with: JPCard(cardNumber: "cardNumber",
-                                         cardholderName: "cardholderName",
-                                         expiryDate: "expiryDate",
-                                         secureCode: "secureCode")) { (_, _) in}
-    }
-    
-    /*
      * GIVEN: validate card number(Master)
      *
      * WHEN: when supportedCardNetworks is empty

@@ -70,7 +70,7 @@ class JPEnhancedPaymentDetailTest: XCTestCase {
      */
     func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPEnhancedPaymentDetail.init(sdkInfo: sdkInfo, consumerDevice: consumerDevice)
-        let dic = sut.toDictionary() as NSDictionary
+        let dic = sut._jp_toDictionary() as NSDictionary
         XCTAssertEqual(dic.object(forKey: "SDK_INFO") as! Dictionary, ["Version":"version", "Name": "name"])
         let consumerDevice = dic.object(forKey: "ConsumerDevice") as! Dictionary<String, Any>
         XCTAssertEqual(consumerDevice["ClientDetails"] as! Dictionary, ["key": "key", "value": "value"])

@@ -51,7 +51,6 @@ class JPAddressTests: XCTestCase {
                                 address2: "line2",
                                 address3: "line3",
                                 town: "town",
-                                billingCountry: "billingCountry",
                                 postCode: "postCode",
                                 countryCode: 123)
 
@@ -75,7 +74,6 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.address2, "line2")
         XCTAssertEqual(address.address3, "line3")
         XCTAssertEqual(address.town, "town")
-        XCTAssertEqual(address.billingCountry, "billingCountry")
         XCTAssertEqual(address.postCode, "postCode")
         XCTAssertEqual(address.countryCode, 123)
     }

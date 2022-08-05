@@ -58,6 +58,10 @@
 }
 
 + (JPCardNetworkType)cardNetworkForCardNumber:(NSString *)cardNumber {
+    if (cardNumber.length == 0) {
+        return JPCardNetworkTypeUnknown;
+    }
+    
     if ([self doesCardNumber:cardNumber matchRegex:kRegexVisa]) {
         return JPCardNetworkTypeVisa;
     }

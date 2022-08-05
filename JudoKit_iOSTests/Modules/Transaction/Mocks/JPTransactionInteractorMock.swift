@@ -33,6 +33,11 @@ enum SendTransactionTest {
 }
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
+    
+    func configuration() -> JPConfiguration {
+        return JPConfiguration()
+    }
+    
     var testSendTransaction: SendTransactionTest = .validData
     var type: JPTransactionType = .saveCard
     lazy var validationService = JPCardValidationService()
@@ -131,7 +136,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         return validationService.validatePostalCodeInput(input)
     }
     
-    func sendTransaction(with card: JPCard, completionHandler: JPCompletionBlock) {
+    func sendTransaction(with details: JPCardTransactionDetails, completionHandler: @escaping JPCompletionBlock) {
         switch testSendTransaction {
         case .error:
             let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
@@ -151,7 +156,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             trasactionSent = true
         }
     }
-    
+        
     var dic = ["receiptId":"receiptId",
                "orderId": "orderId",
                "type":"Payment",
