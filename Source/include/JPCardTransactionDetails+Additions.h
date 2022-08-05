@@ -1,0 +1,1 @@
+../Extensions/JPCardTransactionDetails/JPCardTransactionDetails+Additions.h

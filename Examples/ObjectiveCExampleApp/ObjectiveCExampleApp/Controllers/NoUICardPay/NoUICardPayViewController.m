@@ -82,7 +82,6 @@
                                                         address2:nil
                                                         address3:nil
                                                             town:@"London"
-                                                  billingCountry:nil
                                                         postCode:@"se151qa"
                                                      countryCode:@826];
     

@@ -86,7 +86,7 @@ static NSString *const kCanadaRegex = @"^(\\d{5}(-\\d{4})?|[A-Z]\\d[A-Z] ?\\d[A-
 static NSString *const kJudoIdRegex = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{6}))?$";
 
 // Default 3DS 2.0 maximum timeout value
-static int const kDefaultThreeDSTwoMaxTimeout = 120;
+static int const kDefaultThreeDSTwoMaxTimeout = 60;
 
 // Default 3DS 2.0 protocol message version
 static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";

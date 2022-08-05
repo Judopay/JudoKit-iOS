@@ -149,6 +149,20 @@
     return sanitized;
 }
 
+- (BOOL)_jp_isEmail {
+    NSString *emailRegEx = @"[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
+    NSPredicate *emailPred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailPred evaluateWithObject:self];
+}
+
+- (BOOL)_jp_isPhoneCode {
+    return [self _jp_isNumeric];
+}
+
+- (BOOL)_jp_isPhoneNumber {
+    return [self _jp_isNumeric];
+}
+
 - (nonnull NSMutableAttributedString *)_jp_attributedStringWithBoldSubstring:(nonnull NSString *)substring {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self];
     NSRange substringRange = [self rangeOfString:substring];

@@ -27,8 +27,15 @@
 "button_done" = "Terminer";
 "button_edit" = "Editer";
 "button_scan_card" = "Scanner carte";
+"button_add_address_line_card" = "+ Add address line %@ (optional)";
 "cancel" = "Anuler";
+"back" = "Back";
 "card_holder_hint" = "Nom du titulaire de la carte";
+"card_holder_country_hint" = "Country";
+"card_holder_phone_hint" = "Mobile number";
+"card_holder_city_hint" = "City";
+"card_holder_adress_line_hint" = "Address line %@";
+"card_holder_email_hint" = "Email";
 "card_number_hint" = "Numéro de carte";
 "card_subtitle" = "%@ Se Terminant";
 "cards" = "Cartes";
@@ -64,6 +71,9 @@
 "ideal_payment" = "iDeal";
 "ideal_transaction" = "Paiement iDEAL";
 "invalid_expiry_date_value" = "La date entrée est invalide ";
+"invalid_email_value" = "Invalid email entered";
+"invalid_phone_code_value" = "Invalid phone code entered";
+"invalid_phone_value" = "Invalid phone entered";
 "invalid_postcode" = "Code postal invalide";
 "invalid_zip_code" = "Code postal invalide";
 "invalid_email_address" = "Please enter a valid email";
@@ -77,6 +87,7 @@
 "pay_amount" = "Payer %@";
 "pay_by_bank" = "Application Pay by Bank";
 "pay_now" = "Payer maintenant";
+"continue" = "Continue";
 "post_code_hint" = "Code postal";
 "email_hint" = "Email";
 "phone_country_code_hint" = "+()";

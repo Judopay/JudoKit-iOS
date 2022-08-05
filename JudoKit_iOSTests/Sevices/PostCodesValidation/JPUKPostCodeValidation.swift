@@ -37,52 +37,52 @@ class JPUKPostCodeValidation: XCTestCase {
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         validationService.validateCountryInput("UK")
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
-                                          transactionService: nil,
+                                          transactionService: JPCardTransactionService(),
                                           transactionType: .payment,
                                           cardDetailsMode: .default,
                                           configuration: configuration,
                                           cardNetwork: .all,
-                                          completion: nil)
+                                          completion: { _, _ in })
     }
     
     func testValidCode_UK() {
         let result = sut.validatePostalCodeInput("EC1A 1BB")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     func testValidCodeWithSpaces_UK() {
         let result = sut.validatePostalCodeInput("M1 1AE")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     func testInValidRegexSpecialSymbols_UK() {
         let result = sut.validatePostalCodeInput("B33 8TH")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     func testValidCodeWithSpacesWithoutSpaces_UK() {
         let result = sut.validatePostalCodeInput("M11AE")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     func testInValidRegexSpecialSymbolsWithoutSpaces_UK() {
         let result = sut.validatePostalCodeInput("B338TH")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     func testInValidErrorMessage_UK() {
-        let result = sut.validatePostalCodeInput("1 ABCD")!
+        let result = sut.validatePostalCodeInput("1 ABCD")
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }
     
     func testInValidCharacters_UK() {
         let result = sut.validatePostalCodeInput("B3@ 8TH")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     func testEmptyCode_UK() {
         let result = sut.validatePostalCodeInput("")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
 }

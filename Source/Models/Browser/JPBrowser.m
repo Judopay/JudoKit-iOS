@@ -53,7 +53,7 @@ static NSString *const kScreenWidthKey = @"ScreenWidth";
 }
 
 #pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
         kAcceptHeaderKey : self.acceptHeader,
         kTimeZoneKey : self.timeZone.abbreviation,

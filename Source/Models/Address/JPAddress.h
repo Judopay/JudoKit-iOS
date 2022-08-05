@@ -50,11 +50,6 @@
 @property (nonatomic, strong, nullable) NSString *town;
 
 /**
- *  Billing country of the address
- */
-@property (nonatomic, strong, nullable) NSString *billingCountry;
-
-/**
  *  Post code of the address
  */
 @property (nonatomic, strong, nullable) NSString *postCode;
@@ -81,7 +76,6 @@
                                 address2:(nullable NSString *)address2
                                 address3:(nullable NSString *)address3
                                     town:(nullable NSString *)town
-                          billingCountry:(nullable NSString *)billingCountry
                                 postCode:(nullable NSString *)postCode
                              countryCode:(nullable NSNumber *)countryCode;
 

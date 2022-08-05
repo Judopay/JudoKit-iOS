@@ -55,7 +55,6 @@
 #import "UIApplication+Additions.h"
 #import "JPAmount.h"
 #import "JPCard.h"
-#import "JPCardDetails.h"
 #import "JudoKit.h"
 #import "JP3DSConfiguration.h"
 #import "UIImage+Additions.h"
@@ -64,3 +63,5 @@
 #import "JPPBBAService.h"
 #import "JPAuthorization.h"
 #import "JPSessionAuthorization.h"
+#import "JPInputType.h"
+#import "JPCardDetailsMode.h"

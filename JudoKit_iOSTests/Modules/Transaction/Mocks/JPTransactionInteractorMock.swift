@@ -33,6 +33,11 @@ enum SendTransactionTest {
 }
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
+    
+    func configuration() -> JPConfiguration {
+        return JPConfiguration()
+    }
+    
     var testSendTransaction: SendTransactionTest = .validData
     var type: JPTransactionType = .saveCard
     lazy var validationService = JPCardValidationService()
@@ -48,38 +53,46 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         return .visa
     }
     
-    func generatePayButtonTitle() -> String! {
+    func generatePayButtonTitle() -> String {
         return "Pay"
     }
     
-    func updateKeychain(withCardModel viewModel: JPTransactionViewModel!, andToken token: String!) {
+    func updateKeychain(withCardModel viewModel: JPTransactionViewModel, andToken token: String) {
     }
     
     func isAVSEnabled() -> Bool {
         return true
     }
-    
+
+    func getConfiguredTheme() -> JPTheme {
+        JPTheme()
+    }
+
     func transactionType() -> JPTransactionType {
         return type
     }
     
-    func handleCameraPermissions(completion: ((AVAuthorizationStatus) -> Void)!) {
+    func handleCameraPermissions(completion: ((AVAuthorizationStatus) -> Void)) {
         
     }
-    
+
+    func getFilteredCountries(bySearch searchString: String?) -> [JPCountry] {
+        return [JPCountry()]
+    }
+
     func getSelectableCountryNames() -> [String]! {
         return ["UK"]
     }
     
-    func getConfiguredCardAddress() -> JPAddress! {
+    func getConfiguredCardAddress() -> JPAddress {
         return JPAddress()
     }
     
-    func completeTransaction(with response: JPResponse!, error: JPError!) {
+    func completeTransaction(with response: JPResponse?, error: JPError?) {
         completeTransaction = true
     }
     
-    func storeError(_ error: Error!) {
+    func storeError(_ error: Error) {
         
     }
     
@@ -87,31 +100,43 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         
     }
     
-    func validateCardNumberInput(_ input: String!) -> JPValidationResult! {
+    func validateCardNumberInput(_ input: String) -> JPValidationResult {
         return validationService.validateCardNumberInput(input, forSupportedNetworks: .visa)
     }
-    
-    func validateCardholderNameInput(_ input: String!) -> JPValidationResult! {
+
+    func validateCardholderEmailInput(_ input: String) -> JPValidationResult {
+        return validationService.validateCardholderEmailInput(input)
+    }
+
+    func validateCardholderPhoneCodeInput(_ input: String) -> JPValidationResult {
+        return validationService.validateCardholderPhoneCodeInput(input)
+    }
+
+    func validateCardholderPhoneInput(_ input: String) -> JPValidationResult {
+        return validationService.validateCardholderPhoneInput(input)
+    }
+
+    func validateCardholderNameInput(_ input: String) -> JPValidationResult {
         return validationService.validateCardholderNameInput(input)
     }
     
-    func validateExpiryDateInput(_ input: String!) -> JPValidationResult! {
+    func validateExpiryDateInput(_ input: String) -> JPValidationResult {
         return validationService.validateExpiryDateInput(input)
     }
     
-    func validateSecureCodeInput(_ input: String!) -> JPValidationResult! {
+    func validateSecureCodeInput(_ input: String) -> JPValidationResult {
         return validationService.validateSecureCodeInput(input)
     }
     
-    func validateCountryInput(_ input: String!) -> JPValidationResult! {
+    func validateCountryInput(_ input: String) -> JPValidationResult {
         return validationService.validateCountryInput(input)
     }
     
-    func validatePostalCodeInput(_ input: String!) -> JPValidationResult! {
+    func validatePostalCodeInput(_ input: String) -> JPValidationResult {
         return validationService.validatePostalCodeInput(input)
     }
     
-    func sendTransaction(with card: JPCard!, completionHandler: JPCompletionBlock!) {
+    func sendTransaction(with details: JPCardTransactionDetails, completionHandler: @escaping JPCompletionBlock) {
         switch testSendTransaction {
         case .error:
             let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
@@ -131,7 +156,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             trasactionSent = true
         }
     }
-    
+        
     var dic = ["receiptId":"receiptId",
                "orderId": "orderId",
                "type":"Payment",

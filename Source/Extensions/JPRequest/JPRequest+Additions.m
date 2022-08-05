@@ -11,6 +11,7 @@
     self.cv2 = card.secureCode;
     self.startDate = card.startDate;
     self.issueNumber = card.issueNumber;
+    self.cardHolderName = card.cardholderName;
 
     if (card.cardAddress) {
         self.cardAddress = card.cardAddress;

@@ -47,10 +47,10 @@ static NSString *const kConsumerDeviceKey = @"ConsumerDevice";
 }
 
 #pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
-        kSDKInfoKey : [self.sdkInfo toDictionary],
-        kConsumerDeviceKey : [self.consumerDevice toDictionary]
+        kSDKInfoKey : [self.sdkInfo _jp_toDictionary],
+        kConsumerDeviceKey : [self.consumerDevice _jp_toDictionary]
     };
 }
 

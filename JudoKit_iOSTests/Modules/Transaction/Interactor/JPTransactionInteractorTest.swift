@@ -96,8 +96,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnValidVisa_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("4929939187355598")
-        XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertEqual(result.formattedInput, "4929 9391 8735 5598")
+        XCTAssertTrue(result.isValid)
     }
     /*
      * GIVEN: validate card number(Visa)
@@ -108,7 +108,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnValidVisa_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("4129939187355598")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -120,7 +120,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenSpecialCharacters_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("41299391873555+!")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -132,7 +132,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnValidMaster_ShouldReturnValid() {
         let result = sut.validateCardNumberInput("5454422955385717")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -144,7 +144,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnInvalidMaster_ShouldReturnInValid() {
         let result = sut.validateCardNumberInput("5454452295585717")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -156,8 +156,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnValidAmex_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("348570250878868")
-        XCTAssertEqual(result!.formattedInput, "3485 702508 78868")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertEqual(result.formattedInput, "3485 702508 78868")
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -169,8 +169,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateCardNumberInput_WhenLuhnValidDiner_ShouldFormatAndReturnValid() {
         let result = sut.validateCardNumberInput("30260943491310")
-        XCTAssertEqual(result!.formattedInput, "3026 094349 1310")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertEqual(result.formattedInput, "3026 094349 1310")
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -182,7 +182,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenLuhnValid_ShouldReturnLuhnValidAmex() {
         let result = sut.validateCardNumberInput("348570250872868")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -194,7 +194,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenAmexValid_ShouldFormateAmex() {
         let result = sut.validateCardNumberInput("34857025087")
-        XCTAssertEqual(result!.formattedInput, "3485 702508 7")
+        XCTAssertEqual(result.formattedInput, "3485 702508 7")
     }
     
     /*
@@ -206,7 +206,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsToLong_ShouldFormatInput() {
         let result = sut.validateCardNumberInput("4929939187355598111")
-        XCTAssertEqual(result!.formattedInput, "4929 9391 8735 5598")
+        XCTAssertEqual(result.formattedInput, "4929 9391 8735 5598")
     }
     
     /*
@@ -218,7 +218,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsLong_ShouldFormatInput() {
         let result = sut.validateCardNumberInput("492993918")
-        XCTAssertEqual(result!.formattedInput, "4929 9391 8")
+        XCTAssertEqual(result.formattedInput, "4929 9391 8")
     }
     
     /*
@@ -230,7 +230,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsVisa_ShouldRecognizeVisa() {
         let result = sut.validateCardNumberInput("4")
-        XCTAssertEqual(result!.cardNetwork, .visa)
+        XCTAssertEqual(result.cardNetwork, .visa)
     }
     
     /*
@@ -243,7 +243,7 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_ValidateCardNumberInput_WhenInputIsUnkwon_ShouldRecognizeUnknown() {
         let result = sut.validateCardNumberInput("3")
         let unKnownType = JPCardNetworkType(rawValue: 0)
-        XCTAssertEqual(result!.cardNetwork, unKnownType)
+        XCTAssertEqual(result.cardNetwork, unKnownType)
     }
     
     /*
@@ -255,7 +255,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsMasterCard_ShouldReturnMasterCard() {
         let result = sut.validateCardNumberInput("52")
-        XCTAssertEqual(result!.cardNetwork, .masterCard)
+        XCTAssertEqual(result.cardNetwork, .masterCard)
     }
     
     /*
@@ -267,7 +267,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsAMEX_ShouldReturnAMEX() {
         let result = sut.validateCardNumberInput("34")
-        XCTAssertEqual(result!.cardNetwork, .AMEX)
+        XCTAssertEqual(result.cardNetwork, .AMEX)
     }
     
     /*
@@ -279,7 +279,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsDiscover_ShouldReturnDiscover() {
         let result = sut.validateCardNumberInput("65")
-        XCTAssertEqual(result!.cardNetwork, .discover)
+        XCTAssertEqual(result.cardNetwork, .discover)
     }
     
     /*
@@ -291,7 +291,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsJCB_ShouldReturnJCB() {
         let result = sut.validateCardNumberInput("3528")
-        XCTAssertEqual(result!.cardNetwork, .JCB)
+        XCTAssertEqual(result.cardNetwork, .JCB)
     }
     
     /*
@@ -303,7 +303,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsDinersClub_ShouldReturnDinersClub() {
         let result = sut.validateCardNumberInput("36")
-        XCTAssertEqual(result!.cardNetwork, .dinersClub)
+        XCTAssertEqual(result.cardNetwork, .dinersClub)
     }
     
     /*
@@ -315,7 +315,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsMaestro_ShouldReturnMaestro() {
         let result = sut.validateCardNumberInput("5018")
-        XCTAssertEqual(result!.cardNetwork, .maestro)
+        XCTAssertEqual(result.cardNetwork, .maestro)
     }
     
     /*
@@ -327,7 +327,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenInputIsChinaPay_ShouldReturnChinaPay() {
         let result = sut.validateCardNumberInput("62")
-        XCTAssertEqual(result!.cardNetwork, .chinaUnionPay)
+        XCTAssertEqual(result.cardNetwork, .chinaUnionPay)
     }
     
     /*
@@ -339,9 +339,9 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenChangeInput_ShouldChangeResultType() {
         var result = sut.validateCardNumberInput("36")
-        XCTAssertEqual(result!.cardNetwork, .dinersClub)
+        XCTAssertEqual(result.cardNetwork, .dinersClub)
         result = sut.validateCardNumberInput("62")
-        XCTAssertEqual(result!.cardNetwork, .chinaUnionPay)
+        XCTAssertEqual(result.cardNetwork, .chinaUnionPay)
     }
     
     /*
@@ -354,7 +354,7 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_ValidateCardNumberInput_WhenSupportedCardVisaAndInputNotVisa_ShouldReturnUnsuportedType() {
         configuration.supportedCardNetworks = [.visa]
         let result = sut.validateCardNumberInput("30260943491310")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -367,8 +367,8 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_ValidateCardNumberInput_WhenInputCardIsNotSupporteed_ShowUnsuportedErrorTypeFromConfig() {
         configuration.supportedCardNetworks = [.visa]
         let result = sut.validateCardNumberInput("30260943491310")
-        let cardNetworkString = JPCardNetwork.name(of: result!.cardNetwork)
-        XCTAssertEqual(result!.errorMessage!,  "\(cardNetworkString!) is not supported")
+        let cardNetworkString = JPCardNetwork.name(of: result.cardNetwork)
+        XCTAssertEqual(result.errorMessage!,  "\(cardNetworkString!) is not supported")
     }
     
     /*
@@ -380,7 +380,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCardNumberInput_WhenIsInvalidCard_ShouldReturnErrorStringForInvalidCardNumber() {
         let result = sut.validateCardNumberInput("4129939187355598")
-        XCTAssertEqual(result!.errorMessage!,  "Invalid card number")
+        XCTAssertEqual(result.errorMessage!,  "Invalid card number")
     }
     
     /*
@@ -392,7 +392,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateSecureCodeInput_WhenMoreThenMax_ShouldSubscriptCode() {
         let result = sut.validateSecureCodeInput("1234")
-        XCTAssertEqual(result!.formattedInput!,  "123")
+        XCTAssertEqual(result.formattedInput!,  "123")
     }
     
     /*
@@ -404,7 +404,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateSecureCodeInput_WhenCorrectLenght_ShouldBeValid() {
         let result = sut.validateSecureCodeInput("123")
-        XCTAssertTrue(result!.isInputAllowed)
+        XCTAssertTrue(result.isInputAllowed)
     }
     
     /*
@@ -416,8 +416,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_validateSecureCodeInput_WhenLessThenMinimum_ShouldNotBeValid() {
         let result = sut.validateSecureCodeInput("12")
-        XCTAssertTrue(result!.isInputAllowed)
-        XCTAssertFalse(result!.isValid)
+        XCTAssertTrue(result.isInputAllowed)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -472,13 +472,13 @@ class JPTransactionInteractorTest: XCTestCase {
     /*
      * GIVEN: getting countries from interactor
      *
-     * WHEN: we have 4 countries that we support
+     * WHEN: we have 235 countries that we support
      *
-     * THEN: should be returned 4 countries
+     * THEN: should be returned 235 countries
      */
     func test_GetSelectableCountryNames_WhenCountriesArrayHardcodedInteractor_ShouldReturnTheSame() {
-        let countries = sut.getSelectableCountryNames()
-        XCTAssertEqual(countries?.count, 4)
+        let countries = sut.getFilteredCountries(bySearch: nil)
+        XCTAssertEqual(countries.count, 235)
     }
     
     /*
@@ -517,8 +517,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCarholderNameInput_WhenNameIsValid_ShouldReturnValidResponse() {
         let result = sut.validateCardholderNameInput("Alex ABC")
-        XCTAssertTrue(result!.isInputAllowed)
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isInputAllowed)
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -530,8 +530,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateExpiryDateInput_WhenDateIsExpired_ShouldReturnInValidEResult() {
         let result = sut.validateExpiryDateInput("12/06")
-        XCTAssertTrue(result!.isInputAllowed)
-        XCTAssertFalse(result!.isValid)
+        XCTAssertTrue(result.isInputAllowed)
+        XCTAssertFalse(result.isValid)
     }
     
     /*
@@ -543,8 +543,8 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidateCountryInput_WhenCountryUSAIsSupported_ShouldReturnValidResult() {
         let result = sut.validateCountryInput("USA")
-        XCTAssertTrue(result!.isInputAllowed)
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isInputAllowed)
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -556,7 +556,7 @@ class JPTransactionInteractorTest: XCTestCase {
      */
     func test_ValidatePostalCodeInput_WhenIsUk_ShouldBeValid() {
         let result = sut.validatePostalCodeInput("EC1A 1BB")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     /*
@@ -573,11 +573,11 @@ class JPTransactionInteractorTest: XCTestCase {
                                               cardDetailsMode: .default,
                                               configuration: configuration,
                                               cardNetwork: .all,
-                                              completion: nil)
+                                              completion: { _, _ in })
         
         let error = JPError(domain: "domain", code: JPError.userDidCancelError().code, userInfo: nil)
         
-        sut!.completeTransaction(with: JPResponse(), error: error)
+        sut.completeTransaction(with: JPResponse(), error: error)
     }
     
     /*
@@ -616,20 +616,6 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: send Transaction
-     *
-     * WHEN: with valid card
-     *
-     * THEN: should send transaction
-     */
-    func test_sendTransactionWithCard() {
-        sut.sendTransaction(with: JPCard(cardNumber: "cardNumber",
-                                         cardholderName: "cardholderName",
-                                         expiryDate: "expiryDate",
-                                         secureCode: "secureCode")) { (_, _) in}
-    }
-    
-    /*
      * GIVEN: validate card number(Master)
      *
      * WHEN: when supportedCardNetworks is empty
@@ -639,7 +625,7 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_validateCardNumberInput_WhenNoSupportedNetworksInConfig_ShouldReturnValid() {
         configuration.supportedCardNetworks = []
         let result = sut.validateCardNumberInput("5454422955385717")
-        XCTAssertTrue(result!.isValid)
+        XCTAssertTrue(result.isValid)
     }
     
     /*

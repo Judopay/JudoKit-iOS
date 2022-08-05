@@ -47,6 +47,7 @@
 #import "JPError+Additions.h"
 #import "JPError.h"
 #import "JPIDEALBank.h"
+#import "JPNetworkTimeout.h"
 #import "JPOrderDetails.h"
 #import "JPPBBAButton.h"
 #import "JPPBBAConfiguration.h"
@@ -78,7 +79,6 @@
 #import "JPComplete3DS2Request.h"
 #import "JPPaymentRequest.h"
 #import "JPRequest.h"
-#import "JPNetworkTimeout.h"
 
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"

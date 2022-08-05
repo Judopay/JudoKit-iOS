@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPCard, JPValidationResult;
+@class JPValidationResult;
 
 /**
  * A class that handles credit card validation
@@ -61,6 +61,33 @@
  *  @return an instance of JPValidationResult that contains the validation status
  */
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input;
+
+/**
+ *  A method for validating the cardholder email
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
+
+/**
+ *  A method for validating the cardholder phone country code
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
+
+/**
+ *  A method for validating the cardholder phone number
+ *
+ *  @param input - an input string
+ *
+ *  @return an instance of JPValidationResult that contains the validation status
+ */
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
 
 /**
  *  A method for validating the expiry date

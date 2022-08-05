@@ -24,6 +24,7 @@
 
 #import "JPInputField.h"
 #import "JPFloatingTextField.h"
+#import "JPInputType.h"
 #import "JPTheme.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
@@ -105,6 +106,26 @@
     [self.floatingTextField _jp_placeholderWithText:placeholder color:color andFont:font];
 }
 
+- (void)setType:(JPInputType)type {
+    if (type == JPInputTypeCardholderPhoneCode && !_floatingTextField.leftView) {
+        _floatingTextField.leftView = [self sideViewWithText:@"+("];
+        _floatingTextField.rightView = [self sideViewWithText:@")"];
+        _floatingTextField.leftViewMode = UITextFieldViewModeAlways;
+        _floatingTextField.rightViewMode = UITextFieldViewModeAlways;
+    }
+    _type = type;
+}
+
+- (UILabel *)sideViewWithText:(NSString *)text {
+    UILabel *label = [UILabel new];
+    label.text = text;
+    label.textColor = _theme.jpBlackColor;
+    label.font = _theme.headlineLight;
+    label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    [label sizeToFit];
+    return label;
+}
+
 - (void)setInputView:(UIView *)inputView {
     _inputView = inputView;
     self.floatingTextField.inputView = inputView;
@@ -118,6 +139,11 @@
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
     _keyboardType = keyboardType;
     self.floatingTextField.keyboardType = keyboardType;
+}
+
+- (void)setAutocapitalizationType:(UITextAutocapitalizationType)autocapitalizationType {
+    _autocapitalizationType = autocapitalizationType;
+    self.floatingTextField.autocapitalizationType = autocapitalizationType;
 }
 
 - (void)setReturnType:(UIReturnKeyType)returnType {
@@ -148,7 +174,6 @@
 #pragma mark - Layout setup
 
 - (void)setupViews {
-
     self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor._jp_lightGrayColor;
     self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -194,6 +219,14 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.delegate inputField:self didEndEditing:textField.text];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.delegate inputFieldDidBeginEditing:self];
 }
 
 @end

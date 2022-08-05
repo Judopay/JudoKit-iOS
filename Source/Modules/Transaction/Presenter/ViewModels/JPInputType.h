@@ -2,7 +2,7 @@
 //  JPInputType.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,25 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef JPInputType_h
+#define JPInputType_h
 /**
- * An enum that defines the input field types present in the Add Card view
+ * An enum that defines the input field types present in the Add Card and Billing Details views
  */
 typedef NS_ENUM(NSUInteger, JPInputType) {
     JPInputTypeCardNumber,
     JPInputTypeCardholderName,
     JPInputTypeCardExpiryDate,
     JPInputTypeCardSecureCode,
+    JPInputTypeCardholderEmail,
     JPInputTypeCardCountry,
+    JPInputTypeCardholderPhoneCode,
+    JPInputTypeCardholderPhone,
+    JPInputTypeCardholderAddressLine1,
+    JPInputTypeCardholderAddressLine2,
+    JPInputTypeCardholderAddressLine3,
+    JPInputTypeCardholderCity,
     JPInputTypeCardPostalCode,
 };
+
+#endif /* JPInputType_h */

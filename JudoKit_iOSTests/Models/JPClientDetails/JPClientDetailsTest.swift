@@ -60,7 +60,7 @@ class JPClientDetailsTest: XCTestCase {
      */
     func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPClientDetails(key: "key", value: "value")
-        let dic = sut.toDictionary()
+        let dic = sut._jp_toDictionary()
         XCTAssertEqual(dic as! Dictionary, ["key":"key", "value":"value"])
     }
 }

@@ -67,7 +67,7 @@ class JPConsumerDeviceTest: XCTestCase {
      */
     func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
         let sut = JPConsumerDevice.init(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
-        let dic = sut.toDictionary() as NSDictionary
+        let dic = sut._jp_toDictionary() as NSDictionary
         XCTAssertEqual(dic["ClientDetails"] as! Dictionary, ["key": "key", "value": "value"])
         XCTAssertEqual(dic["IpAddress"] as! String, "ip")
         XCTAssertEqual(dic["PaymentType"] as! String, "ECOMM")

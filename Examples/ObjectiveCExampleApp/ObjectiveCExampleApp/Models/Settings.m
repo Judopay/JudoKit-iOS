@@ -214,7 +214,6 @@ NSString *safeString(NSString *aString) {
                                           address2:[self.defaults stringForKey:kAddressLine2Key]
                                           address3:[self.defaults stringForKey:kAddressLine3Key]
                                               town:[self.defaults stringForKey:kAddressTownKey]
-                                    billingCountry:[self.defaults stringForKey:kAddressBillingCountryKey]
                                           postCode:[self.defaults stringForKey:kAddressPostCodeKey]
                                        countryCode:addressCountryCode];
     }
@@ -234,15 +233,24 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSString *)emailAddress {
-    return [self.defaults stringForKey:kAddressEmailAddressKey];
+    if (Settings.defaultSettings.isAddressOn) {
+        return [self.defaults stringForKey:kAddressEmailAddressKey];
+    }
+    return nil;
 }
 
 - (NSString *)mobileNumber {
-    return [self.defaults stringForKey:kAddressMobileNumberKey];
+    if (Settings.defaultSettings.isAddressOn) {
+        return [self.defaults stringForKey:kAddressMobileNumberKey];
+    }
+    return nil;
 }
 
 - (NSString *)phoneCountryCode {
-    return [self.defaults stringForKey:kAddressPhoneCountryCodeKey];
+    if (Settings.defaultSettings.isAddressOn) {
+        return [self.defaults stringForKey:kAddressPhoneCountryCodeKey];
+    }
+    return nil;
 }
 
 #pragma mark - 3DS v2.0

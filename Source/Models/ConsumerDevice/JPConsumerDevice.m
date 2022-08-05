@@ -61,12 +61,12 @@ static NSString *const kPaymentTypeEcomm = @"ECOMM";
 }
 
 #pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
         kIPAddressKey : self.ipAddress,
-        kClientDetailsKey : [self.clientDetails toDictionary],
+        kClientDetailsKey : [self.clientDetails _jp_toDictionary],
         kGeoLocationKey : [self.geoLocation _jp_toDictionary],
-        kThreeDSecureKey : [self.threeDSecure toDictionary],
+        kThreeDSecureKey : [self.threeDSecure _jp_toDictionary],
         kPaymentTypeKey : self.paymentType
     };
 }

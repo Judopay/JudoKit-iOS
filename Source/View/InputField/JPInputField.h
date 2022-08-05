@@ -23,15 +23,15 @@
 //  SOFTWARE.
 
 #import "JPInputFieldDelegate.h"
-#import "JPInputType.h"
 #import <UIKit/UIKit.h>
 
-@class JPTheme, JPTransactionViewModel;
+@class JPTheme;
+typedef NS_ENUM(NSUInteger, JPInputType);
 
 @interface JPInputField : UIView
 
 /**
- * An NS_ENUM which describes the type of the input field
+ * An enum that describes the type of the input field
  */
 @property (nonatomic, assign) JPInputType type;
 
@@ -80,6 +80,11 @@
  * A property that changes the keyboard type of the input field
  */
 @property (nonatomic, assign) UIKeyboardType keyboardType;
+
+/**
+ * A property that changes the auto-capitalization of the input field
+ */
+@property (nonatomic, assign) UITextAutocapitalizationType autocapitalizationType;
 
 /**
  * A property that changes the keyboard's return type

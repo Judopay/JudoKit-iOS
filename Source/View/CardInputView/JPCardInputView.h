@@ -29,15 +29,7 @@
 
 @interface JPCardInputView : UIView
 
-/**
- *  Designated Initializer
- *
- *  @param mode - the card details mode
- *
- *  @return a JPCardInputView object
- */
-- (nonnull instancetype)initWithCardDetailsMode:(JPCardDetailsMode)mode;
-
+@property (nonatomic, strong) UIScrollView *_Nullable scrollView;
 /**
  * The dimmed, semi-transparent background view that fades in when the add card slider appears
  */
@@ -47,6 +39,11 @@
  * The cancel button that, when pressed, dismisses the Add Card view controller
  */
 @property (nonatomic, strong) UIButton *_Nullable cancelButton;
+
+/**
+ * The add address line button that, when pressed, adds a new address line
+ */
+@property (nonatomic, strong) UIButton *_Nullable addAddressLineButton;
 
 /**
  * A button that, when pressed, invokes the card scanning functionality
@@ -62,6 +59,41 @@
  * The input field for adding the cardholder name
  */
 @property (nonatomic, strong) JPCardInputField *_Nullable cardHolderTextField;
+
+/**
+ * The input field for adding the cardholder email
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderEmailTextField;
+
+/**
+ * The input field for adding the cardholder phone code
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderPhoneCodeTextField;
+
+/**
+ * The input field for adding the cardholder adress line 1
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine1TextField;
+
+/**
+ * The input field for adding the cardholder adress line 2
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine2TextField;
+
+/**
+ * The input field for adding the cardholder adress line 3
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine3TextField;
+
+/**
+ * The input field for adding the cardholder phone number
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderPhoneTextField;
+
+/**
+ * The input field for adding the cardholder city name
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderCityTextField;
 
 /**
  * The input field for adding the card expiration date
@@ -94,6 +126,11 @@
 @property (nonatomic, strong) JPTransactionButton *_Nullable addCardButton;
 
 /**
+ * The Back button that, when tapped, displays card details view
+ */
+@property (nonatomic, strong) JPTransactionButton *_Nullable backButton;
+
+/**
  * The Add Card view's bottom constraint that is used to move the view when the keyboard animates
  */
 @property (nonatomic, strong) NSLayoutConstraint *_Nullable bottomSliderConstraint;
@@ -118,5 +155,11 @@
  * @param shouldEnable - set to YES if the interface is enabled and no if otherwise
  */
 - (void)enableUserInterface:(BOOL)shouldEnable;
+
+/**
+ * A method that adjusts view top space
+ *
+ */
+- (void)adjustTopSpace;
 
 @end

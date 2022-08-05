@@ -102,7 +102,7 @@
 			<key>Title</key>
 			<string>is_3ds2_enabled_title</string>
 			<key>Key</key>
-			<string>is_billing_info_screen_enabled</string>
+			<string>should_ask_for_billing_information</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -420,16 +420,6 @@
 			<string>address_post_code</string>
 			<key>DefaultValue</key>
 			<string>TR14 8PA</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>address_billing_country_title</string>
-			<key>Key</key>
-			<string>address_billing_country</string>
-			<key>DefaultValue</key>
-			<string>826</string>
 		</dict>
 		<dict>
 			<key>Type</key>

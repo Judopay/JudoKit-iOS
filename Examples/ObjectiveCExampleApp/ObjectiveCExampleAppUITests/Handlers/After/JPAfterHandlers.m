@@ -30,7 +30,7 @@
 #import "XCUIElement+Additions.h"
 #import "JPHelpers.h"
 
-void returnToMainScreen() {
+void returnToMainScreen(void) {
     XCUIApplication *application = [XCUIApplication new];
     XCUIElement *mainScreen = application.otherElements[@"Main View"];
     XCUIElement *cancelButton = application.buttons[@"CANCEL"];
@@ -54,7 +54,7 @@ void swipeAndDeleteCardCell(XCUIElement *cardCell) {
     [[XCUIApplication new].alerts.buttons[@"Delete"] tap];
 }
 
-void resetStoredCards() {
+void resetStoredCards(void) {
     [JPMainElements.settingsButton tap];
     [JPSettingsElements.cardPaymentMethodSwitch switchOn];
     [JPGenericElements.backButton tap];
@@ -88,7 +88,7 @@ void resetStoredCards() {
     }
 }
 
-void resetSettings() {
+void resetSettings(void) {
     [JPMainElements.settingsButton tap];
     
     NSArray *switches = @[

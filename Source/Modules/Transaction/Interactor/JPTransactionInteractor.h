@@ -22,14 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetailsMode.h"
-#import "JPTransactionType.h"
-#import "JPTransactionViewModel.h"
 #import "Typedefs.h"
 #import <AVFoundation/AVFoundation.h>
-#import <Foundation/Foundation.h>
 
-@class JPCard, JPConfiguration, JPCardValidationService, JPApiService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService;
+NS_ASSUME_NONNULL_BEGIN
+
+@class JPCard, JPConfiguration, JPCardValidationService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry, JPCardTransactionDetails;
+typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
+typedef NS_ENUM(NSUInteger, JPTransactionType);
+typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 
 @protocol JPTransactionInteractor
 
@@ -42,6 +43,11 @@
  * A method that returns YES if the Address Verification Service is enabled
  */
 - (BOOL)isAVSEnabled;
+
+/**
+ * A method that returns JPTheme from UI Configuration
+ */
+- (JPTheme *)getConfiguredTheme;
 
 /**
  * A method that returns the current transaction type
@@ -63,7 +69,7 @@
 /**
  * A method which returns the countries which the user can select in the country picker
  */
-- (NSArray<NSString *> *)getSelectableCountryNames;
+- (NSArray<JPCountry *> *)getFilteredCountriesBySearchString:(nullable NSString *)searchString;
 
 /**
  * A method for returning merchant-set card address details
@@ -76,8 +82,8 @@
  * @param response - the JPResponse returned from the transaction
  * @param error - the JPError returned from the transaction
  */
-- (void)completeTransactionWithResponse:(JPResponse *)response
-                                  error:(JPError *)error;
+- (void)completeTransactionWithResponse:(nullable JPResponse *)response
+                                  error:(nullable JPError *)error;
 
 /**
  * A method that stores the errors returned from the Judo API to be sent back to the merchant once the user cancels the payment.
@@ -99,6 +105,33 @@
  * @returns a JPValidationResult with the validation status details
  */
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input;
+
+/**
+ * A method for validating the email
+ *
+ * @param input - the input email string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
+
+/**
+ * A method for validating the phone dial code
+ *
+ * @param input - the input phone dial code string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
+
+/**
+ * A method for validating the phone number
+ *
+ * @param input - the input phone string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
 
 /**
  * A method for validating the cardholder name
@@ -145,14 +178,8 @@
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-/**
- * A method for sending a transaction to the Judo backend with specified card details
- *
- * @param card - the JPCard object which stores the card details
- * @param completionHandler - the completion block with an optional JPResponse / NSError
- */
-- (void)sendTransactionWithCard:(JPCard *)card
-              completionHandler:(JPCompletionBlock)completionHandler;
+- (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details
+                 completionHandler:(JPCompletionBlock)completionHandler;
 
 /**
  * A method for updating the keychain information about the card
@@ -168,6 +195,8 @@
  */
 - (NSString *)generatePayButtonTitle;
 
+- (JPConfiguration *)configuration;
+
 @end
 
 @interface JPTransactionInteractorImpl : NSObject <JPTransactionInteractor>
@@ -177,7 +206,10 @@
  *
  * @param cardValidationService - the service which is used to validate card details
  * @param transactionService - the service which sends requests to the Judo backend and handles 3DS checks
+ * @param type - the transaction type
+ * @param mode - the card details mode
  * @param configuration - the JPConfiguration object used for customizing the payment flow
+ * @param cardNetwork - the card network
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
@@ -188,3 +220,5 @@
                                   cardNetwork:(JPCardNetworkType)cardNetwork
                                    completion:(JPCompletionBlock)completion;
 @end
+
+NS_ASSUME_NONNULL_END

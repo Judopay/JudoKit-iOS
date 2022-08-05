@@ -43,9 +43,9 @@ static NSString *const kBrowserKey = @"Browser";
 }
 
 #pragma mark - JPDictionaryConvertible
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)_jp_toDictionary {
     return @{
-        kBrowserKey : [self.browser toDictionary]
+        kBrowserKey : [self.browser _jp_toDictionary]
     };
 }
 

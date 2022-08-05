@@ -78,6 +78,10 @@ static int const kCardHolderNameLength = 3;
         error = JPError.invalidCardNumberError;
     }
 
+    if ((cardNumber.length == maxCardLength) && (![cardNumber _jp_isValidCardNumber])) {
+        error = JPError.invalidCardNumberError;
+    }
+
     if (![self isInputSupported:cardNumber forSupportedNetworks:networks]) {
         error = [JPError unsupportedCardNetwork:input._jp_cardNetwork];
     }
@@ -97,6 +101,30 @@ static int const kCardHolderNameLength = 3;
     return [JPValidationResult validationWithResult:input.length > kCardHolderNameLength
                                        inputAllowed:YES
                                        errorMessage:nil
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
+    BOOL isValid = input._jp_isEmail;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_email_value"._jp_localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
+    BOOL isValid = input._jp_isPhoneCode;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_phone_code_value"._jp_localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
+    BOOL isValid = input._jp_isPhoneNumber;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_phone_value"._jp_localized
                                      formattedInput:input];
 }
 
@@ -151,7 +179,6 @@ static int const kCardHolderNameLength = 3;
 }
 
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
-
     if ([self.selectedJPBillingCountry isEqualToString:@"country_usa"._jp_localized]) {
         return [self validatePostalCodeInput:input country:JPBillingCountryUSA];
     }

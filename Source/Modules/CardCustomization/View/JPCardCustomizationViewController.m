@@ -252,6 +252,9 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     return YES;
 }
 
+- (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
+}
+
 @end
 
 @implementation JPCardCustomizationViewController (SubmitDelegate)

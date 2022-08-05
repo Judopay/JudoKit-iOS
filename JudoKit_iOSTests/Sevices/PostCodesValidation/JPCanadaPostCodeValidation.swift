@@ -37,39 +37,39 @@ class JPCanadaPostCodeValidation: XCTestCase {
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         validationService.validateCountryInput("Canada")
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
-                                          transactionService: nil,
+                                          transactionService: JPCardTransactionService(),
                                           transactionType: .payment,
                                           cardDetailsMode: .default,
                                           configuration: configuration,
                                           cardNetwork: .all,
-                                          completion: nil)
+                                          completion: { _, _ in })
     }
     
     func testValidCode_Canada() {
-        let result = sut.validatePostalCodeInput("A1A1A1")!
+        let result = sut.validatePostalCodeInput("A1A1A1")
         XCTAssertEqual(result.formattedInput, "A1A 1A1")
         XCTAssertTrue(result.isValid)
     }
     
     func testValidCodeWithSpaces_Canada() {
-        let result = sut.validatePostalCodeInput("A1A 1A1")!
+        let result = sut.validatePostalCodeInput("A1A 1A1")
         XCTAssertEqual(result.formattedInput, "A1A 1A1")
         XCTAssertTrue(result.isValid)
     }
     
     func testInValidRegexSpecialSymbols_Canada() {
-        let result = sut.validatePostalCodeInput("A1! 1A1")!
+        let result = sut.validatePostalCodeInput("A1! 1A1")
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }
     
     func testEmptyCode_Canada() {
         let result = sut.validatePostalCodeInput("")
-        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
     func testInValidRegexUndersScore_Canada() {
-        let result = sut.validatePostalCodeInput("A11_1A1")!
+        let result = sut.validatePostalCodeInput("A11_1A1")
         XCTAssertEqual(result.errorMessage, "Invalid postcode entered")
         XCTAssertFalse(result.isValid)
     }

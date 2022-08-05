@@ -148,7 +148,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         let validCard = JPStoredCardDetails(lastFour: "1111", expiryDate: notExpiredDateAsString, cardNetwork: .visa, cardToken: "token")!
         let expiresSoonCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiresSoonDateAsString, cardNetwork: .visa, cardToken: "token")!
         let expirdCard = JPStoredCardDetails(lastFour: "1111", expiryDate: expiredDateAsString, cardNetwork: .visa, cardToken: "token")!
-        
+
+        JPCardStorage.sharedInstance()?.deleteCardDetails()
         JPCardStorage.sharedInstance()?.add(validCard)
         JPCardStorage.sharedInstance()?.add(expiresSoonCard)
         JPCardStorage.sharedInstance()?.add(expirdCard)
