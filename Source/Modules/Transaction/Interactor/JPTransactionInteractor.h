@@ -178,6 +178,10 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
+- (JPValidationResult *)validateAddressLineInput:(NSString *)input;
+
+- (JPValidationResult *)validateCity:(NSString *)input;
+
 - (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details
                  completionHandler:(JPCompletionBlock)completionHandler;
 

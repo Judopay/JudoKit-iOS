@@ -418,6 +418,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderTextField = [JPCardInputField new];
         _cardHolderTextField.accessibilityIdentifier = @"Cardholder Name Field";
         _cardHolderTextField.keyboardType = UIKeyboardTypeDefault;
+        [_cardHolderTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     }
     return _cardHolderTextField;
 }
@@ -446,6 +447,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderAddressLine1TextField = [JPCardInputField new];
         _cardHolderAddressLine1TextField.accessibilityIdentifier = @"Cardholder address line 1 code Field";
         _cardHolderAddressLine1TextField.keyboardType = UIKeyboardTypeDefault;
+        [_cardHolderAddressLine1TextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     }
     return _cardHolderAddressLine1TextField;
 }
@@ -456,6 +458,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderAddressLine2TextField.accessibilityIdentifier = @"Cardholder address line 2 Field";
         _cardHolderAddressLine2TextField.keyboardType = UIKeyboardTypeDefault;
         _cardHolderAddressLine2TextField.hidden = YES;
+        [_cardHolderAddressLine2TextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     }
     return _cardHolderAddressLine2TextField;
 }
@@ -466,6 +469,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderAddressLine3TextField.accessibilityIdentifier = @"Cardholder address line 3 Field";
         _cardHolderAddressLine3TextField.keyboardType = UIKeyboardTypeDefault;
         _cardHolderAddressLine3TextField.hidden = YES;
+        [_cardHolderAddressLine3TextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     }
     return _cardHolderAddressLine3TextField;
 }
@@ -484,6 +488,7 @@ static const float kPhoneCodeWidth = 45.0F;
         _cardHolderCityTextField = [JPCardInputField new];
         _cardHolderCityTextField.accessibilityIdentifier = @"Cardholder city Field";
         _cardHolderCityTextField.keyboardType = UIKeyboardTypeDefault;
+        [_cardHolderCityTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     }
     return _cardHolderCityTextField;
 }

@@ -125,4 +125,8 @@
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
+- (JPValidationResult *)validateAddressLineInput:(NSString *)input;
+
+- (JPValidationResult *)validateCityInput:(NSString *)input;
+
 @end

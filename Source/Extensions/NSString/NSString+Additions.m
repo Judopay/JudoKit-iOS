@@ -28,6 +28,7 @@
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
+#import "JPConstants.h"
 
 @implementation NSString (Additions)
 
@@ -160,7 +161,8 @@
 }
 
 - (BOOL)_jp_isPhoneNumber {
-    return [self _jp_isNumeric];
+    NSPredicate *phoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", kRegExMobileNumber];
+    return [phoneNumberPredicate evaluateWithObject:self] && self._jp_isNumeric;
 }
 
 - (nonnull NSMutableAttributedString *)_jp_attributedStringWithBoldSubstring:(nonnull NSString *)substring {
@@ -178,6 +180,21 @@
 
 - (BOOL)_jp_isNullOrEmpty {
     return !self || self.length == 0;
+}
+
+- (BOOL)_jp_isValidCardholderName {
+    NSPredicate *cardholderNamePred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", kRegExCardholderName];
+    return [cardholderNamePred evaluateWithObject:self];
+}
+
+- (BOOL)_jp_isValidAddressLine {
+    NSPredicate *addressLinePred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", kRegExAddressLine];
+    return [addressLinePred evaluateWithObject:self];
+}
+
+- (BOOL)_jp_isValidCity {
+    NSPredicate *cityPred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", kRegExCity];
+    return [cityPred evaluateWithObject:self];
 }
 
 @end

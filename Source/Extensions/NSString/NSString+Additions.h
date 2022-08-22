@@ -99,5 +99,8 @@
 
 - (BOOL)_jp_isNotNullOrEmpty;
 - (BOOL)_jp_isNullOrEmpty;
+- (BOOL)_jp_isValidCardholderName;
+- (BOOL)_jp_isValidAddressLine;
+- (BOOL)_jp_isValidCity;
 
 @end

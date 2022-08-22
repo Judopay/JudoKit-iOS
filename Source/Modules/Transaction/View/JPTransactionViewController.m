@@ -177,8 +177,25 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)changeFocusToSecurityCodeField {
-    [self.addCardView.secureCodeTextField becomeFirstResponder];
+- (void)changeFocusToInputType:(JPInputType)type {
+    JPCardInputField *field;
+    
+    switch (type) {
+        case JPInputTypeCardSecureCode:
+            field = self.addCardView.secureCodeTextField;
+            break;
+        
+        case JPInputTypeCardholderName:
+            field = self.addCardView.cardHolderTextField;
+            break;
+                    
+        default:
+            break;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [field becomeFirstResponder];
+    });
 }
 
 #pragma mark - Layout setup
@@ -297,18 +314,16 @@
 @implementation JPTransactionViewController (InputFieldDelegate)
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
-    BOOL showError = inputField.type != JPInputTypeCardholderEmail && inputField.type != JPInputTypeCardholderPhone;
-
     [self.presenter handleInputChange:text
                               forType:inputField.type
-                            showError:showError];
+                            showError:NO];
     return NO;
 }
 
 - (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
     [self.presenter handleInputChange:text
                               forType:inputField.type
-                            showError:inputField.type == JPInputTypeCardholderEmail];
+                            showError:YES];
 }
 
 - (void)inputFieldDidBeginEditing:(JPInputField *)inputField {

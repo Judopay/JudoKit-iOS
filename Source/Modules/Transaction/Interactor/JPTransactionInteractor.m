@@ -274,6 +274,14 @@
     return [self.cardValidationService validatePostalCodeInput:input];
 }
 
+- (JPValidationResult *)validateAddressLineInput:(NSString *)input {
+    return [self.cardValidationService validateAddressLineInput:input];
+}
+
+- (JPValidationResult *)validateCity:(NSString *)input {
+    return [self.cardValidationService validateCityInput:input];
+}
+
 - (JPCardNetworkType)supportedNetworks {
     if (self.configuration.supportedCardNetworks) {
         return self.configuration.supportedCardNetworks;

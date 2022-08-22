@@ -33,15 +33,6 @@ static NSString *kVISAPattern = @"XXXX XXXX XXXX XXXX";
 static NSString *kAMEXPattern = @"XXXX XXXXXX XXXXX";
 static NSString *kDinersClubPattern = @"XXXX XXXXXX XXXX";
 
-static NSString *const kRegexVisa = @"^4\\d{0,15}";
-static NSString *const kRegexMasterCard = @"^(5[1-5]\\d{0,2}|22[2-9]\\d{0,1}|2[3-7]\\d{0,2})\\d{0,12}";
-static NSString *const kRegexMaestro = @"^(?:5[0678]\\d{0,2}|6304|67\\d{0,2})\\d{0,12}";
-static NSString *const kRegexAmex = @"^3[47]\\d{0,13}";
-static NSString *const kRegexDiscover = @"^(?:6011|65\\d{0,2}|64[4-9]\\d?)\\d{0,12}";
-static NSString *const kRegexDinersClub = @"^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}";
-static NSString *const kRegexJCB = @"^(?:35\\d{0,2})\\d{0,12}";
-static NSString *const kRegexUnionPay = @"^(62|81)\\d{0,14}";
-
 static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
 static NSString *const kCurrencyPounds = @"GBP";
@@ -79,11 +70,25 @@ static int const kUSAPostalCodeMinLength = 5;
 
 static int const kOtherPostalCodeLength = 8;
 
-static NSString *const kUSARegex = @"^[0-9]{5}(?:-[0-9]{4})?$";
-static NSString *const kUKRegex = @"^([A-Z][0-9]|[A-Z][0-9][A-Z]|[A-Z][0-9][0-9]|[A-Z][A-Z][0-9]|[A-Z][A-Z][0-9][A-Z]|[A-Z][A-Z][0-9][0-9])([0-9][A-Z][A-Z])$";
-static NSString *const kCanadaRegex = @"^(\\d{5}(-\\d{4})?|[A-Z]\\d[A-Z] ?\\d[A-Z]\\d)$";
+static NSString *const kRegExJudoId = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{6}))?$";
 
-static NSString *const kJudoIdRegex = @"^(([0-9]{9})|([0-9]{3}-[0-9]{3}-[0-9]{3})|([0-9]{6}))?$";
+static NSString *const kRegExVisaPAN = @"^4\\d{0,15}";
+static NSString *const kRegExMasterCardPAN = @"^(5[1-5]\\d{0,2}|22[2-9]\\d{0,1}|2[3-7]\\d{0,2})\\d{0,12}";
+static NSString *const kRegExMaestroPAN = @"^(?:5[0678]\\d{0,2}|6304|67\\d{0,2})\\d{0,12}";
+static NSString *const kRegExAmexPAN = @"^3[47]\\d{0,13}";
+static NSString *const kRegExDiscoverPAN = @"^(?:6011|65\\d{0,2}|64[4-9]\\d?)\\d{0,12}";
+static NSString *const kRegExDinersClubPAN = @"^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}";
+static NSString *const kRegExJCBPAN = @"^(?:35\\d{0,2})\\d{0,12}";
+static NSString *const kRegExUnionPayPAN = @"^(62|81)\\d{0,14}";
+
+static NSString *const kRegExCardholderName = @"^[A-Za-z ]+\$";
+static NSString *const kRegExCity = @"^[A-Za-z.'\\- ]+\$";
+static NSString *const kRegExMobileNumber = @"^.{10,}\$";
+static NSString *const kRegExAddressLine = @"^[a-zA-Z0-9,./'\\- ]+\$";
+
+static NSString *const kRegExUSPostCode = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
+static NSString *const kRegExGBPostCode = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
+static NSString *const kRegExCAPostCode = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]";
 
 // Default 3DS 2.0 maximum timeout value
 static int const kDefaultThreeDSTwoMaxTimeout = 60;
