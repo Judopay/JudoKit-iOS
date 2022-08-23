@@ -62,6 +62,19 @@ static NSString *const kCurrencyKey = @"currency";
 
 static NSString *const kMerchantIdKey = @"apple_pay_merchant_id";
 
+static NSString *const kIsApplePayBillingContactInfoRequired = @"is_apple_pay_billing_contact_info_required";
+static NSString *const kIsApplePayShippingContactInfoRequired = @"is_apple_pay_shipping_contact_info_required";
+
+static NSString *const kIsBillingContactFieldPostalAddressRequiredKey = @"is_billing_contact_field_postal_address_required";
+static NSString *const kIsBillingContactFieldPhoneRequiredKey = @"is_billing_contact_field_phone_required";
+static NSString *const kIsBillingContactFieldEmailRequiredKey = @"is_billing_contact_field_email_required";
+static NSString *const kIsBillingContactFieldNameRequiredKey = @"is_billing_contact_field_name_required";
+
+static NSString *const kIsShippingContactFieldPostalAddressRequiredKey = @"is_shipping_contact_field_postal_address_required";
+static NSString *const kIsShippingContactFieldPhoneRequiredKey = @"is_shipping_contact_field_phone_required";
+static NSString *const kIsShippingContactFieldEmailRequiredKey = @"is_shipping_contact_field_email_required";
+static NSString *const kIsShippingContactFieldNameRequiredKey = @"is_shipping_contact_field_name_required";
+
 #pragma mark - Supported card networks section keys
 
 static NSString *const kVisaEnabledKey = @"is_card_network_visa_enabled";
@@ -118,6 +131,10 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 #pragma mark - Apple Pay section
 
 - (NSString *)applePayMerchantId;
+
+- (JPReturnedInfo)applePayReturnedContactInfo;
+- (JPContactField)applePayBillingContactFields;
+- (JPContactField)applePayShippingContactFields;
 
 #pragma mark - Supported card networks section
 

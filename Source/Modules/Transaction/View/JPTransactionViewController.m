@@ -179,16 +179,16 @@
 
 - (void)changeFocusToInputType:(JPInputType)type {
     JPCardInputField *field;
-    
+
     switch (type) {
         case JPInputTypeCardSecureCode:
             field = self.addCardView.secureCodeTextField;
             break;
-        
+
         case JPInputTypeCardholderName:
             field = self.addCardView.cardHolderTextField;
             break;
-                    
+
         default:
             break;
     }

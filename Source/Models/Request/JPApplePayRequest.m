@@ -105,22 +105,25 @@
     self.pkPayment = [[JPApplePayPayment alloc] initWithPayment:payment];
 
     PKContact *billingContact = payment.billingContact;
-    CNPostalAddress *postalAddress = billingContact.postalAddress;
 
-    if (billingContact.emailAddress != nil) {
+    if (billingContact.emailAddress) {
         self.emailAddress = billingContact.emailAddress;
     }
 
-    if (billingContact.phoneNumber != nil) {
+    if (billingContact.phoneNumber) {
         self.mobileNumber = billingContact.phoneNumber.stringValue;
     }
 
-    self.cardAddress = [[JPAddress alloc] initWithAddress1:postalAddress.street
-                                                  address2:postalAddress.city
-                                                  address3:postalAddress.postalCode
-                                                      town:postalAddress.city
-                                                  postCode:postalAddress.postalCode
-                                               countryCode:[JPCountry isoCodeForCountry:postalAddress.country]];
+    if (billingContact.postalAddress) {
+        CNPostalAddress *postalAddress = billingContact.postalAddress;
+
+        self.cardAddress = [[JPAddress alloc] initWithAddress1:postalAddress.street
+                                                      address2:postalAddress.city
+                                                      address3:postalAddress.postalCode
+                                                          town:postalAddress.city
+                                                      postCode:postalAddress.postalCode
+                                                   countryCode:[JPCountry isoCodeForCountry:postalAddress.country]];
+    }
 }
 
 @end

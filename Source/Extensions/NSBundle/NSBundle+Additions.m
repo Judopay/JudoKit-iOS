@@ -55,7 +55,7 @@
     if (!podPath) {
         return nil;
     }
-    
+
     dispatch_once(&onceToken, ^{
         bundle = [[NSBundle alloc] initWithPath:podPath];
     });
