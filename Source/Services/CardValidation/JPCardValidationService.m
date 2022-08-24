@@ -88,26 +88,26 @@ static int const kCardHolderNameLength = 4;
 
     BOOL isValid = YES;
     NSString *errorMessage;
-    
+
     if (error) {
         isValid = NO;
         errorMessage = error.localizedDescription;
     }
-    
+
     self.lastCardNumberValidationResult = [JPValidationResult validationWithResult:isValid
                                                                       inputAllowed:isInputAllowed
                                                                       errorMessage:errorMessage
                                                                     formattedInput:cardNumber];
-    
+
     self.lastCardNumberValidationResult.cardNetwork = cardNumber._jp_cardNetwork;
     return self.lastCardNumberValidationResult;
 }
 
 - (JPValidationResult *)validateCardholderNameInput:(NSString *)input {
-    
+
     NSString *errorMessage;
     BOOL isValid = YES;
-    
+
     if (input.length == 0) {
         errorMessage = @"card_holder_name_required"._jp_localized;
         isValid = NO;
@@ -118,7 +118,7 @@ static int const kCardHolderNameLength = 4;
         errorMessage = @"card_holder_name_special_chars"._jp_localized;
         isValid = NO;
     }
-    
+
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
                                        errorMessage:errorMessage
@@ -189,13 +189,13 @@ static int const kCardHolderNameLength = 4;
     BOOL isValid = formatedInput.length == securityCodeLength;
     BOOL isInputAllowed = formatedInput.length <= securityCodeLength;
     NSString *errorMessage;
-    
+
     if (!isValid) {
         NSString *securityCode = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
         NSString *format = @"check_security_code"._jp_localized;
         errorMessage = [NSString stringWithFormat:format, securityCode];
     }
-    
+
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:isInputAllowed
                                        errorMessage:errorMessage
@@ -236,7 +236,7 @@ static int const kCardHolderNameLength = 4;
 - (JPValidationResult *)validateAddressLineInput:(NSString *)input {
     BOOL isValid = input._jp_isValidAddressLine;
     NSString *errorMessage = isValid ? nil : @"invalid_address"._jp_localized;
-    
+
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
                                        errorMessage:errorMessage
@@ -246,7 +246,7 @@ static int const kCardHolderNameLength = 4;
 - (JPValidationResult *)validateCityInput:(NSString *)input {
     BOOL isValid = input._jp_isValidCity;
     NSString *errorMessage = isValid ? nil : @"invalid_city"._jp_localized;
-    
+
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
                                        errorMessage:errorMessage
@@ -393,7 +393,7 @@ static int const kCardHolderNameLength = 4;
 
     NSString *postCode = input.uppercaseString;
     NSString *pattern;
-    
+
     switch (country) {
         case JPBillingCountryCanada:
             pattern = kRegExCAPostCode;
@@ -407,12 +407,12 @@ static int const kCardHolderNameLength = 4;
         default:
             break;
     }
-    
+
     if (pattern) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
         isValid = postCode.length >= minLength && postCode.length <= maxLength && [predicate evaluateWithObject:postCode];
     }
-    
+
     NSString *errorMessage = isValid ? nil : errorString;
 
     return [JPValidationResult validationWithResult:isValid
@@ -425,7 +425,8 @@ static int const kCardHolderNameLength = 4;
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:input.length <= kOtherPostalCodeLength
                                        errorMessage:nil
-                                     formattedInput:input.uppercaseString];;
+                                     formattedInput:input.uppercaseString];
+    ;
 }
 
 - (NSString *)selectedCountry {

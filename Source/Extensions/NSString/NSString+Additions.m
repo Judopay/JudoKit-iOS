@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPCardNetwork.h"
+#import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPTheme.h"
 #import "NSBundle+Additions.h"
 #import "NSString+Additions.h"
 #import "UIFont+Additions.h"
-#import "JPConstants.h"
 
 @implementation NSString (Additions)
 

@@ -61,7 +61,7 @@
     if (cardNumber.length == 0) {
         return JPCardNetworkTypeUnknown;
     }
-    
+
     if ([self doesCardNumber:cardNumber matchRegex:kRegExVisaPAN]) {
         return JPCardNetworkTypeVisa;
     }

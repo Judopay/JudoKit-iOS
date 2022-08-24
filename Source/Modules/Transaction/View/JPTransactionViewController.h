@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPInputFieldDelegate.h"
+#import "JPInputType.h"
 #import "JPTransactionViewDelegate.h"
 #import "JPTransactionViewModel.h"
-#import "JPInputType.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPTransactionPresenter;
