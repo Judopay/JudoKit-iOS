@@ -27,9 +27,9 @@ import XCTest
 
 class JPCardCustomizationInteractorTest: XCTestCase {
     var sut: JPCardCustomizationInteractor! = nil
-    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
-    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
-    lazy var thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3")
+    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1", cardholderName: "Bob")
+    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2", cardholderName: "Bob")
+    lazy var thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3", cardholderName: "Bob")
     
     override func setUp() {
         super.setUp()

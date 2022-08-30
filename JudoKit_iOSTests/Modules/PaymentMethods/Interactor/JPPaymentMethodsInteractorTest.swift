@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
 @testable import JudoKit_iOS
+import XCTest
 
 class JPPaymentMethodsInteractorTest: XCTestCase {
     var sut: JPPaymentMethodsInteractor!
@@ -35,7 +35,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                                  currency: "GBP",
                                                  countryCode: "GB",
                                                  paymentSummaryItems: [])
-    
+
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
@@ -54,25 +54,25 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         HTTPStubs.setEnabled(true)
 
         stub(condition: isHost("api-sandbox.judopay.com")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
-                                     statusCode: 200,
-                                     headers: nil)
+            HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
+                              statusCode: 200,
+                              headers: nil)
         }
     }
-    
+
     /*
      * GIVEN: User is calling payment type with server to server mode
      *
      * THEN: should call and return not nil response
      */
-    func test_ServerToServer_WhenCallingPayment_ShouldReturnNotNilResponse()  {
-        let completion: JPCompletionBlock = { (response, error) in
+    func test_ServerToServer_WhenCallingPayment_ShouldReturnNotNilResponse() {
+        let completion: JPCompletionBlock = { response, error in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
         sut.paymentTransaction(with: JPStoredCardDetails(), securityCode: nil, andCompletion: completion)
     }
-    
+
     /*
      * GIVEN: Set up ammount in config object
      *
@@ -85,7 +85,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         XCTAssertEqual(amount.amount, "123")
         XCTAssertEqual(amount.currency, "GBP")
     }
-    
+
     /*
      * GIVEN: Pbba method is not available
      *
@@ -97,7 +97,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let index = sut.indexOfPBBAMethod()
         XCTAssertEqual(index, NSNotFound)
     }
-    
+
     /*
      * GIVEN: remove all cards from store
      *
@@ -110,7 +110,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let cards = sut.getStoredCardDetails()
         XCTAssertEqual(cards.count, 0)
     }
-    
+
     /*
      * GIVEN: remove all cards from store
      *
@@ -120,13 +120,13 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      */
     func test_StoredCards_WhenAddingNewCards_ShouldAppearInList() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "Bob")
         JPCardStorage.sharedInstance()?.add(card)
-        
+
         let cards = sut.getStoredCardDetails()
         XCTAssertEqual(cards.count, 1)
     }
-    
+
     /*
      * GIVEN: Calculating all payment methods
      *
@@ -138,7 +138,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 2)
     }
-    
+
     /*
      * GIVEN: Calculating all payment methods
      *
@@ -151,7 +151,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 3)
     }
-    
+
     /*
      * GIVEN: We need to order cards
      *
@@ -161,17 +161,17 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      */
     func testOrderCards_WhenCardIsDefault_ShouldPlaceOnFirstIndex() {
         JPCardStorage.sharedInstance()?.deleteCardDetails()
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
-        let defaultCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "Bob")
+        let defaultCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "Bob")
         defaultCard?.isDefault = true
         JPCardStorage.sharedInstance()?.add(card)
         JPCardStorage.sharedInstance()?.add(defaultCard)
-        
+
         sut.orderCards()
         let cards = sut.getStoredCardDetails()
         XCTAssertTrue((cards[0] as JPStoredCardDetails).isDefault)
     }
-    
+
     /*
      * GIVEN: remove all cards from store
      *
@@ -181,14 +181,14 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      */
     func test_DeleteCardWithIndex_WhenRemoving_ShouldCountCardsRight() {
         let initialCount = JPCardStorage.sharedInstance()?.fetchStoredCardDetails().count
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "Bob")
         JPCardStorage.sharedInstance()?.add(card)
         sut.deleteCard(with: 0)
         let countAfterRemoving = JPCardStorage.sharedInstance()?.fetchStoredCardDetails().count
-        
+
         XCTAssertEqual(initialCount, countAfterRemoving)
     }
-    
+
     /*
      * GIVEN: check for apple pay
      *
@@ -208,7 +208,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: the method should expect a successful response
      */
     func test_OnProcessApplePay_WhenValidPKPayment_ReturnResponse() {
-
         let paymentMethod = PKPaymentMethod()
         paymentMethod.setValue("displayName", forKey: "displayName")
         paymentMethod.setValue("network", forKey: "network")
@@ -220,9 +219,9 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let payment = PKPayment()
         payment.setValue(token, forKey: "token")
 
-        let expectation = self.expectation(description: "awaiting payment transaction")
+        let expectation = expectation(description: "awaiting payment transaction")
 
-        sut.processApplePayment(payment) { (response, error) in
+        sut.processApplePayment(payment) { response, error in
             XCTAssertNotNil(response)
             XCTAssertNil(error)
             expectation.fulfill()
@@ -230,7 +229,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
 
         waitForExpectations(timeout: 30, handler: nil)
     }
-    
+
     /*
      * GIVEN: Add a card
      *
@@ -239,12 +238,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: should return true for isLastUsed
      */
     func test_SetLastUsedCardAtIndex_WhenAddingCard_SetLastUsed() {
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "bob")
         JPCardStorage.sharedInstance()?.add(card)
         sut.setLastUsedCardAt(0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isLastUsed)
     }
-    
+
     /*
      * GIVEN: Get a list of ideal banks
      *
@@ -256,7 +255,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let array = sut.getIDEALBankTypes()
         XCTAssertEqual(array.count, 12)
     }
-    
+
     /*
      * GIVEN: Set default card
      *
@@ -265,12 +264,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: should return isDefault true
      */
     func test_SetCardAsDefaultAtIndex_WhenAddingCard_ShouldSaveIsDefault() {
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "bob")
         JPCardStorage.sharedInstance()?.add(card)
         sut.setCardAsDefaultAt(0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isDefault)
     }
-    
+
     /*
      * GIVEN: Set card as selected
      *
@@ -279,12 +278,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: should isSelected true
      */
     func test_SetCardAsSelectedAtIndex_WhenAddingCard_ShouldSaveisSelected() {
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "bob")
         JPCardStorage.sharedInstance()?.add(card)
         sut.setCardAsSelectedAt(0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isSelected)
     }
-    
+
     /*
      * GIVEN: Selected card at index
      *
@@ -293,12 +292,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      * THEN: should isSelected true
      */
     func test_SelectCardAtIndex() {
-        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
+        let card = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "bob")
         JPCardStorage.sharedInstance()?.add(card)
         sut.selectCard(at: 0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isSelected)
     }
-    
+
     /*
      * GIVEN: object of JPPaymentMethodsInteractor
      *
@@ -310,7 +309,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let shouldVerify = sut.shouldVerifySecurityCode()
         XCTAssertTrue(shouldVerify)
     }
-    
+
     /*
      * GIVEN: User is calling payment type with payment mode
      *
@@ -322,9 +321,12 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                                  configuration: configuration,
                                                  apiService: service,
                                                  completion: nil)
-        sut.paymentTransaction(with: JPStoredCardDetails(lastFour: "", expiryDate: "", cardNetwork: .masterCard, cardToken: "token"), securityCode: "secure", andCompletion:nil)
+        sut.paymentTransaction(
+            with: JPStoredCardDetails(lastFour: "", expiryDate: "", cardNetwork: .masterCard, cardToken: "token", cardholderName: "bob"),
+            securityCode: "secure",
+            andCompletion: nil)
     }
-    
+
     /*
      * GIVEN: User add error
      *
@@ -334,19 +336,19 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let error = NSError(domain: "Domain", code: 404, userInfo: nil)
         sut.storeError(error)
     }
-    
+
     /*
-    * GIVEN: object of JPPaymentMethodsInteractor
-    *
-    * WHEN: initialize with completion
-    *
-    * THEN: should return error and response in completion
-    */
+     * GIVEN: object of JPPaymentMethodsInteractor
+     *
+     * WHEN: initialize with completion
+     *
+     * THEN: should return error and response in completion
+     */
     func test_completeTransactionWithResponse() {
         let error = NSError(domain: "Domain", code: 404, userInfo: nil)
         let response = JPResponse()
-        
-        let completion: JPCompletionBlock = { (response, error) in
+
+        let completion: JPCompletionBlock = { response, error in
             XCTAssertNotNil(response)
             XCTAssertNotNil(error)
         }
@@ -355,7 +357,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                                  configuration: configuration,
                                                  apiService: service,
                                                  completion: completion)
-        
+
         sut.completeTransaction(with: response, andError: error)
     }
 }

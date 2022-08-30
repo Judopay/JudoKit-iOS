@@ -51,8 +51,8 @@
  * @param title - an optional NSString that defines the title of the alert
  * @param error - an NSError instance describing the current error
  */
-- (void)displayAlertWithTitle:(nullable NSString *)title
-                     andError:(nonnull NSError *)error;
+- (void)_jp_displayAlertWithTitle:(nullable NSString *)title
+                         andError:(nonnull NSError *)error;
 
 /**
  * A method that is used to present the Apple Pay sheet while providing a block for handling authorization responses.

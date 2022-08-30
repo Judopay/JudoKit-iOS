@@ -79,19 +79,26 @@
 @property (nonatomic, assign) JPCardExpirationStatus expirationStatus;
 
 /**
+ *  The cardholder's name
+ */
+@property (nonatomic, strong) NSString *cardholderName;
+
+/**
  * The designated initializer that creates a new instance with the last four digits, expiry date and card network set
  *
  * @param lastFour - the last four digits of the credit card
  * @param expiryDate - the card's expiration date
  * @param network - the card's network
  * @param cardToken - the card's token
+ * @param cardholderName - the cardholder's name
  *
  * @return an instance of JPStoredCardDetails
  */
 - (instancetype)initWithLastFour:(NSString *)lastFour
                       expiryDate:(NSString *)expiryDate
                      cardNetwork:(JPCardNetworkType)network
-                       cardToken:(NSString *)cardToken;
+                       cardToken:(NSString *)cardToken
+                  cardholderName:(NSString *)cardholderName;
 
 /**
  * A designated initializer that creates a new instance based on a passed NSDictionary
@@ -109,13 +116,15 @@
  * @param expiryDate - the card's expiration date
  * @param network - the card's network
  * @param cardToken - the card's token
+ * @param cardholderName - the cardholder's name
  *
  * @return an instance of JPStoredCardDetails
  */
 + (instancetype)cardDetailsWithLastFour:(NSString *)lastFour
                              expiryDate:(NSString *)expiryDate
                             cardNetwork:(JPCardNetworkType)network
-                              cardToken:(NSString *)cardToken;
+                              cardToken:(NSString *)cardToken
+                         cardHolderName:(NSString *)cardholderName;
 
 /**
  * A designated initializer that creates a new instance based on a passed NSDictionary

@@ -76,6 +76,7 @@
     _cardType = details.cardNetwork;
     _cardLastFour = details.cardLastFour;
     _endDate = details.expiryDate;
+    _cardholderName = details.cardholderName;
 }
 
 - (void)setConfiguration:(JPConfiguration *)configuration {

@@ -22,18 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
 @testable import JudoKit_iOS
+import XCTest
 
 class JPPaymentMethodsPresenterTest: XCTestCase {
     var sut: JPPaymentMethodsPresenterImpl!
     let controller = JPPaymentMethodsViewControllerMock()
     let router = JPPaymentMethodsRouterImplMock()
     let interactor = JPPaymentMethodsInteractorMock()
-    
-    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
-    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
-    
+
+    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1", cardholderName: "Bob")
+    lazy var secondStoredCard = JPStoredCardDetails(
+        lastFour: "2222",
+        expiryDate: "22/22",
+        cardNetwork: .masterCard,
+        cardToken: "cardToken2",
+        cardholderName: "Bob")
+
     override func setUp() {
         super.setUp()
         JPCardStorage.sharedInstance()?.deleteCardDetails()
@@ -42,7 +47,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.interactor = interactor
         sut.router = router
     }
-    
+
     /*
      * GIVEN: updating view with card list
      *
@@ -56,7 +61,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.viewModelNeedsUpdate()
         XCTAssertTrue(controller.cardsList.count == 2)
     }
-    
+
     /*
      * GIVEN: updating view with card list
      *
@@ -66,9 +71,9 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      */
     func test_ViewModelNeedsUpdate_WhenNoCardsAreInStore_ShouldUpdateControllerWithEmptyCardList() {
         sut.viewModelNeedsUpdate()
-        XCTAssertTrue(controller.cardsList.count == 0)
+        XCTAssertTrue(controller.cardsList.isEmpty)
     }
-    
+
     /*
      * GIVEN: selecting card in JPPaymentMethodsPresenter
      *
@@ -82,7 +87,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.didSelectCard(at: 0, isEditingMode: true)
         XCTAssertTrue(router.caledCardCustomization)
     }
-    
+
     /*
      * GIVEN: selecting card in JPPaymentMethodsPresenter
      *
@@ -97,7 +102,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssertTrue(interactor.cardSelected)
         XCTAssertTrue(controller.cardsList.count == 1)
     }
-    
+
     /*
      * GIVEN: selecting ideal option, selecting bank in iDeal type. Everything is setuped in interactorMock
      *
@@ -110,7 +115,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.didSelectBank(at: 0)
         XCTAssertNotNil(controller.idealBankModel)
     }
-    
+
     /*
      * GIVEN: clicking on back button
      *
@@ -122,7 +127,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssertEqual(interactor.transactionCompleteError!.localizedDescription, "The transaction was cancelled by the user.")
         XCTAssertTrue(router.dismissController)
     }
-    
+
     /*
      * GIVEN: clicking in pay button by user
      *
@@ -136,7 +141,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssertTrue(router.navigatedToIdealPay)
         XCTAssertTrue(router.dismissController)
     }
-    
+
     /*
      * GIVEN: clicking in pay button by user
      *
@@ -149,7 +154,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.handlePayButtonTap()
         XCTAssertTrue(interactor.calledTransactionPayment)
     }
-    
+
     /*
      * GIVEN: clicking in pay button by user
      *
@@ -163,7 +168,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.handlePayButtonTap()
         XCTAssertTrue(interactor.calledTransactionPayment)
     }
-    
+
     /*
      * GIVEN: Clicking on apple pay
      *
@@ -180,31 +185,31 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssertTrue(view.didPresentApplePay)
         XCTAssertTrue(interactor.startApplePay)
     }
-    
+
     /*
-      * GIVEN: Clicking on apple pay
-      *
-      * WHEN: a network error has occured
-      *
-      * THEN: interactor's storeError method should not be invoked
-      */
-     func test_HandleApplePayButtonTap_ShouldNotStoreError() {
-         JPCardStorage.sharedInstance()?.add(firstStoredCard)
-         firstStoredCard?.isSelected = true
-         JPCardStorage.sharedInstance()?.add(secondStoredCard)
-        
-         let view = sut.view as! JPPaymentMethodsViewControllerMock
-         let interactor = sut.interactor as! JPPaymentMethodsInteractorMock
-         interactor.shouldFailWhenProcessApplePayment = true
-         view.isPaymentAuthorized = false
-        
-         sut.handleApplePayButtonTap()
-        
-         XCTAssertTrue(view.didPresentApplePay)
-         XCTAssertTrue(interactor.startApplePay)
-         XCTAssertFalse(interactor.storeError)
-     }
-    
+     * GIVEN: Clicking on apple pay
+     *
+     * WHEN: a network error has occured
+     *
+     * THEN: interactor's storeError method should not be invoked
+     */
+    func test_HandleApplePayButtonTap_ShouldNotStoreError() {
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        firstStoredCard?.isSelected = true
+        JPCardStorage.sharedInstance()?.add(secondStoredCard)
+
+        let view = sut.view as! JPPaymentMethodsViewControllerMock
+        let interactor = sut.interactor as! JPPaymentMethodsInteractorMock
+        interactor.shouldFailWhenProcessApplePayment = true
+        view.isPaymentAuthorized = false
+
+        sut.handleApplePayButtonTap()
+
+        XCTAssertTrue(view.didPresentApplePay)
+        XCTAssertTrue(interactor.startApplePay)
+        XCTAssertFalse(interactor.storeError)
+    }
+
     /*
      * GIVEN: adding 2 cards to store
      *
@@ -221,7 +226,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         let cardFromUI = controller.cardsList.first!
         XCTAssertEqual(cardFromUI.cardNumberLastFour, firstStoredCard?.cardLastFour)
     }
-    
+
     /*
      * GIVEN: When editing card
      *
@@ -233,15 +238,15 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.changeHeaderButtonTitle(true)
-        
+
         let textButtonTrue = (controller.viewModelSut!.items?[1] as! JPPaymentMethodsCardHeaderModel).editButtonTitle
         XCTAssertEqual(textButtonTrue, "DONE")
-        
+
         sut.changeHeaderButtonTitle(false)
         let textButtonFalse = (controller.viewModelSut!.items?[1] as! JPPaymentMethodsCardHeaderModel).editButtonTitle
         XCTAssertEqual(textButtonFalse, "EDIT")
     }
-    
+
     /*
      * GIVEN: When user changing payment method
      *
@@ -253,13 +258,13 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
         var viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.iDeal)
-        
+
         sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
-        
+
         viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.card)
     }
-    
+
     /*
      * GIVEN: Adding few cards
      *
@@ -267,13 +272,13 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * THEN: last card should be ydated with isSelected = true
      */
-    func test_SetLastAddedCardAsSelected_WhenNoSelection_ShouldSelectLastOne()  {
+    func test_SetLastAddedCardAsSelected_WhenNoSelection_ShouldSelectLastOne() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.setLastAddedCardAsSelected()
         XCTAssertTrue(secondStoredCard!.isSelected)
     }
-    
+
     /*
      * GIVEN: Adding few cards, and order them
      *
@@ -286,11 +291,11 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.orderCards()
-        
+
         let card = (JPCardStorage.sharedInstance()!.fetchStoredCardDetails()!.firstObject! as! JPStoredCardDetails)
         XCTAssertTrue(card.isDefault)
     }
-    
+
     /*
      * GIVEN: Remove all cards, and save 3 cards with different expiry dates
      *
@@ -306,7 +311,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         XCTAssert(controller.cardsList[1].cardExpirationStatus == .expiresSoon)
         XCTAssert(controller.cardsList[2].cardExpirationStatus == .expired)
     }
-    
+
     /*
      * GIVEN: designated init JPPaymentMethodsPresenterImpl
      *
@@ -321,7 +326,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         let sut = JPPaymentMethodsPresenterImpl(configuration: configuration)
         XCTAssertNotNil(sut)
     }
-    
+
     /*
      * GIVEN: updating view
      *
@@ -341,7 +346,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         sut.viewModelNeedsUpdate()
         XCTAssertTrue(interactor.startPolling)
     }
-    
+
     /*
      * GIVEN: updating view with card list
      *

@@ -183,11 +183,13 @@
     NSString *cardNumberString = viewModel.cardNumberViewModel.text;
     NSString *lastFour = [cardNumberString substringFromIndex:cardNumberString.length - 4];
     NSString *expiryDate = viewModel.expiryDateViewModel.text;
+    NSString *cardholderName = viewModel.cardholderNameViewModel.text;
 
     JPStoredCardDetails *storedCardDetails = [JPStoredCardDetails cardDetailsWithLastFour:lastFour
                                                                                expiryDate:expiryDate
                                                                               cardNetwork:cardNetwork
-                                                                                cardToken:token];
+                                                                                cardToken:token
+                                                                           cardHolderName:cardholderName];
     storedCardDetails.cardTitle = [self defaultCardTitleForCardNetwork:cardNetwork];
     storedCardDetails.patternType = JPCardPattern.random.type;
     [JPCardStorage.sharedInstance addCardDetails:storedCardDetails];
