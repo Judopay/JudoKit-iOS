@@ -22,47 +22,36 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
+
 @testable import JudoKit_iOS
+import XCTest
 
 class JPTransactionViewMock: UIViewController, JPTransactionView {
-
     var showedCameraAlert = false
     var viewModelSut: JPTransactionViewModel!
-    
-    func load(with mode: JPCardDetailsMode) {
-    }
-    
+
+    func load(with mode: JPCardDetailsMode) {}
+
     func updateView(with viewModel: JPTransactionViewModel, shouldUpdateTargets: Bool) {
         viewModelSut = viewModel
     }
 
-    func applyConfiguredTheme(_ theme: JPTheme) {
-    }
+    func applyConfiguredTheme(_ theme: JPTheme) {}
 
-    var error: Error! = nil
+    var error: Error!
     func updateWithError(_ error: Error) {
         self.error = error
     }
-    
-    func didFinishAddingCard() {
-        
-    }
-    
-    func displayCameraPermissionsAlert() {
-        
-    }
-    
-    func displayCameraRestrictionAlert() {
-        
-    }
-    
+
+    func didFinishAddingCard() {}
+
+    func displayCameraPermissionsAlert() {}
+
+    func displayCameraRestrictionAlert() {}
+
     func displayCameraSimulatorAlert() {
         showedCameraAlert = true
     }
-    
-    func changeFocusToSecurityCodeField() {
-        
-    }
-    
+
+    func changeFocus(to type: JPInputType) {}
 }
