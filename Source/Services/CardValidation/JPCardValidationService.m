@@ -74,7 +74,7 @@ static int const kCardHolderNameLength = 4;
         cardNumber = [cardNumber substringToIndex:maxCardLength];
     }
 
-    if (cardNumber._jp_stringByRemovingWhitespaces.length < maxCardLength || !cardNumber._jp_isValidCardNumber) {
+    if (cardNumber.length < maxCardLength || !cardNumber._jp_isValidCardNumber) {
         error = JPError.invalidCardNumberError;
     }
 
