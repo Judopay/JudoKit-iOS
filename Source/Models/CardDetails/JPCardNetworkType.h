@@ -67,5 +67,5 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType) {
     /**
      * All card networks
      */
-    JPCardNetworkTypeAll,
+    JPCardNetworkTypeAll = (JPCardNetworkTypeVisa | JPCardNetworkTypeMasterCard | JPCardNetworkTypeMaestro | JPCardNetworkTypeAMEX | JPCardNetworkTypeChinaUnionPay | JPCardNetworkTypeJCB | JPCardNetworkTypeDiscover | JPCardNetworkTypeDinersClub)
 };

@@ -177,9 +177,14 @@ class JPApplePayWrappersTests: XCTestCase {
      */
     func test_OnPaymentNetworkMapping_WhenAllSelected_MapAllValues() {
         configuration.applePayConfiguration = appleConfig
-        configuration.applePayConfiguration?.supportedCardNetworks = .all
+        configuration.applePayConfiguration?.supportedCardNetworks = [.all]
         let networks = JPApplePayWrappers.pkPaymentNetworks(for: configuration)
+        
+        if #available(iOS 12, *) {
+            XCTAssertEqual(networks, [.visa, .masterCard, .amex, .maestro, .JCB, .discover, .chinaUnionPay])
+        } else {
+            XCTAssertEqual(networks, [.visa, .masterCard, .amex, .JCB, .discover, .chinaUnionPay])
+        }
 
-        XCTAssertEqual(networks?.count, 7)
     }
 }

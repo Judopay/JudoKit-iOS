@@ -132,12 +132,12 @@
         [pkPaymentNetworks addObject:PKPaymentNetworkVisa];
     }
 
-    if (cardNetworks & JPCardNetworkTypeAMEX) {
-        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
-    }
-
     if (cardNetworks & JPCardNetworkTypeMasterCard) {
         [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
+    }
+    
+    if (cardNetworks & JPCardNetworkTypeAMEX) {
+        [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
     }
 
     if (cardNetworks & JPCardNetworkTypeMaestro) {

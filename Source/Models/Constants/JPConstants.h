@@ -62,9 +62,10 @@ static int const kMaxDefaultCardLength = 16;
 
 // MARK:Postal Codes
 static NSString *const kMaskForCanadaPostCode = @"XXX XXX";
-static int const kCanadaPostalCodeLength = 7;
+static int const kCanadaPostalCodeMaxLength = 7;
+static int const kCanadaPostalCodeMinLength = 6;
 static int const kUKPostalCodeMaxLength = 8;
-static int const kUKPostalCodeMinLength = 6;
+static int const kUKPostalCodeMinLength = 5;
 static int const kUSAPostalCodeMaxLength = 10;
 static int const kUSAPostalCodeMinLength = 5;
 
@@ -86,9 +87,9 @@ static NSString *const kRegExCity = @"^[A-Za-z.'\\- ]+$";
 static NSString *const kRegExMobileNumber = @"^.{10,}$";
 static NSString *const kRegExAddressLine = @"^[a-zA-Z0-9,./'\\- ]+$";
 
-static NSString *const kRegExUSPostCode = @"(^\\d{5}$)|(^\\d{5}-\\d{4}$)";
+static NSString *const kRegExUSPostCode = @"(^\\d{5}$)|(^\\d{5}[\\s?-]\\d{4}$)";
 static NSString *const kRegExGBPostCode = @"(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})";
-static NSString *const kRegExCAPostCode = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]";
+static NSString *const kRegExCAPostCode = @"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ]\\s?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]";
 
 // Default 3DS 2.0 maximum timeout value
 static int const kDefaultThreeDSTwoMaxTimeout = 60;

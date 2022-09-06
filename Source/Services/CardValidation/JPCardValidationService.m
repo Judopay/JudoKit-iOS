@@ -446,7 +446,7 @@ static int const kCardHolderNameLength = 4;
 - (NSUInteger)postCodeMaxLengthForCountry:(JPBillingCountry)country {
     switch (country) {
         case JPBillingCountryCanada:
-            return kCanadaPostalCodeLength;
+            return kCanadaPostalCodeMaxLength;
         case JPBillingCountryUK:
             return kUKPostalCodeMaxLength;
         case JPBillingCountryUSA:
@@ -461,7 +461,7 @@ static int const kCardHolderNameLength = 4;
 - (NSUInteger)postCodeMinLengthForCountry:(JPBillingCountry)country {
     switch (country) {
         case JPBillingCountryCanada:
-            return kCanadaPostalCodeLength;
+            return kCanadaPostalCodeMinLength;
         case JPBillingCountryUK:
             return kUKPostalCodeMinLength;
         case JPBillingCountryUSA:
