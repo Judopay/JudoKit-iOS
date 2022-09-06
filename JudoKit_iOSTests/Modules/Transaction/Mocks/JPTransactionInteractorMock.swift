@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
 @testable import JudoKit_iOS
+import XCTest
 
 enum SendTransactionTest {
     case error
@@ -33,11 +33,10 @@ enum SendTransactionTest {
 }
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
-    
     func configuration() -> JPConfiguration {
-        return JPConfiguration()
+        JPConfiguration()
     }
-    
+
     var testSendTransaction: SendTransactionTest = .validData
     var type: JPTransactionType = .saveCard
     lazy var validationService = JPCardValidationService()
@@ -46,22 +45,21 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
 
     var mode: JPCardDetailsMode = .default
     func cardDetailsMode() -> JPCardDetailsMode {
-        return mode
+        mode
     }
-    
+
     func cardNetworkType() -> JPCardNetworkType {
-        return .visa
+        .visa
     }
-    
+
     func generatePayButtonTitle() -> String {
-        return "Pay"
+        "Pay"
     }
-    
-    func updateKeychain(withCardModel viewModel: JPTransactionViewModel, andToken token: String) {
-    }
-    
+
+    func updateKeychain(withCardModel viewModel: JPTransactionViewModel, andToken token: String) {}
+
     func isAVSEnabled() -> Bool {
-        return true
+        true
     }
 
     func getConfiguredTheme() -> JPTheme {
@@ -69,73 +67,75 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     }
 
     func transactionType() -> JPTransactionType {
-        return type
-    }
-    
-    func handleCameraPermissions(completion: ((AVAuthorizationStatus) -> Void)) {
-        
+        type
     }
 
+    func handleCameraPermissions(completion: (AVAuthorizationStatus) -> Void) {}
+
     func getFilteredCountries(bySearch searchString: String?) -> [JPCountry] {
-        return [JPCountry()]
+        [JPCountry()]
     }
 
     func getSelectableCountryNames() -> [String]! {
-        return ["UK"]
+        ["UK"]
     }
-    
+
     func getConfiguredCardAddress() -> JPAddress {
-        return JPAddress()
+        JPAddress()
     }
-    
+
     func completeTransaction(with response: JPResponse?, error: JPError?) {
         completeTransaction = true
     }
-    
-    func storeError(_ error: Error) {
-        
-    }
-    
-    func resetCardValidationResults() {
-        
-    }
-    
+
+    func storeError(_ error: Error) {}
+
+    func resetCardValidationResults() {}
+
     func validateCardNumberInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCardNumberInput(input, forSupportedNetworks: .visa)
+        validationService.validateCardNumberInput(input, forSupportedNetworks: .visa)
     }
 
     func validateCardholderEmailInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCardholderEmailInput(input)
+        validationService.validateCardholderEmailInput(input)
     }
 
     func validateCardholderPhoneCodeInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCardholderPhoneCodeInput(input)
+        validationService.validateCardholderPhoneCodeInput(input)
     }
 
     func validateCardholderPhoneInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCardholderPhoneInput(input)
+        validationService.validateCardholderPhoneInput(input)
     }
 
     func validateCardholderNameInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCardholderNameInput(input)
+        validationService.validateCardholderNameInput(input)
     }
-    
+
     func validateExpiryDateInput(_ input: String) -> JPValidationResult {
-        return validationService.validateExpiryDateInput(input)
+        validationService.validateExpiryDateInput(input)
     }
-    
+
     func validateSecureCodeInput(_ input: String) -> JPValidationResult {
-        return validationService.validateSecureCodeInput(input)
+        validationService.validateSecureCodeInput(input)
     }
-    
+
     func validateCountryInput(_ input: String) -> JPValidationResult {
-        return validationService.validateCountryInput(input)
+        validationService.validateCountryInput(input)
     }
-    
+
     func validatePostalCodeInput(_ input: String) -> JPValidationResult {
-        return validationService.validatePostalCodeInput(input)
+        validationService.validatePostalCodeInput(input)
     }
-    
+
+    func validateAddressLineInput(_ input: String) -> JPValidationResult {
+        validationService.validateAddressLineInput(input)
+    }
+
+    func validateCity(_ input: String) -> JPValidationResult {
+        validationService.validateCityInput(input)
+    }
+
     func sendTransaction(with details: JPCardTransactionDetails, completionHandler: @escaping JPCompletionBlock) {
         switch testSendTransaction {
         case .error:
@@ -151,38 +151,38 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             completionHandler(jpResponse, nil)
             trasactionSent = true
         case .threedDSError:
-            let jpError = JPError.threeDSRequest(withPayload: ["":""])
+            let jpError = JPError.threeDSRequest(withPayload: ["": ""])
             completionHandler(nil, jpError)
             trasactionSent = true
         }
     }
-        
-    var dic = ["receiptId":"receiptId",
+
+    var dic = ["receiptId": "receiptId",
                "orderId": "orderId",
-               "type":"Payment",
-               "createdAt":"createdAt",
-               "result":"Success",
-               "message":"message",
-               "redirectUrl":"redirectUrl",
-               "merchantName":"merchantName",
-               "appearsOnStatementAs":"appearsOnStatementAs",
-               "paymentMethod":"paymentMethod",
-               "judoId":"judoId",
-               "merchantPaymentReference":"merchantPaymentReference",
-               "consumer":["consumerReference":"consumerReference",
-                           "consumerToken":"consumerToken"],
-               "orderDetails":["orderId":"orderId",
-                               "orderStatus":"orderStatus",
-                               "orderFailureReason":"orderFailureReason",
-                               "timestamp":"timestamp",
-                               "amount":999],
-               "cardDetails":["cardLastfour":"cardLastfour",
-                              "endDate":"endDate",
-                              "cardToken":"cardToken",
-                              "cardNumber":"cardNumber",
-                              "cardCategory":"cardCategory",
-                              "cardCountry":"cardCountry",
-                              "cardFunding":"cardFunding",
-                              "cardScheme":"cardScheme",
-                              "cardType":0]] as [String : Any]
+               "type": "Payment",
+               "createdAt": "createdAt",
+               "result": "Success",
+               "message": "message",
+               "redirectUrl": "redirectUrl",
+               "merchantName": "merchantName",
+               "appearsOnStatementAs": "appearsOnStatementAs",
+               "paymentMethod": "paymentMethod",
+               "judoId": "judoId",
+               "merchantPaymentReference": "merchantPaymentReference",
+               "consumer": ["consumerReference": "consumerReference",
+                            "consumerToken": "consumerToken"],
+               "orderDetails": ["orderId": "orderId",
+                                "orderStatus": "orderStatus",
+                                "orderFailureReason": "orderFailureReason",
+                                "timestamp": "timestamp",
+                                "amount": 999],
+               "cardDetails": ["cardLastfour": "cardLastfour",
+                               "endDate": "endDate",
+                               "cardToken": "cardToken",
+                               "cardNumber": "cardNumber",
+                               "cardCategory": "cardCategory",
+                               "cardCountry": "cardCountry",
+                               "cardFunding": "cardFunding",
+                               "cardScheme": "cardScheme",
+                               "cardType": 0]] as [String: Any]
 }

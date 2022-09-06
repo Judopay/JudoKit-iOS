@@ -364,9 +364,11 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                         currency:Settings.defaultSettings.amount.currency
                                                                                      countryCode:@"GB"
                                                                              paymentSummaryItems:items];
-    configuration.requiredShippingContactFields = JPContactFieldAll;
-    configuration.requiredBillingContactFields = JPContactFieldAll;
-    configuration.returnedContactInfo = JPReturnedInfoAll;
+    
+    configuration.requiredShippingContactFields = Settings.defaultSettings.applePayShippingContactFields;
+    configuration.requiredBillingContactFields = Settings.defaultSettings.applePayBillingContactFields;
+    configuration.returnedContactInfo = Settings.defaultSettings.applePayReturnedContactInfo;
+    configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.shippingMethods = @[ [[JPPaymentShippingMethod alloc] initWithIdentifier:@"method"
                                                                                     detail:@"details"
                                                                                      label:@"label"

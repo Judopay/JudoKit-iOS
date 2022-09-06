@@ -35,7 +35,7 @@ class JPCanadaPostCodeValidation: XCTestCase {
     override func setUp() {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
-        validationService.validateCountryInput("Canada")
+        validationService.validateCountryInput("country_canada"._jp_localized())
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
                                           transactionService: JPCardTransactionService(),
                                           transactionType: .payment,
@@ -44,13 +44,14 @@ class JPCanadaPostCodeValidation: XCTestCase {
                                           cardNetwork: .all,
                                           completion: { _, _ in })
     }
-    
-    func testValidCode_Canada() {
-        let result = sut.validatePostalCodeInput("A1A1A1")
-        XCTAssertEqual(result.formattedInput, "A1A 1A1")
-        XCTAssertTrue(result.isValid)
-    }
-    
+
+//    TODO: Autoformat is disabled as of now, uncomment when re-enabled
+//    func testValidCode_Canada() {
+//        let result = sut.validatePostalCodeInput("A1A1A1")
+//        XCTAssertEqual(result.formattedInput, "A1A 1A1")
+//        XCTAssertTrue(result.isValid)
+//    }
+//
     func testValidCodeWithSpaces_Canada() {
         let result = sut.validatePostalCodeInput("A1A 1A1")
         XCTAssertEqual(result.formattedInput, "A1A 1A1")

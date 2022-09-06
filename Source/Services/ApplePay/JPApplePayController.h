@@ -25,8 +25,6 @@
 #import "JPApplePayTypedefs.h"
 #import <UIKit/UIKit.h>
 
-@class JPConfiguration;
-
 @class JPConfiguration, JPApplePayController;
 
 @interface JPApplePayController : NSObject <PKPaymentAuthorizationViewControllerDelegate>

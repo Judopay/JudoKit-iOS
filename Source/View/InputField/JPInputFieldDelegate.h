@@ -35,6 +35,9 @@
  * @param text - the new input string that should change
  */
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text;
-- (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text;
+
+@optional
 - (void)inputFieldDidBeginEditing:(JPInputField *)inputField;
+- (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text;
+
 @end

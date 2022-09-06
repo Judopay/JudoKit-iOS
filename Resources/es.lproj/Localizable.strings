@@ -171,3 +171,9 @@
 "add_address_line" = "Add address line %@ (optional)";
 "billing_details_title" = "Billing Details";
 "back" = "Back";
+
+"card_holder_name_required" = "Cardholder Name is required";
+"card_holder_name_too_short" = "Cardholder Name can\'t be less than 4 characters";
+"card_holder_name_special_chars" = "Cardholder Name can\'t contain numbers or special characters";
+
+"check_security_code" = "Check your %@";

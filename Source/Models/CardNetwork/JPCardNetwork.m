@@ -61,36 +61,36 @@
     if (cardNumber.length == 0) {
         return JPCardNetworkTypeUnknown;
     }
-    
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexVisa]) {
+
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExVisaPAN]) {
         return JPCardNetworkTypeVisa;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexMasterCard]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExMasterCardPAN]) {
         return JPCardNetworkTypeMasterCard;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexMaestro]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExMaestroPAN]) {
         return JPCardNetworkTypeMaestro;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexAmex]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExAmexPAN]) {
         return JPCardNetworkTypeAMEX;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexDiscover]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExDiscoverPAN]) {
         return JPCardNetworkTypeDiscover;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexDinersClub]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExDinersClubPAN]) {
         return JPCardNetworkTypeDinersClub;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexJCB]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExJCBPAN]) {
         return JPCardNetworkTypeJCB;
     }
 
-    if ([self doesCardNumber:cardNumber matchRegex:kRegexUnionPay]) {
+    if ([self doesCardNumber:cardNumber matchRegex:kRegExUnionPayPAN]) {
         return JPCardNetworkTypeChinaUnionPay;
     }
 

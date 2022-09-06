@@ -121,7 +121,9 @@
     label.text = text;
     label.textColor = _theme.jpBlackColor;
     label.font = _theme.headlineLight;
-    label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    if (@available(iOS 13.0, *)) {
+        label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
     [label sizeToFit];
     return label;
 }
@@ -222,11 +224,15 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.delegate inputField:self didEndEditing:textField.text];
+    if ([self.delegate respondsToSelector:@selector(inputField:didEndEditing:)]) {
+        [self.delegate inputField:self didEndEditing:textField.text];
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.delegate inputFieldDidBeginEditing:self];
+    if ([self.delegate respondsToSelector:@selector(inputFieldDidBeginEditing:)]) {
+        [self.delegate inputFieldDidBeginEditing:self];
+    }
 }
 
 @end

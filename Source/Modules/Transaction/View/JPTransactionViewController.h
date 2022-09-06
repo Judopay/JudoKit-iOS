@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPInputFieldDelegate.h"
+#import "JPInputType.h"
 #import "JPTransactionViewDelegate.h"
 #import "JPTransactionViewModel.h"
 #import <UIKit/UIKit.h>
@@ -70,10 +71,7 @@
  */
 - (void)displayCameraSimulatorAlert;
 
-/**
- * A method that changes focus to the security code field
- */
-- (void)changeFocusToSecurityCodeField;
+- (void)changeFocusToInputType:(JPInputType)type;
 
 @end
 
