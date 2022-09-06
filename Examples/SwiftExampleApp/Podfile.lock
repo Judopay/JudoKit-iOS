@@ -3,21 +3,21 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.0.1)
-  - JudoKit-iOS (3.0.1):
+  - Judo3DS2_iOS (1.1.1)
+  - JudoKit-iOS (3.1.1):
     - DeviceDNA (~> 2.0.0)
-    - Judo3DS2_iOS (~> 1.0.1)
+    - Judo3DS2_iOS (~> 1.1.1)
     - TrustKit
     - ZappMerchantLib
   - OpenSSL-Universal (1.1.1700)
-  - SwiftLint (0.47.1)
-  - TrustKit (2.0.0)
+  - SwiftLint (0.49.1)
+  - TrustKit (2.0.1)
   - ZappMerchantLib (3.1.0)
 
 DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.0.1)
+  - Judo3DS2_iOS (= 1.1.1)
   - JudoKit-iOS (from `../../`)
   - SwiftLint
 
@@ -40,13 +40,13 @@ SPEC CHECKSUMS:
   CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: c1ccf49ecacddb4559a73fb7eae6e680e2355b21
-  JudoKit-iOS: ff5d3b707ad4882137f96873dc269ab0bff6e030
+  Judo3DS2_iOS: 1699474533e69b69593c6a76b42645cb240f618a
+  JudoKit-iOS: 3d32a771a931398754d256a1f174e8510e5446f4
   OpenSSL-Universal: ee0a7a25f2042782e2df405e66db3e429198e392
-  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  TrustKit: 610b8c71c07914756dd74c380040a3408a747798
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
+  TrustKit: dad4c3a08248c21fcb9a3b5be3c2e2b9d4f9b973
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: ae4a5cd2ee5d02a8ba7157baf85a3fad2e1cb094
+PODFILE CHECKSUM: 233ac28971564811d36889d6e76357472cd383ec
 
 COCOAPODS: 1.11.3
