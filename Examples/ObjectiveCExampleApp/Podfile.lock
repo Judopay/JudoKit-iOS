@@ -4,10 +4,10 @@ PODS:
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.1.0)
+  - Judo3DS2_iOS (1.1.1)
   - JudoKit-iOS (3.1.1):
     - DeviceDNA (~> 2.0.0)
-    - Judo3DS2_iOS (~> 1.1.0)
+    - Judo3DS2_iOS (~> 1.1.1)
     - TrustKit
     - ZappMerchantLib
   - MaterialComponents/AnimationTiming (124.2.0)
@@ -87,7 +87,7 @@ DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
   - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.1.0)
+  - Judo3DS2_iOS (= 1.1.1)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
 
