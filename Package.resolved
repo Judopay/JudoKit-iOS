@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/Judo3DS2-iOS",
       "state" : {
-        "revision" : "c6caf9f1f2cb02c794f44f960eec3e0a6e57d946",
-        "version" : "1.0.1"
+        "revision" : "2efc594a98a135cf013ebec87554f08cceb4b49d",
+        "version" : "1.1.1"
       }
     },
     {

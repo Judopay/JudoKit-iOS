@@ -37,3 +37,6 @@ output
 Carthage
 
 *.xcworkspace/
+
+# SPM
+.build
