@@ -115,21 +115,22 @@
 			<string>challenge_request_indicator</string>
 			<key>Values</key>
 			<array>
+				<string>dontSet</string>
 				<string>noPreference</string>
 				<string>noChallenge</string>
 				<string>challengePreferred</string>
 				<string>challengeAsMandate</string>
-				<string></string>
 			</array>
 			<key>Titles</key>
 			<array>
+				<string>challenge_request_don_t_set_title</string>
 				<string>challenge_request_no_preference_indicator_title</string>
 				<string>challenge_request_no_challenge_indicator_title</string>
 				<string>challenge_request_challenge_preferred_indicator_title</string>
 				<string>challenge_request_challenge_as_mandate_indicator_title</string>
 			</array>
 			<key>DefaultValue</key>
-			<string>noPreference</string>
+			<string>dontSet</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -140,6 +141,7 @@
 			<string>sca_exemption</string>
 			<key>Values</key>
 			<array>
+				<string>dontSet</string>
 				<string>lowValue</string>
 				<string>secureCorporate</string>
 				<string>trustedBeneficiary</string>
@@ -147,13 +149,14 @@
 			</array>
 			<key>Titles</key>
 			<array>
+				<string>sca_exemption_don_t_set_title</string>
 				<string>sca_exemption_low_value_title</string>
 				<string>sca_exemption_secure_corporate_title</string>
 				<string>sca_exemption_trusted_beneficiary_title</string>
 				<string>sca_exemption_transaction_risk_analysis_title</string>
 			</array>
 			<key>DefaultValue</key>
-			<string>lowValue</string>
+			<string>dontSet</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -623,7 +626,7 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
-        <dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

@@ -5,7 +5,7 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.1.1)
-  - JudoKit-iOS (3.1.1):
+  - JudoKit-iOS (3.1.2):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.1.1)
     - TrustKit
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: 1699474533e69b69593c6a76b42645cb240f618a
-  JudoKit-iOS: 3d32a771a931398754d256a1f174e8510e5446f4
+  JudoKit-iOS: 1c1fc609b79cef170b3f914daf152f3712c494a9
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
@@ -129,6 +129,6 @@ SPEC CHECKSUMS:
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 0cb72eaac9c26ec171ab3e580c1a4270e9c0102f
+PODFILE CHECKSUM: 14a77fce3c4b3872ee5f2f1d10e0fa0d120d231b
 
 COCOAPODS: 1.11.3
