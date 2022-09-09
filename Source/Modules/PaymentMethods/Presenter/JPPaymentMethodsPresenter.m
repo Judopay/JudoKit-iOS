@@ -226,7 +226,7 @@
 
 - (void)handlePaymentError:(NSError *)error {
     [self.interactor storeError:error];
-    [self.view displayAlertWithTitle:@"transaction_unsuccessful"._jp_localized andError:error];
+    [self.view _jp_displayAlertWithTitle:@"transaction_unsuccessful"._jp_localized andError:error];
 }
 
 - (void)deleteCardWithIndex:(NSUInteger)index {

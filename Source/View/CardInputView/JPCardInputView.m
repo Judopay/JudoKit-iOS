@@ -97,7 +97,6 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.bottomSlider addSubview:self.mainStackView];
     [self setupConstraints];
     [self.mainStackView addArrangedSubview:self.topButtonStackView];
-    [self.mainStackView addArrangedSubview:self.secureCodeTextField];
     [self.mainStackView addArrangedSubview:self.inputFieldsStackView];
     [self.mainStackView addArrangedSubview:self.scrollView];
 
@@ -208,6 +207,9 @@ static const float kPhoneCodeWidth = 45.0F;
     _mode == JPCardDetailsModeAVS
         ? [_avsStackView addArrangedSubview:_postcodeTextField]
         : [_billingDetails addArrangedSubview:_postcodeTextField];
+    [_cardExpiryTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
+    [_cardNumberTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
+    [_cardHolderTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
     CGFloat leftPadding = _mode == JPCardDetailsModeThreeDS2BillingDetails ? 30 : 0;
     _bottomButtons.layoutMargins = UIEdgeInsetsMake(0, leftPadding, 0, 0);
     _securityMessageStackView.hidden = _mode == JPCardDetailsModeThreeDS2BillingDetails;
@@ -662,18 +664,6 @@ static const float kPhoneCodeWidth = 45.0F;
     [stackView addArrangedSubview:self.cardNumberTextField];
     [stackView addArrangedSubview:self.cardHolderTextField];
     [stackView addArrangedSubview:self.additionalInputFieldsStackView];
-    _inputFieldsStackView = stackView;
-    return stackView;
-}
-
-- (UIStackView *)inputFieldsStackViewForAVS {
-    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
-
-    [stackView addArrangedSubview:self.cardNumberTextField];
-    [stackView addArrangedSubview:self.cardHolderTextField];
-    [stackView addArrangedSubview:self.additionalInputFieldsStackView];
-    _avsStackView = self.avsStackView;
-    [stackView addArrangedSubview:_avsStackView];
     _inputFieldsStackView = stackView;
     return stackView;
 }

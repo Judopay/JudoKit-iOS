@@ -66,7 +66,6 @@
  *  @param address2 - an optional secondary address line
  *  @param address3 - an optional third address line
  *  @param town - a string that represents the town name
- *  @param billingCountry - the billing country code of the card
  *  @param postCode the postal code of the card
  *  @param countryCode - the country code of the address
  *

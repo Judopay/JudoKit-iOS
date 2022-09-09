@@ -49,7 +49,7 @@ import Foundation
         }
     }
     
-    func displayAlert(withTitle title: String?, andError error: Error) {
+    func _jp_displayAlert(withTitle title: String?, andError error: Error) {
         
     }
 

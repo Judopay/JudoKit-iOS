@@ -20,21 +20,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import XCTest
 @testable import JudoKit_iOS
+import XCTest
 
 class JPCardStorageTest: XCTestCase {
-    
-    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1")
-    lazy var secondStoredCard = JPStoredCardDetails(lastFour: "2222", expiryDate: "22/22", cardNetwork: .masterCard, cardToken: "cardToken2")
-    lazy var thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3")
-    lazy var forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4")
-    
+    lazy var firstStoredCard = JPStoredCardDetails(lastFour: "1111", expiryDate: "11/21", cardNetwork: .visa, cardToken: "cardToken1", cardholderName: "Bob")
+    lazy var secondStoredCard = JPStoredCardDetails(
+        lastFour: "2222",
+        expiryDate: "22/22",
+        cardNetwork: .masterCard,
+        cardToken: "cardToken2",
+        cardholderName: "Bob")
+    lazy var thirdStoredCard = JPStoredCardDetails(lastFour: "3333", expiryDate: "23/23", cardNetwork: .JCB, cardToken: "cardToken3", cardholderName: "Bob")
+    lazy var forthStoredCard = JPStoredCardDetails(lastFour: "4444", expiryDate: "24/24", cardNetwork: .AMEX, cardToken: "cardToken4", cardholderName: "Bob")
+
     override func setUp() {
         super.setUp()
         JPCardStorage.sharedInstance()?.deleteCardDetails()
     }
-    
+
     /*
      * GIVEN: JPCardStorage set card state at given index
      *
@@ -43,23 +47,23 @@ class JPCardStorageTest: XCTestCase {
      * THEN: should return thirdStoredCard from method fetchStoredCardDetails
      */
     func test_SetCardAsDefault_WhenSelectDefaultCard_ShouldSetThatCardAtFirstIndex() {
-        self.addTestCardsInStorage()
-        JPCardStorage.sharedInstance()?.setCardDefaultState(true, at: 2);
-        let storedCardsDetails:[JPStoredCardDetails] = JPCardStorage.sharedInstance()?.fetchStoredCardDetails() as! [JPStoredCardDetails]
-        let selectedCard = storedCardsDetails[0];
+        addTestCardsInStorage()
+        JPCardStorage.sharedInstance()?.setCardDefaultState(true, at: 2)
+        let storedCardsDetails: [JPStoredCardDetails] = JPCardStorage.sharedInstance()?.fetchStoredCardDetails() as! [JPStoredCardDetails]
+        let selectedCard = storedCardsDetails[0]
         XCTAssert(selectedCard.cardLastFour == "3333")
         XCTAssert(selectedCard.expiryDate == "23/23")
         XCTAssert(selectedCard.cardNetwork == .JCB)
         XCTAssert(selectedCard.cardToken == "cardToken3")
     }
-    
+
     func addTestCardsInStorage() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         JPCardStorage.sharedInstance()?.add(thirdStoredCard)
         JPCardStorage.sharedInstance()?.add(forthStoredCard)
     }
-    
+
     /*
      * GIVEN: JPCardStorage sorting card
      *
@@ -73,31 +77,31 @@ class JPCardStorageTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         var cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssertFalse((cards![0] as! JPStoredCardDetails).isDefault)
-        
+
         JPCardStorage.sharedInstance()?.orderCards()
         cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssertTrue((cards![0] as! JPStoredCardDetails).isDefault)
     }
-    
+
     /*
-    * GIVEN: JPCardStorage fetching all card (in setUp() we remove all card from store)
-    *
-    * WHEN: fetching all cards from stack
-    *
-    * THEN: count of cards should be 0
-    */
+     * GIVEN: JPCardStorage fetching all card (in setUp() we remove all card from store)
+     *
+     * WHEN: fetching all cards from stack
+     *
+     * THEN: count of cards should be 0
+     */
     func test_DeleteCards_WhenIsSetupRemoveAllCards_ShouldReturnEmptyArray() {
         let cards = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()
         XCTAssert(cards?.count == 0)
     }
-    
+
     /*
-       * GIVEN: JPCardStorage remove all cards in store
-       *
-       * WHEN: before in store was saved few card
-       *
-       * THEN: after removeing, cards count should be 0
-       */
+     * GIVEN: JPCardStorage remove all cards in store
+     *
+     * WHEN: before in store was saved few card
+     *
+     * THEN: after removeing, cards count should be 0
+     */
     func test_DeleteCardIndex_WhenRemoveingCardAtIndex_ShouldReturnRightCardsCount() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         JPCardStorage.sharedInstance()?.deleteCard(with: 0)
