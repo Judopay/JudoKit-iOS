@@ -1,6 +1,7 @@
 #import "Settings.h"
 
 static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
+static NSString *const kDontSet = @"dontSet";
 
 @interface Settings ()
 @property (nonatomic, strong) NSUserDefaults *defaults;
@@ -319,11 +320,13 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSString *)challengeRequestIndicator {
-    return [self.defaults stringForKey:kChallengeRequestIndicatorKey];
+    NSString *value = [self.defaults stringForKey:kChallengeRequestIndicatorKey];
+    return ([value isEqualToString:kDontSet]) ? nil : value;
 }
 
 - (NSString *)scaExemption {
-    return [self.defaults stringForKey:kScaExemptionKey];
+    NSString *value = [self.defaults stringForKey:kScaExemptionKey];
+    return ([value isEqualToString:kDontSet]) ? nil : value;
 }
 
 - (NSNumber *)timeoutForKey:(NSString *)key {
