@@ -422,7 +422,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateOtherPostalCodeInput:(NSString *)input {
-    return [JPValidationResult validationWithResult:YES
+    return [JPValidationResult validationWithResult:input.length > 0
                                        inputAllowed:input.length <= kOtherPostalCodeLength
                                        errorMessage:nil
                                      formattedInput:input.uppercaseString];
