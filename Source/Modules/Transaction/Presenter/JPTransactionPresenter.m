@@ -70,7 +70,7 @@
         self.isPostalCodeValid = NO;
         self.isEmailValid = NO;
         self.isPhoneCodeValid = NO;
-        self.isCountryNameValid = NO;
+        self.isCountryNameValid = YES;
         self.isCityNameValid = NO;
         self.isPhoneNumberValid = NO;
         self.isAddressLine1Valid = NO;

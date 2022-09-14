@@ -283,7 +283,7 @@ class JPCardValidationServiceTest: XCTestCase {
      *
      * THEN: should return invalid result
      */
-    func test_ValidateExpiryDateInput_WhenCurrentYear_ShouldReturnInValidEResult() {
+    func test_ValidateExpiryDateInput_WhenCurrentYear_ShouldReturnInValidResult() {
         let result = sut.validateExpiryDateInput("01/20")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)

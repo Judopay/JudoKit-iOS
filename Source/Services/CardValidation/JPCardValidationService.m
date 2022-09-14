@@ -356,12 +356,21 @@ static int const kCardHolderNameLength = 4;
     NSArray<NSString *> *currentDateComponents = [currentDate componentsSeparatedByString:@"/"];
     NSArray<NSString *> *inputDateComponents = [input componentsSeparatedByString:@"/"];
 
-    int currentMonth = currentDateComponents[0].intValue;
-    int currentYear = currentDateComponents[1].intValue;
+    int currentMonth = 0;
+    int currentYear = 0;
+    int inputMonth = 0;
+    int inputYear = 0;
+    
+    if (currentDateComponents.count == 2) {
+        currentMonth = currentDateComponents.firstObject.intValue;
+        currentYear = currentDateComponents.lastObject.intValue;
+    }
 
-    int inputMonth = inputDateComponents[0].intValue;
-    int inputYear = inputDateComponents[1].intValue;
-
+    if (inputDateComponents.count == 2) {
+        inputMonth = inputDateComponents.firstObject.intValue;
+        inputYear = inputDateComponents.lastObject.intValue;
+    }
+    
     if (inputYear < currentYear) {
         self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                           inputAllowed:YES
@@ -422,7 +431,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateOtherPostalCodeInput:(NSString *)input {
-    return [JPValidationResult validationWithResult:YES
+    return [JPValidationResult validationWithResult:input.length > 0
                                        inputAllowed:input.length <= kOtherPostalCodeLength
                                        errorMessage:nil
                                      formattedInput:input.uppercaseString];

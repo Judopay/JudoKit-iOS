@@ -82,7 +82,7 @@ static NSString *const kRegExDinersClubPAN = @"^3(?:0([0-5]|9)|[689]\\d?)\\d{0,1
 static NSString *const kRegExJCBPAN = @"^(?:35\\d{0,2})\\d{0,12}";
 static NSString *const kRegExUnionPayPAN = @"^(62|81)\\d{0,14}";
 
-static NSString *const kRegExCardholderName = @"^[A-Za-z ]+$";
+static NSString *const kRegExCardholderName = @"^[A-Za-z.\\-'\\s?]+$";
 static NSString *const kRegExCity = @"^[A-Za-z.'\\- ]+$";
 static NSString *const kRegExMobileNumber = @"^.{10,}$";
 static NSString *const kRegExAddressLine = @"^[a-zA-Z0-9,./'\\- ]+$";
