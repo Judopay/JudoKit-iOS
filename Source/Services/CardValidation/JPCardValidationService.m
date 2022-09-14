@@ -356,12 +356,21 @@ static int const kCardHolderNameLength = 4;
     NSArray<NSString *> *currentDateComponents = [currentDate componentsSeparatedByString:@"/"];
     NSArray<NSString *> *inputDateComponents = [input componentsSeparatedByString:@"/"];
 
-    int currentMonth = currentDateComponents[0].intValue;
-    int currentYear = currentDateComponents[1].intValue;
+    int currentMonth = 0;
+    int currentYear = 0;
+    int inputMonth = 0;
+    int inputYear = 0;
+    
+    if (currentDateComponents.count == 2) {
+        int currentMonth = currentDateComponents.firstObject.intValue;
+        int currentYear = currentDateComponents.lastObject.intValue;
+    }
 
-    int inputMonth = inputDateComponents[0].intValue;
-    int inputYear = inputDateComponents[1].intValue;
-
+    if (inputDateComponents.count == 2) {
+        int inputMonth = inputDateComponents.firstObject.intValue;
+        int inputYear = inputDateComponents.lastObject.intValue;
+    }
+    
     if (inputYear < currentYear) {
         self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                           inputAllowed:YES
