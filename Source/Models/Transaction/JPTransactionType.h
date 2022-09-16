@@ -28,9 +28,10 @@
  * An enum that defines the transaction type
  */
 typedef NS_ENUM(NSUInteger, JPTransactionType) {
-    JPTransactionTypePayment,
-    JPTransactionTypePreAuth,
-    JPTransactionTypeRegisterCard,
-    JPTransactionTypeCheckCard,
-    JPTransactionTypeSaveCard
+    JPTransactionTypePayment = 1,
+    JPTransactionTypePreAuth = 2,
+    JPTransactionTypeRegisterCard = 3,
+    JPTransactionTypeCheckCard = 4,
+    JPTransactionTypeSaveCard = 5,
+    JPTransactionTypeUnknown = NSUIntegerMax
 };

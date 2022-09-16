@@ -232,7 +232,7 @@
                                                                                       andStoredCardDetails:details];
 
     transactionDetails.secureCode = securityCode;
-    
+
     switch (self.transactionMode) {
         case JPTransactionTypePreAuth:
             [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];

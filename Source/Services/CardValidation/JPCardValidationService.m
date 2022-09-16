@@ -360,7 +360,7 @@ static int const kCardHolderNameLength = 4;
     int currentYear = 0;
     int inputMonth = 0;
     int inputYear = 0;
-    
+
     if (currentDateComponents.count == 2) {
         currentMonth = currentDateComponents.firstObject.intValue;
         currentYear = currentDateComponents.lastObject.intValue;
@@ -370,7 +370,7 @@ static int const kCardHolderNameLength = 4;
         inputMonth = inputDateComponents.firstObject.intValue;
         inputYear = inputDateComponents.lastObject.intValue;
     }
-    
+
     if (inputYear < currentYear) {
         self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                           inputAllowed:YES
