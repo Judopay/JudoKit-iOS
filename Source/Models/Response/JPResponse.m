@@ -29,6 +29,10 @@
 #import "JPConsumer.h"
 #import "JPOrderDetails.h"
 
+static NSString *const kStatusDeclined = @"declined";
+static NSString *const kStatusSuccess = @"success";
+static NSString *const kStatusError = @"error";
+
 @implementation JPResponse
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -112,10 +116,21 @@
 }
 
 - (JPTransactionResult)transactionResultForString:(NSString *)resultString {
-    if ([resultString isEqualToString:@"Declined"]) {
+    NSString *result = resultString.lowercaseString;
+    
+    if ([result isEqualToString:kStatusSuccess]) {
+        return JPTransactionResultSuccess;
+    }
+    
+    if ([result isEqualToString:kStatusDeclined]) {
         return JPTransactionResultDeclined;
     }
-    return JPTransactionResultSuccess;
+    
+    if ([result isEqualToString:kStatusError]) {
+        return JPTransactionResultError;
+    }
+    
+    return JPTransactionResultUnknown;
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {

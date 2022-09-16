@@ -25,7 +25,8 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, JPTransactionResult) {
-    JPTransactionResultSuccess,
-    JPTransactionResultDeclined,
-    JPTransactionResultError
+    JPTransactionResultError = 0,
+    JPTransactionResultSuccess = 1,
+    JPTransactionResultDeclined = 2,
+    JPTransactionResultUnknown = NSUIntegerMax
 };
