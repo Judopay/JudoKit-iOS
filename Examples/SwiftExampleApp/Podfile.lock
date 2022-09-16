@@ -4,7 +4,7 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.1.1)
-  - JudoKit-iOS (3.1.3):
+  - JudoKit-iOS (3.1.4):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.1.1)
     - TrustKit
@@ -41,7 +41,7 @@ SPEC CHECKSUMS:
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: 1699474533e69b69593c6a76b42645cb240f618a
-  JudoKit-iOS: 3d32a771a931398754d256a1f174e8510e5446f4
+  JudoKit-iOS: b27be15d89a866fc631cb41e8b1bf858bd7ef922
   OpenSSL-Universal: ee0a7a25f2042782e2df405e66db3e429198e392
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   TrustKit: dad4c3a08248c21fcb9a3b5be3c2e2b9d4f9b973

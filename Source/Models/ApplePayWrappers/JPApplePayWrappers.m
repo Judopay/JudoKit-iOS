@@ -135,7 +135,7 @@
     if (cardNetworks & JPCardNetworkTypeMasterCard) {
         [pkPaymentNetworks addObject:PKPaymentNetworkMasterCard];
     }
-    
+
     if (cardNetworks & JPCardNetworkTypeAMEX) {
         [pkPaymentNetworks addObject:PKPaymentNetworkAmex];
     }

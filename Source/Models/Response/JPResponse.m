@@ -29,6 +29,17 @@
 #import "JPConsumer.h"
 #import "JPOrderDetails.h"
 
+static NSString *const kStatusDeclined = @"declined";
+static NSString *const kStatusSuccess = @"success";
+static NSString *const kStatusError = @"error";
+
+static NSString *const kTransactionTypePayment = @"payment";
+static NSString *const kTransactionTypePreAuth = @"preauth";
+static NSString *const kTransactionTypeRegister = @"register";
+static NSString *const kTransactionTypeRegisterCard = @"registercard";
+static NSString *const kTransactionTypeSaveCard = @"save";
+static NSString *const kTransactionTypeCheckCard = @"checkcard";
+
 @implementation JPResponse
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -112,23 +123,47 @@
 }
 
 - (JPTransactionResult)transactionResultForString:(NSString *)resultString {
-    if ([resultString isEqualToString:@"Declined"]) {
+    NSString *result = resultString.lowercaseString;
+
+    if ([result isEqualToString:kStatusSuccess]) {
+        return JPTransactionResultSuccess;
+    }
+
+    if ([result isEqualToString:kStatusDeclined]) {
         return JPTransactionResultDeclined;
     }
-    return JPTransactionResultSuccess;
+
+    if ([result isEqualToString:kStatusError]) {
+        return JPTransactionResultError;
+    }
+
+    return JPTransactionResultUnknown;
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {
-    if ([typeString isEqualToString:@"PreAuth"]) {
+    NSString *type = typeString.lowercaseString;
+
+    if ([type isEqualToString:kTransactionTypePayment]) {
+        return JPTransactionTypePayment;
+    }
+
+    if ([type isEqualToString:kTransactionTypePreAuth]) {
         return JPTransactionTypePreAuth;
-    } else if ([typeString isEqualToString:@"RegisterCard"]) {
+    }
+
+    if ([type isEqualToString:kTransactionTypeRegister] || [type isEqualToString:kTransactionTypeRegisterCard]) {
         return JPTransactionTypeRegisterCard;
-    } else if ([typeString isEqualToString:@"Save"]) {
-        return JPTransactionTypeSaveCard;
-    } else if ([typeString isEqualToString:@"CheckCard"]) {
+    }
+
+    if ([type isEqualToString:kTransactionTypeCheckCard]) {
         return JPTransactionTypeCheckCard;
     }
-    return JPTransactionTypePayment;
+
+    if ([type isEqualToString:kTransactionTypeSaveCard]) {
+        return JPTransactionTypeSaveCard;
+    }
+
+    return JPTransactionTypeUnknown;
 }
 
 @end
