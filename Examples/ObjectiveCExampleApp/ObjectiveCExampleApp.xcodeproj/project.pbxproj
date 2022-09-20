@@ -685,7 +685,7 @@
 		448AB1962450DE8F004A11CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = Judopay;
 				TargetAttributes = {
 					448AB19D2450DE8F004A11CB = {
