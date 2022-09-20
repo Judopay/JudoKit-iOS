@@ -30,13 +30,12 @@
 
 extern NSString *_Nonnull const JudoErrorDomain;
 
-typedef NS_ENUM(NSUInteger, JudoError) {
-    JudoParameterError,
-    JudoRequestError,
-    Judo3DSRequestError,
-    JudoUserDidCancelError,
-    JudoErrorThreeDSTwo,
-    JudoInternalStateError
+typedef NS_ENUM(NSUInteger, JudoErrorCode) {
+    JudoErrorCodeInvalidParameter,
+    JudoErrorCodeRequestFailed,
+    JudoErrorCodeUserDidCancel,
+    JudoErrorCodeThreeDSTwoFailed,
+    JudoErrorCodeInvalidInternalState
 };
 
 @interface JPError (Additions)
@@ -80,11 +79,6 @@ typedef NS_ENUM(NSUInteger, JudoError) {
  * The number entered belongs to a card network that is not allowed by the merchant.
  */
 + (nonnull JPError *)unsupportedCardNetwork:(JPCardNetworkType)network;
-
-/**
- * The transaction required a 3D Secure authentication.
- */
-+ (nonnull JPError *)threeDSRequestWithPayload:(nonnull NSDictionary *)payload;
 
 /**
  * Invalid currency passed to iDEAL transaction configuration.

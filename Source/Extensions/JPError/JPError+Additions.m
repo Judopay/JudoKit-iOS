@@ -35,133 +35,133 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 + (JPError *)invalidIDEALCurrencyError {
     return [self errorWithDescription:@"error_invalid_ideal_currency_desc"._jp_localized
                         failureReason:@"error_invalid_ideal_currency_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidPBBACurrencyError {
     return [self errorWithDescription:@"error_invalid_pbba_currency_desc"._jp_localized
                         failureReason:@"error_invalid_pbba_currency_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (NSError *)PBBAURLSchemeMissingError {
     return [self errorWithDescription:@"error_invalid_pbba_url_scheme_desc"._jp_localized
                         failureReason:@"error_invalid_pbba_url_scheme_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)applePayNotSupportedError {
     return [self errorWithDescription:@"error_apple_pay_not_supported_desc"._jp_localized
                         failureReason:@"error_apple_pay_not_supported_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)requestFailedError {
     return [self errorWithDescription:@"error_request_failed_desc"._jp_localized
                         failureReason:@"error_request_failed_reason"._jp_localized
-                               ofType:JudoRequestError];
+                              andCode:JudoErrorCodeRequestFailed];
 }
 
 + (JPError *)requestTimeoutError {
     return [self errorWithDescription:@"error_request_timeout_desc"._jp_localized
                         failureReason:@"error_request_timeout_reason"._jp_localized
-                               ofType:JudoRequestError];
+                              andCode:JudoErrorCodeRequestFailed];
 }
 
 + (JPError *)JSONSerializationFailedWithError:(JPError *)error {
     return [self errorWithDescription:@"error_json_serialization_desc"._jp_localized
                         failureReason:@"error_json_serialization_reason"._jp_localized
-                               ofType:JudoRequestError];
+                              andCode:JudoErrorCodeRequestFailed];
 }
 
 + (JPError *)userDidCancelError {
     return [self errorWithDescription:@"error_user_cancelled_desc"._jp_localized
                         failureReason:@"error_user_cancelled_reason"._jp_localized
-                               ofType:JudoUserDidCancelError];
+                              andCode:JudoErrorCodeUserDidCancel];
 }
 
 + (JPError *)internetConnectionError {
     return [self errorWithDescription:@"error_internet_connection_desc"._jp_localized
                         failureReason:@"error_internet_connection_reason"._jp_localized
-                               ofType:JudoRequestError];
+                              andCode:JudoErrorCodeRequestFailed];
 }
 
 + (JPError *)invalidCardNumberError {
     return [self errorWithDescription:@"error_invalid_card_number_desc"._jp_localized
                         failureReason:@"error_invalid_card_number_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)applePayMissingPaymentItemsError {
     return [self errorWithDescription:@"error_apple_pay_missing_items_desc"._jp_localized
                         failureReason:@"error_apple_pay_missing_items_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)applePayMissingShippingMethodsError {
     return [self errorWithDescription:@"error_apple_pay_missing_shipping_desc"._jp_localized
                         failureReason:@"error_apple_pay_missing_shipping_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)missingJudoIdError {
     return [self errorWithDescription:@"error_judo_id_missing_desc"._jp_localized
                         failureReason:@"error_judo_id_missing_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidJudoIdError {
     return [self errorWithDescription:@"error_invalid_judo_id_desc"._jp_localized
                         failureReason:@"error_invalid_judo_id_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)missingCurrencyError {
     return [self errorWithDescription:@"error_currency_missing_desc"._jp_localized
                         failureReason:@"error_currency_missing_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidCurrencyError {
     return [self errorWithDescription:@"error_invalid_currency_desc"._jp_localized
                         failureReason:@"error_invalid_currency_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)missingMerchantIdError {
     return [self errorWithDescription:@"error_apple_pay_merchant_id_missing_desc"._jp_localized
                         failureReason:@"error_apple_pay_merchant_id_missing_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidCountryCodeError {
     return [self errorWithDescription:@"error_invalid_country_code_desc"._jp_localized
                         failureReason:@"error_invalid_country_code_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)missingApplePayConfigurationError {
     return [self errorWithDescription:@"error_apple_pay_config_missing_desc"._jp_localized
                         failureReason:@"error_apple_pay_config_missing_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidAmountError {
     return [self errorWithDescription:@"error_invalid_amount_desc"._jp_localized
                         failureReason:@"error_invalid_amount_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)invalidConsumerReferenceError {
     return [self errorWithDescription:@"error_invalid_consumer_ref_desc"._jp_localized
                         failureReason:@"error_invalid_consumer_ref_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)responseParseError {
     return [self errorWithDescription:@"error_response_parse_desc"._jp_localized
                         failureReason:@"error_response_parse_reason"._jp_localized
-                               ofType:JudoRequestError];
+                              andCode:JudoErrorCodeRequestFailed];
 }
 
 + (JPError *)unsupportedCardNetwork:(JPCardNetworkType)network {
@@ -170,7 +170,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
     return [self errorWithDescription:description
                         failureReason:@"error_unsupported_card_reason"._jp_localized
-                               ofType:JudoParameterError];
+                              andCode:JudoErrorCodeInvalidParameter];
 }
 
 + (JPError *)errorFromDictionary:(NSDictionary *)dictionary {
@@ -201,24 +201,18 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
     return [self errorWithDescription:message
                         failureReason:@"error_no_message_reason"._jp_localized
-                               ofType:[dictionary[@"code"] integerValue]];
-}
-
-+ (JPError *)threeDSRequestWithPayload:(NSDictionary *)payload {
-    return [JPError errorWithDomain:JudoErrorDomain
-                               code:Judo3DSRequestError
-                           userInfo:payload];
+                              andCode:[dictionary[@"code"] integerValue]];
 }
 
 + (JPError *)errorWithDescription:(NSString *)description
                     failureReason:(NSString *)failureReason
-                           ofType:(JudoError)type {
+                          andCode:(JudoErrorCode)code {
 
     NSDictionary *userInfo = [self userDataDictWithDescription:description
                                                  failureReason:failureReason];
 
     return [JPError errorWithDomain:JudoErrorDomain
-                               code:type
+                               code:code
                            userInfo:userInfo];
 }
 
@@ -272,7 +266,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
 + (JPError *)judoThreeDSTwoErrorWithUserInfo:(NSDictionary *)userInfo {
     return [[JPError alloc] initWithDomain:JudoErrorDomain
-                                      code:JudoErrorThreeDSTwo
+                                      code:JudoErrorCodeThreeDSTwoFailed
                                   userInfo:userInfo];
 }
 
@@ -282,7 +276,7 @@ NSString *const JudoErrorDomain = @"com.judo.error";
     };
 
     return [[JPError alloc] initWithDomain:JudoErrorDomain
-                                      code:JudoInternalStateError
+                                      code:JudoErrorCodeInvalidInternalState
                                   userInfo:info];
 }
 

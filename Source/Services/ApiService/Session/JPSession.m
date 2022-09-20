@@ -208,11 +208,6 @@ static NSString *const kMethodPUT = @"PUT";
         return;
     }
 
-    //    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
-    //        completion(nil, [JPError threeDSRequestWithPayload:responseJSON]);
-    //        return;
-    //    }
-
     JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
     completion(result, nil);
 }

@@ -206,7 +206,7 @@
 - (void)handleError:(JPError *)error {
     JPError *transactionError = [JPError formattedErrorFromError:error];
 
-    if (error.code == JudoUserDidCancelError) {
+    if (error.code == JudoErrorCodeUserDidCancel) {
         __weak typeof(self) weakSelf = self;
         [self.router dismissViewControllerWithCompletion:^{
             [weakSelf.interactor completeTransactionWithResponse:nil

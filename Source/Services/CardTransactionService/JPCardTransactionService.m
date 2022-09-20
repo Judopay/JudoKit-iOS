@@ -252,7 +252,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
             } break;
             default:
-                completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:nil]);
+                completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorCodeThreeDSTwoFailed userInfo:nil]);
                 break;
         }
     } @catch (NSException *exception) {

@@ -232,15 +232,15 @@
         case JPTransactionModePayment:
             [self.transactionService invokeTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
-            
+
         case JPTransactionModePreAuth:
             [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
-            
+
         case JPTransactionModeServerToServer:
             [self processServerToServer:completion];
             break;
-            
+
         default:
             completion(nil, [JPError invalidInternalStateErrorWithDescription:@"Unexpected transactionMode"]);
             break;

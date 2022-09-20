@@ -76,7 +76,7 @@
                                             cardDetailsMode:mode
                                                 cardNetwork:cardNetwork
                                                  completion:^(JPResponse *response, JPError *error) {
-                                                     if (error.code == JudoUserDidCancelError) {
+                                                     if (error.code == JudoErrorCodeUserDidCancel) {
                                                          [weakSelf.viewController.presenter viewModelNeedsUpdate];
                                                      }
                                                  }];
