@@ -223,27 +223,26 @@
                                    securityCode:(NSString *)securityCode
                                   andCompletion:(JPCompletionBlock)completion {
 
-    if (self.transactionMode == JPTransactionModeServerToServer) {
-        [self processServerToServer:completion];
-        return;
-    }
-
     JPCardTransactionDetails *transactionDetails = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
                                                                                       andStoredCardDetails:details];
 
     transactionDetails.secureCode = securityCode;
 
     switch (self.transactionMode) {
-        case JPTransactionModePreAuth:
-            [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
-            break;
-
         case JPTransactionModePayment:
             [self.transactionService invokeTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
-
+            
+        case JPTransactionModePreAuth:
+            [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
+            break;
+            
+        case JPTransactionModeServerToServer:
+            [self processServerToServer:completion];
+            break;
+            
         default:
-            // noop
+            completion(nil, [JPError invalidInternalStateErrorWithDescription:@"Unexpected transactionMode"]);
             break;
     }
 }

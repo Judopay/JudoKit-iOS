@@ -276,4 +276,14 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                   userInfo:userInfo];
 }
 
++ (JPError *)invalidInternalStateErrorWithDescription:(NSString *)description {
+    NSDictionary *info = @{
+        NSLocalizedDescriptionKey : description
+    };
+
+    return [[JPError alloc] initWithDomain:JudoErrorDomain
+                                      code:JudoInternalStateError
+                                  userInfo:info];
+}
+
 @end

@@ -35,6 +35,7 @@
         self.endDate = dictionary[@"endDate"];
         self.cardToken = dictionary[@"cardToken"];
         self.cardNumber = dictionary[@"cardNumber"];
+        self.cardHolderName = dictionary[@"cardHolderName"];
         self.bank = dictionary[@"bank"];
         self.cardCategory = dictionary[@"cardCategory"];
         self.cardCountry = dictionary[@"cardCountry"];

@@ -35,7 +35,8 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoRequestError,
     Judo3DSRequestError,
     JudoUserDidCancelError,
-    JudoErrorThreeDSTwo
+    JudoErrorThreeDSTwo,
+    JudoInternalStateError
 };
 
 @interface JPError (Additions)
@@ -168,5 +169,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)threeDSTwoErrorFromException:(nonnull NSException *)exception;
 + (nonnull JPError *)threeDSTwoErrorFromProtocolErrorEvent:(nonnull JP3DSProtocolErrorEvent *)event;
 + (nonnull JPError *)threeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
+
++ (nonnull JPError *)invalidInternalStateErrorWithDescription:(NSString *)description;
 
 @end
