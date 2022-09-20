@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 13.4.1
+      xcode: 14.0
 
 jobs:
   carthage_update_sdk:
