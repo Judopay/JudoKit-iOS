@@ -29,7 +29,6 @@ enum SendTransactionTest {
     case error
     case noToken
     case validData
-    case threedDSError
 }
 
 class JPTransactionInteractorMock: JPTransactionInteractor {
@@ -150,39 +149,35 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
             let jpResponse = JPResponse()
             completionHandler(jpResponse, nil)
             trasactionSent = true
-        case .threedDSError:
-            let jpError = JPError.threeDSRequest(withPayload: ["": ""])
-            completionHandler(nil, jpError)
-            trasactionSent = true
         }
+        
+        var dic = ["receiptId": "receiptId",
+                   "orderId": "orderId",
+                   "type": "Payment",
+                   "createdAt": "createdAt",
+                   "result": "Success",
+                   "message": "message",
+                   "redirectUrl": "redirectUrl",
+                   "merchantName": "merchantName",
+                   "appearsOnStatementAs": "appearsOnStatementAs",
+                   "paymentMethod": "paymentMethod",
+                   "judoId": "judoId",
+                   "merchantPaymentReference": "merchantPaymentReference",
+                   "consumer": ["consumerReference": "consumerReference",
+                                "consumerToken": "consumerToken"],
+                   "orderDetails": ["orderId": "orderId",
+                                    "orderStatus": "orderStatus",
+                                    "orderFailureReason": "orderFailureReason",
+                                    "timestamp": "timestamp",
+                                    "amount": 999],
+                   "cardDetails": ["cardLastfour": "cardLastfour",
+                                   "endDate": "endDate",
+                                   "cardToken": "cardToken",
+                                   "cardNumber": "cardNumber",
+                                   "cardCategory": "cardCategory",
+                                   "cardCountry": "cardCountry",
+                                   "cardFunding": "cardFunding",
+                                   "cardScheme": "cardScheme",
+                                   "cardType": 0]] as [String: Any]
     }
-
-    var dic = ["receiptId": "receiptId",
-               "orderId": "orderId",
-               "type": "Payment",
-               "createdAt": "createdAt",
-               "result": "Success",
-               "message": "message",
-               "redirectUrl": "redirectUrl",
-               "merchantName": "merchantName",
-               "appearsOnStatementAs": "appearsOnStatementAs",
-               "paymentMethod": "paymentMethod",
-               "judoId": "judoId",
-               "merchantPaymentReference": "merchantPaymentReference",
-               "consumer": ["consumerReference": "consumerReference",
-                            "consumerToken": "consumerToken"],
-               "orderDetails": ["orderId": "orderId",
-                                "orderStatus": "orderStatus",
-                                "orderFailureReason": "orderFailureReason",
-                                "timestamp": "timestamp",
-                                "amount": 999],
-               "cardDetails": ["cardLastfour": "cardLastfour",
-                               "endDate": "endDate",
-                               "cardToken": "cardToken",
-                               "cardNumber": "cardNumber",
-                               "cardCategory": "cardCategory",
-                               "cardCountry": "cardCountry",
-                               "cardFunding": "cardFunding",
-                               "cardScheme": "cardScheme",
-                               "cardType": 0]] as [String: Any]
 }

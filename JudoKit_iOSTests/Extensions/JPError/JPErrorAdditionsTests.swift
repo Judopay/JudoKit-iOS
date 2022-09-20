@@ -45,7 +45,7 @@ class JPErrorAdditionsTests: XCTestCase {
     func test_WhenJudoJSONSerializationFailedWithError_SetCorrectErrorCode() {
         let testError = NSError(domain: "test", code: 400, userInfo: nil)
         let error = JPError.jsonSerializationFailedWithError(testError)
-        let judoErrorJSONSerializationFailed = Int(JudoError(rawValue: 1)!.rawValue)
+        let judoErrorJSONSerializationFailed = Int(JudoErrorCode(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, judoErrorJSONSerializationFailed)
     }
     
@@ -66,7 +66,7 @@ class JPErrorAdditionsTests: XCTestCase {
      */
     func test_WhenJudoParameterError_SetCorrectLocalizedDescription() {
         let error = JPError.responseParseError()
-        let parameterError = Int(JudoError(rawValue: 1)!.rawValue)
+        let parameterError = Int(JudoErrorCode(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, parameterError)
         XCTAssertEqual(error.localizedDescription, "Unexpected response format returned.")
     }
@@ -99,7 +99,7 @@ class JPErrorAdditionsTests: XCTestCase {
      */
     func test_WhenJudoRequestTimeoutError_SetCorrectErrorCode() {
         let error = JPError.requestTimeoutError()
-        let timeoutError = Int(JudoError(rawValue: 1)!.rawValue)
+        let timeoutError = Int(JudoErrorCode(rawValue: 1)!.rawValue)
         XCTAssertEqual(error.code, timeoutError)
     }
     
@@ -110,7 +110,7 @@ class JPErrorAdditionsTests: XCTestCase {
      */
     func test_WhenJudoInvalidCardNumberError_SetCorrectErrorCode() {
         let error = JPError.invalidCardNumberError()
-        let cardNumberError = Int(JudoError(rawValue: 0)!.rawValue)
+        let cardNumberError = Int(JudoErrorCode(rawValue: 0)!.rawValue)
         XCTAssertEqual(error.code, cardNumberError)
     }
     
@@ -123,18 +123,7 @@ class JPErrorAdditionsTests: XCTestCase {
         let error = JPError.unsupportedCardNetwork(.AMEX)
         XCTAssertEqual(error.localizedDescription, "American Express is not supported")
     }
-    
-    /*
-     * GIVEN: the JPError is initialized with the custom judo3DSRequest initializer
-     *
-     * THEN:  it should set the correct localizedDescription parameter
-     */
-    func test_WhenJudo3DSRequest_SetCorrectLocalizedDescription() {
-        let error = JPError.threeDSRequest(withPayload: ["test": "testData"])
-        let errorUserInfo = error.userInfo["test"] as! String
-        XCTAssertEqual(errorUserInfo, "testData")
-    }
-    
+        
     /*
      * GIVEN: the JPError is initialized with the custom judoInvalidIDEALCurrencyError initializer
      *

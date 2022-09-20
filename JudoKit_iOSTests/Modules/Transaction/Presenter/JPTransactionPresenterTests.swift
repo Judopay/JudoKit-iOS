@@ -193,19 +193,6 @@ class JPTransactionPresenterTests: XCTestCase {
     }
     
     /*
-     * GIVEN: User taps on transaction
-     *
-     * WHEN: card model is valid and 3dsError
-     *
-     * THEN: should invoke interactor.trasactionSent
-     */
-    func test_HandleTransactionButtonTap_WhenUserTapAnThreeDSError_ShouldCallInteractor() {
-        interactor.testSendTransaction = .threedDSError
-        sut.handleTransactionButtonTap()
-        XCTAssertTrue(interactor.trasactionSent)
-    }
-    
-    /*
      * GIVEN: creating view model for card view
      *
      * WHEN: getting data from interactor mock for saveCard

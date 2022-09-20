@@ -79,10 +79,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
 
     func paymentTransaction(with details: JPStoredCardDetails, securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
-        if errorType == .threeDSRequest {
-            let error = JPError.threeDSRequest(withPayload: ["": ""])
-            completion?(nil, error)
-        }
     }
 
     func selectCard(at index: UInt) {
