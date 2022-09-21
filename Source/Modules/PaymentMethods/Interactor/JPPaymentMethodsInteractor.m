@@ -234,7 +234,7 @@
     transactionDetails.secureCode = securityCode;
 
     switch (self.transactionMode) {
-        case JPTransactionTypePreAuth:
+        case JPTransactionModePreAuth:
             [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
 
