@@ -74,11 +74,11 @@
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
-        self.transactionMode = mode;
-        self.configuration = configuration;
-        self.apiService = apiService;
-        self.completionHandler = completion;
-        self.paymentMethods = configuration.paymentMethods;
+        _transactionMode = mode;
+        _configuration = configuration;
+        _apiService = apiService;
+        _completionHandler = completion;
+        _paymentMethods = configuration.paymentMethods;
 
         [JPCardStorage.sharedInstance orderCards];
     }
@@ -234,7 +234,7 @@
     transactionDetails.secureCode = securityCode;
 
     switch (self.transactionMode) {
-        case JPTransactionTypePreAuth:
+        case JPTransactionModePreAuth:
             [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
             break;
 
