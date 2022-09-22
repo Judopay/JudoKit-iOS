@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,8 +13,8 @@
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="BYZ-38-t0r" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="oA3-O6-IuW"/>
+                        <viewControllerLayoutGuide type="bottom" id="w97-Rn-Qbf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -26,7 +26,7 @@
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="44"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.judo.judopaysample.tableviewcellidentifier" textLabel="Sw2-DS-jRp" detailTextLabel="JwE-fr-ajh" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="fRt-3J-neQ">
-                                        <rect key="frame" x="0.0" y="49.5" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="38" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRt-3J-neQ" id="awB-Hl-Zff">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -91,8 +91,8 @@
             <objects>
                 <viewController id="qIB-ON-fdd" customClass="ApplePayViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7SJ-m9-6kU"/>
-                        <viewControllerLayoutGuide type="bottom" id="vtX-aO-oDO"/>
+                        <viewControllerLayoutGuide type="top" id="iI0-sx-9NI"/>
+                        <viewControllerLayoutGuide type="bottom" id="xCq-y6-zo9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cVA-qe-HQX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -152,8 +152,8 @@
                             <constraint firstAttribute="trailing" secondItem="cAt-nI-iuG" secondAttribute="trailing" id="Dwt-mt-gls"/>
                             <constraint firstItem="cAt-nI-iuG" firstAttribute="leading" secondItem="cVA-qe-HQX" secondAttribute="leading" id="Jhc-pP-Abt"/>
                             <constraint firstItem="cAt-nI-iuG" firstAttribute="top" secondItem="Dni-N0-LHi" secondAttribute="bottom" constant="50" id="Pvz-1p-oKf"/>
-                            <constraint firstItem="vtX-aO-oDO" firstAttribute="top" secondItem="cAt-nI-iuG" secondAttribute="bottom" id="Ugc-mf-RPX"/>
-                            <constraint firstItem="Dni-N0-LHi" firstAttribute="top" secondItem="7SJ-m9-6kU" secondAttribute="bottom" constant="20" id="iYw-tX-hjI"/>
+                            <constraint firstItem="xCq-y6-zo9" firstAttribute="top" secondItem="cAt-nI-iuG" secondAttribute="bottom" id="Ugc-mf-RPX"/>
+                            <constraint firstItem="Dni-N0-LHi" firstAttribute="top" secondItem="iI0-sx-9NI" secondAttribute="bottom" constant="20" id="iYw-tX-hjI"/>
                             <constraint firstItem="Dni-N0-LHi" firstAttribute="leading" secondItem="cVA-qe-HQX" secondAttribute="leadingMargin" id="kbr-Xr-84g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dni-N0-LHi" secondAttribute="trailing" id="tEB-pJ-RMZ"/>
                         </constraints>
@@ -173,114 +173,253 @@
             <objects>
                 <viewController title="Token and no UI" id="UWo-Q7-j0K" customClass="PayWithCardTokenViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MHk-TG-oSf"/>
-                        <viewControllerLayoutGuide type="bottom" id="MgC-wc-mMW"/>
+                        <viewControllerLayoutGuide type="top" id="e6n-bx-430"/>
+                        <viewControllerLayoutGuide type="bottom" id="yQz-TB-4Bl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9wu-Ks-chD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-Zi-CaP">
-                                <rect key="frame" x="37.5" y="101" width="300" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="9Ri-9m-1u3">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="HVc-tb-oQI">
+                                        <rect key="frame" x="20" y="20" width="605" height="754.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please fill in the fields from below with tokenized card details" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5X-UG-mdy">
+                                                <rect key="frame" x="0.0" y="0.0" width="605" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="m6C-a9-A6v">
+                                                <rect key="frame" x="0.0" y="44.5" width="605" height="498"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Sqf-jr-z53">
+                                                        <rect key="frame" x="0.0" y="0.0" width="605" height="58"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuQ-iV-a7B">
+                                                                <rect key="frame" x="0.0" y="0.0" width="605" height="18"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="18" id="J67-fL-WqB"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PhB-mL-Xxw">
+                                                                <rect key="frame" x="0.0" y="22" width="605" height="36"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="gwb-Sp-P91"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
+                                                                <connections>
+                                                                    <action selector="textFieldDidChange:" destination="UWo-Q7-j0K" eventType="editingChanged" id="jLD-GQ-x82"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TlP-Gm-G5H">
+                                                        <rect key="frame" x="0.0" y="82" width="605" height="60.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PMo-ze-Iks">
+                                                                <rect key="frame" x="0.0" y="0.0" width="605" height="20.5"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RS3-Gz-7re">
+                                                                <rect key="frame" x="0.0" y="24.5" width="605" height="36"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="67m-Ob-80O"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <action selector="textFieldDidChange:" destination="UWo-Q7-j0K" eventType="editingChanged" id="1bG-Ko-Wml"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-s6-S6T">
+                                                        <rect key="frame" x="0.0" y="166.5" width="605" height="60.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Security code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AuJ-Vt-HKe">
+                                                                <rect key="frame" x="0.0" y="0.0" width="605" height="20.5"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="341" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MNM-vg-A87">
+                                                                <rect key="frame" x="0.0" y="24.5" width="605" height="36"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="PUz-8a-meN"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                <connections>
+                                                                    <action selector="textFieldDidChange:" destination="UWo-Q7-j0K" eventType="editingChanged" id="NJP-bg-X6R"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TZ3-De-HUx">
+                                                        <rect key="frame" x="0.0" y="251" width="605" height="60.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cardholder name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n0W-ae-xt9">
+                                                                <rect key="frame" x="0.0" y="0.0" width="605" height="20.5"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="CHALLENGE" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fpc-s5-cqQ">
+                                                                <rect key="frame" x="0.0" y="24.5" width="605" height="36"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="S7P-A7-j8a"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <action selector="textFieldDidChange:" destination="UWo-Q7-j0K" eventType="editingChanged" id="DJK-Xh-okd"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="— or —" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rz0-Sz-q1Y">
+                                                        <rect key="frame" x="0.0" y="335.5" width="605" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-yK-iyl">
+                                                        <rect key="frame" x="0.0" y="380" width="605" height="46"/>
+                                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="46" id="Pl1-hI-ccj"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Tokenize a new card">
+                                                            <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="addCardAction:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="4Z5-aC-tz7"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvk-4t-YKQ">
+                                                        <rect key="frame" x="0.0" y="450" width="605" height="48"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="Q7g-Fj-6w1"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vn-u5-ZEu" customClass="JPLoadingButton">
+                                                <rect key="frame" x="0.0" y="566.5" width="605" height="46"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="46" id="OLc-yW-o6m"/>
+                                                </constraints>
+                                                <state key="normal" title="Payment">
+                                                    <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="payWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="Gg7-RB-NJe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OpB-Xl-UI3" customClass="JPLoadingButton">
+                                                <rect key="frame" x="0.0" y="636.5" width="605" height="46"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="46" id="DxU-ft-XDW"/>
+                                                </constraints>
+                                                <state key="normal" title="Preauth">
+                                                    <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="preAuthWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="WiS-Mh-1Ws"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyY-rT-AaY">
+                                                <rect key="frame" x="0.0" y="706.5" width="605" height="48"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="SUe-Rt-A8U"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="kCJ-Wz-8u1"/>
+                                    <constraint firstItem="HVc-tb-oQI" firstAttribute="leading" secondItem="T8p-VI-IYt" secondAttribute="leading" constant="20" id="3c5-fI-If6"/>
+                                    <constraint firstItem="HVc-tb-oQI" firstAttribute="bottom" secondItem="T8p-VI-IYt" secondAttribute="bottom" constant="20" id="bBh-L7-nXU"/>
+                                    <constraint firstItem="HVc-tb-oQI" firstAttribute="trailing" secondItem="T8p-VI-IYt" secondAttribute="trailing" constant="20" id="qkx-rr-ABM"/>
+                                    <constraint firstItem="HVc-tb-oQI" firstAttribute="top" secondItem="T8p-VI-IYt" secondAttribute="top" constant="20" id="ydk-qb-Fo3"/>
                                 </constraints>
-                                <state key="normal" title="Add card">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addCardAction:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="gAF-kY-mBt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-E2-8Dy" customClass="JPLoadingButton">
-                                <rect key="frame" x="37.5" y="202" width="300" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Pay with card">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="payWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="nBl-l8-GTZ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-yv-ygU" customClass="JPLoadingButton">
-                                <rect key="frame" x="37.5" y="266" width="300" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="PreAuth with card ">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="preAuthWithCardToken:" destination="UWo-Q7-j0K" eventType="touchUpInside" id="bNY-uf-ah1"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To make a token or preauth token payment, first you have to create a card token" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiX-ve-3f3">
-                                <rect key="frame" x="8" y="52" width="359" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <viewLayoutGuide key="contentLayoutGuide" id="T8p-VI-IYt"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="V6k-tb-vS2"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="top" secondItem="Ll4-Zi-CaP" secondAttribute="bottom" constant="61" id="221-gp-bHP"/>
-                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="height" secondItem="Ll4-Zi-CaP" secondAttribute="height" id="3Uo-1s-Dad"/>
-                            <constraint firstItem="Au4-yv-ygU" firstAttribute="width" secondItem="FGg-E2-8Dy" secondAttribute="width" id="BD6-SH-3fS"/>
-                            <constraint firstItem="Au4-yv-ygU" firstAttribute="centerX" secondItem="FGg-E2-8Dy" secondAttribute="centerX" id="Bg5-5Y-Zw6"/>
-                            <constraint firstItem="WiX-ve-3f3" firstAttribute="top" secondItem="MHk-TG-oSf" secondAttribute="bottom" constant="8" id="Ccc-xz-uFg"/>
-                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="GoO-gN-PsW"/>
-                            <constraint firstItem="Au4-yv-ygU" firstAttribute="top" secondItem="FGg-E2-8Dy" secondAttribute="bottom" constant="24" id="QAa-Wp-nar"/>
-                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="QyJ-7Q-TpI"/>
-                            <constraint firstAttribute="trailing" secondItem="WiX-ve-3f3" secondAttribute="trailing" constant="8" id="SJv-8y-crC"/>
-                            <constraint firstItem="Au4-yv-ygU" firstAttribute="height" secondItem="FGg-E2-8Dy" secondAttribute="height" id="Sve-3C-3Bu"/>
-                            <constraint firstItem="WiX-ve-3f3" firstAttribute="centerX" secondItem="9wu-Ks-chD" secondAttribute="centerX" id="bIw-P7-3Tl"/>
-                            <constraint firstItem="WiX-ve-3f3" firstAttribute="leading" secondItem="9wu-Ks-chD" secondAttribute="leading" constant="8" id="gcz-IV-1EY"/>
-                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="width" secondItem="9wu-Ks-chD" secondAttribute="width" multiplier="0.8" id="ouR-sY-R9t"/>
-                            <constraint firstItem="FGg-E2-8Dy" firstAttribute="width" secondItem="Ll4-Zi-CaP" secondAttribute="width" id="pbf-vl-W2d"/>
-                            <constraint firstItem="Ll4-Zi-CaP" firstAttribute="top" secondItem="WiX-ve-3f3" secondAttribute="bottom" constant="8" id="wPr-Ft-t7x"/>
+                            <constraint firstItem="9Ri-9m-1u3" firstAttribute="top" secondItem="e6n-bx-430" secondAttribute="bottom" id="9Mr-zf-0j3"/>
+                            <constraint firstItem="yQz-TB-4Bl" firstAttribute="top" secondItem="9Ri-9m-1u3" secondAttribute="bottom" id="ILK-tM-zdG"/>
+                            <constraint firstItem="HVc-tb-oQI" firstAttribute="width" secondItem="9wu-Ks-chD" secondAttribute="width" multiplier="0.9" id="Xcc-03-kb2"/>
+                            <constraint firstItem="9Ri-9m-1u3" firstAttribute="leading" secondItem="9wu-Ks-chD" secondAttribute="leading" id="pzC-sW-mSh"/>
+                            <constraint firstAttribute="trailing" secondItem="9Ri-9m-1u3" secondAttribute="trailing" id="wGQ-Sa-1dQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9KV-jm-kze"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="createCardTokenButton" destination="Ll4-Zi-CaP" id="tyg-FX-UFX"/>
-                        <outlet property="payWithCardTokenButton" destination="FGg-E2-8Dy" id="FUz-kW-h8O"/>
-                        <outlet property="preAuthWithCardTokenButton" destination="Au4-yv-ygU" id="wSD-Ug-6OO"/>
+                        <outlet property="cardNetworkTextField" destination="PhB-mL-Xxw" id="rHk-JI-enk"/>
+                        <outlet property="cardSecurityCodeTextField" destination="MNM-vg-A87" id="X1T-QN-Rvv"/>
+                        <outlet property="cardTokenTextField" destination="RS3-Gz-7re" id="WVN-bY-bwD"/>
+                        <outlet property="cardholderNameTextField" destination="fpc-s5-cqQ" id="7kr-Up-U8x"/>
+                        <outlet property="createCardTokenButton" destination="qSD-yK-iyl" id="XsZ-i8-vgs"/>
+                        <outlet property="payWithCardTokenButton" destination="7vn-u5-ZEu" id="lza-ib-FGv"/>
+                        <outlet property="preAuthWithCardTokenButton" destination="OpB-Xl-UI3" id="QJJ-ax-y3E"/>
+                        <outlet property="scrollView" destination="9Ri-9m-1u3" id="RXB-aK-gDt"/>
+                        <outlet property="scrollviewBottomConstraint" destination="ILK-tM-zdG" id="Hgv-AF-7Qw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5yh-Yf-Atc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892" y="1463"/>
+            <point key="canvasLocation" x="892" y="1462.2188905547227"/>
         </scene>
         <!--PBBA-->
         <scene sceneID="1N5-xj-n68">
             <objects>
                 <viewController storyboardIdentifier="PBBAViewController" id="roV-nE-oFc" customClass="PBBAViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wV9-OE-FjF"/>
-                        <viewControllerLayoutGuide type="bottom" id="bpp-NB-xZN"/>
+                        <viewControllerLayoutGuide type="top" id="hkW-X4-aVp"/>
+                        <viewControllerLayoutGuide type="bottom" id="E0M-FB-TFF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7qM-xy-XFJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -397,8 +536,8 @@
             <objects>
                 <viewController title="No UI" id="aAh-VN-Jhb" customClass="NoUICardPayViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FCZ-6H-HBT"/>
-                        <viewControllerLayoutGuide type="bottom" id="Jqw-KT-Vh3"/>
+                        <viewControllerLayoutGuide type="top" id="wXP-Ih-gJI"/>
+                        <viewControllerLayoutGuide type="bottom" id="TJG-Mn-3N6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sYn-yi-9v9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -479,8 +618,14 @@
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

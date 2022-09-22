@@ -26,6 +26,7 @@
 #import "JPConstants.h"
 #import "JPFormatters.h"
 #import "NSString+Additions.h"
+#import "NSNumber+Additions.h"
 
 @implementation JPCardDetails
 
@@ -41,46 +42,15 @@
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
 
-        NSNumber *cardType = dictionary[@"cardType"];
-        self.rawCardNetwork = cardType;
-        self.cardNetwork = [self cardNetworkTypeFromRawValue:cardType];
+        self.rawCardNetwork = dictionary[@"cardType"];
+        
+        if (self.rawCardNetwork) {
+            self.cardNetwork = self.rawCardNetwork.toCardNetworkType;
+        } else {
+            self.cardNetwork = JPCardNetworkTypeUnknown;
+        }
     }
     return self;
-}
-
-- (JPCardNetworkType)cardNetworkTypeFromRawValue:(NSNumber *)rawValue {
-    switch (rawValue.unsignedIntegerValue) {
-        case 1:
-        case 3:  // VISA ELECTRON
-        case 11: // VISA DEBIT
-        case 13: // VISA PURCHASING
-            return JPCardNetworkTypeVisa;
-
-        case 2:
-        case 12: // MASTERCARD DEBIT
-            return JPCardNetworkTypeMasterCard;
-
-        case 7:
-            return JPCardNetworkTypeChinaUnionPay;
-
-        case 8:
-            return JPCardNetworkTypeAMEX;
-
-        case 9:
-            return JPCardNetworkTypeJCB;
-
-        case 10:
-            return JPCardNetworkTypeMaestro;
-
-        case 14:
-            return JPCardNetworkTypeDiscover;
-
-        case 17:
-            return JPCardNetworkTypeDinersClub;
-
-        default:
-            return JPCardNetworkTypeUnknown;
-    }
 }
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber
