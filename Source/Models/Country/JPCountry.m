@@ -84,7 +84,6 @@
     }
 
     return @([country.dialCode intValue]);
-    ;
 }
 
 + (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName {
