@@ -36,7 +36,6 @@
     return bundle;
 }
 
-// BEGIN-NOSCAN
 + (NSBundle *)_jp_iconsBundle {
     static NSBundle *iconsBundle;
     static dispatch_once_t iconsToken;
@@ -45,7 +44,6 @@
     });
     return iconsBundle;
 }
-// END-NOSCAN
 
 + (instancetype)_jp_stringsBundle {
     static NSBundle *bundle;
@@ -63,7 +61,6 @@
     return bundle;
 }
 
-// BEGIN-NOSCAN
 + (instancetype)_jp_resourcesBundle {
     static NSBundle *resourcesBundle;
     static dispatch_once_t resourcesToken;
@@ -72,7 +69,6 @@
     });
     return resourcesBundle;
 }
-// END-NOSCAN
 
 + (NSString *)pathForResourceBundle:(NSString *)resourceBundle {
     for (NSBundle *bundle in NSBundle.allBundles) {
