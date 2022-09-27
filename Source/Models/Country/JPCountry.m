@@ -31,14 +31,14 @@
 + (instancetype)defaultCountryList {
     NSBundle *bundle = [NSBundle bundleForClass:[JPCountryList class]];
     NSString *str = [bundle pathForResource:@"judokit-countries-list" ofType:@"json"];
-    if (str) {
-        NSData *data = [NSData dataWithContentsOfFile:str];
-        if (data) {
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            JPCountryList *list = [[JPCountryList alloc] initWithDictionary:dict];
-            return list;
-        }
+    NSData *data = [NSData dataWithContentsOfFile:str];
+
+    if (data) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        JPCountryList *list = [[JPCountryList alloc] initWithDictionary:dict];
+        return list;
     }
+
     return nil;
 }
 
@@ -67,9 +67,8 @@
 @implementation JPCountry
 
 + (NSNumber *)isoCodeForCountry:(NSString *)countryName {
-    JPCountryList *list = [JPCountryList defaultCountryList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    JPCountry *country = [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+    JPCountry *country = [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
     if (country) {
         return @([country.numericCode intValue]);
     }
@@ -77,9 +76,8 @@
 }
 
 + (NSNumber *)dialCodeForCountry:(NSString *)countryName {
-    JPCountryList *list = [JPCountryList defaultCountryList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    JPCountry *country = [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+    JPCountry *country = [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
     if (country) {
         return @([country.dialCode intValue]);
     }
@@ -87,9 +85,8 @@
 }
 
 + (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName {
-    JPCountryList *list = [JPCountryList defaultCountryList];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    return [[list.countries filteredArrayUsingPredicate:predicate] firstObject];
+    return [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
