@@ -67,26 +67,29 @@
 @implementation JPCountry
 
 + (NSNumber *)isoCodeForCountry:(NSString *)countryName {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    JPCountry *country = [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
-    if (country) {
-        return @([country.numericCode intValue]);
+    JPCountry *country = [JPCountry forCountryName:countryName];
+
+    if (!country) {
+        return nil;
     }
-    return nil;
+
+    return @([country.numericCode intValue]);
 }
 
 + (NSNumber *)dialCodeForCountry:(NSString *)countryName {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    JPCountry *country = [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
-    if (country) {
-        return @([country.dialCode intValue]);
+    JPCountry *country = [JPCountry forCountryName:countryName];
+
+    if (!country) {
+        return nil;
     }
-    return nil;
+
+    return @([country.dialCode intValue]);
+    ;
 }
 
 + (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", countryName];
-    return [[JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate] firstObject];
+    return [JPCountryList.defaultCountryList.countries filteredArrayUsingPredicate:predicate].firstObject;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
