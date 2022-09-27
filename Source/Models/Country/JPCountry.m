@@ -30,7 +30,7 @@
 
 + (instancetype)defaultCountryList {
     NSBundle *bundle = [NSBundle bundleForClass:[JPCountryList class]];
-    NSString *str = [bundle pathForResource:@"CountriesList" ofType:@"json"];
+    NSString *str = [bundle pathForResource:@"judokit-countries-list" ofType:@"json"];
     if (str) {
         NSData *data = [NSData dataWithContentsOfFile:str];
         if (data) {

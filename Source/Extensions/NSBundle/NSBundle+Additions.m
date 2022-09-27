@@ -39,7 +39,7 @@
 + (NSBundle *)_jp_iconsBundle {
     static NSBundle *iconsBundle;
     static dispatch_once_t onceToken;
-    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"icons"];
+    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"judokit-icons"];
     dispatch_once(&onceToken, ^{
         iconsBundle = [[NSBundle alloc] initWithPath:iconBundlePath];
     });
@@ -65,7 +65,7 @@
 + (instancetype)_jp_resourcesBundle {
     static NSBundle *resourcesBundle;
     static dispatch_once_t onceToken;
-    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"resources"];
+    NSString *iconBundlePath = [NSBundle pathForResourceBundle:@"judokit-resources"];
 
     dispatch_once(&onceToken, ^{
         resourcesBundle = [[NSBundle alloc] initWithPath:iconBundlePath];
