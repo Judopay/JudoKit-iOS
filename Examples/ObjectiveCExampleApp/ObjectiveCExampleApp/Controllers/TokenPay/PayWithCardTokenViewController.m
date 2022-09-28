@@ -28,16 +28,21 @@
 
 @import JudoKit_iOS;
 
-@interface PayWithCardTokenViewController ()
+@interface PayWithCardTokenViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *createCardTokenButton;
 
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
-@property (strong, nonatomic) JPCardDetails *cardDetails;
 @property (strong, nonatomic) JPCardTransactionService *transactionService;
+
+@property (weak, nonatomic) IBOutlet UITextField *cardNetworkTextField;
+@property (weak, nonatomic) IBOutlet UITextField *cardTokenTextField;
+@property (weak, nonatomic) IBOutlet UITextField *cardSecurityCodeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *cardholderNameTextField;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollviewBottomConstraint;
 
 @end
 
@@ -47,9 +52,59 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Token and no UI payments";
+    self.title = @"Token payments";
     [self shouldEnableButtons:NO];
-    [self setupButtons];
+    [self _jp_registerKeyboardObservers];
+}
+
+- (void)dealloc {
+    [self _jp_removeKeyboardObservers];
+}
+
+#pragma mark - Keyboard handling logic
+
+- (void)_jp_keyboardWillShow:(NSNotification *)notification {
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+
+    CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    self.scrollviewBottomConstraint.constant = keyboardSize.height;
+    [self.view layoutIfNeeded];
+
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration
+                          delay:0.0
+                        options:curve
+                     animations:^{
+                         [weakSelf.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished){}];
+}
+
+- (void)_jp_keyboardWillHide:(NSNotification *)notification {
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+
+    self.scrollviewBottomConstraint.constant = 0;
+    [self.view layoutIfNeeded];
+
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration
+                          delay:0.0
+                        options:curve
+                     animations:^{
+                         [weakSelf.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished){}];
+}
+
+- (IBAction)textFieldDidChange:(id)sender {
+    BOOL shouldEnableButtons =
+    self.cardNetworkTextField.text.length > 0
+    && self.cardTokenTextField.text.length > 0
+    && self.cardholderNameTextField.text.length > 0;
+    
+    [self shouldEnableButtons: shouldEnableButtons];
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -58,12 +113,7 @@
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
         [weakSelf handleResponse:response error:error showReceipt:false];
-        
-        weakSelf.cardDetails = response.cardDetails;
-        
-        if (weakSelf.cardDetails) {
-            [weakSelf shouldEnableButtons:YES];
-        }
+        [weakSelf fillInFieldsFromResponse:response];
     }];
 }
 
@@ -78,70 +128,57 @@
     }
 }
 
+- (void)fillInFieldsFromResponse:(JPResponse *)response {
+    JPCardDetails *cardDetails = response.cardDetails;
+    
+    if (cardDetails) {
+        self.cardNetworkTextField.text = [NSString stringWithFormat:@"%@", cardDetails.rawCardNetwork];
+        self.cardTokenTextField.text = cardDetails.cardToken;
+        [self textFieldDidChange:nil];
+    }
+}
+
 - (IBAction)payWithCardToken:(UIButton *)sender {
+    [self.payWithCardTokenButton startLoading];
+    
     __weak typeof(self) weakSelf = self;
 
-    [self presentTextFieldAlertControllerWithTitle:@"Please provide the security code"
-                                           message:@""
-                               positiveButtonTitle:@"Ok"
-                               negativeButtonTitle:@"Cancel"
-                              textFieldPlaceholder:@"Security code"
-                                     andCompletion:^(NSString *text) {
-        if (!text || text.length == 0) {
-            return;
-        }
-        
-        [weakSelf.payWithCardTokenButton startLoading];
-        
-        weakSelf.configuration.reference = Settings.defaultSettings.reference;
-        JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
-                                                                                andCardDetails:weakSelf.cardDetails];
-        details.secureCode = text;
-        details.cardholderName = @"CHALLENGE";
-
-        [weakSelf.transactionService invokeTokenPaymentWithDetails:details
-                                                     andCompletion:^(JPResponse *response, JPError *error) {
-            [weakSelf handleResponse:response error:error showReceipt:true];
-            [weakSelf.payWithCardTokenButton stopLoading];
-        }];
+    [self.transactionService invokeTokenPaymentWithDetails:self.cardTransactionDetails
+                                             andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReceipt:true];
+        [weakSelf.payWithCardTokenButton stopLoading];
     }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
+    [self.preAuthWithCardTokenButton startLoading];
+    
     __weak typeof(self) weakSelf = self;
 
-    [self presentTextFieldAlertControllerWithTitle:@"Please provide the security code"
-                                           message:@""
-                               positiveButtonTitle:@"Ok"
-                               negativeButtonTitle:@"Cancel"
-                              textFieldPlaceholder:@"Security code"
-                                     andCompletion:^(NSString *text) {
-        if (!text || text.length == 0) {
-            return;
-        }
-        
-        [weakSelf.preAuthWithCardTokenButton startLoading];
-        
-        weakSelf.configuration.reference = Settings.defaultSettings.reference;
-        JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:weakSelf.configuration
-                                                                                andCardDetails:weakSelf.cardDetails];
-        details.secureCode = text;
-        details.cardholderName = @"CHALLENGE";
-
-        [weakSelf.transactionService invokePreAuthTokenPaymentWithDetails:details
-                                                            andCompletion:^(JPResponse *response, JPError *error) {
-            [weakSelf handleResponse:response error:error showReceipt:true];
-            [weakSelf.preAuthWithCardTokenButton stopLoading];
-        }];
+    [self.transactionService invokePreAuthTokenPaymentWithDetails:self.cardTransactionDetails
+                                                    andCompletion:^(JPResponse *response, JPError *error) {
+        [weakSelf handleResponse:response error:error showReceipt:true];
+        [weakSelf.preAuthWithCardTokenButton stopLoading];
     }];
 }
 
-- (void)setupButtons {
-    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor._jp_asImage forState:UIControlStateDisabled];
-    [self.preAuthWithCardTokenButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
+- (JPCardTransactionDetails *)cardTransactionDetails {
+    self.configuration.reference = Settings.defaultSettings.reference;
     
-    [self.payWithCardTokenButton setBackgroundImage:UIColor.darkGrayColor._jp_asImage forState:UIControlStateDisabled];
-    [self.payWithCardTokenButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
+    JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:self.configuration];
+    
+    NSString *secureCode = nil;
+    
+    if (self.cardSecurityCodeTextField.text.length > 0) {
+        secureCode = self.cardSecurityCodeTextField.text;
+    }
+    
+    details.cardToken = self.cardTokenTextField.text;
+    details.cardType = @(self.cardNetworkTextField.text.integerValue)._jp_toCardNetworkType;
+    details.secureCode = secureCode;
+    details.cardholderName = self.cardholderNameTextField.text;
+    
+    return details;
 }
 
 - (void)shouldEnableButtons:(BOOL)shouldEnable {

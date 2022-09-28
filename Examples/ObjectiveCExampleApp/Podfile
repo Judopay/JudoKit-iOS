@@ -4,11 +4,11 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
-  # pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
-  pod 'Judo3DS2_iOS', '1.1.1'
+#  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+   pod 'Judo3DS2_iOS', '1.1.2'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '3.1.5'
+  # pod 'JudoKit-iOS', '3.1.6'
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
