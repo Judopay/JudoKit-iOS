@@ -102,7 +102,6 @@
     BOOL shouldEnableButtons =
     self.cardNetworkTextField.text.length > 0
     && self.cardTokenTextField.text.length > 0
-    && self.cardSecurityCodeTextField.text.length > 0
     && self.cardholderNameTextField.text.length > 0;
     
     [self shouldEnableButtons: shouldEnableButtons];
@@ -168,9 +167,15 @@
     
     JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:self.configuration];
     
+    NSString *secureCode = nil;
+    
+    if (self.cardSecurityCodeTextField.text.length > 0) {
+        secureCode = self.cardSecurityCodeTextField.text;
+    }
+    
     details.cardToken = self.cardTokenTextField.text;
     details.cardType = @(self.cardNetworkTextField.text.integerValue).toCardNetworkType;
-    details.secureCode = self.cardSecurityCodeTextField.text;
+    details.secureCode = secureCode;
     details.cardholderName = self.cardholderNameTextField.text;
     
     return details;
