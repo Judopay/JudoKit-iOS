@@ -238,7 +238,6 @@
 		305835232406586C00B61167 /* JPCardCustomizationIsDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 305835212406586C00B61167 /* JPCardCustomizationIsDefaultCell.m */; };
 		305835242406586C00B61167 /* JPCardCustomizationIsDefaultCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 305835222406586C00B61167 /* JPCardCustomizationIsDefaultCell.h */; };
 		30ABAC0324A36503005550E1 /* JudoKit_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 300072AA23F6AB550099F3C5 /* JudoKit_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30D0894023901F1F00480C9E /* icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30C22170235DC518000D6E3A /* icons.bundle */; };
 		30D3639F24B5BB1E0029BC86 /* JPBasicAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D3639924B5BB1E0029BC86 /* JPBasicAuthorization.m */; };
 		30D363A024B5BB1E0029BC86 /* JPBasicAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D3639A24B5BB1E0029BC86 /* JPBasicAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D363A124B5BB1E0029BC86 /* JPAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D3639B24B5BB1E0029BC86 /* JPAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -299,6 +298,8 @@
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		4406FD6D28E31754001BEF3D /* judokit-icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4406FD6B28E31754001BEF3D /* judokit-icons.bundle */; };
+		4406FD6E28E31754001BEF3D /* judokit-resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4406FD6C28E31754001BEF3D /* judokit-resources.bundle */; };
 		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4431198C24B3345200BF961C /* JPRequest+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4431198A24B3345200BF961C /* JPRequest+Additions.m */; };
 		4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4431198B24B3345200BF961C /* JPRequest+Additions.h */; };
@@ -332,7 +333,6 @@
 		5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */; };
 		5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */; };
 		5273AF1A23F31027008C6D89 /* JPOtherPaymentMethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5273AF1823F31027008C6D89 /* JPOtherPaymentMethodView.m */; };
-		529CCB7F23BE775B00A8DBDD /* resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 529CCB7723BE775A00A8DBDD /* resources.bundle */; };
 		529CCB8D23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 529CCB8B23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.h */; };
 		529CCB8E23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 529CCB8C23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m */; };
 		529CCB9123BE910500A8DBDD /* JPPaymentMethodsCardHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 529CCB8F23BE910500A8DBDD /* JPPaymentMethodsCardHeaderView.h */; };
@@ -405,7 +405,7 @@
 		AD13DC0828831297002B82CD /* JPNetworkTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13DC0628831297002B82CD /* JPNetworkTimeout.m */; };
 		AD13DC0928831297002B82CD /* JPNetworkTimeout.h in Headers */ = {isa = PBXBuildFile; fileRef = AD13DC0728831297002B82CD /* JPNetworkTimeout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD13DC1828831C07002B82CD /* JPPaymentMethodsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD13DC1728831C07002B82CD /* JPPaymentMethodsTest.swift */; };
-		AD3C03992885CE8C00063947 /* CountriesList.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3C03982885CE7200063947 /* CountriesList.json */; };
+		AD3C03992885CE8C00063947 /* judokit-countries-list.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3C03982885CE7200063947 /* judokit-countries-list.json */; };
 		AD4B368B2882E18600289CB7 /* JPTransactionRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B9C5247BC9BB00867B9F /* JPTransactionRouterMock.swift */; };
 		AD4B368C2882E19A00289CB7 /* JPApplePayServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B992247BC9BB00867B9F /* JPApplePayServiceTest.swift */; };
 		AD4B368D2882E1AE00289CB7 /* JPPBBAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BA1A247BCA3B00867B9F /* JPPBBAServiceTest.swift */; };
@@ -674,7 +674,6 @@
 		305835162406583400B61167 /* JPCardCustomizationSubmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardCustomizationSubmitCell.m; sourceTree = "<group>"; };
 		305835212406586C00B61167 /* JPCardCustomizationIsDefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardCustomizationIsDefaultCell.m; sourceTree = "<group>"; };
 		305835222406586C00B61167 /* JPCardCustomizationIsDefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardCustomizationIsDefaultCell.h; sourceTree = "<group>"; };
-		30C22170235DC518000D6E3A /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
 		30D3639924B5BB1E0029BC86 /* JPBasicAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPBasicAuthorization.m; sourceTree = "<group>"; };
 		30D3639A24B5BB1E0029BC86 /* JPBasicAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBasicAuthorization.h; sourceTree = "<group>"; };
 		30D3639B24B5BB1E0029BC86 /* JPAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPAuthorization.h; sourceTree = "<group>"; };
@@ -737,6 +736,8 @@
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
+		4406FD6B28E31754001BEF3D /* judokit-icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "judokit-icons.bundle"; sourceTree = "<group>"; };
+		4406FD6C28E31754001BEF3D /* judokit-resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "judokit-resources.bundle"; sourceTree = "<group>"; };
 		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4431198A24B3345200BF961C /* JPRequest+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JPRequest+Additions.m"; sourceTree = "<group>"; };
 		4431198B24B3345200BF961C /* JPRequest+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JPRequest+Additions.h"; sourceTree = "<group>"; };
@@ -769,7 +770,6 @@
 		5273AF1323F30730008C6D89 /* JPCardPaymentMethodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCardPaymentMethodView.m; sourceTree = "<group>"; };
 		5273AF1723F31027008C6D89 /* JPOtherPaymentMethodView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPOtherPaymentMethodView.h; sourceTree = "<group>"; };
 		5273AF1823F31027008C6D89 /* JPOtherPaymentMethodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOtherPaymentMethodView.m; sourceTree = "<group>"; };
-		529CCB7723BE775A00A8DBDD /* resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resources.bundle; sourceTree = "<group>"; };
 		529CCB8B23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsEmptyHeaderView.h; sourceTree = "<group>"; };
 		529CCB8C23BE8AA300A8DBDD /* JPPaymentMethodsEmptyHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPaymentMethodsEmptyHeaderView.m; sourceTree = "<group>"; };
 		529CCB8F23BE910500A8DBDD /* JPPaymentMethodsCardHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsCardHeaderView.h; sourceTree = "<group>"; };
@@ -843,7 +843,7 @@
 		AD13DC0628831297002B82CD /* JPNetworkTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPNetworkTimeout.m; sourceTree = "<group>"; };
 		AD13DC0728831297002B82CD /* JPNetworkTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPNetworkTimeout.h; sourceTree = "<group>"; };
 		AD13DC1728831C07002B82CD /* JPPaymentMethodsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsTest.swift; sourceTree = "<group>"; };
-		AD3C03982885CE7200063947 /* CountriesList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CountriesList.json; sourceTree = "<group>"; };
+		AD3C03982885CE7200063947 /* judokit-countries-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "judokit-countries-list.json"; sourceTree = "<group>"; };
 		ADA50D6C282C1C7B00846943 /* ZappMerchantLib.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ZappMerchantLib.xcframework; path = Carthage/Build/ZappMerchantLib.xcframework; sourceTree = "<group>"; };
 		ADA50D6D282C1C7B00846943 /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
 		ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = DeviceDNA.xcframework; path = Carthage/Build/DeviceDNA.xcframework; sourceTree = "<group>"; };
@@ -2885,10 +2885,10 @@
 		52FBFB6A2325A3770096064C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				529CCB7723BE775A00A8DBDD /* resources.bundle */,
-				30C22170235DC518000D6E3A /* icons.bundle */,
+				4406FD6B28E31754001BEF3D /* judokit-icons.bundle */,
+				4406FD6C28E31754001BEF3D /* judokit-resources.bundle */,
 				829330FE230AF0F900689DC4 /* Localizable.strings */,
-				AD3C03982885CE7200063947 /* CountriesList.json */,
+				AD3C03982885CE7200063947 /* judokit-countries-list.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3265,10 +3265,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30D0894023901F1F00480C9E /* icons.bundle in Resources */,
+				4406FD6D28E31754001BEF3D /* judokit-icons.bundle in Resources */,
 				829330FC230AF0F900689DC4 /* Localizable.strings in Resources */,
-				AD3C03992885CE8C00063947 /* CountriesList.json in Resources */,
-				529CCB7F23BE775B00A8DBDD /* resources.bundle in Resources */,
+				4406FD6E28E31754001BEF3D /* judokit-resources.bundle in Resources */,
+				AD3C03992885CE8C00063947 /* judokit-countries-list.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
