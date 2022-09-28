@@ -178,3 +178,4 @@ ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberF
 ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
 ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPCardDetailsMode.h JPCardDetailsMode.h
 ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h
+ln -s -f ../Extensions/NSNumber/NSNumber+Additions.h NSNumber+Additions.h

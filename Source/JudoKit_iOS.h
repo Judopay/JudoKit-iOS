@@ -102,8 +102,8 @@
 #import "JPCardTransactionService.h"
 
 #import "NSBundle+Additions.h"
-#import "NSString+Additions.h"
 #import "NSNumber+Additions.h"
+#import "NSString+Additions.h"
 
 //! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;

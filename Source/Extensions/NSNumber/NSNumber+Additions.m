@@ -26,7 +26,7 @@
 
 @implementation NSNumber (Additions)
 
-- (JPCardNetworkType)toCardNetworkType {
+- (JPCardNetworkType)_jp_toCardNetworkType {
     switch (self.unsignedIntegerValue) {
         case 1:
         case 3:  // VISA ELECTRON

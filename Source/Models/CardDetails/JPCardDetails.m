@@ -25,8 +25,8 @@
 #import "JPCardDetails.h"
 #import "JPConstants.h"
 #import "JPFormatters.h"
-#import "NSString+Additions.h"
 #import "NSNumber+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation JPCardDetails
 
@@ -43,9 +43,9 @@
         self.cardScheme = dictionary[@"cardScheme"];
 
         self.rawCardNetwork = dictionary[@"cardType"];
-        
+
         if (self.rawCardNetwork) {
-            self.cardNetwork = self.rawCardNetwork.toCardNetworkType;
+            self.cardNetwork = self.rawCardNetwork._jp_toCardNetworkType;
         } else {
             self.cardNetwork = JPCardNetworkTypeUnknown;
         }
