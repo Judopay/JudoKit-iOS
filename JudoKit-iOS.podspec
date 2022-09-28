@@ -21,5 +21,5 @@ Pod::Spec.new do |s|
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.resource_bundles      = { "JudoKit_iOS" => ["Resources/*.lproj/*.strings"] }
-  s.resources             = ['Resources/icons.bundle', 'Resources/resources.bundle', 'Resources/CountriesList.json']
+  s.resources             = ['Resources/judokit-icons.bundle', 'Resources/judokit-resources.bundle', 'Resources/judokit-countries-list.json']
 end
