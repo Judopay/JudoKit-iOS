@@ -33,7 +33,9 @@
     self.alpha = 0.5;
     self.enabled = viewModel.isEnabled;
     self.alpha = (viewModel.isEnabled) ? 1.0 : 0.5;
-    [self setTitle:viewModel.title forState:UIControlStateNormal];
+    if (!self.isLoading) {
+        [self setTitle:viewModel.title forState:UIControlStateNormal];
+    }
 }
 
 @end

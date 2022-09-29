@@ -27,6 +27,11 @@
 @interface JPLoadingButton : UIButton
 
 /**
+ * A readonly property which shows if the button is in Loading state
+ */
+@property (nonatomic, assign, readonly) BOOL isLoading;
+
+/**
  * A method that hides the title and displays an animated activity spinner
  */
 - (void)startLoading;
