@@ -64,6 +64,10 @@
 
 #pragma mark - Public methods
 
+- (BOOL)isLoading {
+    return self.activityIndicator.isAnimating;
+}
+
 - (void)startLoading {
     self.buttonTitle = self.titleLabel.text;
     [self setTitle:@"" forState:UIControlStateNormal];
