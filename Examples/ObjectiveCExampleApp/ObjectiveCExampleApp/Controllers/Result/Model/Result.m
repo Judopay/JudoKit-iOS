@@ -112,7 +112,7 @@
         // Obtain the property name
         objc_property_t property = propertyArray[i];
         NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
-       
+
         if (!name || name.length == 0 || [name isEqualToString:@"observationInfo"]) {
             break;
         }

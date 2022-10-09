@@ -117,6 +117,11 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
 @property (nonatomic, strong) NSArray *pickerCountries;
 
 /**
+ * An array of JPState that act as picker titles
+ */
+@property (nonatomic, strong) NSArray *pickerStates;
+
+/**
  * The JPTransactionInputFieldViewModel for the card number input field
  */
 @property (nonatomic, strong) JPTransactionNumberInputViewModel *cardNumberViewModel;
@@ -145,6 +150,11 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  * The JPTransactionInputFieldViewModel for the country picker
  */
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *countryPickerViewModel;
+
+/**
+ * The JPTransactionInputFieldViewModel for the state picker
+ */
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *statePickerViewModel;
 
 /**
  * The JPTransactionInputFieldViewModel for the cardholder phone code field

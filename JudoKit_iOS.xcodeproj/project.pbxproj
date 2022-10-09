@@ -425,6 +425,8 @@
 		ADB514BF286DF03900332E47 /* JPThreeDSecureTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB514BD286DF03900332E47 /* JPThreeDSecureTwo.m */; };
 		ADB514C0286DF03900332E47 /* JPThreeDSecureTwo.h in Headers */ = {isa = PBXBuildFile; fileRef = ADB514BE286DF03900332E47 /* JPThreeDSecureTwo.h */; };
 		ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D79282C35DE00846943 /* OpenSSL.xcframework */; };
+		ADC5AC0228EF30340049CAE3 /* JPState.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC5AC0128EF30340049CAE3 /* JPState.m */; };
+		ADC5AC0428EF30610049CAE3 /* JPState.h in Headers */ = {isa = PBXBuildFile; fileRef = ADC5AC0328EF30500049CAE3 /* JPState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -862,6 +864,8 @@
 		ADB514B9286DED4200332E47 /* JPCReqParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCReqParameters.m; sourceTree = "<group>"; };
 		ADB514BD286DF03900332E47 /* JPThreeDSecureTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPThreeDSecureTwo.m; sourceTree = "<group>"; };
 		ADB514BE286DF03900332E47 /* JPThreeDSecureTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPThreeDSecureTwo.h; sourceTree = "<group>"; };
+		ADC5AC0128EF30340049CAE3 /* JPState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPState.m; sourceTree = "<group>"; };
+		ADC5AC0328EF30500049CAE3 /* JPState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPState.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1670,6 +1674,7 @@
 				3000727623F6AB540099F3C5 /* ConsumerDevice */,
 				3000731123FA9BBC0099F3C5 /* ContactInformation */,
 				3000728C23F6AB550099F3C5 /* Country */,
+				ADC5AC0028EF30010049CAE3 /* State */,
 				ADB514B7286DED4200332E47 /* CReqParameters */,
 				3000726E23F6AB540099F3C5 /* DictionaryConvertible */,
 				300072B423F6AB560099F3C5 /* EnchancedPaymentDetail */,
@@ -3009,6 +3014,15 @@
 			path = ThreeDSecureTwo;
 			sourceTree = "<group>";
 		};
+		ADC5AC0028EF30010049CAE3 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				ADC5AC0328EF30500049CAE3 /* JPState.h */,
+				ADC5AC0128EF30340049CAE3 /* JPState.m */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3090,6 +3104,7 @@
 				4492115F2469DC7200DF6D14 /* JPTheme.h in Headers */,
 				300072DD23F6AB560099F3C5 /* JPConstants.h in Headers */,
 				0779B1792490EC05000844AF /* JPTransactionButton.h in Headers */,
+				ADC5AC0428EF30610049CAE3 /* JPState.h in Headers */,
 				4492117C246A04C500DF6D14 /* JPPaymentMethodsCardListHeaderCellDelegate.h in Headers */,
 				525FF3DC252C41CF001F030E /* JPCardScanPreviewLayer.h in Headers */,
 				30D363A024B5BB1E0029BC86 /* JPBasicAuthorization.h in Headers */,
@@ -3397,6 +3412,7 @@
 				30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */,
 				30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */,
 				3000732023FA9BBD0099F3C5 /* JPPostalAddress.m in Sources */,
+				ADC5AC0228EF30340049CAE3 /* JPState.m in Sources */,
 				3000735123FACF540099F3C5 /* JPUIConfiguration.m in Sources */,
 				30006F9C23F6993A0099F3C5 /* UIStackView+Additions.m in Sources */,
 				30D61D6C23BB741A004E5CEE /* JPPaymentMethodsInteractor.m in Sources */,

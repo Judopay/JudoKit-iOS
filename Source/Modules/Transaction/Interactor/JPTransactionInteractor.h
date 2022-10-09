@@ -170,6 +170,15 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 - (JPValidationResult *)validateCountryInput:(NSString *)input;
 
 /**
+ * A method for validating the state
+ *
+ * @param input - the input state name string
+ *
+ * @returns a JPValidationResult with the validation status details
+ */
+- (JPValidationResult *)validateStateInput:(NSString *)input;
+
+/**
  * A method for validating the post code number
  *
  * @param input - the input post code number string

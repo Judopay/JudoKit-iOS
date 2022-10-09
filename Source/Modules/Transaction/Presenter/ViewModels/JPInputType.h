@@ -22,10 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
 #ifndef JPInputType_h
 #define JPInputType_h
+
+#import <Foundation/Foundation.h>
+
 /**
  * An enum that defines the input field types present in the Add Card and Billing Details views
  */
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSUInteger, JPInputType) {
     JPInputTypeCardSecureCode,
     JPInputTypeCardholderEmail,
     JPInputTypeCardCountry,
+    JPInputTypeCardholderState,
     JPInputTypeCardholderPhoneCode,
     JPInputTypeCardholderPhone,
     JPInputTypeCardholderAddressLine1,

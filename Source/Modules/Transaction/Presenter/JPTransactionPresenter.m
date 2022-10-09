@@ -33,6 +33,7 @@
 #import "JPError+Additions.h"
 #import "JPInputType.h"
 #import "JPResponse.h"
+#import "JPState.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
@@ -49,6 +50,7 @@
 @property (nonatomic, assign) BOOL isEmailValid;
 @property (nonatomic, assign) BOOL isPhoneCodeValid;
 @property (nonatomic, assign) BOOL isCountryNameValid;
+@property (nonatomic, assign) BOOL isStateNameValid;
 @property (nonatomic, assign) BOOL isCityNameValid;
 @property (nonatomic, assign) BOOL isPhoneNumberValid;
 @property (nonatomic, assign) BOOL isAddressLine1Valid;
@@ -71,6 +73,7 @@
         self.isEmailValid = NO;
         self.isPhoneCodeValid = NO;
         self.isCountryNameValid = YES;
+        self.isStateNameValid = YES;
         self.isCityNameValid = NO;
         self.isPhoneNumberValid = NO;
         self.isAddressLine1Valid = NO;
@@ -108,6 +111,9 @@
         self.transactionViewModel.countryPickerViewModel.text = country.name;
         self.transactionViewModel.cardholderPhoneCodeViewModel.text = country.dialCode;
     }
+
+    self.transactionViewModel.statePickerViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
+    self.transactionViewModel.pickerStates = @[];
 
     self.transactionViewModel.postalCodeInputViewModel.placeholder = @"post_code_hint"._jp_localized;
 
@@ -151,6 +157,9 @@
         case JPInputTypeCardCountry:
             [self updateCountryViewModelForInput:input showError:showError];
             [self updatePostalCodeViewModelForInput:@"" showError:showError];
+            break;
+        case JPInputTypeCardholderState:
+            [self updateStateViewModelForInput:input showError:showError];
             break;
         case JPInputTypeCardPostalCode:
             [self updatePostalCodeViewModelForInput:input showError:showError];
@@ -319,7 +328,7 @@
             self.transactionViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
             break;
         case JPCardDetailsModeThreeDS2BillingDetails: {
-            BOOL is3DS2Valid = self.isEmailValid && self.isCountryNameValid && self.isAddressLine1Valid && self.isAddressLine2Valid && self.isAddressLine3Valid && self.isPhoneNumberValid && self.isCityNameValid && self.isPostalCodeValid;
+            BOOL is3DS2Valid = self.isEmailValid && self.isCountryNameValid && self.isStateNameValid && self.isAddressLine1Valid && self.isAddressLine2Valid && self.isAddressLine3Valid && self.isPhoneNumberValid && self.isCityNameValid && self.isPostalCodeValid;
             self.transactionViewModel.addCardButtonViewModel.isEnabled = is3DS2Valid;
         } break;
         case JPCardDetailsModeDefault:
@@ -448,22 +457,47 @@
     JPCountry *country = [JPCountry forCountryName:input];
     NSString *postcodeValidationCountryName;
     if ([country.alpha2Code isEqualToString:@"US"]) {
+        self.transactionViewModel.pickerStates = JPStateList.usStateList.states;
+        self.transactionViewModel.statePickerViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
+        self.isStateNameValid = NO;
         postcodeValidationCountryName = @"country_usa"._jp_localized;
     } else if ([country.alpha2Code isEqualToString:@"GB"]) {
         postcodeValidationCountryName = @"country_uk"._jp_localized;
+        self.isStateNameValid = YES;
     } else if ([country.alpha2Code isEqualToString:@"CA"]) {
+        self.transactionViewModel.pickerStates = JPStateList.caStateList.states;
+        self.transactionViewModel.statePickerViewModel.placeholder = @"card_holder_province_hint"._jp_localized;
+        self.isStateNameValid = NO;
         postcodeValidationCountryName = @"country_canada"._jp_localized;
     } else {
         postcodeValidationCountryName = @"country_other"._jp_localized;
+        self.isStateNameValid = YES;
     }
 
     JPValidationResult *result = [self.interactor validateCountryInput:postcodeValidationCountryName];
     self.isCountryNameValid = result.isValid;
     self.transactionViewModel.countryPickerViewModel.errorText = (showError && input.length > 0) ? result.errorMessage : nil;
     self.transactionViewModel.cardholderPhoneCodeViewModel.text = [[JPCountry dialCodeForCountry:input] stringValue];
+    self.transactionViewModel.statePickerViewModel.text = @"";
     [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
     if (result.isInputAllowed) {
         self.transactionViewModel.countryPickerViewModel.text = country.name;
+    }
+}
+
+- (void)updateStateViewModelForInput:(NSString *)input showError:(BOOL)showError {
+    NSString *countryCode = [JPCountry forCountryName:self.transactionViewModel.countryPickerViewModel.text].alpha2Code;
+    if (!countryCode) {
+        return;
+    }
+    JPState *state = [JPState forStateName:input andCountryCode:countryCode];
+
+    JPValidationResult *result = [self.interactor validateStateInput:input];
+    self.isStateNameValid = result.isValid;
+    self.transactionViewModel.statePickerViewModel.errorText = (showError && input.length > 0) ? result.errorMessage : nil;
+    [self.view updateViewWithViewModel:self.transactionViewModel shouldUpdateTargets:NO];
+    if (result.isInputAllowed) {
+        self.transactionViewModel.statePickerViewModel.text = state.name;
     }
 }
 
@@ -518,12 +552,16 @@
     }
 
     if (viewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
+        JPCountry *country = [JPCountry forCountryName:viewModel.countryPickerViewModel.text];
+        NSNumber *countryCode = country ? @([country.numericCode intValue]) : nil;
+        NSString *state = country ? [JPState forStateName:viewModel.statePickerViewModel.text andCountryCode:country.alpha2Code].alpha2Code : nil;
         JPAddress *billingAddress = [[JPAddress alloc] initWithAddress1:viewModel.cardholderAddressLine1ViewModel.text
                                                                address2:viewModel.cardholderAddressLine2ViewModel.text
                                                                address3:viewModel.cardholderAddressLine3ViewModel.text
                                                                    town:viewModel.cardholderCityViewModel.text
                                                                postCode:viewModel.postalCodeInputViewModel.text
-                                                            countryCode:[JPCountry isoCodeForCountry:viewModel.countryPickerViewModel.text]];
+                                                            countryCode:countryCode
+                                                                  state:state];
         card.cardAddress = billingAddress;
     }
 
@@ -551,6 +589,7 @@
         _transactionViewModel.expiryDateViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardExpiryDate];
         _transactionViewModel.secureCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardSecureCode];
         _transactionViewModel.countryPickerViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardCountry];
+        _transactionViewModel.statePickerViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderState];
         _transactionViewModel.postalCodeInputViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardPostalCode];
         _transactionViewModel.addCardButtonViewModel = [JPTransactionButtonViewModel new];
         _transactionViewModel.backButtonViewModel = [JPTransactionButtonViewModel new];

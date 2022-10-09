@@ -272,6 +272,10 @@
     return [self.cardValidationService validateCountryInput:input];
 }
 
+- (JPValidationResult *)validateStateInput:(NSString *)input {
+    return [self.cardValidationService validateStateInput:input];
+}
+
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
     return [self.cardValidationService validatePostalCodeInput:input];
 }

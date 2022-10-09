@@ -33,6 +33,8 @@
 "card_holder_email_hint" = "Email";
 "card_holder_hint" = "Cardholder Name";
 "card_holder_country_hint" = "Country";
+"card_holder_state_hint" = "State";
+"card_holder_province_hint" = "Province or territory";
 "card_holder_phone_hint" = "Mobile number";
 "card_holder_city_hint" = "City";
 "card_holder_adress_line_hint" = "Address line %@";
@@ -77,6 +79,8 @@
 "invalid_postcode" = "Invalid postcode entered";
 "invalid_zip_code" = "Invalid ZIP code entered";
 "invalid_email_address" = "Please enter a valid email";
+"invalid_state_should_not_be_empty" = "Please select a state";
+"invalid_province_territory_should_not_be_empty" = "Please select a province or territory";
 "invalid_address" = "Please enter a valid address";
 "invalid_mobile_number" = "Please enter a valid mobile number";
 "invalid_city" = "Please enter a valid city";

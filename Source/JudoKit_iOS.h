@@ -63,6 +63,7 @@
 #import "JPSDKInfo.h"
 #import "JPSection.h"
 #import "JPSession.h"
+#import "JPState.h"
 #import "JPStoredCardDetails.h"
 #import "JPThemable.h"
 #import "JPTheme.h"

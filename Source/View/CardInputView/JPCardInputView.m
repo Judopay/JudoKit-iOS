@@ -25,6 +25,7 @@
 #import "JPCardDetailsMode.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
+#import "JPCountry.h"
 #import "JPLoadingButton.h"
 #import "JPRoundedCornerView.h"
 #import "JPTheme.h"
@@ -174,6 +175,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.cardExpiryTextField applyTheme:theme];
     [self.secureCodeTextField applyTheme:theme];
     [self.countryTextField applyTheme:theme];
+    [self.stateTextField applyTheme:theme];
     [self.postcodeTextField applyTheme:theme];
 }
 
@@ -268,10 +270,13 @@ static const float kPhoneCodeWidth = 45.0F;
             [self.cardHolderAddressLine3TextField configureWithViewModel:viewModel.cardholderAddressLine3ViewModel];
             [self.cardHolderPhoneCodeTextField configureWithViewModel:viewModel.cardholderPhoneCodeViewModel];
             [self.countryTextField configureWithViewModel:viewModel.countryPickerViewModel];
+            [self.stateTextField configureWithViewModel:viewModel.statePickerViewModel];
             [self.postcodeTextField configureWithViewModel:viewModel.postalCodeInputViewModel];
             break;
     }
     [_countryPickerView reloadAllComponents];
+    [_statePickerView reloadAllComponents];
+    [self updateStatePicker:viewModel.countryPickerViewModel.text];
     [self.addCardButton configureWithViewModel:viewModel.addCardButtonViewModel];
     [self.backButton configureWithViewModel:viewModel.backButtonViewModel];
 }
@@ -290,8 +295,18 @@ static const float kPhoneCodeWidth = 45.0F;
     self.cardExpiryTextField.enabled = shouldEnable;
     self.secureCodeTextField.enabled = shouldEnable;
     self.countryTextField.enabled = shouldEnable;
+    self.stateTextField.enabled = shouldEnable;
     self.postcodeTextField.enabled = shouldEnable;
     self.addCardButton.enabled = shouldEnable;
+}
+
+- (void)updateStatePicker:(NSString *)countryName {
+    NSString *countryCode = [JPCountry forCountryName:countryName].alpha2Code;
+    if (!countryCode) {
+        return;
+    }
+    BOOL showStateField = [countryCode isEqualToString:@"US"] || [countryCode isEqualToString:@"CA"];
+    self.stateTextField.hidden = !showStateField;
 }
 
 #pragma mark - Layout setup
@@ -341,6 +356,7 @@ static const float kPhoneCodeWidth = 45.0F;
         [self.cardExpiryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.secureCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.stateTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.backButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
         [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
@@ -530,6 +546,23 @@ static const float kPhoneCodeWidth = 45.0F;
     return _countryPickerView;
 }
 
+- (JPCardInputField *)stateTextField {
+    if (!_stateTextField) {
+        _stateTextField = [JPCardInputField new];
+        _stateTextField.inputView = self.statePickerView;
+        _stateTextField.accessibilityIdentifier = @"State Field";
+    }
+    return _stateTextField;
+}
+
+- (UIPickerView *)statePickerView {
+    if (!_statePickerView) {
+        _statePickerView = [UIPickerView new];
+        _statePickerView.accessibilityIdentifier = @"State Picker";
+    }
+    return _statePickerView;
+}
+
 - (JPCardInputField *)postcodeTextField {
     if (!_postcodeTextField) {
         _postcodeTextField = [JPCardInputField new];
@@ -605,6 +638,7 @@ static const float kPhoneCodeWidth = 45.0F;
         [stackView addArrangedSubview:self.cardHolderEmailTextField];
         if (_mode != JPCardDetailsModeAVS) {
             [stackView addArrangedSubview:self.countryTextField];
+            [stackView addArrangedSubview:self.stateTextField];
         }
         [stackView addArrangedSubview:self.phoneStackView];
         [stackView addArrangedSubview:self.cardHolderAddressLine1TextField];

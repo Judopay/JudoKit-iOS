@@ -100,11 +100,9 @@
 
 - (IBAction)textFieldDidChange:(id)sender {
     BOOL shouldEnableButtons =
-    self.cardNetworkTextField.text.length > 0
-    && self.cardTokenTextField.text.length > 0
-    && self.cardholderNameTextField.text.length > 0;
-    
-    [self shouldEnableButtons: shouldEnableButtons];
+        self.cardNetworkTextField.text.length > 0 && self.cardTokenTextField.text.length > 0 && self.cardholderNameTextField.text.length > 0;
+
+    [self shouldEnableButtons:shouldEnableButtons];
 }
 
 - (IBAction)addCardAction:(UIButton *)sender {
@@ -112,9 +110,9 @@
     [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:false];
-        [weakSelf fillInFieldsFromResponse:response];
-    }];
+                                     [weakSelf handleResponse:response error:error showReceipt:false];
+                                     [weakSelf fillInFieldsFromResponse:response];
+                                 }];
 }
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
@@ -130,7 +128,7 @@
 
 - (void)fillInFieldsFromResponse:(JPResponse *)response {
     JPCardDetails *cardDetails = response.cardDetails;
-    
+
     if (cardDetails) {
         self.cardNetworkTextField.text = [NSString stringWithFormat:@"%@", cardDetails.rawCardNetwork];
         self.cardTokenTextField.text = cardDetails.cardToken;
@@ -140,44 +138,44 @@
 
 - (IBAction)payWithCardToken:(UIButton *)sender {
     [self.payWithCardTokenButton startLoading];
-    
+
     __weak typeof(self) weakSelf = self;
 
     [self.transactionService invokeTokenPaymentWithDetails:self.cardTransactionDetails
                                              andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:true];
-        [weakSelf.payWithCardTokenButton stopLoading];
-    }];
+                                                 [weakSelf handleResponse:response error:error showReceipt:true];
+                                                 [weakSelf.payWithCardTokenButton stopLoading];
+                                             }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     [self.preAuthWithCardTokenButton startLoading];
-    
+
     __weak typeof(self) weakSelf = self;
 
     [self.transactionService invokePreAuthTokenPaymentWithDetails:self.cardTransactionDetails
                                                     andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error showReceipt:true];
-        [weakSelf.preAuthWithCardTokenButton stopLoading];
-    }];
+                                                        [weakSelf handleResponse:response error:error showReceipt:true];
+                                                        [weakSelf.preAuthWithCardTokenButton stopLoading];
+                                                    }];
 }
 
 - (JPCardTransactionDetails *)cardTransactionDetails {
     self.configuration.reference = Settings.defaultSettings.reference;
-    
+
     JPCardTransactionDetails *details = [JPCardTransactionDetails detailsWithConfiguration:self.configuration];
-    
+
     NSString *secureCode = nil;
-    
+
     if (self.cardSecurityCodeTextField.text.length > 0) {
         secureCode = self.cardSecurityCodeTextField.text;
     }
-    
+
     details.cardToken = self.cardTokenTextField.text;
     details.cardType = @(self.cardNetworkTextField.text.integerValue)._jp_toCardNetworkType;
     details.secureCode = secureCode;
     details.cardholderName = self.cardholderNameTextField.text;
-    
+
     return details;
 }
 
@@ -192,7 +190,7 @@
                                                                           isSandboxed:Settings.defaultSettings.isSandboxed
                                                                      andConfiguration:self.configuration];
     }
-    return  _transactionService;
+    return _transactionService;
 }
 
 @end

@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "MaterialSnackbar.h"
 #import <CoreLocation/CoreLocation.h>
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
 #import <InAppSettingsKit/IASKSettingsReader.h>
-#import "MaterialSnackbar.h"
 @import JudoKit_iOS;
 
 #import "ApplePayViewController.h"
@@ -33,9 +33,9 @@
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
 #import "MainViewController.h"
+#import "NoUICardPayViewController.h"
 #import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
-#import "NoUICardPayViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
 
@@ -265,7 +265,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 }
 
 - (void)presentTextFieldAlertControllerWithCompletion:()completion {
-    
 }
 
 - (void)transactionDetailsMethodOperation {
@@ -276,15 +275,15 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                negativeButtonTitle:@"Cancel"
                               textFieldPlaceholder:@"Receipt ID"
                                      andCompletion:^(NSString *text) {
-        if (!text || text.length == 0) {
-            return;
-        }
-        
-        [weakSelf.judoKit fetchTransactionWithReceiptId:text
-                                             completion:^(JPResponse *response, JPError *error) {
-                                                 [weakSelf handleResponse:response error:error];
-                                             }];
-    }];
+                                         if (!text || text.length == 0) {
+                                             return;
+                                         }
+
+                                         [weakSelf.judoKit fetchTransactionWithReceiptId:text
+                                                                              completion:^(JPResponse *response, JPError *error) {
+                                                                                  [weakSelf handleResponse:response error:error];
+                                                                              }];
+                                     }];
 }
 
 // MARK: Helper methods
@@ -331,20 +330,20 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
-    
+
     configuration.emailAddress = Settings.defaultSettings.emailAddress;
     configuration.phoneCountryCode = Settings.defaultSettings.phoneCountryCode;
     configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
     configuration.scaExemption = Settings.defaultSettings.scaExemption;
     configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
     configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDsTwoMaxTimeout;
-    
+
     NSString *messageVersion = Settings.defaultSettings.threeDSTwoMessageVersion;
-    
+
     if (messageVersion.length > 0) {
         configuration.threeDSTwoMessageVersion = messageVersion;
     }
-    
+
     return configuration;
 }
 
@@ -364,7 +363,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                         currency:Settings.defaultSettings.amount.currency
                                                                                      countryCode:@"GB"
                                                                              paymentSummaryItems:items];
-    
+
     configuration.requiredShippingContactFields = Settings.defaultSettings.applePayShippingContactFields;
     configuration.requiredBillingContactFields = Settings.defaultSettings.applePayBillingContactFields;
     configuration.returnedContactInfo = Settings.defaultSettings.applePayReturnedContactInfo;
@@ -410,17 +409,15 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
-    
-    BOOL isApplePayRelatedFeature = feature.type == DemoFeatureTypeApplePayPayment
-    || feature.type == DemoFeatureTypeApplePayPreAuth
-    || feature.type == DemoFeatureTypeApplePayStandalone;
+
+    BOOL isApplePayRelatedFeature = feature.type == DemoFeatureTypeApplePayPayment || feature.type == DemoFeatureTypeApplePayPreAuth || feature.type == DemoFeatureTypeApplePayStandalone;
 
     JPConfiguration *configuration = self.configuration;
     if (isApplePayRelatedFeature && ![JudoKit isApplePayAvailableWithConfiguration:configuration]) {
         [self _jp_displayAlertWithTitle:@"Error" andMessage:@"ApplePay is not available for given configuration."];
         return;
     }
-    
+
     switch (feature.type) {
         case DemoFeatureTypePayment:
             [self paymentOperation];

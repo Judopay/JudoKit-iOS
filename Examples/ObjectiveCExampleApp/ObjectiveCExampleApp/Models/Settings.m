@@ -123,7 +123,7 @@ NSString *safeString(NSString *aString) {
 
 - (JPReturnedInfo)applePayReturnedContactInfo {
     JPReturnedInfo fields = JPReturnedInfoNone;
-    
+
     if ([self.defaults boolForKey:kIsApplePayBillingContactInfoRequired]) {
         fields |= JPReturnedInfoBillingContacts;
     }
@@ -131,13 +131,13 @@ NSString *safeString(NSString *aString) {
     if ([self.defaults boolForKey:kIsApplePayShippingContactInfoRequired]) {
         fields |= JPReturnedInfoShippingContacts;
     }
-    
+
     return fields;
 }
 
 - (JPContactField)applePayBillingContactFields {
     JPContactField fields = JPContactFieldNone;
-    
+
     if ([self.defaults boolForKey:kIsBillingContactFieldPostalAddressRequiredKey]) {
         fields |= JPContactFieldPostalAddress;
     }
@@ -145,21 +145,21 @@ NSString *safeString(NSString *aString) {
     if ([self.defaults boolForKey:kIsBillingContactFieldPhoneRequiredKey]) {
         fields |= JPContactFieldPhone;
     }
-    
+
     if ([self.defaults boolForKey:kIsBillingContactFieldEmailRequiredKey]) {
         fields |= JPContactFieldEmail;
     }
-    
+
     if ([self.defaults boolForKey:kIsBillingContactFieldNameRequiredKey]) {
         fields |= JPContactFieldName;
     }
-    
+
     return fields;
 }
 
 - (JPContactField)applePayShippingContactFields {
     JPContactField fields = JPContactFieldNone;
-    
+
     if ([self.defaults boolForKey:kIsShippingContactFieldPostalAddressRequiredKey]) {
         fields |= JPContactFieldPostalAddress;
     }
@@ -167,18 +167,17 @@ NSString *safeString(NSString *aString) {
     if ([self.defaults boolForKey:kIsShippingContactFieldPhoneRequiredKey]) {
         fields |= JPContactFieldPhone;
     }
-    
+
     if ([self.defaults boolForKey:kIsShippingContactFieldEmailRequiredKey]) {
         fields |= JPContactFieldEmail;
     }
-    
+
     if ([self.defaults boolForKey:kIsShippingContactFieldNameRequiredKey]) {
         fields |= JPContactFieldName;
     }
-    
+
     return fields;
 }
-
 
 #pragma mark - Supported card networks section
 
@@ -275,7 +274,8 @@ NSString *safeString(NSString *aString) {
                                           address3:[self.defaults stringForKey:kAddressLine3Key]
                                               town:[self.defaults stringForKey:kAddressTownKey]
                                           postCode:[self.defaults stringForKey:kAddressPostCodeKey]
-                                       countryCode:addressCountryCode];
+                                       countryCode:addressCountryCode
+                                             state:[self.defaults stringForKey:kAddressStateKey]];
     }
     return nil;
 }

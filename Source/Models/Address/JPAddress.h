@@ -60,6 +60,11 @@
 @property (nonatomic, strong, nullable) NSNumber *countryCode;
 
 /**
+ * Sets state code of the address.
+ */
+@property (nonatomic, strong, nullable) NSString *state;
+
+/**
  *  Designated Initializer
  *
  *  @param address1 - the primary card address line
@@ -68,6 +73,7 @@
  *  @param town - a string that represents the town name
  *  @param postCode the postal code of the card
  *  @param countryCode - the country code of the address
+ *  @param state - the state code of the address
  *
  *  @return a JPAddress object
  */
@@ -76,7 +82,8 @@
                                 address3:(nullable NSString *)address3
                                     town:(nullable NSString *)town
                                 postCode:(nullable NSString *)postCode
-                             countryCode:(nullable NSNumber *)countryCode;
+                             countryCode:(nullable NSNumber *)countryCode
+                                   state:(nullable NSString *)state;
 
 /**
  *  Initializer

@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "NoUICardPayViewController.h"
-#import "UIViewController+Additions.h"
 #import "Settings.h"
+#import "UIViewController+Additions.h"
 
 @import JudoKit_iOS;
 
@@ -48,25 +48,25 @@
 - (IBAction)payWithCardToken:(UIButton *)sender {
     self.configuration.reference = Settings.defaultSettings.reference;
     [self.payWithCardButton startLoading];
-    
+
     __weak typeof(self) weakSelf = self;
     [self.transactionService invokePaymentWithDetails:self.cardTransactionDetails
                                         andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf.payWithCardButton stopLoading];
-        [weakSelf handleResponse:response error:error showReceipt:true];
-    }];
+                                            [weakSelf.payWithCardButton stopLoading];
+                                            [weakSelf handleResponse:response error:error showReceipt:true];
+                                        }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
     self.configuration.reference = Settings.defaultSettings.reference;
     [self.preAuthWithCardButton startLoading];
-    
+
     __weak typeof(self) weakSelf = self;
     [self.transactionService invokePreAuthPaymentWithDetails:self.cardTransactionDetails
                                                andCompletion:^(JPResponse *response, JPError *error) {
-        [weakSelf.preAuthWithCardButton stopLoading];
-        [weakSelf handleResponse:response error:error showReceipt:true];
-    }];
+                                                   [weakSelf.preAuthWithCardButton stopLoading];
+                                                   [weakSelf handleResponse:response error:error showReceipt:true];
+                                               }];
 }
 
 - (JPCardTransactionDetails *)cardTransactionDetails {
@@ -83,8 +83,9 @@
                                                         address3:nil
                                                             town:@"London"
                                                         postCode:@"se151qa"
-                                                     countryCode:@826];
-    
+                                                     countryCode:@826
+                                                           state:nil];
+
     return details;
 }
 
@@ -105,7 +106,7 @@
                                                                           isSandboxed:Settings.defaultSettings.isSandboxed
                                                                      andConfiguration:self.configuration];
     }
-    return  _transactionService;
+    return _transactionService;
 }
 
 @end

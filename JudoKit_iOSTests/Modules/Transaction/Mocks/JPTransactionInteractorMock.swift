@@ -124,6 +124,10 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         validationService.validateCountryInput(input)
     }
 
+    func validateStateInput(_ input: String) -> JPValidationResult {
+        validationService.validateStateInput(input)
+    }
+
     func validatePostalCodeInput(_ input: String) -> JPValidationResult {
         validationService.validatePostalCodeInput(input)
     }

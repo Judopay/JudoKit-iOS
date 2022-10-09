@@ -438,6 +438,16 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>address_state_title</string>
+			<key>Key</key>
+			<string>address_state</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>address_phone_country_code_title</string>
 			<key>Key</key>
 			<string>address_phone_country_code</string>

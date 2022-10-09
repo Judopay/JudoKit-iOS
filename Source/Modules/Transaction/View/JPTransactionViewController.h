@@ -92,9 +92,9 @@
 @end
 
 /**
- * An extension that conforms to the UIPickerViewDelegate and UIPickerViewDataSource used for the country picker
+ * An extension that conforms to the UIPickerViewDelegate and UIPickerViewDataSource used for the country and state pickers
  */
-@interface JPTransactionViewController (CountryPickerDelegate) <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface JPTransactionViewController (CountryStatePickerDelegate) <UIPickerViewDelegate, UIPickerViewDataSource>
 @end
 
 /**
