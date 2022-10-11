@@ -25,6 +25,7 @@
 #import "JPApplePayRequest.h"
 #import "JPAddress.h"
 #import "JPCountry.h"
+#import "JPState.h"
 #import <PassKit/PassKit.h>
 
 @implementation JPApplePayPaymentToken
@@ -116,13 +117,17 @@
 
     if (billingContact.postalAddress) {
         CNPostalAddress *postalAddress = billingContact.postalAddress;
+        JPCountry *country = [JPCountry forCountryName:postalAddress.country];
+        NSNumber *countryCode = country ? @([country.numericCode intValue]) : nil;
+        NSString *state = country ? [JPState forStateName:postalAddress.state andCountryCode:country.alpha2Code].alpha2Code : nil;
 
         self.cardAddress = [[JPAddress alloc] initWithAddress1:postalAddress.street
                                                       address2:postalAddress.city
                                                       address3:postalAddress.postalCode
                                                           town:postalAddress.city
                                                       postCode:postalAddress.postalCode
-                                                   countryCode:[JPCountry isoCodeForCountry:postalAddress.country]];
+                                                   countryCode:countryCode
+                                                         state:state];
     }
 }
 

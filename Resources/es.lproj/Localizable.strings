@@ -32,11 +32,13 @@
 "back" = "Back";
 "card_holder_email_hint" = "Email";
 "card_holder_hint" = "Nombre del titular de la tarejeta";
-"card_holder_country_hint" = "Country";
+"card_holder_country_hint" = "País";
+"card_holder_state_hint" = "Estado";
+"card_holder_province_hint" = "Provincia o territorio";
 "card_holder_phone_hint" = "Mobile number";
 "card_holder_city_hint" = "City";
 "card_holder_adress_line_hint" = "Address line %@";
-"card_number_hint" = "Numero de tarjeta ";
+"card_number_hint" = "Numero de tarjeta";
 "card_subtitle" = "%@ Terminación";
 "cards" = "Tarjetas ";
 "check_card" = "Comprobar tarjeta";
@@ -77,6 +79,8 @@
 "invalid_postcode" = "Código postal inválido";
 "invalid_zip_code" = "Código postal inválido";
 "invalid_email_address" = "Please enter a valid email";
+"invalid_state_should_not_be_empty" = "Por favor seleccione un estado";
+"invalid_province_territory_should_not_be_empty" = "Por favor seleccione una provincia o territorio";
 "invalid_address" = "Please enter a valid address";
 "invalid_mobile_number" = "Please enter a valid mobile number";
 "invalid_city" = "Please enter a valid city";

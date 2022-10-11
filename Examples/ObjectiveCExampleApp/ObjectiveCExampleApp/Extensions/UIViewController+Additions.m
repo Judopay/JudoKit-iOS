@@ -19,7 +19,7 @@
                              negativeButtonTitle:(NSString *)negativeButton
                             textFieldPlaceholder:(NSString *)placeholder
                                    andCompletion:(void (^)(NSString *text))completion {
-    
+
     __block UITextField *textField = [UITextField new];
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
                                                                         message:message
@@ -28,14 +28,14 @@
     UIAlertAction *buttonOk = [UIAlertAction actionWithTitle:positiveButton
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action) {
-        completion(textField.text);
-    }];
+                                                         completion(textField.text);
+                                                     }];
 
     UIAlertAction *buttonCancel = [UIAlertAction actionWithTitle:negativeButton
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *action) {
-        completion(nil);
-    }];
+                                                             completion(nil);
+                                                         }];
 
     [controller addTextFieldWithConfigurationHandler:^(UITextField *aTextField) {
         textField = aTextField;

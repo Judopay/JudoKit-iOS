@@ -27,6 +27,7 @@
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPState.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
@@ -206,6 +207,28 @@ static int const kCardHolderNameLength = 4;
     self.selectedCountry = input;
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
+                                       errorMessage:nil
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateStateInput:(NSString *)input {
+    if ([self.selectedCountry isEqualToString:@"country_usa"._jp_localized]) {
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
+        NSString *errorMessage = isValid ? nil : @"invalid_state_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    } else if ([self.selectedCountry isEqualToString:@"country_canada"._jp_localized]) {
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
+        NSString *errorMessage = isValid ? nil : @"invalid_province_territory_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    }
+    return [JPValidationResult validationWithResult:YES
+                                       inputAllowed:NO
                                        errorMessage:nil
                                      formattedInput:input];
 }
@@ -435,7 +458,6 @@ static int const kCardHolderNameLength = 4;
                                        inputAllowed:input.length <= kOtherPostalCodeLength
                                        errorMessage:nil
                                      formattedInput:input.uppercaseString];
-    ;
 }
 
 - (NSString *)selectedCountry {

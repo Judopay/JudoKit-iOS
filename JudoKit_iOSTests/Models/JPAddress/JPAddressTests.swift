@@ -30,7 +30,8 @@ class JPAddressTests: XCTestCase {
                              "town": "town",
                              "billingCountry": "billingCountry",
                              "postCode": "postCode",
-                             "countryCode": 123] as [String: Any]
+                             "countryCode": 123,
+                             "state": "CA"] as [String: Any]
 
     var address: JPAddress!
 
@@ -52,7 +53,8 @@ class JPAddressTests: XCTestCase {
                                 address3: "line3",
                                 town: "town",
                                 postCode: "postCode",
-                                countryCode: 123)
+                                countryCode: 123,
+                                state: "CA")
 
         XCTAssertEqual(address.address1, "line1")
         XCTAssertEqual(address.address2, "line2")
@@ -60,6 +62,7 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.town, "town")
         XCTAssertEqual(address.postCode, "postCode")
         XCTAssertEqual(address.countryCode, 123)
+        XCTAssertEqual(address.state, "CA")
     }
 
     /*
@@ -76,5 +79,6 @@ class JPAddressTests: XCTestCase {
         XCTAssertEqual(address.town, "town")
         XCTAssertEqual(address.postCode, "postCode")
         XCTAssertEqual(address.countryCode, 123)
+        XCTAssertEqual(address.state, "CA")
     }
 }

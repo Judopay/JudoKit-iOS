@@ -31,7 +31,9 @@
 "cancel" = "Anuler";
 "back" = "Back";
 "card_holder_hint" = "Nom du titulaire de la carte";
-"card_holder_country_hint" = "Country";
+"card_holder_country_hint" = "Pays";
+"card_holder_state_hint" = "État";
+"card_holder_province_hint" = "Province ou territoire";
 "card_holder_phone_hint" = "Mobile number";
 "card_holder_city_hint" = "City";
 "card_holder_adress_line_hint" = "Address line %@";
@@ -77,6 +79,8 @@
 "invalid_postcode" = "Code postal invalide";
 "invalid_zip_code" = "Code postal invalide";
 "invalid_email_address" = "Please enter a valid email";
+"invalid_state_should_not_be_empty" = "Veuillez sélectionner un état";
+"invalid_province_territory_should_not_be_empty" = "Veuillez sélectionner une province ou un territoire";
 "invalid_address" = "Please enter a valid address";
 "invalid_mobile_number" = "Please enter a valid mobile number";
 "invalid_city" = "Please enter a valid city";

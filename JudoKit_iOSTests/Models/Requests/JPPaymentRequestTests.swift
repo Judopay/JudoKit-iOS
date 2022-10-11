@@ -73,7 +73,8 @@ class JPPaymentRequestTests: XCTestCase {
                                             address3: "Line 3",
                                             town: "Town",
                                             postCode: "Postcode",
-                                            countryCode: 123)
+                                            countryCode: 123,
+                                            state: "CA")
 
         let paymentRequest = JPPaymentRequest(configuration: configuration, andCardDetails: cardDetails)
 
@@ -96,5 +97,6 @@ class JPPaymentRequestTests: XCTestCase {
         XCTAssertEqual(paymentRequest.cardAddress?.town, cardDetails.cardAddress?.town)
         XCTAssertEqual(paymentRequest.cardAddress?.countryCode, cardDetails.cardAddress?.countryCode)
         XCTAssertEqual(paymentRequest.cardAddress?.postCode, cardDetails.cardAddress?.postCode)
+        XCTAssertEqual(paymentRequest.cardAddress?.state, cardDetails.cardAddress?.state)
     }
 }

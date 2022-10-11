@@ -1,8 +1,8 @@
 //
-//  MainViewController.h
-//  ObjectiveCExampleApp
+//  JPState.h
+//  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,18 +22,36 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#ifndef JPState_h
+#define JPState_h
 
-@interface MainViewController : UIViewController
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JPState : NSObject
+
+@property (nonatomic, readonly) NSString *alpha2Code;
+@property (nonatomic, readonly) NSString *name;
+
++ (nullable JPState *)forStateName:(nonnull NSString *)stateName andCountryCode:(nonnull NSString *)countryCode;
+
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
 
 @end
 
-@interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>
+@interface JPStateList : NSObject
 
-/**
- * A method that opens pbba payment screen from deeplink
- *
- * @param url - deeplink url
- */
-- (void)openPBBAScreen:(NSURL *)url;
+@property (nonatomic, nullable, copy) NSArray<JPState *> *states;
+
++ (instancetype)usStateList;
+
++ (instancetype)caStateList;
+
+- (nullable instancetype)initWith:(nullable NSArray *)array;
+
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif /* JPState_h */

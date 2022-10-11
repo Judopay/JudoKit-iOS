@@ -31,7 +31,8 @@
                         address3:(nullable NSString *)address3
                             town:(nullable NSString *)town
                         postCode:(nullable NSString *)postCode
-                     countryCode:(nullable NSNumber *)countryCode {
+                     countryCode:(nullable NSNumber *)countryCode
+                           state:(nullable NSString *)state {
 
     if (self = [super init]) {
         self.address1 = address1;
@@ -40,6 +41,7 @@
         self.town = town;
         self.postCode = postCode;
         self.countryCode = countryCode;
+        self.state = state;
     }
     return self;
 }
@@ -68,6 +70,10 @@
 
         if (dictionary[@"countryCode"]) {
             self.countryCode = dictionary[@"countryCode"];
+        }
+
+        if (dictionary[@"state"]) {
+            self.state = dictionary[@"state"];
         }
     }
     return self;

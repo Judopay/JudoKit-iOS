@@ -30,6 +30,7 @@
 #import "JPCountry.h"
 #import "JPInputType.h"
 #import "JPLoadingButton.h"
+#import "JPState.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"
@@ -39,6 +40,7 @@
 @interface JPTransactionViewController ()
 @property (nonatomic, strong) JPCardInputView *addCardView;
 @property (nonatomic, strong) NSArray *countries;
+@property (nonatomic, strong) NSArray *states;
 @end
 
 @implementation JPTransactionViewController
@@ -111,9 +113,15 @@
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel
             shouldUpdateTargets:(BOOL)shouldUpdateTargets {
     if (viewModel.mode == JPCardDetailsModeAVS || viewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
+        self.addCardView.countryPickerView.tag = 1;
         self.addCardView.countryPickerView.delegate = self;
         self.addCardView.countryPickerView.dataSource = self;
         self.countries = viewModel.pickerCountries;
+
+        self.addCardView.statePickerView.tag = 2;
+        self.addCardView.statePickerView.delegate = self;
+        self.addCardView.statePickerView.dataSource = self;
+        self.states = viewModel.pickerStates;
     }
     shouldUpdateTargets ? [self updateTargets:viewModel] : NULL;
     [self.addCardView configureWithViewModel:viewModel];
@@ -281,30 +289,44 @@
 
 @end
 
-#pragma mark - Country UIPickerView delegate
+#pragma mark - Country/State UIPickerView delegate
 
-@implementation JPTransactionViewController (CountryPickerDelegate)
+@implementation JPTransactionViewController (CountryStatePickerDelegate)
 
 - (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
     return 1;
 }
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.countries.count;
+    if (pickerView.tag == 1) {
+        return self.countries.count;
+    } else {
+        return self.states.count;
+    }
 }
 
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
-    JPCountry *country = self.countries[row];
-    [self.presenter handleInputChange:country.name forType:JPInputTypeCardCountry showError:YES];
+    if (pickerView.tag == 1) {
+        JPCountry *country = self.countries[row];
+        [self.presenter handleInputChange:country.name forType:JPInputTypeCardCountry showError:YES];
+    } else {
+        JPState *state = self.states[row];
+        [self.presenter handleInputChange:state.name forType:JPInputTypeCardholderState showError:YES];
+    }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component {
-    JPCountry *country = self.countries[row];
-    return country.name;
+    if (pickerView.tag == 1) {
+        JPCountry *country = self.countries[row];
+        return country.name;
+    } else {
+        JPState *state = self.states[row];
+        return state.name;
+    }
 }
 
 @end

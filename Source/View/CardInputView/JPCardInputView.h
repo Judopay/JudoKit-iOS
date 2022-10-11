@@ -111,9 +111,19 @@
 @property (nonatomic, strong) JPCardInputField *_Nullable countryTextField;
 
 /**
- * The picker view associated to the country input field;
+ * The picker view associated with the country input field
  */
 @property (nonatomic, strong) UIPickerView *_Nullable countryPickerView;
+
+/**
+ * The input field for selecting the state
+ */
+@property (nonatomic, strong) JPCardInputField *_Nullable stateTextField;
+
+/**
+ * The picker view associated with the state input field
+ */
+@property (nonatomic, strong) UIPickerView *_Nullable statePickerView;
 
 /**
  * The input field for adding the postal code
