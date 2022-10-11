@@ -213,14 +213,14 @@ static int const kCardHolderNameLength = 4;
 
 - (JPValidationResult *)validateStateInput:(NSString *)input {
     if ([self.selectedCountry isEqualToString:@"country_usa"._jp_localized]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:@"US"];
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
         NSString *errorMessage = isValid ? nil : @"invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
                                          formattedInput:input];
     } else if ([self.selectedCountry isEqualToString:@"country_canada"._jp_localized]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:@"CA"];
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"invalid_province_territory_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES

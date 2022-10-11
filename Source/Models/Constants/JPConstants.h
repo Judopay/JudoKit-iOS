@@ -97,4 +97,7 @@ static int const kDefaultThreeDSTwoMaxTimeout = 60;
 // Default 3DS 2.0 protocol message version
 static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";
 
+static NSString *const kAlpha2CodeCanada = @"CA";
+static NSString *const kAlpha2CodeUSA = @"US";
+static NSString *const kAlpha2CodeUK = @"GB";
 #endif /* JPConstants_h */

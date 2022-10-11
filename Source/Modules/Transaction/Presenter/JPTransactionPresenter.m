@@ -39,6 +39,7 @@
 #import "JPTransactionViewController.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
+#import "JPConstants.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *transactionViewModel;
@@ -456,15 +457,15 @@
 - (void)updateCountryViewModelForInput:(NSString *)input showError:(BOOL)showError {
     JPCountry *country = [JPCountry forCountryName:input];
     NSString *postcodeValidationCountryName;
-    if ([country.alpha2Code isEqualToString:@"US"]) {
+    if ([country.alpha2Code isEqualToString:kAlpha2CodeUSA]) {
         self.transactionViewModel.pickerStates = JPStateList.usStateList.states;
         self.transactionViewModel.statePickerViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
         self.isStateNameValid = NO;
         postcodeValidationCountryName = @"country_usa"._jp_localized;
-    } else if ([country.alpha2Code isEqualToString:@"GB"]) {
+    } else if ([country.alpha2Code isEqualToString:kAlpha2CodeUK]) {
         postcodeValidationCountryName = @"country_uk"._jp_localized;
         self.isStateNameValid = YES;
-    } else if ([country.alpha2Code isEqualToString:@"CA"]) {
+    } else if ([country.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
         self.transactionViewModel.pickerStates = JPStateList.caStateList.states;
         self.transactionViewModel.statePickerViewModel.placeholder = @"card_holder_province_hint"._jp_localized;
         self.isStateNameValid = NO;

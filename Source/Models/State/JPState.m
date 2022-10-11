@@ -23,14 +23,15 @@
 //  SOFTWARE.
 
 #import "JPState.h"
+#import "JPConstants.h"
 
 @implementation JPState
 
 + (nullable JPState *)forStateName:(nonnull NSString *)stateName andCountryCode:(nonnull NSString *)countryCode {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", stateName];
-    if ([countryCode isEqualToString:@"US"]) {
+    if ([countryCode isEqualToString:kAlpha2CodeUSA]) {
         return [JPStateList.usStateList.states filteredArrayUsingPredicate:predicate].firstObject;
-    } else if ([countryCode isEqualToString:@"CA"]) {
+    } else if ([countryCode isEqualToString:kAlpha2CodeCanada]) {
         return [JPStateList.caStateList.states filteredArrayUsingPredicate:predicate].firstObject;
     }
     return nil;

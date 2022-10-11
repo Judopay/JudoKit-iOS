@@ -35,6 +35,7 @@
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
+#import "JPConstants.h"
 
 @interface JPCardInputView ()
 
@@ -305,7 +306,7 @@ static const float kPhoneCodeWidth = 45.0F;
     if (!countryCode) {
         return;
     }
-    BOOL showStateField = [countryCode isEqualToString:@"US"] || [countryCode isEqualToString:@"CA"];
+    BOOL showStateField = [countryCode isEqualToString:kAlpha2CodeUSA] || [countryCode isEqualToString:kAlpha2CodeCanada];
     self.stateTextField.hidden = !showStateField;
 }
 
