@@ -49,6 +49,59 @@ static NSString *const kReadTimeoutKey = @"read_timeout";
 static NSString *const kWriteTimeoutKey = @"write_timeout";
 static NSString *const kThreeDSTwoMessageVersionKey = @"three_ds_two_message_version";
 
+static NSString *const kIsThreeDSUICustomisationEnabledKey = @"three_ds_is_ui_customisation_enabled";
+
+static NSString *const kThreeDSToolbarTextFontNameKey = @"three_ds_toolbar_text_font_name";
+static NSString *const kThreeDSToolbarTextColorKey = @"three_ds_toolbar_text_color";
+static NSString *const kThreeDSToolbarTextFontSizeKey = @"three_ds_toolbar_text_font_size";
+static NSString *const kThreeDSToolbarBackgroundColorKey = @"three_ds_toolbar_background_color";
+static NSString *const kThreeDSToolbarHeaderTextKey = @"three_ds_toolbar_header_text";
+static NSString *const kThreeDSToolbarButtonTextKey = @"three_ds_toolbar_button_text";
+
+static NSString *const kThreeDSLabelTextFontNameKey = @"three_ds_label_text_font_name";
+static NSString *const kThreeDSLabelTextColorKey = @"three_ds_label_text_color";
+static NSString *const kThreeDSLabelTextFontSizeKey = @"three_ds_label_text_font_size";
+static NSString *const kThreeDSLabelHeadingTextFontNameKey = @"three_ds_label_heading_text_font_name";
+static NSString *const kThreeDSLabelHeadingTextColorKey = @"three_ds_label_heading_text_color";
+static NSString *const kThreeDSLabelHeadingTextFontSizeKey = @"three_ds_label_heading_text_font_size";
+
+static NSString *const kThreeDSTextBoxTextFontNameKey = @"three_ds_text_box_text_font_name";
+static NSString *const kThreeDSTextBoxTextColorKey = @"three_ds_text_box_text_color";
+static NSString *const kThreeDSTextBoxTextFontSizeKey = @"three_ds_text_box_text_font_size";
+static NSString *const kThreeDSTextBoxBorderWidthKey = @"three_ds_text_box_border_width";
+static NSString *const kThreeDSTextBoxBorderColorKey = @"three_ds_text_box_border_color";
+static NSString *const kThreeDSTextBoxCornerRadiusKey = @"three_ds_text_box_corner_radius";
+
+static NSString *const kThreeDSSubmitButtonTextFontNameKey = @"three_ds_submit_button_text_font_name";
+static NSString *const kThreeDSSubmitButtonTextColorKey = @"three_ds_submit_button_text_color";
+static NSString *const kThreeDSSubmitButtonTextFontSizeKey = @"three_ds_submit_button_text_font_size";
+static NSString *const kThreeDSSubmitButtonBackgroundColorKey = @"three_ds_submit_button_background_color";
+static NSString *const kThreeDSSubmitButtonCornerRadiusKey = @"three_ds_submit_button_corner_radius";
+
+static NSString *const kThreeDSNextButtonTextFontNameKey = @"three_ds_next_button_text_font_name";
+static NSString *const kThreeDSNextButtonTextColorKey = @"three_ds_next_button_text_color";
+static NSString *const kThreeDSNextButtonTextFontSizeKey = @"three_ds_next_button_text_font_size";
+static NSString *const kThreeDSNextButtonBackgroundColorKey = @"three_ds_next_button_background_color";
+static NSString *const kThreeDSNextButtonCornerRadiusKey = @"three_ds_next_button_corner_radius";
+
+static NSString *const kThreeDSContinueButtonTextFontNameKey = @"three_ds_continue_button_text_font_name";
+static NSString *const kThreeDSContinueButtonTextColorKey = @"three_ds_continue_button_text_color";
+static NSString *const kThreeDSContinueButtonTextFontSizeKey = @"three_ds_continue_button_text_font_size";
+static NSString *const kThreeDSContinueButtonBackgroundColorKey = @"three_ds_continue_button_background_color";
+static NSString *const kThreeDSContinueButtonCornerRadiusKey = @"three_ds_continue_button_corner_radius";
+
+static NSString *const kThreeDSCancelButtonTextFontNameKey = @"three_ds_cancel_button_text_font_name";
+static NSString *const kThreeDSCancelButtonTextColorKey = @"three_ds_cancel_button_text_color";
+static NSString *const kThreeDSCancelButtonTextFontSizeKey = @"three_ds_cancel_button_text_font_size";
+static NSString *const kThreeDSCancelButtonBackgroundColorKey = @"three_ds_cancel_button_background_color";
+static NSString *const kThreeDSCancelButtonCornerRadiusKey = @"three_ds_cancel_button_corner_radius";
+
+static NSString *const kThreeDSResendButtonTextFontNameKey = @"three_ds_resend_button_text_font_name";
+static NSString *const kThreeDSResendButtonTextColorKey = @"three_ds_resend_button_text_color";
+static NSString *const kThreeDSResendButtonTextFontSizeKey = @"three_ds_resend_button_text_font_size";
+static NSString *const kThreeDSResendButtonBackgroundColorKey = @"three_ds_resend_button_background_color";
+static NSString *const kThreeDSResendButtonCornerRadiusKey = @"three_ds_resend_button_corner_radius";
+
 #pragma mark - Reference section keys
 
 static NSString *const kPaymentReferenceKey = @"payment_reference";
@@ -101,6 +154,8 @@ static NSString *const kShouldPaymentMethodsDisplayAmount = @"should_payment_met
 static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_button_display_amount";
 static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
+
+@class JP3DSUICustomization;
 
 @interface Settings : NSObject
 
@@ -175,7 +230,7 @@ static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_pa
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;
-
+- (nullable JP3DSUICustomization *)threeDSUICustomization;
 @end
 
 NS_ASSUME_NONNULL_END

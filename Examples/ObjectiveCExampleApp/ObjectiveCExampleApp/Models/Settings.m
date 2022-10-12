@@ -1,4 +1,5 @@
 #import "Settings.h"
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
 static NSString *const kDontSet = @"dontSet";
@@ -268,14 +269,15 @@ NSString *safeString(NSString *aString) {
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
         NSNumber *addressCountryCode = @([self.defaults stringForKey:kAddressCountryCodeKey].intValue);
-
+        NSString *state = [self.defaults stringForKey:kAddressStateKey];
+        
         return [[JPAddress alloc] initWithAddress1:[self.defaults stringForKey:kAddressLine1Key]
                                           address2:[self.defaults stringForKey:kAddressLine2Key]
                                           address3:[self.defaults stringForKey:kAddressLine3Key]
                                               town:[self.defaults stringForKey:kAddressTownKey]
                                           postCode:[self.defaults stringForKey:kAddressPostCodeKey]
                                        countryCode:addressCountryCode
-                                             state:[self.defaults stringForKey:kAddressStateKey]];
+                                             state:state.length > 0 ? state : nil];
     }
     return nil;
 }
@@ -354,6 +356,84 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)writeTimeout {
     return [self timeoutForKey:kWriteTimeoutKey];
+}
+
+- (JP3DSUICustomization *)threeDSUICustomization {
+    if ([self.defaults boolForKey:kIsThreeDSUICustomisationEnabledKey]) {
+        JP3DSUICustomization *customization = [JP3DSUICustomization new];
+        
+        JP3DSLabelCustomization *labelCustomization = [JP3DSLabelCustomization new];
+        NSString *font = [self.defaults stringForKey:kThreeDSLabelTextFontNameKey];
+        [labelCustomization setTextFontName:font];
+        [labelCustomization setTextColor:[self.defaults stringForKey:kThreeDSLabelTextColorKey]];
+        [labelCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSLabelTextFontSizeKey].integerValue];
+        [labelCustomization setHeadingTextFontName:[self.defaults stringForKey:kThreeDSLabelHeadingTextFontNameKey]];
+        [labelCustomization setHeadingTextColor:[self.defaults stringForKey:kThreeDSLabelHeadingTextColorKey]];
+        [labelCustomization setHeadingTextFontSize:[self.defaults stringForKey:kThreeDSLabelHeadingTextFontSizeKey].integerValue];
+        [customization setLabelCustomization:labelCustomization];
+
+        JP3DSToolbarCustomization *toolbarCustomization = [JP3DSToolbarCustomization new];
+        [toolbarCustomization setTextFontName:[self.defaults stringForKey:kThreeDSToolbarTextFontNameKey]];
+        [toolbarCustomization setTextColor:[self.defaults stringForKey:kThreeDSToolbarTextColorKey]];
+        [toolbarCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSToolbarTextFontSizeKey].integerValue];
+        [toolbarCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSToolbarBackgroundColorKey]];
+        [toolbarCustomization setHeaderText:[self.defaults stringForKey:kThreeDSToolbarHeaderTextKey]];
+        [toolbarCustomization setButtonText:[self.defaults stringForKey:kThreeDSToolbarButtonTextKey]];
+        [customization setToolbarCustomization:toolbarCustomization];
+
+        JP3DSTextBoxCustomization *textBoxCustomization = [JP3DSTextBoxCustomization new];
+        [textBoxCustomization setTextFontName:[self.defaults stringForKey:kThreeDSTextBoxTextFontNameKey]];
+        [textBoxCustomization setTextColor:[self.defaults stringForKey:kThreeDSTextBoxTextColorKey]];
+        [textBoxCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSTextBoxTextFontSizeKey].integerValue];
+        [textBoxCustomization setBorderWidth:[self.defaults stringForKey:kThreeDSTextBoxBorderWidthKey].integerValue];
+        [textBoxCustomization setBorderColor:[self.defaults stringForKey:kThreeDSTextBoxBorderColorKey]];
+        [textBoxCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSTextBoxCornerRadiusKey].integerValue];
+        [customization setTextBoxCustomization:textBoxCustomization];
+
+        JP3DSButtonCustomization *submitCustomization = [JP3DSButtonCustomization new];
+        [submitCustomization setTextFontName:[self.defaults stringForKey:kThreeDSSubmitButtonTextFontNameKey]];
+        [submitCustomization setTextColor:[self.defaults stringForKey:kThreeDSSubmitButtonTextColorKey]];
+        [submitCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSSubmitButtonTextFontSizeKey].integerValue];
+        [submitCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSSubmitButtonBackgroundColorKey]];
+        [submitCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSSubmitButtonCornerRadiusKey].integerValue];
+        [customization setButtonCustomization:submitCustomization ofType:JP3DSButtonTypeSubmit];
+
+        JP3DSButtonCustomization *nextCustomization = [JP3DSButtonCustomization new];
+        [nextCustomization setTextFontName:[self.defaults stringForKey:kThreeDSNextButtonTextFontNameKey]];
+        [nextCustomization setTextColor:[self.defaults stringForKey:kThreeDSNextButtonTextColorKey]];
+        [nextCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSNextButtonTextFontSizeKey].integerValue];
+        [nextCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSNextButtonBackgroundColorKey]];
+        [nextCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSNextButtonCornerRadiusKey].integerValue];
+        [customization setButtonCustomization:nextCustomization ofType:JP3DSButtonTypeNext];
+
+        JP3DSButtonCustomization *cancelCustomization = [JP3DSButtonCustomization new];
+        [cancelCustomization setTextFontName:[self.defaults stringForKey:kThreeDSContinueButtonTextFontNameKey]];
+        [cancelCustomization setTextColor:[self.defaults stringForKey:kThreeDSContinueButtonTextColorKey]];
+        [cancelCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSContinueButtonTextFontSizeKey].integerValue];
+        [cancelCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSContinueButtonBackgroundColorKey]];
+        [cancelCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSContinueButtonCornerRadiusKey].integerValue];
+        [customization setButtonCustomization:cancelCustomization ofType:JP3DSButtonTypeCancel];
+
+        JP3DSButtonCustomization *continueCustomization = [JP3DSButtonCustomization new];
+        [continueCustomization setTextFontName:[self.defaults stringForKey:kThreeDSCancelButtonTextFontNameKey]];
+        [continueCustomization setTextColor:[self.defaults stringForKey:kThreeDSCancelButtonTextColorKey]];
+        [continueCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSCancelButtonTextFontSizeKey].integerValue];
+        [continueCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSCancelButtonBackgroundColorKey]];
+        [continueCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSCancelButtonCornerRadiusKey].integerValue];
+        [customization setButtonCustomization:continueCustomization ofType:JP3DSButtonTypeContinue];
+
+        JP3DSButtonCustomization *resendCustomization = [JP3DSButtonCustomization new];
+        [resendCustomization setTextFontName:[self.defaults stringForKey:kThreeDSResendButtonTextFontNameKey]];
+        [resendCustomization setTextColor:[self.defaults stringForKey:kThreeDSResendButtonTextColorKey]];
+        [resendCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSResendButtonTextFontSizeKey].integerValue];
+        [resendCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSResendButtonBackgroundColorKey]];
+        [resendCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSResendButtonCornerRadiusKey].integerValue];
+        [customization setButtonCustomization:resendCustomization ofType:JP3DSButtonTypeResend];
+
+        return customization;
+    }
+    
+    return nil;
 }
 
 @end
