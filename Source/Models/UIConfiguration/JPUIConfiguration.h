@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class JPTheme;
+@class JPTheme, JP3DSUICustomization;
 
 @interface JPUIConfiguration : NSObject
 
@@ -57,5 +57,7 @@
  * A reference to the JPTheme object that customizes the user interface
  */
 @property (nonatomic, strong) JPTheme *theme;
+
+@property (nonatomic, strong, nullable) JP3DSUICustomization *threeDSUICustomization;
 
 @end

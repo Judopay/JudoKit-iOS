@@ -29,6 +29,7 @@
 #import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
 #import "JPCardTransactionDetails.h"
+#import "JPConstants.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPInputType.h"
@@ -39,7 +40,6 @@
 #import "JPTransactionViewController.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
-#import "JPConstants.h"
 
 @interface JPTransactionPresenterImpl ()
 @property (nonatomic, strong) JPTransactionViewModel *transactionViewModel;

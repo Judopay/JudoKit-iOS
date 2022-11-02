@@ -42,6 +42,7 @@
 #import "JPResponse.h"
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
+#import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
@@ -132,7 +133,9 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         _configuration = configuration;
         _apiService = apiService;
 
-        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:nil];
+        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
+                                                        locale:nil
+                                               uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }
     return self;
 }
@@ -144,7 +147,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         _configuration = configuration;
         _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
 
-        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:nil];
+        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }
     return self;
 }

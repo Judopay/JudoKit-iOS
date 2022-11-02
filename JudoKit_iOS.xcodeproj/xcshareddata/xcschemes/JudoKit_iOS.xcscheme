@@ -47,6 +47,38 @@
                BlueprintName = "JudoKit_iOSTests"
                ReferencedContainer = "container:JudoKit_iOS.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidApplePayPaymentRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidApplePayPreAuthRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidCheckCardRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidPaymentRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidPreAuthRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidRegisterCardRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidSaveCardRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidTokenPaymentRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApiServiceTests/test_OnValidTokenPreAuthRequest_ReturnResponse()">
+               </Test>
+               <Test
+                  Identifier = "JPApplePayServiceTest/test_WhenUsingValidPKPaymentObject_PaymentShouldExecute()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

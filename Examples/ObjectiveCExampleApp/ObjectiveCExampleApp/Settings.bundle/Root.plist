@@ -179,6 +179,14 @@
 			<string>three_ds_two_message_version</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>ThreeDSSDKUICustomisation</string>
+			<key>Title</key>
+			<string>UI customization</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

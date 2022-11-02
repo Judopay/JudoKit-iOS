@@ -25,6 +25,7 @@
 #import "JPCardDetailsMode.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
+#import "JPConstants.h"
 #import "JPCountry.h"
 #import "JPLoadingButton.h"
 #import "JPRoundedCornerView.h"
@@ -35,7 +36,6 @@
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "JPConstants.h"
 
 @interface JPCardInputView ()
 
