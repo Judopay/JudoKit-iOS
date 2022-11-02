@@ -407,19 +407,19 @@ NSString *safeString(NSString *aString) {
         [customization setButtonCustomization:nextCustomization ofType:JP3DSButtonTypeNext];
 
         JP3DSButtonCustomization *cancelCustomization = [JP3DSButtonCustomization new];
-        [cancelCustomization setTextFontName:[self.defaults stringForKey:kThreeDSContinueButtonTextFontNameKey]];
-        [cancelCustomization setTextColor:[self.defaults stringForKey:kThreeDSContinueButtonTextColorKey]];
-        [cancelCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSContinueButtonTextFontSizeKey].integerValue];
-        [cancelCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSContinueButtonBackgroundColorKey]];
-        [cancelCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSContinueButtonCornerRadiusKey].integerValue];
+        [cancelCustomization setTextFontName:[self.defaults stringForKey:kThreeDSCancelButtonTextFontNameKey]];
+        [cancelCustomization setTextColor:[self.defaults stringForKey:kThreeDSCancelButtonTextColorKey]];
+        [cancelCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSCancelButtonTextFontSizeKey].integerValue];
+        [cancelCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSCancelButtonBackgroundColorKey]];
+        [cancelCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSCancelButtonCornerRadiusKey].integerValue];
         [customization setButtonCustomization:cancelCustomization ofType:JP3DSButtonTypeCancel];
 
         JP3DSButtonCustomization *continueCustomization = [JP3DSButtonCustomization new];
-        [continueCustomization setTextFontName:[self.defaults stringForKey:kThreeDSCancelButtonTextFontNameKey]];
-        [continueCustomization setTextColor:[self.defaults stringForKey:kThreeDSCancelButtonTextColorKey]];
-        [continueCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSCancelButtonTextFontSizeKey].integerValue];
-        [continueCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSCancelButtonBackgroundColorKey]];
-        [continueCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSCancelButtonCornerRadiusKey].integerValue];
+        [continueCustomization setTextFontName:[self.defaults stringForKey:kThreeDSContinueButtonTextFontNameKey]];
+        [continueCustomization setTextColor:[self.defaults stringForKey:kThreeDSContinueButtonTextColorKey]];
+        [continueCustomization setTextFontSize:[self.defaults stringForKey:kThreeDSContinueButtonTextFontSizeKey].integerValue];
+        [continueCustomization setBackgroundColor:[self.defaults stringForKey:kThreeDSContinueButtonBackgroundColorKey]];
+        [continueCustomization setCornerRadius:[self.defaults stringForKey:kThreeDSContinueButtonCornerRadiusKey].integerValue];
         [customization setButtonCustomization:continueCustomization ofType:JP3DSButtonTypeContinue];
 
         JP3DSButtonCustomization *resendCustomization = [JP3DSButtonCustomization new];
