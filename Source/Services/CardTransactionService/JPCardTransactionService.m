@@ -77,29 +77,32 @@
 #pragma mark - JP3DSChallengeStatusReceiver
 
 - (void)transactionCompletedWithCompletionEvent:(JP3DSCompletionEvent *)completionEvent {
+    [self performComplete3DS2];
+}
 
+- (void)transactionCancelled {
+    [self performComplete3DS2];
+}
+
+- (void)transactionTimedOut {
+    [self performComplete3DS2];
+}
+
+- (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
+    [self performComplete3DS2];
+}
+
+- (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
+    [self performComplete3DS2];
+}
+
+- (void)performComplete3DS2 {
     JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
                                                                       andSecureCode:self.details.secureCode];
 
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
                                                     request:request
                                               andCompletion:self.completion];
-}
-
-- (void)transactionCancelled {
-    self.completion(nil, JPError.userDidCancelError);
-}
-
-- (void)transactionTimedOut {
-    self.completion(nil, JPError.requestTimeoutError);
-}
-
-- (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    self.completion(nil, [JPError threeDSTwoErrorFromProtocolErrorEvent:protocolErrorEvent]);
-}
-
-- (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    self.completion(nil, [JPError threeDSTwoErrorFromRuntimeErrorEvent:runtimeErrorEvent]);
 }
 
 @end

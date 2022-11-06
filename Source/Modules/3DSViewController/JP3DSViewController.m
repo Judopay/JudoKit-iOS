@@ -218,8 +218,8 @@ NSString *const kExtractResultScript =
                                                [weakSelf dismissViewControllerAnimated:YES
                                                                             completion:^{
                                                                                 [weakSelf.loadingView stopLoading];
+                                                                                weakSelf.completionBlock(response, error);
                                                                             }];
-                                               weakSelf.completionBlock(response, error);
                                            }];
 }
 
