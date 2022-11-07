@@ -134,7 +134,6 @@
 - (void)updateViewWithError:(NSError *)error {
     [self.addCardView enableUserInterface:YES];
     [self.addCardView.addCardButton stopLoading];
-    [self _jp_displayAlertWithError:error];
     [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
 }
 

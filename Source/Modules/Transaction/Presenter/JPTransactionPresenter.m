@@ -214,19 +214,19 @@
 }
 
 - (void)handleError:(JPError *)error {
-    JPError *transactionError = [JPError formattedErrorFromError:error];
+    [self.view updateViewWithError:error];
 
-    if (error.code == JudoUserDidCancelError) {
-        __weak typeof(self) weakSelf = self;
-        [self.router dismissViewControllerWithCompletion:^{
-            [weakSelf.interactor completeTransactionWithResponse:nil
-                                                           error:JPError.userDidCancelError];
-        }];
-        return;
-    }
+    __weak typeof(self) weakSelf = self;
+    [self.router dismissViewControllerWithCompletion:^{
+        JPError *judoError = error;
 
-    [self.view updateViewWithError:transactionError];
-    [self.interactor storeError:transactionError];
+        if (error.code == JudoUserDidCancelError) {
+            judoError = JPError.userDidCancelError;
+        }
+
+        [weakSelf.interactor completeTransactionWithResponse:nil
+                                                       error:judoError];
+    }];
 }
 
 - (void)handleResponse:(JPResponse *)response {
