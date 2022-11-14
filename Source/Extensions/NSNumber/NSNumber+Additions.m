@@ -28,27 +28,27 @@
 
 - (JPCardNetworkType)_jp_toCardNetworkType {
     switch (self.unsignedIntegerValue) {
-        case 1:
+        case 1:  // VISA
         case 3:  // VISA ELECTRON
         case 11: // VISA DEBIT
         case 13: // VISA PURCHASING
             return JPCardNetworkTypeVisa;
 
-        case 2:
+        case 2:  // MASTERCARD
         case 12: // MASTERCARD DEBIT
             return JPCardNetworkTypeMasterCard;
 
-        case 7:
-            return JPCardNetworkTypeChinaUnionPay;
+        case 10:
+            return JPCardNetworkTypeMaestro;
 
         case 8:
             return JPCardNetworkTypeAMEX;
 
+        case 7:
+            return JPCardNetworkTypeChinaUnionPay;
+
         case 9:
             return JPCardNetworkTypeJCB;
-
-        case 10:
-            return JPCardNetworkTypeMaestro;
 
         case 14:
             return JPCardNetworkTypeDiscover;
