@@ -166,6 +166,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";
                 break;
             case JPCardNetworkTypeMasterCard:
+            case JPCardNetworkTypeMaestro:
                 dsServerID = _apiService.isSandboxed ? @"F155545342" : @"A000000004";
                 break;
             case JPCardNetworkTypeAMEX:

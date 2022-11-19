@@ -27,6 +27,15 @@
 
 @interface NSNumber (Additions)
 
+/**
+ * A method that returns the card network type based on the identifier provided.
+ * 
+ * @param id - The provided card network identifier.
+ * 
+ * @returns One of the predefined card network type.
+ *
+ * More inbformation at https://docs.judopay.com/Content/Developer%20Tools/Codes.htm
+ */
 - (JPCardNetworkType)_jp_toCardNetworkType;
 
 @end
