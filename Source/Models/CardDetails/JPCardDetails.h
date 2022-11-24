@@ -96,6 +96,8 @@
  */
 @property (nonatomic, strong) NSString *_Nullable cardScheme;
 
+@property (nonatomic, strong) NSString *_Nullable cardHolderName;
+
 /**
  *  Designated initializer for Card Details
  *
