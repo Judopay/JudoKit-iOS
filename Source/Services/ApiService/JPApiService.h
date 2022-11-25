@@ -28,10 +28,13 @@
 @protocol JPAuthorization;
 
 @class JPPaymentRequest,
+    JPPreAuthPaymentRequest,
     JPRequest,
     JPTokenRequest,
+    JPPreAuthTokenRequest,
     JPBankOrderSaleRequest,
     JPApplePayRequest,
+    JPPreAuthApplePayRequest,
     JPCheckCardRequest,
     JPSaveCardRequest,
     JPRegisterCardRequest,
@@ -76,7 +79,7 @@
  * @param request - an instance of JPPaymentRequest describing the pre-auth request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
-- (void)invokePreAuthPaymentWithRequest:(nonnull JPPaymentRequest *)request
+- (void)invokePreAuthPaymentWithRequest:(nonnull JPPreAuthPaymentRequest *)request
                           andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
@@ -94,7 +97,7 @@
  * @param request - an instance of JPTokenRequest describing the token pre-auth request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
-- (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPTokenRequest *)request
+- (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPPreAuthTokenRequest *)request
                                andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
@@ -139,7 +142,7 @@
  * @param request - an instance of JPApplePayRequest describing the Apple Pay request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
-- (void)invokePreAuthApplePayPaymentWithRequest:(nonnull JPApplePayRequest *)request
+- (void)invokePreAuthApplePayPaymentWithRequest:(nonnull JPPreAuthApplePayRequest *)request
                                   andCompletion:(nullable JPCompletionBlock)completion;
 
 /**

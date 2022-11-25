@@ -127,6 +127,8 @@
  */
 @property (nonatomic, strong, nullable) NSString *threeDSTwoMessageVersion;
 
+@property (nonatomic, assign) BOOL isDelayedAuthorisation;
+
 /**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.

@@ -1,8 +1,8 @@
 //
-//  NSNumber+Additions.h
+//  JPPreAuthApplePayRequest.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019-2022 Alternative Payments Ltd
+//  Copyright (c) 2022 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardNetworkType.h"
-#import <Foundation/Foundation.h>
+#import "JPPreAuthApplePayRequest.h"
+#import "JPConfiguration.h"
 
-@interface NSNumber (Additions)
+@implementation JPPreAuthApplePayRequest
 
-/**
- * A method that returns the card network type based on the identifier provided.
- *
- * @param id - The provided card network identifier.
- *
- * @returns One of the predefined card network type.
- *
- * More inbformation at https://docs.judopay.com/Content/Developer%20Tools/Codes.htm
- */
-- (JPCardNetworkType)_jp_toCardNetworkType;
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+    if (self = [super initWithConfiguration:configuration]) {
+        _delayedAuthorisation = configuration.isDelayedAuthorisation;
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        _delayedAuthorisation = configuration.isDelayedAuthorisation;
+    }
+    return self;
+}
 
 @end

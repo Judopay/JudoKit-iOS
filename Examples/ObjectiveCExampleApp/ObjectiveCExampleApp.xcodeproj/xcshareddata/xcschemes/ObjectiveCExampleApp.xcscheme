@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "448AB19D2450DE8F004A11CB"
-               BuildableName = "Judopay demo.app"
+               BuildableName = "JudoKit.app"
                BlueprintName = "ObjectiveCExampleApp"
                ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "448AB19D2450DE8F004A11CB"
-            BuildableName = "Judopay demo.app"
+            BuildableName = "JudoKit.app"
             BlueprintName = "ObjectiveCExampleApp"
             ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "448AB19D2450DE8F004A11CB"
-            BuildableName = "Judopay demo.app"
+            BuildableName = "JudoKit.app"
             BlueprintName = "ObjectiveCExampleApp"
             ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
          </BuildableReference>
