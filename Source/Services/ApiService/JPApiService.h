@@ -76,7 +76,7 @@
 /**
  * A method that invokes a pre-auth transaction
  *
- * @param request - an instance of JPPaymentRequest describing the pre-auth request
+ * @param request - an instance of JPPreAuthPaymentRequest describing the pre-auth request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthPaymentWithRequest:(nonnull JPPreAuthPaymentRequest *)request
@@ -94,7 +94,7 @@
 /**
  * A method that invokes a token pre-auth transaction
  *
- * @param request - an instance of JPTokenRequest describing the token pre-auth request
+ * @param request - an instance of JPPreAuthTokenRequest describing the token pre-auth request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPPreAuthTokenRequest *)request
@@ -139,7 +139,7 @@
 /**
  * A method that invokes an Apple Pay pre-auth transaction
  *
- * @param request - an instance of JPApplePayRequest describing the Apple Pay request
+ * @param request - an instance of JPPreAuthApplePayRequest describing the Apple Pay request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthApplePayPaymentWithRequest:(nonnull JPPreAuthApplePayRequest *)request
