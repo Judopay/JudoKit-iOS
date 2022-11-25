@@ -28,4 +28,6 @@
 
 @property (nonatomic, assign) BOOL delayedAuthorisation;
 
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                                   andPayment:(nonnull PKPayment *)payment;
 @end

@@ -42,4 +42,12 @@
     return self;
 }
 
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+                                   andPayment:(nonnull PKPayment *)payment {
+    if (self = [super initWithConfiguration:configuration andPayment:payment]) {
+        _delayedAuthorisation = configuration.isDelayedAuthorisation;
+    }
+    return self;
+}
+
 @end
