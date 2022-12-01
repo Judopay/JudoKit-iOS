@@ -25,7 +25,9 @@
 #import "JPCardTransactionDetails.h"
 
 @class JPPaymentRequest,
+    JPPreAuthRequest,
     JPTokenRequest,
+    JPPreAuthTokenRequest,
     JPRegisterCardRequest,
     JPSaveCardRequest,
     JPCheckCardRequest,
@@ -36,6 +38,12 @@
 
 - (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                  andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                               andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                              andTransaction:(nonnull JP3DSTransaction *)transaction;

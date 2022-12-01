@@ -303,6 +303,12 @@
 		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4431198C24B3345200BF961C /* JPRequest+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4431198A24B3345200BF961C /* JPRequest+Additions.m */; };
 		4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4431198B24B3345200BF961C /* JPRequest+Additions.h */; };
+		446002C3293036D7005FBCBD /* JPPreAuthTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BD293036D7005FBCBD /* JPPreAuthTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		446002C4293036D7005FBCBD /* JPPreAuthRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BE293036D7005FBCBD /* JPPreAuthRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		446002C5293036D7005FBCBD /* JPPreAuthApplePayRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		446002C6293036D7005FBCBD /* JPPreAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446002C0293036D7005FBCBD /* JPPreAuthRequest.m */; };
+		446002C7293036D7005FBCBD /* JPPreAuthTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446002C1293036D7005FBCBD /* JPPreAuthTokenRequest.m */; };
+		446002C8293036D7005FBCBD /* JPPreAuthApplePayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446002C2293036D7005FBCBD /* JPPreAuthApplePayRequest.m */; };
 		446CD9E5264157D5004908DC /* JPFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 446CD9E3264157D5004908DC /* JPFormatters.h */; };
 		446CD9E6264157D5004908DC /* JPFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 446CD9E4264157D5004908DC /* JPFormatters.m */; };
 		447E0A7328DCA0120092BA28 /* NSNumber+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 447E0A7128DCA0120092BA28 /* NSNumber+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -745,6 +751,12 @@
 		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4431198A24B3345200BF961C /* JPRequest+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JPRequest+Additions.m"; sourceTree = "<group>"; };
 		4431198B24B3345200BF961C /* JPRequest+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JPRequest+Additions.h"; sourceTree = "<group>"; };
+		446002BD293036D7005FBCBD /* JPPreAuthTokenRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthTokenRequest.h; sourceTree = "<group>"; };
+		446002BE293036D7005FBCBD /* JPPreAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthRequest.h; sourceTree = "<group>"; };
+		446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthApplePayRequest.h; sourceTree = "<group>"; };
+		446002C0293036D7005FBCBD /* JPPreAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPreAuthRequest.m; sourceTree = "<group>"; };
+		446002C1293036D7005FBCBD /* JPPreAuthTokenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPreAuthTokenRequest.m; sourceTree = "<group>"; };
+		446002C2293036D7005FBCBD /* JPPreAuthApplePayRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPreAuthApplePayRequest.m; sourceTree = "<group>"; };
 		446CD9E3264157D5004908DC /* JPFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFormatters.h; sourceTree = "<group>"; };
 		446CD9E4264157D5004908DC /* JPFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFormatters.m; sourceTree = "<group>"; };
 		447E0A7128DCA0120092BA28 /* NSNumber+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Additions.h"; sourceTree = "<group>"; };
@@ -2934,6 +2946,12 @@
 		A75B38E09E5547C9A487965E /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */,
+				446002C2293036D7005FBCBD /* JPPreAuthApplePayRequest.m */,
+				446002BE293036D7005FBCBD /* JPPreAuthRequest.h */,
+				446002C0293036D7005FBCBD /* JPPreAuthRequest.m */,
+				446002BD293036D7005FBCBD /* JPPreAuthTokenRequest.h */,
+				446002C1293036D7005FBCBD /* JPPreAuthTokenRequest.m */,
 				A75B31AD376CC9B9B00F4302 /* JP3DSecureAuthenticationResult.h */,
 				A75B390B0C47A007FDDF6711 /* JP3DSecureAuthenticationResult.m */,
 				A75B37F24044357424FB12DC /* JPApplePayRequest.h */,
@@ -3063,6 +3081,7 @@
 				30221C9023FFC53600BF2823 /* JPCardPattern.h in Headers */,
 				30489AD62460738B0085B4F2 /* JPError.h in Headers */,
 				300072C423F6AB560099F3C5 /* JPAmount.h in Headers */,
+				446002C5293036D7005FBCBD /* JPPreAuthApplePayRequest.h in Headers */,
 				30006FA223F6993A0099F3C5 /* CLLocation+Additions.h in Headers */,
 				300072C923F6AB560099F3C5 /* JPConfiguration.h in Headers */,
 				3000731E23FA9BBD0099F3C5 /* JPContactInformation.h in Headers */,
@@ -3085,6 +3104,7 @@
 				30221C8523FFBFAD00BF2823 /* JPCardCustomizationPatternCell.h in Headers */,
 				30D61D5423BB741A004E5CEE /* JPPaymentMethodsPresenter.h in Headers */,
 				3000738B23FBEDC80099F3C5 /* JPCardTransactionService.h in Headers */,
+				446002C4293036D7005FBCBD /* JPPreAuthRequest.h in Headers */,
 				30D61DE523BE3976004E5CEE /* JPPaymentMethodsHeaderView.h in Headers */,
 				30221C3623FE6D9200BF2823 /* JPCardCustomizationInteractor.h in Headers */,
 				30006F3923F697B60099F3C5 /* JPIDEALService.h in Headers */,
@@ -3196,6 +3216,7 @@
 				A75B3AD5F8743986D4F254A9 /* JPSessionConfiguration.h in Headers */,
 				30D363F624B5F89A0029BC86 /* NSNumberFormatter+Additions.h in Headers */,
 				A75B3A7DE1B807EF8BD12E41 /* JPRequest.h in Headers */,
+				446002C3293036D7005FBCBD /* JPPreAuthTokenRequest.h in Headers */,
 				A75B390BA1C26DE57E8D4437 /* JPBankOrderSaleRequest.h in Headers */,
 				A75B352705C46C769B528DE0 /* JPPaymentRequest.h in Headers */,
 				A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */,
@@ -3346,6 +3367,7 @@
 				30221C8023FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m in Sources */,
 				30D363A724B5BB430029BC86 /* NSObject+Additions.m in Sources */,
 				3058351F2406583400B61167 /* JPCardCustomizationSubmitCell.m in Sources */,
+				446002C8293036D7005FBCBD /* JPPreAuthApplePayRequest.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				30006F5A23F698A20099F3C5 /* JPFloatingTextField.m in Sources */,
 				30D61DE623BE3976004E5CEE /* JPPaymentMethodsHeaderView.m in Sources */,
@@ -3398,6 +3420,7 @@
 				30006F3223F697B60099F3C5 /* JPApplePayService.m in Sources */,
 				AD0F05A7286B67D600470534 /* JPComplete3DS2Request.m in Sources */,
 				52B74DA223F98B4C009FE38C /* JPTransactionRouter.m in Sources */,
+				446002C7293036D7005FBCBD /* JPPreAuthTokenRequest.m in Sources */,
 				30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */,
 				300072C023F6AB560099F3C5 /* JPCardStorage.m in Sources */,
 				303FA587259B5C2700C2F279 /* JPApplePayButton.m in Sources */,
@@ -3420,6 +3443,7 @@
 				3000738C23FBEDC80099F3C5 /* JPCardTransactionService.m in Sources */,
 				3000732123FA9BBD0099F3C5 /* JPApplePayConfiguration.m in Sources */,
 				30221C8623FFBFAD00BF2823 /* JPCardCustomizationPatternCell.m in Sources */,
+				446002C6293036D7005FBCBD /* JPPreAuthRequest.m in Sources */,
 				3000738123FBED640099F3C5 /* JP3DSViewController.m in Sources */,
 				3000737C23FBECCE0099F3C5 /* JP3DSConfiguration.m in Sources */,
 				30D61D5523BB741A004E5CEE /* JPPaymentMethodsViewModel.m in Sources */,

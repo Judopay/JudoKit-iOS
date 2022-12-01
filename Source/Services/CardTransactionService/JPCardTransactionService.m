@@ -37,6 +37,8 @@
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
+#import "JPPreAuthRequest.h"
+#import "JPPreAuthTokenRequest.h"
 #import "JPRegisterCardRequest.h"
 #import "JPResponse+Additions.h"
 #import "JPResponse.h"
@@ -224,8 +226,8 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             } break;
 
             case JPCardTransactionTypePreAuth: {
-                JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
-                                                                        andTransaction:transaction];
+                JPPreAuthRequest *request = [details toPreAuthPaymentRequestWithConfiguration:self.configuration
+                                                                                      andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
@@ -236,8 +238,8 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
             } break;
 
             case JPCardTransactionTypePreAuthWithToken: {
-                JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
-                                                                    andTransaction:transaction];
+                JPPreAuthTokenRequest *request = [details toPreAuthTokenRequestWithConfiguration:self.configuration
+                                                                                  andTransaction:transaction];
                 [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 

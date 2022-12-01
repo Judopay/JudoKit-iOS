@@ -93,7 +93,7 @@
 		3AB03C618596FCEA7EC86A2F /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4436A9F226F2A12E00A6C371 /* NoUICardPayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoUICardPayViewController.h; sourceTree = "<group>"; };
 		4436A9F326F2A12E00A6C371 /* NoUICardPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoUICardPayViewController.m; sourceTree = "<group>"; };
-		448AB19E2450DE8F004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		448AB19E2450DE8F004A11CB /* JudoKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1A12450DE8F004A11CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		448AB1A22450DE8F004A11CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		448AB1AB2450DE8F004A11CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,15 +124,10 @@
 		449495132450ED870050C6A0 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		449495142450ED870050C6A0 /* DemoFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFeature.m; sourceTree = "<group>"; };
 		4494951C2450F1340050C6A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		4494951D2450F1350050C6A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4494951E2450F13F0050C6A0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		4494951F2450F13F0050C6A0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		449495202450F14A0050C6A0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		449495212450F14A0050C6A0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		449495222450F1540050C6A0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
-		449495232450F1540050C6A0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		449495242450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
-		449495252450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		52189DE0256536A300B8B57A /* JPPaymentMethodsElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPaymentMethodsElements.h; sourceTree = "<group>"; };
@@ -320,7 +315,7 @@
 		448AB19F2450DE8F004A11CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				448AB19E2450DE8F004A11CB /* Judopay demo.app */,
+				448AB19E2450DE8F004A11CB /* JudoKit.app */,
 				448AB1B92450DE93004A11CB /* ObjectiveCExampleAppTests.xctest */,
 				448AB1C42450DE93004A11CB /* ObjectiveCExampleAppUITests.xctest */,
 			);
@@ -637,7 +632,7 @@
 			);
 			name = ObjectiveCExampleApp;
 			productName = ObjectiveCExampleApp;
-			productReference = 448AB19E2450DE8F004A11CB /* Judopay demo.app */;
+			productReference = 448AB19E2450DE8F004A11CB /* JudoKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 		448AB1B82450DE93004A11CB /* ObjectiveCExampleAppTests */ = {
@@ -948,11 +943,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				448AB1B02450DE93004A11CB /* Base */,
-				4494951D2450F1350050C6A0 /* de */,
-				4494951F2450F13F0050C6A0 /* fr */,
-				449495212450F14A0050C6A0 /* es */,
-				449495232450F1540050C6A0 /* nl */,
-				449495252450F15C0050C6A0 /* pt-PT */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1084,17 +1074,19 @@
 				CODE_SIGN_ENTITLEMENTS = ObjectiveCExampleApp/ObjectiveCExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JudoKit;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.9;
+				MARKETING_VERSION = 3.1.10;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
-				PRODUCT_NAME = "Judopay demo";
+				PRODUCT_MODULE_NAME = JudoKit;
+				PRODUCT_NAME = JudoKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1109,17 +1101,19 @@
 				CODE_SIGN_ENTITLEMENTS = ObjectiveCExampleApp/ObjectiveCExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JudoKit;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.9;
+				MARKETING_VERSION = 3.1.10;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
-				PRODUCT_NAME = "Judopay demo";
+				PRODUCT_MODULE_NAME = JudoKit;
+				PRODUCT_NAME = JudoKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

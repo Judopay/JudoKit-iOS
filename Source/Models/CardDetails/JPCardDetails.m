@@ -41,6 +41,7 @@
         self.cardCountry = dictionary[@"cardCountry"];
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
+        self.cardHolderName = dictionary[@"cardHolderName"];
 
         self.rawCardNetwork = dictionary[@"cardType"];
 

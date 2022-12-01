@@ -266,6 +266,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
 }
 
+- (BOOL)isDelayedAuthorisationOn {
+    return [self.defaults boolForKey:kIsDelayedAuthorisationOnKey];
+}
+
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
         NSNumber *addressCountryCode = @([self.defaults stringForKey:kAddressCountryCodeKey].intValue);

@@ -30,6 +30,9 @@
 #import "JPComplete3DS2Request.h"
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
+#import "JPPreAuthApplePayRequest.h"
+#import "JPPreAuthRequest.h"
+#import "JPPreAuthTokenRequest.h"
 #import "JPRegisterCardRequest.h"
 #import "JPRequestEnricher.h"
 #import "JPSaveCardRequest.h"
@@ -110,7 +113,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokePreAuthPaymentWithRequest:(JPPaymentRequest *)request
+- (void)invokePreAuthPaymentWithRequest:(JPPreAuthRequest *)request
                           andCompletion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [request _jp_toDictionary];
@@ -130,7 +133,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokePreAuthTokenPaymentWithRequest:(JPTokenRequest *)request
+- (void)invokePreAuthTokenPaymentWithRequest:(JPPreAuthTokenRequest *)request
                                andCompletion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [request _jp_toDictionary];
@@ -202,7 +205,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokePreAuthApplePayPaymentWithRequest:(JPApplePayRequest *)request
+- (void)invokePreAuthApplePayPaymentWithRequest:(JPPreAuthApplePayRequest *)request
                                   andCompletion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [request _jp_toDictionary];

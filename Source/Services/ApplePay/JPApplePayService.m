@@ -34,6 +34,7 @@
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPPostalAddress.h"
+#import "JPPreAuthApplePayRequest.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 
@@ -76,9 +77,6 @@
         return;
     }
 
-    JPApplePayRequest *request = [[JPApplePayRequest alloc] initWithConfiguration:self.configuration
-                                                                       andPayment:payment];
-
     __weak typeof(self) weakSelf = self;
     JPCompletionBlock resultBlock = ^(JPResponse *response, NSError *error) {
         if (error || response == nil) {
@@ -100,8 +98,12 @@
     };
 
     if (transactionMode == JPTransactionModePreAuth) {
+        JPPreAuthApplePayRequest *request = [[JPPreAuthApplePayRequest alloc] initWithConfiguration:self.configuration
+                                                                                         andPayment:payment];
         [self.apiService invokePreAuthApplePayPaymentWithRequest:request andCompletion:resultBlock];
     } else {
+        JPApplePayRequest *request = [[JPApplePayRequest alloc] initWithConfiguration:self.configuration
+                                                                           andPayment:payment];
         [self.apiService invokeApplePayPaymentWithRequest:request andCompletion:resultBlock];
     }
 }

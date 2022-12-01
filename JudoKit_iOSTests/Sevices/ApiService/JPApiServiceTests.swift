@@ -99,7 +99,7 @@ class JPApiServiceTests: XCTestCase {
      * THEN:  the transaction should complete successfully
      */
     func test_OnValidPreAuthRequest_ReturnResponse() {
-        let paymentRequest = JPPaymentRequest(configuration: transactionConfigurations)
+        let paymentRequest = JPPreAuthRequest(configuration: transactionConfigurations)
         let expectation = self.expectation(description: "await preauth response")
         
         sut.invokePreAuthPayment(with: paymentRequest) { (response, error) in
@@ -199,7 +199,7 @@ class JPApiServiceTests: XCTestCase {
      * THEN:  the transaction should complete successfully
      */
     func test_OnValidTokenPreAuthRequest_ReturnResponse() {
-        let tokenPaymentRequest = JPTokenRequest(configuration: transactionConfigurations)
+        let tokenPaymentRequest = JPPreAuthTokenRequest(configuration: transactionConfigurations)
         let expectation = self.expectation(description: "await token pre-auth response")
         
         sut.invokePreAuthTokenPayment(with: tokenPaymentRequest) { (response, error) in
@@ -239,7 +239,7 @@ class JPApiServiceTests: XCTestCase {
      * THEN:  the transaction should complete successfully
      */
     func test_OnValidApplePayPreAuthRequest_ReturnResponse() {
-        let applePayRequest = JPApplePayRequest(configuration: transactionConfigurations)
+        let applePayRequest = JPPreAuthApplePayRequest(configuration: transactionConfigurations)
         let expectation = self.expectation(description: "await ApplePay pre-auth response")
         
         sut.invokePreAuthApplePayPayment(with: applePayRequest) { (response, error) in
