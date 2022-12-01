@@ -210,7 +210,7 @@ static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation
 - (BOOL)isInitialRecurringPaymentEnabled;
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
-- (BOOL)isDelayedAuthorisationOnKey;
+- (BOOL)isDelayedAuthorisationOn;
 
 #pragma mark - Card Address
 

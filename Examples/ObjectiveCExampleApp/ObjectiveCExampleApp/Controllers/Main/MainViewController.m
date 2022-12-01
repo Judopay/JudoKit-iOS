@@ -337,7 +337,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
-    configuration.isDelayedAuthorisation = Settings.defaultSettings.isDelayedAuthorisationOnKey;
+    configuration.isDelayedAuthorisation = Settings.defaultSettings.isDelayedAuthorisationOn;
 
     configuration.emailAddress = Settings.defaultSettings.emailAddress;
     configuration.phoneCountryCode = Settings.defaultSettings.phoneCountryCode;

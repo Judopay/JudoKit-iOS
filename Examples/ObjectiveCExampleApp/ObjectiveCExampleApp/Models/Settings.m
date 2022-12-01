@@ -266,7 +266,7 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
 }
 
-- (BOOL)isDelayedAuthorisationOnKey {
+- (BOOL)isDelayedAuthorisationOn {
     return [self.defaults boolForKey:kIsDelayedAuthorisationOnKey];
 }
 
