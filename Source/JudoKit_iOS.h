@@ -80,7 +80,7 @@
 #import "JPComplete3DS2Request.h"
 #import "JPPaymentRequest.h"
 #import "JPPreAuthApplePayRequest.h"
-#import "JPPreAuthPaymentRequest.h"
+#import "JPPreAuthRequest.h"
 #import "JPRequest.h"
 
 #import "JP3DSecureAuthenticationResult.h"

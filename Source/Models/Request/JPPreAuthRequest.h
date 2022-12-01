@@ -1,5 +1,5 @@
 //
-//  JPPreAuthPaymentRequest.h
+//  JPPreAuthRequest.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2022 Alternative Payments Ltd
@@ -24,7 +24,7 @@
 
 #import "JPPaymentRequest.h"
 
-@interface JPPreAuthPaymentRequest : JPPaymentRequest
+@interface JPPreAuthRequest : JPPaymentRequest
 
 @property (nonatomic, assign) BOOL delayedAuthorisation;
 

@@ -1,5 +1,5 @@
 //
-//  JPPreAuthPaymentRequest.m
+//  JPPreAuthRequest.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2022 Alternative Payments Ltd
@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPreAuthPaymentRequest.h"
+#import "JPPreAuthRequest.h"
 #import "JPConfiguration.h"
 
-@implementation JPPreAuthPaymentRequest
+@implementation JPPreAuthRequest
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {

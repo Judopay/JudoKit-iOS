@@ -31,7 +31,7 @@
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
 #import "JPPreAuthApplePayRequest.h"
-#import "JPPreAuthPaymentRequest.h"
+#import "JPPreAuthRequest.h"
 #import "JPPreAuthTokenRequest.h"
 #import "JPRegisterCardRequest.h"
 #import "JPRequestEnricher.h"
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokePreAuthPaymentWithRequest:(JPPreAuthPaymentRequest *)request
+- (void)invokePreAuthPaymentWithRequest:(JPPreAuthRequest *)request
                           andCompletion:(JPCompletionBlock)completion {
 
     NSDictionary *parameters = [request _jp_toDictionary];

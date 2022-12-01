@@ -28,7 +28,7 @@
 @protocol JPAuthorization;
 
 @class JPPaymentRequest,
-    JPPreAuthPaymentRequest,
+    JPPreAuthRequest,
     JPRequest,
     JPTokenRequest,
     JPPreAuthTokenRequest,
@@ -76,10 +76,10 @@
 /**
  * A method that invokes a pre-auth transaction
  *
- * @param request - an instance of JPPreAuthPaymentRequest describing the pre-auth request
+ * @param request - an instance of JPPreAuthRequest describing the pre-auth request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
-- (void)invokePreAuthPaymentWithRequest:(nonnull JPPreAuthPaymentRequest *)request
+- (void)invokePreAuthPaymentWithRequest:(nonnull JPPreAuthRequest *)request
                           andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
