@@ -220,8 +220,13 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
     VNRecognizeTextRequest *textRequest = [VNRecognizeTextRequest new];
     textRequest.recognitionLevel = VNRequestTextRecognitionLevelAccurate;
 
+    if (!textRequest) {
+        return;
+    }
+    
+    NSArray<VNRequest *> *textRequests = @[ textRequest ];
     VNImageRequestHandler *requestHandler = [[VNImageRequestHandler alloc] initWithCIImage:image options:@{}];
-    [requestHandler performRequests:@[ textRequest ] error:nil];
+    [requestHandler performRequests:textRequests error:nil];
 
     for (VNObservation *observation in textRequest.results) {
 
