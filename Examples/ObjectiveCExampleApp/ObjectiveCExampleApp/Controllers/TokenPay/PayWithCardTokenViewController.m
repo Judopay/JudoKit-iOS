@@ -132,6 +132,7 @@
     if (cardDetails) {
         self.cardNetworkTextField.text = [NSString stringWithFormat:@"%@", cardDetails.rawCardNetwork];
         self.cardTokenTextField.text = cardDetails.cardToken;
+        self.cardholderNameTextField.text = cardDetails.cardHolderName;
         [self textFieldDidChange:nil];
     }
 }
@@ -141,11 +142,13 @@
 
     __weak typeof(self) weakSelf = self;
 
-    [self.transactionService invokeTokenPaymentWithDetails:self.cardTransactionDetails
-                                             andCompletion:^(JPResponse *response, JPError *error) {
-                                                 [weakSelf handleResponse:response error:error showReceipt:true];
-                                                 [weakSelf.payWithCardTokenButton stopLoading];
-                                             }];
+    [self.judoKit invokeTokenTransactionWithType:JPTransactionTypePayment
+                                   configuration:self.configuration
+                                         details:[self cardTransactionDetails]
+                                      completion:^(JPResponse *response, JPError *error) {
+                                          [weakSelf handleResponse:response error:error showReceipt:true];
+                                          [weakSelf.payWithCardTokenButton stopLoading];
+                                      }];
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
@@ -153,11 +156,13 @@
 
     __weak typeof(self) weakSelf = self;
 
-    [self.transactionService invokePreAuthTokenPaymentWithDetails:self.cardTransactionDetails
-                                                    andCompletion:^(JPResponse *response, JPError *error) {
-                                                        [weakSelf handleResponse:response error:error showReceipt:true];
-                                                        [weakSelf.preAuthWithCardTokenButton stopLoading];
-                                                    }];
+    [self.judoKit invokeTokenTransactionWithType:JPTransactionTypePreAuth
+                                   configuration:self.configuration
+                                         details:[self cardTransactionDetails]
+                                      completion:^(JPResponse *response, JPError *error) {
+                                          [weakSelf handleResponse:response error:error showReceipt:true];
+                                          [weakSelf.preAuthWithCardTokenButton stopLoading];
+                                      }];
 }
 
 - (JPCardTransactionDetails *)cardTransactionDetails {

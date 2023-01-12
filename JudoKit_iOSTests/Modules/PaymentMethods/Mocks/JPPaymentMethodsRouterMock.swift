@@ -29,9 +29,11 @@ class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
     var dismissController = false
     var navigatedToIdealPay = false
     var navigateToTransactionModule = false
+    var navigateToTransactionModuleModeParam: JPCardDetailsMode?
     
     func navigateToTransactionModule(with mode: JPCardDetailsMode, cardNetwork: JPCardNetworkType, andTransactionType: JPTransactionType) {
         navigateToTransactionModule = true
+        navigateToTransactionModuleModeParam = mode
     }
     
     func navigateToCardCustomization(with index: UInt) {

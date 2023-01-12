@@ -32,9 +32,10 @@
 @protocol JPPaymentMethodsPresenter
 
 /**
- * A method that hadle payment
+ * A method that hadle payment with the optional CSC and cardholderName entered by the user
  */
-- (void)handlePaymentWithSecurityCode:(nullable NSString *)code;
+- (void)handlePaymentWithSecurityCode:(nullable NSString *)code
+                    andCardholderName:(nullable NSString *)cardholderName;
 
 /**
  * A method that updates the view model with the latest state and refreshes the view

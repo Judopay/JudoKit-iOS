@@ -29,6 +29,7 @@
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
 #import "JPCardDetails.h"
+#import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
 #import "JPCardStorage.h"
 #import "JPCardTransactionDetails.h"
@@ -162,7 +163,22 @@
 #pragma mark - Get bool for security code on pay button click
 
 - (BOOL)shouldVerifySecurityCode {
-    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode;
+    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode || self.configuration.uiConfiguration.shouldAskForCSC;
+}
+
+- (BOOL)shouldAskForCardholderName {
+    return self.configuration.uiConfiguration.shouldAskForCardholderName;
+}
+
+- (JPCardDetailsMode)cardDetailsMode {
+    if (self.configuration.uiConfiguration.shouldAskForCSC && self.configuration.uiConfiguration.shouldAskForCardholderName) {
+        return JPCardDetailsModeSecurityCodeAndCardholderName;
+    } else if (self.configuration.uiConfiguration.shouldAskForCSC) {
+        return JPCardDetailsModeSecurityCode;
+    } else if (self.configuration.uiConfiguration.shouldAskForCardholderName) {
+        return JPCardDetailsModeCardholderName;
+    }
+    return JPCardDetailsModeDefault;
 }
 
 #pragma mark - Get payment methods

@@ -227,7 +227,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
             case JPCardTransactionTypePreAuth: {
                 JPPreAuthRequest *request = [details toPreAuthPaymentRequestWithConfiguration:self.configuration
-                                                                                      andTransaction:transaction];
+                                                                               andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 

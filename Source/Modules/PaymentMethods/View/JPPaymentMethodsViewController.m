@@ -333,8 +333,8 @@
     [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
 }
 
-- (void)didInputSecurityCode:(NSString *)cv2 {
-    [self.presenter handlePaymentWithSecurityCode:cv2];
+- (void)didInputSecurityCode:(NSString *)csc andCardholderName:(NSString *)cardholderName {
+    [self.presenter handlePaymentWithSecurityCode:csc andCardholderName:cardholderName];
 }
 
 - (void)didCancel {

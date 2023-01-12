@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
 
-@class JPConfiguration, JPPaymentMethod, JPSession;
+@class JPCardTransactionDetails, JPConfiguration, JPPaymentMethod, JPSession;
 @protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
@@ -73,6 +73,19 @@ static NSString *__nonnull const JudoKitVersion = @"3.1.11";
 - (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(nonnull JPConfiguration *)configuration
                        completion:(nullable JPCompletionBlock)completion;
+
+/**
+ * A method which optionally invokes the Judo transaction interface which allows users to enter their CSC or cardholder name and make a transaction.
+ *
+ * @param type - a TransactionType that describes the type of the transaction.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param details - an instance of JPCardTransactionDetails to make the token payment with.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ */
+- (void)invokeTokenTransactionWithType:(JPTransactionType)type
+                         configuration:(nonnull JPConfiguration *)configuration
+                               details:(nonnull JPCardTransactionDetails *)details
+                            completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which returns a configured Judo transaction UIViewController that can be presented to allow

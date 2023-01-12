@@ -33,7 +33,10 @@
 #import <ZappMerchantLib/PBBAAppUtils.h>
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
+typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
 
 @protocol JPPaymentMethodsInteractor
 
@@ -135,6 +138,16 @@
 - (BOOL)shouldVerifySecurityCode;
 
 /**
+ * If the user should be asked to enter the cardholder name
+ */
+- (BOOL)shouldAskForCardholderName;
+
+/**
+ * The card details mode which drives the card payment UI behaviour
+ */
+- (JPCardDetailsMode)cardDetailsMode;
+
+/**
  * A method that triggers the completion handler passed by the merchant with an optional response / error
  *
  * @param response - an optional instance of the JPResponse object that contains the response details
@@ -170,3 +183,5 @@
                           completion:(nullable JPCompletionBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -55,7 +55,7 @@
 }
 
 - (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                               andTransaction:(nonnull JP3DSTransaction *)transaction {
+                                                        andTransaction:(nonnull JP3DSTransaction *)transaction {
     JPPreAuthRequest *request = [[JPPreAuthRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
     return request;

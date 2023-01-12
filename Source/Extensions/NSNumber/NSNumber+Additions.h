@@ -28,9 +28,7 @@
 @interface NSNumber (Additions)
 
 /**
- * A method that returns the card network type based on the identifier provided.
- *
- * @param id - The provided card network identifier.
+ * A method that returns the card network type from an NSNumber
  *
  * @returns One of the predefined card network type.
  *

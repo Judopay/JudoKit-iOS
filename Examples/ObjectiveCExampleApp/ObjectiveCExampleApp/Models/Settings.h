@@ -155,6 +155,8 @@ static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_butt
 static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation_on";
+static NSString *const kShouldAskForCSCKey = @"should_ask_for_csc";
+static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardholder_name";
 
 @class JP3DSUICustomization;
 
@@ -211,6 +213,8 @@ static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isDelayedAuthorisationOn;
+- (BOOL)shouldAskForCSC;
+- (BOOL)shouldAskForCardholderName;
 
 #pragma mark - Card Address
 

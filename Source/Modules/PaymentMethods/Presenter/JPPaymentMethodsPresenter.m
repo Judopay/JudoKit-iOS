@@ -38,6 +38,7 @@
 #import "JPPaymentMethodsViewModel.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionType.h"
+#import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
@@ -164,15 +165,20 @@
         return;
     }
 
-    if ([self.interactor shouldVerifySecurityCode]) {
-        [self.router navigateToTransactionModuleWith:JPCardDetailsModeSecurityCode cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypePayment];
+    if (self.interactor.shouldVerifySecurityCode || self.interactor.shouldAskForCardholderName) {
+        JPCardDetailsMode cardDetailsMode = self.interactor.cardDetailsMode;
+        [self.router navigateToTransactionModuleWith:cardDetailsMode cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypePayment];
     } else {
-        [self handlePaymentWithSecurityCode:nil];
+        [self handlePaymentWithSecurityCode:nil andCardholderName:nil];
     }
 }
 
-- (void)handlePaymentWithSecurityCode:(nullable NSString *)code {
+- (void)handlePaymentWithSecurityCode:(nullable NSString *)code
+                    andCardholderName:(nullable NSString *)cardholderName {
     __weak typeof(self) weakSelf = self;
+    if (cardholderName != nil) {
+        self.selectedCard.cardholderName = cardholderName;
+    }
     [self.interactor paymentTransactionWithStoredCardDetails:self.selectedCard
                                                 securityCode:code
                                                andCompletion:^(JPResponse *response, NSError *error) {

@@ -31,11 +31,15 @@ enum PaymentError {
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var calledTransactionPayment = false
+    var paymentTransactionDetailsParam: JPStoredCardDetails?
+    var paymentTransactionCSCParam: String?
     var transactionCompleteError: Error?
     var cardSelected = false
     var startApplePay = false
     var startPolling = false
     var shouldVerify = false
+    var shouldAskForCardholderNameValue = false
+    var cardDetailsModeValue = JPCardDetailsMode.default
     var shouldFailWhenProcessApplePayment = false
     var storeError = false
 
@@ -43,6 +47,14 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
 
     func shouldVerifySecurityCode() -> Bool {
         shouldVerify
+    }
+
+    func shouldAskForCardholderName() -> Bool {
+        shouldAskForCardholderNameValue
+    }
+
+    func cardDetailsMode() -> JPCardDetailsMode {
+        cardDetailsModeValue
     }
 
     func pollingPBBA(completion: JPCompletionBlock? = nil) {
@@ -79,6 +91,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
 
     func paymentTransaction(with details: JPStoredCardDetails, securityCode: String?, andCompletion completion: JPCompletionBlock? = nil) {
         calledTransactionPayment = true
+        paymentTransactionDetailsParam = details
+        paymentTransactionCSCParam = securityCode
         if errorType == .threeDSRequest {
             let error = JPError.threeDSRequest(withPayload: ["": ""])
             completion?(nil, error)

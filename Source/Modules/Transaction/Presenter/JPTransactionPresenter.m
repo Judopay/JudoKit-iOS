@@ -328,6 +328,12 @@
         case JPCardDetailsModeSecurityCode:
             self.transactionViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid;
             break;
+        case JPCardDetailsModeCardholderName:
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = self.isCardholderNameValid;
+            break;
+        case JPCardDetailsModeSecurityCodeAndCardholderName:
+            self.transactionViewModel.addCardButtonViewModel.isEnabled = self.isSecureCodeValid && self.isCardholderNameValid;
+            break;
         case JPCardDetailsModeThreeDS2BillingDetails: {
             BOOL is3DS2Valid = self.isEmailValid && self.isCountryNameValid && self.isStateNameValid && self.isAddressLine1Valid && self.isAddressLine2Valid && self.isAddressLine3Valid && self.isPhoneNumberValid && self.isCityNameValid && self.isPostalCodeValid;
             self.transactionViewModel.addCardButtonViewModel.isEnabled = is3DS2Valid;

@@ -37,7 +37,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         expiryDate: "22/22",
         cardNetwork: .masterCard,
         cardToken: "cardToken2",
-        cardholderName: "Bob")
+        cardholderName: "Bobby")
 
     override func setUp() {
         super.setUp()
@@ -145,14 +145,89 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: clicking in pay button by user
      *
-     * WHEN: card is selected payment method
+     * WHEN: card is selected payment method (and should NOT ask for CSC or CardholderName - default behaviour)
      *
      * THEN: should call interactor for payment method call
      */
     func test_HandlePayButtonTapCardType_WhenUserClickPay_ShouldCallInteractor() {
-        sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
+        JPCardStorage.sharedInstance()?.add(firstStoredCard)
+        interactor.setCardAsSelectedAt(0)
+
         sut.handlePayButtonTap()
+
         XCTAssertTrue(interactor.calledTransactionPayment)
+        XCTAssertEqual(interactor.paymentTransactionDetailsParam?.cardholderName, firstStoredCard?.cardholderName)
+        XCTAssertNil(interactor.paymentTransactionCSCParam)
+    }
+
+    /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: card is selected payment method and need to ask for CSC
+     *
+     * THEN: should call router for payment method call with SecurityCode mode
+     */
+    func test_HandlePayButtonTapCardType_WhenUserClickPayWithCSCRequired_ShouldNavigateToTransactionModuleWithCSCMode() {
+        let config = JPConfiguration()
+        config.uiConfiguration.shouldAskForCSC = true
+        interactor.shouldVerify = true
+        interactor.cardDetailsModeValue = .securityCode
+        sut = JPPaymentMethodsPresenterImpl(configuration: config)
+        sut.view = controller
+        sut.interactor = interactor
+        sut.router = router
+
+        sut.handlePayButtonTap()
+
+        XCTAssertTrue(router.navigateToTransactionModule)
+        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .securityCode)
+    }
+
+    /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: card is selected payment method and need to ask for cardholder name
+     *
+     * THEN: should call router for payment method call with CardholderName mode
+     */
+    func test_HandlePayButtonTapCardType_WhenUserClickPayWithCardholderNameRequired_ShouldNavigateToTransactionModuleWithCardholdernameMode() {
+        let config = JPConfiguration()
+        config.uiConfiguration.shouldAskForCardholderName = true
+        interactor.shouldVerify = true
+        interactor.cardDetailsModeValue = .cardholderName
+        sut = JPPaymentMethodsPresenterImpl(configuration: config)
+        sut.view = controller
+        sut.interactor = interactor
+        sut.router = router
+
+        sut.handlePayButtonTap()
+
+        XCTAssertTrue(router.navigateToTransactionModule)
+        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .cardholderName)
+    }
+
+    /*
+     * GIVEN: clicking in pay button by user
+     *
+     * WHEN: card is selected payment method and need to ask for CSC and cardholder name
+     *
+     * THEN: should call router for payment method call with SecurityCodeAndCardholderName mode
+     */
+    func test_HandlePayButtonTapCardType_WhenUserClickPayWithCSCAndCardholderNameRequired_ShouldNavigateToTransactionModuleWithCSCAndCHNameMode() {
+        let config = JPConfiguration()
+        config.uiConfiguration.shouldAskForCSC = true
+        config.uiConfiguration.shouldAskForCardholderName = true
+        interactor.shouldVerify = true
+        interactor.cardDetailsModeValue = .securityCodeAndCardholderName
+        sut = JPPaymentMethodsPresenterImpl(configuration: config)
+        sut.view = controller
+        sut.interactor = interactor
+        sut.router = router
+
+        sut.handlePayButtonTap()
+
+        XCTAssertTrue(router.navigateToTransactionModule)
+        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .securityCodeAndCardholderName)
     }
 
     /*

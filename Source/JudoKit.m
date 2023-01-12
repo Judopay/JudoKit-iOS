@@ -26,6 +26,7 @@
 #import "JPApiService.h"
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
+#import "JPCardTransactionDetails.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -37,6 +38,7 @@
 #import "JPSliderTransitioningDelegate.h"
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
+#import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
 #import <PassKit/PassKit.h>
 
@@ -119,6 +121,55 @@
     controller.transitioningDelegate = self.transitioningDelegate;
 
     return controller;
+}
+
+- (void)invokeTokenTransactionWithType:(JPTransactionType)type
+                         configuration:(JPConfiguration *)configuration
+                               details:(JPCardTransactionDetails *)details
+                            completion:(JPCompletionBlock)completion {
+
+    JPError *configurationError;
+    configurationError = [self.configurationValidationService validateConfiguration:configuration
+                                                                 forTransactionType:type];
+
+    if (configurationError) {
+        completion(nil, configurationError);
+        return;
+    }
+
+    JPCardDetailsMode cardDetailsMode = JPCardDetailsModeDefault;
+    if (configuration.uiConfiguration.shouldAskForCSC && configuration.uiConfiguration.shouldAskForCardholderName) {
+        cardDetailsMode = JPCardDetailsModeSecurityCodeAndCardholderName;
+    } else if (configuration.uiConfiguration.shouldAskForCSC) {
+        cardDetailsMode = JPCardDetailsModeSecurityCode;
+    } else if (configuration.uiConfiguration.shouldAskForCardholderName) {
+        cardDetailsMode = JPCardDetailsModeCardholderName;
+    }
+
+    JPTransactionViewDelegateTokenPaymentImpl *transactionViewDelegate = [[JPTransactionViewDelegateTokenPaymentImpl alloc] initWithAPIService:self.apiService
+                                                                                                                                          type:type
+                                                                                                                                 configuration:configuration
+                                                                                                                                       details:details
+                                                                                                                                    completion:completion];
+
+    if (cardDetailsMode == JPCardDetailsModeDefault) {
+        // No need to ask for CSC or Cardholder Name - execute transaction
+        [transactionViewDelegate executeTokenPaymentTransaction];
+    } else {
+        JPTransactionViewController *controller = [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                                                                        configuration:configuration
+                                                                                      transactionType:type
+                                                                                      cardDetailsMode:cardDetailsMode
+                                                                                          cardNetwork:details.cardType
+                                                                                           completion:completion];
+        controller.delegate = transactionViewDelegate;
+        controller.modalPresentationStyle = UIModalPresentationCustom;
+        controller.transitioningDelegate = self.transitioningDelegate;
+
+        [UIApplication._jp_topMostViewController presentViewController:controller
+                                                              animated:YES
+                                                            completion:nil];
+    }
 }
 
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode

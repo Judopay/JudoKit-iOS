@@ -270,11 +270,19 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsDelayedAuthorisationOnKey];
 }
 
+- (BOOL)shouldAskForCSC {
+    return [self.defaults boolForKey:kShouldAskForCSCKey];
+}
+
+- (BOOL)shouldAskForCardholderName {
+    return [self.defaults boolForKey:kShouldAskForCardholderNameKey];
+}
+
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
         NSNumber *addressCountryCode = @([self.defaults stringForKey:kAddressCountryCodeKey].intValue);
         NSString *state = [self.defaults stringForKey:kAddressStateKey];
-        
+
         return [[JPAddress alloc] initWithAddress1:[self.defaults stringForKey:kAddressLine1Key]
                                           address2:[self.defaults stringForKey:kAddressLine2Key]
                                           address3:[self.defaults stringForKey:kAddressLine3Key]
@@ -365,7 +373,7 @@ NSString *safeString(NSString *aString) {
 - (JP3DSUICustomization *)threeDSUICustomization {
     if ([self.defaults boolForKey:kIsThreeDSUICustomisationEnabledKey]) {
         JP3DSUICustomization *customization = [JP3DSUICustomization new];
-        
+
         JP3DSLabelCustomization *labelCustomization = [JP3DSLabelCustomization new];
         NSString *font = [self.defaults stringForKey:kThreeDSLabelTextFontNameKey];
         [labelCustomization setTextFontName:font];
@@ -436,7 +444,7 @@ NSString *safeString(NSString *aString) {
 
         return customization;
     }
-    
+
     return nil;
 }
 

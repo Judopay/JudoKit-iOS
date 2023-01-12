@@ -71,9 +71,9 @@
         return;
     }
 
-    NSArray *settingFiles = @[@"Root.plist", @"ThreeDSSDKUICustomisation.plist"];
+    NSArray *settingFiles = @[ @"Root.plist", @"ThreeDSSDKUICustomisation.plist" ];
     NSMutableArray *preferences = [NSMutableArray new];
-   
+
     for (NSString *fileName in settingFiles) {
         NSString *stringsPath = [settingsBundle stringByAppendingPathComponent:fileName];
         NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:stringsPath];

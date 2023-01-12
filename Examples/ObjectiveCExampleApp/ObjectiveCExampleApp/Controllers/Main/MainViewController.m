@@ -323,13 +323,15 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = Settings.defaultSettings.shouldPaymentButtonDisplayAmount;
     configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = Settings.defaultSettings.shouldPaymentMethodsVerifySecurityCode;
     configuration.uiConfiguration.shouldAskForBillingInformation = Settings.defaultSettings.shouldAskForBillingInformation;
-    
+    configuration.uiConfiguration.shouldAskForCSC = Settings.defaultSettings.shouldAskForCSC;
+    configuration.uiConfiguration.shouldAskForCardholderName = Settings.defaultSettings.shouldAskForCardholderName;
+
     @try {
         configuration.uiConfiguration.threeDSUICustomization = Settings.defaultSettings.threeDSUICustomization;
-    } @catch(NSException *exception) {
+    } @catch (NSException *exception) {
         [self displaySnackBarWith:[NSString stringWithFormat:@"Setting 3DS SDK UI configuration failed with reason: %@", exception.reason]];
     }
-    
+
     configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
 

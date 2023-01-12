@@ -119,10 +119,6 @@
 }
 
 - (NSString *)generatePayButtonTitle {
-    if (self.cardDetailsMode == JPCardDetailsModeSecurityCode) {
-        return @"pay_now"._jp_localized;
-    }
-
     if (self.configuration.uiConfiguration.shouldPaymentButtonDisplayAmount) {
         JPAmount *amount = self.configuration.amount;
         NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount
