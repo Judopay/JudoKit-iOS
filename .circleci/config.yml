@@ -69,13 +69,8 @@ jobs:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
           command: |
-<<<<<<< HEAD
             if ! [ -f Pods ]; then
               pod install --repo-update
-=======
-            if ! [ -d Pods ]; then
-              pod install
->>>>>>> 8dd4a6a (Fix)
             fi
       - save_cache:
           key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
@@ -93,13 +88,8 @@ jobs:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: |
-<<<<<<< HEAD
             if ! [ -f Pods ]; then
               pod install --repo-update
-=======
-            if ! [ -d Pods ]; then
-              pod install
->>>>>>> 8dd4a6a (Fix)
             fi
       - save_cache:
           key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
