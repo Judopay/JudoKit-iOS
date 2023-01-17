@@ -25,19 +25,44 @@
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
-@class PKPayment, PKPaymentToken, PKContact;
+@class PKPayment, PKPaymentMethod, PKPaymentToken, PKContact;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JPApplePayPaymentMethod : NSObject
+
+/**
+ * A string describing the instrument that's suitable for display
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *displayName;
+
+/**
+ * The payment network that backs the instrument. Suitable for display.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *network;
+
+/**
+ * The underlying instrument type (credit, debit, etc)
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *type;
+
+/**
+ * Designated initializer that creates a JPApplePayPaymentMethod instance based on a PKPaymentMethod
+ *
+ * @param paymentMethod - a reference to the PKPaymentMethod obtained once the Apple Pay authorization finishes
+ *
+ * @return a configured instance of JPApplePayPaymentMethod
+ */
+- (nonnull instancetype)initWithPaymentMethod:(PKPaymentMethod *)paymentMethod;
+
+@end
 
 @interface JPApplePayPaymentToken : NSObject
 
 /**
- * A reference to the instrument name used to complete the Apple Pay transaction (ex: Visa 1234)
+ * Describes the properties of the underlying payment instrument selected to fund the payment
  */
-@property (nonatomic, strong, nullable) NSString *paymentInstrumentName;
-
-/**
- * A reference to the payment network used to complete the Apple Pay transaction
- */
-@property (nonatomic, strong, nullable) NSString *paymentNetwork;
+@property (nonatomic, strong, nullable) JPApplePayPaymentMethod *paymentMethod;
 
 /**
  * A refrerence to the payment data used to complete the Apple Pay transaction
@@ -116,3 +141,5 @@
                                    andPayment:(nonnull PKPayment *)payment;
 
 @end
+
+NS_ASSUME_NONNULL_END
