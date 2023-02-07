@@ -96,6 +96,7 @@
     request.cardLastFour = self.cardLastFour;
     request.cardToken = self.cardToken;
     request.cardType = @(self.cardType);
+    request.isInitialRecurringPayment = configuration.isInitialRecurringPayment;
     request.cv2 = self.secureCode;
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
