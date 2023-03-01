@@ -116,8 +116,8 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         validationService.validateExpiryDateInput(input)
     }
 
-    func validateSecureCodeInput(_ input: String) -> JPValidationResult {
-        validationService.validateSecureCodeInput(input)
+    func validateSecureCodeInput(_ input: String, trimIfTooLong trim: Bool) -> JPValidationResult {
+        validationService.validateSecureCodeInput(input, trimIfTooLong: trim)
     }
 
     func validateCountryInput(_ input: String) -> JPValidationResult {

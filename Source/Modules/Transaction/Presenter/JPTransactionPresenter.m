@@ -153,7 +153,7 @@
             [self updateExpiryDateViewModelForInput:input showError:showError];
             break;
         case JPInputTypeCardSecureCode:
-            [self updateSecureCodeViewModelForInput:input showError:showError];
+            [self updateSecureCodeViewModelForInput:input showError:showError updateWithFormattedInput:YES];
             break;
         case JPInputTypeCardCountry:
             [self updateCountryViewModelForInput:input showError:showError];
@@ -416,8 +416,7 @@
 
 - (void)updateSecureCodePlaceholderForNetworkType:(JPCardNetworkType)cardNetwork {
     if (self.transactionViewModel.cardNumberViewModel.cardNetwork != cardNetwork) {
-        self.transactionViewModel.secureCodeViewModel.text = @"";
-        self.isSecureCodeValid = NO;
+        [self updateSecureCodeViewModelForInput:self.transactionViewModel.secureCodeViewModel.text showError:YES updateWithFormattedInput:NO];
         NSString *placeholder = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
         self.transactionViewModel.secureCodeViewModel.placeholder = placeholder;
     }
@@ -447,11 +446,13 @@
     }
 }
 
-- (void)updateSecureCodeViewModelForInput:(NSString *)input showError:(BOOL)showError {
-    JPValidationResult *result = [self.interactor validateSecureCodeInput:input];
+- (void)updateSecureCodeViewModelForInput:(NSString *)input showError:(BOOL)showError updateWithFormattedInput:(BOOL)updateWithFormattedInput {
+    JPValidationResult *result = [self.interactor validateSecureCodeInput:input trimIfTooLong:updateWithFormattedInput];
     self.transactionViewModel.secureCodeViewModel.errorText = (showError && input.length > 0) ? result.errorMessage : nil;
     self.isSecureCodeValid = result.isValid;
-    self.transactionViewModel.secureCodeViewModel.text = result.formattedInput;
+    if (updateWithFormattedInput) {
+        self.transactionViewModel.secureCodeViewModel.text = result.formattedInput;
+    }
 }
 
 - (void)updateCountryViewModelForInput:(NSString *)input showError:(BOOL)showError {
