@@ -438,6 +438,7 @@ static int const kCardHolderNameLength = 4;
             break;
         case JPBillingCountryOther:
             pattern = kRegExOtherPostCode;
+            break;
         default:
             break;
     }

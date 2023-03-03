@@ -90,7 +90,7 @@ static NSString *const kRegExAddressLine = @"^[a-zA-Z0-9,./'\\- ]+$";
 static NSString *const kRegExUSPostCode = @"^(\\d{5}(?:-\\d{4})?)$";
 static NSString *const kRegExGBPostCode = @"^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$";
 static NSString *const kRegExCAPostCode = @"^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
-static NSString *const kRegExOtherPostCode = @"^[A-Z0-9 -]{0,16}$";
+static NSString *const kRegExOtherPostCode = @"^[A-Z0-9 -]{1,16}$";
 
 // Default 3DS 2.0 maximum timeout value
 static int const kDefaultThreeDSTwoMaxTimeout = 60;
