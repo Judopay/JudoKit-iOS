@@ -28,15 +28,41 @@
 #import "JPState.h"
 #import <PassKit/PassKit.h>
 
+@implementation JPApplePayPaymentMethod
+
+- (nonnull instancetype)initWithPaymentMethod:(PKPaymentMethod *)paymentMethod {
+    if (self = [super init]) {
+        _displayName = paymentMethod.displayName;
+        _network = paymentMethod.network;
+        _type = [self getTypeFrom:paymentMethod.type];
+    }
+    return self;
+}
+
+- (NSString *)getTypeFrom:(PKPaymentMethodType)type {
+    switch (type) {
+        case PKPaymentMethodTypeUnknown:
+            return @"unknown";
+        case PKPaymentMethodTypeDebit:
+            return @"debit";
+        case PKPaymentMethodTypeCredit:
+            return @"credit";
+        case PKPaymentMethodTypePrepaid:
+            return @"prepaid";
+        case PKPaymentMethodTypeStore:
+            return @"store";
+        case PKPaymentMethodTypeEMoney:
+            return @"emoney";
+    }
+}
+
+@end
+
 @implementation JPApplePayPaymentToken
 
 - (instancetype)initWithPaymentToken:(PKPaymentToken *)token {
     if (self = [super init]) {
-        if (token.paymentMethod) {
-            _paymentInstrumentName = token.paymentMethod.displayName;
-            _paymentNetwork = token.paymentMethod.network;
-        }
-
+        _paymentMethod = [[JPApplePayPaymentMethod alloc] initWithPaymentMethod:token.paymentMethod];
         _paymentData = [NSJSONSerialization JSONObjectWithData:token.paymentData
                                                        options:NSJSONReadingAllowFragments
                                                          error:nil];
