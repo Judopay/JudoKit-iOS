@@ -99,7 +99,23 @@
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:true
                              completion:^{
-                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text];
+                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text andCardholderName:nil];
+                             }];
+}
+
+- (void)onPayWithCardholderNameButtonTap {
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:true
+                             completion:^{
+                                 [weakSelf.delegate didInputSecurityCode:nil andCardholderName:weakSelf.addCardView.cardHolderTextField.text];
+                             }];
+}
+
+- (void)onPayWithSecurityCodeAndCardholderNameButtonTap {
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:true
+                             completion:^{
+                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text andCardholderName:weakSelf.addCardView.cardHolderTextField.text];
                              }];
 }
 
@@ -224,6 +240,10 @@
             break;
         case JPCardDetailsModeSecurityCode:
             [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
+        case JPCardDetailsModeCardholderName:
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithCardholderNameButtonTap)];
+        case JPCardDetailsModeSecurityCodeAndCardholderName:
+            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeAndCardholderNameButtonTap)];
         default:
             break;
     }

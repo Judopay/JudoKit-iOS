@@ -39,9 +39,20 @@
 @property (nonatomic, assign) BOOL shouldPaymentButtonDisplayAmount;
 
 /**
- * A boolean property that defines if the SDK should verify security code when paying with card token
+ * DEPRECATED: use shouldAskForCSC
+ * A boolean property that defines if the SDK should verify security code when paying with card token through the payment methods screen
  */
-@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode;
+@property (nonatomic, assign) BOOL shouldPaymentMethodsVerifySecurityCode __deprecated_msg("Use shouldAskForCSC instead.");
+
+/**
+ * A boolean property that defines if the SDK should ask for the card security code when paying with card token
+ */
+@property (nonatomic, assign) BOOL shouldAskForCSC;
+
+/**
+ * A boolean property that defines if the SDK should aks for the cardholder name when paying with card token
+ */
+@property (nonatomic, assign) BOOL shouldAskForCardholderName;
 
 /**
  * A boolean property that defines if AVS should be enabled during the payment flow
@@ -56,7 +67,7 @@
 /**
  * A reference to the JPTheme object that customizes the user interface
  */
-@property (nonatomic, strong) JPTheme *theme;
+@property (nonatomic, strong, nonnull) JPTheme *theme;
 
 @property (nonatomic, strong, nullable) JP3DSUICustomization *threeDSUICustomization;
 

@@ -433,6 +433,7 @@
 		ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D79282C35DE00846943 /* OpenSSL.xcframework */; };
 		ADC5AC0228EF30340049CAE3 /* JPState.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC5AC0128EF30340049CAE3 /* JPState.m */; };
 		ADC5AC0428EF30610049CAE3 /* JPState.h in Headers */ = {isa = PBXBuildFile; fileRef = ADC5AC0328EF30500049CAE3 /* JPState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ADEE63762970325500E64C73 /* JPTransactionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEE63752970325500E64C73 /* JPTransactionViewDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -878,6 +879,7 @@
 		ADB514BE286DF03900332E47 /* JPThreeDSecureTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPThreeDSecureTwo.h; sourceTree = "<group>"; };
 		ADC5AC0128EF30340049CAE3 /* JPState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPState.m; sourceTree = "<group>"; };
 		ADC5AC0328EF30500049CAE3 /* JPState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPState.h; sourceTree = "<group>"; };
+		ADEE63752970325500E64C73 /* JPTransactionViewDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPTransactionViewDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2841,6 +2843,7 @@
 				52B74D7D23F98B4C009FE38C /* JPTransactionViewController.h */,
 				52B74D8623F98B4C009FE38C /* JPTransactionViewController.m */,
 				44921179246A044D00DF6D14 /* JPTransactionViewDelegate.h */,
+				ADEE63752970325500E64C73 /* JPTransactionViewDelegate.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3406,6 +3409,7 @@
 				ADB514BB286DED4200332E47 /* JPCReqParameters.m in Sources */,
 				52D23DBA25248B92007C79EB /* JPApplePayController.m in Sources */,
 				30006FA323F6993A0099F3C5 /* CLLocation+Additions.m in Sources */,
+				ADEE63762970325500E64C73 /* JPTransactionViewDelegate.m in Sources */,
 				525FF3DA252C41CF001F030E /* JPCardScanController.m in Sources */,
 				52B74D9023F98B4C009FE38C /* JPTransactionPresenter.m in Sources */,
 				0779B1762490EC05000844AF /* JPTransactionButton.m in Sources */,

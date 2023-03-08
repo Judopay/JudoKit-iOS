@@ -223,7 +223,7 @@ static const CGFloat kMaxCardErrorMargin = 1.2f;
     if (!textRequest) {
         return;
     }
-    
+
     NSArray<VNRequest *> *textRequests = @[ textRequest ];
     VNImageRequestHandler *requestHandler = [[VNImageRequestHandler alloc] initWithCIImage:image options:@{}];
     [requestHandler performRequests:textRequests error:nil];

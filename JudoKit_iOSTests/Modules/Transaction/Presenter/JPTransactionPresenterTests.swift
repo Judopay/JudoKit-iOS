@@ -249,9 +249,9 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: securityCode is securityCode mode, invalid input
      *
-     * THEN: should return false isEnabled
+     * THEN: isEnabled should return false
      */
-    func test_handleInputChange_WhenTypeSecurityCode_ShouldEnableAddCard() {
+    func test_handleInputChange_WhenTypeSecurityCode_ShouldNotEnableAddCard() {
         interactor.mode = .securityCode
         sut.handleInputChange("4444", for: .cardNumber, showError: true)
         XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
@@ -262,11 +262,56 @@ class JPTransactionPresenterTests: XCTestCase {
      *
      * WHEN: AVS is securityCode mode, invalid input
      *
-     * THEN: should return false isEnabled
+     * THEN: isEnabled should return false
      */
-    func test_handleInputChange_WhenAVSMode_ShouldEnableAddCard() {
+    func test_handleInputChange_WhenAVSMode_ShouldNotEnableAddCard() {
         interactor.mode = .AVS
         sut.handleInputChange("4444", for: .cardNumber, showError: true)
+        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
+
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: securityCodeAndCardholderName mode, valid input
+     *
+     * THEN: isEnabled should return true
+     */
+    func test_handleInputChange_WhenCSCAndCardholderNameMode_ShouldEnableAddCard() {
+        interactor.mode = .securityCodeAndCardholderName
+        sut.prepareInitialViewModel()
+        sut.handleInputChange("444", for: .cardSecureCode, showError: true)
+        sut.handleInputChange("Bobby", for: .cardholderName, showError: true)
+        XCTAssertTrue(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
+
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: cardholderName mode, invalid input
+     *
+     * THEN: isEnabled should return false
+     */
+    func test_handleInputChange_WhenCSCAndCardholderNameMode_ShouldNotEnableAddCard() {
+        interactor.mode = .securityCodeAndCardholderName
+        sut.prepareInitialViewModel()
+        sut.handleInputChange("", for: .cardSecureCode, showError: true)
+        sut.handleInputChange("", for: .cardholderName, showError: true)
+        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+    }
+
+    /*
+     * GIVEN: handleInputChange is invoked
+     *
+     * WHEN: securityCodeAndCardholderName mode, invalid input
+     *
+     * THEN: isEnabled should return false
+     */
+    func test_handleInputChange_WhenCSCAndCardholderNameModeInvalidCSC_ShouldNotEnableAddCard() {
+        interactor.mode = .securityCodeAndCardholderName
+        sut.prepareInitialViewModel()
+        sut.handleInputChange("4444", for: .cardSecureCode, showError: true)
+        sut.handleInputChange("Bob", for: .cardholderName, showError: true)
         XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
     }
 }

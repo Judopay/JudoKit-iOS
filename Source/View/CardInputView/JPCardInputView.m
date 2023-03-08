@@ -201,18 +201,19 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)adjustSubviews {
     [_topConstraint setActive:NO];
-    [_scanCardButton setHidden:_mode == JPCardDetailsModeSecurityCode];
+    BOOL isCSCOrCardholderNameMode = _mode == JPCardDetailsModeSecurityCode || _mode == JPCardDetailsModeCardholderName || _mode == JPCardDetailsModeSecurityCodeAndCardholderName;
+    [_scanCardButton setHidden:isCSCOrCardholderNameMode || _mode == JPCardDetailsModeThreeDS2BillingDetails];
     [_avsStackView setHidden:_mode != JPCardDetailsModeAVS];
     [_billingDetails setHidden:_mode != JPCardDetailsModeThreeDS2BillingDetails];
     [_inputFieldsStackView setHidden:_mode == JPCardDetailsModeThreeDS2BillingDetails];
     [_backButton setHidden:_mode != JPCardDetailsModeThreeDS2BillingDetails];
-    [_scanCardButton setHidden:(_mode == JPCardDetailsModeThreeDS2BillingDetails || _mode == JPCardDetailsModeSecurityCode)];
     _mode == JPCardDetailsModeAVS
         ? [_avsStackView addArrangedSubview:_postcodeTextField]
         : [_billingDetails addArrangedSubview:_postcodeTextField];
-    [_cardExpiryTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
-    [_cardNumberTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
+    [_cardExpiryTextField setHidden:isCSCOrCardholderNameMode];
+    [_cardNumberTextField setHidden:isCSCOrCardholderNameMode];
     [_cardHolderTextField setHidden:_mode == JPCardDetailsModeSecurityCode];
+    [_secureCodeTextField setHidden:_mode == JPCardDetailsModeCardholderName];
     CGFloat leftPadding = _mode == JPCardDetailsModeThreeDS2BillingDetails ? 30 : 0;
     _bottomButtons.layoutMargins = UIEdgeInsetsMake(0, leftPadding, 0, 0);
     _securityMessageStackView.hidden = _mode == JPCardDetailsModeThreeDS2BillingDetails;
@@ -246,6 +247,13 @@ static const float kPhoneCodeWidth = 45.0F;
     switch (viewModel.mode) {
         case JPCardDetailsModeSecurityCode:
             [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            break;
+        case JPCardDetailsModeCardholderName:
+            [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
+            break;
+        case JPCardDetailsModeSecurityCodeAndCardholderName:
+            [self.secureCodeTextField configureWithViewModel:viewModel.secureCodeViewModel];
+            [self.cardHolderTextField configureWithViewModel:viewModel.cardholderNameViewModel];
             break;
         case JPCardDetailsModeDefault:
         case JPCardDetailsModeThreeDS2:

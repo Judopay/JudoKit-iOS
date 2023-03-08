@@ -22,6 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "Typedefs.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class JPApiService, JPConfiguration, JPCardTransactionDetails;
+typedef NS_ENUM(NSUInteger, JPTransactionType);
+
 #pragma mark - JPTransactionViewDelegate
 
 @protocol JPTransactionViewDelegate
@@ -31,13 +38,45 @@
 - (void)didFinishAddingCard;
 
 /**
- * A method that is called once the Add Card flow completes
+ * A method that is called once the Ask for CSC and/or Cardholder Name flow completes
  */
-- (void)didInputSecurityCode:(NSString *)cv2;
+- (void)didInputSecurityCode:(NSString *)csc andCardholderName:(NSString *)cardholderName;
 
 /**
- * A method that is called once the Add Card flow completes
+ * A method that is called when the user cancels the flow
  */
 - (void)didCancel;
 
 @end
+
+#pragma mark - JPTransactionViewDelegateTokenPaymentImpl
+
+@interface JPTransactionViewDelegateTokenPaymentImpl : NSObject
+
+/**
+ * A designated initializer that creates a JPTransactionViewDelegateTokenPaymentImpl object
+ *
+ * @param apiService - the service responsible for Judo backend calls
+ * @param type - a TransactionType that describes the type of the transaction.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param details - an instance of JPStoredCardDetails to make the token payment with.
+ * @param completion - a completion block with an optional JPResponse object or an NSError.
+ * @returns a configured instance of JPTransactionViewDelegateTokenPaymentImpl
+ */
+- (nonnull instancetype)initWithAPIService:(nonnull JPApiService *)apiService
+                                      type:(JPTransactionType)type
+                             configuration:(nonnull JPConfiguration *)configuration
+                                   details:(nonnull JPCardTransactionDetails *)details
+                                completion:(nullable JPCompletionBlock)completion;
+
+/**
+ * Sends a token payment or pre-auth transaction based on the tokenised card details
+ */
+- (void)executeTokenPaymentTransaction;
+
+@end
+
+@interface JPTransactionViewDelegateTokenPaymentImpl (TransactionDelegate) <JPTransactionViewDelegate>
+@end
+
+NS_ASSUME_NONNULL_END
