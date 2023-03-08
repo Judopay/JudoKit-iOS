@@ -50,32 +50,32 @@ class JPUSAPostCodeValidation: XCTestCase {
         XCTAssertTrue(result.isValid)
     }
     
-    func testValidCodeWithSpaces_US() {
+    func testValidCodeWithDash_US() {
         let result = sut.validatePostalCodeInput("12345-6789")
         XCTAssertTrue(result.isValid)
     }
     
-    func testInValidCodeMiddleCharacter_US() {
+    func testInvalidCodeMiddleCharacter_US() {
         let result = sut.validatePostalCodeInput("1234@")
         XCTAssertFalse(result.isValid)
     }
     
-    func testInValidCodeShort_US() {
+    func testInvalidCodeShort_US() {
         let result = sut.validatePostalCodeInput("1234")
         XCTAssertFalse(result.isValid)
     }
     
-    func testInValidLastCharatcer_US() {
+    func testInvalidLastCharatcer_US() {
         let result = sut.validatePostalCodeInput("12345-678@")
         XCTAssertFalse(result.isValid)
     }
     
-    func testInValidCodeWithSpaces_US() {
+    func testInvalidCodeWithSpaces_US() {
         let result = sut.validatePostalCodeInput("12345 6789")
-        XCTAssertTrue(result.isValid)
+        XCTAssertFalse(result.isValid)
     }
     
-    func testInValidCodeError_US() {
+    func testInvalidCodeError_US() {
         let result = sut.validatePostalCodeInput("abcde-fghj")
         XCTAssertEqual(result.errorMessage, "Invalid ZIP code entered")
         XCTAssertFalse(result.isValid)

@@ -226,7 +226,7 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
      * GIVEN: validate postal code
      *
-     * WHEN: inserted valid post code for Other (input.length <= kOtherPostalCodeLength)
+     * WHEN: inserted valid post code for Other (input.length <= kOtherPostalCodeMaxLength)
      *
      * THEN: should return valid
      */
@@ -240,16 +240,42 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
      * GIVEN: validate postal code
      *
-     * WHEN: inserted invalid post code for Other (input.length <= kOtherPostalCodeLength)
+     * WHEN: inserted invalid post code for Other (input.length <= kOtherPostalCodeMaxLength)
      *
      * THEN: should return Input Not Allowed
      */
     func test_ValidatePostalCodeInput_WhenInValidCodeForMD_ShouldReturnInputNotAllowed() {
         _ = sut.validateCountryInput("Other")
-        let result = sut.validatePostalCodeInput("123457890")
+        let result = sut.validatePostalCodeInput("12345678901234567")
         XCTAssertFalse(result!.isInputAllowed)
     }
-    
+
+    /*
+     * GIVEN: validate postal code
+     *
+     * WHEN: inserted valid post code for the USA
+     *
+     * THEN: should return valid
+     */
+    func test_ValidatePostalCodeInput_WhenValidCodeForUS_ShouldReturnValidResult() {
+        _ = sut.validateCountryInput("USA")
+        let result = sut.validatePostalCodeInput("12345-1234")
+        XCTAssertTrue(result!.isValid)
+    }
+
+    /*
+     * GIVEN: validate postal code
+     *
+     * WHEN: inserted valid post code for Canada
+     *
+     * THEN: should return valid
+     */
+    func test_ValidatePostalCodeInput_WhenValidCodeForCA_ShouldReturnValidResult() {
+        _ = sut.validateCountryInput("Canada")
+        let result = sut.validatePostalCodeInput("A1b 1c1")
+        XCTAssertTrue(result!.isValid)
+    }
+
     /*
      * GIVEN: validate postal code
      *

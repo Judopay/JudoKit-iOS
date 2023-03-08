@@ -247,7 +247,7 @@ static int const kCardHolderNameLength = 4;
     }
 
     if ([self.selectedCountry isEqualToString:@"country_other"._jp_localized]) {
-        return [self validateOtherPostalCodeInput:input];
+        return [self validatePostalCodeInput:input country:JPBillingCountryOther];
     }
 
     return [JPValidationResult validationWithResult:NO
@@ -436,12 +436,15 @@ static int const kCardHolderNameLength = 4;
         case JPBillingCountryUSA:
             pattern = kRegExUSPostCode;
             break;
+        case JPBillingCountryOther:
+            pattern = kRegExOtherPostCode;
+            break;
         default:
             break;
     }
 
     if (pattern) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", pattern];
         isValid = postCode.length >= minLength && postCode.length <= maxLength && [predicate evaluateWithObject:postCode];
     }
 
@@ -451,13 +454,6 @@ static int const kCardHolderNameLength = 4;
                                        inputAllowed:postCode.length <= maxLength
                                        errorMessage:errorMessage
                                      formattedInput:postCode];
-}
-
-- (JPValidationResult *)validateOtherPostalCodeInput:(NSString *)input {
-    return [JPValidationResult validationWithResult:input.length > 0
-                                       inputAllowed:input.length <= kOtherPostalCodeLength
-                                       errorMessage:nil
-                                     formattedInput:input.uppercaseString];
 }
 
 - (NSString *)selectedCountry {
@@ -483,7 +479,7 @@ static int const kCardHolderNameLength = 4;
         case JPBillingCountryUSA:
             return kUSAPostalCodeMaxLength;
         case JPBillingCountryOther:
-            return kOtherPostalCodeLength;
+            return kOtherPostalCodeMaxLength;
         default:
             break;
     }
@@ -498,7 +494,7 @@ static int const kCardHolderNameLength = 4;
         case JPBillingCountryUSA:
             return kUSAPostalCodeMinLength;
         case JPBillingCountryOther:
-            return kOtherPostalCodeLength;
+            return kOtherPostalCodeMinLength;
         default:
             break;
     }
