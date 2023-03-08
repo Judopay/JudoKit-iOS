@@ -63,13 +63,27 @@ class JPCardValidationServiceTest: XCTestCase {
     /*
      * GIVEN: Validate Security code for Visa
      *
-     * WHEN: code is more then 4 character for visa
+     * WHEN: code is more then 4 characters for visa
      *
-     * THEN: should format result, subscript to 3
+     * THEN: should format result, trim to 3
      */
-    func test_ValidateSecureCodeInput_WhenCodeIsBiggerThenMax_ShouldSubscriptCode() {
-        let result = sut.validateSecureCodeInput("1234")
+    func test_ValidateSecureCodeInput_WhenCodeIsBiggerThanMax_ShouldTrimCode() {
+        let result = sut.validateSecureCodeInput("1234", trimIfTooLong: true)
         XCTAssertEqual(result!.formattedInput!,  "123")
+    }
+
+    /*
+     * GIVEN: Validate Security code for Visa
+     *
+     * WHEN: code is 4 characters long and not trimming it
+     *
+     * THEN: should not format result
+     */
+    func test_ValidateSecureCodeInput_WhenCodeIsBiggerThanMax_AndNotTrimming_ShouldLeaveAsIs() {
+        let result = sut.validateSecureCodeInput("1234", trimIfTooLong: false)
+        XCTAssertEqual(result!.formattedInput!,  "1234")
+        XCTAssertFalse(result!.isValid)
+        XCTAssertFalse(result!.errorMessage.isEmpty)
     }
     
     /*
@@ -81,7 +95,7 @@ class JPCardValidationServiceTest: XCTestCase {
      */
     func test_ValidateSecureCodeInput_WhenThreeCharacters_ShouldValidate() {
         _  = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
-        let result = sut.validateSecureCodeInput("123")
+        let result = sut.validateSecureCodeInput("123", trimIfTooLong: true)
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertTrue(result!.isValid)
     }
@@ -95,7 +109,7 @@ class JPCardValidationServiceTest: XCTestCase {
      */
     func test_ValidateSecureCodeInput_WhenCodeIsLessThenMinimum_ShouldThrowInValidResponse()  {
         _  = sut.validateCardNumberInput("4929939187355598", forSupportedNetworks: .visa)
-        let result = sut.validateSecureCodeInput("12")
+        let result = sut.validateSecureCodeInput("12", trimIfTooLong: true)
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
     }

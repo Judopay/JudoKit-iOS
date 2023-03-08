@@ -391,7 +391,7 @@ class JPTransactionInteractorTest: XCTestCase {
      * THEN: should format secure code and subscript code
      */
     func test_ValidateSecureCodeInput_WhenMoreThenMax_ShouldSubscriptCode() {
-        let result = sut.validateSecureCodeInput("1234")
+        let result = sut.validateSecureCodeInput("1234", trimIfTooLong: true)
         XCTAssertEqual(result.formattedInput!,  "123")
     }
     
@@ -403,7 +403,7 @@ class JPTransactionInteractorTest: XCTestCase {
      * THEN: isInputAllowed should be true
      */
     func test_ValidateSecureCodeInput_WhenCorrectLenght_ShouldBeValid() {
-        let result = sut.validateSecureCodeInput("123")
+        let result = sut.validateSecureCodeInput("123", trimIfTooLong: true)
         XCTAssertTrue(result.isInputAllowed)
     }
     
@@ -415,7 +415,7 @@ class JPTransactionInteractorTest: XCTestCase {
      * THEN: should return false
      */
     func test_validateSecureCodeInput_WhenLessThenMinimum_ShouldNotBeValid() {
-        let result = sut.validateSecureCodeInput("12")
+        let result = sut.validateSecureCodeInput("12", trimIfTooLong: true)
         XCTAssertTrue(result.isInputAllowed)
         XCTAssertFalse(result.isValid)
     }

@@ -264,8 +264,8 @@
     return [self.cardValidationService validateExpiryDateInput:input];
 }
 
-- (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
-    return [self.cardValidationService validateSecureCodeInput:input];
+- (JPValidationResult *)validateSecureCodeInput:(NSString *)input trimIfTooLong:(BOOL)trim {
+    return [self.cardValidationService validateSecureCodeInput:input trimIfTooLong:trim];
 }
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {

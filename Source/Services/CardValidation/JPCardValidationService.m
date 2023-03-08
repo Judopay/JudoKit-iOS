@@ -182,10 +182,13 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateSecureCodeInput:(NSString *)input {
+- (JPValidationResult *)validateSecureCodeInput:(NSString *)input trimIfTooLong:(BOOL)trim {
     JPCardNetworkType cardNetwork = self.lastCardNumberValidationResult.cardNetwork;
     NSUInteger securityCodeLength = [JPCardNetwork secureCodeLengthForNetworkType:cardNetwork];
-    NSString *formatedInput = [input substringToIndex:MIN(input.length, securityCodeLength)];
+    NSString *formatedInput = input;
+    if (trim) {
+        formatedInput = [input substringToIndex:MIN(input.length, securityCodeLength)];
+    }
 
     BOOL isValid = formatedInput.length == securityCodeLength;
     BOOL isInputAllowed = formatedInput.length <= securityCodeLength;

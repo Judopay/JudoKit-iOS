@@ -105,7 +105,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateSecureCodeInput:(NSString *)input;
+- (JPValidationResult *)validateSecureCodeInput:(NSString *)input trimIfTooLong:(BOOL)trim;
 
 /**
  *  A method for validating the country
