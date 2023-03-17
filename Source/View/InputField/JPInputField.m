@@ -34,6 +34,7 @@
 @property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) JPFloatingTextField *floatingTextField;
 @property (nonatomic, strong) UIStackView *stackView;
+@property (nonatomic, assign) BOOL isSettingText;
 @end
 
 @implementation JPInputField
@@ -214,8 +215,14 @@
 @implementation JPInputField (UITextFieldDelegate)
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (_isSettingText) {
+        return NO;
+    }
+    _isSettingText = YES;
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    return [self.delegate inputField:self shouldChangeText:newString];
+    BOOL shouldChange = [self.delegate inputField:self shouldChangeText:newString];
+    _isSettingText = NO;
+    return shouldChange;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
