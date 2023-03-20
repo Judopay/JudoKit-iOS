@@ -85,6 +85,11 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
         self.cardDetails = [[JPCardDetails alloc] initWithDictionary:cardDetailsDictionary];
     }
 
+    NSDictionary *yourPaymentMetaData = dictionary[@"yourPaymentMetaData"];
+    if (yourPaymentMetaData) {
+        self.yourPaymentMetaData = yourPaymentMetaData;
+    }
+
     self.rawData = dictionary;
 }
 

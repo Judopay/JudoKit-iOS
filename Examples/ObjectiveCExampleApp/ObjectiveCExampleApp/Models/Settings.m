@@ -103,7 +103,7 @@ NSString *safeString(NSString *aString) {
     }
 
     JPReference *reference = [[JPReference alloc] initWithConsumerReference:consumerReference paymentReference:paymentReference];
-    reference.metaData = @{@"exampleMetaKey" : @{@"exampleSubMetaKey" : @"exampleSubMetaValue"}};
+    reference.metaData = @{@"exampleMetaKey" : @"exampleMetaValue"};
 
     return reference;
 }

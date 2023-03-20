@@ -134,6 +134,11 @@
 @property (nonatomic, strong) JPContactInformation *_Nullable shippingInfo;
 
 /**
+ *  A reference to the  payment metadata
+ */
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *yourPaymentMetaData;
+
+/**
  *  Raw data of the received dictionary
  */
 @property (nonatomic, strong) NSDictionary *_Nonnull rawData;
