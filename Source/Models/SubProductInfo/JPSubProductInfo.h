@@ -1,8 +1,8 @@
 //
-//  Functions.h
+//  JPSubProductInfo.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPSubProductInfo.h"
+#ifndef JPSubProductInfo_h
+#define JPSubProductInfo_h
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JPQueryStringPair : NSObject
+typedef NS_ENUM(NSUInteger, JPSubProductType) {
+    JPSubProductTypeUnknown = 1,
+    JPSubProductTypeReactNative = 2
+};
 
-@property (readwrite, nonatomic, strong, nonnull) NSString *field;
-@property (readwrite, nonatomic, strong, nullable) NSString *value;
+@interface JPSubProductInfo : NSObject
 
-- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
-- (NSString *)URLEncodedValue;
+@property (nonatomic, readonly, assign) JPSubProductType subProductType;
+@property (nonatomic, readonly, nullable) NSString *version;
+
+- (nullable instancetype)initWithSubProductType:(JPSubProductType)subProductType andVersion:(nullable NSString *)version;
 
 @end
 
-NSString *RFC3986PercentEscapedStringFromString(NSString *string);
-NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
-
-/**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
- */
-double getWidthAspectRatio(void);
-
-/**
- * A method which returns general information about the platform and operating system the app runs on
- */
-NSString *getUserAgent(JPSubProductInfo *_Nullable subProductInfo);
-
-/**
- * A method which returns the IP address of the device
- */
-NSString *getIPAddress(void);
-
-NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
-
-NSString *getSafeStringRepresentation(id object);
-
 NS_ASSUME_NONNULL_END
+
+#endif /* JPSubProductInfo_h */

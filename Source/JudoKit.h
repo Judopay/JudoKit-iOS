@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPSubProductInfo.h"
 #import "JPTransactionMode.h"
 #import "JPTransactionType.h"
 #import "Typedefs.h"
@@ -41,6 +42,7 @@ static NSString *__nonnull const JudoKitVersion = @"3.2.0";
  */
 
 @property (nonatomic, assign) BOOL isSandboxed;
+@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
