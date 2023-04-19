@@ -29,6 +29,9 @@
 #import "JudoKit.h"
 #import "NSString+Additions.h"
 
+static NSString *const kUserAgentProductName = @"JudoKit-iOS";
+static NSString *const kUserAgentSubProductNameReactNative = @"JudoKit-ReactNative";
+
 @implementation JPQueryStringPair
 
 - (instancetype)initWithField:(NSString *)field value:(NSString *)value {
@@ -104,10 +107,10 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
 
     // Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"JudoKit-iOS/%@", JudoKitVersion]];
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", kUserAgentProductName, JudoKitVersion]];
 
     if (subProductInfo.subProductType == JPSubProductTypeReactNative) {
-        [userAgentParts addObject:[NSString stringWithFormat:@"(JudoKit-ReactNative/%@)", subProductInfo.version]];
+        [userAgentParts addObject:[NSString stringWithFormat:@"(%@/%@)", kUserAgentSubProductNameReactNative, subProductInfo.version]];
     }
 
     // Operating system

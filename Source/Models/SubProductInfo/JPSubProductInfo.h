@@ -30,8 +30,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, JPSubProductType) {
-    JPSubProductTypeUnknown = 1,
-    JPSubProductTypeReactNative = 2
+    JPSubProductTypeUnknown,
+    JPSubProductTypeReactNative
 };
 
 @interface JPSubProductInfo : NSObject
