@@ -28,6 +28,7 @@
 #import "Functions.h"
 #import "JudoKit.h"
 #import "NSString+Additions.h"
+#import <sys/utsname.h>
 
 static NSString *const kUserAgentProductName = @"JudoKit-iOS";
 static NSString *const kUserAgentSubProductNameReactNative = @"JudoKit-ReactNative";
@@ -126,7 +127,10 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     }
 
     // Model
-    [userAgentParts addObject:device.model];
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    [userAgentParts addObject:[NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding]];
 
     return [userAgentParts componentsJoinedByString:@" "];
 }
