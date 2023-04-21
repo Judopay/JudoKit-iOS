@@ -26,6 +26,8 @@
 
 @protocol JPAuthorization;
 
+@class JPSubProductInfo;
+
 @interface JPSessionConfiguration : NSObject
 
 /**
@@ -42,6 +44,8 @@
  * A parameter describing if the session is pointing to the sandbox environment
  */
 @property (nonatomic, assign) BOOL isSandboxed;
+
+@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
 
 /**
  * Designated initializer the generates a session configuration based on the authorization type

@@ -1,8 +1,8 @@
 //
-//  Functions.h
+//  JPSubProductInfo.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,40 +23,16 @@
 //  SOFTWARE.
 
 #import "JPSubProductInfo.h"
-#import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@implementation JPSubProductInfo
 
-@interface JPQueryStringPair : NSObject
-
-@property (readwrite, nonatomic, strong, nonnull) NSString *field;
-@property (readwrite, nonatomic, strong, nullable) NSString *value;
-
-- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
-- (NSString *)URLEncodedValue;
+- (nullable instancetype)initWithSubProductType:(JPSubProductType)subProductType andVersion:(nullable NSString *)version {
+    self = [super init];
+    if (self) {
+        _subProductType = subProductType;
+        _version = version;
+    }
+    return self;
+}
 
 @end
-
-NSString *RFC3986PercentEscapedStringFromString(NSString *string);
-NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
-
-/**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
- */
-double getWidthAspectRatio(void);
-
-/**
- * A method which returns general information about the platform and operating system the app runs on
- */
-NSString *getUserAgent(JPSubProductInfo *_Nullable subProductInfo);
-
-/**
- * A method which returns the IP address of the device
- */
-NSString *getIPAddress(void);
-
-NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
-
-NSString *getSafeStringRepresentation(id object);
-
-NS_ASSUME_NONNULL_END

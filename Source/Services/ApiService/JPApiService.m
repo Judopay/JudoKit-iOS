@@ -87,6 +87,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)setUpSession {
     JPSessionConfiguration *configuration = [JPSessionConfiguration configurationWithAuthorization:self.authorization];
     configuration.isSandboxed = self.isSandboxed;
+    configuration.subProductInfo = self.subProductInfo;
 
     _session = [JPSession sessionWithConfiguration:configuration];
 }
@@ -95,6 +96,11 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)setIsSandboxed:(BOOL)isSandboxed {
     _isSandboxed = isSandboxed;
+    [self setUpSession];
+}
+
+- (void)setSubProductInfo:(JPSubProductInfo *)subProductInfo {
+    _subProductInfo = subProductInfo;
     [self setUpSession];
 }
 

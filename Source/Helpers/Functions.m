@@ -28,6 +28,10 @@
 #import "Functions.h"
 #import "JudoKit.h"
 #import "NSString+Additions.h"
+#import <sys/utsname.h>
+
+static NSString *const kUserAgentProductName = @"JudoKit-iOS";
+static NSString *const kUserAgentSubProductNameReactNative = @"JudoKit-ReactNative";
 
 @implementation JPQueryStringPair
 
@@ -93,21 +97,22 @@ NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters) {
     return [components componentsJoinedByString:@"&"];
 }
 
-double getWidthAspectRatio() {
+double getWidthAspectRatio(void) {
     return UIScreen.mainScreen.bounds.size.width / 414;
 }
 
-NSString *getUserAgent() {
+NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     UIDevice *device = UIDevice.currentDevice;
     NSBundle *mainBundle = NSBundle.mainBundle;
 
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
 
     // Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"JudoKit_iOS/%@", JudoKitVersion]];
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", kUserAgentProductName, JudoKitVersion]];
 
-    // Model
-    [userAgentParts addObject:device.model];
+    if (subProductInfo.subProductType == JPSubProductTypeReactNative) {
+        [userAgentParts addObject:[NSString stringWithFormat:@"(%@/%@)", kUserAgentSubProductNameReactNative, subProductInfo.version]];
+    }
 
     // Operating system
     [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", device.systemName, device.systemVersion]];
@@ -121,17 +126,26 @@ NSString *getUserAgent() {
         [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appNameMinusSpaces, appVersion]];
     }
 
-    NSString *platformName = [mainBundle objectForInfoDictionaryKey:@"DTPlatformName"];
-
-    if (platformName) {
-        // Platform running on (simulator or device)
-        [userAgentParts addObject:platformName];
+    // Model
+    NSString *model;
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    char machine = systemInfo.machine;
+        
+    if (machine) {
+        model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     }
+    
+    if (!model) {
+        model = device.model;
+    }
+    
+    [userAgentParts addObject:model];
 
     return [userAgentParts componentsJoinedByString:@" "];
 }
 
-NSString *getIPAddress() {
+NSString *getIPAddress(void) {
     NSString *address;
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;

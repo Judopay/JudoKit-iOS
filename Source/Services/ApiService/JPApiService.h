@@ -39,6 +39,7 @@
     JPSaveCardRequest,
     JPRegisterCardRequest,
     JPComplete3DS2Request,
+    JPSubProductInfo,
     JP3DSecureAuthenticationResult;
 
 @interface JPApiService : NSObject
@@ -52,6 +53,8 @@
  * A boolean property that defines if the Judo SDK should point to the sandbox environment
  */
 @property (nonatomic, assign) BOOL isSandboxed;
+
+@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
 
 /**
  * Designated initializer that creates an instance of JPApiSession based on the authorization type provided

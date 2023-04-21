@@ -121,7 +121,7 @@ static NSString *const kMethodPUT = @"PUT";
         headers[kHeaderFieldContentType] = kContentTypeJSON;
         headers[kHeaderFieldAccept] = kContentTypeJSON;
         headers[kHeaderFieldAPIVersion] = kAPIVersion;
-        headers[kHeaderFieldUserAgent] = getUserAgent();
+        headers[kHeaderFieldUserAgent] = getUserAgent(self.configuration.subProductInfo);
         _requestHeaders = [NSDictionary dictionaryWithDictionary:headers];
     }
     return _requestHeaders;
