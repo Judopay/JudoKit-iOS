@@ -127,14 +127,17 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     }
 
     // Model
+    NSString *model;
     struct utsname systemInfo;
     uname(&systemInfo);
     char machine = systemInfo.machine;
-    
-    NSString *model = device.model;
-    
+        
     if (machine) {
         model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    }
+    
+    if (!model) {
+        model = device.model;
     }
     
     [userAgentParts addObject:model];
