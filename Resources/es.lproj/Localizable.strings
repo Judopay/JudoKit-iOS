@@ -63,7 +63,6 @@
 "delete_card_alert_title" = "¿Borrar tarjeta?";
 "dismiss" = "Ignorar";
 "enter_card_title" = "Ingresa un título para tu tarjeta ";
-"error" = "Error";
 "error_card_title_too_long" = "El nombre no puede exceder los 28 caracteres";
 "error_invalid_card_number_desc" = "Numero de tarjeta invalido";
 "error_unsupported_card_desc" = "%@ no es compatible";

@@ -63,7 +63,6 @@
 "delete_card_alert_title" = "Delete Card?";
 "dismiss" = "Dismiss";
 "enter_card_title" = "Enter a card title...";
-"error" = "Error";
 "error_card_title_too_long" = "Card Name cannot be longer than 28 characters";
 "error_invalid_card_number_desc" = "Invalid card number";
 "error_unsupported_card_desc" = "%@ is not supported";
