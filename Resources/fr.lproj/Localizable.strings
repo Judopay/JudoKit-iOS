@@ -63,7 +63,6 @@
 "delete_card_alert_title" = "Supprimer carte ? ";
 "dismiss" = "Ignorer";
 "enter_card_title" = "Entrez un titre de carte...";
-"error" = "Erreur";
 "error_card_title_too_long" = "Le nom ne peut excéder 28 caractères ";
 "error_invalid_card_number_desc" = "Numéro de carte invalide";
 "error_unsupported_card_desc" = "%@ n'est pas prise en charge";

@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, JPTransactionType);
 /**
  * A method that is called once the Ask for CSC and/or Cardholder Name flow completes
  */
-- (void)didInputSecurityCode:(NSString *)csc andCardholderName:(NSString *)cardholderName;
+- (void)didInputSecurityCode:(nullable NSString *)csc andCardholderName:(nullable NSString *)cardholderName;
 
 /**
  * A method that is called when the user cancels the flow

@@ -47,17 +47,9 @@
     [view addGestureRecognizer:tapGesture];
 }
 
-- (void)_jp_displayAlertWithError:(NSError *)error {
-    [self _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
-}
-
 - (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    [self _jp_displayAlertWithTitle:title andMessage:error.localizedDescription];
-}
-
-- (void)_jp_displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
-                                                                        message:message
+                                                                        message:error.localizedDescription
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok"._jp_localized.uppercaseString
