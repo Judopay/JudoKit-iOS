@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableString *decodedString = [cReq mutableCopy];
         switch (decodedString.length % 4) {
             case 0:
-                break;                              // no padding
+                break; // no padding
             case 2:
                 [decodedString appendString:@"=="]; // pad with 2
                 break;
