@@ -117,7 +117,7 @@
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error showReceipt:(BOOL)showReceipt {
     if (error || !response) {
-        [self _jp_displayAlertWithError:error];
+        [self displayAlertWithError:error];
         return;
     }
 
