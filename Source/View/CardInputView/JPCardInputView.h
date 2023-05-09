@@ -25,125 +25,26 @@
 #import "JPTransactionViewModel.h"
 #import <UIKit/UIKit.h>
 
-@class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton, JPTheme, JPTransactionViewModel;
+@class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton, JPTheme, JPTransactionViewModel, JPCardInputView;
+
+typedef enum JPCardInputViewActionType: NSUInteger {
+    JPCardInputViewActionTypeUnknown,
+    JPCardInputViewActionTypeCancel,
+    JPCardInputViewActionTypeScanCard,
+    JPCardInputViewActionTypeSubmit
+} JPCardInputViewActionType;
+
+@protocol JPCardInputViewDelegate <NSObject>
+
+@required
+- (void)cardInputView:(JPCardInputView *)inputView didChangeText:(NSString *)text forInputType:(JPInputType)type andEndEditing:(BOOL)endEditing;
+- (void)cardInputView:(JPCardInputView *)inputView didPerformAction:(JPCardInputViewActionType)action;
+
+@end
 
 @interface JPCardInputView : UIView
 
-@property (nonatomic, strong) UIScrollView *_Nullable scrollView;
-/**
- * The dimmed, semi-transparent background view that fades in when the add card slider appears
- */
-@property (nonatomic, strong) UIView *_Nullable backgroundView;
-
-/**
- * The cancel button that, when pressed, dismisses the Add Card view controller
- */
-@property (nonatomic, strong) UIButton *_Nullable cancelButton;
-
-/**
- * The add address line button that, when pressed, adds a new address line
- */
-@property (nonatomic, strong) UIButton *_Nullable addAddressLineButton;
-
-/**
- * A button that, when pressed, invokes the card scanning functionality
- */
-@property (nonatomic, strong) UIButton *_Nullable scanCardButton;
-
-/**
- * The input field for adding the card number
- */
-@property (nonatomic, strong) JPCardNumberField *_Nullable cardNumberTextField;
-
-/**
- * The input field for adding the cardholder name
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderTextField;
-
-/**
- * The input field for adding the cardholder email
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderEmailTextField;
-
-/**
- * The input field for adding the cardholder phone code
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderPhoneCodeTextField;
-
-/**
- * The input field for adding the cardholder adress line 1
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine1TextField;
-
-/**
- * The input field for adding the cardholder adress line 2
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine2TextField;
-
-/**
- * The input field for adding the cardholder adress line 3
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderAddressLine3TextField;
-
-/**
- * The input field for adding the cardholder phone number
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderPhoneTextField;
-
-/**
- * The input field for adding the cardholder city name
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardHolderCityTextField;
-
-/**
- * The input field for adding the card expiration date
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable cardExpiryTextField;
-
-/**
- * The input field for adding the card secure code
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable secureCodeTextField;
-
-/**
- * The input field for selecting the country
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable countryTextField;
-
-/**
- * The picker view associated with the country input field
- */
-@property (nonatomic, strong) UIPickerView *_Nullable countryPickerView;
-
-/**
- * The input field for selecting the state
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable stateTextField;
-
-/**
- * The picker view associated with the state input field
- */
-@property (nonatomic, strong) UIPickerView *_Nullable statePickerView;
-
-/**
- * The input field for adding the postal code
- */
-@property (nonatomic, strong) JPCardInputField *_Nullable postcodeTextField;
-
-/**
- * The Add Card button that, when tapped, displays a loading spinner
- */
-@property (nonatomic, strong) JPTransactionButton *_Nullable addCardButton;
-
-/**
- * The Back button that, when tapped, displays card details view
- */
-@property (nonatomic, strong) JPTransactionButton *_Nullable backButton;
-
-/**
- * The Add Card view's bottom constraint that is used to move the view when the keyboard animates
- */
-@property (nonatomic, strong) NSLayoutConstraint *_Nullable bottomSliderConstraint;
+@property (nonatomic, strong) id<JPCardInputViewDelegate> delegate;
 
 /**
  * A method used to apply a theme to the view
@@ -159,17 +60,10 @@
  */
 - (void)configureWithViewModel:(JPTransactionViewModel *_Nullable)viewModel;
 
-/**
- * A method that specifies if the user inteface should be enabled
- *
- * @param shouldEnable - set to YES if the interface is enabled and no if otherwise
- */
 - (void)enableUserInterface:(BOOL)shouldEnable;
 
-/**
- * A method that adjusts view top space
- *
- */
-- (void)adjustTopSpace;
+- (void)notifyKeyboardWillShow:(BOOL)willShow withNotification:(NSNotification *)notification;
+
+- (void)moveFocusToInput:(JPInputType)type;
 
 @end

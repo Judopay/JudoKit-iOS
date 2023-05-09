@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JPBillingCountry.h"
 
 @interface JPCountry : NSObject
 
@@ -39,6 +40,14 @@
 + (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
+
+- (BOOL)isUSA;
+
+- (BOOL)isCanada;
+
+- (BOOL)hasStates;
+
+- (JPBillingCountry)toBillingCountry;
 
 @end
 

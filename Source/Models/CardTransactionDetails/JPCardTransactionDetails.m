@@ -75,7 +75,7 @@
     _cardToken = details.cardToken;
     _cardType = details.cardNetwork;
     _cardLastFour = details.cardLastFour;
-    _endDate = details.expiryDate;
+    _expiryDate = details.expiryDate;
     _cardholderName = details.cardholderName;
 }
 
@@ -97,7 +97,7 @@
     _cardNumber = card.cardNumber;
     _cardholderName = card.cardholderName;
     _expiryDate = card.expiryDate;
-    _secureCode = card.secureCode;
+    _securityCode = card.secureCode;
     _startDate = card.startDate;
     _issueNumber = card.issueNumber;
     _billingAddress = card.cardAddress;

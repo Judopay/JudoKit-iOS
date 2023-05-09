@@ -24,7 +24,7 @@
 
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
-#import "JPCardDetailsMode.h"
+#import "JPPresentationMode.h"
 #import "JPCardNetwork.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
@@ -40,6 +40,8 @@
 #import "JPTransactionType.h"
 #import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
+#import "JPResponse.h"
+#import "JPCardTransactionDetails.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -75,8 +77,7 @@
 
 - (void)viewModelNeedsUpdate {
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
-    [self.view configureWithViewModel:self.viewModel
-                  shouldAnimateChange:NO];
+    [self.view configureWithViewModel:self.viewModel shouldAnimateChange:NO];
     [self checkIfDeeplinkURLExist];
 }
 
@@ -93,12 +94,9 @@
     }
 }
 
-- (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType
-                          shouldAnimateChange:(BOOL)shouldAnimate {
-
+- (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType shouldAnimateChange:(BOOL)shouldAnimate {
     [self updateViewModelWithAnimationType:animationType];
-    [self.view configureWithViewModel:self.viewModel
-                  shouldAnimateChange:shouldAnimate];
+    [self.view configureWithViewModel:self.viewModel shouldAnimateChange:shouldAnimate];
 }
 
 - (void)didSelectCardAtIndex:(NSUInteger)index
@@ -127,21 +125,37 @@
 #pragma mark - Action Handlers
 
 - (void)handleAddCardButtonTap {
-    [self.router navigateToTransactionModuleWith:JPCardDetailsModeDefault
-                                     cardNetwork:self.selectedCard.cardNetwork
-                              andTransactionType:JPTransactionTypeSaveCard];
+    __weak typeof(self) weakSelf = self;
+    [self.router navigateToSaveCardModuleWithCompletion:^(JPResponse *response, NSError *error) {
+        [weakSelf handleSaveCardResponse:response andError:error];
+    }];
+}
+
+- (void)handleSaveCardResponse:(JPResponse *)response andError:(NSError *)error {
+    [self.view endEditingCardListIfNeeded];
+
+    if (response) {
+        [self.interactor updateKeychainWithCardDetails:response.cardDetails];
+        [self setLastAddedCardAsSelected];
+        [self viewModelNeedsUpdate];
+        return;
+    }
+    
+    if (error && error.code != JudoUserDidCancelError) {
+        [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
+    }
 }
 
 - (void)handleBackButtonTap {
     __weak typeof(self) weakSelf = self;
     [self.router dismissViewControllerWithCompletion:^{
-        [weakSelf.interactor completeTransactionWithResponse:nil
-                                                    andError:JPError.userDidCancelError];
+        [weakSelf.interactor completeTransactionWithResponse:nil andError:JPError.userDidCancelError];
     }];
 }
 
 - (void)handlePayButtonTap {
-
+    [self.view setIsPaymentInProgress:YES];
+    
     __weak typeof(self) weakSelf = self;
 
     if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
@@ -165,26 +179,22 @@
         return;
     }
 
-    if (self.interactor.shouldVerifySecurityCode || self.interactor.shouldAskForCardholderName) {
-        JPCardDetailsMode cardDetailsMode = self.interactor.cardDetailsMode;
-        [self.router navigateToTransactionModuleWith:cardDetailsMode cardNetwork:self.selectedCard.cardNetwork andTransactionType:JPTransactionTypePayment];
-    } else {
-        [self handlePaymentWithSecurityCode:nil andCardholderName:nil];
+    if (self.interactor.configuredTransactionMode == JPTransactionModeServerToServer) {
+        [self.interactor processServerToServerCardPayment:^(JPResponse *response, NSError *error) {
+            [weakSelf handleCallbackWithResponse:response andError:error];
+        }];
+        return;
     }
-}
-
-- (void)handlePaymentWithSecurityCode:(nullable NSString *)code
-                    andCardholderName:(nullable NSString *)cardholderName {
-    __weak typeof(self) weakSelf = self;
-    if (cardholderName != nil) {
-        self.selectedCard.cardholderName = cardholderName;
-    }
-    [self.interactor paymentTransactionWithStoredCardDetails:self.selectedCard
-                                                securityCode:code
-                                               andCompletion:^(JPResponse *response, NSError *error) {
-                                                   [weakSelf handleCallbackWithResponse:response
-                                                                               andError:error];
-                                               }];
+    
+    JPTransactionType type = self.interactor.configuredTransactionMode == JPTransactionModePayment ? JPTransactionTypePayment : JPTransactionTypePreAuth;
+    JPCardTransactionDetails *details = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
+                                                                           andStoredCardDetails:self.selectedCard];
+    
+    [self.router navigateToTokenTransactionModuleWithType:type
+                                              cardDetails:details
+                                            andCompletion:^(JPResponse *response, NSError *error) {
+        [weakSelf handleCallbackWithResponse:response andError:error];
+    }];
 }
 
 - (void)handleApplePayButtonTap {
@@ -281,8 +291,7 @@
     self.paymentSelectionModel.selectedIndex = index;
     self.paymentSelectionModel.selectedPaymentMethod = self.paymentMethods[index].type;
 
-    [self viewModelNeedsUpdateWithAnimationType:animationType
-                            shouldAnimateChange:YES];
+    [self viewModelNeedsUpdateWithAnimationType:animationType shouldAnimateChange:YES];
 }
 
 - (void)orderCards {
@@ -304,8 +313,9 @@
     }];
 }
 
-- (void)handleCallbackWithResponse:(JPResponse *)response
-                          andError:(NSError *)error {
+- (void)handleCallbackWithResponse:(JPResponse *)response andError:(NSError *)error {
+    [self.view setIsPaymentInProgress:NO];
+
     if (error) {
         [self handlePaymentError:error];
         return;

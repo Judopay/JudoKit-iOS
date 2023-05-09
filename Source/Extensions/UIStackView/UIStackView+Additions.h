@@ -37,4 +37,21 @@
  */
 + (nonnull UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing;
 
++ (nonnull UIStackView *)_jp_verticalStackViewWithSpacing:(CGFloat)spacing
+                                      andArrangedSubviews:(nonnull NSArray<UIView *> *)views;
+
++ (nonnull UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing
+                                        andArrangedSubviews:(nonnull NSArray<UIView *> *)views;
+
++ (nonnull UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing
+                                               distribution:(UIStackViewDistribution)distribution
+                                        andArrangedSubviews:(nonnull NSArray<UIView *> *)views;
+
+- (void)_jp_addArrangedSubviews:(nonnull NSArray<UIView *> *)views;
+
+- (void)_jp_removeArrangedSubviews;
+
+- (void)_jp_replaceArrangedSubview:(nonnull UIView *)oldView
+                          withView:(nonnull UIView *)newView;
+
 @end

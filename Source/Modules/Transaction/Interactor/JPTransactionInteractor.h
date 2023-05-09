@@ -28,7 +28,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class JPCard, JPConfiguration, JPCardValidationService, JPTransactionViewModel, JPValidationResult, JPError, JPResponse, JPAddress, JPCardTransactionService, JPTheme, JPCountry, JPCardTransactionDetails;
-typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
+
+typedef NS_ENUM(NSUInteger, JPPresentationMode);
 typedef NS_ENUM(NSUInteger, JPTransactionType);
 typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 
@@ -37,12 +38,7 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 /**
  * A method that returns JPCardDetailsMode
  */
-- (JPCardDetailsMode)cardDetailsMode;
-
-/**
- * A method that returns YES if the Address Verification Service is enabled
- */
-- (BOOL)isAVSEnabled;
+- (JPPresentationMode)presentationMode;
 
 /**
  * A method that returns JPTheme from UI Configuration
@@ -58,6 +54,8 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  * A method that returns the current cardNetwork type
  */
 - (JPCardNetworkType)cardNetworkType;
+
+- (nullable JPCardTransactionDetails *)getConfiguredCardTransactionDetails;
 
 /**
  * A method that handles the camera permission for the Scan Card functionality
@@ -107,33 +105,6 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 - (JPValidationResult *)validateCardNumberInput:(NSString *)input;
 
 /**
- * A method for validating the email
- *
- * @param input - the input email string
- *
- * @returns a JPValidationResult with the validation status details
- */
-- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
-
-/**
- * A method for validating the phone dial code
- *
- * @param input - the input phone dial code string
- *
- * @returns a JPValidationResult with the validation status details
- */
-- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
-
-/**
- * A method for validating the phone number
- *
- * @param input - the input phone string
- *
- * @returns a JPValidationResult with the validation status details
- */
-- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
-
-/**
  * A method for validating the cardholder name
  *
  * @param input - the input cardholder name string
@@ -170,15 +141,6 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 - (JPValidationResult *)validateCountryInput:(NSString *)input;
 
 /**
- * A method for validating the state
- *
- * @param input - the input state name string
- *
- * @returns a JPValidationResult with the validation status details
- */
-- (JPValidationResult *)validateStateInput:(NSString *)input;
-
-/**
  * A method for validating the post code number
  *
  * @param input - the input post code number string
@@ -187,21 +149,21 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-- (JPValidationResult *)validateAddressLineInput:(NSString *)input;
 
-- (JPValidationResult *)validateCity:(NSString *)input;
+- (JPValidationResult *)validateBillingEmailInput:(NSString *)input;
+- (JPValidationResult *)validateBillingCountryInput:(NSString *)input;
+- (JPValidationResult *)validateBillingStateInput:(NSString *)input;
+- (JPValidationResult *)validateBillingPhoneCodeInput:(NSString *)input;
+- (JPValidationResult *)validateBillingPhoneInput:(NSString *)input;
+- (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input;
+- (JPValidationResult *)validateBillingCity:(NSString *)input;
+- (JPValidationResult *)validateBillingPostalCodeInput:(NSString *)input;
 
 - (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details
                  completionHandler:(JPCompletionBlock)completionHandler;
 
-/**
- * A method for updating the keychain information about the card
- *
- * @param viewModel - the card's view model that stores the card details
- * @param token - the card's token returned after a `Save Card` transaction
- */
-- (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel
-                           andToken:(NSString *)token;
+- (void)sendTokenTransactionWithDetails:(JPCardTransactionDetails *)details
+                      completionHandler:(JPCompletionBlock)completionHandler;
 
 /**
  * A method for generating pay button title
@@ -228,9 +190,9 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPCardTransactionService *)transactionService
                               transactionType:(JPTransactionType)type
-                              cardDetailsMode:(JPCardDetailsMode)mode
+                             presentationMode:(JPPresentationMode)mode
                                 configuration:(JPConfiguration *)configuration
-                                  cardNetwork:(JPCardNetworkType)cardNetwork
+                           transactionDetails:(JPCardTransactionDetails *)details
                                    completion:(JPCompletionBlock)completion;
 @end
 

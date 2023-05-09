@@ -26,7 +26,6 @@
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import "JPSectionViewDelegate.h"
 #import "JPTransactionStatusView.h"
-#import "JPTransactionViewDelegate.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;
@@ -63,6 +62,9 @@
 - (void)presentApplePayWithAuthorizationBlock:(nonnull JPApplePayAuthorizationBlock)authorizationBlock
                                didFinishBlock:(nonnull JPApplePayDidFinishBlock)didFinishBlock;
 
+- (void)setIsPaymentInProgress:(BOOL)isCardPaymentInProgress;
+- (void)endEditingCardListIfNeeded;
+
 @end
 
 #pragma mark - JPPaymentMethodsViewController
@@ -91,12 +93,6 @@
  * A JPPaymentMethodsViewController extension for implementing the table view delegate methods
  */
 @interface JPPaymentMethodsViewController (TableViewDelegate) <UITableViewDelegate>
-@end
-
-/**
- * A JPPaymentMethodsViewController extension that adopts the Add Card delegate methods
- */
-@interface JPPaymentMethodsViewController (TransactionDelegate) <JPTransactionViewDelegate>
 @end
 
 /**

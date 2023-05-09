@@ -43,6 +43,7 @@
 
 - (void)configureWithViewModel:(JPTransactionInputFieldViewModel *)viewModel {
 
+    self.enabled = viewModel.isEnabled;
     self.type = viewModel.type;
     self.text = viewModel.text;
 

@@ -171,6 +171,9 @@
 "error_invalid_amount_reason" = "The amount parameter has either not been set or has an incorrect format.";
 "error_invalid_consumer_ref_desc" = "The consumer reference entered is invalid.";
 "error_invalid_consumer_ref_reason" = "The consumer reference parameter has either not been set or has an incorrect format.";
+"error_invalid_token_payment_transaction_type_desc" = "Token payments transactions only support JPTransactionTypePayment and JPTransactionTypePreAuth as the transaction type.";
+"error_invalid_token_payment_transaction_type_reason" = "Invalid transaction type passed to token payment transaction configuration.";
+
 "continue_text" = "Continue";
 "add_address_line" = "Add address line %@ (optional)";
 "billing_details_title" = "Billing Details";

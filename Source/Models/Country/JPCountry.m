@@ -105,4 +105,28 @@
     return self;
 }
 
+- (BOOL)isUSA {
+    return  [self.alpha2Code isEqualToString:kAlpha2CodeUSA];
+}
+
+- (BOOL)isCanada {
+    return [self.alpha2Code isEqualToString:kAlpha2CodeCanada];
+}
+
+- (BOOL)hasStates {
+    return self.isUSA || self.isCanada;
+}
+
+- (JPBillingCountry)toBillingCountry {
+    if ([self.alpha2Code isEqualToString:kAlpha2CodeUSA]) {
+        return JPBillingCountryUSA;
+    } else if ([self.alpha2Code isEqualToString:kAlpha2CodeUK]) {
+        return JPBillingCountryUK;
+    } else if ([self.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
+        return JPBillingCountryCanada;
+    } else {
+        return JPBillingCountryOther;
+    }
+}
+
 @end

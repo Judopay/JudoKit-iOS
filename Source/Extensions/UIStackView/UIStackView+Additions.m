@@ -35,7 +35,8 @@
     return [self stackViewWithAxis:UILayoutConstraintAxisHorizontal andSpacing:spacing];
 }
 
-+ (UIStackView *)stackViewWithAxis:(UILayoutConstraintAxis)axis andSpacing:(CGFloat)spacing {
++ (UIStackView *)stackViewWithAxis:(UILayoutConstraintAxis)axis
+                        andSpacing:(CGFloat)spacing {
     UIStackView *stackView = [UIStackView new];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = axis;
@@ -43,4 +44,52 @@
     return stackView;
 }
 
++ (UIStackView *)_jp_verticalStackViewWithSpacing:(CGFloat)spacing
+                              andArrangedSubviews:(NSArray<UIView *> *)views {
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing: spacing];
+    [stackView _jp_addArrangedSubviews:views];
+    return stackView;
+}
+
++ (UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing
+                                andArrangedSubviews:(NSArray<UIView *> *)views {
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing: spacing];
+    [stackView _jp_addArrangedSubviews:views];
+    return stackView;
+}
+
++ (UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing
+                                       distribution:(UIStackViewDistribution)distribution
+                                andArrangedSubviews:(NSArray<UIView *> *)views {
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:spacing
+                                                         andArrangedSubviews:views];
+    stackView.distribution = distribution;
+    return stackView;
+}
+
+- (void)_jp_addArrangedSubviews:(NSArray<UIView *> *)views {
+    for (int i = 0; i < views.count; i++) {
+        [self addArrangedSubview:views[i]];
+    }
+}
+
+- (void)_jp_removeArrangedSubviews {
+    for (UIView *view in self.arrangedSubviews) {
+        [self removeArrangedSubview:view];
+        [view removeFromSuperview];
+    }
+}
+
+- (void)_jp_replaceArrangedSubview:(nonnull UIView *)oldView
+                          withView:(nonnull UIView *)newView {
+    if (![self.arrangedSubviews containsObject:oldView]) {
+        return;
+    }
+    
+    NSUInteger index = [self.arrangedSubviews indexOfObject:oldView];
+    [self removeArrangedSubview:oldView];
+    [oldView removeFromSuperview];
+    
+    [self insertArrangedSubview:newView atIndex:index];
+}
 @end

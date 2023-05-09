@@ -178,7 +178,7 @@
 
     details.cardToken = self.cardTokenTextField.text;
     details.cardType = @(self.cardNetworkTextField.text.integerValue)._jp_toCardNetworkType;
-    details.secureCode = secureCode;
+    details.securityCode = secureCode;
     details.cardholderName = self.cardholderNameTextField.text;
 
     return details;

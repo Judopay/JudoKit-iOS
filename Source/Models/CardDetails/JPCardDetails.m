@@ -30,6 +30,18 @@
 
 @implementation JPCardDetails
 
+#pragma mark - Constants
+
+// The card scheme for a card number. This is the name of the card scheme as it appears on the card.
+// As it is returned by the API in the cardDetails object, it is not localized.
+static NSString *const kCardSchemeVisa = @"Visa";
+static NSString *const kCardSchemeMastercard = @"Mastercard";
+static NSString *const kCardSchemeMaestro = @"Maestro";
+static NSString *const kCardSchemeAMEX = @"AMEX";
+static NSString *const kCardSchemeChinaUnionPay = @"China Union Pay";
+static NSString *const kCardSchemeJCB = @"JCB";
+static NSString *const kCardSchemeDiscover = @"Discover";
+
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         self.cardLastFour = dictionary[@"cardLastfour"];
@@ -44,14 +56,57 @@
         self.cardHolderName = dictionary[@"cardHolderName"];
 
         self.rawCardNetwork = dictionary[@"cardType"];
-
-        if (self.rawCardNetwork) {
-            self.cardNetwork = self.rawCardNetwork._jp_toCardNetworkType;
-        } else {
-            self.cardNetwork = JPCardNetworkTypeUnknown;
+        
+        self.cardNetwork = JPCardNetworkTypeUnknown;
+        
+        if (self.rawCardNetwork || self.cardScheme) {
+            self.cardNetwork = self.cardNetworkTypeDerivedFromCardType;
+            
+            // As a fallback, if the card scheme is provided, use it to determine the card network.
+            if (self.cardNetwork == JPCardNetworkTypeUnknown) {
+                self.cardNetwork = self.cardNetworkTypeDerivedFromCardScheme;
+            }
         }
     }
     return self;
+}
+
+- (JPCardNetworkType)cardNetworkTypeDerivedFromCardType {
+    return self.rawCardNetwork._jp_toCardNetworkType;
+}
+
+- (JPCardNetworkType)cardNetworkTypeDerivedFromCardScheme {
+    NSString *scheme = self.cardScheme;
+    
+    if ([scheme isEqualToString:kCardSchemeVisa]) {
+        return JPCardNetworkTypeVisa;
+    }
+    
+    if ([scheme isEqualToString:kCardSchemeMastercard]) {
+        return JPCardNetworkTypeMasterCard;
+    }
+
+    if ([scheme isEqualToString:kCardSchemeMaestro]) {
+        return JPCardNetworkTypeMaestro;
+    }
+
+    if ([scheme isEqualToString:kCardSchemeAMEX]) {
+        return JPCardNetworkTypeAMEX;
+    }
+
+    if ([scheme isEqualToString:kCardSchemeChinaUnionPay]) {
+        return JPCardNetworkTypeChinaUnionPay;
+    }
+
+    if ([scheme isEqualToString:kCardSchemeJCB]) {
+        return JPCardNetworkTypeJCB;
+    }
+
+    if ([scheme isEqualToString:kCardSchemeDiscover]) {
+        return JPCardNetworkTypeDiscover;
+    }
+
+    return JPCardNetworkTypeUnknown;
 }
 
 - (instancetype)initWithCardNumber:(NSString *)cardNumber

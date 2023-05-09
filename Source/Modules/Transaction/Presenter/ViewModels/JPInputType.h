@@ -31,20 +31,25 @@
  * An enum that defines the input field types present in the Add Card and Billing Details views
  */
 typedef NS_ENUM(NSUInteger, JPInputType) {
+    // Card info section
     JPInputTypeCardNumber,
     JPInputTypeCardholderName,
     JPInputTypeCardExpiryDate,
     JPInputTypeCardSecureCode,
-    JPInputTypeCardholderEmail,
-    JPInputTypeCardCountry,
-    JPInputTypeCardholderState,
-    JPInputTypeCardholderPhoneCode,
-    JPInputTypeCardholderPhone,
-    JPInputTypeCardholderAddressLine1,
-    JPInputTypeCardholderAddressLine2,
-    JPInputTypeCardholderAddressLine3,
-    JPInputTypeCardholderCity,
-    JPInputTypeCardPostalCode,
+    JPInputTypeCardAVSCountry,
+    JPInputTypeCardAVSPostalCode,
+    
+    // Billing info section
+    JPInputTypeBillingEmail,
+    JPInputTypeBillingCountry,
+    JPInputTypeBillingState,
+    JPInputTypeBillingPhoneCode,
+    JPInputTypeBillingPhone,
+    JPInputTypeBillingAddressLine1,
+    JPInputTypeBillingAddressLine2,
+    JPInputTypeBillingAddressLine3,
+    JPInputTypeBillingCity,
+    JPInputTypeBillingPostalCode
 };
 
 #endif /* JPInputType_h */

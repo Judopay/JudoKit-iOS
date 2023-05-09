@@ -32,6 +32,12 @@ NSString *const JudoErrorDomain = @"com.judo.error";
 
 @implementation JPError (Additions)
 
++ (JPError *)invalidTokenPaymentTransactionType {
+    return [self errorWithDescription:@"error_invalid_token_payment_transaction_type_desc"._jp_localized
+                        failureReason:@"error_invalid_token_payment_transaction_type_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
 + (JPError *)invalidIDEALCurrencyError {
     return [self errorWithDescription:@"error_invalid_ideal_currency_desc"._jp_localized
                         failureReason:@"error_invalid_ideal_currency_reason"._jp_localized

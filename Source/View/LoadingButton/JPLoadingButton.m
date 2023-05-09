@@ -90,4 +90,27 @@
     return _activityIndicator;
 }
 
+// In case the button has a border decoration set via self.layer.borderColor and self.layer.borderWidth
+// make sure it animates when highlighted
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    
+    if (!self.layer.borderColor || self.layer.borderWidth <= 0) {
+        return;
+    }
+    
+    UIColor *fromColor = [UIColor colorWithCGColor:self.layer.borderColor];
+    UIColor *toColor = [fromColor colorWithAlphaComponent:highlighted ? 0.3 : 1.0];
+
+    self.layer.borderColor = toColor.CGColor;
+
+    if (!highlighted) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"borderColor"];
+        animation.fromValue = fromColor;
+        animation.toValue = toColor;
+        animation.duration = 0.2;
+        [self.layer addAnimation:animation forKey:nil];
+    }
+}
+
 @end

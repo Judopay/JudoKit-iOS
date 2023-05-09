@@ -34,10 +34,16 @@
 @property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) JPFloatingTextField *floatingTextField;
 @property (nonatomic, strong) UIStackView *stackView;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) BOOL isSettingText;
 @end
 
 @implementation JPInputField
+
+#pragma mark - Constants
+
+static const float kHorizontalEdgeInsets = 10.0F;
+static const float kVerticalEdgeInsets = 14.0F;
 
 #pragma mark - Initializers
 
@@ -108,25 +114,7 @@
 }
 
 - (void)setType:(JPInputType)type {
-    if (type == JPInputTypeCardholderPhoneCode && !_floatingTextField.leftView) {
-        _floatingTextField.leftView = [self sideViewWithText:@"+("];
-        _floatingTextField.rightView = [self sideViewWithText:@")"];
-        _floatingTextField.leftViewMode = UITextFieldViewModeAlways;
-        _floatingTextField.rightViewMode = UITextFieldViewModeAlways;
-    }
     _type = type;
-}
-
-- (UILabel *)sideViewWithText:(NSString *)text {
-    UILabel *label = [UILabel new];
-    label.text = text;
-    label.textColor = _theme.jpBlackColor;
-    label.font = _theme.headlineLight;
-    if (@available(iOS 13.0, *)) {
-        label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-    }
-    [label sizeToFit];
-    return label;
 }
 
 - (void)setInputView:(UIView *)inputView {
@@ -136,7 +124,16 @@
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
-    self.floatingTextField.enabled = enabled;
+    
+    if (self.floatingTextField.enabled == enabled) {
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.1 animations:^{
+        weakSelf.floatingTextField.enabled = enabled;
+        weakSelf.alpha = (enabled) ? 1.0 : 0.5;
+    }];
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
@@ -152,6 +149,10 @@
 - (void)setReturnType:(UIReturnKeyType)returnType {
     _returnType = returnType;
     self.floatingTextField.returnKeyType = returnType;
+}
+
+- (void)setBackgroundMaskedCorners:(CACornerMask)backgroundMaskedCorners {
+    self.layer.maskedCorners = backgroundMaskedCorners;
 }
 
 #pragma mark - User Actions
@@ -184,12 +185,21 @@
     self.isAccessibilityElement = NO;
 
     [self addSubview:self.stackView];
-    [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor constant:14.0].active = YES;
-    [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-14.0].active = YES;
-    [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10.0].active = YES;
-    [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-10.0].active = YES;
-
     [self.stackView addArrangedSubview:self.floatingTextField];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor constant:kVerticalEdgeInsets],
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-kVerticalEdgeInsets],
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:kHorizontalEdgeInsets],
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-kHorizontalEdgeInsets]
+    ]];
+
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];
+    [self addGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)dealloc {
+    [self removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
 - (JPFloatingTextField *)floatingTextField {

@@ -97,7 +97,7 @@
     request.cardToken = self.cardToken;
     request.cardType = @(self.cardType);
     request.isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-    request.cv2 = self.secureCode;
+    request.cv2 = self.securityCode;
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
@@ -115,7 +115,7 @@
                         andTransaction:(JP3DSTransaction *)transaction {
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
-    request.cv2 = self.secureCode;
+    request.cv2 = self.securityCode;
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;

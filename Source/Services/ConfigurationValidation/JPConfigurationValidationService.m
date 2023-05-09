@@ -46,6 +46,15 @@
     return error;
 }
 
+- (JPError *)validateTokenPaymentConfiguration:(JPConfiguration *)configuration
+                            forTransactionType:(JPTransactionType)transactionType {
+    
+    JPError *error = [self validateConfiguration:configuration forTransactionType:transactionType];
+    [self checkTokenPaymentTransactionType:transactionType error:&error];
+    
+    return error;
+}
+
 - (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration {
 
     JPError *error;
@@ -71,6 +80,12 @@
 }
 
 #pragma mark - Validation methods
+
+- (void)checkTokenPaymentTransactionType:(JPTransactionType)type error:(NSError **)error {
+    if (type != JPTransactionTypePayment && type != JPTransactionTypePreAuth) {
+        *error = JPError.invalidTokenPaymentTransactionType;
+    }
+}
 
 - (void)checkApplePaymentItemsLength:(JPConfiguration *)configuration error:(NSError **)error {
     if ([configuration.applePayConfiguration.paymentSummaryItems count] == 0) {

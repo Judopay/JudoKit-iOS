@@ -45,6 +45,9 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
                 forTransactionType:(JPTransactionType)transactionType;
 
+- (JPError *)validateTokenPaymentConfiguration:(JPConfiguration *)configuration
+                            forTransactionType:(JPTransactionType)transactionType;
+
 /**
  * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails
  *

@@ -27,13 +27,17 @@
 #import <Foundation/Foundation.h>
 
 @class JPPaymentMethodsViewController;
-@class JPApiService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank;
+@class JPApiService, JPConfiguration, JPSliderTransitioningDelegate, JPIDEALBank, JPCardTransactionDetails;
 
 @protocol JPPaymentMethodsRouter
 /**
  * A method that opens up the Add Card view for entering new card details
  */
-- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode cardNetwork:(JPCardNetworkType)cardNetwork andTransactionType:(JPTransactionType)transactionType;
+- (void)navigateToSaveCardModuleWithCompletion:(nonnull JPCompletionBlock)completion;
+
+- (void)navigateToTokenTransactionModuleWithType:(JPTransactionType)type
+                                     cardDetails:(nonnull JPCardTransactionDetails *)details
+                                   andCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that displays the iDEAL bank web page in order to complete the transaction

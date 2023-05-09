@@ -24,7 +24,6 @@
 
 #import "JPInputFieldDelegate.h"
 #import "JPInputType.h"
-#import "JPTransactionViewDelegate.h"
 #import "JPTransactionViewModel.h"
 #import <UIKit/UIKit.h>
 
@@ -38,8 +37,7 @@
 /**
  * A method that updates the view based on the provided view model
  */
-- (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel
-            shouldUpdateTargets:(BOOL)shouldUpdateTargets;
+- (void)updateViewWithViewModel:(nonnull JPTransactionViewModel *)viewModel;
 
 /**
  * A method that sets the view theme
@@ -50,11 +48,6 @@
  * A method that updates the view with an error
  */
 - (void)updateViewWithError:(nonnull NSError *)error;
-
-/**
- * A method that signals that the Add Card flow is completed and the view should dismiss
- */
-- (void)didFinishAddingCard;
 
 /**
  * A method that triggers an UIAlertViewController with the option of navigating to Settings
@@ -71,7 +64,7 @@
  */
 - (void)displayCameraSimulatorAlert;
 
-- (void)changeFocusToInputType:(JPInputType)type;
+- (void)moveFocusToInput:(JPInputType)type;
 
 @end
 
@@ -80,25 +73,8 @@
 @interface JPTransactionViewController : UIViewController <JPTransactionView>
 
 /**
- * An object conforming to the JPTransactionViewDelegate protocol
- */
-@property (nonatomic, strong) id<JPTransactionViewDelegate> _Nullable delegate;
-
-/**
  * A strong reference to a presenter object that adopts the JPTransactionPresenter protocol
  */
 @property (nonatomic, strong) id<JPTransactionPresenter> _Nonnull presenter;
 
-@end
-
-/**
- * An extension that conforms to the UIPickerViewDelegate and UIPickerViewDataSource used for the country and state pickers
- */
-@interface JPTransactionViewController (CountryStatePickerDelegate) <UIPickerViewDelegate, UIPickerViewDataSource>
-@end
-
-/**
- * An extension that conforms to the InputFieldDelegate used for handling the credit card input
- */
-@interface JPTransactionViewController (InputFieldDelegate) <JPInputFieldDelegate>
 @end
