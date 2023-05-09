@@ -316,11 +316,14 @@
 - (void)handleCallbackWithResponse:(JPResponse *)response andError:(NSError *)error {
     [self.view setIsPaymentInProgress:NO];
 
-    if (error) {
-        [self handlePaymentError:error];
+    if (response) {
+        [self handlePaymentResponse:response];
         return;
     }
-    [self handlePaymentResponse:response];
+    
+    if (error && error.code != JudoUserDidCancelError) {
+        [self handlePaymentError:error];
+    }
 }
 
 - (void)setLastAddedCardAsSelected {

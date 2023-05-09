@@ -48,13 +48,6 @@
                     withSelector:(nonnull SEL)selector;
 
 /**
- * Convenience method for displaying alert controllers based on a specified error
- *
- * @param error - an NSError instance describing the current error
- */
-- (void)_jp_displayAlertWithError:(nonnull NSError *)error;
-
-/**
  * Method that triggers haptic feedback based on a specified feedback type
  */
 - (void)_jp_triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type;
@@ -67,9 +60,6 @@
  */
 - (void)_jp_displayAlertWithTitle:(nullable NSString *)title
                          andError:(nonnull NSError *)error;
-
-- (void)_jp_displayAlertWithTitle:(nullable NSString *)title
-                       andMessage:(nonnull NSString *)message;
 
 /**
  * A convenience method for quickly registering keyboard observers

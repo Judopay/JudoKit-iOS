@@ -65,6 +65,7 @@
 #import "JPSession.h"
 #import "JPState.h"
 #import "JPStoredCardDetails.h"
+#import "JPSubProductInfo.h"
 #import "JPThemable.h"
 #import "JPTheme.h"
 #import "JPThreeDSecure.h"
