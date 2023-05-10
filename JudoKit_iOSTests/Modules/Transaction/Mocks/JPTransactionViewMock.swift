@@ -30,15 +30,14 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
     var showedCameraAlert = false
     var viewModelSut: JPTransactionViewModel!
 
-    func load(with mode: JPCardDetailsMode) {}
-
-    func updateView(with viewModel: JPTransactionViewModel, shouldUpdateTargets: Bool) {
+    func updateView(with viewModel: JPTransactionViewModel) {
         viewModelSut = viewModel
     }
 
     func applyConfiguredTheme(_ theme: JPTheme) {}
 
     var error: Error!
+    
     func updateWithError(_ error: Error) {
         self.error = error
     }
@@ -53,5 +52,7 @@ class JPTransactionViewMock: UIViewController, JPTransactionView {
         showedCameraAlert = true
     }
 
-    func changeFocus(to type: JPInputType) {}
+    func moveFocus(to type: JPInputType) {
+        
+    }
 }

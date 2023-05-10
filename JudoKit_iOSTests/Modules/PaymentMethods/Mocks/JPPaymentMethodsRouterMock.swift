@@ -25,25 +25,29 @@
 import Foundation
 
 class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
-    var caledCardCustomization = false
+
     var dismissController = false
-    var navigatedToIdealPay = false
-    var navigateToTransactionModule = false
-    var navigateToTransactionModuleModeParam: JPCardDetailsMode?
-    
-    func navigateToTransactionModule(with mode: JPCardDetailsMode, cardNetwork: JPCardNetworkType, andTransactionType: JPTransactionType) {
-        navigateToTransactionModule = true
-        navigateToTransactionModuleModeParam = mode
+    var navigatedToIDealModule = false
+    var navigateToSaveCardModule = false
+    var navigateToTokenTransactionModule = false
+    var navigateToCardCustomizationModule = false
+
+    func navigateToSaveCardModule(completion: @escaping JPCompletionBlock) {
+        navigateToSaveCardModule = true
     }
     
-    func navigateToCardCustomization(with index: UInt) {
-        caledCardCustomization = true
+    func navigateToTokenTransactionModule(with type: JPTransactionType, cardDetails details: JPCardTransactionDetails, andCompletion completion: @escaping JPCompletionBlock) {
+        navigateToTokenTransactionModule = true
     }
     
     func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {
-        navigatedToIdealPay = true
+        navigatedToIDealModule = true
         let response = JPResponse()
         completion(response, nil)
+    }
+
+    func navigateToCardCustomization(with index: UInt) {
+        navigateToCardCustomizationModule = true
     }
     
     func dismissViewController(completion: (() -> Void)? = nil) {

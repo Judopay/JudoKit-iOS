@@ -1,5 +1,5 @@
 //
-//  JPCardDetailsMode.h
+//  JPPresentationMode.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2022 Alternative Payments Ltd

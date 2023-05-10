@@ -466,7 +466,12 @@ static int const kCardHolderNameLength = 4;
 
 - (JPBillingCountry)billingCountryWithName:(NSString *)name {
     JPCountry *country = [JPCountry forCountryName:name];
-    return country.toBillingCountry;
+    
+    if (country) {
+        return country.toBillingCountry;
+    }
+    
+    return JPBillingCountryOther;
 }
 
 - (NSString *)postCodeErrorForCountry:(JPBillingCountry)country {

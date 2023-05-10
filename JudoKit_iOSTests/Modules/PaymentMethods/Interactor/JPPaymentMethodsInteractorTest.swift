@@ -70,7 +70,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNil(error)
         }
-        sut.paymentTransaction(with: JPStoredCardDetails(), securityCode: nil, andCompletion: completion)
+        sut.processServer(toServerCardPayment: completion)
     }
 
     /*
@@ -299,35 +299,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
 
     /*
-     * GIVEN: object of JPPaymentMethodsInteractor
-     *
-     * WHEN: get bool for should Verify Security Code
-     *
-     * THEN: should return true
-     */
-    func test_shouldVerifySecurityCode() {
-        let shouldVerify = sut.shouldVerifySecurityCode()
-        XCTAssertTrue(shouldVerify)
-    }
-
-    /*
-     * GIVEN: User is calling payment type with payment mode
-     *
-     * THEN: should call and return not nil response
-     */
-    func test_paymentTransaction_WhenPayment_ShouldCall() {
-        let service = JPApiService()
-        let sut = JPPaymentMethodsInteractorImpl(mode: .payment,
-                                                 configuration: configuration,
-                                                 apiService: service,
-                                                 completion: nil)
-        sut.paymentTransaction(
-            with: JPStoredCardDetails(lastFour: "", expiryDate: "", cardNetwork: .masterCard, cardToken: "token", cardholderName: "bob"),
-            securityCode: "secure",
-            andCompletion: nil)
-    }
-
-    /*
      * GIVEN: User add error
      *
      * THEN: should save error in local
@@ -360,4 +331,151 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
 
         sut.completeTransaction(with: response, andError: error)
     }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: valid card model
+     *
+     * THEN: should save card model to JPCardStorage
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCard_ShouldSaveLocal() {
+        let details = JPCardDetails()
+        details.cardLastFour = "1111"
+        details.endDate = "expiry"
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.expiryDate, "expiry")
+        XCTAssertEqual(card.cardLastFour, "1111")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: visa card model
+     *
+     * THEN: should save card model to JPCardStorage with visa card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardVisa_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .visa
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My VISA Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: AMEX card model
+     *
+     * THEN: should save card model to JPCardStorage with AMEX card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardAMEX_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .AMEX
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My American Express Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: Maestro card model
+     *
+     * THEN: should save card model to JPCardStorage with Maestro: card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardMaestro_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .maestro
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My Maestro Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: masterCard card model
+     *
+     * THEN: should save card model to JPCardStorage with masterCard card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardMasterCard_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .masterCard
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My MasterCard Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: chinaUnionPay card model
+     *
+     * THEN: should save card model to JPCardStorage with chinaUnionPay card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardChinaUnionPay_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .chinaUnionPay
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My China Union Pay Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: JCB card model
+     *
+     * THEN: should save card model to JPCardStorage with JCB card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardJCB_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .JCB
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My JCB Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: discover card model
+     *
+     * THEN: should save card model to JPCardStorage with discover card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardDiscover_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .discover
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My Discover Card")
+    }
+    
+    /*
+     * GIVEN: update Keychain With CardModel
+     *
+     * WHEN: dinersClub card model
+     *
+     * THEN: should save card model to JPCardStorage with dinersClub card title
+     */
+    func test_updateKeychainWithCardModel_WhenAddedCardDinersClub_ShouldSaveLocalRightTitle() {
+        let details = JPCardDetails()
+        details.cardNetwork = .dinersClub
+        
+        sut.updateKeychain(with: details)
+        let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
+        XCTAssertEqual(card.cardTitle, "My Dinners Club Card")
+    }
+    
 }

@@ -36,7 +36,7 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 @protocol JPTransactionInteractor
 
 /**
- * A method that returns JPCardDetailsMode
+ * A method that returns JPPresentationMode
  */
 - (JPPresentationMode)presentationMode;
 
@@ -191,7 +191,7 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
                               transactionType:(JPTransactionType)type
                              presentationMode:(JPPresentationMode)mode
                                 configuration:(JPConfiguration *)configuration
-                           transactionDetails:(JPCardTransactionDetails *)details
+                           transactionDetails:(nullable JPCardTransactionDetails *)details
                                    completion:(JPCompletionBlock)completion;
 @end
 

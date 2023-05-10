@@ -161,7 +161,7 @@ class JPCardValidationServiceTest: XCTestCase {
      * THEN: should return invalid error
      */
     func test_ValidatePostalCodeInput_WhenInvalidCodeForUK_ShouldReturnInvalidResult() {
-        _ = sut.validateCountryInput("UK")
+        _ = sut.validateCountryInput("United Kingdom")
         let result = sut.validatePostalCodeInput("12345")
         XCTAssertTrue(result!.isInputAllowed)
         XCTAssertFalse(result!.isValid)
@@ -288,20 +288,6 @@ class JPCardValidationServiceTest: XCTestCase {
         _ = sut.validateCountryInput("Canada")
         let result = sut.validatePostalCodeInput("A1b 1c1")
         XCTAssertTrue(result!.isValid)
-    }
-
-    /*
-     * GIVEN: validate postal code
-     *
-     * WHEN: inserted invalid post code for Unknown
-     *
-     * THEN: should return Input Not Allowed and result not valid
-     */
-    func test_ValidatePostalCodeInput_WhenInValidCodeForUnknown_ShouldReturnInputNotAllowed() {
-        _ = sut.validateCountryInput("Unknown")
-        let result = sut.validatePostalCodeInput("123457890")
-        XCTAssertFalse(result!.isInputAllowed)
-        XCTAssertFalse(result!.isValid)
     }
     
     /*

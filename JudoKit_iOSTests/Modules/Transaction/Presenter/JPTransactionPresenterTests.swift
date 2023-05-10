@@ -47,15 +47,15 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should fill all parameters in view model
      */
     func test_PrepareInitialViewModel_whenPreparingModelForUI() {
-        sut.prepareInitialViewModel()
-        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.placeholder, "Card Number")
-        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.placeholder, "Cardholder Name")
-        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.placeholder, "MM/YY")
-        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.placeholder, "CVV2")
-        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.placeholder, "Country")
-        XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.placeholder, "Postcode")
+        sut.onViewDidLoad()
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.cardNumberViewModel.placeholder, "Card Number")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.cardholderNameViewModel.placeholder, "Cardholder Name")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.expiryDateViewModel.placeholder, "MM/YY")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.securityCodeViewModel.placeholder, "CVV2")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.countryViewModel.placeholder, "Country")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.postalCodeViewModel.placeholder, "Postcode")
         
-        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertFalse(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
     
     /*
@@ -67,7 +67,7 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenTypeIsCard_ShouldUpdateViewModelWithCardNumber() {
         sut.handleInputChange("4444", for: .cardNumber, showError: true)
-        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.text, "4444")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.cardNumberViewModel.text, "4444")
     }
     
     /*
@@ -79,7 +79,7 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenTypeIsCardExpiryDate_ShouldUpdateViewModelWithCardNumber() {
         sut.handleInputChange("10/20", for: .cardExpiryDate, showError: true)
-        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.text, "10/20")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.expiryDateViewModel.text, "10/20")
     }
     
     /*
@@ -91,7 +91,7 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenTypeIsSecure_ShouldUpdateViewModelWithCardNumber() {
         sut.handleInputChange("123", for: .cardSecureCode, showError: true)
-        XCTAssertEqual(controller.viewModelSut.secureCodeViewModel.text, "123")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.securityCodeViewModel.text, "123")
     }
     
     /*
@@ -103,7 +103,7 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenTypeIsCardholderName_ShouldUpdateViewModelWithCardNumber() {
         sut.handleInputChange("name", for: .cardholderName, showError: true)
-        XCTAssertEqual(controller.viewModelSut.cardholderNameViewModel.text, "name")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.cardholderNameViewModel.text, "name")
     }
     
     /*
@@ -114,8 +114,8 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should fill country Picker ViewModel
      */
     func test_handleInputChange_WhenTypeIsCardCountry_ShouldUpdateViewModelWithCardNumber() {
-        sut.handleInputChange("United Kingdom", for: .cardCountry, showError: true)
-        XCTAssertEqual(controller.viewModelSut.countryPickerViewModel.text, "United Kingdom")
+        sut.handleInputChange("United Kingdom", for: .cardAVSCountry, showError: true)
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.countryViewModel.text, "United Kingdom")
     }
     
     /*
@@ -126,8 +126,8 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: should fill postal Code Input ViewModel
      */
     func test_handleInputChange_WhenTypeIsCardPostalCode_ShouldUpdateViewModelWithCardNumber() {
-        sut.handleInputChange("1001", for: .cardPostalCode, showError: true)
-        XCTAssertEqual(controller.viewModelSut.postalCodeInputViewModel.text, "1001")
+        sut.handleInputChange("1001", for: .cardAVSPostalCode, showError: true)
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.postalCodeViewModel.text, "1001")
     }
     
     /*
@@ -159,8 +159,8 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_updateViewModelWithScanCardResult_WhenRecieveFields_ShouldBeSameInViewModel() {
         sut.updateViewModel(withCardNumber: "4445", andExpiryDate: "10/20")
-        XCTAssertEqual(controller.viewModelSut.cardNumberViewModel.text, "4445")
-        XCTAssertEqual(controller.viewModelSut.expiryDateViewModel.text, "10/20")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.cardNumberViewModel.text, "4445")
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.expiryDateViewModel.text, "10/20")
     }
     
     /*
@@ -172,9 +172,8 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_HandleTransactionButtonTap_WhenUserTapAndError_ShouldCallInteractor() {
         interactor.testSendTransaction = .error
-        sut.handleTransactionButtonTap()
+        sut.handleSubmitButtonTap()
         XCTAssertTrue(interactor.trasactionSent)
-        XCTAssertEqual(controller.error.localizedDescription, "The operation couldn’t be completed. (Domain test error 123.)")
     }
     
     /*
@@ -187,7 +186,7 @@ class JPTransactionPresenterTests: XCTestCase {
     func test_HandleTransactionButtonTap_WhenUserTapAnValid_ShouldCallInteractor() {
         interactor.type = .payment
         interactor.testSendTransaction = .validData
-        sut.handleTransactionButtonTap()
+        sut.handleSubmitButtonTap()
         XCTAssertTrue(interactor.trasactionSent)
         XCTAssertTrue(router.dimissController)
     }
@@ -201,7 +200,7 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_HandleTransactionButtonTap_WhenUserTapAnThreeDSError_ShouldCallInteractor() {
         interactor.testSendTransaction = .threedDSError
-        sut.handleTransactionButtonTap()
+        sut.handleSubmitButtonTap()
         XCTAssertTrue(interactor.trasactionSent)
     }
     
@@ -214,8 +213,8 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_PrepareInitialViewModel_WhenPreparingModel_ShouldSetRightButtonTitle() {
         interactor.type = .saveCard
-        sut.prepareInitialViewModel()
-        XCTAssertEqual(controller.viewModelSut.addCardButtonViewModel.title, "SAVE CARD")
+        sut.onViewDidLoad()
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.title, "SAVE CARD")
     }
     
     /*
@@ -227,8 +226,8 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_PrepareInitialViewModel_WhenPreparingModelForPreAuth_ShouldSetRightButtonTitle() {
         interactor.type = .preAuth
-        sut.prepareInitialViewModel()
-        XCTAssertEqual(controller.viewModelSut.addCardButtonViewModel.title, "PAY")
+        sut.onViewDidLoad()
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.title, "PAY")
     }
     
     /*
@@ -240,8 +239,8 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_PrepareInitialViewModel_WhenPreparingModelForCheckCard_ShouldSetRightButtonTitle() {
         interactor.type = .checkCard
-        sut.prepareInitialViewModel()
-        XCTAssertEqual(controller.viewModelSut.addCardButtonViewModel.title, "CHECK CARD")
+        sut.onViewDidLoad()
+        XCTAssertEqual(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.title, "CHECK CARD")
     }
     
     /*
@@ -254,7 +253,7 @@ class JPTransactionPresenterTests: XCTestCase {
     func test_handleInputChange_WhenTypeSecurityCode_ShouldNotEnableAddCard() {
         interactor.mode = .securityCode
         sut.handleInputChange("4444", for: .cardNumber, showError: true)
-        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertFalse(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
     
     /*
@@ -265,9 +264,9 @@ class JPTransactionPresenterTests: XCTestCase {
      * THEN: isEnabled should return false
      */
     func test_handleInputChange_WhenAVSMode_ShouldNotEnableAddCard() {
-        interactor.mode = .AVS
+        interactor.mode = .cardInfoAndAVS
         sut.handleInputChange("4444", for: .cardNumber, showError: true)
-        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertFalse(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
 
     /*
@@ -279,10 +278,10 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenCSCAndCardholderNameMode_ShouldEnableAddCard() {
         interactor.mode = .securityCodeAndCardholderName
-        sut.prepareInitialViewModel()
+        sut.onViewDidLoad()
         sut.handleInputChange("444", for: .cardSecureCode, showError: true)
         sut.handleInputChange("Bobby", for: .cardholderName, showError: true)
-        XCTAssertTrue(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertTrue(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
 
     /*
@@ -294,10 +293,10 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenCSCAndCardholderNameMode_ShouldNotEnableAddCard() {
         interactor.mode = .securityCodeAndCardholderName
-        sut.prepareInitialViewModel()
+        sut.onViewDidLoad()
         sut.handleInputChange("", for: .cardSecureCode, showError: true)
         sut.handleInputChange("", for: .cardholderName, showError: true)
-        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertFalse(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
 
     /*
@@ -309,9 +308,9 @@ class JPTransactionPresenterTests: XCTestCase {
      */
     func test_handleInputChange_WhenCSCAndCardholderNameModeInvalidCSC_ShouldNotEnableAddCard() {
         interactor.mode = .securityCodeAndCardholderName
-        sut.prepareInitialViewModel()
+        sut.onViewDidLoad()
         sut.handleInputChange("4444", for: .cardSecureCode, showError: true)
         sut.handleInputChange("Bob", for: .cardholderName, showError: true)
-        XCTAssertFalse(controller.viewModelSut.addCardButtonViewModel.isEnabled)
+        XCTAssertFalse(controller.viewModelSut.cardDetailsViewModel.submitButtonViewModel.isEnabled)
     }
 }
