@@ -25,11 +25,11 @@
 #import "JPPaymentMethodsEmptyCardListCell.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
+#import "JPTransactionButton.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "JPTransactionButton.h"
 
 @interface JPPaymentMethodsEmptyCardListCell ()
 @property (nonatomic, strong) UIStackView *stackView;
@@ -118,7 +118,7 @@ static const int kConstraintPriority = 999;
     ];
 
     [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:kConstraintPriority];
-    
+
     [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }

@@ -29,7 +29,7 @@
 
 - (void)configureWithViewModel:(JPTransactionScanCardButtonViewModel *)viewModel {
     [super configureWithViewModel:viewModel];
-    
+
     [self setImage:viewModel.iconLeft forState:UIControlStateNormal];
     self.hidden = viewModel.isHidden;
 }

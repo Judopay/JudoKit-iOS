@@ -245,7 +245,6 @@
 		30D363A324B5BB1E0029BC86 /* JPSessionAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D3639E24B5BB1E0029BC86 /* JPSessionAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D363A724B5BB430029BC86 /* NSObject+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D363A524B5BB420029BC86 /* NSObject+Additions.m */; };
 		30D363A824B5BB430029BC86 /* NSObject+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D363A624B5BB420029BC86 /* NSObject+Additions.h */; };
-		30D363AD24B5BD3F0029BC86 /* JPCardDetailsMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D363AC24B5BD3F0029BC86 /* JPCardDetailsMode.h */; };
 		30D363F524B5F89A0029BC86 /* NSNumberFormatter+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D363F324B5F89A0029BC86 /* NSNumberFormatter+Additions.m */; };
 		30D363F624B5F89A0029BC86 /* NSNumberFormatter+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D363F424B5F89A0029BC86 /* NSNumberFormatter+Additions.h */; };
 		30D3640024B5FAC00029BC86 /* JPApiServicePBBAStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D363FF24B5FAC00029BC86 /* JPApiServicePBBAStub.swift */; };
@@ -303,6 +302,7 @@
 		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4431198C24B3345200BF961C /* JPRequest+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4431198A24B3345200BF961C /* JPRequest+Additions.m */; };
 		4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4431198B24B3345200BF961C /* JPRequest+Additions.h */; };
+		4457AF512A0B8F4A00270C92 /* JPPresentationMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4457AF502A0B8F4A00270C92 /* JPPresentationMode.h */; };
 		446002C3293036D7005FBCBD /* JPPreAuthTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BD293036D7005FBCBD /* JPPreAuthTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446002C4293036D7005FBCBD /* JPPreAuthRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BE293036D7005FBCBD /* JPPreAuthRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446002C5293036D7005FBCBD /* JPPreAuthApplePayRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -711,7 +711,6 @@
 		30D3639E24B5BB1E0029BC86 /* JPSessionAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPSessionAuthorization.h; sourceTree = "<group>"; };
 		30D363A524B5BB420029BC86 /* NSObject+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Additions.m"; sourceTree = "<group>"; };
 		30D363A624B5BB420029BC86 /* NSObject+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Additions.h"; sourceTree = "<group>"; };
-		30D363AC24B5BD3F0029BC86 /* JPCardDetailsMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardDetailsMode.h; sourceTree = "<group>"; };
 		30D363F324B5F89A0029BC86 /* NSNumberFormatter+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+Additions.m"; sourceTree = "<group>"; };
 		30D363F424B5F89A0029BC86 /* NSNumberFormatter+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+Additions.h"; sourceTree = "<group>"; };
 		30D363FF24B5FAC00029BC86 /* JPApiServicePBBAStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPApiServicePBBAStub.swift; sourceTree = "<group>"; };
@@ -771,6 +770,7 @@
 		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4431198A24B3345200BF961C /* JPRequest+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JPRequest+Additions.m"; sourceTree = "<group>"; };
 		4431198B24B3345200BF961C /* JPRequest+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JPRequest+Additions.h"; sourceTree = "<group>"; };
+		4457AF502A0B8F4A00270C92 /* JPPresentationMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPresentationMode.h; sourceTree = "<group>"; };
 		446002BD293036D7005FBCBD /* JPPreAuthTokenRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthTokenRequest.h; sourceTree = "<group>"; };
 		446002BE293036D7005FBCBD /* JPPreAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthRequest.h; sourceTree = "<group>"; };
 		446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPreAuthApplePayRequest.h; sourceTree = "<group>"; };
@@ -2904,7 +2904,7 @@
 		52B74D7723F98B4C009FE38C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				30D363AC24B5BD3F0029BC86 /* JPCardDetailsMode.h */,
+				4457AF502A0B8F4A00270C92 /* JPPresentationMode.h */,
 				4492116F2469F77900DF6D14 /* JPInputType.h */,
 				52B74D7823F98B4C009FE38C /* JPTransactionViewModel.h */,
 				52B74D7923F98B4C009FE38C /* JPTransactionViewModel.m */,
@@ -3203,6 +3203,7 @@
 				30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */,
 				52B4CAE3241FB93D009C28DC /* JPSection.h in Headers */,
 				AD0F05B0286B69B800470534 /* JPCardTransactionDetails.h in Headers */,
+				4457AF512A0B8F4A00270C92 /* JPPresentationMode.h in Headers */,
 				30221BC723FD7E4D00BF2823 /* JPLoadingView.h in Headers */,
 				30221C7F23FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.h in Headers */,
 				300072F123F6AB560099F3C5 /* JPConsumer.h in Headers */,
@@ -3316,7 +3317,6 @@
 				A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */,
 				ADB514BA286DED4200332E47 /* JPCReqParameters.h in Headers */,
 				ADFDB81929EAE9010011C62F /* JPSubProductInfo.h in Headers */,
-				30D363AD24B5BD3F0029BC86 /* JPCardDetailsMode.h in Headers */,
 				A75B33A34A1CD8CA120311EF /* JPRegisterCardRequest.h in Headers */,
 				A75B334919946DAC47C32566 /* JPSaveCardRequest.h in Headers */,
 				A75B38339C5BC8CA80EE4ABC /* JPCheckCardRequest.h in Headers */,

@@ -149,7 +149,6 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-
 - (JPValidationResult *)validateBillingEmailInput:(NSString *)input;
 - (JPValidationResult *)validateBillingCountryInput:(NSString *)input;
 - (JPValidationResult *)validateBillingStateInput:(NSString *)input;
@@ -184,7 +183,7 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
  * @param type - the transaction type
  * @param mode - the card details mode
  * @param configuration - the JPConfiguration object used for customizing the payment flow
- * @param cardNetwork - the card network
+ * @param details - the card details
  * @param completion - the completion block with an optional JPResponse / NSError
  */
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService

@@ -28,26 +28,26 @@
 @implementation JPConfiguration (Additions)
 
 - (JPPresentationMode)presentationModeForCardPayments {
-    
+
     if (self.uiConfiguration.shouldAskForBillingInformation) {
         return JPPresentationModeCardAndBillingInfo;
     }
-    
+
     // AVS is only shown in case billing info screen is not presented
     if (self.uiConfiguration.isAVSEnabled) {
         return JPPresentationModeCardInfoAndAVS;
     }
-    
+
     return JPPresentationModeCardInfo;
 }
 
 - (JPPresentationMode)presentationModeForTokenPayments {
     BOOL isBillingInfoOn = self.uiConfiguration.shouldAskForBillingInformation;
-    
+
     if (self.uiConfiguration.shouldAskForCSC && self.uiConfiguration.shouldAskForCardholderName) {
         return isBillingInfoOn ? JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo : JPPresentationModeSecurityCodeAndCardholderName;
     }
-    
+
     if (self.uiConfiguration.shouldAskForCSC) {
         return isBillingInfoOn ? JPPresentationModeSecurityCodeAndBillingInfo : JPPresentationModeSecurityCode;
     }
@@ -55,7 +55,7 @@
     if (self.uiConfiguration.shouldAskForCardholderName) {
         return isBillingInfoOn ? JPPresentationModeCardholderNameAndBillingInfo : JPPresentationModeCardholderName;
     }
-    
+
     return isBillingInfoOn ? JPPresentationModeBillingInfo : JPPresentationModeNone;
 }
 

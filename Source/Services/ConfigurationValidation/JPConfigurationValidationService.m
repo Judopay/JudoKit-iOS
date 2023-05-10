@@ -48,10 +48,10 @@
 
 - (JPError *)validateTokenPaymentConfiguration:(JPConfiguration *)configuration
                             forTransactionType:(JPTransactionType)transactionType {
-    
+
     JPError *error = [self validateConfiguration:configuration forTransactionType:transactionType];
     [self checkTokenPaymentTransactionType:transactionType error:&error];
-    
+
     return error;
 }
 

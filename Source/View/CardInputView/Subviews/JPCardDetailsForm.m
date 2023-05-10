@@ -23,15 +23,15 @@
 //  SOFTWARE.
 
 #import "JPCardDetailsForm.h"
+#import "JPActionBar.h"
 #import "JPCardInputField.h"
 #import "JPCardNumberField.h"
+#import "JPCountry.h"
 #import "JPSecurityMessageView.h"
-#import "JPTransactionViewModel.h"
-#import "JPActionBar.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionScanCardButton.h"
+#import "JPTransactionViewModel.h"
 #import "UIStackView+Additions.h"
-#import "JPCountry.h"
 
 @interface JPCardDetailsForm () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -58,7 +58,7 @@ static const float kInputFieldHeight = 44.0F;
 - (instancetype)initWithFieldsSet:(JPFormFieldsSet)fieldsSet {
     if (self = [super init]) {
         self.fieldsSet = fieldsSet;
-        
+
         [self setupSubviews];
         [self setupInputFieldsConstraints];
     }
@@ -69,9 +69,9 @@ static const float kInputFieldHeight = 44.0F;
     self.securityMessageView = [JPSecurityMessageView new];
     self.topActionBar.actions = JPActionBarActionTypeCancel | JPActionBarActionTypeScanCard;
     self.bottomActionBar.actions = JPActionBarActionTypeSubmit;
-    
+
     [self addArrangedSubview:self.securityMessageView];
-    
+
     [self setupInputFieldsStackView];
     [self setupInputFieldsConstraints];
 }
@@ -83,20 +83,20 @@ static const float kInputFieldHeight = 44.0F;
         case JPFormFieldsSetCSC:
             [self.inputFieldsStackView addArrangedSubview:self.cardSecurityCodeTextField];
             break;
-            
+
         case JPFormFieldsSetCardHolderName:
             [self.inputFieldsStackView addArrangedSubview:self.cardHolderNameTextField];
             break;
-            
+
         case JPFormFieldsSetCardHolderNameAndCSC:
-            [self.inputFieldsStackView _jp_addArrangedSubviews:@[self.cardHolderNameTextField, self.cardSecurityCodeTextField]];
+            [self.inputFieldsStackView _jp_addArrangedSubviews:@[ self.cardHolderNameTextField, self.cardSecurityCodeTextField ]];
             break;
-            
+
         case JPFormFieldsSetFullCardDetails:
         case JPFormFieldsSetFullCardDetailsAndAVS:
             [self setupFullCardDetailsSubviews];
             break;
-            
+
         default:
             break;
     }
@@ -106,9 +106,9 @@ static const float kInputFieldHeight = 44.0F;
     if (_fieldsSet == fieldsSet) {
         return;
     }
-    
+
     _fieldsSet = fieldsSet;
-    
+
     [self setupInputFieldsStackView];
     [self setupInputFieldsConstraints];
 }
@@ -116,22 +116,23 @@ static const float kInputFieldHeight = 44.0F;
 - (void)setupFullCardDetailsSubviews {
     UIStackView *expiryDateAndCSCStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kTightContentSpacing
                                                                                 distribution:UIStackViewDistributionFillEqually
-                                                                         andArrangedSubviews:@[self.expiryDateTextField, self.cardSecurityCodeTextField]];
+                                                                         andArrangedSubviews:@[ self.expiryDateTextField, self.cardSecurityCodeTextField ]];
     expiryDateAndCSCStackView.accessibilityIdentifier = @"Expiry Date and Security Code Fields";
-    
+
     NSMutableArray *fields = [NSMutableArray arrayWithArray:@[
         self.cardNumberTextField,
         self.cardHolderNameTextField,
-        expiryDateAndCSCStackView]];
-    
+        expiryDateAndCSCStackView
+    ]];
+
     if (self.fieldsSet == JPFormFieldsSetFullCardDetailsAndAVS) {
         UIStackView *avsStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kTightContentSpacing
                                                                        distribution:UIStackViewDistributionFillEqually
-                                                                andArrangedSubviews:@[self.countryTextField, self.postcodeTextField]];
+                                                                andArrangedSubviews:@[ self.countryTextField, self.postcodeTextField ]];
         avsStackView.accessibilityIdentifier = @"AVS fields";
         [fields addObject:avsStackView];
     }
-    
+
     [self.inputFieldsStackView _jp_addArrangedSubviews:fields];
 }
 
@@ -148,9 +149,9 @@ static const float kInputFieldHeight = 44.0F;
 
 - (void)applyTheme:(JPTheme *)theme {
     [super applyTheme:theme];
-    
+
     [self.securityMessageView applyTheme:theme];
-    
+
     [self.cardNumberTextField applyTheme:theme];
     [self.cardHolderNameTextField applyTheme:theme];
     [self.expiryDateTextField applyTheme:theme];
@@ -161,12 +162,12 @@ static const float kInputFieldHeight = 44.0F;
 
 - (void)configureWithViewModel:(JPTransactionCardDetailsViewModel *)viewModel {
     self.viewModel = viewModel;
-        
+
     [self.topActionBar.cancelButton configureWithViewModel:viewModel.cancelButtonViewModel];
     [self.topActionBar.scanCardButton configureWithViewModel:viewModel.scanCardButtonViewModel];
-    
+
     [self.bottomActionBar.submitButton configureWithViewModel:viewModel.submitButtonViewModel];
-    
+
     [self.cardNumberTextField configureWithViewModel:viewModel.cardNumberViewModel];
     [self.cardHolderNameTextField configureWithViewModel:viewModel.cardholderNameViewModel];
     [self.expiryDateTextField configureWithViewModel:viewModel.expiryDateViewModel];
@@ -174,7 +175,7 @@ static const float kInputFieldHeight = 44.0F;
     [self.countryTextField configureWithViewModel:viewModel.countryViewModel];
     [self.postcodeTextField configureWithViewModel:viewModel.postalCodeViewModel];
     [self.securityMessageView configureWithViewModel:viewModel.securityMessageViewModel];
-    
+
     [self.countryPickerView reloadAllComponents];
 }
 
@@ -183,7 +184,7 @@ static const float kInputFieldHeight = 44.0F;
         case JPInputTypeCardholderName:
             [self.cardHolderNameTextField becomeFirstResponder];
             break;
-        
+
         case JPInputTypeCardSecureCode:
             [self.cardSecurityCodeTextField becomeFirstResponder];
             break;
@@ -194,7 +195,7 @@ static const float kInputFieldHeight = 44.0F;
 
 - (void)setInputFieldDelegate:(id<JPInputFieldDelegate>)delegate {
     [super setInputFieldDelegate:delegate];
-    
+
     self.cardNumberTextField.delegate = delegate;
     self.cardHolderNameTextField.delegate = delegate;
     self.expiryDateTextField.delegate = delegate;
@@ -233,7 +234,7 @@ static const float kInputFieldHeight = 44.0F;
     }
     return _expiryDateTextField;
 }
-   
+
 - (JPCardInputField *)cardSecurityCodeTextField {
     if (!_cardSecurityCodeTextField) {
         _cardSecurityCodeTextField = [JPCardInputField new];
@@ -281,25 +282,25 @@ static const float kInputFieldHeight = 44.0F;
 }
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (pickerView == self.countryPickerView){
+    if (pickerView == self.countryPickerView) {
         return self.viewModel.countryViewModel.options.count;
     }
-    
+
     return 0;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (pickerView == self.countryPickerView){
+    if (pickerView == self.countryPickerView) {
         JPCountry *country = self.viewModel.countryViewModel.options[row];
         [self.inputFieldDelegate inputField:self.countryTextField didEndEditing:country.name];
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (pickerView == self.countryPickerView){
+    if (pickerView == self.countryPickerView) {
         return self.viewModel.countryViewModel.options[row].name;
     }
-    
+
     return @"";
 }
 

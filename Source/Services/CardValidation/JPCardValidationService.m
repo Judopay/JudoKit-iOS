@@ -26,11 +26,11 @@
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPState.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
-#import "JPCountry.h"
 
 @interface JPCardValidationService ()
 
@@ -187,7 +187,7 @@ static int const kCardHolderNameLength = 4;
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {
     self.selectedAVSCountry = [self billingCountryWithName:input];
-    
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
                                        errorMessage:nil
@@ -217,7 +217,7 @@ static int const kCardHolderNameLength = 4;
                                            errorMessage:errorMessage
                                          formattedInput:input];
     }
-    
+
     if (self.selectedBillingCountry == JPBillingCountryCanada) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"invalid_province_territory_should_not_be_empty"._jp_localized;
@@ -226,7 +226,7 @@ static int const kCardHolderNameLength = 4;
                                            errorMessage:errorMessage
                                          formattedInput:input];
     }
-    
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:NO
                                        errorMessage:nil
@@ -235,7 +235,7 @@ static int const kCardHolderNameLength = 4;
 
 - (JPValidationResult *)validateBillingCountryInput:(NSString *)input {
     self.selectedBillingCountry = [self billingCountryWithName:input];
-    
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
                                        errorMessage:nil

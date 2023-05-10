@@ -26,6 +26,7 @@
 #import "JPApiService.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALViewController.h"
@@ -35,7 +36,6 @@
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
-#import "JPConfiguration+Additions.h"
 
 @interface JPPaymentMethodsRouterImpl ()
 
@@ -65,7 +65,7 @@
 
 #pragma mark - Protocol Conformance
 
--(void)navigateToSaveCardModuleWithCompletion:(JPCompletionBlock)completion {
+- (void)navigateToSaveCardModuleWithCompletion:(JPCompletionBlock)completion {
     JPPresentationMode mode = self.configuration.presentationModeForCardPayments;
     [self navigateToTransactionModuleWithType:JPTransactionTypeSaveCard presentationMode:mode cardDetails:nil andCompletion:completion];
 }
@@ -88,10 +88,10 @@
                                            presentationMode:mode
                                          transactionDetails:details
                                                  completion:completion];
-    
+
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
-    
+
     [self.viewController presentViewController:controller animated:YES completion:nil];
 }
 

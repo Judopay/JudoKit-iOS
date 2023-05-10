@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import "JPThemable.h"
-#import "JPInputFieldDelegate.h"
 #import "JPActionBarDelegate.h"
+#import "JPInputFieldDelegate.h"
+#import "JPThemable.h"
+#import <UIKit/UIKit.h>
 
 @class JPActionBar;
 

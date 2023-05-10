@@ -23,17 +23,17 @@
 //  SOFTWARE.
 
 #import "JPBillingInformationForm.h"
-#import "NSString+Additions.h"
-#import "UIStackView+Additions.h"
-#import "JPActionBarDelegate.h"
 #import "JPActionBar.h"
+#import "JPActionBarDelegate.h"
 #import "JPCardInputField.h"
-#import "JPPhoneCodeInputField.h"
 #import "JPCountry.h"
+#import "JPPhoneCodeInputField.h"
 #import "JPState.h"
 #import "JPTheme.h"
-#import "JPTransactionViewModel.h"
 #import "JPTransactionButton.h"
+#import "JPTransactionViewModel.h"
+#import "NSString+Additions.h"
+#import "UIStackView+Additions.h"
 
 @interface JPBillingInformationForm () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -80,86 +80,86 @@ static const float kPhoneCodeWidth = 45.0F;
     self.headingLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.headingLabel.text = @"billing_details_title"._jp_localized;
     self.headingLabel.numberOfLines = 0;
-    
+
     self.emailTextField = [JPCardInputField new];
     self.emailTextField.accessibilityIdentifier = @"Cardholder Email Field";
     self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    
+
     self.countryPickerView = [UIPickerView new];
     self.countryPickerView.delegate = self;
     self.countryPickerView.dataSource = self;
     self.countryPickerView.accessibilityIdentifier = @"Country Picker";
-    
+
     self.statePickerView = [UIPickerView new];
     self.statePickerView.delegate = self;
     self.statePickerView.dataSource = self;
     self.statePickerView.accessibilityIdentifier = @"State Picker";
-    
+
     self.countryTextField = [JPCardInputField new];
     self.countryTextField.inputView = self.countryPickerView;
     self.countryTextField.accessibilityIdentifier = @"Country Field";
-    
+
     self.stateTextField = [JPCardInputField new];
     self.stateTextField.inputView = self.statePickerView;
     self.stateTextField.accessibilityIdentifier = @"State Field";
     self.stateTextField.hidden = YES;
-    
+
     self.phoneCodeTextField = [JPPhoneCodeInputField new];
     self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
     self.phoneCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneCodeTextField.backgroundMaskedCorners = kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
-    
+
     self.phoneTextField = [JPCardInputField new];
     self.phoneTextField.accessibilityIdentifier = @"Cardholder phone number Field";
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTextField.backgroundMaskedCorners = kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner;
-    
+
     self.line1TextField = [JPCardInputField new];
     self.line1TextField.accessibilityIdentifier = @"Cardholder address line 1 code Field";
     self.line1TextField.keyboardType = UIKeyboardTypeDefault;
     self.line1TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
+
     self.addAddressLineButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
     self.addAddressLineButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.addAddressLineButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
     [self.addAddressLineButton setTitle:title forState:UIControlStateNormal];
-    
+
     self.line2TextField = [JPCardInputField new];
     self.line2TextField.accessibilityIdentifier = @"Cardholder address line 2 Field";
     self.line2TextField.keyboardType = UIKeyboardTypeDefault;
     self.line2TextField.hidden = YES;
     self.line2TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
+
     self.line3TextField = [JPCardInputField new];
     self.line3TextField.accessibilityIdentifier = @"Cardholder address line 3 Field";
     self.line3TextField.keyboardType = UIKeyboardTypeDefault;
     self.line3TextField.hidden = YES;
     self.line3TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
+
     self.cityTextField = [JPCardInputField new];
     self.cityTextField.accessibilityIdentifier = @"Cardholder city Field";
     self.cityTextField.keyboardType = UIKeyboardTypeDefault;
     self.cityTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
+
     self.postcodeTextField = [JPCardInputField new];
     self.postcodeTextField.keyboardType = UIKeyboardTypeDefault;
     self.postcodeTextField.accessibilityIdentifier = @"Post Code Field";
-    
+
     UIStackView *phoneNumberStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSeparatorContentSpacing
-                                                                    andArrangedSubviews:@[self.phoneCodeTextField, self.phoneTextField]];
-    
+                                                                    andArrangedSubviews:@[ self.phoneCodeTextField, self.phoneTextField ]];
+
     NSLayoutConstraint *widthLayout = [self.phoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth];
     [widthLayout setActive:YES];
     widthLayout.priority = UILayoutPriorityDefaultHigh;
-    
+
     NSLayoutConstraint *widthCodeLayout = [self.phoneCodeTextField.widthAnchor constraintEqualToConstant:43];
     [widthCodeLayout setActive:YES];
     widthCodeLayout.priority = UILayoutPriorityDefaultLow;
-    
+
     [self.inputFieldsStackView _jp_addArrangedSubviews:@[
         self.headingLabel,
         self.emailTextField,
@@ -194,32 +194,34 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)showNewAddressLine:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.2 animations:^{
-        if (weakSelf.line2TextField.hidden) {
-            weakSelf.line2TextField.hidden = NO;
-                [weakSelf.addAddressLineButton setTitle:[NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(3)]
-                                           forState:UIControlStateNormal];
-                return;
-            }
-            
-        if (weakSelf.line3TextField.hidden) {
-            weakSelf.line3TextField.hidden = NO;
-            weakSelf.addAddressLineButton.hidden = YES;
-        }
-    }];
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         if (weakSelf.line2TextField.hidden) {
+                             weakSelf.line2TextField.hidden = NO;
+                             [weakSelf.addAddressLineButton setTitle:[NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(3)]
+                                                            forState:UIControlStateNormal];
+                             return;
+                         }
+
+                         if (weakSelf.line3TextField.hidden) {
+                             weakSelf.line3TextField.hidden = NO;
+                             weakSelf.addAddressLineButton.hidden = YES;
+                         }
+                     }];
 }
 
 - (void)updateBillingAddressStatePicker:(NSString *)countryName {
     JPCountry *country = [JPCountry forCountryName:countryName];
-    
+
     if (!country || self.stateTextField.hidden == !country.hasStates) {
         return;
     }
-        
+
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.2 animations:^{
-        weakSelf.stateTextField.hidden = !country.hasStates;
-    }];
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         weakSelf.stateTextField.hidden = !country.hasStates;
+                     }];
 }
 
 - (void)applyTheme:(JPTheme *)theme {
@@ -236,7 +238,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.line1TextField applyTheme:theme];
     [self.line2TextField applyTheme:theme];
     [self.line3TextField applyTheme:theme];
-    
+
     self.addAddressLineButton.titleLabel.font = theme.bodyBold;
     [self.addAddressLineButton setTitleColor:theme.jpBlackColor forState:UIControlStateNormal];
 
@@ -246,9 +248,9 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)configureWithViewModel:(JPTransactionBillingInformationViewModel *)viewModel {
     self.viewModel = viewModel;
-    
+
     [self.addAddressLineButton setEnabled:!viewModel.isLoading];
-    
+
     [self.topActionBar.cancelButton configureWithViewModel:viewModel.cancelButtonViewModel];
     [self.bottomActionBar.backButton configureWithViewModel:viewModel.backButtonViewModel];
     [self.bottomActionBar.submitButton configureWithViewModel:viewModel.submitButtonViewModel];
@@ -263,7 +265,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.line3TextField configureWithViewModel:viewModel.addressLine3ViewModel];
     [self.cityTextField configureWithViewModel:viewModel.cityViewModel];
     [self.postcodeTextField configureWithViewModel:viewModel.postalCodeViewModel];
-    
+
     [self updateBillingAddressStatePicker:viewModel.countryViewModel.text];
     [self.countryPickerView reloadAllComponents];
     [self.statePickerView reloadAllComponents];
@@ -271,7 +273,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setInputFieldDelegate:(id<JPInputFieldDelegate>)delegate {
     [super setInputFieldDelegate:delegate];
-    
+
     self.emailTextField.delegate = delegate;
     self.countryTextField.delegate = delegate;
     self.stateTextField.delegate = delegate;
@@ -291,25 +293,25 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-   
-    if (pickerView == self.countryPickerView){
+
+    if (pickerView == self.countryPickerView) {
         return self.viewModel.countryViewModel.options.count;
     }
-    
+
     if (pickerView == self.statePickerView) {
         return self.viewModel.stateViewModel.options.count;
     }
-    
+
     return 0;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
-    if (pickerView == self.countryPickerView){
+
+    if (pickerView == self.countryPickerView) {
         JPCountry *country = self.viewModel.countryViewModel.options[row];
         [self.inputFieldDelegate inputField:self.countryTextField didEndEditing:country.name];
     }
-    
+
     if (pickerView == self.statePickerView) {
         JPState *state = self.viewModel.stateViewModel.options[row];
         [self.inputFieldDelegate inputField:self.stateTextField didEndEditing:state.name];
@@ -317,15 +319,15 @@ static const float kPhoneCodeWidth = 45.0F;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    if (pickerView == self.countryPickerView){
+
+    if (pickerView == self.countryPickerView) {
         return self.viewModel.countryViewModel.options[row].name;
     }
-    
+
     if (pickerView == self.statePickerView) {
         return self.viewModel.stateViewModel.options[row].name;
     }
-    
+
     return @"";
 }
 

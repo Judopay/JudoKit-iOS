@@ -27,6 +27,7 @@
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
 #import "JPCardTransactionDetails.h"
+#import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -40,7 +41,6 @@
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
-#import "JPConfiguration+Additions.h"
 #import <PassKit/PassKit.h>
 
 @interface JudoKit ()
@@ -112,7 +112,7 @@
                                              completion:(JPCompletionBlock)completion {
 
     JPError *error;
-    
+
     if (details) {
         error = [self.configurationValidationService validateTokenPaymentConfiguration:configuration forTransactionType:type];
     } else {
@@ -125,18 +125,18 @@
     }
 
     JPPresentationMode presentationMode = configuration.presentationModeForCardPayments;
-    
+
     if (details) {
         presentationMode = configuration.presentationModeForTokenPayments;
     }
-    
+
     UIViewController *controller =
-    [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
-                                          configuration:configuration
-                                        transactionType:type
-                                       presentationMode:presentationMode
-                                     transactionDetails:details
-                                             completion:completion];
+        [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                              configuration:configuration
+                                            transactionType:type
+                                           presentationMode:presentationMode
+                                         transactionDetails:details
+                                                 completion:completion];
 
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;

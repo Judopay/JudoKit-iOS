@@ -56,12 +56,12 @@ static NSString *const kCardSchemeDiscover = @"Discover";
         self.cardHolderName = dictionary[@"cardHolderName"];
 
         self.rawCardNetwork = dictionary[@"cardType"];
-        
+
         self.cardNetwork = JPCardNetworkTypeUnknown;
-        
+
         if (self.rawCardNetwork || self.cardScheme) {
             self.cardNetwork = self.cardNetworkTypeDerivedFromCardType;
-            
+
             // As a fallback, if the card scheme is provided, use it to determine the card network.
             if (self.cardNetwork == JPCardNetworkTypeUnknown) {
                 self.cardNetwork = self.cardNetworkTypeDerivedFromCardScheme;
@@ -77,11 +77,11 @@ static NSString *const kCardSchemeDiscover = @"Discover";
 
 - (JPCardNetworkType)cardNetworkTypeDerivedFromCardScheme {
     NSString *scheme = self.cardScheme;
-    
+
     if ([scheme isEqualToString:kCardSchemeVisa]) {
         return JPCardNetworkTypeVisa;
     }
-    
+
     if ([scheme isEqualToString:kCardSchemeMastercard]) {
         return JPCardNetworkTypeMasterCard;
     }

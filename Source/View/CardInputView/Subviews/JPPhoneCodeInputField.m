@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "JPPhoneCodeInputField.h"
-#import "JPTheme.h"
 #import "JPFloatingTextField.h"
+#import "JPTheme.h"
 
 @interface JPPhoneCodeInputField ()
 
@@ -67,10 +67,10 @@
 
 - (void)applyTheme:(JPTheme *)theme {
     [super applyTheme:theme];
-    
+
     self.leftDecorationLabel.textColor = self.theme.jpBlackColor;
     self.rightDecorationLabel.textColor = self.theme.jpBlackColor;
-    
+
     self.leftDecorationLabel.font = self.theme.headlineLight;
     self.rightDecorationLabel.font = self.theme.headlineLight;
 }

@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPActionBar.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionScanCardButton.h"
-#import "JPTheme.h"
+#import "UIColor+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
-#import "UIColor+Additions.h"
 
 @implementation JPActionBar
 
@@ -60,7 +60,7 @@ static const float kScanCardHeight = 36.0F;
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.axis = UILayoutConstraintAxisHorizontal;
     self.spacing = kButtonsContentSpacing;
-    
+
     self.cancelButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
     self.cancelButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     self.cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,12 +90,12 @@ static const float kScanCardHeight = 36.0F;
 
 - (void)reloadArrangedSubviews {
     [self _jp_removeArrangedSubviews];
-    
+
     if (self.actions & JPActionBarActionTypeCancel) {
         [self addArrangedSubview:self.cancelButton];
         [self addArrangedSubview:[UIView new]];
     }
-    
+
     if (self.actions & JPActionBarActionTypeScanCard) {
         [self addArrangedSubview:self.scanCardButton];
     }
@@ -103,7 +103,7 @@ static const float kScanCardHeight = 36.0F;
     if (self.actions & JPActionBarActionTypeNavigateBack) {
         [self addArrangedSubview:self.backButton];
     }
-    
+
     if (self.actions & JPActionBarActionTypeSubmit) {
         [self addArrangedSubview:self.submitButton];
     }
@@ -118,7 +118,7 @@ static const float kScanCardHeight = 36.0F;
     [self.backButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.backButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.submitButton setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.cancelButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
         [self.scanCardButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
@@ -138,15 +138,15 @@ static const float kScanCardHeight = 36.0F;
     if (sender == self.cancelButton) {
         [self.delegate actionBar:self didPerformAction:JPActionBarActionTypeCancel];
     }
-    
+
     if (sender == self.scanCardButton) {
         [self.delegate actionBar:self didPerformAction:JPActionBarActionTypeScanCard];
     }
-    
+
     if (sender == self.backButton) {
         [self.delegate actionBar:self didPerformAction:JPActionBarActionTypeNavigateBack];
     }
-    
+
     if (sender == self.submitButton) {
         [self.delegate actionBar:self didPerformAction:JPActionBarActionTypeSubmit];
     }
@@ -162,7 +162,7 @@ static const float kScanCardHeight = 36.0F;
     [self.scanCardButton _jp_setBorderWithColor:theme.jpBlackColor
                                           width:kScanButtonBorderWidth
                                 andCornerRadius:kScanButtonCornerRadius];
-    
+
     self.submitButton.titleLabel.font = theme.headline;
     self.submitButton.layer.cornerRadius = theme.buttonCornerRadius;
     [self.submitButton setBackgroundImage:theme.buttonColor._jp_asImage forState:UIControlStateNormal];

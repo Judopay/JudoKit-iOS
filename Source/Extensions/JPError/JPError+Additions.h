@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 
 @interface JPError (Additions)
 
-+ (JPError *)invalidTokenPaymentTransactionType;
++ (nonnull JPError *)invalidTokenPaymentTransactionType;
 
 /**
  * The transaction response returned without any data or there was an error while forming the request.

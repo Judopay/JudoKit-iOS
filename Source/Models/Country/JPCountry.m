@@ -106,7 +106,7 @@
 }
 
 - (BOOL)isUSA {
-    return  [self.alpha2Code isEqualToString:kAlpha2CodeUSA];
+    return [self.alpha2Code isEqualToString:kAlpha2CodeUSA];
 }
 
 - (BOOL)isCanada {

@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, JPInputType) {
     JPInputTypeCardSecureCode,
     JPInputTypeCardAVSCountry,
     JPInputTypeCardAVSPostalCode,
-    
+
     // Billing info section
     JPInputTypeBillingEmail,
     JPInputTypeBillingCountry,

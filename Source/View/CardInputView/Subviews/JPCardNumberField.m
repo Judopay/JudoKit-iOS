@@ -105,9 +105,9 @@
             weakSelf.cardLogoImageView.alpha = (cardIcon) ? 1.0 : 0.0;
         }
         completion:^(BOOL finished) {
-        if (!cardIcon) {
-            weakSelf.cardLogoImageView.image = cardIcon;
-        }
+            if (!cardIcon) {
+                weakSelf.cardLogoImageView.image = cardIcon;
+            }
         }];
 }
 

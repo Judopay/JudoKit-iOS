@@ -46,14 +46,14 @@
 
 + (UIStackView *)_jp_verticalStackViewWithSpacing:(CGFloat)spacing
                               andArrangedSubviews:(NSArray<UIView *> *)views {
-    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing: spacing];
+    UIStackView *stackView = [UIStackView _jp_verticalStackViewWithSpacing:spacing];
     [stackView _jp_addArrangedSubviews:views];
     return stackView;
 }
 
 + (UIStackView *)_jp_horizontalStackViewWithSpacing:(CGFloat)spacing
                                 andArrangedSubviews:(NSArray<UIView *> *)views {
-    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing: spacing];
+    UIStackView *stackView = [UIStackView _jp_horizontalStackViewWithSpacing:spacing];
     [stackView _jp_addArrangedSubviews:views];
     return stackView;
 }
@@ -85,11 +85,11 @@
     if (![self.arrangedSubviews containsObject:oldView]) {
         return;
     }
-    
+
     NSUInteger index = [self.arrangedSubviews indexOfObject:oldView];
     [self removeArrangedSubview:oldView];
     [oldView removeFromSuperview];
-    
+
     [self insertArrangedSubview:newView atIndex:index];
 }
 @end

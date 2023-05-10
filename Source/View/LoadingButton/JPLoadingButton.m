@@ -94,11 +94,11 @@
 // make sure it animates when highlighted
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    
+
     if (!self.layer.borderColor || self.layer.borderWidth <= 0) {
         return;
     }
-    
+
     UIColor *fromColor = [UIColor colorWithCGColor:self.layer.borderColor];
     UIColor *toColor = [fromColor colorWithAlphaComponent:highlighted ? 0.3 : 1.0];
 

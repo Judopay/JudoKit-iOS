@@ -24,8 +24,8 @@
 
 #import "JPPaymentMethodsPresenter.h"
 #import "JPAmount.h"
-#import "JPPresentationMode.h"
 #import "JPCardNetwork.h"
+#import "JPCardTransactionDetails.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
@@ -36,12 +36,12 @@
 #import "JPPaymentMethodsRouter.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPPaymentMethodsViewModel.h"
+#import "JPPresentationMode.h"
+#import "JPResponse.h"
 #import "JPStoredCardDetails.h"
 #import "JPTransactionType.h"
 #import "JPUIConfiguration.h"
 #import "NSString+Additions.h"
-#import "JPResponse.h"
-#import "JPCardTransactionDetails.h"
 
 @interface JPPaymentMethodsPresenterImpl ()
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
@@ -140,7 +140,7 @@
         [self viewModelNeedsUpdate];
         return;
     }
-    
+
     if (error && error.code != JudoUserDidCancelError) {
         [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
     }
@@ -155,7 +155,7 @@
 
 - (void)handlePayButtonTap {
     [self.view setIsPaymentInProgress:YES];
-    
+
     __weak typeof(self) weakSelf = self;
 
     if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
@@ -185,16 +185,16 @@
         }];
         return;
     }
-    
+
     JPTransactionType type = self.interactor.configuredTransactionMode == JPTransactionModePayment ? JPTransactionTypePayment : JPTransactionTypePreAuth;
     JPCardTransactionDetails *details = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
                                                                            andStoredCardDetails:self.selectedCard];
-    
+
     [self.router navigateToTokenTransactionModuleWithType:type
                                               cardDetails:details
                                             andCompletion:^(JPResponse *response, NSError *error) {
-        [weakSelf handleCallbackWithResponse:response andError:error];
-    }];
+                                                [weakSelf handleCallbackWithResponse:response andError:error];
+                                            }];
 }
 
 - (void)handleApplePayButtonTap {
@@ -320,7 +320,7 @@
         [self handlePaymentResponse:response];
         return;
     }
-    
+
     if (error && error.code != JudoUserDidCancelError) {
         [self handlePaymentError:error];
     }

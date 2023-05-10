@@ -22,19 +22,19 @@
 //  SOFTWARE.
 
 #import "JPCardInputView.h"
-#import "JPPresentationMode.h"
-#import "JPConstants.h"
-#import "JPRoundedCornerView.h"
-#import "JPTheme.h"
-#import "JPThemable.h"
-#import "UIStackView+Additions.h"
-#import "UIView+Additions.h"
 #import "JPActionBarDelegate.h"
 #import "JPBillingInformationForm.h"
 #import "JPCardDetailsForm.h"
+#import "JPConstants.h"
 #import "JPInputField.h"
+#import "JPPresentationMode.h"
+#import "JPRoundedCornerView.h"
+#import "JPThemable.h"
+#import "JPTheme.h"
+#import "UIStackView+Additions.h"
+#import "UIView+Additions.h"
 
-typedef enum JPCardInputViewSectionType: NSUInteger {
+typedef enum JPCardInputViewSectionType : NSUInteger {
     JPCardInputViewSectionTypeCardDetails,
     JPCardInputViewSectionTypeBillingInformation,
 } JPCardInputViewSectionType;
@@ -86,11 +86,11 @@ static const float kLooseContentSpacing = 16.0F;
     self.backgroundView.backgroundColor = UIColor.clearColor;
     self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onBackgroundViewTap)]];
-    
+
     self.mainContainerView = [[JPRoundedCornerView alloc] initWithRadius:kSliderCornerRadius forCorners:UIRectCornerTopRight | UIRectCornerTopLeft];
     self.mainContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     self.mainContainerView.backgroundColor = UIColor.whiteColor;
-    
+
     self.cardDetailsForm = [[JPCardDetailsForm alloc] initWithFieldsSet:JPFormFieldsSetFullCardDetails];
     self.cardDetailsForm.inputFieldDelegate = self;
     self.cardDetailsForm.actionBarDelegate = self;
@@ -100,15 +100,15 @@ static const float kLooseContentSpacing = 16.0F;
     self.billingInformationForm.actionBarDelegate = self;
 
     self.viewSwitcher = [UIStackView _jp_verticalStackViewWithSpacing:kLooseContentSpacing
-                                                   andArrangedSubviews:@[self.cardDetailsForm, self.billingInformationForm]];
-    
+                                                  andArrangedSubviews:@[ self.cardDetailsForm, self.billingInformationForm ]];
+
     [self setSectionType:JPCardInputViewSectionTypeCardDetails];
 
     [self addSubview:self.backgroundView];
     [self addSubview:self.mainContainerView];
-    
+
     [self.mainContainerView addSubview:self.viewSwitcher];
-    
+
     [self.backgroundView _jp_pinToView:self withPadding:0.0];
     [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeTop forView:self.mainContainerView withPadding:kContentVerticalPadding];
     [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeBottom forView:self.mainContainerView withPadding:kContentVerticalPadding + kTightContentSpacing];
@@ -117,12 +117,12 @@ static const float kLooseContentSpacing = 16.0F;
 
     NSLayoutConstraint *mainContainerTopConstraint = [self.mainContainerView.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor constant:44];
     self.mainContainerBottomConstraint = [self.mainContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    
-    [NSLayoutConstraint activateConstraints:@[mainContainerTopConstraint, self.mainContainerBottomConstraint]];
-    
+
+    [NSLayoutConstraint activateConstraints:@[ mainContainerTopConstraint, self.mainContainerBottomConstraint ]];
+
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [self addSubview:self.activityIndicator];
     [self.activityIndicator _jp_pinToView:self withPadding:0.0];
 }
@@ -142,18 +142,18 @@ static const float kLooseContentSpacing = 16.0F;
 
     BOOL noUserInputExpected = viewModel.mode == JPPresentationModeNone;
     self.mainContainerView.hidden = noUserInputExpected;
-    
+
     if (viewModel.isLoading && noUserInputExpected) {
         [self.activityIndicator startAnimating];
     } else {
         [self.activityIndicator stopAnimating];
     }
-        
+
     [self configureCardDetailsFormFieldsForMode:viewModel.mode];
-    
+
     [self.billingInformationForm configureWithViewModel:viewModel.billingInformationViewModel];
     [self.cardDetailsForm configureWithViewModel:viewModel.cardDetailsViewModel];
-    
+
     if (mode != viewModel.mode) {
         [self configureSectionTypeForMode:viewModel.mode];
     }
@@ -166,23 +166,23 @@ static const float kLooseContentSpacing = 16.0F;
 
 - (void)configureCardDetailsFormFieldsForMode:(JPPresentationMode)mode {
     JPFormFieldsSet fields;
-    
+
     switch (mode) {
         case JPPresentationModeSecurityCode:
         case JPPresentationModeSecurityCodeAndBillingInfo:
             fields = JPFormFieldsSetCSC;
             break;
-        
+
         case JPPresentationModeCardholderName:
         case JPPresentationModeCardholderNameAndBillingInfo:
             fields = JPFormFieldsSetCardHolderName;
             break;
-        
+
         case JPPresentationModeSecurityCodeAndCardholderName:
         case JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo:
             fields = JPFormFieldsSetCardHolderNameAndCSC;
             break;
-                 
+
         case JPPresentationModeCardInfoAndAVS:
             fields = JPFormFieldsSetFullCardDetailsAndAVS;
             break;
@@ -191,20 +191,20 @@ static const float kLooseContentSpacing = 16.0F;
         case JPPresentationModeCardAndBillingInfo:
             fields = JPFormFieldsSetFullCardDetails;
             break;
-            
+
         case JPPresentationModeNone:
         case JPPresentationModeBillingInfo:
         default:
             fields = JPFormFieldsSetEmpty;
             break;
     }
-    
+
     self.cardDetailsForm.fieldsSet = fields;
 }
 
 - (void)setSectionType:(JPCardInputViewSectionType)sectionType {
     _sectionType = sectionType;
-    
+
     self.cardDetailsForm.hidden = sectionType != JPCardInputViewSectionTypeCardDetails;
     self.billingInformationForm.hidden = sectionType != JPCardInputViewSectionTypeBillingInformation;
 }
@@ -217,24 +217,23 @@ static const float kLooseContentSpacing = 16.0F;
     [self endEditing:YES];
 
     [self.mainContainerBottomConstraint setConstant:self.mainContainerView.bounds.size.height];
-    
+
     __weak typeof(self) weakSelf = self;
-    
+
     [UIView animateWithDuration:0.3
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{ [weakSelf layoutIfNeeded]; }
-                     completion:^(BOOL finished) {
-        
-        [weakSelf setSectionType:sectionType];
-        [weakSelf.mainContainerBottomConstraint setConstant:0];
-        
-        [UIView animateWithDuration:0.3
-                              delay:0.0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{ [weakSelf layoutIfNeeded]; }
-                         completion:nil];
-    }];
+        delay:0
+        options:UIViewAnimationOptionCurveEaseIn
+        animations:^{ [weakSelf layoutIfNeeded]; }
+        completion:^(BOOL finished) {
+            [weakSelf setSectionType:sectionType];
+            [weakSelf.mainContainerBottomConstraint setConstant:0];
+
+            [UIView animateWithDuration:0.3
+                                  delay:0.0
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{ [weakSelf layoutIfNeeded]; }
+                             completion:nil];
+        }];
 }
 
 #pragma mark - Helpers
@@ -291,27 +290,27 @@ static const float kLooseContentSpacing = 16.0F;
 
 - (void)actionBar:(JPActionBar *)actionBar didPerformAction:(JPActionBarActionType)action {
     JPCardInputViewActionType type = JPCardInputViewActionTypeUnknown;
-    
+
     // Sections navigation
     if (action == JPActionBarActionTypeSubmit && self.viewModel.shouldDisplayBillingInformationSection && actionBar == self.cardDetailsForm.bottomActionBar) {
         [self switchAnimatedToSection:JPCardInputViewSectionTypeBillingInformation];
         return;
     }
-    
+
     if (action == JPActionBarActionTypeNavigateBack) {
         [self switchAnimatedToSection:JPCardInputViewSectionTypeCardDetails];
         return;
     }
-    
+
     switch (action) {
         case JPActionBarActionTypeCancel:
             type = JPCardInputViewActionTypeCancel;
             break;
-            
+
         case JPActionBarActionTypeScanCard:
             type = JPCardInputViewActionTypeScanCard;
             break;
-        
+
         case JPActionBarActionTypeSubmit:
             type = JPCardInputViewActionTypeSubmit;
             break;
@@ -319,7 +318,7 @@ static const float kLooseContentSpacing = 16.0F;
         default:
             break;
     }
-    
+
     [self.delegate cardInputView:self didPerformAction:type];
 }
 

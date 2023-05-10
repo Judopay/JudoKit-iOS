@@ -153,10 +153,10 @@
     }
 
     [self.paymentMethodsView.tableView beginUpdates];
-    
+
     // in case the method selection switcher is rendered, avoid updating it's cell.
     NSUInteger loc = [viewModel.items.firstObject isKindOfClass:JPPaymentMethodsSelectionModel.class] ? 1 : 0;
-    
+
     NSRange oldRange = NSMakeRange(loc, self.paymentMethodsView.tableView.numberOfSections - loc);
     NSIndexSet *oldIndexSet = [NSIndexSet indexSetWithIndexesInRange:oldRange];
 

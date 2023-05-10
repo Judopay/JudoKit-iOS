@@ -61,15 +61,15 @@ static const float kTightContentSpacing = 8.0F;
 
     self.topActionBar = [JPActionBar new];
     self.bottomActionBar = [JPActionBar new];
-    
+
     self.inputFieldsScrollView = [JPIntrinsicSizeAwareScrollView new];
     self.inputFieldsScrollView.showsVerticalScrollIndicator = NO;
     self.inputFieldsScrollView.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.inputFieldsStackView = [UIStackView _jp_verticalStackViewWithSpacing:kTightContentSpacing];
 
-    [self _jp_addArrangedSubviews:@[self.topActionBar, self.inputFieldsScrollView, self.bottomActionBar]];
-    
+    [self _jp_addArrangedSubviews:@[ self.topActionBar, self.inputFieldsScrollView, self.bottomActionBar ]];
+
     [self.inputFieldsScrollView addSubview:self.inputFieldsStackView];
     [self.inputFieldsStackView _jp_pinToView:self.inputFieldsScrollView withPadding:0];
 

@@ -25,8 +25,8 @@
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
-#import "UIView+Additions.h"
 #import "JPTransactionButton.h"
+#import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsCardListHeaderCell
 
@@ -110,7 +110,7 @@ const float kCardListHeaderCenterOffset = 10.0F;
         [self.actionButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
                                                         constant:kCardListHeaderCenterOffset]
     ]];
-    
+
     [self.actionButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.actionButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }

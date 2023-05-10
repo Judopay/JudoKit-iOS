@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPPresentationMode.h"
 #import "JPCardNetworkType.h"
+#import "JPPresentationMode.h"
 #import "JPTransactionType.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>

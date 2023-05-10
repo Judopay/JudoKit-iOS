@@ -22,11 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import "JPForm.h"
 #import "JPInputType.h"
+#import <UIKit/UIKit.h>
 
-typedef enum JPFormFieldsSet: NSUInteger {
+typedef enum JPFormFieldsSet : NSUInteger {
     JPFormFieldsSetEmpty = 0,
     JPFormFieldsSetCardHolderName,
     JPFormFieldsSetCardHolderNameAndCSC,

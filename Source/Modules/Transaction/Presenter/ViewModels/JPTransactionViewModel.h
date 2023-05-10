@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,7 +59,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 @property (nonatomic, assign) BOOL isValid;
 
 @property (nonatomic, assign) BOOL isEnabled;
-
 
 /**
  * Designated initializer that is configured based on an input type
@@ -167,8 +166,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 @property (nonatomic, strong) JPTransactionButtonViewModel *submitButtonViewModel;
 @property (nonatomic, strong) JPTransactionSecurityMessageViewModel *securityMessageViewModel;
 
-- (BOOL)isValid;
-
 @end
 
 #pragma mark - JPTransactionBillingInformationViewModel
@@ -191,8 +188,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 
 @property (nonatomic, strong) JPTransactionButtonViewModel *backButtonViewModel;
 @property (nonatomic, strong) JPTransactionButtonViewModel *submitButtonViewModel;
- 
-- (BOOL)isValid;
 
 @end
 

@@ -24,9 +24,9 @@
 
 #import "JPTransactionViewModel.h"
 #import "JPInputType.h"
-#import "UIImage+Additions.h"
-#import "NSString+Additions.h"
 #import "JPPresentationMode.h"
+#import "NSString+Additions.h"
+#import "UIImage+Additions.h"
 
 #pragma mark - JPTransactionInputFieldViewModel
 
@@ -76,7 +76,7 @@
         _iconLeft = [UIImage _jp_imageWithIconName:@"scan-card"];
         super.title = @"button_scan_card"._jp_localized.uppercaseString;
     }
-    
+
     return self;
 }
 
@@ -91,7 +91,7 @@
         _message = @"secure_server_transmission"._jp_localized;
         _iconLeft = [UIImage _jp_imageWithIconName:@"lock-icon"];
     }
-    
+
     return self;
 }
 
@@ -106,30 +106,30 @@
         _cancelButtonViewModel = [JPTransactionButtonViewModel new];
         _scanCardButtonViewModel = [JPTransactionScanCardButtonViewModel new];
 
-        _cardNumberViewModel     = [JPTransactionNumberInputViewModel new];
+        _cardNumberViewModel = [JPTransactionNumberInputViewModel new];
         _cardholderNameViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardholderName];
-        _expiryDateViewModel     = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardExpiryDate];
-        _securityCodeViewModel   = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardSecureCode];
-        _countryViewModel        = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeCardAVSCountry];
-        _postalCodeViewModel     = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardAVSPostalCode];
+        _expiryDateViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardExpiryDate];
+        _securityCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardSecureCode];
+        _countryViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeCardAVSCountry];
+        _postalCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeCardAVSPostalCode];
 
-        _submitButtonViewModel    = [JPTransactionButtonViewModel new];
+        _submitButtonViewModel = [JPTransactionButtonViewModel new];
         _securityMessageViewModel = [JPTransactionSecurityMessageViewModel new];
     }
-    
+
     return self;
 }
 
 - (void)setIsLoading:(BOOL)isLoading {
     _isLoading = isLoading;
-    
+
     self.submitButtonViewModel.isLoading = isLoading;
-    
+
     BOOL isEnabled = !isLoading;
-    
+
     self.cancelButtonViewModel.isEnabled = isEnabled;
     self.scanCardButtonViewModel.isEnabled = isEnabled;
-    
+
     self.cardNumberViewModel.isEnabled = isEnabled;
     self.cardholderNameViewModel.isEnabled = isEnabled;
     self.expiryDateViewModel.isEnabled = isEnabled;
@@ -143,39 +143,39 @@
 #pragma mark - JPTransactionBillingInformationViewModel
 
 @implementation JPTransactionBillingInformationViewModel
- 
+
 - (instancetype)init {
     if (self = [super init]) {
         _cancelButtonViewModel = [JPTransactionButtonViewModel new];
 
-        _emailViewModel        = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingEmail];
-        _countryViewModel      = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingCountry];
-        _stateViewModel        = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingState];
-        _phoneCodeViewModel    = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhoneCode];
-        _phoneViewModel        = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhone];
+        _emailViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingEmail];
+        _countryViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingCountry];
+        _stateViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingState];
+        _phoneCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhoneCode];
+        _phoneViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhone];
         _addressLine1ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingAddressLine1];
         _addressLine2ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingAddressLine2];
         _addressLine3ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingAddressLine3];
-        _cityViewModel         = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingCity];
-        _postalCodeViewModel   = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPostalCode];
+        _cityViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingCity];
+        _postalCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPostalCode];
 
-        _backButtonViewModel   = [JPTransactionButtonViewModel new];
+        _backButtonViewModel = [JPTransactionButtonViewModel new];
         _submitButtonViewModel = [JPTransactionButtonViewModel new];
     }
-    
+
     return self;
 }
 
 - (void)setIsLoading:(BOOL)isLoading {
     _isLoading = isLoading;
-    
+
     self.submitButtonViewModel.isLoading = isLoading;
-    
+
     BOOL isEnabled = !isLoading;
 
     self.cancelButtonViewModel.isEnabled = isEnabled;
     self.backButtonViewModel.isEnabled = isEnabled;
-    
+
     self.emailViewModel.isEnabled = isEnabled;
     self.countryViewModel.isEnabled = isEnabled;
     self.stateViewModel.isEnabled = isEnabled;
@@ -199,16 +199,12 @@
         _cardDetailsViewModel = [JPTransactionCardDetailsViewModel new];
         _billingInformationViewModel = [JPTransactionBillingInformationViewModel new];
     }
-    
+
     return self;
 }
 
 - (BOOL)shouldDisplayBillingInformationSection {
-    return self.mode == JPPresentationModeBillingInfo
-    || self.mode == JPPresentationModeCardAndBillingInfo
-    || self.mode == JPPresentationModeSecurityCodeAndBillingInfo
-    || self.mode == JPPresentationModeCardholderNameAndBillingInfo
-    || self.mode == JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo;
+    return self.mode == JPPresentationModeBillingInfo || self.mode == JPPresentationModeCardAndBillingInfo || self.mode == JPPresentationModeSecurityCodeAndBillingInfo || self.mode == JPPresentationModeCardholderNameAndBillingInfo || self.mode == JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo;
 }
 
 - (void)setIsLoading:(BOOL)isLoading {
@@ -219,36 +215,32 @@
 
 - (BOOL)isCardDetailsValid {
     JPTransactionCardDetailsViewModel *viewModel = self.cardDetailsViewModel;
-    
+
     switch (self.mode) {
         case JPPresentationModeCardInfo:
         case JPPresentationModeCardInfoAndAVS:
         case JPPresentationModeCardAndBillingInfo: {
-            BOOL isValid = viewModel.cardNumberViewModel.isValid
-                         && viewModel.cardholderNameViewModel.isValid
-                         && viewModel.expiryDateViewModel.isValid
-                         && viewModel.securityCodeViewModel.isValid;
-            
+            BOOL isValid = viewModel.cardNumberViewModel.isValid && viewModel.cardholderNameViewModel.isValid && viewModel.expiryDateViewModel.isValid && viewModel.securityCodeViewModel.isValid;
+
             if (self.mode == JPPresentationModeCardInfoAndAVS) {
-                isValid &= viewModel.countryViewModel.isValid
-                        && viewModel.postalCodeViewModel.isValid;
+                isValid &= viewModel.countryViewModel.isValid && viewModel.postalCodeViewModel.isValid;
             }
-            
+
             return isValid;
         }
-        
+
         case JPPresentationModeSecurityCode:
         case JPPresentationModeSecurityCodeAndBillingInfo:
             return viewModel.securityCodeViewModel.isValid;
-        
+
         case JPPresentationModeCardholderName:
         case JPPresentationModeCardholderNameAndBillingInfo:
             return viewModel.cardholderNameViewModel.isValid;
-            
+
         case JPPresentationModeSecurityCodeAndCardholderName:
         case JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo:
             return viewModel.securityCodeViewModel.isValid && viewModel.cardholderNameViewModel.isValid;
-            
+
         default:
             return NO;
     }
@@ -257,15 +249,7 @@
 - (BOOL)isBillingInformationValid {
     JPTransactionBillingInformationViewModel *viewModel = self.billingInformationViewModel;
 
-    return viewModel.emailViewModel.isValid
-        && viewModel.countryViewModel.isValid
-        && viewModel.stateViewModel.isValid
-        && viewModel.addressLine1ViewModel.isValid
-        && viewModel.addressLine2ViewModel.isValid
-        && viewModel.addressLine3ViewModel.isValid
-        && viewModel.phoneViewModel.isValid
-        && viewModel.cityViewModel.isValid
-        && viewModel.postalCodeViewModel.isValid;
+    return viewModel.emailViewModel.isValid && viewModel.countryViewModel.isValid && viewModel.stateViewModel.isValid && viewModel.addressLine1ViewModel.isValid && viewModel.addressLine2ViewModel.isValid && viewModel.addressLine3ViewModel.isValid && viewModel.phoneViewModel.isValid && viewModel.cityViewModel.isValid && viewModel.postalCodeViewModel.isValid;
 }
 
 @end

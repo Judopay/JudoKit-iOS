@@ -35,11 +35,11 @@
     } else if (self.isLoading) {
         [self stopLoading];
     }
-    
+
     if (!self.isLoading) {
         [self setTitle:viewModel.title forState:UIControlStateNormal];
     }
-    
+
     self.enabled = viewModel.isEnabled;
     self.hidden = viewModel.isHidden;
 }
@@ -48,13 +48,14 @@
     if (super.enabled == enabled) {
         return;
     }
-    
+
     super.enabled = enabled;
 
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.1 animations:^{
-        weakSelf.alpha = (enabled) ? 1.0 : 0.5;
-    }];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         weakSelf.alpha = (enabled) ? 1.0 : 0.5;
+                     }];
 }
 
 @end

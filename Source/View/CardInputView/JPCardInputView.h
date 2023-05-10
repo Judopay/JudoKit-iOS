@@ -27,7 +27,7 @@
 
 @class JPLoadingButton, JPInputField, JPCardNumberField, JPCardInputField, JPTransactionButton, JPTheme, JPTransactionViewModel, JPCardInputView;
 
-typedef enum JPCardInputViewActionType: NSUInteger {
+typedef enum JPCardInputViewActionType : NSUInteger {
     JPCardInputViewActionTypeUnknown,
     JPCardInputViewActionTypeCancel,
     JPCardInputViewActionTypeScanCard,
@@ -37,32 +37,30 @@ typedef enum JPCardInputViewActionType: NSUInteger {
 @protocol JPCardInputViewDelegate <NSObject>
 
 @required
-- (void)cardInputView:(JPCardInputView *)inputView didChangeText:(NSString *)text forInputType:(JPInputType)type andEndEditing:(BOOL)endEditing;
-- (void)cardInputView:(JPCardInputView *)inputView didPerformAction:(JPCardInputViewActionType)action;
+- (void)cardInputView:(nonnull JPCardInputView *)inputView didChangeText:(nullable NSString *)text forInputType:(JPInputType)type andEndEditing:(BOOL)endEditing;
+- (void)cardInputView:(nonnull JPCardInputView *)inputView didPerformAction:(JPCardInputViewActionType)action;
 
 @end
 
 @interface JPCardInputView : UIView
 
-@property (nonatomic, strong) id<JPCardInputViewDelegate> delegate;
+@property (nonatomic, strong, nullable) id<JPCardInputViewDelegate> delegate;
 
 /**
  * A method used to apply a theme to the view
  *
  * @param theme - the JPTheme object used to configure the user interface
  */
-- (void)applyTheme:(JPTheme *_Nullable)theme;
+- (void)applyTheme:(nullable JPTheme *)theme;
 
 /**
  * A method that configures the view based on a view model
  *
  * @param viewModel - an instance of JPTransactionViewModel used for view customization
  */
-- (void)configureWithViewModel:(JPTransactionViewModel *_Nullable)viewModel;
+- (void)configureWithViewModel:(nullable JPTransactionViewModel *)viewModel;
 
-- (void)enableUserInterface:(BOOL)shouldEnable;
-
-- (void)notifyKeyboardWillShow:(BOOL)willShow withNotification:(NSNotification *)notification;
+- (void)notifyKeyboardWillShow:(BOOL)willShow withNotification:(nonnull NSNotification *)notification;
 
 - (void)moveFocusToInput:(JPInputType)type;
 

@@ -29,7 +29,7 @@
  */
 typedef NS_ENUM(NSUInteger, JPPresentationMode) {
     JPPresentationModeNone,
-    
+
     JPPresentationModeCardInfo,
     JPPresentationModeCardInfoAndAVS,
     JPPresentationModeCardAndBillingInfo,

@@ -24,8 +24,8 @@
 
 #import "JPSecurityMessageView.h"
 #import "JPTheme.h"
-#import "UIStackView+Additions.h"
 #import "JPTransactionViewModel.h"
+#import "UIStackView+Additions.h"
 
 @interface JPSecurityMessageView ()
 
@@ -60,17 +60,17 @@ static const float kLockImageHeight = 20.0F;
     self.lockImageView = [UIImageView new];
     self.lockImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.lockImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     self.messageLabel = [UILabel new];
     self.messageLabel.numberOfLines = 0;
-    
+
     self.spacing = kTightContentSpacing;
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.axis = UILayoutConstraintAxisHorizontal;
     self.alignment = UIStackViewAlignmentCenter;
 
-    [self _jp_addArrangedSubviews: @[self.lockImageView, self.messageLabel]];
-    
+    [self _jp_addArrangedSubviews:@[ self.lockImageView, self.messageLabel ]];
+
     [NSLayoutConstraint activateConstraints:@[
         [self.lockImageView.widthAnchor constraintEqualToConstant:kLockImageWidth],
         [self.lockImageView.heightAnchor constraintEqualToConstant:kLockImageHeight],

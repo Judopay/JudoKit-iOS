@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum JPActionBarActionType: NSUInteger {
+typedef enum JPActionBarActionType : NSUInteger {
     JPActionBarActionTypeUnknown = 0,
     JPActionBarActionTypeCancel = 1 << 0,
     JPActionBarActionTypeScanCard = 1 << 1,

@@ -53,7 +53,7 @@ static NSString *const kContentSizeKeyPath = @"contentSize";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
                        context:(void *)context {
     if ([keyPath isEqualToString:kContentSizeKeyPath] && change[NSKeyValueChangeNewKey] != change[NSKeyValueChangeOldKey]) {
         [self invalidateIntrinsicContentSize];

@@ -24,6 +24,7 @@
 
 #import "JPTransactionBuilder.h"
 #import "JPApiService.h"
+#import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
 #import "JPConfiguration.h"
@@ -34,7 +35,6 @@
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
-#import "JPCardTransactionDetails.h"
 
 @implementation JPTransactionBuilderImpl
 
@@ -45,7 +45,7 @@
                                         transactionDetails:(JPCardTransactionDetails *)details
                                                 completion:(JPCompletionBlock)completion {
     JPCardValidationService *cardValidationService = [JPCardValidationService new];
-        
+
     if (details) { // TODO: Ugly solution
         cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
         cardValidationService.lastCardNumberValidationResult.cardNetwork = details.cardType;

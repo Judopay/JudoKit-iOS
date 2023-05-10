@@ -124,16 +124,17 @@ static const float kVerticalEdgeInsets = 14.0F;
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
-    
+
     if (self.floatingTextField.enabled == enabled) {
         return;
     }
-    
+
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.1 animations:^{
-        weakSelf.floatingTextField.enabled = enabled;
-        weakSelf.alpha = (enabled) ? 1.0 : 0.5;
-    }];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         weakSelf.floatingTextField.enabled = enabled;
+                         weakSelf.alpha = (enabled) ? 1.0 : 0.5;
+                     }];
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
@@ -188,10 +189,14 @@ static const float kVerticalEdgeInsets = 14.0F;
     [self.stackView addArrangedSubview:self.floatingTextField];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor constant:kVerticalEdgeInsets],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-kVerticalEdgeInsets],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:kHorizontalEdgeInsets],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-kHorizontalEdgeInsets]
+        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                 constant:kVerticalEdgeInsets],
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+                                                    constant:-kVerticalEdgeInsets],
+        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+                                                     constant:kHorizontalEdgeInsets],
+        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+                                                      constant:-kHorizontalEdgeInsets]
     ]];
 
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];

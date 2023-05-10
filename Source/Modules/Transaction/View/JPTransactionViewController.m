@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPTransactionViewController.h"
-#import "JPPresentationMode.h"
 #import "JPCardInputField.h"
 #import "JPCardInputView.h"
 #import "JPCardNumberField.h"
 #import "JPCountry.h"
 #import "JPInputType.h"
 #import "JPLoadingButton.h"
+#import "JPPresentationMode.h"
 #import "JPState.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
@@ -47,7 +47,7 @@
 - (void)loadView {
     JPCardInputView *view = [JPCardInputView new];
     view.delegate = self;
-    
+
     self.view = view;
 }
 
@@ -57,7 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.presenter onViewDidLoad];
     [self _jp_registerKeyboardObservers];
 }
@@ -132,21 +132,7 @@
     [self.cardInputView moveFocusToInput:type];
 }
 
-#pragma mark - Keyboard handling logic
-
-- (void)_jp_keyboardWillShow:(NSNotification *)notification {
-    [self.cardInputView notifyKeyboardWillShow:YES withNotification:notification];
-}
-
-- (void)_jp_keyboardWillHide:(NSNotification *)notification {
-    [self.cardInputView notifyKeyboardWillShow:NO withNotification:notification];
-}
-
-@end
-
 #pragma mark - JPCardInputViewDelegate
-
-@implementation JPTransactionViewController (JPCardInputViewDelegate)
 
 - (void)cardInputView:(JPCardInputView *)inputView
         didChangeText:(NSString *)text
@@ -162,18 +148,28 @@
         case JPCardInputViewActionTypeCancel:
             [self.presenter handleCancelButtonTap];
             break;
-        
+
         case JPCardInputViewActionTypeScanCard:
             [self.presenter handleScanCardButtonTap];
             break;
-        
+
         case JPCardInputViewActionTypeSubmit:
             [self.presenter handleSubmitButtonTap];
             break;
-                        
+
         default:
             break;
     }
+}
+
+#pragma mark - Keyboard handling logic
+
+- (void)_jp_keyboardWillShow:(NSNotification *)notification {
+    [self.cardInputView notifyKeyboardWillShow:YES withNotification:notification];
+}
+
+- (void)_jp_keyboardWillHide:(NSNotification *)notification {
+    [self.cardInputView notifyKeyboardWillShow:NO withNotification:notification];
 }
 
 @end
