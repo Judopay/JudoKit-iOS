@@ -103,6 +103,7 @@
     cardDetailsViewModel.countryViewModel.placeholder = @"card_holder_country_hint"._jp_localized;
     cardDetailsViewModel.countryViewModel.options = countries;
     cardDetailsViewModel.countryViewModel.text = currentSelectedCountry.name;
+    cardDetailsViewModel.countryViewModel.isValid = YES;
 
     cardDetailsViewModel.postalCodeViewModel.placeholder = @"post_code_hint"._jp_localized;
 
@@ -120,6 +121,7 @@
     billingInformationViewModel.countryViewModel.placeholder = @"card_holder_country_hint"._jp_localized;
     billingInformationViewModel.countryViewModel.options = countries;
     billingInformationViewModel.countryViewModel.text = currentSelectedCountry.name;
+    billingInformationViewModel.countryViewModel.isValid = YES;
 
     billingInformationViewModel.stateViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
     billingInformationViewModel.stateViewModel.options = @[];

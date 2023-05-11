@@ -62,6 +62,7 @@
 "delete_card_alert_message" = "Voulez-vous vraiment supprimer cette carte de votre portefeuille ?";
 "delete_card_alert_title" = "Supprimer carte ? ";
 "dismiss" = "Ignorer";
+"error" = "Erreur";
 "enter_card_title" = "Entrez un titre de carte...";
 "error_card_title_too_long" = "Le nom ne peut excéder 28 caractères ";
 "error_invalid_card_number_desc" = "Numéro de carte invalide";
