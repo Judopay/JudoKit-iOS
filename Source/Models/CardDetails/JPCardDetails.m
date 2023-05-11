@@ -28,8 +28,6 @@
 #import "NSNumber+Additions.h"
 #import "NSString+Additions.h"
 
-@implementation JPCardDetails
-
 #pragma mark - Constants
 
 // The card scheme for a card number. This is the name of the card scheme as it appears on the card.
@@ -41,6 +39,8 @@ static NSString *const kCardSchemeAMEX = @"AMEX";
 static NSString *const kCardSchemeChinaUnionPay = @"China Union Pay";
 static NSString *const kCardSchemeJCB = @"JCB";
 static NSString *const kCardSchemeDiscover = @"Discover";
+
+@implementation JPCardDetails
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {

@@ -171,8 +171,6 @@
 }
 
 - (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    [self.paymentMethodsView.headerView.payButton stopLoading];
-    self.paymentMethodsView.userInteractionEnabled = YES;
     [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
     [super _jp_displayAlertWithTitle:title andError:error];
 }

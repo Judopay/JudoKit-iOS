@@ -134,15 +134,22 @@
 - (void)handleSaveCardResponse:(JPResponse *)response andError:(NSError *)error {
     [self.view endEditingCardListIfNeeded];
 
-    if (response) {
-        [self.interactor updateKeychainWithCardDetails:response.cardDetails];
-        [self setLastAddedCardAsSelected];
-        [self viewModelNeedsUpdate];
-        return;
-    }
-
     if (error && error.code != JudoUserDidCancelError) {
         [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
+        return;
+    }
+    
+    if (response) {
+        JPCardDetails *details = response.cardDetails;
+        
+        if (!details) {
+            [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:JPError.responseParseError];
+            return;
+        }
+        
+        [self.interactor updateKeychainWithCardDetails:details];
+        [self setLastAddedCardAsSelected];
+        [self viewModelNeedsUpdate];
     }
 }
 

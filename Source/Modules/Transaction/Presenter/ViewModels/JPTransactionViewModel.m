@@ -223,7 +223,7 @@
             BOOL isValid = viewModel.cardNumberViewModel.isValid && viewModel.cardholderNameViewModel.isValid && viewModel.expiryDateViewModel.isValid && viewModel.securityCodeViewModel.isValid;
 
             if (self.mode == JPPresentationModeCardInfoAndAVS) {
-                isValid &= viewModel.countryViewModel.isValid && viewModel.postalCodeViewModel.isValid;
+                isValid = isValid && viewModel.countryViewModel.isValid && viewModel.postalCodeViewModel.isValid;
             }
 
             return isValid;

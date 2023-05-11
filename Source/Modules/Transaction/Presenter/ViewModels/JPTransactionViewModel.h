@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 /**
  * The icon to be shown on the left
  */
-@property (nonatomic, strong) UIImage *iconLeft;
+@property (nonatomic, strong, nullable) UIImage *iconLeft;
 
 /**
  * The message text
