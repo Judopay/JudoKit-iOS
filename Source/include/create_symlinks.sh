@@ -175,7 +175,6 @@ ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationIsDefaultCell/
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardCell/JPPaymentMethodsCardCell.h JPPaymentMethodsCardCell.h
 ln -s -f ../View/CardInputView/Subviews/JPCardNumberField.h JPCardNumberField.h
 ln -s -f ../Extensions/NSObject/NSObject+Additions.h NSObject+Additions.h
-ln -s -f ../Modules/Transaction/View/JPTransactionViewDelegate.h JPTransactionViewDelegate.h
 ln -s -f ../View/InputField/JPInputFieldDelegate.h JPInputFieldDelegate.h
 ln -s -f ../Models/SessionConfiguration/JPSessionConfiguration.h JPSessionConfiguration.h
 ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
