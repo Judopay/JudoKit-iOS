@@ -1,0 +1,1 @@
+../Extensions/JPConfiguration/JPConfiguration+Additions.h

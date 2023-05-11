@@ -180,7 +180,18 @@ ln -s -f ../View/InputField/JPInputFieldDelegate.h JPInputFieldDelegate.h
 ln -s -f ../Models/SessionConfiguration/JPSessionConfiguration.h JPSessionConfiguration.h
 ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberFormatter+Additions.h
 ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
-ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPCardDetailsMode.h JPCardDetailsMode.h
 ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h
 ln -s -f ../Extensions/NSNumber/NSNumber+Additions.h NSNumber+Additions.h
 ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
+ln -s -f ../View/CardInputView/Subviews/JPTransactionScanCardButton.h
+ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h
+ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h
+ln -s -f ../View/CardInputView/Subviews/JPPhoneCodeInputField.h
+ln -s -f ../View/CardInputView/Subviews/JPIntrinsicSizeAwareScrollView.h
+ln -s -f ../View/CardInputView/Subviews/JPForm.h
+ln -s -f ../View/CardInputView/Subviews/JPCardDetailsForm.h
+ln -s -f ../View/CardInputView/Subviews/JPBillingInformationForm.h
+ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBarDelegate.h
+ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBar.h
+ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPPresentationMode.h
+ln -s -f ../Extensions/JPConfiguration/JPConfiguration+Additions.h
