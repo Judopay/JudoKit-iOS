@@ -35,8 +35,6 @@
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardTokenButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardTokenButton;
 
-@property (strong, nonatomic) JPCardTransactionService *transactionService;
-
 @property (weak, nonatomic) IBOutlet UITextField *cardNetworkTextField;
 @property (weak, nonatomic) IBOutlet UITextField *cardTokenTextField;
 @property (weak, nonatomic) IBOutlet UITextField *cardSecurityCodeTextField;
@@ -187,15 +185,6 @@
 - (void)shouldEnableButtons:(BOOL)shouldEnable {
     self.payWithCardTokenButton.enabled = shouldEnable;
     self.preAuthWithCardTokenButton.enabled = shouldEnable;
-}
-
-- (JPCardTransactionService *)transactionService {
-    if (!_transactionService) {
-        _transactionService = [[JPCardTransactionService alloc] initWithAuthorization:Settings.defaultSettings.authorization
-                                                                          isSandboxed:Settings.defaultSettings.isSandboxed
-                                                                     andConfiguration:self.configuration];
-    }
-    return _transactionService;
 }
 
 @end

@@ -1,2 +1,6 @@
 excluded:
   - Pods
+line_length: 160
+identifier_name:
+  max_length:
+    warning: 50

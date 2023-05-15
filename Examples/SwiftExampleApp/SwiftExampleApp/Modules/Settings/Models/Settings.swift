@@ -1,34 +1,12 @@
-//
-//  Settings.swift
-//  SwiftExampleApp
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
-
+import Judo3DS2_iOS
 import JudoKit_iOS
 
+// swiftlint:disable:next type_body_length
 class Settings {
-
     // MARK: - Constants
 
     private let kDefaultConsumerReference = "my-unique-consumer-ref"
+    private let kDontSet = "dontSet"
 
     // MARK: - Variables
 
@@ -48,23 +26,22 @@ class Settings {
     // MARK: - Getters
 
     public var isSandboxed: Bool {
-        return userDefaults.bool(forKey: kSandboxedKey)
+        userDefaults.bool(forKey: kSandboxedKey)
     }
 
-    public var judoID: String {
-        return userDefaults.string(forKey: kJudoIdKey) ?? ""
+    public var judoId: String {
+        userDefaults.string(forKey: kJudoIdKey) ?? ""
     }
 
     public var isBasicAuthorizationOn: Bool {
-        return userDefaults.bool(forKey: kIsTokenAndSecretOnKey)
+        userDefaults.bool(forKey: kIsTokenAndSecretOnKey)
     }
 
     public var isSessionAuthorizationOn: Bool {
-        return userDefaults.bool(forKey: kIsPaymentSessionOnKey)
+        userDefaults.bool(forKey: kIsPaymentSessionOnKey)
     }
 
     public var authorization: JPAuthorization {
-
         if isBasicAuthorizationOn {
             let token = userDefaults.string(forKey: kTokenKey) ?? ""
             let secret = userDefaults.string(forKey: kSecretKey) ?? ""
@@ -77,7 +54,6 @@ class Settings {
     }
 
     public var reference: JPReference {
-
         var paymentReference = JPReference.generatePaymentReference()
         var consumerReference = kDefaultConsumerReference
 
@@ -89,8 +65,10 @@ class Settings {
             consumerReference = storedConsumerRef
         }
 
-        return JPReference(consumerReference: consumerReference,
-                           paymentReference: paymentReference)
+        let reference = JPReference(consumerReference: consumerReference,
+                                    paymentReference: paymentReference)
+        reference.metaData = ["exampleMetaKey": "exampleMetaValue"]
+        return reference
     }
 
     public var amount: JPAmount {
@@ -103,8 +81,52 @@ class Settings {
         userDefaults.string(forKey: kMerchantIdKey) ?? ""
     }
 
-    public var supportedCardNetworks: JPCardNetworkType {
+    var applePayReturnedContactInfo: JPReturnedInfo {
+        var fields: JPReturnedInfo = []
+        if userDefaults.bool(forKey: kIsApplePayBillingContactInfoRequired) {
+            fields.insert(.billingContacts)
+        }
+        if userDefaults.bool(forKey: kIsApplePayShippingContactInfoRequired) {
+            fields.insert(.shippingContacts)
+        }
+        return fields
+    }
 
+    var applePayBillingContactFields: JPContactField {
+        var fields: JPContactField = []
+        if userDefaults.bool(forKey: kIsBillingContactFieldPostalAddressRequiredKey) {
+            fields.insert(.postalAddress)
+        }
+        if userDefaults.bool(forKey: kIsBillingContactFieldPhoneRequiredKey) {
+            fields.insert(.phone)
+        }
+        if userDefaults.bool(forKey: kIsBillingContactFieldEmailRequiredKey) {
+            fields.insert(.email)
+        }
+        if userDefaults.bool(forKey: kIsBillingContactFieldNameRequiredKey) {
+            fields.insert(.name)
+        }
+        return fields
+    }
+
+    var applePayShippingContactFields: JPContactField {
+        var fields: JPContactField = []
+        if userDefaults.bool(forKey: kIsShippingContactFieldPostalAddressRequiredKey) {
+            fields.insert(.postalAddress)
+        }
+        if userDefaults.bool(forKey: kIsShippingContactFieldPhoneRequiredKey) {
+            fields.insert(.phone)
+        }
+        if userDefaults.bool(forKey: kIsShippingContactFieldEmailRequiredKey) {
+            fields.insert(.email)
+        }
+        if userDefaults.bool(forKey: kIsShippingContactFieldNameRequiredKey) {
+            fields.insert(.name)
+        }
+        return fields
+    }
+
+    public var supportedCardNetworks: JPCardNetworkType {
         var networks: JPCardNetworkType = []
 
         if userDefaults.bool(forKey: kVisaEnabledKey) {
@@ -143,7 +165,6 @@ class Settings {
     }
 
     public var paymentMethods: [JPPaymentMethod] {
-
         var paymentMethods: [JPPaymentMethod] = []
 
         if userDefaults.bool(forKey: kCardPaymentMethodEnabledKey) {
@@ -166,18 +187,201 @@ class Settings {
     }
 
     public var isAVSEnabled: Bool {
-        return userDefaults.bool(forKey: kAVSEnabledKey)
+        userDefaults.bool(forKey: kAVSEnabledKey)
     }
 
     public var shouldPaymentMethodsDisplayAmount: Bool {
-        return userDefaults.bool(forKey: kShouldPaymentMethodsDisplayAmount)
+        userDefaults.bool(forKey: kShouldPaymentMethodsDisplayAmount)
     }
 
     public var shouldPaymentButtonDisplayAmount: Bool {
-        return userDefaults.bool(forKey: kShouldPaymentButtonDisplayAmount)
+        userDefaults.bool(forKey: kShouldPaymentButtonDisplayAmount)
     }
 
     public var shouldPaymentMethodsVerifySecurityCode: Bool {
-        return userDefaults.bool(forKey: kShouldPaymentMethodsVerifySecurityCode)
+        userDefaults.bool(forKey: kShouldPaymentMethodsVerifySecurityCode)
+    }
+
+    var isInitialRecurringPaymentEnabled: Bool {
+        userDefaults.bool(forKey: kIsInitialRecurringPaymentKey)
+    }
+
+    var isAddressOn: Bool {
+        userDefaults.bool(forKey: kIsAddressOnKey)
+    }
+
+    var isPrimaryAccountDetailsOn: Bool {
+        userDefaults.bool(forKey: kIsPrimaryAccountDetailsOnKey)
+    }
+
+    var isDelayedAuthorisationOn: Bool {
+        userDefaults.bool(forKey: kIsDelayedAuthorisationOnKey)
+    }
+
+    var shouldAskForCSC: Bool {
+        userDefaults.bool(forKey: kShouldAskForCSCKey)
+    }
+
+    var shouldAskForCardholderName: Bool {
+        userDefaults.bool(forKey: kShouldAskForCardholderNameKey)
+    }
+
+    // MARK: - Card Address
+
+    var address: JPAddress? {
+        if isAddressOn {
+            let countryCode = userDefaults.integer(forKey: kAddressCountryCodeKey)
+            let state = userDefaults.string(forKey: kAddressStateKey)
+            return JPAddress(address1: userDefaults.string(forKey: kAddressLine1Key),
+                             address2: userDefaults.string(forKey: kAddressLine2Key),
+                             address3: userDefaults.string(forKey: kAddressLine3Key),
+                             town: userDefaults.string(forKey: kAddressTownKey),
+                             postCode: userDefaults.string(forKey: kAddressPostCodeKey),
+                             countryCode: NSNumber(value: countryCode),
+                             state: state?.isEmpty == true ? nil : state)
+        }
+        return nil
+    }
+
+    var primaryAccountDetails: JPPrimaryAccountDetails? {
+        if isPrimaryAccountDetailsOn {
+            let accountDetails = JPPrimaryAccountDetails()
+            accountDetails.accountNumber = userDefaults.string(forKey: kPrimaryAccountAccountNumberKey)
+            accountDetails.name = userDefaults.string(forKey: kPrimaryAccountNameKey)
+            accountDetails.dateOfBirth = userDefaults.string(forKey: kPrimaryAccountDateOfBirthKey)
+            accountDetails.postCode = userDefaults.string(forKey: kPrimaryAccountPostCodeKey)
+            return accountDetails
+        }
+        return nil
+    }
+
+    var emailAddress: String? {
+        isAddressOn ? userDefaults.string(forKey: kAddressEmailAddressKey) : nil
+    }
+
+    var phoneCountryCode: String? {
+        isAddressOn ? userDefaults.string(forKey: kAddressPhoneCountryCodeKey) : nil
+    }
+
+    var mobileNumber: String? {
+        isAddressOn ? userDefaults.string(forKey: kAddressMobileNumberKey) : nil
+    }
+
+    // MARK: - 3DS v2.0
+
+    var shouldAskForBillingInformation: Bool {
+        userDefaults.bool(forKey: kShouldAskForBillingInformationKey)
+    }
+
+    var challengeRequestIndicator: String? {
+        let value = userDefaults.string(forKey: kChallengeRequestIndicatorKey)
+        return value == kDontSet ? nil : value
+    }
+
+    var scaExemption: String? {
+        let value = userDefaults.string(forKey: kScaExemptionKey)
+        return value == kDontSet ? nil : value
+    }
+
+    var threeDsTwoMaxTimeout: Int {
+        userDefaults.integer(forKey: kThreeDsTwoMaxTimeoutKey)
+    }
+
+    var threeDSTwoMessageVersion: String? {
+        userDefaults.string(forKey: kThreeDSTwoMessageVersionKey) ?? ""
+    }
+
+    var connectTimeout: Int {
+        timeoutFor(key: kConnectTimeoutKey)
+    }
+
+    var readTimeout: Int {
+        timeoutFor(key: kReadTimeoutKey)
+    }
+
+    var writeTimeout: Int {
+        timeoutFor(key: kWriteTimeoutKey)
+    }
+
+    private func timeoutFor(key: String) -> Int {
+        let value = userDefaults.string(forKey: key) ?? "0"
+        let intValue = Int(value) ?? 0
+        return intValue == 0 ? 600 : intValue
+    }
+
+    var threeDSUICustomization: JP3DSUICustomization? {
+        if userDefaults.bool(forKey: kIsThreeDSUICustomisationEnabledKey) {
+            let customization = JP3DSUICustomization()
+
+            let labelCustomization = JP3DSLabelCustomization()
+            labelCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSLabelTextFontNameKey) ?? "")
+            labelCustomization.setTextColor(userDefaults.string(forKey: kThreeDSLabelTextColorKey) ?? "")
+            labelCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSLabelTextFontSizeKey))
+            labelCustomization.setHeadingTextFontName(userDefaults.string(forKey: kThreeDSLabelHeadingTextFontNameKey) ?? "")
+            labelCustomization.setHeadingTextColor(userDefaults.string(forKey: kThreeDSLabelHeadingTextColorKey) ?? "")
+            labelCustomization.setHeadingTextFontSize(userDefaults.integer(forKey: kThreeDSLabelHeadingTextFontSizeKey))
+            customization.setLabel(labelCustomization)
+
+            let toolbarCustomization = JP3DSToolbarCustomization()
+            toolbarCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSToolbarTextFontNameKey) ?? "")
+            toolbarCustomization.setTextColor(userDefaults.string(forKey: kThreeDSToolbarTextColorKey) ?? "")
+            toolbarCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSToolbarTextFontSizeKey))
+            toolbarCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSToolbarBackgroundColorKey) ?? "")
+            toolbarCustomization.setHeaderText(userDefaults.string(forKey: kThreeDSToolbarHeaderTextKey) ?? "")
+            toolbarCustomization.setButtonText(userDefaults.string(forKey: kThreeDSToolbarButtonTextKey) ?? "")
+            customization.setToolbar(toolbarCustomization)
+
+            let textBoxCustomization = JP3DSTextBoxCustomization()
+            textBoxCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSTextBoxTextFontNameKey) ?? "")
+            textBoxCustomization.setTextColor(userDefaults.string(forKey: kThreeDSTextBoxTextColorKey) ?? "")
+            textBoxCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSTextBoxTextFontSizeKey))
+            textBoxCustomization.setBorderWidth(userDefaults.integer(forKey: kThreeDSTextBoxBorderWidthKey))
+            textBoxCustomization.setBorderColor(userDefaults.string(forKey: kThreeDSTextBoxBorderColorKey) ?? "")
+            textBoxCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSTextBoxCornerRadiusKey))
+            customization.setTextBox(textBoxCustomization)
+
+            let submitCustomization = JP3DSButtonCustomization()
+            submitCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSSubmitButtonTextFontNameKey) ?? "")
+            submitCustomization.setTextColor(userDefaults.string(forKey: kThreeDSSubmitButtonTextColorKey) ?? "")
+            submitCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSSubmitButtonTextFontSizeKey))
+            submitCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSSubmitButtonBackgroundColorKey) ?? "")
+            submitCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSSubmitButtonCornerRadiusKey))
+            customization.setButton(submitCustomization, of: .submit)
+
+            let nextCustomization = JP3DSButtonCustomization()
+            nextCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSNextButtonTextFontNameKey) ?? "")
+            nextCustomization.setTextColor(userDefaults.string(forKey: kThreeDSNextButtonTextColorKey) ?? "")
+            nextCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSNextButtonTextFontSizeKey))
+            nextCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSNextButtonBackgroundColorKey) ?? "")
+            nextCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSNextButtonCornerRadiusKey))
+            customization.setButton(nextCustomization, of: .next)
+
+            let cancelCustomization = JP3DSButtonCustomization()
+            cancelCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSCancelButtonTextFontNameKey) ?? "")
+            cancelCustomization.setTextColor(userDefaults.string(forKey: kThreeDSCancelButtonTextColorKey) ?? "")
+            cancelCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSCancelButtonTextFontSizeKey))
+            cancelCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSCancelButtonBackgroundColorKey) ?? "")
+            cancelCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSCancelButtonCornerRadiusKey))
+            customization.setButton(cancelCustomization, of: .cancel)
+
+            let continueCustomization = JP3DSButtonCustomization()
+            continueCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSContinueButtonTextFontNameKey) ?? "")
+            continueCustomization.setTextColor(userDefaults.string(forKey: kThreeDSContinueButtonTextColorKey) ?? "")
+            continueCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSContinueButtonTextFontSizeKey))
+            continueCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSContinueButtonBackgroundColorKey) ?? "")
+            continueCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSContinueButtonCornerRadiusKey))
+            customization.setButton(continueCustomization, of: .continue)
+
+            let resendCustomization = JP3DSButtonCustomization()
+            resendCustomization.setTextFontName(userDefaults.string(forKey: kThreeDSResendButtonTextFontNameKey) ?? "")
+            resendCustomization.setTextColor(userDefaults.string(forKey: kThreeDSResendButtonTextColorKey) ?? "")
+            resendCustomization.setTextFontSize(userDefaults.integer(forKey: kThreeDSResendButtonTextFontSizeKey))
+            resendCustomization.setBackgroundColor(userDefaults.string(forKey: kThreeDSResendButtonBackgroundColorKey) ?? "")
+            resendCustomization.setCornerRadius(userDefaults.integer(forKey: kThreeDSResendButtonCornerRadiusKey))
+            customization.setButton(resendCustomization, of: .resend)
+
+            return customization
+        }
+        return nil
     }
 }

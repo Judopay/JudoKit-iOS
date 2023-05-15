@@ -32,7 +32,7 @@ class FeatureRepository {
                          subtitle: "by entering card details"),
 
         FeatureViewModel(type: .preAuth,
-                         title: "PreAuth with card",
+                         title: "Pre-auth with card",
                          subtitle: "by entering card details"),
 
         FeatureViewModel(type: .registerCard,
@@ -41,7 +41,7 @@ class FeatureRepository {
 
         FeatureViewModel(type: .checkCard,
                          title: "Check card",
-                         subtitle: "to validate card"),
+                         subtitle: "to validate a card"),
 
         FeatureViewModel(type: .saveCard,
                          title: "Save card",
@@ -57,7 +57,7 @@ class FeatureRepository {
 
         FeatureViewModel(type: .applePayButtons,
                          title: "Standalone Apple Pay buttons",
-                         subtitle: "with supported button types and styles"),
+                         subtitle: "with all supported types and styles"),
 
         FeatureViewModel(type: .paymentMethods,
                          title: "Payment methods",
@@ -69,15 +69,19 @@ class FeatureRepository {
 
         FeatureViewModel(type: .serverToServer,
                          title: "Server-to-Server payment methods",
-                         subtitle: "with default server-to-server payment methods"),
+                         subtitle: "with default Server-to-Server payment methods"),
 
         FeatureViewModel(type: .payByBank,
                          title: "Pay By Bank App",
                          subtitle: "by using your existing Bank app"),
 
         FeatureViewModel(type: .tokenPayments,
-                         title: "Token payments",
-                         subtitle: "by using your stored card token"),
+                         title: "Token Payments",
+                         subtitle: "Token Payments (no UI)"),
+
+        FeatureViewModel(type: .noUIPayments,
+                         title: "No UI Payments",
+                         subtitle: "Custom UI Payments (no UI)"),
 
         FeatureViewModel(type: .transactionDetails,
                          title: "Get transaction details",

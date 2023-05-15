@@ -38,6 +38,7 @@ protocol HomeInteractorOutput: AnyObject {
     func displayErrorAlert(with error: NSError)
     func navigateToResultsModule(with result: Result)
     func navigateToTokenModule()
+    func navigateToNoUICardPayModule()
     func navigateToPBBAModule()
     func navigateToApplePayModule()
 }
@@ -82,6 +83,8 @@ class HomeInteractor: HomeInteractorInput {
             output?.navigateToPBBAModule()
         case .tokenPayments:
             output?.navigateToTokenModule()
+        case .noUIPayments:
+            output?.navigateToNoUICardPayModule()
         case .transactionDetails:
             output?.displayReceiptInputAlert()
         }

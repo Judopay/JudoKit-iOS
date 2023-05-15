@@ -1,56 +1,71 @@
-//
-//  IASKAppSettingsViewController+Additions.swift
-//  SwiftExampleApp
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
-
 import InAppSettingsKit
 
 extension IASKAppSettingsViewController {
-
-    public func updateHiddenKeys() {
+    func updateHiddenKeys() {
         let hiddenKeys = computeHiddenKeys(from: [kIsPaymentSessionOnKey,
-                                                  kIsTokenAndSecretOnKey])
+                                                  kIsTokenAndSecretOnKey,
+                                                  kIsAddressOnKey,
+                                                  kIsPrimaryAccountDetailsOnKey])
         setHiddenKeys(hiddenKeys, animated: false)
     }
 
     func computeHiddenKeys(from keys: [String]) -> Set<String> {
+        var hiddenKeys: Set<String> = [
+            kTokenKey,
+            kSecretKey,
 
-        var hiddenKeys: Set<String> = [kTokenKey, kSecretKey, kSessionTokenKey, kPaymentSessionKey]
+            kSessionTokenKey,
+            kPaymentSessionKey,
 
-        if keys.contains(kIsPaymentSessionOnKey)
-            && Settings.standard.isSessionAuthorizationOn {
+            kAddressLine1Key,
+            kAddressLine2Key,
+            kAddressLine3Key,
+            kAddressTownKey,
+            kAddressPostCodeKey,
+            kAddressCountryCodeKey,
+            kAddressStateKey,
+            kAddressPhoneCountryCodeKey,
+            kAddressMobileNumberKey,
+            kAddressEmailAddressKey,
+
+            kPrimaryAccountNameKey,
+            kPrimaryAccountAccountNumberKey,
+            kPrimaryAccountDateOfBirthKey,
+            kPrimaryAccountPostCodeKey
+        ]
+
+        if keys.contains(kIsPaymentSessionOnKey), Settings.standard.isSessionAuthorizationOn {
             hiddenKeys.remove(kSessionTokenKey)
             hiddenKeys.remove(kPaymentSessionKey)
             UserDefaults.standard.setValue(false, forKey: kIsTokenAndSecretOnKey)
         }
 
-        if keys.contains(kIsTokenAndSecretOnKey)
-            && Settings.standard.isBasicAuthorizationOn {
+        if keys.contains(kIsTokenAndSecretOnKey), Settings.standard.isBasicAuthorizationOn {
             hiddenKeys.remove(kTokenKey)
             hiddenKeys.remove(kSecretKey)
             UserDefaults.standard.setValue(false, forKey: kIsPaymentSessionOnKey)
         }
 
+        if keys.contains(kIsAddressOnKey), Settings.standard.isAddressOn {
+            hiddenKeys.remove(kAddressLine1Key)
+            hiddenKeys.remove(kAddressLine2Key)
+            hiddenKeys.remove(kAddressLine3Key)
+            hiddenKeys.remove(kAddressTownKey)
+            hiddenKeys.remove(kAddressPostCodeKey)
+            hiddenKeys.remove(kAddressCountryCodeKey)
+            hiddenKeys.remove(kAddressStateKey)
+            hiddenKeys.remove(kAddressPhoneCountryCodeKey)
+            hiddenKeys.remove(kAddressMobileNumberKey)
+            hiddenKeys.remove(kAddressEmailAddressKey)
+        }
+
+        if keys.contains(kIsPrimaryAccountDetailsOnKey), Settings.standard.isPrimaryAccountDetailsOn {
+            hiddenKeys.remove(kPrimaryAccountNameKey)
+            hiddenKeys.remove(kPrimaryAccountAccountNumberKey)
+            hiddenKeys.remove(kPrimaryAccountDateOfBirthKey)
+            hiddenKeys.remove(kPrimaryAccountPostCodeKey)
+        }
+
         return hiddenKeys
     }
-
 }

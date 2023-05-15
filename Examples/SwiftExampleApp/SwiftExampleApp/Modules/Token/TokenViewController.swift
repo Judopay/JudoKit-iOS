@@ -1,35 +1,9 @@
-//
-//  TokenViewController.swift
-//  SwiftExampleApp
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
-
 import UIKit
 
 class TokenViewController: UIViewController, TokenInteractorOutput {
-
     // MARK: - Constants
 
     private let kButtonHeight: CGFloat = 50.0
-    private let kHorizontalOffset: CGFloat = 20.0
 
     // MARK: - Variables
 
@@ -48,10 +22,16 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
 
     // MARK: - Protocol methods
 
-    func areTokenTransactionButtonsEnabled(_ isEnabled: Bool) {
-        tokenPaymentButton.backgroundColor = isEnabled ? .systemPurple : .systemGray
-        tokenPreAuthButton.backgroundColor = isEnabled ? .systemPurple : .systemGray
+    func updateFields(withScheme scheme: String?, token: String?, csc: String?, cardholderName: String?) {
+        schemeTextField.text = scheme
+        tokenTextField.text = token
+        cscTextField.text = csc
+        chNameTextField.text = cardholderName
+    }
 
+    func areTokenTransactionButtonsEnabled(_ isEnabled: Bool) {
+        tokenPaymentButton.backgroundColor = isEnabled ? .label : .systemGray
+        tokenPreAuthButton.backgroundColor = isEnabled ? .label : .systemGray
         tokenPaymentButton.isEnabled = isEnabled
         tokenPreAuthButton.isEnabled = isEnabled
     }
@@ -61,6 +41,22 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
     }
 
     // MARK: - User actions
+
+    @objc private func onSchemeChange() {
+        interactor.didChange(scheme: schemeTextField.text)
+    }
+
+    @objc private func onTokenChange() {
+        interactor.didChange(token: tokenTextField.text)
+    }
+
+    @objc private func onCSCChange() {
+        interactor.didChange(csc: cscTextField.text)
+    }
+
+    @objc private func onCHNameChange() {
+        interactor.didChange(cardholderName: chNameTextField.text)
+    }
 
     @objc private func didTapSaveCardButton() {
         interactor.didTapSaveCardButton()
@@ -74,86 +70,158 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
         interactor.didTapTokenPreAuthButton()
     }
 
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrameRect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardFrameHeight = view.convert(keyboardFrameRect, from: nil).size.height
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrameHeight, right: 0)
+        }
+    }
+
+    @objc func keyboardWillHide() {
+        scrollView.contentInset = .zero
+    }
+
     // MARK: - Layout setup
 
     private func setupLayout() {
+        navigationItem.title = "Token payments"
         view.backgroundColor = .systemBackground
 
-        tokenButtonsStackView.addArrangedSubview(tokenPaymentButton)
-        tokenButtonsStackView.addArrangedSubview(tokenPreAuthButton)
+        formStackView.addArrangedSubview(introLabel)
+        formStackView.addArrangedSubview(fieldStackView(withChildren: [schemeLabel, schemeTextField]))
+        formStackView.addArrangedSubview(fieldStackView(withChildren: [tokenLabel, tokenTextField]))
+        formStackView.addArrangedSubview(fieldStackView(withChildren: [cscLabel, cscTextField]))
+        formStackView.addArrangedSubview(fieldStackView(withChildren: [chNameLabel, chNameTextField]))
 
+        contentStackView.addArrangedSubview(formStackView)
+        contentStackView.addArrangedSubview(TokenViewController.label(text: "- or -", textAlignment: .center))
         contentStackView.addArrangedSubview(saveCardButton)
-        contentStackView.addArrangedSubview(tokenButtonsStackView)
+        contentStackView.addArrangedSubview(spacerView)
+        contentStackView.addArrangedSubview(tokenPaymentButton)
+        contentStackView.addArrangedSubview(tokenPreAuthButton)
 
-        view.addSubview(contentStackView)
+        scrollView.addSubview(contentStackView)
+        view.addSubview(scrollView)
     }
 
     private func setupConstraints() {
-
-        let constraints = [
+        NSLayoutConstraint.activate([
             saveCardButton.heightAnchor.constraint(equalToConstant: kButtonHeight),
             tokenPaymentButton.heightAnchor.constraint(equalToConstant: kButtonHeight),
             tokenPreAuthButton.heightAnchor.constraint(equalToConstant: kButtonHeight),
-            contentStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            contentStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: kHorizontalOffset),
-            contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalOffset)
-        ]
-
-        NSLayoutConstraint.activate(constraints)
+            spacerView.heightAnchor.constraint(equalToConstant: kButtonHeight),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.contentLayoutGuide.topAnchor.constraint(equalTo: contentStackView.topAnchor),
+            scrollView.contentLayoutGuide.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
+            scrollView.contentLayoutGuide.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor),
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+        ])
     }
 
     private func setupTargets() {
-        saveCardButton.addTarget(self,
-                                 action: #selector(didTapSaveCardButton),
-                                 for: .touchDown)
+        schemeTextField.addTarget(self, action: #selector(onSchemeChange), for: .editingChanged)
+        tokenTextField.addTarget(self, action: #selector(onTokenChange), for: .editingChanged)
+        cscTextField.addTarget(self, action: #selector(onCSCChange), for: .editingChanged)
+        chNameTextField.addTarget(self, action: #selector(onCHNameChange), for: .editingChanged)
 
-        tokenPaymentButton.addTarget(self,
-                                    action: #selector(didTapTokenPaymentsButton),
-                                    for: .touchDown)
+        saveCardButton.addTarget(self, action: #selector(didTapSaveCardButton), for: .touchDown)
+        tokenPaymentButton.addTarget(self, action: #selector(didTapTokenPaymentsButton), for: .touchDown)
+        tokenPreAuthButton.addTarget(self, action: #selector(didTapTokenPreAuthButton), for: .touchDown)
 
-        tokenPreAuthButton.addTarget(self,
-                                     action: #selector(didTapTokenPreAuthButton),
-                                     for: .touchDown)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        let gestureRecogniser = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        gestureRecogniser.cancelsTouchesInView = false
+        view.addGestureRecognizer(gestureRecogniser)
     }
 
     // MARK: - Lazy instantiations
 
-    private let tokenButtonsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        return stackView
+    private let scrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
 
-    private let contentStackView: UIStackView = {
+    private let formStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 50
+        stackView.spacing = 24
         return stackView
     }()
 
-    private let saveCardButton: UIButton = {
-        return button(named: "Save Card")
+    private func fieldStackView(withChildren children: [UIView]) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        children.forEach {
+            stackView.addArrangedSubview($0)
+        }
+        return stackView
+    }
+
+    private let contentStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
     }()
 
-    private let tokenPaymentButton: UIButton = {
-        return button(named: "Token Payment")
-    }()
+    private let introLabel = label(text: "Please fill in the fields from below with tokenized card details", textAlignment: .center)
 
-    private let tokenPreAuthButton: UIButton = {
-        return button(named: "Token PreAuth")
-    }()
+    private let schemeLabel = label(text: "Scheme")
+    private let tokenLabel = label(text: "Token")
+    private let cscLabel = label(text: "Security code")
+    private let chNameLabel = label(text: "Cardholder name")
 
-    private static func button(named name: String) -> UIButton {
+    private static func label(text: String?, textAlignment: NSTextAlignment = .natural) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.textAlignment = textAlignment
+        label.numberOfLines = 0
+        return label
+    }
+
+    private let schemeTextField = textField(keyboardType: .numberPad)
+    private let tokenTextField = textField(keyboardType: .default)
+    private let cscTextField = textField(keyboardType: .numberPad)
+    private let chNameTextField = textField(keyboardType: .default)
+
+    private static func textField(text: String? = nil, keyboardType: UIKeyboardType) -> UITextField {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.text = text
+        textField.keyboardType = keyboardType
+        textField.borderStyle = .line
+        return textField
+    }
+
+    private let saveCardButton = button(titled: "Save Card")
+    private let tokenPaymentButton = button(titled: "Token Payment")
+    private let tokenPreAuthButton = button(titled: "Token PreAuth")
+
+    private static func button(titled title: String) -> UIButton {
         let button = UIButton()
-        button.backgroundColor = .systemPurple
-        button.setTitle(name, for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
-        button.layer.cornerRadius = 10.0
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor.secondarySystemBackground, for: .normal)
+        button.backgroundColor = UIColor.label
         return button
     }
 
+    private let spacerView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }

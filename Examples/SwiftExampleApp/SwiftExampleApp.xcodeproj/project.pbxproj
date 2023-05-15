@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,9 @@
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
 		49584B8CB009346FCBBF5DC0 /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */; };
+		ADBFBC702A128A880094859B /* NoUICardPayModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBFBC6F2A128A880094859B /* NoUICardPayModule.swift */; };
+		ADBFBC722A128B2C0094859B /* NoUICardPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBFBC712A128B2C0094859B /* NoUICardPayView.swift */; };
+		ADBFBC762A12997D0094859B /* NoUICardPayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBFBC752A12997D0094859B /* NoUICardPayViewModel.swift */; };
 		ADE6EA16287F311B007448DE /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305689F6258377FB00195C93 /* ResultsCell.swift */; };
 		ADE6EA17287F3144007448DE /* TokenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568A1A2583AD9A00195C93 /* TokenInteractor.swift */; };
 		ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
@@ -96,7 +99,7 @@
 		30E109972587743E000284CD /* PBBAInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBAInteractor.swift; sourceTree = "<group>"; };
 		30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayModule.swift; sourceTree = "<group>"; };
 		30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayViewController.swift; sourceTree = "<group>"; };
-		448AB1DF2450DF22004A11CB /* Judopay demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Judopay demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		448AB1DF2450DF22004A11CB /* JudoKit (Swift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JudoKit (Swift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1E22450DF22004A11CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		448AB1EB2450DF24004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		448AB1EE2450DF24004A11CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -109,6 +112,9 @@
 		4FF41A0D09D96AA0DBF10E82 /* Pods-SwiftExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		59582CF274093B83FB4DC7FC /* Pods-SwiftExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleAppTests/Pods-SwiftExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A177A2DBBC2751C575930C16 /* Pods-SwiftExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleAppTests/Pods-SwiftExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		ADBFBC6F2A128A880094859B /* NoUICardPayModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayModule.swift; sourceTree = "<group>"; };
+		ADBFBC712A128B2C0094859B /* NoUICardPayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayView.swift; sourceTree = "<group>"; };
+		ADBFBC752A12997D0094859B /* NoUICardPayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayViewModel.swift; sourceTree = "<group>"; };
 		BB51388758C04FBB45FE0CE3 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp-SwiftExampleAppUITests/Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1C7D453B0F2D8A54EF0682A /* Pods-SwiftExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +216,7 @@
 				30E1098925877417000284CD /* PBBA */,
 				305853B7257F79B7000B00DF /* Home */,
 				30568A0C2583AD7100195C93 /* Token */,
+				ADBFBC6E2A128A0C0094859B /* NoUICardPay */,
 				3056872B2581196500195C93 /* Settings */,
 				305687EF2582385B00195C93 /* Results */,
 			);
@@ -290,7 +297,7 @@
 		448AB1E02450DF22004A11CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				448AB1DF2450DF22004A11CB /* Judopay demo.app */,
+				448AB1DF2450DF22004A11CB /* JudoKit (Swift).app */,
 				448AB1F52450DF24004A11CB /* SwiftExampleAppTests.xctest */,
 				448AB2002450DF24004A11CB /* SwiftExampleAppUITests.xctest */,
 			);
@@ -339,6 +346,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		ADBFBC6E2A128A0C0094859B /* NoUICardPay */ = {
+			isa = PBXGroup;
+			children = (
+				ADBFBC6F2A128A880094859B /* NoUICardPayModule.swift */,
+				ADBFBC712A128B2C0094859B /* NoUICardPayView.swift */,
+				ADBFBC752A12997D0094859B /* NoUICardPayViewModel.swift */,
+			);
+			path = NoUICardPay;
+			sourceTree = "<group>";
+		};
 		DA527D3008B4EDCB59C25A41 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,7 +381,7 @@
 				448AB1DC2450DF22004A11CB /* Frameworks */,
 				448AB1DD2450DF22004A11CB /* Resources */,
 				EA034AB2A9D05EECEF5BBE13 /* [CP] Embed Pods Frameworks */,
-				305687E22582254600195C93 /* ShellScript */,
+				305687E22582254600195C93 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -372,7 +389,7 @@
 			);
 			name = SwiftExampleApp;
 			productName = SwiftExampleApp;
-			productReference = 448AB1DF2450DF22004A11CB /* Judopay demo.app */;
+			productReference = 448AB1DF2450DF22004A11CB /* JudoKit (Swift).app */;
 			productType = "com.apple.product-type.application";
 		};
 		448AB1F42450DF24004A11CB /* SwiftExampleAppTests */ = {
@@ -420,8 +437,9 @@
 		448AB1D72450DF22004A11CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = Judopay;
 				TargetAttributes = {
 					448AB1DE2450DF22004A11CB = {
@@ -524,8 +542,9 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftExampleApp-SwiftExampleAppUITests/Pods-SwiftExampleApp-SwiftExampleAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		305687E22582254600195C93 /* ShellScript */ = {
+		305687E22582254600195C93 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -533,6 +552,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -618,10 +638,12 @@
 				3056881925823CF000195C93 /* Result.swift in Sources */,
 				3056872D2581197100195C93 /* SettingsModule.swift in Sources */,
 				305687402581227500195C93 /* Settings.swift in Sources */,
+				ADBFBC722A128B2C0094859B /* NoUICardPayView.swift in Sources */,
 				448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */,
 				ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */,
 				305687272581193500195C93 /* AppCoordinator.swift in Sources */,
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,
+				ADBFBC762A12997D0094859B /* NoUICardPayViewModel.swift in Sources */,
 				30568809258238A400195C93 /* ResultsModule.swift in Sources */,
 				3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */,
 				30568A162583AD9200195C93 /* TokenViewController.swift in Sources */,
@@ -632,6 +654,7 @@
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
 				305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */,
+				ADBFBC702A128A880094859B /* NoUICardPayModule.swift in Sources */,
 				30568A0E2583AD8900195C93 /* TokenModule.swift in Sources */,
 				30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */,
 				ADE6EA17287F3144007448DE /* TokenInteractor.swift in Sources */,
@@ -710,6 +733,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -770,6 +794,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -805,15 +830,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "JudoKit (Swift)";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
-				PRODUCT_NAME = "Judopay demo";
+				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -827,15 +855,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "JudoKit (Swift)";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
-				PRODUCT_NAME = "Judopay demo";
+				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -9,7 +9,7 @@ target 'SwiftExampleApp' do
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'InAppSettingsKit', '3.3.6'
-  pod 'CocoaDebug', '1.7.2'
+  pod 'CocoaDebug', '1.7.7'
   pod 'SwiftLint'
 
   target 'SwiftExampleAppTests' do

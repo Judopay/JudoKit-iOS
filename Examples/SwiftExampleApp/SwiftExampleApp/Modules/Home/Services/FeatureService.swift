@@ -1,39 +1,13 @@
-//
-//  FeatureService.swift
-//  SwiftExampleApp
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
-
 import Foundation
 import JudoKit_iOS
 
 class FeatureService {
-
     private let settings = Settings.standard
 
     // MARK: - SDK Methods
 
     func invokeTransaction(with type: JPTransactionType,
                            completion: @escaping JPCompletionBlock) {
-
         judoKit?.invokeTransaction(with: type,
                                    configuration: configuration,
                                    completion: completion)
@@ -41,7 +15,6 @@ class FeatureService {
 
     func invokeApplePay(with mode: JPTransactionMode,
                         completion: @escaping JPCompletionBlock) {
-
         judoKit?.invokeApplePay(with: mode,
                                 configuration: configuration,
                                 completion: completion)
@@ -49,27 +22,26 @@ class FeatureService {
 
     func invokePaymentMethods(with mode: JPTransactionMode,
                               completion: @escaping JPCompletionBlock) {
-
         judoKit?.invokePaymentMethodScreen(with: mode,
                                            configuration: configuration,
                                            completion: completion)
     }
 
-    func invokeTokenTransaction(with mode: JPTransactionMode,
-                                cardToken: String,
+    func invokeTokenTransaction(with type: JPTransactionType,
+                                details: JPCardTransactionDetails,
                                 completion: @escaping JPCompletionBlock) {
+        judoKit?.invokeTokenTransaction(with: type,
+                                        configuration: configuration,
+                                        details: details,
+                                        completion: completion)
+    }
 
-        let tokenRequest = JPTokenRequest(configuration: configuration,
-                                          andCardToken: cardToken)
+    func invokePayment(withDetails details: JPCardTransactionDetails, completion: @escaping JPCompletionBlock) {
+        transactionService.invokePayment(with: details, andCompletion: completion)
+    }
 
-        if mode == .payment {
-            apiService.invokeTokenPayment(with: tokenRequest,
-                                          andCompletion: completion)
-            return
-        }
-
-        apiService.invokePreAuthTokenPayment(with: tokenRequest,
-                                             andCompletion: completion)
+    func invokePreAuthPayment(withDetails details: JPCardTransactionDetails, completion: @escaping JPCompletionBlock) {
+        transactionService.invokePreAuthPayment(with: details, andCompletion: completion)
     }
 
     func invokePBBATransaction(with url: URL?,
@@ -98,26 +70,46 @@ class FeatureService {
     }
 
     private var apiService: JPApiService {
-        return JPApiService(authorization: settings.authorization,
-                            isSandboxed: settings.isSandboxed)
+        JPApiService(authorization: settings.authorization,
+                     isSandboxed: settings.isSandboxed)
     }
 
-    private var configuration: JPConfiguration {
-        let config = JPConfiguration(judoID: settings.judoID,
+    private var transactionService: JPCardTransactionService {
+        JPCardTransactionService(authorization: settings.authorization, isSandboxed: settings.isSandboxed, andConfiguration: configuration)
+    }
+
+    var configuration: JPConfiguration {
+        let config = JPConfiguration(judoID: settings.judoId,
                                      amount: settings.amount,
                                      reference: settings.reference)
 
         config.paymentMethods = settings.paymentMethods
+        config.uiConfiguration = uiConfiguration
+        config.uiConfiguration.threeDSUICustomization = settings.threeDSUICustomization
         config.supportedCardNetworks = settings.supportedCardNetworks
         config.applePayConfiguration = applePayConfiguration
         config.pbbaConfiguration = pbbaConfiguration
-        config.uiConfiguration = uiConfiguration
+        config.isInitialRecurringPayment = config.isInitialRecurringPayment
+        config.cardAddress = settings.address
+        config.isDelayedAuthorisation = settings.isDelayedAuthorisationOn
+        config.emailAddress = settings.emailAddress
+        config.phoneCountryCode = settings.phoneCountryCode
+        config.mobileNumber = settings.mobileNumber
+        if let scaExemption = settings.scaExemption {
+            config.scaExemption = scaExemption
+        }
+        if let challengeRequestIndicator = settings.challengeRequestIndicator {
+            config.challengeRequestIndicator = challengeRequestIndicator
+        }
+        config.threeDSTwoMaxTimeout = Int32(settings.threeDsTwoMaxTimeout)
+        if let messageVersion = settings.threeDSTwoMessageVersion, !messageVersion.isEmpty {
+            config.threeDSTwoMessageVersion = messageVersion
+        }
 
         return config
     }
 
     private var applePayConfiguration: JPApplePayConfiguration {
-
         let item = JPPaymentSummaryItem(label: "Tim Cook",
                                         amount: NSDecimalNumber(string: settings.amount.amount))
 
@@ -139,10 +131,12 @@ class FeatureService {
                                                    type: .final)
 
         appleConfig.shippingType = .shippingTypeDelivery
-        appleConfig.shippingMethods = [ freeDelivery, expressDelivery ]
+        appleConfig.shippingMethods = [freeDelivery, expressDelivery]
 
-        appleConfig.requiredBillingContactFields = .all
-        appleConfig.requiredShippingContactFields = .all
+        appleConfig.requiredBillingContactFields = settings.applePayBillingContactFields
+        appleConfig.requiredShippingContactFields = settings.applePayShippingContactFields
+        appleConfig.returnedContactInfo = settings.applePayReturnedContactInfo
+        appleConfig.supportedCardNetworks = settings.supportedCardNetworks
 
         return appleConfig
     }
@@ -161,9 +155,12 @@ class FeatureService {
     private var uiConfiguration: JPUIConfiguration {
         let uiConfig = JPUIConfiguration()
         uiConfig.isAVSEnabled = settings.isAVSEnabled
-        uiConfig.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
         uiConfig.shouldPaymentMethodsDisplayAmount = settings.shouldPaymentMethodsDisplayAmount
+        uiConfig.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
         uiConfig.shouldPaymentMethodsVerifySecurityCode = settings.shouldPaymentMethodsVerifySecurityCode
+        uiConfig.shouldAskForBillingInformation = settings.shouldAskForBillingInformation
+        uiConfig.shouldAskForCSC = settings.shouldAskForCSC
+        uiConfig.shouldAskForCardholderName = settings.shouldAskForCardholderName
         return uiConfig
     }
 }
