@@ -173,7 +173,7 @@ class JPTransactionPresenterTests: XCTestCase {
     func test_HandleTransactionButtonTap_WhenUserTapAndError_ShouldCallInteractor() {
         interactor.testSendTransaction = .error
         sut.handleSubmitButtonTap()
-        XCTAssertTrue(interactor.trasactionSent)
+        XCTAssertTrue(interactor.transactionSent)
     }
     
     /*
@@ -187,7 +187,7 @@ class JPTransactionPresenterTests: XCTestCase {
         interactor.type = .payment
         interactor.testSendTransaction = .validData
         sut.handleSubmitButtonTap()
-        XCTAssertTrue(interactor.trasactionSent)
+        XCTAssertTrue(interactor.transactionSent)
         XCTAssertTrue(router.dimissController)
     }
     
@@ -201,7 +201,7 @@ class JPTransactionPresenterTests: XCTestCase {
     func test_HandleTransactionButtonTap_WhenUserTapAnThreeDSError_ShouldCallInteractor() {
         interactor.testSendTransaction = .threedDSError
         sut.handleSubmitButtonTap()
-        XCTAssertTrue(interactor.trasactionSent)
+        XCTAssertTrue(interactor.transactionSent)
     }
     
     /*

@@ -83,8 +83,10 @@
 #pragma mark - Interactor Protocol Methods
 
 - (JPPresentationMode)presentationMode {
-    //        self.transactionType != JPTransactionTypeSaveCard TODO: is is only available for card operation != save card ??
-
+    // Billing info screen should not be presented in case of a `Save Card`
+    if (self.transactionType == JPTransactionTypeSaveCard) {
+        return JPPresentationModeCardInfo;
+    }
     return _presentationMode;
 }
 

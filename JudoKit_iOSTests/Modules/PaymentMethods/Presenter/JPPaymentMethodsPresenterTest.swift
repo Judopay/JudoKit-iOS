@@ -138,7 +138,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     func test_HandlePayButtonTapIdealType_WhenUserClickPayiDeal_ShouldNavigateToIdealController() {
         sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
         sut.handlePayButtonTap()
-        XCTAssertTrue(router.navigatedToIDealModule)
+        XCTAssertTrue(router.navigatedToIdealModule)
         XCTAssertTrue(router.dismissController)
     }
 

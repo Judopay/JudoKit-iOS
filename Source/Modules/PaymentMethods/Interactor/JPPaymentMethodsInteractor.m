@@ -365,7 +365,7 @@
             return @"default_discover_card_title"._jp_localized;
 
         case JPCardNetworkTypeDinersClub:
-            return @"default_dinnersclub_card_title"._jp_localized;
+            return @"default_dinersclub_card_title"._jp_localized;
 
         default:
             return @"";

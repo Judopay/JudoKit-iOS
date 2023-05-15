@@ -44,13 +44,7 @@
                                           presentationMode:(JPPresentationMode)mode
                                         transactionDetails:(JPCardTransactionDetails *)details
                                                 completion:(JPCompletionBlock)completion {
-    JPCardValidationService *cardValidationService = [JPCardValidationService new];
-
-    if (details) { // TODO: Ugly solution
-        cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
-        cardValidationService.lastCardNumberValidationResult.cardNetwork = details.cardType;
-    }
-
+    JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
                                                                                        andConfiguration:configuration];
 

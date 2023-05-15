@@ -34,6 +34,7 @@
 
 @interface JPCardValidationService ()
 
+@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, assign) JPBillingCountry selectedAVSCountry;
 @property (nonatomic, assign) JPBillingCountry selectedBillingCountry;
@@ -45,6 +46,17 @@
 #pragma mark - Constants
 
 static int const kCardHolderNameLength = 4;
+
+- (instancetype)initWithCardNetwork:(JPCardNetworkType)network {
+    self = [super init];
+    
+    if (self && network != JPCardNetworkTypeUnknown) {
+        self.lastCardNumberValidationResult = [JPValidationResult new];
+        self.lastCardNumberValidationResult.cardNetwork = network;
+    }
+    
+    return self;
+}
 
 #pragma mark - Public Methods
 

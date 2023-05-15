@@ -52,7 +52,7 @@
 "customize_card" = "Personalizar tarjeta";
 "default_amex_card_title" = "Mi tarjeta American Express";
 "default_chinaunionpay_card_title" = "Mi tarjeta China Union Pay";
-"default_dinnersclub_card_title" = "Mi tarjeta Dinners Club";
+"default_dinersclub_card_title" = "Mi tarjeta Diners Club";
 "default_discover_card_title" = "Mi tarjeta Discover";
 "default_jcb_card_title" = "Mi tarjeta JCB";
 "default_maestro_card_title" = "Mi tarjeta Maestro";

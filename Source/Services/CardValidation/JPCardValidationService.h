@@ -32,10 +32,7 @@
  */
 @interface JPCardValidationService : NSObject
 
-/**
- * A reference to the JPValidationResult instance responsible for card number validation
- */
-@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
+- (instancetype)initWithCardNetwork:(JPCardNetworkType)network;
 
 /**
  * A method for resetting the card validation results

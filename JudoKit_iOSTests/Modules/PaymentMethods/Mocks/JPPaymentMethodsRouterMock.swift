@@ -27,7 +27,7 @@ import Foundation
 class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
 
     var dismissController = false
-    var navigatedToIDealModule = false
+    var navigatedToIdealModule = false
     var navigateToSaveCardModule = false
     var navigateToTokenTransactionModule = false
     var navigateToCardCustomizationModule = false
@@ -41,7 +41,7 @@ class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
     }
     
     func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {
-        navigatedToIDealModule = true
+        navigatedToIdealModule = true
         let response = JPResponse()
         completion(response, nil)
     }

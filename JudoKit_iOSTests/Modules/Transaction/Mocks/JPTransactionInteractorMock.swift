@@ -38,7 +38,7 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
     var type: JPTransactionType = .saveCard
     var testSendTransaction: SendTransactionTest = .validData
     
-    var trasactionSent = false
+    var transactionSent = false
     var completeTransaction = false
     
     lazy var validationService = JPCardValidationService()
@@ -148,19 +148,19 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         case .error:
             let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
             completionHandler(nil, jpError)
-            trasactionSent = true
+            transactionSent = true
         case .noToken:
             let jpResponse = JPResponse()
             completionHandler(jpResponse, nil)
-            trasactionSent = true
+            transactionSent = true
         case .validData:
             let jpResponse = JPResponse()
             completionHandler(jpResponse, nil)
-            trasactionSent = true
+            transactionSent = true
         case .threedDSError:
             let jpError = JPError.threeDSRequest(withPayload: ["": ""])
             completionHandler(nil, jpError)
-            trasactionSent = true
+            transactionSent = true
         }    }
     
     func sendTokenTransaction(with details: JPCardTransactionDetails, completionHandler: @escaping JPCompletionBlock) {
@@ -168,19 +168,19 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         case .error:
             let jpError = JPError(domain: "Domain test", code: 123, userInfo: nil)
             completionHandler(nil, jpError)
-            trasactionSent = true
+            transactionSent = true
         case .noToken:
             let jpResponse = JPResponse()
             completionHandler(jpResponse, nil)
-            trasactionSent = true
+            transactionSent = true
         case .validData:
             let jpResponse = JPResponse()
             completionHandler(jpResponse, nil)
-            trasactionSent = true
+            transactionSent = true
         case .threedDSError:
             let jpError = JPError.threeDSRequest(withPayload: ["": ""])
             completionHandler(nil, jpError)
-            trasactionSent = true
+            transactionSent = true
         }
     }
     

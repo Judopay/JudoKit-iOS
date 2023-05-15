@@ -475,7 +475,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         
         sut.updateKeychain(with: details)
         let card = JPCardStorage.sharedInstance()?.fetchStoredCardDetails()?.lastObject as! JPStoredCardDetails
-        XCTAssertEqual(card.cardTitle, "My Dinners Club Card")
+        XCTAssertEqual(card.cardTitle, "My Diners Club Card")
     }
     
 }

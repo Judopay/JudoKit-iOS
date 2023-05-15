@@ -168,16 +168,6 @@ class JPCardValidationServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: reseting all validation
-     *
-     * THEN: should set nil to lastCardNumberValidationResult
-     */
-    func test_resetCardValidationResults() {
-        sut.resetCardValidationResults()
-        XCTAssertNil(sut.lastCardNumberValidationResult)
-    }
-    
-    /*
      * GIVEN: validate expiry date
      *
      * WHEN: there is 4 characters total
