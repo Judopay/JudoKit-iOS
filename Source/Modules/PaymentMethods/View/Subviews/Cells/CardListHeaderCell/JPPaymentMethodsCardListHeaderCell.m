@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
+#import "JPTransactionButton.h"
 #import "UIView+Additions.h"
 
 @implementation JPPaymentMethodsCardListHeaderCell
@@ -103,13 +104,15 @@ const float kCardListHeaderCenterOffset = 10.0F;
                                 forView:self.contentView
                             withPadding:kCardListHeaderHorizontalPadding];
 
-    [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
-                                                  constant:kCardListHeaderCenterOffset]
-        .active = YES;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
+                                                      constant:kCardListHeaderCenterOffset],
+        [self.actionButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
+                                                        constant:kCardListHeaderCenterOffset]
+    ]];
 
-    [self.actionButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
-                                                    constant:kCardListHeaderCenterOffset]
-        .active = YES;
+    [self.actionButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.actionButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }
 
 #pragma mark - Lazy instantiated properties
@@ -128,7 +131,7 @@ const float kCardListHeaderCenterOffset = 10.0F;
 
 - (UIButton *)actionButton {
     if (!_actionButton) {
-        _actionButton = [UIButton new];
+        _actionButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
         _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_actionButton addTarget:self
                           action:@selector(didPressActionButton:)

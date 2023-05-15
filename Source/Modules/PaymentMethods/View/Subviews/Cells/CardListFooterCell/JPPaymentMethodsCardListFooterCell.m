@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsCardListFooterCell.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
+#import "JPTransactionButton.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
 
@@ -33,6 +34,10 @@
 @end
 
 @implementation JPPaymentMethodsCardListFooterCell
+
+#pragma mark - Constants
+
+static const float kHorizontalEdgeInsets = 12.0F;
 
 #pragma mark - Initializers
 
@@ -83,9 +88,7 @@
 
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 0);
-    self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets / 3, kHorizontalEdgeInsets, kHorizontalEdgeInsets / 3, kHorizontalEdgeInsets * 2);
 
     self.onTransactionButtonTapHandler = footerModel.onTransactionButtonTapHandler;
 }
@@ -99,6 +102,7 @@
 - (void)applyTheme:(JPTheme *)theme {
     [self.addCardButton setTitleColor:theme.jpBlackColor forState:UIControlStateNormal];
     self.addCardButton.titleLabel.font = theme.bodyBold;
+    self.addCardButton.tintColor = theme.jpBlackColor;
 }
 
 #pragma mark - Layout Setup
@@ -108,13 +112,15 @@
     [self.contentView addSubview:self.addCardButton];
     [self.addCardButton _jp_pinToAnchors:JPAnchorTypeTrailing forView:self.contentView withPadding:24.0];
     [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
+    [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }
 
 #pragma mark - Lazy instantiated properties
 
 - (UIButton *)addCardButton {
     if (!_addCardButton) {
-        _addCardButton = [UIButton new];
+        _addCardButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
         _addCardButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_addCardButton addTarget:self
                            action:@selector(onTransactionButtonTap)

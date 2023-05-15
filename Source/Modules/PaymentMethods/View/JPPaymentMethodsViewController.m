@@ -74,8 +74,6 @@
 }
 
 - (void)onPayButtonTap {
-    [self.paymentMethodsView.headerView.payButton startLoading];
-    self.paymentMethodsView.userInteractionEnabled = NO;
     [self.presenter handlePayButtonTap];
 }
 
@@ -156,10 +154,13 @@
 
     [self.paymentMethodsView.tableView beginUpdates];
 
-    NSRange oldRange = NSMakeRange(1, self.paymentMethodsView.tableView.numberOfSections - 1);
+    // in case the method selection switcher is rendered, avoid updating it's cell.
+    NSUInteger loc = [viewModel.items.firstObject isKindOfClass:JPPaymentMethodsSelectionModel.class] ? 1 : 0;
+
+    NSRange oldRange = NSMakeRange(loc, self.paymentMethodsView.tableView.numberOfSections - loc);
     NSIndexSet *oldIndexSet = [NSIndexSet indexSetWithIndexesInRange:oldRange];
 
-    NSRange newRange = NSMakeRange(1, viewModel.items.count - 1);
+    NSRange newRange = NSMakeRange(loc, viewModel.items.count - loc);
     NSIndexSet *newIndexSet = [NSIndexSet indexSetWithIndexesInRange:newRange];
 
     UITableViewRowAnimation fadeAnimation = UITableViewRowAnimationFade;
@@ -170,8 +171,6 @@
 }
 
 - (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    [self.paymentMethodsView.headerView.payButton stopLoading];
-    self.paymentMethodsView.userInteractionEnabled = YES;
     [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
     [super _jp_displayAlertWithTitle:title andError:error];
 }
@@ -185,6 +184,23 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf presentViewController:controller animated:YES completion:nil];
     });
+}
+
+- (void)setIsPaymentInProgress:(BOOL)isCardPaymentInProgress {
+    if (isCardPaymentInProgress) {
+        [self.paymentMethodsView.headerView.payButton startLoading];
+        self.paymentMethodsView.userInteractionEnabled = NO;
+    } else {
+        [self.paymentMethodsView.headerView.payButton stopLoading];
+        self.paymentMethodsView.userInteractionEnabled = YES;
+    }
+}
+
+- (void)endEditingCardListIfNeeded {
+    if (self.paymentMethodsView.tableView.isEditing) {
+        [self.paymentMethodsView.tableView setEditing:NO animated:YES];
+        [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -322,25 +338,6 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-@end
-
-@implementation JPPaymentMethodsViewController (TransactionDelegate)
-
-- (void)didFinishAddingCard {
-    [self.presenter setLastAddedCardAsSelected];
-    [self.presenter viewModelNeedsUpdate];
-    [self.paymentMethodsView.tableView setEditing:NO animated:YES];
-    [self.presenter changeHeaderButtonTitle:self.paymentMethodsView.tableView.isEditing];
-}
-
-- (void)didInputSecurityCode:(NSString *)csc andCardholderName:(NSString *)cardholderName {
-    [self.presenter handlePaymentWithSecurityCode:csc andCardholderName:cardholderName];
-}
-
-- (void)didCancel {
-    [self.paymentMethodsView.headerView.payButton stopLoading];
-    self.paymentMethodsView.userInteractionEnabled = YES;
-}
 @end
 
 @implementation JPPaymentMethodsViewController (EditCardsDelegate)

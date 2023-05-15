@@ -26,18 +26,18 @@
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPCard.h"
-#import "JPCardDetailsMode.h"
 #import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
+#import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
+#import "JPPresentationMode.h"
 #import "JPResponse.h"
 #import "JPStoredCardDetails.h"
-#import "JPTransactionViewModel.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "NSNumberFormatter+Additions.h"
@@ -48,9 +48,9 @@
 @property (nonatomic, strong) JPCardValidationService *cardValidationService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
 @property (nonatomic, assign) JPTransactionType transactionType;
-@property (nonatomic, assign) JPCardDetailsMode cardDetailsMode;
+@property (nonatomic, assign) JPPresentationMode presentationMode;
 @property (nonatomic, strong) JPConfiguration *configuration;
-@property (nonatomic, assign) JPCardNetworkType cardNetworkType;
+@property (nonatomic, strong) JPCardTransactionDetails *transactionDetails;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) NSMutableArray *storedErrors;
 
@@ -63,18 +63,18 @@
 - (instancetype)initWithCardValidationService:(JPCardValidationService *)cardValidationService
                            transactionService:(JPCardTransactionService *)transactionService
                               transactionType:(JPTransactionType)type
-                              cardDetailsMode:(JPCardDetailsMode)mode
+                             presentationMode:(JPPresentationMode)mode
                                 configuration:(JPConfiguration *)configuration
-                                  cardNetwork:(JPCardNetworkType)cardNetwork
+                           transactionDetails:(JPCardTransactionDetails *)details
                                    completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         _cardValidationService = cardValidationService;
         _transactionService = transactionService;
         _transactionType = type;
-        _cardDetailsMode = mode;
+        _presentationMode = mode;
         _configuration = configuration;
-        _cardNetworkType = cardNetwork;
+        _transactionDetails = details;
         _completionHandler = completion;
     }
     return self;
@@ -82,19 +82,23 @@
 
 #pragma mark - Interactor Protocol Methods
 
-- (BOOL)isAVSEnabled {
-    return self.configuration.uiConfiguration.isAVSEnabled;
+- (JPPresentationMode)presentationMode {
+    // Billing info screen should not be presented in case of a `Save Card`
+    if (self.transactionType == JPTransactionTypeSaveCard) {
+        return JPPresentationModeCardInfo;
+    }
+    return _presentationMode;
 }
 
-- (JPCardDetailsMode)cardDetailsMode {
-    if (_cardDetailsMode == JPCardDetailsModeDefault) {
-        if (self.configuration.uiConfiguration.isAVSEnabled) {
-            return JPCardDetailsModeAVS;
-        } else if (self.transactionType != JPTransactionTypeSaveCard && self.configuration.uiConfiguration.shouldAskForBillingInformation) {
-            return JPCardDetailsModeThreeDS2;
-        }
+- (JPCardNetworkType)cardNetworkType {
+    if (self.transactionDetails) {
+        return self.transactionDetails.cardType;
     }
-    return _cardDetailsMode;
+    return JPCardNetworkTypeVisa;
+}
+
+- (JPCardTransactionDetails *)getConfiguredCardTransactionDetails {
+    return _transactionDetails;
 }
 
 - (JPAddress *)getConfiguredCardAddress {
@@ -159,6 +163,21 @@
     }
 }
 
+- (void)sendTokenTransactionWithDetails:(JPCardTransactionDetails *)details completionHandler:(JPCompletionBlock)completionHandler {
+    switch (self.transactionType) {
+        case JPTransactionTypePayment:
+            [self.transactionService invokeTokenPaymentWithDetails:details andCompletion:completionHandler];
+            break;
+
+        case JPTransactionTypePreAuth:
+            [self.transactionService invokePreAuthTokenPaymentWithDetails:details andCompletion:completionHandler];
+            break;
+
+        default:
+            break;
+    }
+}
+
 - (void)completeTransactionWithResponse:(JPResponse *)response error:(JPError *)error {
     if (!self.completionHandler)
         return;
@@ -172,54 +191,6 @@
 
 - (void)storeError:(NSError *)error {
     [self.storedErrors addObject:error];
-}
-
-- (void)updateKeychainWithCardModel:(JPTransactionViewModel *)viewModel andToken:(NSString *)token {
-    JPCardNetworkType cardNetwork = viewModel.cardNumberViewModel.cardNetwork;
-    NSString *cardNumberString = viewModel.cardNumberViewModel.text;
-    NSString *lastFour = [cardNumberString substringFromIndex:cardNumberString.length - 4];
-    NSString *expiryDate = viewModel.expiryDateViewModel.text;
-    NSString *cardholderName = viewModel.cardholderNameViewModel.text;
-
-    JPStoredCardDetails *storedCardDetails = [JPStoredCardDetails cardDetailsWithLastFour:lastFour
-                                                                               expiryDate:expiryDate
-                                                                              cardNetwork:cardNetwork
-                                                                                cardToken:token
-                                                                           cardHolderName:cardholderName];
-    storedCardDetails.cardTitle = [self defaultCardTitleForCardNetwork:cardNetwork];
-    storedCardDetails.patternType = JPCardPattern.random.type;
-    [JPCardStorage.sharedInstance addCardDetails:storedCardDetails];
-}
-
-- (NSString *)defaultCardTitleForCardNetwork:(JPCardNetworkType)network {
-    switch (network) {
-        case JPCardNetworkTypeVisa:
-            return @"default_visa_card_title"._jp_localized;
-
-        case JPCardNetworkTypeAMEX:
-            return @"default_amex_card_title"._jp_localized;
-
-        case JPCardNetworkTypeMaestro:
-            return @"default_maestro_card_title"._jp_localized;
-
-        case JPCardNetworkTypeMasterCard:
-            return @"default_mastercard_card_title"._jp_localized;
-
-        case JPCardNetworkTypeChinaUnionPay:
-            return @"default_chinaunionpay_card_title"._jp_localized;
-
-        case JPCardNetworkTypeJCB:
-            return @"default_jcb_card_title"._jp_localized;
-
-        case JPCardNetworkTypeDiscover:
-            return @"default_discover_card_title"._jp_localized;
-
-        case JPCardNetworkTypeDinersClub:
-            return @"default_dinnersclub_card_title"._jp_localized;
-
-        default:
-            return @"";
-    }
 }
 
 - (void)resetCardValidationResults {
@@ -244,18 +215,6 @@
     return [self.cardValidationService validateCardholderNameInput:input];
 }
 
-- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
-    return [self.cardValidationService validateCardholderEmailInput:input];
-}
-
-- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
-    return [self.cardValidationService validateCardholderPhoneInput:input];
-}
-
-- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
-    return [self.cardValidationService validateCardholderPhoneCodeInput:input];
-}
-
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {
     return [self.cardValidationService validateExpiryDateInput:input];
 }
@@ -268,20 +227,40 @@
     return [self.cardValidationService validateCountryInput:input];
 }
 
-- (JPValidationResult *)validateStateInput:(NSString *)input {
-    return [self.cardValidationService validateStateInput:input];
-}
-
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
     return [self.cardValidationService validatePostalCodeInput:input];
 }
 
-- (JPValidationResult *)validateAddressLineInput:(NSString *)input {
-    return [self.cardValidationService validateAddressLineInput:input];
+- (JPValidationResult *)validateBillingEmailInput:(NSString *)input {
+    return [self.cardValidationService validateBillingEmailInput:input];
 }
 
-- (JPValidationResult *)validateCity:(NSString *)input {
-    return [self.cardValidationService validateCityInput:input];
+- (JPValidationResult *)validateBillingCountryInput:(NSString *)input {
+    return [self.cardValidationService validateBillingCountryInput:input];
+}
+
+- (JPValidationResult *)validateBillingStateInput:(NSString *)input {
+    return [self.cardValidationService validateBillingStateInput:input];
+}
+
+- (JPValidationResult *)validateBillingPhoneInput:(NSString *)input {
+    return [self.cardValidationService validateBillingPhoneInput:input];
+}
+
+- (JPValidationResult *)validateBillingPhoneCodeInput:(NSString *)input {
+    return [self.cardValidationService validateBillingPhoneCodeInput:input];
+}
+
+- (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input {
+    return [self.cardValidationService validateBillingAddressLineInput:input];
+}
+
+- (JPValidationResult *)validateBillingCity:(NSString *)input {
+    return [self.cardValidationService validateBillingCityInput:input];
+}
+
+- (JPValidationResult *)validateBillingPostalCodeInput:(NSString *)input {
+    return [self.cardValidationService validateBillingPostalCodeInput:input];
 }
 
 - (JPCardNetworkType)supportedNetworks {

@@ -35,8 +35,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse;
-typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
+@class JPConfiguration, JPApiService, JPStoredCardDetails, JPAmount, JPPaymentMethod, JPResponse, JPCardDetails;
+
+typedef NS_ENUM(NSUInteger, JPPresentationMode);
 
 @protocol JPPaymentMethodsInteractor
 
@@ -61,13 +62,6 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  * A method that returns the available payment methods
  */
 - (nonnull NSArray<JPPaymentMethod *> *)getPaymentMethods;
-
-/**
- * Sends a payment transaction based on a stored card token
- */
-- (void)paymentTransactionWithStoredCardDetails:(nonnull JPStoredCardDetails *)details
-                                   securityCode:(nullable NSString *)securityCode
-                                  andCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * Starts the PBBA payment
@@ -132,20 +126,7 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  */
 - (NSInteger)indexOfPBBAMethod;
 
-/**
- * A method which returns bool value for security code
- */
-- (BOOL)shouldVerifySecurityCode;
-
-/**
- * If the user should be asked to enter the cardholder name
- */
-- (BOOL)shouldAskForCardholderName;
-
-/**
- * The card details mode which drives the card payment UI behaviour
- */
-- (JPCardDetailsMode)cardDetailsMode;
+- (JPTransactionMode)configuredTransactionMode;
 
 /**
  * A method that triggers the completion handler passed by the merchant with an optional response / error
@@ -162,6 +143,15 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  * @param error - an instance of NSError that describes the error
  */
 - (void)storeError:(nonnull NSError *)error;
+
+/**
+ * A method for updating the keychain information about the card
+ *
+ * @param details - the card's details model
+ */
+- (void)updateKeychainWithCardDetails:(nonnull JPCardDetails *)details;
+
+- (void)processServerToServerCardPayment:(nonnull JPCompletionBlock)completion;
 
 @end
 

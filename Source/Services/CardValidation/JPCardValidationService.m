@@ -26,6 +26,7 @@
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
+#import "JPCountry.h"
 #import "JPError+Additions.h"
 #import "JPState.h"
 #import "JPValidationResult.h"
@@ -33,8 +34,11 @@
 
 @interface JPCardValidationService ()
 
+@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
-@property (nonatomic, strong) NSString *selectedCountry;
+@property (nonatomic, assign) JPBillingCountry selectedAVSCountry;
+@property (nonatomic, assign) JPBillingCountry selectedBillingCountry;
+
 @end
 
 @implementation JPCardValidationService
@@ -42,6 +46,17 @@
 #pragma mark - Constants
 
 static int const kCardHolderNameLength = 4;
+
+- (instancetype)initWithCardNetwork:(JPCardNetworkType)network {
+    self = [super init];
+    
+    if (self && network != JPCardNetworkTypeUnknown) {
+        self.lastCardNumberValidationResult = [JPValidationResult new];
+        self.lastCardNumberValidationResult.cardNetwork = network;
+    }
+    
+    return self;
+}
 
 #pragma mark - Public Methods
 
@@ -126,30 +141,6 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input {
-    BOOL isValid = input._jp_isEmail;
-    return [JPValidationResult validationWithResult:isValid
-                                       inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_email_address"._jp_localized
-                                     formattedInput:input];
-}
-
-- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input {
-    BOOL isValid = input._jp_isPhoneCode;
-    return [JPValidationResult validationWithResult:isValid
-                                       inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_phone_code_value"._jp_localized
-                                     formattedInput:input];
-}
-
-- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input {
-    BOOL isValid = input._jp_isPhoneNumber;
-    return [JPValidationResult validationWithResult:isValid
-                                       inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_mobile_number"._jp_localized
-                                     formattedInput:input];
-}
-
 - (JPValidationResult *)validateExpiryDateInput:(NSString *)input {
 
     if (input.length == 0) {
@@ -207,22 +198,39 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateCountryInput:(NSString *)input {
-    self.selectedCountry = input;
+    self.selectedAVSCountry = [self billingCountryWithName:input];
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
                                        errorMessage:nil
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateStateInput:(NSString *)input {
-    if ([self.selectedCountry isEqualToString:@"country_usa"._jp_localized]) {
+- (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
+    return [self validatePostalCodeInput:input country:self.selectedAVSCountry];
+}
+
+#pragma mark - Billing Information
+
+- (JPValidationResult *)validateBillingEmailInput:(NSString *)input {
+    BOOL isValid = input._jp_isEmail;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_email_address"._jp_localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateBillingStateInput:(NSString *)input {
+    if (self.selectedBillingCountry == JPBillingCountryUSA) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
         NSString *errorMessage = isValid ? nil : @"invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
                                          formattedInput:input];
-    } else if ([self.selectedCountry isEqualToString:@"country_canada"._jp_localized]) {
+    }
+
+    if (self.selectedBillingCountry == JPBillingCountryCanada) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"invalid_province_territory_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
@@ -230,36 +238,39 @@ static int const kCardHolderNameLength = 4;
                                            errorMessage:errorMessage
                                          formattedInput:input];
     }
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:NO
                                        errorMessage:nil
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validatePostalCodeInput:(NSString *)input {
-    if ([self.selectedCountry isEqualToString:@"country_usa"._jp_localized]) {
-        return [self validatePostalCodeInput:input country:JPBillingCountryUSA];
-    }
+- (JPValidationResult *)validateBillingCountryInput:(NSString *)input {
+    self.selectedBillingCountry = [self billingCountryWithName:input];
 
-    if ([self.selectedCountry isEqualToString:@"country_uk"._jp_localized]) {
-        return [self validatePostalCodeInput:input country:JPBillingCountryUK];
-    }
-
-    if ([self.selectedCountry isEqualToString:@"country_canada"._jp_localized]) {
-        return [self validatePostalCodeInput:input country:JPBillingCountryCanada];
-    }
-
-    if ([self.selectedCountry isEqualToString:@"country_other"._jp_localized]) {
-        return [self validatePostalCodeInput:input country:JPBillingCountryOther];
-    }
-
-    return [JPValidationResult validationWithResult:NO
-                                       inputAllowed:NO
+    return [JPValidationResult validationWithResult:YES
+                                       inputAllowed:YES
                                        errorMessage:nil
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateAddressLineInput:(NSString *)input {
+- (JPValidationResult *)validateBillingPhoneCodeInput:(NSString *)input {
+    BOOL isValid = input._jp_isPhoneCode;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_phone_code_value"._jp_localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateBillingPhoneInput:(NSString *)input {
+    BOOL isValid = input._jp_isPhoneNumber;
+    return [JPValidationResult validationWithResult:isValid
+                                       inputAllowed:YES
+                                       errorMessage:isValid ? nil : @"invalid_mobile_number"._jp_localized
+                                     formattedInput:input];
+}
+
+- (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input {
     BOOL isValid = input._jp_isValidAddressLine;
     NSString *errorMessage = isValid ? nil : @"invalid_address"._jp_localized;
 
@@ -269,7 +280,7 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateCityInput:(NSString *)input {
+- (JPValidationResult *)validateBillingCityInput:(NSString *)input {
     BOOL isValid = input._jp_isValidCity;
     NSString *errorMessage = isValid ? nil : @"invalid_city"._jp_localized;
 
@@ -277,6 +288,10 @@ static int const kCardHolderNameLength = 4;
                                        inputAllowed:YES
                                        errorMessage:errorMessage
                                      formattedInput:input];
+}
+
+- (JPValidationResult *)validateBillingPostalCodeInput:(NSString *)input {
+    return [self validatePostalCodeInput:input country:self.selectedBillingCountry];
 }
 
 #pragma mark - Expiry Date Validation Methods
@@ -287,12 +302,6 @@ static int const kCardHolderNameLength = 4;
                                                                       errorMessage:nil
                                                                     formattedInput:input];
     return self.lastExpiryDateValidationResult;
-}
-
-- (BOOL)shouldRejectInput:(NSString *)input {
-    BOOL isErrorPresent = self.lastExpiryDateValidationResult.errorMessage != nil;
-    BOOL isAddingCharacter = input.length > self.lastExpiryDateValidationResult.formattedInput.length;
-    return isErrorPresent && isAddingCharacter;
 }
 
 - (JPValidationResult *)validateFirstExpiryDigitInput:(NSString *)input {
@@ -459,11 +468,22 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:postCode];
 }
 
-- (NSString *)selectedCountry {
-    if (!_selectedCountry) {
-        _selectedCountry = @"country_uk"._jp_localized;
+#pragma mark - Helper methods
+
+- (BOOL)shouldRejectInput:(NSString *)input {
+    BOOL isErrorPresent = self.lastExpiryDateValidationResult.errorMessage != nil;
+    BOOL isAddingCharacter = input.length > self.lastExpiryDateValidationResult.formattedInput.length;
+    return isErrorPresent && isAddingCharacter;
+}
+
+- (JPBillingCountry)billingCountryWithName:(NSString *)name {
+    JPCountry *country = [JPCountry forCountryName:name];
+    
+    if (country) {
+        return country.toBillingCountry;
     }
-    return _selectedCountry;
+    
+    return JPBillingCountryOther;
 }
 
 - (NSString *)postCodeErrorForCountry:(JPBillingCountry)country {

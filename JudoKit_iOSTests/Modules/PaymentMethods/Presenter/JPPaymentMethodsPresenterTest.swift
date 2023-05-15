@@ -83,9 +83,9 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      */
     func test_DidSelectCardAtIndexWithEditing_WhenUserCustmizeCard_ShouldPushUserToCustomizationScreen() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
-        XCTAssertFalse(router.caledCardCustomization)
+        XCTAssertFalse(router.navigateToCardCustomizationModule)
         sut.didSelectCard(at: 0, isEditingMode: true)
-        XCTAssertTrue(router.caledCardCustomization)
+        XCTAssertTrue(router.navigateToCardCustomizationModule)
     }
 
     /*
@@ -138,16 +138,16 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     func test_HandlePayButtonTapIdealType_WhenUserClickPayiDeal_ShouldNavigateToIdealController() {
         sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
         sut.handlePayButtonTap()
-        XCTAssertTrue(router.navigatedToIdealPay)
+        XCTAssertTrue(router.navigatedToIdealModule)
         XCTAssertTrue(router.dismissController)
     }
 
     /*
      * GIVEN: clicking in pay button by user
      *
-     * WHEN: card is selected payment method (and should NOT ask for CSC or CardholderName - default behaviour)
+     * WHEN: card is selected payment method
      *
-     * THEN: should call interactor for payment method call
+     * THEN: should call router for navigating to token payment module
      */
     func test_HandlePayButtonTapCardType_WhenUserClickPay_ShouldCallInteractor() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
@@ -155,32 +155,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
 
         sut.handlePayButtonTap()
 
-        XCTAssertTrue(interactor.calledTransactionPayment)
-        XCTAssertEqual(interactor.paymentTransactionDetailsParam?.cardholderName, firstStoredCard?.cardholderName)
-        XCTAssertNil(interactor.paymentTransactionCSCParam)
-    }
-
-    /*
-     * GIVEN: clicking in pay button by user
-     *
-     * WHEN: card is selected payment method and need to ask for CSC
-     *
-     * THEN: should call router for payment method call with SecurityCode mode
-     */
-    func test_HandlePayButtonTapCardType_WhenUserClickPayWithCSCRequired_ShouldNavigateToTransactionModuleWithCSCMode() {
-        let config = JPConfiguration()
-        config.uiConfiguration.shouldAskForCSC = true
-        interactor.shouldVerify = true
-        interactor.cardDetailsModeValue = .securityCode
-        sut = JPPaymentMethodsPresenterImpl(configuration: config)
-        sut.view = controller
-        sut.interactor = interactor
-        sut.router = router
-
-        sut.handlePayButtonTap()
-
-        XCTAssertTrue(router.navigateToTransactionModule)
-        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .securityCode)
+        XCTAssertTrue(router.navigateToTokenTransactionModule)
     }
 
     /*
@@ -202,8 +177,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
 
         sut.handlePayButtonTap()
 
-        XCTAssertTrue(router.navigateToTransactionModule)
-        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .cardholderName)
+        XCTAssertTrue(router.navigateToTokenTransactionModule)
     }
 
     /*
@@ -226,22 +200,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
 
         sut.handlePayButtonTap()
 
-        XCTAssertTrue(router.navigateToTransactionModule)
-        XCTAssertEqual(router.navigateToTransactionModuleModeParam, .securityCodeAndCardholderName)
-    }
-
-    /*
-     * GIVEN: clicking in pay button by user
-     *
-     * WHEN: card is selected payment method, 3ds secure error
-     *
-     * THEN: should call interactor for payment method call and handle 3D Secure Transaction error
-     */
-    func test_HandlePayButtonTapCardType_WhenUserClickPay3DSSecureError_ShouldCallInteractor() {
-        interactor.errorType = .threeDSRequest
-        sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
-        sut.handlePayButtonTap()
-        XCTAssertTrue(interactor.calledTransactionPayment)
+        XCTAssertTrue(router.navigateToTokenTransactionModule)
     }
 
     /*
@@ -435,6 +394,6 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         interactor.shouldVerify = true
         sut.setLastAddedCardAsSelected()
         sut.handlePayButtonTap()
-        XCTAssertTrue(router.navigateToTransactionModule)
+        XCTAssertTrue(router.navigateToTokenTransactionModule)
     }
 }

@@ -74,7 +74,7 @@
     details.cardNumber = @"4976350000006891";
     details.cardholderName = @"CHALLENGE";
     details.expiryDate = @"12/25";
-    details.secureCode = @"341";
+    details.securityCode = @"341";
     details.emailAddress = @"federico.onco@gmail.com";
     details.mobileNumber = @"7866868430";
     details.phoneCountryCode = @"44";

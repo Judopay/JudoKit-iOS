@@ -27,6 +27,7 @@
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
 #import "JPCardTransactionDetails.h"
+#import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
@@ -52,7 +53,6 @@
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
-
 @end
 
 @implementation JudoKit
@@ -100,21 +100,42 @@
 - (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
                                           configuration:(JPConfiguration *)configuration
                                              completion:(JPCompletionBlock)completion {
+    return [self transactionViewControllerWithType:type
+                                     configuration:configuration
+                                       cardDetails:nil
+                                        completion:completion];
+}
 
-    JPError *configurationError;
-    configurationError = [self.configurationValidationService validateConfiguration:configuration
-                                                                 forTransactionType:type];
+- (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
+                                          configuration:(JPConfiguration *)configuration
+                                            cardDetails:(JPCardTransactionDetails *)details
+                                             completion:(JPCompletionBlock)completion {
 
-    if (configurationError) {
-        completion(nil, configurationError);
+    JPError *error;
+
+    if (details) {
+        error = [self.configurationValidationService validateTokenPaymentConfiguration:configuration forTransactionType:type];
+    } else {
+        error = [self.configurationValidationService validateConfiguration:configuration forTransactionType:type];
+    }
+
+    if (error) {
+        completion(nil, error);
         return nil;
+    }
+
+    JPPresentationMode presentationMode = configuration.presentationModeForCardPayments;
+
+    if (details) {
+        presentationMode = configuration.presentationModeForTokenPayments;
     }
 
     UIViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
                                               configuration:configuration
                                             transactionType:type
-                                            cardDetailsMode:JPCardDetailsModeDefault
+                                           presentationMode:presentationMode
+                                         transactionDetails:details
                                                  completion:completion];
 
     controller.modalPresentationStyle = UIModalPresentationCustom;
@@ -128,48 +149,16 @@
                                details:(JPCardTransactionDetails *)details
                             completion:(JPCompletionBlock)completion {
 
-    JPError *configurationError;
-    configurationError = [self.configurationValidationService validateConfiguration:configuration
-                                                                 forTransactionType:type];
+    UIViewController *controller = [self transactionViewControllerWithType:type
+                                                             configuration:configuration
+                                                               cardDetails:details
+                                                                completion:completion];
 
-    if (configurationError) {
-        completion(nil, configurationError);
+    if (!controller) {
         return;
     }
 
-    JPCardDetailsMode cardDetailsMode = JPCardDetailsModeDefault;
-    if (configuration.uiConfiguration.shouldAskForCSC && configuration.uiConfiguration.shouldAskForCardholderName) {
-        cardDetailsMode = JPCardDetailsModeSecurityCodeAndCardholderName;
-    } else if (configuration.uiConfiguration.shouldAskForCSC) {
-        cardDetailsMode = JPCardDetailsModeSecurityCode;
-    } else if (configuration.uiConfiguration.shouldAskForCardholderName) {
-        cardDetailsMode = JPCardDetailsModeCardholderName;
-    }
-
-    JPTransactionViewDelegateTokenPaymentImpl *transactionViewDelegate = [[JPTransactionViewDelegateTokenPaymentImpl alloc] initWithAPIService:self.apiService
-                                                                                                                                          type:type
-                                                                                                                                 configuration:configuration
-                                                                                                                                       details:details
-                                                                                                                                    completion:completion];
-
-    if (cardDetailsMode == JPCardDetailsModeDefault) {
-        // No need to ask for CSC or Cardholder Name - execute transaction
-        [transactionViewDelegate executeTokenPaymentTransaction];
-    } else {
-        JPTransactionViewController *controller = [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
-                                                                                        configuration:configuration
-                                                                                      transactionType:type
-                                                                                      cardDetailsMode:cardDetailsMode
-                                                                                          cardNetwork:details.cardType
-                                                                                           completion:completion];
-        controller.delegate = transactionViewDelegate;
-        controller.modalPresentationStyle = UIModalPresentationCustom;
-        controller.transitioningDelegate = self.transitioningDelegate;
-
-        [UIApplication._jp_topMostViewController presentViewController:controller
-                                                              animated:YES
-                                                            completion:nil];
-    }
+    [UIApplication._jp_topMostViewController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
@@ -265,8 +254,7 @@
         return;
     }
     self.configuration = configuration;
-    self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration
-                                                         apiService:self.apiService];
+    self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration apiService:self.apiService];
 
     if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
         [self.pbbaService showStatusViewWith:JPTransactionStatusPending];

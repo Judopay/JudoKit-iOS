@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, JPInputType);
 /**
  * A method that is called when the view initially loads to prepare the initial view model
  */
-- (void)prepareInitialViewModel;
+- (void)onViewDidLoad;
 
 /**
  * A method that updates the view model whenever a input field value changes
@@ -48,17 +48,7 @@ typedef NS_ENUM(NSUInteger, JPInputType);
 /**
  * A method that handles the Pay Now button tap
  */
-- (void)handleTransactionButtonTap;
-
-/**
- * A method that handles Continue button tap when the Billing details screen is used
- */
-- (void)handleContinueButtonTap;
-
-/**
- * A method that handles Back button tap when the Billing details screen is used
- */
-- (void)handleBackButtonTap;
+- (void)handleSubmitButtonTap;
 
 /**
  * A method that handles Scan Card button tap
@@ -69,11 +59,6 @@ typedef NS_ENUM(NSUInteger, JPInputType);
  * A method that handles Cancel button tap
  */
 - (void)handleCancelButtonTap;
-
-/**
- * A method that handles add addres line button tap
- */
-- (void)handleAddAddressLineTap;
 
 /**
  * A method used to notify the JPTransactionPresenter that the card scan returned valid card details

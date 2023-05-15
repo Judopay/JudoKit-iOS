@@ -22,14 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class JPCountry, JPState;
 
 typedef NS_ENUM(NSUInteger, JPInputType);
 typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 typedef NS_ENUM(NSUInteger, JPTransactionType);
-typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
+typedef NS_ENUM(NSUInteger, JPPresentationMode);
 
 #pragma mark - JPTransactionInputFieldViewModel
 
@@ -53,6 +55,10 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  * The error string of the input field
  */
 @property (nonatomic, strong, nullable) NSString *errorText;
+
+@property (nonatomic, assign) BOOL isValid;
+
+@property (nonatomic, assign) BOOL isEnabled;
 
 /**
  * Designated initializer that is configured based on an input type
@@ -81,6 +87,17 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
 
 @end
 
+#pragma mark - JPTransactionOptionSelectionInputViewModel
+
+@interface JPTransactionOptionSelectionInputViewModel<__covariant ObjectType> : JPTransactionInputFieldViewModel
+
+/**
+ * The options to select from
+ */
+@property (nonatomic, strong) NSArray<ObjectType> *options;
+
+@end
+
 #pragma mark - JPTransactionButtonViewModel
 
 @interface JPTransactionButtonViewModel : NSObject
@@ -95,6 +112,83 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  */
 @property (nonatomic, assign) BOOL isEnabled;
 
+@property (nonatomic, assign) BOOL isLoading;
+
+/**
+ * A boolean value that indicates if the button is hidden (ex.: functionality not available on device)
+ */
+@property (nonatomic, assign) BOOL isHidden;
+
+@end
+
+#pragma mark - JPTransactionScanCardButtonViewModel
+
+@interface JPTransactionScanCardButtonViewModel : JPTransactionButtonViewModel
+
+/**
+ * The icon to be shown on the left
+ */
+@property (nonatomic, strong, nullable) UIImage *iconLeft;
+
+@end
+
+#pragma mark - JPTransactionSecurityMessageViewModel
+
+@interface JPTransactionSecurityMessageViewModel : NSObject
+
+/**
+ * The icon to be shown on the left
+ */
+@property (nonatomic, strong, nullable) UIImage *iconLeft;
+
+/**
+ * The message text
+ */
+@property (nonatomic, strong) NSString *message;
+
+@end
+
+#pragma mark - JPTransactionCardDetailsViewModel
+
+@interface JPTransactionCardDetailsViewModel : NSObject
+
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) JPTransactionButtonViewModel *cancelButtonViewModel;
+@property (nonatomic, strong) JPTransactionScanCardButtonViewModel *scanCardButtonViewModel;
+
+@property (nonatomic, strong) JPTransactionNumberInputViewModel *cardNumberViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderNameViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *expiryDateViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *securityCodeViewModel;
+@property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPCountry *> *countryViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *postalCodeViewModel;
+
+@property (nonatomic, strong) JPTransactionButtonViewModel *submitButtonViewModel;
+@property (nonatomic, strong) JPTransactionSecurityMessageViewModel *securityMessageViewModel;
+
+@end
+
+#pragma mark - JPTransactionBillingInformationViewModel
+
+@interface JPTransactionBillingInformationViewModel : NSObject
+
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) JPTransactionButtonViewModel *cancelButtonViewModel;
+
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *emailViewModel;
+@property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPCountry *> *countryViewModel;
+@property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPState *> *stateViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *phoneCodeViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *phoneViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *addressLine1ViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *addressLine2ViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *addressLine3ViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *cityViewModel;
+@property (nonatomic, strong) JPTransactionInputFieldViewModel *postalCodeViewModel;
+
+@property (nonatomic, strong) JPTransactionButtonViewModel *backButtonViewModel;
+@property (nonatomic, strong) JPTransactionButtonViewModel *submitButtonViewModel;
+
 @end
 
 #pragma mark - JPTransactionViewModel
@@ -105,101 +199,21 @@ typedef NS_ENUM(NSUInteger, JPCardDetailsMode);
  * A enum parameter that tells the view of JPTransactionType
  */
 @property (nonatomic, assign) JPTransactionType type;
+@property (nonatomic, assign) BOOL isLoading;
+
+@property (nonatomic, strong) JPTransactionCardDetailsViewModel *cardDetailsViewModel;
+@property (nonatomic, strong) JPTransactionBillingInformationViewModel *billingInformationViewModel;
 
 /**
  * A enum parameter to specify the card details mode
  */
-@property (nonatomic, assign) JPCardDetailsMode mode;
+@property (nonatomic, assign) JPPresentationMode mode;
 
-/**
- * An array of JPCountries that act as picker titles
- */
-@property (nonatomic, strong) NSArray *pickerCountries;
+- (BOOL)shouldDisplayBillingInformationSection;
 
-/**
- * An array of JPState that act as picker titles
- */
-@property (nonatomic, strong) NSArray *pickerStates;
+- (BOOL)isCardDetailsValid;
 
-/**
- * The JPTransactionInputFieldViewModel for the card number input field
- */
-@property (nonatomic, strong) JPTransactionNumberInputViewModel *cardNumberViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderNameViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the expiry date input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *expiryDateViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the secure code input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *secureCodeViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name email field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderEmailViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the country picker
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *countryPickerViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the state picker
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *statePickerViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder phone code field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderPhoneCodeViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name phone number field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderPhoneViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 1 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine1ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 2 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine2ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder adress line 3 input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderAddressLine3ViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the cardholder name phone number field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *cardholderCityViewModel;
-
-/**
- * The JPTransactionInputFieldViewModel for the postal code input field
- */
-@property (nonatomic, strong) JPTransactionInputFieldViewModel *postalCodeInputViewModel;
-
-/**
- * The JPTransactionButtonViewModel for the add card button
- */
-@property (nonatomic, strong) JPTransactionButtonViewModel *addCardButtonViewModel;
-
-/**
- * The JPTransactionButtonViewModel for the back from billing details button
- */
-@property (nonatomic, strong) JPTransactionButtonViewModel *backButtonViewModel;
+- (BOOL)isBillingInformationValid;
 
 @end
 

@@ -29,8 +29,8 @@
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayService.h"
 #import "JPCardDetails.h"
-#import "JPCardDetailsMode.h"
 #import "JPCardNetwork.h"
+#import "JPCardPattern.h"
 #import "JPCardStorage.h"
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
@@ -43,12 +43,14 @@
 #import "JPPBBAConfiguration.h"
 #import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
+#import "JPPresentationMode.h"
 #import "JPReference.h"
 #import "JPResponse.h"
 #import "JPStoredCardDetails.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
 #import "NSBundle+Additions.h"
+#import "NSString+Additions.h"
 #import "UIApplication+Additions.h"
 
 @interface JPPaymentMethodsInteractorImpl ()
@@ -160,25 +162,8 @@
     return pbbaIndex;
 }
 
-#pragma mark - Get bool for security code on pay button click
-
-- (BOOL)shouldVerifySecurityCode {
-    return self.configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode || self.configuration.uiConfiguration.shouldAskForCSC;
-}
-
-- (BOOL)shouldAskForCardholderName {
-    return self.configuration.uiConfiguration.shouldAskForCardholderName;
-}
-
-- (JPCardDetailsMode)cardDetailsMode {
-    if (self.configuration.uiConfiguration.shouldAskForCSC && self.configuration.uiConfiguration.shouldAskForCardholderName) {
-        return JPCardDetailsModeSecurityCodeAndCardholderName;
-    } else if (self.configuration.uiConfiguration.shouldAskForCSC) {
-        return JPCardDetailsModeSecurityCode;
-    } else if (self.configuration.uiConfiguration.shouldAskForCardholderName) {
-        return JPCardDetailsModeCardholderName;
-    }
-    return JPCardDetailsModeDefault;
+- (JPTransactionMode)configuredTransactionMode {
+    return self.transactionMode;
 }
 
 #pragma mark - Get payment methods
@@ -235,39 +220,13 @@
 
 #pragma mark - Payment transaction
 
-- (void)paymentTransactionWithStoredCardDetails:(JPStoredCardDetails *)details
-                                   securityCode:(NSString *)securityCode
-                                  andCompletion:(JPCompletionBlock)completion {
-
-    if (self.transactionMode == JPTransactionModeServerToServer) {
-        [self processServerToServer:completion];
-        return;
-    }
-
-    JPCardTransactionDetails *transactionDetails = [[JPCardTransactionDetails alloc] initWithConfiguration:self.configuration
-                                                                                      andStoredCardDetails:details];
-
-    transactionDetails.secureCode = securityCode;
-
-    switch (self.transactionMode) {
-        case JPTransactionModePreAuth:
-            [self.transactionService invokePreAuthTokenPaymentWithDetails:transactionDetails andCompletion:completion];
-            break;
-
-        case JPTransactionModePayment:
-            [self.transactionService invokeTokenPaymentWithDetails:transactionDetails andCompletion:completion];
-            break;
-
-        default:
-            // noop
-            break;
-    }
+- (void)processServerToServerCardPayment:(JPCompletionBlock)completion {
+    completion([self buildResponse], nil);
 }
 
 #pragma mark - Apple Pay payment
 
-- (void)processApplePayment:(PKPayment *)payment
-             withCompletion:(JPCompletionBlock)completion {
+- (void)processApplePayment:(PKPayment *)payment withCompletion:(JPCompletionBlock)completion {
     [self.applePayService processApplePayment:payment
                            forTransactionMode:self.transactionMode
                                withCompletion:completion];
@@ -334,17 +293,13 @@
     response.amount = self.configuration.amount;
     response.cardDetails = [JPCardDetails new];
 
-    JPStoredCardDetails *selectedCard = [self selectedCard];
+    JPStoredCardDetails *selectedCard = self.selectedCard;
     response.cardDetails.cardLastFour = selectedCard.cardLastFour;
     response.cardDetails.cardToken = selectedCard.cardToken;
     response.cardDetails.cardNetwork = selectedCard.cardNetwork;
     response.cardDetails.cardScheme = [JPCardNetwork nameOfCardNetwork:selectedCard.cardNetwork];
 
     return response;
-}
-
-- (void)processServerToServer:(JPCompletionBlock)completion {
-    completion([self buildResponse], nil);
 }
 
 - (void)storeError:(NSError *)error {
@@ -367,6 +322,54 @@
         _storedErrors = [NSMutableArray new];
     }
     return _storedErrors;
+}
+
+- (void)updateKeychainWithCardDetails:(JPCardDetails *)details {
+    JPCardNetworkType cardNetwork = details.cardNetwork;
+    NSString *lastFour = details.cardLastFour;
+    NSString *expiryDate = details.formattedExpiryDate;
+    NSString *cardholderName = details.cardHolderName;
+    NSString *token = details.cardToken;
+
+    JPStoredCardDetails *storedCardDetails = [JPStoredCardDetails cardDetailsWithLastFour:lastFour
+                                                                               expiryDate:expiryDate
+                                                                              cardNetwork:cardNetwork
+                                                                                cardToken:token
+                                                                           cardHolderName:cardholderName];
+    storedCardDetails.cardTitle = [self defaultCardTitleForCardNetwork:cardNetwork];
+    storedCardDetails.patternType = JPCardPattern.random.type;
+    [JPCardStorage.sharedInstance addCardDetails:storedCardDetails];
+}
+
+- (NSString *)defaultCardTitleForCardNetwork:(JPCardNetworkType)network {
+    switch (network) {
+        case JPCardNetworkTypeVisa:
+            return @"default_visa_card_title"._jp_localized;
+
+        case JPCardNetworkTypeAMEX:
+            return @"default_amex_card_title"._jp_localized;
+
+        case JPCardNetworkTypeMaestro:
+            return @"default_maestro_card_title"._jp_localized;
+
+        case JPCardNetworkTypeMasterCard:
+            return @"default_mastercard_card_title"._jp_localized;
+
+        case JPCardNetworkTypeChinaUnionPay:
+            return @"default_chinaunionpay_card_title"._jp_localized;
+
+        case JPCardNetworkTypeJCB:
+            return @"default_jcb_card_title"._jp_localized;
+
+        case JPCardNetworkTypeDiscover:
+            return @"default_discover_card_title"._jp_localized;
+
+        case JPCardNetworkTypeDinersClub:
+            return @"default_dinersclub_card_title"._jp_localized;
+
+        default:
+            return @"";
+    }
 }
 
 @end

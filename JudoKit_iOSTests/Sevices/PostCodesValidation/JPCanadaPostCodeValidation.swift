@@ -39,9 +39,9 @@ class JPCanadaPostCodeValidation: XCTestCase {
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
                                           transactionService: JPCardTransactionService(),
                                           transactionType: .payment,
-                                          cardDetailsMode: .default,
+                                          presentationMode: .cardInfo,
                                           configuration: configuration,
-                                          cardNetwork: .all,
+                                          transactionDetails: nil,
                                           completion: { _, _ in })
     }
 

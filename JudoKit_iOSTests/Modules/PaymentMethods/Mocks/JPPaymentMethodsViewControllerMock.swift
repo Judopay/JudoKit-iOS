@@ -25,6 +25,7 @@
 import Foundation
 
 @objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
+        
     var didPresentApplePay = false
     var isPaymentAuthorized = true
     var cardsList:[JPPaymentMethodsCardModel] = []
@@ -50,6 +51,14 @@ import Foundation
     }
     
     func _jp_displayAlert(withTitle title: String?, andError error: Error) {
+
+    }
+
+    func setIsPaymentInProgress(_ isCardPaymentInProgress: Bool) {
+        
+    }
+    
+    func endEditingCardListIfNeeded() {
         
     }
 

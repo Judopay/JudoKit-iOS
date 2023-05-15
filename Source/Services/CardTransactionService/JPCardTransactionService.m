@@ -100,7 +100,7 @@
 
 - (void)performComplete3DS2 {
     JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
-                                                                      andSecureCode:self.details.secureCode];
+                                                                      andSecureCode:self.details.securityCode];
 
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
                                                     request:request

@@ -130,7 +130,7 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     NSString *model;
     struct utsname systemInfo;
     uname(&systemInfo);
-    char machine = systemInfo.machine;
+    const char *machine = systemInfo.machine;
 
     if (machine) {
         model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];

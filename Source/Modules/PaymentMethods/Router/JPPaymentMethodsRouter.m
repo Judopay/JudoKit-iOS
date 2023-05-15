@@ -26,6 +26,7 @@
 #import "JPApiService.h"
 #import "JPCardCustomizationBuilder.h"
 #import "JPCardCustomizationViewController.h"
+#import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
 #import "JPIDEALViewController.h"
@@ -64,26 +65,33 @@
 
 #pragma mark - Protocol Conformance
 
-- (void)navigateToTransactionModuleWith:(JPCardDetailsMode)mode
-                            cardNetwork:(JPCardNetworkType)cardNetwork
-                     andTransactionType:(JPTransactionType)transactionType {
+- (void)navigateToSaveCardModuleWithCompletion:(JPCompletionBlock)completion {
+    JPPresentationMode mode = self.configuration.presentationModeForCardPayments;
+    [self navigateToTransactionModuleWithType:JPTransactionTypeSaveCard presentationMode:mode cardDetails:nil andCompletion:completion];
+}
 
-    __weak typeof(self) weakSelf = self;
+- (void)navigateToTokenTransactionModuleWithType:(JPTransactionType)type
+                                     cardDetails:(JPCardTransactionDetails *)details
+                                   andCompletion:(JPCompletionBlock)completion {
+    JPPresentationMode mode = self.configuration.presentationModeForTokenPayments;
+    [self navigateToTransactionModuleWithType:type presentationMode:mode cardDetails:details andCompletion:completion];
+}
+
+- (void)navigateToTransactionModuleWithType:(JPTransactionType)type
+                           presentationMode:(JPPresentationMode)mode
+                                cardDetails:(JPCardTransactionDetails *)details
+                              andCompletion:(JPCompletionBlock)completion {
     JPTransactionViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
                                               configuration:self.configuration
-                                            transactionType:transactionType
-                                            cardDetailsMode:mode
-                                                cardNetwork:cardNetwork
-                                                 completion:^(JPResponse *response, JPError *error) {
-                                                     if (error.code == JudoUserDidCancelError) {
-                                                         [weakSelf.viewController.presenter viewModelNeedsUpdate];
-                                                     }
-                                                 }];
+                                            transactionType:type
+                                           presentationMode:mode
+                                         transactionDetails:details
+                                                 completion:completion];
 
-    controller.delegate = self.viewController;
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
+
     [self.viewController presentViewController:controller animated:YES completion:nil];
 }
 
@@ -104,16 +112,12 @@
 - (void)navigateToCardCustomizationWithIndex:(NSUInteger)index {
     JPCardCustomizationViewController *viewController;
     JPTheme *theme = self.configuration.uiConfiguration.theme;
-    viewController = [JPCardCustomizationBuilderImpl buildModuleWithCardIndex:index
-                                                                     andTheme:theme];
-
-    [self.viewController.navigationController pushViewController:viewController
-                                                        animated:YES];
+    viewController = [JPCardCustomizationBuilderImpl buildModuleWithCardIndex:index andTheme:theme];
+    [self.viewController.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)dismissViewControllerWithCompletion:(void (^)(void))completion {
-    [self.viewController dismissViewControllerAnimated:YES
-                                            completion:completion];
+    [self.viewController dismissViewControllerAnimated:YES completion:completion];
 }
 
 @end

@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsEmptyCardListCell.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
+#import "JPTransactionButton.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
@@ -33,7 +34,7 @@
 @interface JPPaymentMethodsEmptyCardListCell ()
 @property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIButton *addCardButton;
+@property (nonatomic, strong) JPTransactionButton *addCardButton;
 @property (nonatomic, copy) void (^onTransactionButtonTapHandler)(void);
 @end
 
@@ -41,8 +42,7 @@
 
 #pragma mark - Constants
 
-static const float kHorizontalImageEdgeInsets = 12.0F;
-static const float kLeadingTitleEdgeInset = -10.0F;
+static const float kHorizontalEdgeInsets = 12.0F;
 static const float kStackViewSpacing = 16.0F;
 static const float kStackViewTopPadding = 60.0F;
 static const float kAddCardButtonHeight = 36.0F;
@@ -70,10 +70,8 @@ static const int kConstraintPriority = 999;
     UIImage *buttonImage = [UIImage _jp_imageWithIconName:emptyViewModel.addCardButtonIconName];
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    CGFloat leadingInsets = kHorizontalImageEdgeInsets;
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(leadingInsets, 0, leadingInsets, 0);
-    self.addCardButton.titleEdgeInsets = UIEdgeInsetsMake(0, kLeadingTitleEdgeInset, 0, 0);
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, 0);
+    self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, kHorizontalEdgeInsets);
 
     self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
 }
@@ -90,6 +88,7 @@ static const int kConstraintPriority = 999;
     self.titleLabel.font = theme.headline;
     self.titleLabel.textColor = theme.jpBlackColor;
     self.addCardButton.titleLabel.font = theme.bodyBold;
+    self.addCardButton.tintColor = theme.jpBlackColor;
     [self.addCardButton _jp_setBorderWithColor:theme.jpBlackColor
                                          width:kAddCardBorderWidth
                                andCornerRadius:kAddCardCornerRadius];
@@ -119,6 +118,9 @@ static const int kConstraintPriority = 999;
     ];
 
     [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:kConstraintPriority];
+
+    [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }
 
 #pragma mark - Lazy properties
@@ -134,7 +136,7 @@ static const int kConstraintPriority = 999;
 
 - (UIButton *)addCardButton {
     if (!_addCardButton) {
-        _addCardButton = [UIButton new];
+        _addCardButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
         [_addCardButton addTarget:self
                            action:@selector(onTransactionButtonTap)
                  forControlEvents:UIControlEventTouchUpInside];

@@ -32,10 +32,7 @@
  */
 @interface JPCardValidationService : NSObject
 
-/**
- * A reference to the JPValidationResult instance responsible for card number validation
- */
-@property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
+- (instancetype)initWithCardNetwork:(JPCardNetworkType)network;
 
 /**
  * A method for resetting the card validation results
@@ -69,7 +66,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateCardholderEmailInput:(NSString *)input;
+- (JPValidationResult *)validateBillingEmailInput:(NSString *)input;
 
 /**
  *  A method for validating the cardholder phone country code
@@ -78,7 +75,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateCardholderPhoneCodeInput:(NSString *)input;
+- (JPValidationResult *)validateBillingPhoneCodeInput:(NSString *)input;
 
 /**
  *  A method for validating the cardholder phone number
@@ -87,7 +84,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateCardholderPhoneInput:(NSString *)input;
+- (JPValidationResult *)validateBillingPhoneInput:(NSString *)input;
 
 /**
  *  A method for validating the expiry date
@@ -123,7 +120,7 @@
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateStateInput:(NSString *)input;
+- (JPValidationResult *)validateBillingStateInput:(NSString *)input;
 
 /**
  *  A method for validating the postal code
@@ -134,8 +131,12 @@
  */
 - (JPValidationResult *)validatePostalCodeInput:(NSString *)input;
 
-- (JPValidationResult *)validateAddressLineInput:(NSString *)input;
+- (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input;
 
-- (JPValidationResult *)validateCityInput:(NSString *)input;
+- (JPValidationResult *)validateBillingCityInput:(NSString *)input;
+
+- (JPValidationResult *)validateBillingPostalCodeInput:(NSString *)input;
+
+- (JPValidationResult *)validateBillingCountryInput:(NSString *)input;
 
 @end

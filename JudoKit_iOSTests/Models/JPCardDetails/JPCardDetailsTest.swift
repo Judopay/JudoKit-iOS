@@ -304,6 +304,7 @@ class JPCardDetailsTest: XCTestCase {
     func test_ParsingCardType_WhenUnknown_ShouldReturnUnknownNetwork() {
         var dic = cardDetailsDic["cardDetails"]! as! [AnyHashable : Any]
         
+        dic["cardScheme"] = ""
         dic["cardType"] = -1
         let cardDetails = JPCardDetails(dictionary: dic)
         

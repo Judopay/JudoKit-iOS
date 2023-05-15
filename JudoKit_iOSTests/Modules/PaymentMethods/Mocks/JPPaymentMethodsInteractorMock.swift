@@ -30,6 +30,7 @@ enum PaymentError {
 }
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
+        
     var calledTransactionPayment = false
     var paymentTransactionDetailsParam: JPStoredCardDetails?
     var paymentTransactionCSCParam: String?
@@ -39,7 +40,8 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     var startPolling = false
     var shouldVerify = false
     var shouldAskForCardholderNameValue = false
-    var cardDetailsModeValue = JPCardDetailsMode.default
+    var cardDetailsModeValue = JPPresentationMode.cardInfo
+    var transactionMode = JPTransactionMode.payment
     var shouldFailWhenProcessApplePayment = false
     var storeError = false
 
@@ -53,10 +55,18 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         shouldAskForCardholderNameValue
     }
 
-    func cardDetailsMode() -> JPCardDetailsMode {
-        cardDetailsModeValue
+    func configuredTransactionMode() -> JPTransactionMode {
+        transactionMode
     }
-
+    
+    func updateKeychain(with details: JPCardDetails) {
+        
+    }
+    
+    func processServer(toServerCardPayment completion: @escaping JPCompletionBlock) {
+        
+    }
+    
     func pollingPBBA(completion: JPCompletionBlock? = nil) {
         startPolling = true
     }

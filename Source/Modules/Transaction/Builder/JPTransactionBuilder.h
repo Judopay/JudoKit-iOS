@@ -22,27 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardDetailsMode.h"
 #import "JPCardNetworkType.h"
+#import "JPPresentationMode.h"
 #import "JPTransactionType.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPApiService, JPConfiguration, JPTransactionViewController;
+@class JPApiService, JPConfiguration, JPTransactionViewController, JPCardTransactionDetails;
 
 @protocol JPTransactionBuilder
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
-                                           cardDetailsMode:(JPCardDetailsMode)mode
+                                          presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion;
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
-                                           cardDetailsMode:(JPCardDetailsMode)mode
-                                               cardNetwork:(JPCardNetworkType)cardNetwork
+                                          presentationMode:(JPPresentationMode)mode
+                                        transactionDetails:(JPCardTransactionDetails *)details
                                                 completion:(JPCompletionBlock)completion;
 
 @end

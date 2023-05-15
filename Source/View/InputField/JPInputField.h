@@ -113,6 +113,8 @@ typedef NS_ENUM(NSUInteger, JPInputType);
  */
 - (void)clearError;
 
+@property (nonatomic, assign) CACornerMask backgroundMaskedCorners;
+
 @end
 
 @interface JPInputField (UITextFieldDelegate) <UITextFieldDelegate>

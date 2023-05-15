@@ -79,13 +79,13 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
-  - OpenSSL-Universal (1.1.1700)
-  - TrustKit (2.0.0)
+  - OpenSSL-Universal (1.1.1900)
+  - TrustKit (2.0.1)
   - ZappMerchantLib (3.1.0)
 
 DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
-  - Cucumberish (from `https://github.com/mpetrenco/Cucumberish.git`)
+  - Cucumberish
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.1.3)
   - JudoKit-iOS (from `../../`)
@@ -94,6 +94,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaDebug
+    - Cucumberish
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
@@ -105,15 +106,8 @@ SPEC REPOS:
     - ZappMerchantLib
 
 EXTERNAL SOURCES:
-  Cucumberish:
-    :git: https://github.com/mpetrenco/Cucumberish.git
   JudoKit-iOS:
     :path: "../../"
-
-CHECKOUT OPTIONS:
-  Cucumberish:
-    :commit: 6c09ec2fb600359f5bc7c4f4d6da279db723675c
-    :git: https://github.com/mpetrenco/Cucumberish.git
 
 SPEC CHECKSUMS:
   CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
@@ -125,10 +119,10 @@ SPEC CHECKSUMS:
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
-  OpenSSL-Universal: ee0a7a25f2042782e2df405e66db3e429198e392
-  TrustKit: 610b8c71c07914756dd74c380040a3408a747798
+  OpenSSL-Universal: 84efb8a29841f2764ac5403e0c4119a28b713346
+  TrustKit: dad4c3a08248c21fcb9a3b5be3c2e2b9d4f9b973
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: afbcb7a0db47506c67dbef94be0d0dc2c2224dc8
+PODFILE CHECKSUM: e0f1016e5510ba970cb0f90c3c3c61b3d17060cb
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

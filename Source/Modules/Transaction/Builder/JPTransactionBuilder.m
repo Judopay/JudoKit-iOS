@@ -24,6 +24,7 @@
 
 #import "JPTransactionBuilder.h"
 #import "JPApiService.h"
+#import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 #import "JPCardValidationService.h"
 #import "JPConfiguration.h"
@@ -40,22 +41,19 @@
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
-                                           cardDetailsMode:(JPCardDetailsMode)mode
-                                               cardNetwork:(JPCardNetworkType)cardNetwork
+                                          presentationMode:(JPPresentationMode)mode
+                                        transactionDetails:(JPCardTransactionDetails *)details
                                                 completion:(JPCompletionBlock)completion {
-    JPCardValidationService *cardValidationService = [JPCardValidationService new];
-    cardValidationService.lastCardNumberValidationResult = [JPValidationResult new];
-    cardValidationService.lastCardNumberValidationResult.cardNetwork = cardNetwork;
-
+    JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
                                                                                        andConfiguration:configuration];
 
     JPTransactionInteractorImpl *interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                                               transactionService:transactionService
                                                                                                  transactionType:type
-                                                                                                 cardDetailsMode:mode
+                                                                                                presentationMode:mode
                                                                                                    configuration:configuration
-                                                                                                     cardNetwork:cardNetwork
+                                                                                              transactionDetails:details
                                                                                                       completion:completion];
     JPTransactionViewController *viewController = [JPTransactionViewController new];
     JPTransactionPresenterImpl *presenter = [JPTransactionPresenterImpl new];
@@ -77,13 +75,13 @@
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
-                                           cardDetailsMode:(JPCardDetailsMode)mode
+                                          presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion {
     return [JPTransactionBuilderImpl buildModuleWithApiService:apiService
                                                  configuration:configuration
                                                transactionType:type
-                                               cardDetailsMode:mode
-                                                   cardNetwork:JPCardNetworkTypeVisa
+                                              presentationMode:mode
+                                            transactionDetails:nil
                                                     completion:completion];
 }
 

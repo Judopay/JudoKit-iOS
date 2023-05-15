@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPTransactionViewController.h"
-#import "JPCardDetailsMode.h"
 #import "JPCardInputField.h"
 #import "JPCardInputView.h"
 #import "JPCardNumberField.h"
 #import "JPCountry.h"
 #import "JPInputType.h"
 #import "JPLoadingButton.h"
+#import "JPPresentationMode.h"
 #import "JPState.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
@@ -37,28 +37,29 @@
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
 
-@interface JPTransactionViewController ()
-@property (nonatomic, strong) JPCardInputView *addCardView;
-@property (nonatomic, strong) NSArray *countries;
-@property (nonatomic, strong) NSArray *states;
+@interface JPTransactionViewController () <JPCardInputViewDelegate>
 @end
 
 @implementation JPTransactionViewController
 
 #pragma mark - View Lifecycle
 
+- (void)loadView {
+    JPCardInputView *view = [JPCardInputView new];
+    view.delegate = self;
+
+    self.view = view;
+}
+
+- (JPCardInputView *)cardInputView {
+    return (JPCardInputView *)self.view;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.addCardView = [JPCardInputView new];
-    self.view = self.addCardView;
-    [self.presenter prepareInitialViewModel];
+
+    [self.presenter onViewDidLoad];
     [self _jp_registerKeyboardObservers];
-    [self addGestureRecognizers];
-    if (@available(iOS 13.0, *)) {
-        self.addCardView.scanCardButton.hidden = NO;
-    } else {
-        self.addCardView.scanCardButton.hidden = YES;
-    }
 }
 
 - (void)dealloc {
@@ -66,95 +67,22 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.addCardView endEditing:YES];
+    [self.cardInputView endEditing:YES];
     [super viewWillDisappear:animated];
-}
-
-#pragma mark - User actions
-
-- (void)onBackgroundViewTap {
-    [self.addCardView endEditing:YES];
-}
-
-- (void)onCancelButtonTap {
-    [self.delegate didCancel];
-    [self.presenter handleCancelButtonTap];
-}
-
-- (void)onAddCardButtonTap {
-    [self.addCardView.addCardButton startLoading];
-    [self.addCardView enableUserInterface:NO];
-    [self.presenter handleTransactionButtonTap];
-}
-
-- (void)onContinueButtonTap {
-    [self.presenter handleContinueButtonTap];
-}
-
-- (void)onBackButtonTap {
-    [self.presenter handleBackButtonTap];
-}
-
-- (void)onPayWithSecurityCodeButtonTap {
-    __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:true
-                             completion:^{
-                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text andCardholderName:nil];
-                             }];
-}
-
-- (void)onPayWithCardholderNameButtonTap {
-    __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:true
-                             completion:^{
-                                 [weakSelf.delegate didInputSecurityCode:nil andCardholderName:weakSelf.addCardView.cardHolderTextField.text];
-                             }];
-}
-
-- (void)onPayWithSecurityCodeAndCardholderNameButtonTap {
-    __weak typeof(self) weakSelf = self;
-    [self dismissViewControllerAnimated:true
-                             completion:^{
-                                 [weakSelf.delegate didInputSecurityCode:weakSelf.addCardView.secureCodeTextField.text andCardholderName:weakSelf.addCardView.cardHolderTextField.text];
-                             }];
-}
-
-- (void)onScanCardButtonTap {
-    [self.addCardView endEditing:YES];
-    [self.presenter handleScanCardButtonTap];
 }
 
 #pragma mark - View protocol methods
 
-- (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel
-            shouldUpdateTargets:(BOOL)shouldUpdateTargets {
-    if (viewModel.mode == JPCardDetailsModeAVS || viewModel.mode == JPCardDetailsModeThreeDS2BillingDetails) {
-        self.addCardView.countryPickerView.tag = 1;
-        self.addCardView.countryPickerView.delegate = self;
-        self.addCardView.countryPickerView.dataSource = self;
-        self.countries = viewModel.pickerCountries;
-
-        self.addCardView.statePickerView.tag = 2;
-        self.addCardView.statePickerView.delegate = self;
-        self.addCardView.statePickerView.dataSource = self;
-        self.states = viewModel.pickerStates;
-    }
-    shouldUpdateTargets ? [self updateTargets:viewModel] : NULL;
-    [self.addCardView configureWithViewModel:viewModel];
+- (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel {
+    [self.cardInputView configureWithViewModel:viewModel];
 }
 
-- (void)applyConfiguredTheme:(nonnull JPTheme *)theme {
-    [self.addCardView applyTheme:theme];
+- (void)applyConfiguredTheme:(JPTheme *)theme {
+    [self.cardInputView applyTheme:theme];
 }
 
 - (void)updateViewWithError:(NSError *)error {
-    [self.addCardView enableUserInterface:YES];
-    [self.addCardView.addCardButton stopLoading];
     [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
-}
-
-- (void)didFinishAddingCard {
-    [self.delegate didFinishAddingCard];
 }
 
 - (UIAlertController *)alertControllerWithTitle:(NSString *)title andMessage:(NSString *)message {
@@ -200,181 +128,48 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)changeFocusToInputType:(JPInputType)type {
-    JPCardInputField *field;
+- (void)moveFocusToInput:(JPInputType)type {
+    [self.cardInputView moveFocusToInput:type];
+}
 
-    switch (type) {
-        case JPInputTypeCardSecureCode:
-            field = self.addCardView.secureCodeTextField;
+#pragma mark - JPCardInputViewDelegate
+
+- (void)cardInputView:(JPCardInputView *)inputView
+        didChangeText:(NSString *)text
+         forInputType:(JPInputType)type
+        andEndEditing:(BOOL)endEditing {
+    [self.presenter handleInputChange:text forType:type showError:endEditing];
+}
+
+- (void)cardInputView:(JPCardInputView *)inputView didPerformAction:(JPCardInputViewActionType)action {
+    [inputView endEditing:YES];
+
+    switch (action) {
+        case JPCardInputViewActionTypeCancel:
+            [self.presenter handleCancelButtonTap];
             break;
 
-        case JPInputTypeCardholderName:
-            field = self.addCardView.cardHolderTextField;
+        case JPCardInputViewActionTypeScanCard:
+            [self.presenter handleScanCardButtonTap];
+            break;
+
+        case JPCardInputViewActionTypeSubmit:
+            [self.presenter handleSubmitButtonTap];
             break;
 
         default:
             break;
     }
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [field becomeFirstResponder];
-    });
-}
-
-#pragma mark - Layout setup
-
-- (void)updateTargets:(JPTransactionViewModel *)viewModel {
-    [self _jp_connectButton:self.addCardView.cancelButton withSelector:@selector(onCancelButtonTap)];
-    [self _jp_connectButton:self.addCardView.scanCardButton withSelector:@selector(onScanCardButtonTap)];
-    switch (viewModel.mode) {
-        case JPCardDetailsModeDefault:
-        case JPCardDetailsModeAVS:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
-            break;
-        case JPCardDetailsModeThreeDS2:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onContinueButtonTap)];
-            break;
-        case JPCardDetailsModeThreeDS2BillingDetails:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onAddCardButtonTap)];
-            [self _jp_connectButton:self.addCardView.backButton withSelector:@selector(onBackButtonTap)];
-            break;
-        case JPCardDetailsModeSecurityCode:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeButtonTap)];
-        case JPCardDetailsModeCardholderName:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithCardholderNameButtonTap)];
-        case JPCardDetailsModeSecurityCodeAndCardholderName:
-            [self _jp_connectButton:self.addCardView.addCardButton withSelector:@selector(onPayWithSecurityCodeAndCardholderNameButtonTap)];
-        default:
-            break;
-    }
-
-    self.addCardView.cardNumberTextField.delegate = self;
-    self.addCardView.cardHolderTextField.delegate = self;
-    self.addCardView.cardHolderPhoneTextField.delegate = self;
-    self.addCardView.cardHolderCityTextField.delegate = self;
-    self.addCardView.cardHolderAddressLine1TextField.delegate = self;
-    self.addCardView.cardHolderAddressLine2TextField.delegate = self;
-    self.addCardView.cardHolderAddressLine3TextField.delegate = self;
-    self.addCardView.cardHolderPhoneCodeTextField.delegate = self;
-    self.addCardView.cardHolderEmailTextField.delegate = self;
-    self.addCardView.cardExpiryTextField.delegate = self;
-    self.addCardView.secureCodeTextField.delegate = self;
-    self.addCardView.countryTextField.delegate = self;
-    self.addCardView.postcodeTextField.delegate = self;
-}
-
-- (void)addGestureRecognizers {
-    [self _jp_addTapGestureForView:self.addCardView.backgroundView withSelector:@selector(onBackgroundViewTap)];
 }
 
 #pragma mark - Keyboard handling logic
 
 - (void)_jp_keyboardWillShow:(NSNotification *)notification {
-    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-
-    CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    self.addCardView.bottomSliderConstraint.constant = -keyboardSize.height;
-    [self.view layoutIfNeeded];
-
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:duration
-                          delay:0.0
-                        options:curve
-                     animations:^{
-                         [weakSelf.addCardView adjustTopSpace];
-                         [weakSelf.view layoutIfNeeded];
-                     }
-                     completion:^(BOOL finished){}];
+    [self.cardInputView notifyKeyboardWillShow:YES withNotification:notification];
 }
 
 - (void)_jp_keyboardWillHide:(NSNotification *)notification {
-    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-
-    self.addCardView.bottomSliderConstraint.constant = 0;
-    [self.view layoutIfNeeded];
-
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:duration
-                          delay:0.0
-                        options:curve
-                     animations:^{
-                         [weakSelf.addCardView adjustTopSpace];
-                         [weakSelf.view layoutIfNeeded];
-                     }
-                     completion:^(BOOL finished){}];
-}
-
-@end
-
-#pragma mark - Country/State UIPickerView delegate
-
-@implementation JPTransactionViewController (CountryStatePickerDelegate)
-
-- (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (pickerView.tag == 1) {
-        return self.countries.count;
-    } else {
-        return self.states.count;
-    }
-}
-
-- (void)pickerView:(UIPickerView *)pickerView
-      didSelectRow:(NSInteger)row
-       inComponent:(NSInteger)component {
-    if (pickerView.tag == 1) {
-        JPCountry *country = self.countries[row];
-        [self.presenter handleInputChange:country.name forType:JPInputTypeCardCountry showError:YES];
-    } else {
-        JPState *state = self.states[row];
-        [self.presenter handleInputChange:state.name forType:JPInputTypeCardholderState showError:YES];
-    }
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView
-             titleForRow:(NSInteger)row
-            forComponent:(NSInteger)component {
-    if (pickerView.tag == 1) {
-        JPCountry *country = self.countries[row];
-        return country.name;
-    } else {
-        JPState *state = self.states[row];
-        return state.name;
-    }
-}
-
-@end
-
-#pragma mark - Card number delegate
-
-@implementation JPTransactionViewController (InputFieldDelegate)
-
-- (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
-    [self.presenter handleInputChange:text
-                              forType:inputField.type
-                            showError:NO];
-    return NO;
-}
-
-- (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
-    [self.presenter handleInputChange:text
-                              forType:inputField.type
-                            showError:YES];
-}
-
-- (void)inputFieldDidBeginEditing:(JPInputField *)inputField {
-    //    UIScrollView *scrollView = self.addCardView.scrollView;
-    //    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
-    //    CGRect fieldFrame = inputField.frame;
-    //
-    //    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
-    //        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, 80) animated:YES];
-    //    }
+    [self.cardInputView notifyKeyboardWillShow:NO withNotification:notification];
 }
 
 @end

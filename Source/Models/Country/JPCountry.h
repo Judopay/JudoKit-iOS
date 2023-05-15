@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPBillingCountry.h"
 #import <Foundation/Foundation.h>
 
 @interface JPCountry : NSObject
@@ -39,6 +40,14 @@
 + (nullable JPCountry *)forCountryName:(nonnull NSString *)countryName;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
+
+- (BOOL)isUSA;
+
+- (BOOL)isCanada;
+
+- (BOOL)hasStates;
+
+- (JPBillingCountry)toBillingCountry;
 
 @end
 

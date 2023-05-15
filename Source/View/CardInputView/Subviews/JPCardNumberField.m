@@ -72,6 +72,7 @@
 
 - (void)configureWithViewModel:(JPTransactionNumberInputViewModel *)viewModel {
 
+    self.enabled = viewModel.isEnabled;
     self.type = viewModel.type;
 
     [self setCardNetwork:viewModel.cardNetwork];
@@ -104,8 +105,9 @@
             weakSelf.cardLogoImageView.alpha = (cardIcon) ? 1.0 : 0.0;
         }
         completion:^(BOOL finished) {
-            if (!cardIcon)
+            if (!cardIcon) {
                 weakSelf.cardLogoImageView.image = cardIcon;
+            }
         }];
 }
 

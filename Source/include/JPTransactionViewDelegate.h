@@ -1,1 +1,0 @@
-../Modules/Transaction/View/JPTransactionViewDelegate.h

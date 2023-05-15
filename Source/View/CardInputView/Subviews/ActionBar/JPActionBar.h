@@ -1,8 +1,8 @@
 //
-//  JPCardDetailsMode.h
+//  JPActionBar.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2022 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JPActionBarDelegate.h"
+#import "JPThemable.h"
+#import <UIKit/UIKit.h>
 
-/**
- * An enum that defines the card details mode
- */
-typedef NS_ENUM(NSUInteger, JPCardDetailsMode) {
-    JPCardDetailsModeDefault,
-    JPCardDetailsModeAVS,
-    JPCardDetailsModeSecurityCode,
-    JPCardDetailsModeCardholderName,
-    JPCardDetailsModeSecurityCodeAndCardholderName,
-    JPCardDetailsModeThreeDS2,
-    JPCardDetailsModeThreeDS2BillingDetails
-};
+@class JPTransactionButton, JPTransactionScanCardButton;
+
+@interface JPActionBar : UIStackView <JPThemable>
+
+@property (nonatomic, strong) id<JPActionBarDelegate> delegate;
+@property (nonatomic, assign) JPActionBarActionType actions;
+
+@property (nonatomic, strong) JPTransactionButton *cancelButton;
+@property (nonatomic, strong) JPTransactionScanCardButton *scanCardButton;
+@property (nonatomic, strong) JPTransactionButton *backButton;
+@property (nonatomic, strong) JPTransactionButton *submitButton;
+
+@end

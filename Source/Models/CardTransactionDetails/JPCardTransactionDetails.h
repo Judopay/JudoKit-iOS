@@ -32,7 +32,7 @@
 @property (nonatomic, strong, nullable) NSString *cardNumber;
 @property (nonatomic, strong, nullable) NSString *cardholderName;
 @property (nonatomic, strong, nullable) NSString *expiryDate;
-@property (nonatomic, strong, nullable) NSString *secureCode;
+@property (nonatomic, strong, nullable) NSString *securityCode;
 @property (nonatomic, strong, nullable) NSString *startDate;
 @property (nonatomic, strong, nullable) NSString *issueNumber;
 

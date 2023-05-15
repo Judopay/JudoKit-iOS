@@ -64,4 +64,4 @@
 #import "JPAuthorization.h"
 #import "JPSessionAuthorization.h"
 #import "JPInputType.h"
-#import "JPCardDetailsMode.h"
+#import "JPPresentationMode.h"
