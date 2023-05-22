@@ -36,24 +36,4 @@ class NSBundleAdditionsTests: XCTestCase {
         let bundle = Bundle._jp_framework()
         XCTAssertNotNil(bundle)
     }
-    
-    /*
-     * GIVEN: accessing bundle for icons
-     *
-     * THEN: should return non nil bundle path
-     */
-    func test_iconsBundle() {
-        let bundle = Bundle._jp_icons()
-        XCTAssertNotNil(bundle)
-    }
-    
-    /*
-     * GIVEN: accessing bundle for resources
-     *
-     * THEN: should return non nil bundle path
-     */
-    func test_resourcesBundle() {
-        let bundle = Bundle._jp_resources()
-        XCTAssertNotNil(bundle)
-    }
 }

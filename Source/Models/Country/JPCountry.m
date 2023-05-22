@@ -25,12 +25,12 @@
 #import "JPCountry.h"
 #import "JPConstants.h"
 #import "NSString+Additions.h"
+#import "NSBundle+Additions.h"
 
 @implementation JPCountryList
 
 + (instancetype)defaultCountryList {
-    NSBundle *bundle = [NSBundle bundleForClass:[JPCountryList class]];
-    NSString *str = [bundle pathForResource:@"judokit-countries-list" ofType:@"json"];
+    NSString *str = [NSBundle._jp_frameworkBundle pathForResource:@"countries-list" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:str];
 
     if (data) {

@@ -138,15 +138,15 @@
         [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
         return;
     }
-    
+
     if (response) {
         JPCardDetails *details = response.cardDetails;
-        
+
         if (!details) {
             [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:JPError.responseParseError];
             return;
         }
-        
+
         [self.interactor updateKeychainWithCardDetails:details];
         [self setLastAddedCardAsSelected];
         [self viewModelNeedsUpdate];

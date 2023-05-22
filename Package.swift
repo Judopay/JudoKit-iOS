@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "JudoKit_iOS",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v11)
     ],
@@ -30,6 +31,6 @@ let package = Package(
             ],
             path: "Source",
             resources: [
-                .process("../Resources", localization: Resource.Localization.default)
+                .process("Resources")
             ])
     ])

@@ -49,12 +49,12 @@ static int const kCardHolderNameLength = 4;
 
 - (instancetype)initWithCardNetwork:(JPCardNetworkType)network {
     self = [super init];
-    
+
     if (self && network != JPCardNetworkTypeUnknown) {
         self.lastCardNumberValidationResult = [JPValidationResult new];
         self.lastCardNumberValidationResult.cardNetwork = network;
     }
-    
+
     return self;
 }
 
@@ -478,11 +478,11 @@ static int const kCardHolderNameLength = 4;
 
 - (JPBillingCountry)billingCountryWithName:(NSString *)name {
     JPCountry *country = [JPCountry forCountryName:name];
-    
+
     if (country) {
         return country.toBillingCountry;
     }
-    
+
     return JPBillingCountryOther;
 }
 
