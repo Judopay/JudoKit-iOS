@@ -30,12 +30,12 @@
 @implementation UIImage (Additions)
 
 + (UIImage *)_jp_imageWithIconName:(NSString *)iconName {
-    NSBundle *bundle = NSBundle._jp_iconsBundle;
+    NSBundle *bundle = NSBundle._jp_frameworkBundle;
     return [UIImage imageNamed:iconName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
 + (UIImage *)_jp_imageWithResourceName:(NSString *)resourceName {
-    NSBundle *bundle = NSBundle._jp_resourcesBundle;
+    NSBundle *bundle = NSBundle._jp_frameworkBundle;
     return [UIImage imageNamed:resourceName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 

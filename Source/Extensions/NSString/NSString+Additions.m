@@ -33,9 +33,6 @@
 @implementation NSString (Additions)
 
 - (nonnull NSString *)_jp_localized {
-    if (NSBundle._jp_stringsBundle != nil) {
-        return NSLocalizedStringFromTableInBundle(self, nil, NSBundle._jp_stringsBundle, nil);
-    }
     return NSLocalizedStringFromTableInBundle(self, nil, NSBundle._jp_frameworkBundle, nil);
 }
 

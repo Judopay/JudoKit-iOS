@@ -25,66 +25,97 @@
 #import "JudoKit.h"
 #import "NSBundle+Additions.h"
 
+static NSString *const kBundleName = @"JudoKit_iOS.bundle";
+static NSString *const kSPMBundleName = @"JudoKit_iOS_JudoKit_iOS.bundle";
+
+NSBundle *_jp_SPMBundle() {
+
+#ifdef SWIFTPM_MODULE_BUNDLE
+    return SWIFTPM_MODULE_BUNDLE;
+#endif
+
+    NSBundle *mainBundle = NSBundle.mainBundle;
+    NSBundle *classBundle = [NSBundle bundleForClass:JudoKit.class];
+
+    NSArray<NSURL *> *candidates = @[
+        mainBundle.resourceURL,
+        classBundle.resourceURL,
+        mainBundle.bundleURL
+    ];
+
+    for (NSURL *candiate in candidates) {
+        NSURL *bundlePath = [candiate URLByAppendingPathComponent:kSPMBundleName];
+        NSBundle *bundle;
+
+        if (bundlePath) {
+            bundle = [NSBundle bundleWithURL:bundlePath];
+        }
+
+        if (bundle) {
+            return bundle;
+        }
+    }
+
+    return nil;
+}
+
+NSBundle *_jp_searchForBundle(NSString *bundlePath) {
+    NSArray<NSString *> *candidates = @[
+        [bundlePath stringByAppendingPathComponent:kBundleName],
+        [bundlePath.stringByDeletingLastPathComponent stringByAppendingPathComponent:kBundleName]
+    ];
+
+    for (NSString *candidate in candidates) {
+        NSBundle *bundle = [NSBundle bundleWithPath:candidate];
+
+        if (bundle) {
+            return bundle;
+        }
+    }
+
+    return nil;
+}
+
+NSBundle *_jp_lookupFrameworkBundle() {
+    NSBundle *frameworkBundle = _jp_SPMBundle();
+
+    if (!frameworkBundle) {
+        frameworkBundle = [NSBundle bundleWithPath:kBundleName];
+    }
+
+    if (!frameworkBundle) {
+        NSString *path = [[NSBundle bundleForClass:JudoKit.class] pathForResource:@"JudoKit_iOS" ofType:@"bundle"];
+        if (path) {
+            frameworkBundle = [NSBundle bundleWithPath:path];
+        }
+    }
+
+    if (!frameworkBundle) {
+        frameworkBundle = [NSBundle bundleForClass:JudoKit.class];
+    }
+
+    if (!frameworkBundle) {
+        frameworkBundle = NSBundle.mainBundle;
+    }
+
+    NSBundle *jpBundle = _jp_searchForBundle(frameworkBundle.bundlePath);
+
+    if (jpBundle) {
+        return jpBundle;
+    }
+
+    return frameworkBundle;
+}
+
 @implementation NSBundle (Additions)
 
 + (NSBundle *)_jp_frameworkBundle {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:JudoKit.class];
+        bundle = _jp_lookupFrameworkBundle();
     });
     return bundle;
-}
-
-+ (NSBundle *)_jp_iconsBundle {
-    static NSBundle *iconsBundle;
-    static dispatch_once_t iconsToken;
-    dispatch_once(&iconsToken, ^{
-        iconsBundle = [[NSBundle alloc] initWithPath:[NSBundle pathForResourceBundle:@"judokit-icons"]];
-    });
-    return iconsBundle;
-}
-
-+ (instancetype)_jp_stringsBundle {
-    static NSBundle *bundle;
-    static dispatch_once_t onceToken;
-    NSString *podPath = [NSBundle._jp_frameworkBundle pathForResource:@"JudoKit_iOS"
-                                                               ofType:@"bundle"];
-
-    if (!podPath) {
-        return nil;
-    }
-
-    dispatch_once(&onceToken, ^{
-        bundle = [[NSBundle alloc] initWithPath:podPath];
-    });
-    return bundle;
-}
-
-+ (instancetype)_jp_resourcesBundle {
-    static NSBundle *resourcesBundle;
-    static dispatch_once_t resourcesToken;
-    dispatch_once(&resourcesToken, ^{
-        resourcesBundle = [[NSBundle alloc] initWithPath:[NSBundle pathForResourceBundle:@"judokit-resources"]];
-    });
-    return resourcesBundle;
-}
-
-+ (NSString *)pathForResourceBundle:(NSString *)resourceBundle {
-    for (NSBundle *bundle in NSBundle.allBundles) {
-        NSString *bundlePath = [bundle pathForResource:resourceBundle ofType:@"bundle"];
-        if (bundlePath) {
-            return bundlePath;
-        }
-    }
-
-    for (NSBundle *bundle in NSBundle.allFrameworks) {
-        NSString *bundlePath = [bundle pathForResource:resourceBundle ofType:@"bundle"];
-        if (bundlePath) {
-            return bundlePath;
-        }
-    }
-    return nil;
 }
 
 + (NSString *)_jp_appURLScheme {

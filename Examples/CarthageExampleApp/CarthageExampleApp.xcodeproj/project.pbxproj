@@ -12,6 +12,7 @@
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
+		448FC6422A1E21BD0072C52E /* Judo3DS2_iOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 448FC6412A1E21BD0072C52E /* Judo3DS2_iOS.xcframework */; };
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
 		ADFF51D92847A83D00DA884C /* DeviceDNA.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */; };
 		ADFF51DA2847A83D00DA884C /* DeviceDNA.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -73,6 +74,7 @@
 		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1C42450DE93004A11CB /* CarthageExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarthageExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		448FC6412A1E21BD0072C52E /* Judo3DS2_iOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Judo3DS2_iOS.xcframework; path = Carthage/Build/Judo3DS2_iOS.xcframework; sourceTree = "<group>"; };
 		449495032450ED870050C6A0 /* ObjectiveCExampleApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ObjectiveCExampleApp.entitlements; sourceTree = "<group>"; };
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADFF51E52847A9BA00DA884C /* ZappMerchantLib.xcframework in Frameworks */,
+				448FC6422A1E21BD0072C52E /* Judo3DS2_iOS.xcframework in Frameworks */,
 				ADFF51D92847A83D00DA884C /* DeviceDNA.xcframework in Frameworks */,
 				ADFF51DC2847A84F00DA884C /* TrustKit.xcframework in Frameworks */,
 				ADFF51E22847A9A400DA884C /* OpenSSL.xcframework in Frameworks */,
@@ -188,6 +191,7 @@
 		9B9F9602B30C65E77C8697F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				448FC6412A1E21BD0072C52E /* Judo3DS2_iOS.xcframework */,
 				ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */,
 				ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */,
 				ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */,
