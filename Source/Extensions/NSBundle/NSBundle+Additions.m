@@ -45,7 +45,11 @@ NSBundle *_jp_SPMBundle() {
 
     for (NSURL *candiate in candidates) {
         NSURL *bundlePath = [candiate URLByAppendingPathComponent:kSPMBundleName];
-        NSBundle *bundle = [NSBundle bundleWithURL:bundlePath];
+        NSBundle *bundle;
+
+        if (bundlePath) {
+            bundle = [NSBundle bundleWithURL:bundlePath];
+        }
 
         if (bundle) {
             return bundle;
@@ -58,11 +62,12 @@ NSBundle *_jp_SPMBundle() {
 NSBundle *_jp_searchForBundle(NSString *bundlePath) {
     NSArray<NSString *> *candidates = @[
         [bundlePath stringByAppendingPathComponent:kBundleName],
-        [bundlePath.stringByDeletingLastPathComponent stringByAppendingPathComponent:kBundleName]];
-    
+        [bundlePath.stringByDeletingLastPathComponent stringByAppendingPathComponent:kBundleName]
+    ];
+
     for (NSString *candidate in candidates) {
         NSBundle *bundle = [NSBundle bundleWithPath:candidate];
-        
+
         if (bundle) {
             return bundle;
         }
@@ -80,7 +85,9 @@ NSBundle *_jp_lookupFrameworkBundle() {
 
     if (!frameworkBundle) {
         NSString *path = [[NSBundle bundleForClass:JudoKit.class] pathForResource:@"JudoKit_iOS" ofType:@"bundle"];
-        frameworkBundle = [NSBundle bundleWithPath:path];
+        if (path) {
+            frameworkBundle = [NSBundle bundleWithPath:path];
+        }
     }
 
     if (!frameworkBundle) {

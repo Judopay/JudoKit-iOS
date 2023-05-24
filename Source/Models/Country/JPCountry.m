@@ -24,8 +24,8 @@
 
 #import "JPCountry.h"
 #import "JPConstants.h"
-#import "NSString+Additions.h"
 #import "NSBundle+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation JPCountryList
 
