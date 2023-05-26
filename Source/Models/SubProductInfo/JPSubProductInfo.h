@@ -36,8 +36,8 @@ typedef NS_ENUM(NSUInteger, JPSubProductType) {
 
 @interface JPSubProductInfo : NSObject
 
-@property (nonatomic, readonly, assign) JPSubProductType subProductType;
-@property (nonatomic, readonly, nullable) NSString *version;
+@property (nonatomic, assign, readonly) JPSubProductType subProductType;
+@property (nonatomic, strong, readonly, nullable) NSString *version;
 
 - (nullable instancetype)initWithSubProductType:(JPSubProductType)subProductType andVersion:(nullable NSString *)version;
 
