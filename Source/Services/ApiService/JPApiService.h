@@ -54,7 +54,7 @@
  */
 @property (nonatomic, assign) BOOL isSandboxed;
 
-@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
+@property (nonatomic, strong, nullable) JPSubProductInfo *subProductInfo;
 
 /**
  * Designated initializer that creates an instance of JPApiSession based on the authorization type provided

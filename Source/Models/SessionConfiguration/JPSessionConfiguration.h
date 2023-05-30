@@ -45,7 +45,7 @@
  */
 @property (nonatomic, assign) BOOL isSandboxed;
 
-@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
+@property (nonatomic, strong, nullable) JPSubProductInfo *subProductInfo;
 
 /**
  * Designated initializer the generates a session configuration based on the authorization type

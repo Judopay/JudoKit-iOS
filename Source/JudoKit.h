@@ -33,7 +33,7 @@
 @protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"3.2.1";
+static NSString *__nonnull const JudoKitVersion = @"3.2.2";
 
 @interface JudoKit : NSObject
 
@@ -42,7 +42,7 @@ static NSString *__nonnull const JudoKitVersion = @"3.2.1";
  */
 
 @property (nonatomic, assign) BOOL isSandboxed;
-@property (nonatomic, nullable) JPSubProductInfo *subProductInfo;
+@property (nonatomic, strong, nullable) JPSubProductInfo *subProductInfo;
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**

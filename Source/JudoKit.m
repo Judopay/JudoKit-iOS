@@ -314,6 +314,11 @@
     self.apiService.authorization = authorization;
 }
 
+- (void)setSubProductInfo:(JPSubProductInfo *)subProductInfo {
+    _subProductInfo = subProductInfo;
+    self.apiService.subProductInfo = subProductInfo;
+}
+
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
                            completion:(nullable JPCompletionBlock)completion {
     [self.apiService fetchTransactionWithReceiptId:receiptId completion:completion];

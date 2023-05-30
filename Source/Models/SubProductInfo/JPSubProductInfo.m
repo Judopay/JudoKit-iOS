@@ -26,9 +26,8 @@
 
 @implementation JPSubProductInfo
 
-- (nullable instancetype)initWithSubProductType:(JPSubProductType)subProductType andVersion:(nullable NSString *)version {
-    self = [super init];
-    if (self) {
+- (instancetype)initWithSubProductType:(JPSubProductType)subProductType andVersion:(NSString *)version {
+    if (self = [super init]) {
         _subProductType = subProductType;
         _version = version;
     }

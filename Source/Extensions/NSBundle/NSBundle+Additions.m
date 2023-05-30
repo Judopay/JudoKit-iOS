@@ -28,7 +28,7 @@
 static NSString *const kBundleName = @"JudoKit_iOS.bundle";
 static NSString *const kSPMBundleName = @"JudoKit_iOS_JudoKit_iOS.bundle";
 
-NSBundle *_jp_SPMBundle() {
+NSBundle *_jp_SPMBundle(void) {
 
 #ifdef SWIFTPM_MODULE_BUNDLE
     return SWIFTPM_MODULE_BUNDLE;
@@ -76,7 +76,7 @@ NSBundle *_jp_searchForBundle(NSString *bundlePath) {
     return nil;
 }
 
-NSBundle *_jp_lookupFrameworkBundle() {
+NSBundle *_jp_lookupFrameworkBundle(void) {
     NSBundle *frameworkBundle = _jp_SPMBundle();
 
     if (!frameworkBundle) {
