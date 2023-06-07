@@ -411,6 +411,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
+    cell.accessibilityLabel = option.title;
     return cell;
 }
 
