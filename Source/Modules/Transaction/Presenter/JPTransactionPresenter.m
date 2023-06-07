@@ -125,6 +125,7 @@
 
     billingInformationViewModel.stateViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
     billingInformationViewModel.stateViewModel.options = @[];
+    billingInformationViewModel.stateViewModel.isValid = YES;
 
     billingInformationViewModel.phoneCodeViewModel.text = currentSelectedCountry.dialCode;
     billingInformationViewModel.phoneViewModel.placeholder = @"card_holder_phone_hint"._jp_localized;
