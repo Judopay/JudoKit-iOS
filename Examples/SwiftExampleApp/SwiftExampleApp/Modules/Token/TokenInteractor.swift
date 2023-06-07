@@ -98,7 +98,7 @@ class TokenInteractor: TokenInteractorInput {
         let details = JPCardTransactionDetails(configuration: featureService.configuration)
         details.cardToken = cardToken
         details.cardType = NSNumber(value: Int(scheme ?? "") ?? 0)._jp_toCardNetworkType()
-        details.secureCode = csc?.isEmpty == false ? csc : nil
+        details.securityCode = csc?.isEmpty == false ? csc : nil
         details.cardholderName = cardholderName
         return details
     }
