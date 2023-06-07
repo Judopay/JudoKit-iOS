@@ -24,7 +24,7 @@
 
 import Foundation
 
-struct ResultItem {
+struct ResultItem: Equatable {
 
     // MARK: - Variables
 

@@ -77,7 +77,7 @@ class PBBAInteractor: PBBAInteractorInput {
         }
 
         guard let response = response else {
-            self?.output?.displayErrorAlert(with: JPError.judoRequestFailedError())
+            self?.output?.displayErrorAlert(with: JPError.requestFailedError())
             return
         }
 

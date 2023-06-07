@@ -22,7 +22,7 @@
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {

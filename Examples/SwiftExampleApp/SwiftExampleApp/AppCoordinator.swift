@@ -1,27 +1,3 @@
-//
-//  AppCoordinator.swift
-//  SwiftExampleApp
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
-
 import UIKit
 
 enum AppScreen {
@@ -29,6 +5,7 @@ enum AppScreen {
     case settings
     case results(Result)
     case tokenTransactions
+    case noUICardPay
     case payByBankApp
     case applePay
 }
@@ -41,7 +18,6 @@ protocol Coordinator: AnyObject {
 }
 
 class AppCoordinator: Coordinator {
-
     // MARK: - Variables
 
     private let window: UIWindow
@@ -50,6 +26,7 @@ class AppCoordinator: Coordinator {
     private let homeModule: HomeModule
     private let settingsModule: SettingsModule
     private let tokenModule: TokenModule
+    private let noUICardPayModule: NoUICardPayModule
     private let pbbaModule: PBBAModule
     private let applePayModule: ApplePayModule
 
@@ -64,6 +41,7 @@ class AppCoordinator: Coordinator {
         homeModule = HomeModule.make(with: featureRepository, service: featureService)
         settingsModule = SettingsModule.make()
         tokenModule = TokenModule.make(with: featureService)
+        noUICardPayModule = NoUICardPayModule.make(with: featureService)
         pbbaModule = PBBAModule.make(with: featureService)
         applePayModule = ApplePayModule.make()
     }
@@ -86,28 +64,24 @@ class AppCoordinator: Coordinator {
     func pushTo(_ screen: AppScreen) {
         switch screen {
         case .home:
-            navigationController.pushViewController(homeModule.rootViewController,
-                                                    animated: true)
+            navigationController.pushViewController(homeModule.rootViewController, animated: true)
         case .settings:
-            navigationController.pushViewController(settingsModule.rootViewController,
-                                                    animated: true)
-        case .results(let result):
+            navigationController.pushViewController(settingsModule.rootViewController, animated: true)
+        case let .results(result):
             let resultsModule = ResultsModule.make(with: result)
             resultsModule.rootViewController.coordinator = self
-            navigationController.pushViewController(resultsModule.rootViewController,
-                                                    animated: true)
+            navigationController.pushViewController(resultsModule.rootViewController, animated: true)
         case .tokenTransactions:
             tokenModule.rootViewController.coordinator = self
-            navigationController.pushViewController(tokenModule.rootViewController,
-                                                    animated: true)
+            navigationController.pushViewController(tokenModule.rootViewController, animated: true)
+        case .noUICardPay:
+            noUICardPayModule.coordinator = self
+            navigationController.pushViewController(noUICardPayModule.rootViewController, animated: true)
         case .payByBankApp:
             pbbaModule.rootViewController.coordinator = self
-            navigationController.pushViewController(pbbaModule.rootViewController,
-                                                    animated: true)
-
+            navigationController.pushViewController(pbbaModule.rootViewController, animated: true)
         case .applePay:
-            navigationController.pushViewController(applePayModule.rootViewController,
-                                                    animated: true)
+            navigationController.pushViewController(applePayModule.rootViewController, animated: true)
         }
     }
 

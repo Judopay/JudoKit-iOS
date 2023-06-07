@@ -38,6 +38,7 @@ enum FeatureType {
     case serverToServer
     case payByBank
     case tokenPayments
+    case noUIPayments
     case transactionDetails
 }
 
