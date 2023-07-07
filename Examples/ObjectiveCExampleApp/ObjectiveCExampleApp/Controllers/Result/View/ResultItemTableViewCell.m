@@ -40,6 +40,7 @@
     }
 
     self.textLabel.text = resultItem.title;
+    self.accessibilityIdentifier = resultItem.title;
 }
 
 @end
