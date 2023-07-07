@@ -73,6 +73,24 @@ extension XCUIApplication {
         }
     }
     
+    var tokenizeNewCardButton: XCUIElement? {
+        get {
+            return buttonWithLabel("Tokenize a new card")
+        }
+    }
+    
+    var tokenPaymentButton: XCUIElement? {
+        get {
+            return buttonWithLabel("Payment")
+        }
+    }
+    
+    var tokenPreauthButton: XCUIElement? {
+        get {
+            return buttonWithLabel("Preauth")
+        }
+    }
+    
     func configureSettings() {
         launchArguments += ["-judo_id", "judo_id",
                             "-token", "token",

@@ -120,6 +120,150 @@ final class CardPaymentUITests: XCTestCase {
         
         //TODO: Assert the toast message
     }
+    
+    func testSuccessfulPreauthTransactionReceiptObjectContainsRelevantInfo() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+    
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulRegisterCardTransactionReceiptObjectContainsRelevantInfo() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.REGISTER_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+    
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "Register", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulCheckCardTransactionReceiptObjectContainsRelevantInfo() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+    
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "CheckCard", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulTokenPaymentReceiptObjectContainsRelevantInfo() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
+        
+        app.tokenizeNewCardButton?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        app.tokenPaymentButton?.tap()
+    
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulTokenPreauthReceiptObjectContainsRelevantInfo() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
+        
+        app.tokenizeNewCardButton?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        app.tokenPreauthButton?.tap()
+    
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulFrictionlessPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-challenge_request_indicator", "noPreference"]
+        
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: "Frictionless Successful",
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testFrictionlessNoMethodPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-challenge_request_indicator", "noPreference"]
+        
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: "Frictionless NoMethod",
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testFrictionlessAuthFailedPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-challenge_request_indicator", "noPreference"]
+        
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        
+        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: "Frictionless AuthFailed",
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        //TODO: Assert the toast message
+    }
 }
 
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {

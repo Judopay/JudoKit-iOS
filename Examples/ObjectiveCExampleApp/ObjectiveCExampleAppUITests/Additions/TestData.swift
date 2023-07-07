@@ -18,7 +18,7 @@ class TestData {
     static let PREAUTH_WITH_CARD_LABEL = "Pre-auth with card"
     static let REGISTER_CARD_LABEL = "Register card"
     static let CHECK_CARD_LABEL = "Check card"
-    static let TOKEN_PAYMENTS_LABEL = "Token payments"
+    static let TOKEN_PAYMENTS_LABEL = "Token Payments"
     static let PAYMENT_METHODS_LABEL = "Payment methods"
     static let PREAUTH_METHODS_LABEL = "Pre-auth payment methods"
 
