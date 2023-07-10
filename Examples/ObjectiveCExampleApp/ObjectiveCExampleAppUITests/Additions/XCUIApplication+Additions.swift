@@ -91,6 +91,18 @@ extension XCUIApplication {
         }
     }
     
+    var addCard: XCUIElement? {
+        get {
+            return buttonWithLabel("ADD CARD")
+        }
+    }
+    
+    var payNowButton: XCUIElement? {
+        get {
+            return buttonWithLabel("PAY NOW")
+        }
+    }
+    
     func configureSettings() {
         launchArguments += ["-judo_id", "judo_id",
                             "-token", "token",
@@ -98,5 +110,12 @@ extension XCUIApplication {
                             "-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",
                             "-should_ask_for_billing_information", "false"]
+    }
+    
+    func fillCardSheetDetails(cardNumber: String, cardHolder: String, expiryDate: String, securityCode: String) {
+        cardNumberTextField?.tapAndTypeText(cardNumber)
+        cardholderTextField?.tapAndTypeText(cardHolder)
+        expiryDateTextField?.tapAndTypeText(expiryDate)
+        securityCodeTextField?.tapAndTypeText(securityCode)
     }
 }

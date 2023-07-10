@@ -10,13 +10,6 @@ import XCTest
 final class CardPaymentUITests: XCTestCase {
     
     var app: XCUIApplication!
-    
-    func fillCardSheetDetails(cardNumber: String, cardHolder: String, expiryDate: String, securityCode: String) {
-        app.cardNumberTextField?.tapAndTypeText(cardNumber)
-        app.cardholderTextField?.tapAndTypeText(cardHolder)
-        app.expiryDateTextField?.tapAndTypeText(expiryDate)
-        app.securityCodeTextField?.tapAndTypeText(securityCode)
-    }
 
     override func setUp() {
         super.setUp()
@@ -32,7 +25,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -55,7 +48,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -72,7 +65,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: "123")
@@ -89,7 +82,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: "4111 1111 1111 1111",
+        app.fillCardSheetDetails(cardNumber: "4111 1111 1111 1111",
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: "123")
@@ -106,7 +99,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -126,7 +119,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -143,7 +136,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.REGISTER_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -160,7 +153,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -179,7 +172,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.tokenizeNewCardButton?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -200,7 +193,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.tokenizeNewCardButton?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: TestData.CARDHOLDER_NAME,
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -221,7 +214,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: "Frictionless Successful",
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -238,7 +231,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: "Frictionless NoMethod",
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -255,7 +248,7 @@ final class CardPaymentUITests: XCTestCase {
         
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
-        fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
                              cardHolder: "Frictionless AuthFailed",
                              expiryDate: TestData.CARD_EXPIRY,
                              securityCode: TestData.CARD_SECURITY_CODE)
@@ -263,6 +256,60 @@ final class CardPaymentUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         
         //TODO: Assert the toast message
+    }
+    
+    func testSuccessfulPaymentMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PAYMENT_METHODS_LABEL)?.tap()
+        
+        app.addCard?.tap()
+        
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        app.payNowButton?.tap()
+        
+        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulPreauthMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PREAUTH_METHODS_LABEL)?.tap()
+        
+        app.addCard?.tap()
+        
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        app.payNowButton?.tap()
+        
+        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        tapCompleteButton(app)
+        
+        assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
 }
 
@@ -292,7 +339,15 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
 func tapCompleteButton(_ app: XCUIApplication) {
     let completeButton = app.buttons["COMPLETE"]
     XCTAssert(completeButton.waitForExistence(timeout: 10))
+        
+    var retryCount = 0
     
-    completeButton.tap()
-    completeButton.tap()
+    while completeButton.exists && retryCount < 2 {
+        completeButton.tap()
+        retryCount += 1
+    }
+    
+    if !completeButton.exists {
+        XCTFail("Failed to tap Complete button after \(retryCount) attempts.")
+    }
 }
