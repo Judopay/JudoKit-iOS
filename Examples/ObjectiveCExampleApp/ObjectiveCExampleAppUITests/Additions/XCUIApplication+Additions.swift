@@ -104,9 +104,13 @@ extension XCUIApplication {
     }
     
     func configureSettings() {
-        launchArguments += ["-judo_id", "judo_id",
-                            "-token", "token",
-                            "-secret", "secret",
+        let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
+        let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
+        let apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
+        
+        launchArguments += ["-judo_id", judoID ?? "",
+                            "-token", apiToken ?? "",
+                            "-secret", apiSecret ?? "",
                             "-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",
                             "-should_ask_for_billing_information", "false"]
