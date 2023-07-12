@@ -166,6 +166,8 @@ final class CardPaymentUITests: XCTestCase {
     }
     
     func testSuccessfulTokenPaymentReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        
         app.launch()
         
         app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
@@ -180,6 +182,10 @@ final class CardPaymentUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         
         app.tokenPaymentButton?.tap()
+        
+        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
     
         tapCompleteButton(app)
         
@@ -187,6 +193,8 @@ final class CardPaymentUITests: XCTestCase {
     }
     
     func testSuccessfulTokenPreauthReceiptObjectContainsRelevantInfo() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        
         app.launch()
         
         app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
@@ -201,6 +209,10 @@ final class CardPaymentUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         
         app.tokenPreauthButton?.tap()
+        
+        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
     
         tapCompleteButton(app)
         
