@@ -443,6 +443,49 @@ jobs:
           environment:
             ENVIRONMENT: << parameters.environment >>
           command: /resources/scripts/report-status-to-jira.sh
+  ui_e2e_test:
+    executor: macos
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-objc-{{ checksum "Examples/ObjectiveCExampleApp/Podfile" }}
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Store Google Service Account
+          command: |
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Authorize gcloud and set config defaults
+          command: |
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project opnf-prod
+      - run:
+          name: Generate test build
+          command: |
+            xcodebuild \
+              -workspace ObjectiveCExampleApp.xcworkspace \
+              -scheme ObjectiveCExampleAppUITests \
+              -destination 'generic/platform=iOS' \
+              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
+              build-for-testing
+      - run:
+          name: Zip test build
+          command: |
+            cd Examples/ObjectiveCExampleApp/DerivedData/Build/Products
+            zip -r -X ObjectiveCExampleAppUITests.zip .
+      - run:
+          name: Test with Firebase Test Lab
+          command: |
+            gcloud firebase test ios run \
+              --xcode-version=14.2 \
+              --test=Examples/ObjectiveCExampleApp/DerivedData/Build/Products/Debug-iphonesimulator/ObjectiveCExampleAppUITests.zip \
+              --results-bucket=opnf-prod-firebase-test-results \
+              --timeout=30m
+              --num-flaky-test-attempts=1
+
+      
 
 workflows:
   version: 2
@@ -493,3 +536,11 @@ workflows:
           environment: prod
           requires:
             - release_sdk
+  e2e-nightly:
+    jobs:
+      - ui_e2e_test:
+          context: shared-secrets
+          filters:
+            branches:
+              only:
+                - feature/QA-61-card-payment-ui-tests
