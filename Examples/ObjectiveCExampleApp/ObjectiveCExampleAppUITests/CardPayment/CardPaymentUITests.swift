@@ -262,8 +262,6 @@ final class CardPaymentUITests: XCTestCase {
                              securityCode: TestData.CARD_SECURITY_CODE)
         
         app.cardDetailsSubmitButton?.tap()
-        
-        //TODO: Assert the toast message
     }
     
     func testSuccessfulPaymentMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
