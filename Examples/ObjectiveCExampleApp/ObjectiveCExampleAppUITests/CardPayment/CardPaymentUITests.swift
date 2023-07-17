@@ -39,6 +39,9 @@ final class CardPaymentUITests: XCTestCase {
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
         app.cancelButton?.tap()
+        
+        let snackbar = app.buttonWithLabel(TestData.CANCELLED_PAYMENT_TOAST)
+        XCTAssert(snackbar!.exists, "Snackbar message not displayed")
     }
     
     func testSuccessfulTransactionReceiptObjectShouldContainRelevantInfo() {

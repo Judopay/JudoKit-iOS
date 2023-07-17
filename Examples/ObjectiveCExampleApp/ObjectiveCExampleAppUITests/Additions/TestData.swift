@@ -24,5 +24,6 @@ class TestData {
 
     static let CANCEL_BUTTON = "Cancel"
     
-    static let CANCELLED_PAYMENT_TOAST = "User cancelled the payment."
+    static let CANCELLED_PAYMENT_TOAST = "The transaction was cancelled by the user."
+    static let CANCELLED_3DS2_PAYMENT_TOAST = "Unable to process transaction. Card authentication failed with 3DS Server."
 }
