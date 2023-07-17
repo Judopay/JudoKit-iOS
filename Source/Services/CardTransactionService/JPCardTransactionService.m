@@ -27,7 +27,6 @@
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 #import "JP3DSConfiguration.h"
-#import "JP3DSViewController.h"
 #import "JPApiService.h"
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
