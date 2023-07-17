@@ -39,8 +39,6 @@ final class CardPaymentUITests: XCTestCase {
         app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
         
         app.cancelButton?.tap()
-        
-        //TODO: Assert the toast message
     }
     
     func testSuccessfulTransactionReceiptObjectShouldContainRelevantInfo() {
@@ -110,8 +108,6 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssert(cancelButton.waitForExistence(timeout: 10))
         
         app.cancelButton3DS2?.tap()
-        
-        //TODO: Assert the toast message
     }
     
     func testSuccessfulPreauthTransactionReceiptObjectContainsRelevantInfo() {
