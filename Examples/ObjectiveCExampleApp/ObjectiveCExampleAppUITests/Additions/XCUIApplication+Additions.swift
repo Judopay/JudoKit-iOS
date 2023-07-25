@@ -103,6 +103,18 @@ extension XCUIApplication {
         }
     }
     
+    var editCardsButton: XCUIElement? {
+        get {
+            return buttonWithLabel("EDIT")
+        }
+    }
+    
+    var deleteCardButton: XCUIElement? {
+        get {
+            return buttonWithLabel("Delete")
+        }
+    }
+    
     func configureSettings() {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]

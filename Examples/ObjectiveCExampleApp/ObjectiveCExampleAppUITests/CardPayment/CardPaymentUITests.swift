@@ -320,6 +320,32 @@ final class CardPaymentUITests: XCTestCase {
         
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
+    
+    func testRemoveCardOnPaymentMethods() {
+        app.launch()
+        
+        app.cellWithIdentifier(TestData.PAYMENT_METHODS_LABEL)?.tap()
+        
+        app.addCard?.tap()
+        
+        app.fillCardSheetDetails(cardNumber: "4222 0000 0122 7408",
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        
+        app.cardDetailsSubmitButton?.tap()
+        
+        let newCard = app.staticTexts["Visa Ending 7408 "]
+        XCTAssert(newCard.waitForExistence(timeout: 5), "Unable to add a new card")
+        
+        newCard.swipeLeft()
+        
+        app.deleteCardButton?.tap()
+        
+        app.deleteCardButton?.tap()
+        
+        XCTAssertFalse(newCard.waitForExistence(timeout: 5), "Unable to delete card")
+    }
 }
 
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
