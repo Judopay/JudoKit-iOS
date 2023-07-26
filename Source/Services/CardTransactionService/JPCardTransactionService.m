@@ -27,7 +27,6 @@
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 #import "JP3DSConfiguration.h"
-#import "JP3DSViewController.h"
 #import "JPApiService.h"
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
@@ -184,15 +183,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
-                if ([response isThreeDSecureOneRequired]) {
-                    JP3DSConfiguration *configuration = [JP3DSConfiguration configurationWithResponse:response];
-                    JP3DSViewController *controller = [[JP3DSViewController alloc] initWithConfiguration:configuration completion:completion];
-                    controller.apiService = self.apiService;
-
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-                    navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                    [UIApplication._jp_topMostViewController presentViewController:navController animated:YES completion:nil];
-                } else if ([response isThreeDSecureTwoRequired]) {
+                if ([response isThreeDSecureTwoRequired]) {
                     JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
                                                                                                                           details:details
                                                                                                                          response:response

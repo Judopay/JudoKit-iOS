@@ -104,7 +104,6 @@ ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/PaymentMethodSelectionCel
 ln -s -f ../View/CardInputView/JPCardInputView.h JPCardInputView.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsCardHeaderView.h JPPaymentMethodsCardHeaderView.h
 ln -s -f ../Extensions/UIImage/UIImage+Additions.h UIImage+Additions.h
-ln -s -f ../Modules/3DSViewController/JP3DSViewController.h JP3DSViewController.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationSubmitCell/JPCardCustomizationSubmitCellDelegate.h JPCardCustomizationSubmitCellDelegate.h
 ln -s -f ../Helpers/JPFormatters/JPFormatters.h JPFormatters.h
 ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h

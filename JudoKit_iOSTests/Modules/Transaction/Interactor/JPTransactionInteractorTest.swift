@@ -458,16 +458,6 @@ class JPTransactionInteractorTest: XCTestCase {
     }
     
     /*
-     * GIVEN: opening 3ds error controller
-     *
-     * THEN: controller should be non nil
-     */
-    func test_Handle3DSecureTransactionFromError_WhenCalling_3dsControllerShouldBeNonNill(){
-        let controller = JP3DSViewController()
-        XCTAssertNotNil(controller)
-    }
-    
-    /*
      * GIVEN: calling transaction
      *
      * WHEN: before saved an error

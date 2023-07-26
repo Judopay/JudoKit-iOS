@@ -14,7 +14,6 @@
 #import "JPCardDetails.h"
 #import "JPKeychainService.h"
 #import "JPConfigurationValidationService.h"
-#import "JP3DSViewController.h"
 #import "JPIDEALService.h"
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
