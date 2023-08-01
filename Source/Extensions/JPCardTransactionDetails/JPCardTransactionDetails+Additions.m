@@ -142,21 +142,14 @@
     NSString *filteredMobileNumber = [request.mobileNumber stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     NSString *filteredPhoneCountryCode = [request.phoneCountryCode stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     
-    if (filteredMobileNumber) {
-        if (filteredPhoneCountryCode && filteredPhoneCountryCode.length > 3) {
-            request.phoneCountryCode = [filteredPhoneCountryCode substringToIndex:1];
-        } else {
-            request.phoneCountryCode = filteredPhoneCountryCode;
-        }
+    
+    if (filteredMobileNumber != nil && filteredPhoneCountryCode != nil && filteredPhoneCountryCode.length > 3) {
+        NSString *code = [filteredPhoneCountryCode substringToIndex:1];
+        NSString *rest = [filteredPhoneCountryCode substringFromIndex:1];
 
-        if (filteredPhoneCountryCode && filteredPhoneCountryCode.length > 3) {
-            NSString *countryCodeSubstring = [filteredPhoneCountryCode substringWithRange:NSMakeRange(1, 3)];
-            request.mobileNumber = [NSString stringWithFormat:@"%@%@", countryCodeSubstring, filteredMobileNumber];
-        } else {
-            request.mobileNumber = filteredMobileNumber;
-        }
+        request.phoneCountryCode = code;
+        request.mobileNumber = [rest stringByAppendingString:filteredMobileNumber];
     }
 }
-
 
 @end
