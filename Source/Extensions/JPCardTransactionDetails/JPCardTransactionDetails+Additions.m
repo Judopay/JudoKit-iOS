@@ -101,6 +101,7 @@
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
+    [self configurePhoneDetails:request];
     request.emailAddress = self.emailAddress;
     request.cardAddress = self.billingAddress;
 
@@ -119,6 +120,7 @@
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
+    [self configurePhoneDetails:request];
     request.emailAddress = self.emailAddress;
     request.cardAddress = self.billingAddress;
 
@@ -127,5 +129,34 @@
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
                                          andAuthenticationRequestParameters:params];
 }
+
+- (void)configurePhoneDetails:(JPRequest *)request {
+    
+    // PAPI will only allow dial codes length 3 or less.
+    // Therefore logic has been added to re format dial codes of length 4 (which are always
+    // of format: 1(XXX)), when sending to BE.
+    //
+    // For example, when: dialCode = "1(345)", mobileNumber = "123456"
+    // The following is sent to BE: phoneCountryCode = "1", mobileNumber = "3451234567"
+    
+    NSString *filteredMobileNumber = [request.mobileNumber stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    NSString *filteredPhoneCountryCode = [request.phoneCountryCode stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    
+    if (filteredMobileNumber) {
+        if (filteredPhoneCountryCode && filteredPhoneCountryCode.length > 3) {
+            request.phoneCountryCode = [filteredPhoneCountryCode substringToIndex:1];
+        } else {
+            request.phoneCountryCode = filteredPhoneCountryCode;
+        }
+
+        if (filteredPhoneCountryCode && filteredPhoneCountryCode.length > 3) {
+            NSString *countryCodeSubstring = [filteredPhoneCountryCode substringWithRange:NSMakeRange(1, 3)];
+            request.mobileNumber = [NSString stringWithFormat:@"%@%@", countryCodeSubstring, filteredMobileNumber];
+        } else {
+            request.mobileNumber = filteredMobileNumber;
+        }
+    }
+}
+
 
 @end
