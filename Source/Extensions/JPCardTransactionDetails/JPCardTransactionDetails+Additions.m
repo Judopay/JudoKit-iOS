@@ -139,8 +139,8 @@
     // For example, when: dialCode = "1(345)", mobileNumber = "123456"
     // The following is sent to BE: phoneCountryCode = "1", mobileNumber = "3451234567"
     
-    NSString *filteredMobileNumber = [request.mobileNumber stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-    NSString *filteredPhoneCountryCode = [request.phoneCountryCode stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    NSString *filteredMobileNumber = [request.mobileNumber stringByTrimmingCharactersInSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet];
+    NSString *filteredPhoneCountryCode = [request.phoneCountryCode stringByTrimmingCharactersInSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet];
     
     
     if (filteredMobileNumber != nil && filteredPhoneCountryCode != nil && filteredPhoneCountryCode.length > 3) {
