@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440E04B02A83B56400FB2F08 /* JudoKit_iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 440E04AF2A83B56400FB2F08 /* JudoKit_iOS */; };
 		AD3CCE0A283B987F008A334A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE09283B987F008A334A /* AppDelegate.swift */; };
 		AD3CCE0C283B987F008A334A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE0B283B987F008A334A /* SceneDelegate.swift */; };
 		AD3CCE0E283B987F008A334A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE0D283B987F008A334A /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				440E04B02A83B56400FB2F08 /* JudoKit_iOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,9 @@
 			dependencies = (
 			);
 			name = SPMExampleApp;
+			packageProductDependencies = (
+				440E04AF2A83B56400FB2F08 /* JudoKit_iOS */,
+			);
 			productName = SPMExampleApp;
 			productReference = AD3CCE06283B987F008A334A /* SPMExampleApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +116,9 @@
 				Base,
 			);
 			mainGroup = AD3CCDFD283B987F008A334A;
+			packageReferences = (
+				440E04AE2A83B56400FB2F08 /* XCRemoteSwiftPackageReference "JudoKit-iOS" */,
+			);
 			productRefGroup = AD3CCE07283B987F008A334A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,6 +366,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		440E04AE2A83B56400FB2F08 /* XCRemoteSwiftPackageReference "JudoKit-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Judopay/JudoKit-iOS";
+			requirement = {
+				branch = release/3.2.4;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		440E04AF2A83B56400FB2F08 /* JudoKit_iOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 440E04AE2A83B56400FB2F08 /* XCRemoteSwiftPackageReference "JudoKit-iOS" */;
+			productName = JudoKit_iOS;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AD3CCDFE283B987F008A334A /* Project object */;
 }
