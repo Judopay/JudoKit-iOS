@@ -7,6 +7,7 @@
     NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[
         kIsPaymentSessionOnKey,
         kIsTokenAndSecretOnKey,
+        kIsRavelinEncryptionOnKey,
         kIsAddressOnKey,
         kIsPrimaryAccountDetailsOnKey
     ]];
@@ -17,12 +18,13 @@
 
     NSSet *hiddenKeys;
 
+    // Todo: Ravelin changes required here?
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRavelinEncryptionOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRavelinEncryptionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -37,7 +39,11 @@
 
         kSessionTokenKey,
         kPaymentSessionKey,
-
+        
+        kRsaKey,
+        kRecommendationUrlKey,
+        kRecommendationApiTimeoutKey,
+        
         kAddressLine1Key,
         kAddressLine2Key,
         kAddressLine3Key,
@@ -63,6 +69,14 @@
     if ([keys containsObject:kIsTokenAndSecretOnKey] && Settings.defaultSettings.isTokenAndSecretAuthorizationOn) {
         [hiddenKeys removeObjectsInArray:@[ kTokenKey, kSecretKey ]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsPaymentSessionOnKey];
+    }
+    
+    if ([keys containsObject:kIsRavelinEncryptionOnKey] && Settings.defaultSettings.isRavelinEncryptionOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kRsaKey,
+            kRecommendationUrlKey,
+            kRecommendationApiTimeoutKey
+        ]];
     }
 
     if ([keys containsObject:kIsAddressOnKey] && Settings.defaultSettings.isAddressOn) {

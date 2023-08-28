@@ -76,6 +76,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsTokenAndSecretOnKey];
 }
 
+- (BOOL)isRavelinEncryptionOn {
+    return [self.defaults boolForKey:kIsRavelinEncryptionOnKey];
+}
+
 - (BOOL)isPaymentSessionAuthorizationOn {
     return [self.defaults boolForKey:kIsPaymentSessionOnKey];
 }
