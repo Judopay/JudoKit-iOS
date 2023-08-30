@@ -63,6 +63,7 @@
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
 
 @end
@@ -74,12 +75,14 @@
 - (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
                   apiService:(JPApiService *)apiService
+           encryptionService:(RavelinCardEncryptionService *)encryptionService
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {
         _transactionMode = mode;
         _configuration = configuration;
         _apiService = apiService;
+        _encryptionService = encryptionService;
         _completionHandler = completion;
         _paymentMethods = configuration.paymentMethods;
 
@@ -269,7 +272,8 @@
 - (JPCardTransactionService *)transactionService {
     if (!_transactionService) {
         _transactionService = [[JPCardTransactionService alloc] initWithAPIService:self.apiService
-                                                                  andConfiguration:self.configuration];
+                                                                  andConfiguration:self.configuration
+                                                   andRavelinCardEncryptionService:self.encryptionService];
     }
     return _transactionService;
 }

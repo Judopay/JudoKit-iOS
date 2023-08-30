@@ -44,7 +44,9 @@
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
+#import "RavelinCardEncryptionService.h"
 #import "UIApplication+Additions.h"
+#import "JPCardTransactionTypedefs.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -108,20 +110,11 @@
 
 @end
 
-typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
-    JPCardTransactionTypePayment,
-    JPCardTransactionTypePreAuth,
-    JPCardTransactionTypePaymentWithToken,
-    JPCardTransactionTypePreAuthWithToken,
-    JPCardTransactionTypeSave,
-    JPCardTransactionTypeCheck,
-    JPCardTransactionTypeRegister
-};
-
 @interface JPCardTransactionService ()
 
 @property (strong, nonatomic) JPConfiguration *configuration;
 @property (strong, nonatomic) JPApiService *apiService;
+@property (strong, nonatomic) RavelinCardEncryptionService *encryptionService;
 
 @property (strong, nonatomic) JP3DS2Service *threeDSTwoService;
 @property (strong, nonatomic) JP3DSConfigParameters *threeDSTwoConfigParameters;
@@ -132,10 +125,12 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 @implementation JPCardTransactionService
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-                  andConfiguration:(JPConfiguration *)configuration {
+                  andConfiguration:(JPConfiguration *)configuration
+   andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
+        _encryptionService = encryptionService;
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
                                                         locale:nil
@@ -144,6 +139,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
     return self;
 }
 
+// Todo: Should I add Encryption Service also here? Check it.
 - (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization
                           isSandboxed:(BOOL)sandboxed
                      andConfiguration:(JPConfiguration *)configuration {
@@ -208,7 +204,28 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
                 completion(nil, error);
             }
         };
-
+        
+        // Todo: Encryption
+        // Todo: hard-coded 'true' for isRavelinEncryptionEnabled
+        Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRavelinEncryptionEnabled:true];
+        if (isCardEncryptionRequired) {
+            NSLog(@"TESTO", @"TESTO1");
+            
+            NSString *cardNumber = details.cardNumber;
+            NSString *cardHolderName = details.cardholderName;
+            NSString *expirationDate = details.expiryDate;
+            NSString *rsaKey = @"";
+            
+            if (![self.encryptionService areEncryptionArgumentsValidWithCardNumber:cardNumber expirationDate:expirationDate rsaKey:rsaKey]) {
+                NSLog(@"TESTO 2", @"TESTO2");
+                // We allow Judo API call in this case, as the API will perform its own checks anyway.
+//                [self performJudoApiCallWithType:type details:details caller:caller];
+            } else {
+                NSLog(@"TESTO 3", @"TESTO3");
+                // Your else block code here
+            }
+        }
+        
         switch (type) {
             case JPCardTransactionTypePayment: {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
@@ -260,6 +277,16 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         completion(nil, error);
     }
 }
+
+// Todo: Move to RavelinCardEncryptionService
+//- (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
+//            isRavelinEncryptionEnabled:(BOOL)isRavelinEncryptionEnabled {
+//    return isRavelinEncryptionEnabled && (
+//        type == JPCardTransactionTypePayment ||
+//        type == JPCardTransactionTypeCheck ||
+//        type == JPCardTransactionTypePreAuth
+//    );
+//}
 
 - (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
     [self performTransactionWithType:JPCardTransactionTypePayment details:details andCompletion:completion];

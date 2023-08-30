@@ -104,6 +104,9 @@
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 
+#import "RavelinCardEncryptionService.h"
+#import "JPCardTransactionTypedefs.h"
+
 #import "NSBundle+Additions.h"
 #import "NSNumber+Additions.h"
 #import "NSString+Additions.h"

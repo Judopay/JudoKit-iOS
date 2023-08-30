@@ -41,11 +41,13 @@
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
+#import "RavelinCardEncryptionService.h"
 #import <PassKit/PassKit.h>
 
 @interface JudoKit ()
 
 @property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
@@ -72,6 +74,7 @@
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
+        self.encryptionService = [[RavelinCardEncryptionService alloc] init];
         return self;
     }
 
@@ -132,6 +135,7 @@
 
     UIViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                          encryptionService:self.encryptionService
                                               configuration:configuration
                                             transactionType:type
                                            presentationMode:presentationMode
@@ -291,6 +295,8 @@
     return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                               configuration:configuration
                                                  apiService:self.apiService
+            // Todo: We need it here?
+//                                          encryptionService:self.encryptionService
                                       transitioningDelegate:self.transitioningDelegate
                                           completionHandler:completion];
 }

@@ -39,6 +39,7 @@
 @implementation JPTransactionBuilderImpl
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                         encryptionService:(RavelinCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
@@ -46,7 +47,8 @@
                                                 completion:(JPCompletionBlock)completion {
     JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
-                                                                                       andConfiguration:configuration];
+                                                                                       andConfiguration:configuration
+                                                                        andRavelinCardEncryptionService:encryptionService];
 
     JPTransactionInteractorImpl *interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                                               transactionService:transactionService
@@ -73,11 +75,13 @@
 }
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                         encryptionService:(RavelinCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion {
     return [JPTransactionBuilderImpl buildModuleWithApiService:apiService
+                                             encryptionService:encryptionService
                                                  configuration:configuration
                                                transactionType:type
                                               presentationMode:mode

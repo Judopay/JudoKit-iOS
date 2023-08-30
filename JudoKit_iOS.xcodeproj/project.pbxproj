@@ -442,6 +442,8 @@
 		52D23DCF252495D1007C79EB /* JPApplePayWrappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DCE252495D1007C79EB /* JPApplePayWrappersTests.swift */; };
 		52D23DD32524BE5C007C79EB /* JPApplePayControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DD22524BE5C007C79EB /* JPApplePayControllerTest.swift */; };
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
+		99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */; };
+		99046B2A2A9E20D700716947 /* RavelinCardEncryptionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */; };
 		A75B318D92F5E917D7D945DF /* JPBankOrderSaleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B33A3353048CF004566BB /* JPBankOrderSaleRequest.m */; };
@@ -951,6 +953,9 @@
 		829330FD230AF0F900689DC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933105230C3C7300689DC4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933107230C3C8800689DC4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RavelinCardEncryptionService.h; sourceTree = "<group>"; usesTabs = 0; };
+		99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RavelinCardEncryptionService.m; sourceTree = "<group>"; };
+		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
 		A75B30D1310F0A0A309ADB2C /* JPBankOrderSaleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBankOrderSaleRequest.h; sourceTree = "<group>"; };
 		A75B31A994AA449F1CDFC9EC /* JPTokenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTokenRequest.m; sourceTree = "<group>"; };
 		A75B31AD376CC9B9B00F4302 /* JP3DSecureAuthenticationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JP3DSecureAuthenticationResult.h; sourceTree = "<group>"; };
@@ -2198,6 +2203,7 @@
 			children = (
 				3000738923FBEDC80099F3C5 /* JPCardTransactionService.h */,
 				3000738A23FBEDC80099F3C5 /* JPCardTransactionService.m */,
+				99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */,
 			);
 			path = CardTransactionService;
 			sourceTree = "<group>";
@@ -2720,6 +2726,7 @@
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				99046B262A9E1F9500716947 /* RavelinCardEncryptionService */,
 				30006F2F23F697B60099F3C5 /* ApiService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
 				3000738823FBEDC80099F3C5 /* CardTransactionService */,
@@ -3131,6 +3138,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		99046B262A9E1F9500716947 /* RavelinCardEncryptionService */ = {
+			isa = PBXGroup;
+			children = (
+				99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */,
+				99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */,
+			);
+			path = RavelinCardEncryptionService;
+			sourceTree = "<group>";
+		};
 		A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3413,6 +3429,7 @@
 				300072BA23F6AB560099F3C5 /* JPPaymentMethods.h in Headers */,
 				300072EE23F6AB560099F3C5 /* JPCardNetwork.h in Headers */,
 				30006FA123F6993A0099F3C5 /* UIFont+Additions.h in Headers */,
+				99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */,
 				30006F8B23F6993A0099F3C5 /* UIView+Additions.h in Headers */,
 				30221C3D23FE739800BF2823 /* JPCardCustomizationView.h in Headers */,
 				525FF3DD252C41CF001F030E /* JPCardScanView.h in Headers */,
@@ -3675,6 +3692,7 @@
 				070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */,
 				30221C1023FE617300BF2823 /* NSLayoutConstraint+Additions.m in Sources */,
 				ADB514BB286DED4200332E47 /* JPCReqParameters.m in Sources */,
+				99046B2A2A9E20D700716947 /* RavelinCardEncryptionService.m in Sources */,
 				52D23DBA25248B92007C79EB /* JPApplePayController.m in Sources */,
 				30006FA323F6993A0099F3C5 /* CLLocation+Additions.m in Sources */,
 				525FF3DA252C41CF001F030E /* JPCardScanController.m in Sources */,

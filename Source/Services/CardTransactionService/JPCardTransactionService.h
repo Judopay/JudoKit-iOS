@@ -26,12 +26,13 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPConfiguration, JPCardTransactionDetails, JPApiService;
+@class JPConfiguration, JPCardTransactionDetails, JPApiService, RavelinCardEncryptionService;
 
 @interface JPCardTransactionService : NSObject
 
 - (nonnull instancetype)initWithAPIService:(nonnull JPApiService *)apiService
-                          andConfiguration:(nonnull JPConfiguration *)configuration;
+                          andConfiguration:(nonnull JPConfiguration *)configuration
+                          andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService;
 
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                                   isSandboxed:(BOOL)sandboxed

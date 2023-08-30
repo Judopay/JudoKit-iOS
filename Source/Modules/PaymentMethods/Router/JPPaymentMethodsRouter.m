@@ -41,6 +41,7 @@
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
@@ -52,6 +53,7 @@
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                            apiService:(JPApiService *)apiService
+                    encryptionService:(RavelinCardEncryptionService *)encryptionService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                            completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
@@ -83,6 +85,7 @@
                               andCompletion:(JPCompletionBlock)completion {
     JPTransactionViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                          encryptionService:self.encryptionService
                                               configuration:self.configuration
                                             transactionType:type
                                            presentationMode:mode
