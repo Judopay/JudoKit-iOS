@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'TrustKit'
   s.dependency 'ZappMerchantLib'
   s.dependency 'Judo3DS2_iOS', '~> 1.1.3'
+  s.dependency 'RavelinEncrypt', '1.1.1'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.ios.resource_bundle   = { 

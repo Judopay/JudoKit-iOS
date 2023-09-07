@@ -104,6 +104,7 @@
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 
+#import <RavelinEncrypt/RavelinEncrypt.h>
 #import "RavelinCardEncryptionService.h"
 #import "JPCardTransactionTypedefs.h"
 

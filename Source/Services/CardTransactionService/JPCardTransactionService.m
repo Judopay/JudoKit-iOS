@@ -205,8 +205,7 @@
             }
         };
         
-        // Todo: Encryption
-        // Todo: hard-coded 'true' for isRavelinEncryptionEnabled
+        // Todo: Encryption; hard-coded 'true' for isRavelinEncryptionEnabled
         Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRavelinEncryptionEnabled:true];
         if (isCardEncryptionRequired) {
             NSLog(@"TESTO", @"TESTO1");
@@ -216,14 +215,9 @@
             NSString *expirationDate = details.expiryDate;
             NSString *rsaKey = @"";
             
-            if (![self.encryptionService areEncryptionArgumentsValidWithCardNumber:cardNumber expirationDate:expirationDate rsaKey:rsaKey]) {
-                NSLog(@"TESTO 2", @"TESTO2");
-                // We allow Judo API call in this case, as the API will perform its own checks anyway.
-//                [self performJudoApiCallWithType:type details:details caller:caller];
-            } else {
-                NSLog(@"TESTO 3", @"TESTO3");
-                // Your else block code here
-            }
+            
+            // Encryption
+            
         }
         
         switch (type) {

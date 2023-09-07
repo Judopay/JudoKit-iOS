@@ -442,7 +442,7 @@
 		52D23DCF252495D1007C79EB /* JPApplePayWrappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DCE252495D1007C79EB /* JPApplePayWrappersTests.swift */; };
 		52D23DD32524BE5C007C79EB /* JPApplePayControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DD22524BE5C007C79EB /* JPApplePayControllerTest.swift */; };
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
-		99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */; };
+		99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99046B2A2A9E20D700716947 /* RavelinCardEncryptionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */; };

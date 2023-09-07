@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <RavelinEncrypt/RavelinEncrypt.h>
 #import "RavelinCardEncryptionService.h"
 #import "JPCardTransactionTypedefs.h"
 
@@ -45,26 +46,28 @@
     );
 }
 
-- (BOOL)areEncryptionArgumentsValidWithCardNumber:(NSString * _Nullable)cardNumber
-                                   expirationDate:(NSString * _Nullable)expirationDate
-                                          rsaKey:(NSString * _Nullable)rsaKey {
-    if (cardNumber == nil || [cardNumber length] == 0) {
-//        NSLog(@"%@ - Encryption arguments validation: Card number is required.", NSStringFromClass([CardTransactionManager class]));
-        return NO;
-    }
-    if (expirationDate == nil || [expirationDate length] == 0) {
-//        NSLog(@"%@ - Encryption arguments validation: Expiration date is required.", NSStringFromClass([CardTransactionManager class]));
-        return NO;
-    }
-    if ([expirationDate length] != 5) {
-//        NSLog(@"%@ - Encryption arguments validation: Expiration date length is not correct.", NSStringFromClass([CardTransactionManager class]));
-        return NO;
-    }
-    if (rsaKey == nil || [rsaKey length] == 0) {
-//        NSLog(@"%@ - Encryption arguments validation: The RSAPublicKey field in the ravelin recommendation configuration is required.", NSStringFromClass([CardTransactionManager class]));
-        return NO;
-    }
-    return YES;
+- (BOOL)performCardEncryptionWithCardNumber:(NSString *)cardNumber {
+    
+//    RVNEncryption *ravelin = [RVNEncryption sharedInstance];
+//    self.ravelinEncrypt.rsaKey = @"----|----";
+    
+    return true;
 }
+
+//- (EncryptedCard *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
+//                                      cardHolderName:(NSString *)cardHolderName
+//                                     expirationDate:(NSString *)expirationDate
+//                                              rsaKey:(NSString *)rsaKey {
+//    NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
+//    NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
+//
+//    CardDetails *cardDetails = [[CardDetails alloc] initWithCardNumber:cardNumber
+//                                                           expiryMonth:expiryMonth
+//                                                            expiryYear:expiryYear
+//                                                       cardHolderName:cardHolderName];
+//
+//    return [[RavelinEncrypt new] encryptCard:cardDetails rsaKey:rsaKey];
+//}
+
 
 @end
