@@ -31,9 +31,7 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self) {
-        // Perform any setup or initialization here for the no-argument constructor
-    }
+    if (self) {}
     return self;
 }
 
@@ -46,28 +44,24 @@
     );
 }
 
-- (BOOL)performCardEncryptionWithCardNumber:(NSString *)cardNumber {
+- (Boolean *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
+                                      cardHolderName:(NSString *)cardHolderName
+                                     expirationDate:(NSString *)expirationDate
+                                              rsaKey:(NSString *)rsaKey {
+    NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
+    NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
+
+    RVNEncryption *ravelin = [RVNEncryption sharedInstance];
+    ravelin.rsaKey = rsaKey;
     
-//    RVNEncryption *ravelin = [RVNEncryption sharedInstance];
-//    self.ravelinEncrypt.rsaKey = @"----|----";
-    
+    NSError *error;
+    NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
+    if(!error) {
+        NSLog(@"Ravelin encryption payload: %@",encryptionPayload);
+    } else {
+        NSLog(@"Ravelin encryption error %@", error.localizedDescription);
+    }
     return true;
 }
-
-//- (EncryptedCard *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
-//                                      cardHolderName:(NSString *)cardHolderName
-//                                     expirationDate:(NSString *)expirationDate
-//                                              rsaKey:(NSString *)rsaKey {
-//    NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
-//    NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
-//
-//    CardDetails *cardDetails = [[CardDetails alloc] initWithCardNumber:cardNumber
-//                                                           expiryMonth:expiryMonth
-//                                                            expiryYear:expiryYear
-//                                                       cardHolderName:cardHolderName];
-//
-//    return [[RavelinEncrypt new] encryptCard:cardDetails rsaKey:rsaKey];
-//}
-
 
 @end

@@ -208,6 +208,7 @@
         // Todo: Encryption; hard-coded 'true' for isRavelinEncryptionEnabled
         Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRavelinEncryptionEnabled:true];
         if (isCardEncryptionRequired) {
+            
             NSLog(@"TESTO", @"TESTO1");
             
             NSString *cardNumber = details.cardNumber;
@@ -215,8 +216,8 @@
             NSString *expirationDate = details.expiryDate;
             NSString *rsaKey = @"";
             
-            
             // Encryption
+            Boolean encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
             
         }
         

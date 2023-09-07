@@ -36,4 +36,8 @@
                                    expirationDate:(NSString * _Nullable)expirationDate
                                            rsaKey:(NSString * _Nullable)rsaKey;
 
+- (Boolean *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
+                                  cardHolderName:(NSString *)cardHolderName
+                                  expirationDate:(NSString *)expirationDate
+                                          rsaKey:(NSString *)rsaKey;
 @end
