@@ -23,9 +23,10 @@
 //  SOFTWARE.
 
 #import "JPCardNetworkType.h"
+//#import "RecommendationConfiguration.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPNetworkTimeout;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPNetworkTimeout, RecommendationConfiguration;
 
 @interface JPConfiguration : NSObject
 
@@ -144,5 +145,10 @@
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
                                 amount:(nullable JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
+
+/**
+ * An instance of RecommendationConfiguration required for Recommendation Feature card encryption & checks.
+ */
+@property (nonatomic, strong, nullable) RecommendationConfiguration *recommendationConfiguration;
 
 @end

@@ -76,8 +76,8 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsTokenAndSecretOnKey];
 }
 
-- (BOOL)isRavelinEncryptionOn {
-    return [self.defaults boolForKey:kIsRavelinEncryptionOnKey];
+- (BOOL)isRecommendationFeatureOn {
+    return [self.defaults boolForKey:kIsRecommendationOnKey];
 }
 
 - (BOOL)isPaymentSessionAuthorizationOn {
@@ -360,6 +360,21 @@ NSString *safeString(NSString *aString) {
 
 - (NSString *)threeDSTwoMessageVersion {
     return safeString([self.defaults stringForKey:kThreeDSTwoMessageVersionKey]);
+}
+
+// Todo: Move out of 3ds section.
+- (NSString *)rsaKey {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRsaKey];
+    }
+    return nil;
+}
+
+- (NSString *)recommendationUrl {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRecommendationUrlKey];
+    }
+    return nil;
 }
 
 - (NSNumber *)connectTimeout {

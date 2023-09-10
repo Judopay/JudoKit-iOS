@@ -290,6 +290,10 @@ class Settings {
     var threeDSTwoMessageVersion: String? {
         userDefaults.string(forKey: kThreeDSTwoMessageVersionKey) ?? ""
     }
+    
+    var recommendationUrl: String? {
+        userDefaults.string(forKey: kRecommendationUrlKey) ?? ""
+    }
 
     var connectTimeout: Int {
         timeoutFor(key: kConnectTimeoutKey)

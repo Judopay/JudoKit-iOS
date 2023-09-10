@@ -196,9 +196,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>is_ravelin_encryption_enabled_title</string>
+			<string>is_recommendation_enabled_title</string>
 			<key>Key</key>
-			<string>is_ravelin_encryption_enabled</string>
+			<string>is_recommendation_enabled</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>

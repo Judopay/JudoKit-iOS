@@ -59,6 +59,11 @@ let kPrimaryAccountAccountNumberKey = "primary_account_account_number"
 let kPrimaryAccountDateOfBirthKey = "primary_account_date_of_birth"
 let kPrimaryAccountPostCodeKey = "primary_account_post_code"
 
+// MARK: - Recommendation Feature keys
+let kRsaKey = "rsa_key"
+let kRecommendationUrlKey = "recommendation_url"
+let kRecommendationApiTimeoutKey = "recommendation_api_timeout"
+
 // MARK: - 3DS 2.0 section keys
 
 let kShouldAskForBillingInformationKey = "should_ask_for_billing_information"

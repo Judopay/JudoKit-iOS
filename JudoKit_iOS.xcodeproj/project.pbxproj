@@ -444,6 +444,8 @@
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
 		99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99046B2A2A9E20D700716947 /* RavelinCardEncryptionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */; };
+		999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */; };
+		999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3E38A919ED0FF9C88D57 /* JPSaveCardRequest.m */; };
 		A75B318D92F5E917D7D945DF /* JPBankOrderSaleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B33A3353048CF004566BB /* JPBankOrderSaleRequest.m */; };
@@ -956,6 +958,8 @@
 		99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RavelinCardEncryptionService.h; sourceTree = "<group>"; usesTabs = 0; };
 		99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RavelinCardEncryptionService.m; sourceTree = "<group>"; };
 		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
+		999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationConfiguration.h; sourceTree = "<group>"; };
+		999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationConfiguration.m; sourceTree = "<group>"; };
 		A75B30D1310F0A0A309ADB2C /* JPBankOrderSaleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBankOrderSaleRequest.h; sourceTree = "<group>"; };
 		A75B31A994AA449F1CDFC9EC /* JPTokenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTokenRequest.m; sourceTree = "<group>"; };
 		A75B31AD376CC9B9B00F4302 /* JP3DSecureAuthenticationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JP3DSecureAuthenticationResult.h; sourceTree = "<group>"; };
@@ -1807,6 +1811,7 @@
 		300071C523F6A78E0099F3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				999AB8C62AAB368600F8E219 /* RecommendationConfiguration */,
 				3000737923FBECCE0099F3C5 /* 3DSConfiguration */,
 				3000728F23F6AB550099F3C5 /* Address */,
 				3000726223F6AB540099F3C5 /* Amount */,
@@ -3147,6 +3152,15 @@
 			path = RavelinCardEncryptionService;
 			sourceTree = "<group>";
 		};
+		999AB8C62AAB368600F8E219 /* RecommendationConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */,
+				999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */,
+			);
+			path = RecommendationConfiguration;
+			sourceTree = "<group>";
+		};
 		A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3423,6 +3437,7 @@
 				52D23DAE25248A9D007C79EB /* JPPaymentShippingMethod.h in Headers */,
 				AD0F05A8286B67D600470534 /* JPComplete3DS2Request.h in Headers */,
 				30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */,
+				999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */,
 				30006F9523F6993A0099F3C5 /* JPError+Additions.h in Headers */,
 				4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */,
 				30221C5323FE7F6300BF2823 /* JPCardCustomizationHeaderCell.h in Headers */,
@@ -3701,6 +3716,7 @@
 				52B4CA32241EF6C8009C28DC /* JPIDEALService.m in Sources */,
 				30221C7023FEC87900BF2823 /* JPCardCustomizationTitleCell.m in Sources */,
 				30D363F524B5F89A0029BC86 /* NSNumberFormatter+Additions.m in Sources */,
+				999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */,
 				44A18B5129F94D6B00D2963B /* JPSecurityMessageView.m in Sources */,
 				30006FA023F6993A0099F3C5 /* UIFont+Additions.m in Sources */,
 				300072C223F6AB560099F3C5 /* JPThreeDSecure.m in Sources */,

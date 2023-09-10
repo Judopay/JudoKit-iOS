@@ -38,6 +38,7 @@
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
+#import "RecommendationConfiguration.h"
 
 static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
@@ -353,7 +354,12 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if (messageVersion.length > 0) {
         configuration.threeDSTwoMessageVersion = messageVersion;
     }
-
+    
+    NSString *rsaKey = Settings.defaultSettings.rsaKey;
+    NSString *recommendationURL = Settings.defaultSettings.recommendationUrl;
+    configuration.recommendationConfiguration = [RecommendationConfiguration configurationWithRsaKey:rsaKey
+                                                                       andRecommendationURL:recommendationURL];
+    
     return configuration;
 }
 

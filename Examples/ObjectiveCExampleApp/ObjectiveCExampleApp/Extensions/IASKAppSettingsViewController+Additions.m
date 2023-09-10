@@ -7,7 +7,7 @@
     NSSet *hiddenKeys = [self computeHiddenKeysWithPriority:@[
         kIsPaymentSessionOnKey,
         kIsTokenAndSecretOnKey,
-        kIsRavelinEncryptionOnKey,
+        kIsRecommendationOnKey,
         kIsAddressOnKey,
         kIsPrimaryAccountDetailsOnKey
     ]];
@@ -18,13 +18,13 @@
 
     NSSet *hiddenKeys;
 
-    // Todo: Ravelin changes required here?
+    // Todo: Recommendation-related changes required here?
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRavelinEncryptionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRavelinEncryptionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -71,7 +71,7 @@
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsPaymentSessionOnKey];
     }
     
-    if ([keys containsObject:kIsRavelinEncryptionOnKey] && Settings.defaultSettings.isRavelinEncryptionOn) {
+    if ([keys containsObject:kIsRecommendationOnKey] && Settings.defaultSettings.isRecommendationFeatureOn) {
         [hiddenKeys removeObjectsInArray:@[
             kRsaKey,
             kRecommendationUrlKey,

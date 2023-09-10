@@ -18,7 +18,8 @@ static NSString *const kSecretKey = @"secret";
 
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
-static NSString *const kIsRavelinEncryptionOnKey = @"is_ravelin_encryption_enabled";
+// Todo: move it?
+static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 
@@ -38,7 +39,7 @@ static NSString *const kPrimaryAccountAccountNumberKey = @"primary_account_accou
 static NSString *const kPrimaryAccountDateOfBirthKey = @"primary_account_date_of_birth";
 static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code";
 
-#pragma mark - Ravelin Encryption & Recommendation section keys
+#pragma mark - Recommendation Feature keys
 static NSString *const kRsaKey = @"rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationApiTimeoutKey = @"recommendation_api_timeout";
@@ -182,6 +183,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (id<JPAuthorization>)authorization;
 
 @property (nonatomic, assign) BOOL isTokenAndSecretAuthorizationOn;
+@property (nonatomic, assign) BOOL isRecommendationFeatureOn;
 @property (nonatomic, assign) BOOL isPaymentSessionAuthorizationOn;
 
 #pragma mark - Payment reference section
@@ -215,7 +217,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)shouldPaymentButtonDisplayAmount;
 - (BOOL)shouldPaymentMethodsVerifySecurityCode;
 - (BOOL)isInitialRecurringPaymentEnabled;
-- (BOOL)isRavelinEncryptionOn;
+- (BOOL)isRecommendationFeatureOn;
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isDelayedAuthorisationOn;
@@ -239,6 +241,9 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (nullable NSString *)scaExemption;
 - (int)threeDsTwoMaxTimeout;
 - (nullable NSString *)threeDSTwoMessageVersion;
+// Todo: Move out of 3ds section.
+- (NSString *)rsaKey;
+- (NSString *)recommendationUrl;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;
