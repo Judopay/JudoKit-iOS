@@ -44,13 +44,13 @@
     );
 }
 
-- (Boolean *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
+- (NSDictionary *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
                                       cardHolderName:(NSString *)cardHolderName
                                      expirationDate:(NSString *)expirationDate
                                               rsaKey:(NSString *)rsaKey {
     NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
     NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
-
+    
     RVNEncryption *ravelin = [RVNEncryption sharedInstance];
     ravelin.rsaKey = rsaKey;
     
@@ -58,10 +58,11 @@
     NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
     if(!error) {
         NSLog(@"Ravelin encryption payload: %@",encryptionPayload);
+        return encryptionPayload;
     } else {
         NSLog(@"Ravelin encryption error %@", error.localizedDescription);
+        return nil;
     }
-    return true;
 }
 
 @end

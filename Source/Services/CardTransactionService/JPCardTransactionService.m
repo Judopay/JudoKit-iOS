@@ -47,6 +47,7 @@
 #import "RavelinCardEncryptionService.h"
 #import "UIApplication+Additions.h"
 #import "JPCardTransactionTypedefs.h"
+#import "RecommendationConfiguration.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -211,10 +212,21 @@
             NSString *cardNumber = details.cardNumber;
             NSString *cardHolderName = details.cardholderName;
             NSString *expirationDate = details.expiryDate;
-            NSString *rsaKey = @"";
+            NSString *rsaKey = self.configuration.recommendationConfiguration.rsaKey;
             
             // Encryption
-            Boolean encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
+            NSDictionary *encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
+            if (encryptedCard != nil) {
+                
+                // Temporary here for development only, will be moved soon
+                // Recommendation API Call
+                NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
+                
+                
+                
+            } else {
+                NSLog(@"TESTO 02");
+            }
             
         }
         
