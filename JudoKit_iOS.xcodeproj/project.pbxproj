@@ -444,6 +444,11 @@
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
 		99046B282A9E1FC700716947 /* RavelinCardEncryptionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99046B2A2A9E20D700716947 /* RavelinCardEncryptionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */; };
+		9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */; };
+		9930A0E22AAF53100090D164 /* RecommendationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* RecommendationResult.h */; };
+		9930A0E32AAF53100090D164 /* RecommendationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResult.m */; };
+		9930A0E42AAF53100090D164 /* RecommendationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E02AAF53100090D164 /* RecommendationRequest.m */; };
+		9930A0E52AAF53100090D164 /* RecommendationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0E12AAF53100090D164 /* RecommendationRequest.h */; };
 		999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */; };
 		999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -957,6 +962,11 @@
 		82933107230C3C8800689DC4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		99046B272A9E1FC100716947 /* RavelinCardEncryptionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RavelinCardEncryptionService.h; sourceTree = "<group>"; usesTabs = 0; };
 		99046B292A9E20D700716947 /* RavelinCardEncryptionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RavelinCardEncryptionService.m; sourceTree = "<group>"; };
+		9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendationApiService.h; sourceTree = "<group>"; };
+		9930A0DE2AAF53100090D164 /* RecommendationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationResult.h; sourceTree = "<group>"; };
+		9930A0DF2AAF53100090D164 /* RecommendationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResult.m; sourceTree = "<group>"; };
+		9930A0E02AAF53100090D164 /* RecommendationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationRequest.m; sourceTree = "<group>"; };
+		9930A0E12AAF53100090D164 /* RecommendationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationRequest.h; sourceTree = "<group>"; };
 		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
 		999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationConfiguration.h; sourceTree = "<group>"; };
 		999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationConfiguration.m; sourceTree = "<group>"; };
@@ -2731,6 +2741,7 @@
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9930A0DB2AAF2BEB0090D164 /* RecommendationService */,
 				99046B262A9E1F9500716947 /* RavelinCardEncryptionService */,
 				30006F2F23F697B60099F3C5 /* ApiService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
@@ -3152,6 +3163,14 @@
 			path = RavelinCardEncryptionService;
 			sourceTree = "<group>";
 		};
+		9930A0DB2AAF2BEB0090D164 /* RecommendationService */ = {
+			isa = PBXGroup;
+			children = (
+				9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */,
+			);
+			path = RecommendationService;
+			sourceTree = "<group>";
+		};
 		999AB8C62AAB368600F8E219 /* RecommendationConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3182,6 +3201,10 @@
 		A75B38E09E5547C9A487965E /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				9930A0E12AAF53100090D164 /* RecommendationRequest.h */,
+				9930A0E02AAF53100090D164 /* RecommendationRequest.m */,
+				9930A0DE2AAF53100090D164 /* RecommendationResult.h */,
+				9930A0DF2AAF53100090D164 /* RecommendationResult.m */,
 				446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */,
 				446002C2293036D7005FBCBD /* JPPreAuthApplePayRequest.m */,
 				446002BE293036D7005FBCBD /* JPPreAuthRequest.h */,
@@ -3389,6 +3412,7 @@
 				07B28231247E996100F9862B /* JPPBBAButton.h in Headers */,
 				52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */,
 				44A18B5829F94DA300D2963B /* JPActionBar.h in Headers */,
+				9930A0E22AAF53100090D164 /* RecommendationResult.h in Headers */,
 				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
 				5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */,
@@ -3459,6 +3483,7 @@
 				300072D423F6AB560099F3C5 /* JPBillingCountry.h in Headers */,
 				44A18B5429F94D8A00D2963B /* JPTransactionScanCardButton.h in Headers */,
 				449211682469E8DD00DF6D14 /* Typedefs.h in Headers */,
+				9930A0E52AAF53100090D164 /* RecommendationRequest.h in Headers */,
 				0779B1752490EC05000844AF /* JPCardNumberField.h in Headers */,
 				30D363A824B5BB430029BC86 /* NSObject+Additions.h in Headers */,
 				300072D223F6AB560099F3C5 /* JPPaymentMethod.h in Headers */,
@@ -3477,6 +3502,7 @@
 				A75B352705C46C769B528DE0 /* JPPaymentRequest.h in Headers */,
 				A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */,
 				ADB514BA286DED4200332E47 /* JPCReqParameters.h in Headers */,
+				9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */,
 				ADFDB81929EAE9010011C62F /* JPSubProductInfo.h in Headers */,
 				A75B33A34A1CD8CA120311EF /* JPRegisterCardRequest.h in Headers */,
 				A75B334919946DAC47C32566 /* JPSaveCardRequest.h in Headers */,
@@ -3736,10 +3762,12 @@
 				525FF3DB252C41CF001F030E /* JPCardScanView.m in Sources */,
 				30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */,
 				30221C5423FE7F6300BF2823 /* JPCardCustomizationHeaderCell.m in Sources */,
+				9930A0E32AAF53100090D164 /* RecommendationResult.m in Sources */,
 				3000731D23FA9BBD0099F3C5 /* JPContactInformation.m in Sources */,
 				52B74D9E23F98B4C009FE38C /* JPTransactionBuilder.m in Sources */,
 				300072FB23F6AB560099F3C5 /* JPEnhancedPaymentDetail.m in Sources */,
 				30006F3523F697B60099F3C5 /* JPKeychainService.m in Sources */,
+				9930A0E42AAF53100090D164 /* RecommendationRequest.m in Sources */,
 				30006F3723F697B60099F3C5 /* JPCardValidationService.m in Sources */,
 				3000732023FA9BBD0099F3C5 /* JPPostalAddress.m in Sources */,
 				ADC5AC0228EF30340049CAE3 /* JPState.m in Sources */,

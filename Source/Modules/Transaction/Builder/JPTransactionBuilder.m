@@ -39,6 +39,7 @@
 @implementation JPTransactionBuilderImpl
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
                                          encryptionService:(RavelinCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
@@ -47,6 +48,7 @@
                                                 completion:(JPCompletionBlock)completion {
     JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
+                                                                            andRecommendationApiService:recommendationApiService
                                                                                        andConfiguration:configuration
                                                                         andRavelinCardEncryptionService:encryptionService];
 
@@ -75,12 +77,14 @@
 }
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
+                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
                                          encryptionService:(RavelinCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion {
     return [JPTransactionBuilderImpl buildModuleWithApiService:apiService
+                                      recommendationApiService:recommendationApiService
                                              encryptionService:encryptionService
                                                  configuration:configuration
                                                transactionType:type

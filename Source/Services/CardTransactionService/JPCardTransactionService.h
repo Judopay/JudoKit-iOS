@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPAuthorization.h"
+#import "RecommendationApiService.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
@@ -30,9 +31,10 @@
 
 @interface JPCardTransactionService : NSObject
 
-- (nonnull instancetype)initWithAPIService:(nonnull JPApiService *)apiService
-                          andConfiguration:(nonnull JPConfiguration *)configuration
-                          andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService;
+- (instancetype)initWithAPIService:(JPApiService *)apiService
+                  andRecommendationApiService:(RecommendationApiService *)recommendationApiService
+                  andConfiguration:(JPConfiguration *)configuration
+   andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService;
 
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                                   isSandboxed:(BOOL)sandboxed

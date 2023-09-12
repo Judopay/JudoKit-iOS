@@ -63,6 +63,7 @@
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) RecommendationApiService *recommendationApiService;
 @property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
 
@@ -272,6 +273,7 @@
 - (JPCardTransactionService *)transactionService {
     if (!_transactionService) {
         _transactionService = [[JPCardTransactionService alloc] initWithAPIService:self.apiService
+                                                       andRecommendationApiService:self.recommendationApiService
                                                                   andConfiguration:self.configuration
                                                    andRavelinCardEncryptionService:self.encryptionService];
     }

@@ -42,11 +42,13 @@
 #import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
 #import "RavelinCardEncryptionService.h"
+#import "RecommendationApiService.h"
 #import <PassKit/PassKit.h>
 
 @interface JudoKit ()
 
 @property (nonatomic, strong) JPApiService *apiService;
+@property (nonatomic, strong) RecommendationApiService *recommendationApiService;
 @property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
@@ -74,6 +76,7 @@
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
+        self.recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization andRecommendationUrl:@""];
         self.encryptionService = [[RavelinCardEncryptionService alloc] init];
         return self;
     }
@@ -135,6 +138,7 @@
 
     UIViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
+                                   recommendationApiService:self.recommendationApiService
                                           encryptionService:self.encryptionService
                                               configuration:configuration
                                             transactionType:type

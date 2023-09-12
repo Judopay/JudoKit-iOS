@@ -28,6 +28,7 @@
 
 #import "JP3DSConfiguration.h"
 #import "JPApiService.h"
+#import "RecommendationApiService.h"
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
 #import "JPCardTransactionDetails.h"
@@ -48,6 +49,7 @@
 #import "UIApplication+Additions.h"
 #import "JPCardTransactionTypedefs.h"
 #import "RecommendationConfiguration.h"
+#import "RecommendationRequest.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -115,6 +117,7 @@
 
 @property (strong, nonatomic) JPConfiguration *configuration;
 @property (strong, nonatomic) JPApiService *apiService;
+@property (strong, nonatomic) RecommendationApiService *recommendationApiService;
 @property (strong, nonatomic) RavelinCardEncryptionService *encryptionService;
 
 @property (strong, nonatomic) JP3DS2Service *threeDSTwoService;
@@ -126,11 +129,13 @@
 @implementation JPCardTransactionService
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
+                  andRecommendationApiService:(RecommendationApiService *)recommendationApiService
                   andConfiguration:(JPConfiguration *)configuration
    andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
+        _recommendationApiService = recommendationApiService;
         _encryptionService = encryptionService;
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
@@ -147,6 +152,7 @@
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
+        _recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization andRecommendationUrl:@""];
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }
@@ -206,6 +212,16 @@
             }
         };
         
+        JPCompletionBlock recommendationCompletionHandler = ^(JPResponse *response, JPError *error) {
+            if (response) {
+                completion(response, nil);
+                NSLog(@"TESTO 03");
+            } else {
+                completion(nil, error);
+                NSLog(@"TESTO 04");
+            }
+        };
+        
         // Todo: Encryption; hard-coded 'true' for isRavelinEncryptionEnabled
         Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRavelinEncryptionEnabled:true];
         if (isCardEncryptionRequired) {
@@ -221,11 +237,10 @@
                 // Temporary here for development only, will be moved soon
                 // Recommendation API Call
                 NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
-                
-                
-                
+                RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
+                [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
             } else {
-                NSLog(@"TESTO 02");
+                // todo
             }
             
         }
