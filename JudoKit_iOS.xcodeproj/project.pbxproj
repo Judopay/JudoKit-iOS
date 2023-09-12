@@ -449,6 +449,9 @@
 		9930A0E32AAF53100090D164 /* RecommendationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResult.m */; };
 		9930A0E42AAF53100090D164 /* RecommendationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E02AAF53100090D164 /* RecommendationRequest.m */; };
 		9930A0E52AAF53100090D164 /* RecommendationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0E12AAF53100090D164 /* RecommendationRequest.h */; };
+		9930A0E92AB087480090D164 /* RecommendationApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E82AB087480090D164 /* RecommendationApiService.m */; };
+		9930A0ED2AB087B40090D164 /* RecommendationSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0EB2AB087B40090D164 /* RecommendationSession.h */; };
+		9930A0EE2AB087B40090D164 /* RecommendationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0EC2AB087B40090D164 /* RecommendationSession.m */; };
 		999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */; };
 		999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -967,6 +970,9 @@
 		9930A0DF2AAF53100090D164 /* RecommendationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResult.m; sourceTree = "<group>"; };
 		9930A0E02AAF53100090D164 /* RecommendationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationRequest.m; sourceTree = "<group>"; };
 		9930A0E12AAF53100090D164 /* RecommendationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationRequest.h; sourceTree = "<group>"; };
+		9930A0E82AB087480090D164 /* RecommendationApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationApiService.m; sourceTree = "<group>"; };
+		9930A0EB2AB087B40090D164 /* RecommendationSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationSession.h; sourceTree = "<group>"; };
+		9930A0EC2AB087B40090D164 /* RecommendationSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationSession.m; sourceTree = "<group>"; };
 		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
 		999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationConfiguration.h; sourceTree = "<group>"; };
 		999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationConfiguration.m; sourceTree = "<group>"; };
@@ -3166,9 +3172,20 @@
 		9930A0DB2AAF2BEB0090D164 /* RecommendationService */ = {
 			isa = PBXGroup;
 			children = (
+				9930A0EA2AB087630090D164 /* Session */,
 				9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */,
+				9930A0E82AB087480090D164 /* RecommendationApiService.m */,
 			);
 			path = RecommendationService;
+			sourceTree = "<group>";
+		};
+		9930A0EA2AB087630090D164 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				9930A0EB2AB087B40090D164 /* RecommendationSession.h */,
+				9930A0EC2AB087B40090D164 /* RecommendationSession.m */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 		999AB8C62AAB368600F8E219 /* RecommendationConfiguration */ = {
@@ -3412,6 +3429,7 @@
 				07B28231247E996100F9862B /* JPPBBAButton.h in Headers */,
 				52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */,
 				44A18B5829F94DA300D2963B /* JPActionBar.h in Headers */,
+				9930A0ED2AB087B40090D164 /* RecommendationSession.h in Headers */,
 				9930A0E22AAF53100090D164 /* RecommendationResult.h in Headers */,
 				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
@@ -3695,6 +3713,7 @@
 				3058351F2406583400B61167 /* JPCardCustomizationSubmitCell.m in Sources */,
 				44A18B5929F94DA300D2963B /* JPActionBar.m in Sources */,
 				446002C8293036D7005FBCBD /* JPPreAuthApplePayRequest.m in Sources */,
+				9930A0E92AB087480090D164 /* RecommendationApiService.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				30006F5A23F698A20099F3C5 /* JPFloatingTextField.m in Sources */,
 				30D61DE623BE3976004E5CEE /* JPPaymentMethodsHeaderView.m in Sources */,
@@ -3759,6 +3778,7 @@
 				303FA587259B5C2700C2F279 /* JPApplePayButton.m in Sources */,
 				5273AF1523F30730008C6D89 /* JPCardPaymentMethodView.m in Sources */,
 				30221C3123FE6D9200BF2823 /* JPCardCustomizationViewController.m in Sources */,
+				9930A0EE2AB087B40090D164 /* RecommendationSession.m in Sources */,
 				525FF3DB252C41CF001F030E /* JPCardScanView.m in Sources */,
 				30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */,
 				30221C5423FE7F6300BF2823 /* JPCardCustomizationHeaderCell.m in Sources */,
