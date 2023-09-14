@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPCardNetworkType.h"
-//#import "RecommendationConfiguration.h"
 #import <Foundation/Foundation.h>
 
 @class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPNetworkTimeout, RecommendationConfiguration;

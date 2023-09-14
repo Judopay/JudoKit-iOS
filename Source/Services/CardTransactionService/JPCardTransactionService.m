@@ -297,16 +297,6 @@
     }
 }
 
-// Todo: Move to RavelinCardEncryptionService
-//- (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
-//            isRavelinEncryptionEnabled:(BOOL)isRavelinEncryptionEnabled {
-//    return isRavelinEncryptionEnabled && (
-//        type == JPCardTransactionTypePayment ||
-//        type == JPCardTransactionTypeCheck ||
-//        type == JPCardTransactionTypePreAuth
-//    );
-//}
-
 - (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
     [self performTransactionWithType:JPCardTransactionTypePayment details:details andCompletion:completion];
 }
