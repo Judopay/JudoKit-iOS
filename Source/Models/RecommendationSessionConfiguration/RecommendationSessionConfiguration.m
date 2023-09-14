@@ -1,5 +1,5 @@
 //
-//  RecommendationRequest.h
+//  RecommendationSessionConfiguration.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,16 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
-#import <Foundation/Foundation.h>
+#import "RecommendationSessionConfiguration.h"
+#import "JPAuthorization.h"
 
-@interface RecommendationRequest : NSObject
-// Todo:
-/**
- * A  flag to sign up for a subscription-based service
- */
-//@property (nonatomic, assign) BOOL isInitialRecurringPayment;
+@implementation RecommendationSessionConfiguration
 
-- (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
+static NSString *const kRecommendationBaseURL = @"";
+
+#pragma mark - Initializers
+
+- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization {
+    self = [super init];
+    if (self) {
+        self.authorization = authorization;
+    }
+
+    return self;
+}
+
++ (instancetype)configurationWithAuthorization:(id<JPAuthorization>)authorization {
+    return [[RecommendationSessionConfiguration alloc] initWithAuthorization:authorization];
+}
+
+#pragma mark - Getters
+
+- (NSURL *_Nullable)apiBaseURL {
+    return [NSURL URLWithString:kRecommendationBaseURL];
+}
 
 @end

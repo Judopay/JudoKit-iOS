@@ -25,17 +25,12 @@
 #import "RecommendationSession.h"
 #import "Functions.h"
 #import "JPAuthorization.h"
+#import "JPResponse.h"
 #import "JPError+Additions.h"
 #import "JPReachability.h"
 #import "RecommendationSessionConfiguration.h"
 #import "JudoKit.h"
 #import "NSObject+Additions.h"
-
-//#if SWIFT_PACKAGE
-//@import TrustKit;
-//#else
-//#import <TrustKit/TrustKit.h>
-//#endif
 
 #pragma mark - Constants
 
@@ -46,12 +41,10 @@ static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 static NSString *const kHeaderFieldAccept = @"Accept";
 static NSString *const kHeaderFieldAPIVersion = @"API-Version";
-static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
 static NSString *const kMethodPOST = @"POST";
 
 @interface RecommendationSession () <NSURLSessionDelegate>
-//@property (nonatomic, strong, readwrite) TrustKit *trustKit;
 @property (nonatomic, strong, readwrite) JPReachability *reachability;
 @property (nonatomic, strong, readwrite) RecommendationSessionConfiguration *configuration;
 @property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
@@ -70,7 +63,8 @@ static NSString *const kMethodPOST = @"POST";
         NSAssert(configuration, @"Configuration should not be nil");
 
         _configuration = configuration;
-        _reachability = [JPReachability reachabilityWithURL:self.configuration.apiBaseURL];
+        NSURL * url = [NSURL URLWithString:@"https://"];
+//        _reachability = [JPReachability reachabilityWithURL:url];
     }
     return self;
 }
@@ -89,7 +83,6 @@ static NSString *const kMethodPOST = @"POST";
         headers[kHeaderFieldContentType] = kContentTypeJSON;
         headers[kHeaderFieldAccept] = kContentTypeJSON;
         headers[kHeaderFieldAPIVersion] = kAPIVersion;
-        headers[kHeaderFieldUserAgent] = getUserAgent(self.configuration.subProductInfo);
         _requestHeaders = [NSDictionary dictionaryWithDictionary:headers];
     }
     return _requestHeaders;
@@ -100,12 +93,18 @@ static NSString *const kMethodPOST = @"POST";
                       parameters:(NSDictionary *)parameters
                    andCompletion:(JPCompletionBlock)completion {
 
-    if (!self.reachability.isReachable) {
-        completion(nil, JPError.internetConnectionError);
-        return;
-    }
+//    if (!self.reachability.isReachable) {
+//        completion(nil, JPError.internetConnectionError);
+//        return;
+//    }
 
-    NSURL *_Nullable url = [self.configuration.apiBaseURL URLByAppendingPathComponent:path];
+    if (self.configuration.apiBaseURL == nil) {
+        NSLog(@"TESTO 0123 A");
+    } else {
+        NSLog(@"TESTO API URL NULL");
+    }
+//    NSURL *_Nullable url = [self.configuration.apiBaseURL URLByAppendingPathComponent:path];
+    NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         request.HTTPMethod = HTTPMethod;
@@ -134,6 +133,7 @@ static NSString *const kMethodPOST = @"POST";
 
     return [urlSession dataTaskWithRequest:request
                          completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
+                            NSLog(@"TESTO XYZ 01");
                              if (!completion) {
                                  return;
                              }

@@ -452,6 +452,8 @@
 		9930A0E92AB087480090D164 /* RecommendationApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E82AB087480090D164 /* RecommendationApiService.m */; };
 		9930A0ED2AB087B40090D164 /* RecommendationSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0EB2AB087B40090D164 /* RecommendationSession.h */; };
 		9930A0EE2AB087B40090D164 /* RecommendationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0EC2AB087B40090D164 /* RecommendationSession.m */; };
+		9930A0F22AB08B430090D164 /* RecommendationSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0F02AB08B430090D164 /* RecommendationSessionConfiguration.m */; };
+		9930A0F32AB08B430090D164 /* RecommendationSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0F12AB08B430090D164 /* RecommendationSessionConfiguration.h */; };
 		999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */; };
 		999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -973,6 +975,8 @@
 		9930A0E82AB087480090D164 /* RecommendationApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationApiService.m; sourceTree = "<group>"; };
 		9930A0EB2AB087B40090D164 /* RecommendationSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationSession.h; sourceTree = "<group>"; };
 		9930A0EC2AB087B40090D164 /* RecommendationSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationSession.m; sourceTree = "<group>"; };
+		9930A0F02AB08B430090D164 /* RecommendationSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationSessionConfiguration.m; sourceTree = "<group>"; };
+		9930A0F12AB08B430090D164 /* RecommendationSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationSessionConfiguration.h; sourceTree = "<group>"; };
 		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
 		999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationConfiguration.h; sourceTree = "<group>"; };
 		999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationConfiguration.m; sourceTree = "<group>"; };
@@ -1865,12 +1869,13 @@
 				3000731423FA9BBC0099F3C5 /* PostalAddress */,
 				3000727E23F6AB550099F3C5 /* PrimaryAccountDetails */,
 				3000734323FA9C6D0099F3C5 /* Reachability */,
+				9930A0EF2AB08A680090D164 /* RecommendationSessionConfiguration */,
 				300072AE23F6AB560099F3C5 /* Reference */,
 				A75B38E09E5547C9A487965E /* Request */,
 				3000729223F6AB550099F3C5 /* Response */,
 				3000725623F6AB540099F3C5 /* SDKInfo */,
 				52B4CAD8241FB93D009C28DC /* Section */,
-				A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */,
+				A75B36C4D8532D3E8EEA50EE /* JPSessionConfiguration */,
 				300072B123F6AB560099F3C5 /* StoredCardDetails */,
 				ADFDB81529EAE8A10011C62F /* SubProductInfo */,
 				3000727323F6AB540099F3C5 /* Theme */,
@@ -3188,6 +3193,15 @@
 			path = Session;
 			sourceTree = "<group>";
 		};
+		9930A0EF2AB08A680090D164 /* RecommendationSessionConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				9930A0F12AB08B430090D164 /* RecommendationSessionConfiguration.h */,
+				9930A0F02AB08B430090D164 /* RecommendationSessionConfiguration.m */,
+			);
+			path = RecommendationSessionConfiguration;
+			sourceTree = "<group>";
+		};
 		999AB8C62AAB368600F8E219 /* RecommendationConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3197,13 +3211,13 @@
 			path = RecommendationConfiguration;
 			sourceTree = "<group>";
 		};
-		A75B36C4D8532D3E8EEA50EE /* SessionConfiguration */ = {
+		A75B36C4D8532D3E8EEA50EE /* JPSessionConfiguration */ = {
 			isa = PBXGroup;
 			children = (
 				A75B372E8032A197D1EC2507 /* JPSessionConfiguration.h */,
 				A75B3E7A51C1D60337A65E32 /* JPSessionConfiguration.m */,
 			);
-			path = SessionConfiguration;
+			path = JPSessionConfiguration;
 			sourceTree = "<group>";
 		};
 		A75B3851E5E6D32F5A33F84E /* Session */ = {
@@ -3518,6 +3532,7 @@
 				446002C3293036D7005FBCBD /* JPPreAuthTokenRequest.h in Headers */,
 				A75B390BA1C26DE57E8D4437 /* JPBankOrderSaleRequest.h in Headers */,
 				A75B352705C46C769B528DE0 /* JPPaymentRequest.h in Headers */,
+				9930A0F32AB08B430090D164 /* RecommendationSessionConfiguration.h in Headers */,
 				A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */,
 				ADB514BA286DED4200332E47 /* JPCReqParameters.h in Headers */,
 				9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */,
@@ -3706,6 +3721,7 @@
 				ADB514B0286DECB600332E47 /* JPResponse+Additions.m in Sources */,
 				300072CE23F6AB560099F3C5 /* JPTheme.m in Sources */,
 				52B74D9D23F98B4C009FE38C /* JPTransactionViewController.m in Sources */,
+				9930A0F22AB08B430090D164 /* RecommendationSessionConfiguration.m in Sources */,
 				0779B1782490EC05000844AF /* JPCardNumberField.m in Sources */,
 				30221C8023FECD9200BF2823 /* JPCardCustomizationPatternPickerCell.m in Sources */,
 				44A18B5D29F94DBF00D2963B /* JPForm.m in Sources */,

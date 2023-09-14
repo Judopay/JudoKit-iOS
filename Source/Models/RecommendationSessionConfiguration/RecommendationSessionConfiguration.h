@@ -1,5 +1,5 @@
 //
-//  RecommendationRequest.h
+//  RecommendationSessionConfiguration.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,16 +22,38 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
-@interface RecommendationRequest : NSObject
-// Todo:
-/**
- * A  flag to sign up for a subscription-based service
- */
-//@property (nonatomic, assign) BOOL isInitialRecurringPayment;
+@protocol JPAuthorization;
 
-- (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
+@interface RecommendationSessionConfiguration : NSObject
+
+/**
+ * A reference to one of the JPAuthorization instances (basic or session authorization)
+ */
+@property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
+
+/**
+ * A reference to the Judo base URL
+ */
+@property (nonatomic, readonly, nullable) NSURL *apiBaseURL;
+
+/**
+ * Designated initializer the generates a session configuration based on the authorization type
+ *
+ * @param authorization - one of the JPAuthorization instances (basic or session authorization)
+ *
+ * @returns a configured JPSessionConfiguration instance
+ */
+- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
+
+/**
+ * Designated initializer the generates a session configuration based on the authorization type
+ *
+ * @param authorization - one of the JPAuthorization instances (basic or session authorization)
+ *
+ * @returns a configured JPSessionConfiguration instance
+ */
++ (nonnull instancetype)configurationWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 @end

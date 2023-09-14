@@ -27,8 +27,8 @@
 #import "JPApplePayRequest.h"
 #import "JPError+Additions.h"
 #import "JPRequestEnricher.h"
-#import "JPSession.h"
-#import "JPSessionConfiguration.h"
+#import "RecommendationSession.h"
+#import "RecommendationSessionConfiguration.h"
 #import "NSObject+Additions.h"
 #import "RecommendationApiService.h"
 
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 @interface RecommendationApiService ()
 
-@property (nonatomic, strong) JPSession *session;
+@property (nonatomic, strong) RecommendationSession *session;
 @property (nonatomic, strong) JPRequestEnricher *enricher;
 @property (nonatomic, strong) NSArray<NSString *> *enricheablePaths;
 
@@ -64,8 +64,8 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 }
 
 - (void)setUpSession {
-    JPSessionConfiguration *configuration = [JPSessionConfiguration configurationWithAuthorization:self.authorization];
-    _session = [JPSession sessionWithConfiguration:configuration];
+    RecommendationSessionConfiguration *configuration = [RecommendationSessionConfiguration configurationWithAuthorization:self.authorization];
+    _session = [RecommendationSession sessionWithConfiguration:configuration];
 }
 
 #pragma mark - Public methods
@@ -99,18 +99,9 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
     JPEnricherCompletionBlock enricherCompletion = ^(NSDictionary *enrichedRequest) {
         switch (method) {
-            case JPHTTPMethodGET:
-                [self.session GET:endpoint parameters:enrichedRequest andCompletion:completion];
-                break;
-
             case JPHTTPMethodPOST:
                 [self.session POST:endpoint parameters:enrichedRequest andCompletion:completion];
                 break;
-
-            case JPHTTPMethodPUT:
-                [self.session PUT:endpoint parameters:enrichedRequest andCompletion:completion];
-                break;
-
             default:
                 completion(nil, JPError.requestFailedError);
         }
