@@ -186,6 +186,9 @@ static NSString *const kMethodPOST = @"POST";
 - (void)URLSession:(NSURLSession *)session
     didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
       completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
+    
+    // Todo: Remove
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 
 //    TSKPinningValidator *pinningValidator = self.trustKit.pinningValidator;
 //    if (![pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {
