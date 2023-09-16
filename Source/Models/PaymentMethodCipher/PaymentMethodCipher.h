@@ -1,5 +1,5 @@
 //
-//  RecommendationRequest.h
+//  PaymentMethodCipher.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,13 +22,35 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationPaymentMethod.h"
 #import <Foundation/Foundation.h>
 
-@interface RecommendationRequest : NSObject
+@interface PaymentMethodCipher : NSObject
 
-@property (nonatomic, strong) RecommendationPaymentMethod * paymentMethod;
+@property (nonatomic, strong) NSString * aesKeyCipherText;
 
-- (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
+@property (nonatomic, strong) NSString * algorithm;
+
+@property (nonatomic, strong) NSString * cardCipherText;
+
+@property (nonatomic, strong) NSString * keyIndex;
+
+@property (nonatomic, strong) NSString * keySignature;
+
+@property (nonatomic, strong) NSString * methodType;
+
+// Todo: can we rename it in the code?
+@property (nonatomic, strong) NSString * ravelinSDKVersion;
+
+/**
+ * Designated initializer
+ */
+- (instancetype)initWithAesKeyCipherText:(NSString *)aesKeyCipherText
+                               algorithm:(NSString *)algorithm
+                          cardCipherText:(NSString *)cardCipherText
+                                keyIndex:(NSString *)keyIndex
+                            keySignature:(NSString *)keySignature
+                              methodType:(NSString *)methodType
+ recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion;
 
 @end
+

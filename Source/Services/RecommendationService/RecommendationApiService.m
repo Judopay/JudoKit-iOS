@@ -31,6 +31,8 @@
 #import "RecommendationSessionConfiguration.h"
 #import "NSObject+Additions.h"
 #import "RecommendationApiService.h"
+#import "NSObject+Additions.h"
+#import "RecommendationRequest.h"
 
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     JPHTTPMethodGET,
@@ -79,8 +81,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                    andRecommendationUrl:(NSString *)recommendationUrl
                           andCompletion:(JPCompletionBlock)completion{
 
-//    NSDictionary *parameters = [request _jp_toDictionary];
-    NSDictionary *parameters = nil;
+    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:recommendationUrl
                         parameters:parameters

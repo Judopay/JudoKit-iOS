@@ -1,5 +1,5 @@
 //
-//  RecommendationRequest.h
+//  RecommendationPaymentMethod.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,13 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationPaymentMethod.h"
 #import <Foundation/Foundation.h>
+#import "PaymentMethodCipher.h"
 
-@interface RecommendationRequest : NSObject
+@interface RecommendationPaymentMethod : NSObject
 
-@property (nonatomic, strong) RecommendationPaymentMethod * paymentMethod;
+@property (nonatomic, strong) PaymentMethodCipher *paymentMethodCipher;
 
-- (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
+/**
+ * Designated initializer
+ */
+- (instancetype)initWithPaymentMethodCipher:(PaymentMethodCipher *)paymentMethodCipher;
 
 @end

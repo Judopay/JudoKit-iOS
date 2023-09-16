@@ -24,15 +24,26 @@
 
 #import "RecommendationRequest.h"
 #import "RecommendationConfiguration.h"
+#import "PaymentMethodCipher.h"
 #import "JPConfiguration.h"
 
 @implementation RecommendationRequest
 
 - (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails {
-    // Todo
-//    if (self = [super initWithConfiguration:configuration]) {
-//        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
-//    }
+    if (self = [super init]) {
+        NSString *test = @"XYZ XYZ";
+        // Todo: check why in Android keyIndex was string, not number.
+        NSString *keyIndexTest = @"1";
+        PaymentMethodCipher * paymentMethodCipher = [[PaymentMethodCipher alloc] initWithAesKeyCipherText:test
+                                                                                                algorithm:test
+                                                                                           cardCipherText:test
+                                                                                                 keyIndex:keyIndexTest
+                                                                                             keySignature:test
+                                                                                               methodType:test
+                                                                  recommendationFeatureProviderSDKVersion:test];
+        RecommendationPaymentMethod * recommendationPaymentMethod = [[RecommendationPaymentMethod alloc] initWithPaymentMethodCipher:paymentMethodCipher];
+        _paymentMethod = recommendationPaymentMethod;
+    }
     return self;
 }
 

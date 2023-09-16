@@ -1,5 +1,5 @@
 //
-//  RecommendationRequest.h
+//  PaymentMethodCipher.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,13 +22,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationPaymentMethod.h"
-#import <Foundation/Foundation.h>
+#import "PaymentMethodCipher.h"
 
-@interface RecommendationRequest : NSObject
+@implementation PaymentMethodCipher
 
-@property (nonatomic, strong) RecommendationPaymentMethod * paymentMethod;
+- (instancetype)initWithAesKeyCipherText:(NSString *)aesKeyCipherText
+                               algorithm:(NSString *)algorithm
+                          cardCipherText:(NSString *)cardCipherText
+                                keyIndex:(NSString *)keyIndex
+                            keySignature:(NSString *)keySignature
+                              methodType:(NSString *)methodType
+ recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion {
 
-- (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
+    if (self = [super init]) {
+        self.aesKeyCipherText = aesKeyCipherText;
+        self.algorithm = algorithm;
+        self.cardCipherText = cardCipherText;
+        self.keyIndex = keyIndex;
+        self.keySignature = keySignature;
+        self.methodType = methodType;
+        self.ravelinSDKVersion = recommendationFeatureProviderSDKVersion;
+    }
+
+    return self;
+}
 
 @end

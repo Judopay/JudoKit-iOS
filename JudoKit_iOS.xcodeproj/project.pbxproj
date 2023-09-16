@@ -454,6 +454,10 @@
 		9930A0EE2AB087B40090D164 /* RecommendationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0EC2AB087B40090D164 /* RecommendationSession.m */; };
 		9930A0F22AB08B430090D164 /* RecommendationSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0F02AB08B430090D164 /* RecommendationSessionConfiguration.m */; };
 		9930A0F32AB08B430090D164 /* RecommendationSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0F12AB08B430090D164 /* RecommendationSessionConfiguration.h */; };
+		999961342AB4987100A3B2DA /* PaymentMethodCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 999961322AB4987100A3B2DA /* PaymentMethodCipher.m */; };
+		999961352AB4987100A3B2DA /* PaymentMethodCipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 999961332AB4987100A3B2DA /* PaymentMethodCipher.h */; };
+		999961382AB4C24000A3B2DA /* RecommendationPaymentMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 999961372AB4C24000A3B2DA /* RecommendationPaymentMethod.h */; };
+		9999613A2AB4C28400A3B2DA /* RecommendationPaymentMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 999961392AB4C28400A3B2DA /* RecommendationPaymentMethod.m */; };
 		999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */; };
 		999AB8CA2AAB36ED00F8E219 /* RecommendationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */; };
 		A75B30A84D6EC90F215C4F8B /* JPTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75B3644FEBBF9060D49B2FD /* JPTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -978,6 +982,10 @@
 		9930A0F02AB08B430090D164 /* RecommendationSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationSessionConfiguration.m; sourceTree = "<group>"; };
 		9930A0F12AB08B430090D164 /* RecommendationSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationSessionConfiguration.h; sourceTree = "<group>"; };
 		99829B942A9F753B00D3499B /* JPCardTransactionTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCardTransactionTypedefs.h; sourceTree = "<group>"; };
+		999961322AB4987100A3B2DA /* PaymentMethodCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodCipher.m; sourceTree = "<group>"; };
+		999961332AB4987100A3B2DA /* PaymentMethodCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMethodCipher.h; sourceTree = "<group>"; };
+		999961372AB4C24000A3B2DA /* RecommendationPaymentMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationPaymentMethod.h; sourceTree = "<group>"; };
+		999961392AB4C28400A3B2DA /* RecommendationPaymentMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecommendationPaymentMethod.m; path = Source/Models/RecommendationPaymentMethod/RecommendationPaymentMethod.m; sourceTree = SOURCE_ROOT; };
 		999AB8C72AAB36ED00F8E219 /* RecommendationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationConfiguration.h; sourceTree = "<group>"; };
 		999AB8C82AAB36ED00F8E219 /* RecommendationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationConfiguration.m; sourceTree = "<group>"; };
 		A75B30D1310F0A0A309ADB2C /* JPBankOrderSaleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBankOrderSaleRequest.h; sourceTree = "<group>"; };
@@ -1831,6 +1839,8 @@
 		300071C523F6A78E0099F3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				999961362AB4C21100A3B2DA /* RecommendationPaymentMethod */,
+				999961312AB4970A00A3B2DA /* PaymentMethodCipher */,
 				999AB8C62AAB368600F8E219 /* RecommendationConfiguration */,
 				3000737923FBECCE0099F3C5 /* 3DSConfiguration */,
 				3000728F23F6AB550099F3C5 /* Address */,
@@ -3202,6 +3212,24 @@
 			path = RecommendationSessionConfiguration;
 			sourceTree = "<group>";
 		};
+		999961312AB4970A00A3B2DA /* PaymentMethodCipher */ = {
+			isa = PBXGroup;
+			children = (
+				999961332AB4987100A3B2DA /* PaymentMethodCipher.h */,
+				999961322AB4987100A3B2DA /* PaymentMethodCipher.m */,
+			);
+			path = PaymentMethodCipher;
+			sourceTree = "<group>";
+		};
+		999961362AB4C21100A3B2DA /* RecommendationPaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				999961372AB4C24000A3B2DA /* RecommendationPaymentMethod.h */,
+				999961392AB4C28400A3B2DA /* RecommendationPaymentMethod.m */,
+			);
+			path = RecommendationPaymentMethod;
+			sourceTree = "<group>";
+		};
 		999AB8C62AAB368600F8E219 /* RecommendationConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3492,6 +3520,7 @@
 				300072DB23F6AB560099F3C5 /* JPOrderDetails.h in Headers */,
 				52D23DAE25248A9D007C79EB /* JPPaymentShippingMethod.h in Headers */,
 				AD0F05A8286B67D600470534 /* JPComplete3DS2Request.h in Headers */,
+				999961352AB4987100A3B2DA /* PaymentMethodCipher.h in Headers */,
 				30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */,
 				999AB8C92AAB36ED00F8E219 /* RecommendationConfiguration.h in Headers */,
 				30006F9523F6993A0099F3C5 /* JPError+Additions.h in Headers */,
@@ -3537,6 +3566,7 @@
 				ADB514BA286DED4200332E47 /* JPCReqParameters.h in Headers */,
 				9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */,
 				ADFDB81929EAE9010011C62F /* JPSubProductInfo.h in Headers */,
+				999961382AB4C24000A3B2DA /* RecommendationPaymentMethod.h in Headers */,
 				A75B33A34A1CD8CA120311EF /* JPRegisterCardRequest.h in Headers */,
 				A75B334919946DAC47C32566 /* JPSaveCardRequest.h in Headers */,
 				A75B38339C5BC8CA80EE4ABC /* JPCheckCardRequest.h in Headers */,
@@ -3705,6 +3735,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				300072C623F6AB560099F3C5 /* JPValidationResult.m in Sources */,
+				9999613A2AB4C28400A3B2DA /* RecommendationPaymentMethod.m in Sources */,
 				300072F623F6AB560099F3C5 /* JPCardDetails.m in Sources */,
 				300072BC23F6AB560099F3C5 /* JPSDKInfo.m in Sources */,
 				30006F5C23F698A20099F3C5 /* JPRoundedCornerView.m in Sources */,
@@ -3866,6 +3897,7 @@
 				A75B39732D7E17CB64A95B49 /* JPPaymentRequest.m in Sources */,
 				A75B34B303EB82FC765660DC /* JPTokenRequest.m in Sources */,
 				A75B365521EA4453D3B4C99B /* JPRegisterCardRequest.m in Sources */,
+				999961342AB4987100A3B2DA /* PaymentMethodCipher.m in Sources */,
 				A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */,
 				A75B39B34E1A96B8968281ED /* JPCheckCardRequest.m in Sources */,
 				52D23DAD25248A9D007C79EB /* JPPaymentShippingMethod.m in Sources */,
