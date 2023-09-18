@@ -104,6 +104,7 @@
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 
+// Todo: Confirm with Stefan - do we need these headers here (app seems to build correctly without them)?
 #import <RavelinEncrypt/RavelinEncrypt.h>
 #import "RavelinCardEncryptionService.h"
 #import "JPCardTransactionTypedefs.h"
