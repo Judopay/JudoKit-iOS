@@ -273,9 +273,9 @@
 - (JPCardTransactionService *)transactionService {
     if (!_transactionService) {
         _transactionService = [[JPCardTransactionService alloc] initWithAPIService:self.apiService
-                                                       andRecommendationApiService:self.recommendationApiService
-                                                                  andConfiguration:self.configuration
-                                                   andRavelinCardEncryptionService:self.encryptionService];
+                                                          recommendationApiService:self.recommendationApiService
+                                                                     configuration:self.configuration
+                                               recommendationCardEncryptionService:self.encryptionService];
     }
     return _transactionService;
 }

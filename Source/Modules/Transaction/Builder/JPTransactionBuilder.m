@@ -48,9 +48,9 @@
                                                 completion:(JPCompletionBlock)completion {
     JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
-                                                                            andRecommendationApiService:recommendationApiService
-                                                                                       andConfiguration:configuration
-                                                                        andRavelinCardEncryptionService:encryptionService];
+                                                                               recommendationApiService:recommendationApiService
+                                                                                          configuration:configuration
+                                                                    recommendationCardEncryptionService:encryptionService];
 
     JPTransactionInteractorImpl *interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                                               transactionService:transactionService

@@ -34,7 +34,7 @@
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
- * A reference to the Judo base URL
+ * A reference to the Recommendation base URL
  */
 @property (nonatomic, readonly, nullable) NSURL *apiBaseURL;
 
@@ -43,7 +43,7 @@
  *
  * @param authorization - one of the JPAuthorization instances (basic or session authorization)
  *
- * @returns a configured JPSessionConfiguration instance
+ * @returns a configured RecommendationSessionConfiguration instance
  */
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
@@ -52,7 +52,7 @@
  *
  * @param authorization - one of the JPAuthorization instances (basic or session authorization)
  *
- * @returns a configured JPSessionConfiguration instance
+ * @returns a configured RecommendationSessionConfiguration instance
  */
 + (nonnull instancetype)configurationWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 

@@ -32,9 +32,9 @@
 @interface JPCardTransactionService : NSObject
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-                  andRecommendationApiService:(RecommendationApiService *)recommendationApiService
-                  andConfiguration:(JPConfiguration *)configuration
-   andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService;
+                  recommendationApiService:(RecommendationApiService *)recommendationApiService
+                  configuration:(JPConfiguration *)configuration
+   recommendationCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService;
 
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                                   isSandboxed:(BOOL)sandboxed

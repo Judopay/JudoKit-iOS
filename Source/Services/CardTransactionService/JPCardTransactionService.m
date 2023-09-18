@@ -129,9 +129,9 @@
 @implementation JPCardTransactionService
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-                  andRecommendationApiService:(RecommendationApiService *)recommendationApiService
-                  andConfiguration:(JPConfiguration *)configuration
-   andRavelinCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService {
+          recommendationApiService:(RecommendationApiService *)recommendationApiService
+                     configuration:(JPConfiguration *)configuration
+recommendationCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
