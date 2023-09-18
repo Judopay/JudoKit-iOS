@@ -2,7 +2,7 @@
 //  RecommendationConfiguration.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,43 +24,23 @@
 
 #import <Foundation/Foundation.h>
 
-//@class JPAmount, JPReference;
-
-// Todo: Adjust comments.
-
 @interface RecommendationConfiguration : NSObject
 
-/**
- * The Judo ID required for most JudoKit transactions
- */
 @property (nonatomic, strong, nonnull) NSString *rsaKey;
 
-/**
- * The Judo ID required for most JudoKit transactions
- */
 @property (nonatomic, strong, nonnull) NSString *recommendationURL;
 
-/**
- * The Judo ID required for most JudoKit transactions
- */
 @property (nonatomic, assign, nullable) int *recommendationTimeout;
 
 /**
- * Designated initializer that sets the required parameters for most Judo transations.
- *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
- *  - Compatible with Apple Pay transactions.
- *  - Compatible with Judo Payment Method Selection screen.
+ * Designated initializer that sets the required parameters for Recommendation Feature calls.
  *
- *  @param judoId - the Judo ID of the merchant.
- *  @param amount - the JPAmount instance, contaning the amount and the currency of the transaction.
- *  @param reference - the JPReference instance, containing the consumer/payment references.
- *
- *  @returns a configured instance of JPConfiguration
+ *  @returns a configured instance of RecommendationConfiguration
  */
 - (nonnull instancetype)initWithRsaKey:(nonnull NSString *)rsaKey
-                   andRecommendationURL:(nonnull NSString *)recommendationURL;
+                  andRecommendationURL:(nonnull NSString *)recommendationURL;
 
 + (nonnull instancetype)configurationWithRsaKey:(nonnull NSString *)rsaKey
-                   andRecommendationURL:(nonnull NSString *)recommendationURL;
+                           andRecommendationURL:(nonnull NSString *)recommendationURL;
 
 @end

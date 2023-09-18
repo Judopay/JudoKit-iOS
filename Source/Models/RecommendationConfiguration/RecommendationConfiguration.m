@@ -2,7 +2,7 @@
 //  RecommendationConfiguration.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,10 @@
         return self;
     }
 
-+ (instancetype)configurationWithRsaKey:(NSString *)rsaKey andRecommendationURL:(NSString *)recommendationURL {
-    return [[RecommendationConfiguration alloc] initWithRsaKey:rsaKey andRecommendationURL:recommendationURL];
++ (instancetype)configurationWithRsaKey:(NSString *)rsaKey
+                   andRecommendationURL:(NSString *)recommendationURL {
+    return [[RecommendationConfiguration alloc] initWithRsaKey:rsaKey
+                                          andRecommendationURL:recommendationURL];
 }
 
 @end
