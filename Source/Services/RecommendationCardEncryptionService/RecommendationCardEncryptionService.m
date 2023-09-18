@@ -51,16 +51,16 @@
     NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
     NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
     
-    RVNEncryption *ravelin = [RVNEncryption sharedInstance];
-    ravelin.rsaKey = rsaKey;
+    RVNEncryption *encryptionSDK = [RVNEncryption sharedInstance];
+    encryptionSDK.rsaKey = rsaKey;
     
     NSError *error;
     NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
     if(!error) {
-        NSLog(@"Ravelin encryption payload: %@",encryptionPayload);
+        NSLog(@"Recommendation Feature encryption payload: %@",encryptionPayload);
         return encryptionPayload;
     } else {
-        NSLog(@"Ravelin encryption error %@", error.localizedDescription);
+        NSLog(@"Recommendation Feature encryption error %@", error.localizedDescription);
         return nil;
     }
 }

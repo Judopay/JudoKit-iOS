@@ -222,7 +222,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
             }
         };
         
-        // Todo: Encryption; hard-coded 'true' for isRavelinEncryptionEnabled
+        // Todo: Encryption; hard-coded 'true' for isRecommendationFeatureEnabled
         Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
         if (isCardEncryptionRequired) {
             NSString *cardNumber = details.cardNumber;
