@@ -41,7 +41,7 @@
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
-#import "RavelinCardEncryptionService.h"
+#import "RecommendationCardEncryptionService.h"
 #import "RecommendationApiService.h"
 #import <PassKit/PassKit.h>
 
@@ -49,7 +49,7 @@
 
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) RecommendationApiService *recommendationApiService;
-@property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
+@property (nonatomic, strong) RecommendationCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
@@ -77,7 +77,7 @@
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
         self.recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
-        self.encryptionService = [[RavelinCardEncryptionService alloc] init];
+        self.encryptionService = [[RecommendationCardEncryptionService alloc] init];
         return self;
     }
 

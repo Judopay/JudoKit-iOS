@@ -45,7 +45,7 @@
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
-#import "RavelinCardEncryptionService.h"
+#import "RecommendationCardEncryptionService.h"
 #import "UIApplication+Additions.h"
 #import "JPCardTransactionTypedefs.h"
 #import "RecommendationConfiguration.h"
@@ -118,7 +118,7 @@
 @property (strong, nonatomic) JPConfiguration *configuration;
 @property (strong, nonatomic) JPApiService *apiService;
 @property (strong, nonatomic) RecommendationApiService *recommendationApiService;
-@property (strong, nonatomic) RavelinCardEncryptionService *encryptionService;
+@property (strong, nonatomic) RecommendationCardEncryptionService *encryptionService;
 
 @property (strong, nonatomic) JP3DS2Service *threeDSTwoService;
 @property (strong, nonatomic) JP3DSConfigParameters *threeDSTwoConfigParameters;
@@ -131,7 +131,7 @@
 - (instancetype)initWithAPIService:(JPApiService *)apiService
           recommendationApiService:(RecommendationApiService *)recommendationApiService
                      configuration:(JPConfiguration *)configuration
-recommendationCardEncryptionService:(nullable RavelinCardEncryptionService *)encryptionService {
+recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
@@ -223,7 +223,7 @@ recommendationCardEncryptionService:(nullable RavelinCardEncryptionService *)enc
         };
         
         // Todo: Encryption; hard-coded 'true' for isRavelinEncryptionEnabled
-        Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRavelinEncryptionEnabled:true];
+        Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
         if (isCardEncryptionRequired) {
             NSString *cardNumber = details.cardNumber;
             NSString *cardHolderName = details.cardholderName;

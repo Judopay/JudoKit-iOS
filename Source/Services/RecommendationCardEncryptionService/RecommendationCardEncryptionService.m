@@ -1,8 +1,8 @@
 //
-//  RavelinCardEncryptionService.m
+//  RecommendationCardEncryptionService.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2022 Alternative Payments Ltd
+//  Copyright (c) 2023 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,10 @@
 
 #import <Foundation/Foundation.h>
 #import <RavelinEncrypt/RavelinEncrypt.h>
-#import "RavelinCardEncryptionService.h"
+#import "RecommendationCardEncryptionService.h"
 #import "JPCardTransactionTypedefs.h"
 
-@implementation RavelinCardEncryptionService
+@implementation RecommendationCardEncryptionService
 
 - (instancetype)init {
     self = [super init];
@@ -36,8 +36,8 @@
 }
 
 - (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
-            isRavelinEncryptionEnabled:(BOOL)isRavelinEncryptionEnabled {
-    return isRavelinEncryptionEnabled && (
+            isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled {
+    return isRecommendationFeatureEnabled && (
         type == JPCardTransactionTypePayment ||
         type == JPCardTransactionTypeCheck ||
         type == JPCardTransactionTypePreAuth

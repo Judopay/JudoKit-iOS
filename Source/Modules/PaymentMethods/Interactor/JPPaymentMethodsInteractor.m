@@ -64,7 +64,7 @@
 @property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) RecommendationApiService *recommendationApiService;
-@property (nonatomic, strong) RavelinCardEncryptionService *encryptionService;
+@property (nonatomic, strong) RecommendationCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
 
 @end
@@ -76,7 +76,7 @@
 - (instancetype)initWithMode:(JPTransactionMode)mode
                configuration:(JPConfiguration *)configuration
                   apiService:(JPApiService *)apiService
-           encryptionService:(RavelinCardEncryptionService *)encryptionService
+           encryptionService:(RecommendationCardEncryptionService *)encryptionService
                   completion:(JPCompletionBlock)completion {
 
     if (self = [super init]) {

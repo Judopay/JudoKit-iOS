@@ -29,13 +29,13 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPApiService, JPConfiguration, JPTransactionViewController, JPCardTransactionDetails, RavelinCardEncryptionService;
+@class JPApiService, JPConfiguration, JPTransactionViewController, JPCardTransactionDetails, RecommendationCardEncryptionService;
 
 @protocol JPTransactionBuilder
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                   recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RavelinCardEncryptionService *)encryptionService
+                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
@@ -43,7 +43,7 @@
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
                                   recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RavelinCardEncryptionService *)encryptionService
+                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
