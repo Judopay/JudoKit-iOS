@@ -27,31 +27,34 @@
 
 @protocol JPAuthorization;
 
-@class RecommendationRequest, JP3DSecureAuthenticationResult;
+@class RecommendationRequest;
 
 @interface RecommendationApiService : NSObject
 
+// Todo: Confirm with Stefan whether it's okay for recommendation (to use JPAuthorization)
+// (and abstract it into base class if so).
 /**
  * A reference to one of the JPAuthorization instances which defines either a basic or a session authorization
  */
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
- * Designated initializer that creates an instance of JPApiSession based on the authorization type provided
+ * Designated initializer that creates an instance of RecommendationApiSession based on the authorization type provided
  *
  * @param authorization - can be either a JPBasicAuthorization or a JPSessionAuthorization instance
- * @param sandboxed - boolean that specifies if the requests should go to the sandbox environment
  *
- * @returns a configured instance of JPApiSession
+ * @returns a configured instance of RecommendationApiSession
  */
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 /**
- * A method that invokes a payment transaction
+ * A method that invokes the recommendation call
  *
- * @param request - an instance of JPPaymentRequest describing the payment request
+ * @param request - an instance of RecommendationRequest describing the recommendation request
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
+// Todo: pointer issue
+// Todo: JPCompletionBlock
 - (void)invokeRecommendationRequest:(nonnull RecommendationRequest *)request
                andRecommendationUrl:(NSString *)recommendationUrl
                       andCompletion:(nullable JPCompletionBlock)completion;

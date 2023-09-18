@@ -27,11 +27,6 @@
 @interface RecommendationResult : NSObject
 
 /**
- * A reference to the MD value returned from the 3D Secure ACS URL
- */
-//@property (nonatomic, strong, nullable) NSString *md;
-
-/**
  * A reference to the PaRes value returned from the 3D Secure ACS URL
  */
 //@property (nonatomic, strong, nonnull) NSString *paRes;

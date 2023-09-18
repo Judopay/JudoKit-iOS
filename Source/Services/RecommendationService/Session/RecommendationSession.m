@@ -122,15 +122,14 @@ static NSString *const kMethodPOST = @"POST";
 
     return [urlSession dataTaskWithRequest:request
                          completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
-                            NSLog(@"TESTO XYZ 01");
-                             if (!completion) {
-                                 return;
-                             }
+        if (!completion) {
+            return;
+        }
 
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 [self handleResult:data error:error andCompletion:completion];
-                             });
-                         }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self handleResult:data error:error andCompletion:completion];
+        });
+    }];
 }
 
 - (void)handleResult:(NSData *)data
@@ -173,17 +172,10 @@ static NSString *const kMethodPOST = @"POST";
 #pragma mark - URLSession SSL pinning
 
 - (void)URLSession:(NSURLSession *)session
-    didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
-      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
-    
-    // Todo: Remove
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
+    // Todo: Refactor?
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
-
-//    TSKPinningValidator *pinningValidator = self.trustKit.pinningValidator;
-//    if (![pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {
-//        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
-//    }
-
     [session finishTasksAndInvalidate];
 }
 

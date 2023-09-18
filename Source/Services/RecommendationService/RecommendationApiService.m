@@ -22,16 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApiService.h"
-#import "JP3DSecureAuthenticationResult.h"
-#import "JPApplePayRequest.h"
 #import "JPError+Additions.h"
 #import "JPRequestEnricher.h"
 #import "RecommendationSession.h"
 #import "RecommendationSessionConfiguration.h"
 #import "NSObject+Additions.h"
 #import "RecommendationApiService.h"
-#import "NSObject+Additions.h"
 #import "RecommendationRequest.h"
 
 typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
