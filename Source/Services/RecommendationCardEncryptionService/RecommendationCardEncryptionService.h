@@ -37,7 +37,7 @@
                                            rsaKey:(NSString * _Nullable)rsaKey;
 
 - (NSDictionary *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
-                                  cardHolderName:(NSString *)cardHolderName
-                                  expirationDate:(NSString *)expirationDate
-                                          rsaKey:(NSString *)rsaKey;
+                                       cardHolderName:(NSString *)cardHolderName
+                                       expirationDate:(NSString *)expirationDate
+                                               rsaKey:(NSString *)rsaKey;
 @end

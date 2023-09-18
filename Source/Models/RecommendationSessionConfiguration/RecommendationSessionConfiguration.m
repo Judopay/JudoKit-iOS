@@ -42,10 +42,4 @@
     return [[RecommendationSessionConfiguration alloc] initWithAuthorization:authorization];
 }
 
-#pragma mark - Getters
-
-- (NSURL *_Nullable)apiBaseURL {
-    return [NSURL URLWithString:@""];
-}
-
 @end

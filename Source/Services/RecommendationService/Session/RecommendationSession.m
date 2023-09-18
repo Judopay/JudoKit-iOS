@@ -34,13 +34,9 @@
 
 #pragma mark - Constants
 
-static NSString *const kAPIVersion = @"6.19.0.0";
-static NSString *const kBankPrefix = @"order/bank";
-static NSString *const kBankSaleAPIVersion = @"2.0.0.0";
 static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 static NSString *const kHeaderFieldAccept = @"Accept";
-static NSString *const kHeaderFieldAPIVersion = @"API-Version";
 
 static NSString *const kMethodPOST = @"POST";
 
@@ -82,7 +78,6 @@ static NSString *const kMethodPOST = @"POST";
         NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithDictionary:self.configuration.authorization.headers];
         headers[kHeaderFieldContentType] = kContentTypeJSON;
         headers[kHeaderFieldAccept] = kContentTypeJSON;
-        headers[kHeaderFieldAPIVersion] = kAPIVersion;
         _requestHeaders = [NSDictionary dictionaryWithDictionary:headers];
     }
     return _requestHeaders;
@@ -98,12 +93,6 @@ static NSString *const kMethodPOST = @"POST";
 //        return;
 //    }
 
-    if (self.configuration.apiBaseURL == nil) {
-        NSLog(@"TESTO 0123 A");
-    } else {
-        NSLog(@"TESTO API URL NULL");
-    }
-//    NSURL *_Nullable url = [self.configuration.apiBaseURL URLByAppendingPathComponent:path];
     NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];

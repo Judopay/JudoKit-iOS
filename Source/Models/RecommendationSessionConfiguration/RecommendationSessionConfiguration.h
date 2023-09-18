@@ -34,11 +34,6 @@
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 /**
- * A reference to the Recommendation base URL
- */
-@property (nonatomic, readonly, nullable) NSURL *apiBaseURL;
-
-/**
  * Designated initializer the generates a session configuration based on the authorization type
  *
  * @param authorization - one of the JPAuthorization instances (basic or session authorization)

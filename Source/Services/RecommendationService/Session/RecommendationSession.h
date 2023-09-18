@@ -35,7 +35,6 @@
 /**
  * A designated initializer that creates a RecommendationSession instance with a provided authorization header
  *
- *
  * @returns a configured instance of RecommendationSession
  */
 + (nonnull instancetype)sessionWithConfiguration:(nonnull RecommendationSessionConfiguration *)configuration;
@@ -43,20 +42,19 @@
 /**
  * A designated initializer that creates a RecommendationSession instance with a provided authorization header
  *
- *
  * @returns a configured instance of RecommendationSession
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull RecommendationSessionConfiguration *)configuration;
 
 /**
- *  POST Helper Method for accessing the judo REST API
+ *  POST Helper Method for accessing the Recommendation REST API
  *
- *  @param endpoint       the endpoint
+ *  @param endpoint the endpoint
  *  @param parameters information that is set in the HTTP Body
  *  @param completion completion callback block with the results
  */
 - (void)POST:(nonnull NSString *)endpoint
-       parameters:(nullable NSDictionary *)parameters
-    andCompletion:(nullable JPCompletionBlock)completion;
+  parameters:(nullable NSDictionary *)parameters
+andCompletion:(nullable JPCompletionBlock)completion;
 
 @end

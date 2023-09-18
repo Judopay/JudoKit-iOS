@@ -31,12 +31,11 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self) {}
     return self;
 }
 
 - (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
-            isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled {
+          isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled {
     return isRecommendationFeatureEnabled && (
         type == JPCardTransactionTypePayment ||
         type == JPCardTransactionTypeCheck ||
@@ -45,9 +44,9 @@
 }
 
 - (NSDictionary *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
-                                      cardHolderName:(NSString *)cardHolderName
-                                     expirationDate:(NSString *)expirationDate
-                                              rsaKey:(NSString *)rsaKey {
+                                       cardHolderName:(NSString *)cardHolderName
+                                       expirationDate:(NSString *)expirationDate
+                                               rsaKey:(NSString *)rsaKey {
     NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
     NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
     
@@ -57,10 +56,10 @@
     NSError *error;
     NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
     if(!error) {
-        NSLog(@"Recommendation Feature encryption payload: %@",encryptionPayload);
+        NSLog(@"Recommendation feature encryption payload: %@",encryptionPayload);
         return encryptionPayload;
     } else {
-        NSLog(@"Recommendation Feature encryption error %@", error.localizedDescription);
+        NSLog(@"Recommendation feature encryption error %@", error.localizedDescription);
         return nil;
     }
 }
