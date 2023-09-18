@@ -25,7 +25,6 @@
 #import "RecommendationRequest.h"
 #import "RecommendationConfiguration.h"
 #import "PaymentMethodCipher.h"
-#import "JPConfiguration.h"
 
 static NSString *const kAesKeyCiphertext = @"aesKeyCiphertext";
 static NSString *const kAlgorithm = @"algorithm";

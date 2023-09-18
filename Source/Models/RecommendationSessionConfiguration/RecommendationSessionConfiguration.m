@@ -27,8 +27,6 @@
 
 @implementation RecommendationSessionConfiguration
 
-static NSString *const kRecommendationBaseURL = @"";
-
 #pragma mark - Initializers
 
 - (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization {
@@ -47,7 +45,7 @@ static NSString *const kRecommendationBaseURL = @"";
 #pragma mark - Getters
 
 - (NSURL *_Nullable)apiBaseURL {
-    return [NSURL URLWithString:kRecommendationBaseURL];
+    return [NSURL URLWithString:@""];
 }
 
 @end
