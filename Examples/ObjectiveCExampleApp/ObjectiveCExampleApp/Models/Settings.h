@@ -18,8 +18,6 @@ static NSString *const kSecretKey = @"secret";
 
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
-// Todo: move it?
-static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 
@@ -39,7 +37,8 @@ static NSString *const kPrimaryAccountAccountNumberKey = @"primary_account_accou
 static NSString *const kPrimaryAccountDateOfBirthKey = @"primary_account_date_of_birth";
 static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code";
 
-#pragma mark - Recommendation Feature keys
+#pragma mark - Recommendation Feature section keys
+static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
 static NSString *const kRsaKey = @"rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationApiTimeoutKey = @"recommendation_api_timeout";
@@ -241,13 +240,15 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (nullable NSString *)scaExemption;
 - (int)threeDsTwoMaxTimeout;
 - (nullable NSString *)threeDSTwoMessageVersion;
-// Todo: Move out of 3ds section.
-- (NSString *)rsaKey;
-- (NSString *)recommendationUrl;
+- (nullable JP3DSUICustomization *)threeDSUICustomization;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;
-- (nullable JP3DSUICustomization *)threeDSUICustomization;
+
+#pragma mark - Recommendation Feature
+- (NSString *)rsaKey;
+- (NSString *)recommendationUrl;
+
 @end
 
 NS_ASSUME_NONNULL_END

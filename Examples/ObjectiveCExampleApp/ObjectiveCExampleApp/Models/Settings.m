@@ -362,33 +362,6 @@ NSString *safeString(NSString *aString) {
     return safeString([self.defaults stringForKey:kThreeDSTwoMessageVersionKey]);
 }
 
-// Todo: Move out of 3ds section.
-- (NSString *)rsaKey {
-    if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self.defaults stringForKey:kRsaKey];
-    }
-    return nil;
-}
-
-- (NSString *)recommendationUrl {
-    if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self.defaults stringForKey:kRecommendationUrlKey];
-    }
-    return nil;
-}
-
-- (NSNumber *)connectTimeout {
-    return [self timeoutForKey:kConnectTimeoutKey];
-}
-
-- (NSNumber *)readTimeout {
-    return [self timeoutForKey:kReadTimeoutKey];
-}
-
-- (NSNumber *)writeTimeout {
-    return [self timeoutForKey:kWriteTimeoutKey];
-}
-
 - (JP3DSUICustomization *)threeDSUICustomization {
     if ([self.defaults boolForKey:kIsThreeDSUICustomisationEnabledKey]) {
         JP3DSUICustomization *customization = [JP3DSUICustomization new];
@@ -465,6 +438,36 @@ NSString *safeString(NSString *aString) {
     }
 
     return nil;
+}
+
+#pragma mark - Recommendation Feature
+
+- (NSString *)rsaKey {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRsaKey];
+    }
+    return nil;
+}
+
+- (NSString *)recommendationUrl {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRecommendationUrlKey];
+    }
+    return nil;
+}
+
+#pragma mark - Network Timeouts
+
+- (NSNumber *)connectTimeout {
+    return [self timeoutForKey:kConnectTimeoutKey];
+}
+
+- (NSNumber *)readTimeout {
+    return [self timeoutForKey:kReadTimeoutKey];
+}
+
+- (NSNumber *)writeTimeout {
+    return [self timeoutForKey:kWriteTimeoutKey];
 }
 
 @end
