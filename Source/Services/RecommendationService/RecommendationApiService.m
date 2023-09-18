@@ -77,11 +77,10 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     [self setUpSession];
 }
 
-- (void)invokeRecommendationRequest:(RecommendationRequest *)request
+- (void)invokeRecommendationRequest:(NSDictionary *)parameters
                    andRecommendationUrl:(NSString *)recommendationUrl
                           andCompletion:(JPCompletionBlock)completion{
 
-    NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:recommendationUrl
                         parameters:parameters

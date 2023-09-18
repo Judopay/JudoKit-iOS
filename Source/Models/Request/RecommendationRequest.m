@@ -27,20 +27,35 @@
 #import "PaymentMethodCipher.h"
 #import "JPConfiguration.h"
 
+static NSString *const kAesKeyCiphertext = @"aesKeyCiphertext";
+static NSString *const kAlgorithm = @"algorithm";
+static NSString *const kCardCiphertext = @"cardCiphertext";
+static NSString *const kKeyIndex = @"keyIndex";
+static NSString *const kKeySignature = @"keySignature";
+static NSString *const kMethodType = @"methodType";
+static NSString *const kRecommendationFeatureProviderSDKVersion = @"ravelinSDKVersion";
+
 @implementation RecommendationRequest
 
 - (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails {
     if (self = [super init]) {
-        NSString *test = @"XYZ XYZ";
-        // Todo: check why in Android keyIndex was string, not number.
-        NSString *keyIndexTest = @"1";
-        PaymentMethodCipher * paymentMethodCipher = [[PaymentMethodCipher alloc] initWithAesKeyCipherText:test
-                                                                                                algorithm:test
-                                                                                           cardCipherText:test
-                                                                                                 keyIndex:keyIndexTest
-                                                                                             keySignature:test
-                                                                                               methodType:test
-                                                                  recommendationFeatureProviderSDKVersion:test];
+        
+        NSString *aesKeyCiphertext = encryptedCardDetails[kAesKeyCiphertext];
+        NSString *algorithm = encryptedCardDetails[kAlgorithm];
+        NSString *cardCiphertext = encryptedCardDetails[kCardCiphertext];
+        NSString *keyIndex = encryptedCardDetails[kKeyIndex];
+        // Todo: What about this keySignature property?
+        NSString *keySignature = @"key-signature";
+        NSString *methodType = encryptedCardDetails[kMethodType];
+        NSString *recommendationFeatureProviderSDKVersion = encryptedCardDetails[kRecommendationFeatureProviderSDKVersion];
+        
+        PaymentMethodCipher * paymentMethodCipher = [[PaymentMethodCipher alloc] initWithAesKeyCipherText:aesKeyCiphertext
+                                                                                                algorithm:algorithm
+                                                                                           cardCipherText:cardCiphertext
+                                                                                                 keyIndex:keyIndex
+                                                                                             keySignature:keySignature
+                                                                                               methodType:methodType
+                                                                  recommendationFeatureProviderSDKVersion:recommendationFeatureProviderSDKVersion];
         RecommendationPaymentMethod * recommendationPaymentMethod = [[RecommendationPaymentMethod alloc] initWithPaymentMethodCipher:paymentMethodCipher];
         _paymentMethod = recommendationPaymentMethod;
     }
