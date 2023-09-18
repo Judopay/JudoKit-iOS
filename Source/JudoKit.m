@@ -76,7 +76,7 @@
     if (self && isDeviceSupported) {
         self.configurationValidationService = [JPConfigurationValidationServiceImp new];
         self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
-        self.recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization andRecommendationUrl:@""];
+        self.recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
         self.encryptionService = [[RavelinCardEncryptionService alloc] init];
         return self;
     }

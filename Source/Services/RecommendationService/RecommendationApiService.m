@@ -52,12 +52,11 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 #pragma mark - Initializers
 
-- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization
-                 andRecommendationUrl:(NSString *) recommendationUrl {
+- (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization {
 
     if (self = [super init]) {
         _authorization = authorization;
-        _enricheablePaths = @[ recommendationUrl ];
+        _enricheablePaths = @[ @"" ];
         _enricher = [JPRequestEnricher new];
 
         [self setUpSession];

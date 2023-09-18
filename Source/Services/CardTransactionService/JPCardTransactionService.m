@@ -152,7 +152,7 @@
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
-        _recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization andRecommendationUrl:@""];
+        _recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }

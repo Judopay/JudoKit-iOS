@@ -44,8 +44,7 @@
  *
  * @returns a configured instance of JPApiSession
  */
-- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
-                         andRecommendationUrl:(NSString *) recommendationUrl;
+- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 /**
  * A method that invokes a payment transaction
