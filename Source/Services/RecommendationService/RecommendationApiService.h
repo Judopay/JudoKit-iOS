@@ -51,10 +51,8 @@
  * A method that invokes the recommendation call
  *
  * @param request - an instance of RecommendationRequest describing the recommendation request
- * @param completion - the completion block that contains the optional JPResponse or JPError
+ * @param completion - the completion block that contains the optional RecommendationResult or Error
  */
-// Todo: pointer issue
-// Todo: JPCompletionBlock
 - (void)invokeRecommendationRequest:(nonnull RecommendationRequest *)request
                andRecommendationUrl:(NSString *)recommendationUrl
                       andCompletion:(nullable RecommendationCompletionBlock)completion;
