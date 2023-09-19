@@ -23,23 +23,19 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "RecommendationData.h"
 
 @interface RecommendationResult : NSObject
 
-/**
- * A reference to the PaRes value returned from the 3D Secure ACS URL
- */
-//@property (nonatomic, strong, nonnull) NSString *paRes;
+@property (nonatomic, strong) RecommendationData *data;
 
 /**
- * Designated initializer based on the MD and RaRes values provided
+ *  Create a RecommendationResult object from a dictionary
  *
- * @param paRes - the PaRes value from the ACS URL
- * @param md - the MD value from the ACS URL
+ *  @param dictionary the dictionary
  *
- * @returns a configured JP3DSecureAuthenticationResult instance
+ *  @return a RecommendationResult object
  */
-//- (nonnull instancetype)initWithPaRes:(nonnull NSString *)paRes
-//                                andMd:(nullable NSString *)md;
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

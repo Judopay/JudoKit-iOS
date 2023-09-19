@@ -28,13 +28,16 @@
 
 #pragma mark - Initializers
 
-//- (nonnull instancetype)initWithPaRes:(nonnull NSString *)paRes
-//                                andMd:(nullable NSString *)md {
-//    if (self = [super init]) {
-//        _paRes = paRes;
-//        _md = md;
-//    }
-//    return self;
-//}
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        [self populateWith:dictionary];
+    }
+    return self;
+}
+
+- (void)populateWith:(NSDictionary *)dictionary {
+    NSString * action = dictionary[@"action"];
+//    self.data = [[RecommendationData alloc] initWithRecommendationAction:(RecommendationAction)action];
+}
 
 @end

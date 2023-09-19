@@ -213,16 +213,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
             }
         };
         
-        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
-            if (response) {
-                completion(response, nil);
-                NSLog(@"TESTO 03");
-            } else {
-                completion(nil, error);
-                NSLog(@"TESTO 04");
-            }
-        };
-        
         // Todo: Encryption; hard-coded 'true' for isRecommendationFeatureEnabled
         Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
         if (isCardEncryptionRequired) {
@@ -238,6 +228,16 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                 // Temporary here for development only, will be moved soon
                 // Recommendation API Call
                 NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
+                RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
+                    if (response) {
+                        
+                        completion(response, nil);
+                        
+                    } else {
+                        // todo
+                        completion(nil, error);
+                    }
+                };
                 RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
                 [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
             } else {
