@@ -67,7 +67,7 @@ static NSString *const kMethodPOST = @"POST";
 
 #pragma mark - REST API methods
 
-- (void)POST:(NSString *)endpoint parameters:(NSDictionary *)parameters andCompletion:(JPCompletionBlock)completion {
+- (void)POST:(NSString *)endpoint parameters:(NSDictionary *)parameters andCompletion:(RecommendationCompletionBlock)completion {
     [self performRequestWithMethod:kMethodPOST endpoint:endpoint parameters:parameters andCompletion:completion];
 }
 
@@ -86,7 +86,7 @@ static NSString *const kMethodPOST = @"POST";
 - (void)performRequestWithMethod:(NSString *)HTTPMethod
                         endpoint:(NSString *)path
                       parameters:(NSDictionary *)parameters
-                   andCompletion:(JPCompletionBlock)completion {
+                   andCompletion:(RecommendationCompletionBlock)completion {
 
 //    if (!self.reachability.isReachable) {
 //        completion(nil, JPError.internetConnectionError);
@@ -113,7 +113,7 @@ static NSString *const kMethodPOST = @"POST";
     }
 }
 
-- (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JPCompletionBlock)completion {
+- (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(RecommendationCompletionBlock)completion {
 
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig
@@ -134,7 +134,7 @@ static NSString *const kMethodPOST = @"POST";
 
 - (void)handleResult:(NSData *)data
                error:(NSError *)error
-       andCompletion:(JPCompletionBlock)completion {
+       andCompletion:(RecommendationCompletionBlock)completion {
 
     if (error || !data) {
         JPError *jpError = error ? (JPError *)error : JPError.requestFailedError;

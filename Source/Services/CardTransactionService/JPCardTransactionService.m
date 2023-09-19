@@ -50,6 +50,7 @@
 #import "JPCardTransactionTypedefs.h"
 #import "RecommendationConfiguration.h"
 #import "RecommendationRequest.h"
+#import "RecommendationResult.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -212,7 +213,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
             }
         };
         
-        JPCompletionBlock recommendationCompletionHandler = ^(JPResponse *response, JPError *error) {
+        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
             if (response) {
                 completion(response, nil);
                 NSLog(@"TESTO 03");

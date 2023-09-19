@@ -23,7 +23,10 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "RecommendationResult.h"
 
 @class JPResponse, JPError;
 
 typedef void (^JPCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
+
+typedef void (^RecommendationCompletionBlock)(RecommendationResult *_Nullable, NSString *_Nullable);

@@ -55,6 +55,6 @@
  */
 - (void)POST:(nonnull NSString *)endpoint
   parameters:(nullable NSDictionary *)parameters
-andCompletion:(nullable JPCompletionBlock)completion;
+andCompletion:(nullable RecommendationCompletionBlock)completion;
 
 @end

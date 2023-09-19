@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
 - (void)invokeRecommendationRequest:(NSDictionary *)parameters
                    andRecommendationUrl:(NSString *)recommendationUrl
-                          andCompletion:(JPCompletionBlock)completion{
+                          andCompletion:(RecommendationCompletionBlock)completion{
 
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:recommendationUrl
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 - (void)performRequestWithMethod:(JPHTTPMethod)method
                         endpoint:(NSString *)endpoint
                       parameters:(NSDictionary *)parameters
-                   andCompletion:(JPCompletionBlock)completion {
+                   andCompletion:(RecommendationCompletionBlock)completion {
 
     BOOL shouldEnrich = [self.enricheablePaths containsObject:endpoint];
 

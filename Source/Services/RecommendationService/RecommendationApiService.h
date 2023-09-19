@@ -57,7 +57,7 @@
 // Todo: JPCompletionBlock
 - (void)invokeRecommendationRequest:(nonnull RecommendationRequest *)request
                andRecommendationUrl:(NSString *)recommendationUrl
-                      andCompletion:(nullable JPCompletionBlock)completion;
+                      andCompletion:(nullable RecommendationCompletionBlock)completion;
 
 
 @end
