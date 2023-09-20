@@ -24,6 +24,10 @@
 
 #import "RecommendationResult.h"
 
+static NSString *const kRecommendationActionAllow = @"ALLOW";
+static NSString *const kRecommendationActionReview = @"REVIEW";
+static NSString *const kRecommendationActionPrevent = @"PREVENT";
+
 @implementation RecommendationResult
 
 #pragma mark - Initializers
@@ -36,8 +40,26 @@
 }
 
 - (void)populateWith:(NSDictionary *)dictionary {
-    NSString * action = dictionary[@"action"];
-//    self.data = [[RecommendationData alloc] initWithRecommendationAction:(RecommendationAction)action];
+    NSDictionary * data = dictionary[@"data"];
+    NSString * action = data[@"action"];
+    RecommendationAction recommendationAction = [self recommendationActionForString:action];
+    self.data = [[RecommendationData alloc] initWithRecommendationAction:recommendationAction];
+}
+
+- (RecommendationAction)recommendationActionForString:(NSString *)actionString {
+    if ([actionString isEqualToString:kRecommendationActionAllow]) {
+        return ALLOW;
+    }
+
+    if ([actionString isEqualToString:kRecommendationActionReview]) {
+        return REVIEW;
+    }
+    
+    if ([actionString isEqualToString:kRecommendationActionPrevent]) {
+        return PREVENT;
+    }
+
+    return nil;
 }
 
 @end

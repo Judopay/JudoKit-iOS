@@ -230,9 +230,8 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                 NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
                 RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
                     if (response) {
-                        
-                        completion(response, nil);
-                        
+                        NSLog(@"TESTO X");
+//                        completion(response, nil);
                     } else {
                         // todo
                         completion(nil, error);

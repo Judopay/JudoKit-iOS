@@ -165,7 +165,7 @@ static NSString *const kMethodPOST = @"POST";
     //        return;
     //    }
 
-    JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
+    RecommendationResult *result = [[RecommendationResult alloc] initWithDictionary:responseJSON];
     completion(result, nil);
 }
 

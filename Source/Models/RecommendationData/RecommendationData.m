@@ -26,7 +26,7 @@
 
 @implementation RecommendationData
 
-- (instancetype)initWithRecommendationAction:(RecommendationAction *)recommendationAction {
+- (instancetype)initWithRecommendationAction:(RecommendationAction)recommendationAction {
 
     if (self = [super init]) {
         self.recommendationAction = recommendationAction;

@@ -27,7 +27,7 @@
 
 @interface RecommendationData : NSObject
 
-@property (nonatomic, assign) RecommendationAction *recommendationAction;
+@property (nonatomic, assign) RecommendationAction recommendationAction;
 
 /**
  * Designated initializer
