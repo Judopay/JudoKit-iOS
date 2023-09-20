@@ -1,5 +1,5 @@
 //
-//  RecommendationData.m
+//  TransactionOptimisationAction.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,25 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationData.h"
-#import "TransactionOptimisation.h"
-#import "ScaExemption.h"
+#import <Foundation/Foundation.h>
 
-@implementation RecommendationData
-
-- (instancetype)initWithRecommendationAction:(RecommendationAction)recommendationAction
-                  transactionOptimisationAction:(TransactionOptimisationAction)transactionOptimisationAction
-                  exemption:(ScaExemption)exemption
-                  threeDSChallengePreference:(NSString *)threeDSChallengePreference {
-
-    if (self = [super init]) {
-        self.action = recommendationAction;
-        self.transactionOptimisation = [[TransactionOptimisation alloc] initWithAction:transactionOptimisationAction
-                                                                             exemption:exemption
-                                                            threeDSChallengePreference:threeDSChallengePreference];
-    }
-
-    return self;
-}
-
-@end
+typedef NS_ENUM(NSUInteger, TransactionOptimisationAction) {
+    AUTHENTICATE,
+    AUTHORISE
+};

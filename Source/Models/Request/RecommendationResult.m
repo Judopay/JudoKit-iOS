@@ -23,10 +23,17 @@
 //  SOFTWARE.
 
 #import "RecommendationResult.h"
+#import "ScaExemption.h"
 
 static NSString *const kRecommendationActionAllow = @"ALLOW";
 static NSString *const kRecommendationActionReview = @"REVIEW";
 static NSString *const kRecommendationActionPrevent = @"PREVENT";
+
+static NSString *const kTransactionOptimisationActionAuthenticate = @"AUTHENTICATE";
+static NSString *const kTransactionOptimisationActionAuthorise = @"AUTHORISE";
+
+static NSString *const kScaExemptionLowValue = @"LOW_VALUE";
+static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK_ANALYSIS";
 
 @implementation RecommendationResult
 
@@ -42,8 +49,18 @@ static NSString *const kRecommendationActionPrevent = @"PREVENT";
 - (void)populateWith:(NSDictionary *)dictionary {
     NSDictionary * data = dictionary[@"data"];
     NSString * action = data[@"action"];
+    NSDictionary * transactionOptimisation = data[@"transactionOptimisation"];
+    NSString * transactionOptimisationActionString = transactionOptimisation[@"action"];
+    NSString * scaExemptionString = transactionOptimisation[@"exemption"];
+    NSString * threeDSChallengePreference = transactionOptimisation[@"threeDSChallengePreference"];
+    
     RecommendationAction recommendationAction = [self recommendationActionForString:action];
-    self.data = [[RecommendationData alloc] initWithRecommendationAction:recommendationAction];
+    TransactionOptimisationAction transactionOptimisationAction = [self transactionOptimisationActionForString:transactionOptimisationActionString];
+    ScaExemption scaExemption = [self scaExemptionForString:scaExemptionString];
+    self.data = [[RecommendationData alloc] initWithRecommendationAction:recommendationAction
+                                           transactionOptimisationAction:transactionOptimisationAction
+                                                               exemption:(ScaExemption)scaExemption
+                                              threeDSChallengePreference:threeDSChallengePreference];
 }
 
 - (RecommendationAction)recommendationActionForString:(NSString *)actionString {
@@ -57,6 +74,30 @@ static NSString *const kRecommendationActionPrevent = @"PREVENT";
     
     if ([actionString isEqualToString:kRecommendationActionPrevent]) {
         return PREVENT;
+    }
+
+    return nil;
+}
+
+- (ScaExemption)scaExemptionForString:(NSString *)scaExemptionString {
+    if ([scaExemptionString isEqualToString:kScaExemptionLowValue]) {
+        return LOW_VALUE;
+    }
+
+    if ([scaExemptionString isEqualToString:kScaExemptionTransactionRiskAnalysis]) {
+        return TRANSACTION_RISK_ANALYSIS;
+    }
+
+    return nil;
+}
+
+- (TransactionOptimisationAction)transactionOptimisationActionForString:(NSString *)actionString {
+    if ([actionString isEqualToString:kTransactionOptimisationActionAuthenticate]) {
+        return AUTHENTICATE;
+    }
+
+    if ([actionString isEqualToString:kTransactionOptimisationActionAuthorise]) {
+        return AUTHORISE;
     }
 
     return nil;

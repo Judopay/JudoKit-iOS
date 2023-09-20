@@ -1,5 +1,5 @@
 //
-//  RecommendationData.m
+//  TransactionOptimisation.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,25 +22,25 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationData.h"
-#import "TransactionOptimisation.h"
+#import <Foundation/Foundation.h>
+#import "TransactionOptimisationAction.h"
+#import "RecommendationAction.h"
 #import "ScaExemption.h"
 
-@implementation RecommendationData
+@interface TransactionOptimisation : NSObject
 
-- (instancetype)initWithRecommendationAction:(RecommendationAction)recommendationAction
-                  transactionOptimisationAction:(TransactionOptimisationAction)transactionOptimisationAction
-                  exemption:(ScaExemption)exemption
-                  threeDSChallengePreference:(NSString *)threeDSChallengePreference {
+@property (nonatomic, assign) TransactionOptimisationAction action;
 
-    if (self = [super init]) {
-        self.action = recommendationAction;
-        self.transactionOptimisation = [[TransactionOptimisation alloc] initWithAction:transactionOptimisationAction
-                                                                             exemption:exemption
-                                                            threeDSChallengePreference:threeDSChallengePreference];
-    }
+@property (nonatomic, assign) ScaExemption exemption;
 
-    return self;
-}
+@property (nonatomic, strong) NSString * threeDSChallengePreference;
+
+/**
+ * Designated initializer
+ */
+- (instancetype)initWithAction:(RecommendationAction)recommendationAction
+                     exemption:(ScaExemption) exemption
+    threeDSChallengePreference:(NSString *) threeDSChallengePreference;
+
 
 @end

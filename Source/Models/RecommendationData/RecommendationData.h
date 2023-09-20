@@ -24,14 +24,20 @@
 
 #import <Foundation/Foundation.h>
 #import "RecommendationAction.h"
+#import "TransactionOptimisation.h"
 
 @interface RecommendationData : NSObject
 
-@property (nonatomic, assign) RecommendationAction recommendationAction;
+@property (nonatomic, assign) RecommendationAction action;
+
+@property (nonatomic, strong) TransactionOptimisation * transactionOptimisation;
 
 /**
  * Designated initializer
  */
-- (instancetype)initWithRecommendationAction:(RecommendationAction *)recommendationAction;
+- (instancetype)initWithRecommendationAction:(RecommendationAction)recommendationAction
+               transactionOptimisationAction:(TransactionOptimisationAction)transactionOptimisationAction
+                                   exemption:(ScaExemption)exemption
+                  threeDSChallengePreference:(NSString *)threeDSChallengePreference;
 
 @end
