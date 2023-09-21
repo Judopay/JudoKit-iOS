@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPAuthorization.h"
-#import "RecommendationApiService.h"
 #import "Typedefs.h"
 #import "JPCardTransactionTypedefs.h"
+#import "RecommendationApiService.h"
 #import <Foundation/Foundation.h>
 
 @class JPConfiguration, JPCardTransactionDetails, JPApiService, RecommendationCardEncryptionService;

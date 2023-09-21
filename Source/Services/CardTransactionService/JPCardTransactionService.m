@@ -28,7 +28,6 @@
 
 #import "JP3DSConfiguration.h"
 #import "JPApiService.h"
-#import "RecommendationApiService.h"
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
 #import "JPCardTransactionDetails.h"
@@ -45,12 +44,13 @@
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
-#import "RecommendationCardEncryptionService.h"
 #import "UIApplication+Additions.h"
 #import "JPCardTransactionTypedefs.h"
 #import "RecommendationConfiguration.h"
+#import "RecommendationApiService.h"
 #import "RecommendationRequest.h"
 #import "RecommendationResult.h"
+#import "RecommendationCardEncryptionService.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -146,7 +146,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     return self;
 }
 
-// Todo: Should I add Encryption Service also here? Check it.
 - (instancetype)initWithAuthorization:(id<JPAuthorization>)authorization
                           isSandboxed:(BOOL)sandboxed
                      andConfiguration:(JPConfiguration *)configuration {
@@ -154,6 +153,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         _configuration = configuration;
         _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
         _recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
+        _encryptionService = [[RecommendationCardEncryptionService alloc] init];
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }
@@ -212,11 +212,13 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     
     RecommendationData *data = result.data;
     
+    // Todo
 //    if (data.action == nil || data.transactionOptimisation == nil) {
 //        return NO;
 //    }
     
     if (data.action == ALLOW || data.action == REVIEW) {
+        // Todo x2
 //        if (data.transactionOptimisation.action == nil) {
 //            return NO;
 //        }

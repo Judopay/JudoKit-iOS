@@ -22,12 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationSession.h"
 #import "Functions.h"
 #import "JPAuthorization.h"
 #import "JPError+Additions.h"
-#import "RecommendationSessionConfiguration.h"
 #import "JudoKit.h"
+#import "RecommendationSessionConfiguration.h"
+#import "RecommendationSession.h"
 #import "NSObject+Additions.h"
 
 #pragma mark - Constants

@@ -56,10 +56,8 @@
     NSError *error;
     NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
     if(!error) {
-        NSLog(@"Recommendation feature encryption payload: %@",encryptionPayload);
         return encryptionPayload;
     } else {
-        NSLog(@"Recommendation feature encryption error %@", error.localizedDescription);
         return nil;
     }
 }
