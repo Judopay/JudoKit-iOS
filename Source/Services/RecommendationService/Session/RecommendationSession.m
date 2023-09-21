@@ -35,7 +35,6 @@
 static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 static NSString *const kHeaderFieldAccept = @"Accept";
-
 static NSString *const kMethodPOST = @"POST";
 
 @interface RecommendationSession () <NSURLSessionDelegate>
@@ -162,7 +161,6 @@ static NSString *const kMethodPOST = @"POST";
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
-    // Todo: Refactor?
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     [session finishTasksAndInvalidate];
 }

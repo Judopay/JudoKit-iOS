@@ -22,20 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-// Todo: do we need these two imports?
-#import "JPError+Additions.h"
-#import "JPRequestEnricher.h"
 #import "RecommendationSession.h"
 #import "RecommendationSessionConfiguration.h"
-#import "NSObject+Additions.h"
 #import "RecommendationApiService.h"
 #import "RecommendationRequest.h"
 
 @interface RecommendationApiService ()
 
 @property (nonatomic, strong) RecommendationSession *session;
-@property (nonatomic, strong) JPRequestEnricher *enricher;
-@property (nonatomic, strong) NSArray<NSString *> *enricheablePaths;
 
 @end
 
@@ -66,12 +60,8 @@
 
 - (void)invokeRecommendationRequest:(NSDictionary *)parameters
                andRecommendationUrl:(NSString *)recommendationUrl
-                      andCompletion:(RecommendationCompletionBlock)completion{
-
-    JPEnricherCompletionBlock enricherCompletion = ^(NSDictionary *enrichedRequest) {
-        [self.session POST:recommendationUrl parameters:enrichedRequest andCompletion:completion];
-    };
-    enricherCompletion(parameters);
+                      andCompletion:(RecommendationCompletionBlock)completion {
+    [self.session POST:recommendationUrl parameters:parameters andCompletion:completion];
 }
 
 @end
