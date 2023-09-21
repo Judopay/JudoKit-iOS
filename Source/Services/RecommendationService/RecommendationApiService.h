@@ -57,5 +57,4 @@
                andRecommendationUrl:(NSString *)recommendationUrl
                       andCompletion:(nullable RecommendationCompletionBlock)completion;
 
-
 @end

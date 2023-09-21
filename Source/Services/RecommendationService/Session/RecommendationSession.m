@@ -25,9 +25,7 @@
 #import "RecommendationSession.h"
 #import "Functions.h"
 #import "JPAuthorization.h"
-#import "JPResponse.h"
 #import "JPError+Additions.h"
-#import "JPReachability.h"
 #import "RecommendationSessionConfiguration.h"
 #import "JudoKit.h"
 #import "NSObject+Additions.h"
@@ -41,7 +39,6 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 static NSString *const kMethodPOST = @"POST";
 
 @interface RecommendationSession () <NSURLSessionDelegate>
-@property (nonatomic, strong, readwrite) JPReachability *reachability;
 @property (nonatomic, strong, readwrite) RecommendationSessionConfiguration *configuration;
 @property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
 @end
@@ -57,10 +54,7 @@ static NSString *const kMethodPOST = @"POST";
 - (instancetype)initWithConfiguration:(RecommendationSessionConfiguration *)configuration {
     if (self = [super init]) {
         NSAssert(configuration, @"Configuration should not be nil");
-
         _configuration = configuration;
-        NSURL * url = [NSURL URLWithString:@"https://"];
-//        _reachability = [JPReachability reachabilityWithURL:url];
     }
     return self;
 }
@@ -87,12 +81,6 @@ static NSString *const kMethodPOST = @"POST";
                         endpoint:(NSString *)path
                       parameters:(NSDictionary *)parameters
                    andCompletion:(RecommendationCompletionBlock)completion {
-
-//    if (!self.reachability.isReachable) {
-//        completion(nil, JPError.internetConnectionError);
-//        return;
-//    }
-
     NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];

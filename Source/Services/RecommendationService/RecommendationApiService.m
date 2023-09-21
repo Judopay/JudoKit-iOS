@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+// Todo: do we need these two imports?
 #import "JPError+Additions.h"
 #import "JPRequestEnricher.h"
 #import "RecommendationSession.h"
@@ -29,12 +30,6 @@
 #import "NSObject+Additions.h"
 #import "RecommendationApiService.h"
 #import "RecommendationRequest.h"
-
-typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
-    JPHTTPMethodGET,
-    JPHTTPMethodPOST,
-    JPHTTPMethodPUT
-};
 
 @interface RecommendationApiService ()
 
@@ -52,9 +47,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 
     if (self = [super init]) {
         _authorization = authorization;
-        _enricheablePaths = @[ @"" ];
-        _enricher = [JPRequestEnricher new];
-
         [self setUpSession];
     }
     return self;
@@ -73,40 +65,13 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
 }
 
 - (void)invokeRecommendationRequest:(NSDictionary *)parameters
-                   andRecommendationUrl:(NSString *)recommendationUrl
-                          andCompletion:(RecommendationCompletionBlock)completion{
-
-    [self performRequestWithMethod:JPHTTPMethodPOST
-                          endpoint:recommendationUrl
-                        parameters:parameters
-                     andCompletion:completion];
-}
-
-
-#pragma mark - Helper methods
-
-- (void)performRequestWithMethod:(JPHTTPMethod)method
-                        endpoint:(NSString *)endpoint
-                      parameters:(NSDictionary *)parameters
-                   andCompletion:(RecommendationCompletionBlock)completion {
-
-    BOOL shouldEnrich = [self.enricheablePaths containsObject:endpoint];
+               andRecommendationUrl:(NSString *)recommendationUrl
+                      andCompletion:(RecommendationCompletionBlock)completion{
 
     JPEnricherCompletionBlock enricherCompletion = ^(NSDictionary *enrichedRequest) {
-        switch (method) {
-            case JPHTTPMethodPOST:
-                [self.session POST:endpoint parameters:enrichedRequest andCompletion:completion];
-                break;
-            default:
-                completion(nil, JPError.requestFailedError);
-        }
+        [self.session POST:recommendationUrl parameters:enrichedRequest andCompletion:completion];
     };
-
-    if (shouldEnrich) {
-        [self.enricher enrichRequestParameters:parameters withCompletion:enricherCompletion];
-    } else {
-        enricherCompletion(parameters);
-    }
+    enricherCompletion(parameters);
 }
 
 @end

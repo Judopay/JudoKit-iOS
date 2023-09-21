@@ -35,6 +35,13 @@ static NSString *const kTransactionOptimisationActionAuthorise = @"AUTHORISE";
 static NSString *const kScaExemptionLowValue = @"LOW_VALUE";
 static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK_ANALYSIS";
 
+static NSString *const kRecommendationResultData = @"data";
+static NSString *const kRecommendationResultAction = @"action";
+static NSString *const kRecommendationResultTransactionOptimisation = @"transactionOptimisation";
+static NSString *const kRecommendationResultTransactionOptimisationAction = @"action";
+static NSString *const kRecommendationResultTransactionOptimisationExemption = @"exemption";
+static NSString *const kRecommendationResultTransactionOptimisationChallenge = @"threeDSChallengePreference";
+
 @implementation RecommendationResult
 
 #pragma mark - Initializers
@@ -47,12 +54,12 @@ static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK
 }
 
 - (void)populateWith:(NSDictionary *)dictionary {
-    NSDictionary * data = dictionary[@"data"];
-    NSString * action = data[@"action"];
-    NSDictionary * transactionOptimisation = data[@"transactionOptimisation"];
-    NSString * transactionOptimisationActionString = transactionOptimisation[@"action"];
-    NSString * scaExemptionString = transactionOptimisation[@"exemption"];
-    NSString * threeDSChallengePreference = transactionOptimisation[@"threeDSChallengePreference"];
+    NSDictionary * data = dictionary[kRecommendationResultData];
+    NSString * action = data[kRecommendationResultAction];
+    NSDictionary * transactionOptimisation = data[kRecommendationResultTransactionOptimisation];
+    NSString * transactionOptimisationActionString = transactionOptimisation[kRecommendationResultTransactionOptimisationAction];
+    NSString * scaExemptionString = transactionOptimisation[kRecommendationResultTransactionOptimisationExemption];
+    NSString * threeDSChallengePreference = transactionOptimisation[kRecommendationResultTransactionOptimisationChallenge];
     
     RecommendationAction recommendationAction = [self recommendationActionForString:action];
     TransactionOptimisationAction transactionOptimisationAction = [self transactionOptimisationActionForString:transactionOptimisationActionString];
@@ -63,19 +70,17 @@ static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK
                                               threeDSChallengePreference:threeDSChallengePreference];
 }
 
+// Todo: Confirm with Stefan that it's proper place for these 3 functions below.
 - (RecommendationAction)recommendationActionForString:(NSString *)actionString {
     if ([actionString isEqualToString:kRecommendationActionAllow]) {
         return ALLOW;
     }
-
     if ([actionString isEqualToString:kRecommendationActionReview]) {
         return REVIEW;
     }
-    
     if ([actionString isEqualToString:kRecommendationActionPrevent]) {
         return PREVENT;
     }
-
     return nil;
 }
 
@@ -83,11 +88,9 @@ static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK
     if ([scaExemptionString isEqualToString:kScaExemptionLowValue]) {
         return LOW_VALUE;
     }
-
     if ([scaExemptionString isEqualToString:kScaExemptionTransactionRiskAnalysis]) {
         return TRANSACTION_RISK_ANALYSIS;
     }
-
     return nil;
 }
 
@@ -95,11 +98,9 @@ static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK
     if ([actionString isEqualToString:kTransactionOptimisationActionAuthenticate]) {
         return AUTHENTICATE;
     }
-
     if ([actionString isEqualToString:kTransactionOptimisationActionAuthorise]) {
         return AUTHORISE;
     }
-
     return nil;
 }
 
