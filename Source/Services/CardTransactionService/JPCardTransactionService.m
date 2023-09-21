@@ -163,6 +163,112 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 - (void)performTransactionWithType:(JPCardTransactionType)type
                            details:(JPCardTransactionDetails *)details
                      andCompletion:(JPCompletionBlock)completion {
+    
+    // Todo: Hard-coded 'true'
+    Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
+    if (isCardEncryptionRequired) {
+        [self performRecommendationApiCall:details
+                                      type:type
+                                completion:completion];
+    } else {
+        [self performJudoApiCall:details
+                            type:type
+                      completion:completion];
+    }
+}
+
+- (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypePayment details:details andCompletion:completion];
+}
+
+- (void)invokePreAuthPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypePreAuth details:details andCompletion:completion];
+}
+
+- (void)invokeTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details andCompletion:completion];
+}
+
+- (void)invokePreAuthTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details andCompletion:completion];
+}
+
+- (void)invokeSaveCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypeSave details:details andCompletion:completion];
+}
+
+- (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypeCheck details:details andCompletion:completion];
+}
+
+- (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
+    [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
+}
+
+- (BOOL)validateRecommendationResult:(RecommendationResult *)result {
+    if (result.data == nil) {
+        return NO;
+    }
+    
+    RecommendationData *data = result.data;
+    
+//    if (data.action == nil || data.transactionOptimisation == nil) {
+//        return NO;
+//    }
+    
+    if (data.action == ALLOW || data.action == REVIEW) {
+//        if (data.transactionOptimisation.action == nil) {
+//            return NO;
+//        }
+        
+//        if (data.transactionOptimisation.exemption == nil && data.transactionOptimisation.threeDSChallengePreference == nil) {
+//            return NO;
+//        }
+    }
+    
+    return YES;
+}
+
+- (void)performRecommendationApiCall:(JPCardTransactionDetails *)details
+                                type:(JPCardTransactionType)type
+                          completion:(JPCompletionBlock)completion {
+    NSString *cardNumber = details.cardNumber;
+    NSString *cardHolderName = details.cardholderName;
+    NSString *expirationDate = details.expiryDate;
+    NSString *rsaKey = self.configuration.recommendationConfiguration.rsaKey;
+    
+    // Encryption
+    NSDictionary *encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
+    if (encryptedCard != nil) {
+        
+        // Recommendation API Call
+        NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
+        // Todo: simplify it maybe with handleRecommendationApiResult function.
+        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
+            if (response) {
+                [self handleRecommendationApiResult:response
+                                            details:details
+                                         completion:completion];
+            } else {
+                // Todo: use default sdk properties here as well?
+                [self performJudoApiCall:details
+                                    type:type
+                              completion:completion];
+            }
+        };
+        RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
+        [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
+    } else {
+        // Todo: use default sdk properties here as well?
+        [self performJudoApiCall:details
+                            type:type
+                      completion:completion];
+    }
+}
+    
+- (void)performJudoApiCall:(JPCardTransactionDetails *)details
+                      type:(JPCardTransactionType)type
+                completion:(JPCompletionBlock)completion {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
 
@@ -212,38 +318,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                 completion(nil, error);
             }
         };
-        
-        // Todo: Encryption; hard-coded 'true' for isRecommendationFeatureEnabled
-        Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
-        if (isCardEncryptionRequired) {
-            NSString *cardNumber = details.cardNumber;
-            NSString *cardHolderName = details.cardholderName;
-            NSString *expirationDate = details.expiryDate;
-            NSString *rsaKey = self.configuration.recommendationConfiguration.rsaKey;
-            
-            // Encryption
-            NSDictionary *encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
-            if (encryptedCard != nil) {
-                
-                // Temporary here for development only, will be moved soon
-                // Recommendation API Call
-                NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
-                RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
-                    if (response) {
-                        NSLog(@"TESTO X");
-//                        completion(response, nil);
-                    } else {
-                        // todo
-                        completion(nil, error);
-                    }
-                };
-                RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
-                [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
-            } else {
-                // todo
-            }
-            
-        }
         
         switch (type) {
             case JPCardTransactionTypePayment: {
@@ -297,32 +371,34 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     }
 }
 
-- (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePayment details:details andCompletion:completion];
-}
-
-- (void)invokePreAuthPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuth details:details andCompletion:completion];
-}
-
-- (void)invokeTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details andCompletion:completion];
-}
-
-- (void)invokePreAuthTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details andCompletion:completion];
-}
-
-- (void)invokeSaveCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeSave details:details andCompletion:completion];
-}
-
-- (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeCheck details:details andCompletion:completion];
-}
-
-- (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
+- (void)handleRecommendationApiResult:(RecommendationResult *)result
+                              details:(JPCardTransactionDetails *)details
+                                 type:(JPCardTransactionType)type
+                           completion:(JPCompletionBlock)completion; {
+    RecommendationAction recommendationAction = result.data.action;
+    TransactionOptimisation *transactionOptimisation = result.data.transactionOptimisation;
+    ScaExemption *exemptionReceived = transactionOptimisation.exemption;
+    NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
+    
+    BOOL isRecommendationResultValid = [self validateRecommendationResult:result];
+    if (isRecommendationResultValid) {
+        if (recommendationAction == ALLOW || recommendationAction == REVIEW) {
+            // Todo: use Recommendation properties!
+            [self performJudoApiCall:details
+                                type:type
+                          completion:completion];
+        } else if (recommendationAction == PREVENT) {
+            // Todo: another error type, not string? If string, move to strings.
+            NSString * error = @"The Recommendation Feature has prevented this transaction.";
+            completion(nil, error);
+        }
+    } else {
+        // We allow Judo API call in this case, as the API will perform its own checks anyway.
+        // Todo: use default sdk properties!
+        [self performJudoApiCall:details
+                            type:type
+                      completion:completion];
+    }
 }
 
 - (void)cleanup {
