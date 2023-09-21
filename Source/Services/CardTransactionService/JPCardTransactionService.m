@@ -248,6 +248,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
             if (response) {
                 [self handleRecommendationApiResult:response
                                             details:details
+                                               type:type
                                          completion:completion];
             } else {
                 // Todo: use default sdk properties here as well?

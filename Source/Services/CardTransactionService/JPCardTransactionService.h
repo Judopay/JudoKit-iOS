@@ -62,16 +62,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 - (void)invokeRegisterCardWithDetails:(nonnull JPCardTransactionDetails *)details
                         andCompletion:(nullable JPCompletionBlock)completion;
 
-- (void)handleRecommendationApiResult:(RecommendationResult *)result
-                              details:(JPCardTransactionDetails *)details
-                           completion:(JPCompletionBlock)completion;
-
-- (void)performJudoApiCall:(JPCardTransactionDetails *)details
-                      type:(JPCardTransactionType)type
-                completion:(JPCompletionBlock)completion;
-
-- (BOOL)validateRecommendationResult:(RecommendationResult *)result;
-
 - (void)cleanup;
 
 @end
