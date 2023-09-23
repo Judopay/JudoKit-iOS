@@ -89,7 +89,6 @@ static NSString *const kHeaderFieldAccept = @"Accept";
         }];
 
         if (parameters) {
-            // Todo: Should we rename _jp_toJSONObjectData to _toJSONObjectData?
             request.HTTPBody = [parameters _jp_toJSONObjectData];
         }
 
@@ -155,7 +154,6 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
-    // Todo: do we need this?
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     [session finishTasksAndInvalidate];
 }
