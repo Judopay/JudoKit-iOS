@@ -41,8 +41,6 @@
 
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPApiService *apiService;
-@property (nonatomic, strong) RecommendationApiService *recommendationApiService;
-@property (nonatomic, strong) RecommendationCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPCompletionBlock completionHandler;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 
@@ -54,8 +52,6 @@
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                            apiService:(JPApiService *)apiService
-                           recommendationApiService:(RecommendationApiService *)recommendationApiService
-                    encryptionService:(RecommendationCardEncryptionService *)encryptionService
                 transitioningDelegate:(JPSliderTransitioningDelegate *)transitioningDelegate
                            completion:(JPCompletionBlock)completion {
     if (self = [super init]) {
@@ -88,7 +84,7 @@
     JPTransactionViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
                                    recommendationApiService:nil
-                                          encryptionService:self.encryptionService
+                                          encryptionService:nil
                                               configuration:self.configuration
                                             transactionType:type
                                            presentationMode:mode

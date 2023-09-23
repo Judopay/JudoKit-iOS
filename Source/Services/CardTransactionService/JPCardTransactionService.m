@@ -129,6 +129,7 @@
 
 @implementation JPCardTransactionService
 
+// Todo: do we need Recommendation stuff in this case?
 - (instancetype)initWithAPIService:(JPApiService *)apiService
           recommendationApiService:(RecommendationApiService *)recommendationApiService
                      configuration:(JPConfiguration *)configuration
