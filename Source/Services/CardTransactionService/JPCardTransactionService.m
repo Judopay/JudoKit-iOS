@@ -206,6 +206,10 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 }
 
 - (BOOL)validateRecommendationResult:(RecommendationResult *)result {
+    if (result == nil) {
+        return NO;
+    }
+    
     if (result.data == nil) {
         return NO;
     }
@@ -218,11 +222,11 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 //    }
     
     if (data.action == ALLOW || data.action == REVIEW) {
-        // Todo x2
+        // Todo
 //        if (data.transactionOptimisation.action == nil) {
 //            return NO;
 //        }
-        
+        // Todo
 //        if (data.transactionOptimisation.exemption == nil && data.transactionOptimisation.threeDSChallengePreference == nil) {
 //            return NO;
 //        }
@@ -245,19 +249,11 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         
         // Recommendation API Call
         NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
-        // Todo: simplify it maybe with handleRecommendationApiResult function.
         RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
-            if (response) {
-                [self handleRecommendationApiResult:response
-                                            details:details
-                                               type:type
-                                         completion:completion];
-            } else {
-                // Todo: use default sdk properties here as well?
-                [self performJudoApiCall:details
-                                    type:type
-                              completion:completion];
-            }
+            [self handleRecommendationApiResult:response
+                                        details:details
+                                           type:type
+                                     completion:completion];
         };
         RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
         [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
@@ -378,13 +374,12 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                               details:(JPCardTransactionDetails *)details
                                  type:(JPCardTransactionType)type
                            completion:(JPCompletionBlock)completion; {
-    RecommendationAction recommendationAction = result.data.action;
-    TransactionOptimisation *transactionOptimisation = result.data.transactionOptimisation;
-    ScaExemption *exemptionReceived = transactionOptimisation.exemption;
-    NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
-    
     BOOL isRecommendationResultValid = [self validateRecommendationResult:result];
     if (isRecommendationResultValid) {
+        RecommendationAction recommendationAction = result.data.action;
+        TransactionOptimisation *transactionOptimisation = result.data.transactionOptimisation;
+        ScaExemption *exemptionReceived = transactionOptimisation.exemption;
+        NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
         if (recommendationAction == ALLOW || recommendationAction == REVIEW) {
             // Todo: use Recommendation properties!
             [self performJudoApiCall:details
