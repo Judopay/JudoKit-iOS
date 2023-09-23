@@ -299,8 +299,6 @@
     return [JPPaymentMethodsBuilderImpl buildModuleWithMode:mode
                                               configuration:configuration
                                                  apiService:self.apiService
-            // Todo: We need it here?
-//                                          encryptionService:self.encryptionService
                                       transitioningDelegate:self.transitioningDelegate
                                           completionHandler:completion];
 }
