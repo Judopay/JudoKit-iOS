@@ -35,7 +35,6 @@
 static NSString *const kContentTypeJSON = @"application/json";
 static NSString *const kHeaderFieldContentType = @"Content-Type";
 static NSString *const kHeaderFieldAccept = @"Accept";
-static NSString *const kMethodPOST = @"POST";
 
 @interface RecommendationSession () <NSURLSessionDelegate>
 @property (nonatomic, strong, readwrite) RecommendationSessionConfiguration *configuration;
@@ -61,13 +60,14 @@ static NSString *const kMethodPOST = @"POST";
 #pragma mark - REST API methods
 
 - (void)POST:(NSString *)endpoint parameters:(NSDictionary *)parameters andCompletion:(RecommendationCompletionBlock)completion {
-    [self performRequestWithMethod:kMethodPOST endpoint:endpoint parameters:parameters andCompletion:completion];
+    [self performRequestWithEndpoint:endpoint parameters:parameters andCompletion:completion];
 }
 
 #pragma mark - Private implementation
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaders {
     if (!_requestHeaders) {
+        // Todo: Confirm with Stefan whether we can pass all of these headers to Recommendation API.
         NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithDictionary:self.configuration.authorization.headers];
         headers[kHeaderFieldContentType] = kContentTypeJSON;
         headers[kHeaderFieldAccept] = kContentTypeJSON;
@@ -76,26 +76,27 @@ static NSString *const kMethodPOST = @"POST";
     return _requestHeaders;
 }
 
-- (void)performRequestWithMethod:(NSString *)HTTPMethod
-                        endpoint:(NSString *)path
-                      parameters:(NSDictionary *)parameters
-                   andCompletion:(RecommendationCompletionBlock)completion {
+- (void)performRequestWithEndpoint:(NSString *)path
+                        parameters:(NSDictionary *)parameters
+                     andCompletion:(RecommendationCompletionBlock)completion {
     NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        request.HTTPMethod = HTTPMethod;
+        request.HTTPMethod = @"POST";
 
         [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *__unused stop) {
             [request addValue:obj forHTTPHeaderField:key];
         }];
 
         if (parameters) {
+            // Todo: Should we rename _jp_toJSONObjectData to _toJSONObjectData?
             request.HTTPBody = [parameters _jp_toJSONObjectData];
         }
 
         NSURLSessionDataTask *task = [self task:request completion:completion];
         [task resume];
     } else {
+        // Todo: JP error
         completion(nil, JPError.requestFailedError);
     }
 }
@@ -124,11 +125,13 @@ static NSString *const kMethodPOST = @"POST";
        andCompletion:(RecommendationCompletionBlock)completion {
 
     if (error || !data) {
+        // Todo: JP error
         JPError *jpError = error ? (JPError *)error : JPError.requestFailedError;
         completion(nil, jpError);
         return;
     }
 
+    // Todo: JP error
     __block JPError *jsonError = nil;
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data
                                                                  options:NSJSONReadingAllowFragments
@@ -136,21 +139,12 @@ static NSString *const kMethodPOST = @"POST";
 
     if (jsonError || !responseJSON) {
         if (!jsonError) {
+            // Todo: JP error
             jsonError = [JPError JSONSerializationFailedWithError:jsonError];
         }
         completion(nil, jsonError);
         return;
     }
-
-    if (responseJSON[@"code"]) {
-        completion(nil, [JPError errorFromDictionary:responseJSON]);
-        return;
-    }
-
-    //    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
-    //        completion(nil, [JPError threeDSRequestWithPayload:responseJSON]);
-    //        return;
-    //    }
 
     RecommendationResult *result = [[RecommendationResult alloc] initWithDictionary:responseJSON];
     completion(result, nil);
@@ -161,6 +155,7 @@ static NSString *const kMethodPOST = @"POST";
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
+    // Todo: do we need this?
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     [session finishTasksAndInvalidate];
 }
