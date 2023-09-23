@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, TransactionOptimisationAction) {
+    UNKNOWN_TRANSACTION_OPTIMISATION_ACTION,
     AUTHENTICATE,
     AUTHORISE
 };

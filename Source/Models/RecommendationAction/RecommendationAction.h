@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, RecommendationAction) {
+    UNKNOWN_RECOMMENDATION_ACTION,
     ALLOW,
     REVIEW,
     PREVENT

@@ -216,21 +216,18 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     }
     
     RecommendationData *data = result.data;
-    
-    // Todo
-//    if (data.action == nil || data.transactionOptimisation == nil) {
-//        return NO;
-//    }
+
+    if (data.action == UNKNOWN_RECOMMENDATION_ACTION || data.transactionOptimisation == nil) {
+        return NO;
+    }
     
     if (data.action == ALLOW || data.action == REVIEW) {
-        // Todo
-//        if (data.transactionOptimisation.action == nil) {
-//            return NO;
-//        }
-        // Todo
-//        if (data.transactionOptimisation.exemption == nil && data.transactionOptimisation.threeDSChallengePreference == nil) {
-//            return NO;
-//        }
+        if (data.transactionOptimisation.action == UNKNOWN_TRANSACTION_OPTIMISATION_ACTION) {
+            return NO;
+        }
+        if (data.transactionOptimisation.exemption == UNKNOWN_EXCEPTION && data.transactionOptimisation.threeDSChallengePreference == nil) {
+            return NO;
+        }
     }
     
     return YES;

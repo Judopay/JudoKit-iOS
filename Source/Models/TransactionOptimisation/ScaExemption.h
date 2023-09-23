@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, ScaExemption) {
+    UNKNOWN_EXCEPTION,
     LOW_VALUE,
     TRANSACTION_RISK_ANALYSIS
 };
