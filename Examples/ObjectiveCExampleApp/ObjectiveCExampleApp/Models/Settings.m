@@ -456,6 +456,13 @@ NSString *safeString(NSString *aString) {
     return nil;
 }
 
+- (NSInteger *)recommendationTimeout {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults integerForKey:kRecommendationApiTimeoutKey];
+    }
+    return nil;
+}
+
 #pragma mark - Network Timeouts
 
 - (NSNumber *)connectTimeout {

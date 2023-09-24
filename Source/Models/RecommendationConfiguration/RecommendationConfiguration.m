@@ -29,18 +29,22 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithRsaKey:(nonnull NSString *)rsaKey
-          andRecommendationURL:(nonnull NSString *)recommendationURL {
+             recommendationURL:(nonnull NSString *)recommendationURL
+         recommendationTimeout:(nonnull int *)recommendationTimeout {
         if (self = [super init]) {
             self.rsaKey = rsaKey;
             self.recommendationURL = recommendationURL;
+            self.recommendationTimeout = recommendationTimeout;
         }
         return self;
     }
 
 + (instancetype)configurationWithRsaKey:(NSString *)rsaKey
-                   andRecommendationURL:(NSString *)recommendationURL {
+                      recommendationURL:(nonnull NSString *)recommendationURL
+                  recommendationTimeout:(nonnull int *)recommendationTimeout {
     return [[RecommendationConfiguration alloc] initWithRsaKey:rsaKey
-                                          andRecommendationURL:recommendationURL];
+                                             recommendationURL:recommendationURL
+                                         recommendationTimeout:recommendationTimeout];
 }
 
 @end

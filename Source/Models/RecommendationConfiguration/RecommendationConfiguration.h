@@ -38,9 +38,11 @@
  *  @returns a configured instance of RecommendationConfiguration
  */
 - (nonnull instancetype)initWithRsaKey:(nonnull NSString *)rsaKey
-                  andRecommendationURL:(nonnull NSString *)recommendationURL;
+                     recommendationURL:(nonnull NSString *)recommendationURL
+                 recommendationTimeout:(nonnull int *)recommendationTimeout;
 
 + (nonnull instancetype)configurationWithRsaKey:(nonnull NSString *)rsaKey
-                           andRecommendationURL:(nonnull NSString *)recommendationURL;
+                              recommendationURL:(nonnull NSString *)recommendationURL
+                          recommendationTimeout:(nonnull int *)recommendationTimeout;
 
 @end

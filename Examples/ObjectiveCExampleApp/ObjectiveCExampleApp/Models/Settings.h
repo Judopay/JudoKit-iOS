@@ -248,6 +248,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 #pragma mark - Recommendation Feature
 - (NSString *)rsaKey;
 - (NSString *)recommendationUrl;
+- (NSInteger *)recommendationTimeout;
 
 @end
 
