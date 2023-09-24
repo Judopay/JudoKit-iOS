@@ -355,10 +355,12 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         configuration.threeDSTwoMessageVersion = messageVersion;
     }
     
-    NSString *rsaKey = Settings.defaultSettings.rsaKey;
-    NSString *recommendationURL = Settings.defaultSettings.recommendationUrl;
-    configuration.recommendationConfiguration = [RecommendationConfiguration configurationWithRsaKey:rsaKey
-                                                                       andRecommendationURL:recommendationURL];
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        NSString *rsaKey = Settings.defaultSettings.rsaKey;
+        NSString *recommendationURL = Settings.defaultSettings.recommendationUrl;
+        configuration.recommendationConfiguration = [RecommendationConfiguration configurationWithRsaKey:rsaKey
+                                                                                    andRecommendationURL:recommendationURL];
+    }
     
     return configuration;
 }

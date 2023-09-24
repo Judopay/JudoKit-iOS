@@ -129,7 +129,6 @@
 
 @implementation JPCardTransactionService
 
-// Todo: do we need Recommendation stuff in this case?
 - (instancetype)initWithAPIService:(JPApiService *)apiService
           recommendationApiService:(RecommendationApiService *)recommendationApiService
                      configuration:(JPConfiguration *)configuration
@@ -164,9 +163,9 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 - (void)performTransactionWithType:(JPCardTransactionType)type
                            details:(JPCardTransactionDetails *)details
                      andCompletion:(JPCompletionBlock)completion {
-    
-    // Todo: Hard-coded 'true'
-    Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type isRecommendationFeatureEnabled:true];
+    Boolean isCardEncryptionEnabled = self.configuration.recommendationConfiguration != nil;
+    Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type
+                                                                 isRecommendationFeatureEnabled:isCardEncryptionEnabled];
     if (isCardEncryptionRequired) {
         [self performRecommendationApiCall:details
                                       type:type
