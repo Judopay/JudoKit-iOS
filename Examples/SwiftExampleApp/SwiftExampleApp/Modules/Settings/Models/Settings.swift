@@ -205,7 +205,7 @@ class Settings {
     var isInitialRecurringPaymentEnabled: Bool {
         userDefaults.bool(forKey: kIsInitialRecurringPaymentKey)
     }
-    
+
     var isRecommendationOn: Bool {
         userDefaults.bool(forKey: kIsRecommendationOnKey)
     }
@@ -228,6 +228,22 @@ class Settings {
 
     var shouldAskForCardholderName: Bool {
         userDefaults.bool(forKey: kShouldAskForCardholderNameKey)
+    }
+
+    // MARK: - Recommendation Configuration
+
+    var recommendationConfiguration: RecommendationConfiguration? {
+        if isRecommendationOn {
+            let rsaKey = userDefaults.string(forKey: kRsaKey)
+            let recommendationURL = userDefaults.string(forKey: kRecommendationUrlKey)
+//            let recommendationTimeout = userDefaults.string(forKey: kRecommendationTimeoutKey)
+            return RecommendationConfiguration(rsaKey: rsaKey,
+                                    recommendationURL: recommendationURL,
+                                // Todo: timeout!
+                                recommendationTimeout: nil
+            )
+        }
+        return nil
     }
 
     // MARK: - Card Address

@@ -26,23 +26,23 @@
 
 @interface RecommendationConfiguration : NSObject
 
-@property (nonatomic, strong, nonnull) NSString *rsaKey;
+@property (nonatomic, strong, nullable) NSString *rsaKey;
 
-@property (nonatomic, strong, nonnull) NSString *recommendationURL;
+@property (nonatomic, strong, nullable) NSString *recommendationURL;
 
-@property (nonatomic, assign, nullable) int *recommendationTimeout;
+@property (nonatomic, assign, nullable) NSInteger *recommendationTimeout;
 
 /**
  * Designated initializer that sets the required parameters for Recommendation Feature calls.
  *
  *  @returns a configured instance of RecommendationConfiguration
  */
-- (nonnull instancetype)initWithRsaKey:(nonnull NSString *)rsaKey
-                     recommendationURL:(nonnull NSString *)recommendationURL
-                 recommendationTimeout:(nonnull int *)recommendationTimeout;
+- (nonnull instancetype)initWithRsaKey:(nullable NSString *)rsaKey
+                     recommendationURL:(nullable NSString *)recommendationURL
+                 recommendationTimeout:(nullable NSInteger *)recommendationTimeout;
 
-+ (nonnull instancetype)configurationWithRsaKey:(nonnull NSString *)rsaKey
-                              recommendationURL:(nonnull NSString *)recommendationURL
-                          recommendationTimeout:(nonnull int *)recommendationTimeout;
++ (nonnull instancetype)configurationWithRsaKey:(nullable NSString *)rsaKey
+                              recommendationURL:(nullable NSString *)recommendationURL
+                          recommendationTimeout:(nullable NSInteger *)recommendationTimeout;
 
 @end
