@@ -18,7 +18,6 @@
 
     NSSet *hiddenKeys;
 
-    // Todo: Recommendation-related changes required here?
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {

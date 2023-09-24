@@ -383,7 +383,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                                 type:type
                           completion:completion];
         } else if (recommendationAction == PREVENT) {
-            // Todo: another error type, not string? If string, move to strings.
             NSString * error = @"The Recommendation Feature has prevented this transaction.";
             completion(nil, error);
         }

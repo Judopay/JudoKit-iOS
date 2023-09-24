@@ -95,7 +95,6 @@ static NSString *const kHeaderFieldAccept = @"Accept";
         NSURLSessionDataTask *task = [self task:request completion:completion];
         [task resume];
     } else {
-        // Todo: JP error
         completion(nil, JPError.requestFailedError);
     }
 }
@@ -124,13 +123,11 @@ static NSString *const kHeaderFieldAccept = @"Accept";
        andCompletion:(RecommendationCompletionBlock)completion {
 
     if (error || !data) {
-        // Todo: JP error
         JPError *jpError = error ? (JPError *)error : JPError.requestFailedError;
         completion(nil, jpError);
         return;
     }
 
-    // Todo: JP error
     __block JPError *jsonError = nil;
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data
                                                                  options:NSJSONReadingAllowFragments
@@ -138,7 +135,6 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 
     if (jsonError || !responseJSON) {
         if (!jsonError) {
-            // Todo: JP error
             jsonError = [JPError JSONSerializationFailedWithError:jsonError];
         }
         completion(nil, jsonError);
