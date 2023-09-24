@@ -40,6 +40,7 @@ let kSecretKey = "secret"
 let kSessionTokenKey = "session_token"
 let kPaymentSessionKey = "payment_session"
 
+let kIsRecommendationOnKey = "is_recommendation_enabled"
 let kIsAddressOnKey = "is_address_enabled"
 let kIsPrimaryAccountDetailsOnKey = "is_primary_account_details_enabled"
 
@@ -62,7 +63,7 @@ let kPrimaryAccountPostCodeKey = "primary_account_post_code"
 // MARK: - Recommendation Feature keys
 let kRsaKey = "rsa_key"
 let kRecommendationUrlKey = "recommendation_url"
-let kRecommendationApiTimeoutKey = "recommendation_api_timeout"
+let kRecommendationTimeoutKey = "recommendation_timeout"
 
 // MARK: - 3DS 2.0 section keys
 

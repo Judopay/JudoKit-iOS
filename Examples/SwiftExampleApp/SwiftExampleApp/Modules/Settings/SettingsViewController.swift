@@ -21,13 +21,14 @@ class SettingsViewController: IASKAppSettingsViewController {
         }
 
         if key == kIsPaymentSessionOnKey {
-            setHiddenKeys(computeHiddenKeys(from: [key, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey]), animated: true)
+            setHiddenKeys(computeHiddenKeys(from: [key, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey]), animated: true)
         } else if key == kIsTokenAndSecretOnKey {
-            setHiddenKeys(computeHiddenKeys(from: [key, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey]), animated: true)
-        } else if key == kIsAddressOnKey || key == kIsPrimaryAccountDetailsOnKey {
+            setHiddenKeys(computeHiddenKeys(from: [key, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey]), animated: true)
+        } else if key == kIsAddressOnKey || key == kIsPrimaryAccountDetailsOnKey || key == kIsRecommendationOnKey {
             setHiddenKeys(computeHiddenKeys(from: [
                 kIsPaymentSessionOnKey,
                 kIsTokenAndSecretOnKey,
+                kIsRecommendationOnKey,
                 kIsAddressOnKey,
                 kIsPrimaryAccountDetailsOnKey
             ]),

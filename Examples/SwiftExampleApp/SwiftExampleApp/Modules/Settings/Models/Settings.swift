@@ -205,6 +205,10 @@ class Settings {
     var isInitialRecurringPaymentEnabled: Bool {
         userDefaults.bool(forKey: kIsInitialRecurringPaymentKey)
     }
+    
+    var isRecommendationOn: Bool {
+        userDefaults.bool(forKey: kIsRecommendationOnKey)
+    }
 
     var isAddressOn: Bool {
         userDefaults.bool(forKey: kIsAddressOnKey)
@@ -290,7 +294,7 @@ class Settings {
     var threeDSTwoMessageVersion: String? {
         userDefaults.string(forKey: kThreeDSTwoMessageVersionKey) ?? ""
     }
-    
+
     var recommendationUrl: String? {
         userDefaults.string(forKey: kRecommendationUrlKey) ?? ""
     }
