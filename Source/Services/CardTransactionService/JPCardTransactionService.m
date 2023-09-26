@@ -255,16 +255,20 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
         [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
     } else {
-        // Todo: use default sdk properties here as well?
+        // We allow Judo API call in this case, as the API will perform its own checks anyway.
         [self performJudoApiCall:details
                             type:type
-                      completion:completion];
+                      completion:completion
+                       exemption:nil
+       challengeRequestIndicator:nil];
     }
 }
     
 - (void)performJudoApiCall:(JPCardTransactionDetails *)details
                       type:(JPCardTransactionType)type
-                completion:(JPCompletionBlock)completion {
+                completion:(JPCompletionBlock)completion
+                 exemption:(ScaExemption)exemption
+ challengeRequestIndicator:(nullable NSString *)challengeRequestIndicator {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
 
@@ -388,7 +392,6 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         }
     } else {
         // We allow Judo API call in this case, as the API will perform its own checks anyway.
-        // Todo: use default sdk properties!
         [self performJudoApiCall:details
                             type:type
                       completion:completion];
