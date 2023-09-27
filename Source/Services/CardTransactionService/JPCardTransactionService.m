@@ -51,6 +51,7 @@
 #import "RecommendationRequest.h"
 #import "RecommendationResult.h"
 #import "RecommendationCardEncryptionService.h"
+#import "RecommendationData.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 

@@ -22,9 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationResult.h"
 #import "ScaExemption.h"
 #import "JPConstants.h"
+#import "RecommendationResult.h"
+#import "RecommendationData.h"
 
 static NSString *const kRecommendationActionAllow = @"ALLOW";
 static NSString *const kRecommendationActionReview = @"REVIEW";

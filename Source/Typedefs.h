@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-//#import "RecommendationResult.h"
 
 @class JPResponse, JPError, RecommendationResult;
 
