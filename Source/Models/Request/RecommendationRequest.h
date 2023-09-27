@@ -27,7 +27,7 @@
 
 @interface RecommendationRequest : NSObject
 
-@property (nonatomic, strong) RecommendationPaymentMethod * paymentMethod;
+@property (nonatomic, strong, nonnull) RecommendationPaymentMethod * paymentMethod;
 
 - (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails;
 
