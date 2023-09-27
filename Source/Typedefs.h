@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "RecommendationResult.h"
+//#import "RecommendationResult.h"
 
-@class JPResponse, JPError;
+@class JPResponse, JPError, RecommendationResult;
 
 typedef void (^JPCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
 

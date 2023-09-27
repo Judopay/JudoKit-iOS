@@ -29,6 +29,7 @@
 #import "RecommendationSessionConfiguration.h"
 #import "RecommendationSession.h"
 #import "NSObject+Additions.h"
+#import "RecommendationResult.h"
 
 #pragma mark - Constants
 
