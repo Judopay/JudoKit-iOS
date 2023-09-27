@@ -59,8 +59,11 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 
 #pragma mark - REST API methods
 
-- (void)POST:(NSString *)endpoint parameters:(NSDictionary *)parameters andCompletion:(RecommendationCompletionBlock)completion {
-    [self performRequestWithEndpoint:endpoint parameters:parameters andCompletion:completion];
+- (void)POST:(NSString *)endpoint
+  parameters:(NSDictionary *)parameters
+     timeout:(NSNumber *)timeout
+andCompletion:(RecommendationCompletionBlock)completion {
+    [self performRequestWithEndpoint:endpoint parameters:parameters timeout:timeout andCompletion:completion];
 }
 
 #pragma mark - Private implementation
@@ -78,11 +81,16 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 
 - (void)performRequestWithEndpoint:(NSString *)path
                         parameters:(NSDictionary *)parameters
+                           timeout:(NSNumber *) timeout
                      andCompletion:(RecommendationCompletionBlock)completion {
     NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         request.HTTPMethod = @"POST";
+        
+        if (timeout) {
+            request.timeoutInterval = [timeout doubleValue];
+        }
 
         [self.requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *__unused stop) {
             [request addValue:obj forHTTPHeaderField:key];

@@ -248,6 +248,8 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         
         // Recommendation API Call
         NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
+        NSNumber *recommendationTimeout = self.configuration.recommendationConfiguration.recommendationTimeout;
+        // Todo: Timeout in seconds, not minutes!
         RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
             [self handleRecommendationApiResult:response
                                         details:details
@@ -255,7 +257,10 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                                      completion:completion];
         };
         RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
-        [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
+        [self.recommendationApiService invokeRecommendationRequest:request
+                                                 recommendationUrl:recommendationUrl
+                                                           timeout:recommendationTimeout
+                                                        completion:recommendationCompletionHandler];
     } else {
         // We allow Judo API call in this case, as the API will perform its own checks anyway.
         [self performJudoApiCall:details

@@ -54,7 +54,8 @@
  * @param completion - the completion block that contains the optional RecommendationResult or Error
  */
 - (void)invokeRecommendationRequest:(nonnull RecommendationRequest *)request
-               andRecommendationUrl:(NSString *)recommendationUrl
-                      andCompletion:(nullable RecommendationCompletionBlock)completion;
+                  recommendationUrl:(NSString *)recommendationUrl
+                            timeout:(NSNumber *)timeout
+                         completion:(nullable RecommendationCompletionBlock)completion;
 
 @end

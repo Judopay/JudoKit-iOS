@@ -30,7 +30,7 @@
 
 - (instancetype)initWithRsaKey:(nullable NSString *)rsaKey
              recommendationURL:(nullable NSString *)recommendationURL
-         recommendationTimeout:(nullable NSInteger *)recommendationTimeout {
+         recommendationTimeout:(nullable NSNumber *)recommendationTimeout {
         if (self = [super init]) {
             self.rsaKey = rsaKey;
             self.recommendationURL = recommendationURL;
@@ -41,7 +41,7 @@
 
 + (instancetype)configurationWithRsaKey:(nullable NSString *)rsaKey
                       recommendationURL:(nullable NSString *)recommendationURL
-                  recommendationTimeout:(nullable NSInteger *)recommendationTimeout {
+                  recommendationTimeout:(nullable NSNumber *)recommendationTimeout {
     return [[RecommendationConfiguration alloc] initWithRsaKey:rsaKey
                                              recommendationURL:recommendationURL
                                          recommendationTimeout:recommendationTimeout];

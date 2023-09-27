@@ -55,6 +55,7 @@
  */
 - (void)POST:(nonnull NSString *)endpoint
   parameters:(nullable NSDictionary *)parameters
+     timeout:(NSNumber *)timeout
 andCompletion:(nullable RecommendationCompletionBlock)completion;
 
 @end

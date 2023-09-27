@@ -30,7 +30,7 @@
 
 @property (nonatomic, strong, nullable) NSString *recommendationURL;
 
-@property (nonatomic, assign, nullable) NSInteger *recommendationTimeout;
+@property (nonatomic, assign, nullable) NSNumber *recommendationTimeout;
 
 /**
  * Designated initializer that sets the required parameters for Recommendation Feature calls.
@@ -39,10 +39,10 @@
  */
 - (nonnull instancetype)initWithRsaKey:(nullable NSString *)rsaKey
                      recommendationURL:(nullable NSString *)recommendationURL
-                 recommendationTimeout:(nullable NSInteger *)recommendationTimeout;
+                 recommendationTimeout:(nullable NSNumber *)recommendationTimeout;
 
 + (nonnull instancetype)configurationWithRsaKey:(nullable NSString *)rsaKey
                               recommendationURL:(nullable NSString *)recommendationURL
-                          recommendationTimeout:(nullable NSInteger *)recommendationTimeout;
+                          recommendationTimeout:(nullable NSNumber *)recommendationTimeout;
 
 @end

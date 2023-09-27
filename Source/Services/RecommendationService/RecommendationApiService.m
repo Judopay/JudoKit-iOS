@@ -59,9 +59,13 @@
 }
 
 - (void)invokeRecommendationRequest:(NSDictionary *)parameters
-               andRecommendationUrl:(NSString *)recommendationUrl
-                      andCompletion:(RecommendationCompletionBlock)completion {
-    [self.session POST:recommendationUrl parameters:parameters andCompletion:completion];
+                  recommendationUrl:(NSString *)recommendationUrl
+                            timeout:(NSNumber *)timeout
+                         completion:(RecommendationCompletionBlock)completion {
+    [self.session POST:recommendationUrl
+            parameters:parameters
+               timeout:timeout
+         andCompletion:completion];
 }
 
 @end

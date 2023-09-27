@@ -358,7 +358,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
         NSString *rsaKey = Settings.defaultSettings.rsaKey;
         NSString *recommendationURL = Settings.defaultSettings.recommendationUrl;
-        NSInteger *recommendationTimeout = Settings.defaultSettings.recommendationTimeout;
+        NSNumber *recommendationTimeout = Settings.defaultSettings.recommendationTimeout;
         configuration.recommendationConfiguration = [RecommendationConfiguration configurationWithRsaKey:rsaKey
                                                                                        recommendationURL:recommendationURL
                                                                                    recommendationTimeout:recommendationTimeout];
