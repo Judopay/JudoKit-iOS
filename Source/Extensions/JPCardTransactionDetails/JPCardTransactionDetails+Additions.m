@@ -35,15 +35,22 @@
 #import "JPSaveCardRequest.h"
 #import "JPThreeDSecureTwo.h"
 #import "JPTokenRequest.h"
+#import "ScaExemption.h"
 
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 @implementation JPCardTransactionDetails (Additions)
 
 - (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
-                                         andTransaction:(JP3DSTransaction *)transaction {
+                                            transaction:(JP3DSTransaction *)transaction
+                             recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    [self populateWithCardDetailsRequest:request
+                      usingConfiguration:configuration
+                             transaction:transaction
+              recommendationScaExemption:recommendationScaExemption
+  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -55,9 +62,15 @@
 }
 
 - (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                        andTransaction:(nonnull JP3DSTransaction *)transaction {
+                                                           transaction:(nonnull JP3DSTransaction *)transaction
+                                            recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                               recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPPreAuthRequest *request = [[JPPreAuthRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    [self populateWithCardDetailsRequest:request
+                      usingConfiguration:configuration
+                             transaction:transaction
+              recommendationScaExemption:recommendationScaExemption
+  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -71,21 +84,35 @@
 - (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
                                                    andTransaction:(JP3DSTransaction *)transaction {
     JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    [self populateWithCardDetailsRequest:request
+                      usingConfiguration:configuration
+                             transaction:transaction
+              recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+  recommendationChallengeRequestIndicator:nil];
     return request;
 }
 
 - (JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(JPConfiguration *)configuration
                                            andTransaction:(JP3DSTransaction *)transaction {
     JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    [self populateWithCardDetailsRequest:request
+                      usingConfiguration:configuration
+                             transaction:transaction
+              recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+  recommendationChallengeRequestIndicator:nil];
     return request;
 }
 
 - (JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                             andTransaction:(JP3DSTransaction *)transaction {
+                                                transaction:(JP3DSTransaction *)transaction
+                                 recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                    recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    [self populateWithCardDetailsRequest:request
+                      usingConfiguration:configuration
+                             transaction:transaction
+              recommendationScaExemption:recommendationScaExemption
+  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -108,12 +135,17 @@
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
-                                         andAuthenticationRequestParameters:params];
+                                            authenticationRequestParameters:params
+                                                 recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+                                    recommendationChallengeRequestIndicator:nil
+    ];
 }
 
 - (void)populateWithCardDetailsRequest:(JPRequest *)request
                     usingConfiguration:(JPConfiguration *)configuration
-                        andTransaction:(JP3DSTransaction *)transaction {
+                           transaction:(JP3DSTransaction *)transaction
+            recommendationScaExemption:(ScaExemption)recommendationScaExemption
+recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
     request.cv2 = self.securityCode;
@@ -127,7 +159,9 @@
     JP3DSAuthenticationRequestParameters *params = [transaction getAuthenticationRequestParameters];
 
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
-                                         andAuthenticationRequestParameters:params];
+                                            authenticationRequestParameters:params
+                                                 recommendationScaExemption:recommendationScaExemption
+                                    recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
 }
 
 - (void)configurePhoneDetails:(JPRequest *)request {

@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "ScaExemption.h"
 
 @class JPConfiguration, JP3DSAuthenticationRequestParameters;
 
@@ -63,7 +64,9 @@
 @property (nonatomic, strong, nonnull) JPSDKParameters *sdk;
 @property (nonatomic, strong, nonnull) NSString *authenticationSource;
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-           andAuthenticationRequestParameters:(nonnull JP3DSAuthenticationRequestParameters *)params;
+- (nonnull instancetype)initWithConfiguration:(JPConfiguration *)configuration
+              authenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params
+                   recommendationScaExemption:(ScaExemption)recommendationScaExemption
+      recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
 
 @end

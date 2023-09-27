@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardTransactionDetails.h"
+#import "ScaExemption.h"
 
 @class JPPaymentRequest,
     JPPreAuthRequest,
@@ -36,11 +37,15 @@
 
 @interface JPCardTransactionDetails (Additions)
 
-- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                 andTransaction:(nonnull JP3DSTransaction *)transaction;
+- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                                    transaction:(JP3DSTransaction *)transaction
+                                     recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                        recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
 
 - (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                        andTransaction:(nonnull JP3DSTransaction *)transaction;
+                                                           transaction:(nonnull JP3DSTransaction *)transaction
+                                            recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                               recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
 
 - (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
@@ -54,7 +59,9 @@
 - (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                    andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                                        transaction:(JP3DSTransaction *)transaction
+                                         recommendationScaExemption:(ScaExemption)recommendationScaExemption
+                            recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
 
 @end

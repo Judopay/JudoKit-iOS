@@ -24,6 +24,7 @@
 
 #import "RecommendationResult.h"
 #import "ScaExemption.h"
+#import "JPConstants.h"
 
 static NSString *const kRecommendationActionAllow = @"ALLOW";
 static NSString *const kRecommendationActionReview = @"REVIEW";
@@ -31,9 +32,6 @@ static NSString *const kRecommendationActionPrevent = @"PREVENT";
 
 static NSString *const kTransactionOptimisationActionAuthenticate = @"AUTHENTICATE";
 static NSString *const kTransactionOptimisationActionAuthorise = @"AUTHORISE";
-
-static NSString *const kScaExemptionLowValue = @"LOW_VALUE";
-static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK_ANALYSIS";
 
 static NSString *const kRecommendationResultData = @"data";
 static NSString *const kRecommendationResultAction = @"action";

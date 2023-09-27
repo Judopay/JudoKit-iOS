@@ -173,7 +173,9 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     } else {
         [self performJudoApiCall:details
                             type:type
-                      completion:completion];
+                      completion:completion
+                       exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+       challengeRequestIndicator:nil];
     }
 }
 
@@ -224,7 +226,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         if (data.transactionOptimisation.action == UNKNOWN_TRANSACTION_OPTIMISATION_ACTION) {
             return NO;
         }
-        if (data.transactionOptimisation.exemption == UNKNOWN_EXCEPTION && data.transactionOptimisation.threeDSChallengePreference == nil) {
+        if (data.transactionOptimisation.exemption == UNKNOWN_OR_NOT_PRESENT_EXCEPTION && data.transactionOptimisation.threeDSChallengePreference == nil) {
             return NO;
         }
     }
@@ -255,16 +257,20 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
         [self.recommendationApiService invokeRecommendationRequest:request andRecommendationUrl: recommendationUrl andCompletion:recommendationCompletionHandler];
     } else {
-        // Todo: use default sdk properties here as well?
+        // We allow Judo API call in this case, as the API will perform its own checks anyway.
         [self performJudoApiCall:details
                             type:type
-                      completion:completion];
+                      completion:completion
+                       exemption:nil
+       challengeRequestIndicator:nil];
     }
 }
     
 - (void)performJudoApiCall:(JPCardTransactionDetails *)details
                       type:(JPCardTransactionType)type
-                completion:(JPCompletionBlock)completion {
+                completion:(JPCompletionBlock)completion
+                 exemption:(ScaExemption)exemption
+ challengeRequestIndicator:(nullable NSString *)challengeRequestIndicator {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
 
@@ -318,13 +324,17 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         switch (type) {
             case JPCardTransactionTypePayment: {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
-                                                                        andTransaction:transaction];
+                                                                           transaction:transaction
+                                                            recommendationScaExemption:exemption
+                                               recommendationChallengeRequestIndicator:challengeRequestIndicator];
                 [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePreAuth: {
                 JPPreAuthRequest *request = [details toPreAuthPaymentRequestWithConfiguration:self.configuration
-                                                                               andTransaction:transaction];
+                                                                                  transaction:transaction
+                                                                   recommendationScaExemption:exemption
+                                                      recommendationChallengeRequestIndicator:challengeRequestIndicator];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
@@ -348,7 +358,9 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 
             case JPCardTransactionTypeCheck: {
                 JPCheckCardRequest *request = [details toCheckCardRequestWithConfiguration:self.configuration
-                                                                            andTransaction:transaction];
+                                                                               transaction:transaction
+                                                                recommendationScaExemption:exemption
+                                                   recommendationChallengeRequestIndicator:challengeRequestIndicator];
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
             } break;
 
@@ -378,20 +390,22 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         ScaExemption *exemptionReceived = transactionOptimisation.exemption;
         NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
         if (recommendationAction == ALLOW || recommendationAction == REVIEW) {
-            // Todo: use Recommendation properties!
             [self performJudoApiCall:details
                                 type:type
-                          completion:completion];
+                          completion:completion
+                           exemption:exemptionReceived
+           challengeRequestIndicator:threeDSChallengePreferenceReceived];
         } else if (recommendationAction == PREVENT) {
             NSString * error = @"The Recommendation Feature has prevented this transaction.";
             completion(nil, error);
         }
     } else {
         // We allow Judo API call in this case, as the API will perform its own checks anyway.
-        // Todo: use default sdk properties!
         [self performJudoApiCall:details
                             type:type
-                      completion:completion];
+                      completion:completion
+                       exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+       challengeRequestIndicator:nil];
     }
 }
 

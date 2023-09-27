@@ -101,4 +101,7 @@ static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";
 static NSString *const kAlpha2CodeCanada = @"CA";
 static NSString *const kAlpha2CodeUSA = @"US";
 static NSString *const kAlpha2CodeUK = @"GB";
+
+static NSString *const kScaExemptionLowValue = @"LOW_VALUE";
+static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK_ANALYSIS";
 #endif /* JPConstants_h */
