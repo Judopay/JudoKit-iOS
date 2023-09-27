@@ -236,11 +236,10 @@ class Settings {
         if isRecommendationOn {
             let rsaKey = userDefaults.string(forKey: kRsaKey)
             let recommendationURL = userDefaults.string(forKey: kRecommendationUrlKey)
-//            let recommendationTimeout = userDefaults.string(forKey: kRecommendationTimeoutKey)
+            let recommendationTimeout = userDefaults.integer(forKey: kRecommendationTimeoutKey)
             return RecommendationConfiguration(rsaKey: rsaKey,
                                     recommendationURL: recommendationURL,
-                                // Todo: timeout!
-                                recommendationTimeout: nil
+                                recommendationTimeout: NSNumber(value: recommendationTimeout)
             )
         }
         return nil
