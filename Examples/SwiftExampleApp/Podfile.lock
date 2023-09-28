@@ -21,16 +21,18 @@ DEPENDENCIES:
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.1.3)
   - JudoKit-iOS (from `../../`)
+  - RavelinEncrypt (= 1.1.1)
   - SwiftLint
 
 SPEC REPOS:
+  https://github.com/unravelin/Specs.git:
+    - RavelinEncrypt
   trunk:
     - CocoaDebug
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
     - OpenSSL-Universal
-    - RavelinEncrypt
     - SwiftLint
     - TrustKit
     - ZappMerchantLib
@@ -46,11 +48,11 @@ SPEC CHECKSUMS:
   Judo3DS2_iOS: b2396a1f0aa3e8d428fdd887c8b6eae5d3aa4f79
   JudoKit-iOS: 1a26563585a481b43dac6c74a96f051b9a1e793b
   OpenSSL-Universal: 708e3d1e616a2c40f09a880aafc4b14d2f2a61ec
-  RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
+  RavelinEncrypt: 9be18f0914f1322a01564bb1d55dc18d966549e4
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
   TrustKit: 55804401e9a95db0bbfff9a08373bfd91953071f
   ZappMerchantLib: b14bc5814840426d351190309250347ca9b0983d
 
-PODFILE CHECKSUM: 3649bdd1937c4098e3928b697ab727f7bdffa2ca
+PODFILE CHECKSUM: 9146c4c54dc87704f57ae955eaf5463043374af8
 
 COCOAPODS: 1.13.0

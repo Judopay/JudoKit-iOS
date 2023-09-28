@@ -11,6 +11,7 @@ target 'SwiftExampleApp' do
   pod 'InAppSettingsKit', '3.3.6'
   pod 'CocoaDebug', '1.7.7'
   pod 'SwiftLint'
+  pod 'RavelinEncrypt', '1.1.1', :source => 'https://github.com/unravelin/Specs.git'
 
   target 'SwiftExampleAppTests' do
     inherit! :search_paths
