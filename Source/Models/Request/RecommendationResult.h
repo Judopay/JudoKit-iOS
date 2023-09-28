@@ -23,8 +23,9 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "RecommendationData.h"
 
-@class RecommendationData;
+//@class RecommendationData;
 
 @interface RecommendationResult : NSObject
 
