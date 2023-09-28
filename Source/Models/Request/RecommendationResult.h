@@ -28,7 +28,7 @@
 
 @interface RecommendationResult : NSObject
 
-@property (nonatomic, strong) RecommendationData *data;
+@property (nonatomic, strong) RecommendationData *_Nullable data;
 
 /**
  *  Create a RecommendationResult object from a dictionary
