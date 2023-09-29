@@ -446,6 +446,7 @@
 		99046B2A2A9E20D700716947 /* RecommendationCardEncryptionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99046B292A9E20D700716947 /* RecommendationCardEncryptionService.m */; };
 		992C3B932AC6E0680029DB86 /* RecommendationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C3B912AC6E0680029DB86 /* RecommendationData.m */; };
 		992C3B942AC6E0680029DB86 /* RecommendationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 992C3B922AC6E0680029DB86 /* RecommendationData.h */; };
+		992C3B972AC6E5890029DB86 /* RecommendationAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 992C3B962AC6E5890029DB86 /* RecommendationAction.h */; };
 		9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */; };
 		9930A0E22AAF53100090D164 /* RecommendationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* RecommendationResponse.h */; };
 		9930A0E32AAF53100090D164 /* RecommendationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResponse.m */; };
@@ -975,6 +976,7 @@
 		99046B292A9E20D700716947 /* RecommendationCardEncryptionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationCardEncryptionService.m; sourceTree = "<group>"; };
 		992C3B912AC6E0680029DB86 /* RecommendationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationData.m; sourceTree = "<group>"; };
 		992C3B922AC6E0680029DB86 /* RecommendationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationData.h; sourceTree = "<group>"; };
+		992C3B962AC6E5890029DB86 /* RecommendationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationAction.h; sourceTree = "<group>"; };
 		9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendationApiService.h; sourceTree = "<group>"; };
 		9930A0DE2AAF53100090D164 /* RecommendationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationResponse.h; sourceTree = "<group>"; };
 		9930A0DF2AAF53100090D164 /* RecommendationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResponse.m; sourceTree = "<group>"; };
@@ -1881,6 +1883,7 @@
 				3000731423FA9BBC0099F3C5 /* PostalAddress */,
 				3000727E23F6AB550099F3C5 /* PrimaryAccountDetails */,
 				3000734323FA9C6D0099F3C5 /* Reachability */,
+				992C3B952AC6E5890029DB86 /* RecommendationAction */,
 				999AB8C62AAB368600F8E219 /* RecommendationConfiguration */,
 				992C3B902AC6E0680029DB86 /* RecommendationData */,
 				999961362AB4C21100A3B2DA /* RecommendationPaymentMethod */,
@@ -3200,6 +3203,14 @@
 			path = RecommendationData;
 			sourceTree = "<group>";
 		};
+		992C3B952AC6E5890029DB86 /* RecommendationAction */ = {
+			isa = PBXGroup;
+			children = (
+				992C3B962AC6E5890029DB86 /* RecommendationAction.h */,
+			);
+			path = RecommendationAction;
+			sourceTree = "<group>";
+		};
 		9930A0DB2AAF2BEB0090D164 /* RecommendationService */ = {
 			isa = PBXGroup;
 			children = (
@@ -3456,6 +3467,7 @@
 				52D23DB925248B92007C79EB /* JPApplePayController.h in Headers */,
 				300072CB23F6AB560099F3C5 /* JPDictionaryConvertible.h in Headers */,
 				30006F3323F697B60099F3C5 /* JPApplePayService.h in Headers */,
+				992C3B972AC6E5890029DB86 /* RecommendationAction.h in Headers */,
 				52B4CAE3241FB93D009C28DC /* JPSection.h in Headers */,
 				AD0F05B0286B69B800470534 /* JPCardTransactionDetails.h in Headers */,
 				4457AF512A0B8F4A00270C92 /* JPPresentationMode.h in Headers */,
