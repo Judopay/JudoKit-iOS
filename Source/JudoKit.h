@@ -28,6 +28,7 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
+#import <RavelinEncrypt/RavelinEncrypt.h>
 
 @class JPCardTransactionDetails, JPConfiguration, JPPaymentMethod, JPSession;
 @protocol JPAuthorization;

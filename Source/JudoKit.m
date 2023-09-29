@@ -44,6 +44,7 @@
 #import "RecommendationCardEncryptionService.h"
 #import "RecommendationApiService.h"
 #import <PassKit/PassKit.h>
+#import <RavelinEncrypt/RavelinEncrypt.h>
 
 @interface JudoKit ()
 
