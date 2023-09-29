@@ -1,5 +1,5 @@
 //
-//  RecommendationResult.m
+//  RecommendationResponse.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -22,12 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//#import "ScaExemption.h"
 #import "JPConstants.h"
-#import "RecommendationResult.h"
+#import "RecommendationResponse.h"
 #import "RecommendationData.h"
-
-//@class ScaExemption;
 
 static NSString *const kRecommendationActionAllow = @"ALLOW";
 static NSString *const kRecommendationActionReview = @"REVIEW";
@@ -36,14 +33,14 @@ static NSString *const kRecommendationActionPrevent = @"PREVENT";
 static NSString *const kTransactionOptimisationActionAuthenticate = @"AUTHENTICATE";
 static NSString *const kTransactionOptimisationActionAuthorise = @"AUTHORISE";
 
-static NSString *const kRecommendationResultData = @"data";
-static NSString *const kRecommendationResultAction = @"action";
-static NSString *const kRecommendationResultTransactionOptimisation = @"transactionOptimisation";
-static NSString *const kRecommendationResultTransactionOptimisationAction = @"action";
-static NSString *const kRecommendationResultTransactionOptimisationExemption = @"exemption";
-static NSString *const kRecommendationResultTransactionOptimisationChallenge = @"threeDSChallengePreference";
+static NSString *const kRecommendationResponseData = @"data";
+static NSString *const kRecommendationResponseAction = @"action";
+static NSString *const kRecommendationResponseTransactionOptimisation = @"transactionOptimisation";
+static NSString *const kRecommendationResponseTransactionOptimisationAction = @"action";
+static NSString *const kRecommendationResponseTransactionOptimisationExemption = @"exemption";
+static NSString *const kRecommendationResponseTransactionOptimisationChallenge = @"threeDSChallengePreference";
 
-@implementation RecommendationResult
+@implementation RecommendationResponse
 
 #pragma mark - Initializers
 
@@ -55,12 +52,12 @@ static NSString *const kRecommendationResultTransactionOptimisationChallenge = @
 }
 
 - (void)populateWith:(NSDictionary *)dictionary {
-    NSDictionary * data = dictionary[kRecommendationResultData];
-    NSString * action = data[kRecommendationResultAction];
-    NSDictionary * transactionOptimisation = data[kRecommendationResultTransactionOptimisation];
-    NSString * transactionOptimisationActionString = transactionOptimisation[kRecommendationResultTransactionOptimisationAction];
-    NSString * scaExemptionString = transactionOptimisation[kRecommendationResultTransactionOptimisationExemption];
-    NSString * threeDSChallengePreference = transactionOptimisation[kRecommendationResultTransactionOptimisationChallenge];
+    NSDictionary * data = dictionary[kRecommendationResponseData];
+    NSString * action = data[kRecommendationResponseAction];
+    NSDictionary * transactionOptimisation = data[kRecommendationResponseTransactionOptimisation];
+    NSString * transactionOptimisationActionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationAction];
+    NSString * scaExemptionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationExemption];
+    NSString * threeDSChallengePreference = transactionOptimisation[kRecommendationResponseTransactionOptimisationChallenge];
     
     RecommendationAction recommendationAction = [self recommendationActionForString:action];
     TransactionOptimisationAction transactionOptimisationAction = [self transactionOptimisationActionForString:transactionOptimisationActionString];

@@ -447,8 +447,8 @@
 		992C3B932AC6E0680029DB86 /* RecommendationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C3B912AC6E0680029DB86 /* RecommendationData.m */; };
 		992C3B942AC6E0680029DB86 /* RecommendationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 992C3B922AC6E0680029DB86 /* RecommendationData.h */; };
 		9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */; };
-		9930A0E22AAF53100090D164 /* RecommendationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* RecommendationResult.h */; };
-		9930A0E32AAF53100090D164 /* RecommendationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResult.m */; };
+		9930A0E22AAF53100090D164 /* RecommendationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* RecommendationResponse.h */; };
+		9930A0E32AAF53100090D164 /* RecommendationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResponse.m */; };
 		9930A0E42AAF53100090D164 /* RecommendationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E02AAF53100090D164 /* RecommendationRequest.m */; };
 		9930A0E52AAF53100090D164 /* RecommendationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0E12AAF53100090D164 /* RecommendationRequest.h */; };
 		9930A0E92AB087480090D164 /* RecommendationApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0E82AB087480090D164 /* RecommendationApiService.m */; };
@@ -976,8 +976,8 @@
 		992C3B912AC6E0680029DB86 /* RecommendationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationData.m; sourceTree = "<group>"; };
 		992C3B922AC6E0680029DB86 /* RecommendationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationData.h; sourceTree = "<group>"; };
 		9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendationApiService.h; sourceTree = "<group>"; };
-		9930A0DE2AAF53100090D164 /* RecommendationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationResult.h; sourceTree = "<group>"; };
-		9930A0DF2AAF53100090D164 /* RecommendationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResult.m; sourceTree = "<group>"; };
+		9930A0DE2AAF53100090D164 /* RecommendationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationResponse.h; sourceTree = "<group>"; };
+		9930A0DF2AAF53100090D164 /* RecommendationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResponse.m; sourceTree = "<group>"; };
 		9930A0E02AAF53100090D164 /* RecommendationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationRequest.m; sourceTree = "<group>"; };
 		9930A0E12AAF53100090D164 /* RecommendationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationRequest.h; sourceTree = "<group>"; };
 		9930A0E82AB087480090D164 /* RecommendationApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationApiService.m; sourceTree = "<group>"; };
@@ -1843,10 +1843,6 @@
 		300071C523F6A78E0099F3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				992C3B902AC6E0680029DB86 /* RecommendationData */,
-				999961362AB4C21100A3B2DA /* RecommendationPaymentMethod */,
-				999961312AB4970A00A3B2DA /* PaymentMethodCipher */,
-				999AB8C62AAB368600F8E219 /* RecommendationConfiguration */,
 				3000737923FBECCE0099F3C5 /* 3DSConfiguration */,
 				3000728F23F6AB550099F3C5 /* Address */,
 				3000726223F6AB540099F3C5 /* Amount */,
@@ -1876,6 +1872,7 @@
 				3000728423F6AB550099F3C5 /* IDEALBank */,
 				AD13DC0528831297002B82CD /* NetworkTimeout */,
 				3000728723F6AB550099F3C5 /* OrderDetails */,
+				999961312AB4970A00A3B2DA /* PaymentMethodCipher */,
 				3000727923F6AB550099F3C5 /* PaymentMethod */,
 				3000725423F6AB540099F3C5 /* PaymentMethods */,
 				52D23DA725248A9D007C79EB /* PaymentShippingMethod */,
@@ -1884,6 +1881,9 @@
 				3000731423FA9BBC0099F3C5 /* PostalAddress */,
 				3000727E23F6AB550099F3C5 /* PrimaryAccountDetails */,
 				3000734323FA9C6D0099F3C5 /* Reachability */,
+				999AB8C62AAB368600F8E219 /* RecommendationConfiguration */,
+				992C3B902AC6E0680029DB86 /* RecommendationData */,
+				999961362AB4C21100A3B2DA /* RecommendationPaymentMethod */,
 				9930A0EF2AB08A680090D164 /* RecommendationSessionConfiguration */,
 				300072AE23F6AB560099F3C5 /* Reference */,
 				A75B38E09E5547C9A487965E /* Request */,
@@ -2085,6 +2085,8 @@
 		3000729223F6AB550099F3C5 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				9930A0DE2AAF53100090D164 /* RecommendationResponse.h */,
+				9930A0DF2AAF53100090D164 /* RecommendationResponse.m */,
 				3000729423F6AB550099F3C5 /* JPResponse.h */,
 				3000729323F6AB550099F3C5 /* JPResponse.m */,
 			);
@@ -3276,8 +3278,6 @@
 			children = (
 				9930A0E12AAF53100090D164 /* RecommendationRequest.h */,
 				9930A0E02AAF53100090D164 /* RecommendationRequest.m */,
-				9930A0DE2AAF53100090D164 /* RecommendationResult.h */,
-				9930A0DF2AAF53100090D164 /* RecommendationResult.m */,
 				446002BF293036D7005FBCBD /* JPPreAuthApplePayRequest.h */,
 				446002C2293036D7005FBCBD /* JPPreAuthApplePayRequest.m */,
 				446002BE293036D7005FBCBD /* JPPreAuthRequest.h */,
@@ -3486,7 +3486,7 @@
 				52B4CAD4241FAEBB009C28DC /* JPThemable.h in Headers */,
 				44A18B5829F94DA300D2963B /* JPActionBar.h in Headers */,
 				9930A0ED2AB087B40090D164 /* RecommendationSession.h in Headers */,
-				9930A0E22AAF53100090D164 /* RecommendationResult.h in Headers */,
+				9930A0E22AAF53100090D164 /* RecommendationResponse.h in Headers */,
 				3000735223FACF540099F3C5 /* JPUIConfiguration.h in Headers */,
 				300072DE23F6AB560099F3C5 /* JPCountry.h in Headers */,
 				5273AF1923F31027008C6D89 /* JPOtherPaymentMethodView.h in Headers */,
@@ -3844,7 +3844,7 @@
 				525FF3DB252C41CF001F030E /* JPCardScanView.m in Sources */,
 				30006F2023F6971B0099F3C5 /* JPSliderTransitioningDelegate.m in Sources */,
 				30221C5423FE7F6300BF2823 /* JPCardCustomizationHeaderCell.m in Sources */,
-				9930A0E32AAF53100090D164 /* RecommendationResult.m in Sources */,
+				9930A0E32AAF53100090D164 /* RecommendationResponse.m in Sources */,
 				3000731D23FA9BBD0099F3C5 /* JPContactInformation.m in Sources */,
 				52B74D9E23F98B4C009FE38C /* JPTransactionBuilder.m in Sources */,
 				300072FB23F6AB560099F3C5 /* JPEnhancedPaymentDetail.m in Sources */,

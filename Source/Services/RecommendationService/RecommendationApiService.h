@@ -51,7 +51,7 @@
  * A method that invokes the recommendation call
  *
  * @param request - an instance of RecommendationRequest describing the recommendation request
- * @param completion - the completion block that contains the optional RecommendationResult or Error
+ * @param completion - the completion block that contains the optional RecommendationResponse or Error
  */
 - (void)invokeRecommendationRequest:(nonnull RecommendationRequest *)request
                   recommendationUrl:(NSString *)recommendationUrl

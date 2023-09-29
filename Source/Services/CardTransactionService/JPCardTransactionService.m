@@ -49,7 +49,7 @@
 #import "RecommendationConfiguration.h"
 #import "RecommendationApiService.h"
 #import "RecommendationRequest.h"
-#import "RecommendationResult.h"
+#import "RecommendationResponse.h"
 #import "RecommendationCardEncryptionService.h"
 #import "RecommendationData.h"
 
@@ -208,7 +208,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
 }
 
-- (BOOL)validateRecommendationResult:(RecommendationResult *)result {
+- (BOOL)validateRecommendationResponse:(RecommendationResponse *)result {
     if (result == nil) {
         return NO;
     }
@@ -251,7 +251,7 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
         NSNumber *recommendationTimeout = self.configuration.recommendationConfiguration.recommendationTimeout;
         // Todo: Timeout in seconds, not minutes!
-        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResult *response, NSString *error) {
+        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResponse *response, NSString *error) {
             [self handleRecommendationApiResult:response
                                         details:details
                                            type:type
@@ -385,12 +385,12 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     }
 }
 
-- (void)handleRecommendationApiResult:(RecommendationResult *)result
+- (void)handleRecommendationApiResult:(RecommendationResponse *)result
                               details:(JPCardTransactionDetails *)details
                                  type:(JPCardTransactionType)type
                            completion:(JPCompletionBlock)completion; {
-    BOOL isRecommendationResultValid = [self validateRecommendationResult:result];
-    if (isRecommendationResultValid) {
+    BOOL isRecommendationResponseValid = [self validateRecommendationResponse:result];
+    if (isRecommendationResponseValid) {
         RecommendationAction recommendationAction = result.data.action;
         TransactionOptimisation *transactionOptimisation = result.data.transactionOptimisation;
         ScaExemption *exemptionReceived = transactionOptimisation.exemption;

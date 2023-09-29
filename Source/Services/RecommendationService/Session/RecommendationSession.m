@@ -29,7 +29,7 @@
 #import "RecommendationSessionConfiguration.h"
 #import "RecommendationSession.h"
 #import "NSObject+Additions.h"
-#import "RecommendationResult.h"
+#import "RecommendationResponse.h"
 
 #pragma mark - Constants
 
@@ -150,7 +150,7 @@ andCompletion:(RecommendationCompletionBlock)completion {
         return;
     }
 
-    RecommendationResult *result = [[RecommendationResult alloc] initWithDictionary:responseJSON];
+    RecommendationResponse *result = [[RecommendationResponse alloc] initWithDictionary:responseJSON];
     completion(result, nil);
 }
 

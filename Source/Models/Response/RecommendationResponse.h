@@ -1,5 +1,5 @@
 //
-//  RecommendationResult.h
+//  RecommendationResponse.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2023 Alternative Payments Ltd
@@ -27,16 +27,16 @@
 
 //@class RecommendationData;
 
-@interface RecommendationResult : NSObject
+@interface RecommendationResponse : NSObject
 
 @property (nonatomic, strong) RecommendationData *_Nullable data;
 
 /**
- *  Create a RecommendationResult object from a dictionary
+ *  Create a RecommendationResponse object from a dictionary
  *
  *  @param dictionary the dictionary
  *
- *  @return a RecommendationResult object
+ *  @return a RecommendationResponse object
  */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
