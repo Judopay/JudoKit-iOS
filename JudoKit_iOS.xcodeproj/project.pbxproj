@@ -451,6 +451,7 @@
 		992C3B9E2AC7024C0029DB86 /* TransactionOptimisation.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C3B9A2AC7024C0029DB86 /* TransactionOptimisation.m */; };
 		992C3B9F2AC7024C0029DB86 /* TransactionOptimisationAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 992C3B9B2AC7024C0029DB86 /* TransactionOptimisationAction.h */; };
 		992C3BA02AC7024C0029DB86 /* TransactionOptimisation.h in Headers */ = {isa = PBXBuildFile; fileRef = 992C3B9C2AC7024C0029DB86 /* TransactionOptimisation.h */; };
+		992C3BA22AC8BC8A0029DB86 /* RavelinEncrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992C3BA12AC8BC8A0029DB86 /* RavelinEncrypt.framework */; };
 		9930A0DD2AAF519B0090D164 /* RecommendationApiService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */; };
 		9930A0E22AAF53100090D164 /* RecommendationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* RecommendationResponse.h */; };
 		9930A0E32AAF53100090D164 /* RecommendationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* RecommendationResponse.m */; };
@@ -985,6 +986,7 @@
 		992C3B9A2AC7024C0029DB86 /* TransactionOptimisation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionOptimisation.m; sourceTree = "<group>"; };
 		992C3B9B2AC7024C0029DB86 /* TransactionOptimisationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionOptimisationAction.h; sourceTree = "<group>"; };
 		992C3B9C2AC7024C0029DB86 /* TransactionOptimisation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionOptimisation.h; sourceTree = "<group>"; };
+		992C3BA12AC8BC8A0029DB86 /* RavelinEncrypt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RavelinEncrypt.framework; path = "../../Downloads/ravelin-ios-master/RavelinEncrypt.framework"; sourceTree = "<group>"; };
 		9930A0DC2AAF519B0090D164 /* RecommendationApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendationApiService.h; sourceTree = "<group>"; };
 		9930A0DE2AAF53100090D164 /* RecommendationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationResponse.h; sourceTree = "<group>"; };
 		9930A0DF2AAF53100090D164 /* RecommendationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationResponse.m; sourceTree = "<group>"; };
@@ -1061,6 +1063,7 @@
 				ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */,
 				ADB514AA286DE90100332E47 /* Judo3DS2_iOS.xcframework in Frameworks */,
 				ADA50D70282C1C7B00846943 /* ZappMerchantLib.xcframework in Frameworks */,
+				992C3BA22AC8BC8A0029DB86 /* RavelinEncrypt.framework in Frameworks */,
 				525FF51B25307B89001F030E /* Vision.framework in Frameworks */,
 				ADA50D76282C1C7B00846943 /* TrustKit.xcframework in Frameworks */,
 				ADA50D74282C1C7B00846943 /* DeviceDNA.xcframework in Frameworks */,
@@ -1597,6 +1600,7 @@
 		15779454211085A9007BD3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				992C3BA12AC8BC8A0029DB86 /* RavelinEncrypt.framework */,
 				ADB514A9286DE90100332E47 /* Judo3DS2_iOS.xcframework */,
 				ADA50D79282C35DE00846943 /* OpenSSL.xcframework */,
 				ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */,
