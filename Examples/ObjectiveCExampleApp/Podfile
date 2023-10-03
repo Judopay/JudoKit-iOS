@@ -5,10 +5,10 @@ inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
 #  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
-   pod 'Judo3DS2_iOS', '1.1.3'
+   pod 'Judo3DS2_iOS', '1.1.4'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '3.2.4'
+  # pod 'JudoKit-iOS', '3.2.5'
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
