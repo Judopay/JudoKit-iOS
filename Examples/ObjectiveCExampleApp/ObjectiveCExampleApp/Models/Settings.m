@@ -64,6 +64,14 @@ NSString *safeString(NSString *aString) {
     return [JPBasicAuthorization authorizationWithToken:token andSecret:secret];
 }
 
+- (NSString *)token {
+    return [self.defaults stringForKey:kTokenKey];
+}
+
+- (NSString *)secret {
+    return [self.defaults stringForKey:kSecretKey];
+}
+
 - (void)setIsPaymentSessionAuthorizationOn:(BOOL)isOn {
     [self.defaults setBool:isOn forKey:kIsPaymentSessionOnKey];
 }

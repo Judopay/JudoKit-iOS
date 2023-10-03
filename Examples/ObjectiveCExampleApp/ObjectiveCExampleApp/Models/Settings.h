@@ -18,6 +18,7 @@ static NSString *const kSecretKey = @"secret";
 
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
+static NSString *const kGeneratePaymentSessionKey = @"generate_payment_session";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 
@@ -180,6 +181,10 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 #pragma mark - Authorization
 
 - (id<JPAuthorization>)authorization;
+
+- (NSString *)token;
+
+- (NSString *)secret;
 
 @property (nonatomic, assign) BOOL isTokenAndSecretAuthorizationOn;
 @property (nonatomic, assign) BOOL isRecommendationFeatureOn;

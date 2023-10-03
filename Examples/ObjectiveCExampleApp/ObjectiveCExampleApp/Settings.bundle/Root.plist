@@ -65,6 +65,16 @@
 			<string>payment_session</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>generate_payment_session_title</string>
+			<key>Key</key>
+			<string>generate_payment_session</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>Key</key>
