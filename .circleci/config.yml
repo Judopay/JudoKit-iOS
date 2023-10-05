@@ -292,6 +292,7 @@ jobs:
       - run:
           name: Build ObjC Sample for UI Tests
           command: |
+            ls -la Examples/ObjectiveCExampleApp/Pods
             xcodebuild clean build-for-testing \
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleAppUITests \
