@@ -154,6 +154,7 @@ jobs:
           name: Pod Install ObjC Sample App
           working_directory: Examples/ObjectiveCExampleApp
           command: |
+            pod deintegrate
             if ! [ -f Pods ]; then
               pod install --repo-update
             fi
@@ -173,7 +174,6 @@ jobs:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: |
-            pod reintegrate
             if ! [ -f Pods ]; then
               pod install --repo-update
             fi
