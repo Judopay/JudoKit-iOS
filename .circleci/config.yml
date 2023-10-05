@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 13.4.1
+      xcode: 14.2.0
 
 orbs:
   slack: circleci/slack@4.12.5
@@ -293,6 +293,7 @@ jobs:
               -scheme ObjectiveCExampleAppUITests \
               -destination 'generic/platform=iOS' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
+              -allowProvisioningUpdates \
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
               TEST_API_SECRET=$TEST_JUDO_API_SECRET
