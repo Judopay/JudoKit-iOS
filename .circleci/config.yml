@@ -538,29 +538,29 @@ workflows:
           requires:
             - carthage_update_sdk
             - bundle_install
-      # - unit_test_sdk:
-      #     requires:
-      #       - build_sdk
-      # - validate_podspec
-      # - sonar_scan:
-      #     context: shared-secrets
-      #     requires:
-      #       - unit_test_sdk
+      - unit_test_sdk:
+          requires:
+            - build_sdk
+      - validate_podspec
+      - sonar_scan:
+          context: shared-secrets
+          requires:
+            - unit_test_sdk
       - build_objc_sample:
           requires:
             - build_sdk
             - pod_install_objc_sample
-      # - build_carthage_sample:
-      #     requires:
-      #       - build_sdk
-      #       - carthage_update_sample
-      # - build_swift_sample:
-      #     requires:
-      #       - build_sdk
-      #       - pod_install_swift_sample
-      # - build_spm_sample:
-      #     requires:
-      #       - build_sdk
+      - build_carthage_sample:
+          requires:
+            - build_sdk
+            - carthage_update_sample
+      - build_swift_sample:
+          requires:
+            - build_sdk
+            - pod_install_swift_sample
+      - build_spm_sample:
+          requires:
+            - build_sdk
       - build_instrumented_tests_package:
           context: shared-secrets
           requires:
