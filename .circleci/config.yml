@@ -605,7 +605,7 @@ workflows:
           context: shared-secrets
           requires:
             - pod_install_objc_sample
-      - instrumented_test_sample:      
+      - instrumented_tests_sample:      
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
