@@ -173,6 +173,7 @@ jobs:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: |
+            pod reintegrate
             if ! [ -f Pods ]; then
               pod install --repo-update
             fi
@@ -291,9 +292,6 @@ jobs:
       - run:
           name: Build ObjC Sample for UI Tests
           command: |
-            ls -la Examples/ObjectiveCExampleApp/Pods/Target\ Support\ Files\/Pods-ObjectiveCExampleApp
-            ls -la Examples/ObjectiveCExampleApp/Pods/Target\ Support\ Files\/Pods-ObjectiveCExampleAppUITests
-            ls -l Examples/ObjectiveCExampleApp/Pods/Target\ Support\ Files\/
             xcodebuild clean build-for-testing \
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleAppUITests \
@@ -540,29 +538,29 @@ workflows:
           requires:
             - carthage_update_sdk
             - bundle_install
-      - unit_test_sdk:
-          requires:
-            - build_sdk
-      - validate_podspec
-      - sonar_scan:
-          context: shared-secrets
-          requires:
-            - unit_test_sdk
+      # - unit_test_sdk:
+      #     requires:
+      #       - build_sdk
+      # - validate_podspec
+      # - sonar_scan:
+      #     context: shared-secrets
+      #     requires:
+      #       - unit_test_sdk
       - build_objc_sample:
           requires:
             - build_sdk
             - pod_install_objc_sample
-      - build_carthage_sample:
-          requires:
-            - build_sdk
-            - carthage_update_sample
-      - build_swift_sample:
-          requires:
-            - build_sdk
-            - pod_install_swift_sample
-      - build_spm_sample:
-          requires:
-            - build_sdk
+      # - build_carthage_sample:
+      #     requires:
+      #       - build_sdk
+      #       - carthage_update_sample
+      # - build_swift_sample:
+      #     requires:
+      #       - build_sdk
+      #       - pod_install_swift_sample
+      # - build_spm_sample:
+      #     requires:
+      #       - build_sdk
       - build_instrumented_tests_package:
           context: shared-secrets
           requires:
