@@ -285,10 +285,12 @@ jobs:
     executor: macos
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
       - run:
           name: Build ObjC Sample for UI Tests
           command: |
-            ls -la Examples/ObjectiveCExampleApp/Pods/Target\ Support\ Files\/Pods-ObjectiveCExampleApp/
             xcodebuild clean build-for-testing \
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleAppUITests \
