@@ -292,7 +292,7 @@ jobs:
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleAppUITests \
               -destination 'generic/platform=iOS' \
-              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData
+              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
               TEST_API_SECRET=$TEST_JUDO_API_SECRET
