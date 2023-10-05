@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		077E82E6C84C47F36230786A /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10644A4F76C78A6F30407B1 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
-		07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B28229247D308B00F9862B /* PBBAViewController.m */; };
 		07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD7C572488F67200B253B4 /* ExampleAppStorage.m */; };
 		07D84C042497B35E000D7197 /* PayWithCardTokenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */; };
 		3047749C250F983E00B13DDF /* ResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3047749B250F983E00B13DDF /* ResultTests.m */; };
@@ -56,8 +55,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07B28228247D308B00F9862B /* PBBAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBAViewController.h; sourceTree = "<group>"; };
-		07B28229247D308B00F9862B /* PBBAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBAViewController.m; sourceTree = "<group>"; };
 		07CD7C562488F67200B253B4 /* ExampleAppStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppStorage.h; sourceTree = "<group>"; };
 		07CD7C572488F67200B253B4 /* ExampleAppStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAppStorage.m; sourceTree = "<group>"; };
 		07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWithCardTokenViewController.m; sourceTree = "<group>"; };
@@ -149,15 +146,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07B28227247D302C00F9862B /* PBBA */ = {
-			isa = PBXGroup;
-			children = (
-				07B28228247D308B00F9862B /* PBBAViewController.h */,
-				07B28229247D308B00F9862B /* PBBAViewController.m */,
-			);
-			path = PBBA;
-			sourceTree = "<group>";
-		};
 		07CD7C552488F64900B253B4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,7 +316,6 @@
 				30FF8E95259AC3F30077B5C8 /* ApplePay */,
 				07D84C012497B331000D7197 /* TokenPay */,
 				4490D14124882747004290DD /* Result */,
-				07B28227247D302C00F9862B /* PBBA */,
 				4494950C2450ED870050C6A0 /* Main */,
 			);
 			path = Controllers;
@@ -648,7 +635,6 @@
 				30FF8E98259AC4100077B5C8 /* ApplePayViewController.m in Sources */,
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
-				07B2822B247D308B00F9862B /* PBBAViewController.m in Sources */,
 				4490D14824882747004290DD /* ResultTableViewController.m in Sources */,
 				44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */,
 				4490D14A24882747004290DD /* Result.m in Sources */,

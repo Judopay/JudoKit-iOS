@@ -38,30 +38,11 @@
     // Enable debug inspector
     [CocoaDebug enable];
 
-    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    if (url) {
-        [self startPBBADeeplinkWithURL:url];
-    }
-
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-    [self startPBBADeeplinkWithURL:url];
     return true;
-}
-
-- (void)startPBBADeeplinkWithURL:(NSURL *)url {
-    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
-    MainViewController *viewController = (MainViewController *)[main instantiateViewControllerWithIdentifier:@"MainViewController"];
-
-    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-
-    self.window.rootViewController = homeNavigationController;
-    [self.window makeKeyAndVisible];
-
-    [viewController openPBBAScreen:url];
 }
 
 - (void)registerDefaultsFromSettingsBundle {

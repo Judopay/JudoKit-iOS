@@ -155,12 +155,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         return;
     }
 
-    if (viewModel.paymentMethodType == JPPaymentMethodTypePbba) {
-        [self.paymentStackView addArrangedSubview:self.pbbaButton];
-        [_pbbaButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
-        return;
-    }
-
     [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
@@ -348,14 +342,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         [_payButton setClipsToBounds:YES];
     }
     return _payButton;
-}
-
-- (JPPBBAButton *)pbbaButton {
-    if (!_pbbaButton) {
-        CGRect buttonRect = CGRectMake(0, 0, kHeaderPaymentButtonHeight * getWidthAspectRatio(), kHeaderPaymentButtonHeight);
-        _pbbaButton = [[JPPBBAButton alloc] initWithFrame:buttonRect];
-    }
-    return _pbbaButton;
 }
 
 - (UIImageView *)backgroundImageView {

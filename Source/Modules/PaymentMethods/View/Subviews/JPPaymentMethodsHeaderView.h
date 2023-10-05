@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPApplePayButton.h"
-#import "JPPBBAButton.h"
 #import <UIKit/UIKit.h>
 
 @class JPPaymentMethodsHeaderModel, JPTransactionButton, JPUIConfiguration;
@@ -39,11 +38,6 @@
  * The Apple Pay branded button that triggers the Apple Pay flow
  */
 @property (nonatomic, strong) JPApplePayButton *applePayButton;
-
-/**
- * The PBBA branded button that triggers the PBBA flow
- */
-@property (nonatomic, strong) JPPBBAButton *pbbaButton;
 
 /**
  * A method used to apply a theme to the view

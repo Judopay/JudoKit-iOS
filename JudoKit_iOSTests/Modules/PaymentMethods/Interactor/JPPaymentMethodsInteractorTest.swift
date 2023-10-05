@@ -40,7 +40,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
         configuration.paymentMethods = [JPPaymentMethod(paymentMethodType: .applePay),
-                                        JPPaymentMethod(paymentMethodType: .pbba),
                                         JPPaymentMethod(paymentMethodType: .card),
                                         JPPaymentMethod(paymentMethodType: .iDeal)]
         configuration.applePayConfiguration = applePayConfig
@@ -84,18 +83,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         let amount = sut.getAmount()
         XCTAssertEqual(amount.amount, "123")
         XCTAssertEqual(amount.currency, "GBP")
-    }
-
-    /*
-     * GIVEN: Pbba method is not available
-     *
-     * WHEN: getting index of pbba method
-     *
-     * THEN: should return -1
-     */
-    func test_IndexOfPBBAMethod_WhenIsSettepUp_ShouldReturnSame() {
-        let index = sut.indexOfPBBAMethod()
-        XCTAssertEqual(index, NSNotFound)
     }
 
     /*

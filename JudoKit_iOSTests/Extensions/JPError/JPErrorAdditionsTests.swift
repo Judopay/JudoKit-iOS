@@ -154,26 +154,6 @@ class JPErrorAdditionsTests: XCTestCase {
         let error = JPError.applePayNotSupportedError()
         XCTAssertEqual(error.localizedDescription, "Apple Pay is not supported on this device.")
     }
-   
-    /*
-     * GIVEN: the JPError is initialized with the custom judoInvalidPBBACurrency initializer
-     *
-     * THEN:  it should set the correct localizedDescription parameter
-     */
-    func test_WhenJudoInvalidPBBACurrency_SetCorrectLocalizedDescription() {
-        let error = JPError.invalidPBBACurrencyError()
-        XCTAssertEqual(error.localizedDescription, "PBBA transactions only support GBP as the currency.")
-    }
-    
-    /*
-     * GIVEN: the JPError is initialized with the custom judoPBBAURLSchemeMissing initializer
-     *
-     * THEN:  it should set the correct localizedDescription parameter
-     */
-    func test_WhenJudoPBBAURLSchemeMissing_SetCorrectLocalizedDescription() {
-        let error = JPError.pbbaurlSchemeMissingError()
-        XCTAssertEqual(error.localizedDescription, "PBBA transactions require the deeplink scheme to be set.")
-    }
 
     /*
      * GIVEN: the JPError is initialized from an NSDictionary

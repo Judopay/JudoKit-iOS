@@ -28,7 +28,6 @@
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
-#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -47,14 +46,12 @@
                                       completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
-        BOOL isPbBAPresent = (paymentMethod.type == JPPaymentMethodTypePbba);
         BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
         BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
         BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
-        BOOL isURLSchemeMissing = ((!NSBundle._jp_appURLScheme.length) || (!configuration.pbbaConfiguration.deeplinkScheme.length));
 
         if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
             completion(nil, JPError.invalidIDEALCurrencyError);
@@ -63,16 +60,6 @@
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
             completion(nil, JPError.applePayNotSupportedError);
-            return nil;
-        }
-
-        if (isPbBAPresent && isOnlyPaymentMethod && !isCurrencyPounds) {
-            completion(nil, JPError.invalidPBBACurrencyError);
-            return nil;
-        }
-
-        if (isPbBAPresent && isOnlyPaymentMethod && isURLSchemeMissing) {
-            completion(nil, JPError.PBBAURLSchemeMissingError);
             return nil;
         }
     }

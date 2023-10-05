@@ -50,9 +50,6 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
         [DemoFeature featureWithType:DemoFeatureTypeServerToServer
                                title:@"Server-to-Server payment methods"
                              details:@"with default Server-to-Server payment methods"],
-        [DemoFeature featureWithType:DemoFeatureTypePBBA
-                               title:@"Pay By Bank"
-                             details:@"by using your existing Bank app"],
         [DemoFeature featureWithType:DemoFeatureTokenPayments
                                title:@"Token Payments"
                              details:@"Token Payments (no UI)"],

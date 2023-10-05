@@ -49,8 +49,6 @@
 #import "JPIDEALBank.h"
 #import "JPNetworkTimeout.h"
 #import "JPOrderDetails.h"
-#import "JPPBBAButton.h"
-#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodType.h"
 #import "JPPaymentMethods.h"

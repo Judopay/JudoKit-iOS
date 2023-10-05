@@ -311,27 +311,4 @@ class JPApiServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 6, handler: nil)
     }
-    
-    /*
-     * GIVEN: JPBankOrderSaleRequest init for pbba Request
-     *
-     * WHEN:  the JPBankOrderSaleRequest is passed a valid configuration
-     *
-     * THEN:  return should be valid pbba Request
-     */
-    func test_pbbaRequest_ValidConfiguration_ReturnRightRequest() {
-        let pbbaconfig = JPPBBAConfiguration()
-        pbbaconfig.mobileNumber = "mobileNumber"
-        pbbaconfig.emailAddress = "emailAddress"
-        pbbaconfig.appearsOnStatement = "appearsOnStatement"
-        transactionConfigurations.pbbaConfiguration = pbbaconfig
-
-        let pbbaRequest = JPBankOrderSaleRequest.pbbaRequest(with: transactionConfigurations)
-        XCTAssertEqual(pbbaRequest.amount, transactionConfigurations.amount.amount)
-        XCTAssertEqual(pbbaRequest.currency, transactionConfigurations.amount.currency)
-        XCTAssertEqual(pbbaRequest.bic, "RABONL2U")
-        XCTAssertEqual(pbbaRequest.mobileNumber, "mobileNumber")
-        XCTAssertEqual(pbbaRequest.appearsOnStatement, "appearsOnStatement")
-        XCTAssertEqual(pbbaRequest.emailAddress, "emailAddress")
-    }
 }
