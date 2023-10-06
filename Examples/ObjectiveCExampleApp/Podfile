@@ -29,6 +29,10 @@ post_install do |installer|
       config.build_settings.delete 'SWIFT_VERSION'
       # https://www.jessesquires.com/blog/2020/07/20/xcode-12-drops-support-for-ios-8-fix-for-cocoapods/
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      # Disable signing for all pods targets for CircleCI
+      config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+      config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+      config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
     end
   end
 end
