@@ -18,6 +18,11 @@ final class CardPaymentUITests: XCTestCase {
         app = XCUIApplication()
         
         app.configureSettings()
+        
+        addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
+            alert.buttons["Allow While Using App"].tap()
+            return true
+        }
     }
 
     func testOnValidCardDetailsInputSubmitButtonShouldBeEnabled() {

@@ -320,6 +320,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install reporter
+          command: |
+            brew install xctesthtmlreport 
+      - run:
           name: Install Pods
           command: |
             cd Examples/ObjectiveCExampleApp
@@ -329,6 +333,7 @@ jobs:
           command: |
             xcodebuild clean test \
               -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -resultBundlePath TestResults \
               -scheme ObjectiveCExampleAppUITests \
               -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
               -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
@@ -336,6 +341,14 @@ jobs:
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
               TEST_API_SECRET=$TEST_JUDO_API_SECRET
+      - run:
+          name: Generate test report
+          command: |
+            xchtmlreport TestResults.xcresult
+      - store_artifacts:
+          path: TestResults.xcresult
+      - store_artifacts:
+          path: index.html
   unit_test_sdk:
     executor: macos
     steps:
