@@ -285,9 +285,11 @@ jobs:
     executor: macos
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
+      - run:
+          name: Install Pods
+          command: |
+            cd Examples/ObjectiveCExampleApp
+            pod install --repo-update
       - run:
           name: Build ObjC Sample for UI Tests
           command: |
