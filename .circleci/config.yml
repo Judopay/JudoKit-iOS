@@ -315,6 +315,27 @@ jobs:
           root: .
           paths:
             - ObjectiveCExampleAppUITests.zip
+  run_instrumented_tests:
+    executor: macos
+    steps:
+      - checkout
+      - run:
+          name: Install Pods
+          command: |
+            cd Examples/ObjectiveCExampleApp
+            pod install --repo-update
+      - run:
+          name: Execute ObjC Sample App UI Tests
+          command: |
+            xcodebuild clean test \
+              -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -scheme ObjectiveCExampleAppUITests \
+              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
+              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
+              -allowProvisioningUpdates \
+              TEST_API_JUDO_ID=$TEST_JUDO_ID \
+              TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
+              TEST_API_SECRET=$TEST_JUDO_API_SECRET
   unit_test_sdk:
     executor: macos
     steps:
@@ -562,7 +583,7 @@ workflows:
       - build_spm_sample:
           requires:
             - build_sdk
-      - build_instrumented_tests_package:
+      - run_instrumented_tests:
           context: shared-secrets
           requires:
             - build_sdk
