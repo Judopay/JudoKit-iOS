@@ -75,7 +75,7 @@ final class CardPaymentUITests: XCTestCase {
     
         tapCompleteButton(app)
         
-        assertResultObject(app, "Payment", "3D secure authorisation declined", "Declined")
+        assertResultObject(app, "Payment", "Card declined: CV2 policy", "Declined")
     }
 
     func testFailedTransactionReceiptObjectShouldContainRelevantInfo() {
