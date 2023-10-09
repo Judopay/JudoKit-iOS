@@ -91,10 +91,20 @@ parameters:
     default: false
 
 jobs:
+  checkout_project:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths: .
   carthage_update_sdk:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
             - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
@@ -107,26 +117,38 @@ jobs:
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
           paths:
-            - Carthage
+            - ./Carthage
             - ~/Library/Caches/org.carthage.CarthageKit
             - ~/Library/Caches/carthage
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./Carthage
   bundle_install:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
-            - judokit-ios-{{ checksum "Gemfile" }}
+            - judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Bundle Install
           command: bundle install
       - save_cache:
-          key: judokit-ios-{{ checksum "Gemfile" }}
-          paths: ~/.bundle/cache
+          key: judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.bundle/cache
+            - ./vendor/bundle
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./vendor/bundle
   carthage_update_sample:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
             - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
@@ -140,13 +162,18 @@ jobs:
       - save_cache:
           key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
           paths:
-            - Examples/CarthageExampleApp/Carthage
+            - ./Examples/CarthageExampleApp/Carthage
             - ~/Library/Caches/org.carthage.CarthageKit
             - ~/Library/Caches/carthage
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./Examples/CarthageExampleApp/Carthage
   pod_install_objc_sample:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
             - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
@@ -160,12 +187,16 @@ jobs:
       - save_cache:
           key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
           paths:
-            - Examples/ObjectiveCExampleApp/Pods
-            - Examples/ObjectiveCExampleApp/Podfile.lock
+            - ./Examples/ObjectiveCExampleApp/Pods
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./Examples/ObjectiveCExampleApp/Pods
   pod_install_swift_sample:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
             - judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
@@ -179,15 +210,16 @@ jobs:
       - save_cache:
           key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
           paths:
-            - Examples/SwiftExampleApp/Pods
-            - Examples/SwiftExampleApp/Podfile.lock
+            - ./Examples/SwiftExampleApp/Pods
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./Examples/SwiftExampleApp/Pods
   build_sdk:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Build SDK
           command: |
@@ -200,14 +232,12 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - DerivedData
+            - ./DerivedData
   build_carthage_sample:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Build Carthage Sample
           command: |
@@ -220,14 +250,12 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Examples/CarthageExampleApp/DerivedData
+            - ./Examples/CarthageExampleApp/DerivedData
   build_objc_sample:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Build ObjC Sample
           command: |
@@ -240,14 +268,12 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Examples/ObjectiveCExampleApp/build/ObjectiveCExampleApp
+            - ./Examples/ObjectiveCExampleApp/build/ObjectiveCExampleApp
   build_swift_sample:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Build Swift Sample
           command: |
@@ -260,14 +286,12 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Examples/SwiftExampleApp/DerivedData
+            - ./Examples/SwiftExampleApp/DerivedData
   build_spm_sample:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Build SPM Sample
           command: |
@@ -280,16 +304,12 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Examples/SPMExampleApp/DerivedData
+            - ./Examples/SPMExampleApp/DerivedData
   build_instrumented_tests_package:
     executor: macos
     steps:
-      - checkout
-      - run:
-          name: Install Pods
-          command: |
-            cd Examples/ObjectiveCExampleApp
-            pod install --repo-update
+      - attach_workspace:
+          at: .
       - run:
           name: Build ObjC Sample for UI Tests
           command: |
@@ -302,62 +322,15 @@ jobs:
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
               TEST_API_SECRET=$TEST_JUDO_API_SECRET
-            export APP_FILE=$(find . -name JudoKit.app)
-            codesign \
-              --verify \
-              --deep \
-              --verbose \
-              $APP_FILE
-            zip -r ObjectiveCExampleAppUITests.zip \
-              Examples/ObjectiveCExampleApp/DerivedData/Debug-iphoneos \
-              Examples/ObjectiveCExampleApp/DerivedData/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
       - persist_to_workspace:
           root: .
           paths:
-            - ObjectiveCExampleAppUITests.zip
-  run_instrumented_tests:
-    executor: macos
-    steps:
-      - checkout
-      - run:
-          name: Install reporter
-          command: |
-            brew install xctesthtmlreport 
-      - run:
-          name: Install Pods
-          command: |
-            cd Examples/ObjectiveCExampleApp
-            pod install --repo-update
-      - run:
-          name: Execute ObjC Sample App UI Tests
-          command: |
-            xcodebuild clean test \
-              -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
-              -resultBundlePath TestResults \
-              -scheme ObjectiveCExampleAppUITests \
-              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
-              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
-              -allowProvisioningUpdates \
-              TEST_API_JUDO_ID=$TEST_JUDO_ID \
-              TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
-              TEST_API_SECRET=$TEST_JUDO_API_SECRET
-      - run:
-          name: Generate test report
-          command: |
-            xchtmlreport TestResults.xcresult
-      - store_artifacts:
-          path: TestResults.xcresult
-      - store_artifacts:
-          path: index.html
+            - ./Examples/ObjectiveCExampleApp/DerivedData
   unit_test_sdk:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
       - attach_workspace:
-          at: ~/project
+          at: .
       - run:
           name: Install Sonar Build Wrapper
           command: |
@@ -387,17 +360,13 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - DerivedData
-            - build-wrapper-output
+            - ./DerivedData
+            - ./build-wrapper-output
   unit_test_objc_sample:
     executor: macos
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - judokit-sample-objc-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
       - attach_workspace:
-          at: ~/project
+          at: .
       - run:
           name: Install Sonar Build Wrapper
           command: |
@@ -426,44 +395,74 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Examples/ObjectiveCExampleApp/DerivedData
-            - Examples/ObjectiveCExampleApp/build-wrapper-output
+            - ./Examples/ObjectiveCExampleApp/DerivedData
+            - ./Examples/ObjectiveCExampleApp/build-wrapper-output
   validate_podspec:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Validate PodSpec
           command: pod lib lint --no-subspecs --allow-warnings
-  instrumented_tests_sample:
+  # instrumented_tests_sample:
+  #   executor: macos
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - run:
+  #         name: Store Google Service Account
+  #         command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+  #     - run:
+  #         name: Authorize gcloud and set config defaults
+  #         command: |
+  #           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+  #           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+  #     - run:
+  #         name: Test with Firebase Test Lab
+  #         no_output_timeout: 30m
+  #         command: >
+  #           gcloud firebase test ios run \
+  #             --test ObjectiveCExampleAppUITests.zip \
+  #             --xcode-version 14.2 \
+  #             --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+  #     - notify_slack_error
+  #     - notify_slack_pass
+  run_instrumented_tests:
     executor: macos
     steps:
       - attach_workspace:
-          at: ~/project
+          at: .
       - run:
-          name: Store Google Service Account
-          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-      - run:
-          name: Authorize gcloud and set config defaults
+          name: Install reporter
           command: |
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            brew install xctesthtmlreport
       - run:
-          name: Test with Firebase Test Lab
-          no_output_timeout: 30m
-          command: >
-            gcloud firebase test ios run \
-              --test ObjectiveCExampleAppUITests.zip \
-              --xcode-version 14.2 \
-              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-      - notify_slack_error
-      - notify_slack_pass
+          name: Execute ObjC Sample App UI Tests
+          command: |
+            xcodebuild clean test \
+              -workspace ./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -resultBundlePath TestResults \
+              -scheme ObjectiveCExampleAppUITests \
+              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
+              -derivedDataPath ./Examples/ObjectiveCExampleApp/DerivedData \
+              -allowProvisioningUpdates \
+              TEST_API_JUDO_ID=$TEST_JUDO_ID \
+              TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
+              TEST_API_SECRET=$TEST_JUDO_API_SECRET
+      - run:
+          name: Generate test report
+          command: |
+            xchtmlreport TestResults.xcresult
+      - store_artifacts:
+          path: ./TestResults.xcresult
+      - store_artifacts:
+          path: ./index.html
   sonar_scan:
     executor: macos
     steps:
-      - checkout
       - attach_workspace:
-          at: ~/project
+          at: .
       - run:
           name: Install Sonar Scanner
           command: |
@@ -512,9 +511,8 @@ jobs:
   release_sample:
     executor: macos
     steps:
-      - checkout
       - attach_workspace:
-          at: ~/project
+          at: .
       - run:
           name: Install Firebase CLI
           command: curl -sL https://firebase.tools | bash
@@ -537,7 +535,8 @@ jobs:
   release_sdk:
     executor: macos
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Release SDK to CocoaPods
           command: pod trunk push JudoKit-iOS.podspec --allow-warnings
@@ -551,7 +550,8 @@ jobs:
       environment:
         type: string
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Report Deployment to Jira
           environment:
@@ -596,11 +596,17 @@ workflows:
       - build_spm_sample:
           requires:
             - build_sdk
+      - build_instrumented_tests_package:
+          requires:
+            - build_objc_sample
       - run_instrumented_tests:
           context: shared-secrets
           requires:
-            - build_sdk
-            - pod_install_objc_sample
+            - build_objc_sample
+          filters:
+            branches:
+              only:
+                - master
       # - instrumented_tests_sample:
       #     context: shared-secrets
       #     requires:
