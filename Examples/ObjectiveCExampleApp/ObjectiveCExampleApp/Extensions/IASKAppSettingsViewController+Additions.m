@@ -42,8 +42,7 @@
     NSString *judoId = Settings.defaultSettings.judoId;
     NSString *amount = Settings.defaultSettings.amount.amount;
     NSString *currency = Settings.defaultSettings.amount.currency;
-//    NSString *paymentReference = [[NSUUID UUID] UUIDString];
-    NSString *paymentReference = @"6f950c1f-ff32-460e-b45f-8d0fceee6396";
+    NSString *paymentReference = [[NSUUID UUID] UUIDString];
     [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
     NSString *consumerReference = @"my-unique-ref";
     [NSUserDefaults.standardUserDefaults setValue:consumerReference forKey:kConsumerReferenceKey];
