@@ -678,13 +678,13 @@ workflows:
     when: << pipeline.parameters.nightly >>
     jobs:
       - checkout_project
-      - pod_install_objc_sample:
+      - objc_sample_dependencies:
           requires:
             - checkout_project
       - build_instrumented_tests_package:
           context: shared-secrets
           requires:
-            - pod_install_objc_sample
+            - objc_sample_dependencies
       - run_instrumented_tests:      
           context: shared-secrets
           requires:
