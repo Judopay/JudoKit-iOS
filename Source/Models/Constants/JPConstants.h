@@ -104,4 +104,7 @@ static NSString *const kAlpha2CodeUK = @"GB";
 
 static NSString *const kScaExemptionLowValue = @"LOW_VALUE";
 static NSString *const kScaExemptionTransactionRiskAnalysis = @"TRANSACTION_RISK_ANALYSIS";
+
+static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
+static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";
 #endif /* JPConstants_h */

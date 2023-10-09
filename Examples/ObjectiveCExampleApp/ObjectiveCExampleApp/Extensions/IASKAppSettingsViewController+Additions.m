@@ -2,6 +2,7 @@
 #import "Settings.h"
 #import "CreatePaymentSessionRequest.h"
 #import "JPAuthorization.h"
+#import "JPConstants.h"
 
 @implementation IASKAppSettingsViewController (Additions)
 
@@ -47,12 +48,13 @@
     [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
     NSString *consumerReference = @"my-unique-ref";
     [NSUserDefaults.standardUserDefaults setValue:consumerReference forKey:kConsumerReferenceKey];
-    NSString *urlString;
+    NSString *baseUrlString;
     if (Settings.defaultSettings.isSandboxed) {
-        urlString = @"https://api-sandbox.judopay.com/webpayments/payments";
+        baseUrlString = kJudoSandboxBaseURL;
     } else {
-        urlString = @"https://api.judopay.com/webpayments/payments";
+        baseUrlString = kJudoBaseURL;
     }
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@", baseUrlString, @"webpayments/payments"];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -86,8 +88,8 @@
                 NSLog(@"Generate Payment Session: JSON Error: %@", jsonError);
             } else {
                 NSLog(@"Generate Payment Session: API Response: %@", responseDict);
-//                NSString *paymentSessionReference = [responseDict objectForKey:@"reference"];
-                NSString *paymentSessionReference = @"5wcAAAoAAAADAAAADAAAAC4Vxr4nnA5wcAAAoAAAADAAAADAAAAC4Vxr4nnA8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng";
+                NSString *paymentSessionReference = [responseDict objectForKey:@"reference"];
+//                NSString *paymentSessionReference = @"5wcAAAoAAAADAAAADAAAAC4Vxr4nnA5wcAAAoAAAADAAAADAAAAC4Vxr4nnA8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng";
                 [NSUserDefaults.standardUserDefaults setValue:paymentSessionReference forKey:kPaymentSessionKey];
             }
         }
