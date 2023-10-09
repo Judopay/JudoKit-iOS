@@ -113,7 +113,7 @@ jobs:
             - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path ./vendor/bundle --clean
+          command: bundle check || bundle install
       - run:
           name: Carthage Bootstrap
           command: |
@@ -174,13 +174,13 @@ jobs:
       - run:
           name: Bundle Install
           working_directory: ./Examples/ObjectiveCExampleApp
-          command: bundle check || bundle install --path ./vendor/bundle --clean
+          command: bundle check || bundle install
       - run:
           name: Pod Install ObjC Sample App
           working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             if ! [ -f Pods ]; then
-              pod install
+              bundle exec pod install
             fi
       - save_cache:
           key: judokit-sample-objc-bundle-{{ checksum "./Examples/ObjectiveCExampleApp/Gemfile.lock" }}
@@ -208,13 +208,13 @@ jobs:
       - run:
           name: Bundle Install
           working_directory: ./Examples/SwiftExampleApp
-          command: bundle check || bundle install --path ./vendor/bundle --clean
+          command: bundle check || bundle install
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: |
             if ! [ -f Pods ]; then
-              pod install
+              bundle exec pod install
             fi
       - save_cache:
           key: judokit-sample-swift-bundle-{{ checksum "./Examples/SwiftExampleApp/Gemfile.lock" }}
