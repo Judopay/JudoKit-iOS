@@ -42,7 +42,6 @@
     NSString *judoId = Settings.defaultSettings.judoId;
     NSString *amount = Settings.defaultSettings.amount.amount;
     NSString *currency = Settings.defaultSettings.amount.currency;
-    // Todo: update these two in Settings
 //    NSString *paymentReference = [[NSUUID UUID] UUIDString];
     NSString *paymentReference = @"6f950c1f-ff32-460e-b45f-8d0fceee6396";
     [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
@@ -89,7 +88,6 @@
             } else {
                 NSLog(@"Generate Payment Session: API Response: %@", responseDict);
                 NSString *paymentSessionReference = [responseDict objectForKey:@"reference"];
-//                NSString *paymentSessionReference = @"5wcAAAoAAAADAAAADAAAAC4Vxr4nnA5wcAAAoAAAADAAAADAAAAC4Vxr4nnA8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng8Ry9mqizH80zL4aoX9jFUgPzuDijq4Rgbok7QNng";
                 [NSUserDefaults.standardUserDefaults setValue:paymentSessionReference forKey:kPaymentSessionKey];
             }
         }
