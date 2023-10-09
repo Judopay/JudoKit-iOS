@@ -25,8 +25,6 @@
 #import <Foundation/Foundation.h>
 #import "RecommendationData.h"
 
-//@class RecommendationData;
-
 @interface RecommendationResponse : NSObject
 
 @property (nonatomic, strong) RecommendationData *_Nullable data;
