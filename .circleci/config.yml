@@ -100,20 +100,30 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  carthage_update_sdk:
+  sdk_dependencies:
     executor: macos
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
           keys:
+            - judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
             - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --path ./vendor/bundle --clean
       - run:
           name: Carthage Bootstrap
           command: |
             if ! [ -d ./Carthage ]; then
               carthage bootstrap --use-xcframeworks
             fi
+      - save_cache:
+          key: judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vendor/bundle
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
           paths:
@@ -123,35 +133,16 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - ./vendor/bundle
             - ./Carthage
-  bundle_install:
+  carthage_sample_dependencies:
     executor: macos
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
           keys:
-            - judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: Bundle Install
-          command: bundle install --path ./vendor/bundle
-      - save_cache:
-          key: judokit-ios-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/.bundle/cache
-            - ./vendor/bundle
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./vendor/bundle
-  carthage_update_sample:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - judokit-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
+            - judokit-carthage-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
       - run:
           name: Carthage Bootstrap Sample App
           working_directory: Examples/CarthageExampleApp
@@ -160,7 +151,7 @@ jobs:
               carthage bootstrap --use-xcframeworks
             fi
       - save_cache:
-          key: judokit-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
+          key: judokit-carthage-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
           paths:
             - ./Examples/CarthageExampleApp/Carthage
             - ~/Library/Caches/org.carthage.CarthageKit
@@ -169,14 +160,21 @@ jobs:
           root: .
           paths:
             - ./Examples/CarthageExampleApp/Carthage
-  pod_install_objc_sample:
+  objc_sample_dependencies:
     executor: macos
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-2
+            - judokit-sample-objc-bundle-{{ checksum "./Examples/ObjectiveCExampleApp/Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}
+      - run:
+          name: Bundle Install
+          working_directory: ./Examples/ObjectiveCExampleApp
+          command: bundle check || bundle install --path ./vendor/bundle --clean
       - run:
           name: Pod Install ObjC Sample App
           working_directory: ./Examples/ObjectiveCExampleApp
@@ -185,21 +183,32 @@ jobs:
               pod install
             fi
       - save_cache:
-          key: judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-2
+          key: judokit-sample-objc-bundle-{{ checksum "./Examples/ObjectiveCExampleApp/Gemfile.lock" }}
+          paths:
+            - ./Examples/ObjectiveCExampleApp/vendor/bundle
+      - save_cache:
+          key: judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}
           paths:
             - ./Examples/ObjectiveCExampleApp/Pods
       - persist_to_workspace:
           root: .
           paths:
             - ./Examples/ObjectiveCExampleApp/Pods
-  pod_install_swift_sample:
+  swift_sample_dependencies:
     executor: macos
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-2
+            - judokit-sample-objc-bundle-{{ checksum "./Examples/SwiftExampleApp/Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}
+      - run:
+          name: Bundle Install
+          working_directory: ./Examples/SwiftExampleApp
+          command: bundle check || bundle install --path ./vendor/bundle --clean
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
@@ -208,7 +217,11 @@ jobs:
               pod install
             fi
       - save_cache:
-          key: judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-2
+          key: judokit-sample-swift-bundle-{{ checksum "./Examples/SwiftExampleApp/Gemfile.lock" }}
+          paths:
+            - ./Examples/ObjectiveCExampleApp/vendor/bundle
+      - save_cache:
+          key: judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}
           paths:
             - ./Examples/SwiftExampleApp/Pods
       - persist_to_workspace:
@@ -572,25 +585,21 @@ workflows:
       not: << pipeline.parameters.nightly >>
     jobs:
       - checkout_project
-      - carthage_update_sdk:
+      - sdk_dependencies:
           requires:
             - checkout_project
-      - bundle_install:
+      - carthage_sample_dependencies:
           requires:
             - checkout_project
-      - carthage_update_sample:
+      - objc_sample_dependencies:
           requires:
             - checkout_project
-      - pod_install_objc_sample:
-          requires:
-            - checkout_project
-      - pod_install_swift_sample:
+      - swift_sample_dependencies:
           requires:
             - checkout_project
       - build_sdk:
           requires:
-            - carthage_update_sdk
-            - bundle_install
+            - sdk_dependencies
       - unit_test_sdk:
           requires:
             - build_sdk
@@ -604,15 +613,15 @@ workflows:
       - build_objc_sample:
           requires:
             - build_sdk
-            - pod_install_objc_sample
+            - objc_sample_dependencies
       - build_carthage_sample:
           requires:
             - build_sdk
-            - carthage_update_sample
+            - carthage_sample_dependencies
       - build_swift_sample:
           requires:
             - build_sdk
-            - pod_install_swift_sample
+            - swift_sample_dependencies
       - build_spm_sample:
           requires:
             - build_sdk
