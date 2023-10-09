@@ -151,7 +151,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
+            - judokit-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
       - run:
           name: Carthage Bootstrap Sample App
           working_directory: Examples/CarthageExampleApp
@@ -160,7 +160,7 @@ jobs:
               carthage bootstrap --use-xcframeworks
             fi
       - save_cache:
-          key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile.resolved" }}
+          key: judokit-sample-carthage-{{ checksum "./Examples/CarthageExampleApp/Cartfile.resolved" }}
           paths:
             - ./Examples/CarthageExampleApp/Carthage
             - ~/Library/Caches/org.carthage.CarthageKit
@@ -176,7 +176,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
+            - judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-1
       - run:
           name: Pod Install ObjC Sample App
           working_directory: ./Examples/ObjectiveCExampleApp
@@ -185,7 +185,7 @@ jobs:
               pod install --repo-update
             fi
       - save_cache:
-          key: judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
+          key: judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-1
           paths:
             - ./Examples/ObjectiveCExampleApp/Pods
       - persist_to_workspace:
@@ -199,7 +199,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
+            - judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-1
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
@@ -208,7 +208,7 @@ jobs:
               pod install --repo-update
             fi
       - save_cache:
-          key: judokit-sample-swift-cocoapods-{{ checksum "Examples/SwiftExampleApp/Podfile.lock" }}
+          key: judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-1
           paths:
             - ./Examples/SwiftExampleApp/Pods
       - persist_to_workspace:
