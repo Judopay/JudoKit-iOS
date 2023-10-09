@@ -179,7 +179,7 @@ jobs:
             - judokit-sample-objc-cocoapods-{{ checksum "Examples/ObjectiveCExampleApp/Podfile.lock" }}
       - run:
           name: Pod Install ObjC Sample App
-          working_directory: Examples/ObjectiveCExampleApp
+          working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             if ! [ -f Pods ]; then
               pod install --repo-update
@@ -240,13 +240,14 @@ jobs:
           at: .
       - run:
           name: Build Carthage Sample
+          working_directory: ./Examples/CarthageExampleApp
           command: |
             xcodebuild clean build \
-              -project Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj \
+              -project CarthageExampleApp.xcodeproj \
               -scheme CarthageExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
-              -derivedDataPath Examples/CarthageExampleApp/DerivedData
+              -derivedDataPath ./DerivedData
       - persist_to_workspace:
           root: .
           paths:
@@ -258,17 +259,18 @@ jobs:
           at: .
       - run:
           name: Build ObjC Sample
+          working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             xcodebuild clean build \
-              -workspace Examples/ObjectiveCExampleApp.xcworkspace \
+              -workspace ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
-              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData
+              -derivedDataPath ./DerivedData
       - persist_to_workspace:
           root: .
           paths:
-            - ./Examples/ObjectiveCExampleApp/build/ObjectiveCExampleApp
+            - ./Examples/ObjectiveCExampleApp/DerivedData
   build_swift_sample:
     executor: macos
     steps:
@@ -276,13 +278,14 @@ jobs:
           at: .
       - run:
           name: Build Swift Sample
+          working_directory: ./Examples/SwiftExampleApp
           command: |
             xcodebuild clean build \
-              -workspace Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace \
+              -workspace SwiftExampleApp.xcworkspace \
               -scheme SwiftExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
-              -derivedDataPath Examples/SwiftExampleApp/DerivedData
+              -derivedDataPath ./DerivedData
       - persist_to_workspace:
           root: .
           paths:
@@ -294,13 +297,14 @@ jobs:
           at: .
       - run:
           name: Build SPM Sample
+          working_directory: ./Examples/SPMExampleApp
           command: |
             xcodebuild clean build \
-              -project Examples/SPMExampleApp/SPMExampleApp.xcodeproj \
+              -project SPMExampleApp.xcodeproj \
               -scheme SPMExampleApp \
               -configuration Release \
               -sdk iphonesimulator \
-              -derivedDataPath Examples/SPMExampleApp/DerivedData
+              -derivedDataPath ./DerivedData
       - persist_to_workspace:
           root: .
           paths:
@@ -312,12 +316,13 @@ jobs:
           at: .
       - run:
           name: Build ObjC Sample for UI Tests
+          working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             xcodebuild clean build-for-testing \
-              -workspace Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -workspace ObjectiveCExampleApp.xcworkspace \
               -scheme ObjectiveCExampleAppUITests \
               -destination 'generic/platform=iOS' \
-              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
+              -derivedDataPath ./DerivedData \
               -allowProvisioningUpdates \
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
@@ -439,25 +444,27 @@ jobs:
             brew install xctesthtmlreport
       - run:
           name: Execute ObjC Sample App UI Tests
+          working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             xcodebuild clean test \
-              -workspace ./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace \
+              -workspace ObjectiveCExampleApp.xcworkspace \
               -resultBundlePath TestResults \
               -scheme ObjectiveCExampleAppUITests \
               -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
-              -derivedDataPath ./Examples/ObjectiveCExampleApp/DerivedData \
+              -derivedDataPath ./DerivedData \
               -allowProvisioningUpdates \
               TEST_API_JUDO_ID=$TEST_JUDO_ID \
               TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
               TEST_API_SECRET=$TEST_JUDO_API_SECRET
       - run:
           name: Generate test report
+          working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             xchtmlreport TestResults.xcresult
       - store_artifacts:
-          path: ./TestResults.xcresult
+          path: ./Examples/ObjectiveCExampleApp/TestResults.xcresult
       - store_artifacts:
-          path: ./index.html
+          path: ./Examples/ObjectiveCExampleApp/index.html
   sonar_scan:
     executor: macos
     steps:
