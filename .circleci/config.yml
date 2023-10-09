@@ -194,6 +194,7 @@ jobs:
           root: .
           paths:
             - ./Examples/ObjectiveCExampleApp/Pods
+            - ./Examples/ObjectiveCExampleApp/vendor/bundle
   swift_sample_dependencies:
     executor: macos
     steps:
@@ -228,6 +229,7 @@ jobs:
           root: .
           paths:
             - ./Examples/SwiftExampleApp/Pods
+            - ./Examples/SwiftExampleApp/vendor/bundle
   build_sdk:
     executor: macos
     steps:
