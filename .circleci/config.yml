@@ -176,16 +176,16 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-1
+            - judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-2
       - run:
           name: Pod Install ObjC Sample App
           working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             if ! [ -f Pods ]; then
-              pod install --repo-update
+              pod install
             fi
       - save_cache:
-          key: judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-1
+          key: judokit-sample-objc-cocoapods-{{ checksum "./Examples/ObjectiveCExampleApp/Podfile.lock" }}-2
           paths:
             - ./Examples/ObjectiveCExampleApp/Pods
       - persist_to_workspace:
@@ -199,16 +199,16 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-1
+            - judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-2
       - run:
           name: Pod Install Swift Sample App
           working_directory: Examples/SwiftExampleApp
           command: |
             if ! [ -f Pods ]; then
-              pod install --repo-update
+              pod install
             fi
       - save_cache:
-          key: judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-1
+          key: judokit-sample-swift-cocoapods-{{ checksum "./Examples/SwiftExampleApp/Podfile.lock" }}-2
           paths:
             - ./Examples/SwiftExampleApp/Pods
       - persist_to_workspace:
