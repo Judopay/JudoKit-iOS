@@ -564,11 +564,22 @@ workflows:
     when:
       not: << pipeline.parameters.nightly >>
     jobs:
-      - carthage_update_sdk
-      - bundle_install
-      - carthage_update_sample
-      - pod_install_objc_sample
-      - pod_install_swift_sample
+      - checkout_project
+      - carthage_update_sdk:
+          requires:
+            - checkout_code
+      - bundle_install:
+          requires:
+            - checkout_code
+      - carthage_update_sample:
+          requires:
+            - checkout_code
+      - pod_install_objc_sample:
+          requires:
+            - checkout_code
+      - pod_install_swift_sample:
+          requires:
+            - checkout_code
       - build_sdk:
           requires:
             - carthage_update_sdk
@@ -576,7 +587,9 @@ workflows:
       - unit_test_sdk:
           requires:
             - build_sdk
-      - validate_podspec
+      - validate_podspec:
+          requires:
+            - checkout_code
       - sonar_scan:
           context: shared-secrets
           requires:
@@ -631,6 +644,8 @@ workflows:
             - release_sample
       - release_sdk:
           context: shared-secrets
+          requires:
+            - checkout_code
           filters:
             branches:
               ignore:
@@ -640,13 +655,18 @@ workflows:
                 - /^v((\d)+\.){1,2}(\d+)/
       - report_to_jira:
           context: shared-secrets
+          requires:
+            - checkout_code
           environment: prod
           requires:
             - release_sdk
   e2e-nightly:
     when: << pipeline.parameters.nightly >>
     jobs:
-      - pod_install_objc_sample
+      - checkout_code
+      - pod_install_objc_sample:
+          requires:
+            - checkout_code
       - build_instrumented_tests_package:
           context: shared-secrets
           requires:
