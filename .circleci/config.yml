@@ -655,8 +655,6 @@ workflows:
                 - /^v((\d)+\.){1,2}(\d+)/
       - report_to_jira:
           context: shared-secrets
-          requires:
-            - checkout_code
           environment: prod
           requires:
             - release_sdk
