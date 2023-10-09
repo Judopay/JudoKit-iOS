@@ -112,7 +112,6 @@ recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeReque
     return self;
 }
 
-// Todo: Where would be better to place this?
 - (NSString *)stringForScaExemption:(ScaExemption)scaExemption {
     if (scaExemption == LOW_VALUE) {
         return kScaExemptionLowValue;

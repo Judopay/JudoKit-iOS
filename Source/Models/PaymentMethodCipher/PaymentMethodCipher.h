@@ -38,7 +38,6 @@
 
 @property (nonatomic, strong) NSString * methodType;
 
-// Todo: can we rename it in the code?
 @property (nonatomic, strong) NSString * ravelinSDKVersion;
 
 /**
