@@ -330,18 +330,21 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Build ObjC Sample for UI Tests
-          working_directory: ./Examples/ObjectiveCExampleApp
-          command: |
-            xcodebuild clean build-for-testing \
-              -workspace ObjectiveCExampleApp.xcworkspace \
-              -scheme ObjectiveCExampleAppUITests \
-              -destination 'generic/platform=iOS' \
-              -derivedDataPath ./DerivedData \
-              -allowProvisioningUpdates \
-              TEST_API_JUDO_ID=$TEST_JUDO_ID \
-              TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
-              TEST_API_SECRET=$TEST_JUDO_API_SECRET
+          name: Fastlane
+          command: bundle exec fastlane adhoc
+      # - run:
+      #     name: Build ObjC Sample for UI Tests
+      #     working_directory: ./Examples/ObjectiveCExampleApp
+      #     command: |
+      #       xcodebuild clean build-for-testing \
+      #         -workspace ObjectiveCExampleApp.xcworkspace \
+      #         -scheme ObjectiveCExampleAppUITests \
+      #         -destination 'generic/platform=iOS' \
+      #         -derivedDataPath ./DerivedData \
+      #         -allowProvisioningUpdates \
+      #         TEST_API_JUDO_ID=$TEST_JUDO_ID \
+      #         TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
+      #         TEST_API_SECRET=$TEST_JUDO_API_SECRET
       - persist_to_workspace:
           root: .
           paths:
