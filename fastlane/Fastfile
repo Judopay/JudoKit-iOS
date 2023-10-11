@@ -11,10 +11,10 @@ platform :ios do
     scan
   end
 
-  desc "Ad-hoc build"
-  lane :adhoc do
-    match(type: "adhoc")
-    gym(export_method: "ad-hoc")
+  desc "Ad-hoc build for ObjectiveCExampleApp"
+  lane :adhoc_objc do
+    match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
+    gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
   end
   
   lane :generate_code_quality_reports do
@@ -23,5 +23,4 @@ platform :ios do
     oclint(report_type: 'html')           # run static code analyzer
     slather                               # generate code coverage reports
   end
-
 end
