@@ -331,7 +331,7 @@ jobs:
           at: .
       - run:
           name: Fastlane
-          working_directory: ./Examples/ObjectiveCExampleApp
+          # working_directory: ./Examples/ObjectiveCExampleApp
           command: bundle exec fastlane adhoc
       # - run:
       #     name: Build ObjC Sample for UI Tests
