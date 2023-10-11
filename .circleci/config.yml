@@ -346,10 +346,16 @@ jobs:
       #         TEST_API_JUDO_ID=$TEST_JUDO_ID \
       #         TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
       #         TEST_API_SECRET=$TEST_JUDO_API_SECRET
+      - run:
+          name: Package up ObjC Sample for UI Tests
+          working_directory: ./Examples/ObjectiveCExampleApp
+          command: |
+            zip -r ObjectiveCExampleAppUITests.zip DerivedData/Debug-iphoneos DerivedData/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
       - persist_to_workspace:
           root: .
           paths:
             - ./Examples/ObjectiveCExampleApp/DerivedData
+            - ./Examples/ObjectiveCExampleApp/ObjectiveCExampleAppUITests.zip
   unit_test_sdk:
     executor: macos
     steps:
@@ -429,29 +435,29 @@ jobs:
       - run:
           name: Validate PodSpec
           command: pod lib lint --no-subspecs --allow-warnings
-  # instrumented_tests_sample:
-  #   executor: macos
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/project
-  #     - run:
-  #         name: Store Google Service Account
-  #         command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-  #     - run:
-  #         name: Authorize gcloud and set config defaults
-  #         command: |
-  #           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-  #           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-  #     - run:
-  #         name: Test with Firebase Test Lab
-  #         no_output_timeout: 30m
-  #         command: >
-  #           gcloud firebase test ios run \
-  #             --test ObjectiveCExampleAppUITests.zip \
-  #             --xcode-version 14.2 \
-  #             --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-  #     - notify_slack_error
-  #     - notify_slack_pass
+  instrumented_tests_sample:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Store Google Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Authorize gcloud and set config defaults
+          command: |
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - run:
+          name: Test with Firebase Test Lab
+          no_output_timeout: 30m
+          command: >
+            gcloud firebase test ios run \
+              --test ObjectiveCExampleAppUITests.zip \
+              --xcode-version 14.2 \
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+      - notify_slack_error
+      - notify_slack_pass
   run_instrumented_tests:
     executor: macos
     steps:
@@ -642,14 +648,14 @@ workflows:
           #   branches:
           #     only:
           #       - master
-      # - instrumented_tests_sample:
-      #     context: shared-secrets
-      #     requires:
-      #       - build_instrumented_tests_package
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - instrumented_tests_sample:
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_package
+          filters:
+            branches:
+              only:
+                - master
       - release_sample:
           context: shared-secrets
           requires:
