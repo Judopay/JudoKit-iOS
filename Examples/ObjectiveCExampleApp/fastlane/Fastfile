@@ -19,7 +19,8 @@ platform :ios do
     workspace: "ObjectiveCExampleApp.xcworkspace", 
     scheme: "ObjectiveCExampleAppUITests",
     destination: "generic/platform=iOS",
-    sdk: "iphoneos")
+    sdk: "iphoneos",
+    buildlog_path: "buildlog.txt",)
   end
   
   lane :generate_code_quality_reports do

@@ -351,6 +351,8 @@ jobs:
           working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             zip -r ObjectiveCExampleAppUITests.zip DerivedData/Build/Products/Debug-iphoneos DerivedData/Build/Products/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
+      - store_artifacts:
+          path: buildlog.txt
       - persist_to_workspace:
           root: .
           paths:
