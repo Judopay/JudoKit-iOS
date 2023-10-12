@@ -644,10 +644,10 @@ workflows:
           context: shared-secrets
           requires:
             - build_objc_sample
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
+          filters:
+            branches:
+              only:
+                - master
       - instrumented_tests_sample:
           context: shared-secrets
           requires:
