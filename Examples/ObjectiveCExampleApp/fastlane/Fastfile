@@ -13,7 +13,7 @@ platform :ios do
   desc "Ad-hoc build for ObjectiveCExampleApp"
   lane :adhoc_objc do
     match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
-    # gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
+    gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
     run_tests(derived_data_path: "DerivedData", 
     build_for_testing: true, 
     workspace: "ObjectiveCExampleApp.xcworkspace", 
