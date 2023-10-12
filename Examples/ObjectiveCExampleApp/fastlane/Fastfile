@@ -18,6 +18,7 @@ platform :ios do
     build_for_testing: true, 
     workspace: "ObjectiveCExampleApp.xcworkspace", 
     scheme: "ObjectiveCExampleAppUITests",
+    destination: "generic/platform=iOS",
     sdk: "iphoneos")
   end
   
