@@ -19,8 +19,7 @@ platform :ios do
     workspace: "ObjectiveCExampleApp.xcworkspace", 
     scheme: "ObjectiveCExampleAppUITests",
     destination: "generic/platform=iOS",
-    output_xctestrun: true,
-    code_coverage: false)
+    output_xctestrun: true)
   end
   
   lane :generate_code_quality_reports do
