@@ -12,7 +12,7 @@ platform :ios do
 
   desc "Ad-hoc build for ObjectiveCExampleApp"
   lane :adhoc_objc do
-    match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
+    match(type: "adhoc", app_identifier: ["com.judo.JudoPayDemoObjC", "com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests"])
     # gym(workspace: "ObjectiveCExampleApp.xcworkspace", scheme: "ObjectiveCExampleAppUITests", export_method: "ad-hoc", xcodebuild_command: "xcodebuild clean build-for-testing", skip_package_ipa: true)
     run_tests(derived_data_path: "DerivedData", 
     build_for_testing: true, 
