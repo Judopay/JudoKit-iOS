@@ -346,11 +346,11 @@ jobs:
       #         TEST_API_JUDO_ID=$TEST_JUDO_ID \
       #         TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
       #         TEST_API_SECRET=$TEST_JUDO_API_SECRET
-      # - run:
-      #     name: Package up ObjC Sample for UI Tests
-      #     working_directory: ./Examples/ObjectiveCExampleApp
-      #     command: |
-      #       zip -r ObjectiveCExampleAppUITests.zip DerivedData/Build/Products/Debug-iphoneos DerivedData/Build/Products/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
+      - run:
+          name: Package up ObjC Sample for UI Tests
+          working_directory: ./Examples/ObjectiveCExampleApp
+          command: |
+            zip -r ObjectiveCExampleAppUITests.zip DerivedData/Build/Products/Debug-iphoneos DerivedData/Build/Products/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
       - store_artifacts:
           path: ./Examples/ObjectiveCExampleApp/buildlog.txt
       - persist_to_workspace:
