@@ -7,6 +7,7 @@ executors:
 
 orbs:
   slack: circleci/slack@4.12.5
+  gcp-cli: circleci/gcp-cli@3.1.1
 
 commands:
   notify_slack_error:
@@ -91,6 +92,11 @@ parameters:
     default: false
 
 jobs:
+  use-gcp:
+    executor: gcp-cli/default
+    steps:
+      - gcp-cli/setup:
+          version: 404.0.0
   checkout_project:
     executor: macos
     steps:
@@ -330,29 +336,14 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Fastlane
+          name: Build ObjC Sample for UI Tests using Fastlane
           working_directory: ./Examples/ObjectiveCExampleApp
-          command: bundle exec fastlane development_objc --verbose
-      # - run:
-      #     name: Build ObjC Sample for UI Tests
-      #     working_directory: ./Examples/ObjectiveCExampleApp
-      #     command: |
-      #       xcodebuild clean build-for-testing \
-      #         -workspace ObjectiveCExampleApp.xcworkspace \
-      #         -scheme ObjectiveCExampleAppUITests \
-      #         -destination 'generic/platform=iOS' \
-      #         -derivedDataPath ./DerivedData \
-      #         -allowProvisioningUpdates \
-      #         TEST_API_JUDO_ID=$TEST_JUDO_ID \
-      #         TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
-      #         TEST_API_SECRET=$TEST_JUDO_API_SECRET
+          command: bundle exec fastlane development_objc
       - run:
-          name: Package up ObjC Sample for UI Tests
+          name: Package up for UI Tests
           working_directory: ./Examples/ObjectiveCExampleApp
           command: |
             zip -r ObjectiveCExampleAppUITests.zip DerivedData/Build/Products/Debug-iphoneos DerivedData/Build/Products/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
-      - store_artifacts:
-          path: ./Examples/ObjectiveCExampleApp/buildlog
       - persist_to_workspace:
           root: .
           paths:
@@ -654,6 +645,7 @@ workflows:
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
+            - use-gcp
           # filters:
           #   branches:
           #     only:
