@@ -342,7 +342,7 @@ jobs:
           root: .
           paths:
             - ./Examples/ObjectiveCExampleApp/DerivedData
-            - ./Examples/ObjectiveCExampleApp/ObjectiveCExampleAppUITests.zip
+            - ./Examples/ObjectiveCExampleApp/DerivedData/Build/Products/ObjectiveCExampleAppUITests.zip
   unit_test_sdk:
     executor: macos
     steps:
@@ -444,7 +444,7 @@ jobs:
           no_output_timeout: 30m
           command: >
             gcloud firebase test ios run \
-              --test Examples/ObjectiveCExampleApp/ObjectiveCExampleAppUITests.zip \
+              --test Examples/ObjectiveCExampleApp/DerivedData/Build/Products/ObjectiveCExampleAppUITests.zip \
               --xcode-version 14.2 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
