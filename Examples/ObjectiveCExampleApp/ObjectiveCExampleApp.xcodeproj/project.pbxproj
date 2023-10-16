@@ -950,7 +950,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
@@ -963,7 +964,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests";
 				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -980,6 +981,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
@@ -989,10 +991,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner";
 				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
