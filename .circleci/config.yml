@@ -444,7 +444,7 @@ jobs:
           no_output_timeout: 30m
           command: >
             gcloud firebase test ios run \
-              --test ObjectiveCExampleAppUITests.zip \
+              --test Examples/ObjectiveCExampleApp/ObjectiveCExampleAppUITests.zip \
               --xcode-version 14.2 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
