@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -466,7 +466,6 @@
 		AD4B368B2882E18600289CB7 /* JPTransactionRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B9C5247BC9BB00867B9F /* JPTransactionRouterMock.swift */; };
 		AD4B368C2882E19A00289CB7 /* JPApplePayServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B992247BC9BB00867B9F /* JPApplePayServiceTest.swift */; };
 		AD7404D0284A085A001F11CD /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6D282C1C7B00846943 /* OHHTTPStubs.xcframework */; platformFilter = ios; };
-		ADA50D70282C1C7B00846943 /* ZappMerchantLib.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6C282C1C7B00846943 /* ZappMerchantLib.xcframework */; };
 		ADA50D74282C1C7B00846943 /* DeviceDNA.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */; };
 		ADA50D76282C1C7B00846943 /* TrustKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D6F282C1C7B00846943 /* TrustKit.xcframework */; };
 		ADB514AA286DE90100332E47 /* Judo3DS2_iOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB514A9286DE90100332E47 /* Judo3DS2_iOS.xcframework */; };
@@ -987,7 +986,6 @@
 			files = (
 				ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */,
 				ADB514AA286DE90100332E47 /* Judo3DS2_iOS.xcframework in Frameworks */,
-				ADA50D70282C1C7B00846943 /* ZappMerchantLib.xcframework in Frameworks */,
 				525FF51B25307B89001F030E /* Vision.framework in Frameworks */,
 				ADA50D76282C1C7B00846943 /* TrustKit.xcframework in Frameworks */,
 				ADA50D74282C1C7B00846943 /* DeviceDNA.xcframework in Frameworks */,

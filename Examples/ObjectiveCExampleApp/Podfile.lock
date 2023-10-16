@@ -79,7 +79,7 @@ PODS:
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
   - OpenSSL-Universal (1.1.2000)
-  - TrustKit (3.0.2)
+  - TrustKit (3.0.3)
 
 DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
@@ -117,7 +117,7 @@ SPEC CHECKSUMS:
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   OpenSSL-Universal: 708e3d1e616a2c40f09a880aafc4b14d2f2a61ec
-  TrustKit: 55804401e9a95db0bbfff9a08373bfd91953071f
+  TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
 PODFILE CHECKSUM: d1ce3385f36315253b53822b57403affa4a77b56
 

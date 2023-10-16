@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/Judopay/DeviceDNA-iOS", from: "2.0.0"),
         .package(url: "https://github.com/Judopay/Judo3DS2-iOS", from: "1.1.4"),
-        .package(url: "https://github.com/datatheorem/TrustKit", exact: "1.7.0")
+        .package(url: "https://github.com/datatheorem/TrustKit", exact: "3.0.3")
     ],
     targets: [
         .target(
