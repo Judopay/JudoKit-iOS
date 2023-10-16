@@ -961,6 +961,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests";
@@ -990,6 +991,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner";
