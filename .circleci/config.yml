@@ -332,7 +332,7 @@ jobs:
       - run:
           name: Fastlane
           working_directory: ./Examples/ObjectiveCExampleApp
-          command: bundle exec fastlane adhoc_objc --verbose
+          command: bundle exec fastlane development_objc --verbose
       # - run:
       #     name: Build ObjC Sample for UI Tests
       #     working_directory: ./Examples/ObjectiveCExampleApp
@@ -352,7 +352,7 @@ jobs:
           command: |
             zip -r ObjectiveCExampleAppUITests.zip DerivedData/Build/Products/Debug-iphoneos DerivedData/Build/Products/ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
       - store_artifacts:
-          path: ./Examples/ObjectiveCExampleApp/buildlog.txt
+          path: ./Examples/ObjectiveCExampleApp/buildlog
       - persist_to_workspace:
           root: .
           paths:

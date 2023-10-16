@@ -10,9 +10,9 @@ platform :ios do
     scan
   end
 
-  desc "Ad-hoc build for ObjectiveCExampleApp"
-  lane :adhoc_objc do
-    match(type: "adhoc")
+  desc "Development build for ObjectiveCExampleApp"
+  lane :development_objc do
+    match(type: "development")
     # gym(workspace: "ObjectiveCExampleApp.xcworkspace", scheme: "ObjectiveCExampleAppUITests", export_method: "ad-hoc", xcodebuild_command: "xcodebuild clean build-for-testing", skip_package_ipa: true)
     run_tests(derived_data_path: "DerivedData", 
     build_for_testing: true, 
@@ -20,7 +20,7 @@ platform :ios do
     scheme: "ObjectiveCExampleAppUITests",
     destination: "generic/platform=iOS",
     sdk: "iphoneos",
-    buildlog_path: "buildlog.txt",
+    buildlog_path: "buildlog",
     xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates") 
   end
   
