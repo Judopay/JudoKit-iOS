@@ -16,11 +16,10 @@ Pod::Spec.new do |s|
 
   s.dependency 'DeviceDNA', '~> 2.0.0'
   s.dependency 'TrustKit'
-  s.dependency 'ZappMerchantLib'
   s.dependency 'Judo3DS2_iOS', '~> 1.1.4'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
-  s.ios.resource_bundle   = { 
+  s.ios.resource_bundle   = {
     'JudoKit_iOS' => 'Source/Resources/**/*.{lproj,png,json,strings}'
   }
 end
