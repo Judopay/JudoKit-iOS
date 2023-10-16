@@ -964,7 +964,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*";
 				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -994,7 +994,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.xctrunner";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*";
 				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
