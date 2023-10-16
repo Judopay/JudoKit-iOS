@@ -430,7 +430,7 @@ jobs:
       - run:
           name: Install Google Cloud CLI
           command: |
-            brew cask install google-cloud-sdk
+            sudo brew install google-cloud-sdk --cask
       - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
