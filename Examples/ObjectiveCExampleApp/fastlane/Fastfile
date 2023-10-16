@@ -20,7 +20,8 @@ platform :ios do
     scheme: "ObjectiveCExampleAppUITests",
     destination: "generic/platform=iOS",
     sdk: "iphoneos",
-    xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates") 
+    xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates
+    TEST_API_JUDO_ID=$TEST_JUDO_ID TEST_API_TOKEN=$TEST_JUDO_API_TOKEN TEST_API_SECRET=$TEST_JUDO_API_SECRET") 
   end
   
   lane :generate_code_quality_reports do
