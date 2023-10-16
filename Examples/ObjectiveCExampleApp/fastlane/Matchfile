@@ -2,7 +2,7 @@ git_url("git@github.com:Judopay/JudoKit-iOS-SigningCertificates.git")
 
 storage_mode("git")
 
-type("development_objc") # The default type, can be: appstore, adhoc, enterprise or development
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
 app_identifier(["com.judo.JudoPayDemoObjC", "com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests"])
 username("eugene.zhernakov@judopayments.com") # Your Apple Developer Portal username
