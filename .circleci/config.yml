@@ -641,6 +641,8 @@ workflows:
             branches:
               only:
                 - master
+      - use-gcp:
+          context: shared-secrets
       - instrumented_tests_sample:
           context: shared-secrets
           requires:
