@@ -646,7 +646,6 @@ workflows:
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
-            - use-gcp
           # filters:
           #   branches:
           #     only:
