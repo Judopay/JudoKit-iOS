@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Carthage Update Sample App
           working_directory: Examples/CarthageExampleApp
-          command: carthage update --use-xcframeworks --platform ios
+          command: sh carthage_bootstrap.sh
       - save_cache:
           key: judokit-sample-carthage-{{ checksum "Examples/CarthageExampleApp/Cartfile" }}
           paths:
