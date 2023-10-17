@@ -17,7 +17,7 @@ jobs:
             - judokit-ios-carthagecache-{{ checksum "Cartfile" }}
       - run:
           name: Carthage Update
-          command: sh carthage_bootstrap.sh
+          command: carthage update --use-xcframeworks
       - save_cache:
           key: judokit-ios-carthage-{{ checksum "Cartfile" }}
           paths:
