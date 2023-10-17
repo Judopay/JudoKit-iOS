@@ -372,7 +372,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Judopay/JudoKit-iOS";
 			requirement = {
-				branch = release/3.2.4;
+				branch = master;
 				kind = branch;
 			};
 		};
