@@ -27,6 +27,5 @@
 typedef NS_ENUM(NSUInteger, JPPaymentMethodType) {
     JPPaymentMethodTypeCard,
     JPPaymentMethodTypeIDeal,
-    JPPaymentMethodTypeApplePay,
-    JPPaymentMethodTypePbba,
+    JPPaymentMethodTypeApplePay
 };

@@ -58,11 +58,6 @@
 + (instancetype)applePay;
 
 /**
- * A pre-defined initializer that describes the PBBA payment method
- */
-+ (instancetype)pbba;
-
-/**
  * An initializer that creates a JPPaymentMethod instance based on a pre-defined type
  */
 - (instancetype)initWithPaymentMethodType:(JPPaymentMethodType)type;

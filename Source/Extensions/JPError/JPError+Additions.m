@@ -44,18 +44,6 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoParameterError];
 }
 
-+ (JPError *)invalidPBBACurrencyError {
-    return [self errorWithDescription:@"error_invalid_pbba_currency_desc"._jp_localized
-                        failureReason:@"error_invalid_pbba_currency_reason"._jp_localized
-                               ofType:JudoParameterError];
-}
-
-+ (NSError *)PBBAURLSchemeMissingError {
-    return [self errorWithDescription:@"error_invalid_pbba_url_scheme_desc"._jp_localized
-                        failureReason:@"error_invalid_pbba_url_scheme_reason"._jp_localized
-                               ofType:JudoParameterError];
-}
-
 + (JPError *)applePayNotSupportedError {
     return [self errorWithDescription:@"error_apple_pay_not_supported_desc"._jp_localized
                         failureReason:@"error_apple_pay_not_supported_reason"._jp_localized

@@ -89,7 +89,6 @@
 "no_connected_cards" = "Todavía no ha conectado ninguna tarjeta";
 "ok" = "Ok";
 "pay_amount" = "Paga %@";
-"pay_by_bank" = "Aplicación Paga por Banco";
 "pay_now" = "Paga ahora ";
 "continue" = "Continue";
 "post_code_hint" = "Código postal";
@@ -127,10 +126,6 @@
 
 "error_invalid_ideal_currency_desc" = "iDEAL transactions only support EUR as the currency.";
 "error_invalid_ideal_currency_reason" = "Invalid currency passed to iDEAL transaction configuration.";
-"error_invalid_pbba_currency_desc" = "PBBA transactions only support GBP as the currency.";
-"error_invalid_pbba_currency_reason" = "Invalid currency passed to PBBA transaction configuration.";
-"error_invalid_pbba_url_scheme_desc" = "PBBA transactions require the deeplink scheme to be set.";
-"error_invalid_pbba_url_scheme_reason" = "Either the app's URL Scheme or the deeplink scheme parameter has not been set.";
 "error_apple_pay_not_supported_desc" = "Apple Pay is not supported on this device.";
 "error_apple_pay_not_supported_reason" = "An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.";
 "error_request_failed_desc" = "The request has failed or responded without data.";

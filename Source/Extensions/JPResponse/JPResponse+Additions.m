@@ -32,13 +32,6 @@ static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challe
 
 @implementation JPResponse (Additions)
 
-- (BOOL)isThreeDSecureOneRequired {
-    NSString *acsUrl = self.rawData[@"acsUrl"];
-    NSString *md = self.rawData[@"md"];
-    NSString *paReq = self.rawData[@"paReq"];
-    return acsUrl._jp_isNotNullOrEmpty && md._jp_isNotNullOrEmpty && paReq._jp_isNotNullOrEmpty;
-}
-
 - (BOOL)isThreeDSecureTwoRequired {
     return self.message.length > 0 && [self.message.lowercaseString isEqualToString:k3DSTwoMessage.lowercaseString];
 }

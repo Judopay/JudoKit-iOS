@@ -71,10 +71,6 @@ class FeatureRepository {
                          title: "Server-to-Server payment methods",
                          subtitle: "with default Server-to-Server payment methods"),
 
-        FeatureViewModel(type: .payByBank,
-                         title: "Pay By Bank App",
-                         subtitle: "by using your existing Bank app"),
-
         FeatureViewModel(type: .tokenPayments,
                          title: "Token Payments",
                          subtitle: "Token Payments (no UI)"),

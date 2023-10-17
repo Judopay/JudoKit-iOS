@@ -17,7 +17,6 @@ ln -s -f ../Models/Configuration/JPConfiguration.h JPConfiguration.h
 ln -s -f ../Models/ContactInformation/JPContactInformation.h JPContactInformation.h
 ln -s -f ../Models/CardPattern/JPCardPatternType.h JPCardPatternType.h
 ln -s -f ../Models/TransactionEnricher/JPRequestEnricher.h JPRequestEnricher.h
-ln -s -f ../Models/PBBAConfiguration/JPPBBAConfiguration.h JPPBBAConfiguration.h
 ln -s -f ../Models/CardStorage/JPCardStorage.h JPCardStorage.h
 ln -s -f ../Models/IDEALBank/JPIDEALBank.h JPIDEALBank.h
 ln -s -f ../Services/CardTransactionService/JPCardTransactionService.h JPCardTransactionService.h
@@ -33,7 +32,6 @@ ln -s -f ../Models/Authorization/Basic/JPBasicAuthorization.h JPBasicAuthorizati
 ln -s -f ../Models/EnchancedPaymentDetail/JPEnhancedPaymentDetail.h JPEnhancedPaymentDetail.h
 ln -s -f ../Models/Address/JPAddress.h JPAddress.h
 ln -s -f ../Models/Browser/JPBrowser.h JPBrowser.h
-ln -s -f ../View/PBBAButton/JPPBBAButton.h JPPBBAButton.h
 ln -s -f ../Models/Theme/JPThemable.h JPThemable.h
 ln -s -f ../Models/UIConfiguration/JPUIConfiguration.h JPUIConfiguration.h
 ln -s -f ../Models/Country/JPCountry.h JPCountry.h
@@ -104,13 +102,11 @@ ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/PaymentMethodSelectionCel
 ln -s -f ../View/CardInputView/JPCardInputView.h JPCardInputView.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsCardHeaderView.h JPPaymentMethodsCardHeaderView.h
 ln -s -f ../Extensions/UIImage/UIImage+Additions.h UIImage+Additions.h
-ln -s -f ../Modules/3DSViewController/JP3DSViewController.h JP3DSViewController.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationSubmitCell/JPCardCustomizationSubmitCellDelegate.h JPCardCustomizationSubmitCellDelegate.h
 ln -s -f ../Helpers/JPFormatters/JPFormatters.h JPFormatters.h
 ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
 ln -s -f ../Extensions/CLLocation/CLLocation+Additions.h CLLocation+Additions.h
 ln -s -f ../Modules/CardScanController/JPCardScanControllerDelegate.h JPCardScanControllerDelegate.h
-ln -s -f ../Services/PBBA/JPPBBAService.h JPPBBAService.h
 ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTitleCell/JPCardCustomizationTitleCell.h JPCardCustomizationTitleCell.h
 ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h

@@ -29,7 +29,6 @@ protocol HomeInteractorInput {
     func viewDidLoad()
     func didSelectFeature(with type: FeatureType)
     func getTransactionDetails(for receiptID: String)
-    func handlePBBAStatus(with url: URL)
 }
 
 protocol HomeInteractorOutput: AnyObject {
@@ -39,7 +38,6 @@ protocol HomeInteractorOutput: AnyObject {
     func navigateToResultsModule(with result: Result)
     func navigateToTokenModule()
     func navigateToNoUICardPayModule()
-    func navigateToPBBAModule()
     func navigateToApplePayModule()
 }
 
@@ -79,8 +77,6 @@ class HomeInteractor: HomeInteractorInput {
         case .paymentMethods, .preAuthMethods, .serverToServer:
             let mode = transactionMode(for: featureType)
             service.invokePaymentMethods(with: mode, completion: completion)
-        case .payByBank:
-            output?.navigateToPBBAModule()
         case .tokenPayments:
             output?.navigateToTokenModule()
         case .noUIPayments:
@@ -92,10 +88,6 @@ class HomeInteractor: HomeInteractorInput {
 
     func getTransactionDetails(for receiptID: String) {
         service.getTransactionDetails(with: receiptID, and: completion)
-    }
-
-    func handlePBBAStatus(with url: URL) {
-        service.invokePBBATransaction(with: url, completion: completion)
     }
 
     // MARK: - Helper methods

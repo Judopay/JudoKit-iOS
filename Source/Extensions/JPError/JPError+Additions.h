@@ -93,16 +93,6 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)invalidIDEALCurrencyError;
 
 /**
- * Invalid currency passed to PBBA transaction configuration.
- */
-+ (nonnull JPError *)invalidPBBACurrencyError;
-
-/**
- * Either the app's URL Scheme or the deeplink scheme parameter has not been set.
- */
-+ (nonnull JPError *)PBBAURLSchemeMissingError;
-
-/**
  * An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.
  */
 + (nonnull JPError *)applePayNotSupportedError;

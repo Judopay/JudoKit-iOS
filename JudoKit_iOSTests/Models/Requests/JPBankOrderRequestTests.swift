@@ -28,11 +28,6 @@ class JPBankOrderRequestTests: XCTestCase {
     let kIDEALAccountHolderName = "IDEAL Bank";
     let kIDEALCountry = "NL";
     let kPaymentMethodIDEAL = "IDEAL";
-
-    let kPbBAAccountHolderName = "PBBA User";
-    let kPbBACountry = "GB";
-    let kPaymentMethodPbBA = "PBBA";
-    let kPbBABIC = "RABONL2U";
     
     var configuration: JPConfiguration {
         let amount = JPAmount("0.01", currency: "GBP")
@@ -66,7 +61,7 @@ class JPBankOrderRequestTests: XCTestCase {
     }
     
     /*
-     * GIVEN: A [JPBankOrderSaleRequest] is being initialized via the PBBA initializer
+     * GIVEN: A [JPBankOrderSaleRequest] is being initialized via the iDEAL initializer
      *
      *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
      *
@@ -88,31 +83,6 @@ class JPBankOrderRequestTests: XCTestCase {
         XCTAssertEqual(bankRequest.accountHolderName, kIDEALAccountHolderName)
         XCTAssertEqual(bankRequest.paymentMethod, kPaymentMethodIDEAL)
         XCTAssertEqual(bankRequest.bic, "12345")
-    }
-    
-    /*
-     * GIVEN: A [JPBankOrderSaleRequest] is being initialized via the PBBA initializer
-     *
-     *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
-     *
-     *  THEN: The request parameters are going to be set correctly
-     */
-    func test_onPayByBankInitialization_SetPBBAProperties() {
-        let bankRequest = JPBankOrderSaleRequest.pbbaRequest(with: configuration)
-        
-        XCTAssertEqual(bankRequest.judoId, configuration.judoId)
-        
-        XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
-        XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
-        
-        XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
-        XCTAssertEqual(bankRequest.merchantPaymentReference, configuration.reference.paymentReference)
-        XCTAssertEqual(bankRequest.paymentMetadata, configuration.reference.metaData)
-        
-        XCTAssertEqual(bankRequest.country, kPbBACountry)
-        XCTAssertEqual(bankRequest.accountHolderName, kPbBAAccountHolderName)
-        XCTAssertEqual(bankRequest.paymentMethod, kPaymentMethodPbBA)
-        XCTAssertEqual(bankRequest.bic, kPbBABIC)
     }
     
 }

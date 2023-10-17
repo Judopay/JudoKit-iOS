@@ -101,6 +101,7 @@
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
+    [self configurePhoneDetails:request];
     request.emailAddress = self.emailAddress;
     request.cardAddress = self.billingAddress;
 
@@ -119,6 +120,7 @@
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;
     request.mobileNumber = self.mobileNumber;
+    [self configurePhoneDetails:request];
     request.emailAddress = self.emailAddress;
     request.cardAddress = self.billingAddress;
 
@@ -126,6 +128,28 @@
 
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
                                          andAuthenticationRequestParameters:params];
+}
+
+- (void)configurePhoneDetails:(JPRequest *)request {
+    
+    // PAPI will only allow dial codes length 3 or less.
+    // Therefore logic has been added to re format dial codes of length 4 (which are always
+    // of format: 1(XXX)), when sending to BE.
+    //
+    // For example, when: dialCode = "1(345)", mobileNumber = "123456"
+    // The following is sent to BE: phoneCountryCode = "1", mobileNumber = "3451234567"
+    
+    NSString *filteredMobileNumber = [request.mobileNumber stringByTrimmingCharactersInSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet];
+    NSString *filteredPhoneCountryCode = [request.phoneCountryCode stringByTrimmingCharactersInSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet];
+    
+    
+    if (filteredMobileNumber != nil && filteredPhoneCountryCode != nil && filteredPhoneCountryCode.length > 3) {
+        NSString *code = [filteredPhoneCountryCode substringToIndex:1];
+        NSString *rest = [filteredPhoneCountryCode substringFromIndex:1];
+
+        request.phoneCountryCode = code;
+        request.mobileNumber = [rest stringByAppendingString:filteredMobileNumber];
+    }
 }
 
 @end
