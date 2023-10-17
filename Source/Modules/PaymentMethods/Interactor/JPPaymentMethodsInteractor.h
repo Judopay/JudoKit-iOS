@@ -27,11 +27,6 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#if SWIFT_PACKAGE
-@import ZappMerchantLib;
-#else
-#import <ZappMerchantLib/PBBAAppUtils.h>
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,16 +57,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
  * A method that returns the available payment methods
  */
 - (nonnull NSArray<JPPaymentMethod *> *)getPaymentMethods;
-
-/**
- * Starts the PBBA payment
- */
-- (void)openPBBAWithCompletion:(nullable JPCompletionBlock)completion;
-
-/**
- * Starts the PBBA polling
- */
-- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method for deleting a specific card details from the keychain by its index
@@ -120,11 +105,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
  * A method which returns all the iDEAL bank types available
  */
 - (nonnull NSArray *)getIDEALBankTypes;
-
-/**
- * A method which returns index of pbba method
- */
-- (NSInteger)indexOfPBBAMethod;
 
 - (JPTransactionMode)configuredTransactionMode;
 

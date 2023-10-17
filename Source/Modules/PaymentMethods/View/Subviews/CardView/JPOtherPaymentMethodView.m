@@ -97,12 +97,6 @@ static const float kContentPadding = 28.0F;
             self.accessibilityIdentifier = @"iDEAL Header View";
             break;
 
-        case JPPaymentMethodTypePbba:
-            self.leadingImageView.image = [UIImage _jp_imageWithIconName:@"pbba-pay-icon"];
-            self.titleLabel.text = @"pay_by_bank"._jp_localized;
-            self.accessibilityIdentifier = @"PBBA Header View";
-            break;
-
         default:
             break;
     }

@@ -362,26 +362,6 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     }
 
     /*
-     * GIVEN: updating view
-     *
-     * WHEN: inserted deeplinkURL in config
-     *
-     * THEN: should start polling
-     */
-    func test_ViewModelNeedsUpdate_WhenDeepLink_ShouldPollingPBBAWithCompletion() {
-        let pbbaConfig = JPPBBAConfiguration()
-        pbbaConfig.deeplinkURL = URL(string: "linkHere")
-        let configuration = JPConfiguration(judoID: "judoId",
-                                            amount: JPAmount("0.01", currency: "GBR"),
-                                            reference: JPReference(consumerReference: "consumerReference"))
-        configuration.pbbaConfiguration = pbbaConfig
-        let sut = JPPaymentMethodsPresenterImpl(configuration: configuration)
-        sut.interactor = interactor
-        sut.viewModelNeedsUpdate()
-        XCTAssertTrue(interactor.startPolling)
-    }
-
-    /*
      * GIVEN: updating view with card list
      *
      * WHEN: inserted 2 cards in store, last one selected

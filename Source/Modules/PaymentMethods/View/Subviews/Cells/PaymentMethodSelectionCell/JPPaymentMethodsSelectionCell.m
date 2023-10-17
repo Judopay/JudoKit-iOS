@@ -97,10 +97,6 @@ static const int kConstraintPriority = 999;
                 section.accessibilityIdentifier = @"iDEAL Selector View";
                 break;
 
-            case JPPaymentMethodTypePbba:
-                section.accessibilityIdentifier = @"PBBA Selector View";
-                break;
-
             case JPPaymentMethodTypeApplePay:
                 section.accessibilityIdentifier = @"Apple Pay Selector View";
         }

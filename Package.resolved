@@ -23,17 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzyzanowskim/OpenSSL",
       "state" : {
-        "revision" : "9429bf89fe0df2d2f25f3a9a51cbf7092e69640f",
-        "version" : "1.1.1700"
-      }
-    },
-    {
-      "identity" : "pbba-merchant-button-library-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Judopay/pbba-merchant-button-library-ios",
-      "state" : {
-        "revision" : "7eafa5d12f1ab5b4683a0f86886819ec51306944",
-        "version" : "3.1.3"
+        "revision" : "0faf71a188bcfdf0245cab42886b9b240ca71c52",
+        "version" : "1.1.2200"
       }
     },
     {
@@ -41,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/datatheorem/TrustKit",
       "state" : {
-        "revision" : "3c953558d61fdd9b136d981764e3242bd92b2648",
-        "version" : "1.7.0"
+        "revision" : "5718ba8720b4dafc5360aebfbc9762e2d5f2615e",
+        "version" : "3.0.3"
       }
     }
   ],

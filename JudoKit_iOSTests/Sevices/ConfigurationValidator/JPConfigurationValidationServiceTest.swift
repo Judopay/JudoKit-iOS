@@ -79,18 +79,6 @@ class JPConfigurationValidationServiceTest: XCTestCase {
     }
     
     /*
-     * GIVEN: Validate pbba payment
-     *
-     * WHEN: amout currency is EUR
-     *
-     * THEN: should return error with "Unsupported Currency" message
-     */
-    func test_ValidatePBBAConfiguration_WhenCurrencyEUR_ShouldReturnError() {
-        let error = configValidation.validatePBBAConfiguration(configuration)
-        XCTAssertNotNil(error, "Unsupported Currency")
-    }
-    
-    /*
      * GIVEN: Validate configuration for payment
      *
      * WHEN: reference ID is less then 40 characters

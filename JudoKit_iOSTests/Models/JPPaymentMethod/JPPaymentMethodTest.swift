@@ -26,19 +26,6 @@ import XCTest
 class JPPaymentMethodTest: XCTestCase {
     
     /*
-     * GIVEN: Creating JPPaymentMethod with class Init pbba
-     *
-     * WHEN: init without properties
-     *
-     * THEN: should create JPPaymentMethod object with nil title
-     */
-    func test_pbba_WhenDesignatedInit_ShouldFillFields() {
-        let sut = JPPaymentMethod.pbba()
-        XCTAssertEqual(sut?.title, nil)
-        XCTAssertNotNil(sut)
-    }
-    
-    /*
      * GIVEN: Creating JPPaymentMethod with class Init cards
      *
      * WHEN: raw initialization
@@ -117,19 +104,5 @@ class JPPaymentMethodTest: XCTestCase {
         XCTAssertEqual(sut!.iconName, "ideal-pay-icon")
         XCTAssertEqual(sut!.title, "iDeal")
         XCTAssertEqual(sut!.type, .iDeal)
-    }
-
-    /**
-     * GIVEN: a JPPaymentMethod is initialized
-     *
-     * WHEN: the [.pbba] is selected as the type
-     *
-     * THEN: the correct icon and type must be set, and no title should be present
-     */
-    func test_OnInitialization_WhenPBBAType_SetPBBAProperties() {
-        let sut = JPPaymentMethod(paymentMethodType: .pbba)
-        XCTAssertEqual(sut!.iconName, "pbba-pay-icon")
-        XCTAssertNil(sut!.title)
-        XCTAssertEqual(sut!.type, .pbba)
     }
 }

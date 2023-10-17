@@ -30,7 +30,6 @@
 #import "JPError+Additions.h"
 #import "JPIDEALBank.h"
 #import "JPIDEALService.h"
-#import "JPPBBAConfiguration.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsRouter.h"
@@ -78,20 +77,6 @@
 - (void)viewModelNeedsUpdate {
     [self updateViewModelWithAnimationType:JPAnimationTypeSetup];
     [self.view configureWithViewModel:self.viewModel shouldAnimateChange:NO];
-    [self checkIfDeeplinkURLExist];
-}
-
-- (void)checkIfDeeplinkURLExist {
-    if ([self.configuration.pbbaConfiguration hasDeepLinkURL]) {
-        NSInteger pbbaIndex = [self.interactor indexOfPBBAMethod];
-        if (pbbaIndex != NSNotFound) {
-            [self changePaymentMethodToIndex:pbbaIndex];
-            __weak typeof(self) weakSelf = self;
-            [self.interactor pollingPBBAWithCompletion:^(JPResponse *response, NSError *error) {
-                [weakSelf handleCallbackWithResponse:response andError:error];
-            }];
-        }
-    }
 }
 
 - (void)viewModelNeedsUpdateWithAnimationType:(JPAnimationType)animationType shouldAnimateChange:(BOOL)shouldAnimate {
@@ -176,13 +161,6 @@
                                      andCompletion:^(JPResponse *response, NSError *error) {
                                          [weakSelf handleIDEALCallbackWithResponse:response andError:error];
                                      }];
-        return;
-    }
-
-    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
-        [self.interactor openPBBAWithCompletion:^(JPResponse *response, NSError *error) {
-            [weakSelf handleCallbackWithResponse:response andError:error];
-        }];
         return;
     }
 
@@ -413,8 +391,7 @@
         }
     }
 
-    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal ||
-        self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypePbba) {
+    if (self.paymentSelectionModel.selectedPaymentMethod == JPPaymentMethodTypeIDeal) {
         self.headerModel.payButtonModel.isEnabled = YES;
     }
 

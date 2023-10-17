@@ -40,8 +40,6 @@
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
 #import "JPIDEALBank.h"
-#import "JPPBBAConfiguration.h"
-#import "JPPBBAService.h"
 #import "JPPaymentMethod.h"
 #import "JPPresentationMode.h"
 #import "JPReference.h"
@@ -61,7 +59,6 @@
 @property (nonatomic, strong) NSMutableArray<NSError *> *storedErrors;
 
 @property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPCardTransactionService *transactionService;
 
@@ -151,17 +148,6 @@
     return self.configuration.amount;
 }
 
-- (NSInteger)indexOfPBBAMethod {
-    NSUInteger pbbaIndex = [[self getPaymentMethods] indexOfObjectPassingTest:^BOOL(id obj, __unused NSUInteger idx, BOOL *stop) {
-        if ([(JPPaymentMethod *)obj type] == JPPaymentMethodTypePbba) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-    return pbbaIndex;
-}
-
 - (JPTransactionMode)configuredTransactionMode {
     return self.transactionMode;
 }
@@ -184,21 +170,7 @@
         [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
-    BOOL isCFIAppAvailable = [PBBAAppUtils isCFIAppAvailable];
-    BOOL isCurrencyPounds = [self.configuration.amount.currency isEqualToString:kCurrencyPounds];
-    BOOL isURLSchemeSet = ((NSBundle._jp_appURLScheme.length > 0) && (self.configuration.pbbaConfiguration.deeplinkScheme.length > 0));
-
-    if (isCurrencyPounds && isURLSchemeSet && isCFIAppAvailable) {
-        [defaultPaymentMethods addObject:JPPaymentMethod.pbba];
-    } else {
-        [self removePaymentMethodWithType:JPPaymentMethodTypePbba];
-    }
-
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;
-}
-
-- (void)pollingPBBAWithCompletion:(nullable JPCompletionBlock)completion {
-    [self.pbbaService pollingOrderStatus:completion];
 }
 
 #pragma mark - Remove Apple Pay from payment methods
@@ -238,12 +210,6 @@
     [JPCardStorage.sharedInstance deleteCardWithIndex:index];
 }
 
-#pragma mark - PBBA payment
-
-- (void)openPBBAWithCompletion:(JPCompletionBlock)completion {
-    [self.pbbaService openPBBAMerchantApp:completion];
-}
-
 #pragma mark - Is Apple Pay ready
 
 - (bool)isApplePaySetUp {
@@ -256,14 +222,6 @@
                                                               andApiService:self.apiService];
     }
     return _applePayService;
-}
-
-- (JPPBBAService *)pbbaService {
-    if (!_pbbaService && self.configuration) {
-        _pbbaService = [[JPPBBAService alloc] initWithConfiguration:self.configuration
-                                                         apiService:self.apiService];
-    }
-    return _pbbaService;
 }
 
 - (JPCardTransactionService *)transactionService {
