@@ -125,7 +125,8 @@ extension XCUIApplication {
                             "-secret", apiSecret ?? "",
                             "-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",
-                            "-should_ask_for_billing_information", "false"]
+                            "-should_ask_for_billing_information", "false",
+                            "-challenge_request_indicator", "challengeAsMandate"]
     }
     
     func fillCardSheetDetails(cardNumber: String, cardHolder: String, expiryDate: String, securityCode: String) {
