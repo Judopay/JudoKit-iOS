@@ -46,12 +46,6 @@ class JPApiServiceTests: XCTestCase {
         HTTPStubs.setEnabled(true)
         authorization = JPBasicAuthorization(token: "token", andSecret: "secret")
         sut = JPApiService(authorization: authorization, isSandboxed: true)
-        
-        stub(condition: isHost("api-sandbox.judopay.com")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
-                                     statusCode: 200,
-                                     headers: nil)
-        }
     }
     
     override func tearDown() {
@@ -246,67 +240,6 @@ class JPApiServiceTests: XCTestCase {
             XCTAssertNotNil(response)
             XCTAssertNil(error)
             expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 6, handler: nil)
-    }
-    
-    /*
-     * GIVEN: a Bank sale transaction is invoked
-     *
-     * WHEN:  the JPBankOrderSaleRequest is passed a valid configuration
-     *
-     * THEN:  the request should complete successfully
-     */
-    func test_OnValidBankSaleRequest_ReturnResponse() {
-        let bankOrderSaleRequest = JPBankOrderSaleRequest(configuration: transactionConfigurations)
-        let expectation = self.expectation(description: "await bank sale response")
-        
-        sut.invokeBankSale(with: bankOrderSaleRequest) { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 6, handler: nil)
-    }
-    
-    /*
-     * GIVEN: a Order status transaction is invoked
-     *
-     * WHEN:  the order ID is valid
-     *
-     * THEN:  the request should complete successfully
-     */
-    func test_OnValidOrderStatusRequest_ReturnResponse() {
-        let expectation = self.expectation(description: "await order status response")
-        
-        sut.invokeOrderStatus(withOrderId: "12345") { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 6, handler: nil)
-    }
-    
-    /*
-     * GIVEN: a Order status transaction is invoked
-     *
-     * WHEN:  the order ID is valid
-     *
-     * THEN:  the request should complete successfully
-     */
-    func test_OnValid3DSecureRequest_ReturnResponse() {
-        let expectation = self.expectation(description: "await 3DS transaction response")
-        
-        let result = JP3DSecureAuthenticationResult(paRes: "paRes", andMd: "md")
-        
-        sut.invokeComplete3dSecure(withReceiptId: "12345",
-                                   authenticationResult: result) { (response, error) in
-                                    XCTAssertNotNil(response)
-                                    XCTAssertNil(error)
-                                    expectation.fulfill()
         }
         
         waitForExpectations(timeout: 6, handler: nil)

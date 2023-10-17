@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 
   s.documentation_url     = 'https://docs.judopay.com'
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '12.0'
   s.requires_arc          = true
   s.source_files          = 'Source/**/*.{m,h}'
   s.exclude_files         = 'Source/include/'
