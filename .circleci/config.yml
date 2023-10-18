@@ -641,10 +641,10 @@ workflows:
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
+          filters:
+            branches:
+              only:
+                - master
       - release_sample:
           context: shared-secrets
           requires:
