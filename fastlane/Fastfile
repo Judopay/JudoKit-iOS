@@ -1,26 +1,115 @@
 default_platform(:ios)
 
 platform :ios do
+
   before_all do
     setup_circle_ci
-    en_ci_utils_init
   end
 
-  desc "Build and run tests"
+  desc "Lint SDK"
+  lane :lint do
+    Dir.chdir('..') do
+      sh('./scripts/judo_kit_lint.sh')
+    end
+  end
+
+  desc "Build SDK"
+  lane :build do
+    carthage
+    build_app(
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      scheme: 'JudoKit_iOS',
+      project: './JudoKit_iOS.xcodeproj'
+    )
+  end
+
+  desc "Run SDK tests"
   lane :test do
-    scan
+    carthage
+    scan(use_clang_report_name: true)
   end
 
-  desc "Ad-hoc build for ObjectiveCExampleApp"
-  lane :adhoc_objc do
-    match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
-    gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
+  # Example apps
+  desc "Build ObjectiveCExampleApp"
+  lane :build_objective_c_example_app do
+    app_path = './Examples/ObjectiveCExampleApp'
+
+    cocoapods(podfile: "#{app_path}/Podfile")
+
+    build_app(
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      scheme: 'ObjectiveCExampleApp',
+      workspace: "#{app_path}/ObjectiveCExampleApp.xcworkspace"
+    )
   end
+
+  desc "Build CarthageExampleApp"
+  lane :build_carthage_example_app do
+    Dir.chdir('..') do
+      sh('./scripts/carthage_example_carthage_bootstrap.sh')
+    end
+
+    build_app(
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      scheme: 'CarthageExampleApp',
+      project: './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
+    )
+  end
+
+  desc "Build SwiftExampleApp"
+  lane :build_swift_example_app do
+    app_path = './Examples/SwiftExampleApp'
+
+    cocoapods(podfile: "#{app_path}/Podfile")
+
+    build_app(
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      scheme: 'SwiftExampleApp',
+      workspace: "#{app_path}/SwiftExampleApp.xcworkspace"
+    )
+  end
+
+  desc "Build SPMExampleApp"
+  lane :build_spm_example_app do
+    build_app(
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      scheme: 'SPMExampleApp',
+      project: './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
+    )
+  end
+
+  desc "Run full PR check pipeline"
+  lane :pr_check do
+    lint
+    test
+    build_objective_c_example_app
+    build_carthage_example_app
+    build_swift_example_app
+    build_spm_example_app
+  end
+
+  # desc "Development build for ObjectiveCExampleApp"
+  # lane :development_objc do
+  #   match(type: "development")
+  #   # gym(workspace: "ObjectiveCExampleApp.xcworkspace", scheme: "ObjectiveCExampleAppUITests", export_method: "ad-hoc", xcodebuild_command: "xcodebuild clean build-for-testing", skip_package_ipa: true)
+  #   run_tests(derived_data_path: "DerivedData", 
+  #   build_for_testing: true, 
+  #   workspace: "ObjectiveCExampleApp.xcworkspace", 
+  #   scheme: "ObjectiveCExampleAppUITests",
+  #   destination: "generic/platform=iOS",
+  #   sdk: "iphoneos",
+  #   xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates \
+  #   TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET") 
+  # end
   
-  lane :generate_code_quality_reports do
-    sh("cd .. && ./clang-format.sh lint") # check code format
-    scan(use_clang_report_name: true)     # run tests and generate reports
-    oclint(report_type: 'html')           # run static code analyzer
-    slather                               # generate code coverage reports
-  end
+  # desc "Ad-hoc build for ObjectiveCExampleApp"
+  # lane :adhoc_objc do
+  #   match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
+  #   gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
+  # end
 end

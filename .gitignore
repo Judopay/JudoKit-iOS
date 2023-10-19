@@ -40,3 +40,6 @@ Carthage
 
 # SPM
 .build
+
+# Ruby
+vendor
