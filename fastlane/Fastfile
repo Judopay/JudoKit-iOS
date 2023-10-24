@@ -65,6 +65,7 @@ platform :ios do
         sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
         
         build_app_options[:scheme] = 'ObjectiveCExampleApp'
+        build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
         build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
 
       when 'swift'
@@ -73,6 +74,7 @@ platform :ios do
         sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
 
         build_app_options[:scheme] = 'SwiftExampleApp'
+        build_app_options[:output_name] = 'SwiftExampleApp.ipa'
         build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
 
       when 'carthage'
@@ -83,12 +85,14 @@ platform :ios do
         sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
 
         build_app_options[:scheme] = 'CarthageExampleApp'
+        build_app_options[:output_name] = 'CarthageExampleApp.ipa'
         build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
 
       when 'spm'
         sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
 
         build_app_options[:scheme] = 'SPMExampleApp'
+        build_app_options[:output_name] = 'SPMExampleApp.ipa'
         build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
 
       else
@@ -108,7 +112,8 @@ platform :ios do
 
   desc "Build ObjectiveCExampleApp for instrumented tests"
   lane :build_instrumented_obj_c_sample_app do
-    sync_code_signing_options = { type: "development" }
+    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
+    sync_code_signing_options = { type: "development", app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*'] }
     run_tests_options = {
       build_for_testing: true, 
       workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace", 

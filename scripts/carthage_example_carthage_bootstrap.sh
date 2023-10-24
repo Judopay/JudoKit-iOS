@@ -9,9 +9,9 @@ carthage_example_app_dir="${judo_kit_dir}/Examples/CarthageExampleApp"
 # Clean carthage artifacts
 info "Cleaning carthage artifacts..."
 
-xcodebuild clean \
-  -scheme CarthageExampleApp \
-  -project "${carthage_example_app_dir}/CarthageExampleApp.xcodeproj"
+# xcodebuild clean \
+#   -scheme CarthageExampleApp \
+#   -project "${carthage_example_app_dir}/CarthageExampleApp.xcodeproj"
 
 rm -f "${carthage_example_app_dir}/Cartfile"
 rm -f "${carthage_example_app_dir}/Cartfile.resolved"
@@ -30,7 +30,13 @@ info "Executing carthage bootstrap..."
 
 cd "${carthage_example_app_dir}" || error "Executing \`cd\` failed"
 
-carthage bootstrap --platform ios --use-xcframeworks --cache-builds
+# temporary workaround for `xcodebuild timed out while trying to read SPMExampleApp.xcodeproj`
+carthage bootstrap --platform ios --no-build
+
+info "Removing example apps files..."
+rm -rf "${carthage_example_app_dir}/Carthage/Checkouts/JudoKit-iOS/Examples"
+
+carthage build --platform ios --use-xcframeworks --cache-builds
 
 carthage_exit_code="$?"
 
