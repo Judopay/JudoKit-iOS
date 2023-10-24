@@ -27,76 +27,88 @@ platform :ios do
   desc "Run SDK tests"
   lane :test do
     carthage
-    scan(use_clang_report_name: true)
+    run_tests(ensure_devices_found: true)
   end
 
   # Example apps
-  desc "Build ObjectiveCExampleApp"
-  lane :build_objective_c_example_app do
-    app_path = './Examples/ObjectiveCExampleApp'
+  desc "Build Sample App"
+  lane :build_sample_app do |options|
+    flavor = options[:flavor]
 
-    cocoapods(podfile: "#{app_path}/Podfile")
+    av = %w(obj-c swift carthage spm all)
+    UI.user_error!("Unsupported flavor '#{flavor}', must be: #{av}") unless av.include?(flavor)
 
-    build_app(
-      skip_codesigning: true,
-      skip_package_ipa: true,
-      scheme: 'ObjectiveCExampleApp',
-      workspace: "#{app_path}/ObjectiveCExampleApp.xcworkspace"
-    )
-  end
-
-  desc "Build CarthageExampleApp"
-  lane :build_carthage_example_app do
-    Dir.chdir('..') do
-      sh('./scripts/carthage_example_carthage_bootstrap.sh')
+    if flavor == 'all'
+      av.each do |flv|
+        unless flv == 'all'
+          options[:flavor] = flv
+          build_sample options
+        end
+      end
+    else
+      build_sample options
     end
-
-    build_app(
-      skip_codesigning: true,
-      skip_package_ipa: true,
-      scheme: 'CarthageExampleApp',
-      project: './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
-    )
   end
 
-  desc "Build SwiftExampleApp"
-  lane :build_swift_example_app do
-    app_path = './Examples/SwiftExampleApp'
+  private_lane :build_sample do |options|
+    flavor = options[:flavor]
+    options.delete(:flavor)
+    
+    sync_code_signing_options = { type: "adhoc" }
+    build_app_options = { export_method: "ad-hoc" }.merge(options)
 
-    cocoapods(podfile: "#{app_path}/Podfile")
+    case flavor
+      when 'obj-c'
+        cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
+        
+        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
+        
+        build_app_options[:scheme] = 'ObjectiveCExampleApp'
+        build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
 
-    build_app(
-      skip_codesigning: true,
-      skip_package_ipa: true,
-      scheme: 'SwiftExampleApp',
-      workspace: "#{app_path}/SwiftExampleApp.xcworkspace"
-    )
+      when 'swift'
+        cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
+        
+        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
+
+        build_app_options[:scheme] = 'SwiftExampleApp'
+        build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
+
+      when 'carthage'
+        Dir.chdir('..') do
+          sh('./scripts/carthage_example_carthage_bootstrap.sh')
+        end
+
+        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
+
+        build_app_options[:scheme] = 'CarthageExampleApp'
+        build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
+
+      when 'spm'
+        sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
+
+        build_app_options[:scheme] = 'SPMExampleApp'
+        build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
+
+      else
+        UI.user_error!("Unsupported flavor '#{flavor}'.")
+      end
+    
+    sync_code_signing sync_code_signing_options
+    build_app build_app_options
   end
-
-  desc "Build SPMExampleApp"
-  lane :build_spm_example_app do
-    build_app(
-      skip_codesigning: true,
-      skip_package_ipa: true,
-      scheme: 'SPMExampleApp',
-      project: './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
-    )
-  end
-
+  
   desc "Run full PR check pipeline"
   lane :pr_check do
     lint
     test
-    build_objective_c_example_app
-    build_carthage_example_app
-    build_swift_example_app
-    build_spm_example_app
+    build_sample_app(flavor: 'all')
   end
+
 
   # desc "Development build for ObjectiveCExampleApp"
   # lane :development_objc do
   #   match(type: "development")
-  #   # gym(workspace: "ObjectiveCExampleApp.xcworkspace", scheme: "ObjectiveCExampleAppUITests", export_method: "ad-hoc", xcodebuild_command: "xcodebuild clean build-for-testing", skip_package_ipa: true)
   #   run_tests(derived_data_path: "DerivedData", 
   #   build_for_testing: true, 
   #   workspace: "ObjectiveCExampleApp.xcworkspace", 
@@ -105,11 +117,5 @@ platform :ios do
   #   sdk: "iphoneos",
   #   xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates \
   #   TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET") 
-  # end
-  
-  # desc "Ad-hoc build for ObjectiveCExampleApp"
-  # lane :adhoc_objc do
-  #   match(type: "adhoc", app_identifier: "com.judo.JudoPayDemoObjC")
-  #   gym(scheme: "ObjectiveCExampleApp", export_method: "ad-hoc")
   # end
 end

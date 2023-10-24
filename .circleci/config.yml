@@ -229,7 +229,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Build Carthage example app
-          command: bundle exec fastlane build_carthage_example_app
+          command: bundle exec fastlane build_sample_app flavor:carthage
   build_objective_c_example_app:
     executor: macos
     steps:
@@ -238,7 +238,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Build ObjC Sample
-          command: bundle exec fastlane build_objective_c_example_app
+          command: bundle exec fastlane build_sample_app flavor:obj-c
   build_swift_example_app:
     executor: macos
     steps:
@@ -247,7 +247,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Build Swift Sample
-          command: bundle exec fastlane build_swift_example_app
+          command: bundle exec fastlane build_sample_app flavor:swift
   build_spm_example_app:
     executor: macos
     steps:
@@ -256,7 +256,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Build SPM Sample
-          command: bundle exec fastlane build_spm_example_app
+          command: bundle exec fastlane build_sample_app flavor:spm
   build_instrumented_tests_package:
     executor: macos
     steps:
@@ -276,41 +276,6 @@ jobs:
           paths:
             - ./Examples/ObjectiveCExampleApp/DerivedData
             - ./Examples/ObjectiveCExampleApp/DerivedData/Build/Products/ObjectiveCExampleAppUITests.zip
-  unit_test_objc_sample:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install Sonar Build Wrapper
-          command: |
-            curl -o /var/tmp/build-wrapper-macosx-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
-            unzip /var/tmp/build-wrapper-macosx-x86.zip -d /var/tmp
-            sudo mkdir -p /opt/build-wrapper-macosx/bin
-            sudo mv /var/tmp/build-wrapper-macosx-x86/* /opt/build-wrapper-macosx/bin/
-            rm -rf /var/tmp/build-wrapper-macosx-x86
-            ln -s /opt/build-wrapper-macosx/bin/build-wrapper-macosx-x86 /usr/local/bin/build-wrapper-macosx-x86
-      - run:
-          name: Run Unit Tests
-          command: |
-            build-wrapper-macosx-x86 --out-dir Examples/ObjectiveCExampleApp/build-wrapper-output xcodebuild \
-              -project Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj \
-              -scheme ObjectiveCExampleApp \
-              -destination 'platform=iOS Simulator,name=iPhone 13' \
-              -derivedDataPath Examples/ObjectiveCExampleApp/DerivedData \
-              test
-      - run:
-          name: Convert XCode Coverage Reports to SonarQube Format
-          command: |
-            curl -o xccov-to-sonarqube-generic.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
-            chmod +x xccov-to-sonarqube-generic.sh
-            ./xccov-to-sonarqube-generic.sh Examples/ObjectiveCExampleApp/DerivedData/Logs/Test/*.xcresult/ > Examples/ObjectiveCExampleApp/build-wrapper-output/sonarqube-generic-coverage.xml
-            rm xccov-to-sonarqube-generic.sh
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./Examples/ObjectiveCExampleApp/DerivedData
-            - ./Examples/ObjectiveCExampleApp/build-wrapper-output
   instrumented_tests_sample:
     executor: macos
     steps:
