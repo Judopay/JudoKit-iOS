@@ -19,6 +19,7 @@ platform :ios do
     build_app(
       skip_codesigning: true,
       skip_package_ipa: true,
+      skip_package_dependencies_resolution: true,
       scheme: 'JudoKit_iOS',
       project: './JudoKit_iOS.xcodeproj'
     )
