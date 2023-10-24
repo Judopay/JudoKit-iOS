@@ -106,17 +106,20 @@ platform :ios do
     build_sample_app(flavor: 'all')
   end
 
+  desc "Build ObjectiveCExampleApp for instrumented tests"
+  lane :build_instrumented_obj_c_sample_app do
+    sync_code_signing_options = { type: "development" }
+    run_tests_options = {
+      build_for_testing: true, 
+      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace", 
+      scheme: "ObjectiveCExampleAppUITests",
+      destination: "generic/platform=iOS",
+      sdk: "iphoneos",
+      xcodebuild_command: "xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET"
+    }
 
-  # desc "Development build for ObjectiveCExampleApp"
-  # lane :development_objc do
-  #   match(type: "development")
-  #   run_tests(derived_data_path: "DerivedData", 
-  #   build_for_testing: true, 
-  #   workspace: "ObjectiveCExampleApp.xcworkspace", 
-  #   scheme: "ObjectiveCExampleAppUITests",
-  #   destination: "generic/platform=iOS",
-  #   sdk: "iphoneos",
-  #   xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates \
-  #   TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET") 
-  # end
+    sync_code_signing sync_code_signing_options
+    run_tests run_tests_options
+  end
+
 end
