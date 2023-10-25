@@ -85,7 +85,7 @@
         _state = address.state;
         _postalCode = address.postalCode;
         _country = address.country;
-        _ISOCountryCode = address.ISOCountryCode;
+        _isoCountryCode = address.ISOCountryCode;
 
         NSPersonNameComponents *name = contact.name;
 
