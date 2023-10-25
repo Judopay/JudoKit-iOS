@@ -156,6 +156,8 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
+    fastlane-plugin-firebase_app_distribution (0.7.4)
+      google-apis-firebaseappdistribution_v1 (~> 0.3.0)
     ffi (1.16.3)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -171,6 +173,8 @@ GEM
       retriable (>= 2.0, < 4.a)
       rexml
       webrick
+    google-apis-firebaseappdistribution_v1 (0.3.0)
+      google-apis-core (>= 0.11.0, < 2.a)
     google-apis-iamcredentials_v1 (0.17.0)
       google-apis-core (>= 0.11.0, < 2.a)
     google-apis-playcustomapp_v1 (0.13.0)
@@ -278,6 +282,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (= 1.13.0)
   fastlane
+  fastlane-plugin-firebase_app_distribution
 
 BUNDLED WITH
    2.0.2

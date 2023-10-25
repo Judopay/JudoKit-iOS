@@ -31,83 +31,119 @@ platform :ios do
     run_tests(ensure_devices_found: true)
   end
 
-  # Example apps
-  desc "Build Sample App"
-  lane :build_sample_app do |options|
-    flavor = options[:flavor]
+  def extract_flavor_list(options)
+    supported_flavors = %w(obj-c swift carthage spm)
 
-    av = %w(obj-c swift carthage spm all)
-    UI.user_error!("Unsupported flavor '#{flavor}', must be: #{av}") unless av.include?(flavor)
-
-    if flavor == 'all'
-      av.each do |flv|
-        unless flv == 'all'
-          options[:flavor] = flv
-          build_sample options
-        end
-      end
-    else
-      build_sample options
+    if options[:flavors].nil?
+      UI.important("No flavors option has been provided, defaulting to: #{supported_flavors}")
     end
+
+    current_flavors = options[:flavors]&.split(',')&.map(&:strip) || supported_flavors
+
+    current_flavors.each do |flavor|
+      UI.user_error!("Unsupported flavor '#{flavor}', must be: #{supported_flavors}") unless supported_flavors.include?(flavor)
+    end
+
+    return current_flavors
   end
 
-  private_lane :build_sample do |options|
-    flavor = options[:flavor]
-    options.delete(:flavor)
+  desc "Build Sample App"
+  lane :build_sample_app do | options |
     
-    sync_code_signing_options = { type: "adhoc" }
-    build_app_options = { export_method: "ad-hoc" }.merge(options)
+    extract_flavor_list(options).each do | flavor |
 
-    case flavor
-      when 'obj-c'
-        cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-        
-        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
-        
-        build_app_options[:scheme] = 'ObjectiveCExampleApp'
-        build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
-        build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
+      sync_code_signing_options = { type: 'adhoc' }
+      build_app_options = { export_method: 'ad-hoc' }
 
-      when 'swift'
-        cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
-        
-        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
-
-        build_app_options[:scheme] = 'SwiftExampleApp'
-        build_app_options[:output_name] = 'SwiftExampleApp.ipa'
-        build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
-
-      when 'carthage'
-        Dir.chdir('..') do
-          sh('./scripts/carthage_example_carthage_bootstrap.sh')
+      case flavor
+        when 'obj-c'
+          cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
+          
+          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
+          
+          build_app_options[:scheme] = 'ObjectiveCExampleApp'
+          build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
+          build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
+  
+        when 'swift'
+          cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
+          
+          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
+  
+          build_app_options[:scheme] = 'SwiftExampleApp'
+          build_app_options[:output_name] = 'SwiftExampleApp.ipa'
+          build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
+  
+        when 'carthage'
+          Dir.chdir('..') do
+            sh('./scripts/carthage_example_carthage_bootstrap.sh')
+          end
+  
+          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
+  
+          build_app_options[:scheme] = 'CarthageExampleApp'
+          build_app_options[:output_name] = 'CarthageExampleApp.ipa'
+          build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
+  
+        when 'spm'
+          sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
+  
+          build_app_options[:scheme] = 'SPMExampleApp'
+          build_app_options[:output_name] = 'SPMExampleApp.ipa'
+          build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
+  
+        else
+          UI.user_error!("Unsupported flavor '#{flavor}'.")
         end
-
-        sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
-
-        build_app_options[:scheme] = 'CarthageExampleApp'
-        build_app_options[:output_name] = 'CarthageExampleApp.ipa'
-        build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
-
-      when 'spm'
-        sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
-
-        build_app_options[:scheme] = 'SPMExampleApp'
-        build_app_options[:output_name] = 'SPMExampleApp.ipa'
-        build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
-
-      else
-        UI.user_error!("Unsupported flavor '#{flavor}'.")
+      
+      sync_code_signing sync_code_signing_options
+      build_app build_app_options
       end
-    
-    sync_code_signing sync_code_signing_options
-    build_app build_app_options
   end
   
+  desc "Distribute ObjectiveCExampleApp"
+  lane :distribute_sample_app do |options|
+    
+    increment_build_number_options = {}
+    
+    firebase_app_distribution_options = {
+      groups: 'default-testers',
+      release_notes: changelog_from_git_commits(commits_count: 1)
+    }
+
+    extract_flavor_list(options).each do | flavor |  
+      case flavor
+        when 'obj-c'
+          firebase_app_distribution_options[:app] = ENV['IOS_OBJ_C_FIREBASE_APP_ID']
+          increment_build_number_options[:xcodeproj] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj'
+        when 'swift'
+          firebase_app_distribution_options[:app] = ENV['IOS_SWIFT_FIREBASE_APP_ID']
+          increment_build_number_options[:xcodeproj] = './Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj'
+        when 'carthage'
+          firebase_app_distribution_options[:app] = ENV['IOS_CARTHAGE_FIREBASE_APP_ID']
+          increment_build_number_options[:xcodeproj] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
+        when 'spm'
+          firebase_app_distribution_options[:app] = ENV['IOS_SPM_FIREBASE_APP_ID']
+          increment_build_number_options[:xcodeproj] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
+        else
+          UI.user_error!("Unsupported flavor '#{flavor}'.")
+        end
+      
+      latest_release = firebase_app_distribution_get_latest_release app:firebase_app_distribution_options[:app]
+      current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
+      increment_build_number_options[:build_number] = current_version + 1
+      increment_build_number increment_build_number_options
+
+      build_sample_app flavors: flavor
+      firebase_app_distribution firebase_app_distribution_options
+      end
+  end
+
   desc "Run full PR check pipeline"
   lane :pr_check do
     lint
     test
-    build_sample_app(flavor: 'all')
+    build_sample_app flavors:'obj-c, swift, carthage, spm'
   end
 
   desc "Build ObjectiveCExampleApp for instrumented tests"
