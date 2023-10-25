@@ -30,6 +30,35 @@ platform :ios do
     carthage
     run_tests(ensure_devices_found: true)
   end
+  
+  desc "Package ObjC example app and intrumented tests for uploading to firebase"
+  lane :package_instrumented_tests do
+    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
+
+    sync_code_signing_options = { 
+      type: "development",
+      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
+    }
+
+    run_tests_options = {
+      build_for_testing: true, 
+      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace", 
+      scheme: "ObjectiveCExampleAppUITests",
+      destination: "generic/platform=iOS",
+      sdk: "iphoneos",
+      xcodebuild_command: "xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET"
+    }
+
+    sync_code_signing sync_code_signing_options
+    run_tests run_tests_options
+
+    Dir.chdir('..') do
+      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
+        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
+      end
+    end
+  end
 
   def extract_flavor_list(options)
     supported_flavors = %w(obj-c swift carthage spm)
@@ -144,23 +173,6 @@ platform :ios do
     lint
     test
     build_sample_app flavors:'obj-c, swift, carthage, spm'
-  end
-
-  desc "Build ObjectiveCExampleApp for instrumented tests"
-  lane :build_instrumented_obj_c_sample_app do
-    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-    sync_code_signing_options = { type: "development", app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*'] }
-    run_tests_options = {
-      build_for_testing: true, 
-      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace", 
-      scheme: "ObjectiveCExampleAppUITests",
-      destination: "generic/platform=iOS",
-      sdk: "iphoneos",
-      xcodebuild_command: "xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET"
-    }
-
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
   end
 
 end

@@ -262,20 +262,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - ruby/install-deps
       - run:
           name: Build ObjC Sample for UI Tests using Fastlane
-          working_directory: ./Examples/ObjectiveCExampleApp
-          command: bundle exec fastlane development_objc
-      - run:
-          name: Package up for UI Tests
-          working_directory: ./Examples/ObjectiveCExampleApp/DerivedData/Build/Products
-          command: |
-            zip -r ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_iphoneos16.2-arm64.xctestrun
+          command: bundle exec fastlane package_instrumented_tests
       - persist_to_workspace:
           root: .
           paths:
-            - ./Examples/ObjectiveCExampleApp/DerivedData
-            - ./Examples/ObjectiveCExampleApp/DerivedData/Build/Products/ObjectiveCExampleAppUITests.zip
+            - ./DerivedData
+            - ./Output/ObjectiveCExampleAppUITests.zip
   instrumented_tests_sample:
     executor: macos
     steps:
@@ -298,8 +293,8 @@ jobs:
           no_output_timeout: 30m
           command: >
             gcloud firebase test ios run \
-              --test Examples/ObjectiveCExampleApp/DerivedData/Build/Products/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 14.2 \
+              --test ./Output/ObjectiveCExampleAppUITests.zip \
+              --xcode-version 15.0.0 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
@@ -414,11 +409,9 @@ workflows:
             - unit_test_sdk
       - build_instrumented_tests_package:
           requires:
-            - build_objective_c_example_app
+            - unit_test_sdk
       - run_instrumented_tests:
           context: shared-secrets
-          requires:
-            - build_objective_c_example_app
           filters:
             branches:
               only:
