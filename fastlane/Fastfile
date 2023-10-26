@@ -31,7 +31,7 @@ platform :ios do
     run_tests(ensure_devices_found: true)
   end
   
-  desc "Package ObjC example app and intrumented tests for uploading to firebase"
+  desc "Package ObjC example app and instrumented tests for uploading to firebase"
   lane :package_instrumented_tests do
     cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
