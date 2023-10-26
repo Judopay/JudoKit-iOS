@@ -9,6 +9,22 @@ import XCTest
 
 extension XCUIApplication {
     
+    let cardNumberField = "Card Number Field"
+    let cardHolderNameField = "Cardholder Name Field"
+    let expiryDateField = "Expiry Date Field"
+    let securityCodeField = "Security Code Field"
+    let cardDetailsSubmitButton = "Submit Button"
+    let settingsSectionButton = "Settings Button"
+    let cancelCardEntryButton = "CANCEL"
+    let threeDS2CancelButton = "Cancel"
+    let tokenizeNewCardButton = "Tokenize a new card"
+    let tokenPaymentButton = "Payment"
+    let tokenPreAuthButton = "Preauth"
+    let addNewCardButton = "ADD CARD"
+    let payNowButton = "PAY NOW"
+    let editCardsButton = "EDIT"
+    let deleteCardButton = "Delete"
+    
     func cellWithIdentifier(_ identifier: String) -> XCUIElement? {
         return cells.matching(identifier: identifier).firstMatch
     }
@@ -27,91 +43,91 @@ extension XCUIApplication {
         
     var cardNumberTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier("Card Number Field")
+            return textFieldWithIdentifier(cardNumberField)
         }
     }
     
     var cardholderTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier("Cardholder Name Field")
+            return textFieldWithIdentifier(cardHolderNameField)
         }
     }
     
     var expiryDateTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier("Expiry Date Field")
+            return textFieldWithIdentifier(expiryDateField)
         }
     }
     
     var securityCodeTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier("Security Code Field")
+            return textFieldWithIdentifier(securityCodeField)
         }
     }
     
     var cardDetailsSubmitButton: XCUIElement? {
         get {
-            return buttonWithIdentifier("Submit Button")
+            return buttonWithIdentifier(cardDetailsSubmitButton)
         }
     }
     
     var settingsButton: XCUIElement? {
         get {
-            return buttonWithIdentifier("Settings Button")
+            return buttonWithIdentifier(settingsSectionButton)
         }
     }
     
     var cancelButton: XCUIElement? {
         get {
-            return buttonWithLabel("CANCEL")
+            return buttonWithLabel(cancelCardEntryButton)
         }
     }
     
     var cancelButton3DS2: XCUIElement? {
         get {
-            return buttonWithLabel("Cancel")
+            return buttonWithLabel(threeDS2CancelButton)
         }
     }
     
     var tokenizeNewCardButton: XCUIElement? {
         get {
-            return buttonWithLabel("Tokenize a new card")
+            return buttonWithLabel(tokenizeNewCardButton)
         }
     }
     
     var tokenPaymentButton: XCUIElement? {
         get {
-            return buttonWithLabel("Payment")
+            return buttonWithLabel(tokenPaymentButton)
         }
     }
     
     var tokenPreauthButton: XCUIElement? {
         get {
-            return buttonWithLabel("Preauth")
+            return buttonWithLabel(tokenPreAuthButton)
         }
     }
     
     var addCard: XCUIElement? {
         get {
-            return buttonWithLabel("ADD CARD")
+            return buttonWithLabel(addNewCardButton)
         }
     }
     
     var payNowButton: XCUIElement? {
         get {
-            return buttonWithLabel("PAY NOW")
+            return buttonWithLabel(payNowButton)
         }
     }
     
     var editCardsButton: XCUIElement? {
         get {
-            return buttonWithLabel("EDIT")
+            return buttonWithLabel(editCardsButton)
         }
     }
     
     var deleteCardButton: XCUIElement? {
         get {
-            return buttonWithLabel("Delete")
+            return buttonWithLabel(deleteCardButton)
         }
     }
     
