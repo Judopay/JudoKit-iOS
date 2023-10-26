@@ -314,7 +314,7 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.0.0 \
+              --xcode-version 15.0 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
@@ -432,6 +432,8 @@ workflows:
             - unit_test_sdk
       - run_instrumented_tests:
           context: shared-secrets
+          requires:
+            - checkout_project
           filters:
             branches:
               only:
@@ -446,6 +448,8 @@ workflows:
                 - master
       - release_sample:
           context: shared-secrets
+          requires:
+            - checkout_project
           filters:
             branches:
               only:

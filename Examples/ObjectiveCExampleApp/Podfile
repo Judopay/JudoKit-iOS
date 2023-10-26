@@ -19,7 +19,6 @@ target 'ObjectiveCExampleApp' do
   end
 
   target 'ObjectiveCExampleAppUITests' do
-    inherit! :search_paths
   end
 end
 
