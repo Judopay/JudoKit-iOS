@@ -432,6 +432,8 @@ workflows:
             - unit_test_sdk
       - run_instrumented_tests:
           context: shared-secrets
+          requires:
+            - checkout_project
           filters:
             branches:
               only:
@@ -446,6 +448,8 @@ workflows:
                 - master
       - release_sample:
           context: shared-secrets
+          requires:
+            - checkout_project
           filters:
             branches:
               only:
