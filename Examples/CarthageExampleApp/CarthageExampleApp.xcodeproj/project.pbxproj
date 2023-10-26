@@ -519,17 +519,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "[Cart]-JK";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoCarthage;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoCarthage";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -538,17 +543,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "[Cart]-JK";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoCarthage;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoCarthage";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

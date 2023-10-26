@@ -19,7 +19,7 @@ target 'ObjectiveCExampleApp' do
   end
 
   target 'ObjectiveCExampleAppUITests' do
-    pod 'Cucumberish'
+    inherit! :search_paths
   end
 end
 
