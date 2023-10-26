@@ -1,6 +1,5 @@
 PODS:
   - CocoaDebug (1.7.2)
-  - Cucumberish (1.4.0)
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
@@ -83,7 +82,6 @@ PODS:
 
 DEPENDENCIES:
   - CocoaDebug (= 1.7.2)
-  - Cucumberish
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.1.4)
   - JudoKit-iOS (from `../../`)
@@ -92,7 +90,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaDebug
-    - Cucumberish
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
@@ -108,17 +105,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
-  Cucumberish: 6cbd0c1f50306b369acebfe7d9f514c9c287d26c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: 5cca966ec8425a315d6a96ff64f0b760dd991f32
-  JudoKit-iOS: 21488eff41199b0af452d30bde60b886ce2fb62a
+  JudoKit-iOS: a123cda093842eec64a7451fc16d4518a378e703
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   OpenSSL-Universal: 708e3d1e616a2c40f09a880aafc4b14d2f2a61ec
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: d1ce3385f36315253b53822b57403affa4a77b56
+PODFILE CHECKSUM: ed6568e5cb921bab9208915a04c5c268d36b4895
 
 COCOAPODS: 1.13.0

@@ -38,5 +38,4 @@ extension XCUIElement {
         
         return self
     }
-
 }

@@ -1,11 +1,13 @@
 #!/bin/sh
   
-PROJECT_PATH="$(pwd)"
+SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_PATH=$(dirname "${SCRIPT_PATH}")
+
 CLANG_FORMAT_BIN_PATH="clang-format"
 AUTOCORRECT="YES"
-  
-cd "${PROJECT_PATH}"
-  
+
+pushd "${PROJECT_PATH}" > /dev/null || error "Executing \`pushd\` failed"
+
 if [ "$1" == "lint" ]; then
     AUTOCORRECT="NO"
 fi
@@ -40,13 +42,15 @@ do
   
     IFS=$OLDIFS
 done
-  
+
+popd > /dev/null || error "Executing \`popd\` failed"
+
 if [ $CONTAINS_BAD_FILE == 'YES' ]; then
     OLDIFS=$IFS
     IFS=$'\n'
     for file in $BAD_FILES
     do
-        echo "Fix code style of $file, by executing 'sh ./clang-format.sh'"
+        echo "Fix code style of $file, by executing 'sh ./scripts/clang-format.sh'"
     done
     IFS=$OLDIFS
     exit 1
