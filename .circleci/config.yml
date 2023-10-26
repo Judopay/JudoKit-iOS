@@ -230,6 +230,11 @@ jobs:
       - run:
           name: Build Carthage example app
           command: bundle exec fastlane build_sample_app flavors:carthage
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output
   build_objective_c_example_app:
     executor: macos
     steps:
@@ -239,6 +244,11 @@ jobs:
       - run:
           name: Build ObjC Sample
           command: bundle exec fastlane build_sample_app flavors:obj-c
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output
   build_swift_example_app:
     executor: macos
     steps:
@@ -248,6 +258,11 @@ jobs:
       - run:
           name: Build Swift Sample
           command: bundle exec fastlane build_sample_app flavors:swift
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output
   build_spm_example_app:
     executor: macos
     steps:
@@ -257,6 +272,11 @@ jobs:
       - run:
           name: Build SPM Sample
           command: bundle exec fastlane build_sample_app flavors:spm
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output
   build_instrumented_tests_package:
     executor: macos
     steps:
