@@ -9,22 +9,6 @@ import XCTest
 
 extension XCUIApplication {
     
-    let cardNumberField = "Card Number Field"
-    let cardHolderNameField = "Cardholder Name Field"
-    let expiryDateField = "Expiry Date Field"
-    let securityCodeField = "Security Code Field"
-    let cardDetailsSubmitButton = "Submit Button"
-    let settingsSectionButton = "Settings Button"
-    let cancelCardEntryButton = "CANCEL"
-    let threeDS2CancelButton = "Cancel"
-    let tokenizeNewCardButton = "Tokenize a new card"
-    let tokenPaymentButton = "Payment"
-    let tokenPreAuthButton = "Preauth"
-    let addNewCardButton = "ADD CARD"
-    let payNowButton = "PAY NOW"
-    let editCardsButton = "EDIT"
-    let deleteCardButton = "Delete"
-    
     func cellWithIdentifier(_ identifier: String) -> XCUIElement? {
         return cells.matching(identifier: identifier).firstMatch
     }
@@ -43,91 +27,91 @@ extension XCUIApplication {
         
     var cardNumberTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(cardNumberField)
+            return textFieldWithIdentifier(Selectors.cardNumberField)
         }
     }
     
     var cardholderTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(cardHolderNameField)
+            return textFieldWithIdentifier(Selectors.cardHolderNameField)
         }
     }
     
     var expiryDateTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(expiryDateField)
+            return textFieldWithIdentifier(Selectors.expiryDateField)
         }
     }
     
     var securityCodeTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(securityCodeField)
+            return textFieldWithIdentifier(Selectors.securityCodeField)
         }
     }
     
     var cardDetailsSubmitButton: XCUIElement? {
         get {
-            return buttonWithIdentifier(cardDetailsSubmitButton)
+            return buttonWithIdentifier(Selectors.cardDetailsSubmitButtonSelector)
         }
     }
     
     var settingsButton: XCUIElement? {
         get {
-            return buttonWithIdentifier(settingsSectionButton)
+            return buttonWithIdentifier(Selectors.settingsSectionButton)
         }
     }
     
     var cancelButton: XCUIElement? {
         get {
-            return buttonWithLabel(cancelCardEntryButton)
+            return buttonWithLabel(Selectors.cancelCardEntryButton)
         }
     }
     
     var cancelButton3DS2: XCUIElement? {
         get {
-            return buttonWithLabel(threeDS2CancelButton)
+            return buttonWithLabel(Selectors.threeDS2CancelButton)
         }
     }
     
     var tokenizeNewCardButton: XCUIElement? {
         get {
-            return buttonWithLabel(tokenizeNewCardButton)
+            return buttonWithLabel(Selectors.tokenizeNewCardButtonSelector)
         }
     }
     
     var tokenPaymentButton: XCUIElement? {
         get {
-            return buttonWithLabel(tokenPaymentButton)
+            return buttonWithLabel(Selectors.tokenPaymentButtonSelector)
         }
     }
     
     var tokenPreauthButton: XCUIElement? {
         get {
-            return buttonWithLabel(tokenPreAuthButton)
+            return buttonWithLabel(Selectors.tokenPreAuthButton)
         }
     }
     
     var addCard: XCUIElement? {
         get {
-            return buttonWithLabel(addNewCardButton)
+            return buttonWithLabel(Selectors.addNewCardButton)
         }
     }
     
     var payNowButton: XCUIElement? {
         get {
-            return buttonWithLabel(payNowButton)
+            return buttonWithLabel(Selectors.payNowButtonSelector)
         }
     }
     
     var editCardsButton: XCUIElement? {
         get {
-            return buttonWithLabel(editCardsButton)
+            return buttonWithLabel(Selectors.editCardsButtonSelector)
         }
     }
     
     var deleteCardButton: XCUIElement? {
         get {
-            return buttonWithLabel(deleteCardButton)
+            return buttonWithLabel(Selectors.deleteCardButtonSelector)
         }
     }
     
