@@ -344,7 +344,8 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssert(newCard.waitForExistence(timeout: 5), "Unable to add a new card")
         
         newCard.swipeLeft()
-        
+
+        // Two taps are required to delete and confirm deletion of a card
         app.deleteCardButton?.tap()
         
         app.deleteCardButton?.tap()
