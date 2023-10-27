@@ -365,10 +365,6 @@ jobs:
           command: |
             export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json
             bundle exec fastlane distribute_sample_app flavors:obj-c,swift,carthage,spm
-      - slack/notify:
-          custom: "[JudoKit-iOS] - New sample app's released to Firebase App Distribution."
-          event: pass
-          mentions: "@Stefan, @Eugene"
   release_sdk:
     executor: macos
     steps:
