@@ -6,13 +6,11 @@ enum AppScreen {
     case results(Result)
     case tokenTransactions
     case noUICardPay
-    case payByBankApp
     case applePay
 }
 
 protocol Coordinator: AnyObject {
     func start()
-    func start(with deeplinkURL: URL)
     func pushTo(_ screen: AppScreen)
     func pop()
 }
@@ -27,7 +25,6 @@ class AppCoordinator: Coordinator {
     private let settingsModule: SettingsModule
     private let tokenModule: TokenModule
     private let noUICardPayModule: NoUICardPayModule
-    private let pbbaModule: PBBAModule
     private let applePayModule: ApplePayModule
 
     // MARK: - Initializers
@@ -42,7 +39,6 @@ class AppCoordinator: Coordinator {
         settingsModule = SettingsModule.make()
         tokenModule = TokenModule.make(with: featureService)
         noUICardPayModule = NoUICardPayModule.make(with: featureService)
-        pbbaModule = PBBAModule.make(with: featureService)
         applePayModule = ApplePayModule.make()
     }
 
@@ -52,13 +48,6 @@ class AppCoordinator: Coordinator {
         homeModule.rootViewController.coordinator = self
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-    }
-
-    func start(with deeplinkURL: URL) {
-        homeModule.rootViewController.coordinator = self
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-        homeModule.rootViewController.handlePBBAStatus(with: deeplinkURL)
     }
 
     func pushTo(_ screen: AppScreen) {
@@ -77,9 +66,6 @@ class AppCoordinator: Coordinator {
         case .noUICardPay:
             noUICardPayModule.coordinator = self
             navigationController.pushViewController(noUICardPayModule.rootViewController, animated: true)
-        case .payByBankApp:
-            pbbaModule.rootViewController.coordinator = self
-            navigationController.pushViewController(pbbaModule.rootViewController, animated: true)
         case .applePay:
             navigationController.pushViewController(applePayModule.rootViewController, animated: true)
         }

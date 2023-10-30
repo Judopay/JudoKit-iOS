@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,8 +22,6 @@
 		ADFF51E02847A85F00DA884C /* JudoKit_iOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ADFF51E22847A9A400DA884C /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */; };
 		ADFF51E32847A9A400DA884C /* OpenSSL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		ADFF51E52847A9BA00DA884C /* ZappMerchantLib.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */; };
-		ADFF51E62847A9BA00DA884C /* ZappMerchantLib.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ADFF51E62847A9BA00DA884C /* ZappMerchantLib.xcframework in Embed Frameworks */,
 				ADFF51DA2847A83D00DA884C /* DeviceDNA.xcframework in Embed Frameworks */,
 				ADFF51DD2847A84F00DA884C /* TrustKit.xcframework in Embed Frameworks */,
 				ADFF51E32847A9A400DA884C /* OpenSSL.xcframework in Embed Frameworks */,
@@ -83,7 +80,6 @@
 		ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TrustKit.xcframework; path = Carthage/Build/TrustKit.xcframework; sourceTree = "<group>"; };
 		ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = JudoKit_iOS.xcframework; path = Carthage/Build/JudoKit_iOS.xcframework; sourceTree = "<group>"; };
 		ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OpenSSL.xcframework; path = Carthage/Build/OpenSSL.xcframework; sourceTree = "<group>"; };
-		ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ZappMerchantLib.xcframework; path = Carthage/Build/ZappMerchantLib.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADFF51E52847A9BA00DA884C /* ZappMerchantLib.xcframework in Frameworks */,
 				448FC6422A1E21BD0072C52E /* Judo3DS2_iOS.xcframework in Frameworks */,
 				ADFF51D92847A83D00DA884C /* DeviceDNA.xcframework in Frameworks */,
 				ADFF51DC2847A84F00DA884C /* TrustKit.xcframework in Frameworks */,
@@ -192,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				448FC6412A1E21BD0072C52E /* Judo3DS2_iOS.xcframework */,
-				ADFF51E42847A9BA00DA884C /* ZappMerchantLib.xcframework */,
 				ADFF51E12847A9A400DA884C /* OpenSSL.xcframework */,
 				ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */,
 				ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */,
@@ -525,17 +519,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "[Cart]-JK";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoCarthage;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoCarthage";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -544,17 +543,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = CarthageExampleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "[Cart]-JK";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
+				MARKETING_VERSION = 3.2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoCarthage;
 				PRODUCT_NAME = "Judopay demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoCarthage";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

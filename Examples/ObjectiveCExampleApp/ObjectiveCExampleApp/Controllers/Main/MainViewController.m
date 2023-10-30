@@ -34,13 +34,11 @@
 #import "IASKAppSettingsViewController+Additions.h"
 #import "MainViewController.h"
 #import "NoUICardPayViewController.h"
-#import "PBBAViewController.h"
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
 #import "RecommendationConfiguration.h"
 
-static NSString *const kShowPbbaScreenSegue = @"showPbbaScreen";
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
@@ -128,11 +126,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         IASKAppSettingsViewController *controller = segue.destinationViewController;
         controller.neverShowPrivacySettings = YES;
         [controller updateHiddenKeys];
-    }
-    if ([segue.destinationViewController isKindOfClass:PBBAViewController.class]) {
-        PBBAViewController *controller = segue.destinationViewController;
-        controller.judoKit = self.judoKit;
-        controller.configuration = self.configuration;
     }
     if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {
         PayWithCardTokenViewController *controller = segue.destinationViewController;
@@ -240,10 +233,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                          }];
 }
 
-- (void)pbbaMethodOperation {
-    [self performSegueWithIdentifier:kShowPbbaScreenSegue sender:nil];
-}
-
 - (void)tokenPaymentsMethodOperation {
     [self performSegueWithIdentifier:kTokenPaymentsScreenSegue sender:nil];
 }
@@ -305,10 +294,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         return;
     }
 
-    if ([response.paymentMethod isEqualToString:@"PBBA"] && !response.orderDetails.orderStatus) {
-        return;
-    }
-
     [self presentResultViewControllerWithResponse:response];
 }
 
@@ -336,7 +321,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
 
-    configuration.pbbaConfiguration = [JPPBBAConfiguration configurationWithDeeplinkScheme:@"judo://pay" andDeeplinkURL:self.deepLinkURL];
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
@@ -485,10 +469,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
             [self serverToServerMethodOperation];
             break;
 
-        case DemoFeatureTypePBBA:
-            [self pbbaMethodOperation];
-            break;
-
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
             break;
@@ -501,19 +481,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
             [self transactionDetailsMethodOperation];
             break;
     }
-}
-
-- (void)openPBBAScreen:(NSURL *)url {
-
-    self.deepLinkURL = url;
-    self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
-    self.judoKit.isSandboxed = Settings.defaultSettings.isSandboxed;
-
-    [self.judoKit invokePBBAWithConfiguration:self.configuration
-                                   completion:^(JPResponse *response, JPError *error) {
-                                       self.deepLinkURL = nil;
-                                       [self handleResponse:response error:error];
-                                   }];
 }
 
 @end

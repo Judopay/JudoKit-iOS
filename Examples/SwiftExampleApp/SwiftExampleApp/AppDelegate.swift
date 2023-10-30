@@ -32,11 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start(with: url)
-
         return true
     }
 
@@ -47,11 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         let appCoordinator = AppCoordinator(window: window!)
-
-        if let url = launchOptions?[.url] as? URL {
-            appCoordinator.start(with: url)
-            return true
-        }
 
         appCoordinator.start()
         return true

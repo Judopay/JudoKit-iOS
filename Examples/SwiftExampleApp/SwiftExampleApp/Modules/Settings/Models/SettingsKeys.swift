@@ -166,7 +166,6 @@ let kChinaUnionPayEnabledKey = "is_card_network_china_union_pay_enabled"
 let kJCBEnabledKey = "is_card_network_jcb_enabled"
 let kDiscoverEnabledKey = "is_card_network_discover_enabled"
 let kDinersClubEnabledKey = "is_card_network_diners_club_enabled"
-let kPbbaPaymentMethodEnabledKey = "is_payment_method_pbba_enabled"
 
 // MARK: - Payment methods section keys
 

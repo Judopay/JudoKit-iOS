@@ -118,13 +118,4 @@
 + (nonnull instancetype)idealRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                andBIC:(nonnull NSString *)bic;
 
-/**
- * Designated PBBA initializer based on a provided configuration object
- *
- * @param configuration - an instance of JPConfiguration that describes the merchant's configuration
- *
- * @returns a configured JPBankOrderSaleRequest instance
- */
-+ (nonnull instancetype)pbbaRequestWithConfiguration:(nonnull JPConfiguration *)configuration;
-
 @end

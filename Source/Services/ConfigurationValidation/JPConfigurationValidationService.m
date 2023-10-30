@@ -69,16 +69,6 @@
     return error;
 }
 
-- (JPError *)validatePBBAConfiguration:(JPConfiguration *)configuration {
-    JPError *error;
-
-    if (![configuration.amount.currency isEqualToString:kCurrencyPounds]) {
-        error = JPError.invalidPBBACurrencyError;
-    }
-
-    return error;
-}
-
 #pragma mark - Validation methods
 
 - (void)checkTokenPaymentTransactionType:(JPTransactionType)type error:(NSError **)error {

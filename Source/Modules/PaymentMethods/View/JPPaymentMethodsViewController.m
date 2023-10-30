@@ -39,7 +39,7 @@
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
-@interface JPPaymentMethodsViewController () <JPPBBAButtonDelegate>
+@interface JPPaymentMethodsViewController ()
 
 @property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
@@ -81,10 +81,6 @@
     [self.presenter handleApplePayButtonTap];
 }
 
-- (void)pbbaButtonDidPress:(nonnull JPPBBAButton *)sender {
-    [self.presenter handlePayButtonTap];
-}
-
 #pragma mark - Layout Setup
 
 - (void)configureView {
@@ -112,7 +108,6 @@
 
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
-    self.paymentMethodsView.headerView.pbbaButton.delegate = self;
 }
 
 - (void)configureTargets {

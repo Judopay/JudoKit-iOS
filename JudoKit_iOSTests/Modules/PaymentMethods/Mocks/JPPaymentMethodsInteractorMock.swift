@@ -66,16 +66,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     func processServer(toServerCardPayment completion: @escaping JPCompletionBlock) {
         
     }
-    
-    func pollingPBBA(completion: JPCompletionBlock? = nil) {
-        startPolling = true
-    }
-
-    func indexOfPBBAMethod() -> Int {
-        1
-    }
-
-    func openPBBA(completion: JPCompletionBlock? = nil) {}
 
     func completeTransaction(with response: JPResponse?, andError error: Error?) {
         transactionCompleteError = error

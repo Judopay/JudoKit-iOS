@@ -249,10 +249,6 @@ NSString *safeString(NSString *aString) {
         [methods addObject:JPPaymentMethod.iDeal];
     }
 
-    if ([self.defaults boolForKey:kPbbaPaymentMethodEnabledKey]) {
-        [methods addObject:JPPaymentMethod.pbba];
-    }
-
     return methods;
 }
 

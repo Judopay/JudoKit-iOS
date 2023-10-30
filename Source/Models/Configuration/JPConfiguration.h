@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPPBBAConfiguration, JPNetworkTimeout, RecommendationConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPNetworkTimeout, RecommendationConfiguration;
 
 @interface JPConfiguration : NSObject
 
@@ -80,11 +80,6 @@
  * Not setting this property will hide Apple Pay from the Judo Payment Method screen, even though it has been set as one of the payment methods.
  */
 @property (nonatomic, strong, nullable) JPApplePayConfiguration *applePayConfiguration;
-
-/**
- * An instance of JPPbbaConfiguration required for PbBA Pay-related transactions.
- */
-@property (nonatomic, strong, nullable) JPPBBAConfiguration *pbbaConfiguration;
 
 /**
  * A  flag to sign up for a subscription-based service

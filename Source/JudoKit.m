@@ -31,8 +31,6 @@
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
-#import "JPPBBAConfiguration.h"
-#import "JPPBBAService.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPResponse.h"
@@ -54,7 +52,6 @@
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
-@property (nonatomic, strong) JPPBBAService *pbbaService;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
@@ -241,10 +238,6 @@
                                                                   didFinishBlock:didFinishBlock];
 }
 
-+ (bool)isBankingAppAvailable {
-    return JPPBBAService.isBankingAppAvailable;
-}
-
 + (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
     if ([PKPaymentAuthorizationController canMakePayments]) {
         NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:configuration];
@@ -252,25 +245,6 @@
         return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks capabilities:capabilities];
     }
     return NO;
-}
-
-- (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
-                         completion:(nullable JPCompletionBlock)completion {
-
-    JPError *configurationError = [self.configurationValidationService validatePBBAConfiguration:configuration];
-    if (configurationError) {
-        completion(nil, configurationError);
-        return;
-    }
-    self.configuration = configuration;
-    self.pbbaService = [[JPPBBAService alloc] initWithConfiguration:configuration apiService:self.apiService];
-
-    if ([configuration.pbbaConfiguration hasDeepLinkURL]) {
-        [self.pbbaService showStatusViewWith:JPTransactionStatusPending];
-        [self.pbbaService pollingOrderStatus:completion];
-    } else {
-        [self.pbbaService openPBBAMerchantApp:completion];
-    }
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode

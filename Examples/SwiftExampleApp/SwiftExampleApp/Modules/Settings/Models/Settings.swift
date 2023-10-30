@@ -179,10 +179,6 @@ class Settings {
             paymentMethods.append(JPPaymentMethod.iDeal())
         }
 
-        if userDefaults.bool(forKey: kPbbaPaymentMethodEnabledKey) {
-            paymentMethods.append(JPPaymentMethod.pbba())
-        }
-
         return paymentMethods
     }
 

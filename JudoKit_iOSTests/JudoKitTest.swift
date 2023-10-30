@@ -28,7 +28,6 @@ class JudoKitTest: XCTestCase {
     let configuration = JPConfiguration(judoID: "123456789",
                                         amount: JPAmount("0.01", currency: "EUR"),
                                         reference: JPReference(consumerReference: "consumerReference"))
-    let pbbaconfig = JPPBBAConfiguration()
     
     let items = [JPPaymentSummaryItem(label: "item 1", amount: 0.01),
                  JPPaymentSummaryItem(label: "item 2", amount: 0.02),
@@ -39,8 +38,6 @@ class JudoKitTest: XCTestCase {
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
-        pbbaconfig.deeplinkURL = URL(string: "link")
-        configuration.pbbaConfiguration = pbbaconfig
         configuration.applePayConfiguration = JPApplePayConfiguration(merchantId: "1234", currency: "USD", countryCode: "DE", paymentSummaryItems: items)
         
         let path = Bundle(for: type(of: self)).path(forResource: "TransactionData", ofType: "json")!
@@ -64,19 +61,6 @@ class JudoKitTest: XCTestCase {
         XCTAssertFalse(judoKit.isSandboxed)
         judoKit.isSandboxed = true
         XCTAssertTrue(judoKit.isSandboxed)
-    }
-    
-    /*
-     * GIVEN: Invoke pbba
-     *
-     * WHEN: currency is EUR in configuration object
-     *
-     * THEN: should not pass validation
-     */
-    func test_InvokePBBAWithConfiguration_WhenCurrencyIsEUR_ShouldNotPassValidation() {
-        judoKit.invokePBBA(with: configuration) { (res, error) in
-            XCTAssertEqual(error?.localizedDescription ?? "", "PBBA transactions only support GBP as the currency.")
-        }
     }
     
     /*
@@ -351,16 +335,5 @@ class JudoKitTest: XCTestCase {
             expectation.fulfill()
         })
         waitForExpectations(timeout: 3, handler: nil)
-    }
-    
-    /*
-     * GIVEN: the user wants to check for PBBA supported bank apps
-     *
-     * WHEN:  the SDK is running on an emulator
-     *
-     * THEN:  the method should return false
-     */
-    func test_OnBankingAppCheck_WhenRunningEmulator_ReturnFalse() {
-        XCTAssertFalse(JudoKit.isBankingAppAvailable())
     }
 }

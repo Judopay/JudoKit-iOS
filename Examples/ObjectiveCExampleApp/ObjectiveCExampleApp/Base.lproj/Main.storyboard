@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,7 +76,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="settingsButton" destination="OAR-Ow-eeI" id="sOO-g6-20C"/>
-                        <segue destination="roV-nE-oFc" kind="show" identifier="showPbbaScreen" id="ace-IV-qgw"/>
                         <segue destination="UWo-Q7-j0K" kind="show" identifier="tokenPayments" id="MxX-bg-KUN"/>
                         <segue destination="qIB-ON-fdd" kind="show" identifier="showApplePayScreen" id="R2W-bn-ToH"/>
                         <segue destination="aAh-VN-Jhb" kind="show" identifier="noUIPayments" id="fzY-Ry-O4l"/>
@@ -99,7 +98,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Dni-N0-LHi">
-                                <rect key="frame" x="16" y="116" width="343" height="51"/>
+                                <rect key="frame" x="16" y="136" width="343" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="rcL-EI-Wau"/>
                                 </constraints>
@@ -112,16 +111,16 @@
                                 </connections>
                             </segmentedControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAt-nI-iuG">
-                                <rect key="frame" x="0.0" y="216" width="375" height="451"/>
+                                <rect key="frame" x="0.0" y="236" width="375" height="431"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6j-DC-9hv">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="451"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="431"/>
                                         <subviews>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="PBy-He-vC6">
-                                                <rect key="frame" x="50" y="0.0" width="275" height="451"/>
+                                                <rect key="frame" x="50" y="0.0" width="275" height="431"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QLW-NN-igr">
-                                                <rect key="frame" x="50" y="0.0" width="275" height="451"/>
+                                                <rect key="frame" x="50" y="0.0" width="275" height="431"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
@@ -181,7 +180,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="9Ri-9m-1u3">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="HVc-tb-oQI">
                                         <rect key="frame" x="20" y="20" width="605" height="754.5"/>
@@ -413,88 +412,6 @@
             </objects>
             <point key="canvasLocation" x="892" y="1462.2188905547227"/>
         </scene>
-        <!--PBBA-->
-        <scene sceneID="1N5-xj-n68">
-            <objects>
-                <viewController storyboardIdentifier="PBBAViewController" id="roV-nE-oFc" customClass="PBBAViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hkW-X4-aVp"/>
-                        <viewControllerLayoutGuide type="bottom" id="E0M-FB-TFF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7qM-xy-XFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVy-Ii-QA4">
-                                <rect key="frame" x="67" y="305" width="241" height="57"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="57" id="B8R-QN-UBq"/>
-                                    <constraint firstAttribute="width" constant="241" id="hMz-iR-idD"/>
-                                </constraints>
-                            </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Order ID:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdW-ef-7Bn">
-                                <rect key="frame" x="36" y="382" width="303" height="17"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay By Bank using your existing Bank app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnW-Sq-xhf">
-                                <rect key="frame" x="30" y="276.5" width="315.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Order ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ego-MS-V4V">
-                                <rect key="frame" x="36" y="407" width="303" height="17"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                <color key="textColor" systemColor="systemGreenColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESI-XG-gvS">
-                                <rect key="frame" x="67.5" y="454" width="240" height="50"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="6Be-zB-lat"/>
-                                    <constraint firstAttribute="height" constant="50" id="a1B-hL-ZTH"/>
-                                </constraints>
-                                <state key="normal" title="Check Transaction Status">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapCheckStatus:" destination="roV-nE-oFc" eventType="touchUpInside" id="chu-Fc-LcJ"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="firstBaseline" secondItem="bnW-Sq-xhf" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="5Tx-cu-O9S"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tdW-ef-7Bn" secondAttribute="trailing" constant="20" id="7Vr-pM-7mH"/>
-                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="centerY" secondItem="7qM-xy-XFJ" secondAttribute="centerY" id="AzD-Fm-1ys"/>
-                            <constraint firstItem="Ego-MS-V4V" firstAttribute="top" secondItem="tdW-ef-7Bn" secondAttribute="bottom" constant="8" id="IQx-MA-mqj"/>
-                            <constraint firstItem="ESI-XG-gvS" firstAttribute="top" secondItem="Ego-MS-V4V" secondAttribute="bottom" constant="30" id="J8q-dE-jsJ"/>
-                            <constraint firstItem="ESI-XG-gvS" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="Lyv-cX-YQz"/>
-                            <constraint firstItem="tdW-ef-7Bn" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="20" id="P3o-G5-qjm"/>
-                            <constraint firstItem="Ego-MS-V4V" firstAttribute="leading" secondItem="7qM-xy-XFJ" secondAttribute="leadingMargin" constant="20" id="RMc-7E-ZgZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ego-MS-V4V" secondAttribute="trailing" constant="20" id="UDr-IH-mGv"/>
-                            <constraint firstItem="tdW-ef-7Bn" firstAttribute="top" secondItem="cVy-Ii-QA4" secondAttribute="bottom" constant="20" id="k5X-qh-isp"/>
-                            <constraint firstItem="bnW-Sq-xhf" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="kt9-yg-t98"/>
-                            <constraint firstItem="cVy-Ii-QA4" firstAttribute="centerX" secondItem="7qM-xy-XFJ" secondAttribute="centerX" id="tdj-pE-lBO"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="PBBA" largeTitleDisplayMode="never" id="W6f-GJ-s96"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="buttonPlaceholder" destination="cVy-Ii-QA4" id="nU6-Jw-RE0"/>
-                        <outlet property="checkStatusButton" destination="ESI-XG-gvS" id="Tj2-DR-pGQ"/>
-                        <outlet property="orderIdSuffixLabel" destination="tdW-ef-7Bn" id="yBl-ST-hKD"/>
-                        <outlet property="orderIdValueLabel" destination="Ego-MS-V4V" id="Uiy-cX-RU1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vgZ-3z-BrU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1654" y="1462"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="nYt-DK-Zkg">
             <objects>
@@ -520,7 +437,7 @@
                 <navigationController id="bbn-UO-8s3" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="V0B-e7-3sq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -630,17 +547,8 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

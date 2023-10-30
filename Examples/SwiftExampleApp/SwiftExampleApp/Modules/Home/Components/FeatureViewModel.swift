@@ -36,7 +36,6 @@ enum FeatureType {
     case paymentMethods
     case preAuthMethods
     case serverToServer
-    case payByBank
     case tokenPayments
     case noUIPayments
     case transactionDetails

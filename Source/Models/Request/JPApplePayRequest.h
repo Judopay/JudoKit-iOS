@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *state;
 @property (nonatomic, strong, nullable) NSString *postalCode;
 @property (nonatomic, strong, nullable) NSString *country;
-@property (nonatomic, strong, nullable) NSString *ISOCountryCode;
+@property (nonatomic, strong, nullable) NSString *isoCountryCode;
 
 @property (nonatomic, strong, nullable) NSString *namePrefix;
 @property (nonatomic, strong, nullable) NSString *givenName;

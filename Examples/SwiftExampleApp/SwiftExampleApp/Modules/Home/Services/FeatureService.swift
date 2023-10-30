@@ -44,13 +44,6 @@ class FeatureService {
         transactionService.invokePreAuthPayment(with: details, andCompletion: completion)
     }
 
-    func invokePBBATransaction(with url: URL?,
-                               completion: @escaping JPCompletionBlock) {
-        let currentConfiguration = configuration
-        currentConfiguration.pbbaConfiguration?.deeplinkURL = url
-        judoKit?.invokePBBA(with: currentConfiguration, completion: completion)
-    }
-
     func getTransactionDetails(with receiptID: String,
                                and completion: @escaping JPCompletionBlock) {
         apiService.fetchTransaction(withReceiptId: receiptID, completion: completion)
@@ -87,7 +80,6 @@ class FeatureService {
         config.uiConfiguration.threeDSUICustomization = settings.threeDSUICustomization
         config.supportedCardNetworks = settings.supportedCardNetworks
         config.applePayConfiguration = applePayConfiguration
-        config.pbbaConfiguration = pbbaConfiguration
         config.isInitialRecurringPayment = config.isInitialRecurringPayment
         config.cardAddress = settings.address
         config.isDelayedAuthorisation = settings.isDelayedAuthorisationOn
@@ -138,17 +130,6 @@ class FeatureService {
         appleConfig.supportedCardNetworks = settings.supportedCardNetworks
 
         return appleConfig
-    }
-
-    private var pbbaConfiguration: JPPBBAConfiguration {
-        let pbbaConfig = JPPBBAConfiguration(deeplinkScheme: "judoSwift://pay",
-                                             andDeeplinkURL: nil)
-
-        pbbaConfig.appearsOnStatement = "JudoPay"
-        pbbaConfig.emailAddress = "developersupport@judopay.com"
-        pbbaConfig.mobileNumber = "111-222-333"
-
-        return pbbaConfig
     }
 
     private var uiConfiguration: JPUIConfiguration {

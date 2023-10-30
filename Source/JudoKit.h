@@ -34,7 +34,7 @@
 @protocol JPAuthorization;
 
 static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"3.2.4";
+static NSString *__nonnull const JudoKitVersion = @"3.2.5";
 
 @interface JudoKit : NSObject
 
@@ -106,28 +106,11 @@ static NSString *__nonnull const JudoKitVersion = @"3.2.4";
                                                       completion:(nullable JPCompletionBlock)completion;
 
 /**
- * A method used to determine if there are any PBBA supported bank apps installed on the device
- *
- * @returns true - if a bank app has been found, false otherwise
- */
-+ (BOOL)isBankingAppAvailable;
-
-/**
  * A method used to determine if ApplePay is available on the device
  *
  * @returns true - if canMakePayments and canMakePaymentsUsingNetworks, false otherwise
  */
 + (BOOL)isApplePayAvailableWithConfiguration:(nonnull JPConfiguration *)configuration;
-
-/**
- * A method which invokes the PBBA which allows users to make pay by bank transactions.
- *
- * @param configuration - an instance of JPConfiguration used to configure the transaction.
- * @param completion - a completion block with an optional JPResponse object or an NSError.
- */
-
-- (void)invokePBBAWithConfiguration:(nonnull JPConfiguration *)configuration
-                         completion:(nullable JPCompletionBlock)completion;
 
 /**
  * A method which invokes the Apple Pay sleeve which allows users to make Apple Pay transactions.
