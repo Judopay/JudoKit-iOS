@@ -77,7 +77,7 @@ PODS:
     - MDFTextAccessibility
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
-  - OpenSSL-Universal (1.1.2000)
+  - OpenSSL-Universal (1.1.2200)
   - TrustKit (3.0.3)
 
 DEPENDENCIES:
@@ -112,9 +112,9 @@ SPEC CHECKSUMS:
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
-  OpenSSL-Universal: 708e3d1e616a2c40f09a880aafc4b14d2f2a61ec
+  OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: ed6568e5cb921bab9208915a04c5c268d36b4895
+PODFILE CHECKSUM: d5e523466083301bc63121eded3405c4407575de
 
 COCOAPODS: 1.13.0
