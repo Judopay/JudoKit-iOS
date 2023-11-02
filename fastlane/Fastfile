@@ -81,8 +81,17 @@ platform :ios do
     
     extract_flavor_list(options).each do | flavor |
 
+      build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
+
       sync_code_signing_options = { type: 'adhoc' }
       build_app_options = { export_method: 'ad-hoc' }
+
+      if !build_for_distribution  
+        build_app_options[:skip_codesigning] = true
+        build_app_options[:skip_package_ipa] = true
+        build_app_options[:skip_archive] = true
+        build_app_options[:configuration] = 'Debug'
+      end
 
       case flavor
         when 'obj-c'
@@ -125,7 +134,10 @@ platform :ios do
           UI.user_error!("Unsupported flavor '#{flavor}'.")
         end
       
-      sync_code_signing sync_code_signing_options
+      if build_for_distribution
+        sync_code_signing sync_code_signing_options
+      end
+
       build_app build_app_options
       end
   end

@@ -226,8 +226,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Build Carthage example app
-          command: bundle exec fastlane build_sample_app flavors:obj-c,swift,carthage,spm
+          name: Build example apps / test integration with SDK
+          command: bundle exec fastlane build_sample_app flavors:obj-c,swift,carthage,spm build_for_distribution:false
       - persist_to_workspace:
           root: .
           paths:
