@@ -370,6 +370,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - ruby/install-deps
       - run:
           name: Release SDK to CocoaPods
           command: bundle exec pod trunk push JudoKit-iOS.podspec --allow-warnings
