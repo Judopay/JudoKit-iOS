@@ -345,7 +345,11 @@ workflows:
     when:
       not: << pipeline.parameters.nightly >>
     jobs:
-      - checkout_project
+      - checkout_project:
+          filters:
+            tags:
+              only:
+                - /^v[0-9]+(\.[0-9]+)*$/
       - lint_sdk:
           requires:
             - checkout_project
