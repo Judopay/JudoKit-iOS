@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, JPInputType);
 /**
  * A property that identify the semantic meaning for the text-entry area
  */
-@property(nonatomic, strong) UITextContentType textContentType;
+@property (nonatomic, strong) UITextContentType textContentType;
 
 /**
  * A reference to the object that adopts the JPInputFieldDelegate protocol

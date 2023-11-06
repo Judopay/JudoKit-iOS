@@ -220,7 +220,7 @@ static const float kInputFieldHeight = 44.0F;
         _cardHolderNameTextField = [JPCardInputField new];
         _cardHolderNameTextField.accessibilityIdentifier = @"Cardholder Name Field";
         _cardHolderNameTextField.keyboardType = UIKeyboardTypeDefault;
-        _cardHolderNameTextField.autocapitalizationType =UITextAutocapitalizationTypeWords;
+        _cardHolderNameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         _cardHolderNameTextField.textContentType = UITextContentTypeCreditCardName;
         _cardHolderNameTextField.delegate = self.inputFieldDelegate;
     }
