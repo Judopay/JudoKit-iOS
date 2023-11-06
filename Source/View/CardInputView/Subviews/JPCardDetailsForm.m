@@ -209,6 +209,7 @@ static const float kInputFieldHeight = 44.0F;
         _cardNumberTextField = [JPCardNumberField new];
         _cardNumberTextField.accessibilityIdentifier = @"Card Number Field";
         _cardNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _cardNumberTextField.textContentType = UITextContentTypeCreditCardNumber;
         _cardNumberTextField.delegate = self.inputFieldDelegate;
     }
     return _cardNumberTextField;
@@ -219,7 +220,8 @@ static const float kInputFieldHeight = 44.0F;
         _cardHolderNameTextField = [JPCardInputField new];
         _cardHolderNameTextField.accessibilityIdentifier = @"Cardholder Name Field";
         _cardHolderNameTextField.keyboardType = UIKeyboardTypeDefault;
-        [_cardHolderNameTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+        _cardHolderNameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        _cardHolderNameTextField.textContentType = UITextContentTypeCreditCardName;
         _cardHolderNameTextField.delegate = self.inputFieldDelegate;
     }
     return _cardHolderNameTextField;
@@ -230,6 +232,7 @@ static const float kInputFieldHeight = 44.0F;
         _expiryDateTextField = [JPCardInputField new];
         _expiryDateTextField.accessibilityIdentifier = @"Expiry Date Field";
         _expiryDateTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _expiryDateTextField.textContentType = UITextContentTypeCreditCardExpiration;
         _expiryDateTextField.delegate = self.inputFieldDelegate;
     }
     return _expiryDateTextField;
@@ -240,6 +243,7 @@ static const float kInputFieldHeight = 44.0F;
         _cardSecurityCodeTextField = [JPCardInputField new];
         _cardSecurityCodeTextField.accessibilityIdentifier = @"Security Code Field";
         _cardSecurityCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _cardSecurityCodeTextField.textContentType = UITextContentTypeCreditCardSecurityCode;
         _cardSecurityCodeTextField.delegate = self.inputFieldDelegate;
     }
     return _cardSecurityCodeTextField;
@@ -250,6 +254,7 @@ static const float kInputFieldHeight = 44.0F;
         _countryTextField = [JPCardInputField new];
         _countryTextField.inputView = self.countryPickerView;
         _countryTextField.accessibilityIdentifier = @"Country Field";
+        _countryTextField.textContentType = UITextContentTypeCountryName;
         _countryTextField.delegate = self.inputFieldDelegate;
     }
     return _countryTextField;
@@ -260,6 +265,7 @@ static const float kInputFieldHeight = 44.0F;
         _postcodeTextField = [JPCardInputField new];
         _postcodeTextField.keyboardType = UIKeyboardTypeDefault;
         _postcodeTextField.accessibilityIdentifier = @"Post Code Field";
+        _postcodeTextField.textContentType = UITextContentTypePostalCode;
         _postcodeTextField.delegate = self.inputFieldDelegate;
     }
     return _postcodeTextField;
