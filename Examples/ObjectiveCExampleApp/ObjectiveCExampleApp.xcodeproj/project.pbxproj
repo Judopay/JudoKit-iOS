@@ -38,8 +38,7 @@
 		D108FDA12A582165009DA094 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108FDA02A582165009DA094 /* TestData.swift */; };
 		D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B68382ADFE066007F1CA3 /* Helpers.swift */; };
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
-		D1E3B3BA2AFBA50600FA24F3 /* ObjectiveCExampleApp in Resources */ = {isa = PBXBuildFile; fileRef = D1E3B3B92AFBA50600FA24F3 /* ObjectiveCExampleApp */; };
-		D1E3B3BC2AFBA72500FA24F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1E3B3BB2AFBA72500FA24F3 /* GoogleService-Info.plist */; };
+		D1E3B3BE2AFBD59000FA24F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1E3B3BD2AFBD59000FA24F3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,8 +123,7 @@
 		D108FDA02A582165009DA094 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D10B68382ADFE066007F1CA3 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D110D16A2AEA8F4D00B35E13 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
-		D1E3B3B92AFBA50600FA24F3 /* ObjectiveCExampleApp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ObjectiveCExampleApp; sourceTree = "<group>"; };
-		D1E3B3BB2AFBA72500FA24F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D1E3B3BD2AFBD59000FA24F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F3E57B78C0668390A2B96713 /* Pods-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,8 +253,6 @@
 		448AB1A02450DE8F004A11CB /* ObjectiveCExampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				D1E3B3BB2AFBA72500FA24F3 /* GoogleService-Info.plist */,
-				D1E3B3B92AFBA50600FA24F3 /* ObjectiveCExampleApp */,
 				448AB1B32450DE93004A11CB /* main.m */,
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
 				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
@@ -269,6 +265,7 @@
 				448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */,
 				4494950F2450ED870050C6A0 /* Settings.bundle */,
 				448AB1B22450DE93004A11CB /* Info.plist */,
+				D1E3B3BD2AFBD59000FA24F3 /* GoogleService-Info.plist */,
 			);
 			path = ObjectiveCExampleApp;
 			sourceTree = "<group>";
@@ -513,10 +510,9 @@
 				448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */,
 				448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */,
 				449495192450ED870050C6A0 /* Settings.bundle in Resources */,
-				D1E3B3BA2AFBA50600FA24F3 /* ObjectiveCExampleApp in Resources */,
 				4490D14F24882CBE004290DD /* ResultItemTableViewCell.xib in Resources */,
 				448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */,
-				D1E3B3BC2AFBA72500FA24F3 /* GoogleService-Info.plist in Resources */,
+				D1E3B3BE2AFBD59000FA24F3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
