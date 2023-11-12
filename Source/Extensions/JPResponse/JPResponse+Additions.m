@@ -29,11 +29,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
+static NSString *const kSoftDeclinedMessage = @"Card declined: Additional customer authentication required";
 
 @implementation JPResponse (Additions)
 
 - (BOOL)isThreeDSecureTwoRequired {
-    return self.message.length > 0 && [self.message.lowercaseString isEqualToString:k3DSTwoMessage.lowercaseString];
+    return self.message.length > 0 && [self.message _jp_isCaseInsensitiveEqualToString:k3DSTwoMessage];
+}
+
+- (BOOL)isSoftDeclined {
+    return self.result == JPTransactionResultDeclined && [self.message _jp_isCaseInsensitiveEqualToString:kSoftDeclinedMessage] && self.receiptId.length > 0;
 }
 
 - (JPCReqParameters *)cReqParameters {

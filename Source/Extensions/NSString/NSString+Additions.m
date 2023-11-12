@@ -194,4 +194,8 @@
     return [cityPred evaluateWithObject:self];
 }
 
+- (BOOL)_jp_isCaseInsensitiveEqualToString:(NSString *)aString {
+    return self && [self caseInsensitiveCompare:aString] == NSOrderedSame;
+}
+
 @end
