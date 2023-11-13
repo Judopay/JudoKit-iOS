@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JPResponse (Additions)
 
 - (BOOL)isThreeDSecureTwoRequired;
+- (BOOL)isSoftDeclined;
 
 - (JPCReqParameters *)cReqParameters;
 
