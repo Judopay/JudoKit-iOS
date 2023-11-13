@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        
+        // Use the Firebase library to configure APIs.
+        FirebaseApp.configure()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         let appCoordinator = AppCoordinator(window: window!)
