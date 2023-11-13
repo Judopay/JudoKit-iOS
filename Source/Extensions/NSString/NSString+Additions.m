@@ -195,7 +195,7 @@
 }
 
 - (BOOL)_jp_isEqualIgnoringCaseToString:(NSString *)aString {
-    return self && [self caseInsensitiveCompare:aString] == NSOrderedSame;
+    return self && aString && [self caseInsensitiveCompare:aString] == NSOrderedSame;
 }
 
 @end
