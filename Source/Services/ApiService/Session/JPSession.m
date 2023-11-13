@@ -40,7 +40,7 @@
 
 #pragma mark - Constants
 
-static NSString *const kAPIVersion = @"6.19.0.0";
+static NSString *const kAPIVersion = @"6.20.0.0";
 static NSString *const kBankPrefix = @"order/bank";
 static NSString *const kBankSaleAPIVersion = @"2.0.0.0";
 static NSString *const kContentTypeJSON = @"application/json";
@@ -207,11 +207,6 @@ static NSString *const kMethodPUT = @"PUT";
         completion(nil, [JPError errorFromDictionary:responseJSON]);
         return;
     }
-
-    //    if (responseJSON[@"acsUrl"] && responseJSON[@"paReq"]) {
-    //        completion(nil, [JPError threeDSRequestWithPayload:responseJSON]);
-    //        return;
-    //    }
 
     JPResponse *result = [[JPResponse alloc] initWithDictionary:responseJSON];
     completion(result, nil);
