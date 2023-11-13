@@ -129,15 +129,15 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 }
 
 - (JPTransactionResult)transactionResultForString:(NSString *)resultString {
-    if ([resultString _jp_isCaseInsensitiveEqualToString:kStatusSuccess]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusSuccess]) {
         return JPTransactionResultSuccess;
     }
 
-    if ([resultString _jp_isCaseInsensitiveEqualToString:kStatusDeclined]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusDeclined]) {
         return JPTransactionResultDeclined;
     }
 
-    if ([resultString _jp_isCaseInsensitiveEqualToString:kStatusError]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusError]) {
         return JPTransactionResultError;
     }
 
@@ -145,23 +145,23 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {
-    if ([typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypePayment]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypePayment]) {
         return JPTransactionTypePayment;
     }
 
-    if ([typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypePreAuth]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypePreAuth]) {
         return JPTransactionTypePreAuth;
     }
 
-    if ([typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypeRegister] || [typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypeRegisterCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegister] || [typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegisterCard]) {
         return JPTransactionTypeRegisterCard;
     }
 
-    if ([typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypeCheckCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeCheckCard]) {
         return JPTransactionTypeCheckCard;
     }
 
-    if ([typeString _jp_isCaseInsensitiveEqualToString:kTransactionTypeSaveCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeSaveCard]) {
         return JPTransactionTypeSaveCard;
     }
 

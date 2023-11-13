@@ -34,11 +34,11 @@ static NSString *const kSoftDeclinedMessage = @"Card declined: Additional custom
 @implementation JPResponse (Additions)
 
 - (BOOL)isThreeDSecureTwoRequired {
-    return self.message.length > 0 && [self.message _jp_isCaseInsensitiveEqualToString:k3DSTwoMessage];
+    return self.message.length > 0 && [self.message _jp_isEqualIgnoringCaseToString:k3DSTwoMessage];
 }
 
 - (BOOL)isSoftDeclined {
-    return self.result == JPTransactionResultDeclined && [self.message _jp_isCaseInsensitiveEqualToString:kSoftDeclinedMessage] && self.receiptId.length > 0;
+    return self.result == JPTransactionResultDeclined && [self.message _jp_isEqualIgnoringCaseToString:kSoftDeclinedMessage] && self.receiptId.length > 0;
 }
 
 - (JPCReqParameters *)cReqParameters {

@@ -190,8 +190,7 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
                 if (canBeSoftDeclined(type) && response.isSoftDeclined) {
-                    NSString *softDeclineReceiptId = response.receiptId;
-                    [weakSelf performTransactionWithType:type details:details softDeclineReceiptId:softDeclineReceiptId andCompletion:completion];
+                    [weakSelf performTransactionWithType:type details:details softDeclineReceiptId:response.receiptId andCompletion:completion];
                 } else if ([response isThreeDSecureTwoRequired]) {
                     JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:weakSelf.apiService
                                                                                                                           details:details
