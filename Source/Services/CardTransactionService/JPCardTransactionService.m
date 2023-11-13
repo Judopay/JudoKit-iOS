@@ -118,6 +118,10 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
     JPCardTransactionTypeRegister
 };
 
+BOOL canBeSoftDeclined(JPCardTransactionType type) {
+    return type == JPCardTransactionTypePayment || type == JPCardTransactionTypePreAuth || type == JPCardTransactionTypePaymentWithToken || type == JPCardTransactionTypePreAuthWithToken || type == JPCardTransactionTypeRegister;
+}
+
 @interface JPCardTransactionService ()
 
 @property (strong, nonatomic) JPConfiguration *configuration;
@@ -158,6 +162,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
 - (void)performTransactionWithType:(JPCardTransactionType)type
                            details:(JPCardTransactionDetails *)details
+              softDeclineReceiptId:(NSString *)receiptId
                      andCompletion:(JPCompletionBlock)completion {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
@@ -181,10 +186,13 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
                                                                                         messageVersion:messageVersion];
 
+        __weak typeof(self) weakSelf = self;
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
-                if ([response isThreeDSecureTwoRequired]) {
-                    JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:self.apiService
+                if (canBeSoftDeclined(type) && response.isSoftDeclined) {
+                    [weakSelf performTransactionWithType:type details:details softDeclineReceiptId:response.receiptId andCompletion:completion];
+                } else if ([response isThreeDSecureTwoRequired]) {
+                    JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:weakSelf.apiService
                                                                                                                           details:details
                                                                                                                          response:response
                                                                                                                     andCompletion:completion];
@@ -212,24 +220,28 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
         switch (type) {
             case JPCardTransactionTypePayment: {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
+                                                                  softDeclineReceiptId:receiptId
                                                                         andTransaction:transaction];
                 [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePreAuth: {
                 JPPreAuthRequest *request = [details toPreAuthPaymentRequestWithConfiguration:self.configuration
+                                                                         softDeclineReceiptId:receiptId
                                                                                andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePaymentWithToken: {
                 JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
+                                                              softDeclineReceiptId:receiptId
                                                                     andTransaction:transaction];
                 [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePreAuthWithToken: {
                 JPPreAuthTokenRequest *request = [details toPreAuthTokenRequestWithConfiguration:self.configuration
+                                                                            softDeclineReceiptId:receiptId
                                                                                   andTransaction:transaction];
                 [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completionHandler];
             } break;
@@ -248,6 +260,7 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 
             case JPCardTransactionTypeRegister: {
                 JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
+                                                                            softDeclineReceiptId:receiptId
                                                                                   andTransaction:transaction];
                 [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
             } break;
@@ -262,31 +275,31 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
 }
 
 - (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePayment details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypePayment details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokePreAuthPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuth details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypePreAuth details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokeTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokePreAuthTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokeSaveCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeSave details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypeSave details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeCheck details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypeCheck details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
+    [self performTransactionWithType:JPCardTransactionTypeRegister details:details softDeclineReceiptId:nil andCompletion:completion];
 }
 
 - (void)cleanup {

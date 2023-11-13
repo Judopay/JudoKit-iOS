@@ -62,6 +62,7 @@
 @property (nonatomic, strong, nonnull) NSString *scaExemption;
 @property (nonatomic, strong, nonnull) JPSDKParameters *sdk;
 @property (nonatomic, strong, nonnull) NSString *authenticationSource;
+@property (nonatomic, strong, nonnull) NSString *softDeclineReceiptId;
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
            andAuthenticationRequestParameters:(nonnull JP3DSAuthenticationRequestParameters *)params;

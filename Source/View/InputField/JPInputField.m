@@ -140,7 +140,6 @@ static const float kVerticalEdgeInsets = 14.0F;
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
     _keyboardType = keyboardType;
     self.floatingTextField.keyboardType = keyboardType;
-    self.floatingTextField.textContentType = UITextContentTypeName;
 }
 
 - (void)setAutocapitalizationType:(UITextAutocapitalizationType)autocapitalizationType {
@@ -154,8 +153,10 @@ static const float kVerticalEdgeInsets = 14.0F;
 }
 
 - (void)setTextContentType:(UITextContentType)textContentType {
-    _textContentType = textContentType;
-    self.floatingTextField.textContentType = textContentType;
+    if (@available(iOS 10.0, *)) {
+        _textContentType = textContentType;
+        self.floatingTextField.textContentType = textContentType;
+    }
 }
 
 - (void)setBackgroundMaskedCorners:(CACornerMask)backgroundMaskedCorners {
@@ -219,7 +220,9 @@ static const float kVerticalEdgeInsets = 14.0F;
         _floatingTextField.translatesAutoresizingMaskIntoConstraints = NO;
         _floatingTextField.font = UIFont._jp_headlineLight;
         _floatingTextField.delegate = self;
-        _floatingTextField.textContentType = _textContentType;
+        if (@available(iOS 10.0, *)) {
+            _floatingTextField.textContentType = _textContentType;
+        }
     }
     return _floatingTextField;
 }
