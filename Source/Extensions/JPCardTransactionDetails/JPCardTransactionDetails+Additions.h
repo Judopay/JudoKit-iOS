@@ -52,23 +52,23 @@
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                           softDeclineReceiptId:(nonnull NSString *)receiptId
+                                           softDeclineReceiptId:(nullable NSString *)receiptId
                                                  andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                  softDeclineReceiptId:(nonnull NSString *)receiptId
+                                                  softDeclineReceiptId:(nullable NSString *)receiptId
                                                         andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nonnull NSString *)receiptId
+                                                     softDeclineReceiptId:(nullable NSString *)receiptId
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                       softDeclineReceiptId:(nonnull NSString *)receiptId
+                                       softDeclineReceiptId:(nullable NSString *)receiptId
                                              andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nonnull NSString *)receiptId
+                                                     softDeclineReceiptId:(nullable NSString *)receiptId
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
