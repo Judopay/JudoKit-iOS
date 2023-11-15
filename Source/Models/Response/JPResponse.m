@@ -28,6 +28,7 @@
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
 #import "JPOrderDetails.h"
+#import "NSString+Additions.h"
 
 static NSString *const kStatusDeclined = @"declined";
 static NSString *const kStatusSuccess = @"success";
@@ -128,17 +129,15 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 }
 
 - (JPTransactionResult)transactionResultForString:(NSString *)resultString {
-    NSString *result = resultString.lowercaseString;
-
-    if ([result isEqualToString:kStatusSuccess]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusSuccess]) {
         return JPTransactionResultSuccess;
     }
 
-    if ([result isEqualToString:kStatusDeclined]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusDeclined]) {
         return JPTransactionResultDeclined;
     }
 
-    if ([result isEqualToString:kStatusError]) {
+    if ([resultString _jp_isEqualIgnoringCaseToString:kStatusError]) {
         return JPTransactionResultError;
     }
 
@@ -146,25 +145,23 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 }
 
 - (JPTransactionType)transactionTypeForString:(NSString *)typeString {
-    NSString *type = typeString.lowercaseString;
-
-    if ([type isEqualToString:kTransactionTypePayment]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypePayment]) {
         return JPTransactionTypePayment;
     }
 
-    if ([type isEqualToString:kTransactionTypePreAuth]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypePreAuth]) {
         return JPTransactionTypePreAuth;
     }
 
-    if ([type isEqualToString:kTransactionTypeRegister] || [type isEqualToString:kTransactionTypeRegisterCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegister] || [typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegisterCard]) {
         return JPTransactionTypeRegisterCard;
     }
 
-    if ([type isEqualToString:kTransactionTypeCheckCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeCheckCard]) {
         return JPTransactionTypeCheckCard;
     }
 
-    if ([type isEqualToString:kTransactionTypeSaveCard]) {
+    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeSaveCard]) {
         return JPTransactionTypeSaveCard;
     }
 

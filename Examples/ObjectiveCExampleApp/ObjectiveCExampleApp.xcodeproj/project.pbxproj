@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,7 @@
 		9A681C6F059E48D8D97E1C2A /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */; };
 		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
 		C1C16123527954D8D255A70A /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */; };
+		CD6E75A51C9E0D4C601E258D /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D75910AF066F59A0492074 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 		D108FDA12A582165009DA094 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108FDA02A582165009DA094 /* TestData.swift */; };
 		D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B68382ADFE066007F1CA3 /* Helpers.swift */; };
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
@@ -63,6 +64,7 @@
 		07CD7C572488F67200B253B4 /* ExampleAppStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAppStorage.m; sourceTree = "<group>"; };
 		07D84C022497B35E000D7197 /* PayWithCardTokenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWithCardTokenViewController.m; sourceTree = "<group>"; };
 		07D84C032497B35E000D7197 /* PayWithCardTokenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWithCardTokenViewController.h; sourceTree = "<group>"; };
+		09D75910AF066F59A0492074 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCD412286DED20EC2028ACD /* Pods-ObjectiveCExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		19442B48F25244F351769D5E /* Pods-ObjectiveCExampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		3047749B250F983E00B13DDF /* ResultTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultTests.m; sourceTree = "<group>"; };
@@ -150,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D21EF6FD4D1EBCC87D2568C3 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */,
+				CD6E75A51C9E0D4C601E258D /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +363,7 @@
 			children = (
 				963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */,
 				78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */,
-				56B6682E26AB28781B16D586 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */,
+				09D75910AF066F59A0492074 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -443,7 +445,7 @@
 				448AB1C02450DE93004A11CB /* Sources */,
 				448AB1C12450DE93004A11CB /* Frameworks */,
 				448AB1C22450DE93004A11CB /* Resources */,
-				12CF11DF7C9981E027BD54CC /* [CP] Embed Pods Frameworks */,
+				22C35C80E31429F119741D00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -534,7 +536,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		12CF11DF7C9981E027BD54CC /* [CP] Embed Pods Frameworks */ = {
+		22C35C80E31429F119741D00 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -774,6 +776,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -828,6 +831,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -856,14 +860,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.5;
+				MARKETING_VERSION = 3.2.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;
 				PRODUCT_NAME = JudoKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoObjC";
-				TARGETED_DEVICE_FAMILY = 1;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -886,14 +892,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.5;
+				MARKETING_VERSION = 3.2.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;
 				PRODUCT_NAME = JudoKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoObjC";
-				TARGETED_DEVICE_FAMILY = 1;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

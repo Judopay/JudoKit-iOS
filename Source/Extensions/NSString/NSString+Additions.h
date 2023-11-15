@@ -102,5 +102,6 @@
 - (BOOL)_jp_isValidCardholderName;
 - (BOOL)_jp_isValidAddressLine;
 - (BOOL)_jp_isValidCity;
+- (BOOL)_jp_isEqualIgnoringCaseToString:(nullable NSString *)aString;
 
 @end

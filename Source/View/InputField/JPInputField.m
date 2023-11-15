@@ -152,6 +152,13 @@ static const float kVerticalEdgeInsets = 14.0F;
     self.floatingTextField.returnKeyType = returnType;
 }
 
+- (void)setTextContentType:(UITextContentType)textContentType {
+    if (@available(iOS 10.0, *)) {
+        _textContentType = textContentType;
+        self.floatingTextField.textContentType = textContentType;
+    }
+}
+
 - (void)setBackgroundMaskedCorners:(CACornerMask)backgroundMaskedCorners {
     self.layer.maskedCorners = backgroundMaskedCorners;
 }
@@ -213,6 +220,9 @@ static const float kVerticalEdgeInsets = 14.0F;
         _floatingTextField.translatesAutoresizingMaskIntoConstraints = NO;
         _floatingTextField.font = UIFont._jp_headlineLight;
         _floatingTextField.delegate = self;
+        if (@available(iOS 10.0, *)) {
+            _floatingTextField.textContentType = _textContentType;
+        }
     }
     return _floatingTextField;
 }

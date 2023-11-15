@@ -31,7 +31,7 @@
                                  andCardToken:(nonnull NSString *)cardToken {
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
-        _isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+        _initialRecurringPayment = configuration.isInitialRecurringPayment;
     }
     return self;
 }

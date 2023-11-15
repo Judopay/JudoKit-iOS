@@ -39,6 +39,8 @@
 
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
+static NSString *const kChallengeAsMandate = @"challengeAsMandate";
+
 @implementation JPCardTransactionDetails (Additions)
 
 - (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
@@ -92,6 +94,51 @@
     return request;
 }
 
+- (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                   softDeclineReceiptId:(NSString *)receiptId
+                                         andTransaction:(JP3DSTransaction *)transaction {
+    JPPaymentRequest *request = [self toPaymentRequestWithConfiguration:configuration
+                                                         andTransaction:transaction];
+    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
+    return request;
+}
+
+- (JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                          softDeclineReceiptId:(NSString *)receiptId
+                                                andTransaction:(JP3DSTransaction *)transaction {
+    JPPreAuthRequest *request = [self toPreAuthPaymentRequestWithConfiguration:configuration
+                                                                andTransaction:transaction];
+    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
+    return request;
+}
+
+- (JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                                             softDeclineReceiptId:(NSString *)receiptId
+                                                   andTransaction:(JP3DSTransaction *)transaction {
+    JPPreAuthTokenRequest *request = [self toPreAuthTokenRequestWithConfiguration:configuration
+                                                                   andTransaction:transaction];
+    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
+    return request;
+}
+
+- (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                               softDeclineReceiptId:(NSString *)receiptId
+                                     andTransaction:(JP3DSTransaction *)transaction {
+    JPTokenRequest *request = [self toTokenRequestWithConfiguration:configuration
+                                                     andTransaction:transaction];
+    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
+    return request;
+}
+
+- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                             softDeclineReceiptId:(NSString *)receiptId
+                                                   andTransaction:(JP3DSTransaction *)transaction {
+    JPRegisterCardRequest *request = [self toRegisterCardRequestWithConfiguration:configuration
+                                                                   andTransaction:transaction];
+    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
+    return request;
+}
+
 - (JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(JPConfiguration *)configuration
                                            andTransaction:(JP3DSTransaction *)transaction {
     JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
@@ -116,6 +163,16 @@
     return request;
 }
 
+- (void)populateWithSoftDeclineDetailsRequest:(JPRequest *)request
+                                 andReceiptId:(NSString *)receiptId {
+    if (receiptId.length == 0) {
+        return;
+    }
+
+    request.threeDSecure.softDeclineReceiptId = receiptId;
+    request.threeDSecure.challengeRequestIndicator = kChallengeAsMandate;
+}
+
 - (void)populateWithCardTokenDetailsRequest:(JPTokenRequest *)request
                          usingConfiguration:(JPConfiguration *)configuration
                              andTransaction:(JP3DSTransaction *)transaction {
@@ -123,7 +180,7 @@
     request.cardLastFour = self.cardLastFour;
     request.cardToken = self.cardToken;
     request.cardType = @(self.cardType);
-    request.isInitialRecurringPayment = configuration.isInitialRecurringPayment;
+    request.initialRecurringPayment = configuration.isInitialRecurringPayment;
     request.cv2 = self.securityCode;
     request.cardHolderName = self.cardholderName;
     request.phoneCountryCode = self.phoneCountryCode;

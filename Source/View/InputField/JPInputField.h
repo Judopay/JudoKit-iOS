@@ -92,6 +92,11 @@ typedef NS_ENUM(NSUInteger, JPInputType);
 @property (nonatomic, assign) UIReturnKeyType returnType;
 
 /**
+ * A property that identify the semantic meaning for the text-entry area
+ */
+@property (nonatomic, strong) UITextContentType textContentType;
+
+/**
  * A reference to the object that adopts the JPInputFieldDelegate protocol
  */
 @property (nonatomic, weak) id<JPInputFieldDelegate> delegate;

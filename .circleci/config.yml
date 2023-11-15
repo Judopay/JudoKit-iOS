@@ -98,6 +98,7 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
+      - ruby/install-deps
       - persist_to_workspace:
           root: .
           paths: .
@@ -106,7 +107,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - ruby/install-deps
       - run:
          name: Install clang-format
          command: brew install clang-format
@@ -121,7 +121,6 @@ jobs:
       - restore_cache:
           keys:
             - judokit-ios-carthage-{{ checksum "Cartfile.resolved" }}
-      - ruby/install-deps
       - run:
           name: Build SDK
           command: bundle exec fastlane build
@@ -221,68 +220,19 @@ jobs:
               PARAMS+=(-Dsonar.branch.target=master)
             fi
             sonar-scanner "${PARAMS[@]}"
-  build_carthage_example_app:
+  build_example_apps:
     executor: macos
     steps:
       - attach_workspace:
           at: .
-      - ruby/install-deps
       - run:
-          name: Build Carthage example app
-          command: bundle exec fastlane build_sample_app flavors:carthage
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./DerivedData
-            - ./Output
-  build_objective_c_example_app:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - ruby/install-deps
-      - run:
-          name: Build ObjC Sample
-          command: bundle exec fastlane build_sample_app flavors:obj-c
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./DerivedData
-            - ./Output
-  build_swift_example_app:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - ruby/install-deps
-      - run:
-          name: Build Swift Sample
-          command: bundle exec fastlane build_sample_app flavors:swift
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./DerivedData
-            - ./Output
-  build_spm_example_app:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - ruby/install-deps
-      - run:
-          name: Build SPM Sample
-          command: bundle exec fastlane build_sample_app flavors:spm
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./DerivedData
-            - ./Output
+          name: Build example apps / test integration with SDK
+          command: bundle exec fastlane build_sample_app flavors:obj-c,swift,carthage,spm build_for_distribution:false
   build_instrumented_tests_package:
     executor: macos
     steps:
       - attach_workspace:
           at: .
-      - ruby/install-deps
       - run:
           name: Build ObjC Sample for UI Tests using Fastlane
           command: bundle exec fastlane package_instrumented_tests
@@ -359,7 +309,6 @@ jobs:
           name: Store Google Service Account
           command: |
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-      - ruby/install-deps
       - run:
           name: Distribute Sample App
           command: |
@@ -391,13 +340,16 @@ jobs:
             ENVIRONMENT: << parameters.environment >>
           command: /resources/scripts/report-status-to-jira.sh
 
-workflows:
-  version: 2
+workflows:  
   build:
     when:
       not: << pipeline.parameters.nightly >>
     jobs:
-      - checkout_project
+      - checkout_project:
+          filters:
+            tags:
+              only:
+                - /^v[0-9]+(\.[0-9]+)*$/
       - lint_sdk:
           requires:
             - checkout_project
@@ -411,16 +363,7 @@ workflows:
           context: shared-secrets
           requires:
             - unit_test_sdk
-      - build_objective_c_example_app:
-          requires:
-            - unit_test_sdk
-      - build_carthage_example_app:
-          requires:
-            - unit_test_sdk
-      - build_swift_example_app:
-          requires:
-            - unit_test_sdk
-      - build_spm_example_app:
+      - build_example_apps:
           requires:
             - unit_test_sdk
       - build_instrumented_tests_package:
@@ -465,7 +408,7 @@ workflows:
                 - /.*/
             tags:
               only:
-                - /^v((\d)+\.){1,2}(\d+)/
+                - /^v[0-9]+(\.[0-9]+)*$/
       - report_to_jira:
           context: shared-secrets
           environment: prod
