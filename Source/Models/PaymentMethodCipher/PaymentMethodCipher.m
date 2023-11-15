@@ -27,12 +27,12 @@
 @implementation PaymentMethodCipher
 
 - (instancetype)initWithAesKeyCipherText:(NSString *)aesKeyCipherText
-                               algorithm:(NSString *)algorithm
-                          cardCipherText:(NSString *)cardCipherText
-                                keyIndex:(NSString *)keyIndex
-                            keySignature:(NSString *)keySignature
-                              methodType:(NSString *)methodType
- recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion {
+                                  algorithm:(NSString *)algorithm
+                             cardCipherText:(NSString *)cardCipherText
+                                   keyIndex:(NSString *)keyIndex
+                               keySignature:(NSString *)keySignature
+                                 methodType:(NSString *)methodType
+    recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion {
 
     if (self = [super init]) {
         self.aesKeyCipherText = aesKeyCipherText;

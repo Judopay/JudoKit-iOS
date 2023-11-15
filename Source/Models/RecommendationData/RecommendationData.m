@@ -23,14 +23,14 @@
 //  SOFTWARE.
 
 #import "RecommendationData.h"
-#import "TransactionOptimisation.h"
 #import "ScaExemption.h"
+#import "TransactionOptimisation.h"
 
 @implementation RecommendationData
 
 - (instancetype)initWithRecommendationAction:(RecommendationAction)recommendationAction
-                  transactionOptimisationAction:(TransactionOptimisationAction)transactionOptimisationAction
-                  exemption:(ScaExemption)exemption
+               transactionOptimisationAction:(TransactionOptimisationAction)transactionOptimisationAction
+                                   exemption:(ScaExemption)exemption
                   threeDSChallengePreference:(NSString *)threeDSChallengePreference {
 
     if (self = [super init]) {

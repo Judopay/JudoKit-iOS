@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "TransactionOptimisationAction.h"
 #import "RecommendationAction.h"
 #import "ScaExemption.h"
+#import "TransactionOptimisationAction.h"
+#import <Foundation/Foundation.h>
 
 @interface TransactionOptimisation : NSObject
 
@@ -33,14 +33,13 @@
 
 @property (nonatomic, assign) ScaExemption exemption;
 
-@property (nonatomic, strong) NSString * threeDSChallengePreference;
+@property (nonatomic, strong) NSString *threeDSChallengePreference;
 
 /**
  * Designated initializer
  */
 - (instancetype)initWithAction:(RecommendationAction)recommendationAction
-                     exemption:(ScaExemption) exemption
-    threeDSChallengePreference:(NSString *) threeDSChallengePreference;
-
+                     exemption:(ScaExemption)exemption
+    threeDSChallengePreference:(NSString *)threeDSChallengePreference;
 
 @end

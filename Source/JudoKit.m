@@ -38,9 +38,9 @@
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
-#import "UIApplication+Additions.h"
-#import "RecommendationCardEncryptionService.h"
 #import "RecommendationApiService.h"
+#import "RecommendationCardEncryptionService.h"
+#import "UIApplication+Additions.h"
 #import <PassKit/PassKit.h>
 #import <RavelinEncrypt/RavelinEncrypt.h>
 

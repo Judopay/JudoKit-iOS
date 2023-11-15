@@ -31,6 +31,7 @@
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
 #import "JPCardTransactionDetails.h"
+#import "JPCardTransactionTypedefs.h"
 #import "JPCheckCardRequest.h"
 #import "JPComplete3DS2Request.h"
 #import "JPConfiguration.h"
@@ -44,14 +45,13 @@
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
-#import "UIApplication+Additions.h"
-#import "JPCardTransactionTypedefs.h"
-#import "RecommendationConfiguration.h"
 #import "RecommendationApiService.h"
+#import "RecommendationCardEncryptionService.h"
+#import "RecommendationConfiguration.h"
+#import "RecommendationData.h"
 #import "RecommendationRequest.h"
 #import "RecommendationResponse.h"
-#import "RecommendationCardEncryptionService.h"
-#import "RecommendationData.h"
+#import "UIApplication+Additions.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
@@ -135,9 +135,9 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
 @implementation JPCardTransactionService
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-          recommendationApiService:(RecommendationApiService *)recommendationApiService
-                     configuration:(JPConfiguration *)configuration
-recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService {
+               recommendationApiService:(RecommendationApiService *)recommendationApiService
+                          configuration:(JPConfiguration *)configuration
+    recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
@@ -178,10 +178,10 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
                                 completion:completion];
     } else {
         [self performJudoApiCall:details
-                            type:type
-                      completion:completion
-                       exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-       challengeRequestIndicator:nil];
+                                 type:type
+                           completion:completion
+                            exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+            challengeRequestIndicator:nil];
     }
 }
 
@@ -270,18 +270,18 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
     } else {
         // We allow Judo API call in this case, as the API will perform its own checks anyway.
         [self performJudoApiCall:details
-                            type:type
-                      completion:completion
-                       exemption:nil
-       challengeRequestIndicator:nil];
+                                 type:type
+                           completion:completion
+                            exemption:nil
+            challengeRequestIndicator:nil];
     }
 }
 
 - (void)performJudoApiCall:(JPCardTransactionDetails *)details
-                      type:(JPCardTransactionType)type
-                completion:(JPCompletionBlock)completion
-                 exemption:(ScaExemption)exemption
- challengeRequestIndicator:(nullable NSString *)challengeRequestIndicator {
+                         type:(JPCardTransactionType)type
+                   completion:(JPCompletionBlock)completion
+                    exemption:(ScaExemption)exemption
+    challengeRequestIndicator:(nullable NSString *)challengeRequestIndicator {
     @try {
         NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
 
@@ -401,7 +401,8 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 - (void)handleRecommendationApiResult:(RecommendationResponse *)result
                               details:(JPCardTransactionDetails *)details
                                  type:(JPCardTransactionType)type
-                           completion:(JPCompletionBlock)completion; {
+                           completion:(JPCompletionBlock)completion;
+{
     BOOL isRecommendationResponseValid = [self validateRecommendationResponse:result];
     if (isRecommendationResponseValid) {
         RecommendationAction recommendationAction = result.data.action;
@@ -410,21 +411,21 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
         NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
         if (recommendationAction == ALLOW || recommendationAction == REVIEW) {
             [self performJudoApiCall:details
-                                type:type
-                          completion:completion
-                           exemption:exemptionReceived
-           challengeRequestIndicator:threeDSChallengePreferenceReceived];
+                                     type:type
+                               completion:completion
+                                exemption:exemptionReceived
+                challengeRequestIndicator:threeDSChallengePreferenceReceived];
         } else if (recommendationAction == PREVENT) {
-            NSString * error = @"The Recommendation Feature has prevented this transaction.";
+            NSString *error = @"The Recommendation Feature has prevented this transaction.";
             completion(nil, error);
         }
     } else {
         // We allow Judo API call in this case, as the API will perform its own checks anyway.
         [self performJudoApiCall:details
-                            type:type
-                      completion:completion
-                       exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-       challengeRequestIndicator:nil];
+                                 type:type
+                           completion:completion
+                            exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+            challengeRequestIndicator:nil];
     }
 }
 
@@ -439,41 +440,41 @@ recommendationCardEncryptionService:(nullable RecommendationCardEncryptionServic
 - (void)invokeTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
     [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
 
-- (void)invokePreAuthTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
-}
+    -(void)invokePreAuthTokenPaymentWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
+        [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
+    }
 
-- (void)invokeSaveCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeSave details:details softDeclineReceiptId:nil andCompletion:completion];
-}
+    -(void)invokeSaveCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
+        [self performTransactionWithType:JPCardTransactionTypeSave details:details softDeclineReceiptId:nil andCompletion:completion];
+    }
 
-- (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeCheck details:details softDeclineReceiptId:nil andCompletion:completion];
-}
+    -(void)invokeCheckCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
+        [self performTransactionWithType:JPCardTransactionTypeCheck details:details softDeclineReceiptId:nil andCompletion:completion];
+    }
 
-- (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeRegister details:details softDeclineReceiptId:nil andCompletion:completion];
-}
+    -(void)invokeRegisterCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
+        [self performTransactionWithType:JPCardTransactionTypeRegister details:details softDeclineReceiptId:nil andCompletion:completion];
+    }
 
-- (void)cleanup {
-    [self.threeDSTwoService cleanUp];
-}
+    -(void)cleanup {
+        [self.threeDSTwoService cleanUp];
+    }
 
 #pragma mark - Lazy properties
 
-- (JP3DSConfigParameters *)threeDSTwoConfigParameters {
-    if (!_threeDSTwoConfigParameters) {
-        _threeDSTwoConfigParameters = [JP3DSConfigParameters new];
+    -(JP3DSConfigParameters *)threeDSTwoConfigParameters {
+        if (!_threeDSTwoConfigParameters) {
+            _threeDSTwoConfigParameters = [JP3DSConfigParameters new];
+        }
+
+        return _threeDSTwoConfigParameters;
     }
 
-    return _threeDSTwoConfigParameters;
-}
-
-- (JP3DS2Service *)threeDSTwoService {
-    if (!_threeDSTwoService) {
-        _threeDSTwoService = [JP3DS2Service new];
+    -(JP3DS2Service *)threeDSTwoService {
+        if (!_threeDSTwoService) {
+            _threeDSTwoService = [JP3DS2Service new];
+        }
+        return _threeDSTwoService;
     }
-    return _threeDSTwoService;
-}
 
-@end
+    @end

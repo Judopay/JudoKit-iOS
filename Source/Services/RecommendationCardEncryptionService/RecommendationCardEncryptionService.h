@@ -22,19 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "JPCardTransactionTypedefs.h"
+#import <Foundation/Foundation.h>
 
 @interface RecommendationCardEncryptionService : NSObject
 
 - (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
-           isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled;
+          isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled;
 
 - (instancetype)init;
 
-- (BOOL)areEncryptionArgumentsValidWithCardNumber:(NSString * _Nullable)cardNumber
-                                   expirationDate:(NSString * _Nullable)expirationDate
-                                           rsaKey:(NSString * _Nullable)rsaKey;
+- (BOOL)areEncryptionArgumentsValidWithCardNumber:(NSString *_Nullable)cardNumber
+                                   expirationDate:(NSString *_Nullable)expirationDate
+                                           rsaKey:(NSString *_Nullable)rsaKey;
 
 - (NSDictionary *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
                                        cardHolderName:(NSString *)cardHolderName

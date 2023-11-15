@@ -22,15 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "RecommendationAction.h"
 #import "TransactionOptimisation.h"
+#import <Foundation/Foundation.h>
 
 @interface RecommendationData : NSObject
 
 @property (nonatomic, assign) RecommendationAction action;
 
-@property (nonatomic, strong) TransactionOptimisation * transactionOptimisation;
+@property (nonatomic, strong) TransactionOptimisation *transactionOptimisation;
 
 /**
  * Designated initializer

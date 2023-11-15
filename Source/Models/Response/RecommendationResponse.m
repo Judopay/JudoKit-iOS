@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPConstants.h"
 #import "RecommendationResponse.h"
+#import "JPConstants.h"
 #import "RecommendationData.h"
 
 static NSString *const kRecommendationActionAllow = @"ALLOW";
@@ -52,13 +52,13 @@ static NSString *const kRecommendationResponseTransactionOptimisationChallenge =
 }
 
 - (void)populateWith:(NSDictionary *)dictionary {
-    NSDictionary * data = dictionary[kRecommendationResponseData];
-    NSString * action = data[kRecommendationResponseAction];
-    NSDictionary * transactionOptimisation = data[kRecommendationResponseTransactionOptimisation];
-    NSString * transactionOptimisationActionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationAction];
-    NSString * scaExemptionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationExemption];
-    NSString * threeDSChallengePreference = transactionOptimisation[kRecommendationResponseTransactionOptimisationChallenge];
-    
+    NSDictionary *data = dictionary[kRecommendationResponseData];
+    NSString *action = data[kRecommendationResponseAction];
+    NSDictionary *transactionOptimisation = data[kRecommendationResponseTransactionOptimisation];
+    NSString *transactionOptimisationActionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationAction];
+    NSString *scaExemptionString = transactionOptimisation[kRecommendationResponseTransactionOptimisationExemption];
+    NSString *threeDSChallengePreference = transactionOptimisation[kRecommendationResponseTransactionOptimisationChallenge];
+
     RecommendationAction recommendationAction = [self recommendationActionForString:action];
     TransactionOptimisationAction transactionOptimisationAction = [self transactionOptimisationActionForString:transactionOptimisationActionString];
     ScaExemption scaExemption = [self scaExemptionForString:scaExemptionString];

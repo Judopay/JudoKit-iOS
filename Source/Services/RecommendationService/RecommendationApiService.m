@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "RecommendationSession.h"
-#import "RecommendationSessionConfiguration.h"
 #import "RecommendationApiService.h"
 #import "RecommendationRequest.h"
+#import "RecommendationSession.h"
+#import "RecommendationSessionConfiguration.h"
 
 @interface RecommendationApiService ()
 

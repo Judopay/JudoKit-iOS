@@ -23,9 +23,9 @@
 //  SOFTWARE.
 
 #import "JPAuthorization.h"
-#import "Typedefs.h"
 #import "JPCardTransactionTypedefs.h"
 #import "RecommendationApiService.h"
+#import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
 @class JPConfiguration, JPCardTransactionDetails, JPApiService, RecommendationCardEncryptionService;
@@ -33,9 +33,9 @@
 @interface JPCardTransactionService : NSObject
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-          recommendationApiService:(RecommendationApiService *)recommendationApiService
-                     configuration:(JPConfiguration *)configuration
-recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService;
+               recommendationApiService:(RecommendationApiService *)recommendationApiService
+                          configuration:(JPConfiguration *)configuration
+    recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService;
 
 - (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                                   isSandboxed:(BOOL)sandboxed

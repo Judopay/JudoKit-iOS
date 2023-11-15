@@ -22,14 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "RecommendationSession.h"
 #import "Functions.h"
 #import "JPAuthorization.h"
 #import "JPError+Additions.h"
 #import "JudoKit.h"
-#import "RecommendationSessionConfiguration.h"
-#import "RecommendationSession.h"
 #import "NSObject+Additions.h"
 #import "RecommendationResponse.h"
+#import "RecommendationSessionConfiguration.h"
 
 #pragma mark - Constants
 
@@ -61,9 +61,9 @@ static NSString *const kHeaderFieldAccept = @"Accept";
 #pragma mark - REST API methods
 
 - (void)POST:(NSString *)endpoint
-  parameters:(NSDictionary *)parameters
-     timeout:(NSNumber *)timeout
-andCompletion:(RecommendationCompletionBlock)completion {
+       parameters:(NSDictionary *)parameters
+          timeout:(NSNumber *)timeout
+    andCompletion:(RecommendationCompletionBlock)completion {
     [self performRequestWithEndpoint:endpoint parameters:parameters timeout:timeout andCompletion:completion];
 }
 
@@ -82,13 +82,13 @@ andCompletion:(RecommendationCompletionBlock)completion {
 
 - (void)performRequestWithEndpoint:(NSString *)path
                         parameters:(NSDictionary *)parameters
-                           timeout:(NSNumber *) timeout
+                           timeout:(NSNumber *)timeout
                      andCompletion:(RecommendationCompletionBlock)completion {
     NSURL *_Nullable url = [NSURL URLWithString:path];
     if (url != nil) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         request.HTTPMethod = @"POST";
-        
+
         if (timeout) {
             request.timeoutInterval = [timeout doubleValue];
         }
@@ -117,14 +117,14 @@ andCompletion:(RecommendationCompletionBlock)completion {
 
     return [urlSession dataTaskWithRequest:request
                          completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
-        if (!completion) {
-            return;
-        }
+                             if (!completion) {
+                                 return;
+                             }
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self handleResult:data error:error andCompletion:completion];
-        });
-    }];
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self handleResult:data error:error andCompletion:completion];
+                             });
+                         }];
 }
 
 - (void)handleResult:(NSData *)data
@@ -157,8 +157,8 @@ andCompletion:(RecommendationCompletionBlock)completion {
 #pragma mark - URLSession SSL pinning
 
 - (void)URLSession:(NSURLSession *)session
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
+    didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     [session finishTasksAndInvalidate];
 }

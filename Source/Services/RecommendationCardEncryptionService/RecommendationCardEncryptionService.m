@@ -22,10 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <RavelinEncrypt/RavelinEncrypt.h>
 #import "RecommendationCardEncryptionService.h"
 #import "JPCardTransactionTypedefs.h"
+#import <Foundation/Foundation.h>
+#import <RavelinEncrypt/RavelinEncrypt.h>
 
 @implementation RecommendationCardEncryptionService
 
@@ -36,11 +36,9 @@
 
 - (BOOL)isCardEncryptionRequiredWithType:(JPCardTransactionType)type
           isRecommendationFeatureEnabled:(BOOL)isRecommendationFeatureEnabled {
-    return isRecommendationFeatureEnabled && (
-        type == JPCardTransactionTypePayment ||
-        type == JPCardTransactionTypeCheck ||
-        type == JPCardTransactionTypePreAuth
-    );
+    return isRecommendationFeatureEnabled && (type == JPCardTransactionTypePayment ||
+                                              type == JPCardTransactionTypeCheck ||
+                                              type == JPCardTransactionTypePreAuth);
 }
 
 - (NSDictionary *)performCardEncryptionWithCardNumber:(NSString *)cardNumber
@@ -49,13 +47,13 @@
                                                rsaKey:(NSString *)rsaKey {
     NSString *expiryMonth = [expirationDate substringWithRange:NSMakeRange(0, 2)];
     NSString *expiryYear = [expirationDate substringWithRange:NSMakeRange(3, 2)];
-    
+
     RVNEncryption *encryptionSDK = [RVNEncryption sharedInstance];
     encryptionSDK.rsaKey = rsaKey;
-    
+
     NSError *error;
     NSDictionary *encryptionPayload = [[RVNEncryption sharedInstance] encrypt:cardNumber month:expiryMonth year:expiryYear nameOnCard:cardHolderName error:&error];
-    if(!error) {
+    if (!error) {
         return encryptionPayload;
     } else {
         return nil;

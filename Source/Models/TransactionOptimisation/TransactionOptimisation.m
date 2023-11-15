@@ -28,8 +28,8 @@
 @implementation TransactionOptimisation
 
 - (instancetype)initWithAction:(TransactionOptimisationAction)action
-                     exemption:(ScaExemption) exemption
-    threeDSChallengePreference:(NSString *) threeDSChallengePreference {
+                     exemption:(ScaExemption)exemption
+    threeDSChallengePreference:(NSString *)threeDSChallengePreference {
 
     if (self = [super init]) {
         self.action = action;

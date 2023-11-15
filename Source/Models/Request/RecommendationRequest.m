@@ -23,8 +23,8 @@
 //  SOFTWARE.
 
 #import "RecommendationRequest.h"
-#import "RecommendationConfiguration.h"
 #import "PaymentMethodCipher.h"
+#import "RecommendationConfiguration.h"
 
 static NSString *const kAesKeyCiphertext = @"aesKeyCiphertext";
 static NSString *const kAlgorithm = @"algorithm";
@@ -38,7 +38,7 @@ static NSString *const kRecommendationFeatureProviderSDKVersion = @"ravelinSDKVe
 
 - (nonnull instancetype)initWithEncryptedCardDetails:(nonnull NSDictionary *)encryptedCardDetails {
     if (self = [super init]) {
-        
+
         NSString *aesKeyCiphertext = encryptedCardDetails[kAesKeyCiphertext];
         NSString *algorithm = encryptedCardDetails[kAlgorithm];
         NSString *cardCiphertext = encryptedCardDetails[kCardCiphertext];
@@ -47,15 +47,15 @@ static NSString *const kRecommendationFeatureProviderSDKVersion = @"ravelinSDKVe
         NSString *keySignature = @"key-signature";
         NSString *methodType = encryptedCardDetails[kMethodType];
         NSString *recommendationFeatureProviderSDKVersion = encryptedCardDetails[kRecommendationFeatureProviderSDKVersion];
-        
-        PaymentMethodCipher * paymentMethodCipher = [[PaymentMethodCipher alloc] initWithAesKeyCipherText:aesKeyCiphertext
-                                                                                                algorithm:algorithm
-                                                                                           cardCipherText:cardCiphertext
-                                                                                                 keyIndex:keyIndex
-                                                                                             keySignature:keySignature
-                                                                                               methodType:methodType
-                                                                  recommendationFeatureProviderSDKVersion:recommendationFeatureProviderSDKVersion];
-        RecommendationPaymentMethod * recommendationPaymentMethod = [[RecommendationPaymentMethod alloc] initWithPaymentMethodCipher:paymentMethodCipher];
+
+        PaymentMethodCipher *paymentMethodCipher = [[PaymentMethodCipher alloc] initWithAesKeyCipherText:aesKeyCiphertext
+                                                                                               algorithm:algorithm
+                                                                                          cardCipherText:cardCiphertext
+                                                                                                keyIndex:keyIndex
+                                                                                            keySignature:keySignature
+                                                                                              methodType:methodType
+                                                                 recommendationFeatureProviderSDKVersion:recommendationFeatureProviderSDKVersion];
+        RecommendationPaymentMethod *recommendationPaymentMethod = [[RecommendationPaymentMethod alloc] initWithPaymentMethodCipher:paymentMethodCipher];
         _paymentMethod = recommendationPaymentMethod;
     }
     return self;

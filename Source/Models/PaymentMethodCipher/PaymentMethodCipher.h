@@ -26,30 +26,29 @@
 
 @interface PaymentMethodCipher : NSObject
 
-@property (nonatomic, strong) NSString * aesKeyCipherText;
+@property (nonatomic, strong) NSString *aesKeyCipherText;
 
-@property (nonatomic, strong) NSString * algorithm;
+@property (nonatomic, strong) NSString *algorithm;
 
-@property (nonatomic, strong) NSString * cardCipherText;
+@property (nonatomic, strong) NSString *cardCipherText;
 
-@property (nonatomic, strong) NSString * keyIndex;
+@property (nonatomic, strong) NSString *keyIndex;
 
-@property (nonatomic, strong) NSString * keySignature;
+@property (nonatomic, strong) NSString *keySignature;
 
-@property (nonatomic, strong) NSString * methodType;
+@property (nonatomic, strong) NSString *methodType;
 
-@property (nonatomic, strong) NSString * ravelinSDKVersion;
+@property (nonatomic, strong) NSString *ravelinSDKVersion;
 
 /**
  * Designated initializer
  */
 - (instancetype)initWithAesKeyCipherText:(NSString *)aesKeyCipherText
-                               algorithm:(NSString *)algorithm
-                          cardCipherText:(NSString *)cardCipherText
-                                keyIndex:(NSString *)keyIndex
-                            keySignature:(NSString *)keySignature
-                              methodType:(NSString *)methodType
- recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion;
+                                  algorithm:(NSString *)algorithm
+                             cardCipherText:(NSString *)cardCipherText
+                                   keyIndex:(NSString *)keyIndex
+                               keySignature:(NSString *)keySignature
+                                 methodType:(NSString *)methodType
+    recommendationFeatureProviderSDKVersion:(NSString *)recommendationFeatureProviderSDKVersion;
 
 @end
-

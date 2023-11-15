@@ -31,13 +31,13 @@
 - (instancetype)initWithRsaKey:(nullable NSString *)rsaKey
              recommendationURL:(nullable NSString *)recommendationURL
          recommendationTimeout:(nullable NSNumber *)recommendationTimeout {
-        if (self = [super init]) {
-            self.rsaKey = rsaKey;
-            self.recommendationURL = recommendationURL;
-            self.recommendationTimeout = recommendationTimeout;
-        }
-        return self;
+    if (self = [super init]) {
+        self.rsaKey = rsaKey;
+        self.recommendationURL = recommendationURL;
+        self.recommendationTimeout = recommendationTimeout;
     }
+    return self;
+}
 
 + (instancetype)configurationWithRsaKey:(nullable NSString *)rsaKey
                       recommendationURL:(nullable NSString *)recommendationURL

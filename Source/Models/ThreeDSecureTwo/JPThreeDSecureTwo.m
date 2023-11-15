@@ -24,8 +24,8 @@
 
 #import "JPThreeDSecureTwo.h"
 #import "JPConfiguration.h"
-#import "ScaExemption.h"
 #import "JPConstants.h"
+#import "ScaExemption.h"
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 @implementation JPDeviceRenderOptions
@@ -86,24 +86,23 @@
 @implementation JPThreeDSecureTwo
 
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-      authenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params
-           recommendationScaExemption:(ScaExemption)recommendationScaExemption
-recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
+            authenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params
+                 recommendationScaExemption:(ScaExemption)recommendationScaExemption
+    recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     if (self = [super init]) {
-        
-        
+
         if (recommendationChallengeRequestIndicator == nil) {
             _challengeRequestIndicator = configuration.challengeRequestIndicator;
         } else {
             _challengeRequestIndicator = recommendationChallengeRequestIndicator;
         }
-        
+
         if (recommendationScaExemption == UNKNOWN_OR_NOT_PRESENT_EXCEPTION) {
             _scaExemption = configuration.scaExemption;
         } else {
             _scaExemption = [self stringForScaExemption:recommendationScaExemption];
         }
-        
+
         _authenticationSource = @"MOBILE_SDK";
         _sdk = [[JPSDKParameters alloc] initWithConfiguration:configuration
                            andAuthenticationRequestParameters:params];

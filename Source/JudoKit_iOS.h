@@ -102,10 +102,10 @@
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 
-#import <RavelinEncrypt/RavelinEncrypt.h>
+#import "JPCardTransactionTypedefs.h"
 #import "RecommendationCardEncryptionService.h"
 #import "RecommendationData.h"
-#import "JPCardTransactionTypedefs.h"
+#import <RavelinEncrypt/RavelinEncrypt.h>
 
 #import "NSBundle+Additions.h"
 #import "NSNumber+Additions.h"

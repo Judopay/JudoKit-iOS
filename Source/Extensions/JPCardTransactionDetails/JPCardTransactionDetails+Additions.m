@@ -49,10 +49,10 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                 recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request
-                      usingConfiguration:configuration
-                             transaction:transaction
-              recommendationScaExemption:recommendationScaExemption
-  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
+                             usingConfiguration:configuration
+                                    transaction:transaction
+                     recommendationScaExemption:recommendationScaExemption
+        recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -69,10 +69,10 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                                recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPPreAuthRequest *request = [[JPPreAuthRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request
-                      usingConfiguration:configuration
-                             transaction:transaction
-              recommendationScaExemption:recommendationScaExemption
-  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
+                             usingConfiguration:configuration
+                                    transaction:transaction
+                     recommendationScaExemption:recommendationScaExemption
+        recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -87,10 +87,10 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                                                    andTransaction:(JP3DSTransaction *)transaction {
     JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request
-                      usingConfiguration:configuration
-                             transaction:transaction
-              recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-  recommendationChallengeRequestIndicator:nil];
+                             usingConfiguration:configuration
+                                    transaction:transaction
+                     recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+        recommendationChallengeRequestIndicator:nil];
     return request;
 }
 
@@ -143,10 +143,10 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                                            andTransaction:(JP3DSTransaction *)transaction {
     JPSaveCardRequest *request = [[JPSaveCardRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request
-                      usingConfiguration:configuration
-                             transaction:transaction
-              recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-  recommendationChallengeRequestIndicator:nil];
+                             usingConfiguration:configuration
+                                    transaction:transaction
+                     recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
+        recommendationChallengeRequestIndicator:nil];
     return request;
 }
 
@@ -156,10 +156,10 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                     recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     JPCheckCardRequest *request = [[JPCheckCardRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request
-                      usingConfiguration:configuration
-                             transaction:transaction
-              recommendationScaExemption:recommendationScaExemption
-  recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
+                             usingConfiguration:configuration
+                                    transaction:transaction
+                     recommendationScaExemption:recommendationScaExemption
+        recommendationChallengeRequestIndicator:recommendationChallengeRequestIndicator];
     return request;
 }
 
@@ -194,15 +194,14 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
     request.threeDSecure = [[JPThreeDSecureTwo alloc] initWithConfiguration:configuration
                                             authenticationRequestParameters:params
                                                  recommendationScaExemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-                                    recommendationChallengeRequestIndicator:nil
-    ];
+                                    recommendationChallengeRequestIndicator:nil];
 }
 
 - (void)populateWithCardDetailsRequest:(JPRequest *)request
-                    usingConfiguration:(JPConfiguration *)configuration
-                           transaction:(JP3DSTransaction *)transaction
-            recommendationScaExemption:(ScaExemption)recommendationScaExemption
-recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
+                         usingConfiguration:(JPConfiguration *)configuration
+                                transaction:(JP3DSTransaction *)transaction
+                 recommendationScaExemption:(ScaExemption)recommendationScaExemption
+    recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator {
     request.cardNumber = self.cardNumber;
     request.expiryDate = self.expiryDate;
     request.cv2 = self.securityCode;

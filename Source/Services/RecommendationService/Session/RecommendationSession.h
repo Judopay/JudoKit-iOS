@@ -54,8 +54,8 @@
  *  @param completion completion callback block with the results
  */
 - (void)POST:(nonnull NSString *)endpoint
-  parameters:(nullable NSDictionary *)parameters
-     timeout:(NSNumber *)timeout
-andCompletion:(nullable RecommendationCompletionBlock)completion;
+       parameters:(nullable NSDictionary *)parameters
+          timeout:(NSNumber *)timeout
+    andCompletion:(nullable RecommendationCompletionBlock)completion;
 
 @end
