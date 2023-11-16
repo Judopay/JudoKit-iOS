@@ -13,6 +13,7 @@ target 'ObjectiveCExampleApp' do
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
   pod 'CocoaDebug', '1.7.2'
+  pod 'FirebaseCrashlytics'
   
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths

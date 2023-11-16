@@ -25,6 +25,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "Settings.h"
+#import "FirebaseCore/FirebaseCore.h"
 
 @import CocoaDebug;
 @import JudoKit_iOS;
@@ -37,6 +38,9 @@
 
     // Enable debug inspector
     [CocoaDebug enable];
+    
+    // Use the Firebase library to configure APIs.
+    [FIRApp configure];
 
     return YES;
 }
