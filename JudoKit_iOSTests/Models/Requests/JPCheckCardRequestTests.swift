@@ -42,7 +42,7 @@ class JPCheckCardRequestTests: XCTestCase {
      *
      *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
      *
-     *  THEN: The "isInitialRecurringPayment" should be set.
+     *  THEN: The "initialRecurringPayment" should be set.
      */
     func test_onInitialization_SetValidProperties() {
         let checkCardRequest = JPCheckCardRequest(configuration: configuration)
@@ -55,7 +55,7 @@ class JPCheckCardRequestTests: XCTestCase {
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
         XCTAssertEqual(checkCardRequest.yourPaymentReference, configuration.reference.paymentReference)
         XCTAssertEqual(checkCardRequest.yourPaymentMetaData, configuration.reference.metaData)
-        XCTAssertTrue(checkCardRequest.isInitialRecurringPayment)
+        XCTAssertTrue(checkCardRequest.initialRecurringPayment)
     }
     
     /*
@@ -63,7 +63,7 @@ class JPCheckCardRequestTests: XCTestCase {
      *
      *  WHEN: A valid parameters are being passed to the initializer
      *
-     *  THEN: The "isInitialRecurringPayment" should be set.
+     *  THEN: The "initialRecurringPayment" should be set.
      */
     func test_onCardDetailsInitialization_SetValidProperties() {
         
@@ -83,6 +83,6 @@ class JPCheckCardRequestTests: XCTestCase {
         XCTAssertEqual(checkCardRequest.yourConsumerReference, configuration.reference.consumerReference)
         XCTAssertEqual(checkCardRequest.yourPaymentReference, configuration.reference.paymentReference)
         XCTAssertEqual(checkCardRequest.yourPaymentMetaData, configuration.reference.metaData)
-        XCTAssertTrue(checkCardRequest.isInitialRecurringPayment)
+        XCTAssertTrue(checkCardRequest.initialRecurringPayment)
     }
 }
