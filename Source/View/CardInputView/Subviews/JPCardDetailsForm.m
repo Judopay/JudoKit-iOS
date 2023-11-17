@@ -222,7 +222,7 @@ static const float kInputFieldHeight = 44.0F;
         _cardHolderNameTextField.keyboardType = UIKeyboardTypeDefault;
         _cardHolderNameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         if (@available(iOS 17.0, *)) {
-            _cardHolderNameTextField.textContentType = UITextContentTypeCreditCardName;
+//            _cardHolderNameTextField.textContentType = UITextContentTypeCreditCardName;
         }
         _cardHolderNameTextField.delegate = self.inputFieldDelegate;
     }
@@ -235,7 +235,7 @@ static const float kInputFieldHeight = 44.0F;
         _expiryDateTextField.accessibilityIdentifier = @"Expiry Date Field";
         _expiryDateTextField.keyboardType = UIKeyboardTypeNumberPad;
         if (@available(iOS 17.0, *)) {
-            _expiryDateTextField.textContentType = UITextContentTypeCreditCardExpiration;
+//            _expiryDateTextField.textContentType = UITextContentTypeCreditCardExpiration;
         }
         _expiryDateTextField.delegate = self.inputFieldDelegate;
     }
@@ -248,7 +248,7 @@ static const float kInputFieldHeight = 44.0F;
         _cardSecurityCodeTextField.accessibilityIdentifier = @"Security Code Field";
         _cardSecurityCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
         if (@available(iOS 17.0, *)) {
-            _cardSecurityCodeTextField.textContentType = UITextContentTypeCreditCardSecurityCode;
+//            _cardSecurityCodeTextField.textContentType = UITextContentTypeCreditCardSecurityCode;
         }
         _cardSecurityCodeTextField.delegate = self.inputFieldDelegate;
     }
