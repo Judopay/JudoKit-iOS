@@ -678,6 +678,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>is_recurring_payment_enabled_title</string>
+			<key>Key</key>
+			<string>is_recurring_payment_enabled</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>recurring_payment_description_title</string>
@@ -695,6 +705,26 @@
 			<string>recurring_payment_management_url</string>
 			<key>DefaultValue</key>
 			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_start_date_title</string>
+			<key>Key</key>
+			<string>recurring_payment_start_date</string>
+			<key>DefaultValue</key>
+			<string>DD/MM/YYYY</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_end_date_title</string>
+			<key>Key</key>
+			<string>recurring_payment_end_date</string>
+			<key>DefaultValue</key>
+			<string>DD/MM/YYYY</string>
 		</dict>
 		<dict>
 			<key>Type</key>

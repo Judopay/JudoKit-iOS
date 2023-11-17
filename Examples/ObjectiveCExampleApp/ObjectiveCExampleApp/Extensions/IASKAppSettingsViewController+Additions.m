@@ -8,21 +8,22 @@
         kIsPaymentSessionOnKey,
         kIsTokenAndSecretOnKey,
         kIsAddressOnKey,
-        kIsPrimaryAccountDetailsOnKey
+        kIsPrimaryAccountDetailsOnKey,
+        kIsRecurringPaymentOnKey
     ]];
     [self setHiddenKeys:hiddenKeys];
 }
 
 - (void)didChangedSettingsWithKeys:(NSArray<NSString *> *)keys {
-
+    
     NSSet *hiddenKeys;
-
+    
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecurringPaymentOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -52,7 +53,13 @@
         kPrimaryAccountNameKey,
         kPrimaryAccountAccountNumberKey,
         kPrimaryAccountDateOfBirthKey,
-        kPrimaryAccountPostCodeKey
+        kPrimaryAccountPostCodeKey,
+        
+        kRecurringPaymentDescriptionKey,
+        kRecurringPaymentManagementUrlKey,
+        kRecurringPaymentStartDateKey,
+        kRecurringPaymentStartDateKey,
+        kRecurringPaymentBillingAgreementKey
     ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
@@ -86,6 +93,17 @@
             kPrimaryAccountAccountNumberKey,
             kPrimaryAccountDateOfBirthKey,
             kPrimaryAccountPostCodeKey
+        ]];
+    }
+    
+//    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isInitialRecurringPaymentEnabled) {
+    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isRecurringPaymentOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kRecurringPaymentDescriptionKey,
+            kRecurringPaymentManagementUrlKey,
+            kRecurringPaymentStartDateKey,
+            kRecurringPaymentEndDateKey,
+            kRecurringPaymentBillingAgreementKey
         ]];
     }
 

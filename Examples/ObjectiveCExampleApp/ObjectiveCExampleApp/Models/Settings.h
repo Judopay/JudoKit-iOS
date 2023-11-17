@@ -129,6 +129,13 @@ static NSString *const kIsShippingContactFieldPhoneRequiredKey = @"is_shipping_c
 static NSString *const kIsShippingContactFieldEmailRequiredKey = @"is_shipping_contact_field_email_required";
 static NSString *const kIsShippingContactFieldNameRequiredKey = @"is_shipping_contact_field_name_required";
 
+static NSString *const kIsRecurringPaymentOnKey = @"is_recurring_payment_enabled";
+static NSString *const kRecurringPaymentDescriptionKey = @"recurring_payment_description";
+static NSString *const kRecurringPaymentManagementUrlKey = @"recurring_payment_management_url";
+static NSString *const kRecurringPaymentStartDateKey = @"recurring_payment_start_date";
+static NSString *const kRecurringPaymentEndDateKey = @"recurring_payment_end_date";
+static NSString *const kRecurringPaymentBillingAgreementKey = @"recurring_payment_billing_agreement";
+
 #pragma mark - Supported card networks section keys
 
 static NSString *const kVisaEnabledKey = @"is_card_network_visa_enabled";
@@ -211,6 +218,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isInitialRecurringPaymentEnabled;
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
+- (BOOL)isRecurringPaymentOn;
 - (BOOL)isDelayedAuthorisationOn;
 - (BOOL)shouldAskForCSC;
 - (BOOL)shouldAskForCardholderName;

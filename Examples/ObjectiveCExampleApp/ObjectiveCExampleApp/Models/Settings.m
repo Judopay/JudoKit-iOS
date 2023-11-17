@@ -88,6 +88,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsPrimaryAccountDetailsOnKey];
 }
 
+- (BOOL)isRecurringPaymentOn {
+    return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
+}
+
 #pragma mark - Reference section
 
 - (JPReference *)reference {
