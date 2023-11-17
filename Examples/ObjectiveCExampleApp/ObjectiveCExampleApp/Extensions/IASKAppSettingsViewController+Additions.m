@@ -58,7 +58,7 @@
         kRecurringPaymentDescriptionKey,
         kRecurringPaymentManagementUrlKey,
         kRecurringPaymentStartDateKey,
-        kRecurringPaymentEndDateKey,
+        kRecurringPaymentStartDateKey,
         kRecurringPaymentBillingAgreementKey
     ]];
 
