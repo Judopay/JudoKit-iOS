@@ -38,17 +38,12 @@
 #import "JPTransactionBuilder.h"
 #import "JPTransactionViewController.h"
 #import "JPUIConfiguration.h"
-#import "RecommendationApiService.h"
-#import "RecommendationCardEncryptionService.h"
 #import "UIApplication+Additions.h"
 #import <PassKit/PassKit.h>
-#import <RavelinEncrypt/RavelinEncrypt.h>
 
 @interface JudoKit ()
 
 @property (nonatomic, strong) JPApiService *apiService;
-@property (nonatomic, strong) RecommendationApiService *recommendationApiService;
-@property (nonatomic, strong) RecommendationCardEncryptionService *encryptionService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
 @property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
@@ -68,18 +63,16 @@
 - (instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
-    self = [super init];
-    BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication._jp_isCurrentDeviceJailbroken);
-
-    if (self && isDeviceSupported) {
-        self.configurationValidationService = [JPConfigurationValidationServiceImp new];
-        self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
-        self.recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
-        self.encryptionService = [[RecommendationCardEncryptionService alloc] init];
-        return self;
+    if (!jailbrokenDevicesAllowed && UIApplication._jp_isCurrentDeviceJailbroken) {
+        return nil;
     }
 
-    return nil;
+    if (self = [super init]) {
+        self.configurationValidationService = [[JPConfigurationValidationServiceImp alloc] initWithAuthorization:authorization];
+        self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
+    }
+
+    return self;
 }
 
 #pragma mark - Public methods
@@ -136,8 +129,6 @@
 
     UIViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
-                                   recommendationApiService:self.recommendationApiService
-                                          encryptionService:self.encryptionService
                                               configuration:configuration
                                             transactionType:type
                                            presentationMode:presentationMode
@@ -295,6 +286,7 @@
 - (void)setAuthorization:(id<JPAuthorization>)authorization {
     _authorization = authorization;
     self.apiService.authorization = authorization;
+    [self.configurationValidationService setAuthorization:authorization];
 }
 
 - (void)setSubProductInfo:(JPSubProductInfo *)subProductInfo {

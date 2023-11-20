@@ -83,8 +83,6 @@
                               andCompletion:(JPCompletionBlock)completion {
     JPTransactionViewController *controller =
         [JPTransactionBuilderImpl buildModuleWithApiService:self.apiService
-                                   recommendationApiService:nil
-                                          encryptionService:nil
                                               configuration:self.configuration
                                             transactionType:type
                                            presentationMode:mode

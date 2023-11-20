@@ -22,7 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "ScaExemption.h"
 #import <Foundation/Foundation.h>
 
 @class JPConfiguration, JP3DSAuthenticationRequestParameters;
@@ -65,9 +64,6 @@
 @property (nonatomic, strong, nonnull) NSString *authenticationSource;
 @property (nonatomic, strong, nonnull) NSString *softDeclineReceiptId;
 
-- (nonnull instancetype)initWithConfiguration:(JPConfiguration *)configuration
-              authenticationRequestParameters:(JP3DSAuthenticationRequestParameters *)params
-                   recommendationScaExemption:(ScaExemption)recommendationScaExemption
-      recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
-
+- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
+           andAuthenticationRequestParameters:(nonnull JP3DSAuthenticationRequestParameters *)params;
 @end

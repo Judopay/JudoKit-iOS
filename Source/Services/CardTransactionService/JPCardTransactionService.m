@@ -31,7 +31,8 @@
 #import "JPCReqParameters.h"
 #import "JPCardTransactionDetails+Additions.h"
 #import "JPCardTransactionDetails.h"
-#import "JPCardTransactionTypedefs.h"
+#import "JPCardTransactionDetailsOverrides.h"
+#import "JPCardTransactionType.h"
 #import "JPCheckCardRequest.h"
 #import "JPComplete3DS2Request.h"
 #import "JPConfiguration.h"
@@ -39,18 +40,16 @@
 #import "JPPaymentRequest.h"
 #import "JPPreAuthRequest.h"
 #import "JPPreAuthTokenRequest.h"
+#import "JPRecommendationConfiguration.h"
+#import "JPRecommendationData.h"
+#import "JPRecommendationResponse.h"
+#import "JPRecommendationService.h"
 #import "JPRegisterCardRequest.h"
 #import "JPResponse+Additions.h"
 #import "JPResponse.h"
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 #import "JPUIConfiguration.h"
-#import "RecommendationApiService.h"
-#import "RecommendationCardEncryptionService.h"
-#import "RecommendationConfiguration.h"
-#import "RecommendationData.h"
-#import "RecommendationRequest.h"
-#import "RecommendationResponse.h"
 #import "UIApplication+Additions.h"
 
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
@@ -115,34 +114,42 @@
 
 @end
 
-BOOL canBeSoftDeclined(JPCardTransactionType type) {
-    return type == JPCardTransactionTypePayment || type == JPCardTransactionTypePreAuth || type == JPCardTransactionTypePaymentWithToken || type == JPCardTransactionTypePreAuthWithToken || type == JPCardTransactionTypeRegister;
+BOOL canTransactionBeSoftDeclined(JPCardTransactionType type) {
+    return type == JPCardTransactionTypePayment ||
+           type == JPCardTransactionTypePreAuth ||
+           type == JPCardTransactionTypePaymentWithToken ||
+           type == JPCardTransactionTypePreAuthWithToken ||
+           type == JPCardTransactionTypeRegister;
+}
+
+BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
+    return type == JPCardTransactionTypePayment ||
+           type == JPCardTransactionTypeCheck ||
+           type == JPCardTransactionTypePreAuth;
 }
 
 @interface JPCardTransactionService ()
 
 @property (strong, nonatomic) JPConfiguration *configuration;
-@property (strong, nonatomic) JPApiService *apiService;
-@property (strong, nonatomic) RecommendationApiService *recommendationApiService;
-@property (strong, nonatomic) RecommendationCardEncryptionService *encryptionService;
+@property (strong, nonatomic) id<JPAuthorization> authorization;
 
+@property (strong, nonatomic) JPApiService *apiService;
+@property (strong, nonatomic) JPRecommendationService *recommendationService;
 @property (strong, nonatomic) JP3DS2Service *threeDSTwoService;
 @property (strong, nonatomic) JP3DSConfigParameters *threeDSTwoConfigParameters;
 
 @property (strong, nonatomic) JP3DSTransaction *transaction;
+
 @end
 
 @implementation JPCardTransactionService
 
 - (instancetype)initWithAPIService:(JPApiService *)apiService
-               recommendationApiService:(RecommendationApiService *)recommendationApiService
-                          configuration:(JPConfiguration *)configuration
-    recommendationCardEncryptionService:(nullable RecommendationCardEncryptionService *)encryptionService {
+                  andConfiguration:(JPConfiguration *)configuration {
     if (self = [super init]) {
         _configuration = configuration;
         _apiService = apiService;
-        _recommendationApiService = recommendationApiService;
-        _encryptionService = encryptionService;
+        _authorization = apiService.authorization;
 
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
                                                         locale:nil
@@ -156,33 +163,15 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
                      andConfiguration:(JPConfiguration *)configuration {
     if (self = [super init]) {
         _configuration = configuration;
-        _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
-        _recommendationApiService = [[RecommendationApiService alloc] initWithAuthorization:authorization];
-        _encryptionService = [[RecommendationCardEncryptionService alloc] init];
+        _authorization = authorization;
 
-        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters locale:nil uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
+        _apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:sandboxed];
+
+        [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
+                                                        locale:nil
+                                               uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
     }
     return self;
-}
-
-- (void)performTransactionWithType:(JPCardTransactionType)type
-                           details:(JPCardTransactionDetails *)details
-              softDeclineReceiptId:(NSString *)receiptId
-                     andCompletion:(JPCompletionBlock)completion {
-    Boolean isCardEncryptionEnabled = self.configuration.recommendationConfiguration != nil;
-    Boolean isCardEncryptionRequired = [self.encryptionService isCardEncryptionRequiredWithType:type
-                                                                 isRecommendationFeatureEnabled:isCardEncryptionEnabled];
-    if (isCardEncryptionRequired) {
-        [self performRecommendationApiCall:details
-                                      type:type
-                                completion:completion];
-    } else {
-        [self performJudoApiCall:details
-                                 type:type
-                           completion:completion
-                            exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-            challengeRequestIndicator:nil];
-    }
 }
 
 - (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
@@ -213,103 +202,65 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
     [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
 }
 
-- (BOOL)validateRecommendationResponse:(RecommendationResponse *)result {
-    if (result == nil) {
-        return NO;
+- (void)performTransactionWithType:(JPCardTransactionType)type
+                           details:(JPCardTransactionDetails *)details
+                     andCompletion:(JPCompletionBlock)completion {
+    if (self.configuration.recommendationConfiguration && isRecommendationFeatureAvailable(type)) {
+        [self apply3DS2OptimisationsForTransactionWithType:type details:details andCompletion:completion];
+    } else {
+        [self performJudoApiCall:details overrides:nil type:type andCompletion:completion];
     }
-
-    if (result.data == nil) {
-        return NO;
-    }
-
-    RecommendationData *data = result.data;
-
-    if (data.action == UNKNOWN_RECOMMENDATION_ACTION || data.transactionOptimisation == nil) {
-        return NO;
-    }
-
-    if (data.action == ALLOW || data.action == REVIEW) {
-        if (data.transactionOptimisation.action == UNKNOWN_TRANSACTION_OPTIMISATION_ACTION) {
-            return NO;
-        }
-        if (data.transactionOptimisation.exemption == UNKNOWN_OR_NOT_PRESENT_EXCEPTION && data.transactionOptimisation.threeDSChallengePreference == nil) {
-            return NO;
-        }
-    }
-
-    return YES;
 }
 
-- (void)performRecommendationApiCall:(JPCardTransactionDetails *)details
-                                type:(JPCardTransactionType)type
-                          completion:(JPCompletionBlock)completion {
-    NSString *cardNumber = details.cardNumber;
-    NSString *cardHolderName = details.cardholderName;
-    NSString *expirationDate = details.expiryDate;
-    NSString *rsaKey = self.configuration.recommendationConfiguration.rsaKey;
+- (void)performTransactionWithType:(JPCardTransactionType)type
+                           details:(JPCardTransactionDetails *)details
+                         overrides:(JPCardTransactionDetailsOverrides *)overrides
+                     andCompletion:(JPCompletionBlock)completion {
+    [self performJudoApiCall:details overrides:overrides type:type andCompletion:completion];
+}
 
-    // Encryption
-    NSDictionary *encryptedCard = [self.encryptionService performCardEncryptionWithCardNumber:cardNumber cardHolderName:cardHolderName expirationDate:expirationDate rsaKey:rsaKey];
-    if (encryptedCard != nil) {
+- (void)apply3DS2OptimisationsForTransactionWithType:(JPCardTransactionType)type
+                                             details:(JPCardTransactionDetails *)details
+                                       andCompletion:(JPCompletionBlock)completion {
+    __weak typeof(self) weakSelf = self;
 
-        // Recommendation API Call
-        NSString *recommendationUrl = self.configuration.recommendationConfiguration.recommendationURL;
-        NSNumber *recommendationTimeout = self.configuration.recommendationConfiguration.recommendationTimeout;
-        // Todo: Timeout in seconds, not minutes!
-        RecommendationCompletionBlock recommendationCompletionHandler = ^(RecommendationResponse *response, NSString *error) {
-            [self handleRecommendationApiResult:response
-                                        details:details
-                                           type:type
-                                     completion:completion];
-        };
-        RecommendationRequest *request = [[RecommendationRequest alloc] initWithEncryptedCardDetails:encryptedCard];
-        [self.recommendationApiService invokeRecommendationRequest:request
-                                                 recommendationUrl:recommendationUrl
-                                                           timeout:recommendationTimeout
-                                                        completion:recommendationCompletionHandler];
-    } else {
-        // We allow Judo API call in this case, as the API will perform its own checks anyway.
-        [self performJudoApiCall:details
-                                 type:type
-                           completion:completion
-                            exemption:nil
-            challengeRequestIndicator:nil];
-    }
+    [self.recommendationService fetchOptimizationDataWithDetails:details
+                                                 transactionType:type
+                                                   andCompletion:^(JPRecommendationResponse *response) {
+                                                       if (!response.isValid) { // in case of any parsing errors, ignore server response
+                                                           [weakSelf performJudoApiCall:details overrides:nil type:type andCompletion:completion];
+                                                           return;
+                                                       }
+
+                                                       if (response.data.action == JPRecommendationActionPrevent) { // server prevented, reject transaction
+                                                           completion(nil, JPError.recommendationServerPreventedTransactionError);
+                                                           return;
+                                                       }
+
+                                                       // override excemption and challenge indicator according to server response
+                                                       JPCardTransactionDetailsOverrides *overrides = [JPCardTransactionDetailsOverrides overridesWithRecommendationResponse:response];
+                                                       [weakSelf performJudoApiCall:details overrides:overrides type:type andCompletion:completion];
+                                                   }];
 }
 
 - (void)performJudoApiCall:(JPCardTransactionDetails *)details
-                         type:(JPCardTransactionType)type
-                   completion:(JPCompletionBlock)completion
-                    exemption:(ScaExemption)exemption
-    challengeRequestIndicator:(nullable NSString *)challengeRequestIndicator {
+                 overrides:(JPCardTransactionDetailsOverrides *)overrides
+                      type:(JPCardTransactionType)type
+             andCompletion:(JPCompletionBlock)completion {
     @try {
-        NSString *dsServerID = _apiService.isSandboxed ? @"F000000000" : @"unknown-id";
-
-        switch (details.cardType) {
-            case JPCardNetworkTypeVisa:
-                dsServerID = _apiService.isSandboxed ? @"F055545342" : @"A000000003";
-                break;
-            case JPCardNetworkTypeMasterCard:
-            case JPCardNetworkTypeMaestro:
-                dsServerID = _apiService.isSandboxed ? @"F155545342" : @"A000000004";
-                break;
-            case JPCardNetworkTypeAMEX:
-                dsServerID = @"A000000025";
-                break;
-            default:
-                break;
-        }
-
         NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;
+        NSString *dsServerID = [details directoryServerIdInSandboxEnv:self.apiService.isSandboxed];
+
         JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
                                                                                         messageVersion:messageVersion];
 
         __weak typeof(self) weakSelf = self;
         JPCompletionBlock completionHandler = ^(JPResponse *response, JPError *error) {
             if (response) {
-                if (canBeSoftDeclined(type) && response.isSoftDeclined) {
-                    [weakSelf performTransactionWithType:type details:details softDeclineReceiptId:response.receiptId andCompletion:completion];
-                } else if ([response isThreeDSecureTwoRequired]) {
+                if (canTransactionBeSoftDeclined(type) && response.isSoftDeclined) {
+                    JPCardTransactionDetailsOverrides *overrides = [JPCardTransactionDetailsOverrides overridesWithSoftDeclineReceiptId:response.receiptId];
+                    [weakSelf performTransactionWithType:type details:details overrides:overrides andCompletion:completion];
+                } else if (response.isThreeDSecureTwoRequired) {
                     JP3DSChallengeStatusReceiverImpl *receiverImpl = [[JP3DSChallengeStatusReceiverImpl alloc] initWithApiService:weakSelf.apiService
                                                                                                                           details:details
                                                                                                                          response:response
@@ -338,32 +289,28 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
         switch (type) {
             case JPCardTransactionTypePayment: {
                 JPPaymentRequest *request = [details toPaymentRequestWithConfiguration:self.configuration
-                                                                  softDeclineReceiptId:receiptId
-                                                                           transaction:transaction
-                                                            recommendationScaExemption:exemption
-                                            andRecommendationChallengeRequestIndicator:challengeRequestIndicator];
+                                                                             overrides:overrides
+                                                                        andTransaction:transaction];
                 [self.apiService invokePaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePreAuth: {
                 JPPreAuthRequest *request = [details toPreAuthPaymentRequestWithConfiguration:self.configuration
-                                                                         softDeclineReceiptId:receiptId
-                                                                                  transaction:transaction
-                                                                   recommendationScaExemption:exemption
-                                                   andRecommendationChallengeRequestIndicator:challengeRequestIndicator];
+                                                                                    overrides:overrides
+                                                                               andTransaction:transaction];
                 [self.apiService invokePreAuthPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePaymentWithToken: {
                 JPTokenRequest *request = [details toTokenRequestWithConfiguration:self.configuration
-                                                              softDeclineReceiptId:receiptId
+                                                                         overrides:overrides
                                                                     andTransaction:transaction];
                 [self.apiService invokeTokenPaymentWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypePreAuthWithToken: {
                 JPPreAuthTokenRequest *request = [details toPreAuthTokenRequestWithConfiguration:self.configuration
-                                                                            softDeclineReceiptId:receiptId
+                                                                                       overrides:overrides
                                                                                   andTransaction:transaction];
                 [self.apiService invokePreAuthTokenPaymentWithRequest:request andCompletion:completionHandler];
             } break;
@@ -376,15 +323,14 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
 
             case JPCardTransactionTypeCheck: {
                 JPCheckCardRequest *request = [details toCheckCardRequestWithConfiguration:self.configuration
-                                                                               transaction:transaction
-                                                                recommendationScaExemption:exemption
-                                                   recommendationChallengeRequestIndicator:challengeRequestIndicator];
+                                                                                 overrides:overrides
+                                                                            andTransaction:transaction];
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
             } break;
 
             case JPCardTransactionTypeRegister: {
                 JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
-                                                                            softDeclineReceiptId:receiptId
+                                                                                       overrides:overrides
                                                                                   andTransaction:transaction];
                 [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
             } break;
@@ -398,83 +344,32 @@ BOOL canBeSoftDeclined(JPCardTransactionType type) {
     }
 }
 
-- (void)handleRecommendationApiResult:(RecommendationResponse *)result
-                              details:(JPCardTransactionDetails *)details
-                                 type:(JPCardTransactionType)type
-                           completion:(JPCompletionBlock)completion;
-{
-    BOOL isRecommendationResponseValid = [self validateRecommendationResponse:result];
-    if (isRecommendationResponseValid) {
-        RecommendationAction recommendationAction = result.data.action;
-        TransactionOptimisation *transactionOptimisation = result.data.transactionOptimisation;
-        ScaExemption *exemptionReceived = transactionOptimisation.exemption;
-        NSString *threeDSChallengePreferenceReceived = transactionOptimisation.threeDSChallengePreference;
-        if (recommendationAction == ALLOW || recommendationAction == REVIEW) {
-            [self performJudoApiCall:details
-                                     type:type
-                               completion:completion
-                                exemption:exemptionReceived
-                challengeRequestIndicator:threeDSChallengePreferenceReceived];
-        } else if (recommendationAction == PREVENT) {
-            NSString *error = @"The Recommendation Feature has prevented this transaction.";
-            completion(nil, error);
-        }
-    } else {
-        // We allow Judo API call in this case, as the API will perform its own checks anyway.
-        [self performJudoApiCall:details
-                                 type:type
-                           completion:completion
-                            exemption:UNKNOWN_OR_NOT_PRESENT_EXCEPTION
-            challengeRequestIndicator:nil];
-    }
+- (void)cleanup {
+    [self.threeDSTwoService cleanUp];
 }
-
-- (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePayment details:details softDeclineReceiptId:nil andCompletion:completion];
-}
-
-- (void)invokePreAuthPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePreAuth details:details softDeclineReceiptId:nil andCompletion:completion];
-}
-
-- (void)invokeTokenPaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypePaymentWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
-
-    -(void)invokePreAuthTokenPaymentWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
-        [self performTransactionWithType:JPCardTransactionTypePreAuthWithToken details:details softDeclineReceiptId:nil andCompletion:completion];
-    }
-
-    -(void)invokeSaveCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
-        [self performTransactionWithType:JPCardTransactionTypeSave details:details softDeclineReceiptId:nil andCompletion:completion];
-    }
-
-    -(void)invokeCheckCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
-        [self performTransactionWithType:JPCardTransactionTypeCheck details:details softDeclineReceiptId:nil andCompletion:completion];
-    }
-
-    -(void)invokeRegisterCardWithDetails : (JPCardTransactionDetails *)details andCompletion : (JPCompletionBlock)completion {
-        [self performTransactionWithType:JPCardTransactionTypeRegister details:details softDeclineReceiptId:nil andCompletion:completion];
-    }
-
-    -(void)cleanup {
-        [self.threeDSTwoService cleanUp];
-    }
 
 #pragma mark - Lazy properties
-
-    -(JP3DSConfigParameters *)threeDSTwoConfigParameters {
-        if (!_threeDSTwoConfigParameters) {
-            _threeDSTwoConfigParameters = [JP3DSConfigParameters new];
-        }
-
-        return _threeDSTwoConfigParameters;
+- (JPRecommendationService *)recommendationService {
+    if (!_recommendationService) {
+        JPRecommendationConfiguration *configuration = self.configuration.recommendationConfiguration;
+        _recommendationService = [[JPRecommendationService alloc] initWithConfiguration:configuration
+                                                                       andAuthorization:self.authorization];
     }
+    return _recommendationService;
+}
 
-    -(JP3DS2Service *)threeDSTwoService {
-        if (!_threeDSTwoService) {
-            _threeDSTwoService = [JP3DS2Service new];
-        }
-        return _threeDSTwoService;
+- (JP3DSConfigParameters *)threeDSTwoConfigParameters {
+    if (!_threeDSTwoConfigParameters) {
+        _threeDSTwoConfigParameters = [JP3DSConfigParameters new];
     }
+    return _threeDSTwoConfigParameters;
+}
 
-    @end
+- (JP3DS2Service *)threeDSTwoService {
+    if (!_threeDSTwoService) {
+        _threeDSTwoService = [JP3DS2Service new];
+    }
+    return _threeDSTwoService;
+}
+
+@end

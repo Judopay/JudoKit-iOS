@@ -37,7 +37,7 @@
     viewController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    request.recurringPaymentRequest return viewController;
+    return viewController;
 }
 
 + (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {

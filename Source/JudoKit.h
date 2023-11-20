@@ -28,13 +28,9 @@
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
-#import <RavelinEncrypt/RavelinEncrypt.h>
 
 @class JPCardTransactionDetails, JPConfiguration, JPPaymentMethod, JPSession;
 @protocol JPAuthorization;
-
-static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"3.2.6";
 
 @interface JudoKit : NSObject
 

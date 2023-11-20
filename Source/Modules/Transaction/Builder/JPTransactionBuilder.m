@@ -39,8 +39,6 @@
 @implementation JPTransactionBuilderImpl
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
-                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
@@ -48,9 +46,7 @@
                                                 completion:(JPCompletionBlock)completion {
     JPCardValidationService *cardValidationService = [[JPCardValidationService alloc] initWithCardNetwork:details.cardType];
     JPCardTransactionService *transactionService = [[JPCardTransactionService alloc] initWithAPIService:apiService
-                                                                               recommendationApiService:recommendationApiService
-                                                                                          configuration:configuration
-                                                                    recommendationCardEncryptionService:encryptionService];
+                                                                                       andConfiguration:configuration];
 
     JPTransactionInteractorImpl *interactor = [[JPTransactionInteractorImpl alloc] initWithCardValidationService:cardValidationService
                                                                                               transactionService:transactionService
@@ -77,15 +73,11 @@
 }
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
-                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion {
     return [JPTransactionBuilderImpl buildModuleWithApiService:apiService
-                                      recommendationApiService:recommendationApiService
-                                             encryptionService:encryptionService
                                                  configuration:configuration
                                                transactionType:type
                                               presentationMode:mode

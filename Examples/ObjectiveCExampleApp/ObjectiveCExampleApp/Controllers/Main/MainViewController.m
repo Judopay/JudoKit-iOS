@@ -37,7 +37,6 @@
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
-#import "RecommendationConfiguration.h"
 
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
@@ -341,11 +340,11 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
         NSString *rsaKey = Settings.defaultSettings.rsaKey;
-        NSString *recommendationURL = Settings.defaultSettings.recommendationUrl;
-        NSNumber *recommendationTimeout = Settings.defaultSettings.recommendationTimeout;
-        configuration.recommendationConfiguration = [RecommendationConfiguration configurationWithRsaKey:rsaKey
-                                                                                       recommendationURL:recommendationURL
-                                                                                   recommendationTimeout:recommendationTimeout];
+        NSURL *URL = [NSURL URLWithString:Settings.defaultSettings.recommendationUrl];
+        NSNumber *timeout = Settings.defaultSettings.recommendationTimeout;
+        configuration.recommendationConfiguration = [[JPRecommendationConfiguration alloc] initWithURL:URL
+                                                                                          RSAPublicKey:rsaKey
+                                                                                            andTimeout:timeout];
     }
     
     return configuration;

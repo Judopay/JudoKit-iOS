@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPNetworkTimeout, RecommendationConfiguration;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPNetworkTimeout, JPRecommendationConfiguration;
 
 @interface JPConfiguration : NSObject
 
@@ -125,6 +125,11 @@
 @property (nonatomic, assign) BOOL isDelayedAuthorisation;
 
 /**
+ * An instance of JPRecommendationConfiguration required for Recommendation Feature.
+ */
+@property (nonatomic, strong, nullable) JPRecommendationConfiguration *recommendationConfiguration;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.
@@ -139,10 +144,5 @@
 - (nonnull instancetype)initWithJudoID:(nonnull NSString *)judoId
                                 amount:(nullable JPAmount *)amount
                              reference:(nonnull JPReference *)reference;
-
-/**
- * An instance of RecommendationConfiguration required for Recommendation Feature card encryption & checks.
- */
-@property (nonatomic, strong, nullable) RecommendationConfiguration *recommendationConfiguration;
 
 @end

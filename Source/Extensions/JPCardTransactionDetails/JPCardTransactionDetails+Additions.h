@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPCardTransactionDetails.h"
-#import "ScaExemption.h"
 
 @class JPPaymentRequest,
     JPPreAuthRequest,
@@ -33,55 +32,56 @@
     JPSaveCardRequest,
     JPCheckCardRequest,
     JPConfiguration,
-    JP3DSTransaction;
+    JP3DSTransaction,
+    JPCardTransactionDetailsOverrides;
 
 @interface JPCardTransactionDetails (Additions)
 
-- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
-                                                    transaction:(JP3DSTransaction *)transaction
-                                     recommendationScaExemption:(ScaExemption)recommendationScaExemption
-                        recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
-
-- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           transaction:(nonnull JP3DSTransaction *)transaction
-                                            recommendationScaExemption:(ScaExemption)recommendationScaExemption
-                               recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
-
-- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                             andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
-
 - (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                           softDeclineReceiptId:(nullable NSString *)receiptId
                                                  andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                  softDeclineReceiptId:(nullable NSString *)receiptId
                                                         andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nullable NSString *)receiptId
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                       softDeclineReceiptId:(nullable NSString *)receiptId
                                              andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nullable NSString *)receiptId
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                    andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                                        transaction:(JP3DSTransaction *)transaction
-                                         recommendationScaExemption:(ScaExemption)recommendationScaExemption
-                            recommendationChallengeRequestIndicator:(NSString *)recommendationChallengeRequestIndicator;
+- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                      overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                 andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                             overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                        andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                  overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                             andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                                overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                                overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                          overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed;
 
 @end

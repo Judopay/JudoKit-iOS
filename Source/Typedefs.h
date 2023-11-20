@@ -24,8 +24,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class JPResponse, JPError, RecommendationResponse;
+@class JPResponse, JPError;
 
 typedef void (^JPCompletionBlock)(JPResponse *_Nullable, JPError *_Nullable);
-
-typedef void (^RecommendationCompletionBlock)(RecommendationResponse *_Nullable, NSString *_Nullable);

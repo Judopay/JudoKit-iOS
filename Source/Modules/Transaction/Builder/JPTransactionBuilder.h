@@ -25,25 +25,20 @@
 #import "JPCardNetworkType.h"
 #import "JPPresentationMode.h"
 #import "JPTransactionType.h"
-#import "RecommendationApiService.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 
-@class JPApiService, JPConfiguration, JPTransactionViewController, JPCardTransactionDetails, RecommendationCardEncryptionService;
+@class JPApiService, JPConfiguration, JPTransactionViewController, JPCardTransactionDetails;
 
 @protocol JPTransactionBuilder
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
-                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
                                                 completion:(JPCompletionBlock)completion;
 
 + (JPTransactionViewController *)buildModuleWithApiService:(JPApiService *)apiService
-                                  recommendationApiService:(RecommendationApiService *)recommendationApiService
-                                         encryptionService:(RecommendationCardEncryptionService *)encryptionService
                                              configuration:(JPConfiguration *)configuration
                                            transactionType:(JPTransactionType)type
                                           presentationMode:(JPPresentationMode)mode
