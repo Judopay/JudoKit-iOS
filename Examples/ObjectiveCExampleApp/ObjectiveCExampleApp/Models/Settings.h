@@ -131,10 +131,14 @@ static NSString *const kIsShippingContactFieldNameRequiredKey = @"is_shipping_co
 
 static NSString *const kIsRecurringPaymentOnKey = @"is_recurring_payment_enabled";
 static NSString *const kRecurringPaymentDescriptionKey = @"recurring_payment_description";
+static NSString *const kRecurringPaymentBillingAgreementKey = @"recurring_payment_billing_agreement";
 static NSString *const kRecurringPaymentManagementUrlKey = @"recurring_payment_management_url";
+static NSString *const kRecurringPaymentLabelKey = @"recurring_payment_label";
+static NSString *const kRecurringPaymentAmountKey = @"recurring_payment_amount";
+static NSString *const kRecurringPaymentIntervalUnitKey = @"recurring_payment_interval_unit";
+static NSString *const kRecurringPaymentIntervalCountKey = @"recurring_payment_interval_count";
 static NSString *const kRecurringPaymentStartDateKey = @"recurring_payment_start_date";
 static NSString *const kRecurringPaymentEndDateKey = @"recurring_payment_end_date";
-static NSString *const kRecurringPaymentBillingAgreementKey = @"recurring_payment_billing_agreement";
 
 #pragma mark - Supported card networks section keys
 
@@ -200,6 +204,13 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (JPReturnedInfo)applePayReturnedContactInfo;
 - (JPContactField)applePayBillingContactFields;
 - (JPContactField)applePayShippingContactFields;
+- (NSString *)applePayRecurringPaymentDescription;
+- (nullable NSString *)applePayRecurringPaymentBillingAgreement;
+- (NSString *)applePayRecurringPaymentManagementUrl;
+- (NSCalendarUnit *)applePayRecurringPaymentIntervalUnit;
+- (NSInteger)applePayRecurringPaymentIntervalCount;
+- (NSString *)applePayRecurringPaymentLabel;
+- (NSString *)applePayRecurringPaymentAmount;
 
 #pragma mark - Supported card networks section
 

@@ -57,9 +57,13 @@
         
         kRecurringPaymentDescriptionKey,
         kRecurringPaymentManagementUrlKey,
+        kRecurringPaymentBillingAgreementKey,
+        kRecurringPaymentLabelKey,
+        kRecurringPaymentAmountKey,
+        kRecurringPaymentIntervalUnitKey,
+        kRecurringPaymentIntervalCountKey,
         kRecurringPaymentStartDateKey,
-        kRecurringPaymentEndDateKey,
-        kRecurringPaymentBillingAgreementKey
+        kRecurringPaymentEndDateKey
     ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
@@ -100,10 +104,14 @@
     if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isRecurringPaymentOn) {
         [hiddenKeys removeObjectsInArray:@[
             kRecurringPaymentDescriptionKey,
+            kRecurringPaymentBillingAgreementKey,
             kRecurringPaymentManagementUrlKey,
+            kRecurringPaymentLabelKey,
+            kRecurringPaymentAmountKey,
+            kRecurringPaymentIntervalUnitKey,
+            kRecurringPaymentIntervalCountKey,
             kRecurringPaymentStartDateKey,
-            kRecurringPaymentEndDateKey,
-            kRecurringPaymentBillingAgreementKey
+            kRecurringPaymentEndDateKey
         ]];
     }
 

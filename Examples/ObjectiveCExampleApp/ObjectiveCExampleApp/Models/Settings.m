@@ -184,6 +184,36 @@ NSString *safeString(NSString *aString) {
     return fields;
 }
 
+- (NSString *)applePayRecurringPaymentDescription {
+    return [self.defaults stringForKey:kRecurringPaymentDescriptionKey];
+}
+
+- (nullable NSString *)applePayRecurringPaymentBillingAgreement {
+    return [self.defaults stringForKey:kRecurringPaymentBillingAgreementKey];
+}
+
+- (NSString *)applePayRecurringPaymentManagementUrl {
+    return [self.defaults stringForKey:kRecurringPaymentManagementUrlKey];
+}
+
+- (NSCalendarUnit *)applePayRecurringPaymentIntervalUnit {
+    // Todo
+    return NSCalendarUnitMonth;
+//    return [self.defaults dataForKey:kRecurringPaymentIntervalUnitKey];
+}
+
+- (NSInteger)applePayRecurringPaymentIntervalCount {
+    return [self.defaults integerForKey:kRecurringPaymentIntervalCountKey];
+}
+
+- (NSString *)applePayRecurringPaymentLabel {
+    return [self.defaults stringForKey:kRecurringPaymentLabelKey];
+}
+
+- (NSDecimalNumber *)applePayRecurringPaymentAmount {
+    return [self.defaults objectForKey:kRecurringPaymentAmountKey];
+}
+
 #pragma mark - Supported card networks section
 
 - (JPCardNetworkType)supportedCardNetworks {

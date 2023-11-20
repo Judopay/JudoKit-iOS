@@ -700,9 +700,59 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>recurring_payment_billing_agreement_title</string>
+			<key>Key</key>
+			<string>recurring_payment_billing_agreement</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>recurring_payment_management_url_title</string>
 			<key>Key</key>
 			<string>recurring_payment_management_url</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_label_title</string>
+			<key>Key</key>
+			<string>recurring_payment_label</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_amount_title</string>
+			<key>Key</key>
+			<string>recurring_payment_amount</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_interval_unit_title</string>
+			<key>Key</key>
+			<string>recurring_payment_interval_unit</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recurring_payment_interval_count_title</string>
+			<key>Key</key>
+			<string>recurring_payment_interval_count</string>
 			<key>DefaultValue</key>
 			<string></string>
 		</dict>
@@ -725,16 +775,6 @@
 			<string>recurring_payment_end_date</string>
 			<key>DefaultValue</key>
 			<string>DD/MM/YYYY</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>recurring_payment_billing_agreement_title</string>
-			<key>Key</key>
-			<string>recurring_payment_billing_agreement</string>
-			<key>DefaultValue</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>

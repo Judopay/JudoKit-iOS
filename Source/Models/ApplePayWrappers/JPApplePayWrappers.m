@@ -41,10 +41,20 @@
 }
 
 + (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {
-
-    PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
-
+    
+    PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
+    recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
+    recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
+    recurringPayment.intervalUnit = applePayConfiguration.recurringPaymentConfiguration.intervalUnit;
+    recurringPayment.intervalCount = applePayConfiguration.recurringPaymentConfiguration.intervalCount;
+    PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
+    PKRecurringPaymentRequest *recurringPaymentRequest = [
+        [PKRecurringPaymentRequest alloc] initWithPaymentDescription:applePayConfiguration.recurringPaymentConfiguration.paymentDescription
+                                                      regularBilling:recurringPayment
+                                                       managementURL:applePayConfiguration.recurringPaymentConfiguration.managementURL
+    ];
+    recurringPaymentRequest.billingAgreement = applePayConfiguration.recurringPaymentConfiguration.billingAgreement;
     paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
     paymentRequest.countryCode = applePayConfiguration.countryCode;
     paymentRequest.currencyCode = applePayConfiguration.currency;

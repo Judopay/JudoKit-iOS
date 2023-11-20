@@ -25,6 +25,7 @@
 #import "JPCardNetworkType.h"
 #import "JPPaymentShippingMethod.h"
 #import "JPPaymentSummaryItem.h"
+#import "JPRecurringPaymentConfiguration.h"
 #import <Foundation/Foundation.h>
 
 /**
@@ -95,6 +96,9 @@
  *           If not set, defaults to Billing Contact information.
  */
 @property (nonatomic, assign) JPReturnedInfo returnedContactInfo;
+
+// Todo: Add comment.
+@property (nonatomic, strong, nullable) JPRecurringPaymentConfiguration *recurringPaymentConfiguration;
 
 /**
  * Designated initializer necesary for the bare minimum configuration of a PKPaymentRequest object.
