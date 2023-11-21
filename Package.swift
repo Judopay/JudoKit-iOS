@@ -26,7 +26,8 @@ let package = Package(
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
                 .product(name: "Judo3DS2_iOS", package: "Judo3DS2-iOS"),
-                .product(name: "TrustKit", package: "TrustKit")
+                .product(name: "TrustKit", package: "TrustKit"),
+                .product(name: "RavelinEncrypt", package: "ravelin-encrypt-ios-xcframework-distribution")
             ],
             path: "Source",
             resources: [

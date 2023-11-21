@@ -1,0 +1,1 @@
+../Models/CardTransactionDetailsOverrides/JPCardTransactionDetailsOverrides.h
