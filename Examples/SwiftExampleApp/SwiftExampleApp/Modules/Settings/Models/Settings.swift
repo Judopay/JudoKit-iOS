@@ -228,15 +228,13 @@ class Settings {
 
     // MARK: - Recommendation Configuration
 
-    var recommendationConfiguration: RecommendationConfiguration? {
-        if isRecommendationOn {
-            let rsaKey = userDefaults.string(forKey: kRsaKey)
-            let recommendationURL = userDefaults.string(forKey: kRecommendationUrlKey)
-            let recommendationTimeout = userDefaults.integer(forKey: kRecommendationTimeoutKey)
-            return RecommendationConfiguration(rsaKey: rsaKey,
-                                    recommendationURL: recommendationURL,
-                                recommendationTimeout: NSNumber(value: recommendationTimeout)
-            )
+    var recommendationConfiguration: JPRecommendationConfiguration? {
+        if isRecommendationOn,
+           let rsaKey = userDefaults.string(forKey: kRsaKey),
+           let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
+           let URL = URL(string: URLString) {
+           let timeout = NSNumber(integerLiteral: userDefaults.integer(forKey: kRecommendationTimeoutKey))
+            return JPRecommendationConfiguration(url: URL, rsaPublicKey: rsaKey, andTimeout: timeout)
         }
         return nil
     }
