@@ -57,7 +57,7 @@
     [request addValue:kContentTypeJSON forHTTPHeaderField:kHeaderFieldAccept];
 
     [request addValue:authorization.headers[kHeaderFieldPaymentSession]
-   forHTTPHeaderField:kHeaderFieldPaymentSession.lowercaseString];
+        forHTTPHeaderField:kHeaderFieldPaymentSession.lowercaseString];
 
     JPRecommendationRequest *requestBody = [[JPRecommendationRequest alloc] initWithDictionary:details];
     request.HTTPBody = requestBody._jp_toJSONObjectData;
@@ -106,7 +106,6 @@
                                                      authorization:self.authorization
                                                     andCardDetails:cardDetails];
 
-    
     NSURLSessionDataTask *task = [self.urlSession dataTaskWithRequest:request
                                                     completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *__unused error) {
                                                         if (!completion) {
