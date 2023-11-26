@@ -4,7 +4,7 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.1.4)
-  - JudoKit-iOS (3.2.6):
+  - JudoKit-iOS (3.2.7):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.1.4)
     - RavelinEncrypt (= 1.1.1)
@@ -119,6 +119,6 @@ SPEC CHECKSUMS:
   RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: 176fb3f3bcacd6701b5e0f08fc6c43efbcb36e3f
+PODFILE CHECKSUM: 6db5e08edf261fc1a1880ba55cd7ee15ea009c0f
 
 COCOAPODS: 1.13.0
