@@ -481,4 +481,10 @@ NSString *safeString(NSString *aString) {
     return [self timeoutForKey:kWriteTimeoutKey];
 }
 
+- (void)updateAuthorizationWithPaymentSession:(NSString *)session
+                                     andToken:(NSString *)token {
+    [self.defaults setValue:session forKey:kPaymentSessionKey];
+    [self.defaults setValue:token forKey:kSessionTokenKey];
+}
+
 @end

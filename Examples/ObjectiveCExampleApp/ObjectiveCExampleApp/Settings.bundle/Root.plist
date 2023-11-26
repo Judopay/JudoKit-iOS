@@ -66,13 +66,11 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
 			<string>generate_payment_session_title</string>
 			<key>Key</key>
 			<string>generate_payment_session</string>
-			<key>DefaultValue</key>
-			<false/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

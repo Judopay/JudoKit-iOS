@@ -254,6 +254,10 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSString *)recommendationUrl;
 - (NSNumber *)recommendationTimeout;
 
+#pragma mark - Payment session
+- (void)updateAuthorizationWithPaymentSession:(nullable NSString *)session
+                                     andToken:(nullable NSString *)token;
+
 @end
 
 NS_ASSUME_NONNULL_END

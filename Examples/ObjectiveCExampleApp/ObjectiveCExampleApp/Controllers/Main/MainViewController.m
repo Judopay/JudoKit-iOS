@@ -37,6 +37,7 @@
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
 #import "UIViewController+Additions.h"
+#import "MainViewController+Additions.h"
 
 static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
@@ -124,6 +125,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if ([segue.destinationViewController isKindOfClass:IASKAppSettingsViewController.class]) {
         IASKAppSettingsViewController *controller = segue.destinationViewController;
         controller.neverShowPrivacySettings = YES;
+        controller.delegate = self;
         [controller updateHiddenKeys];
     }
     if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {

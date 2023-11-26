@@ -126,4 +126,7 @@ static NSString *const kSCAExemptionSecureCorporate = @"secureCorporate";
 static NSString *const kSCAExemptionTrustedBeneficiary = @"trustedBeneficiary";
 static NSString *const kSCAExemptionTransactionRiskAnalysis = @"transactionRiskAnalysis";
 
+static NSString *const kHeaderFieldPaymentSession = @"Payment-Session";
+static NSString *const kHeaderFieldAuthorization = @"Authorization";
+
 #endif /* JPConstants_h */

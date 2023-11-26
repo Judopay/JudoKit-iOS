@@ -88,11 +88,8 @@ DEPENDENCIES:
   - Judo3DS2_iOS (= 1.1.4)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
-  - RavelinEncrypt (= 1.1.1)
 
 SPEC REPOS:
-  https://github.com/unravelin/Specs.git:
-    - RavelinEncrypt
   trunk:
     - CocoaDebug
     - DeviceDNA
@@ -102,6 +99,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - OpenSSL-Universal
+    - RavelinEncrypt
     - TrustKit
 
 EXTERNAL SOURCES:
@@ -118,9 +116,9 @@ SPEC CHECKSUMS:
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
-  RavelinEncrypt: 9be18f0914f1322a01564bb1d55dc18d966549e4
+  RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: f3279e157c13146d8a58e7dadaaa35159422ff57
+PODFILE CHECKSUM: 176fb3f3bcacd6701b5e0f08fc6c43efbcb36e3f
 
 COCOAPODS: 1.13.0

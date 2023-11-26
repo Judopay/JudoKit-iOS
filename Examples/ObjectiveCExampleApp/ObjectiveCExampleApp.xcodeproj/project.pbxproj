@@ -21,6 +21,7 @@
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
+		448D16D22B13EE9400FB826A /* MainViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 448D16D12B13EE9400FB826A /* MainViewController+Additions.m */; };
 		4490D14824882747004290DD /* ResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14324882747004290DD /* ResultTableViewController.m */; };
 		4490D14924882747004290DD /* ResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14524882747004290DD /* ResultItem.m */; };
 		4490D14A24882747004290DD /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14724882747004290DD /* Result.m */; };
@@ -39,7 +40,6 @@
 		D108FDA12A582165009DA094 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108FDA02A582165009DA094 /* TestData.swift */; };
 		D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B68382ADFE066007F1CA3 /* Helpers.swift */; };
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
-		D21EF6FD4D1EBCC87D2568C3 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56B6682E26AB28781B16D586 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +90,8 @@
 		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1C42450DE93004A11CB /* ObjectiveCExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		448D16D02B13EE9400FB826A /* MainViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MainViewController+Additions.h"; sourceTree = "<group>"; };
+		448D16D12B13EE9400FB826A /* MainViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+Additions.m"; sourceTree = "<group>"; };
 		4490D14224882747004290DD /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
 		4490D14324882747004290DD /* ResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTableViewController.m; sourceTree = "<group>"; };
 		4490D14424882747004290DD /* ResultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultItem.h; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 		449495242450F15C0050C6A0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
-		56B6682E26AB28781B16D586 /* Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp_ObjectiveCExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3F2F9461483880E68B818 /* Pods-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -377,6 +378,8 @@
 				44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */,
 				992C3BA62ACAC7570029DB86 /* CreatePaymentSessionRequest.h */,
 				992C3BA72ACAC77C0029DB86 /* CreatePaymentSessionRequest.m */,
+				448D16D02B13EE9400FB826A /* MainViewController+Additions.h */,
+				448D16D12B13EE9400FB826A /* MainViewController+Additions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
 				4490D14824882747004290DD /* ResultTableViewController.m in Sources */,
+				448D16D22B13EE9400FB826A /* MainViewController+Additions.m in Sources */,
 				44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */,
 				992C3BA82ACAC77C0029DB86 /* CreatePaymentSessionRequest.m in Sources */,
 				4490D14A24882747004290DD /* Result.m in Sources */,

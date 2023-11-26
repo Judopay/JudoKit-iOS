@@ -53,12 +53,11 @@
         request.timeoutInterval = configuration.timeout.doubleValue;
     }
 
-    [request addValue:kHeaderFieldContentType forHTTPHeaderField:kContentTypeJSON];
-    [request addValue:kHeaderFieldAccept forHTTPHeaderField:kContentTypeJSON];
+    [request addValue:kContentTypeJSON forHTTPHeaderField:kHeaderFieldContentType];
+    [request addValue:kContentTypeJSON forHTTPHeaderField:kHeaderFieldAccept];
 
-    [authorization.headers enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *__unused stop) {
-        [request addValue:obj forHTTPHeaderField:key.lowercaseString];
-    }];
+    [request addValue:authorization.headers[kHeaderFieldPaymentSession]
+   forHTTPHeaderField:kHeaderFieldPaymentSession.lowercaseString];
 
     JPRecommendationRequest *requestBody = [[JPRecommendationRequest alloc] initWithDictionary:details];
     request.HTTPBody = requestBody._jp_toJSONObjectData;
@@ -83,9 +82,7 @@
         self.authorization = authorization;
         self.configuration = configuration;
 
-        self.urlSession = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration
-                                                        delegate:self
-                                                   delegateQueue:nil];
+        self.urlSession = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration];
     }
     return self;
 }
@@ -109,8 +106,9 @@
                                                      authorization:self.authorization
                                                     andCardDetails:cardDetails];
 
+    
     NSURLSessionDataTask *task = [self.urlSession dataTaskWithRequest:request
-                                                    completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
+                                                    completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *__unused error) {
                                                         if (!completion) {
                                                             return;
                                                         }
