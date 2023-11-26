@@ -19,9 +19,9 @@
     NSSet *hiddenKeys;
 
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey ]];
     } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
     }
