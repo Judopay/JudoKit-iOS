@@ -136,7 +136,7 @@
     NSString *month = components.firstObject;
     NSString *year = components.lastObject;
     NSString *nameOnCard = details.cardholderName;
-    
+
     if (pan && month && year && nameOnCard) {
         NSDictionary *payload = [RVNEncryption.sharedInstance encrypt:pan
                                                                 month:month
@@ -147,7 +147,7 @@
             return payload;
         }
     }
-    
+
     return nil;
 }
 
