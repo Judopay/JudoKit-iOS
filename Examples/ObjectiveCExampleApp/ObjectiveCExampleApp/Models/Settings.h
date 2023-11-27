@@ -211,6 +211,8 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSInteger)applePayRecurringPaymentIntervalCount;
 - (NSString *)applePayRecurringPaymentLabel;
 - (NSString *)applePayRecurringPaymentAmount;
+- (NSString *)applePayRecurringPaymentStartDate;
+- (NSString *)applePayRecurringPaymentEndDate;
 
 #pragma mark - Supported card networks section
 

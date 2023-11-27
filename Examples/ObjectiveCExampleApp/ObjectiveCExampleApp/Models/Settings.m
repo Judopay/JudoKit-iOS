@@ -214,6 +214,14 @@ NSString *safeString(NSString *aString) {
     return [self.defaults objectForKey:kRecurringPaymentAmountKey];
 }
 
+- (NSString *)applePayRecurringPaymentStartDate {
+    return [self.defaults stringForKey:kRecurringPaymentStartDateKey];
+}
+
+- (NSString *)applePayRecurringPaymentEndDate {
+    return [self.defaults stringForKey:kRecurringPaymentEndDateKey];
+}
+
 #pragma mark - Supported card networks section
 
 - (JPCardNetworkType)supportedCardNetworks {

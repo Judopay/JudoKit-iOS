@@ -43,11 +43,18 @@
 + (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
     
+    // Todo: move to formatters
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    
     PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
     recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
     recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
     recurringPayment.intervalUnit = applePayConfiguration.recurringPaymentConfiguration.intervalUnit;
     recurringPayment.intervalCount = applePayConfiguration.recurringPaymentConfiguration.intervalCount;
+    recurringPayment.startDate = [dateFormatter dateFromString:applePayConfiguration.recurringPaymentConfiguration.startDate];
+    recurringPayment.endDate = [dateFormatter dateFromString:applePayConfiguration.recurringPaymentConfiguration.endDate];
+    
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
     PKRecurringPaymentRequest *recurringPaymentRequest = [
         [PKRecurringPaymentRequest alloc] initWithPaymentDescription:applePayConfiguration.recurringPaymentConfiguration.paymentDescription
@@ -62,13 +69,10 @@
     paymentRequest.merchantCapabilities = [self pkMerchantCapabilitiesForConfiguration:configuration];
     paymentRequest.shippingType = [self pkShippingTypeForConfiguration:configuration];
     paymentRequest.shippingMethods = [self pkShippingMethodsForConfiguration:configuration];
-
     JPContactField requiredShippingContactFields = applePayConfiguration.requiredShippingContactFields;
     JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
-
     NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
     NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
-
     paymentRequest.requiredShippingContactFields = pkShippingFields;
     paymentRequest.requiredBillingContactFields = pkBillingFields;
     paymentRequest.paymentSummaryItems = [self pkPaymentSummaryItemsForConfiguration:configuration];
