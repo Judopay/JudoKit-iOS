@@ -25,11 +25,11 @@
 #import "JPSession.h"
 #import "Functions.h"
 #import "JPAuthorization.h"
+#import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPReachability.h"
 #import "JPResponse.h"
 #import "JPSessionConfiguration.h"
-#import "JudoKit.h"
 #import "NSObject+Additions.h"
 
 #if SWIFT_PACKAGE
@@ -43,15 +43,8 @@
 static NSString *const kAPIVersion = @"6.20.0.0";
 static NSString *const kBankPrefix = @"order/bank";
 static NSString *const kBankSaleAPIVersion = @"2.0.0.0";
-static NSString *const kContentTypeJSON = @"application/json";
-static NSString *const kHeaderFieldContentType = @"Content-Type";
-static NSString *const kHeaderFieldAccept = @"Accept";
 static NSString *const kHeaderFieldAPIVersion = @"API-Version";
 static NSString *const kHeaderFieldUserAgent = @"User-Agent";
-
-static NSString *const kMethodGET = @"GET";
-static NSString *const kMethodPOST = @"POST";
-static NSString *const kMethodPUT = @"PUT";
 
 @interface JPSession () <NSURLSessionDelegate>
 @property (nonatomic, strong, readwrite) TrustKit *trustKit;

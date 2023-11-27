@@ -35,7 +35,8 @@ typedef NS_ENUM(NSUInteger, JudoError) {
     JudoRequestError,
     Judo3DSRequestError,
     JudoUserDidCancelError,
-    JudoErrorThreeDSTwo
+    JudoErrorThreeDSTwo,
+    JudoRecommendationError
 };
 
 @interface JPError (Additions)
@@ -160,5 +161,12 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)threeDSTwoErrorFromException:(nonnull NSException *)exception;
 + (nonnull JPError *)threeDSTwoErrorFromProtocolErrorEvent:(nonnull JP3DSProtocolErrorEvent *)event;
 + (nonnull JPError *)threeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
+
++ (nonnull JPError *)recommendationServerPreventedTransactionError;
+
++ (nonnull JPError *)invalidRecommendationAuthorizationTypeError;
++ (nonnull JPError *)invalidRecommendationURLError;
++ (nonnull JPError *)invalidRecommendationRSAPublicKeyError;
++ (nonnull JPError *)invalidRecommendationTimeoutError;
 
 @end

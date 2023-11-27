@@ -169,6 +169,21 @@
 "error_invalid_token_payment_transaction_type_desc" = "Token payments transactions only support JPTransactionTypePayment and JPTransactionTypePreAuth as the transaction type.";
 "error_invalid_token_payment_transaction_type_reason" = "Invalid transaction type passed to token payment transaction configuration.";
 
+"error_recommendation_server_prevented_transaction_desc" = "The recommendation server has prevented this transaction.";
+"error_recommendation_server_prevented_transaction_reason" = "It appears that the transaction you attempted to make has been blocked by the recommendation server.";
+
+"error_recommendation_invalid_authorization_type_desc" = "Payment session is required for using the recommendation feature.";
+"error_recommendation_invalid_authorization_type_reason" = "To use the recommendation feature, it is mandatory to have a payment session.";
+
+"error_recommendation_invalid_URL_desc" = "The URL field in the recommendation configuration is required.";
+"error_recommendation_invalid_URL_reason" = "It is mandatory to provide a URL in the recommendation configuration.";
+
+"error_recommendation_invalid_rsa_public_key_desc" = "The RSAPublicKey field in the recommendation configuration is required.";
+"error_recommendation_invalid_rsa_public_key_reason" = "It is mandatory to provide a RSAPublicKey in the recommendation configuration.";
+
+"error_recommendation_invalid_timeout_desc" = "The timeout value provided in the recommendation configuration must be a number.";
+"error_recommendation_invalid_timeout_reason" = "The timeout in the recommendation configuration should be an instance of NSNumber.";
+
 "continue_text" = "Continue";
 "add_address_line" = "Add address line %@ (optional)";
 "billing_details_title" = "Billing Details";

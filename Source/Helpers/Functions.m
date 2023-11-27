@@ -26,7 +26,8 @@
 #import <ifaddrs.h>
 
 #import "Functions.h"
-#import "JudoKit.h"
+#import "JPConstants.h"
+#import "JPSubProductInfo.h"
 #import "NSString+Additions.h"
 #import <sys/utsname.h>
 
@@ -108,7 +109,7 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
     NSMutableArray<NSString *> *userAgentParts = [NSMutableArray new];
 
     // Base user agent
-    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", kUserAgentProductName, JudoKitVersion]];
+    [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", kUserAgentProductName, kJudoKitVersion]];
 
     if (subProductInfo.subProductType == JPSubProductTypeReactNative) {
         [userAgentParts addObject:[NSString stringWithFormat:@"(%@/%@)", kUserAgentSubProductNameReactNative, subProductInfo.version]];
@@ -122,8 +123,7 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
 
     if (appName && appVersion) {
         // App Name and version
-        NSString *appNameMinusSpaces = [appName _jp_stringByRemovingWhitespaces];
-        [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appNameMinusSpaces, appVersion]];
+        [userAgentParts addObject:[NSString stringWithFormat:@"%@/%@", appName, appVersion]];
     }
 
     // Model

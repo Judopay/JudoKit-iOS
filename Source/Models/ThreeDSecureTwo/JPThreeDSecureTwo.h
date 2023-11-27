@@ -66,5 +66,4 @@
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
            andAuthenticationRequestParameters:(nonnull JP3DSAuthenticationRequestParameters *)params;
-
 @end

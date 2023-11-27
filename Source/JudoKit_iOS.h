@@ -102,6 +102,8 @@
 #import "JPCardTransactionDetails.h"
 #import "JPCardTransactionService.h"
 
+#import "JPRecommendationConfiguration.h"
+
 #import "NSBundle+Additions.h"
 #import "NSNumber+Additions.h"
 #import "NSString+Additions.h"

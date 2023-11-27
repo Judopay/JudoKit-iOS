@@ -32,7 +32,8 @@
     JPSaveCardRequest,
     JPCheckCardRequest,
     JPConfiguration,
-    JP3DSTransaction;
+    JP3DSTransaction,
+    JPCardTransactionDetailsOverrides;
 
 @interface JPCardTransactionDetails (Additions)
 
@@ -51,30 +52,36 @@
 - (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                           softDeclineReceiptId:(nullable NSString *)receiptId
-                                                 andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                  softDeclineReceiptId:(nullable NSString *)receiptId
-                                                        andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nullable NSString *)receiptId
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                       softDeclineReceiptId:(nullable NSString *)receiptId
-                                             andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                     softDeclineReceiptId:(nullable NSString *)receiptId
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
-
 - (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                    andTransaction:(nonnull JP3DSTransaction *)transaction;
 
 - (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                      andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPaymentRequest *)toPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                      overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                 andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                             overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                        andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                  overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                             andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                                overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                                overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                           andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
+                                                          overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
+                                                     andTransaction:(nonnull JP3DSTransaction *)transaction;
+
+- (nonnull NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed;
 
 @end

@@ -75,7 +75,6 @@ class FeatureService {
         let config = JPConfiguration(judoID: settings.judoId,
                                      amount: settings.amount,
                                      reference: settings.reference)
-
         config.paymentMethods = settings.paymentMethods
         config.uiConfiguration = uiConfiguration
         config.uiConfiguration.threeDSUICustomization = settings.threeDSUICustomization
@@ -97,7 +96,7 @@ class FeatureService {
         if let messageVersion = settings.threeDSTwoMessageVersion, !messageVersion.isEmpty {
             config.threeDSTwoMessageVersion = messageVersion
         }
-
+        config.recommendationConfiguration = settings.recommendationConfiguration
         return config
     }
 

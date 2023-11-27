@@ -24,6 +24,7 @@
 
 #import "JPBasicAuthorization.h"
 #import "Functions.h"
+#import "JPConstants.h"
 
 @implementation JPBasicAuthorization {
     NSDictionary<NSString *, NSString *> *_headers;
@@ -42,7 +43,7 @@
                     andSecret:(NSString *)secret {
 
     if (self = [super init]) {
-        _headers = @{@"Authorization" : generateBasicAuthHeader(token, secret)};
+        _headers = @{kHeaderFieldAuthorization : generateBasicAuthHeader(token, secret)};
     }
 
     return self;

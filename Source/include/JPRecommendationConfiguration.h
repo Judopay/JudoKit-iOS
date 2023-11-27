@@ -1,0 +1,1 @@
+../Models/RecommendationConfiguration/JPRecommendationConfiguration.h

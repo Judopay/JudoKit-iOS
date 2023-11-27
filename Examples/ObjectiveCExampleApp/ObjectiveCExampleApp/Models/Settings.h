@@ -18,7 +18,7 @@ static NSString *const kSecretKey = @"secret";
 
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
-
+static NSString *const kGeneratePaymentSessionKey = @"generate_payment_session";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 
@@ -37,6 +37,12 @@ static NSString *const kPrimaryAccountNameKey = @"primary_account_name";
 static NSString *const kPrimaryAccountAccountNumberKey = @"primary_account_account_number";
 static NSString *const kPrimaryAccountDateOfBirthKey = @"primary_account_date_of_birth";
 static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code";
+
+#pragma mark - Recommendation Feature section keys
+static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
+static NSString *const kRsaKey = @"rsa_key";
+static NSString *const kRecommendationUrlKey = @"recommendation_url";
+static NSString *const kRecommendationApiTimeoutKey = @"recommendation_api_timeout";
 
 #pragma mark - 3DS 2.0 section keys
 
@@ -186,7 +192,12 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 
 - (id<JPAuthorization>)authorization;
 
+- (NSString *)token;
+
+- (NSString *)secret;
+
 @property (nonatomic, assign) BOOL isTokenAndSecretAuthorizationOn;
+@property (nonatomic, assign) BOOL isRecommendationFeatureOn;
 @property (nonatomic, assign) BOOL isPaymentSessionAuthorizationOn;
 
 #pragma mark - Payment reference section
@@ -229,6 +240,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)shouldPaymentButtonDisplayAmount;
 - (BOOL)shouldPaymentMethodsVerifySecurityCode;
 - (BOOL)isInitialRecurringPaymentEnabled;
+- (BOOL)isRecommendationFeatureOn;
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isRecurringPaymentOn;
@@ -253,10 +265,20 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (nullable NSString *)scaExemption;
 - (int)threeDsTwoMaxTimeout;
 - (nullable NSString *)threeDSTwoMessageVersion;
+- (nullable JP3DSUICustomization *)threeDSUICustomization;
 - (nonnull NSNumber *)connectTimeout;
 - (nonnull NSNumber *)readTimeout;
 - (nonnull NSNumber *)writeTimeout;
-- (nullable JP3DSUICustomization *)threeDSUICustomization;
+
+#pragma mark - Recommendation Feature
+- (NSString *)rsaKey;
+- (NSString *)recommendationUrl;
+- (NSNumber *)recommendationTimeout;
+
+#pragma mark - Payment session
+- (void)updateAuthorizationWithPaymentSession:(nullable NSString *)session
+                                     andToken:(nullable NSString *)token;
+
 @end
 
 NS_ASSUME_NONNULL_END
