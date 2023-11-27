@@ -132,16 +132,23 @@
     NSError *error;
     NSArray *components = [details.expiryDate componentsSeparatedByString:@"/"];
 
-    NSDictionary *payload = [RVNEncryption.sharedInstance encrypt:details.cardNumber
-                                                            month:components.firstObject
-                                                             year:components.lastObject
-                                                       nameOnCard:details.cardholderName
-                                                            error:&error];
-    if (!error) {
-        return payload;
-    } else {
-        return nil;
+    NSString *pan = details.cardNumber;
+    NSString *month = components.firstObject;
+    NSString *year = components.lastObject;
+    NSString *nameOnCard = details.cardholderName;
+    
+    if (pan && month && year && nameOnCard) {
+        NSDictionary *payload = [RVNEncryption.sharedInstance encrypt:pan
+                                                                month:month
+                                                                 year:year
+                                                           nameOnCard:nameOnCard
+                                                                error:&error];
+        if (!error) {
+            return payload;
+        }
     }
+    
+    return nil;
 }
 
 - (void)setConfiguration:(JPRecommendationConfiguration *)configuration {
