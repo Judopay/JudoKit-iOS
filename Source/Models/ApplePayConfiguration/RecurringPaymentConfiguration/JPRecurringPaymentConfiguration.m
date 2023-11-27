@@ -11,14 +11,14 @@
 @implementation JPRecurringPaymentConfiguration
 
 - (instancetype)initWithDescription:(NSString *)paymentDescription
-                   billingAgreement:(nullable NSString *)billingAgreement
+                   billingAgreement:(NSString *)billingAgreement
                       managementURL:(NSString *)managementURL
                               label:(NSString *)label
                              amount:(NSDecimalNumber *)amount
                        intervalUnit:(NSCalendarUnit *)intervalUnit
                       intervalCount:(NSInteger *)intervalCount
                           startDate:(NSString *)startDate
-                            endDate:(NSString *)endDate {
+                         andEndDate:(NSString *)endDate {
     self = [super init];
     if (self) {
         _paymentDescription = paymentDescription;

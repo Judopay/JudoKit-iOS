@@ -23,7 +23,7 @@
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey, kIsRecurringPaymentOnKey]) {
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey] || [keys containsObject:kIsRecurringPaymentOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey ]];
     }
 
@@ -114,7 +114,6 @@
         ]];
     }
 
-//    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isInitialRecurringPaymentEnabled) {
     if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isRecurringPaymentOn) {
         [hiddenKeys removeObjectsInArray:@[
             kRecurringPaymentDescriptionKey,

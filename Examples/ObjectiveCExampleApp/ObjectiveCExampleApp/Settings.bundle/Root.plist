@@ -786,13 +786,29 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>recurring_payment_interval_unit_title</string>
 			<key>Key</key>
 			<string>recurring_payment_interval_unit</string>
+			<key>Values</key>
+			<array>
+				<integer>64</integer>
+				<integer>32</integer>
+				<integer>16</integer>
+				<integer>8</integer>
+				<integer>4</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>recurring_payment_interval_unit_minute</string>
+				<string>recurring_payment_interval_unit_hour</string>
+				<string>recurring_payment_interval_unit_day</string>
+				<string>recurring_payment_interval_unit_month</string>
+				<string>recurring_payment_interval_unit_year</string>
+			</array>
 			<key>DefaultValue</key>
-			<string></string>
+			<integer>8</integer>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -812,7 +828,7 @@
 			<key>Key</key>
 			<string>recurring_payment_start_date</string>
 			<key>DefaultValue</key>
-			<string>DD/MM/YYYY</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -822,7 +838,7 @@
 			<key>Key</key>
 			<string>recurring_payment_end_date</string>
 			<key>DefaultValue</key>
-			<string>DD/MM/YYYY</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>

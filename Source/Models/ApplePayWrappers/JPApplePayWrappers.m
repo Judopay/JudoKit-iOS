@@ -26,6 +26,7 @@
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayTypes.h"
 #import "JPConfiguration.h"
+#import "JPFormatters.h"
 
 @implementation JPApplePayWrappers
 
@@ -42,26 +43,23 @@
 
 + (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
-    
-    // Todo: move to formatters
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    
-    PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
-    recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
-    recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
-    recurringPayment.intervalUnit = applePayConfiguration.recurringPaymentConfiguration.intervalUnit;
-    recurringPayment.intervalCount = applePayConfiguration.recurringPaymentConfiguration.intervalCount;
-    recurringPayment.startDate = [dateFormatter dateFromString:applePayConfiguration.recurringPaymentConfiguration.startDate];
-    recurringPayment.endDate = [dateFormatter dateFromString:applePayConfiguration.recurringPaymentConfiguration.endDate];
-    
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
-    PKRecurringPaymentRequest *recurringPaymentRequest = [
-        [PKRecurringPaymentRequest alloc] initWithPaymentDescription:applePayConfiguration.recurringPaymentConfiguration.paymentDescription
-                                                      regularBilling:recurringPayment
-                                                       managementURL:applePayConfiguration.recurringPaymentConfiguration.managementURL
-    ];
-    recurringPaymentRequest.billingAgreement = applePayConfiguration.recurringPaymentConfiguration.billingAgreement;
+
+    if (@available(iOS 15.0, *)) {
+        PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
+        recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
+        recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
+        recurringPayment.intervalUnit = applePayConfiguration.recurringPaymentConfiguration.intervalUnit;
+        recurringPayment.intervalCount = applePayConfiguration.recurringPaymentConfiguration.intervalCount;
+        recurringPayment.startDate = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:applePayConfiguration.recurringPaymentConfiguration.startDate];
+        recurringPayment.endDate = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:applePayConfiguration.recurringPaymentConfiguration.endDate];
+        PKRecurringPaymentRequest *recurringPaymentRequest = [[PKRecurringPaymentRequest alloc] initWithPaymentDescription:applePayConfiguration.recurringPaymentConfiguration.paymentDescription
+                                                                                                            regularBilling:recurringPayment
+                                                                                                             managementURL:[NSURL URLWithString:applePayConfiguration.recurringPaymentConfiguration.managementURL]];
+        recurringPaymentRequest.billingAgreement = applePayConfiguration.recurringPaymentConfiguration.billingAgreement;
+        paymentRequest.recurringPaymentRequest = recurringPaymentRequest;
+    }
+
     paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
     paymentRequest.countryCode = applePayConfiguration.countryCode;
     paymentRequest.currencyCode = applePayConfiguration.currency;

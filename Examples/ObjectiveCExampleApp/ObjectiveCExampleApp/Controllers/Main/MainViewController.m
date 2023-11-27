@@ -387,7 +387,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                    intervalUnit:Settings.defaultSettings.applePayRecurringPaymentIntervalUnit
                   intervalCount:Settings.defaultSettings.applePayRecurringPaymentIntervalCount
                       startDate:Settings.defaultSettings.applePayRecurringPaymentStartDate
-                        endDate:Settings.defaultSettings.applePayRecurringPaymentEndDate
+                     andEndDate:Settings.defaultSettings.applePayRecurringPaymentEndDate
         ];
     }
     return configuration;

@@ -218,7 +218,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSString *)applePayRecurringPaymentDescription;
 - (nullable NSString *)applePayRecurringPaymentBillingAgreement;
 - (NSString *)applePayRecurringPaymentManagementUrl;
-- (NSCalendarUnit *)applePayRecurringPaymentIntervalUnit;
+- (NSCalendarUnit)applePayRecurringPaymentIntervalUnit;
 - (NSInteger)applePayRecurringPaymentIntervalCount;
 - (NSString *)applePayRecurringPaymentLabel;
 - (NSString *)applePayRecurringPaymentAmount;

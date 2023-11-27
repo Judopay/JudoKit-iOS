@@ -208,10 +208,8 @@ NSString *safeString(NSString *aString) {
     return [self.defaults stringForKey:kRecurringPaymentManagementUrlKey];
 }
 
-- (NSCalendarUnit *)applePayRecurringPaymentIntervalUnit {
-    // Todo
-    return NSCalendarUnitMonth;
-//    return [self.defaults dataForKey:kRecurringPaymentIntervalUnitKey];
+- (NSCalendarUnit)applePayRecurringPaymentIntervalUnit {
+    return (NSCalendarUnit)[self.defaults integerForKey:kRecurringPaymentIntervalUnitKey];
 }
 
 - (NSInteger)applePayRecurringPaymentIntervalCount {

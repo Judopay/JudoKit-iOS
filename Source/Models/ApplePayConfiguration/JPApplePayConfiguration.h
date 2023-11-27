@@ -97,7 +97,11 @@
  */
 @property (nonatomic, assign) JPReturnedInfo returnedContactInfo;
 
-// Todo: Add comment.
+/**
+ * [OPTIONAL] Recurring Payment configuration object.
+ *
+ * * [NOTE: Recurring Payment is only available starting with iOS 15.0]
+ */
 @property (nonatomic, strong, nullable) JPRecurringPaymentConfiguration *recurringPaymentConfiguration;
 
 /**
