@@ -17,7 +17,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/Judopay/DeviceDNA-iOS", from: "2.0.0"),
         .package(url: "https://github.com/Judopay/Judo3DS2-iOS", from: "1.1.4"),
-        .package(url: "https://github.com/datatheorem/TrustKit", exact: "3.0.3")
+        .package(url: "https://github.com/datatheorem/TrustKit", exact: "3.0.3"),
+        .package(url: "https://github.com/unravelin/ravelin-encrypt-ios-xcframework-distribution", exact: "1.1.1")
     ],
     targets: [
         .target(
@@ -25,7 +26,8 @@ let package = Package(
             dependencies: [
                 .product(name: "DeviceDNA", package: "DeviceDNA-iOS"),
                 .product(name: "Judo3DS2_iOS", package: "Judo3DS2-iOS"),
-                .product(name: "TrustKit", package: "TrustKit")
+                .product(name: "TrustKit", package: "TrustKit"),
+                .product(name: "RavelinEncrypt", package: "ravelin-encrypt-ios-xcframework-distribution")
             ],
             path: "Source",
             resources: [

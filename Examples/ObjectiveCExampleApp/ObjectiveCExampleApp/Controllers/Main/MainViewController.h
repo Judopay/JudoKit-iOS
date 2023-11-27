@@ -26,6 +26,8 @@
 
 @interface MainViewController : UIViewController
 
+- (void)displaySnackBarWith:(nullable NSString *)text;
+
 @end
 
 @interface MainViewController (TableViewDelegates) <UITableViewDataSource, UITableViewDelegate>

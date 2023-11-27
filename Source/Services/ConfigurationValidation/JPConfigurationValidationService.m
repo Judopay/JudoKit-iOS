@@ -28,11 +28,21 @@
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPRecommendationConfiguration.h"
 #import "JPReference.h"
+#import "JPSessionAuthorization.h"
+#import "NSString+Additions.h"
 
 @implementation JPConfigurationValidationServiceImp
 
 #pragma mark - Public methods
+
+- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization {
+    if (self = [self init]) {
+        _authorization = authorization;
+    }
+    return self;
+}
 
 - (JPError *)validateConfiguration:(JPConfiguration *)configuration
                 forTransactionType:(JPTransactionType)transactionType {
@@ -42,6 +52,7 @@
     [self checkAmount:configuration.amount transactionType:transactionType error:&error];
     [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
+    [self checkRecommendationConfiguration:configuration transactionType:transactionType error:&error];
 
     return error;
 }
@@ -157,6 +168,33 @@
     if (!(isTypeCheckCard || isTypeSaveCard || isTypeRegisterCard)) {
         [self checkForValidCurrency:amount.currency error:error];
         [self checkIfAmountIsNumber:amount.amount error:error];
+    }
+}
+
+- (void)checkRecommendationConfiguration:(JPConfiguration *)configuration
+                         transactionType:(JPTransactionType)transactionType
+                                   error:(NSError **)error {
+    JPRecommendationConfiguration *recommendationConfiguration = configuration.recommendationConfiguration;
+    if (recommendationConfiguration &&
+            transactionType == JPTransactionTypePayment ||
+        transactionType == JPTransactionTypePreAuth ||
+        transactionType == JPTransactionTypeCheckCard) {
+
+        if (self.authorization.class != JPSessionAuthorization.class) {
+            *error = JPError.invalidRecommendationAuthorizationTypeError;
+        }
+
+        if (!recommendationConfiguration.URL) {
+            *error = JPError.invalidRecommendationURLError;
+        }
+
+        if (recommendationConfiguration.RSAPublicKey._jp_isNullOrEmpty) {
+            *error = JPError.invalidRecommendationRSAPublicKeyError;
+        }
+
+        if (recommendationConfiguration.timeout && ![recommendationConfiguration.timeout isKindOfClass:NSNumber.class]) {
+            *error = JPError.invalidRecommendationTimeoutError;
+        }
     }
 }
 

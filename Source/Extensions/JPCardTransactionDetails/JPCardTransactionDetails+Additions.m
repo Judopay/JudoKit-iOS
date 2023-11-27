@@ -26,8 +26,10 @@
 #import <Foundation/Foundation.h>
 
 #import "JPAddress.h"
+#import "JPCardTransactionDetailsOverrides.h"
 #import "JPCheckCardRequest.h"
 #import "JPConfiguration.h"
+#import "JPConstants.h"
 #import "JPPaymentRequest.h"
 #import "JPPreAuthRequest.h"
 #import "JPPreAuthTokenRequest.h"
@@ -35,16 +37,22 @@
 #import "JPSaveCardRequest.h"
 #import "JPThreeDSecureTwo.h"
 #import "JPTokenRequest.h"
+#import "NSString+Additions.h"
 
 #import <Judo3DS2_iOS/Judo3DS2_iOS.h>
-
-static NSString *const kChallengeAsMandate = @"challengeAsMandate";
 
 @implementation JPCardTransactionDetails (Additions)
 
 - (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
                                          andTransaction:(JP3DSTransaction *)transaction {
     JPPaymentRequest *request = [[JPPaymentRequest alloc] initWithConfiguration:configuration];
+    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
+    return request;
+}
+
+- (JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                                andTransaction:(JP3DSTransaction *)transaction {
+    JPPreAuthRequest *request = [[JPPreAuthRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
     return request;
 }
@@ -56,15 +64,8 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
     return request;
 }
 
-- (nonnull JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                        andTransaction:(nonnull JP3DSTransaction *)transaction {
-    JPPreAuthRequest *request = [[JPPreAuthRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
-    return request;
-}
-
-- (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction {
+- (JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                                                   andTransaction:(JP3DSTransaction *)transaction {
     JPPreAuthTokenRequest *request = [[JPPreAuthTokenRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardTokenDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
     return request;
@@ -74,51 +75,6 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
                                                    andTransaction:(JP3DSTransaction *)transaction {
     JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
-    return request;
-}
-
-- (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
-                                   softDeclineReceiptId:(NSString *)receiptId
-                                         andTransaction:(JP3DSTransaction *)transaction {
-    JPPaymentRequest *request = [self toPaymentRequestWithConfiguration:configuration
-                                                         andTransaction:transaction];
-    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
-    return request;
-}
-
-- (JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(JPConfiguration *)configuration
-                                          softDeclineReceiptId:(NSString *)receiptId
-                                                andTransaction:(JP3DSTransaction *)transaction {
-    JPPreAuthRequest *request = [self toPreAuthPaymentRequestWithConfiguration:configuration
-                                                                andTransaction:transaction];
-    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
-    return request;
-}
-
-- (JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(JPConfiguration *)configuration
-                                             softDeclineReceiptId:(NSString *)receiptId
-                                                   andTransaction:(JP3DSTransaction *)transaction {
-    JPPreAuthTokenRequest *request = [self toPreAuthTokenRequestWithConfiguration:configuration
-                                                                   andTransaction:transaction];
-    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
-    return request;
-}
-
-- (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
-                               softDeclineReceiptId:(NSString *)receiptId
-                                     andTransaction:(JP3DSTransaction *)transaction {
-    JPTokenRequest *request = [self toTokenRequestWithConfiguration:configuration
-                                                     andTransaction:transaction];
-    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
-    return request;
-}
-
-- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                             softDeclineReceiptId:(NSString *)receiptId
-                                                   andTransaction:(JP3DSTransaction *)transaction {
-    JPRegisterCardRequest *request = [self toRegisterCardRequestWithConfiguration:configuration
-                                                                   andTransaction:transaction];
-    [self populateWithSoftDeclineDetailsRequest:request andReceiptId:receiptId];
     return request;
 }
 
@@ -136,14 +92,74 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
     return request;
 }
 
-- (void)populateWithSoftDeclineDetailsRequest:(JPRequest *)request
-                                 andReceiptId:(NSString *)receiptId {
-    if (receiptId.length == 0) {
-        return;
+#pragma mark - Overrides support
+
+- (JPPaymentRequest *)toPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                              overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                         andTransaction:(JP3DSTransaction *)transaction {
+    JPPaymentRequest *request = [self toPaymentRequestWithConfiguration:configuration
+                                                         andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (JPPreAuthRequest *)toPreAuthPaymentRequestWithConfiguration:(JPConfiguration *)configuration
+                                                     overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                                andTransaction:(JP3DSTransaction *)transaction {
+    JPPreAuthRequest *request = [self toPreAuthPaymentRequestWithConfiguration:configuration
+                                                                andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (JPTokenRequest *)toTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                                          overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                     andTransaction:(JP3DSTransaction *)transaction {
+    JPTokenRequest *request = [self toTokenRequestWithConfiguration:configuration
+                                                     andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(JPConfiguration *)configuration
+                                                        overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                                   andTransaction:(JP3DSTransaction *)transaction {
+    JPPreAuthTokenRequest *request = [self toPreAuthTokenRequestWithConfiguration:configuration
+                                                                   andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                                        overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                                   andTransaction:(JP3DSTransaction *)transaction {
+    JPRegisterCardRequest *request = [self toRegisterCardRequestWithConfiguration:configuration
+                                                                   andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(JPConfiguration *)configuration
+                                                  overrides:(JPCardTransactionDetailsOverrides *)overrides
+                                             andTransaction:(JP3DSTransaction *)transaction {
+    JPCheckCardRequest *request = [self toCheckCardRequestWithConfiguration:configuration
+                                                             andTransaction:transaction];
+    [self populateRequest:request withOverrides:overrides];
+    return request;
+}
+
+- (void)populateRequest:(JPRequest *)request withOverrides:(JPCardTransactionDetailsOverrides *)overrides {
+    if (overrides.softDeclineReceiptId._jp_isNotNullOrEmpty) {
+        request.threeDSecure.softDeclineReceiptId = overrides.softDeclineReceiptId;
     }
 
-    request.threeDSecure.softDeclineReceiptId = receiptId;
-    request.threeDSecure.challengeRequestIndicator = kChallengeAsMandate;
+    if (overrides.challengeRequestIndicator._jp_isNotNullOrEmpty) {
+        request.threeDSecure.challengeRequestIndicator = overrides.challengeRequestIndicator;
+    }
+
+    if (overrides.scaExemption._jp_isNotNullOrEmpty) {
+        request.threeDSecure.scaExemption = overrides.scaExemption;
+    }
 }
 
 - (void)populateWithCardTokenDetailsRequest:(JPTokenRequest *)request
@@ -206,6 +222,27 @@ static NSString *const kChallengeAsMandate = @"challengeAsMandate";
         request.phoneCountryCode = code;
         request.mobileNumber = [rest stringByAppendingString:filteredMobileNumber];
     }
+}
+
+- (NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed {
+    NSString *dsServerID = isSandboxed ? @"F000000000" : @"unknown-id";
+
+    switch (self.cardType) {
+        case JPCardNetworkTypeVisa:
+            dsServerID = isSandboxed ? @"F055545342" : @"A000000003";
+            break;
+        case JPCardNetworkTypeMasterCard:
+        case JPCardNetworkTypeMaestro:
+            dsServerID = isSandboxed ? @"F155545342" : @"A000000004";
+            break;
+        case JPCardNetworkTypeAMEX:
+            dsServerID = @"A000000025";
+            break;
+        default:
+            break;
+    }
+
+    return dsServerID;
 }
 
 @end

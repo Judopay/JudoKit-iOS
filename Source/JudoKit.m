@@ -63,16 +63,16 @@
 - (instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization
                allowJailbrokenDevices:(BOOL)jailbrokenDevicesAllowed {
 
-    self = [super init];
-    BOOL isDeviceSupported = !(!jailbrokenDevicesAllowed && UIApplication._jp_isCurrentDeviceJailbroken);
-
-    if (self && isDeviceSupported) {
-        self.configurationValidationService = [JPConfigurationValidationServiceImp new];
-        self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
-        return self;
+    if (!jailbrokenDevicesAllowed && UIApplication._jp_isCurrentDeviceJailbroken) {
+        return nil;
     }
 
-    return nil;
+    if (self = [super init]) {
+        self.configurationValidationService = [[JPConfigurationValidationServiceImp alloc] initWithAuthorization:authorization];
+        self.apiService = [[JPApiService alloc] initWithAuthorization:authorization isSandboxed:self.isSandboxed];
+    }
+
+    return self;
 }
 
 #pragma mark - Public methods
@@ -286,6 +286,7 @@
 - (void)setAuthorization:(id<JPAuthorization>)authorization {
     _authorization = authorization;
     self.apiService.authorization = authorization;
+    [self.configurationValidationService setAuthorization:authorization];
 }
 
 - (void)setSubProductInfo:(JPSubProductInfo *)subProductInfo {

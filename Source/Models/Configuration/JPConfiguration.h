@@ -15,7 +15,7 @@
 //  copies or substantial portions of the Software.
 //
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHx3ANTABILITY,
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -25,7 +25,7 @@
 #import "JPCardNetworkType.h"
 #import <Foundation/Foundation.h>
 
-@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPNetworkTimeout;
+@class JPAmount, JPReference, JPPaymentMethod, JPPrimaryAccountDetails, JPPaymentSummaryItem, JPAddress, JPApplePayConfiguration, JPUIConfiguration, JPNetworkTimeout, JPRecommendationConfiguration;
 
 @interface JPConfiguration : NSObject
 
@@ -123,6 +123,11 @@
 @property (nonatomic, strong, nullable) NSString *threeDSTwoMessageVersion;
 
 @property (nonatomic, assign) BOOL isDelayedAuthorisation;
+
+/**
+ * An instance of JPRecommendationConfiguration required for Recommendation Feature.
+ */
+@property (nonatomic, strong, nullable) JPRecommendationConfiguration *recommendationConfiguration;
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.

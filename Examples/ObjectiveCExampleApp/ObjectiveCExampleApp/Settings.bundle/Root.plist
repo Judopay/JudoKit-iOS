@@ -65,6 +65,14 @@
 			<string>payment_session</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>generate_payment_session_title</string>
+			<key>Key</key>
+			<string>generate_payment_session</string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>Key</key>
@@ -185,6 +193,46 @@
 			<string>UI customization</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>recommendation_feature_header</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>is_recommendation_enabled_title</string>
+			<key>Key</key>
+			<string>is_recommendation_enabled</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>rsa_key_title</string>
+			<key>Key</key>
+			<string>rsa_key</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recommendation_url_title</string>
+			<key>Key</key>
+			<string>recommendation_url</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recommendation_api_timeout_title</string>
+			<key>Key</key>
+			<string>recommendation_api_timeout</string>
 		</dict>
 		<dict>
 			<key>Type</key>

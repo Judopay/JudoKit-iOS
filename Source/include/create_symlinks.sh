@@ -84,6 +84,8 @@ ln -s -f ../Models/Request/JPSaveCardRequest.h JPSaveCardRequest.h
 ln -s -f ../Models/Request/JPCheckCardRequest.h JPCheckCardRequest.h
 ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
 ln -s -f ../Models/Request/JP3DSecureAuthenticationResult.h JP3DSecureAuthenticationResult.h
+ln -s -f ../Models/RecommendationConfiguration/JPRecommendationConfiguration.h JPRecommendationConfiguration.h
+ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
 
 # project headers
 ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h
@@ -177,16 +179,29 @@ ln -s -f ../Extensions/NSNumberFormatter/NSNumberFormatter+Additions.h NSNumberF
 ln -s -f ../Models/CReqParameters/JPCReqParameters.h JPCReqParameters.h
 ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h
 ln -s -f ../Extensions/NSNumber/NSNumber+Additions.h NSNumber+Additions.h
-ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
-ln -s -f ../View/CardInputView/Subviews/JPTransactionScanCardButton.h
-ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h
-ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h
-ln -s -f ../View/CardInputView/Subviews/JPPhoneCodeInputField.h
-ln -s -f ../View/CardInputView/Subviews/JPIntrinsicSizeAwareScrollView.h
-ln -s -f ../View/CardInputView/Subviews/JPForm.h
-ln -s -f ../View/CardInputView/Subviews/JPCardDetailsForm.h
-ln -s -f ../View/CardInputView/Subviews/JPBillingInformationForm.h
-ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBarDelegate.h
-ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBar.h
-ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPPresentationMode.h
-ln -s -f ../Extensions/JPConfiguration/JPConfiguration+Additions.h
+ln -s -f ../View/CardInputView/Subviews/JPTransactionScanCardButton.h JPTransactionScanCardButton.h
+ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h JPSecurityMessageView.h
+ln -s -f ../View/CardInputView/Subviews/JPSecurityMessageView.h JPSecurityMessageView.h
+ln -s -f ../View/CardInputView/Subviews/JPPhoneCodeInputField.h JPPhoneCodeInputField.h
+ln -s -f ../View/CardInputView/Subviews/JPIntrinsicSizeAwareScrollView.h JPIntrinsicSizeAwareScrollView.h
+ln -s -f ../View/CardInputView/Subviews/JPForm.h JPForm.h
+ln -s -f ../View/CardInputView/Subviews/JPCardDetailsForm.h JPCardDetailsForm.h
+ln -s -f ../View/CardInputView/Subviews/JPBillingInformationForm.h JPBillingInformationForm.h
+ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBarDelegate.h JPActionBarDelegate.h
+ln -s -f ../View/CardInputView/Subviews/ActionBar/JPActionBar.h JPActionBar.h
+ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPPresentationMode.h JPPresentationMode.h
+ln -s -f ../Extensions/JPConfiguration/JPConfiguration+Additions.h JPConfiguration+Additions.h
+ln -s -f ../Services/RecommendationService/JPRecommendationService.h JPRecommendationService.h
+ln -s -f ../Services/ConfigurationValidation/JPConfigurationValidationService.h JPConfigurationValidationService.h
+ln -s -f ../Services/CardTransactionService/JPCardTransactionType.h JPCardTransactionType.h
+ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPTransactionOptimisation.h JPTransactionOptimisation.h
+ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationThreeDSChallengePreference.h JPRecommendationOptimisationThreeDSChallengePreference.h
+ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationExemption.h JPRecommendationOptimisationExemption.h
+ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationAction.h JPRecommendationOptimisationAction.h
+ln -s -f ../Models/Response/Recommendation/RecommendationData/JPRecommendationData.h JPRecommendationData.h
+ln -s -f ../Models/Response/Recommendation/RecommendationData/JPRecommendationAction.h JPRecommendationAction.h
+ln -s -f ../Models/Response/Recommendation/JPRecommendationResponse.h JPRecommendationResponse.h
+ln -s -f ../Models/Request/Recommendation/RecommendationPaymentMethod/JPRecommendationPaymentMethod.h JPRecommendationPaymentMethod.h
+ln -s -f ../Models/Request/Recommendation/PaymentMethodCipher/JPPaymentMethodCipher.h JPPaymentMethodCipher.h
+ln -s -f ../Models/Request/Recommendation/JPRecommendationRequest.h JPRecommendationRequest.h
+ln -s -f ../Models/CardTransactionDetailsOverrides/JPCardTransactionDetailsOverrides.h JPCardTransactionDetailsOverrides.h

@@ -21,6 +21,7 @@
 		448AB1AE2450DE93004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AD2450DE93004A11CB /* Assets.xcassets */; };
 		448AB1B12450DE93004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1AF2450DE93004A11CB /* LaunchScreen.storyboard */; };
 		448AB1B42450DE93004A11CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1B32450DE93004A11CB /* main.m */; };
+		448D16D22B13EE9400FB826A /* MainViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 448D16D12B13EE9400FB826A /* MainViewController+Additions.m */; };
 		4490D14824882747004290DD /* ResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14324882747004290DD /* ResultTableViewController.m */; };
 		4490D14924882747004290DD /* ResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14524882747004290DD /* ResultItem.m */; };
 		4490D14A24882747004290DD /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 4490D14724882747004290DD /* Result.m */; };
@@ -31,6 +32,7 @@
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
 		44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */; };
+		992C3BA82ACAC77C0029DB86 /* CreatePaymentSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C3BA72ACAC77C0029DB86 /* CreatePaymentSessionRequest.m */; };
 		9A681C6F059E48D8D97E1C2A /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */; };
 		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
 		C1C16123527954D8D255A70A /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */; };
@@ -88,6 +90,8 @@
 		448AB1BF2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		448AB1C42450DE93004A11CB /* ObjectiveCExampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveCExampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1CA2450DE93004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		448D16D02B13EE9400FB826A /* MainViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MainViewController+Additions.h"; sourceTree = "<group>"; };
+		448D16D12B13EE9400FB826A /* MainViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+Additions.m"; sourceTree = "<group>"; };
 		4490D14224882747004290DD /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
 		4490D14324882747004290DD /* ResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTableViewController.m; sourceTree = "<group>"; };
 		4490D14424882747004290DD /* ResultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultItem.h; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 		78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3F2F9461483880E68B818 /* Pods-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		992C3BA62ACAC7570029DB86 /* CreatePaymentSessionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatePaymentSessionRequest.h; sourceTree = "<group>"; };
+		992C3BA72ACAC77C0029DB86 /* CreatePaymentSessionRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatePaymentSessionRequest.m; sourceTree = "<group>"; };
 		9A48506C24BC1772C11EA8BC /* Pods-ObjectiveCExampleAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppTests/Pods-ObjectiveCExampleAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CEFF4FFEB0483C186BE3DDB /* Pods-ObjectiveCExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A75B352D883915CE8BA154EA /* IASKAppSettingsViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IASKAppSettingsViewController+Additions.h"; sourceTree = "<group>"; };
@@ -370,6 +376,10 @@
 				A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */,
 				44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */,
 				44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */,
+				992C3BA62ACAC7570029DB86 /* CreatePaymentSessionRequest.h */,
+				992C3BA72ACAC77C0029DB86 /* CreatePaymentSessionRequest.m */,
+				448D16D02B13EE9400FB826A /* MainViewController+Additions.h */,
+				448D16D12B13EE9400FB826A /* MainViewController+Additions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -645,7 +655,9 @@
 				449495182450ED870050C6A0 /* MainViewController.m in Sources */,
 				07CD7C582488F67200B253B4 /* ExampleAppStorage.m in Sources */,
 				4490D14824882747004290DD /* ResultTableViewController.m in Sources */,
+				448D16D22B13EE9400FB826A /* MainViewController+Additions.m in Sources */,
 				44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */,
+				992C3BA82ACAC77C0029DB86 /* CreatePaymentSessionRequest.m in Sources */,
 				4490D14A24882747004290DD /* Result.m in Sources */,
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				4490D14924882747004290DD /* ResultItem.m in Sources */,
@@ -852,7 +864,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.7;
+				MARKETING_VERSION = 3.2.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;
@@ -884,7 +896,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.7;
+				MARKETING_VERSION = 3.2.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;

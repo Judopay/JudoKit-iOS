@@ -27,11 +27,14 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString *const kJudoKitName = @"JudoKit_iOS";
+static NSString *const kJudoKitVersion = @"3.2.8";
+
 /* Patterns */
-static NSString *kDefaultPattern = @"XXXX XXXX XXXX XXXX";
-static NSString *kVISAPattern = @"XXXX XXXX XXXX XXXX";
-static NSString *kAMEXPattern = @"XXXX XXXXXX XXXXX";
-static NSString *kDinersClubPattern = @"XXXX XXXXXX XXXX";
+static NSString *const kDefaultPattern = @"XXXX XXXX XXXX XXXX";
+static NSString *const kVISAPattern = @"XXXX XXXX XXXX XXXX";
+static NSString *const kAMEXPattern = @"XXXX XXXXXX XXXXX";
+static NSString *const kDinersClubPattern = @"XXXX XXXXXX XXXX";
 
 static NSString *const kMonthYearDateFormat = @"MM/yy";
 static NSString *const kCurrencyEuro = @"EUR";
@@ -101,4 +104,29 @@ static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";
 static NSString *const kAlpha2CodeCanada = @"CA";
 static NSString *const kAlpha2CodeUSA = @"US";
 static NSString *const kAlpha2CodeUK = @"GB";
+
+static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
+static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";
+
+static NSString *const kContentTypeJSON = @"application/json";
+static NSString *const kHeaderFieldContentType = @"Content-Type";
+static NSString *const kHeaderFieldAccept = @"Accept";
+
+static NSString *const kMethodGET = @"GET";
+static NSString *const kMethodPOST = @"POST";
+static NSString *const kMethodPUT = @"PUT";
+
+static NSString *const kCRINoPreference = @"noPreference";
+static NSString *const kCRINoChallenge = @"noChallenge";
+static NSString *const kCRIChallengePreferred = @"challengePreferred";
+static NSString *const kCRIChallengeAsMandate = @"challengeAsMandate";
+
+static NSString *const kSCAExemptionLowValue = @"lowValue";
+static NSString *const kSCAExemptionSecureCorporate = @"secureCorporate";
+static NSString *const kSCAExemptionTrustedBeneficiary = @"trustedBeneficiary";
+static NSString *const kSCAExemptionTransactionRiskAnalysis = @"transactionRiskAnalysis";
+
+static NSString *const kHeaderFieldPaymentSession = @"Payment-Session";
+static NSString *const kHeaderFieldAuthorization = @"Authorization";
+
 #endif /* JPConstants_h */

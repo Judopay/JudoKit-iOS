@@ -270,4 +270,34 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                   userInfo:userInfo];
 }
 
++ (JPError *)recommendationServerPreventedTransactionError {
+    return [self errorWithDescription:@"error_recommendation_server_prevented_transaction_desc"._jp_localized
+                        failureReason:@"error_recommendation_server_prevented_transaction_reason"._jp_localized
+                               ofType:JudoRecommendationError];
+}
+
++ (JPError *)invalidRecommendationAuthorizationTypeError {
+    return [self errorWithDescription:@"error_recommendation_invalid_authorization_type_desc"._jp_localized
+                        failureReason:@"error_recommendation_invalid_authorization_type_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)invalidRecommendationURLError {
+    return [self errorWithDescription:@"error_recommendation_invalid_URL_desc"._jp_localized
+                        failureReason:@"error_recommendation_invalid_URL_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)invalidRecommendationRSAPublicKeyError {
+    return [self errorWithDescription:@"error_recommendation_invalid_rsa_public_key_desc"._jp_localized
+                        failureReason:@"error_recommendation_invalid_rsa_public_key_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)invalidRecommendationTimeoutError {
+    return [self errorWithDescription:@"error_recommendation_invalid_timeout_desc"._jp_localized
+                        failureReason:@"error_recommendation_invalid_timeout_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
 @end

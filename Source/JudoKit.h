@@ -32,9 +32,6 @@
 @class JPCardTransactionDetails, JPConfiguration, JPPaymentMethod, JPSession;
 @protocol JPAuthorization;
 
-static NSString *__nonnull const JudoKitName = @"JudoKit_iOS";
-static NSString *__nonnull const JudoKitVersion = @"3.2.7";
-
 @interface JudoKit : NSObject
 
 /**

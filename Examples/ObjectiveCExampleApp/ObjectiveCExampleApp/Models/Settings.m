@@ -64,6 +64,14 @@ NSString *safeString(NSString *aString) {
     return [JPBasicAuthorization authorizationWithToken:token andSecret:secret];
 }
 
+- (NSString *)token {
+    return [self.defaults stringForKey:kTokenKey];
+}
+
+- (NSString *)secret {
+    return [self.defaults stringForKey:kSecretKey];
+}
+
 - (void)setIsPaymentSessionAuthorizationOn:(BOOL)isOn {
     [self.defaults setBool:isOn forKey:kIsPaymentSessionOnKey];
 }
@@ -74,6 +82,10 @@ NSString *safeString(NSString *aString) {
 
 - (BOOL)isTokenAndSecretAuthorizationOn {
     return [self.defaults boolForKey:kIsTokenAndSecretOnKey];
+}
+
+- (BOOL)isRecommendationFeatureOn {
+    return [self.defaults boolForKey:kIsRecommendationOnKey];
 }
 
 - (BOOL)isPaymentSessionAuthorizationOn {
@@ -354,18 +366,6 @@ NSString *safeString(NSString *aString) {
     return safeString([self.defaults stringForKey:kThreeDSTwoMessageVersionKey]);
 }
 
-- (NSNumber *)connectTimeout {
-    return [self timeoutForKey:kConnectTimeoutKey];
-}
-
-- (NSNumber *)readTimeout {
-    return [self timeoutForKey:kReadTimeoutKey];
-}
-
-- (NSNumber *)writeTimeout {
-    return [self timeoutForKey:kWriteTimeoutKey];
-}
-
 - (JP3DSUICustomization *)threeDSUICustomization {
     if ([self.defaults boolForKey:kIsThreeDSUICustomisationEnabledKey]) {
         JP3DSUICustomization *customization = [JP3DSUICustomization new];
@@ -442,6 +442,49 @@ NSString *safeString(NSString *aString) {
     }
 
     return nil;
+}
+
+#pragma mark - Recommendation Feature
+
+- (NSString *)rsaKey {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRsaKey];
+    }
+    return nil;
+}
+
+- (NSString *)recommendationUrl {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults stringForKey:kRecommendationUrlKey];
+    }
+    return nil;
+}
+
+- (NSNumber *)recommendationTimeout {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self timeoutForKey:kRecommendationApiTimeoutKey];
+    }
+    return nil;
+}
+
+#pragma mark - Network Timeouts
+
+- (NSNumber *)connectTimeout {
+    return [self timeoutForKey:kConnectTimeoutKey];
+}
+
+- (NSNumber *)readTimeout {
+    return [self timeoutForKey:kReadTimeoutKey];
+}
+
+- (NSNumber *)writeTimeout {
+    return [self timeoutForKey:kWriteTimeoutKey];
+}
+
+- (void)updateAuthorizationWithPaymentSession:(NSString *)session
+                                     andToken:(NSString *)token {
+    [self.defaults setValue:session forKey:kPaymentSessionKey];
+    [self.defaults setValue:token forKey:kSessionTokenKey];
 }
 
 @end

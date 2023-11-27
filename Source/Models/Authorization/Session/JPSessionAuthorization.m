@@ -24,6 +24,7 @@
 
 #import "JPSessionAuthorization.h"
 #import "Functions.h"
+#import "JPConstants.h"
 
 @implementation JPSessionAuthorization {
     NSDictionary<NSString *, NSString *> *_headers;
@@ -43,8 +44,8 @@
 
     if (self = [super init]) {
         _headers = @{
-            @"Authorization" : generateBasicAuthHeader(token, @""),
-            @"Payment-Session" : session
+            kHeaderFieldAuthorization : generateBasicAuthHeader(token, @""),
+            kHeaderFieldPaymentSession : session
         };
     }
     return self;

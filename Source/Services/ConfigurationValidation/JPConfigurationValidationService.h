@@ -25,12 +25,8 @@
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPValidationError) {
-    JPValidationErrorMissingParameter,
-    JPValidationErrorInvalidParameter
-};
-
 @class JPError, JPConfiguration;
+@protocol JPAuthorization;
 
 @protocol JPConfigurationValidationService
 
@@ -57,11 +53,17 @@ typedef NS_ENUM(NSUInteger, JPValidationError) {
  */
 - (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration;
 
+- (void)setAuthorization:(id<JPAuthorization>)authorization;
+
 @end
 
 /**
  * A class that implements the JPConfigurationValidationService protocol
  */
 @interface JPConfigurationValidationServiceImp : NSObject <JPConfigurationValidationService>
+
+- (nonnull instancetype)initWithAuthorization:(nonnull id<JPAuthorization>)authorization;
+
+@property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
 @end

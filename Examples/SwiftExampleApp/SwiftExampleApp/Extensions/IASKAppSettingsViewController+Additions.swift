@@ -5,6 +5,7 @@ extension IASKAppSettingsViewController {
         let hiddenKeys = computeHiddenKeys(from: [kIsPaymentSessionOnKey,
                                                   kIsTokenAndSecretOnKey,
                                                   kIsAddressOnKey,
+                                                  kIsRecommendationOnKey,
                                                   kIsPrimaryAccountDetailsOnKey])
         setHiddenKeys(hiddenKeys, animated: false)
     }
@@ -16,6 +17,10 @@ extension IASKAppSettingsViewController {
 
             kSessionTokenKey,
             kPaymentSessionKey,
+
+            kRsaKey,
+            kRecommendationUrlKey,
+            kRecommendationTimeoutKey,
 
             kAddressLine1Key,
             kAddressLine2Key,
@@ -44,6 +49,12 @@ extension IASKAppSettingsViewController {
             hiddenKeys.remove(kTokenKey)
             hiddenKeys.remove(kSecretKey)
             UserDefaults.standard.setValue(false, forKey: kIsPaymentSessionOnKey)
+        }
+
+        if keys.contains(kIsRecommendationOnKey), Settings.standard.isRecommendationOn {
+            hiddenKeys.remove(kRsaKey)
+            hiddenKeys.remove(kRecommendationUrlKey)
+            hiddenKeys.remove(kRecommendationTimeoutKey)
         }
 
         if keys.contains(kIsAddressOnKey), Settings.standard.isAddressOn {

@@ -4,9 +4,10 @@ PODS:
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.1.4)
-  - JudoKit-iOS (3.2.7):
+  - JudoKit-iOS (3.2.8):
     - DeviceDNA (~> 2.0.0)
     - Judo3DS2_iOS (~> 1.1.4)
+    - RavelinEncrypt (= 1.1.1)
     - TrustKit
   - MaterialComponents/AnimationTiming (124.2.0)
   - MaterialComponents/Availability (124.2.0)
@@ -78,6 +79,7 @@ PODS:
   - MDFInternationalization (3.0.0)
   - MDFTextAccessibility (2.0.1)
   - OpenSSL-Universal (1.1.2200)
+  - RavelinEncrypt (1.1.1)
   - TrustKit (3.0.3)
 
 DEPENDENCIES:
@@ -97,6 +99,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - OpenSSL-Universal
+    - RavelinEncrypt
     - TrustKit
 
 EXTERNAL SOURCES:
@@ -108,13 +111,14 @@ SPEC CHECKSUMS:
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: 5cca966ec8425a315d6a96ff64f0b760dd991f32
-  JudoKit-iOS: f2671166c214b9d45d0f3d86ea571206b255d088
+  JudoKit-iOS: cecbe3273ad615ad6968a8b3ed600a402d03f73d
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
+  RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: 6db5e08edf261fc1a1880ba55cd7ee15ea009c0f
+PODFILE CHECKSUM: 058be2228693a67feaa663db1c657ea71d485c39
 
 COCOAPODS: 1.13.0

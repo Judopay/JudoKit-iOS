@@ -30,11 +30,11 @@
 #import "Functions.h"
 #import "JPBrowser.h"
 #import "JPClientDetails.h"
+#import "JPConstants.h"
 #import "JPConsumerDevice.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPSDKInfo.h"
 #import "JPThreeDSecure.h"
-#import "JudoKit.h"
 
 static NSString *const kClientDetailsKey = @"clientDetails";
 static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
@@ -100,8 +100,8 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
                                                                  geoLocation:location
                                                                 threeDSecure:threeDSecure];
 
-    JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:JudoKitVersion
-                                               name:JudoKitName];
+    JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:kJudoKitVersion
+                                               name:kJudoKitName];
 
     return [JPEnhancedPaymentDetail detailWithSdkInfo:sdkInfo
                                        consumerDevice:consumerDevice];

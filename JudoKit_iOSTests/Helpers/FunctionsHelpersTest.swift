@@ -47,7 +47,7 @@ class FunctionsHelpersTest: XCTestCase {
      */
     func test_getUserAgent_WhenSimulator_ShouldBeNonZero() {
         let userAgent = getUserAgent(nil)
-        XCTAssertTrue(userAgent.starts(with: "JudoKit-iOS/\(JudoKitVersion) iOS/"))
+        XCTAssertTrue(userAgent.starts(with: "JudoKit-iOS/\(kJudoKitVersion) iOS/"))
     }
 
     /*
@@ -59,7 +59,7 @@ class FunctionsHelpersTest: XCTestCase {
      */
     func test_getUserAgent_WhenSubProductInfoIsReactNative() {
         let userAgent = getUserAgent(JPSubProductInfo(subProductType: .reactNative, andVersion: "4.0.0"))
-        XCTAssertTrue(userAgent.starts(with: "JudoKit-iOS/\(JudoKitVersion) (JudoKit-ReactNative/4.0.0) iOS/"))
+        XCTAssertTrue(userAgent.starts(with: "JudoKit-iOS/\(kJudoKitVersion) (JudoKit-ReactNative/4.0.0) iOS/"))
     }
     
     /*

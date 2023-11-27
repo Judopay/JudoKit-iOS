@@ -202,6 +202,10 @@ class Settings {
         userDefaults.bool(forKey: kIsInitialRecurringPaymentKey)
     }
 
+    var isRecommendationOn: Bool {
+        userDefaults.bool(forKey: kIsRecommendationOnKey)
+    }
+
     var isAddressOn: Bool {
         userDefaults.bool(forKey: kIsAddressOnKey)
     }
@@ -220,6 +224,19 @@ class Settings {
 
     var shouldAskForCardholderName: Bool {
         userDefaults.bool(forKey: kShouldAskForCardholderNameKey)
+    }
+
+    // MARK: - Recommendation Configuration
+
+    var recommendationConfiguration: JPRecommendationConfiguration? {
+        if isRecommendationOn,
+           let rsaKey = userDefaults.string(forKey: kRsaKey),
+           let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
+           let URL = URL(string: URLString) {
+           let timeout = NSNumber(integerLiteral: userDefaults.integer(forKey: kRecommendationTimeoutKey))
+            return JPRecommendationConfiguration(url: URL, rsaPublicKey: rsaKey, andTimeout: timeout)
+        }
+        return nil
     }
 
     // MARK: - Card Address
@@ -285,6 +302,10 @@ class Settings {
 
     var threeDSTwoMessageVersion: String? {
         userDefaults.string(forKey: kThreeDSTwoMessageVersionKey) ?? ""
+    }
+
+    var recommendationUrl: String? {
+        userDefaults.string(forKey: kRecommendationUrlKey) ?? ""
     }
 
     var connectTimeout: Int {
