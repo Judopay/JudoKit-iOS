@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -449,7 +449,7 @@
 		52D23DCF252495D1007C79EB /* JPApplePayWrappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DCE252495D1007C79EB /* JPApplePayWrappersTests.swift */; };
 		52D23DD32524BE5C007C79EB /* JPApplePayControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DD22524BE5C007C79EB /* JPApplePayControllerTest.swift */; };
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
-		9914BD942B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9914BD922B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h */; };
+		9914BD942B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9914BD922B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9914BD952B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9914BD932B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m */; };
 		9930A0DD2AAF519B0090D164 /* JPRecommendationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* JPRecommendationService.h */; };
 		9930A0E22AAF53100090D164 /* JPRecommendationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* JPRecommendationResponse.h */; };
