@@ -27,6 +27,7 @@
 #import "JPAddress.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
+#import "JPRecurringPaymentConfiguration.h"
 #import "JPApplePayTypedefs.h"
 #import "JPBillingCountry.h"
 #import "JPBrowser.h"

@@ -1,5 +1,5 @@
 //
-//  JPRecurringPaymentConfiguration.h
+//  JPRecurringPaymentConfiguration.m
 //  JudoKit_iOS
 //
 //  Created by Rafal Ozog on 20/11/2023.

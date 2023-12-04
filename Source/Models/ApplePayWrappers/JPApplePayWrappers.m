@@ -45,7 +45,7 @@
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
 
-    if (@available(iOS 15.0, *)) {
+    if (@available(iOS 15.0, *) && applePayConfiguration.recurringPaymentConfiguration != nil) {
         PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
         recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
         recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
