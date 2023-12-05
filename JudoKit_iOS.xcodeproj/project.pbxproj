@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -396,6 +396,10 @@
 		44A18B6529F94DE700D2963B /* JPCardDetailsForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A18B6329F94DE700D2963B /* JPCardDetailsForm.m */; };
 		44A18B6829F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A18B6629F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h */; };
 		44A18B6929F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A18B6729F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m */; };
+		44CD3A792B1F454300002FBB /* JPRecurringPaymentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */; };
+		44CD3A7A2B1F454300002FBB /* JPRecurringPaymentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */; };
+		44CD3A7B2B1F454300002FBB /* JPRecurringPaymentSummaryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */; };
+		44CD3A7C2B1F454300002FBB /* JPRecurringPaymentSummaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */; };
 		525FF3D8252C41CF001F030E /* JPCardScanControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D0252C41CF001F030E /* JPCardScanControllerDelegate.h */; };
 		525FF3D9252C41CF001F030E /* JPCardScanController.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D1252C41CF001F030E /* JPCardScanController.h */; };
 		525FF3DA252C41CF001F030E /* JPCardScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525FF3D2252C41CF001F030E /* JPCardScanController.m */; };
@@ -449,8 +453,6 @@
 		52D23DCF252495D1007C79EB /* JPApplePayWrappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DCE252495D1007C79EB /* JPApplePayWrappersTests.swift */; };
 		52D23DD32524BE5C007C79EB /* JPApplePayControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D23DD22524BE5C007C79EB /* JPApplePayControllerTest.swift */; };
 		829330FC230AF0F900689DC4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829330FE230AF0F900689DC4 /* Localizable.strings */; };
-		9914BD942B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9914BD922B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h */; };
-		9914BD952B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9914BD932B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m */; };
 		9930A0DD2AAF519B0090D164 /* JPRecommendationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DC2AAF519B0090D164 /* JPRecommendationService.h */; };
 		9930A0E22AAF53100090D164 /* JPRecommendationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A0DE2AAF53100090D164 /* JPRecommendationResponse.h */; };
 		9930A0E32AAF53100090D164 /* JPRecommendationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A0DF2AAF53100090D164 /* JPRecommendationResponse.m */; };
@@ -915,6 +917,10 @@
 		44A18B6329F94DE700D2963B /* JPCardDetailsForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCardDetailsForm.m; sourceTree = "<group>"; };
 		44A18B6629F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPIntrinsicSizeAwareScrollView.h; sourceTree = "<group>"; };
 		44A18B6729F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPIntrinsicSizeAwareScrollView.m; sourceTree = "<group>"; };
+		44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecurringPaymentRequest.m; sourceTree = "<group>"; };
+		44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecurringPaymentRequest.h; sourceTree = "<group>"; };
+		44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecurringPaymentSummaryItem.m; sourceTree = "<group>"; };
+		44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecurringPaymentSummaryItem.h; sourceTree = "<group>"; };
 		525FF3D0252C41CF001F030E /* JPCardScanControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardScanControllerDelegate.h; sourceTree = "<group>"; };
 		525FF3D1252C41CF001F030E /* JPCardScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardScanController.h; sourceTree = "<group>"; };
 		525FF3D2252C41CF001F030E /* JPCardScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardScanController.m; sourceTree = "<group>"; };
@@ -969,8 +975,6 @@
 		829330FD230AF0F900689DC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933105230C3C7300689DC4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82933107230C3C8800689DC4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9914BD922B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecurringPaymentConfiguration.h; sourceTree = "<group>"; };
-		9914BD932B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecurringPaymentConfiguration.m; sourceTree = "<group>"; };
 		9930A0DC2AAF519B0090D164 /* JPRecommendationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPRecommendationService.h; sourceTree = "<group>"; };
 		9930A0DE2AAF53100090D164 /* JPRecommendationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecommendationResponse.h; sourceTree = "<group>"; };
 		9930A0DF2AAF53100090D164 /* JPRecommendationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecommendationResponse.m; sourceTree = "<group>"; };
@@ -2117,7 +2121,8 @@
 		3000731723FA9BBC0099F3C5 /* ApplePayConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				9914BD912B18CA70000D30F2 /* RecurringPaymentConfiguration */,
+				44CD3A732B1F454300002FBB /* RecurringPaymentRequest */,
+				44CD3A762B1F454300002FBB /* RecurringPaymentSummaryItem */,
 				3000731923FA9BBC0099F3C5 /* JPApplePayConfiguration.h */,
 				3000731823FA9BBC0099F3C5 /* JPApplePayConfiguration.m */,
 			);
@@ -2983,6 +2988,24 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		44CD3A732B1F454300002FBB /* RecurringPaymentRequest */ = {
+			isa = PBXGroup;
+			children = (
+				44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */,
+				44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */,
+			);
+			path = RecurringPaymentRequest;
+			sourceTree = "<group>";
+		};
+		44CD3A762B1F454300002FBB /* RecurringPaymentSummaryItem */ = {
+			isa = PBXGroup;
+			children = (
+				44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */,
+				44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */,
+			);
+			path = RecurringPaymentSummaryItem;
+			sourceTree = "<group>";
+		};
 		525FF3CF252C41CF001F030E /* CardScanController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3190,15 +3213,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		9914BD912B18CA70000D30F2 /* RecurringPaymentConfiguration */ = {
-			isa = PBXGroup;
-			children = (
-				9914BD922B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h */,
-				9914BD932B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m */,
-			);
-			path = RecurringPaymentConfiguration;
-			sourceTree = "<group>";
-		};
 		9930A0DB2AAF2BEB0090D164 /* RecommendationService */ = {
 			isa = PBXGroup;
 			children = (
@@ -3357,7 +3371,6 @@
 				4492116C2469EDB300DF6D14 /* JPCardNetworkType.h in Headers */,
 				52B74D9F23F98B4C009FE38C /* JPTransactionBuilder.h in Headers */,
 				44A18B6829F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h in Headers */,
-				9914BD942B18CA70000D30F2 /* JPRecurringPaymentConfiguration.h in Headers */,
 				30D61D6923BB741A004E5CEE /* JPPaymentMethodsViewController.h in Headers */,
 				3000732423FA9BBD0099F3C5 /* JPApplePayWrappers.h in Headers */,
 				449211702469F77900DF6D14 /* JPInputType.h in Headers */,
@@ -3373,6 +3386,7 @@
 				446CD9E5264157D5004908DC /* JPFormatters.h in Headers */,
 				449211642469E7F600DF6D14 /* JPTransactionType.h in Headers */,
 				30006F5B23F698A20099F3C5 /* JPRoundedCornerView.h in Headers */,
+				44CD3A7C2B1F454300002FBB /* JPRecurringPaymentSummaryItem.h in Headers */,
 				4428AF222B0694E900DCE4FB /* JPRecommendationAction.h in Headers */,
 				300072F223F6AB560099F3C5 /* JPClientDetails.h in Headers */,
 				4428AF122B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h in Headers */,
@@ -3513,6 +3527,7 @@
 				3000732223FA9BBD0099F3C5 /* JPApplePayConfiguration.h in Headers */,
 				300072D423F6AB560099F3C5 /* JPBillingCountry.h in Headers */,
 				44A18B5429F94D8A00D2963B /* JPTransactionScanCardButton.h in Headers */,
+				44CD3A7A2B1F454300002FBB /* JPRecurringPaymentRequest.h in Headers */,
 				449211682469E8DD00DF6D14 /* Typedefs.h in Headers */,
 				9930A0E52AAF53100090D164 /* JPRecommendationRequest.h in Headers */,
 				0779B1752490EC05000844AF /* JPCardNumberField.h in Headers */,
@@ -3725,7 +3740,6 @@
 				44A18B5929F94DA300D2963B /* JPActionBar.m in Sources */,
 				446002C8293036D7005FBCBD /* JPPreAuthApplePayRequest.m in Sources */,
 				9930A0E92AB087480090D164 /* JPRecommendationService.m in Sources */,
-				9914BD952B18CA70000D30F2 /* JPRecurringPaymentConfiguration.m in Sources */,
 				3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */,
 				30006F5A23F698A20099F3C5 /* JPFloatingTextField.m in Sources */,
 				30D61DE623BE3976004E5CEE /* JPPaymentMethodsHeaderView.m in Sources */,
@@ -3761,6 +3775,7 @@
 				30D61D6323BB741A004E5CEE /* JPPaymentMethodsCardListHeaderCell.m in Sources */,
 				4428AF1D2B06266A00DCE4FB /* JPRecommendationConfiguration.m in Sources */,
 				300072C823F6AB560099F3C5 /* JPBrowser.m in Sources */,
+				44CD3A792B1F454300002FBB /* JPRecurringPaymentRequest.m in Sources */,
 				070F1FF5243B23FF005D8FAB /* JPConfigurationValidationService.m in Sources */,
 				30221C1023FE617300BF2823 /* NSLayoutConstraint+Additions.m in Sources */,
 				ADB514BB286DED4200332E47 /* JPCReqParameters.m in Sources */,
@@ -3860,6 +3875,7 @@
 				A75B39732D7E17CB64A95B49 /* JPPaymentRequest.m in Sources */,
 				4440CF6D2B0BBF6B008221D7 /* JPCardTransactionDetailsOverrides.m in Sources */,
 				A75B34B303EB82FC765660DC /* JPTokenRequest.m in Sources */,
+				44CD3A7B2B1F454300002FBB /* JPRecurringPaymentSummaryItem.m in Sources */,
 				A75B365521EA4453D3B4C99B /* JPRegisterCardRequest.m in Sources */,
 				4428AF2C2B06989B00DCE4FB /* JPPaymentMethodCipher.m in Sources */,
 				A75B30E92E44A7250BD2A808 /* JPSaveCardRequest.m in Sources */,
