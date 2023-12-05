@@ -379,7 +379,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                     amount:totalPrice
                                                                                       type:JPPaymentSummaryItemTypeFinal] ];
     if (Settings.defaultSettings.isRecurringPaymentOn) {
-        configuration.recurringPaymentConfiguration = [[JPRecurringPaymentConfiguration alloc] initWithDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
+        configuration.recurringPaymentConfiguration = [[JPRecurringPaymentRequest alloc] initWithDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
                billingAgreement:Settings.defaultSettings.applePayRecurringPaymentBillingAgreement
                   managementURL:Settings.defaultSettings.applePayRecurringPaymentManagementUrl
                           label:Settings.defaultSettings.applePayRecurringPaymentLabel
