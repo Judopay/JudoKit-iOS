@@ -200,7 +200,7 @@ NSString *safeString(NSString *aString) {
     return [self.defaults stringForKey:kRecurringPaymentDescriptionKey];
 }
 
-- (nullable NSString *)applePayRecurringPaymentBillingAgreement {
+- (NSString *)applePayRecurringPaymentBillingAgreement {
     return [self.defaults stringForKey:kRecurringPaymentBillingAgreementKey];
 }
 
@@ -221,7 +221,7 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSDecimalNumber *)applePayRecurringPaymentAmount {
-    return [self.defaults objectForKey:kRecurringPaymentAmountKey];
+    return [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kRecurringPaymentAmountKey]];
 }
 
 - (NSString *)applePayRecurringPaymentStartDate {

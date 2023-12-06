@@ -100,7 +100,7 @@
 /**
  * [OPTIONAL] Recurring Payment configuration object.
  *
- * * [NOTE: Recurring Payment is only available starting with iOS 15.0]
+ * * [NOTE: Recurring Payment is only available starting with iOS 16.0]
  */
 @property (nonatomic, strong, nullable) JPRecurringPaymentRequest *recurringPaymentRequest API_AVAILABLE(macos(13.0), ios(16.0)) API_UNAVAILABLE(watchos);
 

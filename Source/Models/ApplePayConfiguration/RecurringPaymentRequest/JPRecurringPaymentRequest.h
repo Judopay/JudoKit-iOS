@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
 @class JPRecurringPaymentSummaryItem;
 
-API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(watchos)
+API_AVAILABLE(ios(16.0))
+API_UNAVAILABLE(watchos)
 @interface JPRecurringPaymentRequest : NSObject
 
 @property (nonatomic, strong, nonnull) NSString *paymentDescription;
@@ -36,10 +37,10 @@ API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(watchos)
 @property (nonatomic, strong, nullable) NSString *billingAgreement;
 @property (nonatomic, strong, nullable) NSURL *tokenNotificationURL;
 
-- (instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithPaymentDescription:(NSString *_Nonnull)paymentDescription
+                                    regularBilling:(JPRecurringPaymentSummaryItem *_Nonnull)regularBilling
+                                  andManagementURL:(NSURL *_Nonnull)managementURL;
 
-- (instancetype)initWithPaymentDescription:(NSString *)paymentDescription
-                            regularBilling:(JPRecurringPaymentSummaryItem *)regularBilling
-                             managementURL:(NSURL *)managementURL NS_DESIGNATED_INITIALIZER;
+- (nonnull PKRecurringPaymentRequest *)toPKRecurringPaymentRequest;
 
 @end

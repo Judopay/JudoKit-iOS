@@ -23,17 +23,27 @@
 //  SOFTWARE.
 
 #import "JPRecurringPaymentRequest.h"
+#import "JPRecurringPaymentSummaryItem.h"
 
 @implementation JPRecurringPaymentRequest
 
-- (instancetype)init {
-    assert("To be implemented");
-}
-
 - (instancetype)initWithPaymentDescription:(NSString *)paymentDescription
                             regularBilling:(JPRecurringPaymentSummaryItem *)regularBilling
-                             managementURL:(NSURL *)managementURL {
-    assert("To be implemented");
+                          andManagementURL:(NSURL *)managementURL {
+    if (self = [super init]) {
+        _paymentDescription = paymentDescription;
+        _regularBilling = regularBilling;
+        _managementURL = managementURL;
+    }
+    return self;
+}
+
+- (nonnull PKRecurringPaymentRequest *)toPKRecurringPaymentRequest {
+    PKRecurringPaymentRequest *recurringPaymentRequest = [[PKRecurringPaymentRequest alloc]
+        initWithPaymentDescription:_paymentDescription
+                    regularBilling:_regularBilling.toPKRecurringPaymentSummaryItem
+                     managementURL:_managementURL];
+    return recurringPaymentRequest;
 }
 
 @end

@@ -397,9 +397,9 @@
 		44A18B6829F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A18B6629F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h */; };
 		44A18B6929F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A18B6729F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m */; };
 		44CD3A792B1F454300002FBB /* JPRecurringPaymentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */; };
-		44CD3A7A2B1F454300002FBB /* JPRecurringPaymentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */; };
+		44CD3A7A2B1F454300002FBB /* JPRecurringPaymentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44CD3A7B2B1F454300002FBB /* JPRecurringPaymentSummaryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */; };
-		44CD3A7C2B1F454300002FBB /* JPRecurringPaymentSummaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */; };
+		44CD3A7C2B1F454300002FBB /* JPRecurringPaymentSummaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525FF3D8252C41CF001F030E /* JPCardScanControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D0252C41CF001F030E /* JPCardScanControllerDelegate.h */; };
 		525FF3D9252C41CF001F030E /* JPCardScanController.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D1252C41CF001F030E /* JPCardScanController.h */; };
 		525FF3DA252C41CF001F030E /* JPCardScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525FF3D2252C41CF001F030E /* JPCardScanController.m */; };

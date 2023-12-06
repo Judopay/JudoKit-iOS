@@ -26,7 +26,6 @@
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayTypes.h"
 #import "JPConfiguration.h"
-#import "JPFormatters.h"
 
 @implementation JPApplePayWrappers
 
@@ -46,21 +45,7 @@
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
 
     if (@available(iOS 16.0, *) && applePayConfiguration.recurringPaymentRequest != nil) {
-        
-//        PKRecurringPaymentSummaryItem *recurringPayment = [PKRecurringPaymentSummaryItem new];
-//        recurringPayment.label = applePayConfiguration.recurringPaymentConfiguration.label;
-//        recurringPayment.amount = applePayConfiguration.recurringPaymentConfiguration.amount;
-//        recurringPayment.intervalUnit = applePayConfiguration.recurringPaymentConfiguration.intervalUnit;
-//        recurringPayment.intervalCount = applePayConfiguration.recurringPaymentConfiguration.intervalCount;
-//        recurringPayment.startDate = applePayConfiguration.recurringPaymentConfiguration.startDate;
-//        recurringPayment.endDate = applePayConfiguration.recurringPaymentConfiguration.endDate;
-//        
-//        
-//        PKRecurringPaymentRequest *recurringPaymentRequest = [[PKRecurringPaymentRequest alloc] initWithPaymentDescription:applePayConfiguration.recurringPaymentConfiguration.paymentDescription
-//                                                                                                            regularBilling:recurringPayment
-//                                                                                                             managementURL:[NSURL URLWithString:applePayConfiguration.recurringPaymentConfiguration.managementURL]];
-//        recurringPaymentRequest.billingAgreement = applePayConfiguration.recurringPaymentConfiguration.billingAgreement;
-//        paymentRequest.recurringPaymentRequest = recurringPaymentRequest;
+        paymentRequest.recurringPaymentRequest = applePayConfiguration.recurringPaymentRequest.toPKRecurringPaymentRequest;
     }
 
     paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;

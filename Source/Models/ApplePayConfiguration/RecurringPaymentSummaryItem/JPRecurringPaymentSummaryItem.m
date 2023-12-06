@@ -26,4 +26,26 @@
 
 @implementation JPRecurringPaymentSummaryItem
 
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                 intervalUnit:(NSCalendarUnit)intervalUnit
+             andIntervalCount:(NSInteger)intervalCount {
+    if (self = [super initWithLabel:label
+                             amount:amount]) {
+        _intervalUnit = intervalUnit;
+        _intervalCount = intervalCount;
+    }
+    return self;
+}
+
+- (nonnull PKRecurringPaymentSummaryItem *)toPKRecurringPaymentSummaryItem {
+    PKRecurringPaymentSummaryItem *summaryItem = [PKRecurringPaymentSummaryItem summaryItemWithLabel:self.label
+                                                                                              amount:self.amount];
+    summaryItem.startDate = self.startDate;
+    summaryItem.endDate = self.endDate;
+    summaryItem.intervalUnit = self.intervalUnit;
+    summaryItem.intervalCount = self.intervalCount;
+    return summaryItem;
+}
+
 @end
