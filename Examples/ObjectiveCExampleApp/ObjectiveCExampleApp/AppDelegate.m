@@ -52,7 +52,7 @@
         return;
     }
 
-    NSArray *settingFiles = @[ @"Root.plist", @"ThreeDSSDKUICustomisation.plist" ];
+    NSArray *settingFiles = @[ @"Root.plist", @"ThreeDSSDKUICustomisation.plist", @"ApplePaySettings.plist" ];
     NSMutableArray *preferences = [NSMutableArray new];
 
     for (NSString *fileName in settingFiles) {
