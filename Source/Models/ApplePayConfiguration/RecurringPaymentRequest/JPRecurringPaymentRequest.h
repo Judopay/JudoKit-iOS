@@ -45,8 +45,8 @@ API_UNAVAILABLE(watchos)
                                     regularBilling:(nonnull JPRecurringPaymentSummaryItem *)regularBilling
                                   andManagementURL:(nonnull NSURL *)managementURL;
 
-- (instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)init NS_UNAVAILABLE;
 
-- (nonnull PKRecurringPaymentRequest *)toPKRecurringPaymentRequest;
+- (nullable PKRecurringPaymentRequest *)toPKRecurringPaymentRequest;
 
 @end

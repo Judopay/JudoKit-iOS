@@ -44,7 +44,7 @@
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
 
-    if (@available(iOS 16.0, *) && applePayConfiguration.recurringPaymentRequest != nil) {
+    if (@available(iOS 16.0, *)) {
         paymentRequest.recurringPaymentRequest = applePayConfiguration.recurringPaymentRequest.toPKRecurringPaymentRequest;
     }
 

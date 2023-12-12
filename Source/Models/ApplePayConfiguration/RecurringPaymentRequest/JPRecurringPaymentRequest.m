@@ -47,11 +47,15 @@
 }
 
 - (PKRecurringPaymentRequest *)toPKRecurringPaymentRequest {
-    PKRecurringPaymentSummaryItem *item = self.regularBilling.toPKRecurringPaymentSummaryItem;
+    if (self) {
+        PKRecurringPaymentSummaryItem *item = self.regularBilling.toPKRecurringPaymentSummaryItem;
 
-    return [[PKRecurringPaymentRequest alloc] initWithPaymentDescription:self.paymentDescription
-                                                          regularBilling:item
-                                                           managementURL:self.managementURL];
+        return [[PKRecurringPaymentRequest alloc] initWithPaymentDescription:self.paymentDescription
+                                                              regularBilling:item
+                                                               managementURL:self.managementURL];
+    }
+
+    return nil;
 }
 
 @end

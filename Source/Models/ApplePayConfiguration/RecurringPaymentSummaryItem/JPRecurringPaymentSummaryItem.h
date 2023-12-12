@@ -33,29 +33,29 @@ API_AVAILABLE(ios(15.0), watchos(8.0))
 @property (nonatomic, assign) NSCalendarUnit intervalUnit;
 @property (nonatomic, assign) NSInteger intervalCount;
 
-+ (instancetype)itemWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                 intervalUnit:(NSCalendarUnit)intervalUnit
-             andIntervalCount:(NSInteger)intervalCount;
++ (nonnull instancetype)itemWithLabel:(nonnull NSString *)label
+                               amount:(nonnull NSDecimalNumber *)amount
+                         intervalUnit:(NSCalendarUnit)intervalUnit
+                     andIntervalCount:(NSInteger)intervalCount;
 
-+ (instancetype)itemWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                 intervalUnit:(NSCalendarUnit)intervalUnit
-                intervalCount:(NSInteger)intervalCount
-                    startDate:(nullable NSDate *)startDate
-                   andEndDate:(nullable NSDate *)endDate;
++ (nonnull instancetype)itemWithLabel:(nonnull NSString *)label
+                               amount:(nonnull NSDecimalNumber *)amount
+                         intervalUnit:(NSCalendarUnit)intervalUnit
+                        intervalCount:(NSInteger)intervalCount
+                            startDate:(nullable NSDate *)startDate
+                           andEndDate:(nullable NSDate *)endDate;
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                 intervalUnit:(NSCalendarUnit)intervalUnit
-             andIntervalCount:(NSInteger)intervalCount;
+- (nonnull instancetype)initWithLabel:(nonnull NSString *)label
+                               amount:(nonnull NSDecimalNumber *)amount
+                         intervalUnit:(NSCalendarUnit)intervalUnit
+                     andIntervalCount:(NSInteger)intervalCount;
 
-- (instancetype)initWithLabel:(NSString *)label
-                       amount:(NSDecimalNumber *)amount
-                 intervalUnit:(NSCalendarUnit)intervalUnit
-                intervalCount:(NSInteger)intervalCount
-                    startDate:(nullable NSDate *)startDate
-                   andEndDate:(nullable NSDate *)endDate;
+- (nonnull instancetype)initWithLabel:(nonnull NSString *)label
+                               amount:(nonnull NSDecimalNumber *)amount
+                         intervalUnit:(NSCalendarUnit)intervalUnit
+                        intervalCount:(NSInteger)intervalCount
+                            startDate:(nullable NSDate *)startDate
+                           andEndDate:(nullable NSDate *)endDate;
 
 - (nonnull PKRecurringPaymentSummaryItem *)toPKRecurringPaymentSummaryItem;
 
