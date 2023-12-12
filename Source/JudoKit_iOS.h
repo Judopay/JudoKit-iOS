@@ -55,6 +55,8 @@
 #import "JPPostalAddress.h"
 #import "JPPrimaryAccountDetails.h"
 #import "JPReachability.h"
+#import "JPRecurringPaymentRequest.h"
+#import "JPRecurringPaymentSummaryItem.h"
 #import "JPReference.h"
 #import "JPRequestEnricher.h"
 #import "JPResponse.h"

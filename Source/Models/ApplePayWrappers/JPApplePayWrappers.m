@@ -41,9 +41,12 @@
 }
 
 + (PKPaymentRequest *)pkPaymentRequestForConfiguration:(JPConfiguration *)configuration {
-
-    PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
     JPApplePayConfiguration *applePayConfiguration = configuration.applePayConfiguration;
+    PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
+
+    if (@available(iOS 16.0, *)) {
+        paymentRequest.recurringPaymentRequest = applePayConfiguration.recurringPaymentRequest.toPKRecurringPaymentRequest;
+    }
 
     paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
     paymentRequest.countryCode = applePayConfiguration.countryCode;
@@ -52,13 +55,10 @@
     paymentRequest.merchantCapabilities = [self pkMerchantCapabilitiesForConfiguration:configuration];
     paymentRequest.shippingType = [self pkShippingTypeForConfiguration:configuration];
     paymentRequest.shippingMethods = [self pkShippingMethodsForConfiguration:configuration];
-
     JPContactField requiredShippingContactFields = applePayConfiguration.requiredShippingContactFields;
     JPContactField requiredBillingContactFields = applePayConfiguration.requiredBillingContactFields;
-
     NSSet<PKContactField> *pkShippingFields = [self pkContactFieldsFromFields:requiredShippingContactFields];
     NSSet<PKContactField> *pkBillingFields = [self pkContactFieldsFromFields:requiredBillingContactFields];
-
     paymentRequest.requiredShippingContactFields = pkShippingFields;
     paymentRequest.requiredBillingContactFields = pkBillingFields;
     paymentRequest.paymentSummaryItems = [self pkPaymentSummaryItemsForConfiguration:configuration];

@@ -64,6 +64,8 @@ ln -s -f ../Extensions/NSBundle/NSBundle+Additions.h NSBundle+Additions.h
 ln -s -f ../Models/Transaction/JPTransactionResult.h JPTransactionResult.h
 ln -s -f ../Models/PrimaryAccountDetails/JPPrimaryAccountDetails.h JPPrimaryAccountDetails.h
 ln -s -f ../Models/ApplePayConfiguration/JPApplePayConfiguration.h JPApplePayConfiguration.h
+ln -s -f ../Models/ApplePayConfiguration/RecurringPaymentRequest/JPRecurringPaymentRequest.h JPRecurringPaymentRequest.h
+ln -s -f ../Models/ApplePayConfiguration/RecurringPaymentSummaryItem/JPRecurringPaymentSummaryItem.h JPRecurringPaymentSummaryItem.h
 ln -s -f ../Models/BillingCountry/JPBillingCountry.h JPBillingCountry.h
 ln -s -f ../Typedefs.h Typedefs.h
 ln -s -f ../Models/PaymentMethod/JPPaymentMethod.h JPPaymentMethod.h

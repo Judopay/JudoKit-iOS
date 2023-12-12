@@ -25,6 +25,7 @@
 #import "JPCardNetworkType.h"
 #import "JPPaymentShippingMethod.h"
 #import "JPPaymentSummaryItem.h"
+#import "JPRecurringPaymentRequest.h"
 #import <Foundation/Foundation.h>
 
 /**
@@ -95,6 +96,13 @@
  *           If not set, defaults to Billing Contact information.
  */
 @property (nonatomic, assign) JPReturnedInfo returnedContactInfo;
+
+/**
+ * [OPTIONAL] Recurring Payment configuration object.
+ *
+ * * [NOTE: Recurring Payment is only available starting with iOS 16.0]
+ */
+@property (nonatomic, strong, nullable) JPRecurringPaymentRequest *recurringPaymentRequest API_AVAILABLE(macos(13.0), ios(16.0)) API_UNAVAILABLE(watchos);
 
 /**
  * Designated initializer necesary for the bare minimum configuration of a PKPaymentRequest object.

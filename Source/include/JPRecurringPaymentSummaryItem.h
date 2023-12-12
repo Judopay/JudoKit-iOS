@@ -1,0 +1,1 @@
+../Models/ApplePayConfiguration/RecurringPaymentSummaryItem/JPRecurringPaymentSummaryItem.h

@@ -100,6 +100,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsPrimaryAccountDetailsOnKey];
 }
 
+- (BOOL)isApplePayRecurringPaymentOn {
+    return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
+}
+
 #pragma mark - Reference section
 
 - (JPReference *)reference {
@@ -190,6 +194,42 @@ NSString *safeString(NSString *aString) {
     }
 
     return fields;
+}
+
+- (NSString *)applePayRecurringPaymentDescription {
+    return [self.defaults stringForKey:kRecurringPaymentDescriptionKey];
+}
+
+- (NSString *)applePayRecurringPaymentBillingAgreement {
+    return [self.defaults stringForKey:kRecurringPaymentBillingAgreementKey];
+}
+
+- (NSString *)applePayRecurringPaymentManagementUrl {
+    return [self.defaults stringForKey:kRecurringPaymentManagementUrlKey];
+}
+
+- (NSCalendarUnit)applePayRecurringPaymentIntervalUnit {
+    return (NSCalendarUnit)[self.defaults integerForKey:kRecurringPaymentIntervalUnitKey];
+}
+
+- (NSInteger)applePayRecurringPaymentIntervalCount {
+    return [self.defaults integerForKey:kRecurringPaymentIntervalCountKey];
+}
+
+- (NSString *)applePayRecurringPaymentLabel {
+    return [self.defaults stringForKey:kRecurringPaymentLabelKey];
+}
+
+- (NSDecimalNumber *)applePayRecurringPaymentAmount {
+    return [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kRecurringPaymentAmountKey]];
+}
+
+- (NSDate *)applePayRecurringPaymentStartDate {
+    return [self.defaults objectForKey:kRecurringPaymentStartDateKey];
+}
+
+- (NSDate *)applePayRecurringPaymentEndDate {
+    return [self.defaults objectForKey:kRecurringPaymentEndDateKey];
 }
 
 #pragma mark - Supported card networks section

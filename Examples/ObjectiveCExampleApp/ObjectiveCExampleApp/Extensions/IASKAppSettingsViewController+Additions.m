@@ -9,7 +9,8 @@
         kIsTokenAndSecretOnKey,
         kIsRecommendationOnKey,
         kIsAddressOnKey,
-        kIsPrimaryAccountDetailsOnKey
+        kIsPrimaryAccountDetailsOnKey,
+        kIsRecurringPaymentOnKey
     ]];
     [self setHiddenKeys:hiddenKeys];
 }
@@ -19,11 +20,11 @@
     NSSet *hiddenKeys;
 
     if ([keys containsObject:kIsPaymentSessionOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey ]];
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey] || [keys containsObject:kIsRecurringPaymentOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -39,11 +40,11 @@
         kSessionTokenKey,
         kPaymentSessionKey,
         kGeneratePaymentSessionKey,
-        
+
         kRsaKey,
         kRecommendationUrlKey,
         kRecommendationApiTimeoutKey,
-        
+
         kAddressLine1Key,
         kAddressLine2Key,
         kAddressLine3Key,
@@ -58,7 +59,17 @@
         kPrimaryAccountNameKey,
         kPrimaryAccountAccountNumberKey,
         kPrimaryAccountDateOfBirthKey,
-        kPrimaryAccountPostCodeKey
+        kPrimaryAccountPostCodeKey,
+
+        kRecurringPaymentDescriptionKey,
+        kRecurringPaymentManagementUrlKey,
+        kRecurringPaymentBillingAgreementKey,
+        kRecurringPaymentLabelKey,
+        kRecurringPaymentAmountKey,
+        kRecurringPaymentIntervalUnitKey,
+        kRecurringPaymentIntervalCountKey,
+        kRecurringPaymentStartDateKey,
+        kRecurringPaymentEndDateKey
     ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
@@ -70,7 +81,7 @@
         [hiddenKeys removeObjectsInArray:@[ kTokenKey, kSecretKey ]];
         [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsPaymentSessionOnKey];
     }
-    
+
     if ([keys containsObject:kIsRecommendationOnKey] && Settings.defaultSettings.isRecommendationFeatureOn) {
         [hiddenKeys removeObjectsInArray:@[
             kRsaKey,
@@ -100,6 +111,20 @@
             kPrimaryAccountAccountNumberKey,
             kPrimaryAccountDateOfBirthKey,
             kPrimaryAccountPostCodeKey
+        ]];
+    }
+
+    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isApplePayRecurringPaymentOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kRecurringPaymentDescriptionKey,
+            kRecurringPaymentBillingAgreementKey,
+            kRecurringPaymentManagementUrlKey,
+            kRecurringPaymentLabelKey,
+            kRecurringPaymentAmountKey,
+            kRecurringPaymentIntervalUnitKey,
+            kRecurringPaymentIntervalCountKey,
+            kRecurringPaymentStartDateKey,
+            kRecurringPaymentEndDateKey
         ]];
     }
 

@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "ravelin-encrypt-ios-xcframework-distribution",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/unravelin/ravelin-encrypt-ios-xcframework-distribution",
+      "state" : {
+        "revision" : "92799d81e6856c41903573a507ebab5a58125ccf",
+        "version" : "1.1.1"
+      }
+    },
+    {
       "identity" : "trustkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/datatheorem/TrustKit",
