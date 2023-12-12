@@ -37,9 +37,15 @@ API_UNAVAILABLE(watchos)
 @property (nonatomic, strong, nullable) NSString *billingAgreement;
 @property (nonatomic, strong, nullable) NSURL *tokenNotificationURL;
 
-- (nonnull instancetype)initWithPaymentDescription:(NSString *_Nonnull)paymentDescription
-                                    regularBilling:(JPRecurringPaymentSummaryItem *_Nonnull)regularBilling
-                                  andManagementURL:(NSURL *_Nonnull)managementURL;
++ (nonnull instancetype)requestWithPaymentDescription:(nonnull NSString *)paymentDescription
+                                       regularBilling:(nonnull JPRecurringPaymentSummaryItem *)regularBilling
+                                     andManagementURL:(nonnull NSURL *)managementURL;
+
+- (nonnull instancetype)initWithPaymentDescription:(nonnull NSString *)paymentDescription
+                                    regularBilling:(nonnull JPRecurringPaymentSummaryItem *)regularBilling
+                                  andManagementURL:(nonnull NSURL *)managementURL;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 - (nonnull PKRecurringPaymentRequest *)toPKRecurringPaymentRequest;
 

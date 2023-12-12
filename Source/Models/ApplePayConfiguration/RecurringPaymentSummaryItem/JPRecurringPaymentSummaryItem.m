@@ -26,26 +26,64 @@
 
 @implementation JPRecurringPaymentSummaryItem
 
++ (instancetype)itemWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                 intervalUnit:(NSCalendarUnit)intervalUnit
+             andIntervalCount:(NSInteger)intervalCount {
+    return [[JPRecurringPaymentSummaryItem alloc] initWithLabel:label
+                                                         amount:amount
+                                                   intervalUnit:intervalUnit
+                                               andIntervalCount:intervalCount];
+}
+
++ (instancetype)itemWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                 intervalUnit:(NSCalendarUnit)intervalUnit
+                intervalCount:(NSInteger)intervalCount
+                    startDate:(NSDate *)startDate
+                   andEndDate:(NSDate *)endDate {
+    return [[JPRecurringPaymentSummaryItem alloc] initWithLabel:label
+                                                         amount:amount
+                                                   intervalUnit:intervalUnit
+                                                  intervalCount:intervalCount
+                                                      startDate:startDate
+                                                     andEndDate:endDate];
+}
+
 - (instancetype)initWithLabel:(NSString *)label
                        amount:(NSDecimalNumber *)amount
                  intervalUnit:(NSCalendarUnit)intervalUnit
              andIntervalCount:(NSInteger)intervalCount {
-    if (self = [super initWithLabel:label
-                             amount:amount]) {
+    if (self = [super initWithLabel:label amount:amount]) {
         _intervalUnit = intervalUnit;
         _intervalCount = intervalCount;
     }
     return self;
 }
 
-- (nonnull PKRecurringPaymentSummaryItem *)toPKRecurringPaymentSummaryItem {
-    PKRecurringPaymentSummaryItem *summaryItem = [PKRecurringPaymentSummaryItem summaryItemWithLabel:self.label
-                                                                                              amount:self.amount];
-    summaryItem.startDate = self.startDate;
-    summaryItem.endDate = self.endDate;
-    summaryItem.intervalUnit = self.intervalUnit;
-    summaryItem.intervalCount = self.intervalCount;
-    return summaryItem;
+- (instancetype)initWithLabel:(NSString *)label
+                       amount:(NSDecimalNumber *)amount
+                 intervalUnit:(NSCalendarUnit)intervalUnit
+                intervalCount:(NSInteger)intervalCount
+                    startDate:(NSDate *)startDate
+                   andEndDate:(NSDate *)endDate {
+    if (self = [super initWithLabel:label amount:amount]) {
+        _intervalUnit = intervalUnit;
+        _intervalCount = intervalCount;
+        _startDate = startDate;
+        _endDate = endDate;
+    }
+    return self;
+}
+
+- (PKRecurringPaymentSummaryItem *)toPKRecurringPaymentSummaryItem {
+    PKRecurringPaymentSummaryItem *item = [PKRecurringPaymentSummaryItem summaryItemWithLabel:self.label
+                                                                                       amount:self.amount];
+    item.startDate = self.startDate;
+    item.endDate = self.endDate;
+    item.intervalUnit = self.intervalUnit;
+    item.intervalCount = self.intervalCount;
+    return item;
 }
 
 @end

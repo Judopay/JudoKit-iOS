@@ -27,6 +27,14 @@
 
 @implementation JPRecurringPaymentRequest
 
++ (instancetype)requestWithPaymentDescription:(NSString *)paymentDescription
+                               regularBilling:(JPRecurringPaymentSummaryItem *)regularBilling
+                             andManagementURL:(NSURL *)managementURL {
+    return [[JPRecurringPaymentRequest alloc] initWithPaymentDescription:paymentDescription
+                                                          regularBilling:regularBilling
+                                                        andManagementURL:managementURL];
+}
+
 - (instancetype)initWithPaymentDescription:(NSString *)paymentDescription
                             regularBilling:(JPRecurringPaymentSummaryItem *)regularBilling
                           andManagementURL:(NSURL *)managementURL {
@@ -38,12 +46,12 @@
     return self;
 }
 
-- (nonnull PKRecurringPaymentRequest *)toPKRecurringPaymentRequest {
-    PKRecurringPaymentRequest *recurringPaymentRequest = [[PKRecurringPaymentRequest alloc]
-        initWithPaymentDescription:_paymentDescription
-                    regularBilling:_regularBilling.toPKRecurringPaymentSummaryItem
-                     managementURL:_managementURL];
-    return recurringPaymentRequest;
+- (PKRecurringPaymentRequest *)toPKRecurringPaymentRequest {
+    PKRecurringPaymentSummaryItem *item = self.regularBilling.toPKRecurringPaymentSummaryItem;
+
+    return [[PKRecurringPaymentRequest alloc] initWithPaymentDescription:self.paymentDescription
+                                                          regularBilling:item
+                                                           managementURL:self.managementURL];
 }
 
 @end

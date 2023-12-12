@@ -242,23 +242,27 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>IASKDatePickerSpecifier</string>
 			<key>Title</key>
 			<string>recurring_payment_start_date_title</string>
 			<key>Key</key>
 			<string>recurring_payment_start_date</string>
-			<key>DefaultValue</key>
-			<string></string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>IASKDatePickerSpecifier</string>
 			<key>Title</key>
 			<string>recurring_payment_end_date_title</string>
 			<key>Key</key>
 			<string>recurring_payment_end_date</string>
-			<key>DefaultValue</key>
-			<string></string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
 		</dict>
 	</array>
 </dict>

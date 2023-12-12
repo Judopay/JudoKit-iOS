@@ -61,24 +61,24 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self setupAccessibilityIdentifiers];
-
+    
     self.features = DemoFeature.defaultFeatures;
     self.shouldSetupJudoSDK = YES;
     self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
                                                     kTokenKey, kSecretKey, kPaymentSessionKey,
                                                     kSessionTokenKey,
                                                     kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
-
+    
     [self requestLocationPermissions];
-
+    
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
     if (self.shouldSetupJudoSDK) {
         self.shouldSetupJudoSDK = NO;
         [self setupJudoSDK];
@@ -106,14 +106,14 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if (![notification.name isEqualToString:kIASKAppSettingChanged]) {
         return;
     }
-
+    
     IASKAppSettingsViewController *settingsViewController = (IASKAppSettingsViewController *)notification.object;
     NSSet *changes = [NSSet setWithArray:notification.userInfo.allKeys];
-
+    
     if ([changes intersectsSet:self.settingsToObserve]) {
         self.shouldSetupJudoSDK = YES;
     }
-
+    
     if ([settingsViewController respondsToSelector:@selector(didChangedSettingsWithKeys:)]) {
         [settingsViewController didChangedSettingsWithKeys:changes.allObjects];
     }
@@ -158,8 +158,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeTransactionWithType:JPTransactionTypePayment
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error];
-                                 }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)preAuthOperation {
@@ -167,8 +167,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeTransactionWithType:JPTransactionTypePreAuth
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error];
-                                 }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)createCardTokenOperation {
@@ -176,8 +176,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error];
-                                 }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)checkCardOperation {
@@ -185,8 +185,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeTransactionWithType:JPTransactionTypeCheckCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error];
-                                 }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)saveCardOperation {
@@ -194,8 +194,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeTransactionWithType:JPTransactionTypeSaveCard
                               configuration:self.configuration
                                  completion:^(JPResponse *response, JPError *error) {
-                                     [weakSelf handleResponse:response error:error];
-                                 }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)applePayPaymentOperation {
@@ -203,8 +203,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeApplePayWithMode:JPTransactionModePayment
                            configuration:self.configuration
                               completion:^(JPResponse *response, JPError *error) {
-                                  [weakSelf handleResponse:response error:error];
-                              }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)applePayPreAuthOperation {
@@ -212,8 +212,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokeApplePayWithMode:JPTransactionModePreAuth
                            configuration:self.configuration
                               completion:^(JPResponse *response, JPError *error) {
-                                  [weakSelf handleResponse:response error:error];
-                              }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)paymentMethodOperation {
@@ -221,8 +221,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePayment
                                       configuration:self.configuration
                                          completion:^(JPResponse *response, JPError *error) {
-                                             [weakSelf handleResponse:response error:error];
-                                         }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)preAuthMethodOperation {
@@ -230,8 +230,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModePreAuth
                                       configuration:self.configuration
                                          completion:^(JPResponse *response, JPError *error) {
-                                             [weakSelf handleResponse:response error:error];
-                                         }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)tokenPaymentsMethodOperation {
@@ -251,8 +251,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     [self.judoKit invokePaymentMethodScreenWithMode:JPTransactionModeServerToServer
                                       configuration:self.configuration
                                          completion:^(JPResponse *response, JPError *error) {
-                                             [weakSelf handleResponse:response error:error];
-                                         }];
+        [weakSelf handleResponse:response error:error];
+    }];
 }
 
 - (void)presentTextFieldAlertControllerWithCompletion:()completion {
@@ -266,15 +266,15 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                negativeButtonTitle:@"Cancel"
                               textFieldPlaceholder:@"Receipt ID"
                                      andCompletion:^(NSString *text) {
-                                         if (!text || text.length == 0) {
-                                             return;
-                                         }
-
-                                         [weakSelf.judoKit fetchTransactionWithReceiptId:text
-                                                                              completion:^(JPResponse *response, JPError *error) {
-                                                                                  [weakSelf handleResponse:response error:error];
-                                                                              }];
-                                     }];
+        if (!text || text.length == 0) {
+            return;
+        }
+        
+        [weakSelf.judoKit fetchTransactionWithReceiptId:text
+                                             completion:^(JPResponse *response, JPError *error) {
+            [weakSelf handleResponse:response error:error];
+        }];
+    }];
 }
 
 // MARK: Helper methods
@@ -290,11 +290,11 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         [self displaySnackBarWith:error.localizedDescription];
         return;
     }
-
+    
     if (!response) {
         return;
     }
-
+    
     [self presentResultViewControllerWithResponse:response];
 }
 
@@ -312,30 +312,30 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.uiConfiguration.shouldAskForBillingInformation = Settings.defaultSettings.shouldAskForBillingInformation;
     configuration.uiConfiguration.shouldAskForCSC = Settings.defaultSettings.shouldAskForCSC;
     configuration.uiConfiguration.shouldAskForCardholderName = Settings.defaultSettings.shouldAskForCardholderName;
-
+    
     @try {
         configuration.uiConfiguration.threeDSUICustomization = Settings.defaultSettings.threeDSUICustomization;
     } @catch (NSException *exception) {
         [self displaySnackBarWith:[NSString stringWithFormat:@"Setting 3DS SDK UI configuration failed with reason: %@", exception.reason]];
     }
-
+    
     configuration.supportedCardNetworks = Settings.defaultSettings.supportedCardNetworks;
     configuration.applePayConfiguration = self.applePayConfiguration;
-
+    
     configuration.isInitialRecurringPayment = Settings.defaultSettings.isInitialRecurringPaymentEnabled;
     configuration.cardAddress = Settings.defaultSettings.address;
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
     configuration.isDelayedAuthorisation = Settings.defaultSettings.isDelayedAuthorisationOn;
-
+    
     configuration.emailAddress = Settings.defaultSettings.emailAddress;
     configuration.phoneCountryCode = Settings.defaultSettings.phoneCountryCode;
     configuration.mobileNumber = Settings.defaultSettings.mobileNumber;
     configuration.scaExemption = Settings.defaultSettings.scaExemption;
     configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
     configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDsTwoMaxTimeout;
-
+    
     NSString *messageVersion = Settings.defaultSettings.threeDSTwoMessageVersion;
-
+    
     if (messageVersion.length > 0) {
         configuration.threeDSTwoMessageVersion = messageVersion;
     }
@@ -353,22 +353,22 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 }
 
 - (JPApplePayConfiguration *)applePayConfiguration {
-
+    
     NSDecimalNumber *itemOnePrice = [NSDecimalNumber decimalNumberWithString:@"0.01"];
     NSDecimalNumber *itemTwoPrice = [NSDecimalNumber decimalNumberWithString:@"0.02"];
     NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:@"0.03"];
-
+    
     NSArray *items = @[ [JPPaymentSummaryItem itemWithLabel:@"Item 1" amount:itemOnePrice],
                         [JPPaymentSummaryItem itemWithLabel:@"Item 2"
                                                      amount:itemTwoPrice],
                         [JPPaymentSummaryItem itemWithLabel:@"Tim Apple"
                                                      amount:totalPrice] ];
-
+    
     JPApplePayConfiguration *configuration = [[JPApplePayConfiguration alloc] initWithMerchantId:Settings.defaultSettings.applePayMerchantId
                                                                                         currency:Settings.defaultSettings.amount.currency
                                                                                      countryCode:@"GB"
                                                                              paymentSummaryItems:items];
-
+    
     configuration.requiredShippingContactFields = Settings.defaultSettings.applePayShippingContactFields;
     configuration.requiredBillingContactFields = Settings.defaultSettings.applePayBillingContactFields;
     configuration.returnedContactInfo = Settings.defaultSettings.applePayReturnedContactInfo;
@@ -378,22 +378,26 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                      label:@"label"
                                                                                     amount:totalPrice
                                                                                       type:JPPaymentSummaryItemTypeFinal] ];
-    if (@available(iOS 16.0, *) && Settings.defaultSettings.isRecurringPaymentOn) {
+    if (Settings.defaultSettings.isRecurringPaymentOn) {
         NSDateFormatter *dateFormatter = [JPFormatters.sharedInstance rfc3339DateFormatter];
-        JPRecurringPaymentSummaryItem *regularBilling = [[JPRecurringPaymentSummaryItem alloc] 
-                                                         initWithLabel:Settings.defaultSettings.applePayRecurringPaymentLabel
-                                                                amount:Settings.defaultSettings.applePayRecurringPaymentAmount
-                                                          intervalUnit:Settings.defaultSettings.applePayRecurringPaymentIntervalUnit
-                                                      andIntervalCount:Settings.defaultSettings.applePayRecurringPaymentIntervalCount];
-        regularBilling.startDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentStartDate];
-        regularBilling.endDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentEndDate];
+        NSDate *startDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentStartDate];
+        NSDate *endDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentEndDate];
+        NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayRecurringPaymentManagementUrl];
         
-        JPRecurringPaymentRequest *recurringPaymentRequest = [[JPRecurringPaymentRequest alloc]  initWithPaymentDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
-                        regularBilling:regularBilling
-                      andManagementURL:[NSURL URLWithString:Settings.defaultSettings.applePayRecurringPaymentManagementUrl]];
-        recurringPaymentRequest.billingAgreement = Settings.defaultSettings.applePayRecurringPaymentBillingAgreement;
-
-        configuration.recurringPaymentRequest = recurringPaymentRequest;
+        if (@available(iOS 16.0, *)) {
+            JPRecurringPaymentSummaryItem *regularBilling = [JPRecurringPaymentSummaryItem itemWithLabel:Settings.defaultSettings.applePayRecurringPaymentLabel
+                                                                                                  amount:Settings.defaultSettings.applePayRecurringPaymentAmount
+                                                                                            intervalUnit:Settings.defaultSettings.applePayRecurringPaymentIntervalUnit
+                                                                                           intervalCount:Settings.defaultSettings.applePayRecurringPaymentIntervalCount
+                                                                                               startDate:startDate
+                                                                                              andEndDate:endDate];
+            
+            JPRecurringPaymentRequest *request = [JPRecurringPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
+                                                                                           regularBilling:regularBilling
+                                                                                         andManagementURL:managementURL];
+            request.billingAgreement = Settings.defaultSettings.applePayRecurringPaymentBillingAgreement;
+            configuration.recurringPaymentRequest = request;
+        }
     }
     return configuration;
 }
@@ -420,7 +424,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DemoFeature *option = self.features[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:option.cellIdentifier forIndexPath:indexPath];
-
+    
     cell.textLabel.text = option.title;
     cell.detailTextLabel.text = option.details;
     cell.accessibilityLabel = option.title;
@@ -432,69 +436,69 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DemoFeature *feature = self.features[indexPath.row];
-
+    
     BOOL isApplePayRelatedFeature = feature.type == DemoFeatureTypeApplePayPayment || feature.type == DemoFeatureTypeApplePayPreAuth || feature.type == DemoFeatureTypeApplePayStandalone;
-
+    
     JPConfiguration *configuration = self.configuration;
     if (isApplePayRelatedFeature && ![JudoKit isApplePayAvailableWithConfiguration:configuration]) {
         [self displayAlertWithTitle:@"Error" andMessage:@"ApplePay is not available for given configuration."];
         return;
     }
-
+    
     switch (feature.type) {
         case DemoFeatureTypePayment:
             [self paymentOperation];
             break;
-
+            
         case DemoFeatureTypePreAuth:
             [self preAuthOperation];
             break;
-
+            
         case DemoFeatureTypeCreateCardToken:
             [self createCardTokenOperation];
             break;
-
+            
         case DemoFeatureTypeSaveCard:
             [self saveCardOperation];
             break;
-
+            
         case DemoFeatureTypeCheckCard:
             [self checkCardOperation];
             break;
-
+            
         case DemoFeatureTypeApplePayPayment:
             [self applePayPaymentOperation];
             break;
-
+            
         case DemoFeatureTypeApplePayPreAuth:
             [self applePayPreAuthOperation];
             break;
-
+            
         case DemoFeatureTypeApplePayStandalone:
             [self applePayOperation];
             break;
-
+            
         case DemoFeatureTypePaymentMethods:
             [[ExampleAppStorage sharedInstance] persistLastUsedFeature:DemoFeatureTypePaymentMethods];
             [self paymentMethodOperation];
             break;
-
+            
         case DemoFeatureTypePreAuthMethods:
             [self preAuthMethodOperation];
             break;
-
+            
         case DemoFeatureTypeServerToServer:
             [self serverToServerMethodOperation];
             break;
-
+            
         case DemoFeatureTokenPayments:
             [self tokenPaymentsMethodOperation];
             break;
-
+            
         case DemoFeatureNoUIPayments:
             [self noUIPaymentsMethodOperation];
             break;
-
+            
         case DemoFeatureGetTransactionDetails:
             [self transactionDetailsMethodOperation];
             break;
