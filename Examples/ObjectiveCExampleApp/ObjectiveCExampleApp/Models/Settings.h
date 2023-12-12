@@ -222,8 +222,8 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSInteger)applePayRecurringPaymentIntervalCount;
 - (NSString *)applePayRecurringPaymentLabel;
 - (NSDecimalNumber *)applePayRecurringPaymentAmount;
-- (NSString *)applePayRecurringPaymentStartDate;
-- (NSString *)applePayRecurringPaymentEndDate;
+- (NSDate *)applePayRecurringPaymentStartDate;
+- (NSDate *)applePayRecurringPaymentEndDate;
 
 #pragma mark - Supported card networks section
 
@@ -243,7 +243,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isRecommendationFeatureOn;
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
-- (BOOL)isRecurringPaymentOn;
+- (BOOL)isApplePayRecurringPaymentOn;
 - (BOOL)isDelayedAuthorisationOn;
 - (BOOL)shouldAskForCSC;
 - (BOOL)shouldAskForCardholderName;

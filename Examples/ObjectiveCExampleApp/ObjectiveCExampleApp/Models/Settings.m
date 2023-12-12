@@ -100,7 +100,7 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsPrimaryAccountDetailsOnKey];
 }
 
-- (BOOL)isRecurringPaymentOn {
+- (BOOL)isApplePayRecurringPaymentOn {
     return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
 }
 
@@ -224,12 +224,12 @@ NSString *safeString(NSString *aString) {
     return [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kRecurringPaymentAmountKey]];
 }
 
-- (NSString *)applePayRecurringPaymentStartDate {
-    return [self.defaults stringForKey:kRecurringPaymentStartDateKey];
+- (NSDate *)applePayRecurringPaymentStartDate {
+    return [self.defaults objectForKey:kRecurringPaymentStartDateKey];
 }
 
-- (NSString *)applePayRecurringPaymentEndDate {
-    return [self.defaults stringForKey:kRecurringPaymentEndDateKey];
+- (NSDate *)applePayRecurringPaymentEndDate {
+    return [self.defaults objectForKey:kRecurringPaymentEndDateKey];
 }
 
 #pragma mark - Supported card networks section

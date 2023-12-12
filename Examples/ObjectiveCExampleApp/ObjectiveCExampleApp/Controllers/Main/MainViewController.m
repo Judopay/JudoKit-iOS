@@ -378,10 +378,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                      label:@"label"
                                                                                     amount:totalPrice
                                                                                       type:JPPaymentSummaryItemTypeFinal] ];
-    if (Settings.defaultSettings.isRecurringPaymentOn) {
-        NSDateFormatter *dateFormatter = [JPFormatters.sharedInstance rfc3339DateFormatter];
-        NSDate *startDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentStartDate];
-        NSDate *endDate = [dateFormatter dateFromString:Settings.defaultSettings.applePayRecurringPaymentEndDate];
+    if (Settings.defaultSettings.isApplePayRecurringPaymentOn) {
+
         NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayRecurringPaymentManagementUrl];
         
         if (@available(iOS 16.0, *)) {
@@ -389,8 +387,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                                   amount:Settings.defaultSettings.applePayRecurringPaymentAmount
                                                                                             intervalUnit:Settings.defaultSettings.applePayRecurringPaymentIntervalUnit
                                                                                            intervalCount:Settings.defaultSettings.applePayRecurringPaymentIntervalCount
-                                                                                               startDate:startDate
-                                                                                              andEndDate:endDate];
+                                                                                               startDate:Settings.defaultSettings.applePayRecurringPaymentStartDate
+                                                                                              andEndDate:Settings.defaultSettings.applePayRecurringPaymentEndDate];
             
             JPRecurringPaymentRequest *request = [JPRecurringPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
                                                                                            regularBilling:regularBilling

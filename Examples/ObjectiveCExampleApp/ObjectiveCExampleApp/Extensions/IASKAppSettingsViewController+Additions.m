@@ -114,7 +114,7 @@
         ]];
     }
 
-    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isRecurringPaymentOn) {
+    if ([keys containsObject:kIsRecurringPaymentOnKey] && Settings.defaultSettings.isApplePayRecurringPaymentOn) {
         [hiddenKeys removeObjectsInArray:@[
             kRecurringPaymentDescriptionKey,
             kRecurringPaymentBillingAgreementKey,
