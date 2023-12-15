@@ -175,11 +175,11 @@
                          transactionType:(JPTransactionType)transactionType
                                    error:(NSError **)error {
     JPRecommendationConfiguration *recommendationConfiguration = configuration.recommendationConfiguration;
-    if (recommendationConfiguration &&
-            transactionType == JPTransactionTypePayment ||
-        transactionType == JPTransactionTypePreAuth ||
-        transactionType == JPTransactionTypeCheckCard) {
+    BOOL isSupportedTransactionType = transactionType == JPTransactionTypePayment ||
+                                      transactionType == JPTransactionTypePreAuth ||
+                                      transactionType == JPTransactionTypeCheckCard;
 
+    if (recommendationConfiguration && isSupportedTransactionType) {
         if (self.authorization.class != JPSessionAuthorization.class) {
             *error = JPError.invalidRecommendationAuthorizationTypeError;
         }
