@@ -53,6 +53,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (nonatomic, assign) BOOL shouldSetupJudoSDK;
 @property (nonatomic, strong) NSURL *deepLinkURL;
+@property (nonatomic, strong) IASKAppSettingsViewController *settingsViewController;
 @end
 
 @implementation MainViewController
@@ -106,16 +107,18 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if (![notification.name isEqualToString:kIASKAppSettingChanged]) {
         return;
     }
-    
-    IASKAppSettingsViewController *settingsViewController = (IASKAppSettingsViewController *)notification.object;
     NSSet *changes = [NSSet setWithArray:notification.userInfo.allKeys];
     
     if ([changes intersectsSet:self.settingsToObserve]) {
         self.shouldSetupJudoSDK = YES;
     }
     
-    if ([settingsViewController respondsToSelector:@selector(didChangedSettingsWithKeys:)]) {
-        [settingsViewController didChangedSettingsWithKeys:changes.allObjects];
+    // As settingsViewController belongs to type "IASKAppSettingsViewController, it gets nested (e.g. Apple Pay Settings),
+    // and therefore it is important to call this updating method on the main (parent) Settings ViewController, not necessarily
+    // the one that sends this notification (as it's possibly the nested one). Main Settings VS propagades these changes
+    // down to its children.
+    if ([_settingsViewController respondsToSelector:@selector(didChangedSettingsWithKeys:)]) {
+        [_settingsViewController didChangedSettingsWithKeys:changes.allObjects];
     }
 }
 
@@ -123,10 +126,10 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:IASKAppSettingsViewController.class]) {
-        IASKAppSettingsViewController *controller = segue.destinationViewController;
-        controller.neverShowPrivacySettings = YES;
-        controller.delegate = self;
-        [controller updateHiddenKeys];
+        _settingsViewController = segue.destinationViewController;
+        _settingsViewController.neverShowPrivacySettings = YES;
+        _settingsViewController.delegate = self;
+        [_settingsViewController updateHiddenKeys];
     }
     if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {
         PayWithCardTokenViewController *controller = segue.destinationViewController;
