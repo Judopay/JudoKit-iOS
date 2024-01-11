@@ -300,4 +300,34 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoParameterError];
 }
 
++ (JPError *)missingRecurringDescriptionError {
+    return [self errorWithDescription:@"error_missing_recurring_description_desc"._jp_localized
+                        failureReason:@"error_missing_recurring_description_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)missingRecurringManagementURLError {
+    return [self errorWithDescription:@"error_missing_recurring_management_url_desc"._jp_localized
+                        failureReason:@"error_missing_recurring_management_url_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)missingRecurringRegularBillingError {
+    return [self errorWithDescription:@"error_missing_recurring_regular_billing_desc"._jp_localized
+                        failureReason:@"error_missing_recurring_regular_billing_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)missingRecurringAmountError {
+    return [self errorWithDescription:@"error_missing_recurring_amount_desc"._jp_localized
+                        failureReason:@"error_missing_recurring_amount_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
++ (JPError *)missingRecurringLabelError {
+    return [self errorWithDescription:@"error_missing_recurring_label_desc"._jp_localized
+                        failureReason:@"error_missing_recurring_label_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
 @end

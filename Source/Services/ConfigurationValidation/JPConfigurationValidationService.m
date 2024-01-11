@@ -29,6 +29,7 @@
 #import "JPConstants.h"
 #import "JPError+Additions.h"
 #import "JPRecommendationConfiguration.h"
+#import "JPRecurringPaymentSummaryItem.h"
 #import "JPReference.h"
 #import "JPSessionAuthorization.h"
 #import "NSString+Additions.h"
@@ -76,6 +77,7 @@
     [self checkApplePaymentItemsLength:configuration error:&error];
     [self checkForShippingMethodsLength:configuration error:&error];
     [self checkIfAppleConfigNonNull:configuration error:&error];
+    [self checkRecurringPaymentConfigurationValidity:configuration error:&error];
 
     return error;
 }
@@ -141,6 +143,31 @@
 - (void)checkIfAppleConfigNonNull:(JPConfiguration *)configuration error:(NSError **)error {
     if (!configuration.applePayConfiguration) {
         *error = JPError.missingApplePayConfigurationError;
+    }
+}
+
+- (void)checkRecurringPaymentConfigurationValidity:(JPConfiguration *)configuration error:(NSError **)error {
+    if (!configuration.applePayConfiguration.recurringPaymentRequest) {
+        return;
+    }
+    if (!configuration.applePayConfiguration.recurringPaymentRequest.paymentDescription) {
+        *error = JPError.missingRecurringDescriptionError;
+        return;
+    }
+    if (!configuration.applePayConfiguration.recurringPaymentRequest.managementURL) {
+        *error = JPError.missingRecurringManagementURLError;
+        return;
+    }
+    if (!configuration.applePayConfiguration.recurringPaymentRequest.regularBilling) {
+        *error = JPError.missingRecurringRegularBillingError;
+        return;
+    }
+    if (!configuration.applePayConfiguration.recurringPaymentRequest.regularBilling.label) {
+        *error = JPError.missingRecurringLabelError;
+        return;
+    }
+    if (!configuration.applePayConfiguration.recurringPaymentRequest.regularBilling.amount) {
+        *error = JPError.missingRecurringAmountError;
     }
 }
 
