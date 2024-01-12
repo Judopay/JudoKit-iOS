@@ -197,15 +197,18 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSString *)applePayRecurringPaymentDescription {
-    return [self.defaults stringForKey:kRecurringPaymentDescriptionKey];
+    NSString *description = [self.defaults stringForKey:kRecurringPaymentDescriptionKey];
+    return description.length > 0 ? description : nil;
 }
 
 - (NSString *)applePayRecurringPaymentBillingAgreement {
-    return [self.defaults stringForKey:kRecurringPaymentBillingAgreementKey];
+    NSString *billingAgreement = [self.defaults stringForKey:kRecurringPaymentBillingAgreementKey];
+    return billingAgreement.length > 0 ? billingAgreement : nil;
 }
 
 - (NSString *)applePayRecurringPaymentManagementUrl {
-    return [self.defaults stringForKey:kRecurringPaymentManagementUrlKey];
+    NSString *managementUrl = [self.defaults stringForKey:kRecurringPaymentManagementUrlKey];
+    return managementUrl.length > 0 ? managementUrl : nil;
 }
 
 - (NSCalendarUnit)applePayRecurringPaymentIntervalUnit {
@@ -217,7 +220,8 @@ NSString *safeString(NSString *aString) {
 }
 
 - (NSString *)applePayRecurringPaymentLabel {
-    return [self.defaults stringForKey:kRecurringPaymentLabelKey];
+    NSString *label = [self.defaults stringForKey:kRecurringPaymentLabelKey];
+    return label.length > 0 ? label : nil;
 }
 
 - (NSDecimalNumber *)applePayRecurringPaymentAmount {

@@ -169,4 +169,10 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)invalidRecommendationRSAPublicKeyError;
 + (nonnull JPError *)invalidRecommendationTimeoutError;
 
++ (nonnull JPError *)missingRecurringDescriptionError;
++ (nonnull JPError *)missingRecurringManagementURLError;
++ (nonnull JPError *)missingRecurringRegularBillingError;
++ (nonnull JPError *)missingRecurringAmountError;
++ (nonnull JPError *)missingRecurringLabelError;
+
 @end
