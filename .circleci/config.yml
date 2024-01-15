@@ -86,8 +86,87 @@ commands:
               ]
             }
 
+  notify_slack_pass_weekly:
+    steps:
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "CircleCI has just *successfully* ran the :aapl: iOS E2E mobile tests for backward compatibility, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n$CIRCLE_USERNAME"
+                    }
+                  ]
+                }
+              ]
+            }
+
+  notify_slack_error_weekly:
+    steps:
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "CircleCI ran the :aapl: iOS E2E mobile tests for backward compatibility but they *failed*, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n$CIRCLE_USERNAME"
+                    }
+                  ]
+                }
+              ]
+            }
+
 parameters:
   nightly:
+    type: boolean
+    default: false
+  weekly:
     type: boolean
     default: false
 
@@ -265,9 +344,39 @@ jobs:
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 15.0 \
+              --device model=iphone14pro \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
+  instrumented_tests_sample_multiple:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Install Google Cloud CLI
+          command: |
+            brew install google-cloud-sdk --cask
+      - run:
+          name: Store Google Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Authorize gcloud and set config defaults
+          command: |
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - run:
+          name: Test with Firebase Test Lab
+          no_output_timeout: 30m
+          command: >
+            gcloud firebase test ios run \
+              --test ./Output/ObjectiveCExampleAppUITests.zip \
+              --xcode-version 15.0 \
+              --device version=15.2 \
+              --device version=14.7 \
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+      - notify_slack_error_weekly
+      - notify_slack_pass_weekly
   run_instrumented_tests:
     executor: macos
     steps:
@@ -421,6 +530,20 @@ workflows:
       - build_instrumented_tests_package:
           context: shared-secrets
       - run_instrumented_tests:      
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_package
+          filters:
+            branches:
+              only:
+                - master
+e2e-backward-compat-weekly:
+    when: << pipeline.parameters.weekly >>
+    jobs:
+      - checkout_project
+      - build_instrumented_tests_package:
+          context: shared-secrets
+      - instrumented_tests_sample_multiple:
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
