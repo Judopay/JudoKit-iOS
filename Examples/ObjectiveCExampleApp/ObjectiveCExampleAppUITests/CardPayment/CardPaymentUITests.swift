@@ -304,6 +304,8 @@ final class CardPaymentUITests: XCTestCase {
         
         app.launch()
         
+        app.swipeUp()
+        
         app.cellWithIdentifier(TestData.PREAUTH_METHODS_LABEL)?.tap()
         
         app.addCard?.tap()
