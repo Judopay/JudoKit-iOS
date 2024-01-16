@@ -46,7 +46,8 @@ platform :ios do
       scheme: "ObjectiveCExampleAppUITests",
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET"
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET",
+      include_simulator_logs: false
     }
 
     sync_code_signing sync_code_signing_options

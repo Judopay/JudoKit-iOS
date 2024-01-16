@@ -163,9 +163,6 @@ commands:
             }
 
 parameters:
-  nightly:
-    type: boolean
-    default: false
   weekly:
     type: boolean
     default: false
@@ -452,7 +449,7 @@ jobs:
 workflows:  
   build:
     when:
-      not: << pipeline.parameters.nightly >>
+      not: << pipeline.parameters.weekly >>
     jobs:
       - checkout_project:
           filters:
@@ -523,26 +520,10 @@ workflows:
           environment: prod
           requires:
             - release_sdk
-  e2e-nightly:
-    when: << pipeline.parameters.nightly >>
-    jobs:
-      - checkout_project
-      - build_instrumented_tests_package:
-          context: shared-secrets
-      - run_instrumented_tests:      
-          context: shared-secrets
-          requires:
-            - build_instrumented_tests_package
-          filters:
-            branches:
-              only:
-                - master
   e2e-backward-compat-weekly:
       when: << pipeline.parameters.weekly >>
       jobs:
         - checkout_project
-        - build_instrumented_tests_package:
-            context: shared-secrets
         - instrumented_tests_sample_multiple:
             context: shared-secrets
             requires:
