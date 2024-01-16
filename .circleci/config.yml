@@ -341,7 +341,7 @@ jobs:
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 15.0 \
-              --device model=iphone14pro \
+              --device model=iphone14pro,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
