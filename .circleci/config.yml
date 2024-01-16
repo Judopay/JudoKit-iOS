@@ -524,7 +524,9 @@ workflows:
       when: << pipeline.parameters.weekly >>
       jobs:
         - checkout_project
-        - build_instrumented_tests_package
+        - build_instrumented_tests_package:
+            requires:
+              - checkout_project
         - instrumented_tests_sample_multiple:
             context: shared-secrets
             requires:
