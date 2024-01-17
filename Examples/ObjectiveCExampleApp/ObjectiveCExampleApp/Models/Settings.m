@@ -226,7 +226,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSDecimalNumber *)applePayRecurringPaymentAmount {
     NSDecimalNumber *decimalForm = [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kRecurringPaymentAmountKey]];
-    return (![[NSDecimalNumber notANumber] isEqualToNumber:decimalForm]) ? decimalForm : nil;
+    return ![NSDecimalNumber.notANumber isEqualToNumber:decimalForm] ? decimalForm : nil;
 }
 
 - (NSDate *)applePayRecurringPaymentStartDate {
