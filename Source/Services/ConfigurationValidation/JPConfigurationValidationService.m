@@ -25,9 +25,11 @@
 #import "JPConfigurationValidationService.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
+#import "JPApplePayService.h"
 #import "JPConfiguration.h"
 #import "JPConstants.h"
 #import "JPError+Additions.h"
+#import "JPPaymentMethod.h"
 #import "JPRecommendationConfiguration.h"
 #import "JPRecurringPaymentSummaryItem.h"
 #import "JPReference.h"
@@ -63,6 +65,27 @@
 
     JPError *error = [self validateConfiguration:configuration forTransactionType:transactionType];
     [self checkTokenPaymentTransactionType:transactionType error:&error];
+
+    return error;
+}
+
+- (JPError *)validatePaymentMethodsConfiguration:(JPConfiguration *)configuration
+                              forTransactionMode:(JPTransactionMode)mode {
+
+    JPTransactionType transactionType = mode == JPTransactionModePreAuth ? JPTransactionTypePreAuth : JPTransactionTypePayment;
+
+    JPError *error = [self validateConfiguration:configuration forTransactionType:transactionType];
+
+    if (error) {
+        return error;
+    }
+
+    BOOL isApplePayADefaultPaymentMethod = JPApplePayService.isApplePaySupported && configuration.paymentMethods.count == 0;
+    BOOL isApplePayOneOfThePaymentMethods = [configuration.paymentMethods containsObject:JPPaymentMethod.applePay];
+
+    if (isApplePayADefaultPaymentMethod || isApplePayOneOfThePaymentMethods) {
+        error = [self validateApplePayConfiguration:configuration];
+    }
 
     return error;
 }

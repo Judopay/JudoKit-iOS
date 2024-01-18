@@ -241,6 +241,13 @@
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(JPConfiguration *)configuration
                                completion:(JPCompletionBlock)completion {
+    JPError *error = [self.configurationValidationService validatePaymentMethodsConfiguration:configuration
+                                                                           forTransactionMode:mode];
+
+    if (error) {
+        completion(nil, error);
+        return;
+    }
 
     UIViewController *controller = [self paymentMethodViewControllerWithMode:mode
                                                                configuration:configuration
