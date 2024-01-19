@@ -175,6 +175,12 @@
     self.applePayController = [[JPApplePayController alloc] initWithConfiguration:self.configuration];
     UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
                                                                                           didFinishBlock:didFinishBlock];
+
+    if (!controller) {
+        didFinishBlock(NO);
+        return;
+    }
+
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf presentViewController:controller animated:YES completion:nil];
