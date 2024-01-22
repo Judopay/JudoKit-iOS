@@ -326,10 +326,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run:
-          name: Test with Sauce Labs
-          no_output_timeout: 30m
-          command: saucectl run 
+      - saucectl/saucectl-run
       # - notify_slack_error
       # - notify_slack_pass
   instrumented_tests_sample_multiple:
