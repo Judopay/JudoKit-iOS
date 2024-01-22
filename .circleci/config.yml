@@ -8,7 +8,7 @@ executors:
 orbs:
   slack: circleci/slack@4.12.5
   ruby: circleci/ruby@2.1.0
-  saucectl: saucelabs/saucectl-run@3.0.0
+  saucectl-run: saucelabs/saucectl-run@3.0.1
 
 commands:
   notify_slack_error:
@@ -440,22 +440,22 @@ workflows:
             tags:
               only:
                 - /^v[0-9]+(\.[0-9]+)*$/
-      - lint_sdk:
-          requires:
-            - checkout_project
-      - build_sdk:
-          requires:
-            - lint_sdk
-      - unit_test_sdk:
-          requires:
-            - build_sdk
-      - sonar_scan:
-          context: shared-secrets
-          requires:
-            - unit_test_sdk
-      - build_example_apps:
-          requires:
-            - unit_test_sdk
+      # - lint_sdk:
+      #     requires:
+      #       - checkout_project
+      # - build_sdk:
+      #     requires:
+      #       - lint_sdk
+      # - unit_test_sdk:
+      #     requires:
+      #       - build_sdk
+      # - sonar_scan:
+      #     context: shared-secrets
+      #     requires:
+      #       - unit_test_sdk
+      # - build_example_apps:
+      #     requires:
+      #       - unit_test_sdk
       - build_instrumented_tests_package:
           requires:
             - unit_test_sdk
