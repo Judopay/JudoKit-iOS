@@ -8,7 +8,7 @@ executors:
 orbs:
   slack: circleci/slack@4.12.5
   ruby: circleci/ruby@2.1.0
-  saucectl-run: saucelabs/saucectl-run@3.0.1
+  saucectl: saucelabs/saucectl-run@3.0.0
 
 commands:
   notify_slack_error:
@@ -326,7 +326,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - saucectl/saucectl-run
+      - saucectl/saucectl
       # - notify_slack_error
       # - notify_slack_pass
   instrumented_tests_sample_multiple:
