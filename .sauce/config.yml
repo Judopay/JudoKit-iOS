@@ -1,0 +1,25 @@
+apiVersion: v1alpha
+kind: xcuitest
+sauce:
+  region: eu-central-1
+  concurrency: 1
+
+xcuitest:
+  app: $APP
+  testApp: $TEST_APP
+
+suites:
+  - name: "E2E UI on iOS 17"
+    devices:
+      - name: "iPhone.*"
+        platformVersion: "17.2.1" 
+    testOptions:
+      class: 
+        - ObjectiveCExampleAppUITests.CardPaymentUITests
+
+artifacts:
+  download:
+    when: always
+    match:
+      - "junit.xml"
+    directory: ./artifacts/
