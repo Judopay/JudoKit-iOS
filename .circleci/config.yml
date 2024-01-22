@@ -326,7 +326,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - saucectl/saucectl
+      - saucectl/saucectl-run
       # - notify_slack_error
       # - notify_slack_pass
   instrumented_tests_sample_multiple:
