@@ -158,7 +158,7 @@
     NSMutableArray *defaultPaymentMethods;
     defaultPaymentMethods = [NSMutableArray arrayWithArray:@[ JPPaymentMethod.card ]];
 
-    if ([JPApplePayService isApplePaySupported]) {
+    if (JPApplePayService.isApplePaySupported) {
         [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypeApplePay];

@@ -60,7 +60,7 @@
 #pragma mark - Public methods
 
 + (bool)isApplePaySupported {
-    return [PKPaymentAuthorizationController canMakePayments];
+    return PKPaymentAuthorizationController.canMakePayments;
 }
 
 - (bool)isApplePaySetUp {

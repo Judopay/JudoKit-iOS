@@ -22,7 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPTransactionMode.h"
 #import "JPTransactionType.h"
+
 #import <Foundation/Foundation.h>
 
 @class JPError, JPConfiguration;
@@ -43,6 +45,9 @@
 
 - (JPError *)validateTokenPaymentConfiguration:(JPConfiguration *)configuration
                             forTransactionType:(JPTransactionType)transactionType;
+
+- (JPError *)validatePaymentMethodsConfiguration:(JPConfiguration *)configuration
+                              forTransactionMode:(JPTransactionMode)mode;
 
 /**
  * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails

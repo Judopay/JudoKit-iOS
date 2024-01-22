@@ -254,7 +254,7 @@ jobs:
       - run:
           name: Install Sonar Scanner
           command: |
-            export SONARSCANNER_VERSION=4.3.0.2102
+            export SONARSCANNER_VERSION=5.0.1.3006
             curl -o sonarscanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONARSCANNER_VERSION}-macosx.zip
             sudo unzip -q sonarscanner.zip -d /opt
             rm sonarscanner.zip
