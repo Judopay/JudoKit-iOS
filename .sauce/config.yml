@@ -9,7 +9,7 @@ xcuitest:
   testApp: $TEST_APP
 
 suites:
-  - name: "E2E UI on iOS 17"
+  - name: "E2E UI on iOS"
     devices:
       - name: "iPhone.*"
         platformVersion: "17.2.1" 
