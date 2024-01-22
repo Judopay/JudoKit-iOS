@@ -320,8 +320,8 @@ jobs:
   instrumented_tests_sample:
     executor: macos
     environment:
-      APP: JudoKit.app
-      TEST_APP: ObjectiveCExampleAppUITests-Runner.app
+      APP: ./DerivedData/Debug-iphoneos/JudoKit.app
+      TEST_APP: ./DerivedData/Debug-iphoneos/ObjectiveCExampleAppUITests-Runner.app
     steps:
       - attach_workspace:
           at: ~/project
