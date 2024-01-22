@@ -456,9 +456,7 @@ workflows:
       # - build_example_apps:
       #     requires:
       #       - unit_test_sdk
-      - build_instrumented_tests_package:
-          requires:
-            - unit_test_sdk
+      - build_instrumented_tests_package
       - run_instrumented_tests:
           context: shared-secrets
           requires:
