@@ -320,8 +320,8 @@ jobs:
   instrumented_tests_sample:
     executor: macos
     environment:
-      APP: ./DerivedData/Debug-iphoneos/JudoKit.app
-      TEST_APP: ./DerivedData/Debug-iphoneos/ObjectiveCExampleAppUITests-Runner.app
+      APP: ./DerivedData/Build/Products/Debug-iphoneos/JudoKit.app
+      TEST_APP: ./DerivedData/Build/Products/Debug-iphoneos/ObjectiveCExampleAppUITests-Runner.app
     steps:
       - attach_workspace:
           at: ~/project
@@ -332,7 +332,9 @@ jobs:
             brew install saucectl
       - run:
           name: Run tests on SauceLabs
-          command: saucectl run
+          command: | 
+            la -la
+            saucectl run
       # - notify_slack_error
       # - notify_slack_pass
   instrumented_tests_sample_multiple:
