@@ -11,7 +11,7 @@ xcuitest:
 suites:
   - name: "E2E UI on iOS"
     devices:
-      - name: iPhone .*
+      - name: iPhone 15
         platformVersion: "17.3" 
     testOptions:
       class: 
