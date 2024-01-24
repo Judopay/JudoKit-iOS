@@ -11,8 +11,8 @@ xcuitest:
 suites:
   - name: "E2E UI on iOS"
     devices:
-      - name: "iPhone.*"
-        platformVersion: "17.2.1" 
+      - name: "iPhone .*"
+        platformVersion: "17.3" 
     testOptions:
       class: 
         - ObjectiveCExampleAppUITests.CardPaymentUITests
