@@ -25,7 +25,12 @@
 #import "JPAuthorization.h"
 #import <Foundation/Foundation.h>
 
-@interface JPBasicAuthorization : NSObject <JPAuthorization>
+/**
+ * DEPRECATED: use JPSessionAuthorization instead.
+ * Authorization type that uses token and secret combination to authorize Judo backend requests.
+ */
+__attribute__((deprecated("This authentication method is deprecated, please use payment session instead.")))
+@interface JPBasicAuthorization : NSObject<JPAuthorization>
 
 /**
  * Designated initializer that describes a basic authorization
