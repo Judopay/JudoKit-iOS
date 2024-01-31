@@ -35,7 +35,7 @@ class JPSessionAuthorizationTest: XCTestCase {
     func test_ConvenientInit_WhenFieldsAreValid_ShouldPopulateProperties() {
         let sessionAuthorization = JPSessionAuthorization.init(token: "token", andPaymentSession: "session")
         XCTAssertEqual(sessionAuthorization.headers["Payment-Session"], "session")
-        XCTAssertNotNil(sessionAuthorization.headers["Authorization"])
+        XCTAssertNotNil(sessionAuthorization.headers["Api-Token"])
     }
     
     /*
@@ -48,6 +48,6 @@ class JPSessionAuthorizationTest: XCTestCase {
     func test_Initializer_WhenFieldsAreValid_ShouldPopulateProperties() {
         let sessionAuthorization = JPSessionAuthorization(token: "token", andPaymentSession: "session")
         XCTAssertEqual(sessionAuthorization.headers["Payment-Session"], "session")
-        XCTAssertNotNil(sessionAuthorization.headers["Authorization"])
+        XCTAssertNotNil(sessionAuthorization.headers["Api-Token"])
     }
 }
