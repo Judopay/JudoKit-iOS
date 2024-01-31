@@ -201,7 +201,8 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 @property (nonatomic, assign) BOOL isPaymentSessionAuthorizationOn;
 
 #pragma mark - Payment reference section
-
+- (BOOL)hasPaymentReferenceSetUp;
+- (BOOL)hasConsumerReferenceSetUp;
 - (JPReference *)reference;
 
 #pragma mark - Amount section
