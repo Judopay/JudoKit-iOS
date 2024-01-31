@@ -105,6 +105,13 @@ NSString *safeString(NSString *aString) {
 }
 
 #pragma mark - Reference section
+- (BOOL)hasPaymentReferenceSetUp {
+    return [self.defaults stringForKey:kPaymentReferenceKey].length > 0;
+}
+
+- (BOOL)hasConsumerReferenceSetUp {
+    return [self.defaults stringForKey:kConsumerReferenceKey].length > 0;
+}
 
 - (JPReference *)reference {
     NSString *paymentReference = [self.defaults stringForKey:kPaymentReferenceKey];

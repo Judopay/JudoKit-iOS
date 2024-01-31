@@ -44,7 +44,7 @@
 
     if (self = [super init]) {
         _headers = @{
-            kHeaderFieldAuthorization : generateBasicAuthHeader(token, @""),
+            kHeaderFieldAPIToken : token,
             kHeaderFieldPaymentSession : session
         };
     }

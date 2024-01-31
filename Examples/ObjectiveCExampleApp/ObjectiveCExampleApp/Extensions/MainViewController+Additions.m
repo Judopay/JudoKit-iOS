@@ -27,10 +27,22 @@
     NSString *judoId = Settings.defaultSettings.judoId;
     NSString *amount = Settings.defaultSettings.amount.amount;
     NSString *currency = Settings.defaultSettings.amount.currency;
-    NSString *paymentReference = NSUUID.UUID.UUIDString;
-    [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
-    NSString *consumerReference = @"my-unique-ref";
-    [NSUserDefaults.standardUserDefaults setValue:consumerReference forKey:kConsumerReferenceKey];
+   
+    JPReference *reference = Settings.defaultSettings.reference;
+    NSString *paymentReference = reference.paymentReference;
+    NSString *consumerReference = reference.consumerReference;
+
+    // In case the call to `Settings.defaultSettings.reference`
+    // ended up in generating a new pair of references
+    // store these to be used for the next flow step
+    if (!Settings.defaultSettings.hasPaymentReferenceSetUp) {
+        [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
+    }
+
+    if (!Settings.defaultSettings.hasConsumerReferenceSetUp) {
+        [NSUserDefaults.standardUserDefaults setValue:consumerReference forKey:kConsumerReferenceKey];
+    }
+    
     NSString *baseUrlString;
     if (Settings.defaultSettings.isSandboxed) {
         baseUrlString = kJudoSandboxBaseURL;

@@ -128,5 +128,6 @@ static NSString *const kSCAExemptionTransactionRiskAnalysis = @"transactionRiskA
 
 static NSString *const kHeaderFieldPaymentSession = @"Payment-Session";
 static NSString *const kHeaderFieldAuthorization = @"Authorization";
+static NSString *const kHeaderFieldAPIToken = @"Api-Token";
 
 #endif /* JPConstants_h */
