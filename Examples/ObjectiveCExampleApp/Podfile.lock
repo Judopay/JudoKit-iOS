@@ -1,5 +1,4 @@
 PODS:
-  - CocoaDebug (1.7.2)
   - DeviceDNA (2.0.0):
     - OpenSSL-Universal (~> 1.1.180)
   - InAppSettingsKit (3.3.6)
@@ -83,7 +82,6 @@ PODS:
   - TrustKit (3.0.3)
 
 DEPENDENCIES:
-  - CocoaDebug (= 1.7.2)
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.1.4)
   - JudoKit-iOS (from `../../`)
@@ -91,7 +89,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - CocoaDebug
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
@@ -107,7 +104,6 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  CocoaDebug: 61cf93ada6ce8f3407507dc01f9b874d91ac1d5c
   DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: 5cca966ec8425a315d6a96ff64f0b760dd991f32
@@ -119,6 +115,6 @@ SPEC CHECKSUMS:
   RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
 
-PODFILE CHECKSUM: d0586020c8fd66f32b8a19cf1accd70d59bffb6d
+PODFILE CHECKSUM: 764b102bb209c4df2d2bf24e192fc0ba1aa85283
 
 COCOAPODS: 1.14.3

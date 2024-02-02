@@ -8,11 +8,10 @@ target 'ObjectiveCExampleApp' do
    pod 'Judo3DS2_iOS', '1.1.4'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '3.3.0'
+  # pod 'JudoKit-iOS', '3.3.1'
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
-  pod 'CocoaDebug', '1.7.2'
   
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths

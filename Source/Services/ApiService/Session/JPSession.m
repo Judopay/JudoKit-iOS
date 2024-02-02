@@ -47,10 +47,11 @@ static NSString *const kHeaderFieldAPIVersion = @"API-Version";
 static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
 @interface JPSession () <NSURLSessionDelegate>
-@property (nonatomic, strong, readwrite) TrustKit *trustKit;
-@property (nonatomic, strong, readwrite) JPReachability *reachability;
-@property (nonatomic, strong, readwrite) JPSessionConfiguration *configuration;
-@property (nonatomic, strong, readwrite) NSDictionary<NSString *, NSString *> *requestHeaders;
+@property (nonatomic, strong) JPReachability *reachability;
+@property (nonatomic, strong) JPSessionConfiguration *configuration;
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *requestHeaders;
+@property (nonatomic, strong) TrustKit *trustKit;
+@property (nonatomic, strong) NSURLSession *urlSession;
 @end
 
 @implementation JPSession
@@ -67,29 +68,8 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
         _configuration = configuration;
         _reachability = [JPReachability reachabilityWithURL:self.configuration.apiBaseURL];
-
-        [self setupTrustKit];
     }
     return self;
-}
-
-#pragma mark - Setup methods
-
-- (void)setupTrustKit {
-    NSDictionary *trustKitConfig =
-        @{
-            kTSKPinnedDomains : @{
-                @"judopay.com" : @{
-                    kTSKPublicKeyHashes : @[
-                        @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
-                        @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
-                    ],
-                    kTSKIncludeSubdomains : @YES
-                }
-            }
-        };
-
-    self.trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
 }
 
 #pragma mark - REST API methods
@@ -106,7 +86,39 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
     [self performRequestWithMethod:kMethodGET endpoint:endpoint parameters:parameters andCompletion:completion];
 }
 
-#pragma mark - Private implementation
+#pragma mark - Lazily loaded properties
+
+- (TrustKit *)trustKit {
+    if (!_trustKit) {
+        NSDictionary *trustKitConfig =
+            @{
+                kTSKPinnedDomains : @{
+                    @"judopay.com" : @{
+                        kTSKPublicKeyHashes : @[
+                            @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+                            @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
+                        ],
+                        kTSKIncludeSubdomains : @YES
+                    }
+                }
+            };
+
+        _trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
+    }
+    return _trustKit;
+}
+
+- (NSURLSession *)urlSession {
+    if (!_urlSession) {
+        NSURLSessionConfiguration *configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration;
+        NSOperationQueue *queue = NSOperationQueue.mainQueue;
+
+        _urlSession = [NSURLSession sessionWithConfiguration:configuration
+                                                    delegate:self
+                                               delegateQueue:queue];
+    }
+    return _urlSession;
+}
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaders {
     if (!_requestHeaders) {
@@ -119,6 +131,8 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
     }
     return _requestHeaders;
 }
+
+#pragma mark - Private implementation
 
 - (void)performRequestWithMethod:(NSString *)HTTPMethod
                         endpoint:(NSString *)path
@@ -155,22 +169,15 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 }
 
 - (NSURLSessionDataTask *)task:(NSURLRequest *)request completion:(JPCompletionBlock)completion {
+    __weak typeof(self) weakSelf = self;
 
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig
-                                                             delegate:self
-                                                        delegateQueue:nil];
-
-    return [urlSession dataTaskWithRequest:request
-                         completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
-                             if (!completion) {
-                                 return;
-                             }
-
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 [self handleResult:data error:error andCompletion:completion];
-                             });
-                         }];
+    return [self.urlSession dataTaskWithRequest:request
+                              completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
+                                  if (!completion) {
+                                      return;
+                                  }
+                                  [weakSelf handleResult:data error:error andCompletion:completion];
+                              }];
 }
 
 - (void)handleResult:(NSData *)data
@@ -209,14 +216,13 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
 - (void)URLSession:(NSURLSession *)session
     didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
-      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *_Nullable))completionHandler {
-
-    TSKPinningValidator *pinningValidator = self.trustKit.pinningValidator;
-    if (![pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {
+      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
+    // Pass the authentication challenge to the validator; if the validation fails, the connection will be blocked
+    if (![self.trustKit.pinningValidator handleChallenge:challenge completionHandler:completionHandler]) {
+        // TrustKit did not handle this challenge: perhaps it was not for server trust
+        // or the domain was not pinned. Fall back to the default behavior
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     }
-
-    [session finishTasksAndInvalidate];
 }
 
 @end
