@@ -50,7 +50,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 @property (strong, nonatomic) NSArray<NSString *> *settingsToObserve;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
-@property (nonatomic, assign) BOOL shouldSetupJudoSDK;
+@property (nonatomic, assign) BOOL shouldUpdateKitAuth;
 @property (nonatomic, strong) NSURL *deepLinkURL;
 @property (nonatomic, strong) IASKAppSettingsViewController *settingsViewController;
 @end
@@ -66,7 +66,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     self.view.accessibilityIdentifier = @"Main View";
     self.settingsButton.accessibilityIdentifier = @"Settings Button";
 
-    self.shouldSetupJudoSDK = YES;
+    self.shouldUpdateKitAuth = YES;
     [self requestLocationPermissions];
     
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
@@ -75,8 +75,8 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.shouldSetupJudoSDK) {
-        self.shouldSetupJudoSDK = NO;
+    if (self.shouldUpdateKitAuth) {
+        self.shouldUpdateKitAuth = NO;
         [self updateKitAuth];
     }
 }
@@ -128,7 +128,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                         change:(NSDictionary<NSKeyValueChangeKey, id> *)change
                        context:(void *)context {
     if ([object isKindOfClass:NSUserDefaults.class] && [self.settingsToObserve containsObject:keyPath]) {
-        self.shouldSetupJudoSDK = YES;
+        self.shouldUpdateKitAuth = YES;
     }
 }
 
