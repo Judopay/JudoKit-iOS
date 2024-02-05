@@ -26,7 +26,6 @@
 #import "MainViewController.h"
 #import "Settings.h"
 
-@import CocoaDebug;
 @import JudoKit_iOS;
 
 @implementation AppDelegate
@@ -34,10 +33,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load settings defaults
     [self registerDefaultsFromSettingsBundle];
-
-    // Enable debug inspector
-    [CocoaDebug enable];
-
     return YES;
 }
 
