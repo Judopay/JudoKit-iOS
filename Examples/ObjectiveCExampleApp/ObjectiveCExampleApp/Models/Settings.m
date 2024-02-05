@@ -5,7 +5,7 @@ static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
 static NSString *const kDontSet = @"dontSet";
 
 @interface Settings ()
-@property (nonatomic, strong) NSUserDefaults *defaults;
+@property (nonatomic, strong, readwrite) NSUserDefaults *defaults;
 @end
 
 @implementation Settings

@@ -37,10 +37,12 @@
     // store these to be used for the next flow step
     if (!Settings.defaultSettings.hasPaymentReferenceSetUp) {
         [NSUserDefaults.standardUserDefaults setValue:paymentReference forKey:kPaymentReferenceKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
     }
 
     if (!Settings.defaultSettings.hasConsumerReferenceSetUp) {
         [NSUserDefaults.standardUserDefaults setValue:consumerReference forKey:kConsumerReferenceKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
     }
     
     NSString *baseUrlString;
@@ -101,6 +103,7 @@
     
     [Settings.defaultSettings updateAuthorizationWithPaymentSession:[responseDict objectForKey:@"reference"]
                                                            andToken:Settings.defaultSettings.token];
+    
     [self displaySnackBarWith:@"Success generating payment session, settings updated, navigating back to main screen."];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
