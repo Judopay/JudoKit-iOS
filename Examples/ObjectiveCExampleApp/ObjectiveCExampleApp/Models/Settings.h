@@ -178,6 +178,8 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 
 @interface Settings : NSObject
 
+@property (nonatomic, strong, readonly) NSUserDefaults *defaults;
+
 + (instancetype)defaultSettings;
 
 - (instancetype)initWith:(NSUserDefaults *)defaults;
