@@ -537,6 +537,7 @@ NSString *safeString(NSString *aString) {
                                      andToken:(NSString *)token {
     [self.defaults setValue:session forKey:kPaymentSessionKey];
     [self.defaults setValue:token forKey:kSessionTokenKey];
+    [self.defaults synchronize];
 }
 
 @end
