@@ -26,4 +26,16 @@ class TestData {
     
     static let CANCELLED_PAYMENT_TOAST = "The transaction was cancelled by the user."
     static let CANCELLED_3DS2_PAYMENT_TOAST = "Unable to process transaction. Card authentication failed with 3DS Server."
+    
+    static let ALLOW = "ALLOW"
+    static let PREVENT = "PREVENT"
+    static let REVIEW = "REVIEW"
+    static let AUTHORISE = "AUTHORISE"
+    static let AUTHENTICATE = "AUTHENTICATE"
+    static let TRA = "TRANSACTION_RISK_ANALYSIS"
+    static let LOW_VALUE = "LOW_VALUE"
+    static let NO_CHALLENGE = "NO_CHALLENGE_REQUESTED"
+    static let NO_PREFERENCE = "NO_PREFERENCE"
+    static let CHALLENGE_MANDATE = "CHALLENGE_REQUESTED_AS_MANDATE"
+    static let CHALLENGE_REQUESTED = "CHALLENGE_REQUESTED"
 }

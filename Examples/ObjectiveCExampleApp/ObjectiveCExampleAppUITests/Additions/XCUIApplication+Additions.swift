@@ -115,18 +115,42 @@ extension XCUIApplication {
         }
     }
     
-    func configureSettings() {
+    func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
         let apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
         
-        launchArguments += ["-judo_id", judoID ?? "",
-                            "-token", apiToken ?? "",
-                            "-secret", apiSecret ?? "",
-                            "-is_sandboxed", "true",
-                            "-is_token_and_secret_on", "true",
-                            "-should_ask_for_billing_information", "false",
-                            "-challenge_request_indicator", "challengeAsMandate"]
+        if isRavelinTest {
+            launchArguments += ["-judo_id", judoID ?? "",
+                                "-session_token", apiToken ?? "",
+                                "-token", apiToken ?? "",
+                                "-secret", apiSecret ?? "",
+                                "-is_sandboxed", "true",
+                                "-is_payment_session_on", "true",
+                                "-should_ask_for_billing_information", "false"]
+        } else {
+            launchArguments += ["-judo_id", judoID ?? "",
+                                "-token", apiToken ?? "",
+                                "-secret", apiSecret ?? "",
+                                "-is_sandboxed", "true",
+                                "-is_token_and_secret_on", "true",
+                                "-should_ask_for_billing_information", "false",
+                                "-challenge_request_indicator", "challengeAsMandate",
+                                "-is_recommendation_enabled", "false"]
+        }
+    }
+    
+    func configureRavelin(action: String, toa: String, exemption: String, challenge: String) {
+        
+        let rsaPublicKey = ProcessInfo.processInfo.environment["RSA_PUBLIC_KEY"]
+        let ravelinMockServerURL = ProcessInfo.processInfo.environment["RAVELIN_MOCK_SERVER_URL"]
+        
+        let suffix = action + "/" + toa + "/" + exemption + "/" + challenge
+        let url = (ravelinMockServerURL ?? "") + suffix
+        
+        launchArguments += ["-is_recommendation_enabled", "true",
+                            "-rsa_key", rsaPublicKey ?? "",
+                            "-recommendation_url", url]
     }
     
     func fillCardSheetDetails(cardNumber: String, cardHolder: String, expiryDate: String, securityCode: String) {
@@ -134,5 +158,19 @@ extension XCUIApplication {
         cardholderTextField?.tapAndTypeText(cardHolder)
         expiryDateTextField?.tapAndTypeText(expiryDate)
         securityCodeTextField?.tapAndTypeText(securityCode)
+    }
+    
+    func clearTextFieldByIndex(index: Int) {
+        let textField = textFields.element(boundBy: index)
+        textField.tap(withNumberOfTaps: 3, numberOfTouches: 1)
+        textField.typeText(XCUIKeyboardKey.delete.rawValue)
+    }
+    
+    func ravelinTestSetup() {
+        launchArguments += ["-payment_reference", "RAVELIN-" + NSUUID().uuidString, "-consumer_reference", "RAVELIN-TESTING"]
+        launch()
+        settingsButton?.tap()
+        clearTextFieldByIndex(index: 2)
+        staticTexts["Generate Payment Session"].tap()
     }
 }
