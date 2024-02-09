@@ -47,11 +47,10 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 @property (nonatomic, strong) JudoKit *judoKit;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSArray<DemoFeature *> *features;
-@property (strong, nonatomic) NSSet<NSString *> *settingsToObserve;
+@property (strong, nonatomic) NSArray<NSString *> *settingsToObserve;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
-@property (nonatomic, assign) BOOL shouldSetupJudoSDK;
+@property (nonatomic, assign) BOOL shouldUpdateKitAuth;
 @property (nonatomic, strong) NSURL *deepLinkURL;
 @property (nonatomic, strong) IASKAppSettingsViewController *settingsViewController;
 @end
@@ -63,15 +62,11 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupAccessibilityIdentifiers];
-    
-    self.features = DemoFeature.defaultFeatures;
-    self.shouldSetupJudoSDK = YES;
-    self.settingsToObserve = [NSSet setWithArray:@[ kSandboxedKey,
-                                                    kTokenKey, kSecretKey, kPaymentSessionKey,
-                                                    kSessionTokenKey,
-                                                    kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ]];
-    
+    // Setup accessibility identifiers
+    self.view.accessibilityIdentifier = @"Main View";
+    self.settingsButton.accessibilityIdentifier = @"Settings Button";
+
+    self.shouldUpdateKitAuth = YES;
     [self requestLocationPermissions];
     
     self.judoKit = [[JudoKit alloc] initWithAuthorization:Settings.defaultSettings.authorization];
@@ -80,45 +75,60 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.shouldSetupJudoSDK) {
-        self.shouldSetupJudoSDK = NO;
-        [self setupJudoSDK];
+    if (self.shouldUpdateKitAuth) {
+        self.shouldUpdateKitAuth = NO;
+        [self updateKitAuth];
+    }
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(settingDidChanged:)
+                                               name:kIASKAppSettingChanged
+                                             object:nil];
+    
+    for (NSString *key in self.settingsToObserve) {
+        [Settings.defaultSettings.defaults addObserver:self
+                                            forKeyPath:key
+                                               options:NSKeyValueObservingOptionNew
+                                               context:NULL];
     }
 }
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(settingDidChanged:)
-                                               name:kIASKAppSettingChanged
-                                             object:nil];
-}
-
-- (void)setupAccessibilityIdentifiers {
-    self.view.accessibilityIdentifier = @"Main View";
-    self.settingsButton.accessibilityIdentifier = @"Settings Button";
+    
+    // Remove KVO observers when it's no longer needed
+    for (NSString *key in self.settingsToObserve) {
+        [Settings.defaultSettings.defaults removeObserver:self forKeyPath:key];
+    }
 }
 
 - (void)settingDidChanged:(NSNotification *)notification {
     if (![notification.name isEqualToString:kIASKAppSettingChanged]) {
         return;
     }
+    
     NSSet *changes = [NSSet setWithArray:notification.userInfo.allKeys];
-    
-    if ([changes intersectsSet:self.settingsToObserve]) {
-        self.shouldSetupJudoSDK = YES;
-    }
-    
+        
     // As settingsViewController belongs to type "IASKAppSettingsViewController, it gets nested (e.g. Apple Pay Settings),
     // and therefore it is important to call this updating method on the main (parent) Settings ViewController, not necessarily
     // the one that sends this notification (as it's possibly the nested one). Main Settings VS propagades these changes
     // down to its children.
     if ([_settingsViewController respondsToSelector:@selector(didChangedSettingsWithKeys:)]) {
         [_settingsViewController didChangedSettingsWithKeys:changes.allObjects];
+    }
+}
+
+// Observe changes to UserDefaults keys - to update judokit.auth in case if changes are made
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
+                       context:(void *)context {
+    if ([object isKindOfClass:NSUserDefaults.class] && [self.settingsToObserve containsObject:keyPath]) {
+        self.shouldUpdateKitAuth = YES;
     }
 }
 
@@ -144,7 +154,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 // MARK: Setup methods
 
-- (void)setupJudoSDK {
+- (void)updateKitAuth {
     self.judoKit.isSandboxed = Settings.defaultSettings.isSandboxed;
     self.judoKit.authorization = Settings.defaultSettings.authorization;
 }
@@ -403,6 +413,17 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     return configuration;
 }
 
+- (NSArray<NSString *> *)settingsToObserve {
+    if (!_settingsToObserve) {
+        _settingsToObserve = @[ kSandboxedKey,
+                                kTokenKey, kSecretKey,
+                                kPaymentSessionKey,
+                                kSessionTokenKey,
+                                kIsTokenAndSecretOnKey, kIsPaymentSessionOnKey ];
+    }
+    return _settingsToObserve;
+}
+
 @end
 
 @implementation MainViewController (TableViewDelegates)
@@ -410,7 +431,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 // MARK: UITableViewDataSource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.features.count;
+    return DemoFeature.defaultFeatures.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -423,7 +444,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    DemoFeature *option = self.features[indexPath.row];
+    DemoFeature *option = DemoFeature.defaultFeatures[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:option.cellIdentifier forIndexPath:indexPath];
     
     cell.textLabel.text = option.title;
@@ -436,7 +457,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DemoFeature *feature = self.features[indexPath.row];
+    DemoFeature *feature = DemoFeature.defaultFeatures[indexPath.row];
     
     BOOL isApplePayRelatedFeature = feature.type == DemoFeatureTypeApplePayPayment || feature.type == DemoFeatureTypeApplePayPreAuth || feature.type == DemoFeatureTypeApplePayStandalone;
     
