@@ -35,7 +35,7 @@ platform :ios do
   lane :package_instrumented_tests do
     cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
-    sync_code_signing_options = { 
+    sync_code_signing_options = {
       type: "development",
       app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
     }
@@ -50,6 +50,7 @@ platform :ios do
       include_simulator_logs: false
     }
 
+    app_store_connect_api_key
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
@@ -136,6 +137,7 @@ platform :ios do
         end
       
       if build_for_distribution
+        app_store_connect_api_key
         sync_code_signing sync_code_signing_options
       end
 
