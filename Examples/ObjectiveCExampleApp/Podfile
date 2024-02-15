@@ -12,6 +12,7 @@ target 'ObjectiveCExampleApp' do
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
+  pod 'Wormholy'
   
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths

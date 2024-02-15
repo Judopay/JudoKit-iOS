@@ -80,12 +80,14 @@ PODS:
   - OpenSSL-Universal (1.1.2200)
   - RavelinEncrypt (1.1.1)
   - TrustKit (3.0.3)
+  - Wormholy (1.7.0)
 
 DEPENDENCIES:
   - InAppSettingsKit (= 3.3.6)
   - Judo3DS2_iOS (= 1.1.4)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
+  - Wormholy
 
 SPEC REPOS:
   trunk:
@@ -98,6 +100,7 @@ SPEC REPOS:
     - OpenSSL-Universal
     - RavelinEncrypt
     - TrustKit
+    - Wormholy
 
 EXTERNAL SOURCES:
   JudoKit-iOS:
@@ -114,7 +117,8 @@ SPEC CHECKSUMS:
   OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
   RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
   TrustKit: 7858ea59d0e226b1457b2e9cc8b95d77ab21d471
+  Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 09c1a52cd4f8353d234b3c5a8ac9eb494080f62e
+PODFILE CHECKSUM: f7f106f149ef4b85cef44b1b2579fb7fd438afe6
 
 COCOAPODS: 1.14.3
