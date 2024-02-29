@@ -29,5 +29,6 @@
 
 - (JPPresentationMode)presentationModeForCardPayments;
 - (JPPresentationMode)presentationModeForTokenPayments;
+- (JPPresentationMode)presentationModeForTokenPaymentsForPaymentMethods:(BOOL)forPaymentMethods;
 
 @end
