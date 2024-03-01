@@ -73,7 +73,7 @@
 - (void)navigateToTokenTransactionModuleWithType:(JPTransactionType)type
                                      cardDetails:(JPCardTransactionDetails *)details
                                    andCompletion:(JPCompletionBlock)completion {
-    JPPresentationMode mode = self.configuration.presentationModeForTokenPayments;
+    JPPresentationMode mode = [self.configuration presentationModeForTokenPaymentsForPaymentMethods:YES];
     [self navigateToTransactionModuleWithType:type presentationMode:mode cardDetails:details andCompletion:completion];
 }
 
