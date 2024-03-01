@@ -42,13 +42,23 @@
 }
 
 - (JPPresentationMode)presentationModeForTokenPayments {
-    BOOL isBillingInfoOn = self.uiConfiguration.shouldAskForBillingInformation;
+    return [self presentationModeForTokenPaymentsForPaymentMethods:NO];
+}
 
-    if (self.uiConfiguration.shouldAskForCSC && self.uiConfiguration.shouldAskForCardholderName) {
+- (JPPresentationMode)presentationModeForTokenPaymentsForPaymentMethods:(BOOL)forPaymentMethods {
+    BOOL isBillingInfoOn = self.uiConfiguration.shouldAskForBillingInformation;
+    BOOL shouldAskForCSC = self.uiConfiguration.shouldAskForCSC;
+
+    // TODO: Remove this (method entirely) once `shouldPaymentMethodsVerifySecurityCode` is deleted
+    if (forPaymentMethods) {
+        shouldAskForCSC = self.uiConfiguration.shouldPaymentMethodsVerifySecurityCode || self.uiConfiguration.shouldAskForCSC;
+    }
+
+    if (shouldAskForCSC && self.uiConfiguration.shouldAskForCardholderName) {
         return isBillingInfoOn ? JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo : JPPresentationModeSecurityCodeAndCardholderName;
     }
 
-    if (self.uiConfiguration.shouldAskForCSC) {
+    if (shouldAskForCSC) {
         return isBillingInfoOn ? JPPresentationModeSecurityCodeAndBillingInfo : JPPresentationModeSecurityCode;
     }
 

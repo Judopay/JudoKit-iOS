@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 15.0.0
+      xcode: 15.2.0
 
 orbs:
   slack: circleci/slack@4.12.5
@@ -162,6 +162,42 @@ commands:
               ]
             }
 
+  pod_install:
+    description: Install CocoaPods dependencies for an iOS project. This command correctly configures the cache for the Pods directory and Podfile.lock.
+    parameters:
+      pod_install_directory:
+        type: string
+        default: "example"
+        description: The location of the Podfile
+    steps:
+      - restore_cache:
+          keys:
+            - '{{ .Environment.CACHE_VERSION }}-cache-pods-{{ checksum "<<parameters.pod_install_directory>>/Podfile.lock" }}'
+            - '{{ .Environment.CACHE_VERSION }}-cache-pods'
+      - run:
+          name: Install CocoaPods
+          command: |
+            cd <<parameters.pod_install_directory>> && pod install && cd -
+      - save_cache:
+          paths:
+            - <<parameters.pod_install_directory>>/Pods
+          key: '{{ .Environment.CACHE_VERSION }}-cache-pods-{{ checksum "<<parameters.pod_install_directory>>/Podfile.lock" }}'
+  brew_install:
+    description: Install Homebrew packages, and cache the Homebrew cache.
+    steps:
+      - restore_cache:
+          key: brew-cache-{{ arch }}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Installing Homebrew packages
+          command: |
+            export HOMEBREW_NO_AUTO_UPDATE=1
+            brew install clang-format
+            brew install google-cloud-sdk --cask
+      - save_cache:
+          paths:
+            - ~/Library/Caches/Homebrew
+          key: brew-cache-{{ arch }}-{{ .Environment.CACHE_VERSION }}
+
 parameters:
   weekly:
     type: boolean
@@ -175,6 +211,10 @@ jobs:
           at: .
       - checkout
       - ruby/install-deps
+      - pod_install:
+          pod_install_directory: Examples/ObjectiveCExampleApp
+      - pod_install:
+          pod_install_directory: Examples/SwiftExampleApp
       - persist_to_workspace:
           root: .
           paths: .
@@ -183,9 +223,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-         name: Install clang-format
-         command: brew install clang-format
+      - brew_install
       - run:
           name: Lint JudoKit-iOS
           command: bundle exec fastlane lint
@@ -322,10 +360,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run:
-          name: Install Google Cloud CLI
-          command: |
-            brew install google-cloud-sdk --cask
+      - brew_install
       - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
@@ -350,10 +385,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run:
-          name: Install Google Cloud CLI
-          command: |
-            brew install google-cloud-sdk --cask
+      - brew_install
       - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
@@ -374,38 +406,6 @@ jobs:
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error_weekly
       - notify_slack_pass_weekly
-  run_instrumented_tests:
-    executor: macos
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install reporter
-          command: |
-            brew install xctesthtmlreport
-      - run:
-          name: Execute ObjC Sample App UI Tests
-          working_directory: ./Examples/ObjectiveCExampleApp
-          command: |
-            xcodebuild clean test \
-              -workspace ObjectiveCExampleApp.xcworkspace \
-              -resultBundlePath TestResults \
-              -scheme ObjectiveCExampleAppUITests \
-              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2' \
-              -derivedDataPath ./DerivedData \
-              -allowProvisioningUpdates \
-              TEST_API_JUDO_ID=$TEST_JUDO_ID \
-              TEST_API_TOKEN=$TEST_JUDO_API_TOKEN \
-              TEST_API_SECRET=$TEST_JUDO_API_SECRET
-      - run:
-          name: Generate test report
-          working_directory: ./Examples/ObjectiveCExampleApp
-          command: |
-            xchtmlreport TestResults.xcresult
-      - store_artifacts:
-          path: ./Examples/ObjectiveCExampleApp/TestResults.xcresult
-      - store_artifacts:
-          path: ./Examples/ObjectiveCExampleApp/index.html
   release_sample:
     executor: macos
     steps:
@@ -475,14 +475,6 @@ workflows:
       - build_instrumented_tests_package:
           requires:
             - unit_test_sdk
-      - run_instrumented_tests:
-          context: shared-secrets
-          requires:
-            - checkout_project
-          filters:
-            branches:
-              only:
-                - master
       - instrumented_tests_sample:
           context: shared-secrets
           requires:
