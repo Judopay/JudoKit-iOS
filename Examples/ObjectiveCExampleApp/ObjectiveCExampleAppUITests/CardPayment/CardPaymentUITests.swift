@@ -61,7 +61,7 @@ final class CardPaymentUITests: XCTestCase {
                              securityCode: "123")
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
-        assertResultObject(app, "Payment", "Card declined: CV2 policy", "Declined")
+        assertResultObject(app, "Payment", "Card declined: Additional customer authentication required", "Declined")
     }
 
     func testFailedTransactionReceiptObjectShouldContainRelevantInfo() {
