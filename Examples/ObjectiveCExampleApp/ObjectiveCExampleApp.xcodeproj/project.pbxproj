@@ -40,6 +40,7 @@
 		D108FDA12A582165009DA094 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108FDA02A582165009DA094 /* TestData.swift */; };
 		D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B68382ADFE066007F1CA3 /* Helpers.swift */; };
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
+		D1B3FE512B6943BA003838B4 /* RavelinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		D108FDA02A582165009DA094 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D10B68382ADFE066007F1CA3 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D110D16A2AEA8F4D00B35E13 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
+		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F3E57B78C0668390A2B96713 /* Pods-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -286,6 +288,7 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				D1B3FE4F2B69432C003838B4 /* Ravelin */,
 				445E4D662A2F804E0026A515 /* Additions */,
 				445E4D652A2F7B830026A515 /* CardPayment */,
 				448AB1CA2450DE93004A11CB /* Info.plist */,
@@ -382,6 +385,14 @@
 				448D16D12B13EE9400FB826A /* MainViewController+Additions.m */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D1B3FE4F2B69432C003838B4 /* Ravelin */ = {
+			isa = PBXGroup;
+			children = (
+				D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */,
+			);
+			path = Ravelin;
 			sourceTree = "<group>";
 		};
 		EE7B4BE418A8C03392F6261E /* Pods */ = {
@@ -684,6 +695,7 @@
 				445E4D682A2F80970026A515 /* XCUIApplication+Additions.swift in Sources */,
 				D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */,
 				D108FDA12A582165009DA094 /* TestData.swift in Sources */,
+				D1B3FE512B6943BA003838B4 /* RavelinUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

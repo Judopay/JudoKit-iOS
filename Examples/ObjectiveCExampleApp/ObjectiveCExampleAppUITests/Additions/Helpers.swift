@@ -48,3 +48,8 @@ func tapCompleteButton(_ app: XCUIApplication) {
         XCTFail("Failed to tap Complete button after \(retryCount) attempts.")
     }
 }
+
+func assertResultObjectNotDisplayed(_ app: XCUIApplication) {
+    let tableView = app.tables["Results View"]
+    XCTAssertFalse(tableView.waitForExistence(timeout: 3))
+}

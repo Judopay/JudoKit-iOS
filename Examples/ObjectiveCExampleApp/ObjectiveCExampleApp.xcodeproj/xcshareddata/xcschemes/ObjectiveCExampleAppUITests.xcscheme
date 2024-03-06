@@ -52,6 +52,16 @@
             value = "$(TEST_API_SECRET)"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "RSA_PUBLIC_KEY"
+            value = "$(RSA_PUBLIC_KEY)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "RAVELIN_MOCK_SERVER_URL"
+            value = "$(RAVELIN_MOCK_SERVER_URL)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
       <Testables>
          <TestableReference
