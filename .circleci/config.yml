@@ -401,7 +401,7 @@ jobs:
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 15.0 \
-              --device model=iphone13pro,version=15.2 \
+              --device model=iphone13pro,version=15.7 \
               --device model=iphone11pro,version=14.7 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error_weekly
