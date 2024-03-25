@@ -197,6 +197,7 @@ final class CardPaymentUITests: XCTestCase {
     func testSuccessfulPaymentMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
         app.launchArguments += ["-should_ask_for_csc", "true"]
         app.launch()
+        app.swipeUp()
         app.cellWithIdentifier(TestData.PAYMENT_METHODS_LABEL)?.tap()
         app.addCard?.tap()
         app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,

@@ -168,5 +168,6 @@ extension XCUIApplication {
         settingsButton?.tap()
         clearTextFieldByIndex(index: 2)
         staticTexts["Generate Payment Session"].tap()
+        sleep(3)
     }
 }
