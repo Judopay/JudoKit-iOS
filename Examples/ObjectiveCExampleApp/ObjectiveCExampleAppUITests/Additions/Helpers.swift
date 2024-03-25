@@ -39,17 +39,14 @@ func tapCompleteButton(_ app: XCUIApplication) {
     var retryCount = 0
     
     // Due to GlobalPay environment, sometimes the page does not proceed with a single tap of the Complete button
-    while completeButton.exists && retryCount < 2 {
+    while completeButton.exists && retryCount < 5 {
         if completeButton.isHittable {
             completeButton.tap()
-            retryCount += 1
         } else {
             print("Complete button is not tappable.")
+            sleep(3)
         }
-    }
-    
-    if !completeButton.exists {
-        XCTFail("Failed to tap Complete button after \(retryCount) attempts.")
+        retryCount += 1
     }
 }
 
