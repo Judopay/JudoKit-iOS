@@ -288,7 +288,6 @@
 		4428AF012B06177100DCE4FB /* RavelinEncrypt.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4428AF002B06177100DCE4FB /* RavelinEncrypt.xcframework */; };
 		4428AF122B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h in Headers */ = {isa = PBXBuildFile; fileRef = 4428AF072B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h */; };
 		4428AF132B06262E00DCE4FB /* JPTransactionOptimisation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4428AF082B06262E00DCE4FB /* JPTransactionOptimisation.m */; };
-		4428AF142B06262E00DCE4FB /* JPRecommendationOptimisationAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 4428AF092B06262E00DCE4FB /* JPRecommendationOptimisationAction.h */; };
 		4428AF152B06262E00DCE4FB /* JPTransactionOptimisation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4428AF0A2B06262E00DCE4FB /* JPTransactionOptimisation.h */; };
 		4428AF182B06262E00DCE4FB /* JPRecommendationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4428AF0F2B06262E00DCE4FB /* JPRecommendationData.h */; };
 		4428AF192B06262E00DCE4FB /* JPRecommendationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4428AF102B06262E00DCE4FB /* JPRecommendationData.m */; };
@@ -811,7 +810,6 @@
 		4428AF002B06177100DCE4FB /* RavelinEncrypt.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RavelinEncrypt.xcframework; path = Carthage/Build/RavelinEncrypt.xcframework; sourceTree = "<group>"; };
 		4428AF072B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecommendationOptimisationExemption.h; sourceTree = "<group>"; };
 		4428AF082B06262E00DCE4FB /* JPTransactionOptimisation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTransactionOptimisation.m; sourceTree = "<group>"; };
-		4428AF092B06262E00DCE4FB /* JPRecommendationOptimisationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecommendationOptimisationAction.h; sourceTree = "<group>"; };
 		4428AF0A2B06262E00DCE4FB /* JPTransactionOptimisation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionOptimisation.h; sourceTree = "<group>"; };
 		4428AF0F2B06262E00DCE4FB /* JPRecommendationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecommendationData.h; sourceTree = "<group>"; };
 		4428AF102B06262E00DCE4FB /* JPRecommendationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecommendationData.m; sourceTree = "<group>"; };
@@ -2825,7 +2823,6 @@
 			isa = PBXGroup;
 			children = (
 				4428AF072B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h */,
-				4428AF092B06262E00DCE4FB /* JPRecommendationOptimisationAction.h */,
 				4428AF1F2B068AC400DCE4FB /* JPRecommendationOptimisationThreeDSChallengePreference.h */,
 				4428AF0A2B06262E00DCE4FB /* JPTransactionOptimisation.h */,
 				4428AF082B06262E00DCE4FB /* JPTransactionOptimisation.m */,
@@ -3514,7 +3511,6 @@
 				30006FA123F6993A0099F3C5 /* UIFont+Additions.h in Headers */,
 				30006F8B23F6993A0099F3C5 /* UIView+Additions.h in Headers */,
 				30221C3D23FE739800BF2823 /* JPCardCustomizationView.h in Headers */,
-				4428AF142B06262E00DCE4FB /* JPRecommendationOptimisationAction.h in Headers */,
 				525FF3DD252C41CF001F030E /* JPCardScanView.h in Headers */,
 				30221C3723FE6D9200BF2823 /* JPCardCustomizationRouter.h in Headers */,
 				52D23DAF25248A9D007C79EB /* JPPaymentSummaryItem.h in Headers */,

@@ -22,14 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRecommendationOptimisationAction.h"
 #import "JPRecommendationOptimisationExemption.h"
 #import "JPRecommendationOptimisationThreeDSChallengePreference.h"
 #import <Foundation/Foundation.h>
 
 @interface JPTransactionOptimisation : NSObject
 
-@property (nonatomic, assign) JPRecommendationOptimisationAction action;
 @property (nonatomic, assign) JPRecommendationOptimisationExemption exemption;
 @property (nonatomic, assign) JPRecommendationOptimisationThreeDSChallengePreference threeDSChallengePreference;
 @property (nonatomic, readonly) BOOL isValid;
