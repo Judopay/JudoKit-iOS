@@ -32,7 +32,7 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
     XCTAssertEqual(resultValue, result, "Result value on result object does not match the expected string")
 }
 
-func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: String, _ addressOne: String, _ addressTwo: String) {
+func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: String, _ addressOne: String, _ addressTwo: String, _ postCode: String) {
     let tableView = app.tables[Selectors.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
     tableView.cells.element(boundBy: 16).tap()
@@ -40,8 +40,8 @@ func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: St
     XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "countryCode").staticTexts.element(boundBy: 1)
         .label, countryCode, "Country code value on result object does not match the expected string")
     
-    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "town").staticTexts.element(boundBy: 1)
-        .label, town, "Town value on result object does not match the expected string")
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "postCode").staticTexts.element(boundBy: 1)
+        .label, postCode, "Postcode value on result object does not match the expected string")
     
     XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "address1").staticTexts.element(boundBy: 1)
         .label, addressOne, "Address 1 value on result object does not match the expected string")

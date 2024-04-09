@@ -268,7 +268,7 @@ final class CardPaymentUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
-        assertBillingInfo(app, TestData.VALID_COUNTRY_CODE, TestData.VALID_CITY, TestData.VALID_ADDRESS, TestData.VALID_ADDRESS_TWO)
+        assertBillingInfo(app, TestData.VALID_COUNTRY_CODE, TestData.VALID_CITY, TestData.VALID_ADDRESS, TestData.VALID_ADDRESS_TWO, TestData.VALID_POSTCODE)
     }
     
     func testUKPostCodeValidation() {
