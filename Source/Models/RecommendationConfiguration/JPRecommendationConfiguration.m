@@ -30,13 +30,25 @@
 
 - (instancetype)initWithURL:(NSURL *)URL
                RSAPublicKey:(NSString *)key
-                 andTimeout:(NSNumber *)timeout {
+                    timeout:(NSNumber *)timeout
+andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
     if (self = [super init]) {
         _RSAPublicKey = key;
         _URL = URL;
         _timeout = timeout;
+        _haltTransactionInCaseOfAnyError = haltTransactionInCaseOfAnyError;
     }
     return self;
+}
+
+- (instancetype)initWithURL:(NSURL *)URL
+               RSAPublicKey:(NSString *)key
+                 andTimeout:(NSNumber *)timeout {
+    return [self initWithURL:URL
+                RSAPublicKey:key
+                     timeout:timeout
+            // Todo: Ensure that default value false is assigned in proper place.
+andHaltTransactionInCaseOfAnyError:nil];
 }
 
 - (instancetype)initWithURL:(NSURL *)URL andRSAPublicKey:(NSString *)key {
@@ -45,10 +57,21 @@
 
 + (instancetype)configurationWithURL:(NSURL *)URL
                         RSAPublicKey:(NSString *)key
-                          andTimeout:(NSNumber *)timeout {
+                             timeout:(NSNumber *)timeout
+  andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
     return [[JPRecommendationConfiguration alloc] initWithURL:URL
                                                  RSAPublicKey:key
-                                                   andTimeout:timeout];
+                                                      timeout:timeout
+                           andHaltTransactionInCaseOfAnyError:haltTransactionInCaseOfAnyError];
+}
+
++ (instancetype)configurationWithURL:(NSURL *)URL
+                        RSAPublicKey:(NSString *)key
+                          andTimeout:(NSNumber *)timeout {
+    return [JPRecommendationConfiguration configurationWithURL:URL
+                                                  RSAPublicKey:key
+                                                       timeout:timeout
+                            andHaltTransactionInCaseOfAnyError:nil];
 }
 
 + (instancetype)configurationWithURL:(NSURL *)URL andRSAPublicKey:(NSString *)key {
