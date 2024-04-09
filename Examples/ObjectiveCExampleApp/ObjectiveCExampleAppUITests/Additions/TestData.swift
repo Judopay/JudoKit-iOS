@@ -46,4 +46,8 @@ class TestData {
     static let VALID_POSTCODE = "W1B 2EL"
     static let VALID_ADDRESS_TWO = "West End"
     static let VALID_COUNTRY_CODE = "826"
+    
+    static let INVALID_POSTCODE = "38GL 112"
+    
+    static let INVALID_POSTCODE_LABEL = "Invalid postcode entered"
 }

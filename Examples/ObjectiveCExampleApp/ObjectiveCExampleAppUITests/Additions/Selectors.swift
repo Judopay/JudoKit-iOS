@@ -32,4 +32,5 @@ class Selectors {
     static let cityField = "Cardholder city Field"
     static let postCodeField = "Post Code Field"
     static let addAddressLineButton = "Add address line Button"
+    static let fieldErrorLabel = "Error Floating Label"
 }

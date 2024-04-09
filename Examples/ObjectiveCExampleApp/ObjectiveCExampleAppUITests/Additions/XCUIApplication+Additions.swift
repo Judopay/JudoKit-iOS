@@ -24,6 +24,10 @@ extension XCUIApplication {
     func buttonWithLabel(_ label: String) -> XCUIElement? {
         return buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
     }
+    
+    func textWithLabel(_ identifier: String) -> XCUIElement? {
+        return staticTexts.matching(identifier: identifier).firstMatch
+    }
         
     var cardNumberTextField: XCUIElement? {
         get {
@@ -157,6 +161,15 @@ extension XCUIApplication {
         }
     }
     
+    var fieldErrorLabel: String? {
+        get {
+            guard let labelElement = textWithLabel(Selectors.fieldErrorLabel) else {
+                return nil
+            }
+            return labelElement.label
+        }
+    }
+    
     func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
@@ -196,6 +209,16 @@ extension XCUIApplication {
         cardholderTextField?.tapAndTypeText(cardHolder)
         expiryDateTextField?.tapAndTypeText(expiryDate)
         securityCodeTextField?.tapAndTypeText(securityCode)
+    }
+    
+    func fillBillingInfoDetails(email: String, phone: String, addressOne: String, addressTwo: String, city: String, postCode: String) {
+        emailField?.tapAndTypeText(email)
+        mobileField?.tapAndTypeText(phone)
+        addressLineOne?.tapAndTypeText(addressOne)
+        addAddressLineButton?.tap()
+        addressLineTwo?.tapAndTypeText(addressTwo)
+        cityField?.tapAndTypeText(city)
+        postCodeField?.tapAndTypeText(postCode)
     }
     
     func clearTextFieldByIndex(index: Int) {
