@@ -24,4 +24,12 @@ class Selectors {
     static let payNowButtonSelector = "PAY NOW"
     static let editCardsButtonSelector = "EDIT"
     static let deleteCardButtonSelector = "Delete"
+    static let resultsTable = "Results View"
+    static let emailField = "Cardholder Email Field"
+    static let phoneField = "Cardholder phone number Field"
+    static let addressOneField = "Cardholder address line 1 code Field"
+    static let addressTwoField = "Cardholder address line 2 Field"
+    static let cityField = "Cardholder city Field"
+    static let postCodeField = "Post Code Field"
+    static let addAddressLineButton = "Add address line Button"
 }

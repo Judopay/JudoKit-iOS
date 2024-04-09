@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
-    let tableView = app.tables["Results View"]
+    let tableView = app.tables[Selectors.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
     let rawData = tableView.cells.element(boundBy: 15)
     rawData.tap()
@@ -30,6 +30,27 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
     let resultCell = tableView.cells.element(matching: .cell, identifier: "result")
     let resultValue = resultCell.staticTexts.element(boundBy: 1).label
     XCTAssertEqual(resultValue, result, "Result value on result object does not match the expected string")
+}
+
+func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: String, _ addressOne: String, _ addressTwo: String) {
+    let tableView = app.tables[Selectors.resultsTable]
+    XCTAssert(tableView.waitForExistence(timeout: 10))
+    tableView.cells.element(boundBy: 16).tap()
+    
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "countryCode").staticTexts.element(boundBy: 1)
+        .label, countryCode, "Country code value on result object does not match the expected string")
+    
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "town").staticTexts.element(boundBy: 1)
+        .label, town, "Town value on result object does not match the expected string")
+    
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "address1").staticTexts.element(boundBy: 1)
+        .label, addressOne, "Address 1 value on result object does not match the expected string")
+    
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "address2").staticTexts.element(boundBy: 1)
+        .label, addressTwo, "Address 2 value on result object does not match the expected string")
+    
+    XCTAssertEqual(tableView.cells.element(matching: .cell, identifier: "town").staticTexts.element(boundBy: 1)
+        .label, town, "City value on result object does not match the expected string")
 }
 
 func tapCompleteButton(_ app: XCUIApplication) {

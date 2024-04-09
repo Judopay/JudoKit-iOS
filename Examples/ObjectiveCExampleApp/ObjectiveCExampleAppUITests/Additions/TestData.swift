@@ -38,4 +38,12 @@ class TestData {
     static let NO_PREFERENCE = "NO_PREFERENCE"
     static let CHALLENGE_MANDATE = "CHALLENGE_REQUESTED_AS_MANDATE"
     static let CHALLENGE_REQUESTED = "CHALLENGE_REQUESTED"
+    
+    static let VALID_EMAIL = "user@test.com"
+    static let VALID_MOBILE = "07812345678"
+    static let VALID_ADDRESS = "235 Regent Street"
+    static let VALID_CITY = "London"
+    static let VALID_POSTCODE = "W1B 2EL"
+    static let VALID_ADDRESS_TWO = "West End"
+    static let VALID_COUNTRY_CODE = "826"
 }

@@ -115,6 +115,48 @@ extension XCUIApplication {
         }
     }
     
+    var emailField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.emailField)
+        }
+    }
+    
+    var mobileField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.phoneField)
+        }
+    }
+    
+    var addressLineOne: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.addressOneField)
+        }
+    }
+    
+    var addressLineTwo: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.addressTwoField)
+        }
+    }
+    
+    var cityField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.cityField)
+        }
+    }
+    
+    var postCodeField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.postCodeField)
+        }
+    }
+    
+    var addAddressLineButton: XCUIElement? {
+        get {
+            return buttonWithIdentifier(Selectors.addAddressLineButton)
+        }
+    }
+    
     func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]

@@ -247,4 +247,28 @@ final class CardPaymentUITests: XCTestCase {
         app.deleteCardButton?.tap()
         XCTAssertFalse(newCard.waitForExistence(timeout: 5), "Unable to delete card")
     }
+    
+    func testSuccessfulPaymentWithBillingDetails() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.emailField?.tapAndTypeText(TestData.VALID_EMAIL)
+        app.mobileField?.tapAndTypeText(TestData.VALID_MOBILE)
+        app.addressLineOne?.tapAndTypeText(TestData.VALID_ADDRESS)
+        app.addAddressLineButton?.tap()
+        app.addressLineTwo?.tapAndTypeText(TestData.VALID_ADDRESS_TWO)
+        app.cityField?.tapAndTypeText(TestData.VALID_CITY)
+        app.postCodeField?.tapAndTypeText(TestData.VALID_POSTCODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+        assertBillingInfo(app, TestData.VALID_COUNTRY_CODE, TestData.VALID_CITY, TestData.VALID_ADDRESS, TestData.VALID_ADDRESS_TWO)
+    }
 }
