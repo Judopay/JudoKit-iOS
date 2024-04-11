@@ -25,7 +25,7 @@ extension XCUIApplication {
         return buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
     }
     
-    func textWithLabel(_ identifier: String) -> XCUIElement? {
+    func textWithIdentifier(_ identifier: String) -> XCUIElement? {
         return staticTexts.matching(identifier: identifier).firstMatch
     }
         
@@ -155,6 +155,18 @@ extension XCUIApplication {
         }
     }
     
+    var stateField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.stateField)
+        }
+    }
+    
+    var countryField: XCUIElement? {
+        get {
+            return textFieldWithIdentifier(Selectors.countryField)
+        }
+    }
+        
     var addAddressLineButton: XCUIElement? {
         get {
             return buttonWithIdentifier(Selectors.addAddressLineButton)
@@ -163,7 +175,7 @@ extension XCUIApplication {
     
     var fieldErrorLabel: String? {
         get {
-            guard let labelElement = textWithLabel(Selectors.fieldErrorLabel) else {
+            guard let labelElement = textWithIdentifier(Selectors.fieldErrorLabel) else {
                 return nil
             }
             return labelElement.label

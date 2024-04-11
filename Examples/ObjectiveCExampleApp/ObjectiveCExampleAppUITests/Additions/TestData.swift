@@ -47,7 +47,8 @@ class TestData {
     static let VALID_ADDRESS_TWO = "West End"
     static let VALID_COUNTRY_CODE = "826"
     
-    static let INVALID_POSTCODE = "38GL 112"
+    static let INVALID_POSTCODE = "38GL112"
     
     static let INVALID_POSTCODE_LABEL = "Invalid postcode entered"
+    static let INVALID_ZIPCODE_LABEL = "Invalid ZIP code entered"
 }

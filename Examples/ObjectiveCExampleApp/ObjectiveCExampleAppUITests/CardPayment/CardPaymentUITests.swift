@@ -289,5 +289,56 @@ final class CardPaymentUITests: XCTestCase {
                                    postCode: TestData.INVALID_POSTCODE)
         app.cityField?.tap()
         XCTAssertEqual(app.fieldErrorLabel, TestData.INVALID_POSTCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+    }
+    
+    func testUSPostCodeValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
+        app.stateField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
+        app.fillBillingInfoDetails(email: TestData.VALID_EMAIL,
+                                   phone: TestData.VALID_MOBILE,
+                                   addressOne: TestData.VALID_ADDRESS,
+                                   addressTwo: TestData.VALID_ADDRESS_TWO,
+                                   city: TestData.VALID_CITY,
+                                   postCode: TestData.INVALID_POSTCODE)
+        app.cityField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.INVALID_ZIPCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+    }
+    
+    func testCAPostCodeValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+                             cardHolder: TestData.CARDHOLDER_NAME,
+                             expiryDate: TestData.CARD_EXPIRY,
+                             securityCode: TestData.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
+        app.stateField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
+        app.fillBillingInfoDetails(email: TestData.VALID_EMAIL,
+                                   phone: TestData.VALID_MOBILE,
+                                   addressOne: TestData.VALID_ADDRESS,
+                                   addressTwo: TestData.VALID_ADDRESS_TWO,
+                                   city: TestData.VALID_CITY,
+                                   postCode: TestData.INVALID_POSTCODE)
+        app.cityField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.INVALID_POSTCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
     }
 }
