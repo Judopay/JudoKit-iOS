@@ -31,151 +31,151 @@ extension XCUIApplication {
         
     var cardNumberTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.cardNumberField)
+            return textFieldWithIdentifier(Selectors.CardEntry.cardNumberField)
         }
     }
     
     var cardholderTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.cardHolderNameField)
+            return textFieldWithIdentifier(Selectors.CardEntry.cardHolderNameField)
         }
     }
     
     var expiryDateTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.expiryDateField)
+            return textFieldWithIdentifier(Selectors.CardEntry.expiryDateField)
         }
     }
     
     var securityCodeTextField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.securityCodeField)
+            return textFieldWithIdentifier(Selectors.CardEntry.securityCodeField)
         }
     }
     
     var cardDetailsSubmitButton: XCUIElement? {
         get {
-            return buttonWithIdentifier(Selectors.cardDetailsSubmitButtonSelector)
+            return buttonWithIdentifier(Selectors.CardEntry.cardDetailsSubmitButtonSelector)
         }
     }
     
     var settingsButton: XCUIElement? {
         get {
-            return buttonWithIdentifier(Selectors.settingsSectionButton)
+            return buttonWithIdentifier(Selectors.FeatureList.settingsSectionButton)
         }
     }
     
     var cancelButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.cancelCardEntryButton)
+            return buttonWithLabel(Selectors.CardEntry.cancelCardEntryButton)
         }
     }
     
     var cancelButton3DS2: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.threeDS2CancelButton)
+            return buttonWithLabel(Selectors.Other.threeDS2CancelButton)
         }
     }
     
     var tokenizeNewCardButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.tokenizeNewCardButtonSelector)
+            return buttonWithLabel(Selectors.TokenPayments.tokenizeNewCardButtonSelector)
         }
     }
     
     var tokenPaymentButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.tokenPaymentButtonSelector)
+            return buttonWithLabel(Selectors.TokenPayments.tokenPaymentButtonSelector)
         }
     }
     
     var tokenPreauthButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.tokenPreAuthButton)
+            return buttonWithLabel(Selectors.TokenPayments.tokenPreAuthButton)
         }
     }
     
     var addCard: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.addNewCardButton)
+            return buttonWithLabel(Selectors.PaymentMethods.addNewCardButton)
         }
     }
     
     var payNowButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.payNowButtonSelector)
+            return buttonWithLabel(Selectors.PaymentMethods.payNowButtonSelector)
         }
     }
     
     var editCardsButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.editCardsButtonSelector)
+            return buttonWithLabel(Selectors.PaymentMethods.editCardsButtonSelector)
         }
     }
     
     var deleteCardButton: XCUIElement? {
         get {
-            return buttonWithLabel(Selectors.deleteCardButtonSelector)
+            return buttonWithLabel(Selectors.PaymentMethods.deleteCardButtonSelector)
         }
     }
     
     var emailField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.emailField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.emailField)
         }
     }
     
     var mobileField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.phoneField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.phoneField)
         }
     }
     
     var addressLineOne: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.addressOneField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.addressOneField)
         }
     }
     
     var addressLineTwo: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.addressTwoField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.addressTwoField)
         }
     }
     
     var cityField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.cityField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.cityField)
         }
     }
     
     var postCodeField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.postCodeField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.postCodeField)
         }
     }
     
     var stateField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.stateField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.stateField)
         }
     }
     
     var countryField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.countryField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.countryField)
         }
     }
         
     var addAddressLineButton: XCUIElement? {
         get {
-            return buttonWithIdentifier(Selectors.addAddressLineButton)
+            return buttonWithIdentifier(Selectors.BillingInfo.addAddressLineButton)
         }
     }
     
     var fieldErrorLabel: String? {
         get {
-            guard let labelElement = textWithIdentifier(Selectors.fieldErrorLabel) else {
+            guard let labelElement = textWithIdentifier(Selectors.BillingInfo.fieldErrorLabel) else {
                 return nil
             }
             return labelElement.label

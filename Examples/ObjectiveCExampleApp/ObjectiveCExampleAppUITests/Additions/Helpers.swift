@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
-    let tableView = app.tables[Selectors.resultsTable]
+    let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
     let rawData = tableView.cells.element(boundBy: 15)
     rawData.tap()
@@ -33,7 +33,7 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
 }
 
 func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: String, _ addressOne: String, _ addressTwo: String, _ postCode: String) {
-    let tableView = app.tables[Selectors.resultsTable]
+    let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
     tableView.cells.element(boundBy: 16).tap()
     
