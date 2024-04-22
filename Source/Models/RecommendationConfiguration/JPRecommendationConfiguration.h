@@ -38,9 +38,9 @@
  */
 
 - (nonnull instancetype)initWithURL:(nonnull NSURL *)URL
-                       RSAPublicKey:(nonnull NSString *)key
-                            timeout:(nullable NSNumber *)timeout
- andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError;
+                          RSAPublicKey:(nonnull NSString *)key
+                               timeout:(nullable NSNumber *)timeout
+    andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError;
 
 - (nonnull instancetype)initWithURL:(nonnull NSURL *)URL
                        RSAPublicKey:(nonnull NSString *)key
