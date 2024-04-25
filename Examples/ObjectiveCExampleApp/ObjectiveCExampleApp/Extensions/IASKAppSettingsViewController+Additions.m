@@ -44,7 +44,7 @@
         kRsaKey,
         kRecommendationUrlKey,
         kRecommendationApiTimeoutKey,
-        kRecommendationHaltTransactionKey,
+        kIsRecommendationHaltTransactionOnKey,
 
         kAddressLine1Key,
         kAddressLine2Key,
@@ -88,7 +88,7 @@
             kRsaKey,
             kRecommendationUrlKey,
             kRecommendationApiTimeoutKey,
-            kRecommendationHaltTransactionKey,
+            kIsRecommendationHaltTransactionOnKey,
         ]];
     }
 

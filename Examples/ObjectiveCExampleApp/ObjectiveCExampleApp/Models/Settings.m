@@ -521,7 +521,7 @@ NSString *safeString(NSString *aString) {
 
 - (BOOL)isRecommendationHaltTransactionOn {
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self.defaults boolForKey:kRecommendationHaltTransactionKey];
+        return [self.defaults boolForKey:kIsRecommendationHaltTransactionOnKey];
     }
     return nil;
 }

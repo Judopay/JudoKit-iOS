@@ -43,7 +43,7 @@ static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
 static NSString *const kRsaKey = @"rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationApiTimeoutKey = @"recommendation_api_timeout";
-static NSString *const kRecommendationHaltTransactionKey = @"recommendation_halt_transaction";
+static NSString *const kIsRecommendationHaltTransactionOnKey = @"is_recommendation_halt_transaction_enabled";
 
 #pragma mark - 3DS 2.0 section keys
 

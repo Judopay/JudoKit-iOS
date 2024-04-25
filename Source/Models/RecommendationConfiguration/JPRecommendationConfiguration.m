@@ -29,9 +29,9 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithURL:(NSURL *)URL
-               RSAPublicKey:(NSString *)key
-                    timeout:(NSNumber *)timeout
-andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
+                          RSAPublicKey:(NSString *)key
+                               timeout:(NSNumber *)timeout
+    andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
     if (self = [super init]) {
         _RSAPublicKey = key;
         _URL = URL;
@@ -45,9 +45,9 @@ andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
                RSAPublicKey:(NSString *)key
                  andTimeout:(NSNumber *)timeout {
     return [self initWithURL:URL
-                RSAPublicKey:key
-                     timeout:timeout
-andHaltTransactionInCaseOfAnyError:nil];
+                              RSAPublicKey:key
+                                   timeout:timeout
+        andHaltTransactionInCaseOfAnyError:nil];
 }
 
 - (instancetype)initWithURL:(NSURL *)URL
