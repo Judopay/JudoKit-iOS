@@ -519,6 +519,13 @@ NSString *safeString(NSString *aString) {
     return nil;
 }
 
+- (BOOL)isRecommendationHaltTransactionOn {
+    if (Settings.defaultSettings.isRecommendationFeatureOn) {
+        return [self.defaults boolForKey:kRecommendationHaltTransactionKey];
+    }
+    return nil;
+}
+
 #pragma mark - Network Timeouts
 
 - (NSNumber *)connectTimeout {

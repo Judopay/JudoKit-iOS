@@ -43,6 +43,7 @@ static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
 static NSString *const kRsaKey = @"rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationApiTimeoutKey = @"recommendation_api_timeout";
+static NSString *const kRecommendationHaltTransactionKey = @"recommendation_halt_transaction";
 
 #pragma mark - 3DS 2.0 section keys
 
@@ -277,6 +278,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSString *)rsaKey;
 - (NSString *)recommendationUrl;
 - (NSNumber *)recommendationTimeout;
+- (BOOL)isRecommendationHaltTransactionOn;
 
 #pragma mark - Payment session
 - (void)updateAuthorizationWithPaymentSession:(nullable NSString *)session

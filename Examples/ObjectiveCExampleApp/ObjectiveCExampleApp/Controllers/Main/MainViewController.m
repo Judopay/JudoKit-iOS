@@ -357,9 +357,11 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         NSString *rsaKey = Settings.defaultSettings.rsaKey;
         NSURL *URL = [NSURL URLWithString:Settings.defaultSettings.recommendationUrl];
         NSNumber *timeout = Settings.defaultSettings.recommendationTimeout;
+        BOOL isRecommendationHaltTransactionOn = Settings.defaultSettings.isRecommendationFeatureOn;
         configuration.recommendationConfiguration = [[JPRecommendationConfiguration alloc] initWithURL:URL
                                                                                           RSAPublicKey:rsaKey
-                                                                                            andTimeout:timeout];
+                                                                                               timeout:timeout
+                                                                    andHaltTransactionInCaseOfAnyError:isRecommendationHaltTransactionOn];
     }
     
     return configuration;
