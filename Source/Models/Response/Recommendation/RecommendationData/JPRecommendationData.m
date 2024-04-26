@@ -44,11 +44,21 @@ static NSString *const kPrevent = @"PREVENT";
 
 - (void)populateWithDictionary:(NSDictionary *)dictionary {
     self.action = [self recommendationActionFromDictionary:dictionary];
-    self.transactionOptimisation = [[JPTransactionOptimisation alloc] initWithDictionary:dictionary[kTransactionOptimisationKey]];
+
+    NSDictionary *optimisationDictionary = [dictionary objectForKey:kTransactionOptimisationKey];
+    if (optimisationDictionary && [optimisationDictionary isKindOfClass:NSDictionary.class]) {
+        self.transactionOptimisation = [[JPTransactionOptimisation alloc] initWithDictionary:optimisationDictionary];
+    }
 }
 
 - (JPRecommendationAction)recommendationActionFromDictionary:(NSDictionary *)dictionary {
-    NSString *actionString = dictionary[kActionKey];
+    NSString *actionString = [dictionary objectForKey:kActionKey];
+
+    BOOL isValidString = actionString && [actionString isKindOfClass:NSString.class];
+
+    if (!isValidString) {
+        return JPRecommendationActionUnknown;
+    }
 
     if ([actionString _jp_isEqualIgnoringCaseToString:kAllow]) {
         return JPRecommendationActionAllow;
@@ -66,7 +76,13 @@ static NSString *const kPrevent = @"PREVENT";
 }
 
 - (BOOL)isValid {
-    return self.action != JPRecommendationActionUnknown && self.transactionOptimisation.isValid;
+    BOOL isValid = self.action != JPRecommendationActionUnknown;
+
+    if (self.transactionOptimisation) {
+        isValid = isValid && self.transactionOptimisation.isValid;
+    }
+
+    return isValid;
 }
 
 @end

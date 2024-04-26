@@ -276,9 +276,9 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoRecommendationError];
 }
 
-+ (JPError *)retrievingRecommendationError {
-    return [self errorWithDescription:@"error_retrieving_recommendation_problem_desc"._jp_localized
-                        failureReason:@"error_retrieving_recommendation_problem_reason"._jp_localized
++ (JPError *)recommendationServerRequestFailedError {
+    return [self errorWithDescription:@"error_recommendation_server_request_failed_desc"._jp_localized
+                        failureReason:@"error_recommendation_server_request_failed_reason"._jp_localized
                                ofType:JudoRecommendationError];
 }
 
