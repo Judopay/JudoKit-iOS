@@ -520,10 +520,7 @@ NSString *safeString(NSString *aString) {
 }
 
 - (BOOL)isRecommendationHaltTransactionOn {
-    if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self.defaults boolForKey:kIsRecommendationHaltTransactionOnKey];
-    }
-    return nil;
+    return [self.defaults boolForKey:kIsRecommendationHaltTransactionOnKey];
 }
 
 #pragma mark - Network Timeouts
