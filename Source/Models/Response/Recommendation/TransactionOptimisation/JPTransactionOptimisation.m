@@ -90,7 +90,6 @@ static NSString *const kThreeDSChallengePreferenceKey = @"threeDSChallengePrefer
     return JPRecommendationOptimisationThreeDSChallengePreferenceUnknown;
 }
 
-// Todo: adjust
 - (BOOL)isValid {
     return self.exemption != JPRecommendationOptimisationExemptionUnknown && self.threeDSChallengePreference != JPRecommendationOptimisationThreeDSChallengePreferenceUnknown;
 }

@@ -47,7 +47,7 @@
     return [self initWithURL:URL
                               RSAPublicKey:key
                                    timeout:timeout
-        andHaltTransactionInCaseOfAnyError:nil];
+        andHaltTransactionInCaseOfAnyError:NO];
 }
 
 - (instancetype)initWithURL:(NSURL *)URL
