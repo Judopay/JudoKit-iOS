@@ -29,29 +29,53 @@
 #pragma mark - Initializers
 
 - (instancetype)initWithURL:(NSURL *)URL
-               RSAPublicKey:(NSString *)key
-                 andTimeout:(NSNumber *)timeout {
+                          RSAPublicKey:(NSString *)key
+                               timeout:(NSNumber *)timeout
+    andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
     if (self = [super init]) {
         _RSAPublicKey = key;
         _URL = URL;
         _timeout = timeout;
+        _haltTransactionInCaseOfAnyError = haltTransactionInCaseOfAnyError;
     }
     return self;
 }
 
-- (instancetype)initWithURL:(NSURL *)URL andRSAPublicKey:(NSString *)key {
+- (instancetype)initWithURL:(NSURL *)URL
+               RSAPublicKey:(NSString *)key
+                 andTimeout:(NSNumber *)timeout {
+    return [self initWithURL:URL
+                              RSAPublicKey:key
+                                   timeout:timeout
+        andHaltTransactionInCaseOfAnyError:NO];
+}
+
+- (instancetype)initWithURL:(NSURL *)URL
+            andRSAPublicKey:(NSString *)key {
     return [self initWithURL:URL RSAPublicKey:key andTimeout:nil];
+}
+
++ (instancetype)configurationWithURL:(NSURL *)URL
+                          RSAPublicKey:(NSString *)key
+                               timeout:(NSNumber *)timeout
+    andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError {
+    return [[JPRecommendationConfiguration alloc] initWithURL:URL
+                                                 RSAPublicKey:key
+                                                      timeout:timeout
+                           andHaltTransactionInCaseOfAnyError:haltTransactionInCaseOfAnyError];
 }
 
 + (instancetype)configurationWithURL:(NSURL *)URL
                         RSAPublicKey:(NSString *)key
                           andTimeout:(NSNumber *)timeout {
-    return [[JPRecommendationConfiguration alloc] initWithURL:URL
-                                                 RSAPublicKey:key
-                                                   andTimeout:timeout];
+    return [JPRecommendationConfiguration configurationWithURL:URL
+                                                  RSAPublicKey:key
+                                                       timeout:timeout
+                            andHaltTransactionInCaseOfAnyError:nil];
 }
 
-+ (instancetype)configurationWithURL:(NSURL *)URL andRSAPublicKey:(NSString *)key {
++ (instancetype)configurationWithURL:(NSURL *)URL
+                     andRSAPublicKey:(NSString *)key {
     return [JPRecommendationConfiguration configurationWithURL:URL
                                                   RSAPublicKey:key
                                                     andTimeout:nil];

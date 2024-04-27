@@ -58,8 +58,8 @@
 
 @interface JPThreeDSecureTwo : NSObject
 
-@property (nonatomic, strong, nonnull) NSString *challengeRequestIndicator;
-@property (nonatomic, strong, nonnull) NSString *scaExemption;
+@property (nonatomic, strong, nullable) NSString *challengeRequestIndicator;
+@property (nonatomic, strong, nullable) NSString *scaExemption;
 @property (nonatomic, strong, nonnull) JPSDKParameters *sdk;
 @property (nonatomic, strong, nonnull) NSString *authenticationSource;
 @property (nonatomic, strong, nonnull) NSString *softDeclineReceiptId;

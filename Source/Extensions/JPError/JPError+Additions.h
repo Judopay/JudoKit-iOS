@@ -163,6 +163,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)threeDSTwoErrorFromRuntimeErrorEvent:(nonnull JP3DSRuntimeErrorEvent *)event;
 
 + (nonnull JPError *)recommendationServerPreventedTransactionError;
++ (nonnull JPError *)recommendationServerRequestFailedError;
 
 + (nonnull JPError *)invalidRecommendationAuthorizationTypeError;
 + (nonnull JPError *)invalidRecommendationURLError;

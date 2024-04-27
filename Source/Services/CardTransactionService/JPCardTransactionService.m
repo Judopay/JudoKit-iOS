@@ -227,7 +227,15 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
     [self.recommendationService fetchOptimizationDataWithDetails:details
                                                  transactionType:type
                                                    andCompletion:^(JPRecommendationResponse *response) {
-                                                       if (!response.isValid) { // in case of any parsing errors, ignore server response
+                                                       BOOL responseIsInvalid = !response.isValid;
+                                                       BOOL shouldHaltTransaction = responseIsInvalid && weakSelf.configuration.recommendationConfiguration.haltTransactionInCaseOfAnyError;
+
+                                                       if (shouldHaltTransaction) {
+                                                           completion(nil, JPError.recommendationServerRequestFailedError);
+                                                           return;
+                                                       }
+
+                                                       if (responseIsInvalid) {
                                                            [weakSelf performJudoApiCall:details overrides:nil type:type andCompletion:completion];
                                                            return;
                                                        }

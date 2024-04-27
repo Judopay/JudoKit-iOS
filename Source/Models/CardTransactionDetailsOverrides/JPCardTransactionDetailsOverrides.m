@@ -56,13 +56,6 @@ NSString *stringifySCAExemption(JPRecommendationOptimisationExemption exemption)
 
 @implementation JPCardTransactionDetailsOverrides
 
-- (NSString *)challengeRequestIndicator {
-    if (!_challengeRequestIndicator && !_softDeclineReceiptId._jp_isNullOrEmpty) {
-        return @"";
-    }
-    return _challengeRequestIndicator;
-}
-
 + (instancetype)overridesWithSoftDeclineReceiptId:(NSString *)receiptId {
     JPCardTransactionDetailsOverrides *overrides = [JPCardTransactionDetailsOverrides new];
     overrides.softDeclineReceiptId = receiptId;
