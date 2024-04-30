@@ -1,22 +1,22 @@
 PODS:
-  - DeviceDNA (2.0.0):
-    - OpenSSL-Universal (~> 1.1.180)
+  - DeviceDNA (2.1.0):
+    - OpenSSL-Universal (~> 1.1.2200)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.1.4)
-  - JudoKit-iOS (3.3.1):
-    - DeviceDNA (~> 2.0.0)
-    - Judo3DS2_iOS (~> 1.1.4)
+  - Judo3DS2_iOS (1.2.0)
+  - JudoKit-iOS (3.4.0):
+    - DeviceDNA (~> 2.1.0)
+    - Judo3DS2_iOS (~> 1.2.0)
     - RavelinEncrypt (= 1.1.1)
     - TrustKit
-  - OpenSSL-Universal (1.1.2000)
+  - OpenSSL-Universal (1.1.2200)
   - RavelinEncrypt (1.1.1)
-  - SwiftLint (0.51.0)
-  - TrustKit (3.0.2)
+  - SwiftLint (0.54.0)
+  - TrustKit (3.0.4)
   - Wormholy (1.7.0)
 
 DEPENDENCIES:
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.1.4)
+  - Judo3DS2_iOS (= 1.2.0)
   - JudoKit-iOS (from `../../`)
   - SwiftLint
   - Wormholy
@@ -37,16 +37,16 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DeviceDNA: 9ff289d1fb983937754b324fa0adade2081210c4
+  DeviceDNA: 718c566c898e3000eb9cccd7ab23d824a18d6075
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: 5cca966ec8425a315d6a96ff64f0b760dd991f32
-  JudoKit-iOS: 16adcf59aef7df6842bca40ea2c8bd4df4b8988d
-  OpenSSL-Universal: 708e3d1e616a2c40f09a880aafc4b14d2f2a61ec
+  Judo3DS2_iOS: 51dcd1c113e0bc41164947deacdceb4d76da533a
+  JudoKit-iOS: 9ea2ad1b870d5281ea2afc5fde48ed7b1d8fb4eb
+  OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
   RavelinEncrypt: 343327b88f39802bc269ae00da831a801982388b
-  SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
-  TrustKit: 55804401e9a95db0bbfff9a08373bfd91953071f
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  TrustKit: 403e8d2cfbff2abfc37cd41acc558dab8ec78e59
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 32d9b4b90badb6f4646a7739bd4dde07ab5c11aa
+PODFILE CHECKSUM: 9d868ac442369877e6c520191f2fb55b8b71b042
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

@@ -5,15 +5,15 @@ inhibit_all_warnings!
 
 target 'ObjectiveCExampleApp' do
 #  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
-   pod 'Judo3DS2_iOS', '1.1.4'
+   pod 'Judo3DS2_iOS', '1.2.0'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '3.3.1'
+  # pod 'JudoKit-iOS', '3.4.0'
 
   pod 'MaterialComponents/Snackbar'
   pod 'InAppSettingsKit', '3.3.6'
   pod 'Wormholy'
-  
+
   target 'ObjectiveCExampleAppTests' do
     inherit! :search_paths
   end
