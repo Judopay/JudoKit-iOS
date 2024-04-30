@@ -14,9 +14,9 @@ Pod::Spec.new do |s|
   s.source_files          = 'Source/**/*.{m,h}'
   s.exclude_files         = 'Source/include/'
 
-  s.dependency 'DeviceDNA', '~> 2.1.0'
+  s.dependency 'DeviceDNA', '2.1.0'
   s.dependency 'TrustKit'
-  s.dependency 'Judo3DS2_iOS', '~> 1.2.0'
+  s.dependency 'Judo3DS2_iOS', '1.2.0'
   s.dependency 'RavelinEncrypt', '1.1.1'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
