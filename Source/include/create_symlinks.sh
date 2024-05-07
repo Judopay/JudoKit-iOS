@@ -199,7 +199,6 @@ ln -s -f ../Services/CardTransactionService/JPCardTransactionType.h JPCardTransa
 ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPTransactionOptimisation.h JPTransactionOptimisation.h
 ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationThreeDSChallengePreference.h JPRecommendationOptimisationThreeDSChallengePreference.h
 ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationExemption.h JPRecommendationOptimisationExemption.h
-ln -s -f ../Models/Response/Recommendation/TransactionOptimisation/JPRecommendationOptimisationAction.h JPRecommendationOptimisationAction.h
 ln -s -f ../Models/Response/Recommendation/RecommendationData/JPRecommendationData.h JPRecommendationData.h
 ln -s -f ../Models/Response/Recommendation/RecommendationData/JPRecommendationAction.h JPRecommendationAction.h
 ln -s -f ../Models/Response/Recommendation/JPRecommendationResponse.h JPRecommendationResponse.h

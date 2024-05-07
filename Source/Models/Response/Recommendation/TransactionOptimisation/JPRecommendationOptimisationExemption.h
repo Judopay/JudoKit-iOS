@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPRecommendationOptimisationExemption) {
+typedef NS_ENUM(NSInteger, JPRecommendationOptimisationExemption) {
     JPRecommendationOptimisationExemptionUnknown,
     JPRecommendationOptimisationExemptionLowValue,
     JPRecommendationOptimisationExemptionTransactionRiskAnalysis

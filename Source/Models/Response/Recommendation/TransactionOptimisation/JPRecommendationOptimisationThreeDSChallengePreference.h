@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, JPRecommendationOptimisationThreeDSChallengePreference) {
+typedef NS_ENUM(NSInteger, JPRecommendationOptimisationThreeDSChallengePreference) {
     JPRecommendationOptimisationThreeDSChallengePreferenceUnknown,
     JPRecommendationOptimisationThreeDSChallengePreferenceNoPreference,
     JPRecommendationOptimisationThreeDSChallengePreferenceNoChallengeRequested,

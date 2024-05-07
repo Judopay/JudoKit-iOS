@@ -55,11 +55,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
     if (self = [super init]) {
         [self requestLocation];
-
-        // TODO: token and secret are not used in device-dna,
-        //  this is a workaround until new version of device-dna will be deployed
-        Credentials *credentials = [[Credentials alloc] initWithToken:@"" secret:@""];
-        _deviceDNA = [[DeviceDNA alloc] initWithCredentials:credentials];
+        _deviceDNA = [DeviceDNA new];
     }
     return self;
 }

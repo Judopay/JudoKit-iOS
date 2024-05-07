@@ -149,17 +149,16 @@
 }
 
 - (void)populateRequest:(JPRequest *)request withOverrides:(JPCardTransactionDetailsOverrides *)overrides {
+    if (!overrides) {
+        return;
+    }
+
     if (overrides.softDeclineReceiptId._jp_isNotNullOrEmpty) {
         request.threeDSecure.softDeclineReceiptId = overrides.softDeclineReceiptId;
     }
 
-    if (overrides.challengeRequestIndicator._jp_isNotNullOrEmpty) {
-        request.threeDSecure.challengeRequestIndicator = overrides.challengeRequestIndicator;
-    }
-
-    if (overrides.scaExemption._jp_isNotNullOrEmpty) {
-        request.threeDSecure.scaExemption = overrides.scaExemption;
-    }
+    request.threeDSecure.challengeRequestIndicator = overrides.challengeRequestIndicator;
+    request.threeDSecure.scaExemption = overrides.scaExemption;
 }
 
 - (void)populateWithCardTokenDetailsRequest:(JPTokenRequest *)request

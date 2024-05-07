@@ -226,13 +226,23 @@
 			<key>Key</key>
 			<string>recommendation_url</string>
 		</dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>recommendation_api_timeout_title</string>
+            <key>Key</key>
+            <string>recommendation_api_timeout</string>
+        </dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>recommendation_api_timeout_title</string>
+			<string>is_recommendation_halt_transaction_enabled_title</string>
 			<key>Key</key>
-			<string>recommendation_api_timeout</string>
+			<string>is_recommendation_halt_transaction_enabled</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>

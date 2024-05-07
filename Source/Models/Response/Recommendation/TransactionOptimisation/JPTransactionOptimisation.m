@@ -50,27 +50,18 @@ static NSString *const kThreeDSChallengePreferenceKey = @"threeDSChallengePrefer
 }
 
 - (void)populateWithDictionary:(NSDictionary *)dictionary {
-    self.action = [self actionFromDictionary:dictionary];
     self.exemption = [self exemptionFromDictionary:dictionary];
     self.threeDSChallengePreference = [self threeDSChallengePreferenceFromDictionary:dictionary];
 }
 
-- (JPRecommendationOptimisationAction)actionFromDictionary:(NSDictionary *)dictionary {
-    NSString *actionString = dictionary[kActionKey];
-
-    if ([actionString _jp_isEqualIgnoringCaseToString:kAuthenticate]) {
-        return JPRecommendationOptimisationActionAuthenticate;
-    }
-
-    if ([actionString _jp_isEqualIgnoringCaseToString:kAuthorise]) {
-        return JPRecommendationOptimisationActionAuthorise;
-    }
-
-    return JPRecommendationOptimisationActionUnknown;
-}
-
 - (JPRecommendationOptimisationExemption)exemptionFromDictionary:(NSDictionary *)dictionary {
-    NSString *exemptionString = dictionary[kExemptionKey];
+    NSString *exemptionString = [dictionary objectForKey:kExemptionKey];
+
+    BOOL isValidString = exemptionString && [exemptionString isKindOfClass:NSString.class];
+
+    if (!isValidString) {
+        return -1;
+    }
 
     if ([exemptionString _jp_isEqualIgnoringCaseToString:kLowValue]) {
         return JPRecommendationOptimisationExemptionLowValue;
@@ -84,7 +75,13 @@ static NSString *const kThreeDSChallengePreferenceKey = @"threeDSChallengePrefer
 }
 
 - (JPRecommendationOptimisationThreeDSChallengePreference)threeDSChallengePreferenceFromDictionary:(NSDictionary *)dictionary {
-    NSString *preferenceString = dictionary[kThreeDSChallengePreferenceKey];
+    NSString *preferenceString = [dictionary objectForKey:kThreeDSChallengePreferenceKey];
+
+    BOOL isValidString = preferenceString && [preferenceString isKindOfClass:NSString.class];
+
+    if (!isValidString) {
+        return -1;
+    }
 
     if ([preferenceString _jp_isEqualIgnoringCaseToString:kNoPreference]) {
         return JPRecommendationOptimisationThreeDSChallengePreferenceNoPreference;
@@ -106,7 +103,7 @@ static NSString *const kThreeDSChallengePreferenceKey = @"threeDSChallengePrefer
 }
 
 - (BOOL)isValid {
-    return self.action != JPRecommendationOptimisationActionUnknown && self.exemption != JPRecommendationOptimisationExemptionUnknown && self.threeDSChallengePreference != JPRecommendationOptimisationThreeDSChallengePreferenceUnknown;
+    return self.exemption != JPRecommendationOptimisationExemptionUnknown && self.threeDSChallengePreference != JPRecommendationOptimisationThreeDSChallengePreferenceUnknown;
 }
 
 @end

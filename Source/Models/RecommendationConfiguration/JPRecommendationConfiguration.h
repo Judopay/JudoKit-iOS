@@ -29,18 +29,30 @@
 @property (nonatomic, strong, nonnull) NSURL *URL;
 @property (nonatomic, strong, nonnull) NSString *RSAPublicKey;
 @property (nonatomic, assign, nullable) NSNumber *timeout;
+@property (nonatomic, assign) BOOL haltTransactionInCaseOfAnyError;
 
 /**
  * Designated initializer that sets the required parameters for Recommendation Feature calls.
  *
  *  @returns a configured instance of JPRecommendationConfiguration
  */
+
+- (nonnull instancetype)initWithURL:(nonnull NSURL *)URL
+                          RSAPublicKey:(nonnull NSString *)key
+                               timeout:(nullable NSNumber *)timeout
+    andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError;
+
 - (nonnull instancetype)initWithURL:(nonnull NSURL *)URL
                        RSAPublicKey:(nonnull NSString *)key
                          andTimeout:(nullable NSNumber *)timeout;
 
 - (nonnull instancetype)initWithURL:(nonnull NSURL *)URL
                     andRSAPublicKey:(nonnull NSString *)key;
+
++ (nonnull instancetype)configurationWithURL:(nonnull NSURL *)URL
+                                RSAPublicKey:(nonnull NSString *)key
+                                     timeout:(nullable NSNumber *)timeout
+          andHaltTransactionInCaseOfAnyError:(BOOL)haltTransactionInCaseOfAnyError;
 
 + (nonnull instancetype)configurationWithURL:(nonnull NSURL *)URL
                                 RSAPublicKey:(nonnull NSString *)key

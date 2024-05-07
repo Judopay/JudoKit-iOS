@@ -276,6 +276,12 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoRecommendationError];
 }
 
++ (JPError *)recommendationServerRequestFailedError {
+    return [self errorWithDescription:@"error_recommendation_server_request_failed_desc"._jp_localized
+                        failureReason:@"error_recommendation_server_request_failed_reason"._jp_localized
+                               ofType:JudoRecommendationError];
+}
+
 + (JPError *)invalidRecommendationAuthorizationTypeError {
     return [self errorWithDescription:@"error_recommendation_invalid_authorization_type_desc"._jp_localized
                         failureReason:@"error_recommendation_invalid_authorization_type_reason"._jp_localized

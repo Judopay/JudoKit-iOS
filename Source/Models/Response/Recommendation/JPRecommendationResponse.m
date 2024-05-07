@@ -37,7 +37,11 @@ static NSString *const kDataKey = @"data";
 }
 
 - (void)populateWithDictionary:(NSDictionary *)dictionary {
-    self.data = [[JPRecommendationData alloc] initWithDictionary:dictionary[kDataKey]];
+    NSDictionary *dataDictionary = [dictionary objectForKey:kDataKey];
+
+    if (dataDictionary && [dataDictionary isKindOfClass:NSDictionary.class]) {
+        self.data = [[JPRecommendationData alloc] initWithDictionary:dataDictionary];
+    }
 }
 
 + (instancetype)responseWithJSONData:(NSData *)data {
@@ -50,7 +54,9 @@ static NSString *const kDataKey = @"data";
                                                          options:NSJSONReadingAllowFragments
                                                            error:&error];
 
-    if (error || !JSON) {
+    BOOL isValidJSON = JSON && [JSON isKindOfClass:NSDictionary.class];
+
+    if (error || !isValidJSON) {
         return nil;
     }
 
