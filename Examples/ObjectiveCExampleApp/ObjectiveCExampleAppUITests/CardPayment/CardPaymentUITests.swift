@@ -24,52 +24,52 @@ final class CardPaymentUITests: XCTestCase {
 
     func testOnValidCardDetailsInputSubmitButtonShouldBeEnabled() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
     }
     
     func testCancelledTransactionErrorPopupShouldBeDisplayed() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.cancelButton?.tap()
-        let snackbar = app.buttonWithLabel(TestData.CANCELLED_PAYMENT_TOAST)
+        let snackbar = app.buttonWithLabel(TestData.Other.CANCELLED_PAYMENT_TOAST)
         XCTAssert(snackbar!.exists, "Snackbar message not displayed")
     }
     
-    func testSuccessfulTransactionReceiptObjectShouldContainRelevantInfo() {
+    func testSuccessfulTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
-    func testDeclinedTransactionReceiptObjectShouldContainRelevantInfo() {
+    func testDeclinedTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: "123")
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "Card declined: Additional customer authentication required", "Declined")
     }
 
-    func testFailedTransactionReceiptObjectShouldContainRelevantInfo() {
+    func testFailedTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.fillCardSheetDetails(cardNumber: "4111 1111 1111 1111",
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: "123")
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
@@ -78,153 +78,153 @@ final class CardPaymentUITests: XCTestCase {
     
     func testCancel3DS2ChallengeScreenErrorPopupShouldBeDisplayed() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         let cancelButton = app.buttons["Cancel"]
         XCTAssert(cancelButton.waitForExistence(timeout: 10))
         app.cancelButton3DS2?.tap()
     }
     
-    func testSuccessfulPreauthTransactionReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulPreauthTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulRegisterCardTransactionReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulRegisterCardTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.REGISTER_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.registerCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Register", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulCheckCardTransactionReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulCheckCardTransaction() {
         app.launch()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "CheckCard", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulTokenPaymentReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulTokenPayment() {
         app.launchArguments += ["-should_ask_for_csc", "true"]
         app.launch()
-        app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.tokenPayment)?.tap()
         app.tokenizeNewCardButton?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         app.tokenPaymentButton?.tap()
-        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulTokenPreauthReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulTokenPreauth() {
         app.launchArguments += ["-should_ask_for_csc", "true"]
         app.launch()
-        app.cellWithIdentifier(TestData.TOKEN_PAYMENTS_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.tokenPayment)?.tap()
         app.tokenizeNewCardButton?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         app.tokenPreauthButton?.tap()
-        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulFrictionlessPaymentReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulFrictionlessPayment() {
         app.launchArguments += ["-challenge_request_indicator", "noPreference"]
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
                              cardHolder: "Frictionless Successful",
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
-    func testFrictionlessNoMethodPaymentReceiptObjectContainsRelevantInfo() {
+    func testFrictionlessNoMethodPayment() {
         app.launchArguments += ["-challenge_request_indicator", "noPreference"]
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
                              cardHolder: "Frictionless NoMethod",
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
-    func testFrictionlessAuthFailedPaymentReceiptObjectContainsRelevantInfo() {
+    func testFrictionlessAuthFailedPayment() {
         app.launchArguments += ["-challenge_request_indicator", "noPreference"]
         app.launch()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
                              cardHolder: "Frictionless AuthFailed",
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
     }
     
-    func testSuccessfulPaymentMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulPaymentMethodsCardPayment() {
         app.launchArguments += ["-should_ask_for_csc", "true"]
         app.launch()
         app.swipeUp()
-        app.cellWithIdentifier(TestData.PAYMENT_METHODS_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.addCard?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         app.payNowButton?.tap()
-        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulPreauthMethodsCardPaymentReceiptObjectContainsRelevantInfo() {
+    func testSuccessfulPreauthMethodsCardPayment() {
         app.launchArguments += ["-should_ask_for_csc", "true"]
         app.launch()
         app.swipeUp()
-        app.cellWithIdentifier(TestData.PREAUTH_METHODS_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthMethods)?.tap()
         app.addCard?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         app.payNowButton?.tap()
-        app.securityCodeTextField?.tapAndTypeText(TestData.CARD_SECURITY_CODE)
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
@@ -232,12 +232,12 @@ final class CardPaymentUITests: XCTestCase {
     
     func testRemoveCardOnPaymentMethods() {
         app.launch()
-        app.cellWithIdentifier(TestData.PAYMENT_METHODS_LABEL)?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.addCard?.tap()
         app.fillCardSheetDetails(cardNumber: "4222 0000 0122 7408",
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         let newCard = app.staticTexts["Visa Ending 7408 "]
         XCTAssert(newCard.waitForExistence(timeout: 5), "Unable to add a new card")
@@ -246,5 +246,141 @@ final class CardPaymentUITests: XCTestCase {
         app.deleteCardButton?.tap()
         app.deleteCardButton?.tap()
         XCTAssertFalse(newCard.waitForExistence(timeout: 5), "Unable to delete card")
+    }
+    
+    func testSuccessfulPaymentWithBillingDetails() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.VALID_POSTCODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+        assertBillingInfo(app, TestData.BillingInfo.VALID_COUNTRY_CODE, TestData.BillingInfo.VALID_CITY, TestData.BillingInfo.VALID_ADDRESS, TestData.BillingInfo.VALID_ADDRESS_TWO, TestData.BillingInfo.VALID_POSTCODE)
+    }
+    
+    func testUKPostCodeValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.INVALID_POSTCODE)
+        app.mobileField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_POSTCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+    }
+    
+    func testUSPostCodeValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
+        app.stateField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.INVALID_POSTCODE)
+        app.cityField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_ZIPCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+    }
+    
+    func testCAPostCodeValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
+        app.stateField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.INVALID_POSTCODE)
+        app.cityField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_POSTCODE_LABEL)
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+    }
+    
+    func testBillingFieldsInputValidation() {
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        app.cardDetailsSubmitButton?.tap()
+        
+        app.emailField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
+        app.addressLineOne?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_EMAIL_LABEL, "Email address input validation failed and/or error label is not displayed")
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+        app.clearTextFieldByIndex(index: 0)
+        
+        app.mobileField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
+        app.emailField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_PHONE_LABEL, "Mobile number input validation failed and/or error label is not displayed")
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+        app.clearTextFieldByIndex(index: 6)
+        
+        app.addressLineOne?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
+        app.emailField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_ADDRESS_LABEL, "Address line input validation failed and/or error label is not displayed")
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+        app.clearTextFieldByIndex(index: 2)
+        
+        app.cityField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
+        app.emailField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_CITY_LABEL, "City input validation failed and/or error label is not displayed")
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+        app.clearTextFieldByIndex(index: 3)
+        
+        app.postCodeField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
+        app.emailField?.tap()
+        XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_POSTCODE_LABEL, "Postcode input validation failed and/or error label is not displayed")
+        XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
+        app.clearTextFieldByIndex(index: 4)
     }
 }

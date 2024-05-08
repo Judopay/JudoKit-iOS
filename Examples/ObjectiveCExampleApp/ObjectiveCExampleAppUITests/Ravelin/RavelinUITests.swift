@@ -26,26 +26,26 @@ final class RavelinUITests: XCTestCase {
     }
     
     func testPaymentAllowAuthoriseLowValueNoPreference() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHORISE, exemption: TestData.LOW_VALUE, challenge: TestData.NO_PREFERENCE)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.NO_PREFERENCE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
     func testPaymentReviewAuthenticateTRAChallenge() {
-        app.configureRavelin(action: TestData.REVIEW, toa: TestData.AUTHENTICATE, exemption: TestData.TRA, challenge: TestData.CHALLENGE_REQUESTED)
+        app.configureRavelin(action: TestData.Ravelin.REVIEW, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.CHALLENGE_REQUESTED)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
@@ -53,124 +53,124 @@ final class RavelinUITests: XCTestCase {
     }
     
     func testPaymentPreventAuthoriseLowValueChallengeAsMandate() {
-        app.configureRavelin(action: TestData.PREVENT, toa: TestData.AUTHORISE, exemption: TestData.LOW_VALUE, challenge: TestData.NO_PREFERENCE)
+        app.configureRavelin(action: TestData.Ravelin.PREVENT, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.NO_PREFERENCE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObjectNotDisplayed(app)
     }
 
     func testPaymentAllowAuthenticateTRANoChallenge() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHENTICATE, exemption: TestData.TRA, challenge: TestData.NO_CHALLENGE)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.NO_CHALLENGE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
     func testPaymentPreventAuthenticateTRANoPreference() {
-        app.configureRavelin(action: TestData.PREVENT, toa: TestData.AUTHENTICATE, exemption: TestData.TRA, challenge: TestData.NO_PREFERENCE)
+        app.configureRavelin(action: TestData.Ravelin.PREVENT, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.NO_PREFERENCE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PAY_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObjectNotDisplayed(app)
     }
 
     func testPreAuthReviewAuthoriseLowValueChallengeAsMandate() {
-        app.configureRavelin(action: TestData.REVIEW, toa: TestData.AUTHORISE, exemption: TestData.LOW_VALUE, challenge: TestData.CHALLENGE_MANDATE)
+        app.configureRavelin(action: TestData.Ravelin.REVIEW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.CHALLENGE_MANDATE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
     func testPreAuthAllowAuthoriseTRANoChallenge() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHORISE, exemption: TestData.TRA, challenge: TestData.NO_CHALLENGE)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.NO_CHALLENGE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
     func testPreAuthPreventAuthenticateLowValueNoChallenge() {
-        app.configureRavelin(action: TestData.PREVENT, toa: TestData.AUTHENTICATE, exemption: TestData.LOW_VALUE, challenge: TestData.NO_CHALLENGE)
+        app.configureRavelin(action: TestData.Ravelin.PREVENT, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.NO_CHALLENGE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObjectNotDisplayed(app)
     }
     
     func testPreAuthReviewAuthoriseTRANoPreference() {
-        app.configureRavelin(action: TestData.REVIEW, toa: TestData.AUTHORISE, exemption: TestData.TRA, challenge: TestData.NO_PREFERENCE)
+        app.configureRavelin(action: TestData.Ravelin.REVIEW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.NO_PREFERENCE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
     func testPreAuthAllowAuthenticateLowValueChallenge() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHENTICATE, exemption: TestData.LOW_VALUE, challenge: TestData.CHALLENGE_REQUESTED)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.CHALLENGE_REQUESTED)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.PREAUTH_WITH_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
     func testCheckCardAllowAuthoriseTRAChallengeAsMandate() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHORISE, exemption: TestData.TRA, challenge: TestData.CHALLENGE_MANDATE)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.CHALLENGE_MANDATE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "CheckCard", "AuthCode: ", "Success")
     }
     
     func testCheckCardReviewAuthenticateTRANoChallenge() {
-        app.configureRavelin(action: TestData.REVIEW, toa: TestData.AUTHENTICATE, exemption: TestData.TRA, challenge: TestData.NO_CHALLENGE)
+        app.configureRavelin(action: TestData.Ravelin.REVIEW, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.TRA, challenge: TestData.Ravelin.NO_CHALLENGE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         // Backend overrides CRI to Challenge as Mandate
         tapCompleteButton(app)
@@ -178,25 +178,25 @@ final class RavelinUITests: XCTestCase {
     }
     
     func testCheckCardPreventAuthenticateLowValueChallenge() {
-        app.configureRavelin(action: TestData.PREVENT, toa: TestData.AUTHENTICATE, exemption: TestData.LOW_VALUE, challenge: TestData.CHALLENGE_REQUESTED)
+        app.configureRavelin(action: TestData.Ravelin.PREVENT, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.CHALLENGE_REQUESTED)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         assertResultObjectNotDisplayed(app)
     }
     
     func testCheckCardAllowAuthenticateLowValueNoPreference() {
-        app.configureRavelin(action: TestData.ALLOW, toa: TestData.AUTHENTICATE, exemption: TestData.LOW_VALUE, challenge: TestData.NO_PREFERENCE)
+        app.configureRavelin(action: TestData.Ravelin.ALLOW, toa: TestData.Ravelin.AUTHENTICATE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.NO_PREFERENCE)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         // Backend overrides CRI to Challenge as Mandate
         tapCompleteButton(app)
@@ -204,13 +204,13 @@ final class RavelinUITests: XCTestCase {
     }
     
     func testCheckCardReviewAuthoriseLowValueChallenge() {
-        app.configureRavelin(action: TestData.REVIEW, toa: TestData.AUTHORISE, exemption: TestData.LOW_VALUE, challenge: TestData.CHALLENGE_REQUESTED)
+        app.configureRavelin(action: TestData.Ravelin.REVIEW, toa: TestData.Ravelin.AUTHORISE, exemption: TestData.Ravelin.LOW_VALUE, challenge: TestData.Ravelin.CHALLENGE_REQUESTED)
         app.ravelinTestSetup()
-        app.cellWithIdentifier(TestData.CHECK_CARD_LABEL)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CARD_NUMBER,
-                             cardHolder: TestData.CARDHOLDER_NAME,
-                             expiryDate: TestData.CARD_EXPIRY,
-                             securityCode: TestData.CARD_SECURITY_CODE)
+        app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "CheckCard", "AuthCode: ", "Success")

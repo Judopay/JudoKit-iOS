@@ -128,6 +128,7 @@ static const float kPhoneCodeWidth = 45.0F;
     self.addAddressLineButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
     self.addAddressLineButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.addAddressLineButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
 
     NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
