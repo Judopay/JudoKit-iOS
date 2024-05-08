@@ -175,10 +175,7 @@ extension XCUIApplication {
     
     var fieldErrorLabel: String? {
         get {
-            guard let labelElement = textWithIdentifier(Selectors.BillingInfo.fieldErrorLabel) else {
-                return nil
-            }
-            return labelElement.label
+            return textWithIdentifier(Selectors.BillingInfo.fieldErrorLabel)?.label
         }
     }
     
