@@ -282,6 +282,12 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoRecommendationError];
 }
 
++ (JPError *)preAuthPropertiesConflictError {
+    return [self errorWithDescription:@"error_preauth_properties_conflict_desc"._jp_localized
+                        failureReason:@"error_preauth_properties_conflict_reason"._jp_localized
+                               ofType:JudoParameterError];
+}
+
 + (JPError *)invalidRecommendationAuthorizationTypeError {
     return [self errorWithDescription:@"error_recommendation_invalid_authorization_type_desc"._jp_localized
                         failureReason:@"error_recommendation_invalid_authorization_type_reason"._jp_localized

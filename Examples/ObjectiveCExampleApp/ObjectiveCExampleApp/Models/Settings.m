@@ -330,6 +330,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsDelayedAuthorisationOnKey];
 }
 
+- (BOOL)isAllowIncrementOn {
+    return [self.defaults boolForKey:kIsAllowIncrementOnKey];
+}
+
 - (BOOL)shouldAskForCSC {
     return [self.defaults boolForKey:kShouldAskForCSCKey];
 }

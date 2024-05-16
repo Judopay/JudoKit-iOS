@@ -165,6 +165,8 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)recommendationServerPreventedTransactionError;
 + (nonnull JPError *)recommendationServerRequestFailedError;
 
++ (nonnull JPError *)preAuthPropertiesConflictError;
+
 + (nonnull JPError *)invalidRecommendationAuthorizationTypeError;
 + (nonnull JPError *)invalidRecommendationURLError;
 + (nonnull JPError *)invalidRecommendationRSAPublicKeyError;

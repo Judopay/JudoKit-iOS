@@ -172,6 +172,7 @@ static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_butt
 static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation_on";
+static NSString *const kIsAllowIncrementOnKey = @"is_allow_increment_on";
 static NSString *const kShouldAskForCSCKey = @"should_ask_for_csc";
 static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardholder_name";
 
@@ -249,6 +250,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isApplePayRecurringPaymentOn;
 - (BOOL)isDelayedAuthorisationOn;
+- (BOOL)isAllowIncrementOn;
 - (BOOL)shouldAskForCSC;
 - (BOOL)shouldAskForCardholderName;
 
