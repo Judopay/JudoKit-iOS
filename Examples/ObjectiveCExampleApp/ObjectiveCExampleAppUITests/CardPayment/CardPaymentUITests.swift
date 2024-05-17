@@ -329,18 +329,12 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         app.cardDetailsSubmitButton?.tap()
         app.countryField?.tap()
-        let pickerWheelExists = app.pickerWheels.element(boundBy: 0).waitForExistence(timeout: 5)
-        if pickerWheelExists {
-            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
-        } else {
-            XCTFail("Country picker wheel did not appear in time")
-        }
+        sleep(3)
+        app.pickerWheels["United Kingdom"].adjust(toPickerWheelValue: "Canada")
+        sleep(3)
+        app.emailField?.tap()
         app.stateField?.tap()
-        if pickerWheelExists {
-            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
-        } else {
-            XCTFail("State picker wheel did not appear in time")
-        }
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
                                    addressOne: TestData.BillingInfo.VALID_ADDRESS,
