@@ -404,8 +404,6 @@ jobs:
               --device model=iphone13pro,version=15.7 \
               --device model=iphone11pro,version=14.7 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-      - notify_slack_error_weekly
-      - notify_slack_pass_weekly
   release_sample:
     executor: macos
     steps:
