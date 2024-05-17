@@ -134,6 +134,9 @@
                   Identifier = "CardPaymentUITests/testSuccessfulTransaction()">
                </Test>
                <Test
+                  Identifier = "CardPaymentUITests/testUSPostCodeValidation()">
+               </Test>
+               <Test
                   Identifier = "RavelinUITests/testCheckCardAllowAuthenticateLowValueNoPreference()">
                </Test>
                <Test

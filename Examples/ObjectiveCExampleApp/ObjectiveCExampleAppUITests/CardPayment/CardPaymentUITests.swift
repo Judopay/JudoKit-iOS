@@ -303,17 +303,9 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         app.cardDetailsSubmitButton?.tap()
         app.countryField?.tap()
-        if #available(iOS 16.0, *) {
-            print("Running on iOS 16.0 or later")
-            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
-            app.stateField?.tap()
-            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
-        } else {
-            print("Running on iOS version earlier than 16.0")
-            app.pickers.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
-            app.stateField?.tap()
-            app.pickers.element(boundBy: 0).adjust(toPickerWheelValue: "California")
-        }
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
+        app.stateField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
 
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
@@ -337,9 +329,18 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         app.cardDetailsSubmitButton?.tap()
         app.countryField?.tap()
-        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
+        let pickerWheelExists = app.pickerWheels.element(boundBy: 0).waitForExistence(timeout: 5)
+        if pickerWheelExists {
+            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
+        } else {
+            XCTFail("Country picker wheel did not appear in time")
+        }
         app.stateField?.tap()
-        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
+        if pickerWheelExists {
+            app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
+        } else {
+            XCTFail("State picker wheel did not appear in time")
+        }
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
                                    addressOne: TestData.BillingInfo.VALID_ADDRESS,
