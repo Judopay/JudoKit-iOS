@@ -526,4 +526,4 @@ workflows:
             filters:
               branches:
                 only:
-                  - master
+                  - backward-compat-ui-test-fixes

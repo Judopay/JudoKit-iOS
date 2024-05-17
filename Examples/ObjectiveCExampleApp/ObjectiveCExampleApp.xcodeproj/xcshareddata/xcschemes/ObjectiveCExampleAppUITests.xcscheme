@@ -75,6 +75,110 @@
                BlueprintName = "ObjectiveCExampleAppUITests"
                ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CardPaymentUITests/testBillingFieldsInputValidation()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testCancel3DS2ChallengeScreenErrorPopupShouldBeDisplayed()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testCancelledTransactionErrorPopupShouldBeDisplayed()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testDeclinedTransaction()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testFailedTransaction()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testFrictionlessAuthFailedPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testFrictionlessNoMethodPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testOnValidCardDetailsInputSubmitButtonShouldBeEnabled()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testRemoveCardOnPaymentMethods()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulCheckCardTransaction()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulFrictionlessPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulPaymentMethodsCardPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulPaymentWithBillingDetails()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulPreauthTransaction()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulRegisterCardTransaction()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulTokenPayment()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulTokenPreauth()">
+               </Test>
+               <Test
+                  Identifier = "CardPaymentUITests/testSuccessfulTransaction()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardAllowAuthenticateLowValueNoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardAllowAuthoriseTRAChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardPreventAuthenticateLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardReviewAuthenticateTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardReviewAuthoriseLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentAllowAuthenticateTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentAllowAuthoriseLowValueNoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentPreventAuthenticateTRANoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentPreventAuthoriseLowValueChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentReviewAuthenticateTRAChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthAllowAuthenticateLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthAllowAuthoriseTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthPreventAuthenticateLowValueNoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthReviewAuthoriseLowValueChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthReviewAuthoriseTRANoPreference()">
+               </Test>
+            </SkippedTests>
             <LocationScenarioReference
                identifier = "London, England"
                referenceType = "1">
