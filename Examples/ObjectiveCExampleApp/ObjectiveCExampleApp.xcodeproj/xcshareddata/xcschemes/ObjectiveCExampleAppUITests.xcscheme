@@ -77,66 +77,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "CardPaymentUITests/testBillingFieldsInputValidation()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testCancel3DS2ChallengeScreenErrorPopupShouldBeDisplayed()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testCancelledTransactionErrorPopupShouldBeDisplayed()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testDeclinedTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testFailedTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testFrictionlessAuthFailedPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testFrictionlessNoMethodPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testOnValidCardDetailsInputSubmitButtonShouldBeEnabled()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testRemoveCardOnPaymentMethods()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulCheckCardTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulFrictionlessPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulPaymentMethodsCardPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulPaymentWithBillingDetails()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulPreauthTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulRegisterCardTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulTokenPayment()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulTokenPreauth()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testSuccessfulTransaction()">
-               </Test>
-               <Test
-                  Identifier = "CardPaymentUITests/testUSPostCodeValidation()">
-               </Test>
-               <Test
                   Identifier = "RavelinUITests/testCheckCardAllowAuthenticateLowValueNoPreference()">
                </Test>
                <Test
