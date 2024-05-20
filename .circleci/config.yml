@@ -400,9 +400,9 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.0 \
-              --device model=iphone13pro,version=15.7 \
-              --device model=iphone11pro,version=14.7 \
+              --xcode-version 15.3 \
+              --device model=iphone8,version=15.7 \
+              --device model=iphone12pro,version=14.8 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
   release_sample:
     executor: macos

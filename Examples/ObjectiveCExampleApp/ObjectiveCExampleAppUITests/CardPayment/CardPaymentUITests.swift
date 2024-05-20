@@ -328,11 +328,12 @@ final class CardPaymentUITests: XCTestCase {
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         app.cardDetailsSubmitButton?.tap()
+        let wheel = app.pickerWheels.element.firstMatch
         app.countryField?.tap()
-        sleep(3)
-        app.pickerWheels["United Kingdom"].adjust(toPickerWheelValue: "Canada")
-        sleep(3)
-        app.emailField?.tap()
+        XCTAssert(wheel.exists)
+        XCTAssertEqual(wheel.value as! String, "United Kingdom")
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
+        XCTAssertEqual(wheel.value as! String, "Canada")
         app.stateField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
