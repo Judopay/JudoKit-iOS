@@ -86,81 +86,81 @@ commands:
               ]
             }
 
-  # notify_slack_pass_weekly:
-  #   steps:
-  #     - slack/notify:
-  #         event: pass
-  #         custom: |
-  #           {
-  #             "blocks": [
-  #               {
-  #                 "type": "section",
-  #                 "text": {
-  #                   "type": "mrkdwn",
-  #                   "text": "CircleCI has just *successfully* ran the :aapl: iOS E2E mobile tests for backward compatibility, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
-  #                 }
-  #               },
-  #               {
-  #                 "type": "section",
-  #                 "fields": [
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Branch:*\n$CIRCLE_BRANCH"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Author:*\n$CIRCLE_USERNAME"
-  #                   }
-  #                 ]
-  #               }
-  #             ]
-  #           }
+  notify_slack_pass_weekly:
+    steps:
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "CircleCI has just *successfully* ran the :aapl: iOS E2E mobile tests for backward compatibility, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n$CIRCLE_USERNAME"
+                    }
+                  ]
+                }
+              ]
+            }
 
-  # notify_slack_error_weekly:
-  #   steps:
-  #     - slack/notify:
-  #         event: fail
-  #         custom: |
-  #           {
-  #             "blocks": [
-  #               {
-  #                 "type": "section",
-  #                 "text": {
-  #                   "type": "mrkdwn",
-  #                   "text": "CircleCI ran the :aapl: iOS E2E mobile tests for backward compatibility but they *failed*, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
-  #                 }
-  #               },
-  #               {
-  #                 "type": "section",
-  #                 "fields": [
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Branch:*\n$CIRCLE_BRANCH"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
-  #                   },
-  #                   {
-  #                     "type": "mrkdwn",
-  #                     "text": "*Author:*\n$CIRCLE_USERNAME"
-  #                   }
-  #                 ]
-  #               }
-  #             ]
-  #           }
+  notify_slack_error_weekly:
+    steps:
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "CircleCI ran the :aapl: iOS E2E mobile tests for backward compatibility but they *failed*, here are the results: \n *<$CIRCLE_BUILD_URL | :circleci: Open build>* \n *<https://console.firebase.google.com/u/0/project/$GOOGLE_PROJECT_ID/testlab/histories/ | :firebase: Firebase results>*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Project:*\n$CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* \n <https://github.com/Judopay/$CIRCLE_PROJECT_REPONAME/commit/${CIRCLE_SHA1} | ${CIRCLE_SHA1:0:7}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n$CIRCLE_USERNAME"
+                    }
+                  ]
+                }
+              ]
+            }
 
   pod_install:
     description: Install CocoaPods dependencies for an iOS project. This command correctly configures the cache for the Pods directory and Podfile.lock.
@@ -405,6 +405,8 @@ jobs:
               --device model=iphone12pro,version=14.8 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --num-flaky-test-attempts=2
+      - notify_slack_error_weekly
+      - notify_slack_pass_weekly
   release_sample:
     executor: macos
     steps:
@@ -525,4 +527,4 @@ workflows:
             filters:
               branches:
                 only:
-                  - backward-compat-ui-test-fixes
+                  - master
