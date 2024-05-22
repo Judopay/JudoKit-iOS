@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -395,6 +395,7 @@
 		44A18B6529F94DE700D2963B /* JPCardDetailsForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A18B6329F94DE700D2963B /* JPCardDetailsForm.m */; };
 		44A18B6829F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A18B6629F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h */; };
 		44A18B6929F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A18B6729F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m */; };
+		44A490172BFBE1CE007C5743 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44A490162BFBE1CE007C5743 /* PrivacyInfo.xcprivacy */; };
 		44CD3A792B1F454300002FBB /* JPRecurringPaymentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */; };
 		44CD3A7A2B1F454300002FBB /* JPRecurringPaymentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44CD3A7B2B1F454300002FBB /* JPRecurringPaymentSummaryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */; };
@@ -503,7 +504,6 @@
 		ADB514BB286DED4200332E47 /* JPCReqParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB514B9286DED4200332E47 /* JPCReqParameters.m */; };
 		ADB514BF286DF03900332E47 /* JPThreeDSecureTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB514BD286DF03900332E47 /* JPThreeDSecureTwo.m */; };
 		ADB514C0286DF03900332E47 /* JPThreeDSecureTwo.h in Headers */ = {isa = PBXBuildFile; fileRef = ADB514BE286DF03900332E47 /* JPThreeDSecureTwo.h */; };
-		ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA50D79282C35DE00846943 /* OpenSSL.xcframework */; };
 		ADC5AC0228EF30340049CAE3 /* JPState.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC5AC0128EF30340049CAE3 /* JPState.m */; };
 		ADC5AC0428EF30610049CAE3 /* JPState.h in Headers */ = {isa = PBXBuildFile; fileRef = ADC5AC0328EF30500049CAE3 /* JPState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADFDB81729EAE8E80011C62F /* JPSubProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFDB81629EAE8E80011C62F /* JPSubProductInfo.m */; };
@@ -807,7 +807,7 @@
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
 		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4428AF002B06177100DCE4FB /* RavelinEncrypt.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RavelinEncrypt.xcframework; path = Carthage/Build/RavelinEncrypt.xcframework; sourceTree = "<group>"; };
+		4428AF002B06177100DCE4FB /* RavelinEncrypt.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:8SLW46D7RN:Ravelin Technology Ltd"; lastKnownFileType = wrapper.xcframework; name = RavelinEncrypt.xcframework; path = Carthage/Build/RavelinEncrypt.xcframework; sourceTree = "<group>"; };
 		4428AF072B06262E00DCE4FB /* JPRecommendationOptimisationExemption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecommendationOptimisationExemption.h; sourceTree = "<group>"; };
 		4428AF082B06262E00DCE4FB /* JPTransactionOptimisation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTransactionOptimisation.m; sourceTree = "<group>"; };
 		4428AF0A2B06262E00DCE4FB /* JPTransactionOptimisation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPTransactionOptimisation.h; sourceTree = "<group>"; };
@@ -915,6 +915,7 @@
 		44A18B6329F94DE700D2963B /* JPCardDetailsForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCardDetailsForm.m; sourceTree = "<group>"; };
 		44A18B6629F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPIntrinsicSizeAwareScrollView.h; sourceTree = "<group>"; };
 		44A18B6729F94F3800D2963B /* JPIntrinsicSizeAwareScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPIntrinsicSizeAwareScrollView.m; sourceTree = "<group>"; };
+		44A490162BFBE1CE007C5743 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		44CD3A742B1F454300002FBB /* JPRecurringPaymentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecurringPaymentRequest.m; sourceTree = "<group>"; };
 		44CD3A752B1F454300002FBB /* JPRecurringPaymentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecurringPaymentRequest.h; sourceTree = "<group>"; };
 		44CD3A772B1F454300002FBB /* JPRecurringPaymentSummaryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRecurringPaymentSummaryItem.m; sourceTree = "<group>"; };
@@ -1012,10 +1013,9 @@
 		AD13DC0728831297002B82CD /* JPNetworkTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPNetworkTimeout.h; sourceTree = "<group>"; };
 		AD13DC1728831C07002B82CD /* JPPaymentMethodsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPaymentMethodsTest.swift; sourceTree = "<group>"; };
 		ADA50D6D282C1C7B00846943 /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
-		ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = DeviceDNA.xcframework; path = Carthage/Build/DeviceDNA.xcframework; sourceTree = "<group>"; };
+		ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:95V535S6TQ:Alternative Payments Ltd"; lastKnownFileType = wrapper.xcframework; name = DeviceDNA.xcframework; path = Carthage/Build/DeviceDNA.xcframework; sourceTree = "<group>"; };
 		ADA50D6F282C1C7B00846943 /* TrustKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TrustKit.xcframework; path = Carthage/Build/TrustKit.xcframework; sourceTree = "<group>"; };
-		ADA50D79282C35DE00846943 /* OpenSSL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OpenSSL.xcframework; path = Carthage/Build/OpenSSL.xcframework; sourceTree = "<group>"; };
-		ADB514A9286DE90100332E47 /* Judo3DS2_iOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Judo3DS2_iOS.xcframework; path = Carthage/Build/Judo3DS2_iOS.xcframework; sourceTree = "<group>"; };
+		ADB514A9286DE90100332E47 /* Judo3DS2_iOS.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:95V535S6TQ:Alternative Payments Ltd"; lastKnownFileType = wrapper.xcframework; name = Judo3DS2_iOS.xcframework; path = Carthage/Build/Judo3DS2_iOS.xcframework; sourceTree = "<group>"; };
 		ADB514AE286DECB600332E47 /* JPResponse+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JPResponse+Additions.m"; sourceTree = "<group>"; };
 		ADB514AF286DECB600332E47 /* JPResponse+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JPResponse+Additions.h"; sourceTree = "<group>"; };
 		ADB514B3286DECE300332E47 /* JPCardTransactionDetails+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JPCardTransactionDetails+Additions.h"; sourceTree = "<group>"; };
@@ -1035,7 +1035,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADB5FB46282CF72500B0E4BE /* OpenSSL.xcframework in Frameworks */,
 				ADB514AA286DE90100332E47 /* Judo3DS2_iOS.xcframework in Frameworks */,
 				525FF51B25307B89001F030E /* Vision.framework in Frameworks */,
 				4428AF012B06177100DCE4FB /* RavelinEncrypt.xcframework in Frameworks */,
@@ -1534,7 +1533,6 @@
 			children = (
 				4428AF002B06177100DCE4FB /* RavelinEncrypt.xcframework */,
 				ADB514A9286DE90100332E47 /* Judo3DS2_iOS.xcframework */,
-				ADA50D79282C35DE00846943 /* OpenSSL.xcframework */,
 				ADA50D6E282C1C7B00846943 /* DeviceDNA.xcframework */,
 				ADA50D6D282C1C7B00846943 /* OHHTTPStubs.xcframework */,
 				ADA50D6F282C1C7B00846943 /* TrustKit.xcframework */,
@@ -3203,6 +3201,7 @@
 		52FBFB6A2325A3770096064C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				44A490162BFBE1CE007C5743 /* PrivacyInfo.xcprivacy */,
 				448FC5E52A1E1F3A0072C52E /* Images */,
 				448FC5E32A1E1F3A0072C52E /* JSON */,
 				829330FE230AF0F900689DC4 /* Localizable.strings */,
@@ -3648,6 +3647,7 @@
 				448FC6192A1E1F3B0072C52E /* ideal-pay-icon.png in Resources */,
 				448FC6262A1E1F3B0072C52E /* card-unionpay.png in Resources */,
 				448FC6292A1E1F3B0072C52E /* pbba-pay-icon@3x.png in Resources */,
+				44A490172BFBE1CE007C5743 /* PrivacyInfo.xcprivacy in Resources */,
 				448FC62D2A1E1F3B0072C52E /* logo-triodos.png in Resources */,
 				448FC6142A1E1F3B0072C52E /* pattern-lines.png in Resources */,
 				448FC61B2A1E1F3B0072C52E /* gradient-background.png in Resources */,

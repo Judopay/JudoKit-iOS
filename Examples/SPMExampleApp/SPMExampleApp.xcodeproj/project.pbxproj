@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44121C0A2AE24F36004F36CF /* JudoKit_iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 44121C092AE24F36004F36CF /* JudoKit_iOS */; };
+		44469A742BFDF8FF00F922B8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44469A732BFDF8FF00F922B8 /* PrivacyInfo.xcprivacy */; };
 		AD3CCE0A283B987F008A334A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE09283B987F008A334A /* AppDelegate.swift */; };
 		AD3CCE0C283B987F008A334A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE0B283B987F008A334A /* SceneDelegate.swift */; };
 		AD3CCE0E283B987F008A334A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3CCE0D283B987F008A334A /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44469A732BFDF8FF00F922B8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AD3CCE06283B987F008A334A /* SPMExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SPMExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD3CCE09283B987F008A334A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD3CCE0B283B987F008A334A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		AD3CCE08283B987F008A334A /* SPMExampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				44469A732BFDF8FF00F922B8 /* PrivacyInfo.xcprivacy */,
 				AD3CCE09283B987F008A334A /* AppDelegate.swift */,
 				AD3CCE0B283B987F008A334A /* SceneDelegate.swift */,
 				AD3CCE0D283B987F008A334A /* ViewController.swift */,
@@ -135,6 +138,7 @@
 			files = (
 				AD3CCE16283B987F008A334A /* LaunchScreen.storyboard in Resources */,
 				AD3CCE13283B987F008A334A /* Assets.xcassets in Resources */,
+				44469A742BFDF8FF00F922B8 /* PrivacyInfo.xcprivacy in Resources */,
 				AD3CCE11283B987F008A334A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

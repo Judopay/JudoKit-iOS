@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'JudoKit-iOS'
-  s.version               = '3.4.0'
+  s.version               = '3.4.1'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'https://www.judopay.com/'
   s.license               = 'MIT'
@@ -14,13 +14,13 @@ Pod::Spec.new do |s|
   s.source_files          = 'Source/**/*.{m,h}'
   s.exclude_files         = 'Source/include/'
 
-  s.dependency 'DeviceDNA', '2.1.0'
-  s.dependency 'TrustKit'
-  s.dependency 'Judo3DS2_iOS', '1.2.0'
-  s.dependency 'RavelinEncrypt', '1.1.1'
+  s.dependency 'DeviceDNA', '2.1.1'
+  s.dependency 'TrustKit', '~> 3.0.4'
+  s.dependency 'Judo3DS2_iOS', '1.2.1'
+  s.dependency 'RavelinEncrypt', '1.1.2'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
   s.ios.resource_bundle   = {
-    'JudoKit_iOS' => 'Source/Resources/**/*.{lproj,png,json,strings}'
+    'JudoKit_iOS' => 'Source/Resources/**/*.{lproj,png,json,strings,xcprivacy}'
   }
 end
