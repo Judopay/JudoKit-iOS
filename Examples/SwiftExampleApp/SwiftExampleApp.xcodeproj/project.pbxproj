@@ -32,6 +32,7 @@
 		30585427257FABA4000B00DF /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30585426257FABA4000B00DF /* UIViewController+Additions.swift */; };
 		30FF8EB5259B37200077B5C8 /* ApplePayModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */; };
 		30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */; };
+		44469A762BFDF92400F922B8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44469A752BFDF92400F922B8 /* PrivacyInfo.xcprivacy */; };
 		448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1E22450DF22004A11CB /* AppDelegate.swift */; };
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
@@ -93,6 +94,7 @@
 		30585426257FABA4000B00DF /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		30FF8EB4259B37200077B5C8 /* ApplePayModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayModule.swift; sourceTree = "<group>"; };
 		30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayViewController.swift; sourceTree = "<group>"; };
+		44469A752BFDF92400F922B8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		448AB1DF2450DF22004A11CB /* JudoKit (Swift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JudoKit (Swift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1E22450DF22004A11CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		448AB1EB2450DF24004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		448AB1E12450DF22004A11CB /* SwiftExampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				44469A752BFDF92400F922B8 /* PrivacyInfo.xcprivacy */,
 				4494952E2450F6A90050C6A0 /* SwiftExampleApp.entitlements */,
 				30585425257FAB89000B00DF /* Extensions */,
 				305853B6257F79AF000B00DF /* Modules */,
@@ -465,6 +468,7 @@
 			files = (
 				448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */,
 				305687172581014600195C93 /* Settings.bundle in Resources */,
+				44469A762BFDF92400F922B8 /* PrivacyInfo.xcprivacy in Resources */,
 				448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/DeviceDNA-iOS",
       "state" : {
-        "revision" : "704e6b1f8a63fad2d41baefe3313ee25095023e2",
-        "version" : "2.1.0"
+        "revision" : "bdfcec20efb2ee927bc4a589dc9b560cb4d24483",
+        "version" : "2.1.1"
       }
     },
     {
@@ -14,17 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/Judo3DS2-iOS",
       "state" : {
-        "revision" : "2324075db868a6b5755a81ff6ea89af80b4d8768",
-        "version" : "1.2.0"
-      }
-    },
-    {
-      "identity" : "openssl",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/krzyzanowskim/OpenSSL",
-      "state" : {
-        "revision" : "0faf71a188bcfdf0245cab42886b9b240ca71c52",
-        "version" : "1.1.2200"
+        "revision" : "b248892251adab326d01de7767fb9cea5f4da663",
+        "version" : "1.2.1"
       }
     },
     {
@@ -32,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/unravelin/ravelin-encrypt-ios-xcframework-distribution",
       "state" : {
-        "revision" : "92799d81e6856c41903573a507ebab5a58125ccf",
-        "version" : "1.1.1"
+        "revision" : "53e8292982546accc2704eaecdc37039f26ecd3b",
+        "version" : "1.1.2"
       }
     },
     {
@@ -41,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/datatheorem/TrustKit",
       "state" : {
-        "revision" : "5718ba8720b4dafc5360aebfbc9762e2d5f2615e",
-        "version" : "3.0.3"
+        "revision" : "2fb6ce731fd51f745f6cc3393462865b95c3df3c",
+        "version" : "3.0.4"
       }
     }
   ],
