@@ -33,7 +33,6 @@
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
 		44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */; };
 		44ABF2832BFC8D79002E8B2C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44ABF2822BFC8D79002E8B2C /* PrivacyInfo.xcprivacy */; };
-		44ABF2852BFC9133002E8B2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44ABF2842BFC9133002E8B2C /* GoogleService-Info.plist */; };
 		992C3BA82ACAC77C0029DB86 /* CreatePaymentSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C3BA72ACAC77C0029DB86 /* CreatePaymentSessionRequest.m */; };
 		9A681C6F059E48D8D97E1C2A /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */; };
 		A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B3C163F90E3879486071F /* IASKAppSettingsViewController+Additions.m */; };
@@ -120,7 +119,6 @@
 		44A826EB269CE7EC00AD5229 /* UIViewController+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Additions.h"; sourceTree = "<group>"; };
 		44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		44ABF2822BFC8D79002E8B2C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		44ABF2842BFC9133002E8B2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78DA82925C80FB83F6C40732 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3F2F9461483880E68B818 /* Pods-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		963CC5C6C13F8235BB225A1A /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,7 +261,6 @@
 		448AB1A02450DE8F004A11CB /* ObjectiveCExampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				44ABF2842BFC9133002E8B2C /* GoogleService-Info.plist */,
 				448AB1B32450DE93004A11CB /* main.m */,
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
 				448AB1A22450DE8F004A11CB /* AppDelegate.m */,
@@ -536,7 +533,6 @@
 				449495192450ED870050C6A0 /* Settings.bundle in Resources */,
 				4490D14F24882CBE004290DD /* ResultItemTableViewCell.xib in Resources */,
 				448AB1AC2450DE8F004A11CB /* Main.storyboard in Resources */,
-				44ABF2852BFC9133002E8B2C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,7 +871,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
@@ -907,7 +903,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
