@@ -55,7 +55,9 @@
     [self checkAmount:configuration.amount transactionType:transactionType error:&error];
     [self checkForValidJudoId:configuration error:&error];
     [self checkIfConsumerReferenceIsValid:configuration error:&error];
-    [self checkPreAuthPropertiesConfiguration:configuration transactionType:transactionType error:&error];
+    if (transactionType == JPTransactionTypePreAuth) {
+        [self checkPreAuthConfiguration:configuration error:&error];
+    }
     [self checkRecommendationConfiguration:configuration transactionType:transactionType error:&error];
 
     return error;
@@ -222,11 +224,8 @@
     }
 }
 
-- (void)checkPreAuthPropertiesConfiguration:(JPConfiguration *)configuration transactionType:(JPTransactionType)transactionType error:(NSError **)error {
-    BOOL isSupportedTransactionType = transactionType == JPTransactionTypePreAuth;
-    BOOL arePreAuthPropertiesInConflict = configuration.isDelayedAuthorisation == true && configuration.isAllowIncrementOn == true;
-
-    if (isSupportedTransactionType && arePreAuthPropertiesInConflict) {
+- (void)checkPreAuthConfiguration:(JPConfiguration *)configuration error:(NSError **)error {
+    if (configuration.isDelayedAuthorisation && configuration.isAllowIncrement) {
         *error = JPError.preAuthPropertiesConflictError;
     }
 }
