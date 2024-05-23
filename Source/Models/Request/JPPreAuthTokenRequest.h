@@ -28,4 +28,6 @@
 
 @property (nonatomic, assign) BOOL delayedAuthorisation;
 
+@property (nonatomic, assign) BOOL allowIncrement;
+
 @end

@@ -124,6 +124,8 @@
 
 @property (nonatomic, assign) BOOL isDelayedAuthorisation;
 
+@property (nonatomic, assign) BOOL isAllowIncrement;
+
 /**
  * An instance of JPRecommendationConfiguration required for Recommendation Feature.
  */

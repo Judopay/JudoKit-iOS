@@ -226,14 +226,14 @@
 			<key>Key</key>
 			<string>recommendation_url</string>
 		</dict>
-        <dict>
-            <key>Type</key>
-            <string>PSTextFieldSpecifier</string>
-            <key>Title</key>
-            <string>recommendation_api_timeout_title</string>
-            <key>Key</key>
-            <string>recommendation_api_timeout</string>
-        </dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>recommendation_api_timeout_title</string>
+			<key>Key</key>
+			<string>recommendation_api_timeout</string>
+		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
@@ -795,6 +795,16 @@
 			<string>is_delayed_authorisation_on_title</string>
 			<key>Key</key>
 			<string>is_delayed_authorisation_on</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>is_allow_increment_on_title</string>
+			<key>Key</key>
+			<string>is_allow_increment_on</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>

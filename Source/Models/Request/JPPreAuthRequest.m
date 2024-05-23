@@ -30,6 +30,7 @@
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {
         _delayedAuthorisation = configuration.isDelayedAuthorisation;
+        _allowIncrement = configuration.isAllowIncrement;
     }
     return self;
 }
@@ -38,6 +39,7 @@
                        andCardDetails:(JPCard *)card {
     if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
         _delayedAuthorisation = configuration.isDelayedAuthorisation;
+        _allowIncrement = configuration.isAllowIncrement;
     }
     return self;
 }
