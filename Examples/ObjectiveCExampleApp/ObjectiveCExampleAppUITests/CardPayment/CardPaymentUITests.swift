@@ -292,7 +292,10 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
     }
     
-    func testUSPostCodeValidation() {
+    func testUSPostCodeValidation() throws {
+        guard #available(iOS 16, *) else {
+            throw XCTSkip("Skipping due to picker wheel selection being buggy on lower versions of iOS")
+        }
         app.launchArguments += ["-should_ask_for_billing_information", "true"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
@@ -306,6 +309,7 @@ final class CardPaymentUITests: XCTestCase {
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
         app.stateField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
+
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
                                    addressOne: TestData.BillingInfo.VALID_ADDRESS,
@@ -317,7 +321,10 @@ final class CardPaymentUITests: XCTestCase {
         XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
     }
     
-    func testCAPostCodeValidation() {
+    func testCAPostCodeValidation() throws {
+        guard #available(iOS 16, *) else {
+            throw XCTSkip("Skipping due to picker wheel selection being buggy on lower versions of iOS")
+        }
         app.launchArguments += ["-should_ask_for_billing_information", "true"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()

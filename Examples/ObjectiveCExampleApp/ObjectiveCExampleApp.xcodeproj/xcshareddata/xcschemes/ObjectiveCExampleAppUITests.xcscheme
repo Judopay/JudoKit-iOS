@@ -75,6 +75,53 @@
                BlueprintName = "ObjectiveCExampleAppUITests"
                ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardAllowAuthenticateLowValueNoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardAllowAuthoriseTRAChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardPreventAuthenticateLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardReviewAuthenticateTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testCheckCardReviewAuthoriseLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentAllowAuthenticateTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentAllowAuthoriseLowValueNoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentPreventAuthenticateTRANoPreference()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentPreventAuthoriseLowValueChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPaymentReviewAuthenticateTRAChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthAllowAuthenticateLowValueChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthAllowAuthoriseTRANoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthPreventAuthenticateLowValueNoChallenge()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthReviewAuthoriseLowValueChallengeAsMandate()">
+               </Test>
+               <Test
+                  Identifier = "RavelinUITests/testPreAuthReviewAuthoriseTRANoPreference()">
+               </Test>
+            </SkippedTests>
             <LocationScenarioReference
                identifier = "London, England"
                referenceType = "1">
