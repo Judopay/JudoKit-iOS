@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString *const kJudoKitName = @"JudoKit_iOS";
-static NSString *const kJudoKitVersion = @"3.4.1";
+static NSString *const kJudoKitVersion = @"3.4.2";
 
 /* Patterns */
 static NSString *const kDefaultPattern = @"XXXX XXXX XXXX XXXX";
