@@ -338,9 +338,7 @@
 		448FC6242A1E1F3B0072C52E /* card-visa-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5F62A1E1F3A0072C52E /* card-visa-white.png */; };
 		448FC6252A1E1F3B0072C52E /* disclosure-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5F72A1E1F3A0072C52E /* disclosure-icon.png */; };
 		448FC6262A1E1F3B0072C52E /* card-unionpay.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5F82A1E1F3A0072C52E /* card-unionpay.png */; };
-		448FC6272A1E1F3B0072C52E /* pbba-pay-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5F92A1E1F3A0072C52E /* pbba-pay-icon.png */; };
 		448FC6282A1E1F3B0072C52E /* pattern-erratic.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5FA2A1E1F3A0072C52E /* pattern-erratic.png */; };
-		448FC6292A1E1F3B0072C52E /* pbba-pay-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5FB2A1E1F3A0072C52E /* pbba-pay-icon@3x.png */; };
 		448FC62A2A1E1F3B0072C52E /* radio-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5FC2A1E1F3A0072C52E /* radio-on.png */; };
 		448FC62B2A1E1F3B0072C52E /* logo-knab.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5FD2A1E1F3A0072C52E /* logo-knab.png */; };
 		448FC62C2A1E1F3B0072C52E /* logo-sns.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC5FE2A1E1F3A0072C52E /* logo-sns.png */; };
@@ -353,7 +351,6 @@
 		448FC6332A1E1F3B0072C52E /* pattern-bubbles.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC6052A1E1F3A0072C52E /* pattern-bubbles.png */; };
 		448FC6342A1E1F3B0072C52E /* apple-pay-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC6062A1E1F3A0072C52E /* apple-pay-icon.png */; };
 		448FC6352A1E1F3B0072C52E /* logo-moneyou.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC6072A1E1F3A0072C52E /* logo-moneyou.png */; };
-		448FC6362A1E1F3B0072C52E /* pbba-pay-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC6082A1E1F3A0072C52E /* pbba-pay-icon@2x.png */; };
 		448FC6372A1E1F3B0072C52E /* judo-headline.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC6092A1E1F3A0072C52E /* judo-headline.png */; };
 		448FC6382A1E1F3B0072C52E /* scan-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC60A2A1E1F3A0072C52E /* scan-card.png */; };
 		448FC6392A1E1F3B0072C52E /* cards-pay-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 448FC60B2A1E1F3A0072C52E /* cards-pay-icon.png */; };
@@ -859,9 +856,7 @@
 		448FC5F62A1E1F3A0072C52E /* card-visa-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-visa-white.png"; sourceTree = "<group>"; };
 		448FC5F72A1E1F3A0072C52E /* disclosure-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disclosure-icon.png"; sourceTree = "<group>"; };
 		448FC5F82A1E1F3A0072C52E /* card-unionpay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-unionpay.png"; sourceTree = "<group>"; };
-		448FC5F92A1E1F3A0072C52E /* pbba-pay-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pbba-pay-icon.png"; sourceTree = "<group>"; };
 		448FC5FA2A1E1F3A0072C52E /* pattern-erratic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pattern-erratic.png"; sourceTree = "<group>"; };
-		448FC5FB2A1E1F3A0072C52E /* pbba-pay-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pbba-pay-icon@3x.png"; sourceTree = "<group>"; };
 		448FC5FC2A1E1F3A0072C52E /* radio-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radio-on.png"; sourceTree = "<group>"; };
 		448FC5FD2A1E1F3A0072C52E /* logo-knab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-knab.png"; sourceTree = "<group>"; };
 		448FC5FE2A1E1F3A0072C52E /* logo-sns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-sns.png"; sourceTree = "<group>"; };
@@ -874,7 +869,6 @@
 		448FC6052A1E1F3A0072C52E /* pattern-bubbles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pattern-bubbles.png"; sourceTree = "<group>"; };
 		448FC6062A1E1F3A0072C52E /* apple-pay-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-pay-icon.png"; sourceTree = "<group>"; };
 		448FC6072A1E1F3A0072C52E /* logo-moneyou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-moneyou.png"; sourceTree = "<group>"; };
-		448FC6082A1E1F3A0072C52E /* pbba-pay-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pbba-pay-icon@2x.png"; sourceTree = "<group>"; };
 		448FC6092A1E1F3A0072C52E /* judo-headline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "judo-headline.png"; sourceTree = "<group>"; };
 		448FC60A2A1E1F3A0072C52E /* scan-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan-card.png"; sourceTree = "<group>"; };
 		448FC60B2A1E1F3A0072C52E /* cards-pay-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cards-pay-icon.png"; sourceTree = "<group>"; };
@@ -2953,9 +2947,7 @@
 				448FC5F62A1E1F3A0072C52E /* card-visa-white.png */,
 				448FC5F72A1E1F3A0072C52E /* disclosure-icon.png */,
 				448FC5F82A1E1F3A0072C52E /* card-unionpay.png */,
-				448FC5F92A1E1F3A0072C52E /* pbba-pay-icon.png */,
 				448FC5FA2A1E1F3A0072C52E /* pattern-erratic.png */,
-				448FC5FB2A1E1F3A0072C52E /* pbba-pay-icon@3x.png */,
 				448FC5FC2A1E1F3A0072C52E /* radio-on.png */,
 				448FC5FD2A1E1F3A0072C52E /* logo-knab.png */,
 				448FC5FE2A1E1F3A0072C52E /* logo-sns.png */,
@@ -2968,7 +2960,6 @@
 				448FC6052A1E1F3A0072C52E /* pattern-bubbles.png */,
 				448FC6062A1E1F3A0072C52E /* apple-pay-icon.png */,
 				448FC6072A1E1F3A0072C52E /* logo-moneyou.png */,
-				448FC6082A1E1F3A0072C52E /* pbba-pay-icon@2x.png */,
 				448FC6092A1E1F3A0072C52E /* judo-headline.png */,
 				448FC60A2A1E1F3A0072C52E /* scan-card.png */,
 				448FC60B2A1E1F3A0072C52E /* cards-pay-icon.png */,
@@ -3646,7 +3637,6 @@
 				448FC6402A1E1F3B0072C52E /* radio-off.png in Resources */,
 				448FC6192A1E1F3B0072C52E /* ideal-pay-icon.png in Resources */,
 				448FC6262A1E1F3B0072C52E /* card-unionpay.png in Resources */,
-				448FC6292A1E1F3B0072C52E /* pbba-pay-icon@3x.png in Resources */,
 				44A490172BFBE1CE007C5743 /* PrivacyInfo.xcprivacy in Resources */,
 				448FC62D2A1E1F3B0072C52E /* logo-triodos.png in Resources */,
 				448FC6142A1E1F3B0072C52E /* pattern-lines.png in Resources */,
@@ -3654,7 +3644,6 @@
 				448FC62F2A1E1F3B0072C52E /* logo-vanlanschot.png in Resources */,
 				448FC6352A1E1F3B0072C52E /* logo-moneyou.png in Resources */,
 				448FC6252A1E1F3B0072C52E /* disclosure-icon.png in Resources */,
-				448FC6362A1E1F3B0072C52E /* pbba-pay-icon@2x.png in Resources */,
 				448FC6382A1E1F3B0072C52E /* scan-card.png in Resources */,
 				448FC6332A1E1F3B0072C52E /* pattern-bubbles.png in Resources */,
 				448FC62A2A1E1F3B0072C52E /* radio-on.png in Resources */,
@@ -3681,7 +3670,6 @@
 				448FC61A2A1E1F3B0072C52E /* card-maestro.png in Resources */,
 				829330FC230AF0F900689DC4 /* Localizable.strings in Resources */,
 				448FC63B2A1E1F3B0072C52E /* logo-ing.png in Resources */,
-				448FC6272A1E1F3B0072C52E /* pbba-pay-icon.png in Resources */,
 				448FC6222A1E1F3B0072C52E /* back-icon.png in Resources */,
 				448FC6152A1E1F3B0072C52E /* card-mastercard.png in Resources */,
 				448FC6372A1E1F3B0072C52E /* judo-headline.png in Resources */,
