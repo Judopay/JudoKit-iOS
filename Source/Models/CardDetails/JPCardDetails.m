@@ -32,13 +32,13 @@
 
 // The card scheme for a card number. This is the name of the card scheme as it appears on the card.
 // As it is returned by the API in the cardDetails object, it is not localized.
-static NSString *const kCardSchemeVisa = @"Visa";
-static NSString *const kCardSchemeMastercard = @"Mastercard";
-static NSString *const kCardSchemeMaestro = @"Maestro";
+static NSString *const kCardSchemeVisa = @"VISA";
+static NSString *const kCardSchemeMastercard = @"MASTERCARD";
+static NSString *const kCardSchemeMaestro = @"MAESTRO";
 static NSString *const kCardSchemeAMEX = @"AMEX";
-static NSString *const kCardSchemeChinaUnionPay = @"China Union Pay";
+static NSString *const kCardSchemeChinaUnionPay = @"CHINA UNION PAY";
 static NSString *const kCardSchemeJCB = @"JCB";
-static NSString *const kCardSchemeDiscover = @"Discover";
+static NSString *const kCardSchemeDiscover = @"DISCOVER";
 
 @implementation JPCardDetails
 
@@ -77,35 +77,27 @@ static NSString *const kCardSchemeDiscover = @"Discover";
 
 - (JPCardNetworkType)cardNetworkTypeDerivedFromCardScheme {
     NSString *scheme = self.cardScheme;
-
-    if ([scheme isEqualToString:kCardSchemeVisa]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeVisa]) {
         return JPCardNetworkTypeVisa;
     }
-
-    if ([scheme isEqualToString:kCardSchemeMastercard]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeMastercard]) {
         return JPCardNetworkTypeMasterCard;
     }
-
-    if ([scheme isEqualToString:kCardSchemeMaestro]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeMaestro]) {
         return JPCardNetworkTypeMaestro;
     }
-
-    if ([scheme isEqualToString:kCardSchemeAMEX]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeAMEX]) {
         return JPCardNetworkTypeAMEX;
     }
-
-    if ([scheme isEqualToString:kCardSchemeChinaUnionPay]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeChinaUnionPay]) {
         return JPCardNetworkTypeChinaUnionPay;
     }
-
-    if ([scheme isEqualToString:kCardSchemeJCB]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeJCB]) {
         return JPCardNetworkTypeJCB;
     }
-
-    if ([scheme isEqualToString:kCardSchemeDiscover]) {
+    if ([scheme _jp_isEqualIgnoringCaseToString:kCardSchemeDiscover]) {
         return JPCardNetworkTypeDiscover;
     }
-
     return JPCardNetworkTypeUnknown;
 }
 

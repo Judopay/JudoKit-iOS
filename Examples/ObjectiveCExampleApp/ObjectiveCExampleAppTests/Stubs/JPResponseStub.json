@@ -1,7 +1,6 @@
 {
   "judoId" : 123456,
   "consumer" : {
-    "consumerToken" : "0S7EFyNqLUR8lzN4",
     "yourConsumerReference" : "my-unique-consumer-ref",
     "yourMetaData" : "123"
   },
