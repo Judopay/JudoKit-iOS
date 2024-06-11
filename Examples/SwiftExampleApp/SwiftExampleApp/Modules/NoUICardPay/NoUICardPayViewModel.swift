@@ -25,15 +25,15 @@ class NoUICardPayViewModel: ObservableObject {
         details.cardholderName = "CHALLENGE"
         details.expiryDate = "12/25"
         details.securityCode = "341"
-        details.emailAddress = "federico.onco@gmail.com"
-        details.mobileNumber = "7866868430"
+        details.emailAddress = "email@me.com"
+        details.mobileNumber = "7888888888"
         details.phoneCountryCode = "44"
         details.billingAddress = JPAddress(
-            address1: "Holbeck Row",
+            address1: "71 Cherry Court",
             address2: nil,
             address3: nil,
-            town: "London",
-            postCode: "se151qa",
+            town: "Southampton",
+            postCode: "SO535PD",
             countryCode: 826,
             state: nil)
         return details
