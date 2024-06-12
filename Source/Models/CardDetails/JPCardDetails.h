@@ -64,14 +64,14 @@
 /**
  * The bank the card was issued from.
  *
- * Possible values are Credit Industriel Et Commercial, Barclays, Bank of America
+ * Possible values are CREDIT INDUSTRIEL ET COMMERCIAL, BARCLAYS, BANK OF AMERICA
  */
 @property (nonatomic, strong) NSString *_Nullable bank;
 
 /**
  * The category of the card.
  *
- * Possible values are Corporate, Classic, Platinum
+ * Possible values are CORPORATE, CLASSIC, PLATINUM
  */
 @property (nonatomic, strong) NSString *_Nullable cardCategory;
 
@@ -92,7 +92,7 @@
 /**
  * The scheme of the card.
  *
- * Possible values are Visa, Mastercard, etc
+ * Possible values are VISA, MASTERCARD, etc
  */
 @property (nonatomic, strong) NSString *_Nullable cardScheme;
 
