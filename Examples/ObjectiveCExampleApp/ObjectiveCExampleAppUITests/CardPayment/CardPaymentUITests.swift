@@ -391,7 +391,7 @@ final class CardPaymentUITests: XCTestCase {
         app.clearTextFieldByIndex(index: 4)
     }
     
-    func testStepUpTransaction() {
+    func testStepUpPaymentTransaction() {
         app.launchArguments += ["-challenge_request_indicator", "noPreference", "-sca_exemption", "lowValue"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
@@ -402,5 +402,18 @@ final class CardPaymentUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "Card declined: CV2 policy", "Declined")
+    }
+    
+    func testStepUpPreauthTransaction() {
+        app.launchArguments += ["-challenge_request_indicator", "noPreference", "-sca_exemption", "lowValue"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.preAuthWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: "Frictionless Successful",
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.WRONG_CV2)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertResultObject(app, "PreAuth", "Card declined: CV2 policy", "Declined")
     }
 }
