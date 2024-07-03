@@ -14,6 +14,7 @@ class TestData {
         static let CARDHOLDER_NAME = "Test User"
         static let CARD_EXPIRY = "1225"
         static let CARD_SECURITY_CODE = "341"
+        static let WRONG_CV2 = "123"
     }
     struct Ravelin {
         static let ALLOW = "ALLOW"
