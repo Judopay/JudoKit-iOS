@@ -293,6 +293,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+            name: Install Rosetta
+            command: softwareupdate --install-rosetta --agree-to-license
+      - run:
           name: Install Sonar Scanner
           command: |
             export SONARSCANNER_VERSION=5.0.1.3006
