@@ -336,7 +336,7 @@ jobs:
               PARAMS+=(-Dsonar.branch.name=$BRANCH_NAME)
               PARAMS+=(-Dsonar.branch.target=master)
             fi
-            sonar-scanner "${PARAMS[@]}"
+            arch -x86_64 sonar-scanner "${PARAMS[@]}"
   build_example_apps:
     executor: macos
     steps:
