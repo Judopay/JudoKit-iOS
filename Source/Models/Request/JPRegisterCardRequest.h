@@ -25,6 +25,10 @@
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
+/**
+ * DEPRECATED: use Check Card feature instead.
+ */
+__attribute__((deprecated("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.")))
 @interface JPRegisterCardRequest : JPRequest
 
 /**

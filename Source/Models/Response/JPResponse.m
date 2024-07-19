@@ -36,8 +36,8 @@ static NSString *const kStatusError = @"error";
 
 static NSString *const kTransactionTypePayment = @"payment";
 static NSString *const kTransactionTypePreAuth = @"preauth";
-static NSString *const kTransactionTypeRegister = @"register";
-static NSString *const kTransactionTypeRegisterCard = @"registercard";
+static NSString *const kTransactionTypeRegister __deprecated = @"register";
+static NSString *const kTransactionTypeRegisterCard __deprecated = @"registercard";
 static NSString *const kTransactionTypeSaveCard = @"save";
 static NSString *const kTransactionTypeCheckCard = @"checkcard";
 

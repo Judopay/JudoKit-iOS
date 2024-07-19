@@ -55,8 +55,12 @@
 - (void)invokeCheckCardWithDetails:(nonnull JPCardTransactionDetails *)details
                      andCompletion:(nullable JPCompletionBlock)completion;
 
+/**
+ * DEPRECATED: use Check Card feature instead.
+ */
 - (void)invokeRegisterCardWithDetails:(nonnull JPCardTransactionDetails *)details
-                        andCompletion:(nullable JPCompletionBlock)completion;
+                        andCompletion:(nullable JPCompletionBlock)completion
+    __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 - (void)cleanup;
 

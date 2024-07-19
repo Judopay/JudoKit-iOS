@@ -43,7 +43,7 @@
 
 static NSString *const kPaymentEndpoint = @"transactions/payments";
 static NSString *const kPreauthEndpoint = @"transactions/preauths";
-static NSString *const kRegisterCardEndpoint = @"transactions/registercard";
+static NSString *const kRegisterCardEndpoint __deprecated = @"transactions/registercard";
 static NSString *const kSaveCardEndpoint = @"transactions/savecard";
 static NSString *const kTransactionStatusPathKey = @"transactions/";
 static NSString *const kCheckCardEndpoint = @"transactions/checkcard";
