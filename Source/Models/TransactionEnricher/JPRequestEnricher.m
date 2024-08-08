@@ -72,15 +72,22 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 - (void)enrichRequestParameters:(nullable NSDictionary *)dictionary
                  withCompletion:(nonnull JPEnricherCompletionBlock)completion {
-
     __weak typeof(self) weakSelf = self;
-    [self.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
-        JPEnhancedPaymentDetail *detail = [weakSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
-        NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-        enrichedRequest[kEnhancedPaymentDetailKey] = [detail _jp_toDictionary];
-        enrichedRequest[kClientDetailsKey] = device;
-        completion([NSDictionary dictionaryWithDictionary:enrichedRequest]);
-    }];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        __typeof__(self) strongSelf = weakSelf;
+
+        [strongSelf.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
+            JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
+            NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+            enrichedRequest[kEnhancedPaymentDetailKey] = [detail _jp_toDictionary];
+            enrichedRequest[kClientDetailsKey] = device;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion([NSDictionary dictionaryWithDictionary:enrichedRequest]);
+            });
+        }];
+    });
 }
 
 #pragma mark - Helper methods

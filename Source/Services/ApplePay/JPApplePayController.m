@@ -72,9 +72,12 @@
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     __weak typeof(self) weakSelf = self;
+
     [controller dismissViewControllerAnimated:YES
                                    completion:^{
-                                       weakSelf.didFinishBlock(weakSelf.isPaymentAuthorized);
+                                       __strong typeof(self) strongSelf = weakSelf;
+
+                                       strongSelf.didFinishBlock(strongSelf.isPaymentAuthorized);
                                    }];
 }
 
