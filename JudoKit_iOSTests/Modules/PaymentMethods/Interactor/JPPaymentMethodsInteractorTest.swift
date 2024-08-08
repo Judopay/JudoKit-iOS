@@ -48,7 +48,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         sut = JPPaymentMethodsInteractorImpl(mode: .serverToServer,
                                              configuration: configuration,
                                              apiService: service,
-                                             completion: nil)
+                                             completion: { _, _ in })
 
         HTTPStubs.setEnabled(true)
 
