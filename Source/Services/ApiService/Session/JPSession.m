@@ -173,10 +173,13 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
     return [self.urlSession dataTaskWithRequest:request
                               completionHandler:^(NSData *data, NSURLResponse *__unused response, NSError *error) {
+                                  __strong typeof(self) strongSelf = weakSelf;
+
                                   if (!completion) {
                                       return;
                                   }
-                                  [weakSelf handleResult:data error:error andCompletion:completion];
+
+                                  [strongSelf handleResult:data error:error andCompletion:completion];
                               }];
 }
 

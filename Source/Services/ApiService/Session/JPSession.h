@@ -57,7 +57,7 @@
  */
 - (void)POST:(nonnull NSString *)endpoint
        parameters:(nullable NSDictionary *)parameters
-    andCompletion:(nullable JPCompletionBlock)completion;
+    andCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
@@ -68,7 +68,7 @@
  */
 - (void)PUT:(nonnull NSString *)endpoint
        parameters:(nullable NSDictionary *)parameters
-    andCompletion:(nullable JPCompletionBlock)completion;
+    andCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  *  GET Helper Method for accessing the judo REST API
@@ -79,6 +79,6 @@
  */
 - (void)GET:(nonnull NSString *)endpoint
        parameters:(nullable NSDictionary *)parameters
-    andCompletion:(nullable JPCompletionBlock)completion;
+    andCompletion:(nonnull JPCompletionBlock)completion;
 
 @end

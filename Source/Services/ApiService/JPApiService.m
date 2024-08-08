@@ -276,8 +276,8 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     }
 }
 
-- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
-                           completion:(nullable JPCompletionBlock)completion {
+- (void)fetchTransactionWithReceiptId:(NSString *)receiptId
+                           completion:(JPCompletionBlock)completion {
     NSString *transactionEndpoint = [NSString stringWithFormat:@"%@%@", kTransactionStatusPathKey, receiptId];
     [self performRequestWithMethod:JPHTTPMethodGET
                           endpoint:transactionEndpoint

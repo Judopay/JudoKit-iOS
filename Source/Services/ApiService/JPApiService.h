@@ -74,7 +74,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePaymentWithRequest:(nonnull JPPaymentRequest *)request
-                   andCompletion:(nullable JPCompletionBlock)completion;
+                   andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a pre-auth transaction
@@ -83,7 +83,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthPaymentWithRequest:(nonnull JPPreAuthRequest *)request
-                          andCompletion:(nullable JPCompletionBlock)completion;
+                          andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a token payment transaction
@@ -92,7 +92,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeTokenPaymentWithRequest:(nonnull JPTokenRequest *)request
-                        andCompletion:(nullable JPCompletionBlock)completion;
+                        andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a token pre-auth transaction
@@ -101,7 +101,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPPreAuthTokenRequest *)request
-                               andCompletion:(nullable JPCompletionBlock)completion;
+                               andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * DEPRECATED: use Check Card feature instead.
@@ -111,7 +111,8 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeRegisterCardWithRequest:(nonnull JPRegisterCardRequest *)request
-                        andCompletion:(nullable JPCompletionBlock)completion
+                        andCompletion:(nonnull JPCompletionBlock)completion
+    __attribute__((swift_async(none)))
     __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 /**
@@ -121,7 +122,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeSaveCardWithRequest:(nonnull JPSaveCardRequest *)request
-                    andCompletion:(nullable JPCompletionBlock)completion;
+                    andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a check card transaction
@@ -130,7 +131,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeCheckCardWithRequest:(nonnull JPCheckCardRequest *)request
-                     andCompletion:(nullable JPCompletionBlock)completion;
+                     andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes an Apple Pay payment transaction
@@ -139,7 +140,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeApplePayPaymentWithRequest:(nonnull JPApplePayRequest *)request
-                           andCompletion:(nullable JPCompletionBlock)completion;
+                           andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes an Apple Pay pre-auth transaction
@@ -148,7 +149,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokePreAuthApplePayPaymentWithRequest:(nonnull JPPreAuthApplePayRequest *)request
-                                  andCompletion:(nullable JPCompletionBlock)completion;
+                                  andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a Bank transaction, used for completing transactions via Bank apps (iDEAL, PayByBankApp)
@@ -157,7 +158,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeBankSaleWithRequest:(nonnull JPBankOrderSaleRequest *)request
-                    andCompletion:(nullable JPCompletionBlock)completion;
+                    andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that invokes a Bank order status, to check the transaction status completed via a Bank app
@@ -166,7 +167,7 @@
  * @param completion - the completion block that contains the optional JPResponse or JPError
  */
 - (void)invokeOrderStatusWithOrderId:(nonnull NSString *)orderId
-                       andCompletion:(nullable JPCompletionBlock)completion;
+                       andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method that is called for 3D Secure transactions, after the user authenticates the transaction
@@ -177,11 +178,11 @@
  */
 - (void)invokeComplete3dSecureWithReceiptId:(nonnull NSString *)receiptId
                        authenticationResult:(nonnull JP3DSecureAuthenticationResult *)result
-                              andCompletion:(nullable JPCompletionBlock)completion;
+                              andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokeComplete3dSecureTwoWithReceiptId:(nonnull NSString *)receiptId
                                        request:(nonnull JPComplete3DS2Request *)request
-                                 andCompletion:(nullable JPCompletionBlock)completion;
+                                 andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 /**
  * A method used to fetch the details of a transaction based on a provided receipt ID
  *
@@ -189,5 +190,5 @@
  * @param completion - a completion block with an optional JPResponse object or an NSError.
  */
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
-                           completion:(nullable JPCompletionBlock)completion;
+                           completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 @end

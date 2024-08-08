@@ -170,11 +170,9 @@
         return;
     }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication._jp_topMostViewController presentViewController:controller
-                                                              animated:YES
-                                                            completion:nil];
-    });
+    [UIApplication._jp_topMostViewController presentViewController:controller
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 - (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
@@ -199,30 +197,35 @@
     __weak typeof(self) weakSelf = self;
 
     JPApplePayAuthorizationBlock authorizationBlock = ^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
-        [self.applePayService processApplePayment:payment
-                               forTransactionMode:mode
-                                   withCompletion:^(JPResponse *response, JPError *error) {
-                                       applePayServiceResponse = response;
-                                       applePayServiceError = error;
-                                       PKPaymentAuthorizationResult *result;
+        __strong typeof(self) strongSelf = weakSelf;
 
-                                       if (error) {
-                                           result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
-                                                                                                  errors:@[ error ]];
-                                           statusCompletion(result);
-                                       }
+        [strongSelf.applePayService processApplePayment:payment
+                                     forTransactionMode:mode
+                                         withCompletion:^(JPResponse *response, JPError *error) {
+                                             applePayServiceResponse = response;
+                                             applePayServiceError = error;
+                                             PKPaymentAuthorizationResult *result;
 
-                                       result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
-                                                                                              errors:nil];
-                                       statusCompletion(result);
-                                   }];
+                                             if (error) {
+                                                 result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
+                                                                                                        errors:@[ error ]];
+                                                 statusCompletion(result);
+                                             }
+
+                                             result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
+                                                                                                    errors:nil];
+                                             statusCompletion(result);
+                                         }];
     };
 
     JPApplePayDidFinishBlock didFinishBlock = ^(BOOL isPaymentAuthorized) {
+        __strong typeof(self) strongSelf = weakSelf;
+
         if (!isPaymentAuthorized) {
             applePayServiceError = JPError.userDidCancelError;
         }
-        weakSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
+
+        strongSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
     };
 
     return [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
@@ -301,8 +304,8 @@
     self.apiService.subProductInfo = subProductInfo;
 }
 
-- (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
-                           completion:(nullable JPCompletionBlock)completion {
+- (void)fetchTransactionWithReceiptId:(NSString *)receiptId
+                           completion:(JPCompletionBlock)completion {
     [self.apiService fetchTransactionWithReceiptId:receiptId completion:completion];
 }
 

@@ -38,28 +38,29 @@
                              andConfiguration:(nonnull JPConfiguration *)configuration;
 
 - (void)invokePaymentWithDetails:(nonnull JPCardTransactionDetails *)details
-                   andCompletion:(nullable JPCompletionBlock)completion;
+                   andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokePreAuthPaymentWithDetails:(nonnull JPCardTransactionDetails *)details
-                          andCompletion:(nullable JPCompletionBlock)completion;
+                          andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokeTokenPaymentWithDetails:(nonnull JPCardTransactionDetails *)details
-                        andCompletion:(nullable JPCompletionBlock)completion;
+                        andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokePreAuthTokenPaymentWithDetails:(nonnull JPCardTransactionDetails *)details
-                               andCompletion:(nullable JPCompletionBlock)completion;
+                               andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokeSaveCardWithDetails:(nonnull JPCardTransactionDetails *)details
-                    andCompletion:(nullable JPCompletionBlock)completion;
+                    andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 - (void)invokeCheckCardWithDetails:(nonnull JPCardTransactionDetails *)details
-                     andCompletion:(nullable JPCompletionBlock)completion;
+                     andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * DEPRECATED: use Check Card feature instead.
  */
 - (void)invokeRegisterCardWithDetails:(nonnull JPCardTransactionDetails *)details
-                        andCompletion:(nullable JPCompletionBlock)completion
+                        andCompletion:(nonnull JPCompletionBlock)completion
+    __attribute__((swift_async(none)))
     __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 - (void)cleanup;

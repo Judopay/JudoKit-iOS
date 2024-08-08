@@ -46,7 +46,7 @@
 - (nonnull instancetype)initWithIDEALBank:(nonnull JPIDEALBank *)iDEALBank
                             configuration:(nonnull JPConfiguration *)configuration
                                apiService:(nonnull JPApiService *)apiService
-                        completionHandler:(nullable JPCompletionBlock)completion;
+                        completionHandler:(nonnull JPCompletionBlock)completion;
 
 @end
 

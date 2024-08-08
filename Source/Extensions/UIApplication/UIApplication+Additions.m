@@ -31,7 +31,16 @@
 }
 
 + (UIViewController *)_jp_topMostViewController {
-    UIViewController *topViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+    UIViewController *topViewController = UIApplication.sharedApplication.windows.firstObject.rootViewController;
+
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene *windowScene in UIApplication.sharedApplication.connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+                topViewController = windowScene.windows.firstObject.rootViewController;
+                break;
+            }
+        }
+    }
 
     while (topViewController.presentedViewController) {
         topViewController = topViewController.presentedViewController;
@@ -45,7 +54,13 @@
             UITabBarController *tabBarController = (UITabBarController *)topViewController;
             topViewController = tabBarController.selectedViewController;
         }
+
+        if ([topViewController isKindOfClass:UISplitViewController.class]) {
+            UISplitViewController *splitViewController = (UISplitViewController *)topViewController;
+            topViewController = splitViewController.viewControllers.lastObject;
+        }
     }
+
     return topViewController;
 }
 

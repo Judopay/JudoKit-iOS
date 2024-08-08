@@ -34,7 +34,7 @@
                                                    configuration:(nonnull JPConfiguration *)configuration
                                                       apiService:(nonnull JPApiService *)apiService
                                            transitioningDelegate:(nonnull JPSliderTransitioningDelegate *)transitioningDelegate
-                                               completionHandler:(nullable JPCompletionBlock)completion;
+                                               completionHandler:(nonnull JPCompletionBlock)completion;
 @end
 
 @interface JPPaymentMethodsBuilderImpl : NSObject <JPPaymentMethodsBuilder>

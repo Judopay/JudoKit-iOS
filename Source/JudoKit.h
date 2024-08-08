@@ -42,6 +42,9 @@
 @property (nonatomic, strong, nullable) JPSubProductInfo *subProductInfo;
 @property (nonatomic, strong, nonnull) id<JPAuthorization> authorization;
 
+- (nullable instancetype)init NS_UNAVAILABLE;
+- (nullable instancetype)new NS_UNAVAILABLE;
+
 /**
  * Designated initializer that returns a configured JudoKit instance.
  *
@@ -71,7 +74,7 @@
 
 - (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(nonnull JPConfiguration *)configuration
-                       completion:(nullable JPCompletionBlock)completion;
+                       completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which optionally invokes the Judo transaction interface which allows users to enter their CSC or cardholder name and make a transaction.
@@ -84,7 +87,7 @@
 - (void)invokeTokenTransactionWithType:(JPTransactionType)type
                          configuration:(nonnull JPConfiguration *)configuration
                                details:(nonnull JPCardTransactionDetails *)details
-                            completion:(nullable JPCompletionBlock)completion;
+                            completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which returns a configured Judo transaction UIViewController that can be presented to allow
@@ -99,7 +102,7 @@
 
 - (nullable UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
                                                    configuration:(nonnull JPConfiguration *)configuration
-                                                      completion:(nullable JPCompletionBlock)completion;
+                                                      completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method used to determine if ApplePay is available on the device
@@ -118,7 +121,7 @@
 
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(nonnull JPConfiguration *)configuration
-                    completion:(nullable JPCompletionBlock)completion;
+                    completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.
@@ -132,7 +135,7 @@
 
 - (nullable UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
                                                 configuration:(nonnull JPConfiguration *)configuration
-                                                   completion:(nullable JPCompletionBlock)completion;
+                                                   completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment
@@ -145,7 +148,7 @@
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode
                             configuration:(nonnull JPConfiguration *)configuration
-                               completion:(nullable JPCompletionBlock)completion;
+                               completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which returns a configured Judo Payment Method Selection UIViewController which allows users to pick between
@@ -160,7 +163,7 @@
 
 - (nullable UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode
                                                      configuration:(nonnull JPConfiguration *)configuration
-                                                        completion:(nullable JPCompletionBlock)completion;
+                                                        completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method used to fetch the details of a transaction based on a provided receipt ID
@@ -170,6 +173,6 @@
  */
 
 - (void)fetchTransactionWithReceiptId:(nonnull NSString *)receiptId
-                           completion:(nullable JPCompletionBlock)completion;
+                           completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 @end

@@ -78,20 +78,23 @@
     }
 
     __weak typeof(self) weakSelf = self;
+
     JPCompletionBlock resultBlock = ^(JPResponse *response, NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
+
         if (error || response == nil) {
             completion(response, (JPError *)error);
             return;
         }
 
-        JPReturnedInfo returnedContactInfo = weakSelf.configuration.applePayConfiguration.returnedContactInfo;
+        JPReturnedInfo returnedContactInfo = strongSelf.configuration.applePayConfiguration.returnedContactInfo;
 
         if (returnedContactInfo & JPReturnedInfoBillingContacts) {
-            response.billingInfo = [weakSelf contactInformationFromPaymentContact:payment.billingContact];
+            response.billingInfo = [strongSelf contactInformationFromPaymentContact:payment.billingContact];
         }
 
         if (returnedContactInfo & JPReturnedInfoShippingContacts) {
-            response.shippingInfo = [weakSelf contactInformationFromPaymentContact:payment.shippingContact];
+            response.shippingInfo = [strongSelf contactInformationFromPaymentContact:payment.shippingContact];
         }
 
         completion(response, (JPError *)error);

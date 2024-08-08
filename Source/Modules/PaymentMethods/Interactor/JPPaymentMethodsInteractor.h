@@ -150,7 +150,7 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 - (nonnull instancetype)initWithMode:(JPTransactionMode)mode
                        configuration:(nonnull JPConfiguration *)configuration
                           apiService:(nonnull JPApiService *)apiService
-                          completion:(nullable JPCompletionBlock)completion;
+                          completion:(nonnull JPCompletionBlock)completion;
 
 @end
 
