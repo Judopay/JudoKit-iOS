@@ -24,7 +24,7 @@ class ResultViewController: UIViewController {
             } else if let error = self.error {
                 return String(describing: error)
             } else {
-                return "Noting to display"
+                return "Nothing to display"
             }
         }
     }

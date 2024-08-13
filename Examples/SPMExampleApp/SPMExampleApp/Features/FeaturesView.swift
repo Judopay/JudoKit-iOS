@@ -1,11 +1,30 @@
 import SwiftUI
 
+struct CustomButton: View {
+    var title: String
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .frame(maxWidth: .infinity)
+                .padding(14)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 4)
+    }
+}
+
 enum FeatureType {
     case basic
     case customPresentation
     case basicAsyncAwait
     case customPresentationAsyncAwait
 }
+
 struct FeaturesView: View {
     
     let onFeatureTap: (_ type: FeatureType, _ isPreauth: Bool) -> Void
@@ -31,60 +50,24 @@ struct FeaturesView: View {
             Text("completion handler")
                 .padding(16)
             
-            Button(action: {
+            CustomButton(title: "ApplePay basic") {
                 onFeatureTap(.basic, isPreauth)
-            }) {
-                Text("ApplePay basic")
-                    .frame(maxWidth: .infinity)
-                    .padding(14)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 4)
-
-            Button(action: {
+            
+            CustomButton(title: "ApplePay custom presentation") {
                 onFeatureTap(.customPresentation, isPreauth)
-            }) {
-                Text("ApplePay custom presentation")
-                    .frame(maxWidth: .infinity)
-                    .padding(14)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 4)
-
+            
             Text("async/await")
                 .padding(16)
             
-            Button(action: {
+            CustomButton(title: "ApplePay basic") {
                 onFeatureTap(.basicAsyncAwait, isPreauth)
-            }) {
-                Text("ApplePay basic")
-                    .frame(maxWidth: .infinity)
-                    .padding(14)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 4)
             
-            Button(action: {
+            CustomButton(title: "ApplePay custom presentation") {
                 onFeatureTap(.customPresentationAsyncAwait, isPreauth)
-            }) {
-                Text("ApplePay custom presentation")
-                    .frame(maxWidth: .infinity)
-                    .padding(14)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 4)
         }
     }
 }
