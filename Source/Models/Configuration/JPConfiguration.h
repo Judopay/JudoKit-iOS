@@ -30,9 +30,9 @@
 @interface JPConfiguration : NSObject
 
 /**
- * The Judo ID required for most JudoKit transactions
+ * The Judo ID required for JudoKit transactions
  */
-@property (nonatomic, strong, readonly, nullable) NSString *judoId;
+@property (nonatomic, strong, readonly) NSString *judoId;
 
 /**
  * The Receipt ID required for Refund, Void and Collection transactions

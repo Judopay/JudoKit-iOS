@@ -39,15 +39,13 @@ class JPTransactionInteractorTest: XCTestCase {
         configuration.cardAddress = JPAddress()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
         
-        let completion: JPCompletionBlock = { (response, error) in
-        }
         sut = JPTransactionInteractorImpl(cardValidationService: validationService,
                                           transactionService: transactionService,
                                           transactionType: .payment,
                                           presentationMode: .cardInfo,
                                           configuration: configuration,
                                           transactionDetails: nil,
-                                          completion: completion)
+                                          completion: { _, _ in })
     }
     
     /*
