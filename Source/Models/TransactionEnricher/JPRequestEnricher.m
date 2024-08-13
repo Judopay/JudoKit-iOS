@@ -75,7 +75,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
     __weak typeof(self) weakSelf = self;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        __typeof__(self) strongSelf = weakSelf;
+        __strong typeof(self) strongSelf = weakSelf;
 
         [strongSelf.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
             JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
