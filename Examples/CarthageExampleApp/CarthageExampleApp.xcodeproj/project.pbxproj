@@ -75,6 +75,7 @@
 		449495042450ED870050C6A0 /* ExampleAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAppCredentials.h; sourceTree = "<group>"; };
 		4494950D2450ED870050C6A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4494950E2450ED870050C6A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		44BF743F2C6BBCD80029DB8E /* CarthageExampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarthageExampleApp.entitlements; sourceTree = "<group>"; };
 		ADFF51D82847A83D00DA884C /* DeviceDNA.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:95V535S6TQ:Alternative Payments Ltd"; lastKnownFileType = wrapper.xcframework; name = DeviceDNA.xcframework; path = Carthage/Build/DeviceDNA.xcframework; sourceTree = "<group>"; };
 		ADFF51DB2847A84F00DA884C /* TrustKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TrustKit.xcframework; path = Carthage/Build/TrustKit.xcframework; sourceTree = "<group>"; };
 		ADFF51DE2847A85F00DA884C /* JudoKit_iOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = JudoKit_iOS.xcframework; path = Carthage/Build/JudoKit_iOS.xcframework; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		448AB1A02450DE8F004A11CB /* CarthageExampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				44BF743F2C6BBCD80029DB8E /* CarthageExampleApp.entitlements */,
 				44469A712BFDF80200F922B8 /* PrivacyInfo.xcprivacy */,
 				448AB1B32450DE93004A11CB /* main.m */,
 				448AB1A12450DE8F004A11CB /* AppDelegate.h */,
@@ -517,6 +519,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CarthageExampleApp/CarthageExampleApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
@@ -543,6 +547,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CarthageExampleApp/CarthageExampleApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
