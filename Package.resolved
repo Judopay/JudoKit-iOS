@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/DeviceDNA-iOS",
       "state" : {
-        "revision" : "bdfcec20efb2ee927bc4a589dc9b560cb4d24483",
-        "version" : "2.1.1"
+        "revision" : "d4a9035d5be2e34a248e5ced2e1b4a7da98f5aaa",
+        "version" : "2.1.2"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/Judo3DS2-iOS",
       "state" : {
-        "revision" : "b248892251adab326d01de7767fb9cea5f4da663",
-        "version" : "1.2.1"
+        "revision" : "0c7837b7e8ea7936e7815cd58a81e012aa92e87a",
+        "version" : "1.2.2"
       }
     },
     {
