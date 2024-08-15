@@ -1,10 +1,10 @@
 PODS:
-  - DeviceDNA (2.1.1)
+  - DeviceDNA (2.1.2)
   - InAppSettingsKit (3.3.6)
-  - Judo3DS2_iOS (1.2.1)
-  - JudoKit-iOS (4.0.0):
-    - DeviceDNA (= 2.1.1)
-    - Judo3DS2_iOS (= 1.2.1)
+  - Judo3DS2_iOS (1.2.2)
+  - JudoKit-iOS (4.0.1):
+    - DeviceDNA (= 2.1.2)
+    - Judo3DS2_iOS (= 1.2.2)
     - RavelinEncrypt (= 1.1.2)
     - TrustKit (~> 3.0.4)
   - MaterialComponents/AnimationTiming (124.2.0)
@@ -82,7 +82,7 @@ PODS:
 
 DEPENDENCIES:
   - InAppSettingsKit (= 3.3.6)
-  - Judo3DS2_iOS (= 1.2.1)
+  - Judo3DS2_iOS (= 1.2.2)
   - JudoKit-iOS (from `../../`)
   - MaterialComponents/Snackbar
   - Wormholy
@@ -104,10 +104,10 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DeviceDNA: 33d9bfba987f7bd456a1d4ab8c36741c4ecfbf98
+  DeviceDNA: a2812a2a54bdaf3bafd4d109bd9072759e4d9506
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
-  Judo3DS2_iOS: e25ae02aeb3e2a15c33bc9b9c07b1091cf296355
-  JudoKit-iOS: 5c588a1bce90cb58b3c74f4fbbbf525bc4c13715
+  Judo3DS2_iOS: a9c732bc4bd72faf16c0594eed6bc30d02cdcebc
+  JudoKit-iOS: 16618cca92aaed856da8fbfe6c35c5b2350531ad
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
@@ -115,6 +115,6 @@ SPEC CHECKSUMS:
   TrustKit: 403e8d2cfbff2abfc37cd41acc558dab8ec78e59
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 76e72d37ff055b14ceb53fb542e28784418c0a4e
+PODFILE CHECKSUM: 831142fd8c1a30775fa0ec372d00d66584589ed3
 
 COCOAPODS: 1.15.2
