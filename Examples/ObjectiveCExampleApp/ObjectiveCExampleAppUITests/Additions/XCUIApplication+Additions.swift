@@ -200,12 +200,11 @@ extension XCUIApplication {
         }
     }
     
-    func configureRavelin(action: String, toa: String, exemption: String, challenge: String) {
+    func configureRavelin(suffix: String) {
         
         let rsaPublicKey = ProcessInfo.processInfo.environment["RSA_PUBLIC_KEY"]
         let ravelinMockServerURL = ProcessInfo.processInfo.environment["RAVELIN_MOCK_SERVER_URL"]
         
-        let suffix = action + "/" + toa + "/" + exemption + "/" + challenge
         let url = (ravelinMockServerURL ?? "") + suffix
         
         launchArguments += ["-is_recommendation_enabled", "true",
