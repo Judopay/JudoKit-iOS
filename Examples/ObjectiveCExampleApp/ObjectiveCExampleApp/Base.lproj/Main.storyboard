@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -461,7 +461,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gB7-OJ-fpW">
-                                <rect key="frame" x="37" y="283.5" width="301" height="100"/>
+                                <rect key="frame" x="37" y="256.5" width="301" height="154"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9M5-RS-0Zi" customClass="JPLoadingButton">
                                         <rect key="frame" x="0.0" y="0.0" width="301" height="46"/>
@@ -482,7 +482,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="payWithCardToken:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="pAs-Wc-1hd"/>
+                                            <action selector="payWithCard:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="LkW-MM-gPJ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpm-JD-nhS" customClass="JPLoadingButton">
@@ -501,13 +501,34 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="preAuthWithCardToken:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="yId-53-TpU"/>
+                                            <action selector="preAuthWithCard:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="BkL-Lc-Z1V"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qTq-jP-z2U" userLabel="Check Card Button" customClass="JPLoadingButton">
+                                        <rect key="frame" x="0.0" y="108" width="301" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Check card ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="checkCard:" destination="aAh-VN-Jhb" eventType="touchUpInside" id="BWa-ut-qjf"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="qTq-jP-z2U" firstAttribute="height" secondItem="9M5-RS-0Zi" secondAttribute="height" id="36t-9D-HRi"/>
                                     <constraint firstItem="Zpm-JD-nhS" firstAttribute="height" secondItem="9M5-RS-0Zi" secondAttribute="height" id="JIz-k0-COk"/>
                                     <constraint firstItem="Zpm-JD-nhS" firstAttribute="width" secondItem="9M5-RS-0Zi" secondAttribute="width" id="KSg-Cy-d6f"/>
+                                    <constraint firstItem="qTq-jP-z2U" firstAttribute="width" secondItem="9M5-RS-0Zi" secondAttribute="width" id="ScP-3c-KmK"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -521,6 +542,7 @@
                     <navigationItem key="navigationItem" id="SNa-gu-KHn"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="checkCardButton" destination="qTq-jP-z2U" id="epi-Co-vF9"/>
                         <outlet property="payWithCardButton" destination="9M5-RS-0Zi" id="ghh-7E-9g6"/>
                         <outlet property="preAuthWithCardButton" destination="Zpm-JD-nhS" id="d4D-vf-wTK"/>
                     </connections>
@@ -536,7 +558,7 @@
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

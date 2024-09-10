@@ -31,6 +31,7 @@
 @interface NoUICardPayViewController ()
 @property (strong, nonatomic) IBOutlet JPLoadingButton *payWithCardButton;
 @property (strong, nonatomic) IBOutlet JPLoadingButton *preAuthWithCardButton;
+@property (strong, nonatomic) IBOutlet JPLoadingButton *checkCardButton;
 
 @property (strong, nonatomic) JPCardTransactionService *transactionService;
 @end
@@ -43,9 +44,10 @@
 
     [self.preAuthWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
     [self.payWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
+    [self.checkCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
 }
 
-- (IBAction)payWithCardToken:(UIButton *)sender {
+- (IBAction)payWithCard:(UIButton *)sender {
     self.configuration.reference = Settings.defaultSettings.reference;
     [self.payWithCardButton startLoading];
 
@@ -57,7 +59,7 @@
                                         }];
 }
 
-- (IBAction)preAuthWithCardToken:(UIButton *)sender {
+- (IBAction)preAuthWithCard:(UIButton *)sender {
     self.configuration.reference = Settings.defaultSettings.reference;
     [self.preAuthWithCardButton startLoading];
 
@@ -67,6 +69,18 @@
                                                    [weakSelf.preAuthWithCardButton stopLoading];
                                                    [weakSelf handleResponse:response error:error showReceipt:true];
                                                }];
+}
+
+- (IBAction)checkCard:(UIButton *)sender {
+    self.configuration.reference = Settings.defaultSettings.reference;
+    [self.checkCardButton startLoading];
+
+    __weak typeof(self) weakSelf = self;
+    [self.transactionService invokeCheckCardWithDetails:self.cardTransactionDetails
+                                          andCompletion:^(JPResponse *response, JPError *error) {
+                                              [weakSelf.checkCardButton stopLoading];
+                                              [weakSelf handleResponse:response error:error showReceipt:true];
+                                          }];
 }
 
 - (JPCardTransactionDetails *)cardTransactionDetails {
