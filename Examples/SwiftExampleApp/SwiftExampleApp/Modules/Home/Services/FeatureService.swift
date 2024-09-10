@@ -8,6 +8,7 @@ class FeatureService {
 
     func invokeTransaction(with type: JPTransactionType,
                            completion: @escaping JPCompletionBlock) {
+        updateAuthorization()
         judoKit?.invokeTransaction(with: type,
                                    configuration: configuration,
                                    completion: completion)
@@ -15,6 +16,7 @@ class FeatureService {
 
     func invokeApplePay(with mode: JPTransactionMode,
                         completion: @escaping JPCompletionBlock) {
+        updateAuthorization()
         judoKit?.invokeApplePay(with: mode,
                                 configuration: configuration,
                                 completion: completion)
@@ -22,6 +24,7 @@ class FeatureService {
 
     func invokePaymentMethods(with mode: JPTransactionMode,
                               completion: @escaping JPCompletionBlock) {
+        updateAuthorization()
         judoKit?.invokePaymentMethodScreen(with: mode,
                                            configuration: configuration,
                                            completion: completion)
@@ -30,6 +33,7 @@ class FeatureService {
     func invokeTokenTransaction(with type: JPTransactionType,
                                 details: JPCardTransactionDetails,
                                 completion: @escaping JPCompletionBlock) {
+        updateAuthorization()
         judoKit?.invokeTokenTransaction(with: type,
                                         configuration: configuration,
                                         details: details,
@@ -54,13 +58,17 @@ class FeatureService {
         apiService.invokeOrderStatus(withOrderId: orderID, andCompletion: completion)
     }
 
-    // MARK: - Getters
-
-    private var judoKit: JudoKit? {
+    // MARK: -
+    private func updateAuthorization() {
+        judoKit?.authorization = settings.authorization
+        judoKit?.isSandboxed = settings.isSandboxed
+    }
+    
+    private lazy var judoKit: JudoKit? = {
         let judo = JudoKit(authorization: settings.authorization)
         judo?.isSandboxed = settings.isSandboxed
         return judo
-    }
+    }()
 
     private var apiService: JPApiService {
         JPApiService(authorization: settings.authorization,
