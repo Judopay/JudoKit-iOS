@@ -2,7 +2,7 @@ PODS:
   - DeviceDNA (2.1.2)
   - InAppSettingsKit (3.3.6)
   - Judo3DS2_iOS (1.2.2)
-  - JudoKit-iOS (4.0.1):
+  - JudoKit-iOS (4.0.2):
     - DeviceDNA (= 2.1.2)
     - Judo3DS2_iOS (= 1.2.2)
     - RavelinEncrypt (= 1.1.2)
@@ -37,7 +37,7 @@ SPEC CHECKSUMS:
   DeviceDNA: a2812a2a54bdaf3bafd4d109bd9072759e4d9506
   InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   Judo3DS2_iOS: a9c732bc4bd72faf16c0594eed6bc30d02cdcebc
-  JudoKit-iOS: 16618cca92aaed856da8fbfe6c35c5b2350531ad
+  JudoKit-iOS: 0455f94aed1d8b85c7f1e4788d956033fef54714
   RavelinEncrypt: ea533da1cb48ccf84382cb161979b27bfb23d467
   SwiftLint: c5fa0b7eece474d43d2178b581a1242a16267347
   TrustKit: 403e8d2cfbff2abfc37cd41acc558dab8ec78e59
