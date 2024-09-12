@@ -23,27 +23,15 @@
 //  SOFTWARE.
 
 #import "JPDictionaryConvertible.h"
-#import <CoreLocation/CoreLocation.h>
-#import <Foundation/Foundation.h>
 
 @class JPClientDetails, JPThreeDSecure;
 
 @interface JPConsumerDevice : NSObject <JPDictionaryConvertible>
 
-@property (nonatomic, strong, readonly, nullable) NSString *ipAddress;
-@property (nonatomic, strong, readonly, nullable) JPClientDetails *clientDetails;
-@property (nonatomic, strong, readonly, nullable) CLLocation *geoLocation;
 @property (nonatomic, strong, readonly, nullable) JPThreeDSecure *threeDSecure;
-@property (nonatomic, strong, readonly, nullable) NSString *paymentType;
 
-- (nonnull instancetype)initWithIpAddress:(nonnull NSString *)ipAddress
-                            clientDetails:(nonnull JPClientDetails *)clientDetails
-                              geoLocation:(nonnull CLLocation *)geoLocation
-                             threeDSecure:(nonnull JPThreeDSecure *)threeDSecure;
+- (nonnull instancetype)initWithThreeDSecure:(nonnull JPThreeDSecure *)threeDSecure;
 
-+ (nonnull instancetype)deviceWithIpAddress:(nonnull NSString *)ipAddress
-                              clientDetails:(nonnull JPClientDetails *)clientDetails
-                                geoLocation:(nonnull CLLocation *)geoLocation
-                               threeDSecure:(nonnull JPThreeDSecure *)threeDSecure;
++ (nonnull instancetype)deviceWithThreeDSecure:(nonnull JPThreeDSecure *)threeDSecure;
 
 @end

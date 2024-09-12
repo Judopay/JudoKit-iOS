@@ -25,14 +25,12 @@ import XCTest
 
 class JPEnhancedPaymentDetailTest: XCTestCase {
     let sdkInfo = JPSDKInfo(version: "version", name: "name")
-    let client = JPClientDetails(key: "key", value: "value")
-    let location = CLLocation(latitude: 0.0, longitude: 0.0)
     let secure = JPThreeDSecure(browser: JPBrowser())
     var consumerDevice: JPConsumerDevice! = nil
     
     override func setUp() {
         super.setUp()
-        consumerDevice = JPConsumerDevice(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
+        consumerDevice = JPConsumerDevice(threeDSecure: secure)
     }
     
     /*
@@ -73,9 +71,7 @@ class JPEnhancedPaymentDetailTest: XCTestCase {
         let dic = sut._jp_toDictionary() as NSDictionary
         XCTAssertEqual(dic.object(forKey: "SDK_INFO") as! Dictionary, ["Version":"version", "Name": "name"])
         let consumerDevice = dic.object(forKey: "ConsumerDevice") as! Dictionary<String, Any>
-        XCTAssertEqual(consumerDevice["ClientDetails"] as! Dictionary, ["key": "key", "value": "value"])
-        XCTAssertEqual(consumerDevice["IpAddress"] as! String, "ip")
-        XCTAssertEqual(consumerDevice["PaymentType"] as! String, "ECOMM")
+        XCTAssertEqual(consumerDevice["ThreeDSecure"] as! NSDictionary, secure._jp_toDictionary() as NSDictionary)
     }
 }
 

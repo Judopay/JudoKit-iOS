@@ -23,51 +23,27 @@
 //  SOFTWARE.
 
 #import "JPConsumerDevice.h"
-#import "CLLocation+Additions.h"
-#import "JPClientDetails.h"
 #import "JPThreeDSecure.h"
 
 @implementation JPConsumerDevice
 
-static NSString *const kIPAddressKey = @"IpAddress";
-static NSString *const kClientDetailsKey = @"ClientDetails";
-static NSString *const kGeoLocationKey = @"GeoLocation";
 static NSString *const kThreeDSecureKey = @"ThreeDSecure";
-static NSString *const kPaymentTypeKey = @"PaymentType";
-static NSString *const kPaymentTypeEcomm = @"ECOMM";
 
-- (instancetype)initWithIpAddress:(NSString *)ipAddress
-                    clientDetails:(JPClientDetails *)clientDetails
-                      geoLocation:(CLLocation *)geoLocation
-                     threeDSecure:(JPThreeDSecure *)threeDSecure {
+- (instancetype)initWithThreeDSecure:(JPThreeDSecure *)threeDSecure {
     if (self = [super init]) {
-        _ipAddress = ipAddress;
-        _clientDetails = clientDetails;
-        _geoLocation = geoLocation;
         _threeDSecure = threeDSecure;
-        _paymentType = kPaymentTypeEcomm;
     }
     return self;
 }
 
-+ (instancetype)deviceWithIpAddress:(NSString *)ipAddress
-                      clientDetails:(JPClientDetails *)clientDetails
-                        geoLocation:(CLLocation *)geoLocation
-                       threeDSecure:(JPThreeDSecure *)threeDSecure {
-    return [[self alloc] initWithIpAddress:ipAddress
-                             clientDetails:clientDetails
-                               geoLocation:geoLocation
-                              threeDSecure:threeDSecure];
++ (instancetype)deviceWithThreeDSecure:(JPThreeDSecure *)threeDSecure {
+    return [[self alloc] initWithThreeDSecure:threeDSecure];
 }
 
 #pragma mark - JPDictionaryConvertible
 - (NSDictionary *)_jp_toDictionary {
     return @{
-        kIPAddressKey : self.ipAddress,
-        kClientDetailsKey : [self.clientDetails _jp_toDictionary],
-        kGeoLocationKey : [self.geoLocation _jp_toDictionary],
-        kThreeDSecureKey : [self.threeDSecure _jp_toDictionary],
-        kPaymentTypeKey : self.paymentType
+        kThreeDSecureKey : [self.threeDSecure _jp_toDictionary]
     };
 }
 

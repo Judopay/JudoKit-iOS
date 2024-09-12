@@ -29,7 +29,6 @@
 
 #import "Functions.h"
 #import "JPBrowser.h"
-#import "JPClientDetails.h"
 #import "JPConstants.h"
 #import "JPConsumerDevice.h"
 #import "JPEnhancedPaymentDetail.h"
@@ -78,7 +77,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
         __strong typeof(self) strongSelf = weakSelf;
 
         [strongSelf.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
-            JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail:device andLocation:self.lastKnownLocation];
+            JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail];
             NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
             enrichedRequest[kEnhancedPaymentDetailKey] = [detail _jp_toDictionary];
             enrichedRequest[kClientDetailsKey] = device;
@@ -92,20 +91,11 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 #pragma mark - Helper methods
 
-- (JPEnhancedPaymentDetail *)buildEnhancedPaymentDetail:(NSDictionary *)device
-                                            andLocation:(CLLocation *)location {
-
+- (JPEnhancedPaymentDetail *)buildEnhancedPaymentDetail {
     JPThreeDSecure *threeDSecure = [JPThreeDSecure secureWithBrowser:[JPBrowser new]];
-    JPClientDetails *clientDetails = [JPClientDetails detailsWithDictionary:device];
-
-    JPConsumerDevice *consumerDevice = [JPConsumerDevice deviceWithIpAddress:getIPAddress()
-                                                               clientDetails:clientDetails
-                                                                 geoLocation:location
-                                                                threeDSecure:threeDSecure];
-
+    JPConsumerDevice *consumerDevice = [JPConsumerDevice deviceWithThreeDSecure:threeDSecure];
     JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:kJudoKitVersion
                                                name:kJudoKitName];
-
     return [JPEnhancedPaymentDetail detailWithSdkInfo:sdkInfo
                                        consumerDevice:consumerDevice];
 }
