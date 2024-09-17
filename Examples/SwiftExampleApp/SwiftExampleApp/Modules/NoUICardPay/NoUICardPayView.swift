@@ -3,16 +3,22 @@ import SwiftUI
 struct NoUICardPayView: View {
     @StateObject var viewModel: NoUICardPayViewModel
     var coordinator: Coordinator?
-
     var body: some View {
-        VStack(spacing: 32) {
+        VStack(spacing: 10) {
             Button("Pay with card") {
-                viewModel.payWithCardToken()
+                viewModel.payWithCard()
             }
-            Button("Pre-auth with card") {
-                viewModel.preAuthWithCardToken()
+            .buttonStyle(BasicButtonStyle())
+            Button("PreAuth with card") {
+                viewModel.preAuthWithCard()
             }
+            .buttonStyle(BasicButtonStyle())
+            Button("Check card") {
+                viewModel.checkCard()
+            }
+            .buttonStyle(BasicButtonStyle())
         }
+        .padding()
         .navigationBarTitle("No UI payments")
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
@@ -27,6 +33,18 @@ struct NoUICardPayView: View {
                 coordinator?.pushTo(.results(result))
             }
         }
+    }
+}
+
+struct BasicButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.black)
+            .foregroundColor(.white)
+            .cornerRadius(4)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }
 

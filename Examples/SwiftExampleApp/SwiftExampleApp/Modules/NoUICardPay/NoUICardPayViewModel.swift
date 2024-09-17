@@ -11,12 +11,16 @@ class NoUICardPayViewModel: ObservableObject {
         self.featureService = featureService
     }
 
-    func payWithCardToken() {
+    func payWithCard() {
         featureService.invokePayment(withDetails: cardTransactionDetails, completion: completion)
     }
 
-    func preAuthWithCardToken() {
+    func preAuthWithCard() {
         featureService.invokePreAuthPayment(withDetails: cardTransactionDetails, completion: completion)
+    }
+
+    func checkCard() {
+        featureService.invokeCheckCard(withDetails: cardTransactionDetails, completion: completion)
     }
 
     private var cardTransactionDetails: JPCardTransactionDetails {

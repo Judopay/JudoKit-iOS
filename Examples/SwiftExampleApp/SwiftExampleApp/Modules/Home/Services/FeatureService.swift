@@ -48,6 +48,10 @@ class FeatureService {
         transactionService.invokePreAuthPayment(with: details, andCompletion: completion)
     }
 
+    func invokeCheckCard(withDetails details: JPCardTransactionDetails, completion: @escaping JPCompletionBlock) {
+        transactionService.invokeCheckCard(with: details, andCompletion: completion)
+    }
+
     func getTransactionDetails(with receiptID: String,
                                and completion: @escaping JPCompletionBlock) {
         apiService.fetchTransaction(withReceiptId: receiptID, completion: completion)
