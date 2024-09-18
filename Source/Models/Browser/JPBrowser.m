@@ -27,26 +27,11 @@
 
 @implementation JPBrowser
 
-static NSString *const kAcceptHeaderKey = @"AcceptHeader";
-static NSString *const kTimeZoneKey = @"TimeZone";
 static NSString *const kUserAgentKey = @"UserAgent";
-static NSString *const kLanguageKey = @"Language";
-static NSString *const kJavaEnabledKey = @"JavaEnabled";
-static NSString *const kJavascriptEnabledKey = @"JavascriptEnabled";
-static NSString *const kColorDepthKey = @"ColorDepth";
-static NSString *const kScreenHeightKey = @"ScreenHeight";
-static NSString *const kScreenWidthKey = @"ScreenWidth";
 
 - (instancetype)init {
     if (self = [super init]) {
-        _acceptHeader = @"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-        _javaEnabled = @"false";
-        _javascriptEnabled = @"true";
-        _colorDepth = @"32";
         _userAgent = getUserAgent(nil);
-        _language = [[NSLocale preferredLanguages] firstObject];
-        _timeZone = NSTimeZone.localTimeZone;
-        _screenSize = UIScreen.mainScreen.nativeBounds.size;
     }
 
     return self;
@@ -55,15 +40,7 @@ static NSString *const kScreenWidthKey = @"ScreenWidth";
 #pragma mark - JPDictionaryConvertible
 - (NSDictionary *)_jp_toDictionary {
     return @{
-        kAcceptHeaderKey : self.acceptHeader,
-        kTimeZoneKey : self.timeZone.abbreviation,
-        kUserAgentKey : self.userAgent,
-        kLanguageKey : self.language,
-        kJavaEnabledKey : self.javaEnabled,
-        kJavascriptEnabledKey : self.javascriptEnabled,
-        kColorDepthKey : self.colorDepth,
-        kScreenHeightKey : @(self.screenSize.height),
-        kScreenWidthKey : @(self.screenSize.width)
+        kUserAgentKey : self.userAgent
     };
 }
 

@@ -24,8 +24,6 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPConsumerDeviceTest: XCTestCase {
-    let client = JPClientDetails(key: "key", value: "value")
-    let location = CLLocation(latitude: 0.0, longitude: 0.0)
     let secure = JPThreeDSecure(browser: JPBrowser())
     
     /*
@@ -36,11 +34,8 @@ class JPConsumerDeviceTest: XCTestCase {
      * THEN: should create correct fields in JPConsumerDevice object
      */
     func test_InitWithIpAddress_WhenDesignatedInit_ShouldCreateObject() {
-        let sut = JPConsumerDevice(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
-        XCTAssertEqual(sut.ipAddress, "ip")
-        XCTAssertEqual(sut.geoLocation?.coordinate.latitude, 0.0)
-        XCTAssertEqual(sut.geoLocation?.coordinate.longitude, 0.0)
-        XCTAssertEqual(sut.clientDetails, client)
+        let sut = JPConsumerDevice(threeDSecure: secure)
+        XCTAssertEqual(sut.threeDSecure, secure)
     }
     
     /*
@@ -51,11 +46,8 @@ class JPConsumerDeviceTest: XCTestCase {
      * THEN: should create correct fields in JPConsumerDevice object
      */
     func test_deviceWithIpAddress_WhenDesignatedInit_ShouldCreateObject() {
-        let sut = JPConsumerDevice.init(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
-        XCTAssertEqual(sut.ipAddress, "ip")
-        XCTAssertEqual(sut.geoLocation?.coordinate.latitude, 0.0)
-        XCTAssertEqual(sut.geoLocation?.coordinate.longitude, 0.0)
-        XCTAssertEqual(sut.clientDetails, client)
+        let sut = JPConsumerDevice.init(threeDSecure: secure)
+        XCTAssertEqual(sut.threeDSecure, secure)
     }
     
     /*
@@ -66,10 +58,8 @@ class JPConsumerDeviceTest: XCTestCase {
      * THEN: should create dictionary from fields
      */
     func test_ToDictionary_WhenDesignatedInit_ShouldCreateDictionaryFromObject() {
-        let sut = JPConsumerDevice.init(ipAddress: "ip", clientDetails: client, geoLocation: location, threeDSecure: secure)
+        let sut = JPConsumerDevice.init(threeDSecure: secure)
         let dic = sut._jp_toDictionary() as NSDictionary
-        XCTAssertEqual(dic["ClientDetails"] as! Dictionary, ["key": "key", "value": "value"])
-        XCTAssertEqual(dic["IpAddress"] as! String, "ip")
-        XCTAssertEqual(dic["PaymentType"] as! String, "ECOMM")
+        XCTAssertEqual(dic.object(forKey: "ThreeDSecure") as! NSDictionary, secure._jp_toDictionary() as NSDictionary)
     }
 }
