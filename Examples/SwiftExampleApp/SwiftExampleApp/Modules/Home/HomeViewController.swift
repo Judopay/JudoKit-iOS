@@ -93,6 +93,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
                                      style: .done,
                                      target: self,
                                      action: #selector(didTapSettingsButton))
+        button.accessibilityIdentifier = "SettingsButton"
         return button
     }()
 

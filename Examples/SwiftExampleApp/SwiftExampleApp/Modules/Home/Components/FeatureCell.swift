@@ -51,6 +51,8 @@ class FeatureCell: UITableViewCell {
     func configure(with viewModel: FeatureViewModel) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
+        titleLabel.accessibilityIdentifier = viewModel.title
+        subtitleLabel.accessibilityIdentifier = viewModel.title + " value"
     }
 
     // MARK: - Layout setup
@@ -93,6 +95,7 @@ class FeatureCell: UITableViewCell {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: kFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = true
         return label
     }()
 
