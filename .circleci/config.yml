@@ -361,6 +361,19 @@ jobs:
           paths:
             - ./DerivedData
             - ./Output/ObjectiveCExampleAppUITests.zip
+  build_instrumented_tests_swift_package:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build Swift Sample for UI Tests using Fastlane
+          command: bundle exec fastlane package_instrumented_tests_swift
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output/SwiftExampleAppUITests.zip
   instrumented_tests_sample:
     executor: macos
     steps:
@@ -413,6 +426,31 @@ jobs:
               --num-flaky-test-attempts=2
       - notify_slack_error_weekly
       - notify_slack_pass_weekly
+  instrumented_tests_swift_sample:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - brew_install
+      - run:
+          name: Store Google Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Authorize gcloud and set config defaults
+          command: |
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - run:
+          name: Test with Firebase Test Lab
+          no_output_timeout: 30m
+          command: >
+            gcloud firebase test ios run \
+              --test ./Output/SwiftExampleAppUITests.zip \
+              --xcode-version 15.3 \
+              --device model=iphone14pro,version=16.6 \
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+      # - notify_slack_error
+      # - notify_slack_pass
   release_sample:
     executor: macos
     steps:
@@ -490,6 +528,17 @@ workflows:
             branches:
               only:
                 - master
+      - build_instrumented_tests_swift_package:
+          requires:
+            - unit_test_sdk
+      - instrumented_tests_swift_sample:
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_swift_package
+          filters:
+            branches:
+              only:
+                - CT-2982-e2e-tests-on-swift-app
       - release_sample:
           context: shared-secrets
           requires:

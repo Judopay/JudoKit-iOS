@@ -62,6 +62,37 @@ platform :ios do
     end
   end
 
+  desc "Package Swift example app and instrumented tests for uploading to Firebase"
+  lane :package_instrumented_tests_swift do
+    cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
+
+    sync_code_signing_options = {
+      type: "development",
+      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*']
+    }
+
+    run_tests_options = {
+      build_for_testing: true, 
+      workspace: "./Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace", 
+      scheme: "SwiftExampleAppUITests",
+      destination: "generic/platform=iOS",
+      sdk: "iphoneos",
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET",
+      include_simulator_logs: false
+    }
+
+    app_store_connect_api_key
+    sync_code_signing sync_code_signing_options
+    run_tests run_tests_options
+
+    Dir.chdir('..') do
+      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
+        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/SwiftExampleAppUITests.zip Debug-iphoneos SwiftExampleAppUITests_*.xctestrun")
+      end
+    end
+  end
+
   def extract_flavor_list(options)
     supported_flavors = %w(obj-c swift carthage spm)
 
