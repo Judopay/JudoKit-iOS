@@ -68,7 +68,8 @@ platform :ios do
 
     sync_code_signing_options = {
       type: "development",
-      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*']
+      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*'],
+      readonly: false
     }
 
     run_tests_options = {
