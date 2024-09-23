@@ -34,7 +34,14 @@ class Constants {
         static let invalidCityLabel = "Please enter a valid city"
     }
     struct Other {
-        static let cancelledPaymentToast = "The transaction was cancelled by the user."
+        static let cancelledPaymentAlert = "The transaction was cancelled by the user."
         static let cancelled3DS2Toast = "Unable to process transaction. Card authentication failed with 3DS Server."
+    }
+    struct AssertionMessages {
+        static let emailAddress = "Email address input validation failed and/or error label is not displayed"
+        static let phoneNumber = "Mobile number input validation failed and/or error label is not displayed"
+        static let addressLine = "Address line input validation failed and/or error label is not displayed"
+        static let cityInput = "City input validation failed and/or error label is not displayed"
+        static let postCode = "Postcode input validation failed and/or error label is not displayed"
     }
 }

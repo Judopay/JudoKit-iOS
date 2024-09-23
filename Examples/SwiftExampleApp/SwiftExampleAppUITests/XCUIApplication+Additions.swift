@@ -195,4 +195,11 @@ extension XCUIApplication {
         staticTexts["Generate Payment Session"].tap()
         sleep(3)
     }
+
+    func fillWithStandardCardDetails() {
+        fillCardSheetDetails(cardNumber: Constants.CardDetails.cardNumber,
+                                 cardHolder: Constants.CardDetails.cardHolderName,
+                                 expiryDate: Constants.CardDetails.cardExpiry,
+                                 securityCode: Constants.CardDetails.cardSecurityCode)
+    }
 }

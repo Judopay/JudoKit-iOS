@@ -28,9 +28,9 @@ class Selectors {
         static let settingsSectionButton = "settingsButton"
     }
     struct TokenPayments {
-        static let tokenizeNewCardButtonSelector = "Tokenize a new card"
-        static let tokenPaymentButtonSelector = "Payment"
-        static let tokenPreAuthButton = "Preauth"
+        static let tokenizeNewCardButtonSelector = "Save Card"
+        static let tokenPaymentButtonSelector = "Token Payment"
+        static let tokenPreAuthButton = "Token PreAuth"
     }
     struct PaymentMethods {
         static let addNewCardButton = "ADD CARD"
@@ -52,7 +52,7 @@ class Selectors {
     }
     struct Other {
         static let threeDS2CancelButton = "Cancel"
-        static let resultsTable = "Results View"
+        static let resultsTable = "ResultsView"
         static let cancelButton = "Cancel"
     }
     struct ResultsView {
@@ -60,5 +60,10 @@ class Selectors {
         static let typeValue = "type Value"
         static let messageValue = "message Value"
         static let resultValue = "result Value"
+        static let countryCodeValue = "countryCode Value"
+        static let addressOneValue = "address1 Value"
+        static let addressTwoValue = "address2 Value"
+        static let townValue = "town Value"
+        static let postCodeValue = "postCode Value"
     }
 }

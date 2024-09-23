@@ -52,7 +52,6 @@ class FeatureCell: UITableViewCell {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
         titleLabel.accessibilityIdentifier = viewModel.title
-        subtitleLabel.accessibilityIdentifier = viewModel.title + " value"
     }
 
     // MARK: - Layout setup

@@ -216,6 +216,7 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor.secondarySystemBackground, for: .normal)
         button.backgroundColor = UIColor.label
+        button.accessibilityIdentifier = title
         return button
     }
 
