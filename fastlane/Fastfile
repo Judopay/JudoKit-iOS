@@ -68,14 +68,13 @@ platform :ios do
 
     sync_code_signing_options = {
       type: "development",
-      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*'],
-      readonly: false
+      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*']
     }
 
     run_tests_options = {
       build_for_testing: true, 
       workspace: "./Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace", 
-      scheme: "SwiftExampleAppUITests",
+      testplan: "./Examples/SwiftExampleAppUITests.xctestplan",
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET",
