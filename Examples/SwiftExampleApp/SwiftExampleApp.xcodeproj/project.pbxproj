@@ -982,7 +982,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExampleAppUITests/CardPayment/SwiftExampleAppUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
