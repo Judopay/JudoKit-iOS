@@ -25,7 +25,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:../SwiftExampleAppUITests.xctestplan"
+            reference = "container:SwiftExampleAppUITests/SwiftExampleAppTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

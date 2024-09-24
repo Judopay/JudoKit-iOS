@@ -120,6 +120,7 @@
 		BB51388758C04FBB45FE0CE3 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp-SwiftExampleAppUITests/Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1C7D453B0F2D8A54EF0682A /* Pods-SwiftExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D11DD0362CA2BD3900741C8B /* SwiftExampleAppTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftExampleAppTestPlan.xctestplan; sourceTree = "<group>"; };
 		D1F01A462C9C2646001AC792 /* SwiftExampleAppUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftExampleAppUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentUITests.swift; sourceTree = "<group>"; };
 		D1F01A492C9C2785001AC792 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		D1F01A4D2C9C27F2001AC792 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
 		D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Additions.swift"; sourceTree = "<group>"; };
 		D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Additions.swift"; sourceTree = "<group>"; };
-		D1F01A532C9C2A36001AC792 /* SwiftExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = SwiftExampleAppUITests.xctestplan; path = ../../SwiftExampleAppUITests.xctestplan; sourceTree = "<group>"; };
 		D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp_SwiftExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -331,7 +331,6 @@
 		448AB2032450DF24004A11CB /* SwiftExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D1F01A532C9C2A36001AC792 /* SwiftExampleAppUITests.xctestplan */,
 				D1F01A452C9C25D6001AC792 /* CardPayment */,
 				448AB2062450DF24004A11CB /* Info.plist */,
 				D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */,
@@ -339,6 +338,7 @@
 				D1F01A4B2C9C27C3001AC792 /* Helpers.swift */,
 				D1F01A4D2C9C27F2001AC792 /* Selectors.swift */,
 				D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */,
+				D11DD0362CA2BD3900741C8B /* SwiftExampleAppTestPlan.xctestplan */,
 			);
 			path = SwiftExampleAppUITests;
 			sourceTree = "<group>";

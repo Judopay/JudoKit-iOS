@@ -75,7 +75,7 @@ platform :ios do
     run_tests_options = {
       build_for_testing: true, 
       workspace: "./Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace", 
-      testplan: "./Examples/SwiftExampleAppUITests.xctestplan",
+      testplan: "./Examples/SwiftExampleApp/SwiftExampleAppTestPlan.xctestplan",
       scheme: "SwiftExampleAppUITests",
       destination: "generic/platform=iOS",
       sdk: "iphoneos",

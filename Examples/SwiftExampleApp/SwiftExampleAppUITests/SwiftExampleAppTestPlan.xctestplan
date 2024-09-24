@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "B1D9B18A-7D41-4850-8EA0-160D1DEAB9F8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "TEST_API_SECRET",
+        "value" : "$(TEST_API_SECRET)"
+      },
+      {
+        "key" : "TEST_API_JUDO_ID",
+        "value" : "$(TEST_API_JUDO_ID)"
+      },
+      {
+        "key" : "TEST_API_TOKEN",
+        "value" : "$(TEST_API_TOKEN)"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SwiftExampleApp.xcodeproj",
+      "identifier" : "448AB1FF2450DF24004A11CB",
+      "name" : "SwiftExampleAppUITests"
+    },
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SwiftExampleApp.xcodeproj",
+        "identifier" : "448AB1FF2450DF24004A11CB",
+        "name" : "SwiftExampleAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
