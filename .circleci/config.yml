@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 15.3.0
+      xcode: 16.0.0
 
 orbs:
   slack: circleci/slack@4.12.5
@@ -173,7 +173,7 @@ commands:
       - restore_cache:
           keys:
             - '{{ .Environment.CACHE_VERSION }}-cache-pods-{{ checksum "<<parameters.pod_install_directory>>/Podfile.lock" }}'
-            - '{{ .Environment.CACHE_VERSION }}-cache-pods'
+            - "{{ .Environment.CACHE_VERSION }}-cache-pods"
       - run:
           name: Install CocoaPods
           command: |
@@ -255,8 +255,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-            name: Install Rosetta
-            command: softwareupdate --install-rosetta --agree-to-license
+          name: Install Rosetta
+          command: softwareupdate --install-rosetta --agree-to-license
       - run:
           name: Install Sonar Build Wrapper
           command: |
@@ -293,8 +293,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-            name: Install Rosetta
-            command: softwareupdate --install-rosetta --agree-to-license
+          name: Install Rosetta
+          command: softwareupdate --install-rosetta --agree-to-license
       - run:
           name: Install Sonar Scanner
           command: |
@@ -491,7 +491,7 @@ jobs:
             ENVIRONMENT: << parameters.environment >>
           command: /resources/scripts/report-status-to-jira.sh
 
-workflows:  
+workflows:
   build:
     when:
       not: << pipeline.parameters.weekly >>
@@ -569,17 +569,17 @@ workflows:
           requires:
             - release_sdk
   e2e-backward-compat-weekly:
-      when: << pipeline.parameters.weekly >>
-      jobs:
-        - checkout_project
-        - build_instrumented_tests_package:
-            requires:
-              - checkout_project
-        - instrumented_tests_sample_multiple:
-            context: shared-secrets
-            requires:
-              - build_instrumented_tests_package
-            filters:
-              branches:
-                only:
-                  - master
+    when: << pipeline.parameters.weekly >>
+    jobs:
+      - checkout_project
+      - build_instrumented_tests_package:
+          requires:
+            - checkout_project
+      - instrumented_tests_sample_multiple:
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_package
+          filters:
+            branches:
+              only:
+                - master
