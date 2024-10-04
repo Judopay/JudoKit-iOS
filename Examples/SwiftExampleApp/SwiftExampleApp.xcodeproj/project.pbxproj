@@ -914,7 +914,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -944,7 +944,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
