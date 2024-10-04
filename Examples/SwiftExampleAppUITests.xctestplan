@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "955A8A47-DDE2-4A03-9578-D20512DD6CE3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "TEST_API_TOKEN",
+        "value" : "$(TEST_API_TOKEN)"
+      },
+      {
+        "key" : "TEST_API_SECRET",
+        "value" : "$(TEST_API_SECRET)"
+      },
+      {
+        "key" : "TEST_API_JUDO_ID",
+        "value" : "$(TEST_API_JUDO_ID)"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SwiftExampleApp.xcodeproj",
+        "identifier" : "448AB1FF2450DF24004A11CB",
+        "name" : "SwiftExampleAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

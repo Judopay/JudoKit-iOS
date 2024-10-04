@@ -86,6 +86,7 @@ class ResultsViewController: UIViewController, ResultsInteractorOutput {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.accessibilityIdentifier = "ResultsView"
         return tableView
     }()
 }
