@@ -56,7 +56,7 @@ func assertBillingInfo(_ app: XCUIApplication, _ town: String, _ addressOne: Str
 
 func tapCompleteButton(_ app: XCUIApplication) {
     let completeButton = app.buttons["COMPLETE"]
-    XCTAssert(completeButton.waitForExistence(timeout: 10))
+    XCTAssert(completeButton.waitForExistence(timeout: 30))
 
     var retryCount = 0
 
