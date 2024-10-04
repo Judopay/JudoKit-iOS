@@ -453,8 +453,8 @@ jobs:
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-      # - notify_slack_error
-      # - notify_slack_pass
+      - notify_slack_error
+      - notify_slack_pass
   release_sample:
     executor: macos
     steps:
@@ -542,7 +542,7 @@ workflows:
           filters:
             branches:
               only:
-                - CT-2982-e2e-tests-on-swift-app
+                - master
       - release_sample:
           context: shared-secrets
           requires:
