@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)displayAlertWithTitle:(nullable NSString *)title
                    andMessage:(NSString *)message;
 
+- (void)presentNetworkRequestsInspector;
+
 @end
 
 NS_ASSUME_NONNULL_END

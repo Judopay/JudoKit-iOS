@@ -65,4 +65,9 @@ extension UIViewController {
 
         present(alertController, animated: true, completion: nil)
     }
+    
+    @objc func presentNetworkRequestsInspector() {
+        let name = NSNotification.Name(rawValue: "wormholy_fire")
+        NotificationCenter.default.post(name: name, object: nil)
+    }
 }
