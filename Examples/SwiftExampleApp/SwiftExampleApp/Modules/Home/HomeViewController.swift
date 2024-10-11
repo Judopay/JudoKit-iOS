@@ -66,7 +66,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     private func setupLayout() {
         navigationItem.title = kNavigationItemTitle
         navigationItem.backButtonTitle = " "
-        navigationItem.rightBarButtonItem = settingsButton
+        navigationItem.rightBarButtonItems = [settingsButton, networkRequestsInspectorButton]
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
     }
@@ -88,11 +88,22 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     // MARK: - Lazy instantiations
 
     private lazy var settingsButton: UIBarButtonItem = {
-        let settingsIcon = UIImage(named: "settings_black")
+        let settingsIcon = UIImage(systemName: "gearshape")
         let button = UIBarButtonItem(image: settingsIcon,
                                      style: .done,
                                      target: self,
                                      action: #selector(didTapSettingsButton))
+        button.accessibilityIdentifier = "Settings button"
+        return button
+    }()
+
+    private lazy var networkRequestsInspectorButton: UIBarButtonItem = {
+        let networkIcon = UIImage(systemName: "network")
+        let button = UIBarButtonItem(image: networkIcon,
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(presentNetworkRequestsInspector))
+        button.accessibilityIdentifier = "Network requests inspector button"
         return button
     }()
 

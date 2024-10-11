@@ -62,6 +62,7 @@ class ResultsViewController: UIViewController, ResultsInteractorOutput {
     private func setupLayout() {
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
+        navigationItem.rightBarButtonItems = [networkRequestsInspectorButton]
     }
 
     private func setupConstraints() {
@@ -80,6 +81,16 @@ class ResultsViewController: UIViewController, ResultsInteractorOutput {
     }
 
     // MARK: - Lazy instantiations
+
+    private lazy var networkRequestsInspectorButton: UIBarButtonItem = {
+        let networkIcon = UIImage(systemName: "network")
+        let button = UIBarButtonItem(image: networkIcon,
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(presentNetworkRequestsInspector))
+        button.accessibilityIdentifier = "Network requests inspector button"
+        return button
+    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
