@@ -50,6 +50,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 @property (strong, nonatomic) NSArray<NSString *> *settingsToObserve;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *networkInspectorButton;
 @property (nonatomic, assign) BOOL shouldUpdateKitAuth;
 @property (nonatomic, strong) NSURL *deepLinkURL;
 @property (nonatomic, strong) IASKAppSettingsViewController *settingsViewController;
@@ -65,7 +66,10 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     // Setup accessibility identifiers
     self.view.accessibilityIdentifier = @"Main View";
     self.settingsButton.accessibilityIdentifier = @"Settings Button";
-
+    self.networkInspectorButton.accessibilityIdentifier = @"Network requests inspector button";
+    self.networkInspectorButton.action = @selector(presentNetworkRequestsInspector);
+    self.networkInspectorButton.target = self;
+        
     self.shouldUpdateKitAuth = YES;
     [self requestLocationPermissions];
     

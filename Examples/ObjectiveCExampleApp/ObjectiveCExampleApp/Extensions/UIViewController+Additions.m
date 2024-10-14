@@ -75,4 +75,9 @@
     return parentController;
 }
 
+- (void)presentNetworkRequestsInspector {
+    NSNotificationName name = @"wormholy_fire";
+    [NSNotificationCenter.defaultCenter postNotificationName:name object:nil];
+}
+
 @end

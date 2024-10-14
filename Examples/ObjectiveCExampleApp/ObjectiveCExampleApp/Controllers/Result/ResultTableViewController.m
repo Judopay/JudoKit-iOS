@@ -26,6 +26,7 @@
 #import "Result.h"
 #import "ResultItem.h"
 #import "ResultItemTableViewCell.h"
+#import "UIViewController+Additions.h"
 
 @interface ResultTableViewController ()
 
@@ -59,18 +60,35 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     UINib *cellNib = [UINib nibWithNibName:@"ResultItemTableViewCell" bundle:NSBundle.mainBundle];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:kTableViewCellReuseIdentifier];
-
+    
     self.title = self.result.title;
     self.view.accessibilityIdentifier = @"Results View";
     self.tableView.accessibilityIdentifier = @"Results View";
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss"
+    
+    UIImage *networkImage = [UIImage systemImageNamed:@"network"];
+    UIImage *xImage = [UIImage systemImageNamed:@"xmark"];
+    
+    UIBarButtonItem *networkInpectorButton = [[UIBarButtonItem alloc] initWithImage:networkImage
                                                                               style:UIBarButtonItemStyleDone
                                                                              target:self
-                                                                             action:@selector(onClose)];
+                                                                             action:@selector(presentNetworkRequestsInspector)];
+    
+    UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithImage:xImage
+                                                                      style:UIBarButtonItemStyleDone
+                                                                     target:self
+                                                                     action:@selector(onClose)];
+    
+    dismissButton.title = @"Dismiss";
+    networkInpectorButton.accessibilityIdentifier = @"Network requests inspector button";
+    dismissButton.accessibilityIdentifier = @"Dismiss button";
+    
+    self.navigationItem.rightBarButtonItems = @[
+        dismissButton,
+        networkInpectorButton
+    ];
 }
 
 - (void)onClose {
@@ -128,7 +146,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
     ResultItem *item = self.result.items[indexPath.row];
     if (item.subResult) {
         UIViewController *controller = [[ResultTableViewController alloc] initWithResult:item.subResult];

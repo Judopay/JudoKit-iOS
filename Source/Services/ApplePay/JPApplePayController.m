@@ -33,6 +33,7 @@
 @property (nonatomic, strong) JPApplePayAuthorizationBlock authorizationBlock;
 @property (nonatomic, strong) JPApplePayDidFinishBlock didFinishBlock;
 @property (nonatomic, assign) BOOL isPaymentAuthorized;
+@property (nonatomic, assign) BOOL paymentAuthorizationViewControllerDidFinish;
 
 @end
 
@@ -51,6 +52,7 @@
 
 - (UIViewController *)applePayViewControllerWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock
                                                     didFinishBlock:(JPApplePayDidFinishBlock)didFinishBlock {
+    self.paymentAuthorizationViewControllerDidFinish = NO;
     self.authorizationBlock = authorizationBlock;
     self.didFinishBlock = didFinishBlock;
 
@@ -71,12 +73,20 @@
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    __weak typeof(self) weakSelf = self;
+    /**
+     * When the host app is moved to the background, the `paymentAuthorizationViewControllerDidFinish`
+     * is invoked twice; hence, to avoid calling `didFinishBlock` twice, this workaround is in place
+     */
+    if (self.paymentAuthorizationViewControllerDidFinish) {
+        return;
+    }
 
+    self.paymentAuthorizationViewControllerDidFinish = YES;
+
+    __weak typeof(self) weakSelf = self;
     [controller dismissViewControllerAnimated:YES
                                    completion:^{
                                        __strong typeof(self) strongSelf = weakSelf;
-
                                        strongSelf.didFinishBlock(strongSelf.isPaymentAuthorized);
                                    }];
 }
