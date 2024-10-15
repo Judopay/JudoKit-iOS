@@ -83,10 +83,10 @@ func openWormholy(_ app: XCUIApplication) {
 func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String) {
     openRequestBodyContents(app)
     
-    let challengeRequestIndicator = app.textViews.matching(NSPredicate(format: "value CONTAINS %@", cri)).firstMatch
+    let challengeRequestIndicator = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", cri)).firstMatch
     XCTAssertTrue(challengeRequestIndicator.exists)
-    
-    let scaExemption = app.textViews.matching(NSPredicate(format: "value CONTAINS %@", sca)).firstMatch
+        
+    let scaExemption = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", sca)).firstMatch
     XCTAssertTrue(scaExemption.exists)
 }
 

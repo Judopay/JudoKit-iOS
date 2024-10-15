@@ -25,7 +25,7 @@ final class RavelinUITests: XCTestCase {
         }
     }
     
-    func testPreventedTransaction() {
+    func testPreventTransaction() {
         app.configureRavelin(suffix: "7")
         app.ravelinTestSetup()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
@@ -33,7 +33,6 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
         app.cardDetailsSubmitButton?.tap()
         assertNoRequestToJudoAPI(app)
     }
@@ -46,9 +45,32 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
-        assertRequestBody(app, cri: "challengepreferred", sca: "lowvalue")
+        assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_PREFERRED, sca: TestData.Ravelin.LOW_VALUE)
+    }
+    
+    func testAllowNoPreferenceTransaction() {
+        app.configureRavelin(suffix: "19")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertRequestBody(app, cri: TestData.Ravelin.NO_PREFERENCE, sca: TestData.Ravelin.TRA)
+    }
+    
+    func testReviewNoChallengeTransaction() {
+        app.configureRavelin(suffix: "24")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.LOW_VALUE)
     }
 }
