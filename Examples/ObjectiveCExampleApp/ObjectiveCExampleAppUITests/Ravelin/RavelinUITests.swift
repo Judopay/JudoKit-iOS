@@ -25,95 +25,7 @@ final class RavelinUITests: XCTestCase {
         }
     }
     
-    func testIncompleteResponseID1() {
-        app.configureRavelin(suffix: "1")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-    }
-    
-    func testIncompleteResponseID2() {
-        app.configureRavelin(suffix: "2")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-    }
-    
-    func testIncompleteResponseID3() {
-        app.configureRavelin(suffix: "3")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-
-    }
-    
-    func testIncompleteResponseID4() {
-        app.configureRavelin(suffix: "4")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-
-    }
-    
-    func testIncompleteResponseID5() {
-        app.configureRavelin(suffix: "5")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-
-    }
-    
-    func testIncompleteResponseID6() {
-        app.configureRavelin(suffix: "6")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success")
-
-    }
-    
-    func testAllFieldsProvidedResponseID7() {
+    func testPreventedTransaction() {
         app.configureRavelin(suffix: "7")
         app.ravelinTestSetup()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
@@ -123,11 +35,11 @@ final class RavelinUITests: XCTestCase {
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         
         app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
+        assertNoRequestToJudoAPI(app)
     }
     
-    func testAllFieldsProvidedResponseID8() {
-        app.configureRavelin(suffix: "8")
+    func testReviewWithChallengeTransaction() {
+        app.configureRavelin(suffix: "25")
         app.ravelinTestSetup()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
@@ -136,71 +48,7 @@ final class RavelinUITests: XCTestCase {
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         
         app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
-    }
-    
-    func testAllFieldsProvidedResponseID9() {
-        app.configureRavelin(suffix: "9")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
-    }
-    
-    func testAllFieldsProvidedResponseID10() {
-        app.configureRavelin(suffix: "10")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
-    }
-    
-    func testAllFieldsProvidedResponseID11() {
-        app.configureRavelin(suffix: "11")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
-    }
-    
-    func testAllFieldsProvidedResponseID12() {
-        app.configureRavelin(suffix: "12")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
-    }
-    
-    func testAllFieldsProvidedResponseID13() {
-        app.configureRavelin(suffix: "13")
-        app.ravelinTestSetup()
-        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        
-        app.cardDetailsSubmitButton?.tap()
-        assertResultObjectNotDisplayed(app)
+        tapCompleteButton(app)
+        assertRequestBody(app, cri: "challengepreferred", sca: "lowvalue")
     }
 }

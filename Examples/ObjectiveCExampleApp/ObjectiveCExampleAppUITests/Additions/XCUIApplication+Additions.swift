@@ -28,6 +28,10 @@ extension XCUIApplication {
     func textWithIdentifier(_ identifier: String) -> XCUIElement? {
         return staticTexts.matching(identifier: identifier).firstMatch
     }
+    
+    func textWithLabel(_ label: String) -> XCUIElement? {
+        return staticTexts.matching(NSPredicate(format: "label CONTAINS %@", label)).firstMatch
+    }
         
     var cardNumberTextField: XCUIElement? {
         get {
@@ -176,6 +180,36 @@ extension XCUIApplication {
     var fieldErrorLabel: String? {
         get {
             return textWithIdentifier(Selectors.BillingInfo.fieldErrorLabel)?.label
+        }
+    }
+    
+    var wormholyButton: XCUIElement? {
+        get {
+            return buttonWithIdentifier(Selectors.Other.wormholyButton)
+        }
+    }
+    
+    var paymentRequestLabel: XCUIElement? {
+        get {
+            return textWithLabel(Selectors.Other.paymentsRequestLabel)
+        }
+    }
+    
+    var viewRequestBodyLabel: XCUIElement? {
+        get {
+            return textWithLabel(Selectors.Other.viewBodyLabel)
+        }
+    }
+    
+    var dismissLabel: XCUIElement? {
+        get {
+            return buttonWithIdentifier(Selectors.Other.dismissButton)
+        }
+    }
+    
+    var searchButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Other.searchButton)
         }
     }
     
