@@ -73,4 +73,67 @@ final class RavelinUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.LOW_VALUE)
     }
+    
+    func testAllowChallengeAsMandateTransaction() {
+        app.configureRavelin(suffix: "18")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_MANDATE, sca: TestData.Ravelin.LOW_VALUE)
+    }
+    
+    func testWithoutSendingCRITransaction() {
+        app.configureRavelin(suffix: "35")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_MANDATE, sca: TestData.Ravelin.LOW_VALUE, criShouldExist: false)
+    }
+    
+    func testWithoutSendingSCATransaction() {
+        app.configureRavelin(suffix: "60")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, scaShouldExist: false)
+    }
+    
+    func testWithoutSendingSCAAndCRITransaction() {
+        app.configureRavelin(suffix: "71")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, criShouldExist: false, scaShouldExist: false)
+    }
+    
+    func testUsingSDKConfigTransaction() {
+        app.configureRavelin(suffix: "78")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, criShouldExist: false, scaShouldExist: false)
+    }
 }

@@ -80,15 +80,25 @@ func openWormholy(_ app: XCUIApplication) {
     app.wormholyButton?.tap()
 }
 
-func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String) {
+func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String, criShouldExist: Bool = true, scaShouldExist: Bool = true) {
     openRequestBodyContents(app)
     
     let challengeRequestIndicator = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", cri)).firstMatch
-    XCTAssertTrue(challengeRequestIndicator.exists)
-        
+    if criShouldExist {
+        XCTAssertTrue(challengeRequestIndicator.exists, "Expected challengeRequestIndicator to exist, but it does not.")
+    } else {
+        XCTAssertFalse(challengeRequestIndicator.exists, "Expected challengeRequestIndicator to NOT exist, but it does.")
+    }
+
     let scaExemption = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", sca)).firstMatch
-    XCTAssertTrue(scaExemption.exists)
+    if scaShouldExist {
+        XCTAssertTrue(scaExemption.exists, "Expected scaExemption to exist, but it does not.")
+    } else {
+        XCTAssertFalse(scaExemption.exists, "Expected scaExemption to NOT exist, but it does.")
+    }
 }
+
+
 
 func typeIntoSearchField(_ app: XCUIApplication, query: String) {
     let searchField = app.searchFields.firstMatch
