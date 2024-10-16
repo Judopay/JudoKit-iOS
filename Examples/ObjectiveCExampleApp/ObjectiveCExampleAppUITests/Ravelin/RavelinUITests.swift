@@ -136,4 +136,31 @@ final class RavelinUITests: XCTestCase {
         tapCompleteButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, criShouldExist: false, scaShouldExist: false)
     }
+    
+    func testPreventWithEmptyObjectTransaction() {
+        app.configureRavelin(suffix: "67")
+        app.ravelinTestSetup()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertNoRequestToJudoAPI(app)
+    }
+    
+    func testHaltTransactionUponErrorSwitch() {
+        app.configureRavelin(suffix: "5")
+        app.ravelinTestSetup()
+        app.settingsButton?.tap()
+        app.haltTransactionSwitch?.tap()
+        app.backButton?.tap()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        assertNoRequestToJudoAPI(app)
+    }
 }

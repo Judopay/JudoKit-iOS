@@ -32,6 +32,10 @@ extension XCUIApplication {
     func textWithLabel(_ label: String) -> XCUIElement? {
         return staticTexts.matching(NSPredicate(format: "label CONTAINS %@", label)).firstMatch
     }
+    
+    func switchWithLabel(_ label: String) -> XCUIElement? {
+        return switches.matching(NSPredicate(format: "label CONTAINS %@", label)).firstMatch
+    }
         
     var cardNumberTextField: XCUIElement? {
         get {
@@ -210,6 +214,18 @@ extension XCUIApplication {
     var searchButton: XCUIElement? {
         get {
             return buttonWithLabel(Selectors.Other.searchButton)
+        }
+    }
+    
+    var haltTransactionSwitch: XCUIElement? {
+        get {
+            return switchWithLabel(Selectors.Other.haltTransactionSwitch)
+        }
+    }
+    
+    var backButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Other.backButton)
         }
     }
     
