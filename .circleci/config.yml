@@ -255,6 +255,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install Rosetta
+          command: softwareupdate --install-rosetta --agree-to-license
+      - run:
           name: Install Sonar Build Wrapper
           command: |
             curl -o /var/tmp/build-wrapper-macosx-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
@@ -266,7 +269,7 @@ jobs:
       - run:
           name: Run SDK Unit Tests
           command: |
-            build-wrapper-macosx-x86 --out-dir build-wrapper-output xcodebuild clean test \
+            arch -x86_64 build-wrapper-macosx-x86 --out-dir build-wrapper-output xcodebuild clean test \
               -project JudoKit_iOS.xcodeproj \
               -scheme JudoKit_iOS \
               -destination "platform=iOS Simulator,name=iPhone 16" \
