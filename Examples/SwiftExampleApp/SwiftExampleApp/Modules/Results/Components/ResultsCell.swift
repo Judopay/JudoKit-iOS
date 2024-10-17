@@ -51,8 +51,11 @@ class ResultsCell: UITableViewCell {
 
     func configure(with viewModel: ResultsViewModel) {
         titleLabel.text = viewModel.title
+        titleLabel.accessibilityIdentifier = viewModel.title + " Title"
         subtitleLabel.text = viewModel.subtitle
+        subtitleLabel.accessibilityIdentifier = viewModel.title + " Value"
         accessoryType = (viewModel.subResult != nil) ? .disclosureIndicator : .none
+        contentStackView.accessibilityIdentifier = viewModel.title
     }
 
     // MARK: - Layout setup
@@ -97,6 +100,7 @@ class ResultsCell: UITableViewCell {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: kFontSize, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -105,6 +109,7 @@ class ResultsCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: kFontSize)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = true
         return label
     }()
 }
