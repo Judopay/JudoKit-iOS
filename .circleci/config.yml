@@ -295,11 +295,11 @@ jobs:
       - run:
           name: Install Sonar Scanner
           command: |
-            export SONARSCANNER_VERSION=5.0.1.3006
-            curl -o sonarscanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONARSCANNER_VERSION}-macosx.zip
+            export SONARSCANNER_VERSION=6.2.1.4610
+            curl -o sonarscanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONARSCANNER_VERSION}-macosx-aarch64.zip
             sudo unzip -q sonarscanner.zip -d /opt
             rm sonarscanner.zip
-            ln -s /opt/sonar-scanner-${SONARSCANNER_VERSION}-macosx/bin/sonar-scanner /usr/local/bin/sonar-scanner
+            ln -s /opt/sonar-scanner-${SONARSCANNER_VERSION}-macosx-aarch64/bin/sonar-scanner /usr/local/bin/sonar-scanner
       - run:
           name: Run Sonar Scan
           command: |
