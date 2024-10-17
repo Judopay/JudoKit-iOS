@@ -315,7 +315,7 @@ jobs:
             PARAMS+=(-Dsonar.projectName=${REPO_NAME})
             PARAMS+=(-Dsonar.sources=.)
             PARAMS+=(-Dsonar.coverageReportPaths=${GENERIC_COVERAGE_REPORTS})
-            PARAMS+=(-Dsonar.cfamily.compile-commands=${OBJC_BUILD_WRAPPER_OUTPUT_DIR})
+            PARAMS+=(-Dsonar.cfamily.build-wrapper-output=${OBJC_BUILD_WRAPPER_OUTPUT_DIR})
             PARAMS+=(-Dsonar.cfamily.cache.enabled=false)
             PARAMS+=(-Dproject.settings=.sonarscan)
             if [ "$BRANCH_NAME" == "master" ]; then
