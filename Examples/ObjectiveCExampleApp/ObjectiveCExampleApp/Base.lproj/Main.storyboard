@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,13 +68,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="Judopay examples" id="zc7-jC-8dZ">
                         <barButtonItem key="backBarButtonItem" title=" " id="xTp-8b-Yc1"/>
-                        <barButtonItem key="rightBarButtonItem" title="Settings" image="settings_black" id="OAR-Ow-eeI">
-                            <connections>
-                                <segue destination="c7c-i8-8h5" kind="show" id="Yn9-60-Z64"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Settings" image="gearshape" catalog="system" largeContentSizeImage="Settings button" id="OAR-Ow-eeI">
+                                <connections>
+                                    <segue destination="c7c-i8-8h5" kind="show" id="Yn9-60-Z64"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Settings" image="network" catalog="system" largeContentSizeImage="Network requests inspector button" id="bO7-fB-8FI" userLabel="Network Inspector Button"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="networkInspectorButton" destination="bO7-fB-8FI" id="BXI-Pe-qAk"/>
                         <outlet property="settingsButton" destination="OAR-Ow-eeI" id="sOO-g6-20C"/>
                         <segue destination="UWo-Q7-j0K" kind="show" identifier="tokenPayments" id="MxX-bg-KUN"/>
                         <segue destination="qIB-ON-fdd" kind="show" identifier="showApplePayScreen" id="R2W-bn-ToH"/>
@@ -553,7 +557,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="settings_black" width="27" height="27"/>
+        <image name="Network requests inspector button" width="128" height="128"/>
+        <image name="Settings button" width="128" height="128"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
+        <image name="network" catalog="system" width="128" height="123"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -561,16 +568,16 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
