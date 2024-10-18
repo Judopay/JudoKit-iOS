@@ -30,7 +30,7 @@ platform :ios do
     carthage
     run_tests(ensure_devices_found: true)
   end
-  
+
   desc "Package ObjC example app and instrumented tests for uploading to firebase"
   lane :package_instrumented_tests do
     cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
@@ -41,8 +41,8 @@ platform :ios do
     }
 
     run_tests_options = {
-      build_for_testing: true, 
-      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace", 
+      build_for_testing: true,
+      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace",
       scheme: "ObjectiveCExampleAppUITests",
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
@@ -58,6 +58,38 @@ platform :ios do
       FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
       Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
         sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
+      end
+    end
+  end
+
+  desc "Package Swift example app and instrumented tests for uploading to Firebase"
+  lane :package_instrumented_tests_swift do
+    cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
+
+    sync_code_signing_options = {
+      type: "development",
+      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*'],
+    }
+
+    run_tests_options = {
+      build_for_testing: true,
+      workspace: "./Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace",
+      testplan: "SwiftExampleAppTestPlan",
+      scheme: "SwiftExampleAppUITests",
+      destination: "generic/platform=iOS",
+      sdk: "iphoneos",
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET",
+      include_simulator_logs: false
+    }
+
+    app_store_connect_api_key
+    sync_code_signing sync_code_signing_options
+    run_tests run_tests_options
+
+    Dir.chdir('..') do
+      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
+        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/SwiftExampleAppUITests.zip Debug-iphoneos SwiftExampleAppUITests_*.xctestrun")
       end
     end
   end
@@ -80,7 +112,7 @@ platform :ios do
 
   desc "Build Sample App"
   lane :build_sample_app do | options |
-    
+
     extract_flavor_list(options).each do | flavor |
 
       build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
@@ -88,7 +120,7 @@ platform :ios do
       sync_code_signing_options = { type: 'adhoc' }
       build_app_options = { export_method: 'ad-hoc' }
 
-      if !build_for_distribution  
+      if !build_for_distribution
         build_app_options[:skip_codesigning] = true
         build_app_options[:skip_package_ipa] = true
         build_app_options[:skip_archive] = true
@@ -98,44 +130,44 @@ platform :ios do
       case flavor
         when 'obj-c'
           cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-          
+
           sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
-          
+
           build_app_options[:scheme] = 'ObjectiveCExampleApp'
           build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
           build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
-  
+
         when 'swift'
           cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
-          
+
           sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
-  
+
           build_app_options[:scheme] = 'SwiftExampleApp'
           build_app_options[:output_name] = 'SwiftExampleApp.ipa'
           build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
-  
+
         when 'carthage'
           Dir.chdir('..') do
             sh('./scripts/carthage_example_carthage_bootstrap.sh')
           end
-  
+
           sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
-  
+
           build_app_options[:scheme] = 'CarthageExampleApp'
           build_app_options[:output_name] = 'CarthageExampleApp.ipa'
           build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
-  
+
         when 'spm'
           sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
-  
+
           build_app_options[:scheme] = 'SPMExampleApp'
           build_app_options[:output_name] = 'SPMExampleApp.ipa'
           build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
-  
+
         else
           UI.user_error!("Unsupported flavor '#{flavor}'.")
         end
-      
+
       if build_for_distribution
         app_store_connect_api_key
         sync_code_signing sync_code_signing_options
@@ -144,18 +176,18 @@ platform :ios do
       build_app build_app_options
       end
   end
-  
+
   desc "Distribute ObjectiveCExampleApp"
   lane :distribute_sample_app do |options|
-    
+
     increment_build_number_options = {}
-    
+
     firebase_app_distribution_options = {
       groups: 'default-testers',
       release_notes: changelog_from_git_commits(commits_count: 1)
     }
 
-    extract_flavor_list(options).each do | flavor |  
+    extract_flavor_list(options).each do | flavor |
       case flavor
         when 'obj-c'
           firebase_app_distribution_options[:app] = ENV['IOS_OBJ_C_FIREBASE_APP_ID']
@@ -172,7 +204,7 @@ platform :ios do
         else
           UI.user_error!("Unsupported flavor '#{flavor}'.")
         end
-      
+
       latest_release = firebase_app_distribution_get_latest_release app:firebase_app_distribution_options[:app]
       current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
       increment_build_number_options[:build_number] = current_version + 1
