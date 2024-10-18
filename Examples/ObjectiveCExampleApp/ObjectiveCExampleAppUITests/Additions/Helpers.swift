@@ -14,7 +14,7 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
     XCTAssert(tableView.waitForExistence(timeout: 10))
     let rawData = tableView.cells.element(boundBy: 15)
     rawData.tap()
-
+    
     let receiptIdCell = tableView.cells.element(matching: .cell, identifier: "receiptId")
     let receiptIdValue = receiptIdCell.staticTexts.element(boundBy: 1).label
     XCTAssert(!receiptIdValue.isEmpty, "ReceiptId is empty")
@@ -22,11 +22,11 @@ func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: Strin
     let typeCell = tableView.cells.element(matching: .cell, identifier: "type")
     let typeValue = typeCell.staticTexts.element(boundBy: 1).label
     XCTAssertEqual(typeValue, type, "Type value on result object does not match the expected string")
-
+    
     let messageCell = tableView.cells.element(matching: .cell, identifier: "message")
     let messageValue = messageCell.staticTexts.element(boundBy: 1).label
     XCTAssertTrue(messageValue.hasPrefix(message), "Message value on result object does not start with the expected string")
-
+    
     let resultCell = tableView.cells.element(matching: .cell, identifier: "result")
     let resultValue = resultCell.staticTexts.element(boundBy: 1).label
     XCTAssertEqual(resultValue, result, "Result value on result object does not match the expected string")
@@ -56,7 +56,7 @@ func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: St
 func tapCompleteButton(_ app: XCUIApplication) {
     let completeButton = app.buttons["COMPLETE"]
     XCTAssert(completeButton.waitForExistence(timeout: 30))
-        
+    
     var retryCount = 0
     
     // Due to GlobalPay environment, sometimes the page does not proceed with a single tap of the Complete button
@@ -89,7 +89,7 @@ func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String, criShou
     } else {
         XCTAssertFalse(challengeRequestIndicator.exists, "Expected challengeRequestIndicator to NOT exist, but it does.")
     }
-
+    
     let scaExemption = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", sca)).firstMatch
     if scaShouldExist {
         XCTAssertTrue(scaExemption.exists, "Expected scaExemption to exist, but it does not.")
@@ -97,8 +97,6 @@ func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String, criShou
         XCTAssertFalse(scaExemption.exists, "Expected scaExemption to NOT exist, but it does.")
     }
 }
-
-
 
 func typeIntoSearchField(_ app: XCUIApplication, query: String) {
     let searchField = app.searchFields.firstMatch
