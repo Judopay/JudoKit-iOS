@@ -272,7 +272,7 @@ jobs:
             arch -x86_64 build-wrapper-macosx-x86 --out-dir build-wrapper-output xcodebuild clean test \
               -project JudoKit_iOS.xcodeproj \
               -scheme JudoKit_iOS \
-              -destination "platform=iOS Simulator,name=iPhone 16" \
+              -destination "platform=iOS Simulator,name=iPhone 15" \
               -enableCodeCoverage YES \
               -derivedDataPath DerivedData
       - run:
