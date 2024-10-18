@@ -54,5 +54,13 @@ class Selectors {
         static let threeDS2CancelButton = "Cancel"
         static let resultsTable = "Results View"
         static let cancelButton = "Cancel"
+        static let wormholyButton = "Network requests inspector button"
+        static let paymentsRequestLabel = "/transactions/payments"
+        static let viewBodyLabel = "View body"
+        static let dismissButton = "Dismiss button"
+        static let searchButton = "Search"
+        static let requestBodySearchTerm = "referencenumber"
+        static let haltTransactionSwitch = "Halt transaction in case of any error"
+        static let backButton = "Judopay examples"
     }
 }

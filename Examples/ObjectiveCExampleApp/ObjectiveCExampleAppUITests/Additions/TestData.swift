@@ -22,12 +22,12 @@ class TestData {
         static let REVIEW = "REVIEW"
         static let AUTHORISE = "AUTHORISE"
         static let AUTHENTICATE = "AUTHENTICATE"
-        static let TRA = "TRANSACTION_RISK_ANALYSIS"
-        static let LOW_VALUE = "LOW_VALUE"
-        static let NO_CHALLENGE = "NO_CHALLENGE_REQUESTED"
-        static let NO_PREFERENCE = "NO_PREFERENCE"
-        static let CHALLENGE_MANDATE = "CHALLENGE_REQUESTED_AS_MANDATE"
-        static let CHALLENGE_REQUESTED = "CHALLENGE_REQUESTED"
+        static let TRA = "transactionriskanalysis"
+        static let LOW_VALUE = "lowvalue"
+        static let NO_CHALLENGE = "noChallenge"
+        static let NO_PREFERENCE = "nopreference"
+        static let CHALLENGE_MANDATE = "challengeasmandate"
+        static let CHALLENGE_PREFERRED = "challengepreferred"
     }
     struct BillingInfo {
         static let VALID_EMAIL = "user@test.com"

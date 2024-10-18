@@ -28,6 +28,14 @@ extension XCUIApplication {
     func textWithIdentifier(_ identifier: String) -> XCUIElement? {
         return staticTexts.matching(identifier: identifier).firstMatch
     }
+    
+    func textWithLabel(_ label: String) -> XCUIElement? {
+        return staticTexts.matching(NSPredicate(format: "label CONTAINS %@", label)).firstMatch
+    }
+    
+    func switchWithLabel(_ label: String) -> XCUIElement? {
+        return switches.matching(NSPredicate(format: "label CONTAINS %@", label)).firstMatch
+    }
         
     var cardNumberTextField: XCUIElement? {
         get {
@@ -179,6 +187,48 @@ extension XCUIApplication {
         }
     }
     
+    var wormholyButton: XCUIElement? {
+        get {
+            return buttonWithIdentifier(Selectors.Other.wormholyButton)
+        }
+    }
+    
+    var paymentRequestLabel: XCUIElement? {
+        get {
+            return textWithLabel(Selectors.Other.paymentsRequestLabel)
+        }
+    }
+    
+    var viewRequestBodyLabel: XCUIElement? {
+        get {
+            return textWithLabel(Selectors.Other.viewBodyLabel)
+        }
+    }
+    
+    var dismissLabel: XCUIElement? {
+        get {
+            return buttonWithIdentifier(Selectors.Other.dismissButton)
+        }
+    }
+    
+    var searchButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Other.searchButton)
+        }
+    }
+    
+    var haltTransactionSwitch: XCUIElement? {
+        get {
+            return switchWithLabel(Selectors.Other.haltTransactionSwitch)
+        }
+    }
+    
+    var backButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Other.backButton)
+        }
+    }
+    
     func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
@@ -200,12 +250,11 @@ extension XCUIApplication {
         }
     }
     
-    func configureRavelin(action: String, toa: String, exemption: String, challenge: String) {
+    func configureRavelin(suffix: String) {
         
         let rsaPublicKey = ProcessInfo.processInfo.environment["RSA_PUBLIC_KEY"]
         let ravelinMockServerURL = ProcessInfo.processInfo.environment["RAVELIN_MOCK_SERVER_URL"]
         
-        let suffix = action + "/" + toa + "/" + exemption + "/" + challenge
         let url = (ravelinMockServerURL ?? "") + suffix
         
         launchArguments += ["-is_recommendation_enabled", "true",
