@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos:
     macos:
-      xcode: 15.4.0
+      xcode: 15.3.0
 
 orbs:
   slack: circleci/slack@4.12.5
