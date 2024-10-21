@@ -45,6 +45,12 @@
 		ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
 		B763B0BA0E70403D0411DB3C /* Pods_SwiftExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */; };
 		C82C2B8CD5388E644731B189 /* Pods_SwiftExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */; };
+		D1F01A482C9C2646001AC792 /* CardPaymentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */; };
+		D1F01A4A2C9C2785001AC792 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A492C9C2785001AC792 /* Constants.swift */; };
+		D1F01A4C2C9C27C3001AC792 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4B2C9C27C3001AC792 /* Helpers.swift */; };
+		D1F01A4E2C9C27F2001AC792 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4D2C9C27F2001AC792 /* Selectors.swift */; };
+		D1F01A502C9C2839001AC792 /* XCUIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */; };
+		D1F01A522C9C28CE001AC792 /* XCUIElement+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +120,14 @@
 		BB51388758C04FBB45FE0CE3 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp-SwiftExampleAppUITests/Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1C7D453B0F2D8A54EF0682A /* Pods-SwiftExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D11DD0362CA2BD3900741C8B /* SwiftExampleAppTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftExampleAppTestPlan.xctestplan; sourceTree = "<group>"; };
+		D1F01A462C9C2646001AC792 /* SwiftExampleAppUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftExampleAppUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentUITests.swift; sourceTree = "<group>"; };
+		D1F01A492C9C2785001AC792 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D1F01A4B2C9C27C3001AC792 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		D1F01A4D2C9C27F2001AC792 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
+		D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Additions.swift"; sourceTree = "<group>"; };
+		D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Additions.swift"; sourceTree = "<group>"; };
 		D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp_SwiftExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -317,7 +331,14 @@
 		448AB2032450DF24004A11CB /* SwiftExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				D1F01A452C9C25D6001AC792 /* CardPayment */,
 				448AB2062450DF24004A11CB /* Info.plist */,
+				D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */,
+				D1F01A492C9C2785001AC792 /* Constants.swift */,
+				D1F01A4B2C9C27C3001AC792 /* Helpers.swift */,
+				D1F01A4D2C9C27F2001AC792 /* Selectors.swift */,
+				D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */,
+				D11DD0362CA2BD3900741C8B /* SwiftExampleAppTestPlan.xctestplan */,
 			);
 			path = SwiftExampleAppUITests;
 			sourceTree = "<group>";
@@ -340,6 +361,15 @@
 				ADBFBC752A12997D0094859B /* NoUICardPayViewModel.swift */,
 			);
 			path = NoUICardPay;
+			sourceTree = "<group>";
+		};
+		D1F01A452C9C25D6001AC792 /* CardPayment */ = {
+			isa = PBXGroup;
+			children = (
+				D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */,
+				D1F01A462C9C2646001AC792 /* SwiftExampleAppUITests-Bridging-Header.h */,
+			);
+			path = CardPayment;
 			sourceTree = "<group>";
 		};
 		DA527D3008B4EDCB59C25A41 /* Pods */ = {
@@ -437,6 +467,7 @@
 					};
 					448AB1FF2450DF24004A11CB = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1520;
 						TestTargetID = 448AB1DE2450DF22004A11CB;
 					};
 				};
@@ -661,6 +692,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1F01A482C9C2646001AC792 /* CardPaymentUITests.swift in Sources */,
+				D1F01A4C2C9C27C3001AC792 /* Helpers.swift in Sources */,
+				D1F01A4E2C9C27F2001AC792 /* Selectors.swift in Sources */,
+				D1F01A522C9C28CE001AC792 /* XCUIElement+Additions.swift in Sources */,
+				D1F01A502C9C2839001AC792 /* XCUIApplication+Additions.swift in Sources */,
+				D1F01A4A2C9C2785001AC792 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,7 +851,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftExampleApp/SwiftExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -830,7 +867,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
 				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoSwift";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -845,7 +882,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftExampleApp/SwiftExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -861,7 +898,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
 				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoSwift";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -874,7 +911,11 @@
 			baseConfigurationReference = 59582CF274093B83FB4DC7FC /* Pods-SwiftExampleAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -882,8 +923,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftExampleApp.app/SwiftExampleApp";
@@ -895,7 +941,11 @@
 			baseConfigurationReference = A177A2DBBC2751C575930C16 /* Pods-SwiftExampleAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -903,8 +953,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftExampleApp.app/SwiftExampleApp";
@@ -915,15 +970,30 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0308455F033B8095A10801D6 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExampleAppUITests/CardPayment/SwiftExampleAppUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftExampleApp;
@@ -934,15 +1004,28 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB51388758C04FBB45FE0CE3 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExampleAppUITests/CardPayment/SwiftExampleAppUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftExampleApp;
