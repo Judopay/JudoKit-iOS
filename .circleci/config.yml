@@ -344,7 +344,7 @@ jobs:
           at: .
       - run:
           name: Build example apps / test integration with SDK
-          command: bundle exec fastlane build_sample_app flavors:obj-c,swift,carthage,spm build_for_distribution:false
+          command: bundle exec fastlane build_sample_apps flavors:obj-c,swift,carthage,spm build_for_distribution:false
   build_instrumented_tests_package:
     executor: macos
     steps:
@@ -465,7 +465,7 @@ jobs:
           name: Distribute Sample App
           command: |
             export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json
-            bundle exec fastlane distribute_sample_app flavors:obj-c,swift,carthage,spm
+            bundle exec fastlane distribute_sample_app flavors:obj-c,obj-c-stg,swift,carthage,spm
   release_sdk:
     executor: macos
     steps:

@@ -223,25 +223,39 @@
     }
 }
 
-- (NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed {
-    NSString *dsServerID = isSandboxed ? @"F000000000" : @"unknown-id";
+- (NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed
+                     usingFabrick3DSService:(BOOL)isUsingFabrick3DSService {
+    if (isSandboxed) {
+        return isUsingFabrick3DSService ? @"F121535344" : self.sandboxDirectoryServerId;
+    }
+    
+    return self.productionDirectoryServerId;
+}
 
+- (NSString *)sandboxDirectoryServerId {
     switch (self.cardType) {
         case JPCardNetworkTypeVisa:
-            dsServerID = isSandboxed ? @"F055545342" : @"A000000003";
-            break;
+            return @"F055545342";
         case JPCardNetworkTypeMasterCard:
         case JPCardNetworkTypeMaestro:
-            dsServerID = isSandboxed ? @"F155545342" : @"A000000004";
-            break;
-        case JPCardNetworkTypeAMEX:
-            dsServerID = @"A000000025";
-            break;
+            return @"F155545342";
         default:
-            break;
+            return @"F000000000";
     }
+}
 
-    return dsServerID;
+- (NSString *)productionDirectoryServerId {
+    switch (self.cardType) {
+        case JPCardNetworkTypeVisa:
+            return @"A000000003";
+        case JPCardNetworkTypeMasterCard:
+        case JPCardNetworkTypeMaestro:
+            return @"A000000004";
+        case JPCardNetworkTypeAMEX:
+            return @"A000000025";
+        default:
+            return @"unknown-id";
+    }
 }
 
 @end

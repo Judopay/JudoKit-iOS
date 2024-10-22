@@ -52,6 +52,8 @@
 #import "JPUIConfiguration.h"
 #import "UIApplication+Additions.h"
 
+static NSString *const kExtrasShouldUseFabrickDSIDKey = @"shouldUseFabrickDsId";
+
 @interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
 
 @property (strong, nonatomic) JPApiService *apiService;
@@ -257,7 +259,12 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
              andCompletion:(JPCompletionBlock)completion {
     @try {
         NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;
-        NSString *dsServerID = [details directoryServerIdInSandboxEnv:self.apiService.isSandboxed];
+        
+        NSNumber *myValue = self.configuration.extras[kExtrasShouldUseFabrickDSIDKey];
+        BOOL isUsingFabrick3DSService = myValue.boolValue;
+
+        NSString *dsServerID = [details directoryServerIdInSandboxEnv:self.apiService.isSandboxed
+                                               usingFabrick3DSService:isUsingFabrick3DSService];
 
         JP3DSTransaction *transaction = [self.threeDSTwoService createTransactionWithDirectoryServerID:dsServerID
                                                                                         messageVersion:messageVersion];

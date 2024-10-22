@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - API credentials section keys
 
 static NSString *const kSandboxedKey = @"is_sandboxed";
+static NSString *const kIsUsingFabrick3DSServiceKey = @"is_using_fabrick_3ds_service";
 static NSString *const kJudoIdKey = @"judo_id";
 
 #pragma mark - Authorization section keys
@@ -189,6 +190,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 #pragma mark - API credentials section
 
 - (BOOL)isSandboxed;
+- (BOOL)isUsingFabrick3DSService;
 
 - (NSString *)judoId;
 
