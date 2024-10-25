@@ -78,7 +78,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     self.headingLabel = [UILabel new];
     self.headingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.headingLabel.text = @"billing_details_title"._jp_localized;
+    self.headingLabel.text = @"jp_billing_details_title"._jp_localized;
     self.headingLabel.numberOfLines = 0;
 
     self.emailTextField = [JPCardInputField new];
@@ -131,7 +131,7 @@ static const float kPhoneCodeWidth = 45.0F;
     self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
 
-    NSString *title = [NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(2)];
+    NSString *title = [NSString stringWithFormat:@"jp_button_add_address_line_card"._jp_localized, @(2)];
     [self.addAddressLineButton setTitle:title forState:UIControlStateNormal];
 
     self.line2TextField = [JPCardInputField new];
@@ -207,7 +207,7 @@ static const float kPhoneCodeWidth = 45.0F;
                      animations:^{
                          if (weakSelf.line2TextField.hidden) {
                              weakSelf.line2TextField.hidden = NO;
-                             [weakSelf.addAddressLineButton setTitle:[NSString stringWithFormat:@"button_add_address_line_card"._jp_localized, @(3)]
+                             [weakSelf.addAddressLineButton setTitle:[NSString stringWithFormat:@"jp_button_add_address_line_card"._jp_localized, @(3)]
                                                             forState:UIControlStateNormal];
                              return;
                          }

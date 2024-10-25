@@ -319,16 +319,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"delete_card_alert_title"._jp_localized
-                                                                             message:@"delete_card_alert_message"._jp_localized
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"jp_delete_card_alert_title"._jp_localized
+                                                                             message:@"jp_delete_card_alert_message"._jp_localized
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel"._jp_localized
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"jp_cancel"._jp_localized
                                                            style:UIAlertActionStyleDefault
                                                          handler:nil];
 
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"delete"._jp_localized
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"jp_delete"._jp_localized
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
                                                              [weakSelf.presenter deleteCardWithIndex:indexPath.row];

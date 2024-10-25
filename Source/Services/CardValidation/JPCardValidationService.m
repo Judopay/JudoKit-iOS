@@ -125,13 +125,13 @@ static int const kCardHolderNameLength = 4;
     BOOL isValid = YES;
 
     if (input.length == 0) {
-        errorMessage = @"card_holder_name_required"._jp_localized;
+        errorMessage = @"jp_card_holder_name_required"._jp_localized;
         isValid = NO;
     } else if (input.length < kCardHolderNameLength) {
-        errorMessage = @"card_holder_name_too_short"._jp_localized;
+        errorMessage = @"jp_card_holder_name_too_short"._jp_localized;
         isValid = NO;
     } else if (!input._jp_isValidCardholderName) {
-        errorMessage = @"card_holder_name_special_chars"._jp_localized;
+        errorMessage = @"jp_card_holder_name_special_chars"._jp_localized;
         isValid = NO;
     }
 
@@ -169,7 +169,7 @@ static int const kCardHolderNameLength = 4;
 
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:NO
-                                       errorMessage:@"check_expiry_date"._jp_localized
+                                       errorMessage:@"jp_check_expiry_date"._jp_localized
                                      formattedInput:input];
 }
 
@@ -187,7 +187,7 @@ static int const kCardHolderNameLength = 4;
 
     if (!isValid) {
         NSString *securityCode = [JPCardNetwork secureCodePlaceholderForNetworkType:cardNetwork];
-        NSString *format = @"check_security_code"._jp_localized;
+        NSString *format = @"jp_check_security_code"._jp_localized;
         errorMessage = [NSString stringWithFormat:format, securityCode];
     }
 
@@ -216,14 +216,14 @@ static int const kCardHolderNameLength = 4;
     BOOL isValid = input._jp_isEmail;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_email_address"._jp_localized
+                                       errorMessage:isValid ? nil : @"jp_invalid_email_address"._jp_localized
                                      formattedInput:input];
 }
 
 - (JPValidationResult *)validateBillingStateInput:(NSString *)input {
     if (self.selectedBillingCountry == JPBillingCountryUSA) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
-        NSString *errorMessage = isValid ? nil : @"invalid_state_should_not_be_empty"._jp_localized;
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
@@ -232,7 +232,7 @@ static int const kCardHolderNameLength = 4;
 
     if (self.selectedBillingCountry == JPBillingCountryCanada) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
-        NSString *errorMessage = isValid ? nil : @"invalid_province_territory_should_not_be_empty"._jp_localized;
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_province_territory_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
@@ -258,7 +258,7 @@ static int const kCardHolderNameLength = 4;
     BOOL isValid = input._jp_isPhoneCode;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_phone_code_value"._jp_localized
+                                       errorMessage:isValid ? nil : @"jp_invalid_phone_code_value"._jp_localized
                                      formattedInput:input];
 }
 
@@ -266,13 +266,13 @@ static int const kCardHolderNameLength = 4;
     BOOL isValid = input._jp_isPhoneNumber;
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
-                                       errorMessage:isValid ? nil : @"invalid_mobile_number"._jp_localized
+                                       errorMessage:isValid ? nil : @"jp_invalid_mobile_number"._jp_localized
                                      formattedInput:input];
 }
 
 - (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input {
     BOOL isValid = input._jp_isValidAddressLine;
-    NSString *errorMessage = isValid ? nil : @"invalid_address"._jp_localized;
+    NSString *errorMessage = isValid ? nil : @"jp_invalid_address"._jp_localized;
 
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
@@ -282,7 +282,7 @@ static int const kCardHolderNameLength = 4;
 
 - (JPValidationResult *)validateBillingCityInput:(NSString *)input {
     BOOL isValid = input._jp_isValidCity;
-    NSString *errorMessage = isValid ? nil : @"invalid_city"._jp_localized;
+    NSString *errorMessage = isValid ? nil : @"jp_invalid_city"._jp_localized;
 
     return [JPValidationResult validationWithResult:isValid
                                        inputAllowed:YES
@@ -307,7 +307,7 @@ static int const kCardHolderNameLength = 4;
 - (JPValidationResult *)validateFirstExpiryDigitInput:(NSString *)input {
 
     BOOL isValidInput = ([input isEqualToString:@"0"] || [input isEqualToString:@"1"]);
-    NSString *errorMessage = isValidInput ? nil : @"check_expiry_date"._jp_localized;
+    NSString *errorMessage = isValidInput ? nil : @"jp_check_expiry_date"._jp_localized;
 
     self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                       inputAllowed:YES
@@ -334,7 +334,7 @@ static int const kCardHolderNameLength = 4;
     BOOL isValidInput = (input.intValue > 0 && input.intValue <= 12);
 
     NSString *formattedInput = [NSString stringWithFormat:@"%@/", input];
-    NSString *errorMessage = isValidInput ? nil : @"check_expiry_date"._jp_localized;
+    NSString *errorMessage = isValidInput ? nil : @"jp_check_expiry_date"._jp_localized;
     self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                       inputAllowed:YES
                                                                       errorMessage:errorMessage
@@ -369,7 +369,7 @@ static int const kCardHolderNameLength = 4;
     int yearFirstDigit = [yearString substringToIndex:1].intValue;
 
     BOOL isValid = lastDigitString.intValue >= yearFirstDigit && lastDigitString.intValue < yearFirstDigit + 2;
-    NSString *errorMessage = isValid ? nil : @"check_expiry_date"._jp_localized;
+    NSString *errorMessage = isValid ? nil : @"jp_check_expiry_date"._jp_localized;
 
     self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                       inputAllowed:YES
@@ -409,7 +409,7 @@ static int const kCardHolderNameLength = 4;
     if (inputYear < currentYear) {
         self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                           inputAllowed:YES
-                                                                          errorMessage:@"check_expiry_date"._jp_localized
+                                                                          errorMessage:@"jp_check_expiry_date"._jp_localized
                                                                         formattedInput:input];
         return self.lastExpiryDateValidationResult;
     }
@@ -417,7 +417,7 @@ static int const kCardHolderNameLength = 4;
     if (inputYear == currentYear && inputMonth < currentMonth) {
         self.lastExpiryDateValidationResult = [JPValidationResult validationWithResult:NO
                                                                           inputAllowed:YES
-                                                                          errorMessage:@"check_expiry_date"._jp_localized
+                                                                          errorMessage:@"jp_check_expiry_date"._jp_localized
                                                                         formattedInput:input];
         return self.lastExpiryDateValidationResult;
     }
@@ -488,9 +488,9 @@ static int const kCardHolderNameLength = 4;
 
 - (NSString *)postCodeErrorForCountry:(JPBillingCountry)country {
     if (country == JPBillingCountryUSA) {
-        return @"invalid_zip_code"._jp_localized;
+        return @"jp_invalid_zip_code"._jp_localized;
     }
-    return @"invalid_postcode"._jp_localized;
+    return @"jp_invalid_postcode"._jp_localized;
 }
 
 - (NSUInteger)postCodeMaxLengthForCountry:(JPBillingCountry)country {

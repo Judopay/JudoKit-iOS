@@ -86,7 +86,7 @@ static const float kContentPadding = 28.0F;
     switch (viewModel.paymentMethodType) {
         case JPPaymentMethodTypeApplePay:
             self.leadingImageView.image = [UIImage _jp_imageWithIconName:@"apple-pay-icon"];
-            self.titleLabel.text = @"apple_pay"._jp_localized;
+            self.titleLabel.text = @"jp_apple_pay"._jp_localized;
             self.accessibilityIdentifier = @"Apple Pay Header View";
             break;
 

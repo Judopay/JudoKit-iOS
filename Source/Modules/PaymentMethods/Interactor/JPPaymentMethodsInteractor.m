@@ -302,28 +302,28 @@
 - (NSString *)defaultCardTitleForCardNetwork:(JPCardNetworkType)network {
     switch (network) {
         case JPCardNetworkTypeVisa:
-            return @"default_visa_card_title"._jp_localized;
+            return @"jp_default_visa_card_title"._jp_localized;
 
         case JPCardNetworkTypeAMEX:
-            return @"default_amex_card_title"._jp_localized;
+            return @"jp_default_amex_card_title"._jp_localized;
 
         case JPCardNetworkTypeMaestro:
-            return @"default_maestro_card_title"._jp_localized;
+            return @"jp_default_maestro_card_title"._jp_localized;
 
         case JPCardNetworkTypeMasterCard:
-            return @"default_mastercard_card_title"._jp_localized;
+            return @"jp_default_mastercard_card_title"._jp_localized;
 
         case JPCardNetworkTypeChinaUnionPay:
-            return @"default_chinaunionpay_card_title"._jp_localized;
+            return @"jp_default_chinaunionpay_card_title"._jp_localized;
 
         case JPCardNetworkTypeJCB:
-            return @"default_jcb_card_title"._jp_localized;
+            return @"jp_default_jcb_card_title"._jp_localized;
 
         case JPCardNetworkTypeDiscover:
-            return @"default_discover_card_title"._jp_localized;
+            return @"jp_default_discover_card_title"._jp_localized;
 
         case JPCardNetworkTypeDinersClub:
-            return @"default_dinersclub_card_title"._jp_localized;
+            return @"jp_default_dinersclub_card_title"._jp_localized;
 
         default:
             return @"";

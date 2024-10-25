@@ -327,7 +327,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (UILabel *)amountPrefixLabel {
     if (!_amountPrefixLabel) {
         _amountPrefixLabel = [UILabel new];
-        _amountPrefixLabel.text = @"you_will_pay"._jp_localized;
+        _amountPrefixLabel.text = @"jp_you_will_pay"._jp_localized;
         _amountPrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _amountPrefixLabel.adjustsFontSizeToFitWidth = YES;
         _amountPrefixLabel.textAlignment = NSTextAlignmentCenter;
