@@ -397,6 +397,7 @@ jobs:
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
+              --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
@@ -449,6 +450,7 @@ jobs:
               --test ./Output/SwiftExampleAppUITests.zip \
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
+              --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
       - notify_slack_error
       - notify_slack_pass
