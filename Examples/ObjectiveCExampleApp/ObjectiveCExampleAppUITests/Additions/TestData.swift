@@ -49,5 +49,6 @@ class TestData {
     struct Other {
         static let CANCELLED_PAYMENT_TOAST = "The transaction was cancelled by the user."
         static let CANCELLED_3DS2_PAYMENT_TOAST = "Unable to process transaction. Card authentication failed with 3DS Server."
+        static let IDEAL_CANCELLED_PAYMENT_ALERT = "Card transaction unsuccessful - please try again"
     }
 }

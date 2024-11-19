@@ -62,6 +62,21 @@
             value = "$(RAVELIN_MOCK_SERVER_URL)"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "IDEAL_JUDO_ID"
+            value = "$(IDEAL_JUDO_ID)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "IDEAL_API_TOKEN"
+            value = "$(IDEAL_API_TOKEN)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "IDEAL_API_SECRET"
+            value = "$(IDEAL_API_SECRET)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
       <Testables>
          <TestableReference
