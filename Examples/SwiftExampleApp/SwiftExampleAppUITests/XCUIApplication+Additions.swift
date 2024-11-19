@@ -129,16 +129,50 @@ extension XCUIApplication {
     var fieldErrorLabel: String? {
         return textWithIdentifier(Selectors.BillingInfo.fieldErrorLabel)?.label
     }
+    
+    var idealNextButton: XCUIElement? {
+        return buttonWithLabel(Selectors.Ideal.nextButton)
+    }
+    
+    var idealLoginButton: XCUIElement? {
+        return buttonWithLabel(Selectors.Ideal.loginButton)
+    }
+    
+    var idealPaymentButton: XCUIElement? {
+        return buttonWithLabel(Selectors.Ideal.makePaymentButton)
+    }
+    
+    var idealBackButton: XCUIElement? {
+        return buttonWithLabel(Selectors.Ideal.backButton)
+    }
+    
+    var idealAbortButton: XCUIElement? {
+        return buttonWithLabel(Selectors.Ideal.abortButton)
+    }
 
-    func configureSettings(isRavelinTest: Bool) {
+    func configureSettings(isRavelinTest: Bool, isIdealTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
         let apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
-
-        launchArguments = ["-judo_id", judoID ?? "",
-                            "-token", apiToken ?? "",
-                            "-secret", apiSecret ?? "",
-                            "-is_sandboxed", "true",
+        
+        let idealJudoID = ProcessInfo.processInfo.environment["IDEAL_JUDO_ID"]
+        let idealToken = ProcessInfo.processInfo.environment["IDEAL_API_TOKEN"]
+        let idealSecret = ProcessInfo.processInfo.environment["IDEAL_API_SECRET"]
+        
+        if isIdealTest {
+            launchArguments += ["-judo_id", idealJudoID ?? "",
+                                "-token", idealToken ?? "",
+                                "-secret", idealSecret ?? "",
+                                "-is_payment_method_ideal_enabled", "true",
+                                "-is_payment_method_card_enabled", "false",
+                                "-currency", "EUR"]
+        } else {
+            launchArguments += ["-judo_id", judoID ?? "",
+                                "-token", apiToken ?? "",
+                                "-secret", apiSecret ?? "",]
+        }
+        
+        launchArguments += ["-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",
                             "-should_ask_for_billing_information", "false",
                             "-is_recommendation_enabled", "false"]
@@ -201,5 +235,22 @@ extension XCUIApplication {
                                  cardHolder: Constants.CardDetails.cardHolderName,
                                  expiryDate: Constants.CardDetails.cardExpiry,
                                  securityCode: Constants.CardDetails.cardSecurityCode)
+    }
+    
+    func assertIdealResultObject(_ app: XCUIApplication, _ paymentMethod: String, _ message: String) {
+        let tableView = app.tables[Selectors.Other.resultsTable]
+        XCTAssert(tableView.waitForExistence(timeout: 10))
+        
+        let receiptIdCell = tableView.cells.element(matching: .cell, identifier: "receiptId")
+        let receiptIdValue = receiptIdCell.staticTexts.element(boundBy: 1).label
+        XCTAssert(!receiptIdValue.isEmpty, "ReceiptId is empty")
+        
+        let paymentMethodCell = tableView.cells.element(matching: .cell, identifier: "paymentMethod")
+        let paymentMethodValue = paymentMethodCell.staticTexts.element(boundBy: 1).label
+        XCTAssertEqual(paymentMethodValue, paymentMethod, "Payment method value on result object does not match the expected string")
+        
+        let messageCell = tableView.cells.element(matching: .cell, identifier: "message")
+        let messageValue = messageCell.staticTexts.element(boundBy: 1).label
+        XCTAssertTrue(messageValue.hasPrefix(message), "Message value on result object does not start with the expected string")
     }
 }
