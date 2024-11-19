@@ -229,6 +229,36 @@ extension XCUIApplication {
         }
     }
     
+    var idealNextButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Ideal.nextButton)
+        }
+    }
+    
+    var idealLoginButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Ideal.loginButton)
+        }
+    }
+    
+    var idealPaymentButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Ideal.makePaymentButton)
+        }
+    }
+    
+    var idealBackButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Ideal.backButton)
+        }
+    }
+    
+    var idealAbortButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Ideal.abortButton)
+        }
+    }
+    
     func configureSettings(isRavelinTest: Bool, isIdealTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]

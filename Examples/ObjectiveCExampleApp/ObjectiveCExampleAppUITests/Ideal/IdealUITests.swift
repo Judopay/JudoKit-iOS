@@ -28,14 +28,10 @@ final class IdealUITests: XCTestCase {
         app.swipeUp()
         app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
-        let nextButton = app.buttons[Selectors.Ideal.nextButton]
-        nextButton.tap()
-        let loginButton = app.buttons[Selectors.Ideal.loginButton]
-        loginButton.tap()
-        let paymentButton = app.buttons[Selectors.Ideal.makePaymentButton]
-        paymentButton.tap()
-        let backToAppButton = app.buttons[Selectors.Ideal.backButton]
-        backToAppButton.tap()
+        app.idealNextButton?.tap()
+        app.idealLoginButton?.tap()
+        app.idealPaymentButton?.tap()
+        app.idealBackButton?.tap()
         assertIdealResultObject(app, "IDEAL", "SUCCEEDED")
     }
     
@@ -44,8 +40,7 @@ final class IdealUITests: XCTestCase {
         app.swipeUp()
         app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
-        let abortButton = app.buttons[Selectors.Ideal.abortButton]
-        abortButton.tap()
+        app.idealAbortButton?.tap()
         sleep(3)
         let snackbar = app.staticTexts[TestData.Other.IDEAL_CANCELLED_PAYMENT_ALERT]
         XCTAssert(snackbar.exists, "Alert error message not displayed")
