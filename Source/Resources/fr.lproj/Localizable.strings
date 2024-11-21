@@ -45,10 +45,6 @@
 "jp_check_expiry_date" = "Vérifiez la date d'expiration";
 "jp_choose_payment_method" = "Choisissez un mode de paiement";
 "jp_connected_cards" = "Cartes connectées";
-"jp_country_canada" = "Canada";
-"country_other" = "Autre";
-"country_uk" = "UK";
-"country_usa" = "USA";
 "jp_customise_card" = "Customsier carte";
 "jp_default_amex_card_title" = "Ma carte American Express ";
 "jp_default_chinaunionpay_card_title" = "Ma carte China Union Pay ";
@@ -61,7 +57,6 @@
 "jp_delete" = "Supprimer";
 "jp_delete_card_alert_message" = "Voulez-vous vraiment supprimer cette carte de votre portefeuille ?";
 "jp_delete_card_alert_title" = "Supprimer carte ? ";
-"dismiss" = "Ignorer";
 "jp_error" = "Erreur";
 "jp_enter_card_title" = "Entrez un titre de carte...";
 "jp_error_card_title_too_long" = "Le nom ne peut excéder 28 caractères ";
@@ -71,11 +66,7 @@
 "jp_expired" = "Expirée";
 "jp_expiry_date" = "MM/AA";
 "jp_ideal_payment" = "iDeal";
-"ideal_transaction" = "Paiement iDEAL";
-"invalid_expiry_date_value" = "La date entrée est invalide ";
-"invalid_email_value" = "Invalid email entered";
 "jp_invalid_phone_code_value" = "Invalid phone code entered";
-"invalid_phone_value" = "Invalid phone entered";
 "jp_invalid_postcode" = "Code postal invalide";
 "jp_invalid_zip_code" = "Code postal invalide";
 "jp_invalid_email_address" = "Please enter a valid email";
@@ -92,13 +83,6 @@
 "jp_pay_now" = "Payer maintenant";
 "jp_continue" = "Continue";
 "jp_post_code_hint" = "Code postal";
-"email_hint" = "Email";
-"phone_country_code_hint" = "+()";
-"mobile_number_hint" = "Mobile number";
-"address_line_1_hint" = "Address line 1";
-"address_line_2_hint" = "Address line 2";
-"address_line_3_hint" = "Address line 3";
-"city_hint" = "City";
 "jp_processing" = "En cours";
 "jp_register_card" = "Enregistrer carte";
 "jp_retry" = "Réessayer";
@@ -115,9 +99,7 @@
 "jp_scan_card_restricted_title" = "L'accès à la caméra est restreint";
 "jp_scan_card_simulator_title" = "La caméra n'est pas disponible sur les émulateurs iOS";
 "jp_secure_server_transmission" = "Serveur sécurisé : Vos informations de paiement sont encryptées par SSL avant transfert vers notre prestataire de paiements sécurisés. Aucune information ne sera conservée sur cet appareil ou sur nos serveurs.";
-"three_d_secure_check" = "Vérification 3D Secure";
 "jp_transaction_delayed" = "La transaction prend plus de temps que prévu ";
-"transaction_successful" = "Transaction terminée !";
 "jp_transaction_timeout" = "La transaction a échoué";
 "jp_transaction_unsuccessful" = "La transaction a échoué - veuillez réessayer ";
 "jp_unknown_card_network" = "Réseau de cartes inconnu";
@@ -205,8 +187,6 @@
 "jp_error_missing_recurring_label_desc" = "Recurring Payment label cannot be null";
 "jp_error_missing_recurring_label_reason" = "The required Recurring Payment parameter has not been set in the Apple Pay configuration.";
 
-"continue_text" = "Continue";
-"add_address_line" = "Add address line %@ (optional)";
 "jp_billing_details_title" = "Billing Details";
 
 "jp_card_holder_name_required" = "Cardholder Name is required";
