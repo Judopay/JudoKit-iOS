@@ -135,7 +135,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
     if (!_cancelButton) {
         _cancelButton = [UIButton new];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:@"cancel"._jp_localized.uppercaseString
+        [_cancelButton setTitle:@"jp_cancel"._jp_localized.uppercaseString
                        forState:UIControlStateNormal];
         [_cancelButton addTarget:self
                           action:@selector(didTapCancelButton)
@@ -149,7 +149,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
         _saveButton = [UIButton new];
         _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
         _saveButton.layer.masksToBounds = YES;
-        [_saveButton setTitle:@"save"._jp_localized.uppercaseString
+        [_saveButton setTitle:@"jp_save"._jp_localized.uppercaseString
                      forState:UIControlStateNormal];
         [_saveButton addTarget:self
                         action:@selector(didTapSaveButton)

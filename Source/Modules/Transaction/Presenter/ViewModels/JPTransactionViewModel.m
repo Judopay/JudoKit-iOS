@@ -74,7 +74,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _iconLeft = [UIImage _jp_imageWithIconName:@"scan-card"];
-        super.title = @"button_scan_card"._jp_localized.uppercaseString;
+        super.title = @"jp_button_scan_card"._jp_localized.uppercaseString;
     }
 
     return self;
@@ -88,7 +88,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _message = @"secure_server_transmission"._jp_localized;
+        _message = @"jp_secure_server_transmission"._jp_localized;
         _iconLeft = [UIImage _jp_imageWithIconName:@"lock-icon"];
     }
 

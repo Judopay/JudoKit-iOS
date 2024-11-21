@@ -110,7 +110,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
         _backButton = [UIButton new];
         _backButton.translatesAutoresizingMaskIntoConstraints = NO;
         _backButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_backButton setTitle:@"cancel"._jp_localized forState:UIControlStateNormal];
+        [_backButton setTitle:@"jp_cancel"._jp_localized forState:UIControlStateNormal];
     }
     return _backButton;
 }
@@ -139,7 +139,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"scan_card_hint_title"._jp_localized;
+        _titleLabel.text = @"jp_scan_card_hint_title"._jp_localized;
         _titleLabel.font = [UIFont systemFontOfSize:kTitleFontSize weight:UIFontWeightBold];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -149,7 +149,7 @@ static const CGFloat kFlashButtonHeight = 30.0f;
 - (UILabel *)subtitleLabel {
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
-        _subtitleLabel.text = @"scan_card_hint_subtitle"._jp_localized;
+        _subtitleLabel.text = @"jp_scan_card_hint_subtitle"._jp_localized;
         _subtitleLabel.font = [UIFont systemFontOfSize:kSubtitleFontSize];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     }

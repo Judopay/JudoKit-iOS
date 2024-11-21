@@ -128,11 +128,11 @@
         NSString *formattedAmount = [NSNumberFormatter _jp_formattedAmount:amount.amount
                                                           withCurrencyCode:amount.currency];
 #pragma warning disable S5281
-        return [NSString stringWithFormat:@"pay_amount"._jp_localized, formattedAmount];
+        return [NSString stringWithFormat:@"jp_pay_amount"._jp_localized, formattedAmount];
 #pragma warning restore S5281
     }
 
-    return @"pay_now"._jp_localized;
+    return @"jp_pay_now"._jp_localized;
 }
 
 - (void)sendTransactionWithDetails:(JPCardTransactionDetails *)details

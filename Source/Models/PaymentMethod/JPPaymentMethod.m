@@ -46,12 +46,12 @@
     if (self = [super init]) {
         switch (type) {
             case JPPaymentMethodTypeCard:
-                _title = @"cards"._jp_localized;
+                _title = @"jp_cards"._jp_localized;
                 _iconName = @"cards-pay-icon";
                 break;
 
             case JPPaymentMethodTypeIDeal:
-                _title = @"ideal_payment"._jp_localized;
+                _title = @"jp_ideal_payment"._jp_localized;
                 _iconName = @"ideal-pay-icon";
                 break;
 

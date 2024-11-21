@@ -86,7 +86,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"choose_payment_method"._jp_localized;
+        _titleLabel.text = @"jp_choose_payment_method"._jp_localized;
         _titleLabel.numberOfLines = 0;
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -97,7 +97,7 @@
     if (!_textLabel) {
         _textLabel = [UILabel new];
         _textLabel.numberOfLines = 0;
-        _textLabel.text = @"no_cards_added"._jp_localized;
+        _textLabel.text = @"jp_no_cards_added"._jp_localized;
         _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _textLabel;

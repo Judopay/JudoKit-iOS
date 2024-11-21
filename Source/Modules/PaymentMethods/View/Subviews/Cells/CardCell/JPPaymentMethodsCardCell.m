@@ -87,7 +87,7 @@ const float kCardSmallPadding = 3.0F;
 
     JPPaymentMethodsCardModel *cardModel = (JPPaymentMethodsCardModel *)viewModel;
     self.titleLabel.text = cardModel.cardTitle;
-    NSString *cardTypeSubtitle = [NSString stringWithFormat:@"card_subtitle"._jp_localized, [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork]];
+    NSString *cardTypeSubtitle = [NSString stringWithFormat:@"jp_card_subtitle"._jp_localized, [JPCardNetwork nameOfCardNetwork:cardModel.cardNetwork]];
     NSString *subtitleText = [NSString stringWithFormat:@"%@ %@", cardTypeSubtitle, cardModel.cardNumberLastFour];
 
     NSMutableAttributedString *subtitleLabelText = [[NSMutableAttributedString alloc] initWithString:subtitleText];
@@ -189,13 +189,13 @@ const float kCardSmallPadding = 3.0F;
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;
             break;
         case JPCardExpirationStatusExpired:
-            expirationStatus = @"is_expired"._jp_localized;
-            boldWord = @"expired"._jp_localized;
+            expirationStatus = @"jp_is_expired"._jp_localized;
+            boldWord = @"jp_expired"._jp_localized;
             self.subtitleLabel.textColor = self.theme.jpRedColor;
             break;
         case JPCardExpirationStatusExpiresSoon:
-            expirationStatus = @"will_expire_soon"._jp_localized;
-            boldWord = @"expire_soon"._jp_localized;
+            expirationStatus = @"jp_will_expire_soon"._jp_localized;
+            boldWord = @"jp_expire_soon"._jp_localized;
             self.subtitleLabel.textColor = self.theme.jpDarkGrayColor;
             break;
     }

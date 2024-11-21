@@ -52,7 +52,7 @@
                                                                         message:error.localizedDescription
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok"._jp_localized.uppercaseString
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"jp_ok"._jp_localized.uppercaseString
                                                        style:UIAlertActionStyleDefault
                                                      handler:nil];
     [controller addAction:okAction];

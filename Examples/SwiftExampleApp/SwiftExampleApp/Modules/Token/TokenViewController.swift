@@ -176,7 +176,7 @@ class TokenViewController: UIViewController, TokenInteractorOutput {
         return stackView
     }()
 
-    private let introLabel = label(text: "Please fill in the fields from below with tokenized card details", textAlignment: .center)
+    private let introLabel = label(text: "Please fill in the fields from below with tokenised card details", textAlignment: .center)
 
     private let schemeLabel = label(text: "Scheme")
     private let tokenLabel = label(text: "Token")
