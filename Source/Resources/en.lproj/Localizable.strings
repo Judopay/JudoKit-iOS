@@ -103,7 +103,7 @@
 "jp_transaction_timeout" = "Transaction timed out!";
 "jp_transaction_unsuccessful" = "Card transaction unsuccessful - please try again";
 "jp_unknown_card_network" = "Unknown card network";
-"jp_will_expire_soon" = "it will expire soon";
+"jp_will_expire_soon" = "will expire soon";
 "jp_you_will_pay" = "You will pay";
 
 "jp_error_invalid_ideal_currency_desc" = "iDEAL transactions only support EUR as the currency.";
