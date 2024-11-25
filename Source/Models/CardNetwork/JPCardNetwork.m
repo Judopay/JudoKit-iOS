@@ -33,7 +33,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _networkNames = @{
-            @(JPCardNetworkTypeUnknown) : @"unknown_card_network"._jp_localized,
+            @(JPCardNetworkTypeUnknown) : @"jp_unknown_card_network"._jp_localized,
             @(JPCardNetworkTypeVisa) : @"Visa",
             @(JPCardNetworkTypeMasterCard) : @"Mastercard",
             @(JPCardNetworkTypeChinaUnionPay) : @"China UnionPay",

@@ -90,7 +90,7 @@
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"scan_card_confirm"._jp_localized
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"jp_scan_card_confirm"._jp_localized
                                                             style:UIAlertActionStyleDefault
                                                           handler:nil];
 
@@ -99,10 +99,10 @@
 }
 
 - (void)displayCameraPermissionsAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_no_permission_title"._jp_localized
-                                                        andMessage:@"scan_card_no_permission_message"._jp_localized];
+    UIAlertController *controller = [self alertControllerWithTitle:@"jp_scan_card_no_permission_title"._jp_localized
+                                                        andMessage:@"jp_scan_card_no_permission_message"._jp_localized];
 
-    UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"scan_card_go_to_settings"._jp_localized
+    UIAlertAction *goToSettingsAction = [UIAlertAction actionWithTitle:@"jp_scan_card_go_to_settings"._jp_localized
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *_Nonnull action) {
                                                                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
@@ -115,14 +115,14 @@
 }
 
 - (void)displayCameraRestrictionAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_restricted_title"._jp_localized
-                                                        andMessage:@"scan_card_restricted_message"._jp_localized];
+    UIAlertController *controller = [self alertControllerWithTitle:@"jp_scan_card_restricted_title"._jp_localized
+                                                        andMessage:@"jp_scan_card_restricted_message"._jp_localized];
 
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)displayCameraSimulatorAlert {
-    UIAlertController *controller = [self alertControllerWithTitle:@"scan_card_simulator_title"._jp_localized
+    UIAlertController *controller = [self alertControllerWithTitle:@"jp_scan_card_simulator_title"._jp_localized
                                                         andMessage:nil];
 
     [self presentViewController:controller animated:YES completion:nil];

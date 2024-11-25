@@ -92,13 +92,13 @@ const float kStatusViewRetryButtonRadius = 4.0F;
 
     switch (status) {
         case JPTransactionStatusPending:
-            self.titleLabel.text = @"processing"._jp_localized;
+            self.titleLabel.text = @"jp_processing"._jp_localized;
             break;
         case JPTransactionStatusPendingDelayed:
-            self.titleLabel.text = @"transaction_delayed"._jp_localized;
+            self.titleLabel.text = @"jp_transaction_delayed"._jp_localized;
             break;
         case JPTransactionStatusTimeout:
-            self.titleLabel.text = @"transaction_timeout"._jp_localized;
+            self.titleLabel.text = @"jp_transaction_timeout"._jp_localized;
             break;
     }
 }
@@ -178,7 +178,7 @@ const float kStatusViewRetryButtonRadius = 4.0F;
         _retryButton = [UIButton new];
         _retryButton.translatesAutoresizingMaskIntoConstraints = NO;
         _retryButton.layer.cornerRadius = kStatusViewRetryButtonRadius;
-        [_retryButton setTitle:@"retry"._jp_localized forState:UIControlStateNormal];
+        [_retryButton setTitle:@"jp_retry"._jp_localized forState:UIControlStateNormal];
         [_retryButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     }
     return _retryButton;

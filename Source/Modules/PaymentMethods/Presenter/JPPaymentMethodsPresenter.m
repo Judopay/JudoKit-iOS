@@ -120,7 +120,7 @@
     [self.view endEditingCardListIfNeeded];
 
     if (error && error.code != JudoUserDidCancelError) {
-        [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:error];
+        [self.view _jp_displayAlertWithTitle:@"jp_error"._jp_localized andError:error];
         return;
     }
 
@@ -128,7 +128,7 @@
         JPCardDetails *details = response.cardDetails;
 
         if (!details) {
-            [self.view _jp_displayAlertWithTitle:@"error"._jp_localized andError:JPError.responseParseError];
+            [self.view _jp_displayAlertWithTitle:@"jp_error"._jp_localized andError:JPError.responseParseError];
             return;
         }
 
@@ -227,7 +227,7 @@
 
 - (void)handlePaymentError:(NSError *)error {
     [self.interactor storeError:error];
-    [self.view _jp_displayAlertWithTitle:@"transaction_unsuccessful"._jp_localized andError:error];
+    [self.view _jp_displayAlertWithTitle:@"jp_transaction_unsuccessful"._jp_localized andError:error];
 }
 
 - (void)deleteCardWithIndex:(NSUInteger)index {
@@ -246,7 +246,7 @@
 }
 
 - (void)changeHeaderButtonTitle:(BOOL)isEditing {
-    NSString *title = isEditing ? @"button_done" : @"button_edit";
+    NSString *title = isEditing ? @"jp_button_done" : @"jp_button_edit";
     self.cardHeaderModel.editButtonTitle = title._jp_localized.uppercaseString;
 
     [self viewModelNeedsUpdateWithAnimationType:JPAnimationTypeNone
@@ -478,8 +478,8 @@
     if (!_emptyListModel) {
         _emptyListModel = [JPPaymentMethodsEmptyListModel new];
         _emptyListModel.identifier = @"JPPaymentMethodsEmptyCardListCell";
-        _emptyListModel.title = @"no_connected_cards"._jp_localized;
-        _emptyListModel.addCardButtonTitle = @"add_card"._jp_localized.uppercaseString;
+        _emptyListModel.title = @"jp_no_connected_cards"._jp_localized;
+        _emptyListModel.addCardButtonTitle = @"jp_add_card"._jp_localized.uppercaseString;
         _emptyListModel.addCardButtonIconName = @"plus-icon";
 
         __weak typeof(self) weakSelf = self;
@@ -493,8 +493,8 @@
 - (JPPaymentMethodsCardHeaderModel *)cardHeaderModel {
     if (!_cardHeaderModel) {
         _cardHeaderModel = [JPPaymentMethodsCardHeaderModel new];
-        _cardHeaderModel.title = @"connected_cards"._jp_localized;
-        _cardHeaderModel.editButtonTitle = @"button_edit"._jp_localized.uppercaseString;
+        _cardHeaderModel.title = @"jp_connected_cards"._jp_localized;
+        _cardHeaderModel.editButtonTitle = @"jp_button_edit"._jp_localized.uppercaseString;
         _cardHeaderModel.identifier = @"JPPaymentMethodsCardListHeaderCell";
     }
     return _cardHeaderModel;
@@ -503,7 +503,7 @@
 - (JPPaymentMethodsCardFooterModel *)cardFooterModel {
     if (!_cardFooterModel) {
         _cardFooterModel = [JPPaymentMethodsCardFooterModel new];
-        _cardFooterModel.addCardButtonTitle = @"add_card"._jp_localized.uppercaseString;
+        _cardFooterModel.addCardButtonTitle = @"jp_add_card"._jp_localized.uppercaseString;
         _cardFooterModel.addCardButtonIconName = @"plus-icon";
         _cardFooterModel.identifier = @"JPPaymentMethodsCardListFooterCell";
 
@@ -532,7 +532,7 @@
 - (JPTransactionButtonViewModel *)paymentButtonModel {
     if (!_paymentButtonModel) {
         _paymentButtonModel = [JPTransactionButtonViewModel new];
-        _paymentButtonModel.title = @"pay_now"._jp_localized.uppercaseString;
+        _paymentButtonModel.title = @"jp_pay_now"._jp_localized.uppercaseString;
         _paymentButtonModel.isEnabled = NO;
     }
     return _paymentButtonModel;

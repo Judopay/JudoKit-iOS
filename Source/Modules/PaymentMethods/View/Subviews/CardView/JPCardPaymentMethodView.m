@@ -159,7 +159,7 @@ const int kSubstringPatternOffset = 4;
     self.expiryDateLabel.textColor = self.theme.jpRedColor;
     self.expiryDateLabel.numberOfLines = kExpiryDateNumberOfLines;
     NSDictionary *attrDict = @{NSFontAttributeName : self.theme.caption};
-    NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"expired"._jp_localized, @"\r"];
+    NSString *expiredString = [NSString stringWithFormat:@"%@ %@", @"jp_expired"._jp_localized, @"\r"];
     NSMutableAttributedString *expiredText = [[NSMutableAttributedString alloc] initWithString:expiredString attributes:attrDict];
     NSAttributedString *expiryDate = [[NSAttributedString alloc] initWithString:self.expiryDateLabel.text];
     [expiredText appendAttributedString:expiryDate];

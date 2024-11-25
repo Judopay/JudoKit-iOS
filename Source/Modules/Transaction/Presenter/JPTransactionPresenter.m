@@ -75,7 +75,7 @@
     NSString *cardDetailsSubmitButtonTitle = defaultSubmitButtonTitle;
 
     if (self.viewModel.shouldDisplayBillingInformationSection) {
-        cardDetailsSubmitButtonTitle = @"continue"._jp_localized;
+        cardDetailsSubmitButtonTitle = @"jp_continue"._jp_localized;
         ;
     }
 
@@ -83,7 +83,7 @@
     JPTransactionCardDetailsViewModel *cardDetailsViewModel = self.viewModel.cardDetailsViewModel;
     NSString *securityCodePlaceholder = [JPCardNetwork secureCodePlaceholderForNetworkType:self.interactor.cardNetworkType];
 
-    cardDetailsViewModel.cancelButtonViewModel.title = @"cancel"._jp_localized.uppercaseString;
+    cardDetailsViewModel.cancelButtonViewModel.title = @"jp_cancel"._jp_localized.uppercaseString;
     cardDetailsViewModel.cancelButtonViewModel.isEnabled = YES;
 
     cardDetailsViewModel.scanCardButtonViewModel.isEnabled = YES;
@@ -95,17 +95,17 @@
         cardDetailsViewModel.scanCardButtonViewModel.isHidden = YES;
     }
 
-    cardDetailsViewModel.cardNumberViewModel.placeholder = @"card_number_hint"._jp_localized;
-    cardDetailsViewModel.cardholderNameViewModel.placeholder = @"card_holder_hint"._jp_localized;
-    cardDetailsViewModel.expiryDateViewModel.placeholder = @"expiry_date"._jp_localized;
+    cardDetailsViewModel.cardNumberViewModel.placeholder = @"jp_card_number_hint"._jp_localized;
+    cardDetailsViewModel.cardholderNameViewModel.placeholder = @"jp_card_holder_hint"._jp_localized;
+    cardDetailsViewModel.expiryDateViewModel.placeholder = @"jp_expiry_date"._jp_localized;
     cardDetailsViewModel.securityCodeViewModel.placeholder = securityCodePlaceholder;
 
-    cardDetailsViewModel.countryViewModel.placeholder = @"card_holder_country_hint"._jp_localized;
+    cardDetailsViewModel.countryViewModel.placeholder = @"jp_card_holder_country_hint"._jp_localized;
     cardDetailsViewModel.countryViewModel.options = countries;
     cardDetailsViewModel.countryViewModel.text = currentSelectedCountry.name;
     cardDetailsViewModel.countryViewModel.isValid = YES;
 
-    cardDetailsViewModel.postalCodeViewModel.placeholder = @"post_code_hint"._jp_localized;
+    cardDetailsViewModel.postalCodeViewModel.placeholder = @"jp_post_code_hint"._jp_localized;
 
     cardDetailsViewModel.submitButtonViewModel.title = cardDetailsSubmitButtonTitle.uppercaseString;
     cardDetailsViewModel.submitButtonViewModel.isEnabled = NO;
@@ -113,34 +113,34 @@
     // Billing information screen
     JPTransactionBillingInformationViewModel *billingInformationViewModel = self.viewModel.billingInformationViewModel;
 
-    billingInformationViewModel.cancelButtonViewModel.title = @"cancel"._jp_localized.uppercaseString;
+    billingInformationViewModel.cancelButtonViewModel.title = @"jp_cancel"._jp_localized.uppercaseString;
     billingInformationViewModel.cancelButtonViewModel.isEnabled = YES;
 
-    billingInformationViewModel.emailViewModel.placeholder = @"card_holder_email_hint"._jp_localized;
+    billingInformationViewModel.emailViewModel.placeholder = @"jp_card_holder_email_hint"._jp_localized;
 
-    billingInformationViewModel.countryViewModel.placeholder = @"card_holder_country_hint"._jp_localized;
+    billingInformationViewModel.countryViewModel.placeholder = @"jp_card_holder_country_hint"._jp_localized;
     billingInformationViewModel.countryViewModel.options = countries;
     billingInformationViewModel.countryViewModel.text = currentSelectedCountry.name;
     billingInformationViewModel.countryViewModel.isValid = YES;
 
-    billingInformationViewModel.stateViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
+    billingInformationViewModel.stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
     billingInformationViewModel.stateViewModel.options = @[];
     billingInformationViewModel.stateViewModel.isValid = YES;
 
     billingInformationViewModel.phoneCodeViewModel.text = currentSelectedCountry.dialCode;
-    billingInformationViewModel.phoneViewModel.placeholder = @"card_holder_phone_hint"._jp_localized;
-    billingInformationViewModel.addressLine1ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(1)];
+    billingInformationViewModel.phoneViewModel.placeholder = @"jp_card_holder_phone_hint"._jp_localized;
+    billingInformationViewModel.addressLine1ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(1)];
 
-    billingInformationViewModel.addressLine2ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(2)];
+    billingInformationViewModel.addressLine2ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(2)];
     billingInformationViewModel.addressLine2ViewModel.isValid = YES;
 
-    billingInformationViewModel.addressLine3ViewModel.placeholder = [NSString stringWithFormat:@"card_holder_adress_line_hint"._jp_localized, @(3)];
+    billingInformationViewModel.addressLine3ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(3)];
     billingInformationViewModel.addressLine3ViewModel.isValid = YES;
 
-    billingInformationViewModel.cityViewModel.placeholder = @"card_holder_city_hint"._jp_localized;
-    billingInformationViewModel.postalCodeViewModel.placeholder = @"post_code_hint"._jp_localized;
+    billingInformationViewModel.cityViewModel.placeholder = @"jp_card_holder_city_hint"._jp_localized;
+    billingInformationViewModel.postalCodeViewModel.placeholder = @"jp_post_code_hint"._jp_localized;
 
-    billingInformationViewModel.backButtonViewModel.title = @"back"._jp_localized.uppercaseString;
+    billingInformationViewModel.backButtonViewModel.title = @"jp_back"._jp_localized.uppercaseString;
     billingInformationViewModel.backButtonViewModel.isEnabled = YES;
     billingInformationViewModel.backButtonViewModel.isHidden = mode == JPPresentationModeBillingInfo;
 
@@ -344,11 +344,11 @@
         case JPTransactionTypePreAuth:
             return [self.interactor generatePayButtonTitle];
         case JPTransactionTypeSaveCard:
-            return @"save_card"._jp_localized;
+            return @"jp_save_card"._jp_localized;
         case JPTransactionTypeRegisterCard:
-            return @"register_card"._jp_localized;
+            return @"jp_register_card"._jp_localized;
         case JPTransactionTypeCheckCard:
-            return @"check_card"._jp_localized;
+            return @"jp_check_card"._jp_localized;
         default:
             return nil;
     }
@@ -550,11 +550,11 @@
 
     if (country.isUSA) {
         stateViewModel.options = JPStateList.usStateList.states;
-        stateViewModel.placeholder = @"card_holder_state_hint"._jp_localized;
+        stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
         stateViewModel.isValid = NO;
     } else if (country.isCanada) {
         stateViewModel.options = JPStateList.caStateList.states;
-        stateViewModel.placeholder = @"card_holder_province_hint"._jp_localized;
+        stateViewModel.placeholder = @"jp_card_holder_province_hint"._jp_localized;
         stateViewModel.isValid = NO;
     } else {
         stateViewModel.isValid = YES;
