@@ -21,6 +21,18 @@
       {
         "key" : "TEST_API_TOKEN",
         "value" : "$(TEST_API_TOKEN)"
+      },
+      {
+        "key" : "IDEAL_JUDO_ID",
+        "value" : "$(IDEAL_JUDO_ID)"
+      },
+      {
+        "key" : "IDEAL_API_TOKEN",
+        "value" : "$(IDEAL_API_TOKEN)"
+      },
+      {
+        "key" : "IDEAL_API_SECRET",
+        "value" : "$(IDEAL_API_SECRET)"
       }
     ],
     "targetForVariableExpansion" : {

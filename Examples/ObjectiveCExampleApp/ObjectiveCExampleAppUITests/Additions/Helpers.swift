@@ -53,6 +53,23 @@ func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: St
         .label, town, "City value on result object does not match the expected string")
 }
 
+func assertIdealResultObject(_ app: XCUIApplication, _ paymentMethod: String, _ message: String) {
+    let tableView = app.tables[Selectors.Other.resultsTable]
+    XCTAssert(tableView.waitForExistence(timeout: 10))
+    
+    let receiptIdCell = tableView.cells.element(matching: .cell, identifier: "receiptId")
+    let receiptIdValue = receiptIdCell.staticTexts.element(boundBy: 1).label
+    XCTAssert(!receiptIdValue.isEmpty, "ReceiptId is empty")
+    
+    let paymentMethodCell = tableView.cells.element(matching: .cell, identifier: "paymentMethod")
+    let paymentMethodValue = paymentMethodCell.staticTexts.element(boundBy: 1).label
+    XCTAssertEqual(paymentMethodValue, paymentMethod, "Payment method value on result object does not match the expected string")
+    
+    let messageCell = tableView.cells.element(matching: .cell, identifier: "message")
+    let messageValue = messageCell.staticTexts.element(boundBy: 1).label
+    XCTAssertTrue(messageValue.hasPrefix(message), "Message value on result object does not start with the expected string")
+}
+
 func tapCompleteButton(_ app: XCUIApplication) {
     let completeButton = app.buttons["COMPLETE"]
     XCTAssert(completeButton.waitForExistence(timeout: 30))
