@@ -129,12 +129,12 @@
 
     billingInformationViewModel.phoneCodeViewModel.text = currentSelectedCountry.dialCode;
     billingInformationViewModel.phoneViewModel.placeholder = @"jp_card_holder_phone_hint"._jp_localized;
-    billingInformationViewModel.addressLine1ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(1)];
+    billingInformationViewModel.addressLine1ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_address_line_hint"._jp_localized, @(1)];
 
-    billingInformationViewModel.addressLine2ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(2)];
+    billingInformationViewModel.addressLine2ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_address_line_hint"._jp_localized, @(2)];
     billingInformationViewModel.addressLine2ViewModel.isValid = YES;
 
-    billingInformationViewModel.addressLine3ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_adress_line_hint"._jp_localized, @(3)];
+    billingInformationViewModel.addressLine3ViewModel.placeholder = [NSString stringWithFormat:@"jp_card_holder_address_line_hint"._jp_localized, @(3)];
     billingInformationViewModel.addressLine3ViewModel.isValid = YES;
 
     billingInformationViewModel.cityViewModel.placeholder = @"jp_card_holder_city_hint"._jp_localized;
