@@ -259,7 +259,7 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
              andCompletion:(JPCompletionBlock)completion {
     @try {
         NSString *messageVersion = self.configuration.threeDSTwoMessageVersion;
-        
+
         NSNumber *myValue = self.configuration.extras[kExtrasShouldUseFabrickDSIDKey];
         BOOL isUsingFabrick3DSService = myValue.boolValue;
 

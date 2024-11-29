@@ -228,7 +228,7 @@
     if (isSandboxed) {
         return isUsingFabrick3DSService ? @"F121535344" : self.sandboxDirectoryServerId;
     }
-    
+
     return self.productionDirectoryServerId;
 }
 
