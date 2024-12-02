@@ -60,6 +60,7 @@ class Selectors {
         static let dismissButton = "Dismiss button"
         static let searchButton = "Search"
         static let requestBodySearchTerm = "referencenumber"
+        static let padSearchTerm = "primaryaccountdetails"
         static let haltTransactionSwitch = "Halt transaction in case of any error"
         static let backButton = "Judopay examples"
     }
