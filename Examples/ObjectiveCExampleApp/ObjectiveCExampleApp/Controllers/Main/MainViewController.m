@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "MaterialSnackbar.h"
+@import TTGSnackbar;
 #import <CoreLocation/CoreLocation.h>
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
 #import <InAppSettingsKit/IASKSettingsReader.h>
@@ -297,9 +297,10 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 // MARK: Helper methods
 
 - (void)displaySnackBarWith:(NSString *)text {
-    MDCSnackbarMessage *message = [MDCSnackbarMessage new];
-    message.text = text;
-    [MDCSnackbarManager.defaultManager showMessage:message];
+    TTGSnackbar *bar = [[TTGSnackbar alloc] initWithMessage:text
+                                                   duration:TTGSnackbarDurationMiddle];
+    bar.shouldDismissOnSwipe = YES;
+    [TTGSnackbarManager.shared showSnackbar:bar];
 }
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
@@ -351,6 +352,9 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.scaExemption = Settings.defaultSettings.scaExemption;
     configuration.challengeRequestIndicator = Settings.defaultSettings.challengeRequestIndicator;
     configuration.threeDSTwoMaxTimeout = Settings.defaultSettings.threeDsTwoMaxTimeout;
+    configuration.extras = @{
+        @"shouldUseFabrickDsId": @(Settings.defaultSettings.isUsingFabrick3DSService)
+    };
     
     NSString *messageVersion = Settings.defaultSettings.threeDSTwoMessageVersion;
     

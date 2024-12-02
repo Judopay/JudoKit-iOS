@@ -1,90 +1,22 @@
 PODS:
   - DeviceDNA (2.1.2)
-  - InAppSettingsKit (3.3.6)
+  - InAppSettingsKit (3.8.3)
   - Judo3DS2_iOS (1.2.3)
   - JudoKit-iOS (4.0.3):
     - DeviceDNA (= 2.1.2)
     - Judo3DS2_iOS (= 1.2.3)
     - RavelinEncrypt (= 1.1.2)
     - TrustKit (~> 3.0.4)
-  - MaterialComponents/AnimationTiming (124.2.0)
-  - MaterialComponents/Availability (124.2.0)
-  - MaterialComponents/Buttons (124.2.0):
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/private/Math
-    - MaterialComponents/Ripple
-    - MaterialComponents/Shadow
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/ShapeLibrary
-    - MaterialComponents/Shapes
-    - MaterialComponents/Typography
-    - MDFInternationalization
-    - MDFTextAccessibility
-  - MaterialComponents/Elevation (124.2.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Ink (124.2.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/OverlayWindow (124.2.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Application
-  - MaterialComponents/private/Application (124.2.0)
-  - MaterialComponents/private/Color (124.2.0):
-    - MaterialComponents/Availability
-  - MaterialComponents/private/KeyboardWatcher (124.2.0):
-    - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (124.2.0)
-  - MaterialComponents/private/Overlay (124.2.0)
-  - MaterialComponents/Ripple (124.2.0):
-    - MaterialComponents/AnimationTiming
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Shadow (124.2.0):
-    - MaterialComponents/Availability
-  - MaterialComponents/ShadowElevations (124.2.0)
-  - MaterialComponents/ShadowLayer (124.2.0):
-    - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (124.2.0):
-    - MaterialComponents/private/Math
-    - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (124.2.0):
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowLayer
-  - MaterialComponents/Snackbar (124.2.0):
-    - MaterialComponents/AnimationTiming
-    - MaterialComponents/Availability
-    - MaterialComponents/Buttons
-    - MaterialComponents/Elevation
-    - MaterialComponents/OverlayWindow
-    - MaterialComponents/private/Application
-    - MaterialComponents/private/KeyboardWatcher
-    - MaterialComponents/private/Math
-    - MaterialComponents/private/Overlay
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Typography
-  - MaterialComponents/Typography (124.2.0):
-    - MaterialComponents/private/Application
-    - MaterialComponents/private/Math
-    - MDFTextAccessibility
-  - MDFInternationalization (3.0.0)
-  - MDFTextAccessibility (2.0.1)
   - RavelinEncrypt (1.1.2)
   - TrustKit (3.0.4)
+  - TTGSnackbar (1.12.0)
   - Wormholy (1.7.0)
 
 DEPENDENCIES:
-  - InAppSettingsKit (= 3.3.6)
+  - InAppSettingsKit (= 3.8.3)
   - Judo3DS2_iOS (= 1.2.3)
   - JudoKit-iOS (from `../../`)
-  - MaterialComponents/Snackbar
+  - TTGSnackbar
   - Wormholy
 
 SPEC REPOS:
@@ -92,11 +24,9 @@ SPEC REPOS:
     - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
-    - MaterialComponents
-    - MDFInternationalization
-    - MDFTextAccessibility
     - RavelinEncrypt
     - TrustKit
+    - TTGSnackbar
     - Wormholy
 
 EXTERNAL SOURCES:
@@ -105,16 +35,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DeviceDNA: a2812a2a54bdaf3bafd4d109bd9072759e4d9506
-  InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
+  InAppSettingsKit: a9826f7f99e55c65d251bf5188d39dff26f17abd
   Judo3DS2_iOS: 00d78d0f04f48821a56c8b5d0afb0df76b2f6c03
   JudoKit-iOS: 104da3ee8944e620f4899f03221797e70c0c336f
-  MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
-  MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
-  MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   RavelinEncrypt: ea533da1cb48ccf84382cb161979b27bfb23d467
   TrustKit: 403e8d2cfbff2abfc37cd41acc558dab8ec78e59
+  TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 45c5f878055ac89896c8e635bb26156a3d9fa881
+PODFILE CHECKSUM: 71e848f862a2a2dd48328e8be43cdef24307d926
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

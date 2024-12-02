@@ -1,5 +1,28 @@
 default_platform(:ios)
 
+# Check if an environment variable exists and is not empty
+def env_var_valid?(var_name)
+  return ENV.has_key?(var_name) && !ENV[var_name].to_s.empty?
+end
+
+def replace(file_path, old_string, new_string)
+  # Check if the file exists
+  unless File.exist?(file_path)
+    UI.user_error!("File not found: #{file_path}")
+  end
+
+  # Read the file content
+  file_content = File.read(file_path)
+
+  # Replace the string
+  new_content = file_content.gsub(old_string, new_string)
+
+  # Write the updated content back to the file
+  File.open(file_path, "w") { |file| file.puts new_content }
+
+  UI.success("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
+end
+
 platform :ios do
 
   before_all do
@@ -95,7 +118,7 @@ platform :ios do
   end
 
   def extract_flavor_list(options)
-    supported_flavors = %w(obj-c swift carthage spm)
+    supported_flavors = %w(obj-c obj-c-stg swift carthage spm)
 
     if options[:flavors].nil?
       UI.important("No flavors option has been provided, defaulting to: #{supported_flavors}")
@@ -111,7 +134,7 @@ platform :ios do
   end
 
   desc "Build Sample App"
-  lane :build_sample_app do | options |
+  lane :build_sample_apps do | options |
 
     extract_flavor_list(options).each do | flavor |
 
@@ -128,10 +151,10 @@ platform :ios do
       end
 
       case flavor
-        when 'obj-c'
+        when 'obj-c', 'obj-c-stg'
           cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
-          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoObjC'
+          sync_code_signing_options[:app_identifier] = "com.judo.JudoPayDemoObjC#{flavor == 'obj-c-stg' ? '.staging' : ''}"
 
           build_app_options[:scheme] = 'ObjectiveCExampleApp'
           build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
@@ -168,13 +191,35 @@ platform :ios do
           UI.user_error!("Unsupported flavor '#{flavor}'.")
         end
 
-      if build_for_distribution
-        app_store_connect_api_key
-        sync_code_signing sync_code_signing_options
-      end
+        build_sample_app_helper_options = {
+          flavor: flavor,
+          build_for_distribution: build_for_distribution,
+          build_app_options: build_app_options,
+          sync_code_signing_options: sync_code_signing_options
+        }
 
-      build_app build_app_options
+        build_sample_app_helper build_sample_app_helper_options
       end
+  end
+
+  private_lane :build_sample_app_helper do |options|
+    UI.user_error!("build_for_distribution option is required.") unless options.key?(:build_for_distribution)
+    UI.user_error!("build_app_options option is required.") unless options[:build_app_options]
+    UI.user_error!("sync_code_signing_options option is required.") unless options[:sync_code_signing_options]
+
+    inject_staging_environment if options[:flavor] == 'obj-c-stg'
+
+    if options[:build_for_distribution]
+      app_store_connect_api_key
+      sync_code_signing options[:sync_code_signing_options]
+    end
+
+    build_app options[:build_app_options]
+
+    after_all do
+      revert_staging_environment if options[:flavor] == 'obj-c-stg'
+    end
+
   end
 
   desc "Distribute ObjectiveCExampleApp"
@@ -189,8 +234,8 @@ platform :ios do
 
     extract_flavor_list(options).each do | flavor |
       case flavor
-        when 'obj-c'
-          firebase_app_distribution_options[:app] = ENV['IOS_OBJ_C_FIREBASE_APP_ID']
+      when 'obj-c', 'obj-c-stg'
+          firebase_app_distribution_options[:app] = ENV[flavor == 'obj-c' ? 'IOS_OBJ_C_FIREBASE_APP_ID' : 'IOS_OBJ_C_STG_FIREBASE_APP_ID']
           increment_build_number_options[:xcodeproj] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj'
         when 'swift'
           firebase_app_distribution_options[:app] = ENV['IOS_SWIFT_FIREBASE_APP_ID']
@@ -210,7 +255,7 @@ platform :ios do
       increment_build_number_options[:build_number] = current_version + 1
       increment_build_number increment_build_number_options
 
-      build_sample_app flavors: flavor
+      build_sample_apps flavors: flavor
       firebase_app_distribution firebase_app_distribution_options
       end
   end
@@ -219,7 +264,50 @@ platform :ios do
   lane :pr_check do
     lint
     test
-    build_sample_app flavors:'obj-c, swift, carthage, spm'
+    build_sample_apps flavors:'obj-c, swift, carthage, spm'
+  end
+
+  desc "Injects the staging env variables"
+  lane :inject_staging_environment do |options|
+      unless env_var_valid?('STAGING_HOST_NAME')
+          UI.abort_with_message!("STAGING_HOST_NAME environment variable is not set. Unable to continue.")
+      end
+
+      suffix = options[:suffix] || ".staging"
+
+      Dir.chdir('..') do
+        current_bundle_id = get_product_bundle_id(
+          project_filepath: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj",
+          scheme: "ObjectiveCExampleApp"
+        )
+
+        if current_bundle_id.end_with?(suffix)
+          UI.message("The current bundle id already has the suffix '#{suffix}'")
+        else
+          new_bundle_id = "#{current_bundle_id}#{suffix}"
+
+          update_app_identifier(
+            xcodeproj: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj",
+            plist_path: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp/Info.plist",
+            app_identifier: new_bundle_id
+          )
+          UI.message("Updated bundle ID to: #{new_bundle_id}")
+        end
+
+        replace("#{Dir.pwd}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{ENV['STAGING_HOST_NAME']}")
+      end
+  end
+
+  desc "Revert injected staging env variables"
+  lane :revert_staging_environment do |options|
+    files_list = options[:files] || []
+    files_list.append("Source/Models/Constants/JPConstants.h")
+    files_list.append("Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj/project.pbxproj")
+
+    reset_git_repo(
+      force: true,
+      files: files_list
+    )
   end
 
 end

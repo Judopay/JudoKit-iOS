@@ -29,8 +29,8 @@
 #import "JPUIConfiguration.h"
 
 @interface JPConfiguration ()
-@property (nonatomic, strong) NSString *_Nullable judoId;
-@property (nonatomic, strong) NSString *_Nullable receiptId;
+@property (nonatomic, strong) NSString *judoId;
+@property (nonatomic, strong) NSString *receiptId;
 @end
 
 @implementation JPConfiguration
@@ -46,6 +46,7 @@
         self.reference = reference;
         self.threeDSTwoMaxTimeout = kDefaultThreeDSTwoMaxTimeout;
         self.threeDSTwoMessageVersion = kThreeDSTwoMessageVersionTwoDotTwo;
+        self.extras = @{};
     }
     return self;
 }
