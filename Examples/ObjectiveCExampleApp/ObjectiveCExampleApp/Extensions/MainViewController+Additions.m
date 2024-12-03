@@ -59,7 +59,7 @@
     [request setValue:@"JudoKit-iOS Objective C Examples" forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"content-type"];
-    [request setValue:@"6.20.0" forHTTPHeaderField:@"Api-Version"];
+    [request setValue:@"6.21.0" forHTTPHeaderField:@"Api-Version"];
     [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     NSString *token = Settings.defaultSettings.token;
     NSString *secret = Settings.defaultSettings.secret;

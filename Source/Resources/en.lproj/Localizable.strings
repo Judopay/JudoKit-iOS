@@ -37,7 +37,7 @@
 "jp_card_holder_province_hint" = "Province or territory";
 "jp_card_holder_phone_hint" = "Mobile number";
 "jp_card_holder_city_hint" = "City";
-"jp_card_holder_adress_line_hint" = "Address line %@";
+"jp_card_holder_address_line_hint" = "Address line %@";
 "jp_card_number_hint" = "Card Number";
 "jp_card_subtitle" = "%@ Ending";
 "jp_cards" = "Cards";
