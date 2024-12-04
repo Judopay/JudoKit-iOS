@@ -416,4 +416,17 @@ final class CardPaymentUITests: XCTestCase {
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "Card declined: CV2 policy", "Declined")
     }
+    
+    func testPrimaryAccountDetailsTransaction() {
+        app.launchArguments += ["-is_primary_account_details_enabled", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.cardDetailsSubmitButton?.tap()
+        tapCompleteButton(app)
+        assertPADSent(app)
+    }
 }

@@ -99,6 +99,7 @@ func openWormholy(_ app: XCUIApplication) {
 
 func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String, criShouldExist: Bool = true, scaShouldExist: Bool = true) {
     openRequestBodyContents(app)
+    typeIntoSearchField(app, query: Selectors.Other.requestBodySearchTerm)
     
     let challengeRequestIndicator = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", cri)).firstMatch
     if criShouldExist {
@@ -113,6 +114,14 @@ func assertRequestBody(_ app: XCUIApplication, cri: String, sca: String, criShou
     } else {
         XCTAssertFalse(scaExemption.exists, "Expected scaExemption to NOT exist, but it does.")
     }
+}
+
+func assertPADSent(_ app: XCUIApplication) {
+    openRequestBodyContents(app)
+    typeIntoSearchField(app, query: Selectors.Other.padSearchTerm)
+    
+    let padObject = app.textViews.matching(NSPredicate(format: "value CONTAINS[cd] %@", "dateofbirth")).firstMatch
+    XCTAssertTrue(padObject.exists, "Primary account details block does not exist.")
 }
 
 func typeIntoSearchField(_ app: XCUIApplication, query: String) {
@@ -147,7 +156,6 @@ func openRequestBodyContents(_ app: XCUIApplication) {
     app.paymentRequestLabel?.tap()
     app.viewRequestBodyLabel?.tap()
     app.searchButton?.tap()
-    typeIntoSearchField(app, query: Selectors.Other.requestBodySearchTerm)
 }
 
 func assertNoRequestToJudoAPI(_ app: XCUIApplication) {
