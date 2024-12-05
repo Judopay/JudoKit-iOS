@@ -45,6 +45,10 @@
 
 - (BOOL)isCanada;
 
+- (BOOL)isIndia;
+
+- (BOOL)isChina;
+
 - (BOOL)hasStates;
 
 - (JPBillingCountry)toBillingCountry;
