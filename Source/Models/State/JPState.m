@@ -30,9 +30,13 @@
 + (nullable JPState *)forStateName:(nonnull NSString *)stateName andCountryCode:(nonnull NSString *)countryCode {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", stateName];
     if ([countryCode isEqualToString:kAlpha2CodeUSA]) {
-        return [JPStateList.usStateList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPStateList.usStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
     } else if ([countryCode isEqualToString:kAlpha2CodeCanada]) {
-        return [JPStateList.caStateList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPStateList.canadianStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+    } else if ([countryCode isEqualToString:kAlpha2CodeIndia]) {
+        return [JPStateList.indianStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+    } else if ([countryCode isEqualToString:kAlpha2CodeChina]) {
+        return [JPStateList.chineseStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
     }
     return nil;
 }
@@ -52,7 +56,7 @@
 
 @implementation JPStateList
 
-+ (instancetype)usStateList {
++ (instancetype)usStatesList {
     return [[JPStateList alloc] initWith:@[
         @{@"isoCode" : @"AK", @"name" : @"Alaska"},
         @{@"isoCode" : @"AZ", @"name" : @"Arizona"},
@@ -108,7 +112,7 @@
     ]];
 }
 
-+ (instancetype)caStateList {
++ (instancetype)canadianStatesList {
     return [[JPStateList alloc] initWith:@[
         @{@"isoCode" : @"AB", @"name" : @"Alberta"},
         @{@"isoCode" : @"BC", @"name" : @"British Columbia"},
@@ -123,6 +127,89 @@
         @{@"isoCode" : @"QC", @"name" : @"Quebec"},
         @{@"isoCode" : @"SK", @"name" : @"Saskatchewan"},
         @{@"isoCode" : @"YT", @"name" : @"Yukon"}
+    ]];
+}
+
++ (instancetype)indianStatesList {
+    return [[JPStateList alloc] initWith:@[
+        @{@"isoCode" : @"AN", @"name" : @"Andaman and Nicobar Islands"},
+        @{@"isoCode" : @"AP", @"name" : @"Andhra Pradesh"},
+        @{@"isoCode" : @"AR", @"name" : @"Arunachal Pradesh"},
+        @{@"isoCode" : @"AS", @"name" : @"Assam"},
+        @{@"isoCode" : @"BR", @"name" : @"Bihar"},
+        @{@"isoCode" : @"CH", @"name" : @"Chandigarh"},
+        @{@"isoCode" : @"CG", @"name" : @"Chhattisgarh"},
+        @{@"isoCode" : @"DL", @"name" : @"Delhi"},
+        @{@"isoCode" : @"DH", @"name" : @"Dadra and Nagar Haveli and Daman and Diu"},
+        @{@"isoCode" : @"GA", @"name" : @"Goa"},
+        @{@"isoCode" : @"GJ", @"name" : @"Gujarat"},
+        @{@"isoCode" : @"HR", @"name" : @"Haryana"},
+        @{@"isoCode" : @"HP", @"name" : @"Himachal Pradesh"},
+        @{@"isoCode" : @"JK", @"name" : @"Jammu and Kashmīr"},
+        @{@"isoCode" : @"JH", @"name" : @"Jharkhand"},
+        @{@"isoCode" : @"KA", @"name" : @"Karnataka"},
+        @{@"isoCode" : @"KL", @"name" : @"Kerala"},
+        @{@"isoCode" : @"LA", @"name" : @"Ladakh"},
+        @{@"isoCode" : @"LD", @"name" : @"Lakshadweep"},
+        @{@"isoCode" : @"MP", @"name" : @"Madhya Pradesh"},
+        @{@"isoCode" : @"MH", @"name" : @"Maharashtra"},
+        @{@"isoCode" : @"MN", @"name" : @"Manipur"},
+        @{@"isoCode" : @"ML", @"name" : @"Meghalaya"},
+        @{@"isoCode" : @"MZ", @"name" : @"Mizoram"},
+        @{@"isoCode" : @"NL", @"name" : @"Nāgāland"},
+        @{@"isoCode" : @"OD", @"name" : @"Odisha"},
+        @{@"isoCode" : @"PY", @"name" : @"Puducherry"},
+        @{@"isoCode" : @"PB", @"name" : @"Punjab"},
+        @{@"isoCode" : @"RJ", @"name" : @"Rajasthan"},
+        @{@"isoCode" : @"SK", @"name" : @"Sikkim"},
+        @{@"isoCode" : @"TN", @"name" : @"Tamil Nadu"},
+        @{@"isoCode" : @"TS", @"name" : @"Telangana"},
+        @{@"isoCode" : @"TR", @"name" : @"Tripura"},
+        @{@"isoCode" : @"UP", @"name" : @"Uttar Pradesh"},
+        @{@"isoCode" : @"UK", @"name" : @"Uttarakhand"},
+        @{@"isoCode" : @"WB", @"name" : @"West Bengal"}
+    ]];
+}
+
++ (instancetype)chineseStatesList {
+    return [[JPStateList alloc] initWith:@[
+        @{@"isoCode" : @"AH", @"name" : @"Anhui Sheng"},
+        @{@"isoCode" : @"MO", @"name" : @"Aomen Tebiexingzhengqu"},
+        @{@"isoCode" : @"BJ", @"name" : @"Beijing Shi"},
+        @{@"isoCode" : @"CQ", @"name" : @"Chongqing Shi"},
+        @{@"isoCode" : @"FJ", @"name" : @"Fujian Sheng"},
+        @{@"isoCode" : @"GS", @"name" : @"Gansu Sheng"},
+        @{@"isoCode" : @"GD", @"name" : @"Guangdong Sheng"},
+        @{@"isoCode" : @"GX", @"name" : @"Guangxi Zhuangzu Zizhiqu"},
+        @{@"isoCode" : @"GZ", @"name" : @"Guizhou Sheng"},
+        @{@"isoCode" : @"HI", @"name" : @"Hainan Sheng"},
+        @{@"isoCode" : @"HE", @"name" : @"Hebei Sheng"},
+        @{@"isoCode" : @"HL", @"name" : @"Heilongjiang Sheng"},
+        @{@"isoCode" : @"HA", @"name" : @"Henan Sheng"},
+        @{@"isoCode" : @"HK", @"name" : @"Hong Kong SAR"},
+        @{@"isoCode" : @"HB", @"name" : @"Hubei Sheng"},
+        @{@"isoCode" : @"HN", @"name" : @"Hunan Sheng"},
+        @{@"isoCode" : @"JS", @"name" : @"Jiangsu Sheng"},
+        @{@"isoCode" : @"JX", @"name" : @"Jiangxi Sheng"},
+        @{@"isoCode" : @"JL", @"name" : @"Jilin Sheng"},
+        @{@"isoCode" : @"LN", @"name" : @"Liaoning Sheng"},
+        @{@"isoCode" : @"MO", @"name" : @"Macao SAR"},
+        @{@"isoCode" : @"MO", @"name" : @"Macau SAR"},
+        @{@"isoCode" : @"NM", @"name" : @"Nei Mongol Zizhiqu"},
+        @{@"isoCode" : @"NX", @"name" : @"Ningxia Huizu Zizhiqu"},
+        @{@"isoCode" : @"QH", @"name" : @"Qinghai Sheng"},
+        @{@"isoCode" : @"SN", @"name" : @"Shaanxi Sheng"},
+        @{@"isoCode" : @"SD", @"name" : @"Shandong Sheng"},
+        @{@"isoCode" : @"SH", @"name" : @"Shanghai Shi"},
+        @{@"isoCode" : @"SX", @"name" : @"Shanxi Sheng"},
+        @{@"isoCode" : @"SC", @"name" : @"Sichuan Sheng"},
+        @{@"isoCode" : @"TW", @"name" : @"Taiwan Sheng"},
+        @{@"isoCode" : @"TJ", @"name" : @"Tianjin Shi"},
+        @{@"isoCode" : @"HK", @"name" : @"Xianggang Tebiexingzhengqu"},
+        @{@"isoCode" : @"XJ", @"name" : @"Xinjiang Uygur Zizhiqu"},
+        @{@"isoCode" : @"XZ", @"name" : @"Xizang Zizhiqu"},
+        @{@"isoCode" : @"YN", @"name" : @"Yunnan Sheng"},
+        @{@"isoCode" : @"ZJ", @"name" : @"Zhejiang Sheng"},
     ]];
 }
 

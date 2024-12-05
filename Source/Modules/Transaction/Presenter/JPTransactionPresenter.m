@@ -549,12 +549,20 @@
     [self updateBillingStateViewModelForInput:@"" showError:showError];
 
     if (country.isUSA) {
-        stateViewModel.options = JPStateList.usStateList.states;
+        stateViewModel.options = JPStateList.usStatesList.states;
         stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
         stateViewModel.isValid = NO;
     } else if (country.isCanada) {
-        stateViewModel.options = JPStateList.caStateList.states;
-        stateViewModel.placeholder = @"jp_card_holder_province_hint"._jp_localized;
+        stateViewModel.options = JPStateList.canadianStatesList.states;
+        stateViewModel.placeholder = @"jp_card_holder_province_or_territory_hint"._jp_localized;
+        stateViewModel.isValid = NO;
+    } else if (country.isIndia) {
+        stateViewModel.options = JPStateList.indianStatesList.states;
+        stateViewModel.placeholder = @"jp_card_holder_state_or_union_territory_hint"._jp_localized;
+        stateViewModel.isValid = NO;
+    } else if (country.isChina) {
+        stateViewModel.options = JPStateList.chineseStatesList.states;
+        stateViewModel.placeholder = @"jp_card_holder_province_or_region_hint"._jp_localized;
         stateViewModel.isValid = NO;
     } else {
         stateViewModel.isValid = YES;
