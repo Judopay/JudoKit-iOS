@@ -104,6 +104,7 @@ static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";
 static NSString *const kAlpha2CodeCanada = @"CA";
 static NSString *const kAlpha2CodeUSA = @"US";
 static NSString *const kAlpha2CodeUK = @"GB";
+static NSString *const kAlpha2CodeIndia = @"IN";
 
 static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
 static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";

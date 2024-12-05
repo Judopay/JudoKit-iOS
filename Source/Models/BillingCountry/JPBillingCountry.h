@@ -42,6 +42,10 @@ typedef NS_ENUM(NSUInteger, JPBillingCountry) {
      */
     JPBillingCountryCanada,
     /**
+     *  India
+     */
+    JPBillingCountryIndia,
+    /**
      *  Other
      */
     JPBillingCountryOther

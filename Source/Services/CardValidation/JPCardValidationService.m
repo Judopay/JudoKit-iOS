@@ -239,6 +239,15 @@ static int const kCardHolderNameLength = 4;
                                          formattedInput:input];
     }
 
+    if (self.selectedBillingCountry == JPBillingCountryIndia) {
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeIndia];
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    }
+
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:NO
                                        errorMessage:nil

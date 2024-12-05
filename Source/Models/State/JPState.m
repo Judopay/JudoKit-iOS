@@ -33,6 +33,8 @@
         return [JPStateList.usStateList.states filteredArrayUsingPredicate:predicate].firstObject;
     } else if ([countryCode isEqualToString:kAlpha2CodeCanada]) {
         return [JPStateList.caStateList.states filteredArrayUsingPredicate:predicate].firstObject;
+    } else if ([countryCode isEqualToString:kAlpha2CodeIndia]) {
+        return [JPStateList.inStateList.states filteredArrayUsingPredicate:predicate].firstObject;
     }
     return nil;
 }
@@ -123,6 +125,47 @@
         @{@"isoCode" : @"QC", @"name" : @"Quebec"},
         @{@"isoCode" : @"SK", @"name" : @"Saskatchewan"},
         @{@"isoCode" : @"YT", @"name" : @"Yukon"}
+    ]];
+}
+
++ (instancetype)inStateList {
+    return [[JPStateList alloc] initWith:@[
+        @{@"isoCode" : @"AN", @"name" : @"Andaman and Nicobar Islands"},
+        @{@"isoCode" : @"AP", @"name" : @"Andhra Pradesh"},
+        @{@"isoCode" : @"AR", @"name" : @"Arunachal Pradesh"},
+        @{@"isoCode" : @"AS", @"name" : @"Assam"},
+        @{@"isoCode" : @"BR", @"name" : @"Bihar"},
+        @{@"isoCode" : @"CH", @"name" : @"Chandigarh"},
+        @{@"isoCode" : @"CG", @"name" : @"Chhattisgarh"},
+        @{@"isoCode" : @"DL", @"name" : @"Delhi"},
+        @{@"isoCode" : @"DH", @"name" : @"Dadra and Nagar Haveli and Daman and Diu"},
+        @{@"isoCode" : @"GA", @"name" : @"Goa"},
+        @{@"isoCode" : @"GJ", @"name" : @"Gujarat"},
+        @{@"isoCode" : @"HR", @"name" : @"Haryana"},
+        @{@"isoCode" : @"HP", @"name" : @"Himachal Pradesh"},
+        @{@"isoCode" : @"JK", @"name" : @"Jammu and Kashmīr"},
+        @{@"isoCode" : @"JH", @"name" : @"Jharkhand"},
+        @{@"isoCode" : @"KA", @"name" : @"Karnataka"},
+        @{@"isoCode" : @"KL", @"name" : @"Kerala"},
+        @{@"isoCode" : @"LA", @"name" : @"Ladakh"},
+        @{@"isoCode" : @"LD", @"name" : @"Lakshadweep"},
+        @{@"isoCode" : @"MP", @"name" : @"Madhya Pradesh"},
+        @{@"isoCode" : @"MH", @"name" : @"Maharashtra"},
+        @{@"isoCode" : @"MN", @"name" : @"Manipur"},
+        @{@"isoCode" : @"ML", @"name" : @"Meghalaya"},
+        @{@"isoCode" : @"MZ", @"name" : @"Mizoram"},
+        @{@"isoCode" : @"NL", @"name" : @"Nāgāland"},
+        @{@"isoCode" : @"OD", @"name" : @"Odisha"},
+        @{@"isoCode" : @"PY", @"name" : @"Puducherry"},
+        @{@"isoCode" : @"PB", @"name" : @"Punjab"},
+        @{@"isoCode" : @"RJ", @"name" : @"Rajasthan"},
+        @{@"isoCode" : @"SK", @"name" : @"Sikkim"},
+        @{@"isoCode" : @"TN", @"name" : @"Tamil Nadu"},
+        @{@"isoCode" : @"TS", @"name" : @"Telangana"},
+        @{@"isoCode" : @"TR", @"name" : @"Tripura"},
+        @{@"isoCode" : @"UP", @"name" : @"Uttar Pradesh"},
+        @{@"isoCode" : @"UK", @"name" : @"Uttarakhand"},
+        @{@"isoCode" : @"WB", @"name" : @"West Bengal"}
     ]];
 }
 
