@@ -37,7 +37,7 @@
 @property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, assign) JPBillingCountry selectedAVSCountry;
-@property (nonatomic, assign) JPBillingCountry selectedBillingCountry;
+@property (nonatomic, strong) JPCountry *selectedBillingCountry;
 
 @end
 
@@ -221,7 +221,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateBillingStateInput:(NSString *)input {
-    if (self.selectedBillingCountry == JPBillingCountryUSA) {
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeUSA]) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
@@ -230,9 +230,18 @@ static int const kCardHolderNameLength = 4;
                                          formattedInput:input];
     }
 
-    if (self.selectedBillingCountry == JPBillingCountryCanada) {
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
         BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_province_territory_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    }
+
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeIndia]) {
+        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeIndia];
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
@@ -246,7 +255,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateBillingCountryInput:(NSString *)input {
-    self.selectedBillingCountry = [self billingCountryWithName:input];
+    self.selectedBillingCountry = [JPCountry forCountryName:input];
 
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES

@@ -556,6 +556,10 @@
         stateViewModel.options = JPStateList.caStateList.states;
         stateViewModel.placeholder = @"jp_card_holder_province_hint"._jp_localized;
         stateViewModel.isValid = NO;
+    } else if (country.isIndia) {
+        stateViewModel.options = JPStateList.inStateList.states;
+        stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
+        stateViewModel.isValid = NO;
     } else {
         stateViewModel.isValid = YES;
     }
