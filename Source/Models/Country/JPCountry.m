@@ -113,8 +113,12 @@
     return [self.alpha2Code isEqualToString:kAlpha2CodeCanada];
 }
 
+- (BOOL)isIndia {
+    return [self.alpha2Code isEqualToString:kAlpha2CodeIndia];
+}
+
 - (BOOL)hasStates {
-    return self.isUSA || self.isCanada;
+    return self.isUSA || self.isCanada || self.isIndia;
 }
 
 - (JPBillingCountry)toBillingCountry {
@@ -124,6 +128,8 @@
         return JPBillingCountryUK;
     } else if ([self.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
         return JPBillingCountryCanada;
+    } else if ([self.alpha2Code isEqualToString:kAlpha2CodeIndia]) {
+        return JPBillingCountryIndia;
     } else {
         return JPBillingCountryOther;
     }
