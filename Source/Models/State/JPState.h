@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)caStateList;
 
++ (instancetype)inStateList;
+
 - (nullable instancetype)initWith:(nullable NSArray *)array;
 
 @end

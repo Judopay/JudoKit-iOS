@@ -113,8 +113,12 @@
     return [self.alpha2Code isEqualToString:kAlpha2CodeCanada];
 }
 
+- (BOOL)isIndia {
+    return [self.alpha2Code isEqualToString:kAlpha2CodeIndia];
+}
+
 - (BOOL)hasStates {
-    return self.isUSA || self.isCanada;
+    return self.isUSA || self.isCanada || self.isIndia;
 }
 
 - (JPBillingCountry)toBillingCountry {
