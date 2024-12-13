@@ -132,6 +132,11 @@
 @property (nonatomic, strong, nullable) JPRecommendationConfiguration *recommendationConfiguration;
 
 /**
+ * Internal use only
+ */
+@property (nonatomic, strong, nonnull) NSDictionary *extras;
+
+/**
  * Designated initializer that sets the required parameters for most Judo transations.
  *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.

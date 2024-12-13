@@ -26,6 +26,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>should_use_fabrick_ds_cert_title</string>
+			<key>Key</key>
+			<string>is_using_fabrick_3ds_service</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>judo_id_title</string>

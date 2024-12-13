@@ -90,6 +90,7 @@
                                                           overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
                                                      andTransaction:(nonnull JP3DSTransaction *)transaction;
 
-- (nonnull NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed;
+- (nonnull NSString *)directoryServerIdInSandboxEnv:(BOOL)isSandboxed
+                             usingFabrick3DSService:(BOOL)isUsingFabrick3DSService;
 
 @end
