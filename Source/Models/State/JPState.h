@@ -44,9 +44,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable, copy) NSArray<JPState *> *states;
 
-+ (instancetype)usStateList;
++ (nullable instancetype)usStatesList;
 
-+ (instancetype)caStateList;
++ (nullable instancetype)canadianStatesList;
+
++ (nullable instancetype)indianStatesList;
+
++ (nullable instancetype)chineseStatesList;
 
 - (nullable instancetype)initWith:(nullable NSArray *)array;
 
