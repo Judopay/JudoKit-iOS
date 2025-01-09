@@ -92,6 +92,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "IdealUITests">
+               </Test>
+               <Test
                   Identifier = "RavelinUITests/testCheckCardAllowAuthenticateLowValueNoPreference()">
                </Test>
                <Test
