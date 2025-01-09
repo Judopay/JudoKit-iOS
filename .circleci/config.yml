@@ -398,9 +398,10 @@ jobs:
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
               --device model=ipad10,version=16.6 \
-              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-      - notify_slack_error
-      - notify_slack_pass
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+              --client-details=matrixLabel="Regression E2E" \
+      # - notify_slack_error
+      # - notify_slack_pass
   instrumented_tests_sample_multiple:
     executor: macos
     steps:
@@ -425,7 +426,8 @@ jobs:
               --device model=iphone8,version=15.7 \
               --device model=iphone12pro,version=14.8 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
-              --num-flaky-test-attempts=2
+              --num-flaky-test-attempts=2 \
+              --client-details=matrixLabel="Backward Compat E2E"
       - notify_slack_error_weekly
       - notify_slack_pass_weekly
   instrumented_tests_swift_sample:
@@ -451,9 +453,10 @@ jobs:
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
               --device model=ipad10,version=16.6 \
-              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
-      - notify_slack_error
-      - notify_slack_pass
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+              --client-details=matrixLabel="Regression E2E" \
+      # - notify_slack_error
+      # - notify_slack_pass
   release_sample:
     executor: macos
     steps:
@@ -530,7 +533,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - reduce-test-flakiness
       - build_instrumented_tests_swift_package:
           requires:
             - unit_test_sdk
@@ -541,7 +544,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - reduce-test-flakiness
       - release_sample:
           context: shared-secrets
           requires:
