@@ -158,3 +158,13 @@ func assertNoRequestToJudoAPI(_ app: XCUIApplication) {
     }
     XCTAssertFalse(paymentRequestLabel.exists)
 }
+
+func toggleHaltTransactionSwitchIfOff(_ app: XCUIApplication) {
+    if let value = app.haltTransactionSwitchValue {
+        if value == "0" {
+            app.haltTransactionSwitch?.tap()
+        }
+    } else {
+        print("Switch not found")
+    }
+}
