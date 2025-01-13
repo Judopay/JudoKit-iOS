@@ -401,8 +401,8 @@ jobs:
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --timeout=30m \
               --num-flaky-test-attempts=1 \
-      # - notify_slack_error
-      # - notify_slack_pass
+      - notify_slack_error
+      - notify_slack_pass
   instrumented_tests_sample_ipad:
         executor: macos
         steps:
@@ -428,9 +428,7 @@ jobs:
                   --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
                   --client-details=matrixLabel="Regression E2E (iPad)" \
                   --timeout=30m \
-                  --num-flaky-test-attempts=1 \
-          # - notify_slack_error
-          # - notify_slack_pass
+                  --num-flaky-test-attempts=1
   instrumented_tests_sample_multiple:
     executor: macos
     steps:
@@ -457,7 +455,7 @@ jobs:
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --num-flaky-test-attempts=1 \
               --client-details=matrixLabel="Backward Compat E2E" \
-              --timeout=30m \
+              --timeout=30m
       - notify_slack_error_weekly
       - notify_slack_pass_weekly
   instrumented_tests_swift_sample_iphone:
@@ -485,9 +483,9 @@ jobs:
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --num-flaky-test-attempts=1 \
-              --timeout=30m \
-      # - notify_slack_error
-      # - notify_slack_pass
+              --timeout=30m
+      - notify_slack_error
+      - notify_slack_pass
   instrumented_tests_swift_sample_ipad:
         executor: macos
         steps:
@@ -513,9 +511,7 @@ jobs:
                   --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
                   --client-details=matrixLabel="Regression E2E (iPad)" \
                   --num-flaky-test-attempts=1 \
-                  --timeout=30m \
-          # - notify_slack_error
-          # - notify_slack_pass
+                  --timeout=30m
   release_sample:
     executor: macos
     steps:
@@ -592,7 +588,7 @@ workflows:
           filters:
             branches:
               only:
-                - reduce-test-flakiness
+                - master
       - instrumented_tests_sample_ipad:
           context: shared-secrets
           requires:
@@ -600,7 +596,7 @@ workflows:
           filters:
             branches:
               only:
-                - reduce-test-flakiness
+                - master
       - build_instrumented_tests_swift_package:
           requires:
             - unit_test_sdk
@@ -611,7 +607,7 @@ workflows:
           filters:
             branches:
               only:
-                - reduce-test-flakiness
+                - master
       - instrumented_tests_swift_sample_ipad:
           context: shared-secrets
           requires:
@@ -619,7 +615,7 @@ workflows:
           filters:
             branches:
               only:
-                - reduce-test-flakiness
+                - master
       - release_sample:
           context: shared-secrets
           requires:
