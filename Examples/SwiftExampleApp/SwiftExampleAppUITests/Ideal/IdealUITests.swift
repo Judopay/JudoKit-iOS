@@ -22,11 +22,11 @@ final class IdealUITests: XCTestCase {
             return true
         }
     }
-    
+
     func testSuccessfulIdealTransaction() {
         app.launch()
         app.swipeUp()
-        app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
+        app.textWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
         app.idealNextButton?.tap()
         app.idealLoginButton?.tap()
@@ -34,11 +34,11 @@ final class IdealUITests: XCTestCase {
         app.idealBackButton?.tap()
         app.assertIdealResultObject(app, "IDEAL", "SUCCEEDED")
     }
-    
+
     func testCancelIdealTransaction() {
         app.launch()
         app.swipeUp()
-        app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
+        app.textWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
         app.idealAbortButton?.tap()
         sleep(3)

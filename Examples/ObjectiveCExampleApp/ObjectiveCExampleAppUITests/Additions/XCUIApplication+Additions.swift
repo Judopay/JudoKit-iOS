@@ -223,6 +223,10 @@ extension XCUIApplication {
         }
     }
     
+    var haltTransactionSwitchValue: String? {
+        (switchWithLabel(Selectors.Other.haltTransactionSwitch)?.value as? String)
+    }
+    
     var backButton: XCUIElement? {
         get {
             return buttonWithLabel(Selectors.Other.backButton)

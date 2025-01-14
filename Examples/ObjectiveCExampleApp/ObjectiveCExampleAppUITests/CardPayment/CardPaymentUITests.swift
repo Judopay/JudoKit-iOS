@@ -36,7 +36,8 @@ final class CardPaymentUITests: XCTestCase {
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.cancelButton?.tap()
-        let snackbar = app.buttonWithLabel(TestData.Other.CANCELLED_PAYMENT_TOAST)
+        sleep(1)
+        let snackbar = app.textWithIdentifier(Selectors.Other.cancelledPaymentToastLabel)
         XCTAssert(snackbar!.exists, "Snackbar message not displayed")
     }
     

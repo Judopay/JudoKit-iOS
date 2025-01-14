@@ -375,7 +375,7 @@ jobs:
           path: ./Output/BuildLogs/
           destination: BuildLogs
 
-  instrumented_tests_sample:
+  instrumented_tests_sample_iphone:
     executor: macos
     steps:
       - attach_workspace:
@@ -397,10 +397,38 @@ jobs:
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
-              --device model=ipad10,version=16.6 \
-              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+              --client-details=matrixLabel="Regression E2E (iPhone)" \
+              --timeout=30m \
+              --num-flaky-test-attempts=1 \
       - notify_slack_error
       - notify_slack_pass
+  instrumented_tests_sample_ipad:
+        executor: macos
+        steps:
+          - attach_workspace:
+              at: ~/project
+          - brew_install
+          - run:
+              name: Store Google Service Account
+              command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+          - run:
+              name: Authorize gcloud and set config defaults
+              command: |
+                gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+                gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          - run:
+              name: Test with Firebase Test Lab
+              no_output_timeout: 30m
+              command: >
+                gcloud firebase test ios run \
+                  --test ./Output/ObjectiveCExampleAppUITests.zip \
+                  --xcode-version 15.3 \
+                  --device model=ipad10,version=16.6 \
+                  --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+                  --client-details=matrixLabel="Regression E2E (iPad)" \
+                  --timeout=30m \
+                  --num-flaky-test-attempts=1
   instrumented_tests_sample_multiple:
     executor: macos
     steps:
@@ -425,10 +453,12 @@ jobs:
               --device model=iphone8,version=15.7 \
               --device model=iphone12pro,version=14.8 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
-              --num-flaky-test-attempts=2
+              --num-flaky-test-attempts=1 \
+              --client-details=matrixLabel="Backward Compat E2E" \
+              --timeout=30m
       - notify_slack_error_weekly
       - notify_slack_pass_weekly
-  instrumented_tests_swift_sample:
+  instrumented_tests_swift_sample_iphone:
     executor: macos
     steps:
       - attach_workspace:
@@ -450,10 +480,38 @@ jobs:
               --test ./Output/SwiftExampleAppUITests.zip \
               --xcode-version 15.3 \
               --device model=iphone14pro,version=16.6 \
-              --device model=ipad10,version=16.6 \
-              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET
+              --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+              --client-details=matrixLabel="Regression E2E (iPhone)" \
+              --num-flaky-test-attempts=1 \
+              --timeout=30m
       - notify_slack_error
       - notify_slack_pass
+  instrumented_tests_swift_sample_ipad:
+        executor: macos
+        steps:
+          - attach_workspace:
+              at: ~/project
+          - brew_install
+          - run:
+              name: Store Google Service Account
+              command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+          - run:
+              name: Authorize gcloud and set config defaults
+              command: |
+                gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+                gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          - run:
+              name: Test with Firebase Test Lab
+              no_output_timeout: 30m
+              command: >
+                gcloud firebase test ios run \
+                  --test ./Output/SwiftExampleAppUITests.zip \
+                  --xcode-version 15.3 \
+                  --device model=ipad10,version=16.6 \
+                  --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
+                  --client-details=matrixLabel="Regression E2E (iPad)" \
+                  --num-flaky-test-attempts=1 \
+                  --timeout=30m
   release_sample:
     executor: macos
     steps:
@@ -523,7 +581,15 @@ workflows:
       - build_instrumented_tests_package:
           requires:
             - unit_test_sdk
-      - instrumented_tests_sample:
+      - instrumented_tests_sample_iphone:
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_package
+          filters:
+            branches:
+              only:
+                - master
+      - instrumented_tests_sample_ipad:
           context: shared-secrets
           requires:
             - build_instrumented_tests_package
@@ -534,7 +600,15 @@ workflows:
       - build_instrumented_tests_swift_package:
           requires:
             - unit_test_sdk
-      - instrumented_tests_swift_sample:
+      - instrumented_tests_swift_sample_iphone:
+          context: shared-secrets
+          requires:
+            - build_instrumented_tests_swift_package
+          filters:
+            branches:
+              only:
+                - master
+      - instrumented_tests_swift_sample_ipad:
           context: shared-secrets
           requires:
             - build_instrumented_tests_swift_package

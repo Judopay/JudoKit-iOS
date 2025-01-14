@@ -74,18 +74,9 @@ func tapCompleteButton(_ app: XCUIApplication) {
     let completeButton = app.buttons["COMPLETE"]
     XCTAssert(completeButton.waitForExistence(timeout: 30))
     
-    var retryCount = 0
+    sleep(10)
     
-    // Due to GlobalPay environment, sometimes the page does not proceed with a single tap of the Complete button
-    while completeButton.exists && retryCount < 5 {
-        if completeButton.isHittable {
-            completeButton.tap()
-        } else {
-            print("Complete button is not tappable.")
-            sleep(3)
-        }
-        retryCount += 1
-    }
+    completeButton.tap()
 }
 
 func assertResultObjectNotDisplayed(_ app: XCUIApplication) {
@@ -164,4 +155,12 @@ func assertNoRequestToJudoAPI(_ app: XCUIApplication) {
         return
     }
     XCTAssertFalse(paymentRequestLabel.exists)
+}
+
+func toggleHaltTransactionSwitchIfOff(_ app: XCUIApplication) {
+    if app.haltTransactionSwitchValue == "0" {
+        app.haltTransactionSwitch?.tap()
+    } else {
+        print("Switch not found")
+    }
 }

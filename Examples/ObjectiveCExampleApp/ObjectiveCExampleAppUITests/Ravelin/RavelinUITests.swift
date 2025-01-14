@@ -153,7 +153,7 @@ final class RavelinUITests: XCTestCase {
         app.configureRavelin(suffix: "5")
         app.ravelinTestSetup()
         app.settingsButton?.tap()
-        app.haltTransactionSwitch?.tap()
+        toggleHaltTransactionSwitchIfOff(app)
         app.backButton?.tap()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
@@ -161,6 +161,7 @@ final class RavelinUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         app.cardDetailsSubmitButton?.tap()
+        sleep(3)
         assertNoRequestToJudoAPI(app)
     }
 }
