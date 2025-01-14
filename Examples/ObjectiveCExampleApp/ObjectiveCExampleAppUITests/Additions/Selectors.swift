@@ -63,6 +63,7 @@ class Selectors {
         static let padSearchTerm = "primaryaccountdetails"
         static let haltTransactionSwitch = "Halt transaction in case of any error"
         static let backButton = "Judopay examples"
+        static let cancelledPaymentToastLabel = "messageLabel"
     }
     struct Ideal {
         static let makePaymentButton = "Make Payment"

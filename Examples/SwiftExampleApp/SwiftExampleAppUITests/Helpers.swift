@@ -60,9 +60,7 @@ func tapCompleteButton(_ app: XCUIApplication) {
 
     sleep(10)
     
-    if completeButton.isHittable {
-        completeButton.tap()
-    }
+    completeButton.tap()
 }
 
 func assertResultObjectNotDisplayed(_ app: XCUIApplication) {

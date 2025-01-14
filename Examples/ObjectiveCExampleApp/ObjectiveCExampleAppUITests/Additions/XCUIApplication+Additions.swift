@@ -224,12 +224,7 @@ extension XCUIApplication {
     }
     
     var haltTransactionSwitchValue: String? {
-        get {
-            guard let haltSwitch = switchWithLabel(Selectors.Other.haltTransactionSwitch) else {
-                return nil
-            }
-            return haltSwitch.value as? String
-        }
+        (switchWithLabel(Selectors.Other.haltTransactionSwitch)?.value as? String)
     }
     
     var backButton: XCUIElement? {

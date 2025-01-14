@@ -76,9 +76,7 @@ func tapCompleteButton(_ app: XCUIApplication) {
     
     sleep(10)
     
-    if completeButton.isHittable {
-        completeButton.tap()
-    }
+    completeButton.tap()
 }
 
 func assertResultObjectNotDisplayed(_ app: XCUIApplication) {
@@ -160,10 +158,8 @@ func assertNoRequestToJudoAPI(_ app: XCUIApplication) {
 }
 
 func toggleHaltTransactionSwitchIfOff(_ app: XCUIApplication) {
-    if let value = app.haltTransactionSwitchValue {
-        if value == "0" {
-            app.haltTransactionSwitch?.tap()
-        }
+    if app.haltTransactionSwitchValue == "0" {
+        app.haltTransactionSwitch?.tap()
     } else {
         print("Switch not found")
     }
