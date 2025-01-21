@@ -158,9 +158,28 @@ func assertNoRequestToJudoAPI(_ app: XCUIApplication) {
 }
 
 func toggleHaltTransactionSwitchIfOff(_ app: XCUIApplication) {
+    scrollToElement(element: app.haltTransactionSwitch!)
     if app.haltTransactionSwitchValue == "0" {
         app.haltTransactionSwitch?.tap()
     } else {
         print("Switch not found")
     }
+}
+
+func scrollToElement(element: XCUIElement, maxScrolls: Int = 10) {
+    var scrollCount = 0
+
+    while !element.isHittable && scrollCount < maxScrolls {
+        XCUIApplication().swipeUp()
+        scrollCount += 1
+    }
+    
+    if !element.isHittable {
+        print("Element not found after \(maxScrolls) scrolls")
+    }
+}
+
+func waitForElementToBeHittable(element: XCUIElement, timeout: TimeInterval = 10) -> Bool {
+    let exists = element.waitForExistence(timeout: timeout)
+    return exists && element.isHittable
 }

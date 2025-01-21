@@ -28,6 +28,7 @@ final class IdealUITests: XCTestCase {
         app.swipeUp()
         app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
+        sleep(3)
         app.idealNextButton?.tap()
         app.idealLoginButton?.tap()
         app.idealPaymentButton?.tap()
@@ -40,6 +41,8 @@ final class IdealUITests: XCTestCase {
         app.swipeUp()
         app.cellWithIdentifier(Selectors.FeatureList.paymentMethods)?.tap()
         app.payNowButton?.tap()
+        sleep(3)
+        scrollToElement(element: app.idealAbortButton!)
         app.idealAbortButton?.tap()
         sleep(3)
         let snackbar = app.staticTexts[TestData.Other.IDEAL_CANCELLED_PAYMENT_ALERT]

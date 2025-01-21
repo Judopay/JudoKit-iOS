@@ -456,8 +456,8 @@ jobs:
               --num-flaky-test-attempts=1 \
               --client-details=matrixLabel="Backward Compat E2E" \
               --timeout=30m
-      - notify_slack_error_weekly
-      - notify_slack_pass_weekly
+      # - notify_slack_error_weekly
+      # - notify_slack_pass_weekly
   instrumented_tests_swift_sample_iphone:
     executor: macos
     steps:
@@ -659,4 +659,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - backward-compat-test-fixes
