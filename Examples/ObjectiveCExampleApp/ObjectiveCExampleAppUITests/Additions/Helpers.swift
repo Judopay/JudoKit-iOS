@@ -183,3 +183,11 @@ func waitForElementToBeHittable(element: XCUIElement, timeout: TimeInterval = 10
     let exists = element.waitForExistence(timeout: timeout)
     return exists && element.isHittable
 }
+
+func tapPayNowButton(_ app: XCUIApplication) {
+    if waitForElementToBeHittable(element: app.cardDetailsSubmitButton!) {
+        app.cardDetailsSubmitButton?.tap()
+    } else {
+        XCTFail("Pay now button is not hittable")
+    }
+}
