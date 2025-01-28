@@ -291,7 +291,11 @@ platform :ios do
             plist_path: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp/Info.plist",
             app_identifier: new_bundle_id
           )
+
           UI.message("Updated bundle ID to: #{new_bundle_id}")
+
+          profile_specifier = "match AdHoc com.judo.JudoPayDemoObjC"
+          replace("#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj/project.pbxproj", profile_specifier, "#{profile_specifier}#{suffix}")
         end
 
         replace("#{Dir.pwd}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{ENV['STAGING_HOST_NAME']}")
