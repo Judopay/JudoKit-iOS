@@ -302,6 +302,7 @@ final class CardPaymentUITests: XCTestCase {
                                    city: Constants.BillingInfo.validCity,
                                    postCode: Constants.BillingInfo.invalidPostcode)
         app.cityField?.tap()
+        sleep(1)
         XCTAssertEqual(app.fieldErrorLabel, Constants.BillingInfo.invalidPostcodeLabel)
         XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
     }

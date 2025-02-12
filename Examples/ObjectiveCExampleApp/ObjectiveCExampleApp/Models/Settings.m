@@ -32,6 +32,10 @@ static NSString *const kDontSet = @"dontSet";
     return [self.defaults boolForKey:kSandboxedKey];
 }
 
+- (BOOL)isUsingFabrick3DSService {
+    return [self.defaults boolForKey:kIsUsingFabrick3DSServiceKey];
+}
+
 - (NSString *)judoId {
     return [self.defaults stringForKey:kJudoIdKey];
 }

@@ -33,7 +33,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         assertNoRequestToJudoAPI(app)
     }
     
@@ -45,7 +45,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         tapCompleteButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_PREFERRED, sca: TestData.Ravelin.LOW_VALUE)
     }
@@ -58,7 +58,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_PREFERENCE, sca: TestData.Ravelin.TRA)
     }
     
@@ -70,7 +70,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.LOW_VALUE)
     }
     
@@ -82,7 +82,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         tapCompleteButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_MANDATE, sca: TestData.Ravelin.LOW_VALUE)
     }
@@ -95,7 +95,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.CHALLENGE_MANDATE, sca: TestData.Ravelin.LOW_VALUE, criShouldExist: false)
     }
     
@@ -107,7 +107,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, scaShouldExist: false)
     }
     
@@ -119,7 +119,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         tapCompleteButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, criShouldExist: false, scaShouldExist: false)
     }
@@ -132,7 +132,7 @@ final class RavelinUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
         tapCompleteButton(app)
         assertRequestBody(app, cri: TestData.Ravelin.NO_CHALLENGE, sca: TestData.Ravelin.TRA, criShouldExist: false, scaShouldExist: false)
     }
@@ -153,14 +153,15 @@ final class RavelinUITests: XCTestCase {
         app.configureRavelin(suffix: "5")
         app.ravelinTestSetup()
         app.settingsButton?.tap()
-        app.haltTransactionSwitch?.tap()
+        toggleHaltTransactionSwitchIfOff(app)
         app.backButton?.tap()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
         app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        app.cardDetailsSubmitButton?.tap()
+        tapPayNowButton(app)
+        sleep(3)
         assertNoRequestToJudoAPI(app)
     }
 }

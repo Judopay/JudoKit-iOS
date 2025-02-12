@@ -65,6 +65,7 @@ class Selectors {
         static let addressTwoValue = "address2 Value"
         static let townValue = "town Value"
         static let postCodeValue = "postCode Value"
+        static let paymentMethodValue = "paymentMethod Value"
     }
     struct Ideal {
         static let makePaymentButton = "Make Payment"
