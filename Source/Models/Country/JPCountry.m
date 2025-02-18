@@ -121,7 +121,7 @@
     return [self.alpha2Code isEqualToString:kAlpha2CodeChina];
 }
 
-- (BOOL)hasStates {
+- (BOOL)hasAdministrativeDivisions {
     return self.isUSA || self.isCanada || self.isIndia || self.isChina;
 }
 

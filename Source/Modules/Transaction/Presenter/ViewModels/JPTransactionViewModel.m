@@ -150,7 +150,7 @@
 
         _emailViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingEmail];
         _countryViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingCountry];
-        _stateViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingState];
+        _administrativeDivisionViewModel = [JPTransactionOptionSelectionInputViewModel viewModelWithType:JPInputTypeBillingAdministrativeDivision];
         _phoneCodeViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhoneCode];
         _phoneViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingPhone];
         _addressLine1ViewModel = [JPTransactionInputFieldViewModel viewModelWithType:JPInputTypeBillingAddressLine1];
@@ -178,7 +178,7 @@
 
     self.emailViewModel.isEnabled = isEnabled;
     self.countryViewModel.isEnabled = isEnabled;
-    self.stateViewModel.isEnabled = isEnabled;
+    self.administrativeDivisionViewModel.isEnabled = isEnabled;
     self.phoneCodeViewModel.isEnabled = isEnabled;
     self.phoneViewModel.isEnabled = isEnabled;
     self.addressLine1ViewModel.isEnabled = isEnabled;
@@ -249,7 +249,7 @@
 - (BOOL)isBillingInformationValid {
     JPTransactionBillingInformationViewModel *viewModel = self.billingInformationViewModel;
 
-    return viewModel.emailViewModel.isValid && viewModel.countryViewModel.isValid && viewModel.stateViewModel.isValid && viewModel.addressLine1ViewModel.isValid && viewModel.addressLine2ViewModel.isValid && viewModel.addressLine3ViewModel.isValid && viewModel.phoneViewModel.isValid && viewModel.cityViewModel.isValid && viewModel.postalCodeViewModel.isValid;
+    return viewModel.emailViewModel.isValid && viewModel.countryViewModel.isValid && viewModel.administrativeDivisionViewModel.isValid && viewModel.addressLine1ViewModel.isValid && viewModel.addressLine2ViewModel.isValid && viewModel.addressLine3ViewModel.isValid && viewModel.phoneViewModel.isValid && viewModel.cityViewModel.isValid && viewModel.postalCodeViewModel.isValid;
 }
 
 @end

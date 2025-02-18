@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPCardValidationService.h"
+#import "JPAdministrativeDivision.h"
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
-#import "JPState.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
@@ -220,9 +220,9 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateBillingStateInput:(NSString *)input {
+- (JPValidationResult *)validateBillingAdministrativeDivisionInput:(NSString *)input {
     if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeUSA]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeUSA];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
@@ -231,7 +231,7 @@ static int const kCardHolderNameLength = 4;
     }
 
     if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_province_territory_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
@@ -240,7 +240,7 @@ static int const kCardHolderNameLength = 4;
     }
 
     if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeIndia]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeIndia];
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeIndia];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_state_union_territory_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
@@ -249,7 +249,7 @@ static int const kCardHolderNameLength = 4;
     }
 
     if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeChina]) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeChina];
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeChina];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_province_region_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES

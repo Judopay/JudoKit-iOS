@@ -239,8 +239,8 @@
     return [self.cardValidationService validateBillingCountryInput:input];
 }
 
-- (JPValidationResult *)validateBillingStateInput:(NSString *)input {
-    return [self.cardValidationService validateBillingStateInput:input];
+- (JPValidationResult *)validateBillingAdministrativeDivisionInput:(NSString *)input {
+    return [self.cardValidationService validateBillingAdministrativeDivisionInput:input];
 }
 
 - (JPValidationResult *)validateBillingPhoneInput:(NSString *)input {

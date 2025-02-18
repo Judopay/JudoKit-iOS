@@ -22,12 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPDictionaryConvertible.h"
 #import <Foundation/Foundation.h>
 
 /**
  *  The Address object stores information around the address that is related to a card
  */
-@interface JPAddress : NSObject
+@interface JPAddress : NSObject <JPDictionaryConvertible>
 
 /**
  *  Line one of the address
@@ -60,9 +61,14 @@
 @property (nonatomic, strong, nullable) NSNumber *countryCode;
 
 /**
- * Sets state code of the address.
+ * Administrative division code of the address.
  */
-@property (nonatomic, strong, nullable) NSString *state;
+@property (nonatomic, strong, nullable) NSString *administrativeDivision;
+
+/**
+ * DEPRECATED: use administrativeDivision instead.
+ */
+@property (nonatomic, readonly, nullable) NSString *state;
 
 /**
  *  Designated Initializer
@@ -73,9 +79,20 @@
  *  @param town - a string that represents the town name
  *  @param postCode the postal code of the card
  *  @param countryCode - the country code of the address
- *  @param state - the state code of the address
+ *  @param administrativeDivision - the administrative division code of the address
  *
  *  @return a JPAddress object
+ */
+- (nonnull instancetype)initWithAddress1:(nullable NSString *)address1
+                                address2:(nullable NSString *)address2
+                                address3:(nullable NSString *)address3
+                                    town:(nullable NSString *)town
+                                postCode:(nullable NSString *)postCode
+                             countryCode:(nullable NSNumber *)countryCode
+                  administrativeDivision:(nullable NSString *)administrativeDivision;
+
+/**
+ * DEPRECATED
  */
 - (nonnull instancetype)initWithAddress1:(nullable NSString *)address1
                                 address2:(nullable NSString *)address2

@@ -26,6 +26,35 @@
 
 @implementation JPPostalAddress
 
+static NSString *const kAdministrativeDivisionKey = @"state";
+
+- (NSString *_Nullable)state {
+    return _administrativeDivision;
+}
+
+- (instancetype)initWithStreet:(NSString *)street
+                          city:(NSString *)city
+        administrativeDivision:(NSString *)administrativeDivision
+                    postalCode:(NSString *)postalCode
+                       country:(NSString *)country
+                       isoCode:(NSString *)isoCode
+         subAdministrativeArea:(nullable NSString *)subAdministrativeArea
+                   sublocality:(nullable NSString *)sublocality {
+
+    if (self = [super init]) {
+        self.street = street;
+        self.city = city;
+        self.administrativeDivision = administrativeDivision;
+        self.postalCode = postalCode;
+        self.country = country;
+        self.isoCode = isoCode;
+        self.subAdministrativeArea = subAdministrativeArea;
+        self.sublocality = sublocality;
+    }
+
+    return self;
+}
+
 - (instancetype)initWithSteet:(NSString *)street
                          city:(NSString *)city
                         state:(NSString *)state
@@ -35,18 +64,20 @@
         subAdministrativeArea:(nullable NSString *)subAdministrativeArea
                   sublocality:(nullable NSString *)sublocality {
 
-    if (self = [super init]) {
-        self.street = street;
-        self.city = city;
-        self.state = state;
-        self.postalCode = postalCode;
-        self.country = country;
-        self.isoCode = isoCode;
-        self.subAdministrativeArea = subAdministrativeArea;
-        self.sublocality = sublocality;
-    }
+    return [self initWithStreet:street
+                           city:city
+         administrativeDivision:state
+                     postalCode:postalCode
+                        country:country
+                        isoCode:isoCode
+          subAdministrativeArea:subAdministrativeArea
+                    sublocality:sublocality];
+}
 
-    return self;
+- (NSDictionary *)_jp_toDictionary {
+    return @{
+        kAdministrativeDivisionKey : self.administrativeDivision
+    };
 }
 
 @end

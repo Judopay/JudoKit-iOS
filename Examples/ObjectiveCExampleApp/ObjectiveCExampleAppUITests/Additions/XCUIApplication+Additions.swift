@@ -163,9 +163,9 @@ extension XCUIApplication {
         }
     }
     
-    var stateField: XCUIElement? {
+    var administrativeDivisionField: XCUIElement? {
         get {
-            return textFieldWithIdentifier(Selectors.BillingInfo.stateField)
+            return textFieldWithIdentifier(Selectors.BillingInfo.administrativeDivisionField)
         }
     }
     

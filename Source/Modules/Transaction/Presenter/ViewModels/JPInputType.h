@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, JPInputType) {
     // Billing info section
     JPInputTypeBillingEmail,
     JPInputTypeBillingCountry,
-    JPInputTypeBillingState,
+    JPInputTypeBillingAdministrativeDivision,
     JPInputTypeBillingPhoneCode,
     JPInputTypeBillingPhone,
     JPInputTypeBillingAddressLine1,

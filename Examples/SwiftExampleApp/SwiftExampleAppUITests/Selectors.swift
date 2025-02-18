@@ -47,7 +47,7 @@ class Selectors {
         static let postCodeField = "Post Code Field"
         static let addAddressLineButton = "Add address line Button"
         static let fieldErrorLabel = "Error Floating Label"
-        static let stateField = "State Field"
+        static let administrativeDivisionField = "Administrative Division Field"
         static let countryField = "Country Field"
     }
     struct Other {

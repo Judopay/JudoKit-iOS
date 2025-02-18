@@ -1,5 +1,5 @@
 //
-//  JPState.h
+//  JPAdministrativeDivision.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2022 Alternative Payments Ltd
@@ -22,35 +22,35 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#ifndef JPState_h
-#define JPState_h
+#ifndef JPAdministrativeDivision_h
+#define JPAdministrativeDivision_h
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JPState : NSObject
+@interface JPAdministrativeDivision : NSObject
 
 @property (nonatomic, readonly) NSString *alpha2Code;
 @property (nonatomic, readonly) NSString *name;
 
-+ (nullable JPState *)forStateName:(nonnull NSString *)stateName andCountryCode:(nonnull NSString *)countryCode;
++ (nullable JPAdministrativeDivision *)forAdministrativeDivisionName:(nonnull NSString *)name andCountryCode:(nonnull NSString *)countryCode;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dict;
 
 @end
 
-@interface JPStateList : NSObject
+@interface JPAdministrativeDivisionsList : NSObject
 
-@property (nonatomic, nullable, copy) NSArray<JPState *> *states;
+@property (nonatomic, nullable, copy) NSArray<JPAdministrativeDivision *> *divisions;
 
-+ (nullable instancetype)usStatesList;
++ (nullable instancetype)american;
 
-+ (nullable instancetype)canadianStatesList;
++ (nullable instancetype)canadian;
 
-+ (nullable instancetype)indianStatesList;
++ (nullable instancetype)indian;
 
-+ (nullable instancetype)chineseStatesList;
++ (nullable instancetype)chinese;
 
 - (nullable instancetype)initWith:(nullable NSArray *)array;
 
@@ -58,4 +58,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#endif /* JPState_h */
+#endif /* JPAdministrativeDivision_h */

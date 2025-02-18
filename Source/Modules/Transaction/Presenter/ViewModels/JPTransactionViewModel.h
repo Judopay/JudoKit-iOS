@@ -26,7 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPCountry, JPState;
+@class JPCountry, JPAdministrativeDivision;
 
 typedef NS_ENUM(NSUInteger, JPInputType);
 typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
@@ -177,7 +177,7 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *emailViewModel;
 @property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPCountry *> *countryViewModel;
-@property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPState *> *stateViewModel;
+@property (nonatomic, strong) JPTransactionOptionSelectionInputViewModel<JPAdministrativeDivision *> *administrativeDivisionViewModel;
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *phoneCodeViewModel;
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *phoneViewModel;
 @property (nonatomic, strong) JPTransactionInputFieldViewModel *addressLine1ViewModel;
