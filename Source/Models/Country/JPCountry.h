@@ -49,7 +49,7 @@
 
 - (BOOL)isChina;
 
-- (BOOL)hasStates;
+- (BOOL)hasAdministrativeDivisions;
 
 - (JPBillingCountry)toBillingCountry;
 

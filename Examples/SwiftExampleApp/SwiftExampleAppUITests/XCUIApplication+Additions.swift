@@ -114,8 +114,8 @@ extension XCUIApplication {
         return textFieldWithIdentifier(Selectors.BillingInfo.postCodeField)
     }
 
-    var stateField: XCUIElement? {
-        return textFieldWithIdentifier(Selectors.BillingInfo.stateField)
+    var administrativeDivisionField: XCUIElement? {
+        return textFieldWithIdentifier(Selectors.BillingInfo.administrativeDivisionField)
     }
 
     var countryField: XCUIElement? {

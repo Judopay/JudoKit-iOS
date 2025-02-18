@@ -25,10 +25,10 @@
 #import "JPBillingInformationForm.h"
 #import "JPActionBar.h"
 #import "JPActionBarDelegate.h"
+#import "JPAdministrativeDivision.h"
 #import "JPCardInputField.h"
 #import "JPCountry.h"
 #import "JPPhoneCodeInputField.h"
-#import "JPState.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionViewModel.h"
@@ -41,8 +41,8 @@
 @property (nonatomic, strong) JPCardInputField *emailTextField;
 @property (nonatomic, strong) JPCardInputField *countryTextField;
 @property (nonatomic, strong) UIPickerView *countryPickerView;
-@property (nonatomic, strong) JPCardInputField *stateTextField;
-@property (nonatomic, strong) UIPickerView *statePickerView;
+@property (nonatomic, strong) JPCardInputField *administrativeDivisionTextField;
+@property (nonatomic, strong) UIPickerView *administrativeDivisionPickerView;
 @property (nonatomic, strong) JPPhoneCodeInputField *phoneCodeTextField;
 @property (nonatomic, strong) JPCardInputField *phoneTextField;
 @property (nonatomic, strong) JPCardInputField *line1TextField;
@@ -92,21 +92,21 @@ static const float kPhoneCodeWidth = 45.0F;
     self.countryPickerView.dataSource = self;
     self.countryPickerView.accessibilityIdentifier = @"Country Picker";
 
-    self.statePickerView = [UIPickerView new];
-    self.statePickerView.delegate = self;
-    self.statePickerView.dataSource = self;
-    self.statePickerView.accessibilityIdentifier = @"State Picker";
+    self.administrativeDivisionPickerView = [UIPickerView new];
+    self.administrativeDivisionPickerView.delegate = self;
+    self.administrativeDivisionPickerView.dataSource = self;
+    self.administrativeDivisionPickerView.accessibilityIdentifier = @"Administrative Division Picker";
 
     self.countryTextField = [JPCardInputField new];
     self.countryTextField.inputView = self.countryPickerView;
     self.countryTextField.accessibilityIdentifier = @"Country Field";
     self.countryTextField.textContentType = UITextContentTypeCountryName;
 
-    self.stateTextField = [JPCardInputField new];
-    self.stateTextField.inputView = self.statePickerView;
-    self.stateTextField.accessibilityIdentifier = @"State Field";
-    self.stateTextField.hidden = YES;
-    self.stateTextField.textContentType = UITextContentTypeAddressState;
+    self.administrativeDivisionTextField = [JPCardInputField new];
+    self.administrativeDivisionTextField.inputView = self.administrativeDivisionPickerView;
+    self.administrativeDivisionTextField.accessibilityIdentifier = @"Administrative Division Field";
+    self.administrativeDivisionTextField.hidden = YES;
+    self.administrativeDivisionTextField.textContentType = UITextContentTypeAddressState;
 
     self.phoneCodeTextField = [JPPhoneCodeInputField new];
     self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
@@ -173,7 +173,7 @@ static const float kPhoneCodeWidth = 45.0F;
         self.headingLabel,
         self.emailTextField,
         self.countryTextField,
-        self.stateTextField,
+        self.administrativeDivisionTextField,
         phoneNumberStackView,
         self.line1TextField,
         self.line2TextField,
@@ -188,7 +188,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [NSLayoutConstraint activateConstraints:@[
         [self.emailTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.stateTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
+        [self.administrativeDivisionTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.phoneCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
         [self.phoneTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
@@ -219,17 +219,17 @@ static const float kPhoneCodeWidth = 45.0F;
                      }];
 }
 
-- (void)updateBillingAddressStatePicker:(NSString *)countryName {
+- (void)updateBillingAddressAdministrativeDivisionPicker:(NSString *)countryName {
     JPCountry *country = [JPCountry forCountryName:countryName];
 
-    if (!country || self.stateTextField.hidden == !country.hasStates) {
+    if (!country || self.administrativeDivisionTextField.hidden == !country.hasAdministrativeDivisions) {
         return;
     }
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.2
                      animations:^{
-                         weakSelf.stateTextField.hidden = !country.hasStates;
+                         weakSelf.administrativeDivisionTextField.hidden = !country.hasAdministrativeDivisions;
                      }];
 }
 
@@ -241,7 +241,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     [self.emailTextField applyTheme:theme];
     [self.countryTextField applyTheme:theme];
-    [self.stateTextField applyTheme:theme];
+    [self.administrativeDivisionTextField applyTheme:theme];
     [self.phoneCodeTextField applyTheme:theme];
     [self.phoneTextField applyTheme:theme];
     [self.line1TextField applyTheme:theme];
@@ -266,7 +266,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     [self.emailTextField configureWithViewModel:viewModel.emailViewModel];
     [self.countryTextField configureWithViewModel:viewModel.countryViewModel];
-    [self.stateTextField configureWithViewModel:viewModel.stateViewModel];
+    [self.administrativeDivisionTextField configureWithViewModel:viewModel.administrativeDivisionViewModel];
     [self.phoneCodeTextField configureWithViewModel:viewModel.phoneCodeViewModel];
     [self.phoneTextField configureWithViewModel:viewModel.phoneViewModel];
     [self.line1TextField configureWithViewModel:viewModel.addressLine1ViewModel];
@@ -275,9 +275,9 @@ static const float kPhoneCodeWidth = 45.0F;
     [self.cityTextField configureWithViewModel:viewModel.cityViewModel];
     [self.postcodeTextField configureWithViewModel:viewModel.postalCodeViewModel];
 
-    [self updateBillingAddressStatePicker:viewModel.countryViewModel.text];
+    [self updateBillingAddressAdministrativeDivisionPicker:viewModel.countryViewModel.text];
     [self.countryPickerView reloadAllComponents];
-    [self.statePickerView reloadAllComponents];
+    [self.administrativeDivisionPickerView reloadAllComponents];
 }
 
 - (void)setInputFieldDelegate:(id<JPInputFieldDelegate>)delegate {
@@ -285,7 +285,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
     self.emailTextField.delegate = delegate;
     self.countryTextField.delegate = delegate;
-    self.stateTextField.delegate = delegate;
+    self.administrativeDivisionTextField.delegate = delegate;
     self.phoneCodeTextField.delegate = delegate;
     self.phoneTextField.delegate = delegate;
     self.line1TextField.delegate = delegate;
@@ -307,8 +307,8 @@ static const float kPhoneCodeWidth = 45.0F;
         return self.viewModel.countryViewModel.options.count;
     }
 
-    if (pickerView == self.statePickerView) {
-        return self.viewModel.stateViewModel.options.count;
+    if (pickerView == self.administrativeDivisionPickerView) {
+        return self.viewModel.administrativeDivisionViewModel.options.count;
     }
 
     return 0;
@@ -321,9 +321,9 @@ static const float kPhoneCodeWidth = 45.0F;
         [self.inputFieldDelegate inputField:self.countryTextField didEndEditing:country.name];
     }
 
-    if (pickerView == self.statePickerView) {
-        JPState *state = self.viewModel.stateViewModel.options[row];
-        [self.inputFieldDelegate inputField:self.stateTextField didEndEditing:state.name];
+    if (pickerView == self.administrativeDivisionPickerView) {
+        JPAdministrativeDivision *division = self.viewModel.administrativeDivisionViewModel.options[row];
+        [self.inputFieldDelegate inputField:self.administrativeDivisionTextField didEndEditing:division.name];
     }
 }
 
@@ -333,8 +333,8 @@ static const float kPhoneCodeWidth = 45.0F;
         return self.viewModel.countryViewModel.options[row].name;
     }
 
-    if (pickerView == self.statePickerView) {
-        return self.viewModel.stateViewModel.options[row].name;
+    if (pickerView == self.administrativeDivisionPickerView) {
+        return self.viewModel.administrativeDivisionViewModel.options[row].name;
     }
 
     return @"";

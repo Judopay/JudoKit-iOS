@@ -39,7 +39,7 @@ class NoUICardPayViewModel: ObservableObject {
             town: "Southampton",
             postCode: "SO535PD",
             countryCode: 826,
-            state: nil)
+            administrativeDivision: nil)
         return details
     }
 

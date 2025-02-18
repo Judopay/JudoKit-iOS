@@ -1,5 +1,5 @@
 //
-//  JPState.m
+//  JPAdministrativeDivision.m
 //  JudoKit_iOS
 //
 //  Copyright (c) 2022 Alternative Payments Ltd
@@ -22,21 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPState.h"
+#import "JPAdministrativeDivision.h"
 #import "JPConstants.h"
 
-@implementation JPState
+@implementation JPAdministrativeDivision
 
-+ (nullable JPState *)forStateName:(nonnull NSString *)stateName andCountryCode:(nonnull NSString *)countryCode {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", stateName];
++ (nullable JPAdministrativeDivision *)forAdministrativeDivisionName:(nonnull NSString *)name andCountryCode:(nonnull NSString *)countryCode {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
     if ([countryCode isEqualToString:kAlpha2CodeUSA]) {
-        return [JPStateList.usStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPAdministrativeDivisionsList.american.divisions filteredArrayUsingPredicate:predicate].firstObject;
     } else if ([countryCode isEqualToString:kAlpha2CodeCanada]) {
-        return [JPStateList.canadianStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPAdministrativeDivisionsList.canadian.divisions filteredArrayUsingPredicate:predicate].firstObject;
     } else if ([countryCode isEqualToString:kAlpha2CodeIndia]) {
-        return [JPStateList.indianStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPAdministrativeDivisionsList.indian.divisions filteredArrayUsingPredicate:predicate].firstObject;
     } else if ([countryCode isEqualToString:kAlpha2CodeChina]) {
-        return [JPStateList.chineseStatesList.states filteredArrayUsingPredicate:predicate].firstObject;
+        return [JPAdministrativeDivisionsList.chinese.divisions filteredArrayUsingPredicate:predicate].firstObject;
     }
     return nil;
 }
@@ -54,10 +54,10 @@
 
 @end
 
-@implementation JPStateList
+@implementation JPAdministrativeDivisionsList
 
-+ (instancetype)usStatesList {
-    return [[JPStateList alloc] initWith:@[
++ (instancetype)american {
+    return [[JPAdministrativeDivisionsList alloc] initWith:@[
         @{@"isoCode" : @"AK", @"name" : @"Alaska"},
         @{@"isoCode" : @"AZ", @"name" : @"Arizona"},
         @{@"isoCode" : @"AR", @"name" : @"Arkansas"},
@@ -112,8 +112,8 @@
     ]];
 }
 
-+ (instancetype)canadianStatesList {
-    return [[JPStateList alloc] initWith:@[
++ (instancetype)canadian {
+    return [[JPAdministrativeDivisionsList alloc] initWith:@[
         @{@"isoCode" : @"AB", @"name" : @"Alberta"},
         @{@"isoCode" : @"BC", @"name" : @"British Columbia"},
         @{@"isoCode" : @"MB", @"name" : @"Manitoba"},
@@ -130,8 +130,8 @@
     ]];
 }
 
-+ (instancetype)indianStatesList {
-    return [[JPStateList alloc] initWith:@[
++ (instancetype)indian {
+    return [[JPAdministrativeDivisionsList alloc] initWith:@[
         @{@"isoCode" : @"AN", @"name" : @"Andaman and Nicobar Islands"},
         @{@"isoCode" : @"AP", @"name" : @"Andhra Pradesh"},
         @{@"isoCode" : @"AR", @"name" : @"Arunachal Pradesh"},
@@ -171,8 +171,8 @@
     ]];
 }
 
-+ (instancetype)chineseStatesList {
-    return [[JPStateList alloc] initWith:@[
++ (instancetype)chinese {
+    return [[JPAdministrativeDivisionsList alloc] initWith:@[
         @{@"isoCode" : @"AH", @"name" : @"Anhui Sheng"},
         @{@"isoCode" : @"MO", @"name" : @"Aomen Tebiexingzhengqu"},
         @{@"isoCode" : @"BJ", @"name" : @"Beijing Shi"},
@@ -218,16 +218,16 @@
         return nil;
     }
     if (self = [super init]) {
-        NSMutableArray *states = [NSMutableArray new];
-        for (NSDictionary *stateDict in array) {
-            if (stateDict) {
-                JPState *state = [[JPState alloc] initWithDictionary:stateDict];
-                if (state) {
-                    [states addObject:state];
+        NSMutableArray *administrativeDivisions = [NSMutableArray new];
+        for (NSDictionary *divisionsDics in array) {
+            if (divisionsDics) {
+                JPAdministrativeDivision *administrativeDivision = [[JPAdministrativeDivision alloc] initWithDictionary:divisionsDics];
+                if (administrativeDivision) {
+                    [administrativeDivisions addObject:administrativeDivision];
                 }
             }
         }
-        self.states = states;
+        self.divisions = administrativeDivisions;
     }
     return self;
 }

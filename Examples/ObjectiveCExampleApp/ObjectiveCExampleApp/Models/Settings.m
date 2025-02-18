@@ -349,7 +349,7 @@ NSString *safeString(NSString *aString) {
 - (JPAddress *)address {
     if (Settings.defaultSettings.isAddressOn) {
         NSNumber *addressCountryCode = @([self.defaults stringForKey:kAddressCountryCodeKey].intValue);
-        NSString *state = [self.defaults stringForKey:kAddressStateKey];
+        NSString *administrativeDivision = [self.defaults stringForKey:kAddressAdministrativeDivisionKey];
 
         return [[JPAddress alloc] initWithAddress1:[self.defaults stringForKey:kAddressLine1Key]
                                           address2:[self.defaults stringForKey:kAddressLine2Key]
@@ -357,7 +357,7 @@ NSString *safeString(NSString *aString) {
                                               town:[self.defaults stringForKey:kAddressTownKey]
                                           postCode:[self.defaults stringForKey:kAddressPostCodeKey]
                                        countryCode:addressCountryCode
-                                             state:state.length > 0 ? state : nil];
+                            administrativeDivision:administrativeDivision.length > 0 ? administrativeDivision : nil];
     }
     return nil;
 }
