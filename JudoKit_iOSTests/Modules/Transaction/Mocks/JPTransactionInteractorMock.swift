@@ -119,8 +119,8 @@ class JPTransactionInteractorMock: JPTransactionInteractor {
         validationService.validateBillingCountryInput(input)
     }
     
-    func validateBillingStateInput(_ input: String) -> JPValidationResult {
-        validationService.validateBillingStateInput(input)
+    func validateBillingAdministrativeDivisionInput(_ input: String) -> JPValidationResult {
+        validationService.validateBillingAdministrativeDivisionInput(input)
     }
     
     func validateBillingPhoneCodeInput(_ input: String) -> JPValidationResult {

@@ -30,7 +30,6 @@
 #import "JPInputType.h"
 #import "JPLoadingButton.h"
 #import "JPPresentationMode.h"
-#import "JPState.h"
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionPresenter.h"

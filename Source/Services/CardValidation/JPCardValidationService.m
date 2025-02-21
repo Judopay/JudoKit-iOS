@@ -23,12 +23,12 @@
 //  SOFTWARE.
 
 #import "JPCardValidationService.h"
+#import "JPAdministrativeDivision.h"
 #import "JPBillingCountry.h"
 #import "JPCardNetwork.h"
 #import "JPConstants.h"
 #import "JPCountry.h"
 #import "JPError+Additions.h"
-#import "JPState.h"
 #import "JPValidationResult.h"
 #import "NSString+Additions.h"
 
@@ -37,7 +37,7 @@
 @property (nonatomic, strong) JPValidationResult *lastCardNumberValidationResult;
 @property (nonatomic, strong) JPValidationResult *lastExpiryDateValidationResult;
 @property (nonatomic, assign) JPBillingCountry selectedAVSCountry;
-@property (nonatomic, assign) JPBillingCountry selectedBillingCountry;
+@property (nonatomic, strong) JPCountry *selectedBillingCountry;
 
 @end
 
@@ -220,9 +220,9 @@ static int const kCardHolderNameLength = 4;
                                      formattedInput:input];
 }
 
-- (JPValidationResult *)validateBillingStateInput:(NSString *)input {
-    if (self.selectedBillingCountry == JPBillingCountryUSA) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeUSA];
+- (JPValidationResult *)validateBillingAdministrativeDivisionInput:(NSString *)input {
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeUSA]) {
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeUSA];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_state_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
@@ -230,9 +230,27 @@ static int const kCardHolderNameLength = 4;
                                          formattedInput:input];
     }
 
-    if (self.selectedBillingCountry == JPBillingCountryCanada) {
-        BOOL isValid = [JPState forStateName:input andCountryCode:kAlpha2CodeCanada];
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeCanada]) {
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeCanada];
         NSString *errorMessage = isValid ? nil : @"jp_invalid_province_territory_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    }
+
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeIndia]) {
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeIndia];
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_state_union_territory_should_not_be_empty"._jp_localized;
+        return [JPValidationResult validationWithResult:isValid
+                                           inputAllowed:YES
+                                           errorMessage:errorMessage
+                                         formattedInput:input];
+    }
+
+    if ([self.selectedBillingCountry.alpha2Code isEqualToString:kAlpha2CodeChina]) {
+        BOOL isValid = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:kAlpha2CodeChina];
+        NSString *errorMessage = isValid ? nil : @"jp_invalid_province_region_should_not_be_empty"._jp_localized;
         return [JPValidationResult validationWithResult:isValid
                                            inputAllowed:YES
                                            errorMessage:errorMessage
@@ -246,7 +264,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateBillingCountryInput:(NSString *)input {
-    self.selectedBillingCountry = [self billingCountryWithName:input];
+    self.selectedBillingCountry = [JPCountry forCountryName:input];
 
     return [JPValidationResult validationWithResult:YES
                                        inputAllowed:YES
@@ -291,7 +309,7 @@ static int const kCardHolderNameLength = 4;
 }
 
 - (JPValidationResult *)validateBillingPostalCodeInput:(NSString *)input {
-    return [self validatePostalCodeInput:input country:self.selectedBillingCountry];
+    return [self validatePostalCodeInput:input country:self.selectedBillingCountry.toBillingCountry];
 }
 
 #pragma mark - Expiry Date Validation Methods

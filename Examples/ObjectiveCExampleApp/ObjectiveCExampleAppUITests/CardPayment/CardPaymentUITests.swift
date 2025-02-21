@@ -308,7 +308,7 @@ final class CardPaymentUITests: XCTestCase {
         tapPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
-        app.stateField?.tap()
+        app.administrativeDivisionField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "California")
 
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
@@ -337,7 +337,7 @@ final class CardPaymentUITests: XCTestCase {
         tapPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
-        app.stateField?.tap()
+        app.administrativeDivisionField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Ontario")
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,

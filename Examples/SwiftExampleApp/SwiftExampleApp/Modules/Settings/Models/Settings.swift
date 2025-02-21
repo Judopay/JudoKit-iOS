@@ -244,14 +244,14 @@ class Settings {
     var address: JPAddress? {
         if isAddressOn {
             let countryCode = userDefaults.integer(forKey: kAddressCountryCodeKey)
-            let state = userDefaults.string(forKey: kAddressStateKey)
+            let administrativeDivision = userDefaults.string(forKey: kAddressAdministrativeDivisionKey)
             return JPAddress(address1: userDefaults.string(forKey: kAddressLine1Key),
                              address2: userDefaults.string(forKey: kAddressLine2Key),
                              address3: userDefaults.string(forKey: kAddressLine3Key),
                              town: userDefaults.string(forKey: kAddressTownKey),
                              postCode: userDefaults.string(forKey: kAddressPostCodeKey),
                              countryCode: NSNumber(value: countryCode),
-                             state: state?.isEmpty == true ? nil : state)
+                             administrativeDivision: administrativeDivision?.isEmpty == true ? nil : administrativeDivision)
         }
         return nil
     }

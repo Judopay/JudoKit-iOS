@@ -114,13 +114,13 @@
 - (JPValidationResult *)validateCountryInput:(NSString *)input;
 
 /**
- *  A method for validating the state
+ *  A method for validating the administrative division
  *
  *  @param input - an input string
  *
  *  @return an instance of JPValidationResult that contains the validation status
  */
-- (JPValidationResult *)validateBillingStateInput:(NSString *)input;
+- (JPValidationResult *)validateBillingAdministrativeDivisionInput:(NSString *)input;
 
 /**
  *  A method for validating the postal code

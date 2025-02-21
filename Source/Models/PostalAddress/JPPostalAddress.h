@@ -40,7 +40,7 @@
 @property (nonatomic, strong) NSString *_Nullable city;
 
 /**
- * The state name in a postal address.
+ * The state/ administrative division name in a postal address.
  */
 @property (nonatomic, strong) NSString *_Nullable state;
 
@@ -80,6 +80,18 @@
  * @param isoCode    - the ISO country code for the country in a postal address.
  * @param subAdministrativeArea - The subadministrative area in a postal address.
  * @param sublocality - Additional information associated with the location in a postal address.
+ */
+- (_Nonnull instancetype)initWithStreet:(NSString *_Nullable)street
+                                   city:(NSString *_Nullable)city
+                 administrativeDivision:(NSString *_Nullable)administrativeDivision
+                             postalCode:(NSString *_Nullable)postalCode
+                                country:(NSString *_Nullable)country
+                                isoCode:(NSString *_Nullable)isoCode
+                  subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
+                            sublocality:(NSString *_Nullable)sublocality;
+
+/**
+ * DEPRECATED
  */
 - (_Nonnull instancetype)initWithSteet:(NSString *_Nullable)street
                                   city:(NSString *_Nullable)city

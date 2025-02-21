@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 #import "JPAddress.h"
+#import "JPAdministrativeDivision.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayTypedefs.h"
@@ -63,7 +64,6 @@
 #import "JPSDKInfo.h"
 #import "JPSection.h"
 #import "JPSession.h"
-#import "JPState.h"
 #import "JPStoredCardDetails.h"
 #import "JPSubProductInfo.h"
 #import "JPThemable.h"

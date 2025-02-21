@@ -151,7 +151,7 @@ typedef NS_OPTIONS(NSUInteger, JPCardNetworkType);
 
 - (JPValidationResult *)validateBillingEmailInput:(NSString *)input;
 - (JPValidationResult *)validateBillingCountryInput:(NSString *)input;
-- (JPValidationResult *)validateBillingStateInput:(NSString *)input;
+- (JPValidationResult *)validateBillingAdministrativeDivisionInput:(NSString *)input;
 - (JPValidationResult *)validateBillingPhoneCodeInput:(NSString *)input;
 - (JPValidationResult *)validateBillingPhoneInput:(NSString *)input;
 - (JPValidationResult *)validateBillingAddressLineInput:(NSString *)input;
