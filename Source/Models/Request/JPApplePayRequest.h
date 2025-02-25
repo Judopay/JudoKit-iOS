@@ -22,7 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPDictionaryConvertible.h"
 #import "JPRequest.h"
 #import <Foundation/Foundation.h>
 
@@ -81,13 +80,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface JPApplePayBillingContact : NSObject <JPDictionaryConvertible>
+@interface JPApplePayBillingContact : NSObject
 
 @property (nonatomic, strong, nullable) NSString *street;
 @property (nonatomic, strong, nullable) NSString *subLocality;
 @property (nonatomic, strong, nullable) NSString *city;
 @property (nonatomic, strong, nullable) NSString *subAdministrativeArea;
-@property (nonatomic, strong, nullable) NSString *administrativeDivision;
+@property (nonatomic, strong, nullable) NSString *state;
 @property (nonatomic, strong, nullable) NSString *postalCode;
 @property (nonatomic, strong, nullable) NSString *country;
 @property (nonatomic, strong, nullable) NSString *isoCountryCode;
@@ -98,11 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *familyName;
 @property (nonatomic, strong, nullable) NSString *nameSuffix;
 @property (nonatomic, strong, nullable) NSString *nickname;
-
-/**
- * DEPRECATED: use administrativeDivision instead.
- */
-@property (nonatomic, readonly, nullable) NSNumber *state;
 
 - (nonnull instancetype)initWithContact:(PKContact *_Nonnull)contact;
 

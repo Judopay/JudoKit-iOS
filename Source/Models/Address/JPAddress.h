@@ -68,7 +68,7 @@
 /**
  * DEPRECATED: use administrativeDivision instead.
  */
-@property (nonatomic, readonly, nullable) NSString *state;
+@property (nonatomic, nullable, getter=administrativeDivision, setter=setAdministrativeDivision:) NSString *state __deprecated_msg("Please use administrativeDivision instead.");
 
 /**
  *  Designated Initializer
@@ -100,7 +100,7 @@
                                     town:(nullable NSString *)town
                                 postCode:(nullable NSString *)postCode
                              countryCode:(nullable NSNumber *)countryCode
-                                   state:(nullable NSString *)state;
+                                   state:(nullable NSString *)state __deprecated_msg("Please use initWithAddress1:address2:address3:town:postCode:countryCode:administrativeDivision: instead.");
 
 /**
  *  Initializer

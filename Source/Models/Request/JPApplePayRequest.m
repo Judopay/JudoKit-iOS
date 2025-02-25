@@ -74,8 +74,6 @@
 
 @implementation JPApplePayBillingContact : NSObject
 
-static NSString *const kAdministrativeDivisionKey = @"state";
-
 - (instancetype)initWithContact:(PKContact *_Nonnull)contact {
     if (self = [super init]) {
         CNPostalAddress *address = contact.postalAddress;
@@ -84,7 +82,7 @@ static NSString *const kAdministrativeDivisionKey = @"state";
         _subLocality = address.subLocality;
         _city = address.city;
         _subAdministrativeArea = address.subAdministrativeArea;
-        _administrativeDivision = address.state;
+        _state = address.state;
         _postalCode = address.postalCode;
         _country = address.country;
         _isoCountryCode = address.ISOCountryCode;
@@ -99,16 +97,6 @@ static NSString *const kAdministrativeDivisionKey = @"state";
         _nickname = name.nickname;
     }
     return self;
-}
-
-- (NSString *_Nullable)state {
-    return _administrativeDivision;
-}
-
-- (NSDictionary *)_jp_toDictionary {
-    return @{
-        kAdministrativeDivisionKey : self.administrativeDivision
-    };
 }
 
 @end
@@ -157,7 +145,8 @@ static NSString *const kAdministrativeDivisionKey = @"state";
         CNPostalAddress *postalAddress = billingContact.postalAddress;
         JPCountry *country = [JPCountry forCountryName:postalAddress.country];
         NSNumber *countryCode = country ? @([country.numericCode intValue]) : nil;
-        NSString *administrativeDivision = country ? [JPAdministrativeDivision forAdministrativeDivisionName:postalAddress.state andCountryCode:country.alpha2Code].alpha2Code : nil;
+
+        NSString *state = country ? [JPAdministrativeDivision forAdministrativeDivisionName:postalAddress.state andCountryCode:country.alpha2Code].alpha2Code : nil;
 
         self.cardAddress = [[JPAddress alloc] initWithAddress1:postalAddress.street
                                                       address2:postalAddress.city
@@ -165,7 +154,7 @@ static NSString *const kAdministrativeDivisionKey = @"state";
                                                           town:postalAddress.city
                                                       postCode:postalAddress.postalCode
                                                    countryCode:countryCode
-                                        administrativeDivision:administrativeDivision];
+                                        administrativeDivision:state];
     }
 }
 

@@ -23,22 +23,27 @@
 //  SOFTWARE.
 
 #import "JPAddress.h"
+#import "NSObject+Additions.h"
 
 @implementation JPAddress
 
-static NSString *const kAdministrativeDivisionKey = @"state";
+static NSString *const kAddress1Key = @"address1";
+static NSString *const kAddress2Key = @"address2";
+static NSString *const kAddress3Key = @"address3";
+static NSString *const kTownKey = @"town";
+static NSString *const kPostCodeKey = @"postCode";
+static NSString *const kCountryCodeKey = @"countryCode";
+static NSString *const kStateKey = @"state";
 
-- (NSString *_Nullable)state {
-    return _administrativeDivision;
-}
+@dynamic state;
 
-- (instancetype)initWithAddress1:(nullable NSString *)address1
-                        address2:(nullable NSString *)address2
-                        address3:(nullable NSString *)address3
-                            town:(nullable NSString *)town
-                        postCode:(nullable NSString *)postCode
-                     countryCode:(nullable NSNumber *)countryCode
-          administrativeDivision:(nullable NSString *)administrativeDivision {
+- (instancetype)initWithAddress1:(NSString *)address1
+                        address2:(NSString *)address2
+                        address3:(NSString *)address3
+                            town:(NSString *)town
+                        postCode:(NSString *)postCode
+                     countryCode:(NSNumber *)countryCode
+          administrativeDivision:(NSString *)administrativeDivision {
 
     if (self = [super init]) {
         self.address1 = address1;
@@ -52,13 +57,13 @@ static NSString *const kAdministrativeDivisionKey = @"state";
     return self;
 }
 
-- (instancetype)initWithAddress1:(nullable NSString *)address1
-                        address2:(nullable NSString *)address2
-                        address3:(nullable NSString *)address3
-                            town:(nullable NSString *)town
-                        postCode:(nullable NSString *)postCode
-                     countryCode:(nullable NSNumber *)countryCode
-                           state:(nullable NSString *)state {
+- (instancetype)initWithAddress1:(NSString *)address1
+                        address2:(NSString *)address2
+                        address3:(NSString *)address3
+                            town:(NSString *)town
+                        postCode:(NSString *)postCode
+                     countryCode:(NSNumber *)countryCode
+                           state:(NSString *)state {
 
     return [self initWithAddress1:address1
                          address2:address2
@@ -71,41 +76,71 @@ static NSString *const kAdministrativeDivisionKey = @"state";
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        if (dictionary[@"address1"]) {
-            self.address1 = dictionary[@"address1"];
+        if (dictionary[kAddress1Key]) {
+            self.address1 = dictionary[kAddress1Key];
         }
 
-        if (dictionary[@"address2"]) {
-            self.address2 = dictionary[@"address2"];
+        if (dictionary[kAddress2Key]) {
+            self.address2 = dictionary[kAddress2Key];
         }
 
-        if (dictionary[@"address3"]) {
-            self.address3 = dictionary[@"address3"];
+        if (dictionary[kAddress3Key]) {
+            self.address3 = dictionary[kAddress3Key];
         }
 
-        if (dictionary[@"town"]) {
-            self.town = dictionary[@"town"];
+        if (dictionary[kTownKey]) {
+            self.town = dictionary[kTownKey];
         }
 
-        if (dictionary[@"postCode"]) {
-            self.postCode = dictionary[@"postCode"];
+        if (dictionary[kPostCodeKey]) {
+            self.postCode = dictionary[kPostCodeKey];
         }
 
-        if (dictionary[@"countryCode"]) {
-            self.countryCode = dictionary[@"countryCode"];
+        if (dictionary[kCountryCodeKey]) {
+            self.countryCode = dictionary[kCountryCodeKey];
         }
 
-        if (dictionary[@"state"]) {
-            self.administrativeDivision = dictionary[@"state"];
+        if (dictionary[kStateKey]) {
+            self.administrativeDivision = dictionary[kStateKey];
         }
     }
     return self;
 }
 
+#pragma mark - JPDictionaryConvertible
+
 - (NSDictionary *)_jp_toDictionary {
-    return @{
-        kAdministrativeDivisionKey : self.administrativeDivision
-    };
+    NSMutableDictionary *dictionary = [NSMutableDictionary new];
+
+    if (self.address1) {
+        dictionary[kAddress1Key] = self.address1;
+    }
+
+    if (self.address2) {
+        dictionary[kAddress2Key] = self.address2;
+    }
+
+    if (self.address3) {
+        dictionary[kAddress3Key] = self.address3;
+    }
+
+    if (self.town) {
+        dictionary[kTownKey] = self.town;
+    }
+
+    if (self.postCode) {
+        dictionary[kPostCodeKey] = self.postCode;
+    }
+
+    if (self.countryCode) {
+        dictionary[kCountryCodeKey] = self.countryCode;
+    }
+
+    if (self.administrativeDivision) {
+        dictionary[kStateKey] = self.administrativeDivision;
+    }
+
+    return [NSDictionary dictionaryWithDictionary:dictionary];
 }
 
 @end
