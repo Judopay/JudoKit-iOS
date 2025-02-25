@@ -39,7 +39,7 @@ class JPContactInformationTest: XCTestCase {
         personalData.familyName = "familyName"
         personalData.givenName = "givenName"
         
-        let postalAdress = JPPostalAddress(steet: "street",
+        let postalAdress = JPPostalAddress(street: "street",
                                            city: "city",
                                            state: "state",
                                            postalCode: "postalcode",
