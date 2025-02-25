@@ -26,14 +26,14 @@
 
 @implementation JPPostalAddress
 
-- (instancetype)initWithSteet:(NSString *)street
-                         city:(NSString *)city
-                        state:(NSString *)state
-                   postalCode:(NSString *)postalCode
-                      country:(NSString *)country
-                      isoCode:(NSString *)isoCode
-        subAdministrativeArea:(nullable NSString *)subAdministrativeArea
-                  sublocality:(nullable NSString *)sublocality {
+- (instancetype)initWithStreet:(NSString *)street
+                          city:(NSString *)city
+                         state:(NSString *)state
+                    postalCode:(NSString *)postalCode
+                       country:(NSString *)country
+                       isoCode:(NSString *)isoCode
+         subAdministrativeArea:(nullable NSString *)subAdministrativeArea
+                   sublocality:(nullable NSString *)sublocality {
 
     if (self = [super init]) {
         self.street = street;
