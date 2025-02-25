@@ -514,9 +514,9 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>address_state_title</string>
+			<string>address_administrative_division_title</string>
 			<key>Key</key>
-			<string>address_state</string>
+			<string>address_administrative_division</string>
 			<key>DefaultValue</key>
 			<string></string>
 		</dict>

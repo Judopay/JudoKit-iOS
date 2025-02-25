@@ -28,7 +28,7 @@ extension IASKAppSettingsViewController {
             kAddressTownKey,
             kAddressPostCodeKey,
             kAddressCountryCodeKey,
-            kAddressStateKey,
+            kAddressAdministrativeDivisionKey,
             kAddressPhoneCountryCodeKey,
             kAddressMobileNumberKey,
             kAddressEmailAddressKey,
@@ -64,7 +64,7 @@ extension IASKAppSettingsViewController {
             hiddenKeys.remove(kAddressTownKey)
             hiddenKeys.remove(kAddressPostCodeKey)
             hiddenKeys.remove(kAddressCountryCodeKey)
-            hiddenKeys.remove(kAddressStateKey)
+            hiddenKeys.remove(kAddressAdministrativeDivisionKey)
             hiddenKeys.remove(kAddressPhoneCountryCodeKey)
             hiddenKeys.remove(kAddressMobileNumberKey)
             hiddenKeys.remove(kAddressEmailAddressKey)

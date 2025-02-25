@@ -118,14 +118,14 @@
     if (!contact)
         return nil;
 
-    JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithSteet:contact.postalAddress.street
-                                                                       city:contact.postalAddress.city
-                                                                      state:contact.postalAddress.state
-                                                                 postalCode:contact.postalAddress.postalCode
-                                                                    country:contact.postalAddress.country
-                                                                    isoCode:contact.postalAddress.ISOCountryCode
-                                                      subAdministrativeArea:contact.postalAddress.subAdministrativeArea
-                                                                sublocality:contact.postalAddress.subLocality];
+    JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithStreet:contact.postalAddress.street
+                                                                        city:contact.postalAddress.city
+                                                                       state:contact.postalAddress.state
+                                                                  postalCode:contact.postalAddress.postalCode
+                                                                     country:contact.postalAddress.country
+                                                                     isoCode:contact.postalAddress.ISOCountryCode
+                                                       subAdministrativeArea:contact.postalAddress.subAdministrativeArea
+                                                                 sublocality:contact.postalAddress.subLocality];
 
     return [[JPContactInformation alloc] initWithEmailAddress:contact.emailAddress
                                                          name:contact.name

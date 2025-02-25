@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString *const kJudoKitName = @"JudoKit_iOS";
-static NSString *const kJudoKitVersion = @"4.0.2";
+static NSString *const kJudoKitVersion = @"4.0.3";
 
 /* Patterns */
 static NSString *const kDefaultPattern = @"XXXX XXXX XXXX XXXX";
@@ -104,6 +104,8 @@ static NSString *const kThreeDSTwoMessageVersionTwoDotTwo = @"2.2.0";
 static NSString *const kAlpha2CodeCanada = @"CA";
 static NSString *const kAlpha2CodeUSA = @"US";
 static NSString *const kAlpha2CodeUK = @"GB";
+static NSString *const kAlpha2CodeIndia = @"IN";
+static NSString *const kAlpha2CodeChina = @"CN";
 
 static NSString *const kJudoBaseURL = @"https://api.judopay.com/";
 static NSString *const kJudoSandboxBaseURL = @"https://api-sandbox.judopay.com/";

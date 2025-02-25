@@ -33,7 +33,9 @@
 "jp_card_holder_hint" = "Nom du titulaire de la carte";
 "jp_card_holder_country_hint" = "Pays";
 "jp_card_holder_state_hint" = "État";
-"jp_card_holder_province_hint" = "Province ou territoire";
+"jp_card_holder_province_or_territory_hint" = "Province ou territoire";
+"jp_card_holder_state_or_union_territory_hint" = "State or union territory";
+"jp_card_holder_province_or_region_hint" = "Province or region";
 "jp_card_holder_phone_hint" = "Mobile number";
 "jp_card_holder_city_hint" = "City";
 "jp_card_holder_address_line_hint" = "Address line %@";
@@ -72,6 +74,8 @@
 "jp_invalid_email_address" = "Please enter a valid email";
 "jp_invalid_state_should_not_be_empty" = "Veuillez sélectionner un état";
 "jp_invalid_province_territory_should_not_be_empty" = "Veuillez sélectionner une province ou un territoire";
+"jp_invalid_state_union_territory_should_not_be_empty" = "Please select a state or union territory";
+"jp_invalid_province_region_should_not_be_empty" = "Please select a province or region";
 "jp_invalid_address" = "Please enter a valid address";
 "jp_invalid_mobile_number" = "Please enter a valid mobile number";
 "jp_invalid_city" = "Please enter a valid city";

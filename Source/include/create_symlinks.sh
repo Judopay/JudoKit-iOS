@@ -35,7 +35,7 @@ ln -s -f ../Models/Browser/JPBrowser.h JPBrowser.h
 ln -s -f ../Models/Theme/JPThemable.h JPThemable.h
 ln -s -f ../Models/UIConfiguration/JPUIConfiguration.h JPUIConfiguration.h
 ln -s -f ../Models/Country/JPCountry.h JPCountry.h
-ln -s -f ../Models/State/JPState.h JPState.h
+ln -s -f ../Models/AdministrativeDivision/JPAdministrativeDivision.h JPAdministrativeDivision.h
 ln -s -f ../Models/PaymentMethod/JPPaymentMethodType.h JPPaymentMethodType.h
 ln -s -f ../Models/Reference/JPReference.h JPReference.h
 ln -s -f ../Models/Authorization/Session/JPSessionAuthorization.h JPSessionAuthorization.h

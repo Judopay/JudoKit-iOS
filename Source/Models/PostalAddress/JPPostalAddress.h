@@ -81,13 +81,13 @@
  * @param subAdministrativeArea - The subadministrative area in a postal address.
  * @param sublocality - Additional information associated with the location in a postal address.
  */
-- (_Nonnull instancetype)initWithSteet:(NSString *_Nullable)street
-                                  city:(NSString *_Nullable)city
-                                 state:(NSString *_Nullable)state
-                            postalCode:(NSString *_Nullable)postalCode
-                               country:(NSString *_Nullable)country
-                               isoCode:(NSString *_Nullable)isoCode
-                 subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
-                           sublocality:(NSString *_Nullable)sublocality;
+- (_Nonnull instancetype)initWithStreet:(NSString *_Nullable)street
+                                   city:(NSString *_Nullable)city
+                                  state:(NSString *_Nullable)state
+                             postalCode:(NSString *_Nullable)postalCode
+                                country:(NSString *_Nullable)country
+                                isoCode:(NSString *_Nullable)isoCode
+                  subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
+                            sublocality:(NSString *_Nullable)sublocality;
 
 @end

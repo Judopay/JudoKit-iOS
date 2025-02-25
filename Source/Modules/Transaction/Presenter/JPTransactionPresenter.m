@@ -24,6 +24,7 @@
 
 #import "JPTransactionPresenter.h"
 #import "JPAddress.h"
+#import "JPAdministrativeDivision.h"
 #import "JPCard.h"
 #import "JPCardDetails.h"
 #import "JPCardNetwork.h"
@@ -34,7 +35,6 @@
 #import "JPInputType.h"
 #import "JPPresentationMode.h"
 #import "JPResponse.h"
-#import "JPState.h"
 #import "JPTransactionInteractor.h"
 #import "JPTransactionRouter.h"
 #import "JPTransactionViewController.h"
@@ -123,9 +123,9 @@
     billingInformationViewModel.countryViewModel.text = currentSelectedCountry.name;
     billingInformationViewModel.countryViewModel.isValid = YES;
 
-    billingInformationViewModel.stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
-    billingInformationViewModel.stateViewModel.options = @[];
-    billingInformationViewModel.stateViewModel.isValid = YES;
+    billingInformationViewModel.administrativeDivisionViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
+    billingInformationViewModel.administrativeDivisionViewModel.options = @[];
+    billingInformationViewModel.administrativeDivisionViewModel.isValid = YES;
 
     billingInformationViewModel.phoneCodeViewModel.text = currentSelectedCountry.dialCode;
     billingInformationViewModel.phoneViewModel.placeholder = @"jp_card_holder_phone_hint"._jp_localized;
@@ -183,8 +183,8 @@
         case JPInputTypeBillingCountry:
             [self updateBillingCountryViewModelForInput:input showError:showError];
             break;
-        case JPInputTypeBillingState:
-            [self updateBillingStateViewModelForInput:input showError:showError];
+        case JPInputTypeBillingAdministrativeDivision:
+            [self updateBillingAdministrativeDivisionViewModelForInput:input showError:showError];
             break;
         case JPInputTypeBillingPhoneCode:
             [self updateBillingPhoneCodeViewModelForInput:input showError:showError];
@@ -533,7 +533,7 @@
 - (void)updateBillingCountryViewModelForInput:(NSString *)input showError:(BOOL)showError {
     JPCountry *country = [JPCountry forCountryName:input];
     JPTransactionOptionSelectionInputViewModel *countryViewModel = self.viewModel.billingInformationViewModel.countryViewModel;
-    JPTransactionOptionSelectionInputViewModel *stateViewModel = self.viewModel.billingInformationViewModel.stateViewModel;
+    JPTransactionOptionSelectionInputViewModel *administrativeDivisionViewModel = self.viewModel.billingInformationViewModel.administrativeDivisionViewModel;
 
     JPValidationResult *result = [self.interactor validateBillingCountryInput:input];
 
@@ -546,38 +546,46 @@
 
     [self updateBillingPhoneCodeViewModelForInput:[JPCountry dialCodeForCountry:input].stringValue showError:showError];
     [self updateBillingPostalCodeViewModelForInput:@"" showError:showError];
-    [self updateBillingStateViewModelForInput:@"" showError:showError];
+    [self updateBillingAdministrativeDivisionViewModelForInput:@"" showError:showError];
 
     if (country.isUSA) {
-        stateViewModel.options = JPStateList.usStateList.states;
-        stateViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
-        stateViewModel.isValid = NO;
+        administrativeDivisionViewModel.options = JPAdministrativeDivisionsList.american.divisions;
+        administrativeDivisionViewModel.placeholder = @"jp_card_holder_state_hint"._jp_localized;
+        administrativeDivisionViewModel.isValid = NO;
     } else if (country.isCanada) {
-        stateViewModel.options = JPStateList.caStateList.states;
-        stateViewModel.placeholder = @"jp_card_holder_province_hint"._jp_localized;
-        stateViewModel.isValid = NO;
+        administrativeDivisionViewModel.options = JPAdministrativeDivisionsList.canadian.divisions;
+        administrativeDivisionViewModel.placeholder = @"jp_card_holder_province_or_territory_hint"._jp_localized;
+        administrativeDivisionViewModel.isValid = NO;
+    } else if (country.isIndia) {
+        administrativeDivisionViewModel.options = JPAdministrativeDivisionsList.indian.divisions;
+        administrativeDivisionViewModel.placeholder = @"jp_card_holder_state_or_union_territory_hint"._jp_localized;
+        administrativeDivisionViewModel.isValid = NO;
+    } else if (country.isChina) {
+        administrativeDivisionViewModel.options = JPAdministrativeDivisionsList.chinese.divisions;
+        administrativeDivisionViewModel.placeholder = @"jp_card_holder_province_or_region_hint"._jp_localized;
+        administrativeDivisionViewModel.isValid = NO;
     } else {
-        stateViewModel.isValid = YES;
+        administrativeDivisionViewModel.isValid = YES;
     }
 }
 
-- (void)updateBillingStateViewModelForInput:(NSString *)input showError:(BOOL)showError {
+- (void)updateBillingAdministrativeDivisionViewModelForInput:(NSString *)input showError:(BOOL)showError {
     JPTransactionOptionSelectionInputViewModel *countryViewModel = self.viewModel.billingInformationViewModel.countryViewModel;
-    JPTransactionOptionSelectionInputViewModel *stateViewModel = self.viewModel.billingInformationViewModel.stateViewModel;
+    JPTransactionOptionSelectionInputViewModel *administrativeDivisionViewModel = self.viewModel.billingInformationViewModel.administrativeDivisionViewModel;
     NSString *countryCode = [JPCountry forCountryName:countryViewModel.text].alpha2Code;
 
     if (!countryCode) {
         return;
     }
 
-    JPState *state = [JPState forStateName:input andCountryCode:countryCode];
-    JPValidationResult *result = [self.interactor validateBillingStateInput:input];
+    JPAdministrativeDivision *division = [JPAdministrativeDivision forAdministrativeDivisionName:input andCountryCode:countryCode];
+    JPValidationResult *result = [self.interactor validateBillingAdministrativeDivisionInput:input];
 
-    stateViewModel.errorText = (showError && input.length > 0) ? result.errorMessage : nil;
-    stateViewModel.isValid = result.isValid;
+    administrativeDivisionViewModel.errorText = (showError && input.length > 0) ? result.errorMessage : nil;
+    administrativeDivisionViewModel.isValid = result.isValid;
 
     if (result.isInputAllowed) {
-        stateViewModel.text = state.name;
+        administrativeDivisionViewModel.text = division.name;
     }
 }
 
@@ -650,7 +658,7 @@
 - (JPAddress *)billingAddressFromViewModel:(JPTransactionViewModel *)viewModel {
     JPTransactionBillingInformationViewModel *billingInformationViewModel = viewModel.billingInformationViewModel;
     JPTransactionOptionSelectionInputViewModel *countryViewModel = billingInformationViewModel.countryViewModel;
-    JPTransactionOptionSelectionInputViewModel *stateViewModel = billingInformationViewModel.stateViewModel;
+    JPTransactionOptionSelectionInputViewModel *administrativeDivisionViewModel = billingInformationViewModel.administrativeDivisionViewModel;
     JPTransactionInputFieldViewModel *addressLine1ViewModel = billingInformationViewModel.addressLine1ViewModel;
     JPTransactionInputFieldViewModel *addressLine2ViewModel = billingInformationViewModel.addressLine2ViewModel;
     JPTransactionInputFieldViewModel *addressLine3ViewModel = billingInformationViewModel.addressLine3ViewModel;
@@ -660,10 +668,10 @@
     JPCountry *country = [JPCountry forCountryName:countryViewModel.text];
     NSNumber *countryCode = country ? @(country.numericCode.intValue) : nil;
 
-    NSString *state = nil;
+    NSString *administrativeDivision = nil;
 
-    if (country.hasStates) {
-        state = [JPState forStateName:stateViewModel.text andCountryCode:country.alpha2Code].alpha2Code;
+    if (country.hasAdministrativeDivisions) {
+        administrativeDivision = [JPAdministrativeDivision forAdministrativeDivisionName:administrativeDivisionViewModel.text andCountryCode:country.alpha2Code].alpha2Code;
     }
 
     return [[JPAddress alloc] initWithAddress1:addressLine1ViewModel.text
@@ -672,7 +680,7 @@
                                           town:cityViewModel.text
                                       postCode:postalCodeViewModel.text
                                    countryCode:countryCode
-                                         state:state];
+                        administrativeDivision:administrativeDivision];
 }
 
 #pragma mark - Lazy properties

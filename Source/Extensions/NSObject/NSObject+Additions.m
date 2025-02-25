@@ -21,8 +21,10 @@
         if (properties) {
             for (int i = 0; i < count; i++) {
                 NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
+                const char *attributes = property_getAttributes(properties[i]);
 
-                if (key == nil) {
+                // Skip in case of a @dynamic property or nil property name
+                if (key == nil || strstr(attributes, ",D") != NULL) {
                     continue;
                 }
 
