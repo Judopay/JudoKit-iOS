@@ -120,7 +120,7 @@
 
     JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithStreet:contact.postalAddress.street
                                                                         city:contact.postalAddress.city
-                                                      administrativeDivision:contact.postalAddress.state
+                                                                       state:contact.postalAddress.state
                                                                   postalCode:contact.postalAddress.postalCode
                                                                      country:contact.postalAddress.country
                                                                      isoCode:contact.postalAddress.ISOCountryCode

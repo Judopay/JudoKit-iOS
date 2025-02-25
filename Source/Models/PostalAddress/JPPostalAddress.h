@@ -22,13 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPDictionaryConvertible.h"
 #import <Foundation/Foundation.h>
 
 /**
  * The representation of the postal address for a contact
  */
-@interface JPPostalAddress : NSObject <JPDictionaryConvertible>
+@interface JPPostalAddress : NSObject
 
 /**
  * The street name in a postal address.
@@ -41,9 +40,9 @@
 @property (nonatomic, strong) NSString *_Nullable city;
 
 /**
- * The administrative division code in a postal address.
+ * The state name in a postal address.
  */
-@property (nonatomic, strong, nullable) NSString *administrativeDivision;
+@property (nonatomic, strong) NSString *_Nullable state;
 
 /**
  * The postal code in a postal address.
@@ -71,11 +70,6 @@
 @property (nonatomic, strong) NSString *_Nullable sublocality;
 
 /**
- * DEPRECATED: use administrativeDivision instead.
- */
-@property (nonatomic, readonly, nullable) NSString *state;
-
-/**
  * Designated initializer
  *
  * @param street     - the street name in a postal address.
@@ -89,23 +83,11 @@
  */
 - (_Nonnull instancetype)initWithStreet:(NSString *_Nullable)street
                                    city:(NSString *_Nullable)city
-                 administrativeDivision:(NSString *_Nullable)administrativeDivision
+                                  state:(NSString *_Nullable)state
                              postalCode:(NSString *_Nullable)postalCode
                                 country:(NSString *_Nullable)country
                                 isoCode:(NSString *_Nullable)isoCode
                   subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
                             sublocality:(NSString *_Nullable)sublocality;
-
-/**
- * DEPRECATED
- */
-- (_Nonnull instancetype)initWithSteet:(NSString *_Nullable)street
-                                  city:(NSString *_Nullable)city
-                                 state:(NSString *_Nullable)state
-                            postalCode:(NSString *_Nullable)postalCode
-                               country:(NSString *_Nullable)country
-                               isoCode:(NSString *_Nullable)isoCode
-                 subAdministrativeArea:(NSString *_Nullable)subAdministrativeArea
-                           sublocality:(NSString *_Nullable)sublocality;
 
 @end
