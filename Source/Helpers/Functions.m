@@ -140,7 +140,7 @@ NSString *getUserAgent(JPSubProductInfo *subProductInfo) {
         model = device.model;
     }
 
-    [userAgentParts addObject:model];
+    [userAgentParts addObject:[model stringByReplacingOccurrencesOfString:@"," withString:@"_"]];
 
     return [userAgentParts componentsJoinedByString:@" "];
 }
