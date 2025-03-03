@@ -89,6 +89,11 @@
 @property (nonatomic, strong) NSString *_Nonnull merchantName;
 
 /**
+ *  The email address associated with this transaction
+ */
+@property (nonatomic, strong) NSString *_Nullable emailAddress;
+
+/**
  *  How the Merchant will appear on the Consumers statement
  */
 @property (nonatomic, strong) NSString *_Nonnull appearsOnStatementAs;

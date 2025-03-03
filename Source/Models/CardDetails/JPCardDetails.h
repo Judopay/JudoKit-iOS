@@ -99,6 +99,13 @@
 @property (nonatomic, strong) NSString *_Nullable cardHolderName;
 
 /**
+ * The ownership type of the card.
+ *
+ * Possible values are Personal or Commercial.
+ */
+@property (nonatomic, strong) NSString *_Nullable ownerType;
+
+/**
  *  Designated initializer for Card Details
  *
  *  @param dictionary all parameters as a dictionary

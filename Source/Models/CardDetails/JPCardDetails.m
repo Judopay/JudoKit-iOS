@@ -54,6 +54,7 @@ static NSString *const kCardSchemeDiscover = @"DISCOVER";
         self.cardFunding = dictionary[@"cardFunding"];
         self.cardScheme = dictionary[@"cardScheme"];
         self.cardHolderName = dictionary[@"cardHolderName"];
+        self.ownerType = dictionary[@"ownerType"];
 
         self.rawCardNetwork = dictionary[@"cardType"];
 

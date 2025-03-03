@@ -58,6 +58,7 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
     self.message = dictionary[@"message"];
     self.redirectUrl = dictionary[@"redirectUrl"];
     self.merchantName = dictionary[@"merchantName"];
+    self.emailAddress = dictionary[@"emailAddress"];
     self.appearsOnStatementAs = dictionary[@"appearsOnStatementAs"];
     self.paymentMethod = dictionary[@"paymentMethod"];
     self.judoId = getSafeStringRepresentation(dictionary[@"judoId"]);
