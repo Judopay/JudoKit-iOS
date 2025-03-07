@@ -14,7 +14,7 @@ final class BillingInfoUITests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
-        app.configureSettings(isRavelinTest: false, isIdealTest: false)
+        app.configureSettings(isRavelinTest: false)
         addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
             alert.buttons["Allow While Using App"].tap()
             return true
@@ -38,7 +38,7 @@ final class BillingInfoUITests: XCTestCase {
         app.cardDetailsSubmitButton?.tap()
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
-        assertBillingInfo(app, Constants.BillingInfo.validCity, 
+        assertBillingInfo(app, Constants.BillingInfo.validCity,
                                Constants.BillingInfo.validAddress,
                                Constants.BillingInfo.validAddressTwo,
                                Constants.BillingInfo.validPostcode)
