@@ -59,7 +59,7 @@ func tapCompleteButton(_ app: XCUIApplication) {
     XCTAssert(completeButton.waitForExistence(timeout: 30))
 
     sleep(10)
-    
+
     completeButton.tap()
 }
 

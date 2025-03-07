@@ -45,7 +45,7 @@
 		ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3058541D257F9F32000B00DF /* FeatureService.swift */; };
 		B763B0BA0E70403D0411DB3C /* Pods_SwiftExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */; };
 		C82C2B8CD5388E644731B189 /* Pods_SwiftExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */; };
-		D159927C2CECA63D001ED1BF /* IdealUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D159927B2CECA63D001ED1BF /* IdealUITests.swift */; };
+		D19706A82D789F9400B1AC0D /* BillingInfoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19706A72D789F9400B1AC0D /* BillingInfoUITests.swift */; };
 		D1F01A482C9C2646001AC792 /* CardPaymentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */; };
 		D1F01A4A2C9C2785001AC792 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A492C9C2785001AC792 /* Constants.swift */; };
 		D1F01A4C2C9C27C3001AC792 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4B2C9C27C3001AC792 /* Helpers.swift */; };
@@ -122,7 +122,7 @@
 		C1C7D453B0F2D8A54EF0682A /* Pods-SwiftExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D11DD0362CA2BD3900741C8B /* SwiftExampleAppTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftExampleAppTestPlan.xctestplan; sourceTree = "<group>"; };
-		D159927B2CECA63D001ED1BF /* IdealUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdealUITests.swift; sourceTree = "<group>"; };
+		D19706A72D789F9400B1AC0D /* BillingInfoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingInfoUITests.swift; sourceTree = "<group>"; };
 		D1F01A462C9C2646001AC792 /* SwiftExampleAppUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftExampleAppUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentUITests.swift; sourceTree = "<group>"; };
 		D1F01A492C9C2785001AC792 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -333,7 +333,6 @@
 		448AB2032450DF24004A11CB /* SwiftExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D159927A2CECA61F001ED1BF /* Ideal */,
 				D1F01A452C9C25D6001AC792 /* CardPayment */,
 				448AB2062450DF24004A11CB /* Info.plist */,
 				D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */,
@@ -366,18 +365,11 @@
 			path = NoUICardPay;
 			sourceTree = "<group>";
 		};
-		D159927A2CECA61F001ED1BF /* Ideal */ = {
-			isa = PBXGroup;
-			children = (
-				D159927B2CECA63D001ED1BF /* IdealUITests.swift */,
-			);
-			path = Ideal;
-			sourceTree = "<group>";
-		};
 		D1F01A452C9C25D6001AC792 /* CardPayment */ = {
 			isa = PBXGroup;
 			children = (
 				D1F01A472C9C2646001AC792 /* CardPaymentUITests.swift */,
+				D19706A72D789F9400B1AC0D /* BillingInfoUITests.swift */,
 				D1F01A462C9C2646001AC792 /* SwiftExampleAppUITests-Bridging-Header.h */,
 			);
 			path = CardPayment;
@@ -704,9 +696,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1F01A482C9C2646001AC792 /* CardPaymentUITests.swift in Sources */,
+				D19706A82D789F9400B1AC0D /* BillingInfoUITests.swift in Sources */,
 				D1F01A4C2C9C27C3001AC792 /* Helpers.swift in Sources */,
 				D1F01A4E2C9C27F2001AC792 /* Selectors.swift in Sources */,
-				D159927C2CECA63D001ED1BF /* IdealUITests.swift in Sources */,
 				D1F01A522C9C28CE001AC792 /* XCUIElement+Additions.swift in Sources */,
 				D1F01A502C9C2839001AC792 /* XCUIApplication+Additions.swift in Sources */,
 				D1F01A4A2C9C2785001AC792 /* Constants.swift in Sources */,

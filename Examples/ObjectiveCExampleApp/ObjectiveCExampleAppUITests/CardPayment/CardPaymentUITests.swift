@@ -430,4 +430,60 @@ final class CardPaymentUITests: XCTestCase {
         tapCompleteButton(app)
         assertPADSent(app)
     }
+    
+    func testIndiaStateField() throws {
+        guard #available(iOS 16, *) else {
+            throw XCTSkip("Skipping due to picker wheel selection being buggy on lower versions of iOS")
+        }
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        tapPayNowButton(app)
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "India")
+        app.administrativeDivisionField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Kerala")
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.VALID_POSTCODE)
+        tapPayNowButton(app)
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testChinaStateField() throws {
+        guard #available(iOS 16, *) else {
+            throw XCTSkip("Skipping due to picker wheel selection being buggy on lower versions of iOS")
+        }
+        app.launchArguments += ["-should_ask_for_billing_information", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        tapPayNowButton(app)
+        app.countryField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "China")
+        app.administrativeDivisionField?.tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Henan Sheng")
+        app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
+                                   phone: TestData.BillingInfo.VALID_MOBILE,
+                                   addressOne: TestData.BillingInfo.VALID_ADDRESS,
+                                   addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
+                                   city: TestData.BillingInfo.VALID_CITY,
+                                   postCode: TestData.BillingInfo.VALID_POSTCODE)
+        tapPayNowButton(app)
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
 }
