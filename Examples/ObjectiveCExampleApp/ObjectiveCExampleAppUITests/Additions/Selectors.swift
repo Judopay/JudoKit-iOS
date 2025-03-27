@@ -65,11 +65,4 @@ class Selectors {
         static let backButton = "Judopay examples"
         static let cancelledPaymentToastLabel = "messageLabel"
     }
-    struct Ideal {
-        static let makePaymentButton = "Make Payment"
-        static let nextButton = "Next"
-        static let loginButton = "Login"
-        static let backButton = "Back to where you came from"
-        static let abortButton = "Abort"
-    }
 }

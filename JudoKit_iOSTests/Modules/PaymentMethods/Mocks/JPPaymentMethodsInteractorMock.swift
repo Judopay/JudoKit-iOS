@@ -79,10 +79,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
         JPCardStorage.sharedInstance()?.setCardAsSelectedAt(index)
     }
 
-    func getIDEALBankTypes() -> [Any] {
-        [0, 1]
-    }
-
     func orderCards() {
         JPCardStorage.sharedInstance()?.orderCards()
     }
@@ -120,7 +116,7 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
     }
 
     func getPaymentMethods() -> [JPPaymentMethod] {
-        [JPPaymentMethod.card(), JPPaymentMethod.iDeal()]
+        [JPPaymentMethod.card(), JPPaymentMethod.applePay()]
     }
 
     func processApplePayment(_ payment: PKPayment,

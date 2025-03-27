@@ -39,7 +39,6 @@
 #import "JPConsumer.h"
 #import "JPError+Additions.h"
 #import "JPFormatters.h"
-#import "JPIDEALBank.h"
 #import "JPPaymentMethod.h"
 #import "JPPresentationMode.h"
 #import "JPReference.h"
@@ -127,15 +126,6 @@
     [JPCardStorage.sharedInstance orderCards];
 }
 
-- (NSArray *)getIDEALBankTypes {
-    return @[
-        @(JPIDEALBankING), @(JPIDEALBankABN), @(JPIDEALBankVanLanschotBankiers),
-        @(JPIDEALBankTriodos), @(JPIDEALBankRabobank), @(JPIDEALBankSNS),
-        @(JPIDEALBankASN), @(JPIDEALBankRegio), @(JPIDEALBankKnab),
-        @(JPIDEALBankBunq), @(JPIDEALBankMoneyou), @(JPIDEALBankHandelsbanken)
-    ];
-}
-
 #pragma mark - Set card last card used to maek a successfull payment at index
 
 - (void)setLastUsedCardAtIndex:(NSUInteger)index {
@@ -162,12 +152,6 @@
         [defaultPaymentMethods addObject:JPPaymentMethod.applePay];
     } else {
         [self removePaymentMethodWithType:JPPaymentMethodTypeApplePay];
-    }
-
-    if ([self.configuration.amount.currency isEqualToString:kCurrencyEuro]) {
-        [defaultPaymentMethods addObject:JPPaymentMethod.iDeal];
-    } else {
-        [self removePaymentMethodWithType:JPPaymentMethodTypeIDeal];
     }
 
     return (self.paymentMethods.count != 0) ? self.paymentMethods : defaultPaymentMethods;

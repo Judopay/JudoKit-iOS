@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPTransactionMode.h"
-#import "JPTransactionStatusView.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
 #import <PassKit/PassKit.h>
@@ -100,11 +99,6 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
  * A method that reorders cards so that the default card is always on top
  */
 - (void)orderCards;
-
-/**
- * A method which returns all the iDEAL bank types available
- */
-- (nonnull NSArray *)getIDEALBankTypes;
 
 - (JPTransactionMode)configuredTransactionMode;
 

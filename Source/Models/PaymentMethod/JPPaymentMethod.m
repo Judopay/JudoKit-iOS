@@ -34,10 +34,6 @@
     return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeCard];
 }
 
-+ (instancetype)iDeal {
-    return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeIDeal];
-}
-
 + (instancetype)applePay {
     return [[JPPaymentMethod alloc] initWithPaymentMethodType:JPPaymentMethodTypeApplePay];
 }
@@ -48,11 +44,6 @@
             case JPPaymentMethodTypeCard:
                 _title = @"jp_cards"._jp_localized;
                 _iconName = @"cards-pay-icon";
-                break;
-
-            case JPPaymentMethodTypeIDeal:
-                _title = @"jp_ideal_payment"._jp_localized;
-                _iconName = @"ideal-pay-icon";
                 break;
 
             case JPPaymentMethodTypeApplePay:

@@ -17,7 +17,7 @@ final class RavelinUITests: XCTestCase {
         continueAfterFailure = false
         app = XCUIApplication()
         
-        app.configureSettings(isRavelinTest: true, isIdealTest: false)
+        app.configureSettings(isRavelinTest: true)
         
         addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
             alert.buttons["Allow While Using App"].tap()

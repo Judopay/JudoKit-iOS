@@ -221,16 +221,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
                      andCompletion:completion];
 }
 
-- (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request
-                    andCompletion:(JPCompletionBlock)completion {
-
-    NSDictionary *parameters = [request _jp_toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST
-                          endpoint:kBankSaleEndpoint
-                        parameters:parameters
-                     andCompletion:completion];
-}
-
 - (void)invokeOrderStatusWithOrderId:(NSString *)orderId
                        andCompletion:(JPCompletionBlock)completion {
 

@@ -25,7 +25,6 @@
 #import "JPApplePayController.h"
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import "JPSectionViewDelegate.h"
-#import "JPTransactionStatusView.h"
 #import <UIKit/UIKit.h>
 
 @protocol JPPaymentMethodsPresenter;

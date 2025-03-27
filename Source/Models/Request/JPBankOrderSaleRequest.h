@@ -107,15 +107,4 @@
  */
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration;
 
-/**
- * Designated iDEAL initializer based on a provided configuration object and the bank identifier code
- *
- * @param configuration - an instance of JPConfiguration that describes the merchant's configuration
- * @param bic - the bank identifier code used to identify one of the iDEAL banks
- *
- * @returns a configured JPBankOrderSaleRequest instance
- */
-+ (nonnull instancetype)idealRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                               andBIC:(nonnull NSString *)bic;
-
 @end

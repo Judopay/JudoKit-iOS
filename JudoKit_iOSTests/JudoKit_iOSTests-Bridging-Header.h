@@ -14,13 +14,11 @@
 #import "JPCardDetails.h"
 #import "JPKeychainService.h"
 #import "JPConfigurationValidationService.h"
-#import "JPIDEALService.h"
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
 #import "JPApplePayController.h"
 
 #import "JPPaymentMethodsRouter.h"
-#import "JPIDEALBank.h"
 #import "JPTransactionViewController.h"
 #import "JPTransactionPresenter.h"
 

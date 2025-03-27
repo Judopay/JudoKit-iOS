@@ -36,7 +36,6 @@ class Constants {
     struct Other {
         static let cancelledPaymentAlert = "The transaction was cancelled by the user."
         static let cancelled3DS2Toast = "Unable to process transaction. Card authentication failed with 3DS Server."
-        static let cancelledIdealTransactionAlert = "Card transaction unsuccessful - please try again"
     }
     struct AssertionMessages {
         static let emailAddress = "Email address input validation failed and/or error label is not displayed"

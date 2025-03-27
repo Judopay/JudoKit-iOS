@@ -46,17 +46,11 @@
                                       completionHandler:(JPCompletionBlock)completion {
 
     for (JPPaymentMethod *paymentMethod in configuration.paymentMethods) {
-        BOOL isIDEALPresent = (paymentMethod.type == JPPaymentMethodTypeIDeal);
         BOOL isApplePayPresent = (paymentMethod.type == JPPaymentMethodTypeApplePay);
         BOOL isCurrencyPounds = [configuration.amount.currency isEqualToString:kCurrencyPounds];
         BOOL isCurrencyEUR = [configuration.amount.currency isEqualToString:kCurrencyEuro];
         BOOL isOnlyPaymentMethod = (configuration.paymentMethods.count == 1);
         BOOL isApplePaySupported = [JPApplePayService isApplePaySupported];
-
-        if (isIDEALPresent && isOnlyPaymentMethod && !isCurrencyEUR) {
-            completion(nil, JPError.invalidIDEALCurrencyError);
-            return nil;
-        }
 
         if (isApplePayPresent && isOnlyPaymentMethod && !isApplePaySupported) {
             completion(nil, JPError.applePayNotSupportedError);

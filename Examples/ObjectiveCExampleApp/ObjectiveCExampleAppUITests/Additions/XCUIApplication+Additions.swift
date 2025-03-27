@@ -233,57 +233,14 @@ extension XCUIApplication {
         }
     }
     
-    var idealNextButton: XCUIElement? {
-        get {
-            return buttonWithLabel(Selectors.Ideal.nextButton)
-        }
-    }
-    
-    var idealLoginButton: XCUIElement? {
-        get {
-            return buttonWithLabel(Selectors.Ideal.loginButton)
-        }
-    }
-    
-    var idealPaymentButton: XCUIElement? {
-        get {
-            return buttonWithLabel(Selectors.Ideal.makePaymentButton)
-        }
-    }
-    
-    var idealBackButton: XCUIElement? {
-        get {
-            return buttonWithLabel(Selectors.Ideal.backButton)
-        }
-    }
-    
-    var idealAbortButton: XCUIElement? {
-        get {
-            return buttonWithLabel(Selectors.Ideal.abortButton)
-        }
-    }
-    
-    func configureSettings(isRavelinTest: Bool, isIdealTest: Bool) {
+    func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
         let apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
         
-        let idealJudoID = ProcessInfo.processInfo.environment["IDEAL_JUDO_ID"]
-        let idealToken = ProcessInfo.processInfo.environment["IDEAL_API_TOKEN"]
-        let idealSecret = ProcessInfo.processInfo.environment["IDEAL_API_SECRET"]
-        
-        if isIdealTest {
-            launchArguments += ["-judo_id", idealJudoID ?? "",
-                                "-token", idealToken ?? "",
-                                "-secret", idealSecret ?? "",
-                                "-is_payment_method_ideal_enabled", "true",
-                                "-is_payment_method_card_enabled", "false",
-                                "-currency", "EUR"]
-        } else {
-            launchArguments += ["-judo_id", judoID ?? "",
-                                "-token", apiToken ?? "",
-                                "-secret", apiSecret ?? "",]
-        }
+        launchArguments += ["-judo_id", judoID ?? "",
+                            "-token", apiToken ?? "",
+                            "-secret", apiSecret ?? "",]
         
         launchArguments += ["-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",

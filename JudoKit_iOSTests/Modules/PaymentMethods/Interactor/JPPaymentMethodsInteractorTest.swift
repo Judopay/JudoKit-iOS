@@ -40,8 +40,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         super.setUp()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
         configuration.paymentMethods = [JPPaymentMethod(paymentMethodType: .applePay),
-                                        JPPaymentMethod(paymentMethodType: .card),
-                                        JPPaymentMethod(paymentMethodType: .iDeal)]
+                                        JPPaymentMethod(paymentMethodType: .card)]
         configuration.applePayConfiguration = applePayConfig
         let authorization: JPAuthorization = JPBasicAuthorization(token: "123456", andSecret: "123456")
         let service = JPApiService(authorization: authorization, isSandboxed: true)
@@ -121,22 +120,9 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
      *
      * THEN: count of methods should 2: cards and apple pay
      */
-    func test_GetPaymentMethods_WhenPoundsCurrency_ShouldExcludeIdealPayment() {
+    func test_GetPaymentMethods_WhenPoundIsCurrency_ShouldIncludeAllAvailablePaymentMethods() {
         let methods = sut.getPaymentMethods()
         XCTAssertEqual(methods.count, 2)
-    }
-
-    /*
-     * GIVEN: Calculating all payment methods
-     *
-     * WHEN: amount currency is EUR
-     *
-     * THEN: count of methods should 3: cards, apple ideal
-     */
-    func test_GetPaymentMethods_WhenEURisCurrency_ShouldAddiDealPayment() {
-        configuration.amount = JPAmount("123", currency: "EUR")
-        let methods = sut.getPaymentMethods()
-        XCTAssertEqual(methods.count, 3)
     }
 
     /*
@@ -229,18 +215,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(card)
         sut.setLastUsedCardAt(0)
         XCTAssertTrue((JPCardStorage.sharedInstance()!.fetchStoredCardDetails()[0] as! JPStoredCardDetails).isLastUsed)
-    }
-
-    /*
-     * GIVEN: Get a list of ideal banks
-     *
-     * WHEN: there are stored in interactor
-     *
-     * THEN: should return 12 banks
-     */
-    func test_GetIDEALBankTypes_WhenGettingBanks_ShouldReturnRightNumber() {
-        let array = sut.getIDEALBankTypes()
-        XCTAssertEqual(array.count, 12)
     }
 
     /*

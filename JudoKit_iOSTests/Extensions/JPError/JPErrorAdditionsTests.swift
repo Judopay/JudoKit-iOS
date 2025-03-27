@@ -134,17 +134,7 @@ class JPErrorAdditionsTests: XCTestCase {
         let errorUserInfo = error.userInfo["test"] as! String
         XCTAssertEqual(errorUserInfo, "testData")
     }
-    
-    /*
-     * GIVEN: the JPError is initialized with the custom judoInvalidIDEALCurrencyError initializer
-     *
-     * THEN:  it should set the correct localizedDescription parameter
-     */
-    func test_WhenJudoInvalidIDEALCurrencyError_SetCorrectLocalizedDescription() {
-        let error = JPError.invalidIDEALCurrencyError()
-        XCTAssertEqual(error.localizedDescription, "iDEAL transactions only support EUR as the currency.")
-    }
-    
+
     /*
      * GIVEN: the JPError is initialized with the custom judoApplePayNotSupportedError initializer
      *

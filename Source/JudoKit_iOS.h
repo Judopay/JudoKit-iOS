@@ -47,7 +47,6 @@
 #import "JPEnhancedPaymentDetail.h"
 #import "JPError+Additions.h"
 #import "JPError.h"
-#import "JPIDEALBank.h"
 #import "JPNetworkTimeout.h"
 #import "JPOrderDetails.h"
 #import "JPPaymentMethod.h"

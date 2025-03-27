@@ -152,15 +152,6 @@
                                   andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
- * A method that invokes a Bank transaction, used for completing transactions via Bank apps (iDEAL, PayByBankApp)
- *
- * @param request - an instance of JPBankOrderSaleRequest describing the Bank request
- * @param completion - the completion block that contains the optional JPResponse or JPError
- */
-- (void)invokeBankSaleWithRequest:(nonnull JPBankOrderSaleRequest *)request
-                    andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
-
-/**
  * A method that invokes a Bank order status, to check the transaction status completed via a Bank app
  *
  * @param orderId - a NSString instance identifying the order

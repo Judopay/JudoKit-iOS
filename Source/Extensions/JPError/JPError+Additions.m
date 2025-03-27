@@ -38,12 +38,6 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoParameterError];
 }
 
-+ (JPError *)invalidIDEALCurrencyError {
-    return [self errorWithDescription:@"jp_error_invalid_ideal_currency_desc"._jp_localized
-                        failureReason:@"jp_error_invalid_ideal_currency_reason"._jp_localized
-                               ofType:JudoParameterError];
-}
-
 + (JPError *)applePayNotSupportedError {
     return [self errorWithDescription:@"jp_error_apple_pay_not_supported_desc"._jp_localized
                         failureReason:@"jp_error_apple_pay_not_supported_reason"._jp_localized

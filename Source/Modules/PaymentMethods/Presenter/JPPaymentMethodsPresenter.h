@@ -22,7 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTransactionStatusView.h"
 #import <Foundation/Foundation.h>
 
 @protocol JPPaymentMethodsView
@@ -45,14 +44,6 @@
  */
 - (void)didSelectCardAtIndex:(NSUInteger)index
                isEditingMode:(BOOL)isEditing;
-
-/**
- * A method called once the user selects a iDEAL bank from the bank list. This method updates the view model with
- * the selected bank.
- *
- * @param index - the index of the selected iDEAL bank
- */
-- (void)didSelectBankAtIndex:(NSUInteger)index;
 
 /**
  * A method that is called when the Back button is tapped. It handles the view dismissal flow

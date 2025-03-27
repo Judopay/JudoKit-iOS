@@ -25,19 +25,11 @@ import XCTest
 
 class JPBankOrderRequestTests: XCTestCase {
     
-    let kIDEALAccountHolderName = "IDEAL Bank";
-    let kIDEALCountry = "NL";
-    let kPaymentMethodIDEAL = "IDEAL";
-    
     var configuration: JPConfiguration {
         let amount = JPAmount("0.01", currency: "GBP")
-        
         let reference = JPReference(consumerReference: "consumer", paymentReference: "payment")
         reference.metaData = ["exampleKey": "exampleValue"];
-        
-        let configuration = JPConfiguration(judoID: "judoID", amount: amount, reference: reference)
-        
-        return configuration
+        return JPConfiguration(judoID: "judoID", amount: amount, reference: reference)
     }
     
     /*
@@ -49,40 +41,11 @@ class JPBankOrderRequestTests: XCTestCase {
      */
     func test_onDefaultInitialization_SetValidProperties() {
         let bankRequest = JPBankOrderSaleRequest(configuration: configuration)
-        
         XCTAssertEqual(bankRequest.judoId, configuration.judoId)
-        
         XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
         XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
-        
         XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
         XCTAssertEqual(bankRequest.merchantPaymentReference, configuration.reference.paymentReference)
         XCTAssertEqual(bankRequest.paymentMetadata, configuration.reference.metaData)
     }
-    
-    /*
-     * GIVEN: A [JPBankOrderSaleRequest] is being initialized via the iDEAL initializer
-     *
-     *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
-     *
-     *  THEN: The request parameters are going to be set correctly
-     */
-    func test_onIDEALInitialization_SetIDEALProperties() {
-        let bankRequest = JPBankOrderSaleRequest.idealRequest(with: configuration, andBIC: "12345")
-        
-        XCTAssertEqual(bankRequest.judoId, configuration.judoId)
-        
-        XCTAssertEqual(bankRequest.amount, configuration.amount.amount)
-        XCTAssertEqual(bankRequest.currency, configuration.amount.currency)
-        
-        XCTAssertEqual(bankRequest.merchantConsumerReference, configuration.reference.consumerReference)
-        XCTAssertEqual(bankRequest.merchantPaymentReference, configuration.reference.paymentReference)
-        XCTAssertEqual(bankRequest.paymentMetadata, configuration.reference.metaData)
-        
-        XCTAssertEqual(bankRequest.country, kIDEALCountry)
-        XCTAssertEqual(bankRequest.accountHolderName, kIDEALAccountHolderName)
-        XCTAssertEqual(bankRequest.paymentMethod, kPaymentMethodIDEAL)
-        XCTAssertEqual(bankRequest.bic, "12345")
-    }
-    
 }

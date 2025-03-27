@@ -37,20 +37,7 @@ class JPPaymentMethodTest: XCTestCase {
         XCTAssertEqual(sut?.title, "Cards")
         XCTAssertNotNil(sut)
     }
-    
-    /*
-     * GIVEN: Creating JPPaymentMethod with class Init iDeal
-     *
-     * WHEN: raw initialization
-     *
-     * THEN: should create correct fields in JPPaymentMethod object with right title
-     */
-    func test_iDeal_WhenDesignatedInit_ShouldFillFields() {
-        let sut = JPPaymentMethod.iDeal()
-        XCTAssertEqual(sut?.title, "iDeal")
-        XCTAssertNotNil(sut)
-    }
-    
+
     /*
      * GIVEN: Creating JPPaymentMethod with class Init applePay
      *
@@ -90,19 +77,5 @@ class JPPaymentMethodTest: XCTestCase {
         XCTAssertEqual(sut!.iconName, "cards-pay-icon")
         XCTAssertEqual(sut!.title, "Cards")
         XCTAssertEqual(sut!.type, .card)
-    }
-
-    /**
-     * GIVEN: a JPPaymentMethod is initialized
-     *
-     * WHEN: the [.iDeal] is selected as the type
-     *
-     * THEN: the correct icon, title and type must be set
-     */
-    func test_OnInitialization_WhenIDEALType_SetIDEALProperties() {
-        let sut = JPPaymentMethod(paymentMethodType: .iDeal)
-        XCTAssertEqual(sut!.iconName, "ideal-pay-icon")
-        XCTAssertEqual(sut!.title, "iDeal")
-        XCTAssertEqual(sut!.type, .iDeal)
     }
 }

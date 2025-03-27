@@ -67,7 +67,6 @@
 "jp_expire_soon" = "expirar pronto";
 "jp_expired" = "Expirado";
 "jp_expiry_date" = "MM/AA";
-"jp_ideal_payment" = "iDeal";
 "jp_invalid_phone_code_value" = "Invalid phone code entered";
 "jp_invalid_postcode" = "Código postal inválido";
 "jp_invalid_zip_code" = "Código postal inválido";
@@ -110,8 +109,6 @@
 "jp_will_expire_soon" = "expirará";
 "jp_you_will_pay" = "Usted pagará";
 
-"jp_error_invalid_ideal_currency_desc" = "iDEAL transactions only support EUR as the currency.";
-"jp_error_invalid_ideal_currency_reason" = "Invalid currency passed to iDEAL transaction configuration.";
 "jp_error_apple_pay_not_supported_desc" = "Apple Pay is not supported on this device.";
 "jp_error_apple_pay_not_supported_reason" = "An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.";
 "jp_error_request_failed_desc" = "The request has failed or responded without data.";

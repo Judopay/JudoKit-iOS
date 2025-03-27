@@ -190,27 +190,6 @@ typedef NS_ENUM(NSUInteger, JPAnimationType) {
 
 @end
 
-#pragma mark - IDEAL Bank Model
-
-@interface JPPaymentMethodsIDEALBankModel : NSObject
-
-/**
- * The iDEAL bank's title
- */
-@property (nonatomic, strong) NSString *_Nonnull bankTitle;
-
-/**
- * The iDEAL bank's icon name
- */
-@property (nonatomic, strong) NSString *_Nonnull bankIconName;
-
-/**
- * A boolean value that describes if the bank is the currently selected one
- */
-@property (nonatomic, assign) BOOL isSelected;
-
-@end
-
 #pragma mark - JPPaymentMethodsHeaderModel
 
 @interface JPPaymentMethodsHeaderModel : NSObject
@@ -231,11 +210,6 @@ typedef NS_ENUM(NSUInteger, JPAnimationType) {
 @property (nonatomic, strong) JPPaymentMethodsCardModel *_Nullable cardModel;
 
 /**
- * The currently selected bank model
- */
-@property (nonatomic, strong) JPPaymentMethodsIDEALBankModel *_Nullable bankModel;
-
-/**
  * Card appearance animation type
  */
 @property (nonatomic, assign) JPAnimationType animationType;
@@ -249,17 +223,6 @@ typedef NS_ENUM(NSUInteger, JPAnimationType) {
  * A boolean value that returns YES if Apple Pay is set up
  */
 @property (nonatomic, assign) bool isApplePaySetUp;
-
-@end
-
-#pragma mark - IDEAL Bank List Model
-
-@interface JPPaymentMethodsIDEALBankListModel : JPPaymentMethodsModel
-
-/**
- * An array of JPPaymentMethodIDEALBankModel objects that describe the iDEAL banks
- */
-@property (nonatomic, strong) NSMutableArray<JPPaymentMethodsIDEALBankModel *> *_Nullable bankModels;
 
 @end
 

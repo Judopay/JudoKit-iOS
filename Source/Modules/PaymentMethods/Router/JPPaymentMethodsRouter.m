@@ -29,7 +29,6 @@
 #import "JPConfiguration+Additions.h"
 #import "JPConfiguration.h"
 #import "JPError+Additions.h"
-#import "JPIDEALViewController.h"
 #import "JPPaymentMethodsPresenter.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPSliderTransitioningDelegate.h"
@@ -92,20 +91,6 @@
     controller.modalPresentationStyle = UIModalPresentationCustom;
     controller.transitioningDelegate = self.transitioningDelegate;
 
-    [self.viewController presentViewController:controller animated:YES completion:nil];
-}
-
-- (void)navigateToIDEALModuleWithBank:(JPIDEALBank *)bank
-                        andCompletion:(JPCompletionBlock)completion {
-
-    JPIDEALViewController *controller;
-    controller = [[JPIDEALViewController alloc] initWithIDEALBank:bank
-                                                    configuration:self.configuration
-                                                       apiService:self.apiService
-                                                completionHandler:completion];
-
-    controller.theme = self.configuration.uiConfiguration.theme;
-    controller.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.viewController presentViewController:controller animated:YES completion:nil];
 }
 

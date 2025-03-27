@@ -27,10 +27,6 @@
 #import "JPConfiguration.h"
 #import "JPReference.h"
 
-static NSString *const kIDEALAccountHolderName = @"IDEAL Bank";
-static NSString *const kIDEALCountry = @"NL";
-static NSString *const kPaymentMethodIDEAL = @"IDEAL";
-
 @implementation JPBankOrderSaleRequest
 
 - (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
@@ -39,25 +35,13 @@ static NSString *const kPaymentMethodIDEAL = @"IDEAL";
         JPReference *reference = configuration.reference;
 
         _judoId = configuration.judoId;
-
         _amount = amount.amount;
         _currency = amount.currency;
-
         _merchantPaymentReference = reference.paymentReference;
         _merchantConsumerReference = reference.consumerReference;
         _paymentMetadata = reference.metaData;
     }
     return self;
-}
-
-+ (nonnull instancetype)idealRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                               andBIC:(nonnull NSString *)bic {
-    JPBankOrderSaleRequest *request = [[JPBankOrderSaleRequest alloc] initWithConfiguration:configuration];
-    request.paymentMethod = kPaymentMethodIDEAL;
-    request.country = kIDEALCountry;
-    request.accountHolderName = kIDEALAccountHolderName;
-    request.bic = bic;
-    return request;
 }
 
 @end

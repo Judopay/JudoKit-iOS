@@ -89,11 +89,6 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)threeDSRequestWithPayload:(nonnull NSDictionary *)payload;
 
 /**
- * Invalid currency passed to iDEAL transaction configuration.
- */
-+ (nonnull JPError *)invalidIDEALCurrencyError;
-
-/**
  * An Apple Pay transaction was attempted on a device that either does not support, or does not have Apple Pay set up.
  */
 + (nonnull JPError *)applePayNotSupportedError;

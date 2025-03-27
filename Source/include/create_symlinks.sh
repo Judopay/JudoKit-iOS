@@ -18,7 +18,6 @@ ln -s -f ../Models/ContactInformation/JPContactInformation.h JPContactInformatio
 ln -s -f ../Models/CardPattern/JPCardPatternType.h JPCardPatternType.h
 ln -s -f ../Models/TransactionEnricher/JPRequestEnricher.h JPRequestEnricher.h
 ln -s -f ../Models/CardStorage/JPCardStorage.h JPCardStorage.h
-ln -s -f ../Models/IDEALBank/JPIDEALBank.h JPIDEALBank.h
 ln -s -f ../Services/CardTransactionService/JPCardTransactionService.h JPCardTransactionService.h
 ln -s -f ../Models/ConsumerDevice/JPConsumerDevice.h JPConsumerDevice.h
 ln -s -f ../Services/ApplePay/JPApplePayController.h JPApplePayController.h
@@ -94,7 +93,6 @@ ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h
 ln -s -f ../Modules/PaymentMethods/Interactor/JPPaymentMethodsInteractor.h JPPaymentMethodsInteractor.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListFooterCell/JPPaymentMethodsCardListFooterCell.h JPPaymentMethodsCardListFooterCell.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListHeaderCell/JPPaymentMethodsCardListHeaderCell.h JPPaymentMethodsCardListHeaderCell.h
-ln -s -f ../Modules/IDEALViewController/JPIDEALViewController.h JPIDEALViewController.h
 ln -s -f ../Extensions/UIViewController/UIViewController+Additions.h UIViewController+Additions.h
 ln -s -f ../Modules/Transaction/Interactor/JPTransactionInteractor.h JPTransactionInteractor.h
 ln -s -f ../Modules/CardCustomization/Presenter/JPCardCustomizationPresenter.h JPCardCustomizationPresenter.h
@@ -116,7 +114,6 @@ ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTitleCell/JPCa
 ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsEmptyHeaderView.h JPPaymentMethodsEmptyHeaderView.h
 ln -s -f ../Extensions/NSArray/NSArray+Additions.h NSArray+Additions.h
-ln -s -f ../Modules/IDEALViewController/TransactionStatusView/JPTransactionStatusView.h JPTransactionStatusView.h
 ln -s -f ../Services/CardValidation/JPCardValidationService.h JPCardValidationService.h
 ln -s -f ../Modules/Transaction/Presenter/JPTransactionPresenter.h JPTransactionPresenter.h
 ln -s -f ../Modules/CardCustomization/Presenter/JPCardCustomizationViewModel.h JPCardCustomizationViewModel.h
@@ -124,7 +121,6 @@ ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerC
 ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsPresenter.h JPPaymentMethodsPresenter.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/JPPaymentMethodsHeaderView.h JPPaymentMethodsHeaderView.h
 ln -s -f ../Modules/CardCustomization/Interactor/JPCardCustomizationInteractor.h JPCardCustomizationInteractor.h
-ln -s -f ../Services/iDEAL/JPIDEALService.h JPIDEALService.h
 ln -s -f ../Modules/Transaction/Presenter/ViewModels/JPTransactionViewModel.h JPTransactionViewModel.h
 ln -s -f ../Modules/PaymentMethods/Router/JPPaymentMethodsRouter.h JPPaymentMethodsRouter.h
 ln -s -f ../Services/Keychain/JPKeychainService.h JPKeychainService.h
@@ -159,7 +155,6 @@ ln -s -f ../Modules/Transaction/View/JPTransactionViewController.h JPTransaction
 ln -s -f ../Modules/CardCustomization/Builder/JPCardCustomizationBuilder.h JPCardCustomizationBuilder.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/CardView/JPCardPaymentMethodView.h JPCardPaymentMethodView.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTextInputCell/JPCardCustomizationTextInputCell.h JPCardCustomizationTextInputCell.h
-ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/iDEALBankCell/JPPaymentMethodsIDEALBankCell.h JPPaymentMethodsIDEALBankCell.h
 ln -s -f ../Extensions/JPCardTransactionDetails/JPCardTransactionDetails+Additions.h JPCardTransactionDetails+Additions.h
 ln -s -f ../Modules/PaymentMethods/Presenter/JPPaymentMethodsViewModel.h JPPaymentMethodsViewModel.h
 ln -s -f ../Modules/CardCustomization/View/JPCardCustomizationViewController.h JPCardCustomizationViewController.h

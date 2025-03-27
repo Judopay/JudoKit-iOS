@@ -170,7 +170,6 @@ let kDinersClubEnabledKey = "is_card_network_diners_club_enabled"
 // MARK: - Payment methods section keys
 
 let kCardPaymentMethodEnabledKey = "is_payment_method_card_enabled"
-let kiDEALPaymentMethodEnabledKey = "is_payment_method_ideal_enabled"
 let kApplePayPaymentMethodEnabledKey = "is_payment_method_apple_pay_enabled"
 
 // MARK: - Others section keys
