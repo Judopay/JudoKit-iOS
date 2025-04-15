@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Judopay/DeviceDNA-iOS", exact: "2.1.2"),
-        .package(url: "https://github.com/Judopay/Judo3DS2-iOS", exact: "1.2.3"),
+        .package(url: "https://github.com/Judopay/Judo3DS2-iOS", exact: "1.2.4"),
         .package(url: "https://github.com/datatheorem/TrustKit", from: "3.0.4"),
         .package(
             url: "https://github.com/unravelin/ravelin-encrypt-ios-xcframework-distribution",

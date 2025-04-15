@@ -1,5 +1,5 @@
 binary "https://raw.githubusercontent.com/Judopay/DeviceDNA-iOS/master/DeviceDNA.json" "2.1.2"
-binary "https://raw.githubusercontent.com/Judopay/Judo3DS2-iOS/master/Judo3DS2_iOS.json" "1.2.3"
+binary "https://raw.githubusercontent.com/Judopay/Judo3DS2-iOS/master/Judo3DS2_iOS.json" "1.2.4"
 binary "https://raw.githubusercontent.com/unravelin/ravelin-encrypt-ios-xcframework-distribution/main/RavelinEncrypt.json" "1.1.2"
-github "Judopay/OHHTTPStubs" "44d4eeb9063200d507d67a081539c19f4af227c3"
+github "AliSoftware/OHHTTPStubs" "c582400a38590a3dabb4353416d9d46cb7278d06"
 github "datatheorem/TrustKit" "3.0.5"
