@@ -257,17 +257,15 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
     /*
      * GIVEN: When user changing payment method
      *
-     * WHEN: from ideal type to card
+     * WHEN: from apple pay type to card
      *
      * THEN: should update UI with right viewmodel type
      */
     func test_ChangePaymentMethodToIndex_WhenUserChangeMethod_ShouldUpdateController() {
-        sut.changePaymentMethod(to: 1) // select ideal payment method, set up in interactor mock
+        sut.changePaymentMethod(to: 1) // select apple pay payment method, set up in interactor mock
         var viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
-        XCTAssertEqual(viewModelType, JPPaymentMethodType.iDeal)
-
+        XCTAssertEqual(viewModelType, JPPaymentMethodType.applePay)
         sut.changePaymentMethod(to: 0) // select card payment method, set up in interactor mock
-
         viewModelType = controller.viewModelSut?.headerModel?.paymentMethodType
         XCTAssertEqual(viewModelType, JPPaymentMethodType.card)
     }
