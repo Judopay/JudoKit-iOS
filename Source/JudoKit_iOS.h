@@ -48,7 +48,6 @@
 #import "JPError+Additions.h"
 #import "JPError.h"
 #import "JPNetworkTimeout.h"
-#import "JPOrderDetails.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodType.h"
 #import "JPPaymentMethods.h"

@@ -27,7 +27,6 @@
 #import "JPAmount.h"
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
-#import "JPOrderDetails.h"
 #import "NSString+Additions.h"
 
 static NSString *const kStatusDeclined = @"declined";

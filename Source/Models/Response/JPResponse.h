@@ -26,7 +26,7 @@
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
-@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer, JPOrderDetails;
+@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer;
 
 /**
  *  JPResponse is an object that references all information in correspondence with a Transaction with the judo API
