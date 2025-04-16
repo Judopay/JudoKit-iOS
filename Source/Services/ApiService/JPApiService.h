@@ -32,7 +32,6 @@
     JPRequest,
     JPTokenRequest,
     JPPreAuthTokenRequest,
-    JPBankOrderSaleRequest,
     JPApplePayRequest,
     JPPreAuthApplePayRequest,
     JPCheckCardRequest,

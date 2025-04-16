@@ -25,7 +25,6 @@
 #import "JPApiService.h"
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"
-#import "JPBankOrderSaleRequest.h"
 #import "JPCheckCardRequest.h"
 #import "JPComplete3DS2Request.h"
 #import "JPError+Additions.h"
