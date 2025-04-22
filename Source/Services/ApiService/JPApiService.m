@@ -25,7 +25,6 @@
 #import "JPApiService.h"
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPApplePayRequest.h"
-#import "JPBankOrderSaleRequest.h"
 #import "JPCheckCardRequest.h"
 #import "JPComplete3DS2Request.h"
 #import "JPError+Additions.h"
@@ -217,16 +216,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPOST
                           endpoint:kPreauthEndpoint
-                        parameters:parameters
-                     andCompletion:completion];
-}
-
-- (void)invokeBankSaleWithRequest:(JPBankOrderSaleRequest *)request
-                    andCompletion:(JPCompletionBlock)completion {
-
-    NSDictionary *parameters = [request _jp_toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST
-                          endpoint:kBankSaleEndpoint
                         parameters:parameters
                      andCompletion:completion];
 }

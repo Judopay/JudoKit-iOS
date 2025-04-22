@@ -27,7 +27,6 @@
 #import "JPAmount.h"
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
-#import "JPOrderDetails.h"
 #import "NSString+Additions.h"
 
 static NSString *const kStatusDeclined = @"declined";
@@ -56,7 +55,6 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
     self.createdAt = dictionary[@"createdAt"];
     self.result = [self transactionResultForString:dictionary[@"result"]];
     self.message = dictionary[@"message"];
-    self.redirectUrl = dictionary[@"redirectUrl"];
     self.merchantName = dictionary[@"merchantName"];
     self.emailAddress = dictionary[@"emailAddress"];
     self.appearsOnStatementAs = dictionary[@"appearsOnStatementAs"];
@@ -65,7 +63,6 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 
     [self setupPaymentReferenceFromDictionary:dictionary];
     [self setupConsumerFromDictionary:dictionary];
-    [self setupIDEALFromDictionary:dictionary];
 
     NSString *currency = dictionary[@"currency"];
     if (dictionary[@"refunds"]) {
@@ -111,21 +108,6 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
         self.consumer = [[JPConsumer alloc] initWithDictionary:consumerDictionary];
     } else {
         self.consumer = [[JPConsumer alloc] initWithDictionary:dictionary[@"consumer"]];
-    }
-}
-
-- (void)setupIDEALFromDictionary:(NSDictionary *)dictionary {
-
-    NSDictionary *orderDetailsDict = dictionary[@"orderDetails"];
-    NSString *orderId = dictionary[@"orderId"];
-
-    if (orderDetailsDict) {
-        self.orderDetails = [[JPOrderDetails alloc] initWithDictionary:orderDetailsDict];
-    }
-
-    if (orderId) {
-        self.orderDetails = [JPOrderDetails new];
-        self.orderDetails.orderId = orderId;
     }
 }
 

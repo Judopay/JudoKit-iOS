@@ -162,7 +162,6 @@ static NSString *const kDinersClubEnabledKey = @"is_card_network_diners_club_ena
 #pragma mark - Payment methods section keys
 
 static NSString *const kCardPaymentMethodEnabledKey = @"is_payment_method_card_enabled";
-static NSString *const kiDEALPaymentMethodEnabledKey = @"is_payment_method_ideal_enabled";
 static NSString *const kApplePayPaymentMethodEnabledKey = @"is_payment_method_apple_pay_enabled";
 
 #pragma mark - Others section keys

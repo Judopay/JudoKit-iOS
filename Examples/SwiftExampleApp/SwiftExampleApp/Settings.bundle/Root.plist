@@ -816,16 +816,6 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>payment_methods_entry_ideal</string>
-			<key>Key</key>
-			<string>is_payment_method_ideal_enabled</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
 			<string>payment_methods_entry_apple_pay</string>
 			<key>Key</key>
 			<string>is_payment_method_apple_pay_enabled</string>

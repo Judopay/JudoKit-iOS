@@ -48,11 +48,6 @@
 + (instancetype)card;
 
 /**
- * A pre-defined initializer that describes the iDeal payment method
- */
-+ (instancetype)iDeal;
-
-/**
  * A pre-defined initializer that describes the Apple Pay payment method
  */
 + (instancetype)applePay;

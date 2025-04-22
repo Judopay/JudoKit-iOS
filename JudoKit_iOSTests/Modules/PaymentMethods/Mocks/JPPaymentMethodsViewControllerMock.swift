@@ -29,7 +29,6 @@ import Foundation
     var didPresentApplePay = false
     var isPaymentAuthorized = true
     var cardsList:[JPPaymentMethodsCardModel] = []
-    var idealBankModel: JPPaymentMethodsIDEALBankModel?
     var viewModelSut: JPPaymentMethodsViewModel?
     
     func configure(with viewModel: JPPaymentMethodsViewModel, shouldAnimateChange shouldAnimate: Bool) {
@@ -39,7 +38,6 @@ import Foundation
                 cardsList = cardList.cardModels as! [JPPaymentMethodsCardModel]
             }
         }
-        self.idealBankModel = viewModel.headerModel?.bankModel
     }
     
     func configure(with viewModel: JPPaymentMethodsViewModel!) {

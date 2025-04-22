@@ -231,12 +231,6 @@
         return cardListModel.cardModels.count;
     }
 
-    if ([self.viewModel.items[section] isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
-        JPPaymentMethodsIDEALBankListModel *bankListModel;
-        bankListModel = (JPPaymentMethodsIDEALBankListModel *)self.viewModel.items[section];
-        return bankListModel.bankModels.count;
-    }
-
     return 1;
 }
 
@@ -262,13 +256,6 @@
             JPPaymentMethodsCardListModel *cardListModel;
             cardListModel = (JPPaymentMethodsCardListModel *)model;
             [paymentMethodCell configureWithViewModel:(JPPaymentMethodsModel *)cardListModel.cardModels[indexPath.row]];
-            return cell;
-        }
-
-        if ([model isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
-            JPPaymentMethodsIDEALBankListModel *bankListModel;
-            bankListModel = (JPPaymentMethodsIDEALBankListModel *)model;
-            [paymentMethodCell configureWithViewModel:(JPPaymentMethodsModel *)bankListModel.bankModels[indexPath.row]];
             return cell;
         }
 
@@ -306,10 +293,6 @@
                                isEditingMode:tableView.isEditing];
         [self.presenter changeHeaderButtonTitle:NO];
         [self.paymentMethodsView.tableView setEditing:NO animated:NO];
-    }
-
-    if ([model isKindOfClass:JPPaymentMethodsIDEALBankListModel.class]) {
-        [self.presenter didSelectBankAtIndex:indexPath.row];
     }
 }
 

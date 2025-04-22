@@ -301,10 +301,6 @@ NSString *safeString(NSString *aString) {
         [methods addObject:JPPaymentMethod.applePay];
     }
 
-    if ([self.defaults boolForKey:kiDEALPaymentMethodEnabledKey]) {
-        [methods addObject:JPPaymentMethod.iDeal];
-    }
-
     return methods;
 }
 

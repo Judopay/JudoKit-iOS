@@ -15,7 +15,7 @@ final class CardPaymentUITests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
-        app.configureSettings(isRavelinTest: false, isIdealTest: false)
+        app.configureSettings(isRavelinTest: false)
         addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
             alert.buttons["Allow While Using App"].tap()
             return true

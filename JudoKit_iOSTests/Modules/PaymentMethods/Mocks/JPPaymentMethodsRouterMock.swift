@@ -27,7 +27,6 @@ import Foundation
 class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
 
     var dismissController = false
-    var navigatedToIdealModule = false
     var navigateToSaveCardModule = false
     var navigateToTokenTransactionModule = false
     var navigateToCardCustomizationModule = false
@@ -38,12 +37,6 @@ class JPPaymentMethodsRouterImplMock: JPPaymentMethodsRouter {
     
     func navigateToTokenTransactionModule(with type: JPTransactionType, cardDetails details: JPCardTransactionDetails, andCompletion completion: @escaping JPCompletionBlock) {
         navigateToTokenTransactionModule = true
-    }
-    
-    func navigateToIDEALModule(with bank:JPIDEALBank, andCompletion completion: JPCompletionBlock) {
-        navigatedToIdealModule = true
-        let response = JPResponse()
-        completion(response, nil)
     }
 
     func navigateToCardCustomization(with index: UInt) {

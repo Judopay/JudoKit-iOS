@@ -26,7 +26,7 @@
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
-@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer, JPOrderDetails;
+@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer;
 
 /**
  *  JPResponse is an object that references all information in correspondence with a Transaction with the judo API
@@ -49,19 +49,9 @@
 @property (nonatomic, assign) JPTransactionType type;
 
 /**
- *  A redirect URL used for iDEAL bank transactions
- */
-@property (nonatomic, strong) NSString *_Nullable redirectUrl;
-
-/**
  *  An object describing the current payment method
  */
 @property (nonatomic, strong) NSString *_Nullable paymentMethod;
-
-/**
- *  An object containing information regarding the iDEAL transaction result
- */
-@property (nonatomic, strong) JPOrderDetails *_Nullable orderDetails;
 
 /**
  *  Date and time of the Transaction including time zone offset

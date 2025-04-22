@@ -175,10 +175,6 @@ class Settings {
             paymentMethods.append(JPPaymentMethod.applePay())
         }
 
-        if userDefaults.bool(forKey: kiDEALPaymentMethodEnabledKey) {
-            paymentMethods.append(JPPaymentMethod.iDeal())
-        }
-
         return paymentMethods
     }
 
