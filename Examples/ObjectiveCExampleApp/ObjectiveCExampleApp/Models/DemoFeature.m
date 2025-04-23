@@ -51,14 +51,14 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
                                title:@"Server-to-Server payment methods"
                              details:@"with default Server-to-Server payment methods"],
         [DemoFeature featureWithType:DemoFeatureTokenPayments
-                               title:@"Token Payments"
-                             details:@"Token Payments (no UI)"],
+                               title:@"Token payments"
+                             details:@"with optionally asking for CSC and/or cardholder name"],
         [DemoFeature featureWithType:DemoFeatureNoUIPayments
-                               title:@"No UI Payments"
-                             details:@"Custom UI payments (no UI)"],
+                               title:@"No-UI transactions"
+                             details:@"No-UI transactions using card transaction service"],
         [DemoFeature featureWithType:DemoFeatureGetTransactionDetails
-                               title:@"Get Transaction"
-                             details:@"Get Transaction for Receipt ID"],
+                               title:@"Get transaction details"
+                             details:@"Get transaction for receipt ID"],
     ];
 }
 @end

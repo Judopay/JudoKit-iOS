@@ -30,7 +30,8 @@ class FeatureCell: UITableViewCell {
 
     private let kContentOffset: CGFloat = 10.0
     private let kContentSpacing: CGFloat = 5.0
-    private let kFontSize: CGFloat = 16.0
+    private let kFontSizeTitle: CGFloat = 16.0
+    private let kFontSizeDetails: CGFloat = 14.0
 
     // MARK: - Initializers
 
@@ -92,7 +93,7 @@ class FeatureCell: UITableViewCell {
 
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: kFontSize, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: kFontSizeTitle, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = true
         return label
@@ -100,7 +101,7 @@ class FeatureCell: UITableViewCell {
 
     private lazy var subtitleLabel: UILabel = {
        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: kFontSize)
+        label.font = UIFont.systemFont(ofSize: kFontSizeDetails)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

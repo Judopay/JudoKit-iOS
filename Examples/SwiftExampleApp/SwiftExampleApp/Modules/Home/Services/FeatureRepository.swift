@@ -72,16 +72,16 @@ class FeatureRepository {
                          subtitle: "with default Server-to-Server payment methods"),
 
         FeatureViewModel(type: .tokenPayments,
-                         title: "Token Payments",
-                         subtitle: "Token Payments (no UI)"),
+                         title: "Token payments",
+                         subtitle: "with optionally asking for CSC and/or cardholder name"),
 
         FeatureViewModel(type: .noUIPayments,
-                         title: "No UI Payments",
-                         subtitle: "Custom UI Payments (no UI)"),
+                         title: "No-UI transactions",
+                         subtitle: "No-UI transactions using card transaction service"),
 
         FeatureViewModel(type: .transactionDetails,
                          title: "Get transaction details",
-                         subtitle: "by using your receipt ID")
+                         subtitle: "Get transaction for receipt ID")
     ]
 
 }

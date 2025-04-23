@@ -19,7 +19,7 @@ struct NoUICardPayView: View {
             .buttonStyle(BasicButtonStyle())
         }
         .padding()
-        .navigationBarTitle("No UI payments")
+        .navigationBarTitle("No-UI transactions")
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
                 title: Text("Error"),

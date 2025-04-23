@@ -28,12 +28,5 @@ class JPApiServiceStub: JPApiService {
     
     override init() {
         super.init()
-        saveStubs()
-    }
-    
-    func saveStubs() {
-        stub(condition: isPath("/order/bank/sale")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponse.json", type(of: self))!, statusCode: 200, headers: nil)
-        }
     }
 }

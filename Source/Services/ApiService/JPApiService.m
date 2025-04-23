@@ -46,7 +46,6 @@ static NSString *const kRegisterCardEndpoint __deprecated = @"transactions/regis
 static NSString *const kSaveCardEndpoint = @"transactions/savecard";
 static NSString *const kTransactionStatusPathKey = @"transactions/";
 static NSString *const kCheckCardEndpoint = @"transactions/checkcard";
-static NSString *const kBankSaleEndpoint = @"order/bank/sale";
 static NSString *const kBankStatusRequestEndpoint = @"order/bank/statusrequest";
 static NSString *const kTransactionsEndpoint = @"transactions";
 static NSString *const kComplete3DS2TransactionsEndpoint = @"transactions/%@/complete3ds";

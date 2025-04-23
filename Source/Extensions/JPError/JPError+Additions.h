@@ -26,7 +26,7 @@
 #import "JPError.h"
 #import <Foundation/Foundation.h>
 
-@class JPTransactionData, JPCardNetwork, JPResponse, JP3DSProtocolErrorEvent, JP3DSRuntimeErrorEvent;
+@class JPCardNetwork, JPResponse, JP3DSProtocolErrorEvent, JP3DSRuntimeErrorEvent;
 
 extern NSString *_Nonnull const JudoErrorDomain;
 

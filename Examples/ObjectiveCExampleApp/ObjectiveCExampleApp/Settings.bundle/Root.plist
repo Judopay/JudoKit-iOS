@@ -730,7 +730,7 @@
 			<key>Key</key>
 			<string>is_payment_method_apple_pay_enabled</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
