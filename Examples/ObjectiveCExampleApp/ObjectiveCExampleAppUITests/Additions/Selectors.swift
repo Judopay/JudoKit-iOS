@@ -22,7 +22,7 @@ class Selectors {
         static let preAuthWithCard = "Pre-auth with card"
         static let registerCard = "Register card"
         static let checkCard = "Check card"
-        static let tokenPayment = "Token Payments"
+        static let tokenPayment = "Token payments"
         static let paymentMethods = "Payment methods"
         static let preAuthMethods = "PreAuth methods"
         static let settingsSectionButton = "Settings Button"
