@@ -51,7 +51,6 @@ ln -s -f ../Models/Response/JPResponse.h JPResponse.h
 ln -s -f ../Models/ApplePayWrappers/JPApplePayTypes.h JPApplePayTypes.h
 ln -s -f ../Models/NetworkTimeout/JPNetworkTimeout.h JPNetworkTimeout.h
 ln -s -f ../Models/ValidationResult/JPValidationResult.h JPValidationResult.h
-ln -s -f ../Models/OrderDetails/JPOrderDetails.h JPOrderDetails.h
 ln -s -f ../Models/PaymentShippingMethod/JPPaymentShippingMethod.h JPPaymentShippingMethod.h
 ln -s -f ../Models/Request/JPComplete3DS2Request.h JPComplete3DS2Request.h
 ln -s -f ../Extensions/JPError/JPError+Additions.h JPError+Additions.h

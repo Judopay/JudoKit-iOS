@@ -16,9 +16,6 @@
 		0777B9EA247BC9BB00867B9F /* JPConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B98F247BC9BB00867B9F /* JPConfigurationValidationServiceTest.swift */; };
 		0777B9EB247BC9BB00867B9F /* JPAppleConfigurationValidationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B990247BC9BB00867B9F /* JPAppleConfigurationValidationServiceTest.swift */; };
 		0777B9ED247BC9BB00867B9F /* CardDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 0777B995247BC9BB00867B9F /* CardDetails.json */; };
-		0777B9EE247BC9BB00867B9F /* PendingResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0777B996247BC9BB00867B9F /* PendingResponse.json */; };
-		0777B9EF247BC9BB00867B9F /* SuccessResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0777B997247BC9BB00867B9F /* SuccessResponse.json */; };
-		0777B9F0247BC9BB00867B9F /* OrderDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 0777B998247BC9BB00867B9F /* OrderDetails.json */; };
 		0777B9F1247BC9BB00867B9F /* JudoKitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B999247BC9BB00867B9F /* JudoKitTest.swift */; };
 		0777B9F2247BC9BB00867B9F /* JPAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B99C247BC9BB00867B9F /* JPAddressTests.swift */; };
 		0777B9F3247BC9BB00867B9F /* JPCardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777B99E247BC9BB00867B9F /* JPCardTest.swift */; };
@@ -498,9 +495,6 @@
 		0777B992247BC9BB00867B9F /* JPApplePayServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPApplePayServiceTest.swift; sourceTree = "<group>"; };
 		0777B993247BC9BB00867B9F /* JudoKit_iOSTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JudoKit_iOSTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		0777B995247BC9BB00867B9F /* CardDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardDetails.json; sourceTree = "<group>"; };
-		0777B996247BC9BB00867B9F /* PendingResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PendingResponse.json; sourceTree = "<group>"; };
-		0777B997247BC9BB00867B9F /* SuccessResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessResponse.json; sourceTree = "<group>"; };
-		0777B998247BC9BB00867B9F /* OrderDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OrderDetails.json; sourceTree = "<group>"; };
 		0777B999247BC9BB00867B9F /* JudoKitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitTest.swift; sourceTree = "<group>"; };
 		0777B99C247BC9BB00867B9F /* JPAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPAddressTests.swift; sourceTree = "<group>"; };
 		0777B99E247BC9BB00867B9F /* JPCardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPCardTest.swift; sourceTree = "<group>"; };
@@ -1068,9 +1062,6 @@
 			children = (
 				30D3644824B87FE20029BC86 /* TransactionData.json */,
 				0777B995247BC9BB00867B9F /* CardDetails.json */,
-				0777B996247BC9BB00867B9F /* PendingResponse.json */,
-				0777B997247BC9BB00867B9F /* SuccessResponse.json */,
-				0777B998247BC9BB00867B9F /* OrderDetails.json */,
 			);
 			path = JsonStubs;
 			sourceTree = "<group>";
@@ -3520,11 +3511,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0777B9EE247BC9BB00867B9F /* PendingResponse.json in Resources */,
 				0777B9ED247BC9BB00867B9F /* CardDetails.json in Resources */,
-				0777B9EF247BC9BB00867B9F /* SuccessResponse.json in Resources */,
 				30D3644924B87FE20029BC86 /* TransactionData.json in Resources */,
-				0777B9F0247BC9BB00867B9F /* OrderDetails.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

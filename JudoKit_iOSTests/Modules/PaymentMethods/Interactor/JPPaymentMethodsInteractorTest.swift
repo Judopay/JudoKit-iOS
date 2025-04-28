@@ -48,14 +48,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
                                              configuration: configuration,
                                              apiService: service,
                                              completion: { _, _ in })
-
         HTTPStubs.setEnabled(true)
-
-        stub(condition: isHost("api-sandbox.judopay.com")) { _ in
-            HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
-                              statusCode: 200,
-                              headers: nil)
-        }
     }
 
     /*
