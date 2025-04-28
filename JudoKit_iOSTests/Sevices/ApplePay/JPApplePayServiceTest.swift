@@ -38,13 +38,6 @@ class JPApplePayServiceTest: XCTestCase {
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
-
-        stub(condition: isHost("api-sandbox.judopay.com")) { _ in
-            return HTTPStubsResponse(fileAtPath: OHPathForFile("SuccessResponsePBBA.json", type(of: self))!,
-                                     statusCode: 200,
-                                     headers: nil)
-        }
-
         sut = JPApplePayService(configuration: configuration,
                                 andApiService: apiService)
     }

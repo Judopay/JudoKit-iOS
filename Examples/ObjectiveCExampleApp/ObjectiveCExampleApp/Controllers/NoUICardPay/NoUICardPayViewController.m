@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"No UI payments";
+    self.title = @"No-UI transactions";
 
     [self.preAuthWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
     [self.payWithCardButton setBackgroundImage:UIColor.blackColor._jp_asImage forState:UIControlStateNormal];
