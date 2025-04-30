@@ -125,6 +125,7 @@ final class RavelinUITests: XCTestCase {
     }
     
     func testUsingSDKConfigTransaction() {
+        app.launchArguments += ["-challenge_request_indicator", "challengeAsMandate", "-is_recommendation_halt_transaction_enabled", "false"]
         app.configureRavelin(suffix: "78")
         app.ravelinTestSetup()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
