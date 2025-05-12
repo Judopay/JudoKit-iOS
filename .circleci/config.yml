@@ -398,8 +398,8 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.3 \
-              --device model=iphone14pro,version=16.6 \
+              --xcode-version 16.2 \
+              --device model=iphone15,version=18.0 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --timeout=30m \
@@ -426,7 +426,7 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.3 \
+              --xcode-version 16.2 \
               --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPad)" \
@@ -452,9 +452,10 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.3 \
+              --xcode-version 16.2 \
               --device model=iphone8,version=15.7 \
               --device model=iphone12pro,version=14.8 \
+              --device model=iphone14pro,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --num-flaky-test-attempts=1 \
               --client-details=matrixLabel="Backward Compat E2E" \
@@ -481,8 +482,8 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/SwiftExampleAppUITests.zip \
-              --xcode-version 15.3 \
-              --device model=iphone14pro,version=16.6 \
+              --xcode-version 16.2 \
+              --device model=iphone15,version=18.0 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --num-flaky-test-attempts=1 \
@@ -509,7 +510,7 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/SwiftExampleAppUITests.zip \
-              --xcode-version 15.3 \
+              --xcode-version 16.2 \
               --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPad)" \
