@@ -404,8 +404,8 @@ jobs:
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --timeout=30m \
               --num-flaky-test-attempts=1 \
-      # - notify_slack_error
-      # - notify_slack_pass
+      - notify_slack_error
+      - notify_slack_pass
   instrumented_tests_sample_ipad:
     executor: macos
     steps:
@@ -452,9 +452,10 @@ jobs:
           command: >
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
-              --xcode-version 15.3 \
+              --xcode-version 16.2 \
               --device model=iphone8,version=15.7 \
               --device model=iphone12pro,version=14.8 \
+              --device model=iphone14pro,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --num-flaky-test-attempts=1 \
               --client-details=matrixLabel="Backward Compat E2E" \
@@ -487,8 +488,8 @@ jobs:
               --client-details=matrixLabel="Regression E2E (iPhone)" \
               --num-flaky-test-attempts=1 \
               --timeout=30m
-      # - notify_slack_error
-      # - notify_slack_pass
+      - notify_slack_error
+      - notify_slack_pass
   instrumented_tests_swift_sample_ipad:
     executor: macos
     steps:
@@ -594,7 +595,7 @@ workflows:
           filters:
             branches:
               only:
-                - firebase-test-device-updates
+                - master
       - instrumented_tests_sample_ipad:
           context: shared-secrets
           requires:
@@ -602,7 +603,7 @@ workflows:
           filters:
             branches:
               only:
-                - firebase-test-device-updates
+                - master
       - build_instrumented_tests_swift_package:
           requires:
             - unit_test_sdk
@@ -613,7 +614,7 @@ workflows:
           filters:
             branches:
               only:
-                - firebase-test-device-updates
+                - master
       - instrumented_tests_swift_sample_ipad:
           context: shared-secrets
           requires:
@@ -621,7 +622,7 @@ workflows:
           filters:
             branches:
               only:
-                - firebase-test-device-updates
+                - master
       - release_sample:
           context: shared-secrets
           requires:
