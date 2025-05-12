@@ -427,7 +427,7 @@ jobs:
             gcloud firebase test ios run \
               --test ./Output/ObjectiveCExampleAppUITests.zip \
               --xcode-version 16.2 \
-              --device model=iphone15,version=18.0 \
+              --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPad)" \
               --timeout=30m \
@@ -511,7 +511,7 @@ jobs:
             gcloud firebase test ios run \
               --test ./Output/SwiftExampleAppUITests.zip \
               --xcode-version 16.2 \
-              --device model=iphone15,version=18.0 \
+              --device model=ipad10,version=16.6 \
               --results-bucket $FIREBASE_TEST_RESULTS_BUCKET \
               --client-details=matrixLabel="Regression E2E (iPad)" \
               --num-flaky-test-attempts=1 \
