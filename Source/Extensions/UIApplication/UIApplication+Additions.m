@@ -31,37 +31,45 @@
 }
 
 + (UIViewController *)_jp_topMostViewController {
-    UIViewController *topViewController = UIApplication.sharedApplication.windows.firstObject.rootViewController;
+    UIWindow *keyWindow = nil;
 
     if (@available(iOS 13.0, *)) {
-        for (UIWindowScene *windowScene in UIApplication.sharedApplication.connectedScenes) {
-            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
-                topViewController = windowScene.windows.firstObject.rootViewController;
-                break;
+        // Find the active foreground scene with a key window
+        NSSet *connectedScenes = UIApplication.sharedApplication.connectedScenes;
+        for (UIScene *scene in connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive &&
+                [scene isKindOfClass:UIWindowScene.class]) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        keyWindow = window;
+                        break;
+                    }
+                }
+                if (keyWindow) {
+                    break;
+                }
             }
         }
+    } else {
+        keyWindow = UIApplication.sharedApplication.keyWindow;
     }
 
-    while (topViewController.presentedViewController) {
-        topViewController = topViewController.presentedViewController;
-
-        if ([topViewController isKindOfClass:UINavigationController.class]) {
-            UINavigationController *navigationController = (UINavigationController *)topViewController;
-            topViewController = navigationController.viewControllers.lastObject;
-        }
-
-        if ([topViewController isKindOfClass:UITabBarController.class]) {
-            UITabBarController *tabBarController = (UITabBarController *)topViewController;
-            topViewController = tabBarController.selectedViewController;
-        }
-
-        if ([topViewController isKindOfClass:UISplitViewController.class]) {
-            UISplitViewController *splitViewController = (UISplitViewController *)topViewController;
-            topViewController = splitViewController.viewControllers.lastObject;
-        }
-    }
-
-    return topViewController;
+    UIViewController *rootViewController = keyWindow.rootViewController;
+    return [self _jp_visibleViewControllerFrom:rootViewController];
 }
 
++ (UIViewController *)_jp_visibleViewControllerFrom:(UIViewController *)vc {
+    if ([vc isKindOfClass:UINavigationController.class]) {
+        return [self _jp_visibleViewControllerFrom:[((UINavigationController *)vc) visibleViewController]];
+    } else if ([vc isKindOfClass:UITabBarController.class]) {
+        return [self _jp_visibleViewControllerFrom:[((UITabBarController *)vc) selectedViewController]];
+    } else if ([vc isKindOfClass:UISplitViewController.class]) {
+        return [self _jp_visibleViewControllerFrom:[((UISplitViewController *)vc) viewControllers].lastObject];
+    } else if (vc.presentedViewController) {
+        return [self _jp_visibleViewControllerFrom:vc.presentedViewController];
+    } else {
+        return vc;
+    }
+}
 @end
