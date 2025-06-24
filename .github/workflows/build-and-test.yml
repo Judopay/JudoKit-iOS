@@ -1,0 +1,12 @@
+name: iOS Build and Test
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  build_and_test:
+    uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@master
+    secrets: inherit

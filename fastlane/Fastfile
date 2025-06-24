@@ -24,9 +24,11 @@ def replace(file_path, old_string, new_string)
 end
 
 platform :ios do
+  build_path = ENV["XCODE_BUILD_PATH"] || "build"
+  compilation_database_path = "#{build_path}/compilation_database"
 
   before_all do
-    setup_circle_ci
+    setup_ci
   end
 
   desc "Lint SDK"
@@ -38,20 +40,32 @@ platform :ios do
 
   desc "Build SDK"
   lane :build do
-    carthage
+
+    Dir.chdir('..') do
+      FileUtils.mkdir_p(compilation_database_path)
+    end
+
     build_app(
       skip_codesigning: true,
       skip_package_ipa: true,
       skip_package_dependencies_resolution: true,
       scheme: 'JudoKit_iOS',
-      project: './JudoKit_iOS.xcodeproj'
+      project: './JudoKit_iOS.xcodeproj',
+      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
+    )
+
+    build_sample_apps(
+      flavors: 'obj-c,swift,carthage,spm',
+      build_for_distribution: false
     )
   end
 
   desc "Run SDK tests"
   lane :test do
-    carthage
     run_tests(ensure_devices_found: true)
+
+    package_instrumented_tests
+    package_instrumented_tests_swift
   end
 
   desc "Package ObjC example app and instrumented tests for uploading to firebase"
@@ -141,7 +155,10 @@ platform :ios do
       build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
 
       sync_code_signing_options = { type: 'adhoc' }
-      build_app_options = { export_method: 'ad-hoc' }
+      build_app_options = {
+        export_method: 'ad-hoc',
+        xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
+      }
 
       if !build_for_distribution
         build_app_options[:skip_codesigning] = true
