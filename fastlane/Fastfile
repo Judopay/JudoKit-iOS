@@ -24,8 +24,7 @@ def replace(file_path, old_string, new_string)
 end
 
 platform :ios do
-  build_path = ENV["XCODE_BUILD_PATH"] || "build"
-  compilation_database_path = "#{build_path}/compilation_database"
+  compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilation_database"
 
   before_all do
     setup_ci
@@ -151,6 +150,10 @@ platform :ios do
   lane :build_sample_apps do | options |
 
     extract_flavor_list(options).each do | flavor |
+
+      Dir.chdir('..') do
+        FileUtils.mkdir_p(compilation_database_path)
+      end
 
       build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
 
