@@ -132,12 +132,8 @@ platform :ios do
   lane :build_sample_app do |options|
     app = get_app(options[:flavor])
 
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(compilation_database_path)
-    end
-
     UI.message("Running cocoapods for #{app_podfile(app[:scheme])}")
-    cocoapods(podfile: app_podfile(app[:scheme])) if File.exist?(app_podfile(app[:scheme]))
+    cocoapods(podfile: app_podfile(app[:scheme])) if !File.exist?(app_podfile(app[:scheme]))
 
     inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
     app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
