@@ -136,6 +136,7 @@ platform :ios do
       FileUtils.mkdir_p(compilation_database_path)
     end
 
+    UI.message("Running cocoapods for #{app_podfile(app[:scheme])}")
     cocoapods(podfile: app_podfile(app[:scheme])) if File.exist?(app_podfile(app[:scheme]))
 
     inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
