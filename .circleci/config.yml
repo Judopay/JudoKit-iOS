@@ -583,7 +583,7 @@ jobs:
           command: |
             APP_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
               -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/app" \
-              -F "file=@Output/ObjectiveCExampleApp.ipa")
+              -F "file=@Output/gym/ObjectiveCExampleApp.ipa")
             echo "$APP_UPLOAD_RESPONSE"
             echo "export APP_URL=$(echo "$APP_UPLOAD_RESPONSE" | jq -r '.app_url')" >> $BASH_ENV
 
