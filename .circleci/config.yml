@@ -732,6 +732,8 @@ workflows:
           requires:
             - checkout_project
       - run_xcuitest_tests_on_browserstack:
+          requires:
+            - checkout_project
           context: shared-secrets
           filters:
             branches:
