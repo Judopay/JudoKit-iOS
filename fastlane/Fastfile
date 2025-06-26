@@ -192,23 +192,23 @@ platform :ios do
   end
 end
 
-def app_workspace(app_scheme: String)
+def app_workspace(app_scheme)
   return "#{sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcworkspace"
 end
 
-def app_project(app_scheme: String)
+def app_project(app_scheme)
   return "#{sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj"
 end
 
-def app_plist(app_scheme: String)
+def app_plist(app_scheme)
   return "#{sample_apps_dir}/#{app_scheme}/#{app_scheme}/Info.plist"
 end
 
-def app_podfile(app_scheme: String)
+def app_podfile(app_scheme)
   return "#{sample_apps_dir}/#{app_scheme}/Podfile"
 end
 
-def get_app(app_flavor: String)
+def get_app(app_flavor)
   # Find the app configuration based on the flavor
   app = sample_apps.find { |a| a[:flavor] == app_flavor }
   
