@@ -202,6 +202,9 @@ parameters:
   weekly:
     type: boolean
     default: false
+  bs:
+    type: boolean
+    default: false
 
 jobs:
   checkout_project:
@@ -345,6 +348,21 @@ jobs:
       - run:
           name: Build example apps / test integration with SDK
           command: bundle exec fastlane build_sample_apps flavors:obj-c,swift,carthage,spm build_for_distribution:false
+      - store_artifacts:
+          path: ./Output/buildlogs/gym/
+          destination: GymLogs
+  build_example_app_for_browserstack:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build example app for Browserstack
+          command: bundle exec fastlane build_sample_apps flavors:obj-c build_for_distribution:false
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./Output/ObjectiveCExampleApp.ipa
       - store_artifacts:
           path: ./Output/buildlogs/gym/
           destination: GymLogs
@@ -557,6 +575,44 @@ jobs:
           environment:
             ENVIRONMENT: << parameters.environment >>
           command: /resources/scripts/report-status-to-jira.sh
+  run_xcuitest_tests_on_browserstack:
+    executor: macos
+    steps:
+      - build_example_app_for_browserstack
+      - run:
+          name: List Output Directory
+          command: ls -lh ./Output
+      - run:
+          name: Upload iOS app to BrowserStack
+          command: |
+            APP_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/app" \
+              -F "file=@Output/ObjectiveCExampleApp.ipa")
+            echo "$APP_UPLOAD_RESPONSE"
+            echo "export APP_URL=$(echo "$APP_UPLOAD_RESPONSE" | jq -r '.app_url')" >> $BASH_ENV
+
+      - run:
+          name: Upload iOS tests to BrowserStack
+          command: |
+            TEST_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/test-suite" \
+              -F "file=@Output/ObjectiveCExampleAppUITests.zip")
+            echo "$TEST_UPLOAD_RESPONSE"
+            echo "export TEST_URL=$(echo "$TEST_UPLOAD_RESPONSE" | jq -r '.test_suite_url')" >> $BASH_ENV
+
+      - run:
+          name: Trigger XCUI test on BrowserStack
+          command: |
+            source $BASH_ENV
+            TRIGGER_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/build" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "app": "'"$APP_URL"'",
+                "testSuite": "'"$TEST_URL"'",
+                "devices": ["iPhone 15 Pro-17"]
+              }')
+            echo "$TRIGGER_RESPONSE"
 
 workflows:
   build:
@@ -666,3 +722,16 @@ workflows:
             branches:
               only:
                 - master
+  instrumented_test_bs:
+    when: << pipeline.parameters.bs >>
+    jobs:
+      - checkout_project
+      - build_instrumented_tests_package:
+          requires:
+            - checkout_project
+      - run_xcuitest_tests_on_browserstack:
+          context: shared-secrets
+          filters:
+            branches:
+              only:
+                - CT-3082
