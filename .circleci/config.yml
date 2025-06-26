@@ -578,7 +578,6 @@ jobs:
   run_xcuitest_tests_on_browserstack:
     executor: macos
     steps:
-      - build_example_app_for_browserstack
       - run:
           name: List Output Directory
           command: ls -lh ./Output
@@ -727,6 +726,9 @@ workflows:
     jobs:
       - checkout_project
       - build_instrumented_tests_package:
+          requires:
+            - checkout_project
+      - build_example_app_for_browserstack:
           requires:
             - checkout_project
       - run_xcuitest_tests_on_browserstack:
