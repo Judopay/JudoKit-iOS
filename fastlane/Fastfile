@@ -92,7 +92,7 @@ platform :ios do
 
   desc "Package instrumented tests for uploading to firebase"
   lane :package_instrumented_tests do
-    @sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
+    sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
       Dir.chdir('..') do
         FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
         Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
@@ -104,7 +104,7 @@ platform :ios do
 
   desc "Run instrumented tests on simulators"
   lane :run_instrumented_tests do
-    @sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
+    sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
       run_tests({
         build_for_testing: true,
         workspace: app_workspace(app_scheme: app[:scheme]),
@@ -119,7 +119,7 @@ platform :ios do
 
   desc "Build Sample Apps"
   lane :build_sample_apps do
-    @sample_apps.each do |app|
+    sample_apps.each do |app|
       build_sample_app({flavor: app[:flavor]})
     end
   end
@@ -164,11 +164,11 @@ platform :ios do
 
   desc "Distribute sample apps to Firebase"
   lane :distribute_sample_apps do
-    @sample_apps.each do |app|
+    sample_apps.each do |app|
       distribute_sample_app({flavor: app[:flavor]})
     end
 
-    @sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
+    sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
       distribute_sample_app({flavor: app[:flavor], staging: 'true'})
     end
   end
@@ -210,7 +210,7 @@ end
 
 def get_app(app_flavor: String)
   # Find the app configuration based on the flavor
-  app = @sample_apps.find { |a| a[:flavor] == app_flavor }
+  app = sample_apps.find { |a| a[:flavor] == app_flavor }
   
   unless app
     UI.user_error!("No sample app found for flavor: #{app_flavor}")
