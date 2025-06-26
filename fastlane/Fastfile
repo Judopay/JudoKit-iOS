@@ -1,6 +1,8 @@
 default_platform(:ios)
 
-@compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilation_database"
+@compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "#{File.expand_path('..')}/build/compilation_database"
+@derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
+@fl_output_dir = ENV['FL_OUTPUT_DIR']
 @sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   {
@@ -41,10 +43,8 @@ platform :ios do
   before_all do
     setup_ci
 
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(@compilation_database_path)
-    end
-
+    FileUtils.mkdir_p(@compilation_database_path)
+    
     if [
       'build',
       'package_instrumented_tests',
@@ -94,12 +94,10 @@ platform :ios do
 
   desc "Package instrumented tests for uploading to firebase"
   lane :package_instrumented_tests do
-    @sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
-      Dir.chdir('..') do
-        FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
-        Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
-          sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/#{app[:scheme]}.zip Debug-iphoneos #{app[:scheme]}_*.xctestrun")
-        end
+    FileUtils.mkdir_p(@fl_output_dir)
+    @sample_apps.select{ |app| app.key?(:instrumented_tests) && app[:instrumented_tests] == true }.each do |app|
+      Dir.chdir("#{@derived_data_path}/Build/Products") do
+        sh("zip -r #{@fl_output_dir}/#{app[:scheme]}.zip Debug-iphoneos #{app[:scheme]}_*.xctestrun")
       end
     end
   end
