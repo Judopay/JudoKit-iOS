@@ -143,7 +143,7 @@ platform :ios do
     firebase_app_id = options.key?(:staging) && options[:staging] == true ? app[:firebase_app_id_staging] : app[:firebase_app_id]
 
     sync_code_signing({
-      type: "development",
+      type: "adhoc",
       app_identifier: app[:app_identifier_ui_tests] ? [app_identifier, app[:app_identifier_ui_tests]] : app_identifier,
     })
 
@@ -159,7 +159,7 @@ platform :ios do
       scheme: app[:scheme],
       project: app_project(app[:scheme]),
       output_name: "#{app[:scheme]}.ipa",
-      export_method: 'development',
+      export_method: 'ad-hoc',
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
