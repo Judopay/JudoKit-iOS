@@ -106,7 +106,7 @@ platform :ios do
 
   desc "Run instrumented tests on simulators"
   lane :run_instrumented_tests do
-    @sample_apps.select{ |app| app.key?[:instrumented_tests] && app[:instrumented_tests] == true }.each do |app|
+    @sample_apps.select{ |app| app.key?(:instrumented_tests) && app[:instrumented_tests] == true }.each do |app|
       run_tests({
         build_for_testing: true,
         workspace: app_workspace(app[:scheme]),
@@ -125,7 +125,7 @@ platform :ios do
       build_sample_app({flavor: app[:flavor]})
     end
 
-    @sample_apps.select{ |app| app.key?[:app_identifier_staging] }.each do |app|
+    @sample_apps.select{ |app| app.key?(:app_identifier_staging) }.each do |app|
       build_sample_app({flavor: app[:flavor], staging: true})
     end
   end
