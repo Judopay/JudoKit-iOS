@@ -579,9 +579,6 @@ jobs:
     executor: macos
     steps:
       - run:
-          name: List Output Directory
-          command: ls -lh ./Output
-      - run:
           name: Upload iOS app to BrowserStack
           command: |
             APP_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
