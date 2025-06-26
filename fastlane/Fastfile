@@ -155,7 +155,7 @@ platform :ios do
     build_app({
       export_method: 'ad-hoc',
       output_name: "#{app[:scheme]}.ipa",
-      project: app_project(app[:scheme]),
+      project: File.directory?(app_workspace(app[:scheme])) ? nil : app_project(app[:scheme]),
       scheme: app[:scheme],
       skip_archive: true,
       workspace: File.directory?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
