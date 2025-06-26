@@ -140,6 +140,8 @@ platform :ios do
 
       build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
 
+      build_for_browserstack = options[:build_for_browserstack].nil? ? false : options[:build_for_browserstack]
+
       sync_code_signing_options = { type: 'adhoc' }
       build_app_options = { export_method: 'ad-hoc' }
 
@@ -147,6 +149,13 @@ platform :ios do
         build_app_options[:skip_codesigning] = true
         build_app_options[:skip_package_ipa] = true
         build_app_options[:skip_archive] = true
+        build_app_options[:configuration] = 'Debug'
+      end
+
+      if build_for_browserstack
+        build_app_options[:skip_codesigning] = false
+        build_app_options[:skip_package_ipa] = false
+        build_app_options[:skip_archive] = false
         build_app_options[:configuration] = 'Debug'
       end
 
@@ -210,6 +219,11 @@ platform :ios do
     inject_staging_environment if options[:flavor] == 'obj-c-stg'
 
     if options[:build_for_distribution]
+      app_store_connect_api_key
+      sync_code_signing options[:sync_code_signing_options]
+    end
+
+    if options[:build_for_browserstack]
       app_store_connect_api_key
       sync_code_signing options[:sync_code_signing_options]
     end

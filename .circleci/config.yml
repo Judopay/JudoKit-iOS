@@ -358,7 +358,7 @@ jobs:
           at: .
       - run:
           name: Build example app for Browserstack
-          command: bundle exec fastlane build_sample_apps flavors:obj-c build_for_distribution:false
+          command: bundle exec fastlane build_sample_apps flavors:obj-c build_for_distribution:false build_for_browserstack:true
       - persist_to_workspace:
           root: .
           paths:
