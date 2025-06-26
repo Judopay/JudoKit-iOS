@@ -201,7 +201,8 @@ def app_workspace(app_scheme)
 end
 
 def app_project(app_scheme)
-  UI.message("app_project will return #{@sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj")
+  UI.message(@sample_apps_dir)
+  UI.message(app_scheme)
   return "#{@sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj"
 end
 
