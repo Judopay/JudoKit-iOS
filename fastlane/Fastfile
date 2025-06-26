@@ -7,8 +7,8 @@ compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilati
     app_identifier: 'com.judo.JudoPayDemoObjC',
     app_identifier_staging: 'com.judo.JudoPayDemoObjC.staging',
     app_identifier_ui_tests: 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*',
-    firebase_app_id: ENV['IOS_OBJ_C_FIREBASE_APP_ID'],
-    firebase_app_id_staging: ENV['IOS_OBJ_C_STG_FIREBASE_APP_ID'],
+    firebase_app_id: '1:34238832242:ios:d7db21b04007e9ee63eceb',
+    firebase_app_id_staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb',
     flavor: 'obj-c',
     instrumented_tests: true,
     scheme: 'ObjectiveCExampleApp',
@@ -16,20 +16,20 @@ compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilati
   {
     app_identifier: 'com.judo.JudoPayDemoSwift',
     app_identifier_ui_tests: 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*',
-    firebase_app_id: ENV['IOS_SWIFT_FIREBASE_APP_ID'],
+    firebase_app_id: '1:34238832242:ios:7bbdd8e61adb48e863eceb',
     flavor: 'swift',
     instrumented_tests: true,
     scheme: 'SwiftExampleAppUITests',
   },
   {
     app_identifier: 'com.judo.JudoPayDemoCarthage',
-    firebase_app_id: ENV['IOS_CARTHAGE_FIREBASE_APP_ID'],
+    firebase_app_id: '1:34238832242:ios:eafceec3517c076463eceb',
     flavor: 'carthage',
     scheme: 'CarthageExampleApp',
   },
   {
     app_identifier: 'com.judopay.SPMExampleApp',
-    firebase_app_id: ENV['IOS_SPM_FIREBASE_APP_ID'],
+    firebase_app_id: '1:34238832242:ios:f07ce32928073fa463eceb',
     flavor: 'spm',
     scheme: 'SPMExampleApp',
   }
@@ -122,6 +122,10 @@ platform :ios do
     @sample_apps.each do |app|
       build_sample_app({flavor: app[:flavor]})
     end
+
+    @sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
+      distribute_sample_app({flavor: app[:flavor], staging: true})
+    end
   end
 
   desc "Build specified sample app"
@@ -134,9 +138,9 @@ platform :ios do
 
     cocoapods(podfile: app_podfile(app_scheme: app[:scheme])) if File.exist?(app_podfile(app_scheme: app[:scheme]))
 
-    inject_staging_environment(app) if options.key?(:staging) && options[:staging] == 'true'
-    app_identifier = options.key?(:staging) && options[:staging] == 'true' ? app[:app_identifier_staging] : app[:app_identifier]
-    firebase_app_id = options.key?(:staging) && options[:staging] == 'true' ? app[:firebase_app_id_staging] : app[:firebase_app_id]
+    inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
+    app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
+    firebase_app_id = options.key?(:staging) && options[:staging] == true ? app[:firebase_app_id_staging] : app[:firebase_app_id]
 
     sync_code_signing({
       type: "development",
@@ -159,7 +163,7 @@ platform :ios do
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
-    revert_staging_environment(app) if options.key?(:staging) && options[:staging] == 'true'
+    revert_staging_environment(app) if options.key?(:staging) && options[:staging] == true
   end
 
   desc "Distribute sample apps to Firebase"
@@ -169,7 +173,7 @@ platform :ios do
     end
 
     @sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
-      distribute_sample_app({flavor: app[:flavor], staging: 'true'})
+      distribute_sample_app({flavor: app[:flavor], staging: true})
     end
   end
 
@@ -180,7 +184,7 @@ platform :ios do
     firebase_app_distribution({
       groups: 'default-testers',
       release_notes: changelog_from_git_commits(commits_count: 1),
-      app: options[:staging] == 'true' ? app[:firebase_app_id_staging] : app[:firebase_app_id],
+      app: options[:staging] == true ? app[:firebase_app_id_staging] : app[:firebase_app_id],
     })
   end
 
