@@ -158,7 +158,7 @@ platform :ios do
       project: app_project(app[:scheme]),
       scheme: app[:scheme],
       skip_archive: true,
-      workspace: File.file?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
+      workspace: File.directory?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
