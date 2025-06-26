@@ -1,6 +1,6 @@
 default_platform(:ios)
 
-compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilation_database"
+@compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilation_database"
 @sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   {
@@ -23,6 +23,7 @@ compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilati
   },
   {
     app_identifier: 'com.judo.JudoPayDemoCarthage',
+    bootstrap_script: 'carthage_example_carthage_bootstrap.sh',
     firebase_app_id: '1:34238832242:ios:eafceec3517c076463eceb',
     flavor: 'carthage',
     scheme: 'CarthageExampleApp',
@@ -34,13 +35,14 @@ compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilati
     scheme: 'SPMExampleApp',
   }
 ]
+@scripts_dir = "#{File.expand_path('..')}/scripts"
 
 platform :ios do
   before_all do
     setup_ci
 
     Dir.chdir('..') do
-      FileUtils.mkdir_p(compilation_database_path)
+      FileUtils.mkdir_p(@compilation_database_path)
     end
 
     if [
@@ -81,7 +83,7 @@ platform :ios do
       skip_package_dependencies_resolution: true,
       scheme: 'JudoKit_iOS',
       project: './JudoKit_iOS.xcodeproj',
-      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
+      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{@compilation_database_path}'"
     )
   end
 
@@ -132,8 +134,9 @@ platform :ios do
   lane :build_sample_app do |options|
     app = get_app(options[:flavor])
 
-    UI.message("Running cocoapods for #{app_podfile(app[:scheme])}")
     cocoapods(podfile: app_podfile(app[:scheme])) if File.file?(app_podfile(app[:scheme]))
+
+    sh("#{@scripts_dir}/#{app[:bootstrap_script]}") if app.key?(:bootstrap_script)
 
     inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
     app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
@@ -158,7 +161,7 @@ platform :ios do
       project: File.directory?(app_workspace(app[:scheme])) ? nil : app_project(app[:scheme]),
       scheme: app[:scheme],
       workspace: File.directory?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
-      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
+      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{@compilation_database_path}'"
     })
 
     revert_staging_environment(app) if options.key?(:staging) && options[:staging] == true
