@@ -362,7 +362,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - ./Output/ObjectiveCExampleApp.ipa
+            - Output/gym/ObjectiveCExampleApp.ipa
       - store_artifacts:
           path: ./Output/buildlogs/gym/
           destination: GymLogs
