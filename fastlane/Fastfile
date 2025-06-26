@@ -159,7 +159,7 @@ platform :ios do
       scheme: app[:scheme],
       project: app_project(app[:scheme]),
       output_name: "#{app[:scheme]}.ipa",
-      export_method: 'ad-hoc',
+      export_method: 'development',
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
@@ -201,8 +201,6 @@ def app_workspace(app_scheme)
 end
 
 def app_project(app_scheme)
-  UI.message(@sample_apps_dir)
-  UI.message(app_scheme)
   return "#{@sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj"
 end
 
