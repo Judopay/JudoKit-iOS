@@ -153,10 +153,11 @@ platform :ios do
     })
 
     build_app({
-      scheme: app[:scheme],
-      project: app_project(app[:scheme]),
-      output_name: "#{app[:scheme]}.ipa",
       export_method: 'ad-hoc',
+      output_name: "#{app[:scheme]}.ipa",
+      project: app_project(app[:scheme]),
+      scheme: app[:scheme],
+      skip_archive: true,
       workspace: File.file?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
