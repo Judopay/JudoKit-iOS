@@ -149,7 +149,9 @@ platform :ios do
 
     latest_release = firebase_app_distribution_get_latest_release(app: firebase_app_id)
     current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
-      
+    
+    UI.message("Incrementing build number for proj #{app_project(app_scheme: app[:scheme])}")
+
     increment_build_number({
       xcodeproj: app_project(app_scheme: app[:scheme]),
       build_number:  current_version + 1
