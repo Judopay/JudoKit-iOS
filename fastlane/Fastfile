@@ -107,7 +107,7 @@ platform :ios do
     @sample_apps.select{ |app| app[:instrumented_tests] }.each do |app|
       run_tests({
         build_for_testing: true,
-        workspace: app_workspace(app_scheme: app[:scheme]),
+        workspace: app_workspace(app[:scheme]),
         scheme: app[:scheme],
         destination: "generic/platform=iOS",
         sdk: "iphoneos",
@@ -136,7 +136,7 @@ platform :ios do
       FileUtils.mkdir_p(compilation_database_path)
     end
 
-    cocoapods(podfile: app_podfile(app_scheme: app[:scheme])) if File.exist?(app_podfile(app_scheme: app[:scheme]))
+    cocoapods(podfile: app_podfile(app[:scheme])) if File.exist?(app_podfile(app[:scheme]))
 
     inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
     app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
@@ -151,13 +151,13 @@ platform :ios do
     current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
     
     increment_build_number({
-      xcodeproj: app_project(app_scheme: app[:scheme]),
+      xcodeproj: app_project(app[:scheme]),
       build_number:  current_version + 1
     })
 
     build_app({
       scheme: app[:scheme],
-      project: app_project(app_scheme: app[:scheme]),
+      project: app_project(app[:scheme]),
       output_name: "#{app[:scheme]}.ipa",
       export_method: 'ad-hoc',
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
@@ -251,7 +251,7 @@ def inject_staging_environment(app)
 
   Dir.chdir('..') do
     current_bundle_id = get_product_bundle_id(
-      project_filepath: app_project(app_scheme: app[:scheme]),
+      project_filepath: app_project(app[:scheme]),
       scheme: app[:scheme]
     )
 
@@ -259,8 +259,8 @@ def inject_staging_environment(app)
       UI.message("The current bundle id already matches '#{app[:app_identifier_staging]}'. No changes made.")
     else
       update_app_identifier(
-        xcodeproj: app_project(app_scheme: app[:scheme]),
-        plist_path: app_plist(app_scheme: app[:scheme]),
+        xcodeproj: app_project(app[:scheme]),
+        plist_path: app_plist(app[:scheme]),
         app_identifier: app[:app_identifier_staging],
       )
 
@@ -268,7 +268,7 @@ def inject_staging_environment(app)
 
       profile_specifier = "match AdHoc"
       replace(
-        "#{app_project(app_scheme: app[:scheme])}/project.pbxproj",
+        "#{app_project(app[:scheme])}/project.pbxproj",
         "#{profile_specifier} #{app[:app_identifier]}",
         "#{profile_specifier} #{app[:app_identifier_staging]}"
       )
@@ -279,7 +279,7 @@ end
 
 def revert_staging_environment(app)
   files_list.append("Source/Models/Constants/JPConstants.h")
-  files_list.append("#{app_project(app_scheme: app[:scheme])}/project.pbxproj")
+  files_list.append("#{app_project(app[:scheme])}/project.pbxproj")
 
   reset_git_repo(
     force: true,
