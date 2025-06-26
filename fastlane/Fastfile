@@ -134,7 +134,7 @@ platform :ios do
 
     cocoapods(podfile: app_podfile(app_scheme: app[:scheme])) if File.exist?(app_podfile(app_scheme: app[:scheme]))
 
-    inject_staging_environment if options.key?(:staging) && options[:staging] == 'true'
+    inject_staging_environment(app) if options.key?(:staging) && options[:staging] == 'true'
     app_identifier = options.key?(:staging) && options[:staging] == 'true' ? app[:app_identifier_staging] : app[:app_identifier]
     firebase_app_id = options.key?(:staging) && options[:staging] == 'true' ? app[:firebase_app_id_staging] : app[:firebase_app_id]
 
@@ -159,7 +159,7 @@ platform :ios do
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
-    revert_staging_environment if options.key?(:staging) && options[:staging] == 'true'
+    revert_staging_environment(app) if options.key?(:staging) && options[:staging] == 'true'
   end
 
   desc "Distribute sample apps to Firebase"
@@ -171,7 +171,6 @@ platform :ios do
     @sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
       distribute_sample_app({flavor: app[:flavor], staging: 'true'})
     end
-    
   end
 
   desc "Distribute specified sample app to Firebase"
@@ -195,6 +194,7 @@ end
 
 def app_workspace(app_scheme: String)
   return "#{sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcworkspace"
+end
 
 def app_project(app_scheme: String)
   return "#{sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj"
@@ -243,8 +243,6 @@ def inject_staging_environment(app)
   unless env_var_valid?('STAGING_HOST_NAME')
     UI.abort_with_message!("STAGING_HOST_NAME environment variable is not set. Unable to continue.")
   end
-
-  suffix = ".staging"
 
   Dir.chdir('..') do
     current_bundle_id = get_product_bundle_id(
