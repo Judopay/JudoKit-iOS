@@ -19,7 +19,7 @@ compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilati
     firebase_app_id: '1:34238832242:ios:7bbdd8e61adb48e863eceb',
     flavor: 'swift',
     instrumented_tests: true,
-    scheme: 'SwiftExampleAppUITests',
+    scheme: 'SwiftExampleApp',
   },
   {
     app_identifier: 'com.judo.JudoPayDemoCarthage',
@@ -157,7 +157,6 @@ platform :ios do
       output_name: "#{app[:scheme]}.ipa",
       project: File.directory?(app_workspace(app[:scheme])) ? nil : app_project(app[:scheme]),
       scheme: app[:scheme],
-      skip_archive: true,
       workspace: File.directory?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
