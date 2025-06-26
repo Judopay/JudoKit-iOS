@@ -205,7 +205,8 @@ platform :ios do
           flavor: flavor,
           build_for_distribution: build_for_distribution,
           build_app_options: build_app_options,
-          sync_code_signing_options: sync_code_signing_options
+          sync_code_signing_options: sync_code_signing_options,
+          build_for_browserstack: build_for_browserstack
         }
 
         build_sample_app_helper build_sample_app_helper_options
