@@ -143,7 +143,7 @@ platform :ios do
       app_identifier: app[:app_identifier_ui_tests] ? [app_identifier, app[:app_identifier_ui_tests]] : app_identifier,
     })
 
-    latest_release = firebase_app_distribution_get_latest_release(firebase_app_id)
+    latest_release = firebase_app_distribution_get_latest_release(app: firebase_app_id)
     current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
       
     increment_build_number({
