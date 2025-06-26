@@ -1,7 +1,7 @@
 default_platform(:ios)
 
 compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "build/compilation_database"
-@sample_apps_dir = "#{Dir.pwd}/Examples"
+@sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   {
     app_identifier: 'com.judo.JudoPayDemoObjC',
@@ -133,7 +133,7 @@ platform :ios do
     app = get_app(options[:flavor])
 
     UI.message("Running cocoapods for #{app_podfile(app[:scheme])}")
-    cocoapods(podfile: app_podfile(app[:scheme])) if File.exist?(app_podfile(app[:scheme]))
+    cocoapods(podfile: app_podfile(app[:scheme])) if File.file?(app_podfile(app[:scheme]))
 
     inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
     app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
@@ -157,7 +157,7 @@ platform :ios do
       project: app_project(app[:scheme]),
       output_name: "#{app[:scheme]}.ipa",
       export_method: 'ad-hoc',
-      workspace: File.exist?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
+      workspace: File.file?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
       xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     })
 
@@ -227,7 +227,7 @@ end
 
 def replace(file_path, old_string, new_string)
   # Check if the file exists
-  unless File.exist?(file_path)
+  unless File.file?(file_path)
     UI.user_error!("File not found: #{file_path}")
   end
 
