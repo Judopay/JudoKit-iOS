@@ -578,6 +578,8 @@ jobs:
   run_xcuitest_tests_on_browserstack:
     executor: macos
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Upload iOS app to BrowserStack
           command: |
