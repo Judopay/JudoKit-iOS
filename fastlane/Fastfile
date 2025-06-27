@@ -146,10 +146,12 @@ platform :ios do
       build_app_options = { export_method: 'ad-hoc' }
 
       if build_for_browserstack
+        sync_code_signing_options[:type] = 'development'
+        build_app_options[:export_method] = 'development'
         build_app_options[:skip_codesigning] = false
         build_app_options[:skip_package_ipa] = false
         build_app_options[:skip_archive] = false
-        build_app_options[:configuration] = 'Release'
+        build_app_options[:configuration] = 'Debug'
 
       elsif !build_for_distribution
         build_app_options[:skip_codesigning] = true
