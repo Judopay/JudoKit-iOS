@@ -583,7 +583,6 @@ jobs:
       - run:
           name: Upload iOS app to BrowserStack
           command: |
-            unzip -l Output/gym/ObjectiveCExampleApp.ipa
             APP_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
               -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/app" \
               -F "file=@Output/gym/ObjectiveCExampleApp.ipa")
@@ -593,7 +592,6 @@ jobs:
       - run:
           name: Upload iOS tests to BrowserStack
           command: |
-            unzip -l Output/ObjectiveCExampleAppUITests.zip
             TEST_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
               -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/test-suite" \
               -F "file=@Output/ObjectiveCExampleAppUITests.zip")

@@ -77,11 +77,16 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
-      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
-        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
-      end
+    # Dir.chdir('..') do
+    #   FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+    #   Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
+    #     sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
+    #   end
+    # end
+    Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos") do
+      app = Dir["*UITests-Runner.app"].first
+      raise "Runner.app not found" unless app
+      sh("zip --symlinks -r ../../../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip \"#{app}\"")
     end
   end
 
