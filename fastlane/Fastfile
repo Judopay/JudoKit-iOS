@@ -80,25 +80,17 @@ platform :ios do
     Dir.chdir('..') do
       FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
 
-      build_products_path = "#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos"
+      products_path = "#{ENV['DERIVED_DATA_PATH']}/Build/Products"
+      xctestrun = Dir["#{products_path}/*.xctestrun"].first
 
-      runner_app_path = Dir["#{build_products_path}/*-Runner.app"].first
-      xctestrun_file = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
-
-      if runner_app_path.nil?
-        UI.user_error!("Runner.app not found in Debug-iphoneos/")
+      unless xctestrun
+        UI.user_error!("No .xctestrun file found in #{products_path}")
       end
 
-      if xctestrun_file.nil?
-        UI.user_error!(".xctestrun file not found in Build/Products/")
+      Dir.chdir(products_path) do
+        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos #{File.basename(xctestrun)}")
       end
-
-      # Zip both the runner app and the xctestrun file into a single archive
-      zip_path = File.expand_path("#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip")
-      sh("cd #{File.dirname(runner_app_path)} && zip --symlinks -r #{zip_path} #{File.basename(runner_app_path)}")
-      sh("cd #{File.dirname(xctestrun_file)} && zip --symlinks -u #{zip_path} #{File.basename(xctestrun_file)}")
     end
-
 
     # Dir.chdir('..') do
     #   FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
