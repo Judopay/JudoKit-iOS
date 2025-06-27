@@ -77,17 +77,25 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
+    Dir.chdir('..') do
+      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+
+      runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
+
+      if runner_app_path.nil?
+        UI.user_error!("Runner.app not found in Debug-iphoneos/")
+      end
+
+      sh("cd #{File.dirname(runner_app_path)} && zip --symlinks -r #{File.expand_path("#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip")} #{File.basename(runner_app_path)}")
+    end
+
+
     # Dir.chdir('..') do
     #   FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
     #   Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
     #     sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
     #   end
     # end
-    Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos") do
-      app = Dir["*UITests-Runner.app"].first
-      raise "Runner.app not found" unless app
-      sh("zip --symlinks -r ../../../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip \"#{app}\"")
-    end
   end
 
   desc "Package Swift example app and instrumented tests for uploading to Firebase"
