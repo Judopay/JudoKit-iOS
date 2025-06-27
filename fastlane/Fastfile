@@ -151,7 +151,7 @@ platform :ios do
         build_app_options[:skip_codesigning] = false
         build_app_options[:skip_package_ipa] = false
         build_app_options[:skip_archive] = false
-        build_app_options[:configuration] = 'Debug'
+        build_app_options[:configuration] = 'Release'
 
       elsif !build_for_distribution
         build_app_options[:skip_codesigning] = true
