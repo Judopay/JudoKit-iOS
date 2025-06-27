@@ -608,7 +608,8 @@ jobs:
               -d '{
                 "app": "'"$APP_URL"'",
                 "testSuite": "'"$TEST_URL"'",
-                "devices": ["iPhone 15 Pro-17"]
+                "devices": ["iPhone 15 Pro-17"],
+                "only-testing": ["ObjectiveCExampleAppUITests.CardPaymentUITests/testSuccessfulTransaction"]
               }')
             echo "$TRIGGER_RESPONSE"
 
