@@ -126,7 +126,7 @@ platform :ios do
 
     revert_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
 
-    sh("ls -la #{@derived_data_path}")
+    sh("ls -la #{@derived_data_path}/Build")
     package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", "#{@fl_output_dir}/#{options[:environment]}") if options[:app].instrumented_tests == true
   end
 
