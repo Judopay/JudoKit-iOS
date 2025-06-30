@@ -98,7 +98,7 @@ platform :ios do
 
   desc "Build Sample App"
   private_lane :build_sample_app do |options|
-    cocoapods(podfile: options[:app].podfile) if File.file?(options[:app].podfile)
+    cocoapods(podfile: options[:app].podfile) if !options[:app].podfile.nil? && File.file?(options[:app].podfile)
 
     sh("#{@scripts_dir}/#{options[:app].bootstrap_script}") if !options[:app].bootstrap_script.nil?
 
