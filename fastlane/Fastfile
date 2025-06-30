@@ -6,6 +6,7 @@ default_platform(:ios)
 @derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
 @environments = ['staging', 'production']
 @fl_output_dir = ENV['FL_OUTPUT_DIR']
+@project_root_path = File.expand_path('..')
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   SampleApp.new(
@@ -102,7 +103,7 @@ platform :ios do
 
     sh("#{@scripts_dir}/#{options[:app].bootstrap_script}") if !options[:app].bootstrap_script.nil?
 
-    inject_staging_environment(options[:app]) if options[:environment] == 'staging'
+    inject_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
 
     sync_code_signing({
       type: "adhoc",
@@ -122,9 +123,9 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
-    revert_staging_environment(options[:app]) if options[:environment] == 'staging'
+    revert_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
 
-    package_instrumented_tests(options[:app]) if app.key?(:instrumented_tests) && app[:instrumented_tests] == true
+    package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", @fl_output_dir) if app.key?(:instrumented_tests) && app[:instrumented_tests] == true
   end
 
   desc "Test Sample Apps"

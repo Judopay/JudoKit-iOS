@@ -14,7 +14,7 @@ def replace(file_path, old_string, new_string)
   puts("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
 end
 
-def inject_staging_environment(app)
+def inject_staging_environment(app, sdk_root_path)
   staging_hostname = ENV["STAGING_HOST_NAME"]
   if staging_hostname.nil?
     raise "Staging build requested but no STAGING_HOST_NAME environment variable set. Unable to continue."
@@ -46,14 +46,14 @@ def inject_staging_environment(app)
       "#{profile_specifier} #{current_bundle_id}",
       "#{profile_specifier} #{desired_bundle_id}"
     )
-    replace("#{@project_root_path}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{staging_hostname}}")
+    replace("#{sdk_root_path}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{staging_hostname}}")
   end
 end
 
-def revert_staging_environment(app)
+def revert_staging_environment(app, sdk_root_path)
   reset_git_repo(
     force: true,
-    files: ["#{@project_root_path}/Source/Models/Constants/JPConstants.h", "#{app.project}/project.pbxproj"]
+    files: ["#{sdk_root_path}/Source/Models/Constants/JPConstants.h", "#{app.project}/project.pbxproj"]
   )
 end
 
@@ -74,10 +74,10 @@ def bump_build_number(app, environment)
   })
 end
 
-def package_instrumented_tests(app)
-  FileUtils.mkdir_p(@fl_output_dir)
-  Dir.chdir("#{@derived_data_path}/Build/Products") do
-    sh("zip -r #{@fl_output_dir}/#{app.scheme}.zip Debug-iphoneos #{app.scheme}_*.xctestrun")
+def package_instrumented_tests(app, input_dir, output_dir)
+  FileUtils.mkdir_p(output_dir)
+  Dir.chdir(input_dir) do
+    sh("zip -r #{output_dir}/#{app.scheme}.zip Debug-iphoneos #{app.scheme}_*.xctestrun")
   end
 end
 
