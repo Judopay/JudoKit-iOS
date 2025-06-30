@@ -2,57 +2,49 @@ default_platform(:ios)
 
 @compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "#{File.expand_path('..')}/build/compilation_database"
 @derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
+@environments = ['staging', 'production']
 @fl_output_dir = ENV['FL_OUTPUT_DIR']
-@sample_apps_dir = "#{File.expand_path('..')}/Examples"
+sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
-  {
-    app_identifier: 'com.judo.JudoPayDemoObjC',
-    app_identifier_staging: 'com.judo.JudoPayDemoObjC.staging',
-    app_identifier_ui_tests: 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*',
-    firebase_app_id: '1:34238832242:ios:d7db21b04007e9ee63eceb',
-    firebase_app_id_staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb',
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:d7db21b04007e9ee63eceb',
+      staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb'
+    },
     flavor: 'obj-c',
     instrumented_tests: true,
-    scheme: 'ObjectiveCExampleApp',
-  },
-  {
-    app_identifier: 'com.judo.JudoPayDemoSwift',
-    app_identifier_ui_tests: 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*',
-    firebase_app_id: '1:34238832242:ios:7bbdd8e61adb48e863eceb',
+    path: "#{sample_apps_dir}/ObjectiveCExampleApp",
+  ),
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:7bbdd8e61adb48e863eceb'
+    },
     flavor: 'swift',
     instrumented_tests: true,
-    scheme: 'SwiftExampleApp',
-  },
-  {
-    app_identifier: 'com.judo.JudoPayDemoCarthage',
+    path: "#{sample_apps_dir}/SwiftExampleApp",
+  ),
+  SampleApp.new(
     bootstrap_script: 'carthage_example_carthage_bootstrap.sh',
-    firebase_app_id: '1:34238832242:ios:eafceec3517c076463eceb',
+    firebase_app_id: {
+      production: '1:34238832242:ios:eafceec3517c076463eceb'
+    },
     flavor: 'carthage',
-    scheme: 'CarthageExampleApp',
-  },
-  {
-    app_identifier: 'com.judopay.SPMExampleApp',
-    firebase_app_id: '1:34238832242:ios:f07ce32928073fa463eceb',
+    path: "#{sample_apps_dir}/CarthageExampleApp",
+  ),
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:f07ce32928073fa463eceb',
+    },
     flavor: 'spm',
-    scheme: 'SPMExampleApp',
-  }
+    path: "#{sample_apps_dir}/SPMExampleApp",
+  )
 ]
 @scripts_dir = "#{File.expand_path('..')}/scripts"
 
 platform :ios do
   before_all do
     setup_ci
-
     FileUtils.mkdir_p(@compilation_database_path)
-    
-    if [
-      'build',
-      'package_instrumented_tests',
-      'build_sample_apps',
-      'build_sample_app'
-    ].include?(lane_context[SharedValues::LANE_NAME])
-      app_store_connect_api_key
-    end
   end
 
   desc "Lint SDK"
@@ -62,129 +54,21 @@ platform :ios do
     end
   end
 
-  desc "Build SDK, Sample apps and package instrumented tests"
-  lane :build do
-    build_sdk
-    build_sample_apps
-    package_instrumented_tests
-  end
-
-  desc "Run SDK tests and sample app instrumented tests"
-  lane :test do
-    test_sdk
-    run_instrumented_tests
-  end
-
   desc "Build SDK"
-  lane :build_sdk do
+  lane :build do |options|
+    carthage
     build_app(
       skip_codesigning: true,
       skip_package_ipa: true,
       skip_package_dependencies_resolution: true,
-      scheme: 'JudoKit_iOS',
-      project: './JudoKit_iOS.xcodeproj',
-      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{@compilation_database_path}'"
+      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{compilation_database_path}'"
     )
   end
 
   desc "Run SDK tests"
-  lane :test_sdk do
+  lane :test do
+    carthage
     run_tests(ensure_devices_found: true)
-  end
-
-  desc "Package instrumented tests for uploading to firebase"
-  lane :package_instrumented_tests do
-    FileUtils.mkdir_p(@fl_output_dir)
-    @sample_apps.select{ |app| app.key?(:instrumented_tests) && app[:instrumented_tests] == true }.each do |app|
-      Dir.chdir("#{@derived_data_path}/Build/Products") do
-        sh("zip -r #{@fl_output_dir}/#{app[:scheme]}.zip Debug-iphoneos #{app[:scheme]}_*.xctestrun")
-      end
-    end
-  end
-
-  desc "Run instrumented tests on simulators"
-  lane :run_instrumented_tests do
-    @sample_apps.select{ |app| app.key?(:instrumented_tests) && app[:instrumented_tests] == true }.each do |app|
-      run_tests({
-        build_for_testing: true,
-        workspace: app_workspace(app[:scheme]),
-        scheme: app[:scheme],
-        destination: "generic/platform=iOS",
-        sdk: "iphoneos",
-        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-        include_simulator_logs: false
-      })
-    end
-  end
-
-  desc "Build Sample Apps"
-  lane :build_sample_apps do
-    @sample_apps.each do |app|
-      build_sample_app({flavor: app[:flavor]})
-    end
-
-    @sample_apps.select{ |app| app.key?(:app_identifier_staging) }.each do |app|
-      build_sample_app({flavor: app[:flavor], staging: true})
-    end
-  end
-
-  desc "Build specified sample app"
-  lane :build_sample_app do |options|
-    app = get_app(options[:flavor])
-
-    cocoapods(podfile: app_podfile(app[:scheme])) if File.file?(app_podfile(app[:scheme]))
-
-    sh("#{@scripts_dir}/#{app[:bootstrap_script]}") if app.key?(:bootstrap_script)
-
-    inject_staging_environment(app) if options.key?(:staging) && options[:staging] == true
-    app_identifier = options.key?(:staging) && options[:staging] == true ? app[:app_identifier_staging] : app[:app_identifier]
-    firebase_app_id = options.key?(:staging) && options[:staging] == true ? app[:firebase_app_id_staging] : app[:firebase_app_id]
-
-    sync_code_signing({
-      type: "adhoc",
-      app_identifier: app[:app_identifier_ui_tests] ? [app_identifier, app[:app_identifier_ui_tests]] : app_identifier,
-    })
-
-    latest_release = firebase_app_distribution_get_latest_release(app: firebase_app_id)
-    current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
-    
-    increment_build_number({
-      xcodeproj: app_project(app[:scheme]),
-      build_number:  current_version + 1
-    })
-
-    build_app({
-      export_method: 'ad-hoc',
-      output_name: "#{app[:scheme]}.ipa",
-      project: File.directory?(app_workspace(app[:scheme])) ? nil : app_project(app[:scheme]),
-      scheme: app[:scheme],
-      workspace: File.directory?(app_workspace(app[:scheme])) ? app_workspace(app[:scheme]) : nil,
-      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{@compilation_database_path}'"
-    })
-
-    revert_staging_environment(app) if options.key?(:staging) && options[:staging] == true
-  end
-
-  desc "Distribute sample apps to Firebase"
-  lane :distribute_sample_apps do
-    @sample_apps.each do |app|
-      distribute_sample_app({flavor: app[:flavor]})
-    end
-
-    @sample_apps.select{ |app| app[:app_identifier_staging] }.each do |app|
-      distribute_sample_app({flavor: app[:flavor], staging: true})
-    end
-  end
-
-  desc "Distribute specified sample app to Firebase"
-  lane :distribute_sample_app do |options|
-    app = get_app(options[:flavor])
-
-    firebase_app_distribution({
-      groups: 'default-testers',
-      release_notes: changelog_from_git_commits(commits_count: 1),
-      app: options[:staging] == true ? app[:firebase_app_id_staging] : app[:firebase_app_id],
-    })
   end
 
   desc "Run full PR check pipeline"
@@ -193,37 +77,226 @@ platform :ios do
     build
     test
   end
+
+  desc "Build Sample Apps"
+  lane :build_sample_apps do |options|
+    app_store_connect_api_key
+    @environments.each do |env|
+      @sample_apps.select{ |app|
+        !options.key?[:flavors] || options[:flavors].include?(app[:flavor])
+      }.each do |app|
+        build_sample_app({app: app, environment: env})
+      end
+    end
+  end
+
+  desc "Build Sample App"
+  private lane :build_sample_app do |options|
+    cocoapods(podfile: options[:app].podfile) if File.file?(options[:app].podfile)
+
+    sh("#{@scripts_dir}/#{options[:app].bootstrap_script}") if !options[:app].bootstrap_script.nil?
+
+    inject_staging_environment(options[:app]) if options[:environment] == 'staging'
+
+    sync_code_signing({
+      type: "adhoc",
+      app_identifier: get_product_bundle_id(
+        project_filepath: options[:app].project,
+        scheme: options[:app].scheme
+      ),
+    })
+
+    bump_build_number(options[:app], options[:environment]) 
+
+    build_app({
+      export_method: 'ad-hoc',
+      output_name: "#{options[:app].scheme}.ipa",
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
+      scheme: options[:app].scheme,
+      workspace: options[:app].workspace,
+    })
+
+    revert_staging_environment(options[:app]) if options[:environment] == 'staging'
+
+    package_instrumented_tests(options[:app]) if app.key?(:instrumented_tests) && app[:instrumented_tests] == true
+  end
+
+  desc "Test Sample Apps"
+  lane :test_sample_apps do |options|
+    @sample_apps.select{ |app|
+      !options.key?[:flavors] || options[:flavors].include?(app[:flavor])
+    }.each do |app|
+      test_sample_app(app)
+    end
+  end
+
+  desc "Test Sample App"
+  private lane :test_sample_app do |app|
+    if app.unit_test_scheme.nil?
+      UI.important("No unit test scheme found for #{app.scheme}. Skipping unit tests.")
+      next
+    end
+
+    run_tests(
+      ensure_devices_found: true,
+      project: app.project,
+      scheme: app.unit_test_scheme,
+      workspace: app.workspace,
+    )
+  end
+
+  desc "Run instrumented tests for sample apps on simulators"
+  lane :test_sample_apps_simulator do |options|
+     @sample_apps.select{ |app|
+      !options.key?[:flavors] || options[:flavors].include?(app[:flavor])
+    }.each do |app|
+      test_sample_app_simulator(app)
+    end
+  end
+
+  desc "Run instrumented tests for a sample app on a simulator"
+  private lane :test_sample_app_simulator do |app|
+    if app.ui_test_scheme.nil?
+      UI.important("No UI test scheme found for #{app.scheme}. Skipping instrumented tests.")
+      next
+    end
+
+    run_tests({
+        build_for_testing: true,
+        destination: "generic/platform=iOS",
+        include_simulator_logs: false,
+        scheme: app.ui_test_scheme,
+        sdk: "iphoneos",
+        testplan: app.ui_test_plan,
+        workspace: app.workspace,
+        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
+      })
+  end
+
+  desc "Run instrumented tests for sample apps on Firebase"
+  lane :test_sample_apps_firebase do |options|
+    @sample_apps.select{ |app|
+      !options.key?[:flavors] || options[:flavors].include?(app[:flavor])
+    }.each do |app|
+      test_sample_app_firebase({app: app, device_set: options[:device_set]})
+    end
+  end
+
+  desc "Run instrumented tests for a sample app on Firebase"
+  private lan :test_sample_app_firebase do |options|
+    if options[:app].ui_test_scheme.nil?
+      UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+      next
+    end
+
+    device_sets = {
+      default: [
+        {
+          ios_model_id: 'iphone15',
+          ios_version_id: '18.0',
+        },
+        {
+          ios_model_id: 'ipad10',
+          ios_version_id: '16.6'
+        }
+      ],
+      backwards_compatibility: [
+        {
+          ios_model_id: 'iphone8',
+          ios_version_id: '15.7'
+        },
+        {
+          ios_model_id: 'iphone14pro',
+          ios_version_id: '16.6'
+        }
+      ]
+    }
+
+    firebase_test_lab_ios_xctest(
+      app_path: "#{@fl_output_dir}/#{app.scheme}.zip",
+      devices: device_sets.fetch(options[:device_set], device_sets[:default]),
+      gcp_project: ENV['GOOGLE_CLOUD_PROJECT'],
+      result_storage: ENV['FIREBASE_TEST_RESULTS_BUCKET'],
+      timeout_sec: 30 * 60, # 30 minutes
+    )
+  end
+
+  desc "Distribute Sample Apps to Firebase"
+  lane :distribute_sample_apps do |options|
+    @environments.each do |env|
+      @sample_apps.select{ |app|
+        !options.key?[:flavors] || options[:flavors].include?(app[:flavor])
+      }.each do |app|
+        distribute_sample_app({app: app, environment: env})
+      end
+    end
+  end
+
+  desc "Distribute Sample App to Firebase"
+  private lane :distribute_sample_app do |options|
+    firebase_app_distribution({
+      groups: 'default-testers',
+      release_notes: changelog_from_git_commits(commits_count: 1),
+      app: options[:app].firebase_app_id(options[:environment]),
+    })
+  end
 end
 
-def app_workspace(app_scheme)
-  return "#{@sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcworkspace"
-end
+class SampleApp
+  attr_reader :bootstrap_script, :firebase_app_id, :project, :plist, :podfile,
+              :flavor, :instrumented_tests, :path, :scheme, :ui_test_plan,
+              :ui_test_scheme, :unit_test_scheme, :workspace
 
-def app_project(app_scheme)
-  return "#{@sample_apps_dir}/#{app_scheme}/#{app_scheme}.xcodeproj"
-end
+  def initialize(flavor, path, firebase_app_id, instrumented_tests = false, bootstrap_script = nil)
+    @bootstrap_script = bootstrap_script
+    @firebase_app_id = firebase_app_id
+    @flavor = flavor
+    @instrumented_tests = instrumented_tests
+    @path = path
+  end
 
-def app_plist(app_scheme)
-  return "#{@sample_apps_dir}/#{app_scheme}/#{app_scheme}/Info.plist"
-end
+  def firebase_app_id(environment)
+    return @firebase_app_id[environment]
+  end
 
-def app_podfile(app_scheme)
-  return "#{@sample_apps_dir}/#{app_scheme}/Podfile"
-end
+  def project
+    project_path = "#{@path}/#{app_scheme}/#{app_scheme}.xcodeproj"
+    return File.directory?(project_path) ? project_path : nil
+  end
 
-def get_app(app_flavor)
-  app = @sample_apps.find { |a| a[:flavor] == app_flavor }
-  
-  unless app
-    UI.user_error!("No sample app found for flavor: #{app_flavor}")
+  def plist
+    plist_path = "#{@path}/#{app_scheme}/#{app_scheme}/Info.plist"
+    return File.file?(plist_path) ? plist_path : nil
+  end
+
+  def podfile
+    podfile_path = "#{@path}/#{app_scheme}/Podfile"
+    return File.file?(podfile_path) ? podfile_path : nil
+  end
+
+  def scheme
+    return File.basename(@path)
+  end
+
+  def ui_test_plan
+    test_plan = "#{@scheme}TestPlan"
+    return File.file?("#{@path}/#{@ui_test_scheme}/#{test_plan}.xctestplan") ? test_plan : nil
+  end
+
+  def ui_test_scheme
+    ui_test_scheme = "#{@scheme}UITests"
+    return File.directory?("#{@path}/#{ui_test_scheme}") ? ui_test_scheme : nil
+  end
+
+  def unit_test_scheme
+    unit_test_scheme = "#{@scheme}Tests"
+    return File.directory?("#{@path}/#{unit_test_scheme}") ? unit_test_scheme : nil
   end
   
-  return app
-end
-
-# Check if an environment variable exists and is not empty
-def env_var_valid?(var_name)
-  return ENV.has_key?(var_name) && !ENV[var_name].to_s.empty?
+  def workspace
+    workspace_path = "#{@path}/#{app_scheme}/#{app_scheme}.xcworkspace"
+    return File.directory?(workspace_path) ? workspace_path : nil
+  end
 end
 
 def replace(file_path, old_string, new_string)
@@ -242,41 +315,68 @@ def replace(file_path, old_string, new_string)
 end
 
 def inject_staging_environment(app)
-  unless env_var_valid?('STAGING_HOST_NAME')
-    UI.abort_with_message!("STAGING_HOST_NAME environment variable is not set. Unable to continue.")
+  staging_hostname = ENV["STAGING_HOST_NAME"]
+  if staging_hostname.nil?
+    UI.abort_with_message!("Staging build requested but no STAGING_HOST_NAME environment variable set. Unable to continue.")
   end
 
-  Dir.chdir('..') do
-    current_bundle_id = get_product_bundle_id(
-      project_filepath: app_project(app[:scheme]),
-      scheme: app[:scheme]
+  app_identifier_staging_suffix = '.staging'
+
+  current_bundle_id = get_product_bundle_id(
+    project_filepath: app_project(app[:scheme]),
+    scheme: app[:scheme]
+  )
+
+  if current_bundle_id.end_with?(app_identifier_staging_suffix)
+    UI.message("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
+  else
+    desired_bundle_id = "#{current_bundle_id}#{app_identifier_staging_suffix}"
+
+    update_app_identifier(
+      xcodeproj: app_project(app[:scheme]),
+      plist_path: app_plist(app[:scheme]),
+      app_identifier: desired_bundle_id,
     )
 
-    if current_bundle_id == app[:app_identifier_staging]
-      UI.message("The current bundle id already matches '#{app[:app_identifier_staging]}'. No changes made.")
-    else
-      update_app_identifier(
-        xcodeproj: app_project(app[:scheme]),
-        plist_path: app_plist(app[:scheme]),
-        app_identifier: app[:app_identifier_staging],
-      )
+    UI.message("Updated bundle ID to: #{desired_bundle_id}")
 
-      UI.message("Updated bundle ID to: #{app[:app_identifier_staging]}")
-
-      profile_specifier = "match AdHoc"
-      replace(
-        "#{app_project(app[:scheme])}/project.pbxproj",
-        "#{profile_specifier} #{app[:app_identifier]}",
-        "#{profile_specifier} #{app[:app_identifier_staging]}"
-      )
-      replace("#{Dir.pwd}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{ENV['STAGING_HOST_NAME']}")
-    end
+    profile_specifier = "match AdHoc"
+    replace(
+      "#{app_project(app[:scheme])}/project.pbxproj",
+      "#{profile_specifier} #{current_bundle_id}",
+      "#{profile_specifier} #{desired_bundle_id}"
+    )
+    replace("#{@project_root_path}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{staging_hostname}}")
   end
 end
 
 def revert_staging_environment(app)
   reset_git_repo(
     force: true,
-    files: ["Source/Models/Constants/JPConstants.h", "#{app_project(app[:scheme])}/project.pbxproj"]
+    files: ["#{@project_root_path}/Source/Models/Constants/JPConstants.h", "#{app_project(app[:scheme])}/project.pbxproj"]
   )
+end
+
+def bump_build_number(app, environment)
+  firebase_app_id = app.firebase_app_id(environment)
+
+  if firebase_app_id.nil?
+    UI.important("Firebase app ID is not set for the specified app. Skipping build number increment.")
+    return
+  end
+
+  latest_release = firebase_app_distribution_get_latest_release(app: firebase_app_id)
+  current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
+  
+  increment_build_number({
+    xcodeproj: app.project,
+    build_number:  current_version + 1
+  })
+end
+
+def package_instrumented_tests(app)
+  FileUtils.mkdir_p(@fl_output_dir)
+  Dir.chdir("#{@derived_data_path}/Build/Products") do
+    sh("zip -r #{@fl_output_dir}/#{app[:scheme]}.zip Debug-iphoneos #{app[:scheme]}_*.xctestrun")
+  end
 end
