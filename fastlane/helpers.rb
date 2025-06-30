@@ -2,7 +2,7 @@
 def replace(file_path, old_string, new_string)
   # Check if the file exists
   unless File.file?(file_path)
-    UI.user_error!("File not found: #{file_path}")
+    raise("File not found: #{file_path}")
   end
 
   # Replace the string
@@ -11,13 +11,13 @@ def replace(file_path, old_string, new_string)
   # Write the updated content back to the file
   File.open(file_path, "w") { |file| file.puts new_content }
 
-  UI.success("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
+  puts("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
 end
 
 def inject_staging_environment(app)
   staging_hostname = ENV["STAGING_HOST_NAME"]
   if staging_hostname.nil?
-    UI.abort_with_message!("Staging build requested but no STAGING_HOST_NAME environment variable set. Unable to continue.")
+    raise "Staging build requested but no STAGING_HOST_NAME environment variable set. Unable to continue."
   end
 
   app_identifier_staging_suffix = '.staging'
@@ -28,7 +28,7 @@ def inject_staging_environment(app)
   )
 
   if current_bundle_id.end_with?(app_identifier_staging_suffix)
-    UI.message("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
+    puts("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
   else
     desired_bundle_id = "#{current_bundle_id}#{app_identifier_staging_suffix}"
 
@@ -38,7 +38,7 @@ def inject_staging_environment(app)
       app_identifier: desired_bundle_id,
     )
 
-    UI.message("Updated bundle ID to: #{desired_bundle_id}")
+    puts("Updated bundle ID to: #{desired_bundle_id}")
 
     profile_specifier = "match AdHoc"
     replace(
@@ -61,7 +61,7 @@ def bump_build_number(app, environment)
   firebase_app_id = app.firebase_app_id(environment)
 
   if firebase_app_id.nil?
-    UI.important("Firebase app ID is not set for the specified app. Skipping build number increment.")
+    puts("Firebase app ID is not set for the specified app. Skipping build number increment.")
     return
   end
 
