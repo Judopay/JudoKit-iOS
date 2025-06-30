@@ -60,7 +60,6 @@ platform :ios do
     carthage
     
     FileUtils.mkdir_p(@compilation_database_path)
-    FileUtils.rm_rf(Dir.glob("../Build/compilation_database/*"))
     build_app(
       skip_codesigning: true,
       skip_package_ipa: true,

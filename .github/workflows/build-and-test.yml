@@ -1,9 +1,6 @@
 name: iOS Build and Test
 
 on:
-  push:
-    branches:
-    - master
   pull_request:
 
 jobs:

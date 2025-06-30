@@ -1,0 +1,11 @@
+name: iOS Publish Sample Apps
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  publish:
+    uses: Judopay/github-actions/.github/workflows/ios-publish-sample-apps.yml@master
+    secrets: inherit
