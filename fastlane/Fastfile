@@ -90,7 +90,7 @@ platform :ios do
     app_store_connect_api_key
     @environments.each do |env|
       @sample_apps.select{ |app|
-        !options.key?(:flavors) || options[:flavors].include?(app[:flavor])
+        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
       }.each do |app|
         build_sample_app({app: app, environment: env})
       end
@@ -125,13 +125,13 @@ platform :ios do
 
     revert_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
 
-    package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", @fl_output_dir) if options[:app][:instrumented_tests] == true
+    package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", @fl_output_dir) if options[:app].instrumented_tests == true
   end
 
   desc "Test Sample Apps"
   lane :test_sample_apps do |options|
     @sample_apps.select{ |app|
-      !options.key?(:flavors) || options[:flavors].include?(app[:flavor])
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
       test_sample_app(app)
     end
@@ -155,7 +155,7 @@ platform :ios do
   desc "Run instrumented tests for sample apps on simulators"
   lane :test_sample_apps_simulator do |options|
      @sample_apps.select{ |app|
-      !options.key?(:flavors) || options[:flavors].include?(app[:flavor])
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
       test_sample_app_simulator(app)
     end
@@ -183,7 +183,7 @@ platform :ios do
   desc "Run instrumented tests for sample apps on Firebase"
   lane :test_sample_apps_firebase do |options|
     @sample_apps.select{ |app|
-      !options.key?(:flavors) || options[:flavors].include?(app[:flavor])
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
       test_sample_app_firebase({app: app, device_set: options[:device_set]})
     end
@@ -232,7 +232,7 @@ platform :ios do
   lane :distribute_sample_apps do |options|
     @environments.each do |env|
       @sample_apps.select{ |app|
-        !options.key?(:flavors) || options[:flavors].include?(app[:flavor])
+        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
       }.each do |app|
         distribute_sample_app({app: app, environment: env})
       end
