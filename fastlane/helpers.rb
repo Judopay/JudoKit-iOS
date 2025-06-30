@@ -98,17 +98,16 @@ class SampleApp
 
   def project
     project_path = "#{@path}/#{scheme}.xcodeproj"
-    puts("Project path: #{project_path}")
     return File.directory?(project_path) ? project_path : nil
   end
 
   def plist
-    plist_path = "#{@path}/#{scheme}/#{scheme}/Info.plist"
+    plist_path = "#{@path}/#{scheme}/Info.plist"
     return File.file?(plist_path) ? plist_path : nil
   end
 
   def podfile
-    podfile_path = "#{@path}/#{scheme}/Podfile"
+    podfile_path = "#{@path}/Podfile"
     return File.file?(podfile_path) ? podfile_path : nil
   end
 
