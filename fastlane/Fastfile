@@ -110,6 +110,7 @@ platform :ios do
       UI.user_error!("Unable to parse .xctestrun file") unless parsed_xctestrun.is_a?(Hash)
 
       parsed_xctestrun.each do |test_target, config|
+        next if test_target == "__xctestrun_metadata__"
         %w[TestBundlePath TestHostPath UITargetAppPath].each do |key|
           next unless config[key]
           value = config[key]
