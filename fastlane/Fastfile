@@ -96,6 +96,14 @@ platform :ios do
       FileUtils.mkdir_p(test_suite_dir)
 
       FileUtils.cp_r(runner_app_path, test_suite_dir)
+      
+      test_bundle = File.join(runner_app_path, "PlugIns", "ObjectiveCExampleAppUITests.xctest")
+      if File.exist?(test_bundle)
+        FileUtils.mkdir_p(File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
+        FileUtils.cp_r(test_bundle, File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
+      else
+        UI.user_error!("Test bundle not found at expected location: #{test_bundle}")
+      end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
       Dir.chdir(test_suite_dir) do
