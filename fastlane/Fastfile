@@ -104,6 +104,7 @@ platform :ios do
 
       FileUtils.rm_rf(test_suite_dir)
     end
+  end
 
   desc "Package Swift example app and instrumented tests for uploading to Firebase"
   lane :package_instrumented_tests_swift do
