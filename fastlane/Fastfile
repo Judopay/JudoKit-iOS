@@ -116,6 +116,7 @@ platform :ios do
     bump_build_number(options[:app], options[:environment]) 
 
     build_app({
+      derived_data_path: @derived_data_path,
       export_method: 'ad-hoc',
       output_name: "#{options[:app].scheme}.ipa",
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
@@ -125,7 +126,6 @@ platform :ios do
 
     revert_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
 
-    sh("ls -la #{@derived_data_path}")
     package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", "#{@fl_output_dir}/#{options[:environment]}") if options[:app].instrumented_tests == true
   end
 
