@@ -82,9 +82,7 @@ def package_instrumented_tests(app)
 end
 
 class SampleApp
-  # attr_reader :bootstrap_script, :firebase_app_id, :flavor, :instrumented_tests,
-  #             :path, :plist, :podfile, :project, :scheme, :ui_test_plan,
-  #             :ui_test_scheme, :unit_test_scheme, :workspace
+  attr_reader :bootstrap_script, :flavor, :instrumented_tests
 
   def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, instrumented_tests: false)
     @bootstrap_script = bootstrap_script
