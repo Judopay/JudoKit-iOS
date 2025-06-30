@@ -97,7 +97,7 @@ class SampleApp
   end
 
   def project
-    project_path = "#{@path}/#{@scheme}/#{@scheme}.xcodeproj"
+    project_path = "#{@path}/#{@scheme}.xcodeproj"
     return File.directory?(project_path) ? project_path : nil
   end
 
