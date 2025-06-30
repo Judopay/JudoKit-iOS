@@ -603,7 +603,7 @@ jobs:
           command: |
             source $BASH_ENV
             TRIGGER_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
-              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/build" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/xctestrun-build" \
               -H "Content-Type: application/json" \
               -d '{
                 "app": "'"$APP_URL"'",
