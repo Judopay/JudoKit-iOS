@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/fastlane/fastlane-plugin-firebase_test_lab
+  revision: eee528b056609d06ce36126012f9636028af6536
+  branch: master
+  specs:
+    fastlane-plugin-firebase_test_lab (1.0.7)
+      faraday
+      google-cloud-storage (>= 1.25.1, < 2.0.0)
+      googleauth
+      plist (>= 3.0.0)
+      rubyzip (>= 1.0.0)
+      tty-spinner (>= 0.8.0, < 1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -306,6 +319,7 @@ DEPENDENCIES
   cocoapods
   fastlane
   fastlane-plugin-firebase_app_distribution
+  fastlane-plugin-firebase_test_lab!
   fastlane-plugin-get_product_bundle_id
   rb-readline
 
