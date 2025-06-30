@@ -96,7 +96,7 @@ platform :ios do
       FileUtils.mkdir_p(test_suite_dir)
 
       FileUtils.cp_r(runner_app_path, test_suite_dir)
-      
+
       test_bundle = File.join(runner_app_path, "PlugIns", "ObjectiveCExampleAppUITests.xctest")
       if File.exist?(test_bundle)
         FileUtils.mkdir_p(File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
@@ -105,6 +105,23 @@ platform :ios do
         UI.user_error!("Test bundle not found at expected location: #{test_bundle}")
       end
       FileUtils.cp(xctestrun_path, test_suite_dir)
+
+      parsed_xctestrun = Plist.parse_xml(xctestrun_path)
+      UI.user_error!("Unable to parse .xctestrun file") unless parsed_xctestrun.is_a?(Hash)
+
+      parsed_xctestrun.each do |test_target, config|
+        %w[TestBundlePath TestHostPath UITargetAppPath].each do |key|
+          next unless config[key]
+          value = config[key]
+          if value.include?('/tmp') || value.include?('/Users')
+            UI.user_error!("Invalid #{key} in .xctestrun: '#{value}' — should be a relative path within the zip")
+          end
+        end
+
+        unless config['TestBundlePath']&.include?('.xctest')
+          UI.user_error!("TestBundlePath missing or incorrect in .xctestrun for #{test_target}")
+        end
+      end
 
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
