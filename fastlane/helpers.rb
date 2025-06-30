@@ -98,7 +98,7 @@ class SampleApp
 
   def project
     project_path = "#{@path}/#{@scheme}.xcodeproj"
-    UI.message("Project path: #{project_path}")
+    puts("Project path: #{project_path}")
     return File.directory?(project_path) ? project_path : nil
   end
 
