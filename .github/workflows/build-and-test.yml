@@ -1,7 +1,7 @@
 name: iOS Build and Test
 
-on:
-  pull_request:
+# on:
+#   pull_request:
 
 jobs:
   build_and_test:
