@@ -23,8 +23,8 @@ def inject_staging_environment(app)
   app_identifier_staging_suffix = '.staging'
 
   current_bundle_id = get_product_bundle_id(
-    project_filepath: app_project(app[:scheme]),
-    scheme: app[:scheme]
+    project_filepath: app.project,
+    scheme: app.scheme
   )
 
   if current_bundle_id.end_with?(app_identifier_staging_suffix)
@@ -33,8 +33,8 @@ def inject_staging_environment(app)
     desired_bundle_id = "#{current_bundle_id}#{app_identifier_staging_suffix}"
 
     update_app_identifier(
-      xcodeproj: app_project(app[:scheme]),
-      plist_path: app_plist(app[:scheme]),
+      xcodeproj: app.project,
+      plist_path: app.plist,
       app_identifier: desired_bundle_id,
     )
 
@@ -42,7 +42,7 @@ def inject_staging_environment(app)
 
     profile_specifier = "match AdHoc"
     replace(
-      "#{app_project(app[:scheme])}/project.pbxproj",
+      "#{app.project}/project.pbxproj",
       "#{profile_specifier} #{current_bundle_id}",
       "#{profile_specifier} #{desired_bundle_id}"
     )
@@ -53,7 +53,7 @@ end
 def revert_staging_environment(app)
   reset_git_repo(
     force: true,
-    files: ["#{@project_root_path}/Source/Models/Constants/JPConstants.h", "#{app_project(app[:scheme])}/project.pbxproj"]
+    files: ["#{@project_root_path}/Source/Models/Constants/JPConstants.h", "#{app.project}/project.pbxproj"]
   )
 end
 
@@ -77,7 +77,7 @@ end
 def package_instrumented_tests(app)
   FileUtils.mkdir_p(@fl_output_dir)
   Dir.chdir("#{@derived_data_path}/Build/Products") do
-    sh("zip -r #{@fl_output_dir}/#{app[:scheme]}.zip Debug-iphoneos #{app[:scheme]}_*.xctestrun")
+    sh("zip -r #{@fl_output_dir}/#{app.scheme}.zip Debug-iphoneos #{app.scheme}_*.xctestrun")
   end
 end
 
