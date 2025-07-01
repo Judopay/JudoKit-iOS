@@ -98,8 +98,8 @@ class SampleApp
 
   def firebase_app_id(environment:)
     puts @firebase_app_id
-    puts @firebase_app_id[environment]
-    return @firebase_app_id[environment]
+    puts @firebase_app_id[":#{environment}"]
+    return @firebase_app_id[":#{environment}"]
   end
 
   def project
