@@ -82,15 +82,19 @@ platform :ios do
     sync_code_signing(sync_code_signing_options)
     run_tests(run_tests_options)
 
+    UI.message("Listing derived data contents for debugging:")
+    sh("ls -R #{derived_data}") 
+
     UI.message("Packaging the testable .app into an .ipa...")
 
     derived_data_products = "#{derived_data}/Build/Products/Debug-iphoneos"
-    app_under_test_path = "#{derived_data_products}/ObjectiveCExampleApp.app"
-    ipa_path = "#{output_dir}/ObjectiveCExampleApp.ipa"
+    app_under_test_path = Dir["#{derived_data_products}/ObjectiveCExampleApp.app"].first
 
-    unless Dir.exist?(app_under_test_path)
-      UI.user_error!("App under test (ObjectiveCExampleApp.app) not found in '#{derived_data_products}'.")
+    unless app_under_test_path && Dir.exist?(app_under_test_path)
+      UI.user_error!("App under test (ObjectiveCExampleApp.app) not found. Searched in '#{derived_data_products}'. Actual path found (if any): #{app_under_test_path}. Please check Xcode build logs and scheme configuration.")
     end
+    
+    ipa_path = "#{output_dir}/ObjectiveCExampleApp.ipa"
     
     FileUtils.mkdir_p(output_dir)
     payload_dir = "#{output_dir}/Payload"
