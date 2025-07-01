@@ -64,6 +64,7 @@ platform :ios do
     
     FileUtils.mkdir_p(@compilation_database_path)
     build_app(
+      derived_data_path: @derived_data_path,
       skip_codesigning: true,
       skip_package_ipa: true,
       skip_package_dependencies_resolution: true,
@@ -76,6 +77,7 @@ platform :ios do
     carthage
     run_tests(
       clean: false,
+      derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
   end
@@ -127,6 +129,7 @@ platform :ios do
 
     # Build sample app
     build_app({
+      derived_data_path: @derived_data_path,
       export_method: 'ad-hoc',
       output_name: "#{options[:app].scheme}.ipa",
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
@@ -137,6 +140,8 @@ platform :ios do
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
     run_tests({
       build_for_testing: true,
+      clean: false,
+      derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
       scheme: options[:app].ui_test_scheme,
@@ -177,6 +182,7 @@ platform :ios do
     end
 
     run_tests(
+      derived_data_path: @derived_data_path,
       ensure_devices_found: true,
       project: app.project,
       scheme: app.unit_test_scheme,
@@ -201,6 +207,7 @@ platform :ios do
     end
 
     run_tests({
+      derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
       scheme: app.ui_test_scheme,
