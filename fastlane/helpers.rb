@@ -42,11 +42,15 @@ def inject_staging_environment(app:, sdk_root_path:)
 
     profile_specifier = "match AdHoc"
     replace(
-      "#{app.project}/project.pbxproj",
-      "#{profile_specifier} #{current_bundle_id}",
-      "#{profile_specifier} #{desired_bundle_id}"
+      file_path: "#{app.project}/project.pbxproj",
+      old_string: "#{profile_specifier} #{current_bundle_id}",
+      new_string: "#{profile_specifier} #{desired_bundle_id}"
     )
-    replace("#{sdk_root_path}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{staging_hostname}}")
+    replace(
+      file_path: "#{sdk_root_path}/Source/Models/Constants/JPConstants.h",
+      old_string: ".judopay.com",
+      new_string: ".#{staging_hostname}}"
+    )
   end
 end
 
