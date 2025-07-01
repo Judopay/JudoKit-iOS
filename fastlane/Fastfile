@@ -116,6 +116,7 @@ platform :ios do
     bump_build_number(options[:app], options[:environment]) 
 
     build_app({
+      build_for_testing: true,
       derived_data_path: @derived_data_path,
       export_method: 'ad-hoc',
       output_name: "#{options[:app].scheme}.ipa",
@@ -183,8 +184,7 @@ platform :ios do
   end
 
   desc "Run instrumented tests for sample apps on Firebase"
-  lane :test_sample_apps_firebase do |options|
-    @sample_apps.select{ |app|
+  lane :test_sample_apps_firebase do |options|    @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
       test_sample_app_firebase({app: app, device_set: options[:device_set]})
