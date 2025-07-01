@@ -139,10 +139,7 @@ platform :ios do
 
     sync_code_signing({
       type: "development",
-      app_identifier: get_product_bundle_id(
-        project_filepath: options[:app].project,
-        scheme: options[:app].ui_test_scheme
-      ),
+      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
     })
 
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
