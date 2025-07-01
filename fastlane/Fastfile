@@ -124,14 +124,24 @@ platform :ios do
       test_target_key = keys.first
       puts("🔧 Detected test target key in .xctestrun: #{test_target_key}")
 
-      [
-        "Set :#{test_target_key}.TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
-        "Set :#{test_target_key}.TestHostPath ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
-      ].each do |cmd|
-        sh("/usr/libexec/PlistBuddy -c \"#{cmd}\" \"#{patched_xctestrun_path}\"")
+      patch_values = {
+        "TestBundlePath" => "ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
+        "TestHostPath" => "ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
+      }
+
+      patch_values.each do |key, value|
+        check_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
+        result = system(check_cmd)
+
+        action = result ? "Set" : "Add"
+        type = "string"
+        puts("🔧 #{action}ting #{key} for #{test_target_key}")
+
+        patch_cmd = "/usr/libexec/PlistBuddy -c \"#{action} :#{test_target_key}.#{key} #{type} #{value}\" \"#{patched_xctestrun_path}\""
+        sh(patch_cmd)
       end
 
-      puts("Patched .xctestrun with correct paths.")
+      puts("Successfully patched .xctestrun with correct paths.")
 
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
