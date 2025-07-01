@@ -108,14 +108,27 @@ platform :ios do
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
       patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
+      test_target_key = nil
+
+      output = sh("/usr/libexec/PlistBuddy -c \"Print\" \"#{patched_xctestrun_path}\"", log: false)
+      output.each_line do |line|
+        line.strip!
+        next if line.empty? || line.start_with?("BuildVersion")
+        test_target_key = line.split(" = ").first.strip
+        break
+      end
+
+      UI.user_error!("Could not determine test target key from .xctestrun") if test_target_key.nil?
+
+      puts("🔧 Detected test target key in .xctestrun: #{test_target_key}")
       [
-        "Set :ObjectiveCExampleAppUITests.TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
-        "Set :ObjectiveCExampleAppUITests.TestHostPath ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
+        "Set :#{test_target_key}.TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
+        "Set :#{test_target_key}.TestHostPath ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
       ].each do |cmd|
         sh("/usr/libexec/PlistBuddy -c \"#{cmd}\" \"#{patched_xctestrun_path}\"")
       end
-      parsed_xctestrun = Plist.parse_xml(xctestrun_path)
-      UI.user_error!("Unable to parse .xctestrun file") unless parsed_xctestrun.is_a?(Hash)
+
+      puts("Patched .xctestrun with correct paths for BrowserStack.")
 
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
