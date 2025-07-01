@@ -4,7 +4,8 @@ default_platform(:ios)
 
 @compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "#{File.expand_path('..')}/build/compilation_database"
 @derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
-@environments = ['staging', 'production']
+# @environments = ['staging', 'production']
+@environments = ['production']
 @fl_output_dir = ENV['FL_OUTPUT_DIR']
 @project_root_path = File.expand_path('..')
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
@@ -93,10 +94,10 @@ platform :ios do
   lane :build_sample_apps do |options|
     app_store_connect_api_key
 
-    sync_code_signing({
-      readonly: true,
-      type: "adhoc",
-    })
+    # sync_code_signing({
+    #   readonly: true,
+    #   type: "adhoc",
+    # })
 
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
@@ -136,6 +137,12 @@ platform :ios do
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].scheme,
       workspace: options[:app].workspace,
+    })
+
+    sync_code_signing({
+      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*'],
+      readonly: true,
+      type: "development",
     })
 
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
