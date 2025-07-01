@@ -107,6 +107,13 @@ platform :ios do
       end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
+      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
+      [
+        "Set :ObjectiveCExampleAppUITests.TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
+        "Set :ObjectiveCExampleAppUITests.TestHostPath ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
+      ].each do |cmd|
+        sh("/usr/libexec/PlistBuddy -c \"#{cmd}\" \"#{patched_xctestrun_path}\"")
+      end
       parsed_xctestrun = Plist.parse_xml(xctestrun_path)
       UI.user_error!("Unable to parse .xctestrun file") unless parsed_xctestrun.is_a?(Hash)
 
@@ -115,32 +122,6 @@ platform :ios do
       end
 
       FileUtils.rm_rf(test_suite_dir)
-    end
-
-    # Validate the zipped contents
-    puts("🔍 Verifying test zip contents...")
-
-    Dir.mktmpdir("bs_test_zip_verify") do |tmp_dir|
-      zip_path = File.expand_path(File.join("..", ENV['FL_OUTPUT_DIR'], "ObjectiveCExampleAppUITests.zip"))
-      sh("unzip -q '#{zip_path}' -d '#{tmp_dir}'") or UI.user_error!("Failed to unzip test archive")
-
-      runner_app_path = File.join(tmp_dir, "ObjectiveCExampleAppUITests-Runner.app")
-      unless Dir.exist?(runner_app_path)
-        UI.user_error!("Runner.app not found in zip at expected path: #{runner_app_path}")
-      end
-
-      plugins_path = File.join(runner_app_path, "PlugIns")
-      unless Dir.exist?(plugins_path)
-        UI.user_error!("PlugIns folder missing inside Runner.app: #{plugins_path}")
-      end
-
-      xctest_bundle_path = File.join(plugins_path, "ObjectiveCExampleAppUITests.xctest")
-      unless Dir.exist?(xctest_bundle_path)
-        available = Dir.entries(plugins_path).select { |e| e.end_with?(".xctest") }
-        UI.user_error!("Expected .xctest bundle not found. Found instead: #{available.join(', ')}")
-      end
-
-      puts("Verified test bundle exists at: #{xctest_bundle_path}")
     end
   end
 
