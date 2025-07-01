@@ -137,6 +137,14 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
+    sync_code_signing({
+      type: "development",
+      app_identifier: get_product_bundle_id(
+        project_filepath: options[:app].project,
+        scheme: options[:app].ui_test_scheme
+      ),
+    })
+
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
     run_tests({
       build_for_testing: true,
