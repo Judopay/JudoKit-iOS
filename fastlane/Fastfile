@@ -104,8 +104,8 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        UI.message("TEST: #{env} #{app.firebase_app_id(env)}")
-        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(env).nil?
+        UI.message("TEST: #{env} #{app.firebase_app_id(environment: env)}")
+        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -283,7 +283,7 @@ platform :ios do
     firebase_app_distribution({
       groups: 'default-testers',
       release_notes: changelog_from_git_commits(commits_count: 1),
-      app: options[:app].firebase_app_id(options[:environment]),
+      app: options[:app].firebase_app_id(environment: options[:environment]),
     })
   end
 end
