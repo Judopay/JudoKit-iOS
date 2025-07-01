@@ -62,7 +62,7 @@ def revert_staging_environment(app:, sdk_root_path:)
 end
 
 def bump_build_number(app:, environment:)
-  firebase_app_id = app.firebase_app_id(environment)
+  firebase_app_id = app.firebase_app_id(environment: environment)
 
   if firebase_app_id.nil?
     puts("Firebase app ID is not set for the specified app. Skipping build number increment.")
