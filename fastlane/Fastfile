@@ -139,10 +139,10 @@ platform :ios do
       build_for_testing: true,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
-      scheme: app.ui_test_scheme,
+      scheme: options[:app].ui_test_scheme,
       sdk: "iphoneos",
-      testplan: app.ui_test_plan,
-      workspace: app.workspace,
+      testplan: options[:app].ui_test_plan,
+      workspace: options[:app].workspace,
       xcargs: @ui_tests_xcargs,
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
     }) if options[:app].instrumented_tests == true
