@@ -155,12 +155,11 @@ platform :ios do
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
 
-    sh("ls -la #{@derived_data_path}/Build")
     package_instrumented_tests(
       app: options[:app],
       input_dir: "#{@derived_data_path}/Build/Products",
       output_dir: "#{@fl_output_dir}/#{options[:environment]}"
-    ) if options[:app].instrumented_tests == true
+    ) if options[:app].instrumented_tests == true && options[:environment] == 'production'
   end
 
   desc "Test Sample Apps"
