@@ -94,10 +94,10 @@ platform :ios do
   lane :build_sample_apps do |options|
     app_store_connect_api_key
 
-    # sync_code_signing({
-    #   readonly: true,
-    #   type: "adhoc",
-    # })
+    sync_code_signing({
+      readonly: true,
+      type: "adhoc",
+    })
 
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
