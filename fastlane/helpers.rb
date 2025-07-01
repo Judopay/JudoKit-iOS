@@ -98,8 +98,8 @@ class SampleApp
 
   def firebase_app_id(environment:)
     puts @firebase_app_id
-    puts @firebase_app_id.fetch(":#{environment}")
-    return @firebase_app_id.fetch(":#{environment}")
+    puts @firebase_app_id.fetch(":#{environment}", nil)
+    return @firebase_app_id.fetch(":#{environment}", nil)
   end
 
   def project
