@@ -54,8 +54,11 @@ platform :ios do
     run_tests(ensure_devices_found: true)
   end
 
-  desc "Package ObjC example app and instrumented tests for uploading to firebase"
+  desc "Package ObjC example app and instrumented tests for uploading to BrowserStack"
   lane :package_instrumented_tests do
+    derived_data = "./derived_data"
+    output_dir = ENV['FL_OUTPUT_DIR'] || './fastlane/output'
+
     cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
     sync_code_signing_options = {
@@ -71,22 +74,22 @@ platform :ios do
       sdk: "iphoneos",
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
       include_simulator_logs: false,
-      clean: true
+      clean: true,
+      derived_data_path: derived_data
     }
 
     app_store_connect_api_key
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
+    sync_code_signing(sync_code_signing_options)
+    run_tests(run_tests_options)
 
-    UI.message("Packaging the testable .app into an .ipa for BrowserStack...")
+    UI.message("Packaging the testable .app into an .ipa...")
 
-    derived_data_products = "#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos"
-    output_dir = ENV['FL_OUTPUT_DIR']
+    derived_data_products = "#{derived_data}/Build/Products/Debug-iphoneos"
     app_under_test_path = "#{derived_data_products}/ObjectiveCExampleApp.app"
     ipa_path = "#{output_dir}/ObjectiveCExampleApp.ipa"
 
     unless Dir.exist?(app_under_test_path)
-      UI.user_error!("App under test (ObjectiveCExampleApp.app) not found. It should have been built by the 'run_tests' action.")
+      UI.user_error!("App under test (ObjectiveCExampleApp.app) not found in '#{derived_data_products}'.")
     end
     
     FileUtils.mkdir_p(output_dir)
@@ -102,41 +105,34 @@ platform :ios do
     FileUtils.rm_rf(payload_dir)
     UI.success("Successfully created testable .ipa at: #{ipa_path}")
 
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+    UI.message("Packaging the test suite...")
+    
+    runner_app_path = Dir["#{derived_data_products}/*-Runner.app"].first
+    xctestrun_path = Dir["#{derived_data}/Build/Products/*.xctestrun"].first
 
-      runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
-      xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
-
-      if runner_app_path.nil?
-        UI.user_error!("Runner.app not found in Debug-iphoneos/")
-      end
-
-      if xctestrun_path.nil?
-        UI.user_error!(".xctestrun file not found in Build/Products/")
-      end
-
-      test_suite_dir = File.join(ENV['FL_OUTPUT_DIR'], 'BrowserStackTestSuite')
-      FileUtils.rm_rf(test_suite_dir)
-      FileUtils.mkdir_p(test_suite_dir)
-
-      FileUtils.cp_r(runner_app_path, test_suite_dir)
-
-      test_bundle = File.join(runner_app_path, "PlugIns", "ObjectiveCExampleAppUITests.xctest")
-      if File.exist?(test_bundle)
-        FileUtils.mkdir_p(File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
-        FileUtils.cp_r(test_bundle, File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
-      else
-        UI.user_error!("Test bundle not found at expected location: #{test_bundle}")
-      end
-      FileUtils.cp(xctestrun_path, test_suite_dir)
-
-      Dir.chdir(test_suite_dir) do
-        sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
-      end
-
-      FileUtils.rm_rf(test_suite_dir)
+    unless runner_app_path && Dir.exist?(runner_app_path)
+      UI.user_error!("-Runner.app not found in '#{derived_data_products}'.")
     end
+    unless xctestrun_path && File.exist?(xctestrun_path)
+      UI.user_error!(".xctestrun file not found in '#{derived_data}/Build/Products/'.")
+    end
+
+    temp_zip_dir = File.join(output_dir, 'BrowserStackTestSuite_temp')
+    FileUtils.rm_rf(temp_zip_dir)
+    FileUtils.mkdir_p(temp_zip_dir)
+
+    FileUtils.cp_r(runner_app_path, temp_zip_dir)
+    FileUtils.cp(xctestrun_path, temp_zip_dir)
+
+    test_suite_zip_path = File.join(output_dir, 'ObjectiveCExampleAppUITests.zip')
+    FileUtils.rm_f(test_suite_zip_path)
+
+    Dir.chdir(temp_zip_dir) do
+      sh("zip --symlinks -r '#{test_suite_zip_path}' .")
+    end
+
+    FileUtils.rm_rf(temp_zip_dir)
+    UI.success("Successfully created test suite zip at: #{test_suite_zip_path}")
   end
 
   desc "Package Swift example app and instrumented tests for uploading to Firebase"
