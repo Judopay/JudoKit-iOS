@@ -107,6 +107,8 @@ platform :ios do
       end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
+      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
+
       puts("📂 Checking .xctestrun file: #{patched_xctestrun_path}")
       puts("File exists? #{File.exist?(patched_xctestrun_path)}")
       puts("File size: #{File.size?(patched_xctestrun_path) || 'File missing or empty'}")
@@ -115,8 +117,6 @@ platform :ios do
       puts("---- .xctestrun preview ----")
       puts(content.lines.take(20).join)
       puts("---- end preview ----")
-
-      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
 
       output = sh("/usr/libexec/PlistBuddy -c 'Print' '#{patched_xctestrun_path}'", log: false)
 
