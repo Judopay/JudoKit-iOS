@@ -121,7 +121,7 @@ platform :ios do
     puts("🔍 Verifying test zip contents...")
 
     Dir.mktmpdir("bs_test_zip_verify") do |tmp_dir|
-      zip_path = File.expand_path(File.join(ENV['FL_OUTPUT_DIR'], "ObjectiveCExampleAppUITests.zip"))
+      zip_path = File.expand_path(File.join("..", ENV['FL_OUTPUT_DIR'], "ObjectiveCExampleAppUITests.zip"))
       sh("unzip -q '#{zip_path}' -d '#{tmp_dir}'") or UI.user_error!("Failed to unzip test archive")
 
       runner_app_path = File.join(tmp_dir, "ObjectiveCExampleAppUITests-Runner.app")
