@@ -109,15 +109,22 @@ platform :ios do
 
       patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
 
-      raw_keys_output = sh("/usr/libexec/PlistBuddy -c 'Print' '#{patched_xctestrun_path}'", log: false)
-      top_level_keys = raw_keys_output.lines.map(&:strip).reject do |line|
-        line.empty? || line.include?("=") || line.include?("BuildVersion")
+      output = sh("/usr/libexec/PlistBuddy -c 'Print' '#{patched_xctestrun_path}'", log: false)
+
+      keys = []
+      output.each_line.with_index do |line, idx|
+        next if idx == 0
+        line = line.strip
+        break if line == "}"
+        if line =~ /^([^ ]+) = \{$/
+          keys << $1
+        end
       end
 
-      UI.user_error!("Could not determine test target key from .xctestrun") if top_level_keys.empty?
+      UI.user_error!("Could not find any test target keys in .xctestrun") if keys.empty?
 
-      test_target_key = top_level_keys.first
-      puts("🔧 Detected test target key in .xctestrun: #{test_target_key}")
+      test_target_key = keys.first
+      puts("🔧 Detected test target key: #{test_target_key}")
 
       [
         "Set :#{test_target_key}.TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
@@ -126,7 +133,7 @@ platform :ios do
         sh("/usr/libexec/PlistBuddy -c \"#{cmd}\" \"#{patched_xctestrun_path}\"")
       end
 
-      puts("Patched .xctestrun with correct test paths.")
+      puts("Patched .xctestrun with correct paths")
 
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
