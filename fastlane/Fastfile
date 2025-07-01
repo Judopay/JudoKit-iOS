@@ -120,9 +120,15 @@ platform :ios do
       end
 
       UI.user_error!("Could not find any test target keys in .xctestrun") if keys.empty?
-
       test_target_key = keys.first
-      puts("🔧 Detected test target key in .xctestrun: #{test_target_key}")
+      puts("🔧 Detected test target key: #{test_target_key}")
+
+      verify_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}\" \"#{patched_xctestrun_path}\""
+      verify_output = `#{verify_cmd}`
+
+      unless verify_output.include?("{")
+        UI.user_error!("ERROR: #{test_target_key} is not a dictionary in .xctestrun. It may have been corrupted by a previous patch.")
+      end
 
       patch_values = {
         "TestBundlePath" => "ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
@@ -131,17 +137,17 @@ platform :ios do
 
       patch_values.each do |key, value|
         check_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
-        result = system(check_cmd)
+        key_exists = system(check_cmd)
 
-        action = result ? "Set" : "Add"
+        action = key_exists ? "Set" : "Add"
         type = "string"
-        puts("🔧 #{action}ting #{key} for #{test_target_key}")
+        puts("#{action}ting #{key} for #{test_target_key}")
 
         patch_cmd = "/usr/libexec/PlistBuddy -c \"#{action} :#{test_target_key}.#{key} #{type} #{value}\" \"#{patched_xctestrun_path}\""
         sh(patch_cmd)
       end
 
-      puts("Successfully patched .xctestrun with correct paths.")
+      puts("Successfully patched .xctestrun.")
 
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
