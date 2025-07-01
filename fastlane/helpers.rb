@@ -96,7 +96,9 @@ class SampleApp
     @path = path
   end
 
-  def firebase_app_id(environment)
+  def firebase_app_id(environment:)
+    puts @firebase_app_id
+    puts @firebase_app_id[environment]
     return @firebase_app_id[environment]
   end
 
