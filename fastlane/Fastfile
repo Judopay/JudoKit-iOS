@@ -107,50 +107,6 @@ platform :ios do
       end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
-      require 'rexml/document'
-
-      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
-
-      xml = File.read(patched_xctestrun_path)
-      doc = REXML::Document.new(xml)
-
-      keys = []
-      doc.elements.each('plist/dict/key') do |key|
-        keys << key.text
-      end
-
-      UI.user_error!("Could not find any test target keys in .xctestrun") if keys.empty?
-      test_target_key = keys.first
-      puts("🔧 Detected test target key: #{test_target_key}")
-
-      check_dict_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}\" \"#{patched_xctestrun_path}\""
-      dict_output = `#{check_dict_cmd} 2>&1`
-
-      unless dict_output.include?("{")
-        puts("Adding missing dictionary for key #{test_target_key}")
-        add_dict_cmd = "/usr/libexec/PlistBuddy -c \"Add :#{test_target_key} dict\" \"#{patched_xctestrun_path}\""
-        sh(add_dict_cmd)
-      end
-
-      patch_values = {
-        "TestBundlePath" => "ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
-        "TestHostPath" => "ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
-      }
-
-      patch_values.each do |key, value|
-        check_key_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
-        key_exists = system(check_key_cmd)
-
-        action = key_exists ? "Set" : "Add"
-        type = "string"
-        puts("#{action}ting #{key} for #{test_target_key}")
-
-        patch_cmd = "/usr/libexec/PlistBuddy -c \"#{action} :#{test_target_key}.#{key} #{type} #{value}\" \"#{patched_xctestrun_path}\""
-        sh(patch_cmd)
-      end
-
-      puts("Successfully patched .xctestrun.")
-
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
       end
