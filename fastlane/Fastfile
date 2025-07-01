@@ -70,7 +70,8 @@ platform :ios do
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      include_simulator_logs: false
+      include_simulator_logs: false,
+      clean: true
     }
 
     app_store_connect_api_key
@@ -109,26 +110,37 @@ platform :ios do
       parsed_xctestrun = Plist.parse_xml(xctestrun_path)
       UI.user_error!("Unable to parse .xctestrun file") unless parsed_xctestrun.is_a?(Hash)
 
-      parsed_xctestrun.each do |test_target, config|
-        next if test_target == "__xctestrun_metadata__"
-        %w[TestBundlePath TestHostPath UITargetAppPath].each do |key|
-          next unless config[key]
-          value = config[key]
-          if value.include?('/tmp') || value.include?('/Users')
-            UI.user_error!("Invalid #{key} in .xctestrun: '#{value}' — should be a relative path within the zip")
-          end
-        end
-
-        unless config['TestBundlePath']&.include?('.xctest')
-          UI.user_error!("TestBundlePath missing or incorrect in .xctestrun for #{test_target}")
-        end
-      end
-
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
       end
 
       FileUtils.rm_rf(test_suite_dir)
+    end
+
+    # Validate the zipped contents
+    puts("🔍 Verifying test zip contents...")
+
+    Dir.mktmpdir("bs_test_zip_verify") do |tmp_dir|
+      zip_path = File.join(ENV['FL_OUTPUT_DIR'], "ObjectiveCExampleAppUITests.zip")
+      sh("unzip -q '#{zip_path}' -d '#{tmp_dir}'") or UI.user_error!("Failed to unzip test archive")
+
+      runner_app_path = File.join(tmp_dir, "ObjectiveCExampleAppUITests-Runner.app")
+      unless Dir.exist?(runner_app_path)
+        UI.user_error!("Runner.app not found in zip at expected path: #{runner_app_path}")
+      end
+
+      plugins_path = File.join(runner_app_path, "PlugIns")
+      unless Dir.exist?(plugins_path)
+        UI.user_error!("PlugIns folder missing inside Runner.app: #{plugins_path}")
+      end
+
+      xctest_bundle_path = File.join(plugins_path, "ObjectiveCExampleAppUITests.xctest")
+      unless Dir.exist?(xctest_bundle_path)
+        available = Dir.entries(plugins_path).select { |e| e.end_with?(".xctest") }
+        UI.user_error!("Expected .xctest bundle not found. Found instead: #{available.join(', ')}")
+      end
+
+      puts("Verified test bundle exists at: #{xctest_bundle_path}")
     end
   end
 
