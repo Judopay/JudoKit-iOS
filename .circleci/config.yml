@@ -727,12 +727,9 @@ workflows:
       - build_instrumented_tests_package:
           requires:
             - checkout_project
-      - build_example_app_for_browserstack:
-          requires:
-            - build_instrumented_tests_package
       - run_xcuitest_tests_on_browserstack:
           requires:
-            - build_example_app_for_browserstack
+            - build_instrumented_tests_package
           context: shared-secrets
           filters:
             branches:

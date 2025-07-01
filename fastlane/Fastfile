@@ -78,6 +78,30 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
+    UI.message("Packaging the testable .app into an .ipa for BrowserStack...")
+
+    derived_data_products = "#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos"
+    output_dir = ENV['FL_OUTPUT_DIR']
+    app_under_test_path = "#{derived_data_products}/ObjectiveCExampleApp.app"
+    ipa_path = "#{output_dir}/ObjectiveCExampleApp.ipa"
+
+    unless Dir.exist?(app_under_test_path)
+      UI.user_error!("App under test (ObjectiveCExampleApp.app) not found. It should have been built by the 'run_tests' action.")
+    end
+    
+    FileUtils.mkdir_p(output_dir)
+    payload_dir = "#{output_dir}/Payload"
+    FileUtils.rm_rf(payload_dir)
+    FileUtils.mkdir_p(payload_dir)
+    FileUtils.cp_r(app_under_test_path, payload_dir)
+
+    Dir.chdir(output_dir) do
+      sh("zip --symlinks -r '#{File.basename(ipa_path)}' 'Payload'")
+    end
+    
+    FileUtils.rm_rf(payload_dir)
+    UI.success("Successfully created testable .ipa at: #{ipa_path}")
+
     Dir.chdir('..') do
       FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
 
