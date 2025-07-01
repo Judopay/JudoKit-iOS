@@ -43,6 +43,8 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
   )
 ]
 @scripts_dir = "#{File.expand_path('..')}/scripts"
+@ui_tests_xcargs = "-allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL"
+
 
 platform :ios do
   before_all do
@@ -99,11 +101,16 @@ platform :ios do
 
   desc "Build Sample App"
   private_lane :build_sample_app do |options|
-    cocoapods(podfile: options[:app].podfile) if !options[:app].podfile.nil? && File.file?(options[:app].podfile)
+    cocoapods(
+      podfile: options[:app].podfile
+    ) if !options[:app].podfile.nil? && File.file?(options[:app].podfile)
 
     sh("#{@scripts_dir}/#{options[:app].bootstrap_script}") if !options[:app].bootstrap_script.nil?
 
-    inject_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
+    inject_staging_environment(
+      app: options[:app],
+      sdk_root_path: @project_root_path
+    ) if options[:environment] == 'staging'
 
     sync_code_signing({
       type: "adhoc",
@@ -113,11 +120,13 @@ platform :ios do
       ),
     })
 
-    bump_build_number(options[:app], options[:environment]) 
+    bump_build_number(
+      app: options[:app],
+      environment: options[:environment]
+    ) 
 
+    # Build sample app
     build_app({
-      build_for_testing: true,
-      derived_data_path: @derived_data_path,
       export_method: 'ad-hoc',
       output_name: "#{options[:app].scheme}.ipa",
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
@@ -125,10 +134,30 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
-    revert_staging_environment(options[:app], @project_root_path) if options[:environment] == 'staging'
+    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+    run_tests({
+      build_for_testing: true,
+      destination: "generic/platform=iOS",
+      include_simulator_logs: false,
+      scheme: app.ui_test_scheme,
+      sdk: "iphoneos",
+      testplan: app.ui_test_plan,
+      workspace: app.workspace,
+      xcargs: @ui_tests_xcargs,
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+    }) if options[:app].instrumented_tests == true
+
+    revert_staging_environment(
+      app: options[:app],
+      sdk_root_path: @project_root_path
+    ) if options[:environment] == 'staging'
 
     sh("ls -la #{@derived_data_path}/Build")
-    package_instrumented_tests(options[:app], "#{@derived_data_path}/Build/Products", "#{@fl_output_dir}/#{options[:environment]}") if options[:app].instrumented_tests == true
+    package_instrumented_tests(
+      app: options[:app],
+      input_dir: "#{@derived_data_path}/Build/Products",
+      output_dir: "#{@fl_output_dir}/#{options[:environment]}"
+    ) if options[:app].instrumented_tests == true
   end
 
   desc "Test Sample Apps"
@@ -172,15 +201,15 @@ platform :ios do
     end
 
     run_tests({
-        build_for_testing: true,
-        destination: "generic/platform=iOS",
-        include_simulator_logs: false,
-        scheme: app.ui_test_scheme,
-        sdk: "iphoneos",
-        testplan: app.ui_test_plan,
-        workspace: app.workspace,
-        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      })
+      destination: "generic/platform=iOS",
+      include_simulator_logs: false,
+      scheme: app.ui_test_scheme,
+      sdk: "iphoneos",
+      testplan: app.ui_test_plan,
+      workspace: app.workspace,
+      xcargs: @ui_tests_xcargs,
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+    })
   end
 
   desc "Run instrumented tests for sample apps on Firebase"
