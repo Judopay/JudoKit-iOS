@@ -97,12 +97,7 @@ class SampleApp
   end
 
   def firebase_app_id(environment:)
-    puts @firebase_app_id
-    puts "test 1: #{@firebase_app_id.fetch(:staging, nil)}"
-    puts "test 2: #{@firebase_app_id.fetch(":#{environment}", nil)}"
-    puts "test 3: #{@firebase_app_id.fetch(":staging", nil)}"
-    puts "test 4: #{@firebase_app_id.fetch(:"#{environment}", nil)}"
-    return @firebase_app_id.fetch(":#{environment}", nil)
+    return @firebase_app_id.fetch(:"#{environment}", nil)
   end
 
   def project
