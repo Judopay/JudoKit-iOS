@@ -123,11 +123,13 @@ platform :ios do
       test_target_key = keys.first
       puts("🔧 Detected test target key: #{test_target_key}")
 
-      verify_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}\" \"#{patched_xctestrun_path}\""
-      verify_output = `#{verify_cmd}`
+      check_dict_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}\" \"#{patched_xctestrun_path}\""
+      dict_output = `#{check_dict_cmd} 2>&1`
 
-      unless verify_output.include?("{")
-        UI.user_error!("ERROR: #{test_target_key} is not a dictionary in .xctestrun. It may have been corrupted by a previous patch.")
+      unless dict_output.include?("{")
+        puts("Adding missing dictionary for key #{test_target_key}")
+        add_dict_cmd = "/usr/libexec/PlistBuddy -c \"Add :#{test_target_key} dict\" \"#{patched_xctestrun_path}\""
+        sh(add_dict_cmd)
       end
 
       patch_values = {
@@ -136,8 +138,8 @@ platform :ios do
       }
 
       patch_values.each do |key, value|
-        check_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
-        key_exists = system(check_cmd)
+        check_key_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
+        key_exists = system(check_key_cmd)
 
         action = key_exists ? "Set" : "Add"
         type = "string"
