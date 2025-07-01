@@ -98,11 +98,13 @@ platform :ios do
       type: "adhoc",
     })
 
-    @environments.each do |env|
-      @sample_apps.select{ |app|
-        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
-      }.each do |app|
-        build_sample_app({app: app, environment: env})
+    @sample_apps.select{ |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      @environments.select{ |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(env).nil?
       end
     end
   end
