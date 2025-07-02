@@ -54,16 +54,13 @@ platform :ios do
     run_tests(ensure_devices_found: true)
   end
 
-  desc "Package ObjC app and UI tests for BrowserStack"
+  desc "Package ObjC example app and instrumented tests for uploading to firebase"
   lane :package_instrumented_tests do
     cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
     sync_code_signing_options = {
       type: "development",
-      app_identifier: [
-        'com.judo.JudoPayDemoObjC',
-        'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*'
-      ]
+      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
     }
 
     run_tests_options = {
@@ -73,44 +70,41 @@ platform :ios do
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      include_simulator_logs: false
+      include_simulator_logs: false,
+      clean: true
     }
 
     app_store_connect_api_key
-    sync_code_signing(sync_code_signing_options)
-    run_tests(run_tests_options)
+    sync_code_signing sync_code_signing_options
+    run_tests run_tests_options
 
     Dir.chdir('..') do
-      output_dir = ENV['FL_OUTPUT_DIR'] || './fastlane/Output'
-      derived_path = ENV['DERIVED_DATA_PATH'] || './DerivedData'
-      products_path = "#{derived_path}/Build/Products/Debug-iphoneos"
+      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
 
-      FileUtils.mkdir_p(output_dir)
+      runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
+      xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
 
-      runner_app_path = Dir["#{products_path}/*-Runner.app"].first
-      app_path = Dir["#{products_path}/ObjectiveCExampleApp.app"].first
-      xctestrun_path = Dir["#{derived_path}/Build/Products/*.xctestrun"].first
-
-      UI.user_error!("Runner.app not found") if runner_app_path.nil?
-      UI.user_error!("App not found") if app_path.nil?
-      UI.user_error!(".xctestrun file not found") if xctestrun_path.nil?
-
-      payload_dir = File.join(output_dir, "Payload")
-      FileUtils.rm_rf(payload_dir)
-      FileUtils.mkdir_p(payload_dir)
-      FileUtils.cp_r(app_path, payload_dir)
-
-      ipa_path = File.join(output_dir, "ObjectiveCExampleApp.ipa")
-      Dir.chdir(output_dir) do
-        sh("zip -r ObjectiveCExampleApp.ipa Payload")
+      if runner_app_path.nil?
+        UI.user_error!("Runner.app not found in Debug-iphoneos/")
       end
-      FileUtils.rm_rf(payload_dir)
 
-      test_suite_dir = File.join(output_dir, 'BrowserStackTestSuite')
+      if xctestrun_path.nil?
+        UI.user_error!(".xctestrun file not found in Build/Products/")
+      end
+
+      test_suite_dir = File.join(ENV['FL_OUTPUT_DIR'], 'BrowserStackTestSuite')
       FileUtils.rm_rf(test_suite_dir)
       FileUtils.mkdir_p(test_suite_dir)
 
       FileUtils.cp_r(runner_app_path, test_suite_dir)
+
+      test_bundle = File.join(runner_app_path, "PlugIns", "ObjectiveCExampleAppUITests.xctest")
+      if File.exist?(test_bundle)
+        FileUtils.mkdir_p(File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
+        FileUtils.cp_r(test_bundle, File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
+      else
+        UI.user_error!("Test bundle not found at expected location: #{test_bundle}")
+      end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
       Dir.chdir(test_suite_dir) do
@@ -188,7 +182,7 @@ platform :ios do
         build_app_options[:skip_package_ipa] = false
         build_app_options[:skip_archive] = false
         build_app_options[:configuration] = 'Debug'
-
+        build_app_options[:build_for_testing] = true
       elsif !build_for_distribution
         build_app_options[:skip_codesigning] = true
         build_app_options[:skip_package_ipa] = true

@@ -724,9 +724,12 @@ workflows:
     when: << pipeline.parameters.bs >>
     jobs:
       - checkout_project
-      - build_instrumented_tests_package:
+      - build_example_app_for_browserstack:
           requires:
             - checkout_project
+      - build_instrumented_tests_package:
+          requires:
+            - build_example_app_for_browserstack
       - run_xcuitest_tests_on_browserstack:
           requires:
             - build_instrumented_tests_package
