@@ -152,10 +152,10 @@ platform :ios do
       sync_code_signing({
         readonly: true,
         type: "development",
-        app_identifier: get_product_bundle_id(
+        app_identifier: "#{get_product_bundle_id(
           project_filepath: options[:app].project,
-          scheme: "#{options[:app].ui_test_scheme}.*"
-        )
+          scheme: options[:app].ui_test_scheme
+        )}.*"
       })
 
       # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
