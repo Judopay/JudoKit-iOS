@@ -158,6 +158,11 @@ platform :ios do
         )}.*"
       })
 
+      sync_code_signing({
+        readonly: true,
+        type: "development"
+      })
+
       # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
       run_tests({
         build_for_testing: true,
