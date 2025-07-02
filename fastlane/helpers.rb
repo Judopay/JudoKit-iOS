@@ -1,4 +1,3 @@
-
 def replace(file_path:, old_string:, new_string:)
   # Check if the file exists
   unless File.file?(file_path)
@@ -22,10 +21,7 @@ def inject_staging_environment(app:, sdk_root_path:)
 
   app_identifier_staging_suffix = '.staging'
 
-  current_bundle_id = get_product_bundle_id(
-    project_filepath: app.project,
-    scheme: app.scheme
-  )
+  current_bundle_id = app.bundle_id(scheme: app.scheme)
 
   if current_bundle_id.end_with?(app_identifier_staging_suffix)
     puts("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
@@ -94,6 +90,13 @@ class SampleApp
     @flavor = flavor
     @instrumented_tests = instrumented_tests
     @path = path
+  end
+
+  def bundle_id(scheme:)
+    return get_product_bundle_id(
+      project_filepath: project,
+      scheme: scheme
+    )
   end
 
   def firebase_app_id(environment:)
