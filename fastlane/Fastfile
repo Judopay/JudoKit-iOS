@@ -152,15 +152,10 @@ platform :ios do
       sync_code_signing({
         readonly: true,
         type: "development",
-        app_identifier: "#{get_product_bundle_id(
+        app_identifier: get_product_bundle_id(
           project_filepath: options[:app].project,
-          scheme: options[:app].ui_test_scheme
-        )}.*"
-      })
-
-      sync_code_signing({
-        readonly: true,
-        type: "development"
+          scheme: options[:app].scheme
+        )
       })
 
       # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
@@ -170,6 +165,7 @@ platform :ios do
         derived_data_path: @derived_data_path,
         destination: "generic/platform=iOS",
         include_simulator_logs: false,
+        project: !options[:app].workspace.nil? ? nil : options[:app].project,
         scheme: options[:app].ui_test_scheme,
         sdk: "iphoneos",
         testplan: options[:app].ui_test_plan,
@@ -205,7 +201,7 @@ platform :ios do
     run_tests(
       derived_data_path: @derived_data_path,
       ensure_devices_found: true,
-      project: options[:app].project,
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].unit_test_scheme,
       workspace: options[:app].workspace,
     )
@@ -231,6 +227,7 @@ platform :ios do
       derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].ui_test_scheme,
       sdk: "iphoneos",
       testplan: options[:app].ui_test_plan,
