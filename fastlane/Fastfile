@@ -107,6 +107,35 @@ platform :ios do
       end
       FileUtils.cp(xctestrun_path, test_suite_dir)
 
+    require 'rexml/document'
+      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
+      FileUtils.cp(xctestrun_path, patched_xctestrun_path)
+
+      xml = File.read(patched_xctestrun_path)
+      doc = REXML::Document.new(xml)
+
+      keys = []
+      doc.elements.each('plist/dict/key') { |key| keys << key.text }
+      UI.user_error!("Could not find any test target keys in .xctestrun") if keys.empty?
+      test_target_key = keys.first
+
+      patch_values = {
+        "TestBundlePath" => "ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest",
+        "TestHostPath" => "ObjectiveCExampleAppUITests-Runner.app/ObjectiveCExampleApp"
+      }
+
+    patch_values.each do |key, value|
+      check_cmd = "/usr/libexec/PlistBuddy -c \"Print :#{test_target_key}.#{key}\" \"#{patched_xctestrun_path}\""
+      key_exists = system(check_cmd)
+
+      action = key_exists ? "Set" : "Add"
+      type = "string"
+      puts("#{action}ting #{key} for #{test_target_key}")
+
+      patch_cmd = "/usr/libexec/PlistBuddy -c \"#{action} :#{test_target_key}.#{key} #{type} #{value}\" \"#{patched_xctestrun_path}\""
+      sh(patch_cmd)
+    end
+
       Dir.chdir(test_suite_dir) do
         sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
       end
