@@ -157,10 +157,10 @@ platform :ios do
             project_filepath: options[:app].project,
             scheme: options[:app].scheme
           ),
-          get_product_bundle_id(
+          "#{get_product_bundle_id(
             project_filepath: options[:app].project,
             scheme: options[:app].ui_test_scheme
-          )
+          )}.*"
         ]
       })
 
