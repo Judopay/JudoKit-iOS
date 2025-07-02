@@ -379,6 +379,8 @@ jobs:
           paths:
             - ./DerivedData
             - ./Output/ObjectiveCExampleAppUITests.zip
+      - store_artifacts:
+          path: ./Output/SwiftExampleAppUITests.zip
   build_instrumented_tests_swift_package:
     executor: macos
     steps:
