@@ -81,7 +81,7 @@ end
 def package_instrumented_tests(app:, input_dir:, output_dir:)
   FileUtils.mkdir_p(output_dir)
   Dir.chdir(input_dir) do
-    sh("zip -r #{output_dir}/#{app.scheme}.zip Debug-iphoneos #{app.scheme}_*.xctestrun")
+    sh("zip -r #{output_dir}/#{app.scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun")
   end
 end
 
