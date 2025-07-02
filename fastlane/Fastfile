@@ -77,14 +77,8 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
-    derived_data_path = ENV['DERIVED_DATA_PATH'] || "/Users/distiller/project/DerivedData"
-    products_path = File.join(derived_data_path, "Build", "Products", "Debug-iphoneos")
-
-    runner_app_path = Dir["#{products_path}/*-Runner.app"].first
-    xctestrun_path = Dir["#{derived_data_path}/Build/Products/*.xctestrun"].first
-
-    UI.user_error!("Runner.app not found in #{products_path}") if runner_app_path.nil?
-    UI.user_error!(".xctestrun file not found in #{derived_data_path}/Build/Products") if xctestrun_path.nil?
+    runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
+    xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
 
     package_dir = File.join(Dir.pwd, "fastlane", "test_package")
     FileUtils.rm_rf(package_dir)
