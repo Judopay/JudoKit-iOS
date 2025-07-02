@@ -69,7 +69,7 @@ platform :ios do
       scheme: "ObjectiveCExampleAppUITests",
       destination: "generic/platform=iOS",
       sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$TEST_API_TOKEN TEST_API_SECRET=$TEST_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
       include_simulator_logs: false
     }
 
@@ -77,15 +77,31 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
-    runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
-    xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
+    derived_data_path = ENV['DERIVED_DATA_PATH'] || "./DerivedData"
+    UI.message("Derived data path: #{derived_data_path}")
+
+    products_path = File.join(derived_data_path, "Build", "Products", "Debug-iphoneos")
+    UI.message("Looking for Runner.app and .xctestrun in #{products_path}")
+
+    runner_apps = Dir["#{products_path}/*-Runner.app"]
+    UI.message("Runner apps found: #{runner_apps}")
+
+    runner_app_path = runner_apps.first
+    xctestrun_path = Dir["#{derived_data_path}/Build/Products/*.xctestrun"].first
+
+    UI.message("xctestrun path found: #{xctestrun_path}")
+
+    UI.user_error!("Runner.app not found in #{products_path}") if runner_app_path.nil?
+    UI.user_error!(".xctestrun file not found in #{derived_data_path}/Build/Products") if xctestrun_path.nil?
 
     package_dir = File.join(Dir.pwd, "fastlane", "test_package")
     FileUtils.rm_rf(package_dir)
     FileUtils.mkdir_p(package_dir)
 
+    UI.message("Copying Runner.app from #{runner_app_path} to #{package_dir}")
     FileUtils.cp_r(runner_app_path, package_dir)
 
+    UI.message("Copying .xctestrun from #{xctestrun_path} to #{package_dir}")
     FileUtils.cp(xctestrun_path, package_dir)
 
     zip_output_path = File.join(Dir.pwd, "fastlane", "output", "ObjectiveCExampleAppUITests.zip")
@@ -94,6 +110,7 @@ platform :ios do
     Dir.chdir(package_dir) do
       sh("zip --symlinks -r '#{zip_output_path}' *")
     end
+    UI.message("Created test zip at #{zip_output_path}")
   end
 
   desc "Package Swift example app and instrumented tests for uploading to Firebase"
