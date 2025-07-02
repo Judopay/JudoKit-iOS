@@ -77,7 +77,7 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
-    derived_data_path = ENV['DERIVED_DATA_PATH'] || "./DerivedData"
+    derived_data_path = ENV['DERIVED_DATA_PATH'] || "/Users/distiller/project/DerivedData"
     products_path = File.join(derived_data_path, "Build", "Products", "Debug-iphoneos")
 
     runner_app_path = Dir["#{products_path}/*-Runner.app"].first
