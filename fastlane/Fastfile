@@ -78,23 +78,26 @@ platform :ios do
     run_tests run_tests_options
 
     derived_data_path = ENV['DERIVED_DATA_PATH']
+
     if derived_data_path.nil? || derived_data_path.empty?
       derived_data_path = "/Users/distiller/project/DerivedData"
+      UI.message("DERIVED_DATA_PATH not set, defaulting to: #{derived_data_path}")
+    else
+      UI.message("DERIVED_DATA_PATH found: #{derived_data_path}")
     end
 
-    products_path = File.join(derived_data_path, "Build", "Products", "Debug-iphoneos")
-    UI.message("Looking for Runner.app and .xctestrun in #{products_path}")
+    products_path = File.join(derived_data_path, "Build", "Products")
 
-    runner_apps = Dir["#{products_path}/*-Runner.app"]
-    UI.message("Runner apps found: #{runner_apps}")
+    UI.message("Searching for Runner.app in #{products_path} recursively")
 
-    runner_app_path = runner_apps.first
-    xctestrun_path = Dir["#{derived_data_path}/Build/Products/*.xctestrun"].first
+    runner_app_path = Dir.glob("#{products_path}/**/*-Runner.app").first
+    UI.message("Found runner_app_path: #{runner_app_path.inspect}")
 
-    UI.message("xctestrun path found: #{xctestrun_path}")
+    xctestrun_path = Dir.glob("#{products_path}/**/*.xctestrun").first
+    UI.message("Found xctestrun_path: #{xctestrun_path.inspect}")
 
     UI.user_error!("Runner.app not found in #{products_path}") if runner_app_path.nil?
-    UI.user_error!(".xctestrun file not found in #{derived_data_path}/Build/Products") if xctestrun_path.nil?
+    UI.user_error!(".xctestrun file not found in #{products_path}") if xctestrun_path.nil?
 
     package_dir = File.join(Dir.pwd, "fastlane", "test_package")
     FileUtils.rm_rf(package_dir)
