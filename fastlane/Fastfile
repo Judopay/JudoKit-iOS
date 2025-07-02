@@ -77,8 +77,10 @@ platform :ios do
     sync_code_signing sync_code_signing_options
     run_tests run_tests_options
 
-    derived_data_path = ENV['DERIVED_DATA_PATH'] || "./DerivedData"
-    UI.message("Derived data path: #{derived_data_path}")
+    derived_data_path = ENV['DERIVED_DATA_PATH']
+    if derived_data_path.nil? || derived_data_path.empty?
+      derived_data_path = "/Users/distiller/project/DerivedData"
+    end
 
     products_path = File.join(derived_data_path, "Build", "Products", "Debug-iphoneos")
     UI.message("Looking for Runner.app and .xctestrun in #{products_path}")
