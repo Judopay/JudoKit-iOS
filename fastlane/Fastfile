@@ -99,6 +99,11 @@ platform :ios do
       type: "adhoc",
     })
 
+    sync_code_signing({
+      readonly: true,
+      type: "development",
+    })
+
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
@@ -139,12 +144,6 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
-    sync_code_signing({
-      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*'],
-      readonly: true,
-      type: "development",
-    })
-
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
     run_tests({
       build_for_testing: true,
@@ -164,6 +163,8 @@ platform :ios do
       app: options[:app],
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
+
+    sh("ls -la #{@derived_data_path}/Build/Products")
 
     package_instrumented_tests(
       app: options[:app],
