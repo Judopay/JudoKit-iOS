@@ -54,81 +54,58 @@ platform :ios do
     run_tests(ensure_devices_found: true)
   end
 
-  desc "Package ObjC example app and instrumented tests for uploading to firebase"
-  lane :package_instrumented_tests do
-    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
+desc "Package ObjC example app and instrumented tests for uploading to firebase"
+lane :package_instrumented_tests do
+  cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
 
-    sync_code_signing_options = {
-      type: "development",
-      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
-    }
+  sync_code_signing_options = {
+    type: "development",
+    app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
+  }
 
-    run_tests_options = {
-      build_for_testing: true,
-      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace",
-      scheme: "ObjectiveCExampleAppUITests",
-      destination: "generic/platform=iOS",
-      sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      include_simulator_logs: false,
-      clean: true
-    }
+  run_tests_options = {
+    build_for_testing: true,
+    workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace",
+    scheme: "ObjectiveCExampleAppUITests",
+    destination: "generic/platform=iOS",
+    sdk: "iphoneos",
+    xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$TEST_API_TOKEN TEST_API_SECRET=$TEST_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
+    include_simulator_logs: false,
+    clean: true
+  }
 
-    app_store_connect_api_key
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
+  app_store_connect_api_key
+  sync_code_signing sync_code_signing_options
+  run_tests run_tests_options
 
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
+  derived_data_path = ENV['DERIVED_DATA_PATH']
+  output_dir = ENV['FL_OUTPUT_DIR']
 
-      runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
-      xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
+  UI.user_error!("DERIVED_DATA_PATH environment variable not set") if derived_data_path.nil? || derived_data_path.empty?
+  UI.user_error!("FL_OUTPUT_DIR environment variable not set") if output_dir.nil? || output_dir.empty?
 
-      if runner_app_path.nil?
-        UI.user_error!("Runner.app not found in Debug-iphoneos/")
-      end
+  Dir.chdir('..') do
+    runner_app_path = Dir["#{derived_data_path}/Build/Products/Debug-iphoneos/*-Runner.app"].first
+    xctestrun_path = Dir["#{derived_data_path}/Build/Products/*.xctestrun"].first
 
-      if xctestrun_path.nil?
-        UI.user_error!(".xctestrun file not found in Build/Products/")
-      end
+    UI.user_error!("Runner.app not found in #{derived_data_path}/Build/Products/Debug-iphoneos") if runner_app_path.nil?
+    UI.user_error!(".xctestrun file not found in #{derived_data_path}/Build/Products") if xctestrun_path.nil?
 
-      test_suite_dir = File.join(ENV['FL_OUTPUT_DIR'], 'BrowserStackTestSuite')
-      FileUtils.rm_rf(test_suite_dir)
-      FileUtils.mkdir_p(test_suite_dir)
+    package_dir = File.join(output_dir, 'BrowserStackTestSuite')
+    FileUtils.rm_rf(package_dir)
+    FileUtils.mkdir_p(package_dir)
 
-      FileUtils.cp_r(runner_app_path, test_suite_dir)
+    FileUtils.cp_r(runner_app_path, package_dir)
+    FileUtils.cp(xctestrun_path, package_dir)
 
-      test_bundle = File.join(runner_app_path, "PlugIns", "ObjectiveCExampleAppUITests.xctest")
-      if File.exist?(test_bundle)
-        FileUtils.mkdir_p(File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
-        FileUtils.cp_r(test_bundle, File.join(test_suite_dir, "ObjectiveCExampleAppUITests-Runner.app", "PlugIns"))
-      else
-        UI.user_error!("Test bundle not found at expected location: #{test_bundle}")
-      end
-      FileUtils.cp(xctestrun_path, test_suite_dir)
-
-      require 'rexml/document'
-      patched_xctestrun_path = File.join(test_suite_dir, File.basename(xctestrun_path))
-      FileUtils.cp(xctestrun_path, patched_xctestrun_path)
-
-      xml = File.read(patched_xctestrun_path)
-      doc = REXML::Document.new(xml)
-
-      keys = []
-      doc.elements.each('plist/dict/key') { |key| keys << key.text }
-      UI.user_error!("Could not find any test target keys in .xctestrun") if keys.empty?
-      test_target_key = keys.first
-
-      puts("Replacing TestBundlePath for test target: #{test_target_key}")
-      sh("/usr/libexec/PlistBuddy -c \"Set :#{test_target_key}:TestBundlePath ObjectiveCExampleAppUITests-Runner.app/PlugIns/ObjectiveCExampleAppUITests.xctest\" \"#{patched_xctestrun_path}\"")
-
-      Dir.chdir(test_suite_dir) do
-        sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
-      end
-
-      FileUtils.rm_rf(test_suite_dir)
+    zip_output_path = File.join(output_dir, "ObjectiveCExampleAppUITests.zip")
+    Dir.chdir(package_dir) do
+      sh("zip --symlinks -r '#{zip_output_path}' *")
     end
+
+    FileUtils.rm_rf(package_dir)
   end
+end
 
   desc "Package Swift example app and instrumented tests for uploading to Firebase"
   lane :package_instrumented_tests_swift do
