@@ -6,7 +6,7 @@ default_platform(:ios)
 @derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
 # @environments = ['staging', 'production']
 @environments = ['production']
-@fl_output_dir = ENV['FL_OUTPUT_DIR']
+@fl_output_dir = ENV['FL_OUTPUT_DIR'] || "#{File.expand_path('..')}/Output"
 @project_root_path = File.expand_path('..')
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
