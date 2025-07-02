@@ -209,6 +209,7 @@ platform :ios do
       ensure_devices_found: true,
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].unit_test_scheme,
+      skip_build: true,
       workspace: options[:app].workspace,
     )
   end
