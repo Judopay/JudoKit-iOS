@@ -99,11 +99,6 @@ platform :ios do
       type: "adhoc",
     })
 
-    sync_code_signing({
-      readonly: true,
-      type: "development",
-    })
-
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
@@ -142,6 +137,11 @@ platform :ios do
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].scheme,
       workspace: options[:app].workspace,
+    })
+
+    sync_code_signing({
+      readonly: true,
+      type: "development",
     })
 
     # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
