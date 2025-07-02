@@ -154,7 +154,7 @@ platform :ios do
         type: "development",
         app_identifier: get_product_bundle_id(
           project_filepath: options[:app].project,
-          scheme: options[:app].ui_test_scheme
+          scheme: "#{options[:app].ui_test_scheme}.*"
         )
       })
 
