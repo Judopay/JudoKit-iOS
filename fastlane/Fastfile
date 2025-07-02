@@ -127,7 +127,10 @@ platform :ios do
     sync_code_signing({
       readonly: true,
       type: "adhoc",
-      app_identifier: options[:app].bundle_id(scheme: options[:app].scheme)
+      app_identifier: get_product_bundle_id(
+        project_filepath: app.project,
+        scheme: app.scheme
+      )
     })
 
     # Build sample app
@@ -149,7 +152,10 @@ platform :ios do
       sync_code_signing({
         readonly: true,
         type: "development",
-        app_identifier: options[:app].bundle_id(scheme: options[:app].ui_test_scheme)
+        app_identifier: get_product_bundle_id(
+          project_filepath: app.project,
+          scheme: app.ui_test_scheme
+        )
       })
 
       # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
