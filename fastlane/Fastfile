@@ -128,8 +128,8 @@ platform :ios do
       readonly: true,
       type: "adhoc",
       app_identifier: get_product_bundle_id(
-        project_filepath: app.project,
-        scheme: app.scheme
+        project_filepath: options[:app].project,
+        scheme: options[:app].scheme
       )
     })
 
@@ -153,8 +153,8 @@ platform :ios do
         readonly: true,
         type: "development",
         app_identifier: get_product_bundle_id(
-          project_filepath: app.project,
-          scheme: app.ui_test_scheme
+          project_filepath: options[:app].project,
+          scheme: options[:app].ui_test_scheme
         )
       })
 
