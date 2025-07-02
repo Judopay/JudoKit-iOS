@@ -219,7 +219,7 @@ platform :ios do
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      test_sample_app_simulator(app)
+      test_sample_app_simulator({app: app})
     end
   end
 
