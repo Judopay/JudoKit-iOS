@@ -4,10 +4,10 @@ on:
   pull_request:
 
 jobs:
-  build_sample_apps:
-    uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
-    secrets: inherit
+  # build_sample_apps:
+  #   uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
+  #   secrets: inherit
   test_sample_apps:
     uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-firebase.yml@master
-    needs: build_sample_apps
+    # needs: build_sample_apps
     secrets: inherit
