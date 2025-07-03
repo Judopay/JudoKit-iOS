@@ -103,9 +103,9 @@ platform :ios do
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
       include_simulator_logs: false,
       only_testing: [
-      "CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
-      "CardPaymentUITests/testSuccessfulTokenPayment",
-      "CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"],
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"],
     }
 
     app_store_connect_api_key
