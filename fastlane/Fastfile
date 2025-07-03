@@ -146,13 +146,13 @@ platform :ios do
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
 
-    package_instrumented_tests({
+    build_instrumented_tests_package({
       app: options[:app]
     }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
   end
 
   desc "Package Instrumented Tests for a Sample App"
-  private_lane :package_instrumented_tests do |options|
+  private_lane :build_instrumented_tests_package do |options|
     sync_code_signing({
       readonly: true,
       type: "development",

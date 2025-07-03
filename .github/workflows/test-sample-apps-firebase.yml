@@ -9,4 +9,5 @@ jobs:
     secrets: inherit
   test_sampple_apps:
     uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-firebase.yml@master
+    needs: build_sample_apps
     secrets: inherit
