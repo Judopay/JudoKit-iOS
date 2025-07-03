@@ -125,7 +125,7 @@ class SampleApp
 
   def ui_test_scheme
     ui_test_scheme = "#{scheme}UITests"
-    return File.directory?("#{@path}/#{ui_test_scheme}") ? ui_test_scheme : nil
+    return File.directory?("#{@path}/#{ui_test_scheme}") && Dir["#{@path}/#{ui_test_scheme}/*"].length > 1 ? ui_test_scheme : nil
   end
 
   def unit_test_scheme
