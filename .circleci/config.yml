@@ -618,7 +618,7 @@ jobs:
               -d '{
                 "app": "'"$APP_URL"'",
                 "testSuite": "'"$TEST_URL"'",
-                "devices": ["iPhone 15 Pro-17"],
+                "devices": ["iPhone 13-15"],
                 "networkLogs": "true",
                 "deviceLogs": "true",
                 "project" : "JudoKit-iOS UI Tests",
