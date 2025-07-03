@@ -619,8 +619,6 @@ jobs:
                 "app": "'"$APP_URL"'",
                 "testSuite": "'"$TEST_URL"'",
                 "devices": ["iPhone 15 Pro-17"],
-                "only-testing": ["CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment", 
-                "CardPaymentUITests/testSuccessfulTokenPayment", "CardPaymentUITests/testSuccessfulPaymentWithBillingDetails"],
                 "networkLogs": "true",
                 "deviceLogs": "true",
                 "debugscreenshots": "true",
