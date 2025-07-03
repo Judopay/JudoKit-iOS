@@ -16,7 +16,6 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
       staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb'
     },
     flavor: 'obj-c',
-    instrumented_tests: true,
     path: "#{sample_apps_dir}/ObjectiveCExampleApp",
   ),
   SampleApp.new(
@@ -24,7 +23,6 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
       production: '1:34238832242:ios:7bbdd8e61adb48e863eceb'
     },
     flavor: 'swift',
-    instrumented_tests: true,
     path: "#{sample_apps_dir}/SwiftExampleApp",
   ),
   SampleApp.new(
@@ -88,6 +86,7 @@ platform :ios do
     lint
     build
     test
+    build_sample_apps
   end
 
   desc "Build Sample Apps"
@@ -100,7 +99,6 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        UI.message("TEST: #{env} #{app.firebase_app_id(environment: env)}")
         build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
       end
     end
@@ -148,44 +146,49 @@ platform :ios do
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
 
-    if options[:app].instrumented_tests == true && options[:environment] == 'production' then
-      sync_code_signing({
-        readonly: true,
-        type: "development",
-        app_identifier: [
-          get_product_bundle_id(
-            project_filepath: options[:app].project,
-            scheme: options[:app].scheme
-          ),
-          "#{get_product_bundle_id(
-            project_filepath: options[:app].project,
-            scheme: options[:app].ui_test_scheme
-          )}.*"
-        ]
-      })
+    package_instrumented_tests({
+      app: options[:app]
+    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
+  end
 
-      # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
-      run_tests({
-        build_for_testing: true,
-        clean: false,
-        derived_data_path: @derived_data_path,
-        destination: "generic/platform=iOS",
-        include_simulator_logs: false,
-        project: !options[:app].workspace.nil? ? nil : options[:app].project,
-        scheme: options[:app].ui_test_scheme,
-        sdk: "iphoneos",
-        testplan: options[:app].ui_test_plan,
-        workspace: options[:app].workspace,
-        xcargs: @ui_tests_xcargs,
-        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
-      })
+  desc "Package Instrumented Tests for a Sample App"
+  private_lane :package_instrumented_tests do |options|
+    sync_code_signing({
+      readonly: true,
+      type: "development",
+      app_identifier: [
+        get_product_bundle_id(
+          project_filepath: options[:app].project,
+          scheme: options[:app].scheme
+        ),
+        "#{get_product_bundle_id(
+          project_filepath: options[:app].project,
+          scheme: options[:app].ui_test_scheme
+        )}.*"
+      ]
+    })
 
-      package_instrumented_tests(
-        app: options[:app],
-        input_dir: "#{@derived_data_path}/Build/Products",
-        output_dir: "#{@fl_output_dir}/#{options[:environment]}"
-      )
-    end
+    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+    run_tests({
+      build_for_testing: true,
+      clean: false,
+      derived_data_path: @derived_data_path,
+      destination: "generic/platform=iOS",
+      include_simulator_logs: false,
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
+      scheme: options[:app].ui_test_scheme,
+      sdk: "iphoneos",
+      testplan: options[:app].ui_test_plan,
+      workspace: options[:app].workspace,
+      xcargs: @ui_tests_xcargs,
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+    })
+
+    package_instrumented_tests(
+      app: options[:app],
+      input_dir: "#{@derived_data_path}/Build/Products",
+      output_dir: @fl_output_dir
+    )
   end
 
   desc "Test Sample Apps"
