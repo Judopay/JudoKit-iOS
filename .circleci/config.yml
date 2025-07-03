@@ -202,6 +202,9 @@ parameters:
   weekly:
     type: boolean
     default: false
+  browserstack:
+    type: boolean
+    default: false
 
 jobs:
   checkout_project:
@@ -348,6 +351,21 @@ jobs:
       - store_artifacts:
           path: ./Output/buildlogs/gym/
           destination: GymLogs
+  build_example_app_for_browserstack:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build ObjC Sample for UI Tests on Browserstack
+          command: bundle exec fastlane build_sample_apps flavors:obj-c build_for_distribution:false build_for_browserstack:true
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Output/gym/ObjectiveCExampleApp.ipa
+      - store_artifacts:
+          path: ./Output/buildlogs/gym/
+          destination: GymLogs
   build_instrumented_tests_package:
     executor: macos
     steps:
@@ -356,6 +374,19 @@ jobs:
       - run:
           name: Build ObjC Sample for UI Tests using Fastlane
           command: bundle exec fastlane package_instrumented_tests
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./DerivedData
+            - ./Output/ObjectiveCExampleAppUITests.zip
+  build_instrumented_tests_package_browserstack:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build ObjC Sample for UI Tests using Fastlane
+          command: bundle exec fastlane package_instrumented_tests_browserstack
       - persist_to_workspace:
           root: .
           paths:
@@ -377,7 +408,6 @@ jobs:
       - store_artifacts:
           path: ./Output/BuildLogs/
           destination: BuildLogs
-
   instrumented_tests_sample_iphone:
     executor: macos
     steps:
@@ -557,6 +587,48 @@ jobs:
           environment:
             ENVIRONMENT: << parameters.environment >>
           command: /resources/scripts/report-status-to-jira.sh
+  run_xcuitest_tests_on_browserstack:
+    executor: macos
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Upload iOS app to Browserstack
+          command: |
+            APP_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/app" \
+              -F "file=@Output/gym/ObjectiveCExampleApp.ipa")
+            echo "$APP_UPLOAD_RESPONSE"
+            echo "export APP_URL=$(echo "$APP_UPLOAD_RESPONSE" | jq -r '.app_url')" >> $BASH_ENV
+      - run:
+          name: Upload iOS tests to Browserstack
+          command: |
+            TEST_UPLOAD_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/test-suite" \
+              -F "file=@Output/ObjectiveCExampleAppUITests.zip")
+            echo "$TEST_UPLOAD_RESPONSE"
+            echo "export TEST_URL=$(echo "$TEST_UPLOAD_RESPONSE" | jq -r '.test_suite_url')" >> $BASH_ENV
+      - run:
+          name: Trigger XCUI test on Browserstack
+          command: |
+            source $BASH_ENV
+            TRIGGER_RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+              -X POST "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/xctestrun-build" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "app": "'"$APP_URL"'",
+                "testSuite": "'"$TEST_URL"'",
+                "devices": ["iPhone 15 Pro-17"],
+                "only-testing": ["CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment", 
+                "CardPaymentUITests/testSuccessfulTokenPayment", "CardPaymentUITests/testSuccessfulPaymentWithBillingDetails"],
+                "networkLogs": "true",
+                "deviceLogs": "true",
+                "debugscreenshots": "true",
+                "retryTestsOnFailure": "true",
+                "project" : "JudoKit-iOS UI Tests",
+                "buildTag": "JudoKit-iOS"
+              }')
+            echo "$TRIGGER_RESPONSE"
 
 workflows:
   build:
@@ -666,3 +738,21 @@ workflows:
             branches:
               only:
                 - master
+  instrumented_test_browserstack:
+    when: << pipeline.parameters.browserstack >>
+    jobs:
+      - checkout_project
+      - build_example_app_for_browserstack:
+          requires:
+            - checkout_project
+      - build_instrumented_tests_package_browserstack:
+          requires:
+            - build_example_app_for_browserstack
+      - run_xcuitest_tests_on_browserstack:
+          requires:
+            - build_instrumented_tests_package
+          context: shared-secrets
+          filters:
+            branches:
+              only:
+                - CT-3082-browserstack-setup
