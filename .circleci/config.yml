@@ -621,7 +621,6 @@ jobs:
                 "devices": ["iPhone 15 Pro-17"],
                 "networkLogs": "true",
                 "deviceLogs": "true",
-                "debugscreenshots": "true",
                 "retryTestsOnFailure": "true",
                 "project" : "JudoKit-iOS UI Tests",
                 "buildTag": "JudoKit-iOS"
