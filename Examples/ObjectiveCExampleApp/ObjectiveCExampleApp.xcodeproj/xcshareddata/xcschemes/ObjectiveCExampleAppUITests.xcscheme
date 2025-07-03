@@ -63,6 +63,12 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -146,15 +152,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "448AB1C32450DE93004A11CB"
-            BuildableName = "ObjectiveCExampleAppUITests.xctest"
-            BlueprintName = "ObjectiveCExampleAppUITests"
-            ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

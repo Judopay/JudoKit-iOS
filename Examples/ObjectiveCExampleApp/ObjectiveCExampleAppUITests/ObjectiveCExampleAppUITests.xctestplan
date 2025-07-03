@@ -1,0 +1,96 @@
+{
+  "configurations" : [
+    {
+      "id" : "49BCAE52-90C4-41DA-8A95-1713EB99BAFD",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "TEST_API_JUDO_ID",
+        "value" : "$(TEST_API_JUDO_ID)"
+      },
+      {
+        "key" : "TEST_API_TOKEN",
+        "value" : "$(TEST_API_TOKEN)"
+      },
+      {
+        "key" : "TEST_API_SECRET",
+        "value" : "$(TEST_API_SECRET)"
+      },
+      {
+        "key" : "RSA_PUBLIC_KEY",
+        "value" : "$(RSA_PUBLIC_KEY)"
+      },
+      {
+        "key" : "RAVELIN_MOCK_SERVER_URL",
+        "value" : "$(RAVELIN_MOCK_SERVER_URL)"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ObjectiveCExampleApp.xcodeproj",
+      "identifier" : "448AB1C32450DE93004A11CB",
+      "name" : "ObjectiveCExampleAppUITests"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "CardPaymentUITests\/testBillingFieldsInputValidation()",
+        "CardPaymentUITests\/testCAPostCodeValidation()",
+        "CardPaymentUITests\/testCancel3DS2ChallengeScreenErrorPopupShouldBeDisplayed()",
+        "CardPaymentUITests\/testCancelledTransactionErrorPopupShouldBeDisplayed()",
+        "CardPaymentUITests\/testChinaStateField()",
+        "CardPaymentUITests\/testDeclinedTransaction()",
+        "CardPaymentUITests\/testFailedTransaction()",
+        "CardPaymentUITests\/testFrictionlessAuthFailedPayment()",
+        "CardPaymentUITests\/testFrictionlessNoMethodPayment()",
+        "CardPaymentUITests\/testIndiaStateField()",
+        "CardPaymentUITests\/testOnValidCardDetailsInputSubmitButtonShouldBeEnabled()",
+        "CardPaymentUITests\/testPrimaryAccountDetailsTransaction()",
+        "CardPaymentUITests\/testRemoveCardOnPaymentMethods()",
+        "CardPaymentUITests\/testStepUpPaymentTransaction()",
+        "CardPaymentUITests\/testStepUpPreauthTransaction()",
+        "CardPaymentUITests\/testSuccessfulCheckCardTransaction()",
+        "CardPaymentUITests\/testSuccessfulFrictionlessPayment()",
+        "CardPaymentUITests\/testSuccessfulPaymentMethodsCardPayment()",
+        "CardPaymentUITests\/testSuccessfulPaymentWithBillingDetails()",
+        "CardPaymentUITests\/testSuccessfulPreauthMethodsCardPayment()",
+        "CardPaymentUITests\/testSuccessfulPreauthTransaction()",
+        "CardPaymentUITests\/testSuccessfulRegisterCardTransaction()",
+        "CardPaymentUITests\/testSuccessfulTokenPayment()",
+        "CardPaymentUITests\/testSuccessfulTokenPreauth()",
+        "CardPaymentUITests\/testUKPostCodeValidation()",
+        "CardPaymentUITests\/testUSPostCodeValidation()",
+        "RavelinUITests",
+        "RavelinUITests\/testCheckCardAllowAuthenticateLowValueNoPreference()",
+        "RavelinUITests\/testCheckCardAllowAuthoriseTRAChallengeAsMandate()",
+        "RavelinUITests\/testCheckCardPreventAuthenticateLowValueChallenge()",
+        "RavelinUITests\/testCheckCardReviewAuthenticateTRANoChallenge()",
+        "RavelinUITests\/testCheckCardReviewAuthoriseLowValueChallenge()",
+        "RavelinUITests\/testPaymentAllowAuthenticateTRANoChallenge()",
+        "RavelinUITests\/testPaymentAllowAuthoriseLowValueNoPreference()",
+        "RavelinUITests\/testPaymentPreventAuthenticateTRANoPreference()",
+        "RavelinUITests\/testPaymentPreventAuthoriseLowValueChallengeAsMandate()",
+        "RavelinUITests\/testPaymentReviewAuthenticateTRAChallenge()",
+        "RavelinUITests\/testPreAuthAllowAuthenticateLowValueChallenge()",
+        "RavelinUITests\/testPreAuthAllowAuthoriseTRANoChallenge()",
+        "RavelinUITests\/testPreAuthPreventAuthenticateLowValueNoChallenge()",
+        "RavelinUITests\/testPreAuthReviewAuthoriseLowValueChallengeAsMandate()",
+        "RavelinUITests\/testPreAuthReviewAuthoriseTRANoPreference()"
+      ],
+      "target" : {
+        "containerPath" : "container:ObjectiveCExampleApp.xcodeproj",
+        "identifier" : "448AB1C32450DE93004A11CB",
+        "name" : "ObjectiveCExampleAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
