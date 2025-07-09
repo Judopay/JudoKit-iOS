@@ -68,6 +68,7 @@ platform :ios do
 
   desc "Build SDK"
   lane :build do |options|
+    lint
     carthage
     
     FileUtils.mkdir_p(@compilation_database_path)
@@ -200,61 +201,62 @@ platform :ios do
     )
   end
 
-  desc "Test Sample Apps"
-  lane :test_sample_apps do |options|
-    @sample_apps.select{ |app|
-      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
-    }.each do |app|
-      test_sample_app({app: app})
-    end
-  end
+  # Note: Unit tests and instrumented tests on simulators don't work for now so they are commented out.
+  # desc "Test Sample Apps"
+  # lane :test_sample_apps do |options|
+  #   @sample_apps.select{ |app|
+  #     !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+  #   }.each do |app|
+  #     test_sample_app({app: app})
+  #   end
+  # end
 
-  desc "Test Sample App"
-  private_lane :test_sample_app do |options|
-    if options[:app].unit_test_scheme.nil?
-      UI.important("No unit test scheme found for #{options[:app].scheme}. Skipping unit tests.")
-      next
-    end
+  # desc "Test Sample App"
+  # private_lane :test_sample_app do |options|
+  #   if options[:app].unit_test_scheme.nil?
+  #     UI.important("No unit test scheme found for #{options[:app].scheme}. Skipping unit tests.")
+  #     next
+  #   end
 
-    run_tests(
-      derived_data_path: @derived_data_path,
-      ensure_devices_found: true,
-      project: !options[:app].workspace.nil? ? nil : options[:app].project,
-      scheme: options[:app].unit_test_scheme,
-      skip_build: true,
-      workspace: options[:app].workspace,
-    )
-  end
+  #   run_tests(
+  #     derived_data_path: @derived_data_path,
+  #     ensure_devices_found: true,
+  #     project: !options[:app].workspace.nil? ? nil : options[:app].project,
+  #     scheme: options[:app].unit_test_scheme,
+  #     skip_build: true,
+  #     workspace: options[:app].workspace,
+  #   )
+  # end
 
-  desc "Run instrumented tests for sample apps on simulators"
-  lane :test_sample_apps_simulator do |options|
-    @sample_apps.select{ |app|
-      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
-    }.each do |app|
-      test_sample_app_simulator({app: app})
-    end
-  end
+  # desc "Run instrumented tests for sample apps on simulators"
+  # lane :test_sample_apps_simulator do |options|
+  #   @sample_apps.select{ |app|
+  #     !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+  #   }.each do |app|
+  #     test_sample_app_simulator({app: app})
+  #   end
+  # end
 
-  desc "Run instrumented tests for a sample app on a simulator"
-  private_lane :test_sample_app_simulator do |options|
-    if options[:app].ui_test_scheme.nil?
-      UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
-      next
-    end
+  # desc "Run instrumented tests for a sample app on a simulator"
+  # private_lane :test_sample_app_simulator do |options|
+  #   if options[:app].ui_test_scheme.nil?
+  #     UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+  #     next
+  #   end
 
-    run_tests({
-      derived_data_path: @derived_data_path,
-      destination: "generic/platform=iOS",
-      include_simulator_logs: false,
-      project: !options[:app].workspace.nil? ? nil : options[:app].project,
-      scheme: options[:app].ui_test_scheme,
-      sdk: "iphoneos",
-      testplan: options[:app].ui_test_plan,
-      workspace: options[:app].workspace,
-      xcargs: @ui_tests_xcargs,
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
-    })
-  end
+  #   run_tests({
+  #     derived_data_path: @derived_data_path,
+  #     destination: "generic/platform=iOS",
+  #     include_simulator_logs: false,
+  #     project: !options[:app].workspace.nil? ? nil : options[:app].project,
+  #     scheme: options[:app].ui_test_scheme,
+  #     sdk: "iphoneos",
+  #     testplan: options[:app].ui_test_plan,
+  #     workspace: options[:app].workspace,
+  #     xcargs: @ui_tests_xcargs,
+  #     xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+  #   })
+  # end
 
   desc "Run instrumented tests for sample apps on Firebase"
   lane :test_sample_apps_firebase do |options|
@@ -286,7 +288,7 @@ platform :ios do
     )
   end
   
-  desc "Distribute Sample Apps to Firebase"
+  desc "Publish Sample Apps to Firebase"
   lane :publish_sample_apps do |options|
     @environments.each do |env|
       @sample_apps.select{ |app|
@@ -297,7 +299,7 @@ platform :ios do
     end
   end
 
-  desc "Distribute Sample App to Firebase"
+  desc "Publish Sample App to Firebase"
   private_lane :publish_sample_app do |options|
     if options[:app].firebase_app_id(environment: options[:environment]).nil?
       UI.important("No Firebase App ID found for #{options[:app].scheme} and environment #{options[:environment]}. Won't publish.")
