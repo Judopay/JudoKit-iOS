@@ -618,7 +618,7 @@ jobs:
               -d '{
                 "app": "'"$APP_URL"'",
                 "testSuite": "'"$TEST_URL"'",
-                "devices": ["iPhone 13-15"],
+                "devices": ["iPhone 12-14", "iPhone 11-13", "iPhone XS-12", "iPhone 8-11", "iPhone 7-10"],
                 "networkLogs": "true",
                 "deviceLogs": "true",
                 "project" : "JudoKit-iOS UI Tests",
@@ -751,4 +751,4 @@ workflows:
           filters:
             branches:
               only:
-                - CT-3082-browserstack-setup
+                - master
