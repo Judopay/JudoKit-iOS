@@ -1,17 +1,8 @@
-name: iOS Build, Test and Publish Sample Apps
+# name: iOS Build, Test and Publish Sample Apps
 
-on:
-  pull_request:
-  # push:
-  #   branches:
-  #     - master
-jobs:
-  build_and_test_sample_apps:
-    uses: Judopay/github-actions/.github/workflows/ios-build-test-publish-sample-apps.yml@master
-    secrets: inherit
-  # test_sample_apps_firebase:
-  #   uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-firebase.yml@master
-  #   needs: build_and_test_sample_apps
-  #   secrets: inherit
-  #   with:
-  #     firebase_matrix_label: 'Merge to master'
+# on:
+#   pull_request:
+# jobs:
+#   build_and_test_sample_apps:
+#     uses: Judopay/github-actions/.github/workflows/ios-build-test-publish-sample-apps.yml@master
+#     secrets: inherit
