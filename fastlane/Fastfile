@@ -91,6 +91,15 @@ platform :ios do
     )
   end
 
+  desc "Publish SDK"
+  lane :publish do
+    pod_push(
+      allow_warnings: true,
+      path: "#{@project_root_path}/JudoKit-iOS.podspec",
+      use_bundle_exec: true
+    )
+  end
+
   desc "Run full PR check pipeline"
   lane :pr_check do
     lint
