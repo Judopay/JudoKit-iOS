@@ -1,0 +1,69 @@
+{
+  "configurations" : [
+    {
+      "id" : "208EDF78-5851-4044-AEA5-F10F1BAA0A1B",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "TEST_API_JUDO_ID",
+        "value" : "$(TEST_API_JUDO_ID)"
+      },
+      {
+        "key" : "TEST_API_TOKEN",
+        "value" : "$(TEST_API_TOKEN)"
+      },
+      {
+        "key" : "TEST_API_SECRET",
+        "value" : "$(TEST_API_SECRET)"
+      },
+      {
+        "key" : "RSA_PUBLIC_KEY",
+        "value" : "$(RSA_PUBLIC_KEY)"
+      },
+      {
+        "key" : "RAVELIN_MOCK_SERVER_URL",
+        "value" : "$(RAVELIN_MOCK_SERVER_URL)"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ObjectiveCExampleApp.xcodeproj",
+      "identifier" : "448AB1C32450DE93004A11CB",
+      "name" : "ObjectiveCExampleAppUITests"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "RavelinUITests\/testCheckCardAllowAuthenticateLowValueNoPreference()",
+        "RavelinUITests\/testCheckCardAllowAuthoriseTRAChallengeAsMandate()",
+        "RavelinUITests\/testCheckCardPreventAuthenticateLowValueChallenge()",
+        "RavelinUITests\/testCheckCardReviewAuthenticateTRANoChallenge()",
+        "RavelinUITests\/testCheckCardReviewAuthoriseLowValueChallenge()",
+        "RavelinUITests\/testPaymentAllowAuthenticateTRANoChallenge()",
+        "RavelinUITests\/testPaymentAllowAuthoriseLowValueNoPreference()",
+        "RavelinUITests\/testPaymentPreventAuthenticateTRANoPreference()",
+        "RavelinUITests\/testPaymentPreventAuthoriseLowValueChallengeAsMandate()",
+        "RavelinUITests\/testPaymentReviewAuthenticateTRAChallenge()",
+        "RavelinUITests\/testPreAuthAllowAuthenticateLowValueChallenge()",
+        "RavelinUITests\/testPreAuthAllowAuthoriseTRANoChallenge()",
+        "RavelinUITests\/testPreAuthPreventAuthenticateLowValueNoChallenge()",
+        "RavelinUITests\/testPreAuthReviewAuthoriseLowValueChallengeAsMandate()",
+        "RavelinUITests\/testPreAuthReviewAuthoriseTRANoPreference()"
+      ],
+      "target" : {
+        "containerPath" : "container:ObjectiveCExampleApp.xcodeproj",
+        "identifier" : "448AB1C32450DE93004A11CB",
+        "name" : "ObjectiveCExampleAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
