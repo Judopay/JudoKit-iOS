@@ -303,7 +303,7 @@ platform :ios do
   end
 
   desc "Run instrumented tests for sample apps on BrowserStack"
-  lane :test_sample_apps_firebase do |options|
+  lane :test_sample_apps_browserstack do |options|
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
