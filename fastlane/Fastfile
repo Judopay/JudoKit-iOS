@@ -5,16 +5,6 @@ default_platform(:ios)
 @compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "#{File.expand_path('..')}/build/compilation_database"
 @derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
 @environments = ['staging', 'production']
-@firebase_device_sets = {
-  default: [
-    "model=iphone15,version=18.0",
-    "model=ipad10,version=16.6"
-  ],
-  backwards_compatibility: [
-    "model=iphone8,version=15.7",
-    "model=iphone14pro,version=16.6"
-  ]
-}
 @fl_output_dir = ENV['FL_OUTPUT_DIR'] || "#{File.expand_path('..')}/Output"
 @project_root_path = File.expand_path('..')
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
@@ -287,9 +277,10 @@ platform :ios do
       "gcloud firebase test ios run"\
         " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"\
         " --xcode-version 16.2"\
-        "#{@firebase_device_sets.fetch(:"#{options[:device_set]}", @firebase_device_sets[:default]).map { |device|
-          " --device #{device}"
-        }.join("")}"\
+        " --device model=iphone8,version=15.7"\
+        " --device model=iphone14pro,version=16.6"\
+        " --device model=iphone15,version=18.0"\
+        " --device model=ipad10,version=16.6"\
         " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
         " --client-details=#{[
             "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
