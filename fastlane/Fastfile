@@ -282,7 +282,7 @@ platform :ios do
       UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
       next
     end
-    
+
     sh(
       "gcloud firebase test ios run"\
         " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"\
@@ -299,6 +299,47 @@ platform :ios do
         " --timeout=30m"\
         " --num-flaky-test-attempts=1"\
         " --async"
+    )
+  end
+
+  desc "Run instrumented tests for sample apps on BrowserStack"
+  lane :test_sample_apps_firebase do |options|
+    @sample_apps.select{ |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      test_sample_app_browserstack({app: app, device_set: options[:device_set]})
+    end
+  end
+
+  desc "Run instrumented tests for a sample app on BrowserStack"
+  private_lane :test_sample_app_browserstack do |options|
+    if options[:app].ui_test_scheme.nil?
+      UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+      next
+    end
+
+    upload_to_browserstack_app_automate(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-production.ipa"
+    )
+
+    app_url = ENV["BROWSERSTACK_APP_ID"]
+
+    test_suite_url = upload_xctestrun_to_browserstack(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      file_path: "#{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"
+    )
+
+    run_xctestrun_on_browserstack(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      app_url: app_url,
+      test_url: test_suite_url,
+      devices: ["iPhone 12-14", "iPhone 11-13", "iPhone XS-12", "iPhone 8-11", "iPhone 7-10"],
+      project: "JudoKit-iOS UI Tests",
+      build_tag: "JudoKit-iOS"
     )
   end
   
