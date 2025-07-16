@@ -1,8 +1,8 @@
-name: iOS Build and Test Sample Apps
+# name: iOS Build and Test Sample Apps
 
-on:
-  pull_request:
-jobs:
-  build_and_test_sample_apps:
-    uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
-    secrets: inherit
+# on:
+#   pull_request:
+# jobs:
+#   build_and_test_sample_apps:
+#     uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
+#     secrets: inherit

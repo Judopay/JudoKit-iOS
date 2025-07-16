@@ -1,9 +1,9 @@
-name: iOS Build and Test SDK
+# name: iOS Build and Test SDK
 
-on:
-  pull_request:
+# on:
+#   pull_request:
 
-jobs:
-  build_and_test:
-    uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@master
-    secrets: inherit
+# jobs:
+#   build_and_test:
+#     uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@master
+#     secrets: inherit
