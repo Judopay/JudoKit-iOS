@@ -1,12 +1,10 @@
 require 'fastlane_core/ui/ui'
 require 'rest-client'
 
-UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
-
 def replace(file_path:, old_string:, new_string:)
   # Check if the file exists
   unless File.file?(file_path)
-    UI.user_error("File not found: #{file_path}")
+    puts("File not found: #{file_path}")
   end
 
   # Replace the string
@@ -15,7 +13,7 @@ def replace(file_path:, old_string:, new_string:)
   # Write the updated content back to the file
   File.open(file_path, "w") { |file| file.puts new_content }
 
-  UI.success("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
+  puts("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
 end
 
 def inject_staging_environment(app:, sdk_root_path:)
@@ -32,7 +30,7 @@ def inject_staging_environment(app:, sdk_root_path:)
   )
 
   if current_bundle_id.end_with?(app_identifier_staging_suffix)
-    UI.important("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
+    puts("The current bundle id already ends in #{app_identifier_staging_suffix}. No changes made.")
   else
     desired_bundle_id = "#{current_bundle_id}#{app_identifier_staging_suffix}"
 
@@ -42,7 +40,7 @@ def inject_staging_environment(app:, sdk_root_path:)
       app_identifier: desired_bundle_id,
     )
 
-    UI.success("Updated bundle ID to: #{desired_bundle_id}")
+    puts("Updated bundle ID to: #{desired_bundle_id}")
 
     profile_specifier = "match AdHoc"
     replace(
@@ -55,7 +53,7 @@ def inject_staging_environment(app:, sdk_root_path:)
       old_string: ".judopay.com",
       new_string: ".#{staging_hostname}}"
     )
-    UI.success("Updated provisioning profile specifier and constants for staging environment.")
+    puts("Updated provisioning profile specifier and constants for staging environment.")
   end
 end
 
@@ -70,7 +68,7 @@ def bump_build_number(app:, environment:)
   firebase_app_id = app.firebase_app_id(environment: environment)
 
   if firebase_app_id.nil?
-    UI.important("Firebase app ID is not set for the specified app. Skipping build number increment.")
+    puts("Firebase app ID is not set for the specified app. Skipping build number increment.")
     return
   end
 
@@ -81,7 +79,7 @@ def bump_build_number(app:, environment:)
     xcodeproj: app.project,
     build_number:  current_version + 1
   })
-  UI.success("Bumped build number to #{current_version + 1}")
+  puts("Bumped build number to #{current_version + 1}")
 end
 
 def package_instrumented_tests(app:, input_dir:, output_dir:)
@@ -89,7 +87,7 @@ def package_instrumented_tests(app:, input_dir:, output_dir:)
   Dir.chdir(input_dir) do
     sh("zip -r #{output_dir}/#{app.ui_test_scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun")
   end
-  UI.success("Instrumented tests packaged successfully into #{output_dir}/#{app.ui_test_scheme}.zip")
+  puts("Instrumented tests packaged successfully into #{output_dir}/#{app.ui_test_scheme}.zip")
 end
 
 def send_rest_request(url:, method:, payload:, user:, password:)
@@ -108,9 +106,9 @@ def send_rest_request(url:, method:, payload:, user:, password:)
     rescue
       error_response = "Internal server error"
     end
-    UI.error!("Rest request failed: #{error_response}")
+    puts("Rest request failed: #{error_response}")
   rescue StandardError => error
-    UI.error!("Rest request failed: #{error.message}")
+    puts("Rest request failed: #{error.message}")
   end
 end
 
@@ -127,10 +125,10 @@ def upload_xctestrun_to_browserstack(browserstack_username:, browserstack_access
   )
 
   if response["test_suite_url"].nil?
-    UI.success("Successfully uploaded xctestrun file to BrowserStack: #{response}")
+    puts("Successfully uploaded xctestrun file to BrowserStack: #{response}")
     return response["test_suite_url"]
   else
-    UI.error!("Failed to upload xctestrun file. Response did not contain test_suite_url: #{response}")
+    puts("Failed to upload xctestrun file. Response did not contain test_suite_url: #{response}")
   end
 end
 
@@ -159,7 +157,7 @@ def run_xctestrun_on_browserstack(
     }
   )
 
-  UI.success("Successfully triggered tests on BrowserStack: #{response}")
+  puts("Successfully triggered tests on BrowserStack: #{response}")
 end
 
 class SampleApp
