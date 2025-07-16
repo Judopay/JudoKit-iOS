@@ -1,6 +1,8 @@
 require 'fastlane_core/ui/ui'
 require 'rest-client'
 
+UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
+
 def replace(file_path:, old_string:, new_string:)
   # Check if the file exists
   unless File.file?(file_path)
