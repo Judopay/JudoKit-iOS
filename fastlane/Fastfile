@@ -282,6 +282,7 @@ platform :ios do
       UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
       next
     end
+    
     sh(
       "gcloud firebase test ios run"\
         " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"\
@@ -290,7 +291,11 @@ platform :ios do
           " --device #{device}"
         }.join("")}"\
         " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
-        " --client-details=matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\""\
+        " --client-details=#{[
+            "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
+            "app=\"#{options[:app].scheme}\"",
+            "project=JudoKit-iOS"
+          ].join(",")}"\
         " --timeout=30m"\
         " --num-flaky-test-attempts=1"\
         " --async"
