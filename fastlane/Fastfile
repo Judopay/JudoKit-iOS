@@ -328,7 +328,7 @@ platform :ios do
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
       app_url: app_url,
       test_suite_url: test_suite_url,
-      devices: ["iPhone 12-14", "iPhone 11-13"], # "iPhone XS-12", "iPhone 8-11", "iPhone 7-10"
+      devices: ["iPhone 12-14", "iPhone 11 Pro-13"], # "iPhone XS-12", "iPhone 8-11", "iPhone 7-10"
       project: "JudoKit-iOS UI Tests",
       build_tag: "JudoKit-iOS"
     )
