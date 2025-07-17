@@ -103,6 +103,8 @@ def send_rest_request(url:, method:, payload:, user:, password:)
     )
     return JSON.parse(response.to_s)
   rescue RestClient::ExceptionWithResponse => err
+    puts(err)
+    puts(err.response.to_s)
     begin
       error_response = JSON.parse(err.response.to_s)["error"]
     rescue
