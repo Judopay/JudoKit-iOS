@@ -84,8 +84,10 @@ end
 
 def package_instrumented_tests(app:, input_dir:, output_dir:)
   FileUtils.mkdir_p(output_dir)
+  # Firebase requires the entire Debug-iphoneos directory and the .xctestrun file
+  # BrowserStack requires the Debug-iphoneos/<scheme>-Runner.app directory placed in the root of the zip file and the .xctestrun file
   Dir.chdir(input_dir) do
-    sh("zip -r #{output_dir}/#{app.ui_test_scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun")
+    sh("zip -r #{output_dir}/#{app.ui_test_scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun Debug-iphoneos/#{app.ui_test_scheme}-Runner.app")
   end
   puts("Instrumented tests packaged successfully into #{output_dir}/#{app.ui_test_scheme}.zip")
 end
@@ -99,7 +101,6 @@ def send_rest_request(url:, method:, payload:, user:, password:)
       password: password,
       payload: payload
     )
-    puts(response.to_s)
     return JSON.parse(response.to_s)
   rescue RestClient::ExceptionWithResponse => err
     begin
@@ -126,13 +127,11 @@ def upload_xctestrun_to_browserstack(browserstack_username:, browserstack_access
     }
   )
 
-  puts(response)
-
-  if response["test_suite_url"].nil?
+  if !response["test_suite_url"].nil?
     puts("Successfully uploaded xctestrun file to BrowserStack: #{response}")
     return response["test_suite_url"]
   else
-    puts("Failed to upload xctestrun file. Response did not contain test_suite_url: #{response}")
+    raise("Failed to upload xctestrun file. Response did not contain test_suite_url: #{response}")
   end
 end
 
