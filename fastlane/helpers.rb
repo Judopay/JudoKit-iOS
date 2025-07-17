@@ -103,12 +103,11 @@ def send_rest_request(url:, method:, payload:, user:, password:)
     )
     return JSON.parse(response.to_s)
   rescue RestClient::ExceptionWithResponse => err
-    puts(err)
     puts(err.response.to_s)
     begin
       error_response = JSON.parse(err.response.to_s)["error"]
     rescue
-      error_response = "Internal server error"
+      error_response = err.response.to_s
     end
     raise("Rest request failed: #{error_response}")
   rescue StandardError => error
