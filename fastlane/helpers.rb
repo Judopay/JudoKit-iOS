@@ -124,6 +124,8 @@ def upload_xctestrun_to_browserstack(browserstack_username:, browserstack_access
     }
   )
 
+  puts(response)
+
   if response["test_suite_url"].nil?
     puts("Successfully uploaded xctestrun file to BrowserStack: #{response}")
     return response["test_suite_url"]
