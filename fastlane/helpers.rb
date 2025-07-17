@@ -99,6 +99,7 @@ def send_rest_request(url:, method:, payload:, user:, password:)
       password: password,
       payload: payload
     )
+    puts(response.to_s)
     return JSON.parse(response.to_s)
   rescue RestClient::ExceptionWithResponse => err
     begin
@@ -106,13 +107,14 @@ def send_rest_request(url:, method:, payload:, user:, password:)
     rescue
       error_response = "Internal server error"
     end
-    puts("Rest request failed: #{error_response}")
+    raise("Rest request failed: #{error_response}")
   rescue StandardError => error
-    puts("Rest request failed: #{error.message}")
+    raise("Rest request failed: #{error.message}")
   end
 end
 
 def upload_xctestrun_to_browserstack(browserstack_username:, browserstack_access_key:, file_path:)
+  puts("Uploading #{file_path} to BrowserStack...")
   response = send_rest_request(
     method: :post,
     url: "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/test-suite",
