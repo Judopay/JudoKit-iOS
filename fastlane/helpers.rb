@@ -87,7 +87,7 @@ def package_instrumented_tests(app:, input_dir:, output_dir:)
   # Firebase requires the entire Debug-iphoneos directory and the .xctestrun file
   # BrowserStack requires the Debug-iphoneos/<scheme>-Runner.app directory placed in the root of the zip file and the .xctestrun file
   Dir.chdir(input_dir) do
-    FileUtils.cp_r("#{app.ui_test_scheme}-Runner.app", input_dir)
+    FileUtils.cp_r("Debug-iphoneos/#{app.ui_test_scheme}-Runner.app", input_dir)
     sh("zip -r #{output_dir}/#{app.ui_test_scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
   end
   puts("Instrumented tests packaged successfully into #{output_dir}/#{app.ui_test_scheme}.zip")
