@@ -42,11 +42,17 @@ def inject_staging_environment(app:, sdk_root_path:)
 
     puts("Updated bundle ID to: #{desired_bundle_id}")
 
-    profile_specifier = "match AdHoc"
+    adhoc_profile_specifier = "match AdHoc"
     replace(
       file_path: "#{app.project}/project.pbxproj",
-      old_string: "#{profile_specifier} #{current_bundle_id}",
-      new_string: "#{profile_specifier} #{desired_bundle_id}"
+      old_string: "#{adhoc_profile_specifier} #{current_bundle_id}",
+      new_string: "#{adhoc_profile_specifier} #{desired_bundle_id}"
+    )
+    development_profile_specifier = "match Development"
+    replace(
+      file_path: "#{app.project}/project.pbxproj",
+      old_string: "#{development_profile_specifier} #{current_bundle_id}",
+      new_string: "#{development_profile_specifier} #{desired_bundle_id}"
     )
     replace(
       file_path: "#{sdk_root_path}/Source/Models/Constants/JPConstants.h",
