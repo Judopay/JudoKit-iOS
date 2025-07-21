@@ -42,11 +42,11 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
 ]
 @scripts_dir = "#{File.expand_path('..')}/scripts"
 @ui_tests_xcargs = "-allowProvisioningUpdates "\
-                   "TEST_API_JUDO_ID=#{ENV['JUDO_API_ID']} "\
-                   "TEST_API_TOKEN=#{ENV['JUDO_API_TOKEN']} "\
-                   "TEST_API_SECRET=#{ENV['JUDO_API_SECRET']} "\
-                   "RSA_PUBLIC_KEY=#{ENV['RSA_PUBLIC_KEY']} "\
-                   "RAVELIN_MOCK_SERVER_URL=#{ENV['RAVELIN_MOCK_SERVER_URL']}"
+                   "TEST_API_JUDO_ID='#{ENV['JUDO_API_ID']}' "\
+                   "TEST_API_TOKEN='#{ENV['JUDO_API_TOKEN']}' "\
+                   "TEST_API_SECRET='#{ENV['JUDO_API_SECRET']}' "\
+                   "RSA_PUBLIC_KEY='#{ENV['RSA_PUBLIC_KEY']}' "\
+                   "RAVELIN_MOCK_SERVER_URL='#{ENV['RAVELIN_MOCK_SERVER_URL']}'"
 
 
 platform :ios do
