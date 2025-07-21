@@ -184,7 +184,6 @@ platform :ios do
     run_tests({
       build_for_testing: true,
       clean: false,
-      code_coverage: false,
       derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
