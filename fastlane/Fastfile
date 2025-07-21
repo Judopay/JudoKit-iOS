@@ -81,6 +81,7 @@ platform :ios do
     carthage
     run_tests(
       clean: false,
+      code_coverage: true,
       derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
