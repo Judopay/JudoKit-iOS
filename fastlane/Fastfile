@@ -142,6 +142,7 @@ platform :ios do
 
     # Build sample app
     build_app({
+      configuration: 'Debug',
       derived_data_path: @derived_data_path,
       export_method: 'ad-hoc',
       output_name: "#{options[:app].scheme}-#{options[:environment]}.ipa",
