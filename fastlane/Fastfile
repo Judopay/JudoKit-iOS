@@ -309,6 +309,7 @@ platform :ios do
         " --device model=iphone14pro,version=16.6"\
         " --device model=iphone15,version=18.0"\
         " --device model=ipad10,version=16.6"\
+        " --record-video"\
         " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
         " --client-details=#{[
             "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
