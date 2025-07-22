@@ -348,7 +348,7 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: File.file?("#{fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ? 
+      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ? 
         "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip" :
         "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
     )
