@@ -34,4 +34,15 @@
     return self;
 }
 
+- (instancetype)initWithVersion:(NSString *)version
+                      secureCode:(NSString *)code
+    andThreeDSSDKChallengeStatus:(NSString *)threeDSSDKChallengeStatus {
+    if (self = [super init]) {
+        _version = version;
+        _cv2 = code;
+        _threeDSSDKChallengeStatus = threeDSSDKChallengeStatus;
+    }
+    return self;
+}
+
 @end
