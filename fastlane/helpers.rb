@@ -88,15 +88,15 @@ def bump_build_number(app:, environment:)
   puts("Bumped build number to #{current_version + 1}")
 end
 
-def package_instrumented_tests(app:, input_dir:, output_dir:)
+def package_instrumented_tests(app:, input_dir:, output_dir:, output_file:)
   FileUtils.mkdir_p(output_dir)
   # Firebase requires the entire Debug-iphoneos directory and the .xctestrun file
   # BrowserStack requires the Debug-iphoneos/<scheme>-Runner.app directory placed in the root of the zip file and the .xctestrun file
   Dir.chdir(input_dir) do
     FileUtils.cp_r("Debug-iphoneos/#{app.ui_test_scheme}-Runner.app", input_dir)
-    sh("zip -r #{output_dir}/#{app.ui_test_scheme}.zip Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
+    sh("zip -r #{output_dir}/#{output_file} Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
   end
-  puts("Instrumented tests packaged successfully into #{output_dir}/#{app.ui_test_scheme}.zip")
+  puts("Instrumented tests packaged successfully into #{output_dir}/#{output_file}")
 end
 
 def send_rest_request(url:, method:, payload:, user:, password:)
@@ -172,14 +172,15 @@ def run_xctestrun_on_browserstack(
 end
 
 class SampleApp
-  attr_reader :bootstrap_script, :flavor, :instrumented_tests
+  attr_reader :bootstrap_script, :flavor, :instrumented_tests, :smoke_test_list
 
-  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, instrumented_tests: false)
+  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, instrumented_tests: false, smoke_test_list: nil)
     @bootstrap_script = bootstrap_script
     @firebase_app_id = firebase_app_id
     @flavor = flavor
     @instrumented_tests = instrumented_tests
     @path = path
+    @smoke_test_list = smoke_test_list
   end
 
   def firebase_app_id(environment:)

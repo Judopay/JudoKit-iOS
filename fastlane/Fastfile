@@ -16,6 +16,11 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
     },
     flavor: 'obj-c',
     path: "#{sample_apps_dir}/ObjectiveCExampleApp",
+    smoke_test_list: [
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
+    ],
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -162,13 +167,13 @@ platform :ios do
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
 
-    build_instrumented_tests_package({
+    build_instrumented_tests_packages({
       app: options[:app]
     }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
   end
 
   desc "Package Instrumented Tests for a Sample App"
-  private_lane :build_instrumented_tests_package do |options|
+  private_lane :build_instrumented_tests_packages do |options|
     sync_code_signing({
       readonly: true,
       type: "development",
@@ -180,8 +185,7 @@ platform :ios do
       ]
     })
 
-    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
-    run_tests({
+    build_options = {
       build_for_testing: true,
       clean: false,
       derived_data_path: @derived_data_path,
@@ -194,13 +198,34 @@ platform :ios do
       workspace: options[:app].workspace,
       xcargs: @ui_tests_xcargs,
       xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
-    })
+    }
+
+    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+    run_tests(build_options)
 
     package_instrumented_tests(
       app: options[:app],
       input_dir: "#{@derived_data_path}/Build/Products",
-      output_dir: @fl_output_dir
+      output_dir: @fl_output_dir,
+      output_file: "#{options[:app].ui_test_scheme}-all.zip",
     )
+
+    # If there is a smoke test list, repeat the build to create a package
+    # which will only run the subset of tests
+    if !options[:app].smoke_test_list.nil?
+      run_tests(
+        {
+          only_testing: options[:app].smoke_test_list,
+        }.merge(build_options)
+      )
+
+      package_instrumented_tests(
+        app: options[:app],
+        input_dir: "#{@derived_data_path}/Build/Products",
+        output_dir: @fl_output_dir,
+        output_file: "#{options[:app].ui_test_scheme}-smoke.zip"
+      )
+    end
   end
 
   # Note: Unit tests and instrumented tests on simulators don't work for now so they are commented out.
@@ -278,7 +303,7 @@ platform :ios do
 
     sh(
       "gcloud firebase test ios run"\
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"\
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"\
         " --xcode-version 16.2"\
         " --device model=iphone8,version=15.7"\
         " --device model=iphone14pro,version=16.6"\
@@ -323,7 +348,9 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: "#{@fl_output_dir}/#{options[:app].ui_test_scheme}.zip"
+      file_path: File.file?("#{fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ? 
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip" :
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
     )
 
     run_xctestrun_on_browserstack(
