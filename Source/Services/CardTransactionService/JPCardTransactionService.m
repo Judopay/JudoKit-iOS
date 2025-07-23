@@ -54,17 +54,69 @@
 
 static NSString *const kExtrasShouldUseFabrickDSIDKey = @"shouldUseFabrickDsId";
 
-@interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
+static NSString *const kThreeDSSDKChallengeStatusCancelled = @"Cancelled";
+static NSString *const kThreeDSSDKChallengeStatusTimeout = @"Timeout";
+static NSString *const kThreeDSSDKChallengeStatusCompleted = @"Completed";
+static NSString *const kThreeDSSDKChallengeStatusProtocolError = @"ProtocolError";
+static NSString *const kThreeDSSDKChallengeStatusRuntimeError = @"RuntimeError";
 
-@property (strong, nonatomic) JPApiService *apiService;
-@property (strong, nonatomic) JPCompletionBlock completion;
-@property (strong, nonatomic) JPCardTransactionDetails *details;
-@property (strong, nonatomic) JPResponse *response;
+NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pairs) {
+    NSMutableString *result = [NSMutableString stringWithString:eventType];
+    for (NSString *key in pairs) {
+        [result appendFormat:@"|%@=%@", key, pairs[key]];
+    }
+    return result;
+}
 
-- (instancetype)initWithApiService:(JPApiService *)apiService
-                           details:(JPCardTransactionDetails *)details
-                          response:(JPResponse *)response
-                     andCompletion:(JPCompletionBlock)completion;
+@implementation JP3DSCompletionEvent (FormattedString)
+
+- (NSString *)toFormattedEventString {
+    return buildEventString(
+        kThreeDSSDKChallengeStatusCompleted,
+        @{
+            @"SDKTransactionID" : self.sdkTransactionID ?: @"",
+            @"transactionStatus" : self.transactionStatus ?: @""
+        });
+}
+
+@end
+
+@implementation JP3DSProtocolErrorEvent (FormattedString)
+
+- (NSString *)toFormattedEventString {
+    NSString *errorMessage = [NSString stringWithFormat:@"{%@}",
+                                                        [buildEventString(
+                                                            @"",
+                                                            @{
+                                                                @"errorCode" : self.errorMessage.errorCode ?: @"",
+                                                                @"errorComponent" : self.errorMessage.errorComponent ?: @"",
+                                                                @"errorDescription" : self.errorMessage.errorDescription ?: @"",
+                                                                @"errorDetails" : self.errorMessage.errorDetails ?: @"",
+                                                                @"errorMessageType" : self.errorMessage.errorMessageType ?: @"",
+                                                                @"messageVersionNumber" : self.errorMessage.messageVersionNumber ?: @""
+                                                            }) substringFromIndex:1] // remove leading '|'
+    ];
+
+    return buildEventString(
+        kThreeDSSDKChallengeStatusProtocolError,
+        @{
+            @"SDKTransactionID" : self.sdkTransactionID ?: @"",
+            @"errorMessage" : errorMessage
+        });
+}
+
+@end
+
+@implementation JP3DSRuntimeErrorEvent (FormattedString)
+
+- (NSString *)toFormattedEventString {
+    return buildEventString(
+        kThreeDSSDKChallengeStatusRuntimeError,
+        @{
+            @"errorCode" : self.errorCode ?: @"",
+            @"errorMessage" : self.errorMessage ?: @""
+        });
+}
 
 @end
 
@@ -86,28 +138,29 @@ static NSString *const kExtrasShouldUseFabrickDSIDKey = @"shouldUseFabrickDsId";
 #pragma mark - JP3DSChallengeStatusReceiver
 
 - (void)transactionCompletedWithCompletionEvent:(JP3DSCompletionEvent *)completionEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:completionEvent.toFormattedEventString];
 }
 
 - (void)transactionCancelled {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:kThreeDSSDKChallengeStatusCancelled];
 }
 
 - (void)transactionTimedOut {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:kThreeDSSDKChallengeStatusTimeout];
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:protocolErrorEvent.toFormattedEventString];
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:runtimeErrorEvent.toFormattedEventString];
 }
 
-- (void)performComplete3DS2 {
+- (void)performComplete3DS2WithChallengeStatus:(NSString *)status {
     JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
-                                                                      andSecureCode:self.details.securityCode];
+                                                                         secureCode:self.details.securityCode
+                                                       andThreeDSSDKChallengeStatus:status];
 
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
                                                     request:request

@@ -38,6 +38,7 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX]
         configuration.paymentMethods = [JPPaymentMethod(paymentMethodType: .applePay),
                                         JPPaymentMethod(paymentMethodType: .card)]

@@ -1,8 +1,6 @@
 //
-//  JPComplete3DS2Request.m
-//  JudoKit_iOS
-//
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Helpers.swift
+//  JudoKit_iOSTests
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +20,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPComplete3DS2Request.h"
+import Foundation
 
-@implementation JPComplete3DS2Request
+func numberFormatterForAmount(amount: Decimal, currencyCode: String) -> NumberFormatter? {
+    let isFractional = Double(truncating: amount as NSNumber) != floor(Double(truncating: amount as NSNumber))
 
-- (instancetype)initWithVersion:(NSString *)version andSecureCode:(NSString *)code {
-    return [self initWithVersion:version secureCode:code andThreeDSSDKChallengeStatus:nil];
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.currencyCode = currencyCode
+    formatter.maximumFractionDigits = isFractional ? 2 : 0
+    return formatter
 }
 
-- (instancetype)initWithVersion:(NSString *)version
-                      secureCode:(NSString *)code
-    andThreeDSSDKChallengeStatus:(NSString *)threeDSSDKChallengeStatus {
-    if (self = [super init]) {
-        _version = version;
-        _cv2 = code;
-        _threeDSSDKChallengeStatus = threeDSSDKChallengeStatus;
+func formatCurrency(amount: String, currencyCode: String) -> String? {
+    guard let amountNumber = Decimal(string: amount) else {
+        return nil
     }
-    return self;
+    
+    let formatter = numberFormatterForAmount(amount: amountNumber, currencyCode: currencyCode)
+    return formatter?.string(from: amountNumber as NSNumber)
 }
 
-@end
+extension JPAmount {
+    func formatted() -> String? {
+        return formatCurrency(amount: self.amount, currencyCode: self.currency)
+    }
+}

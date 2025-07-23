@@ -26,7 +26,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class JPErrorAdditionsTests: XCTestCase {
-    
+
     /*
      * GIVEN: the JPError is initialized with the custom judoRequestFailedError initializer
      *

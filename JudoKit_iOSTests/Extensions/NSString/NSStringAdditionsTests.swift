@@ -86,7 +86,8 @@ class NSStringAdditionsTests: XCTestCase {
     func test_ToCurrencySymbol_WhenSupportedCurrencyString_ShouldReturnSymbolForCurrency(){
         let usdSymbol = "USD"
         let symbol = usdSymbol._jp_toCurrencySymbol()
-        XCTAssertEqual(symbol, "$")
+        let expectation = numberFormatterForAmount(amount: 0.0, currencyCode: usdSymbol)?.currencySymbol ?? ""
+        XCTAssertEqual(symbol, expectation)
     }
     
     /*

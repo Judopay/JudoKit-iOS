@@ -31,10 +31,11 @@ class JPTransactionInteractorTest: XCTestCase {
     var sut: JPTransactionInteractor! = nil
     lazy var reference = JPReference(consumerReference: "consumerReference")
     let transactionService = JPCardTransactionService()
+    let amount = JPAmount("0.01", currency: "USD")
     
     override func setUp() {
         super.setUp()
-        let amount = JPAmount("0.01", currency: "USD")
+        
         configuration = JPConfiguration(judoID: "judoId", amount: amount, reference: reference)
         configuration.cardAddress = JPAddress()
         configuration.supportedCardNetworks = [.visa, .masterCard, .AMEX, .dinersClub]
@@ -82,7 +83,9 @@ class JPTransactionInteractorTest: XCTestCase {
     func test_generatePayButtonTitle_WhenTrue_ShouldFormatAndReturnValid() {
         configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = true
         let result = sut.generatePayButtonTitle()
-        XCTAssertEqual(result, "Pay $0.01")
+                
+        let expectation = "Pay \(amount.formatted()!)"
+        XCTAssertEqual(result, expectation)
     }
     
     /*
