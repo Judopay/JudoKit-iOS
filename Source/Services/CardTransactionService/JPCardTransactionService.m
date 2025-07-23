@@ -120,20 +120,6 @@ NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pa
 
 @end
 
-@interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
-
-@property (strong, nonatomic) JPApiService *apiService;
-@property (strong, nonatomic) JPCompletionBlock completion;
-@property (strong, nonatomic) JPCardTransactionDetails *details;
-@property (strong, nonatomic) JPResponse *response;
-
-- (instancetype)initWithApiService:(JPApiService *)apiService
-                           details:(JPCardTransactionDetails *)details
-                          response:(JPResponse *)response
-                     andCompletion:(JPCompletionBlock)completion;
-
-@end
-
 @implementation JP3DSChallengeStatusReceiverImpl
 
 - (instancetype)initWithApiService:(JPApiService *)apiService

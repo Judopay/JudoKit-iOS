@@ -25,8 +25,39 @@
 #import "JPAuthorization.h"
 #import "Typedefs.h"
 #import <Foundation/Foundation.h>
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 @class JPConfiguration, JPCardTransactionDetails, JPApiService;
+
+@interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
+
+@property (strong, nonatomic, nonnull) JPApiService *apiService;
+@property (strong, nonatomic, nonnull) JPCompletionBlock completion;
+@property (strong, nonatomic, nonnull) JPCardTransactionDetails *details;
+@property (strong, nonatomic, nonnull) JPResponse *response;
+
+- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService
+                                   details:(nonnull JPCardTransactionDetails *)details
+                                  response:(nonnull JPResponse *)response
+                             andCompletion:(nonnull JPCompletionBlock)completion;
+
+- (void)performComplete3DS2WithChallengeStatus:(NSString *_Nonnull)status;
+@end
+
+NSString *_Nonnull buildEventString(NSString *_Nonnull eventType, NSDictionary<NSString *, id> *_Nonnull pairs);
+
+@protocol JPFormattedString <NSObject>
+- (NSString *_Nonnull)toFormattedEventString;
+@end
+
+@interface JP3DSCompletionEvent (FormattedString) <JPFormattedString>
+@end
+
+@interface JP3DSProtocolErrorEvent (FormattedString) <JPFormattedString>
+@end
+
+@interface JP3DSRuntimeErrorEvent (FormattedString) <JPFormattedString>
+@end
 
 @interface JPCardTransactionService : NSObject
 

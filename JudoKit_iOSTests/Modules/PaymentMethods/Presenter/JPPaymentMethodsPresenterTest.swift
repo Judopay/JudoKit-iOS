@@ -41,6 +41,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         sut = JPPaymentMethodsPresenterImpl()
         sut.view = controller

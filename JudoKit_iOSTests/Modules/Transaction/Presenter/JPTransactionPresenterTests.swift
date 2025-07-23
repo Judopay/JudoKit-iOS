@@ -33,6 +33,7 @@ class JPTransactionPresenterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+
         sut = JPTransactionPresenterImpl()
         sut.view = controller
         sut.interactor = interactor
