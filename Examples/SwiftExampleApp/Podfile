@@ -4,8 +4,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'SwiftExampleApp' do
-  #  pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
-  pod 'Judo3DS2_iOS', '1.2.4'
+  # pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
+  pod 'Judo3DS2_iOS', '1.2.5'
   pod 'JudoKit-iOS', :path => '../../'
 
   pod 'InAppSettingsKit', '3.3.6'

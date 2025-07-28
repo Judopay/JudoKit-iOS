@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'DeviceDNA', '2.1.2'
   s.dependency 'TrustKit', '~> 3.0.4'
-  s.dependency 'Judo3DS2_iOS', '1.2.4'
+  s.dependency 'Judo3DS2_iOS', '1.2.5'
   s.dependency 'RavelinEncrypt', '1.1.2'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
