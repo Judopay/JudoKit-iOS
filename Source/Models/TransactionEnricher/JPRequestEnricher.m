@@ -38,12 +38,8 @@
 static NSString *const kClientDetailsKey = @"clientDetails";
 static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
-@interface JPRequestEnricher () <CLLocationManagerDelegate>
-
+@interface JPRequestEnricher ()
 @property (nonatomic, strong) DeviceDNA *deviceDNA;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *lastKnownLocation;
-
 @end
 
 @implementation JPRequestEnricher
@@ -51,30 +47,22 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 #pragma mark - Initializers
 
 - (instancetype)init {
-
     if (self = [super init]) {
-        [self requestLocation];
         _deviceDNA = [DeviceDNA new];
     }
     return self;
 }
 
-#pragma mark - Setup methods
-
-- (void)requestLocation {
-    if (self.shouldRequestLocation) {
-        [self.locationManager requestLocation];
-    }
-}
-
 #pragma mark - Public methods
 
-- (void)enrichRequestParameters:(nullable NSDictionary *)dictionary
-                 withCompletion:(nonnull JPEnricherCompletionBlock)completion {
+- (void)enrichRequestParameters:(NSDictionary *)dictionary
+                 withCompletion:(JPEnricherCompletionBlock)completion {
     __weak typeof(self) weakSelf = self;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
 
         [strongSelf.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
             JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail];
@@ -94,61 +82,8 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 - (JPEnhancedPaymentDetail *)buildEnhancedPaymentDetail {
     JPThreeDSecure *threeDSecure = [JPThreeDSecure secureWithBrowser:[JPBrowser new]];
     JPConsumerDevice *consumerDevice = [JPConsumerDevice deviceWithThreeDSecure:threeDSecure];
-    JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:kJudoKitVersion
-                                               name:kJudoKitName];
-    return [JPEnhancedPaymentDetail detailWithSdkInfo:sdkInfo
-                                       consumerDevice:consumerDevice];
-}
-
-#pragma mark - Getters
-
-- (BOOL)isAuthorizationGranted {
-    switch (CLLocationManager.authorizationStatus) {
-        case kCLAuthorizationStatusAuthorizedAlways:
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-            return YES;
-
-        default:
-            return NO;
-    }
-}
-
-- (BOOL)shouldRequestLocation {
-    BOOL areLocationServicesEnabled = CLLocationManager.locationServicesEnabled;
-    return areLocationServicesEnabled && self.isAuthorizationGranted;
-}
-
-#pragma mark - Lazy properties
-
-- (CLLocationManager *)locationManager {
-    if (!_locationManager) {
-        _locationManager = [CLLocationManager new];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        _locationManager.delegate = self;
-    }
-    return _locationManager;
-}
-
-- (CLLocation *)lastKnownLocation {
-    if (!_lastKnownLocation) {
-        _lastKnownLocation = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
-    }
-    return _lastKnownLocation;
-}
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray<CLLocation *> *)locations {
-
-    if (locations.count > 0) {
-        self.lastKnownLocation = locations.lastObject;
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error {
-    // Location fetch failed, do nothing :(
+    JPSDKInfo *sdkInfo = [JPSDKInfo infoWithVersion:kJudoKitVersion name:kJudoKitName];
+    return [JPEnhancedPaymentDetail detailWithSdkInfo:sdkInfo consumerDevice:consumerDevice];
 }
 
 @end

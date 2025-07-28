@@ -73,7 +73,6 @@ ln -s -f ../Models/Card/JPCard.h JPCard.h
 ln -s -f ../Services/ApiService/JPApiService.h JPApiService.h
 ln -s -f ../Services/ApiService/Session/JPSession.h JPSession.h
 ln -s -f ../Models/Request/JPRequest.h JPRequest.h
-ln -s -f ../Models/Request/JPBankOrderSaleRequest.h JPBankOrderSaleRequest.h
 ln -s -f ../Models/Request/JPPreAuthRequest.h JPPreAuthRequest.h
 ln -s -f ../Models/Request/JPPreAuthTokenRequest.h JPPreAuthTokenRequest.h
 ln -s -f ../Models/Request/JPPreAuthApplePayRequest.h JPPreAuthApplePayRequest.h
