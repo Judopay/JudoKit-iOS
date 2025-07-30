@@ -10,7 +10,7 @@ target 'ObjectiveCExampleApp' do
   pod 'Judo3DS2_iOS', '1.2.5'
 
   pod 'JudoKit-iOS', :path => '../../'
-  # pod 'JudoKit-iOS', '5.0.1'
+  # pod 'JudoKit-iOS', '5.0.2'
 
   pod 'TTGSnackbar'
   pod 'InAppSettingsKit', '3.8.3'
