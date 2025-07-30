@@ -120,6 +120,10 @@ NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pa
 
 @end
 
+@interface JP3DSChallengeStatusReceiverImpl ()
+@property (nonatomic, assign) BOOL isComplete3DS2Invoked;
+@end
+
 @implementation JP3DSChallengeStatusReceiverImpl
 
 - (instancetype)initWithApiService:(JPApiService *)apiService
@@ -158,6 +162,11 @@ NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pa
 }
 
 - (void)performComplete3DS2WithChallengeStatus:(NSString *)status {
+    if (self.isComplete3DS2Invoked) {
+        NSLog(@"WARNING: Attempt to invoke repeatedly complete3DS2 was detected.");
+        return;
+    }
+
     JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
                                                                          secureCode:self.details.securityCode
                                                        andThreeDSSDKChallengeStatus:status];
@@ -165,6 +174,7 @@ NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pa
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
                                                     request:request
                                               andCompletion:self.completion];
+    self.isComplete3DS2Invoked = YES;
 }
 
 @end
