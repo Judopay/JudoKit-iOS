@@ -1,1 +1,1 @@
-sonar.exclusions=Examples/**/*
+sonar.coverage.exclusions=Examples/**/*
