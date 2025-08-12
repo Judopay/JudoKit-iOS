@@ -274,10 +274,7 @@ platform :ios do
 
     build_app options[:build_app_options]
 
-    after_all do
-      revert_staging_environment if options[:flavor] == 'obj-c-stg'
-    end
-
+    revert_staging_environment if options[:flavor] == 'obj-c-stg'
   end
 
   desc "Distribute ObjectiveCExampleApp"
