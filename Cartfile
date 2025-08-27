@@ -1,4 +1,4 @@
 github "datatheorem/TrustKit" >= 3.0.7
 binary "https://raw.githubusercontent.com/Judopay/DeviceDNA-iOS/master/DeviceDNA.json" == 2.1.2
-binary "https://raw.githubusercontent.com/Judopay/Judo3DS2-iOS/master/Judo3DS2_iOS.json" == 1.2.5
+binary "https://raw.githubusercontent.com/Judopay/Judo3DS2-iOS/master/Judo3DS2_iOS.json" == 1.2.6
 binary "https://raw.githubusercontent.com/unravelin/ravelin-encrypt-ios-xcframework-distribution/main/RavelinEncrypt.json" == 1.1.2

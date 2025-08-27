@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'JudoKit-iOS'
-  s.version               = '5.0.2'
+  s.version               = '5.0.3'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'https://www.judopay.com/'
   s.license               = 'MIT'
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'DeviceDNA', '2.1.2'
   s.dependency 'TrustKit', '~> 3.0.7'
-  s.dependency 'Judo3DS2_iOS', '1.2.5'
+  s.dependency 'Judo3DS2_iOS', '1.2.6'
   s.dependency 'RavelinEncrypt', '1.1.2'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony', 'Vision'
