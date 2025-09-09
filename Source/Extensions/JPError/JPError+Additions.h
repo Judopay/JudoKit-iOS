@@ -175,6 +175,7 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)missingRecurringLabelError;
 
 + (nonnull JPError *)operationNotAllowedError;
-+ (nonnull JPError *)corruptStateError;
++ (nonnull JPError *)unexpectedStateError;
++ (nonnull JPError *)unexpectedStateErrorWithDebugDecription:(nullable NSString *)description;
 
 @end

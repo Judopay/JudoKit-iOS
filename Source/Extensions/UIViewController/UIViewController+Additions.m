@@ -95,4 +95,23 @@
     return statusBarHeight + navigationBarHeight;
 }
 
+- (BOOL)_jp_canPresentViewController {
+    // 1. View must be in a window (attached to the hierarchy)
+    if (self.isViewLoaded == NO || self.view.window == nil) {
+        return NO;
+    }
+
+    // 2. Must not already be presenting something
+    if (self.presentedViewController != nil) {
+        return NO;
+    }
+
+    // 3. Must not be being dismissed
+    if (self.isBeingDismissed) {
+        return NO;
+    }
+
+    return YES;
+}
+
 @end

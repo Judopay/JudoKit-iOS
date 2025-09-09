@@ -34,6 +34,7 @@
 #import "JPResponse.h"
 #import "PKPayment+Additions.h"
 #import "UIApplication+Additions.h"
+#import "UIViewController+Additions.h"
 #import <PassKit/PassKit.h>
 
 @interface JPApplePayPaymentContext : NSObject
@@ -145,12 +146,18 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
 - (void)commonInit {
     __weak typeof(self) weakSelf = self;
     [self.middlewareChain addMiddleware:^(JPApplePayPaymentContext *context, void (^next)(void)) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
         JPCompletionBlock completion = ^(JPResponse *response, JPError *error) {
             context.error = error;
             context.response = response;
             next();
         };
+
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+
+        if (strongSelf == nil) {
+            completion(nil, [JPError unexpectedStateErrorWithDebugDecription:@"Invalid SDK state: self was deallocated before completion handler executed."]);
+            return;
+        }
 
         switch (context.transactionMode) {
             case JPTransactionModeServerToServer:
@@ -180,7 +187,7 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
     [self.middlewareChain addMiddleware:^(JPApplePayPaymentContext *context, void (^next)(void)) {
         // to make sure we catch it if it ever happens, this custom error is set here
         if (context.response == nil && context.error == nil) {
-            context.error = JPError.corruptStateError;
+            context.error = [JPError unexpectedStateErrorWithDebugDecription:@"Invalid SDK state: operation completed with no response and no error."];
         }
         next();
     }];
@@ -215,10 +222,26 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
                         transactionMode:(JPTransactionMode)transactionMode
                           andCompletion:(JPCompletionBlock)completion {
     if (self.state == JPApplePayStateIdle) {
+        if (presentingController == nil) {
+            completion(nil, [JPError unexpectedStateErrorWithDebugDecription:@"Cannot present view controller: presentingViewController is nil."]);
+            return;
+        }
+
+        if ([presentingController _jp_canPresentViewController] == NO) {
+            completion(nil, [JPError unexpectedStateErrorWithDebugDecription:@"The presenting view controller is either not in the window hierarchy, already presenting another controller, or being dismissed."]);
+            return;
+        }
+
+        PKPaymentAuthorizationViewController *controller = [JPApplePayWrappers pkPaymentControllerForConfiguration:configuration];
+
+        if (controller == nil) {
+            completion(nil, [JPError unexpectedStateErrorWithDebugDecription:@"Unable to create PKPaymentAuthorizationViewController with the provided configuration."]);
+            return;
+        }
+
         self.completion = [completion copy];
         [self.middlewareChain configureWith:configuration andMode:transactionMode];
 
-        PKPaymentAuthorizationViewController *controller = [JPApplePayWrappers pkPaymentControllerForConfiguration:configuration];
         controller.delegate = self;
 
         [presentingController presentViewController:controller animated:YES completion:nil];
@@ -261,6 +284,9 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
 
 #pragma mark - Helper methods
 - (void)onPaymentAuthorizationViewControllerDidFinish {
+    if (self.completion == nil)
+        return;
+
     JPResponse *response;
     JPError *error;
 
@@ -276,7 +302,7 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
 }
 
 - (JPApplePayMiddlewareChain *)middlewareChain {
-    if (!_middlewareChain) {
+    if (_middlewareChain == nil) {
         _middlewareChain = [JPApplePayMiddlewareChain new];
     }
     return _middlewareChain;
