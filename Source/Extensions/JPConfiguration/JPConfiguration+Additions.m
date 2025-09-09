@@ -49,11 +49,6 @@
     BOOL isBillingInfoOn = self.uiConfiguration.shouldAskForBillingInformation;
     BOOL shouldAskForCSC = self.uiConfiguration.shouldAskForCSC;
 
-    // TODO: Remove this (method entirely) once `shouldPaymentMethodsVerifySecurityCode` is deleted
-    if (forPaymentMethods) {
-        shouldAskForCSC = self.uiConfiguration.shouldPaymentMethodsVerifySecurityCode || self.uiConfiguration.shouldAskForCSC;
-    }
-
     if (shouldAskForCSC && self.uiConfiguration.shouldAskForCardholderName) {
         return isBillingInfoOn ? JPPresentationModeSecurityCodeAndCardholderNameAndBillingInfo : JPPresentationModeSecurityCodeAndCardholderName;
     }

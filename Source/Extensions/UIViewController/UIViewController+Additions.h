@@ -86,4 +86,16 @@
  */
 - (CGFloat)_jp_topBarHeight;
 
+/**
+ Checks whether the receiver is in a valid state to present another view controller.
+
+ This method verifies:
+ - The view controller’s view is loaded and attached to a window (part of the view hierarchy).
+ - The view controller is not already presenting another view controller.
+ - The view controller is not in the process of being dismissed.
+
+ @return YES if the view controller is ready to present another view controller; NO otherwise.
+ */
+- (BOOL)_jp_canPresentViewController;
+
 @end

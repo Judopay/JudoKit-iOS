@@ -124,27 +124,7 @@ class JPApiServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 6, handler: nil)
     }
-    
-    /*
-     * GIVEN: a register card transaction is invoked
-     *
-     * WHEN:  the JPRegisterCardRequest is passed a valid configuration
-     *
-     * THEN:  the transaction should complete successfully
-     */
-    func test_OnValidRegisterCardRequest_ReturnResponse() {
-        let registerCardRequest = JPRegisterCardRequest(configuration: transactionConfigurations)
-        let expectation = self.expectation(description: "await register card response")
         
-        sut.invokeRegisterCard(with: registerCardRequest) { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 6, handler: nil)
-    }
-    
     /*
      * GIVEN: a check card transaction is invoked
      *

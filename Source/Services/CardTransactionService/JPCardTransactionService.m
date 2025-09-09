@@ -44,7 +44,6 @@
 #import "JPRecommendationData.h"
 #import "JPRecommendationResponse.h"
 #import "JPRecommendationService.h"
-#import "JPRegisterCardRequest.h"
 #import "JPResponse+Additions.h"
 #import "JPResponse.h"
 #import "JPSaveCardRequest.h"
@@ -183,8 +182,7 @@ BOOL canTransactionBeSoftDeclined(JPCardTransactionType type) {
     return type == JPCardTransactionTypePayment ||
            type == JPCardTransactionTypePreAuth ||
            type == JPCardTransactionTypePaymentWithToken ||
-           type == JPCardTransactionTypePreAuthWithToken ||
-           type == JPCardTransactionTypeRegister;
+           type == JPCardTransactionTypePreAuthWithToken;
 }
 
 BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
@@ -261,10 +259,6 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
 
 - (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
     [self performTransactionWithType:JPCardTransactionTypeCheck details:details andCompletion:completion];
-}
-
-- (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
 }
 
 - (void)performTransactionWithType:(JPCardTransactionType)type
@@ -406,12 +400,6 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
             } break;
 
-            case JPCardTransactionTypeRegister: {
-                JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
-                                                                                       overrides:overrides
-                                                                                  andTransaction:transaction];
-                [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
-            } break;
             default:
                 completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:nil]);
                 break;

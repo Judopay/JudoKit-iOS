@@ -36,8 +36,8 @@
 - (instancetype)initWithType:(JPApplePayButtonType)buttonType
                        style:(JPApplePayButtonStyle)buttonStyle API_AVAILABLE(ios(9.0)) {
 
-    return [self initWithPaymentButtonType:buttonType
-                        paymentButtonStyle:buttonStyle];
+    return [self initWithPaymentButtonType:(PKPaymentButtonType)buttonType
+                        paymentButtonStyle:(PKPaymentButtonStyle)buttonStyle];
 }
 
 @end

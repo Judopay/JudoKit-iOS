@@ -30,7 +30,7 @@ enum PaymentError {
 }
 
 class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
-        
+    
     var calledTransactionPayment = false
     var paymentTransactionDetailsParam: JPStoredCardDetails?
     var paymentTransactionCSCParam: String?
@@ -47,6 +47,15 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
 
     var errorType: PaymentError = .duplicateeError
 
+    func processApplePayment(completion: @escaping JPCompletionBlock) {
+        startApplePay = true
+        if shouldFailWhenProcessApplePayment {
+            completion(nil, JPError(domain: "Domain test", code: 123, userInfo: nil))
+        } else {
+            completion(JPResponse(), nil)
+        }
+    }
+    
     func shouldVerifySecurityCode() -> Bool {
         shouldVerify
     }
@@ -117,16 +126,6 @@ class JPPaymentMethodsInteractorMock: JPPaymentMethodsInteractor {
 
     func getPaymentMethods() -> [JPPaymentMethod] {
         [JPPaymentMethod.card(), JPPaymentMethod.applePay()]
-    }
-
-    func processApplePayment(_ payment: PKPayment,
-                             withCompletion completion: @escaping JPCompletionBlock) {
-        startApplePay = true
-        if shouldFailWhenProcessApplePayment {
-            completion(nil, JPError(domain: "Domain test", code: 123, userInfo: nil))
-        } else {
-            completion(JPResponse(), nil)
-        }
     }
 
     func isApplePaySetUp() -> Bool {

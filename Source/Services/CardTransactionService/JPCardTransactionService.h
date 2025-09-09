@@ -86,14 +86,6 @@ NSString *_Nonnull buildEventString(NSString *_Nonnull eventType, NSDictionary<N
 - (void)invokeCheckCardWithDetails:(nonnull JPCardTransactionDetails *)details
                      andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
-/**
- * DEPRECATED: use Check Card feature instead.
- */
-- (void)invokeRegisterCardWithDetails:(nonnull JPCardTransactionDetails *)details
-                        andCompletion:(nonnull JPCompletionBlock)completion
-    __attribute__((swift_async(none)))
-    __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
-
 - (void)cleanup;
 
 @end

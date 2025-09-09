@@ -1,8 +1,8 @@
 //
-//  JPConsumer.h
+//  PKContact+Additions.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "CNPostalAddress+Additions.h"
+#import "JPContactInformation.h"
+#import "JPPostalAddress.h"
+#import "PKContact+Additions.h"
 
-/**
- *  Consumer stores information about a reference and a consumer token to be used in any kind of token transaction.
- */
-@interface JPConsumer : NSObject
+@implementation PKContact (Additions)
 
-/**
- *  Your reference for this Consumer as you sent in your request.
- */
-@property (nonatomic, strong, nonnull) NSString *consumerReference;
-
-/**
- *  Designated initializer
- *
- *  @param dictionary the consumer dictionary which was return from the judo REST API
- *
- *  @return a JPConsumer object
- */
-- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
+- (JPContactInformation *)toJPContactInformation {
+    if (self) {
+        return [[JPContactInformation alloc] initWithEmailAddress:self.emailAddress
+                                                             name:self.name
+                                                      phoneNumber:self.phoneNumber.stringValue
+                                                    postalAddress:self.postalAddress.toJPPostalAddress];
+    }
+    return nil;
+}
 
 @end
