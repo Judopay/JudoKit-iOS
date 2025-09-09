@@ -87,7 +87,6 @@
 "jp_continue" = "Continue";
 "jp_post_code_hint" = "Postcode";
 "jp_processing" = "Transaction pending...";
-"jp_register_card" = "Register Card";
 "jp_retry" = "Retry";
 "jp_save" = "Save";
 "jp_save_as_default_payment_method" = "Save as default payment method";
@@ -187,6 +186,12 @@
 
 "jp_error_missing_recurring_label_desc" = "Recurring Payment label cannot be null";
 "jp_error_missing_recurring_label_reason" = "The required Recurring Payment parameter has not been set in the Apple Pay configuration.";
+
+"jp_error_invalid_state_label_desc" = "Operation attempted in an invalid state";
+"jp_error_invalid_state_label_reason" = "The requested operation could not be completed because the current state of the object or system does not allow it";
+
+"jp_error_corrupt_state_label_desc" = "SDK entered an unexpected state";
+"jp_error_corrupt_state_label_reason" = "The SDK encountered an unexpected internal state. The operation did not complete";
 
 "jp_billing_details_title" = "Billing Details";
 

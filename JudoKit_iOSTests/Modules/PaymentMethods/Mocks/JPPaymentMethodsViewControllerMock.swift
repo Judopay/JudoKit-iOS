@@ -26,8 +26,6 @@ import Foundation
 
 @objc class JPPaymentMethodsViewControllerMock: UIViewController, JPPaymentMethodsView {
         
-    var didPresentApplePay = false
-    var isPaymentAuthorized = true
     var cardsList:[JPPaymentMethodsCardModel] = []
     var viewModelSut: JPPaymentMethodsViewModel?
     
@@ -58,14 +56,6 @@ import Foundation
     
     func endEditingCardListIfNeeded() {
         
-    }
-
-    func presentApplePay(authorizationBlock: @escaping JPApplePayAuthorizationBlock, didFinish didFinishBlock: @escaping JPApplePayDidFinishBlock) {
-        didPresentApplePay = true
-
-        let authBlock: (PKPaymentAuthorizationResult) -> () = { _ in }
-        authorizationBlock(PKPayment(), authBlock)
-        didFinishBlock(isPaymentAuthorized)
     }
     
 }

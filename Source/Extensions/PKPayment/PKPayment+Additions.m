@@ -1,8 +1,8 @@
 //
-//  JPResponse+Additions.h
+//  PKPayment+Additions.m
 //  JudoKit_iOS
 //
-//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,37 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApplePayTypes.h"
+#import "JPCardDetails.h"
+#import "JPConfiguration.h"
+#import "JPConsumer.h"
+#import "JPFormatters.h"
+#import "JPReference.h"
 #import "JPResponse.h"
+#import "PKPayment+Additions.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@implementation PKPayment (Additions)
 
-@class JPCReqParameters, PKPayment;
+- (JPResponse *)toJPResponseWithConfiguration:(JPConfiguration *)configuration {
+    if (self && configuration) {
+        JPResponse *response = [JPResponse new];
 
-@interface JPResponse (Additions)
+        response.judoId = configuration.judoId;
+        response.paymentReference = configuration.reference.paymentReference;
 
-- (BOOL)isThreeDSecureTwoRequired;
-- (BOOL)isSoftDeclined;
+        response.createdAt = [JPFormatters.sharedInstance.rfc3339DateFormatter stringFromDate:NSDate.date];
 
-- (JPCReqParameters *)cReqParameters;
+        response.consumer = [JPConsumer new];
+        response.consumer.consumerReference = configuration.reference.consumerReference;
 
-- (void)enrichWith:(JPReturnedInfo)info from:(PKPayment *)payment;
+        response.amount = configuration.amount;
+
+        response.cardDetails = [JPCardDetails new];
+        response.cardDetails.cardToken = self.token.transactionIdentifier;
+        response.cardDetails.cardScheme = self.token.paymentMethod.network;
+        return response;
+    }
+
+    return nil;
+}
 
 @end
-
-NS_ASSUME_NONNULL_END

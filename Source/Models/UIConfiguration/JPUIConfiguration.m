@@ -32,7 +32,6 @@
         self.shouldPaymentMethodsDisplayAmount = YES;
         self.isAVSEnabled = NO;
         self.shouldPaymentButtonDisplayAmount = NO;
-        self.shouldPaymentMethodsVerifySecurityCode = YES;
         self.shouldAskForCSC = NO;
         self.shouldAskForCardholderName = NO;
         self.shouldAskForBillingInformation = NO;

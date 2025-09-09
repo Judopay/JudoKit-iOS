@@ -30,7 +30,6 @@
     self = [super init];
     if (self) {
         self.consumerReference = dictionary[@"yourConsumerReference"];
-        self.consumerToken = dictionary[@"consumerToken"];
     }
     return self;
 }

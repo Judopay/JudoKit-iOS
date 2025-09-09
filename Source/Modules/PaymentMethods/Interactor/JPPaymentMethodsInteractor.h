@@ -86,14 +86,11 @@ typedef NS_ENUM(NSUInteger, JPPresentationMode);
 - (bool)isApplePaySetUp;
 
 /**
- * A method that calls the Apple Pay service to complete the payment/pre-auth transaction
- * via the passed PKPayment object.
+ * A method that calls the Apple Pay service to complete the payment/pre-auth transaction.
  *
- * @param payment - a PKPayment object containing the payment token from Apple Pay
  * @param completion - the JPResponse / NSError completion block
  */
-- (void)processApplePayment:(nonnull PKPayment *)payment
-             withCompletion:(nonnull JPCompletionBlock)completion;
+- (void)processApplePaymentWithCompletion:(nonnull JPCompletionBlock)completion;
 
 /**
  * A method that reorders cards so that the default card is always on top

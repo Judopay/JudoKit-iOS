@@ -1,8 +1,8 @@
 //
-//  JPRegisterCardRequest.h
+//  PKContact+Additions.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,18 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRequest.h"
-#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
-/**
- * DEPRECATED: use Check Card feature instead.
- */
-__attribute__((deprecated("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.")))
-@interface JPRegisterCardRequest : JPRequest
+@class JPContactInformation;
 
-/**
- * A  flag to sign up for a subscription-based service
- */
-@property (nonatomic, assign) BOOL initialRecurringPayment;
+@interface PKContact (Additions)
+
+- (nullable JPContactInformation *)toJPContactInformation;
 
 @end

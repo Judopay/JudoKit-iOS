@@ -28,7 +28,6 @@
 #import "JPAdministrativeDivision.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
-#import "JPApplePayTypedefs.h"
 #import "JPBillingCountry.h"
 #import "JPBrowser.h"
 #import "JPCard.h"
@@ -73,7 +72,6 @@
 #import "Typedefs.h"
 
 #import "JPApiService.h"
-#import "JPApplePayController.h"
 #import "JPApplePayRequest.h"
 #import "JPApplePayWrappers.h"
 #import "JPComplete3DS2Request.h"
@@ -85,7 +83,6 @@
 #import "JP3DSecureAuthenticationResult.h"
 #import "JPCheckCardRequest.h"
 #import "JPPreAuthTokenRequest.h"
-#import "JPRegisterCardRequest.h"
 #import "JPRequest.h"
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"

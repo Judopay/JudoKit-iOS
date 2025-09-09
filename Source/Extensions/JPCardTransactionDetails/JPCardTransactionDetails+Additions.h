@@ -28,7 +28,6 @@
     JPPreAuthRequest,
     JPTokenRequest,
     JPPreAuthTokenRequest,
-    JPRegisterCardRequest,
     JPSaveCardRequest,
     JPCheckCardRequest,
     JPConfiguration,
@@ -48,13 +47,6 @@
 
 - (nonnull JPTokenRequest *)toTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                              andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-/**
- * DEPRECATED: use Check Card feature instead.
- */
-- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction
-    __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 - (nonnull JPSaveCardRequest *)toSaveCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                    andTransaction:(nonnull JP3DSTransaction *)transaction;
@@ -77,14 +69,6 @@
 - (nonnull JPPreAuthTokenRequest *)toPreAuthTokenRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                                 overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
                                                            andTransaction:(nonnull JP3DSTransaction *)transaction;
-
-/**
- * DEPRECATED: use Check Card feature instead.
- */
-- (nonnull JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
-                                                                overrides:(nullable JPCardTransactionDetailsOverrides *)overrides
-                                                           andTransaction:(nonnull JP3DSTransaction *)transaction
-    __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 - (nonnull JPCheckCardRequest *)toCheckCardRequestWithConfiguration:(nonnull JPConfiguration *)configuration
                                                           overrides:(nullable JPCardTransactionDetailsOverrides *)overrides

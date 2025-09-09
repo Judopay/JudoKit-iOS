@@ -27,128 +27,259 @@
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayRequest.h"
 #import "JPApplePayWrappers.h"
-#import "JPCardDetails.h"
 #import "JPConfiguration.h"
-#import "JPConsumer.h"
-#import "JPContactInformation.h"
 #import "JPError+Additions.h"
-#import "JPFormatters.h"
-#import "JPPostalAddress.h"
 #import "JPPreAuthApplePayRequest.h"
-#import "JPReference.h"
+#import "JPResponse+Additions.h"
 #import "JPResponse.h"
+#import "PKPayment+Additions.h"
+#import "UIApplication+Additions.h"
+#import <PassKit/PassKit.h>
 
-@interface JPApplePayService ()
-@property (nonatomic, assign) JPTransactionMode transactionMode;
+@interface JPApplePayPaymentContext : NSObject
 @property (nonatomic, strong) JPConfiguration *configuration;
+@property (nonatomic, assign) JPTransactionMode transactionMode;
+@property (nonatomic, strong) PKPayment *payment;
+@property (nonatomic, strong) JPResponse *response;
+@property (nonatomic, strong) JPError *error;
+@property (nonatomic, readonly) BOOL isPaymentAuthorized;
+
+@end
+
+@implementation JPApplePayPaymentContext
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                              andMode:(JPTransactionMode)transactionMode {
+    if (self = [super init]) {
+        _configuration = configuration;
+        _transactionMode = transactionMode;
+    }
+    return self;
+}
+
+- (BOOL)isPaymentAuthorized {
+    return self.payment != nil;
+}
+
+@end
+
+typedef void (^JPApplePayMiddlewareBlock)(JPApplePayPaymentContext *context, void (^next)(void));
+
+@interface JPApplePayMiddlewareChain : NSObject
+
+@property (nonatomic, strong) NSMutableArray<JPApplePayMiddlewareBlock> *middlewareChain;
+@property (nonatomic, strong) JPApplePayPaymentContext *context;
+
+- (void)configureWith:(JPConfiguration *)configuration andMode:(JPTransactionMode)transactionMode;
+- (void)processPayment:(PKPayment *)payment completion:(JPCompletionBlock)completion;
+- (void)addMiddleware:(JPApplePayMiddlewareBlock)middleware;
+
+@end
+
+@implementation JPApplePayMiddlewareChain
+
+- (void)configureWith:(JPConfiguration *)configuration andMode:(JPTransactionMode)transactionMode {
+    self.context = [[JPApplePayPaymentContext alloc] initWithConfiguration:configuration andMode:transactionMode];
+}
+
+- (void)addMiddleware:(JPApplePayMiddlewareBlock)middleware {
+    [self.middlewareChain addObject:[middleware copy]];
+}
+
+- (void)processPayment:(PKPayment *)payment completion:(JPCompletionBlock)completion {
+    self.context.payment = payment;
+    self.context.error = nil;
+    self.context.response = nil;
+    [self executeMiddlewareChainWithIndex:0 completion:completion];
+}
+
+- (void)executeMiddlewareChainWithIndex:(NSUInteger)index completion:(JPCompletionBlock)completion {
+    if (self.context.error || index >= self.middlewareChain.count) {
+        completion(self.context.response, self.context.error);
+        return;
+    }
+
+    JPApplePayMiddlewareBlock middleware = self.middlewareChain[index];
+    middleware(self.context, ^{
+        [self executeMiddlewareChainWithIndex:index + 1 completion:completion];
+    });
+}
+
+- (NSMutableArray<JPApplePayMiddlewareBlock> *)middlewareChain {
+    if (!_middlewareChain) {
+        _middlewareChain = [NSMutableArray array];
+    }
+    return _middlewareChain;
+}
+
+@end
+
+typedef NS_ENUM(NSInteger, JPApplePayState) {
+    JPApplePayStateIdle,
+    JPApplePayStateProcessing,
+};
+
+@interface JPApplePayService () <PKPaymentAuthorizationViewControllerDelegate>
+@property (nonatomic, strong) JPApplePayMiddlewareChain *middlewareChain;
 @property (nonatomic, strong) JPApiService *apiService;
+
+@property (nonatomic, copy, nullable) JPCompletionBlock completion;
+
+@property (nonatomic, assign) JPApplePayState state;
 @end
 
 @implementation JPApplePayService
 
 #pragma mark - Initializers
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                        andApiService:(JPApiService *)apiService {
+- (instancetype)initWithApiService:(JPApiService *)apiService {
     if (self = [super init]) {
-        self.configuration = configuration;
         self.apiService = apiService;
+        self.state = JPApplePayStateIdle;
+
+        [self commonInit];
     }
     return self;
 }
 
+- (void)commonInit {
+    __weak typeof(self) weakSelf = self;
+    [self.middlewareChain addMiddleware:^(JPApplePayPaymentContext *context, void (^next)(void)) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        JPCompletionBlock completion = ^(JPResponse *response, JPError *error) {
+            context.error = error;
+            context.response = response;
+            next();
+        };
+
+        switch (context.transactionMode) {
+            case JPTransactionModeServerToServer:
+                completion([context.payment toJPResponseWithConfiguration:context.configuration], nil);
+                break;
+
+            case JPTransactionModePreAuth: {
+                JPPreAuthApplePayRequest *request = [[JPPreAuthApplePayRequest alloc] initWithConfiguration:context.configuration andPayment:context.payment];
+                [strongSelf.apiService invokePreAuthApplePayPaymentWithRequest:request andCompletion:completion];
+            } break;
+
+            default: {
+                JPApplePayRequest *request = [[JPApplePayRequest alloc] initWithConfiguration:context.configuration andPayment:context.payment];
+                [strongSelf.apiService invokeApplePayPaymentWithRequest:request andCompletion:completion];
+            } break;
+        }
+    }];
+
+    [self.middlewareChain addMiddleware:^(JPApplePayPaymentContext *context, void (^next)(void)) {
+        if (context.response) {
+            JPReturnedInfo info = context.configuration.applePayConfiguration.returnedContactInfo;
+            [context.response enrichWith:info from:context.payment];
+        }
+        next();
+    }];
+
+    [self.middlewareChain addMiddleware:^(JPApplePayPaymentContext *context, void (^next)(void)) {
+        // to make sure we catch it if it ever happens, this custom error is set here
+        if (context.response == nil && context.error == nil) {
+            context.error = JPError.corruptStateError;
+        }
+        next();
+    }];
+}
+
 #pragma mark - Public methods
 
-+ (bool)isApplePaySupported {
++ (BOOL)isApplePaySupported {
     return PKPaymentAuthorizationController.canMakePayments;
 }
 
-- (bool)isApplePaySetUp {
-    NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:self.configuration];
-    return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks];
++ (BOOL)canMakePaymentsUsingConfiguration:(JPConfiguration *)configuration {
+    if (JPApplePayService.isApplePaySupported) {
+        NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:configuration];
+        PKMerchantCapability capabilities = [JPApplePayWrappers pkMerchantCapabilitiesForConfiguration:configuration];
+        return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks capabilities:capabilities];
+    }
+    return NO;
 }
 
-- (void)processApplePayment:(PKPayment *)payment
-         forTransactionMode:(JPTransactionMode)transactionMode
-             withCompletion:(JPCompletionBlock)completion {
+- (void)processPaymentWithConfiguration:(JPConfiguration *)configuration
+                        transactionMode:(JPTransactionMode)transactionMode
+                          andCompletion:(JPCompletionBlock)completion {
+    [self processPaymentWithConfiguration:configuration
+                 presentingViewController:UIApplication._jp_topMostViewController
+                          transactionMode:transactionMode
+                            andCompletion:completion];
+}
 
-    if (transactionMode == JPTransactionModeServerToServer) {
-        [self processServerToServer:completion payment:payment];
-        return;
-    }
+- (void)processPaymentWithConfiguration:(JPConfiguration *)configuration
+               presentingViewController:(UIViewController *)presentingController
+                        transactionMode:(JPTransactionMode)transactionMode
+                          andCompletion:(JPCompletionBlock)completion {
+    if (self.state == JPApplePayStateIdle) {
+        self.completion = [completion copy];
+        [self.middlewareChain configureWith:configuration andMode:transactionMode];
 
-    __weak typeof(self) weakSelf = self;
+        PKPaymentAuthorizationViewController *controller = [JPApplePayWrappers pkPaymentControllerForConfiguration:configuration];
+        controller.delegate = self;
 
-    JPCompletionBlock resultBlock = ^(JPResponse *response, NSError *error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        [presentingController presentViewController:controller animated:YES completion:nil];
 
-        if (error || response == nil) {
-            completion(response, (JPError *)error);
-            return;
-        }
-
-        JPReturnedInfo returnedContactInfo = strongSelf.configuration.applePayConfiguration.returnedContactInfo;
-
-        if (returnedContactInfo & JPReturnedInfoBillingContacts) {
-            response.billingInfo = [strongSelf contactInformationFromPaymentContact:payment.billingContact];
-        }
-
-        if (returnedContactInfo & JPReturnedInfoShippingContacts) {
-            response.shippingInfo = [strongSelf contactInformationFromPaymentContact:payment.shippingContact];
-        }
-
-        completion(response, (JPError *)error);
-    };
-
-    if (transactionMode == JPTransactionModePreAuth) {
-        JPPreAuthApplePayRequest *request = [[JPPreAuthApplePayRequest alloc] initWithConfiguration:self.configuration
-                                                                                         andPayment:payment];
-        [self.apiService invokePreAuthApplePayPaymentWithRequest:request andCompletion:resultBlock];
+        self.state = JPApplePayStateProcessing;
     } else {
-        JPApplePayRequest *request = [[JPApplePayRequest alloc] initWithConfiguration:self.configuration
-                                                                           andPayment:payment];
-        [self.apiService invokeApplePayPaymentWithRequest:request andCompletion:resultBlock];
+        completion(nil, JPError.operationNotAllowedError);
+    }
+}
+
+#pragma mark - PKPaymentAuthorizationViewControllerDelegate
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                   handler:(void (^)(PKPaymentAuthorizationResult *result))completion {
+    [self.middlewareChain processPayment:payment
+                              completion:^(JPResponse *response, JPError *error) {
+                                  PKPaymentAuthorizationStatus status = response ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure;
+                                  NSArray *errors = (error && response == nil) ? @[ error ] : nil;
+                                  PKPaymentAuthorizationResult *result = [[PKPaymentAuthorizationResult alloc] initWithStatus:status errors:errors];
+
+                                  completion(result);
+                              }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    /**
+     * When the host app is moved to the background, the `paymentAuthorizationViewControllerDidFinish`
+     * is invoked twice; hence, to avoid calling `didFinishBlock` twice, this workaround is in place
+     */
+    if (self.state == JPApplePayStateProcessing) {
+        [controller dismissViewControllerAnimated:YES
+                                       completion:^{
+                                           [self onPaymentAuthorizationViewControllerDidFinish];
+                                       }];
+
+        self.state = JPApplePayStateIdle;
     }
 }
 
 #pragma mark - Helper methods
+- (void)onPaymentAuthorizationViewControllerDidFinish {
+    JPResponse *response;
+    JPError *error;
 
-- (nullable JPContactInformation *)contactInformationFromPaymentContact:(nullable PKContact *)contact {
+    if (self.middlewareChain.context.isPaymentAuthorized) {
+        response = self.middlewareChain.context.response;
+        error = self.middlewareChain.context.error;
+    } else {
+        error = JPError.userDidCancelError;
+    }
 
-    if (!contact)
-        return nil;
-
-    JPPostalAddress *postalAddress = [[JPPostalAddress alloc] initWithStreet:contact.postalAddress.street
-                                                                        city:contact.postalAddress.city
-                                                                       state:contact.postalAddress.state
-                                                                  postalCode:contact.postalAddress.postalCode
-                                                                     country:contact.postalAddress.country
-                                                                     isoCode:contact.postalAddress.ISOCountryCode
-                                                       subAdministrativeArea:contact.postalAddress.subAdministrativeArea
-                                                                 sublocality:contact.postalAddress.subLocality];
-
-    return [[JPContactInformation alloc] initWithEmailAddress:contact.emailAddress
-                                                         name:contact.name
-                                                  phoneNumber:contact.phoneNumber.stringValue
-                                                postalAddress:postalAddress];
+    self.completion(response, error);
+    self.completion = nil;
 }
 
-- (void)processServerToServer:(JPCompletionBlock)completion payment:(PKPayment *)payment {
-    completion([self buildResponse:payment], nil);
-}
-
-- (JPResponse *)buildResponse:(PKPayment *)payment {
-    JPResponse *response = [JPResponse new];
-    response.judoId = self.configuration.judoId;
-    response.paymentReference = self.configuration.reference.paymentReference;
-    response.createdAt = [[JPFormatters.sharedInstance rfc3339DateFormatter] stringFromDate:NSDate.date];
-    response.consumer = [JPConsumer new];
-    response.consumer.consumerReference = self.configuration.reference.consumerReference;
-    response.amount = self.configuration.amount;
-    response.cardDetails = [JPCardDetails new];
-    response.cardDetails.cardToken = payment.token.transactionIdentifier;
-    response.cardDetails.cardScheme = payment.token.paymentMethod.network;
-    return response;
+- (JPApplePayMiddlewareChain *)middlewareChain {
+    if (!_middlewareChain) {
+        _middlewareChain = [JPApplePayMiddlewareChain new];
+    }
+    return _middlewareChain;
 }
 
 @end

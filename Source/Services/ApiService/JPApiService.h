@@ -36,7 +36,6 @@
     JPPreAuthApplePayRequest,
     JPCheckCardRequest,
     JPSaveCardRequest,
-    JPRegisterCardRequest,
     JPComplete3DS2Request,
     JPSubProductInfo,
     JP3DSecureAuthenticationResult;
@@ -101,18 +100,6 @@
  */
 - (void)invokePreAuthTokenPaymentWithRequest:(nonnull JPPreAuthTokenRequest *)request
                                andCompletion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
-
-/**
- * DEPRECATED: use Check Card feature instead.
- * A method that invokes a register card transaction
- *
- * @param request - an instance of JPRegisterCardRequest describing the register card request
- * @param completion - the completion block that contains the optional JPResponse or JPError
- */
-- (void)invokeRegisterCardWithRequest:(nonnull JPRegisterCardRequest *)request
-                        andCompletion:(nonnull JPCompletionBlock)completion
-    __attribute__((swift_async(none)))
-    __deprecated_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.");
 
 /**
  * A method that invokes a save card transaction

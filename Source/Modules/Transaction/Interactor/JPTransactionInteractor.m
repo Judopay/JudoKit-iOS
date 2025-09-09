@@ -154,10 +154,6 @@
             [self.transactionService invokeCheckCardWithDetails:details andCompletion:completionHandler];
             break;
 
-        case JPTransactionTypeRegisterCard:
-            [self.transactionService invokeRegisterCardWithDetails:details andCompletion:completionHandler];
-            break;
-
         default:
             break;
     }

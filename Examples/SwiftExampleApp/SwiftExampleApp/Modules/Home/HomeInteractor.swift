@@ -97,7 +97,6 @@ class HomeInteractor: HomeInteractorInput {
         let featureMap: [ FeatureType: JPTransactionType ] = [
             .payment: .payment,
             .preAuth: .preAuth,
-            .registerCard: .registerCard,
             .checkCard: .checkCard,
             .saveCard: .saveCard
         ]

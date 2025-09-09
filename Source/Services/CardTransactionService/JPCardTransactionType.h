@@ -30,6 +30,5 @@ typedef NS_ENUM(NSUInteger, JPCardTransactionType) {
     JPCardTransactionTypePaymentWithToken,
     JPCardTransactionTypePreAuthWithToken,
     JPCardTransactionTypeSave,
-    JPCardTransactionTypeCheck,
-    JPCardTransactionTypeRegister __deprecated_enum_msg("Register Card functionality has been deprecated and will be removed in a future version. Please use Check Card feature instead.")
+    JPCardTransactionTypeCheck
 };

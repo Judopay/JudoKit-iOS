@@ -33,7 +33,6 @@
 #import "JPPaymentRequest.h"
 #import "JPPreAuthRequest.h"
 #import "JPPreAuthTokenRequest.h"
-#import "JPRegisterCardRequest.h"
 #import "JPSaveCardRequest.h"
 #import "JPThreeDSecureTwo.h"
 #import "JPTokenRequest.h"
@@ -68,13 +67,6 @@
                                                    andTransaction:(JP3DSTransaction *)transaction {
     JPPreAuthTokenRequest *request = [[JPPreAuthTokenRequest alloc] initWithConfiguration:configuration];
     [self populateWithCardTokenDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
-    return request;
-}
-
-- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                                   andTransaction:(JP3DSTransaction *)transaction {
-    JPRegisterCardRequest *request = [[JPRegisterCardRequest alloc] initWithConfiguration:configuration];
-    [self populateWithCardDetailsRequest:request usingConfiguration:configuration andTransaction:transaction];
     return request;
 }
 
@@ -125,15 +117,6 @@
                                                         overrides:(JPCardTransactionDetailsOverrides *)overrides
                                                    andTransaction:(JP3DSTransaction *)transaction {
     JPPreAuthTokenRequest *request = [self toPreAuthTokenRequestWithConfiguration:configuration
-                                                                   andTransaction:transaction];
-    [self populateRequest:request withOverrides:overrides];
-    return request;
-}
-
-- (JPRegisterCardRequest *)toRegisterCardRequestWithConfiguration:(JPConfiguration *)configuration
-                                                        overrides:(JPCardTransactionDetailsOverrides *)overrides
-                                                   andTransaction:(JP3DSTransaction *)transaction {
-    JPRegisterCardRequest *request = [self toRegisterCardRequestWithConfiguration:configuration
                                                                    andTransaction:transaction];
     [self populateRequest:request withOverrides:overrides];
     return request;

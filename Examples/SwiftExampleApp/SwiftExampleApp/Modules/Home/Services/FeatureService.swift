@@ -149,7 +149,6 @@ class FeatureService {
         uiConfig.isAVSEnabled = settings.isAVSEnabled
         uiConfig.shouldPaymentMethodsDisplayAmount = settings.shouldPaymentMethodsDisplayAmount
         uiConfig.shouldPaymentButtonDisplayAmount = settings.shouldPaymentButtonDisplayAmount
-        uiConfig.shouldPaymentMethodsVerifySecurityCode = settings.shouldPaymentMethodsVerifySecurityCode
         uiConfig.shouldAskForBillingInformation = settings.shouldAskForBillingInformation
         uiConfig.shouldAskForCSC = settings.shouldAskForCSC
         uiConfig.shouldAskForCardholderName = settings.shouldAskForCardholderName

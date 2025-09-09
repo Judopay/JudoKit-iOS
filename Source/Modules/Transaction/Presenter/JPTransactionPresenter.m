@@ -345,8 +345,6 @@
             return [self.interactor generatePayButtonTitle];
         case JPTransactionTypeSaveCard:
             return @"jp_save_card"._jp_localized;
-        case JPTransactionTypeRegisterCard:
-            return @"jp_register_card"._jp_localized;
         case JPTransactionTypeCheckCard:
             return @"jp_check_card"._jp_localized;
         default:

@@ -182,10 +182,10 @@
 
 #pragma mark - Apple Pay payment
 
-- (void)processApplePayment:(PKPayment *)payment withCompletion:(JPCompletionBlock)completion {
-    [self.applePayService processApplePayment:payment
-                           forTransactionMode:self.transactionMode
-                               withCompletion:completion];
+- (void)processApplePaymentWithCompletion:(JPCompletionBlock)completion {
+    [self.applePayService processPaymentWithConfiguration:self.configuration
+                                          transactionMode:self.transactionMode
+                                            andCompletion:completion];
 }
 
 #pragma mark - Delete card at index
@@ -197,13 +197,12 @@
 #pragma mark - Is Apple Pay ready
 
 - (bool)isApplePaySetUp {
-    return [self.applePayService isApplePaySetUp];
+    return [JPApplePayService canMakePaymentsUsingConfiguration:self.configuration];
 }
 
 - (JPApplePayService *)applePayService {
     if (!_applePayService && self.configuration.applePayConfiguration) {
-        _applePayService = [[JPApplePayService alloc] initWithConfiguration:self.configuration
-                                                              andApiService:self.apiService];
+        _applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
     }
     return _applePayService;
 }

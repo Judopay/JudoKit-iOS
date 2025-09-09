@@ -32,7 +32,7 @@
 /**
  * The Judo ID required for JudoKit transactions
  */
-@property (nonatomic, strong, readonly) NSString *judoId;
+@property (nonatomic, strong, readonly, nonnull) NSString *judoId;
 
 /**
  * The Receipt ID required for Refund, Void and Collection transactions
@@ -138,7 +138,7 @@
 
 /**
  * Designated initializer that sets the required parameters for most Judo transations.
- *  - Compatible with Payment, PreAuth, Register Card, Check Card, Save Card transactions.
+ *  - Compatible with Payment, PreAuth, Check Card, Save Card transactions.
  *  - Compatible with Apple Pay transactions.
  *  - Compatible with Judo Payment Method Selection screen.
  *

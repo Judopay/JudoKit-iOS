@@ -254,7 +254,7 @@ static const float kLooseContentSpacing = 16.0F;
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration == 0 ? 0.1 : duration
                           delay:0.0
-                        options:curve
+                        options:(UIViewAnimationOptions)curve
                      animations:^{ [weakSelf layoutIfNeeded]; }
                      completion:nil];
 }

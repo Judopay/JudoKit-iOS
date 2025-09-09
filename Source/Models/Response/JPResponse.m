@@ -35,8 +35,6 @@ static NSString *const kStatusError = @"error";
 
 static NSString *const kTransactionTypePayment = @"payment";
 static NSString *const kTransactionTypePreAuth = @"preauth";
-static NSString *const kTransactionTypeRegister __deprecated = @"register";
-static NSString *const kTransactionTypeRegisterCard __deprecated = @"registercard";
 static NSString *const kTransactionTypeSaveCard = @"save";
 static NSString *const kTransactionTypeCheckCard = @"checkcard";
 
@@ -134,10 +132,6 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
 
     if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypePreAuth]) {
         return JPTransactionTypePreAuth;
-    }
-
-    if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegister] || [typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeRegisterCard]) {
-        return JPTransactionTypeRegisterCard;
     }
 
     if ([typeString _jp_isEqualIgnoringCaseToString:kTransactionTypeCheckCard]) {

@@ -45,8 +45,6 @@
 
 @property (nonatomic, strong) JPApiService *apiService;
 @property (nonatomic, strong) JPApplePayService *applePayService;
-@property (nonatomic, strong) JPApplePayController *applePayController;
-@property (nonatomic, strong) JPCompletionBlock applePayCompletionBlock;
 @property (nonatomic, strong) JPConfiguration *configuration;
 @property (nonatomic, strong) JPSliderTransitioningDelegate *transitioningDelegate;
 @property (nonatomic, strong) id<JPConfigurationValidationService> configurationValidationService;
@@ -161,84 +159,30 @@
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
                  configuration:(JPConfiguration *)configuration
                     completion:(JPCompletionBlock)completion {
-
-    UIViewController *controller = [self applePayViewControllerWithMode:mode
-                                                          configuration:configuration
-                                                             completion:completion];
-
-    if (!controller) {
-        return;
-    }
-
-    [UIApplication._jp_topMostViewController presentViewController:controller
-                                                          animated:YES
-                                                        completion:nil];
+    [self invokeApplePayWithMode:mode
+                   configuration:configuration
+        presentingViewController:UIApplication._jp_topMostViewController
+                      completion:completion];
 }
 
-- (UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
-                                       configuration:(JPConfiguration *)configuration
-                                          completion:(JPCompletionBlock)completion {
-
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
+                 configuration:(JPConfiguration *)configuration
+      presentingViewController:(UIViewController *)controller
+                    completion:(JPCompletionBlock)completion {
     JPError *configurationError = [self.configurationValidationService validateApplePayConfiguration:configuration];
 
     if (configurationError) {
         completion(nil, configurationError);
-        return nil;
+    } else {
+        self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
+        [self.applePayService processPaymentWithConfiguration:configuration
+                                              transactionMode:mode
+                                                andCompletion:completion];
     }
-
-    self.applePayService = [[JPApplePayService alloc] initWithConfiguration:configuration
-                                                              andApiService:self.apiService];
-
-    self.applePayController = [[JPApplePayController alloc] initWithConfiguration:configuration];
-    self.applePayCompletionBlock = completion;
-
-    __block JPResponse *applePayServiceResponse;
-    __block JPError *applePayServiceError;
-    __weak typeof(self) weakSelf = self;
-
-    JPApplePayAuthorizationBlock authorizationBlock = ^(PKPayment *payment, JPApplePayAuthStatusBlock statusCompletion) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        [strongSelf.applePayService processApplePayment:payment
-                                     forTransactionMode:mode
-                                         withCompletion:^(JPResponse *response, JPError *error) {
-                                             applePayServiceResponse = response;
-                                             applePayServiceError = error;
-                                             PKPaymentAuthorizationResult *result;
-
-                                             if (error) {
-                                                 result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
-                                                                                                        errors:@[ error ]];
-                                                 statusCompletion(result);
-                                             }
-
-                                             result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
-                                                                                                    errors:nil];
-                                             statusCompletion(result);
-                                         }];
-    };
-
-    JPApplePayDidFinishBlock didFinishBlock = ^(BOOL isPaymentAuthorized) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        if (!isPaymentAuthorized) {
-            applePayServiceError = JPError.userDidCancelError;
-        }
-
-        strongSelf.applePayCompletionBlock(applePayServiceResponse, applePayServiceError);
-    };
-
-    return [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
-                                                                  didFinishBlock:didFinishBlock];
 }
 
 + (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
-    if ([PKPaymentAuthorizationController canMakePayments]) {
-        NSArray *paymentNetworks = [JPApplePayWrappers pkPaymentNetworksForConfiguration:configuration];
-        PKMerchantCapability capabilities = [JPApplePayWrappers pkMerchantCapabilitiesForConfiguration:configuration];
-        return [PKPaymentAuthorizationController canMakePaymentsUsingNetworks:paymentNetworks capabilities:capabilities];
-    }
-    return NO;
+    return [JPApplePayService canMakePaymentsUsingConfiguration:configuration];
 }
 
 - (void)invokePaymentMethodScreenWithMode:(JPTransactionMode)mode

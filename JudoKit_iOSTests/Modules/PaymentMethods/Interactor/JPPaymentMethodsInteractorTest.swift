@@ -168,36 +168,6 @@ class JPPaymentMethodsInteractorTest: XCTestCase {
     }
 
     /*
-     * GIVEN: JPPaymentMethods interactor has been called to process Apple Pay authentication results
-     *
-     * WHEN: the passed PKPayment has a valid format and contains a token
-     *
-     * THEN: the method should expect a successful response
-     */
-    func test_OnProcessApplePay_WhenValidPKPayment_ReturnResponse() {
-        let paymentMethod = PKPaymentMethod()
-        paymentMethod.setValue("displayName", forKey: "displayName")
-        paymentMethod.setValue("network", forKey: "network")
-
-        let token = PKPaymentToken()
-        token.setValue(paymentMethod, forKey: "paymentMethod")
-        token.setValue("paymentData".data(using: .unicode), forKey: "paymentData")
-
-        let payment = PKPayment()
-        payment.setValue(token, forKey: "token")
-
-        let expectation = expectation(description: "awaiting payment transaction")
-
-        sut.processApplePayment(payment) { response, error in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 30, handler: nil)
-    }
-
-    /*
      * GIVEN: Add a card
      *
      * WHEN: set last card selected
