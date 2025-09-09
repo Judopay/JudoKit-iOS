@@ -190,10 +190,6 @@ class Settings {
         userDefaults.bool(forKey: kShouldPaymentButtonDisplayAmount)
     }
 
-    public var shouldPaymentMethodsVerifySecurityCode: Bool {
-        userDefaults.bool(forKey: kShouldPaymentMethodsVerifySecurityCode)
-    }
-
     var isInitialRecurringPaymentEnabled: Bool {
         userDefaults.bool(forKey: kIsInitialRecurringPaymentKey)
     }
