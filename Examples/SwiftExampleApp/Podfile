@@ -8,7 +8,7 @@ target 'SwiftExampleApp' do
   pod 'Judo3DS2_iOS', '1.2.6'
   pod 'JudoKit-iOS', :path => '../../'
 
-  pod 'InAppSettingsKit', '3.3.6'
+  pod 'InAppSettingsKit', '3.8.8'
   pod 'Wormholy'
   pod 'SwiftLint'
 
