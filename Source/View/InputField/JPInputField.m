@@ -188,6 +188,10 @@ static const float kVerticalEdgeInsets = 14.0F;
 - (void)setupViews {
     self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor._jp_lightGrayColor;
+
+    self.layer.borderWidth = 1.0;
+    self.layer.borderColor = UIColor._jp_graphiteGrayColor.CGColor;
+
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.isAccessibilityElement = NO;
