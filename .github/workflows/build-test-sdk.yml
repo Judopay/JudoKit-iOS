@@ -2,7 +2,7 @@ name: iOS Build and Test SDK
 
 on:
   pull_request:
-
+  workflow_dispatch:
 jobs:
   build_and_test:
     uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@master
