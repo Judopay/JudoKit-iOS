@@ -9,7 +9,7 @@ jobs:
     uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
     secrets: inherit
   publish_sample_apps:
-    uses: Judopay/github-actions/.github/workflows/ios-publish-sample-apps.yml@master
+    uses: Judopay/github-actions/.github/workflows/publish-sample-apps.yml@master
     needs: build_and_test_sample_apps
     secrets: inherit
   test_sample_apps_firebase:
