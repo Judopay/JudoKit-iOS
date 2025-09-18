@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 jobs:
   build_and_test_sample_apps:
     uses: Judopay/github-actions/.github/workflows/ios-build-and-test-sample-apps.yml@master
