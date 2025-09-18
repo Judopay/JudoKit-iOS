@@ -167,33 +167,10 @@
 
 - (void)handleApplePayButtonTap {
     __weak typeof(self) weakSelf = self;
-    __block JPResponse *applePayServiceResponse;
-    __block JPError *applePayServiceError;
-
-    [self.view
-        presentApplePayWithAuthorizationBlock:^(PKPayment *payment, JPApplePayAuthStatusBlock completion) {
-            [weakSelf.interactor processApplePayment:payment
-                                      withCompletion:^(JPResponse *response, JPError *error) {
-                                          PKPaymentAuthorizationResult *result;
-
-                                          if (error) {
-                                              result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure
-                                                                                                     errors:@[ error ]];
-                                              completion(result);
-                                          }
-
-                                          result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess
-                                                                                                 errors:nil];
-                                          completion(result);
-                                          applePayServiceResponse = response;
-                                          applePayServiceError = error;
-                                      }];
-        }
-        didFinishBlock:^(BOOL isPaymentAuthorized) {
-            if (isPaymentAuthorized) {
-                [weakSelf handleCallbackWithResponse:applePayServiceResponse andError:applePayServiceError];
-            }
-        }];
+    [self.interactor processApplePaymentWithCompletion:^(JPResponse *response, JPError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf handleCallbackWithResponse:response andError:error];
+    }];
 }
 
 - (void)handlePaymentResponse:(JPResponse *)response {

@@ -9,6 +9,7 @@
 #import "JPPaymentMethodsInteractor.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPCardTransactionService.h"
+#import "JPCardTransactionType.h"
 #import "JPTransactionInteractor.h"
 #import "JPCardValidationService.h"
 #import "JPCardDetails.h"
@@ -16,7 +17,6 @@
 #import "JPConfigurationValidationService.h"
 #import "JPApplePayService.h"
 #import "JPApplePayWrappers.h"
-#import "JPApplePayController.h"
 
 #import "JPPaymentMethodsRouter.h"
 #import "JPTransactionViewController.h"

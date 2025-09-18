@@ -318,10 +318,6 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kShouldPaymentButtonDisplayAmount];
 }
 
-- (BOOL)shouldPaymentMethodsVerifySecurityCode {
-    return [self.defaults boolForKey:kShouldPaymentMethodsVerifySecurityCode];
-}
-
 - (BOOL)isInitialRecurringPaymentEnabled {
     return [self.defaults boolForKey:kIsInitialRecurringPaymentKey];
 }

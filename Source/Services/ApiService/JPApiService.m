@@ -32,7 +32,6 @@
 #import "JPPreAuthApplePayRequest.h"
 #import "JPPreAuthRequest.h"
 #import "JPPreAuthTokenRequest.h"
-#import "JPRegisterCardRequest.h"
 #import "JPRequestEnricher.h"
 #import "JPSaveCardRequest.h"
 #import "JPSession.h"
@@ -42,7 +41,6 @@
 
 static NSString *const kPaymentEndpoint = @"transactions/payments";
 static NSString *const kPreauthEndpoint = @"transactions/preauths";
-static NSString *const kRegisterCardEndpoint __deprecated = @"transactions/registercard";
 static NSString *const kSaveCardEndpoint = @"transactions/savecard";
 static NSString *const kTransactionStatusPathKey = @"transactions/";
 static NSString *const kCheckCardEndpoint = @"transactions/checkcard";
@@ -74,7 +72,7 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     if (self = [super init]) {
         _isSandboxed = sandboxed;
         _authorization = authorization;
-        _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kRegisterCardEndpoint, kSaveCardEndpoint, kCheckCardEndpoint ];
+        _enricheablePaths = @[ kPaymentEndpoint, kPreauthEndpoint, kSaveCardEndpoint, kCheckCardEndpoint ];
         _enricher = [JPRequestEnricher new];
 
         [self setUpSession];
@@ -166,16 +164,6 @@ typedef NS_ENUM(NSUInteger, JPHTTPMethod) {
     NSDictionary *parameters = [request _jp_toDictionary];
     [self performRequestWithMethod:JPHTTPMethodPUT
                           endpoint:endpoint
-                        parameters:parameters
-                     andCompletion:completion];
-}
-
-- (void)invokeRegisterCardWithRequest:(JPRegisterCardRequest *)request
-                        andCompletion:(JPCompletionBlock)completion {
-
-    NSDictionary *parameters = [request _jp_toDictionary];
-    [self performRequestWithMethod:JPHTTPMethodPOST
-                          endpoint:kRegisterCardEndpoint
                         parameters:parameters
                      andCompletion:completion];
 }

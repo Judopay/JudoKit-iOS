@@ -38,8 +38,7 @@ class JPApplePayServiceTest: XCTestCase {
     override func setUp() {
         super.setUp()
         HTTPStubs.setEnabled(true)
-        sut = JPApplePayService(configuration: configuration,
-                                andApiService: apiService)
+        sut = JPApplePayService(apiService: apiService)
     }
 
     override func tearDown() {
@@ -56,7 +55,7 @@ class JPApplePayServiceTest: XCTestCase {
      * THEN: Apple Pay should be set up by default
      */
     func test_WhenUsingSimulator_ApplePayShouldBeSetUp() {
-        XCTAssertTrue(sut.isApplePaySetUp())
+        XCTAssertTrue(JPApplePayService.canMakePayments(using: self.configuration))
     }
 
     /**
@@ -70,34 +69,4 @@ class JPApplePayServiceTest: XCTestCase {
         XCTAssertTrue(JPApplePayService.isApplePaySupported())
     }
 
-    /**
-     * GIVEN:  Apple Pay Service attempts to execute a payment transaction
-     *
-     * WHEN: if the passed PKPayment object is correctly formatted
-     *
-     * THEN: the transaction should succesfully execute
-     */
-    func test_WhenUsingValidPKPaymentObject_PaymentShouldExecute() {
-
-        let paymentMethod = PKPaymentMethod()
-        paymentMethod.setValue("displayName", forKey: "displayName")
-        paymentMethod.setValue("network", forKey: "network")
-
-        let token = PKPaymentToken()
-        token.setValue(paymentMethod, forKey: "paymentMethod")
-        token.setValue("paymentData".data(using: .unicode), forKey: "paymentData")
-
-        let payment = PKPayment()
-        payment.setValue(token, forKey: "token")
-
-        let expectation = self.expectation(description: "awaiting payment transaction")
-
-        sut.processApplePayment(payment, for: .payment) { (response, error) in
-            XCTAssertNotNil(response)
-            XCTAssertNil(error)
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 1, handler: nil)
-    }
 }

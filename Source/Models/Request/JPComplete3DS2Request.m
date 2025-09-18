@@ -27,9 +27,16 @@
 @implementation JPComplete3DS2Request
 
 - (instancetype)initWithVersion:(NSString *)version andSecureCode:(NSString *)code {
+    return [self initWithVersion:version secureCode:code andThreeDSSDKChallengeStatus:nil];
+}
+
+- (instancetype)initWithVersion:(NSString *)version
+                      secureCode:(NSString *)code
+    andThreeDSSDKChallengeStatus:(NSString *)threeDSSDKChallengeStatus {
     if (self = [super init]) {
         _version = version;
         _cv2 = code;
+        _threeDSSDKChallengeStatus = threeDSSDKChallengeStatus;
     }
     return self;
 }

@@ -44,7 +44,6 @@
 #import "JPRecommendationData.h"
 #import "JPRecommendationResponse.h"
 #import "JPRecommendationService.h"
-#import "JPRegisterCardRequest.h"
 #import "JPResponse+Additions.h"
 #import "JPResponse.h"
 #import "JPSaveCardRequest.h"
@@ -54,18 +53,74 @@
 
 static NSString *const kExtrasShouldUseFabrickDSIDKey = @"shouldUseFabrickDsId";
 
-@interface JP3DSChallengeStatusReceiverImpl : NSObject <JP3DSChallengeStatusReceiver>
+static NSString *const kThreeDSSDKChallengeStatusCancelled = @"Cancelled";
+static NSString *const kThreeDSSDKChallengeStatusTimeout = @"Timeout";
+static NSString *const kThreeDSSDKChallengeStatusCompleted = @"Completed";
+static NSString *const kThreeDSSDKChallengeStatusProtocolError = @"ProtocolError";
+static NSString *const kThreeDSSDKChallengeStatusRuntimeError = @"RuntimeError";
 
-@property (strong, nonatomic) JPApiService *apiService;
-@property (strong, nonatomic) JPCompletionBlock completion;
-@property (strong, nonatomic) JPCardTransactionDetails *details;
-@property (strong, nonatomic) JPResponse *response;
+NSString *buildEventString(NSString *eventType, NSDictionary<NSString *, id> *pairs) {
+    NSMutableString *result = [NSMutableString stringWithString:eventType];
+    for (NSString *key in pairs) {
+        [result appendFormat:@"|%@=%@", key, pairs[key]];
+    }
+    return result;
+}
 
-- (instancetype)initWithApiService:(JPApiService *)apiService
-                           details:(JPCardTransactionDetails *)details
-                          response:(JPResponse *)response
-                     andCompletion:(JPCompletionBlock)completion;
+@implementation JP3DSCompletionEvent (FormattedString)
 
+- (NSString *)toFormattedEventString {
+    return buildEventString(
+        kThreeDSSDKChallengeStatusCompleted,
+        @{
+            @"SDKTransactionID" : self.sdkTransactionID ?: @"",
+            @"transactionStatus" : self.transactionStatus ?: @""
+        });
+}
+
+@end
+
+@implementation JP3DSProtocolErrorEvent (FormattedString)
+
+- (NSString *)toFormattedEventString {
+    NSString *errorMessage = [NSString stringWithFormat:@"{%@}",
+                                                        [buildEventString(
+                                                            @"",
+                                                            @{
+                                                                @"errorCode" : self.errorMessage.errorCode ?: @"",
+                                                                @"errorComponent" : self.errorMessage.errorComponent ?: @"",
+                                                                @"errorDescription" : self.errorMessage.errorDescription ?: @"",
+                                                                @"errorDetails" : self.errorMessage.errorDetails ?: @"",
+                                                                @"errorMessageType" : self.errorMessage.errorMessageType ?: @"",
+                                                                @"messageVersionNumber" : self.errorMessage.messageVersionNumber ?: @""
+                                                            }) substringFromIndex:1] // remove leading '|'
+    ];
+
+    return buildEventString(
+        kThreeDSSDKChallengeStatusProtocolError,
+        @{
+            @"SDKTransactionID" : self.sdkTransactionID ?: @"",
+            @"errorMessage" : errorMessage
+        });
+}
+
+@end
+
+@implementation JP3DSRuntimeErrorEvent (FormattedString)
+
+- (NSString *)toFormattedEventString {
+    return buildEventString(
+        kThreeDSSDKChallengeStatusRuntimeError,
+        @{
+            @"errorCode" : self.errorCode ?: @"",
+            @"errorMessage" : self.errorMessage ?: @""
+        });
+}
+
+@end
+
+@interface JP3DSChallengeStatusReceiverImpl ()
+@property (nonatomic, assign) BOOL isComplete3DS2Invoked;
 @end
 
 @implementation JP3DSChallengeStatusReceiverImpl
@@ -86,32 +141,39 @@ static NSString *const kExtrasShouldUseFabrickDSIDKey = @"shouldUseFabrickDsId";
 #pragma mark - JP3DSChallengeStatusReceiver
 
 - (void)transactionCompletedWithCompletionEvent:(JP3DSCompletionEvent *)completionEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:completionEvent.toFormattedEventString];
 }
 
 - (void)transactionCancelled {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:kThreeDSSDKChallengeStatusCancelled];
 }
 
 - (void)transactionTimedOut {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:kThreeDSSDKChallengeStatusTimeout];
 }
 
 - (void)transactionFailedWithProtocolErrorEvent:(JP3DSProtocolErrorEvent *)protocolErrorEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:protocolErrorEvent.toFormattedEventString];
 }
 
 - (void)transactionFailedWithRuntimeErrorEvent:(JP3DSRuntimeErrorEvent *)runtimeErrorEvent {
-    [self performComplete3DS2];
+    [self performComplete3DS2WithChallengeStatus:runtimeErrorEvent.toFormattedEventString];
 }
 
-- (void)performComplete3DS2 {
+- (void)performComplete3DS2WithChallengeStatus:(NSString *)status {
+    if (self.isComplete3DS2Invoked) {
+        NSLog(@"WARNING: Attempt to invoke repeatedly complete3DS2 was detected.");
+        return;
+    }
+
     JPComplete3DS2Request *request = [[JPComplete3DS2Request alloc] initWithVersion:self.response.cReqParameters.messageVersion
-                                                                      andSecureCode:self.details.securityCode];
+                                                                         secureCode:self.details.securityCode
+                                                       andThreeDSSDKChallengeStatus:status];
 
     [self.apiService invokeComplete3dSecureTwoWithReceiptId:self.response.receiptId
                                                     request:request
                                               andCompletion:self.completion];
+    self.isComplete3DS2Invoked = YES;
 }
 
 @end
@@ -120,8 +182,7 @@ BOOL canTransactionBeSoftDeclined(JPCardTransactionType type) {
     return type == JPCardTransactionTypePayment ||
            type == JPCardTransactionTypePreAuth ||
            type == JPCardTransactionTypePaymentWithToken ||
-           type == JPCardTransactionTypePreAuthWithToken ||
-           type == JPCardTransactionTypeRegister;
+           type == JPCardTransactionTypePreAuthWithToken;
 }
 
 BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
@@ -198,10 +259,6 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
 
 - (void)invokeCheckCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
     [self performTransactionWithType:JPCardTransactionTypeCheck details:details andCompletion:completion];
-}
-
-- (void)invokeRegisterCardWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {
-    [self performTransactionWithType:JPCardTransactionTypeRegister details:details andCompletion:completion];
 }
 
 - (void)performTransactionWithType:(JPCardTransactionType)type
@@ -343,12 +400,6 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
                 [self.apiService invokeCheckCardWithRequest:request andCompletion:completionHandler];
             } break;
 
-            case JPCardTransactionTypeRegister: {
-                JPRegisterCardRequest *request = [details toRegisterCardRequestWithConfiguration:self.configuration
-                                                                                       overrides:overrides
-                                                                                  andTransaction:transaction];
-                [self.apiService invokeRegisterCardWithRequest:request andCompletion:completionHandler];
-            } break;
             default:
                 completion(nil, [[JPError alloc] initWithDomain:JudoErrorDomain code:JudoErrorThreeDSTwo userInfo:nil]);
                 break;

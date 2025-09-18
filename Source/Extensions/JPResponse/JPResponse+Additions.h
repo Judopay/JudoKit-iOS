@@ -22,11 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+#import "JPApplePayTypes.h"
 #import "JPResponse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPCReqParameters;
+@class JPCReqParameters, PKPayment;
 
 @interface JPResponse (Additions)
 
@@ -34,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isSoftDeclined;
 
 - (JPCReqParameters *)cReqParameters;
+
+- (void)enrichWith:(JPReturnedInfo)info from:(PKPayment *)payment;
 
 @end
 

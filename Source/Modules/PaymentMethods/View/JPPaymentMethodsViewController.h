@@ -22,7 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPApplePayController.h"
 #import "JPPaymentMethodsCardListHeaderCellDelegate.h"
 #import "JPSectionViewDelegate.h"
 #import <UIKit/UIKit.h>
@@ -51,15 +50,6 @@
  */
 - (void)_jp_displayAlertWithTitle:(nullable NSString *)title
                          andError:(nonnull NSError *)error;
-
-/**
- * A method that is used to present the Apple Pay sheet while providing a block for handling authorization responses.
- *
- * @param authorizationBlock - a block used to capture the Apple Pay authorization PKPayment object
- * @param didFinishBlock - a completion block called after the PKPaymentAuthorizationViewController did finish.
- */
-- (void)presentApplePayWithAuthorizationBlock:(nonnull JPApplePayAuthorizationBlock)authorizationBlock
-                               didFinishBlock:(nonnull JPApplePayDidFinishBlock)didFinishBlock;
 
 - (void)setIsPaymentInProgress:(BOOL)isCardPaymentInProgress;
 - (void)endEditingCardListIfNeeded;

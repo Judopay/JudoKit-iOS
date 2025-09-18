@@ -25,8 +25,8 @@
 #import "JPCReqParameters.h"
 #import "JPResponse+Additions.h"
 #import "NSString+Additions.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "PKContact+Additions.h"
+#import <PassKit/PassKit.h>
 
 static NSString *const k3DSTwoMessage = @"Issuer ACS has responded with a Challenge URL";
 static NSString *const kSoftDeclinedMessage = @"Card declined: Additional customer authentication required";
@@ -46,6 +46,14 @@ static NSString *const kSoftDeclinedMessage = @"Card declined: Additional custom
     return [[JPCReqParameters alloc] initWithString:cReq];
 }
 
-@end
+- (void)enrichWith:(JPReturnedInfo)info from:(PKPayment *)payment {
+    if (info & JPReturnedInfoBillingContacts) {
+        self.billingInfo = payment.billingContact.toJPContactInformation;
+    }
 
-NS_ASSUME_NONNULL_END
+    if (info & JPReturnedInfoShippingContacts) {
+        self.shippingInfo = payment.shippingContact.toJPContactInformation;
+    }
+}
+
+@end

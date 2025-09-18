@@ -34,33 +34,31 @@
 /**
  * Designated initalizer that creates a configured instance of JPApplePayService for making Apple Pay transactions.
  *
- * @param configuration - an instance of JPConfiguration used to configure the Apple Pay flow.
  * @param apiService - an instance of JPApiService responsible for making the Judo backend transaction.
  *
  * @returns - a configured instance of JPApplePayService.
  */
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                andApiService:(nonnull JPApiService *)apiService;
+- (nonnull instancetype)initWithApiService:(nonnull JPApiService *)apiService;
 
 /**
  * A boolean method which returns YES if the device supports Apple pay.
  */
-+ (bool)isApplePaySupported;
-
-/**
- * A boolean method which returns YES if the user can make transactions via Apple Pay.
- */
-- (bool)isApplePaySetUp;
++ (BOOL)isApplePaySupported;
++ (BOOL)canMakePaymentsUsingConfiguration:(nonnull JPConfiguration *)configuration;
 
 /**
  * A method that makes a payment or pre-auth transaction transaction based on a PKPayment object returned from Apple Pay.
  *
- * @param payment - the PKPayment object returned after Apple Pay authorization.
+ * @param configuration - an instance of JPConfiguration used to configure the transaction.
  * @param transactionMode - a value that sets the transaction as either payment or pre-auth
  * @param completion - a completion block used to handle the transaction result
  */
-- (void)processApplePayment:(nonnull PKPayment *)payment
-         forTransactionMode:(JPTransactionMode)transactionMode
-             withCompletion:(nonnull JPCompletionBlock)completion;
+- (void)processPaymentWithConfiguration:(nonnull JPConfiguration *)configuration
+                        transactionMode:(JPTransactionMode)transactionMode
+                          andCompletion:(nonnull JPCompletionBlock)completion;
 
+- (void)processPaymentWithConfiguration:(nonnull JPConfiguration *)configuration
+               presentingViewController:(nonnull UIViewController *)controller
+                        transactionMode:(JPTransactionMode)transactionMode
+                          andCompletion:(nonnull JPCompletionBlock)completion;
 @end

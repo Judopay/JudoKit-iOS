@@ -1,20 +1,20 @@
 PODS:
   - DeviceDNA (2.1.2)
   - InAppSettingsKit (3.8.3)
-  - Judo3DS2_iOS (1.2.4)
-  - JudoKit-iOS (5.0.0):
+  - Judo3DS2_iOS (1.2.6)
+  - JudoKit-iOS (6.0.0):
     - DeviceDNA (= 2.1.2)
-    - Judo3DS2_iOS (= 1.2.4)
+    - Judo3DS2_iOS (= 1.2.6)
     - RavelinEncrypt (= 1.1.2)
-    - TrustKit (~> 3.0.4)
+    - TrustKit (~> 3.0.7)
   - RavelinEncrypt (1.1.2)
-  - TrustKit (3.0.4)
+  - TrustKit (3.0.7)
   - TTGSnackbar (1.12.0)
   - Wormholy (1.7.0)
 
 DEPENDENCIES:
   - InAppSettingsKit (= 3.8.3)
-  - Judo3DS2_iOS (= 1.2.4)
+  - Judo3DS2_iOS (= 1.2.6)
   - JudoKit-iOS (from `../../`)
   - TTGSnackbar
   - Wormholy
@@ -36,13 +36,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DeviceDNA: a2812a2a54bdaf3bafd4d109bd9072759e4d9506
   InAppSettingsKit: a9826f7f99e55c65d251bf5188d39dff26f17abd
-  Judo3DS2_iOS: 47f51a3f2d500100975c9d9e53f29018fd070141
-  JudoKit-iOS: 48bfe7229f2a618a384a3b2d447008afb61b69e0
+  Judo3DS2_iOS: 64fae639d579274dfab59b8a46fdd51eff35fabb
+  JudoKit-iOS: 47c864a00a9119217854622de7c0885eac41bea5
   RavelinEncrypt: ea533da1cb48ccf84382cb161979b27bfb23d467
-  TrustKit: 403e8d2cfbff2abfc37cd41acc558dab8ec78e59
+  TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 7ccc5d7d8e8c9df15eb55381f190dfb308f61788
+PODFILE CHECKSUM: effc02cdcf670c27c2a83781b512506c57f85701
 
 COCOAPODS: 1.16.2

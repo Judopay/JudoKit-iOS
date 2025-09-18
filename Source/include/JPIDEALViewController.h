@@ -1,1 +1,0 @@
-../Modules/IDEALViewController/JPIDEALViewController.h

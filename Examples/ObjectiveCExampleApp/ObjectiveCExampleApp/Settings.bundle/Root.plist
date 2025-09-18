@@ -772,16 +772,6 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>security_code</string>
-			<key>Key</key>
-			<string>should_ask_security_code</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
 			<string>is_initial_recurring_payment_title</string>
 			<key>Key</key>
 			<string>is_initial_recurring_payment</string>

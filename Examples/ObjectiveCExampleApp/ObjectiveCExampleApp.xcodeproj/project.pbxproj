@@ -131,7 +131,7 @@
 		D108FDA02A582165009DA094 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D10B68382ADFE066007F1CA3 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D110D16A2AEA8F4D00B35E13 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
-		D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; name = ObjectiveCExampleAppUITests.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan; sourceTree = SOURCE_ROOT; };
+		D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITests.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan; sourceTree = SOURCE_ROOT; };
 		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
 		F01D985B211A0B436AD1810E /* Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F3E57B78C0668390A2B96713 /* Pods-ObjectiveCExampleAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -882,7 +882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.0;
+				MARKETING_VERSION = 6.0.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;
@@ -914,7 +914,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.0;
+				MARKETING_VERSION = 6.0.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC;
 				PRODUCT_MODULE_NAME = JudoKit;

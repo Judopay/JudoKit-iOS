@@ -124,18 +124,18 @@
                     completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
- * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment methods to complete their transaction.
+ * A method which invokes the Apple Pay sleeve which allows users to make Apple Pay transactions
+ * using a custom presenting view controller.
  *
  * @param mode - an instance of TransactionMode that specifies either a Payment or a Pre Auth transaction.
  * @param configuration - an instance of JPConfiguration used to configure the transaction.
+ * @param controller - the view controller that will present the Apple Pay interface.
  * @param completion - a completion block with an optional JPResponse object or an NSError.
- *
- * @returns a fully configured UIViewController instance
  */
-
-- (nullable UIViewController *)applePayViewControllerWithMode:(JPTransactionMode)mode
-                                                configuration:(nonnull JPConfiguration *)configuration
-                                                   completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
+- (void)invokeApplePayWithMode:(JPTransactionMode)mode
+                 configuration:(nonnull JPConfiguration *)configuration
+      presentingViewController:(nonnull UIViewController *)controller
+                    completion:(nonnull JPCompletionBlock)completion __attribute__((swift_async(none)));
 
 /**
  * A method which invokes the Judo Payment Method Selection screen which allows users to pick between multiple payment

@@ -20,7 +20,6 @@ ln -s -f ../Models/TransactionEnricher/JPRequestEnricher.h JPRequestEnricher.h
 ln -s -f ../Models/CardStorage/JPCardStorage.h JPCardStorage.h
 ln -s -f ../Services/CardTransactionService/JPCardTransactionService.h JPCardTransactionService.h
 ln -s -f ../Models/ConsumerDevice/JPConsumerDevice.h JPConsumerDevice.h
-ln -s -f ../Services/ApplePay/JPApplePayController.h JPApplePayController.h
 ln -s -f ../Models/DictionaryConvertible/JPDictionaryConvertible.h JPDictionaryConvertible.h
 ln -s -f ../Models/Section/JPSection.h JPSection.h
 ln -s -f ../Models/CardTransactionDetails/JPCardTransactionDetails.h JPCardTransactionDetails.h
@@ -41,7 +40,6 @@ ln -s -f ../Models/Authorization/Session/JPSessionAuthorization.h JPSessionAutho
 ln -s -f ../Extensions/NSString/NSString+Additions.h NSString+Additions.h
 ln -s -f ../Models/Reachability/JPReachability.h JPReachability.h
 ln -s -f ../Models/ThreeDSecure/JPThreeDSecure.h JPThreeDSecure.h
-ln -s -f ../Services/ApplePay/JPApplePayTypedefs.h JPApplePayTypedefs.h
 ln -s -f ../Extensions/UIColor/UIColor+Additions.h UIColor+Additions.h
 ln -s -f ../Models/StoredCardDetails/JPStoredCardDetails.h JPStoredCardDetails.h
 ln -s -f ../Models/CardDetails/JPCardExpirationStatus.h JPCardExpirationStatus.h
@@ -73,13 +71,11 @@ ln -s -f ../Models/Card/JPCard.h JPCard.h
 ln -s -f ../Services/ApiService/JPApiService.h JPApiService.h
 ln -s -f ../Services/ApiService/Session/JPSession.h JPSession.h
 ln -s -f ../Models/Request/JPRequest.h JPRequest.h
-ln -s -f ../Models/Request/JPBankOrderSaleRequest.h JPBankOrderSaleRequest.h
 ln -s -f ../Models/Request/JPPreAuthRequest.h JPPreAuthRequest.h
 ln -s -f ../Models/Request/JPPreAuthTokenRequest.h JPPreAuthTokenRequest.h
 ln -s -f ../Models/Request/JPPreAuthApplePayRequest.h JPPreAuthApplePayRequest.h
 ln -s -f ../Models/Request/JPPaymentRequest.h JPPaymentRequest.h
 ln -s -f ../Models/Request/JPTokenRequest.h JPTokenRequest.h
-ln -s -f ../Models/Request/JPRegisterCardRequest.h JPRegisterCardRequest.h
 ln -s -f ../Models/Request/JPSaveCardRequest.h JPSaveCardRequest.h
 ln -s -f ../Models/Request/JPCheckCardRequest.h JPCheckCardRequest.h
 ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
@@ -200,3 +196,6 @@ ln -s -f ../Models/Request/Recommendation/RecommendationPaymentMethod/JPRecommen
 ln -s -f ../Models/Request/Recommendation/PaymentMethodCipher/JPPaymentMethodCipher.h JPPaymentMethodCipher.h
 ln -s -f ../Models/Request/Recommendation/JPRecommendationRequest.h JPRecommendationRequest.h
 ln -s -f ../Models/CardTransactionDetailsOverrides/JPCardTransactionDetailsOverrides.h JPCardTransactionDetailsOverrides.h
+ln -s -f ../Extensions/PKPayment/PKPayment+Additions.h PKPayment+Additions.h
+ln -s -f ../Extensions/CNPostalAddress/CNPostalAddress+Additions.h CNPostalAddress+Additions.h
+ln -s -f ../Extensions/PKContact/PKContact+Additions.h PKContact+Additions.h

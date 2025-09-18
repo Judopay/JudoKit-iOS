@@ -1,1 +1,2 @@
 sonar.coverage.exclusions=Examples/**/*
+sonar.cpd.exclusions=**/*.h

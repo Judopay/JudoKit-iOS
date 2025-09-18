@@ -188,15 +188,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     }];
 }
 
-- (void)createCardTokenOperation {
-    __weak typeof(self) weakSelf = self;
-    [self.judoKit invokeTransactionWithType:JPTransactionTypeRegisterCard
-                              configuration:self.configuration
-                                 completion:^(JPResponse *response, JPError *error) {
-        [weakSelf handleResponse:response error:error];
-    }];
-}
-
 - (void)checkCardOperation {
     __weak typeof(self) weakSelf = self;
     [self.judoKit invokeTransactionWithType:JPTransactionTypeCheckCard
@@ -326,7 +317,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.uiConfiguration.isAVSEnabled = Settings.defaultSettings.isAVSEnabled;
     configuration.uiConfiguration.shouldPaymentMethodsDisplayAmount = Settings.defaultSettings.shouldPaymentMethodsDisplayAmount;
     configuration.uiConfiguration.shouldPaymentButtonDisplayAmount = Settings.defaultSettings.shouldPaymentButtonDisplayAmount;
-    configuration.uiConfiguration.shouldPaymentMethodsVerifySecurityCode = Settings.defaultSettings.shouldPaymentMethodsVerifySecurityCode;
     configuration.uiConfiguration.shouldAskForBillingInformation = Settings.defaultSettings.shouldAskForBillingInformation;
     configuration.uiConfiguration.shouldAskForCSC = Settings.defaultSettings.shouldAskForCSC;
     configuration.uiConfiguration.shouldAskForCardholderName = Settings.defaultSettings.shouldAskForCardholderName;
@@ -486,11 +476,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         case DemoFeatureTypePreAuth:
             [self preAuthOperation];
             break;
-            
-        case DemoFeatureTypeCreateCardToken:
-            [self createCardTokenOperation];
-            break;
-            
+                        
         case DemoFeatureTypeSaveCard:
             [self saveCardOperation];
             break;

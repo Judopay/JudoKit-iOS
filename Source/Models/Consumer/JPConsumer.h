@@ -30,13 +30,6 @@
 @interface JPConsumer : NSObject
 
 /**
- *  DEPRECATED
- *  Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
- */
-@property (nonatomic, strong, nonnull) NSString *consumerToken;
-__deprecated_msg("Consumer Token is deprecated and will be removed in a future version.");
-
-/**
  *  Your reference for this Consumer as you sent in your request.
  */
 @property (nonatomic, strong, nonnull) NSString *consumerReference;

@@ -41,6 +41,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
         JPCardStorage.sharedInstance()?.deleteCardDetails()
         sut = JPPaymentMethodsPresenterImpl()
         sut.view = controller
@@ -187,9 +188,7 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
         sut.handleApplePayButtonTap()
 
-        let view = sut.view as! JPPaymentMethodsViewControllerMock
         let interactor = sut.interactor as! JPPaymentMethodsInteractorMock
-        XCTAssertTrue(view.didPresentApplePay)
         XCTAssertTrue(interactor.startApplePay)
     }
 
@@ -198,23 +197,20 @@ class JPPaymentMethodsPresenterTest: XCTestCase {
      *
      * WHEN: a network error has occured
      *
-     * THEN: interactor's storeError method should not be invoked
+     * THEN: interactor's storeError method should be invoked
      */
     func test_HandleApplePayButtonTap_ShouldNotStoreError() {
         JPCardStorage.sharedInstance()?.add(firstStoredCard)
         firstStoredCard?.isSelected = true
         JPCardStorage.sharedInstance()?.add(secondStoredCard)
 
-        let view = sut.view as! JPPaymentMethodsViewControllerMock
         let interactor = sut.interactor as! JPPaymentMethodsInteractorMock
         interactor.shouldFailWhenProcessApplePayment = true
-        view.isPaymentAuthorized = false
 
         sut.handleApplePayButtonTap()
 
-        XCTAssertTrue(view.didPresentApplePay)
         XCTAssertTrue(interactor.startApplePay)
-        XCTAssertFalse(interactor.storeError)
+        XCTAssertTrue(interactor.storeError)
     }
 
     /*

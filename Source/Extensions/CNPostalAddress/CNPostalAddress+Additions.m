@@ -1,8 +1,8 @@
 //
-//  JPApplePayTypedefs.h
+//  CNPostalAddress+Additions.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <PassKit/PassKit.h>
+#import "CNPostalAddress+Additions.h"
+#import "JPPostalAddress.h"
 
-/**
- * A completion block called after the JPApplePayService finishes processing the Apple Pay transaction.
- * Depending on the response, this block contains a result with either a PKPaymentAuthorizationStatusSuccess or PKPaymentAuthorizationStatusFailure
- * used to tell the Apple Pay sheet how to proceed further.
- */
-typedef void (^JPApplePayAuthStatusBlock)(PKPaymentAuthorizationResult *_Nonnull result);
+@implementation CNPostalAddress (Additions)
 
-/**
- * This block is used to capture the `didAuthorizePayment` delegate call inside a block.
- * This is used to take the asynchronous PKPayment object from the delegate call and pass it to the Apple Pay service, where it is processed.
- */
-typedef void (^JPApplePayAuthorizationBlock)(PKPayment *_Nonnull payment,
-                                             JPApplePayAuthStatusBlock _Nonnull completion);
+- (JPPostalAddress *)toJPPostalAddress {
+    if (self) {
+        return [[JPPostalAddress alloc] initWithStreet:self.street
+                                                  city:self.city
+                                                 state:self.state
+                                            postalCode:self.postalCode
+                                               country:self.country
+                                               isoCode:self.ISOCountryCode
+                                 subAdministrativeArea:self.subAdministrativeArea
+                                           sublocality:self.subLocality];
+    }
+    return nil;
+}
 
-/**
- * A completion block called after the PKPaymentAuthorizationViewController did finish.
- */
-typedef void (^JPApplePayDidFinishBlock)(BOOL isPaymentAuthorized);
+@end

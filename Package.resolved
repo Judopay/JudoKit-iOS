@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Judopay/Judo3DS2-iOS",
       "state" : {
-        "revision" : "8937ba9e42a884f3d96bc048c4a44f94adcc0ee0",
-        "version" : "1.2.4"
+        "revision" : "d073a58d17672684ac71328cb0bf307c161b630b",
+        "version" : "1.2.6"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/datatheorem/TrustKit",
       "state" : {
-        "revision" : "2fb6ce731fd51f745f6cc3393462865b95c3df3c",
-        "version" : "3.0.4"
+        "revision" : "a94f27be00a9811618ff92f0d3fc40dac8211ba7",
+        "version" : "3.0.7"
       }
     }
   ],
