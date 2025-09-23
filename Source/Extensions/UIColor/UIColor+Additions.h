@@ -52,6 +52,11 @@
 + (UIColor *_Nonnull)_jp_grayColor;
 
 /**
+ * The neutral gray color value (0x707070) used in the application
+ */
++ (UIColor *_Nonnull)_jp_neutralGrayColor;
+
+/**
  * The graphite gray color value (0x8C8C8C) used in the application
  */
 + (UIColor *_Nonnull)_jp_graphiteGrayColor;

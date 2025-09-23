@@ -93,6 +93,12 @@
 @property (nonatomic, strong) UIColor *jpGrayColor;
 
 /**
+ * The neutral gray color value used for hint/placeholder colors
+ * Defaults to 0x707070
+ */
+@property (nonatomic, strong) UIColor *jpNeutralGrayColor;
+
+/**
  * The light gray color value often used for input field / selector backgrounds
  * Defaults to 0xF6F6F6
  */

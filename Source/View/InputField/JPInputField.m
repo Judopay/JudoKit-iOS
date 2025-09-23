@@ -75,7 +75,7 @@ static const float kVerticalEdgeInsets = 14.0F;
     self.textColor = theme.jpBlackColor;
     self.font = theme.headlineLight;
     self.placeholderFont = theme.headlineLight;
-    self.placeholderColor = theme.jpDarkGrayColor;
+    self.placeholderColor = theme.jpNeutralGrayColor;
     [self.floatingTextField applyTheme:theme];
 }
 

@@ -109,6 +109,13 @@
     return _jpGrayColor;
 }
 
+- (UIColor *)jpNeutralGrayColor {
+    if (!_jpNeutralGrayColor) {
+        _jpNeutralGrayColor = UIColor._jp_neutralGrayColor;
+    }
+    return _jpNeutralGrayColor;
+}
+
 - (UIColor *)jpLightGrayColor {
     if (!_jpLightGrayColor) {
         _jpLightGrayColor = UIColor._jp_lightGrayColor;

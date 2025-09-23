@@ -56,6 +56,10 @@
     return [UIColor _jp_colorFromHex:0xE5E5E5];
 }
 
+ + (UIColor *)_jp_neutralGrayColor {
+    return [UIColor _jp_colorFromHex:0x707070];
+}
+
 + (UIColor *)_jp_graphiteGrayColor {
     return [UIColor _jp_colorFromHex:0x8C8C8C];
 }
