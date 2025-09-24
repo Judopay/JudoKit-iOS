@@ -188,6 +188,7 @@
 "jp_error_missing_recurring_label_desc" = "Recurring Payment label cannot be null";
 "jp_error_missing_recurring_label_reason" = "The required Recurring Payment parameter has not been set in the Apple Pay configuration.";
 
+"jp_card_information_title" = "Card Information";
 "jp_billing_details_title" = "Billing Details";
 
 "jp_card_holder_name_required" = "Cardholder Name is required";

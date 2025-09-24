@@ -28,15 +28,18 @@
 #import "JPCardNumberField.h"
 #import "JPCountry.h"
 #import "JPSecurityMessageView.h"
+#import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPTransactionScanCardButton.h"
 #import "JPTransactionViewModel.h"
 #import "UIStackView+Additions.h"
+#import "NSString+Additions.h"
 
 @interface JPCardDetailsForm () <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) JPTransactionCardDetailsViewModel *viewModel;
 
+@property (nonatomic, strong) UILabel *headingLabel;
 @property (nonatomic, strong) JPCardNumberField *cardNumberTextField;
 @property (nonatomic, strong) JPCardInputField *cardHolderNameTextField;
 @property (nonatomic, strong) JPCardInputField *expiryDateTextField;
@@ -69,15 +72,22 @@ static const float kInputFieldHeight = 44.0F;
     self.securityMessageView = [JPSecurityMessageView new];
     self.topActionBar.actions = JPActionBarActionTypeCancel | JPActionBarActionTypeScanCard;
     self.bottomActionBar.actions = JPActionBarActionTypeSubmit;
-
+    [self setupHeading];
     [self addArrangedSubview:self.securityMessageView];
-
     [self setupInputFieldsStackView];
     [self setupInputFieldsConstraints];
 }
 
+- (void)setupHeading {
+    self.headingLabel = [UILabel new];
+    self.headingLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.headingLabel.text = @"jp_card_information_title"._jp_localized;
+    self.headingLabel.numberOfLines = 0;
+}
+
 - (void)setupInputFieldsStackView {
     [self.inputFieldsStackView _jp_removeArrangedSubviews];
+    [self.inputFieldsStackView addArrangedSubview:self.headingLabel];
 
     switch (self.fieldsSet) {
         case JPFormFieldsSetCSC:
@@ -151,6 +161,9 @@ static const float kInputFieldHeight = 44.0F;
     [super applyTheme:theme];
 
     [self.securityMessageView applyTheme:theme];
+
+    self.headingLabel.font = theme.headline;
+    self.headingLabel.textColor = theme.jpDarkGrayColor;
 
     [self.cardNumberTextField applyTheme:theme];
     [self.cardHolderNameTextField applyTheme:theme];
