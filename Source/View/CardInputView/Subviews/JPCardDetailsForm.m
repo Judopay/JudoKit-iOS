@@ -163,7 +163,7 @@ static const float kInputFieldHeight = 44.0F;
     [self.securityMessageView applyTheme:theme];
 
     self.headingLabel.font = theme.headline;
-    self.headingLabel.textColor = theme.jpDarkGrayColor;
+    self.headingLabel.textColor = theme.jpBrownGrayColor;
 
     [self.cardNumberTextField applyTheme:theme];
     [self.cardHolderNameTextField applyTheme:theme];

@@ -52,6 +52,10 @@
     return [UIColor _jp_colorFromHex:0x999999];
 }
 
++ (UIColor *)_jp_brownGrayColor {
+    return [UIColor _jp_colorFromHex:0x767676];
+}
+
 + (UIColor *)_jp_grayColor {
     return [UIColor _jp_colorFromHex:0xE5E5E5];
 }

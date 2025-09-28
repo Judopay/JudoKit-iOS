@@ -237,7 +237,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [super applyTheme:theme];
 
     self.headingLabel.font = theme.headline;
-    self.headingLabel.textColor = theme.jpDarkGrayColor;
+    self.headingLabel.textColor = theme.jpBrownGrayColor;
 
     [self.emailTextField applyTheme:theme];
     [self.countryTextField applyTheme:theme];

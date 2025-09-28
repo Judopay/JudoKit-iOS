@@ -102,6 +102,13 @@
     return _jpDarkGrayColor;
 }
 
+- (UIColor *)jpBrownGrayColor {
+    if (!_jpBrownGrayColor) {
+        _jpBrownGrayColor = UIColor._jp_brownGrayColor;
+    }
+    return _jpBrownGrayColor;
+}
+
 - (UIColor *)jpGrayColor {
     if (!_jpGrayColor) {
         _jpGrayColor = UIColor._jp_grayColor;
