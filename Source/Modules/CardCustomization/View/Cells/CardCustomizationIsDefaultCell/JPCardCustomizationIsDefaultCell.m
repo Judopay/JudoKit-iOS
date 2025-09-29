@@ -28,6 +28,7 @@
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
+#import "UIColor+Additions.h"
 
 @interface JPCardCustomizationIsDefaultCell ()
 @property (nonatomic, strong) UIStackView *stackView;
@@ -68,8 +69,20 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
     if ([viewModel isKindOfClass:JPCardCustomizationIsDefaultModel.class]) {
         JPCardCustomizationIsDefaultModel *isDefaultModel;
         isDefaultModel = (JPCardCustomizationIsDefaultModel *)viewModel;
+        [self setCheckmarkIconForIsDefault:isDefaultModel.isDefault];
+    }
+}
 
-        NSString *iconName = isDefaultModel.isDefault ? @"radio-on" : @"radio-off";
+- (void)setCheckmarkIconForIsDefault:(BOOL)isDefault {
+    NSString *iconName = isDefault ? @"radio-on" : @"radio-off";
+    UIImage *iconImage = [UIImage _jp_imageWithIconName:iconName];
+
+    if (!isDefault) {
+        // Apply extra tint for accessibility contrast.
+        self.checkmarkImageView.tintColor = UIColor._jp_graphiteGrayColor;
+        self.checkmarkImageView.image =
+            [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    } else {
         self.checkmarkImageView.image = [UIImage _jp_imageWithIconName:iconName];
     }
 }
