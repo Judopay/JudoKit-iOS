@@ -172,6 +172,8 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.4.1)
       xcpretty-travis-formatter (>= 0.0.3, < 2.0.0)
+    fastlane-plugin-browserstack (0.3.4)
+      rest-client (~> 2.0, >= 2.0.2)
     fastlane-plugin-firebase_app_distribution (0.10.1)
       google-apis-firebaseappdistribution_v1 (~> 0.3.0)
       google-apis-firebaseappdistribution_v1alpha (~> 0.2.0)
@@ -225,6 +227,7 @@ GEM
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
     highline (2.0.3)
+    http-accept (1.7.0)
     http-cookie (1.0.8)
       domain_name (~> 0.5)
     httpclient (2.9.0)
@@ -235,6 +238,11 @@ GEM
     json (2.13.2)
     jwt (2.10.2)
       base64
+    logger (1.7.0)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0708)
     logger (1.7.0)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
@@ -258,6 +266,11 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.4.1)
     rouge (3.28.0)
@@ -309,6 +322,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   fastlane
+  fastlane-plugin-browserstack
   fastlane-plugin-firebase_app_distribution
   fastlane-plugin-get_product_bundle_id
   rb-readline

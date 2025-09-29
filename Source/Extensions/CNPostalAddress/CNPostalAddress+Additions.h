@@ -1,8 +1,8 @@
 //
-//  JPRegisterCardRequest.m
+//  CNPostalAddress+Additions.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,41 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPRegisterCardRequest.h"
-#import "JPConfiguration.h"
-#import "JPConstants.h"
+#import <Contacts/Contacts.h>
 
-@implementation JPRegisterCardRequest
+@class JPPostalAddress;
 
-- (NSString *)amount {
-    if (!super.amount) {
-        return @"0.01";
-    }
-
-    return super.amount;
-}
-
-- (NSString *)currency {
-    if (!super.currency) {
-        return kCurrencyPounds;
-    }
-
-    return super.currency;
-}
-
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
-    if (self = [super initWithConfiguration:configuration]) {
-        _initialRecurringPayment = configuration.isInitialRecurringPayment;
-    }
-    return self;
-}
-
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                       andCardDetails:(JPCard *)card {
-    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        _initialRecurringPayment = configuration.isInitialRecurringPayment;
-    }
-    return self;
-}
-
+@interface CNPostalAddress (Additions)
+- (nullable JPPostalAddress *)toJPPostalAddress;
 @end

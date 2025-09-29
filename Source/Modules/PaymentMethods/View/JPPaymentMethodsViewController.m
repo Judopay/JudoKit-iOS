@@ -41,7 +41,6 @@
 
 @interface JPPaymentMethodsViewController ()
 
-@property (nonatomic, strong) JPApplePayController *applePayController;
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
 @property (nonatomic, strong) JPPaymentMethodsViewModel *viewModel;
 
@@ -168,23 +167,6 @@
 - (void)_jp_displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
     [self _jp_triggerNotificationFeedbackWithType:UINotificationFeedbackTypeError];
     [super _jp_displayAlertWithTitle:title andError:error];
-}
-
-- (void)presentApplePayWithAuthorizationBlock:(JPApplePayAuthorizationBlock)authorizationBlock
-                               didFinishBlock:(JPApplePayDidFinishBlock)didFinishBlock {
-    self.applePayController = [[JPApplePayController alloc] initWithConfiguration:self.configuration];
-    UIViewController *controller = [self.applePayController applePayViewControllerWithAuthorizationBlock:authorizationBlock
-                                                                                          didFinishBlock:didFinishBlock];
-
-    if (!controller) {
-        didFinishBlock(NO);
-        return;
-    }
-
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf presentViewController:controller animated:YES completion:nil];
-    });
 }
 
 - (void)setIsPaymentInProgress:(BOOL)isCardPaymentInProgress {

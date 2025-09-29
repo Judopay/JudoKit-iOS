@@ -169,7 +169,6 @@ static NSString *const kApplePayPaymentMethodEnabledKey = @"is_payment_method_ap
 static NSString *const kAVSEnabledKey = @"is_avs_enabled";
 static NSString *const kShouldPaymentMethodsDisplayAmount = @"should_payment_methods_display_amount";
 static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_button_display_amount";
-static NSString *const kShouldPaymentMethodsVerifySecurityCode = @"should_ask_security_code";
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation_on";
 static NSString *const kIsAllowIncrementOnKey = @"is_allow_increment_on";
@@ -244,7 +243,6 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isAVSEnabled;
 - (BOOL)shouldPaymentMethodsDisplayAmount;
 - (BOOL)shouldPaymentButtonDisplayAmount;
-- (BOOL)shouldPaymentMethodsVerifySecurityCode;
 - (BOOL)isInitialRecurringPaymentEnabled;
 - (BOOL)isRecommendationFeatureOn;
 - (BOOL)isAddressOn;

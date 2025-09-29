@@ -23,9 +23,6 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
         [DemoFeature featureWithType:DemoFeatureTypePreAuth
                                title:@"Pre-auth with card"
                              details:@"by entering card details"],
-        [DemoFeature featureWithType:DemoFeatureTypeCreateCardToken
-                               title:@"Register card"
-                             details:@"to be stored for future transactions"],
         [DemoFeature featureWithType:DemoFeatureTypeCheckCard
                                title:@"Check card"
                              details:@"to validate a card"],

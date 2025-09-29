@@ -39,7 +39,6 @@ class JPUIConfigurationTest: XCTestCase {
         XCTAssertFalse(sut.isAVSEnabled)
         XCTAssertFalse(sut.shouldPaymentButtonDisplayAmount)
         XCTAssertTrue(sut.shouldPaymentMethodsDisplayAmount)
-        XCTAssertTrue(sut.shouldPaymentMethodsVerifySecurityCode)
     }
     
     /*

@@ -88,15 +88,6 @@ final class CardPaymentUITests: XCTestCase {
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
 
-    func testSuccessfulRegisterCardTransaction() {
-        app.launch()
-        app.textWithIdentifier(Selectors.FeatureList.registerCard)?.tap()
-        app.fillWithStandardCardDetails()
-        app.cardDetailsSubmitButton?.tap()
-        tapCompleteButton(app)
-        assertResultObject(app, "Register", "AuthCode: ", "Success")
-    }
-
     func testSuccessfulCheckCardTransaction() {
         app.launch()
         app.textWithIdentifier(Selectors.FeatureList.checkCard)?.tap()

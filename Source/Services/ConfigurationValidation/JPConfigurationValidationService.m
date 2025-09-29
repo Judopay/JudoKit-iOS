@@ -215,10 +215,9 @@
 
 - (void)checkAmount:(JPAmount *)amount transactionType:(JPTransactionType)transactionType error:(NSError **)error {
     BOOL isTypeSaveCard = transactionType == JPTransactionTypeSaveCard;
-    BOOL isTypeRegisterCard = transactionType == JPTransactionTypeRegisterCard;
     BOOL isTypeCheckCard = transactionType == JPTransactionTypeCheckCard;
 
-    if (!(isTypeCheckCard || isTypeSaveCard || isTypeRegisterCard)) {
+    if (!(isTypeCheckCard || isTypeSaveCard)) {
         [self checkForValidCurrency:amount.currency error:error];
         [self checkIfAmountIsNumber:amount.amount error:error];
     }

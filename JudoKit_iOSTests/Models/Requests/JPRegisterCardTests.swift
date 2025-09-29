@@ -39,26 +39,6 @@ class JPRegisterCardRequestTests: XCTestCase {
     /*
      * GIVEN: A [JPRegisterCardRequest] is being initialized
      *
-     *  WHEN: A valid [JPConfiguration] instance is passed as a parameter
-     *
-     *  THEN: The properties are set with the correct values
-     */
-    func test_onInitialization_SetValidProperties() {
-        let registerCardRequest = JPRegisterCardRequest(configuration: configuration)
-        
-        XCTAssertEqual(registerCardRequest.judoId, "judoID")
-        
-        XCTAssertEqual(registerCardRequest.amount, "1.01")
-        XCTAssertEqual(registerCardRequest.currency, configuration.amount.currency)
-        
-        XCTAssertEqual(registerCardRequest.yourConsumerReference, configuration.reference.consumerReference)
-        XCTAssertEqual(registerCardRequest.yourPaymentReference, configuration.reference.paymentReference)
-        XCTAssertEqual(registerCardRequest.yourPaymentMetaData, configuration.reference.metaData)
-    }
-    
-    /*
-     * GIVEN: A [JPRegisterCardRequest] is being initialized
-     *
      *  WHEN: The [JPConfiguration] instance does not have any amount
      *
      *  THEN: The amount defaults to "0.01 GBP"

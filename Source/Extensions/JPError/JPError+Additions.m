@@ -336,4 +336,29 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                                ofType:JudoParameterError];
 }
 
++ (JPError *)operationNotAllowedError {
+    return [self errorWithDescription:@"jp_error_invalid_state_label_desc"._jp_localized
+                        failureReason:@"jp_error_invalid_state_label_reason"._jp_localized
+                               ofType:JudoInvalidStateError];
+}
+
++ (JPError *)unexpectedStateError {
+    return [self errorWithDescription:@"jp_error_corrupt_state_label_desc"._jp_localized
+                        failureReason:@"jp_error_corrupt_state_label_reason"._jp_localized
+                               ofType:JudoInvalidStateError];
+}
+
++ (JPError *)unexpectedStateErrorWithDebugDecription:(NSString *)description {
+    NSMutableDictionary *userInfo = [[self userDataDictWithDescription:@"jp_error_corrupt_state_label_desc"._jp_localized
+                                                         failureReason:@"jp_error_corrupt_state_label_reason"._jp_localized] mutableCopy];
+
+    if (description) {
+        userInfo[NSDebugDescriptionErrorKey] = description;
+    }
+
+    return [JPError errorWithDomain:JudoErrorDomain
+                               code:JudoInvalidStateError
+                           userInfo:[userInfo copy]];
+}
+
 @end

@@ -40,14 +40,14 @@
  *
  * @returns an optional instance of JPError containing the validation error details
  */
-- (JPError *)validateConfiguration:(JPConfiguration *)configuration
-                forTransactionType:(JPTransactionType)transactionType;
+- (nullable JPError *)validateConfiguration:(nullable JPConfiguration *)configuration
+                         forTransactionType:(JPTransactionType)transactionType;
 
-- (JPError *)validateTokenPaymentConfiguration:(JPConfiguration *)configuration
-                            forTransactionType:(JPTransactionType)transactionType;
+- (nullable JPError *)validateTokenPaymentConfiguration:(nullable JPConfiguration *)configuration
+                                     forTransactionType:(JPTransactionType)transactionType;
 
-- (JPError *)validatePaymentMethodsConfiguration:(JPConfiguration *)configuration
-                              forTransactionMode:(JPTransactionMode)mode;
+- (nullable JPError *)validatePaymentMethodsConfiguration:(nullable JPConfiguration *)configuration
+                                       forTransactionMode:(JPTransactionMode)mode;
 
 /**
  * A method that validates the Apple Pay configuration and returns an optional JPError if the configuration fails
@@ -56,9 +56,9 @@
  *
  * @returns an optional instance of JPError containing the validation error details
  */
-- (JPError *)validateApplePayConfiguration:(JPConfiguration *)configuration;
+- (nullable JPError *)validateApplePayConfiguration:(nullable JPConfiguration *)configuration;
 
-- (void)setAuthorization:(id<JPAuthorization>)authorization;
+- (void)setAuthorization:(nonnull id<JPAuthorization>)authorization;
 
 @end
 

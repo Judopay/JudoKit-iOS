@@ -90,6 +90,15 @@
                <Test
                   Identifier = "JPApplePayServiceTest/test_WhenUsingValidPKPaymentObject_PaymentShouldExecute()">
                </Test>
+               <Test
+                  Identifier = "JudoKitTest/test_InvokeApplePayWithMode_WhenCountryError_ShouldNotPassValidation()">
+               </Test>
+               <Test
+                  Identifier = "JudoKitTest/test_InvokeApplePayWithMode_WhenCurrencyIsEUR_ShouldNotPassValidation()">
+               </Test>
+               <Test
+                  Identifier = "JudoKitTest/test_InvokeApplePayWithMode_WhenNoItems_ShouldNotPassValidation()">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

@@ -35,10 +35,6 @@ class FeatureRepository {
                          title: "Pre-auth with card",
                          subtitle: "by entering card details"),
 
-        FeatureViewModel(type: .registerCard,
-                         title: "Register card",
-                         subtitle: "to be stored for future transactions"),
-
         FeatureViewModel(type: .checkCard,
                          title: "Check card",
                          subtitle: "to validate a card"),
