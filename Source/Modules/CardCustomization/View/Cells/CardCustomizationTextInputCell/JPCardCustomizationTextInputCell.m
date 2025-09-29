@@ -34,7 +34,7 @@
 const float kInputFieldTopPadding = 32.0F;
 const float kInputFieldBottomPadding = 16.0F;
 const float kInputFieldHorizontalPadding = 24.0F;
-const float kInputFieldHeight = 44.0F;
+const float kInputFieldHeight = 56.0F;
 
 #pragma mark - Initializers
 

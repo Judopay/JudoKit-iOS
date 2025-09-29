@@ -61,7 +61,7 @@
 #pragma mark - Constants
 
 static const float kSeparatorContentSpacing = 8.0F;
-static const float kInputFieldHeight = 44.0F;
+static const float kInputFieldHeight = 56.0F;
 static const float kPhoneCodeWidth = 45.0F;
 
 - (instancetype)init {
