@@ -31,6 +31,7 @@
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
+#import "UIColor+Additions.h"
 
 @interface JPPaymentMethodsCardCell ()
 
@@ -111,6 +112,11 @@ const float kCardSmallPadding = 3.0F;
     UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:accesoryImage];
     accessoryImageView.contentMode = UIViewContentModeScaleAspectFit;
     accessoryImageView.frame = CGRectMake(0, 0, kCardHorizontalPadding, kCardHorizontalPadding);
+    if (!cardModel.isSelected) {
+        // Apply extra tint for accessibility contrast.
+        accessoryImageView.tintColor = UIColor._jp_graphiteGrayColor;
+        accessoryImageView.image = [accesoryImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
     self.accessoryView = accessoryImageView;
 
     [self setSubtitleExpirationStatus:cardModel.cardExpirationStatus];
