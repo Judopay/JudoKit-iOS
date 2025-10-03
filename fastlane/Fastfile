@@ -1,4 +1,5 @@
 require './helpers'
+require 'dotenv'
 
 default_platform(:ios)
 
@@ -52,11 +53,19 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
                    "TEST_API_SECRET='#{ENV['JUDO_API_SECRET']}' "\
                    "RSA_PUBLIC_KEY='#{ENV['RSA_PUBLIC_KEY']}' "\
                    "RAVELIN_MOCK_SERVER_URL='#{ENV['RAVELIN_MOCK_SERVER_URL']}'"
-
+@local_env_path = '.env.local'
+@default_sample_app_flavor = 'obj-c'
 
 platform :ios do
   before_all do
     setup_ci
+
+    # Load local environment variables if they exist, this is used for local development
+    # Never push your local environment variables to the repo
+    if File.exist?(@local_env_path)
+      UI.message("Loading environment from #{@local_env_path}")
+      Dotenv.load(@local_env_path)
+    end
   end
 
   desc "Lint SDK"
@@ -388,5 +397,37 @@ platform :ios do
       release_notes: changelog_from_git_commits(commits_count: 1),
       app: options[:app].firebase_app_id(environment: options[:environment]),
     })
+  end
+
+  # Sets up the staging environment configuration for a sample app
+  # This is used for testing purposes only
+  desc "Inject staging environment configuration"
+  lane :inject_staging do |options|
+    flavor = options[:flavor] || @default_sample_app_flavor
+    
+    app = find_app_by_flavor(sample_apps: @sample_apps, flavor: flavor)
+    
+    inject_staging_environment(
+      app: app,
+      sdk_root_path: @project_root_path
+    )
+    
+    UI.success("Successfully injected staging environment for #{app.scheme} (#{flavor})")
+  end
+
+  # Reverts the staging environment configuration for a sample app
+  # This is used for testing purposes only
+  desc "Revert staging environment configuration"
+  lane :revert_staging do |options|
+    flavor = options[:flavor] || @default_sample_app_flavor
+    
+    app = find_app_by_flavor(sample_apps: @sample_apps, flavor: flavor)
+    
+    revert_staging_environment(
+      app: app,
+      sdk_root_path: @project_root_path
+    )
+    
+    UI.success("Successfully reverted staging environment for #{app.scheme} (#{flavor})")
   end
 end

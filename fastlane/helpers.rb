@@ -57,7 +57,17 @@ def inject_staging_environment(app:, sdk_root_path:)
     replace(
       file_path: "#{sdk_root_path}/Source/Models/Constants/JPConstants.h",
       old_string: ".judopay.com",
-      new_string: ".#{staging_hostname}}"
+      new_string: ".#{staging_hostname}"
+    )
+    replace(
+      file_path: "#{sdk_root_path}/Source/Services/ApiService/Session/JPSession.m",
+      old_string: "judopay.com",
+      new_string: "#{staging_hostname}"
+    )
+    replace(
+      file_path: "#{sdk_root_path}/Source/Services/ApiService/Session/JPSession.m",
+      old_string: "SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+      new_string: "MSRt/ad3CuiVlkcO6NMNJPXHjLK3jG6WpBxjSROooTE="
     )
     puts("Updated provisioning profile specifier and constants for staging environment.")
   end
@@ -66,7 +76,11 @@ end
 def revert_staging_environment(app:, sdk_root_path:)
   reset_git_repo(
     force: true,
-    files: ["#{sdk_root_path}/Source/Models/Constants/JPConstants.h", "#{app.project}/project.pbxproj"]
+    files: [
+      "#{sdk_root_path}/Source/Models/Constants/JPConstants.h",
+      "#{sdk_root_path}/Source/Services/ApiService/Session/JPSession.m",
+      "#{app.project}/project.pbxproj"
+    ]
   )
 end
 
@@ -169,6 +183,17 @@ def run_xctestrun_on_browserstack(
   )
 
   puts("Successfully triggered tests on BrowserStack: #{response}")
+end
+
+def find_app_by_flavor(sample_apps:, flavor:)
+  app = sample_apps.find { |a| a.flavor == flavor }
+  
+  if app.nil?
+    available_flavors = sample_apps.map(&:flavor).join(', ')
+    UI.user_error!("App with flavor '#{flavor}' not found. Available flavors: #{available_flavors}")
+  end
+  
+  app
 end
 
 class SampleApp
