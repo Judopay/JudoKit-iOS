@@ -32,8 +32,8 @@
 #import "JPTransactionButton.h"
 #import "JPTransactionScanCardButton.h"
 #import "JPTransactionViewModel.h"
-#import "UIStackView+Additions.h"
 #import "NSString+Additions.h"
+#import "UIStackView+Additions.h"
 
 @interface JPCardDetailsForm () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -63,7 +63,6 @@ static const float kInputFieldHeight = 56.0F;
         self.fieldsSet = fieldsSet;
 
         [self setupSubviews];
-        [self setupInputFieldsConstraints];
     }
     return self;
 }
@@ -75,7 +74,6 @@ static const float kInputFieldHeight = 56.0F;
     [self setupHeading];
     [self addArrangedSubview:self.securityMessageView];
     [self setupInputFieldsStackView];
-    [self setupInputFieldsConstraints];
 }
 
 - (void)setupHeading {
@@ -120,7 +118,6 @@ static const float kInputFieldHeight = 56.0F;
     _fieldsSet = fieldsSet;
 
     [self setupInputFieldsStackView];
-    [self setupInputFieldsConstraints];
 }
 
 - (void)setupFullCardDetailsSubviews {
@@ -144,17 +141,6 @@ static const float kInputFieldHeight = 56.0F;
     }
 
     [self.inputFieldsStackView _jp_addArrangedSubviews:fields];
-}
-
-- (void)setupInputFieldsConstraints {
-    [NSLayoutConstraint activateConstraints:@[
-        [self.cardNumberTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cardHolderNameTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.expiryDateTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cardSecurityCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight]
-    ]];
 }
 
 - (void)applyTheme:(JPTheme *)theme {

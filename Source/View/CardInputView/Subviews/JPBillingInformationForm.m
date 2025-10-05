@@ -186,18 +186,8 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
-        [self.emailTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.administrativeDivisionTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.phoneCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
-        [self.phoneTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line1TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.addAddressLineButton.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line2TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line3TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cityTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight]
+        [self.addAddressLineButton.heightAnchor constraintEqualToConstant:kInputFieldHeight]
     ]];
 }
 

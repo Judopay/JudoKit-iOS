@@ -90,6 +90,7 @@ static const float kErrorConstraintOffset = -15.0F;
                       alphaValue:1.0
            andConstraintConstant:kErrorConstraintOffset];
     self.isExpanded = YES;
+    [self invalidateIntrinsicContentSize];
 }
 
 - (void)hideFloatingLabel {
@@ -98,6 +99,7 @@ static const float kErrorConstraintOffset = -15.0F;
                       alphaValue:0.0
            andConstraintConstant:0.0];
     self.isExpanded = NO;
+    [self invalidateIntrinsicContentSize];
 }
 
 #pragma mark - View layout
@@ -220,6 +222,16 @@ static const float kErrorConstraintOffset = -15.0F;
         _expandedPointSize = self.defaultPointSize - kFontDecreaseValue;
     }
     return _expandedPointSize;
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize textSize = [self.text sizeWithAttributes:@{NSFontAttributeName : self.font}];
+    CGFloat height = textSize.height + 16.0;
+    if (self.isExpanded) {
+        CGSize errorSize = [self.floatingLabel.text sizeWithAttributes:@{NSFontAttributeName : self.floatingLabel.font}];
+        height += errorSize.height + 8.0;
+    }
+    return CGSizeMake(UIViewNoIntrinsicMetric, height);
 }
 
 @end
