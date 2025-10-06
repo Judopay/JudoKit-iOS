@@ -105,6 +105,16 @@
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"jp_payment_methods"._jp_localized;
+    titleLabel.font = self.configuration.uiConfiguration.theme.title;
+    titleLabel.textColor = self.configuration.uiConfiguration.theme.jpBlackColor;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel sizeToFit];
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    titleLabel.numberOfLines = 0;
+    self.navigationItem.titleView = titleLabel;
+
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
 }

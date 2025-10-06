@@ -48,6 +48,7 @@
 "jp_choose_payment_method" = "Choisissez un mode de paiement";
 "jp_connected_cards" = "Cartes connectées";
 "jp_customise_card" = "Customsier carte";
+"jp_payment_methods" = "Modes de paiement";
 "jp_default_amex_card_title" = "Ma carte American Express ";
 "jp_default_chinaunionpay_card_title" = "Ma carte China Union Pay ";
 "jp_default_dinersclub_card_title" = "My carte Diners Club";
