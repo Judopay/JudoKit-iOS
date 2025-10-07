@@ -52,7 +52,7 @@ const float kCardLogoShadowOffset = 0.0F;
 const int kExpiryDateNumberOfLines = 2;
 const float kCardLogoSize = 50.0F;
 const float kCardMainStackViewPadding = 28.0F;
-const float kCardTitleStackViewSpacing = 24.0F;
+const float kCardTitleStackViewSpacing = 12.0F;
 const float kCardDefaultStackViewsSpacing = 0.0F;
 const int kSubstringPatternOffset = 4;
 
