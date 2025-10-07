@@ -317,8 +317,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     if (!_amountValueLabel) {
         _amountValueLabel = [UILabel new];
         _amountValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _amountValueLabel.adjustsFontSizeToFitWidth = YES;
-        _amountValueLabel.minimumScaleFactor = kHeaderAmountLabelMinScaleFactor;
         _amountValueLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _amountValueLabel;
@@ -329,7 +327,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         _amountPrefixLabel = [UILabel new];
         _amountPrefixLabel.text = @"jp_you_will_pay"._jp_localized;
         _amountPrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _amountPrefixLabel.adjustsFontSizeToFitWidth = YES;
         _amountPrefixLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _amountPrefixLabel;
