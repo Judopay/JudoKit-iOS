@@ -486,4 +486,32 @@ final class CardPaymentUITests: XCTestCase {
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
+    
+    func testFabrick3DS2VisaFlow() {
+        app.launchArguments += ["-is_using_fabrick_3ds_service", "true", "-is_sandboxed", "false"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.FABRICK_CARDHOLDER,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        tapPayNowButton(app)
+        tapCompleteButton(app, true)
+        app.textFields["Enter code here"].tapAndTypeText("12345")
+        assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
+    }
+    
+    func testFabrickMCFrictionlessFlow() {
+        app.launchArguments += ["-is_using_fabrick_3ds_service", "true", "-is_sandboxed", "false", "-challenge_request_indicator", "noPreference"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.MC_CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.FRICTIONLESS_CARDHOLDER,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
+        tapPayNowButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
+    }
 }
