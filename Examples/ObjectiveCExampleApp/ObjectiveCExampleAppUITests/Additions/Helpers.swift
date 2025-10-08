@@ -72,6 +72,12 @@ func tapCompleteButton(_ app: XCUIApplication, _ isFabrick3DS2: Bool = false) {
     completeButton.tap()
 }
 
+func fill3DS2Code(_ app: XCUIApplication, _ code: String) {
+    let codeEntryField: XCUIElement = app.textFields["Enter code here"]
+    XCTAssert(codeEntryField.waitForExistence(timeout: 30))
+    codeEntryField.tapAndTypeText(code)
+}
+
 func assertResultObjectNotDisplayed(_ app: XCUIApplication) {
     let tableView = app.tables["Results View"]
     XCTAssertFalse(tableView.waitForExistence(timeout: 3))

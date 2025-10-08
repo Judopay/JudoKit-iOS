@@ -30,6 +30,18 @@
       {
         "key" : "RAVELIN_MOCK_SERVER_URL",
         "value" : "$(RAVELIN_MOCK_SERVER_URL)"
+      },
+      {
+        "key" : "FABRICK3DS_JUDO_ID",
+        "value" : "$(FABRICK3DS_JUDO_ID)"
+      },
+      {
+        "key" : "FABRICK3DS_API_TOKEN",
+        "value" : "$(FABRICK3DS_API_TOKEN)"
+      },
+      {
+        "key" : "FABRICK3DS_API_SECRET",
+        "value" : "$(FABRICK3DS_API_SECRET)"
       }
     ],
     "targetForVariableExpansion" : {
