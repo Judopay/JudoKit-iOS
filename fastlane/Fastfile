@@ -1,32 +1,71 @@
+require './helpers'
+require 'dotenv'
+
 default_platform(:ios)
 
-# Check if an environment variable exists and is not empty
-def env_var_valid?(var_name)
-  return ENV.has_key?(var_name) && !ENV[var_name].to_s.empty?
-end
-
-def replace(file_path, old_string, new_string)
-  # Check if the file exists
-  unless File.exist?(file_path)
-    UI.user_error!("File not found: #{file_path}")
-  end
-
-  # Read the file content
-  file_content = File.read(file_path)
-
-  # Replace the string
-  new_content = file_content.gsub(old_string, new_string)
-
-  # Write the updated content back to the file
-  File.open(file_path, "w") { |file| file.puts new_content }
-
-  UI.success("Replaced '#{old_string}' with '#{new_string}' in #{file_path}")
-end
+@compilation_database_path = ENV["XCODE_COMPILATION_DB_PATH"] || "#{File.expand_path('..')}/build/compilation_database"
+@derived_data_path = ENV["XCODE_DERIVED_DATA_PATH"] || "#{File.expand_path('..')}/DerivedData"
+@environments = ['staging', 'production']
+@fl_output_dir = ENV['FL_OUTPUT_DIR'] || "#{File.expand_path('..')}/Output"
+@project_root_path = File.expand_path('..')
+sample_apps_dir = "#{File.expand_path('..')}/Examples"
+@sample_apps = [
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:d7db21b04007e9ee63eceb',
+      staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb'
+    },
+    flavor: 'obj-c',
+    path: "#{sample_apps_dir}/ObjectiveCExampleApp",
+    smoke_test_list: [
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
+      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
+    ],
+  ),
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:7bbdd8e61adb48e863eceb'
+    },
+    flavor: 'swift',
+    path: "#{sample_apps_dir}/SwiftExampleApp",
+  ),
+  SampleApp.new(
+    bootstrap_script: 'carthage_example_carthage_bootstrap.sh',
+    firebase_app_id: {
+      production: '1:34238832242:ios:eafceec3517c076463eceb'
+    },
+    flavor: 'carthage',
+    path: "#{sample_apps_dir}/CarthageExampleApp",
+  ),
+  SampleApp.new(
+    firebase_app_id: {
+      production: '1:34238832242:ios:f07ce32928073fa463eceb',
+    },
+    flavor: 'spm',
+    path: "#{sample_apps_dir}/SPMExampleApp",
+  )
+]
+@scripts_dir = "#{File.expand_path('..')}/scripts"
+@ui_tests_xcargs = "-allowProvisioningUpdates "\
+                   "TEST_API_JUDO_ID='#{ENV['JUDO_API_ID']}' "\
+                   "TEST_API_TOKEN='#{ENV['JUDO_API_TOKEN']}' "\
+                   "TEST_API_SECRET='#{ENV['JUDO_API_SECRET']}' "\
+                   "RSA_PUBLIC_KEY='#{ENV['RSA_PUBLIC_KEY']}' "\
+                   "RAVELIN_MOCK_SERVER_URL='#{ENV['RAVELIN_MOCK_SERVER_URL']}'"
+@local_env_path = '.env.local'
+@default_sample_app_flavor = 'obj-c'
 
 platform :ios do
-
   before_all do
-    setup_circle_ci
+    setup_ci
+
+    # Load local environment variables if they exist, this is used for local development
+    # Never push your local environment variables to the repo
+    if File.exist?(@local_env_path)
+      UI.message("Loading environment from #{@local_env_path}")
+      Dotenv.load(@local_env_path)
+    end
   end
 
   desc "Lint SDK"
@@ -37,336 +76,358 @@ platform :ios do
   end
 
   desc "Build SDK"
-  lane :build do
+  lane :build do |options|
+    lint
     carthage
+    
+    FileUtils.mkdir_p(@compilation_database_path)
     build_app(
+      derived_data_path: @derived_data_path,
       skip_codesigning: true,
       skip_package_ipa: true,
       skip_package_dependencies_resolution: true,
-      scheme: 'JudoKit_iOS',
-      project: './JudoKit_iOS.xcodeproj'
+      xcargs: "OTHER_CFLAGS='$(inherited) -gen-cdb-fragment-path #{@compilation_database_path}'"
     )
   end
 
   desc "Run SDK tests"
   lane :test do
     carthage
-    run_tests(ensure_devices_found: true)
+    run_tests(
+      clean: false,
+      code_coverage: true,
+      derived_data_path: @derived_data_path,
+      ensure_devices_found: true
+    )
   end
 
-  desc "Package ObjC example app and instrumented tests for uploading to firebase"
-  lane :package_instrumented_tests do
-    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-
-    sync_code_signing_options = {
-      type: "development",
-      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
-    }
-
-    run_tests_options = {
-      build_for_testing: true,
-      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace",
-      scheme: "ObjectiveCExampleAppUITests",
-      destination: "generic/platform=iOS",
-      sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      include_simulator_logs: false
-    }
-
-    app_store_connect_api_key
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
-
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
-      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
-        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/ObjectiveCExampleAppUITests.zip Debug-iphoneos ObjectiveCExampleAppUITests_*.xctestrun")
-      end
-    end
-  end
-
-  desc "Package ObjC example app and instrumented tests for uploading to Browserstack"
-  lane :package_instrumented_tests_browserstack do
-    cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-
-    sync_code_signing_options = {
-      type: "development",
-      app_identifier: ['com.judo.JudoPayDemoObjC', 'com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*']
-    }
-
-    run_tests_options = {
-      build_for_testing: true,
-      workspace: "./Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace",
-      scheme: "ObjectiveCExampleAppUITests",
-      destination: "generic/platform=iOS",
-      sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET RSA_PUBLIC_KEY=$RSA_PUBLIC_KEY RAVELIN_MOCK_SERVER_URL=$RAVELIN_MOCK_SERVER_URL",
-      include_simulator_logs: false,
-      only_testing: [
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"],
-    }
-
-    app_store_connect_api_key
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
-
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
-
-      runner_app_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/Debug-iphoneos/*-Runner.app"].first
-      xctestrun_path = Dir["#{ENV['DERIVED_DATA_PATH']}/Build/Products/*.xctestrun"].first
-
-      test_suite_dir = File.join(ENV['FL_OUTPUT_DIR'], 'BrowserStackTestSuite')
-      FileUtils.rm_rf(test_suite_dir)
-      FileUtils.mkdir_p(test_suite_dir)
-
-      FileUtils.cp_r(runner_app_path, test_suite_dir)
-      FileUtils.cp(xctestrun_path, test_suite_dir)
-
-      Dir.chdir(test_suite_dir) do
-        sh("zip --symlinks -r ../ObjectiveCExampleAppUITests.zip *")
-      end
-
-      FileUtils.rm_rf(test_suite_dir)
-    end
-  end
-
-  desc "Package Swift example app and instrumented tests for uploading to Firebase"
-  lane :package_instrumented_tests_swift do
-    cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
-
-    sync_code_signing_options = {
-      type: "development",
-      app_identifier: ['com.judo.JudoPayDemoSwift', 'com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*'],
-    }
-
-    run_tests_options = {
-      build_for_testing: true,
-      workspace: "./Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace",
-      testplan: "SwiftExampleAppTestPlan",
-      scheme: "SwiftExampleAppUITests",
-      destination: "generic/platform=iOS",
-      sdk: "iphoneos",
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild -allowProvisioningUpdates TEST_API_JUDO_ID=$JUDO_API_ID TEST_API_TOKEN=$JUDO_API_TOKEN TEST_API_SECRET=$JUDO_API_SECRET",
-      include_simulator_logs: false
-    }
-
-    app_store_connect_api_key
-    sync_code_signing sync_code_signing_options
-    run_tests run_tests_options
-
-    Dir.chdir('..') do
-      FileUtils.mkdir_p(ENV['FL_OUTPUT_DIR'])
-      Dir.chdir("#{ENV['DERIVED_DATA_PATH']}/Build/Products") do
-        sh("zip -r ../../../#{ENV['FL_OUTPUT_DIR']}/SwiftExampleAppUITests.zip Debug-iphoneos SwiftExampleAppUITests_*.xctestrun")
-      end
-    end
-  end
-
-  def extract_flavor_list(options)
-    supported_flavors = %w(obj-c obj-c-stg swift carthage spm)
-
-    if options[:flavors].nil?
-      UI.important("No flavors option has been provided, defaulting to: #{supported_flavors}")
-    end
-
-    current_flavors = options[:flavors]&.split(',')&.map(&:strip) || supported_flavors
-
-    current_flavors.each do |flavor|
-      UI.user_error!("Unsupported flavor '#{flavor}', must be: #{supported_flavors}") unless supported_flavors.include?(flavor)
-    end
-
-    return current_flavors
-  end
-
-  desc "Build Sample App"
-  lane :build_sample_apps do | options |
-
-    extract_flavor_list(options).each do | flavor |
-
-      build_for_distribution = options[:build_for_distribution].nil? ? true : options[:build_for_distribution]
-
-      build_for_browserstack = options[:build_for_browserstack].nil? ? false : options[:build_for_browserstack]
-
-      sync_code_signing_options = { type: 'adhoc' }
-      build_app_options = { export_method: 'ad-hoc' }
-
-      if build_for_browserstack
-        sync_code_signing_options[:type] = 'development'
-        build_app_options[:export_method] = 'development'
-        build_app_options[:skip_codesigning] = false
-        build_app_options[:skip_package_ipa] = false
-        build_app_options[:skip_archive] = false
-        build_app_options[:configuration] = 'Debug'
-      elsif !build_for_distribution
-        build_app_options[:skip_codesigning] = true
-        build_app_options[:skip_package_ipa] = true
-        build_app_options[:skip_archive] = true
-        build_app_options[:configuration] = 'Debug'
-      end
-
-      case flavor
-        when 'obj-c', 'obj-c-stg'
-          cocoapods(podfile: './Examples/ObjectiveCExampleApp/Podfile')
-
-          sync_code_signing_options[:app_identifier] = "com.judo.JudoPayDemoObjC#{flavor == 'obj-c-stg' ? '.staging' : ''}"
-
-          build_app_options[:scheme] = 'ObjectiveCExampleApp'
-          build_app_options[:output_name] = 'ObjectiveCExampleApp.ipa'
-          build_app_options[:workspace] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcworkspace'
-
-        when 'swift'
-          cocoapods(podfile: './Examples/SwiftExampleApp/Podfile')
-
-          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoSwift'
-
-          build_app_options[:scheme] = 'SwiftExampleApp'
-          build_app_options[:output_name] = 'SwiftExampleApp.ipa'
-          build_app_options[:workspace] = './Examples/SwiftExampleApp/SwiftExampleApp.xcworkspace'
-
-        when 'carthage'
-          Dir.chdir('..') do
-            sh('./scripts/carthage_example_carthage_bootstrap.sh')
-          end
-
-          sync_code_signing_options[:app_identifier] = 'com.judo.JudoPayDemoCarthage'
-
-          build_app_options[:scheme] = 'CarthageExampleApp'
-          build_app_options[:output_name] = 'CarthageExampleApp.ipa'
-          build_app_options[:project] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
-
-        when 'spm'
-          sync_code_signing_options[:app_identifier] = 'com.judopay.SPMExampleApp'
-
-          build_app_options[:scheme] = 'SPMExampleApp'
-          build_app_options[:output_name] = 'SPMExampleApp.ipa'
-          build_app_options[:project] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
-
-        else
-          UI.user_error!("Unsupported flavor '#{flavor}'.")
-        end
-
-        build_sample_app_helper_options = {
-          flavor: flavor,
-          build_for_distribution: build_for_distribution,
-          build_app_options: build_app_options,
-          sync_code_signing_options: sync_code_signing_options,
-          build_for_browserstack: build_for_browserstack
-        }
-
-        build_sample_app_helper build_sample_app_helper_options
-      end
-  end
-
-  private_lane :build_sample_app_helper do |options|
-    UI.user_error!("build_for_distribution option is required.") unless options.key?(:build_for_distribution)
-    UI.user_error!("build_app_options option is required.") unless options[:build_app_options]
-    UI.user_error!("sync_code_signing_options option is required.") unless options[:sync_code_signing_options]
-
-    inject_staging_environment if options[:flavor] == 'obj-c-stg'
-
-    if options[:build_for_distribution] || options[:build_for_browserstack]
-      app_store_connect_api_key
-      sync_code_signing options[:sync_code_signing_options]
-    end
-
-    build_app options[:build_app_options]
-
-    revert_staging_environment if options[:flavor] == 'obj-c-stg'
-  end
-
-  desc "Distribute ObjectiveCExampleApp"
-  lane :distribute_sample_app do |options|
-
-    increment_build_number_options = {}
-
-    firebase_app_distribution_options = {
-      groups: 'default-testers',
-      release_notes: changelog_from_git_commits(commits_count: 1)
-    }
-
-    extract_flavor_list(options).each do | flavor |
-      case flavor
-      when 'obj-c', 'obj-c-stg'
-          firebase_app_distribution_options[:app] = ENV[flavor == 'obj-c' ? 'IOS_OBJ_C_FIREBASE_APP_ID' : 'IOS_OBJ_C_STG_FIREBASE_APP_ID']
-          increment_build_number_options[:xcodeproj] = './Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj'
-        when 'swift'
-          firebase_app_distribution_options[:app] = ENV['IOS_SWIFT_FIREBASE_APP_ID']
-          increment_build_number_options[:xcodeproj] = './Examples/SwiftExampleApp/SwiftExampleApp.xcodeproj'
-        when 'carthage'
-          firebase_app_distribution_options[:app] = ENV['IOS_CARTHAGE_FIREBASE_APP_ID']
-          increment_build_number_options[:xcodeproj] = './Examples/CarthageExampleApp/CarthageExampleApp.xcodeproj'
-        when 'spm'
-          firebase_app_distribution_options[:app] = ENV['IOS_SPM_FIREBASE_APP_ID']
-          increment_build_number_options[:xcodeproj] = './Examples/SPMExampleApp/SPMExampleApp.xcodeproj'
-        else
-          UI.user_error!("Unsupported flavor '#{flavor}'.")
-        end
-
-      latest_release = firebase_app_distribution_get_latest_release app:firebase_app_distribution_options[:app]
-      current_version = latest_release.nil? ? 0 : latest_release[:buildVersion].to_i
-      increment_build_number_options[:build_number] = current_version + 1
-      increment_build_number increment_build_number_options
-
-      build_sample_apps flavors: flavor
-      firebase_app_distribution firebase_app_distribution_options
-      end
+  desc "Publish SDK"
+  lane :publish do
+    pod_push(
+      allow_warnings: true,
+      path: "#{@project_root_path}/JudoKit-iOS.podspec",
+      use_bundle_exec: true
+    )
   end
 
   desc "Run full PR check pipeline"
   lane :pr_check do
     lint
+    build
     test
-    build_sample_apps flavors:'obj-c, swift, carthage, spm'
+    build_sample_apps
   end
 
-  desc "Injects the staging env variables"
-  lane :inject_staging_environment do |options|
-      unless env_var_valid?('STAGING_HOST_NAME')
-          UI.abort_with_message!("STAGING_HOST_NAME environment variable is not set. Unable to continue.")
+  desc "Build Sample Apps"
+  lane :build_sample_apps do |options|
+    app_store_connect_api_key
+
+    @sample_apps.select{ |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      @environments.select{ |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
       end
-
-      suffix = options[:suffix] || ".staging"
-
-      Dir.chdir('..') do
-        current_bundle_id = get_product_bundle_id(
-          project_filepath: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj",
-          scheme: "ObjectiveCExampleApp"
-        )
-
-        if current_bundle_id.end_with?(suffix)
-          UI.message("The current bundle id already has the suffix '#{suffix}'")
-        else
-          new_bundle_id = "#{current_bundle_id}#{suffix}"
-
-          update_app_identifier(
-            xcodeproj: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj",
-            plist_path: "#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp/Info.plist",
-            app_identifier: new_bundle_id
-          )
-
-          UI.message("Updated bundle ID to: #{new_bundle_id}")
-
-          profile_specifier = "match AdHoc com.judo.JudoPayDemoObjC"
-          replace("#{Dir.pwd}/Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj/project.pbxproj", profile_specifier, "#{profile_specifier}#{suffix}")
-        end
-
-        replace("#{Dir.pwd}/Source/Models/Constants/JPConstants.h", ".judopay.com", ".#{ENV['STAGING_HOST_NAME']}")
-      end
+    end
   end
 
-  desc "Revert injected staging env variables"
-  lane :revert_staging_environment do |options|
-    files_list = options[:files] || []
-    files_list.append("Source/Models/Constants/JPConstants.h")
-    files_list.append("Examples/ObjectiveCExampleApp/ObjectiveCExampleApp.xcodeproj/project.pbxproj")
+  desc "Build Sample App"
+  private_lane :build_sample_app do |options|
+    cocoapods(
+      podfile: options[:app].podfile
+    ) if !options[:app].podfile.nil? && File.file?(options[:app].podfile)
 
-    reset_git_repo(
-      force: true,
-      files: files_list
+    sh("#{@scripts_dir}/#{options[:app].bootstrap_script}") if !options[:app].bootstrap_script.nil?
+
+    inject_staging_environment(
+      app: options[:app],
+      sdk_root_path: @project_root_path
+    ) if options[:environment] == 'staging'
+
+    bump_build_number(
+      app: options[:app],
+      environment: options[:environment]
+    )
+
+    sync_code_signing({
+      readonly: true,
+      type: "development",
+      app_identifier: get_product_bundle_id(
+        project_filepath: options[:app].project,
+        scheme: options[:app].scheme
+      )
+    })
+
+    # Build sample app
+    build_app({
+      configuration: 'Debug',
+      derived_data_path: @derived_data_path,
+      export_method: 'development',
+      output_name: "#{options[:app].scheme}-#{options[:environment]}.ipa",
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
+      scheme: options[:app].scheme,
+      workspace: options[:app].workspace,
+    })
+
+    revert_staging_environment(
+      app: options[:app],
+      sdk_root_path: @project_root_path
+    ) if options[:environment] == 'staging'
+
+    build_instrumented_tests_packages({
+      app: options[:app]
+    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
+  end
+
+  desc "Package Instrumented Tests for a Sample App"
+  private_lane :build_instrumented_tests_packages do |options|
+    sync_code_signing({
+      readonly: true,
+      type: "development",
+      app_identifier: [
+        "#{get_product_bundle_id(
+          project_filepath: options[:app].project,
+          scheme: options[:app].ui_test_scheme
+        )}.*"
+      ]
+    })
+
+    build_options = {
+      build_for_testing: true,
+      clean: false,
+      derived_data_path: @derived_data_path,
+      destination: "generic/platform=iOS",
+      include_simulator_logs: false,
+      project: !options[:app].workspace.nil? ? nil : options[:app].project,
+      scheme: options[:app].ui_test_scheme,
+      sdk: "iphoneos",
+      testplan: options[:app].ui_test_plan,
+      workspace: options[:app].workspace,
+      xcargs: @ui_tests_xcargs,
+      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+    }
+
+    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+    run_tests(build_options)
+
+    package_instrumented_tests(
+      app: options[:app],
+      input_dir: "#{@derived_data_path}/Build/Products",
+      output_dir: @fl_output_dir,
+      output_file: "#{options[:app].ui_test_scheme}-all.zip",
+    )
+
+    # If there is a smoke test list, repeat the build to create a package
+    # which will only run the subset of tests
+    if !options[:app].smoke_test_list.nil?
+      run_tests(
+        {
+          only_testing: options[:app].smoke_test_list,
+        }.merge(build_options)
+      )
+
+      package_instrumented_tests(
+        app: options[:app],
+        input_dir: "#{@derived_data_path}/Build/Products",
+        output_dir: @fl_output_dir,
+        output_file: "#{options[:app].ui_test_scheme}-smoke.zip"
+      )
+    end
+  end
+
+  # Note: Unit tests and instrumented tests on simulators don't work for now so they are commented out.
+  # desc "Test Sample Apps"
+  # lane :test_sample_apps do |options|
+  #   @sample_apps.select{ |app|
+  #     !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+  #   }.each do |app|
+  #     test_sample_app({app: app})
+  #   end
+  # end
+
+  # desc "Test Sample App"
+  # private_lane :test_sample_app do |options|
+  #   if options[:app].unit_test_scheme.nil?
+  #     UI.important("No unit test scheme found for #{options[:app].scheme}. Skipping unit tests.")
+  #     next
+  #   end
+
+  #   run_tests(
+  #     derived_data_path: @derived_data_path,
+  #     ensure_devices_found: true,
+  #     project: !options[:app].workspace.nil? ? nil : options[:app].project,
+  #     scheme: options[:app].unit_test_scheme,
+  #     skip_build: true,
+  #     workspace: options[:app].workspace,
+  #   )
+  # end
+
+  # desc "Run instrumented tests for sample apps on simulators"
+  # lane :test_sample_apps_simulator do |options|
+  #   @sample_apps.select{ |app|
+  #     !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+  #   }.each do |app|
+  #     test_sample_app_simulator({app: app})
+  #   end
+  # end
+
+  # desc "Run instrumented tests for a sample app on a simulator"
+  # private_lane :test_sample_app_simulator do |options|
+  #   if options[:app].ui_test_scheme.nil?
+  #     UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+  #     next
+  #   end
+
+  #   run_tests({
+  #     derived_data_path: @derived_data_path,
+  #     destination: "generic/platform=iOS",
+  #     include_simulator_logs: false,
+  #     project: !options[:app].workspace.nil? ? nil : options[:app].project,
+  #     scheme: options[:app].ui_test_scheme,
+  #     sdk: "iphoneos",
+  #     testplan: options[:app].ui_test_plan,
+  #     workspace: options[:app].workspace,
+  #     xcargs: @ui_tests_xcargs,
+  #     xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild",
+  #   })
+  # end
+
+  desc "Run instrumented tests for sample apps on Firebase"
+  lane :test_sample_apps_firebase do |options|
+    @sample_apps.select{ |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      test_sample_app_firebase({app: app, device_set: options[:device_set]})
+    end
+  end
+
+  desc "Run instrumented tests for a sample app on Firebase"
+  private_lane :test_sample_app_firebase do |options|
+    if options[:app].ui_test_scheme.nil?
+      UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+      next
+    end
+
+    sh(
+      "gcloud firebase test ios run"\
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"\
+        " --xcode-version 16.2"\
+        " --device model=iphone8,version=15.7"\
+        " --device model=iphone14pro,version=16.6"\
+        " --device model=iphone15,version=18.0"\
+        " --device model=ipad10,version=16.6"\
+        " --record-video"\
+        " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
+        " --client-details=#{[
+            "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
+            "app=\"#{options[:app].scheme}\"",
+            "project=JudoKit-iOS"
+          ].join(",")}"\
+        " --timeout=30m"\
+        " --num-flaky-test-attempts=1"\
+        " --async"
     )
   end
 
+  desc "Run instrumented tests for sample apps on BrowserStack"
+  lane :test_sample_apps_browserstack do |options|
+    @sample_apps.select{ |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      test_sample_app_browserstack({app: app, device_set: options[:device_set]})
+    end
+  end
+
+  desc "Run instrumented tests for a sample app on BrowserStack"
+  private_lane :test_sample_app_browserstack do |options|
+    if options[:app].ui_test_scheme.nil?
+      UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
+      next
+    end
+
+    upload_to_browserstack_app_automate(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-production.ipa"
+    )
+
+    app_url = ENV["BROWSERSTACK_APP_ID"]
+
+    test_suite_url = upload_xctestrun_to_browserstack(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ? 
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip" :
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
+    )
+
+    run_xctestrun_on_browserstack(
+      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+      app_url: app_url,
+      test_suite_url: test_suite_url,
+      devices: ["iPhone 12-14"], # "iPhone 11-13", "iPhone XS-12", "iPhone 8-11", "iPhone 7-10"
+      project: "JudoKit-iOS UI Tests",
+      build_tag: "JudoKit-iOS"
+    )
+  end
+  
+  desc "Publish Sample Apps to Firebase"
+  lane :publish_sample_apps do |options|
+    @environments.each do |env|
+      @sample_apps.select{ |app|
+        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+      }.each do |app|
+        publish_sample_app({app: app, environment: env})
+      end
+    end
+  end
+
+  desc "Publish Sample App to Firebase"
+  private_lane :publish_sample_app do |options|
+    if options[:app].firebase_app_id(environment: options[:environment]).nil?
+      UI.important("No Firebase App ID found for #{options[:app].scheme} and environment #{options[:environment]}. Won't publish.")
+      next
+    end
+    firebase_app_distribution({
+      groups: 'default-testers',
+      ipa_path: "#{@fl_output_dir}/#{options[:app].scheme}-#{options[:environment]}.ipa",
+      release_notes: changelog_from_git_commits(commits_count: 1),
+      app: options[:app].firebase_app_id(environment: options[:environment]),
+    })
+  end
+
+  # Sets up the staging environment configuration for a sample app
+  # This is used for testing purposes only
+  desc "Inject staging environment configuration"
+  lane :inject_staging do |options|
+    flavor = options[:flavor] || @default_sample_app_flavor
+    
+    app = find_app_by_flavor(sample_apps: @sample_apps, flavor: flavor)
+    
+    inject_staging_environment(
+      app: app,
+      sdk_root_path: @project_root_path
+    )
+    
+    UI.success("Successfully injected staging environment for #{app.scheme} (#{flavor})")
+  end
+
+  # Reverts the staging environment configuration for a sample app
+  # This is used for testing purposes only
+  desc "Revert staging environment configuration"
+  lane :revert_staging do |options|
+    flavor = options[:flavor] || @default_sample_app_flavor
+    
+    app = find_app_by_flavor(sample_apps: @sample_apps, flavor: flavor)
+    
+    revert_staging_environment(
+      app: app,
+      sdk_root_path: @project_root_path
+    )
+    
+    UI.success("Successfully reverted staging environment for #{app.scheme} (#{flavor})")
+  end
 end
