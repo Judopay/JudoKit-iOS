@@ -43,6 +43,9 @@ static const float kErrorFrameOffset = -4.0F;
 static const float kErrorTextOffset = 5.0F;
 static const float kStandardFrameOffset = 3.0F;
 static const float kErrorConstraintOffset = -15.0F;
+static const float kErrorTopPadding = 4.0F;
+static const float kErrorSpacing = 8.0F;
+static const float kDefaultMaxWidth = 320.0F;
 
 #pragma mark - Initializers
 
@@ -85,11 +88,14 @@ static const float kErrorConstraintOffset = -15.0F;
 
 - (void)displayFloatingLabelWithText:(NSString *)text {
     self.floatingLabel.text = text;
+    self.floatingLabel.numberOfLines = 0;
+    self.floatingLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self transformToNewFontSize:self.expandedPointSize
                      frameOffset:self.isExpanded ? 0 : kErrorFrameOffset
                       alphaValue:1.0
            andConstraintConstant:kErrorConstraintOffset];
     self.isExpanded = YES;
+    [self adjustTextContentPadding];
     [self invalidateIntrinsicContentSize];
 }
 
@@ -99,7 +105,22 @@ static const float kErrorConstraintOffset = -15.0F;
                       alphaValue:0.0
            andConstraintConstant:0.0];
     self.isExpanded = NO;
+    [self adjustTextContentPadding];
     [self invalidateIntrinsicContentSize];
+}
+
+- (void)adjustTextContentPadding {
+    if (self.isExpanded) {
+        CGFloat maxWidth = self.frame.size.width > 0 ? self.frame.size.width : kDefaultMaxWidth;
+        CGSize errorSize = [self.floatingLabel.text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                               attributes:@{NSFontAttributeName : self.floatingLabel.font}
+                                                                  context:nil].size;
+        self.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+    } else {
+        self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        self.transform = CGAffineTransformIdentity;
+    }
 }
 
 #pragma mark - View layout
@@ -112,7 +133,7 @@ static const float kErrorConstraintOffset = -15.0F;
     NSArray *constraints = @[
         [self.floatingLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.floatingLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        self.floatingLabelCenterYConstraint,
+        [self.floatingLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:kErrorTopPadding],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -228,8 +249,12 @@ static const float kErrorConstraintOffset = -15.0F;
     CGSize textSize = [self.text sizeWithAttributes:@{NSFontAttributeName : self.font}];
     CGFloat height = textSize.height + 16.0;
     if (self.isExpanded) {
-        CGSize errorSize = [self.floatingLabel.text sizeWithAttributes:@{NSFontAttributeName : self.floatingLabel.font}];
-        height += errorSize.height + 8.0;
+        CGFloat maxWidth = self.frame.size.width > 0 ? self.frame.size.width : kDefaultMaxWidth;
+        CGSize errorSize = [self.floatingLabel.text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                               attributes:@{NSFontAttributeName : self.floatingLabel.font}
+                                                                  context:nil].size;
+        height += errorSize.height + kErrorSpacing;
     }
     return CGSizeMake(UIViewNoIntrinsicMetric, height);
 }
