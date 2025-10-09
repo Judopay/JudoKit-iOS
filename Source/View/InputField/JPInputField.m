@@ -168,11 +168,27 @@ static const float kVerticalEdgeInsets = 14.0F;
 - (void)displayErrorWithText:(NSString *)text {
     self.floatingTextField.textColor = self.theme.jpRedColor;
     [self.floatingTextField displayFloatingLabelWithText:text];
+    [self updateHeightConstraint];
 }
 
 - (void)clearError {
     self.floatingTextField.textColor = self.textColor;
     [self.floatingTextField hideFloatingLabel];
+    [self updateHeightConstraint];
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize textFieldSize = [self.floatingTextField systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return CGSizeMake(UIViewNoIntrinsicMetric, textFieldSize.height + (kVerticalEdgeInsets * 2));
+}
+
+- (void)updateHeightConstraint {
+    // Invalidate intrinsic content size to trigger layout update
+    [self invalidateIntrinsicContentSize];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [self.superview layoutIfNeeded];
+                     }];
 }
 
 - (BOOL)becomeFirstResponder {
@@ -196,18 +212,17 @@ static const float kVerticalEdgeInsets = 14.0F;
 
     self.isAccessibilityElement = NO;
 
-    [self addSubview:self.stackView];
-    [self.stackView addArrangedSubview:self.floatingTextField];
+    [self addSubview:self.floatingTextField];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
-                                                 constant:kVerticalEdgeInsets],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
-                                                    constant:-kVerticalEdgeInsets],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
-                                                     constant:kHorizontalEdgeInsets],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
-                                                      constant:-kHorizontalEdgeInsets]
+        [self.floatingTextField.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                         constant:kVerticalEdgeInsets],
+        [self.floatingTextField.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
+                                                            constant:-kVerticalEdgeInsets],
+        [self.floatingTextField.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
+                                                             constant:kHorizontalEdgeInsets],
+        [self.floatingTextField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+                                                              constant:-kHorizontalEdgeInsets]
     ]];
 
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];
@@ -229,14 +244,6 @@ static const float kVerticalEdgeInsets = 14.0F;
         }
     }
     return _floatingTextField;
-}
-
-- (UIStackView *)stackView {
-    if (!_stackView) {
-        _stackView = [UIStackView new];
-        _stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _stackView;
 }
 
 @end

@@ -82,7 +82,6 @@ const float kInputFieldHeight = 56.0F;
                                                       constant:kInputFieldHorizontalPadding],
         [self.inputField.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                        constant:-kInputFieldHorizontalPadding],
-        [self.inputField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];

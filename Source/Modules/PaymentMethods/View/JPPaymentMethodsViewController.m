@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
 #import "JPConfiguration.h"
+#import "JPConstants.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -104,6 +105,22 @@
     [backBarButton.customView.heightAnchor constraintEqualToConstant:22.0].active = YES;
     [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
+
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"jp_payment_methods"._jp_localized;
+
+    UIFont *titleFont = self.configuration.uiConfiguration.theme.title;
+    if (titleFont.pointSize > kMaxNavigationTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxNavigationTitleTextSize];
+    }
+    titleLabel.font = titleFont;
+
+    titleLabel.textColor = self.configuration.uiConfiguration.theme.jpBlackColor;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel sizeToFit];
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    titleLabel.numberOfLines = 0;
+    self.navigationItem.titleView = titleLabel;
 
     self.paymentMethodsView.tableView.delegate = self;
     self.paymentMethodsView.tableView.dataSource = self;
@@ -190,7 +207,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat yValue = -scrollView.contentOffset.y;
-    CGFloat height = MIN(MAX(yValue, 380 * getWidthAspectRatio()), 428 * getWidthAspectRatio());
+    CGFloat height = MIN(MAX(yValue, 395 * getWidthAspectRatio()), 435 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
 }

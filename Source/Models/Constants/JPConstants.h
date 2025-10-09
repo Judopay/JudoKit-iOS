@@ -132,4 +132,6 @@ static NSString *const kHeaderFieldPaymentSession = @"Payment-Session";
 static NSString *const kHeaderFieldAuthorization = @"Authorization";
 static NSString *const kHeaderFieldAPIToken = @"Api-Token";
 
+static float const kMaxNavigationTitleTextSize = 38.0F;
+
 #endif /* JPConstants_h */

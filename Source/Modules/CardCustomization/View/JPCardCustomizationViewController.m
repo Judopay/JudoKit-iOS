@@ -31,6 +31,7 @@
 #import "JPCardCustomizationTextInputCell.h"
 #import "JPCardCustomizationView.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPConstants.h"
 #import "JPInputField.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
@@ -127,9 +128,25 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [backBarButton.customView.heightAnchor constraintEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
+    [backBarButton.customView.heightAnchor constraintGreaterThanOrEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
     [backBarButton.customView.widthAnchor constraintEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"jp_customise_card"._jp_localized;
+
+    UIFont *titleFont = self.theme.title;
+    if (titleFont.pointSize > kMaxNavigationTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxNavigationTitleTextSize];
+    }
+    titleLabel.font = titleFont;
+
+    titleLabel.textColor = self.theme.jpBlackColor;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel sizeToFit];
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    titleLabel.numberOfLines = 0;
+    self.navigationItem.titleView = titleLabel;
 }
 
 - (void)configureFadedView {

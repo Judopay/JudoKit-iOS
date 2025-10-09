@@ -107,7 +107,7 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
                                                      constant:kIsDefaultStackViewHorizontalPadding],
         [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor
                                                       constant:-kIsDefaultStackViewHorizontalPadding],
-        [self.stackView.heightAnchor constraintEqualToConstant:kIsDefaultStackViewHeight],
+        [self.stackView.heightAnchor constraintGreaterThanOrEqualToConstant:kIsDefaultStackViewHeight],
         [self.checkmarkImageView.widthAnchor constraintEqualToConstant:kIsDefaultCheckmarkImageWidth],
     ];
     [NSLayoutConstraint activateConstraints:constraints];
@@ -136,6 +136,8 @@ const float kIsDefaultCheckmarkImageWidth = 23.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _titleLabel.numberOfLines = 0;
         _titleLabel.text = @"jp_save_as_default_payment_method"._jp_localized;
     }
     return _titleLabel;

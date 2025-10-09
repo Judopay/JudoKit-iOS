@@ -61,7 +61,7 @@
 #pragma mark - Constants
 
 static const float kSeparatorContentSpacing = 8.0F;
-static const float kInputFieldHeight = 56.0F;
+static const float kButtonAddAddressLineMinHeight = 56.0F;
 static const float kPhoneCodeWidth = 45.0F;
 
 - (instancetype)init {
@@ -129,6 +129,8 @@ static const float kPhoneCodeWidth = 45.0F;
     self.addAddressLineButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.addAddressLineButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
+    self.addAddressLineButton.titleLabel.numberOfLines = 0;
+    self.addAddressLineButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
 
     NSString *title = [NSString stringWithFormat:@"jp_button_add_address_line_card"._jp_localized, @(2)];
@@ -186,18 +188,8 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
-        [self.emailTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.administrativeDivisionTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.phoneCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
         [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
-        [self.phoneTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line1TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.addAddressLineButton.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line2TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line3TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cityTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight]
+        [self.addAddressLineButton.heightAnchor constraintGreaterThanOrEqualToConstant:kButtonAddAddressLineMinHeight]
     ]];
 }
 

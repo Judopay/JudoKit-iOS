@@ -34,6 +34,7 @@
 
 const float kCardListHeaderHorizontalPadding = 24.0F;
 const float kCardListHeaderCenterOffset = 10.0F;
+const float kTitleLabelActionButtonSpacing = -8.0F;
 
 #pragma mark - Initializers
 
@@ -105,10 +106,16 @@ const float kCardListHeaderCenterOffset = 10.0F;
                             withPadding:kCardListHeaderHorizontalPadding];
 
     [NSLayoutConstraint activateConstraints:@[
+        [self.titleLabel.topAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.topAnchor],
+        [self.titleLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
+        [self.actionButton.topAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.topAnchor],
+        [self.actionButton.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
         [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
                                                       constant:kCardListHeaderCenterOffset],
         [self.actionButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor
-                                                        constant:kCardListHeaderCenterOffset]
+                                                        constant:kCardListHeaderCenterOffset],
+        [self.titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.actionButton.leadingAnchor
+                                                                 constant:kTitleLabelActionButtonSpacing]
     ]];
 
     [self.actionButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -121,6 +128,8 @@ const float kCardListHeaderCenterOffset = 10.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.numberOfLines = 0;
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
     return _titleLabel;
 }
