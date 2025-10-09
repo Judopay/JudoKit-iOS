@@ -28,10 +28,6 @@
 
 @end
 
-@implementation JPCardCustomizationTitleModel
-
-@end
-
 @implementation JPCardCustomizationHeaderModel
 
 @end

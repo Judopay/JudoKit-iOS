@@ -113,9 +113,10 @@ static const float kDefaultMaxWidth = 320.0F;
     if (self.isExpanded) {
         CGFloat maxWidth = self.frame.size.width > 0 ? self.frame.size.width : kDefaultMaxWidth;
         CGSize errorSize = [self.floatingLabel.text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
-                                                                  options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                               attributes:@{NSFontAttributeName : self.floatingLabel.font}
-                                                                  context:nil].size;
+                                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                              attributes:@{NSFontAttributeName : self.floatingLabel.font}
+                                                                 context:nil]
+                               .size;
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
     } else {
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -133,7 +134,8 @@ static const float kDefaultMaxWidth = 320.0F;
     NSArray *constraints = @[
         [self.floatingLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.floatingLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [self.floatingLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:kErrorTopPadding],
+        [self.floatingLabel.topAnchor constraintEqualToAnchor:self.topAnchor
+                                                     constant:kErrorTopPadding],
     ];
 
     [NSLayoutConstraint activateConstraints:constraints];
@@ -251,9 +253,10 @@ static const float kDefaultMaxWidth = 320.0F;
     if (self.isExpanded) {
         CGFloat maxWidth = self.frame.size.width > 0 ? self.frame.size.width : kDefaultMaxWidth;
         CGSize errorSize = [self.floatingLabel.text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
-                                                                  options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                               attributes:@{NSFontAttributeName : self.floatingLabel.font}
-                                                                  context:nil].size;
+                                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                              attributes:@{NSFontAttributeName : self.floatingLabel.font}
+                                                                 context:nil]
+                               .size;
         height += errorSize.height + kErrorSpacing;
     }
     return CGSizeMake(UIViewNoIntrinsicMetric, height);
