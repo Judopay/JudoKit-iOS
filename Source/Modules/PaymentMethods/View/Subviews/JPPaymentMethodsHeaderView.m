@@ -63,7 +63,7 @@
 
 #pragma mark - Constants
 
-const float kHeaderBottomHeight = 86.0F;
+const float kHeaderBottomHeight = 96.0F;
 const float kHeaderAmountLabelMinScaleFactor = 0.5F;
 const float kHeaderDefaultStackViewSpacing = 0.0F;
 const float kHeaderDefaultPadding = 0.0F;

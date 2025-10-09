@@ -37,7 +37,7 @@
 static const float kScanButtonCornerRadius = 4.0F;
 static const float kButtonsContentSpacing = 20.0F;
 static const float kScanButtonBorderWidth = 1.0F;
-static const float kAddCardButtonHeight = 46.0F;
+static const float kActionButtonHeight = 56.0F;
 static const float kScanCardHeight = 36.0F;
 
 - (instancetype)init {
@@ -122,8 +122,8 @@ static const float kScanCardHeight = 36.0F;
     [NSLayoutConstraint activateConstraints:@[
         [self.cancelButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
         [self.scanCardButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
-        [self.backButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
-        [self.submitButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+        [self.backButton.heightAnchor constraintEqualToConstant:kActionButtonHeight],
+        [self.submitButton.heightAnchor constraintEqualToConstant:kActionButtonHeight],
     ]];
 }
 

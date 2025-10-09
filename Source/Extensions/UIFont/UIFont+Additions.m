@@ -27,35 +27,39 @@
 @implementation UIFont (Additions)
 
 + (UIFont *)_jp_largeTitle {
-    return [UIFont systemFontOfSize:24.0 weight:UIFontWeightSemibold];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleLargeTitle];
 }
 
 + (UIFont *)_jp_title {
-    return [UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1];
 }
 
 + (UIFont *)_jp_headline {
-    return [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
 }
 
 + (UIFont *)_jp_headlineLight {
-    return [UIFont systemFontOfSize:16.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 + (UIFont *)_jp_body {
-    return [UIFont systemFontOfSize:14.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 + (UIFont *)_jp_bodyBold {
-    return [UIFont systemFontOfSize:14.0 weight:UIFontWeightSemibold];
+    UIFontDescriptor *descriptor = [[UIFont preferredFontForTextStyle:UIFontTextStyleBody] fontDescriptor];
+    UIFontDescriptor *boldDescriptor = [descriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    return [UIFont fontWithDescriptor:boldDescriptor size:0];
 }
 
 + (UIFont *)_jp_caption {
-    return [UIFont systemFontOfSize:10.0];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
 }
 
 + (UIFont *)_jp_captionBold {
-    return [UIFont systemFontOfSize:10.0 weight:UIFontWeightSemibold];
+    UIFontDescriptor *descriptor = [[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1] fontDescriptor];
+    UIFontDescriptor *boldDescriptor = [descriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    return [UIFont fontWithDescriptor:boldDescriptor size:0];
 }
 
 @end

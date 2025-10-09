@@ -60,8 +60,8 @@
 
 #pragma mark - Constants
 
-static const float kSeparatorContentSpacing = 1.0F;
-static const float kInputFieldHeight = 44.0F;
+static const float kSeparatorContentSpacing = 8.0F;
+static const float kInputFieldHeight = 56.0F;
 static const float kPhoneCodeWidth = 45.0F;
 
 - (instancetype)init {
@@ -237,7 +237,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [super applyTheme:theme];
 
     self.headingLabel.font = theme.headline;
-    self.headingLabel.textColor = theme.jpDarkGrayColor;
+    self.headingLabel.textColor = theme.jpBrownGrayColor;
 
     [self.emailTextField applyTheme:theme];
     [self.countryTextField applyTheme:theme];
