@@ -172,7 +172,8 @@ platform :ios do
     })
 
     build_instrumented_tests_packages({
-      app: options[:app]
+      app: options[:app],
+      only_testing: options[:only_testing]
     }) if !options[:app].ui_test_scheme.nil?
 
     revert_staging_environment(
@@ -233,6 +234,24 @@ platform :ios do
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
         output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip"
+      )
+    end
+
+    # If custom tests are specified, build a custom package
+    if options[:only_testing] && !options[:only_testing].empty?
+      custom_tests = options[:only_testing].split(',').map(&:strip)
+      
+      run_tests(
+        {
+          only_testing: custom_tests,
+        }.merge(build_options)
+      )
+
+      package_instrumented_tests(
+        app: options[:app],
+        input_dir: "#{@derived_data_path}/Build/Products",
+        output_dir: @fl_output_dir,
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-custom.zip"
       )
     end
   end
@@ -302,9 +321,30 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_firebase({app: app, environment: env, device_set: options[:device_set]}) if !app.firebase_app_id(environment: env).nil?
+        test_sample_app_firebase({app: app, environment: env, device_set: options[:device_set], test_selection: options[:test_selection], only_testing: options[:only_testing]}) if !app.firebase_app_id(environment: env).nil?
       end
     end
+  end
+
+  # Determine which test package to use
+  test_selection = options[:test_selection] || 'all'
+  test_package = case test_selection
+  when 'smoke'
+    if File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip")
+      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip"
+    else
+      UI.important("Smoke test package not found, falling back to all tests")
+      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
+    end
+  when 'custom'
+    if File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-custom.zip")
+      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-custom.zip"
+    else
+      UI.important("Custom test package not found, falling back to all tests")
+      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
+    end
+  else
+    "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
   end
 
   desc "Run instrumented tests for a sample app on Firebase"
@@ -327,7 +367,8 @@ platform :ios do
         " --client-details=#{[
             "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
             "app=\"#{options[:app].scheme}\"",
-            "project=JudoKit-iOS"
+            "project=JudoKit-iOS",
+            "testSelection=\"#{test_selection}\""
           ].join(",")}"\
         " --timeout=30m"\
         " --num-flaky-test-attempts=1"\
