@@ -103,21 +103,21 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration {
     self.theme = uiConfiguration.theme;
-    
+
     UIFont *amountPrefixFont = uiConfiguration.theme.body;
     if (amountPrefixFont.pointSize > kMaxAmountPrefixTextSize) {
         amountPrefixFont = [amountPrefixFont fontWithSize:kMaxAmountPrefixTextSize];
     }
     self.amountPrefixLabel.font = amountPrefixFont;
     self.amountPrefixLabel.textColor = uiConfiguration.theme.jpBlackColor;
-    
+
     UIFont *amountFont = uiConfiguration.theme.largeTitle;
     if (amountFont.pointSize > kMaxAmountTextSize) {
         amountFont = [amountFont fontWithSize:kMaxAmountTextSize];
     }
     self.amountValueLabel.font = amountFont;
     self.amountValueLabel.textColor = uiConfiguration.theme.jpBlackColor;
-    
+
     self.payButton.titleLabel.font = uiConfiguration.theme.headline;
     [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor._jp_asImage forState:UIControlStateNormal];
     [self.payButton setTitleColor:uiConfiguration.theme.buttonTitleColor forState:UIControlStateNormal];

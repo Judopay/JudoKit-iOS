@@ -97,7 +97,7 @@ static const float kJudoHeadlineHeight = 20.0F;
 - (void)updateLayoutForCurrentOrientation {
     CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
     BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
-    
+
     if (isLandscape) {
         CGFloat maxHeight = screenHeight * kLandscapeHeaderHeightMultiplier;
         self.headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, maxHeight);
@@ -125,7 +125,7 @@ static const float kJudoHeadlineHeight = 20.0F;
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.backgroundColor = UIColor.clearColor;
         _tableView.allowsSelectionDuringEditing = YES;
-        
+
         CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
         BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
         CGFloat contentInset = isLandscape ? screenHeight * kLandscapeContentInsetMultiplier : kPortraitContentInset * getWidthAspectRatio();

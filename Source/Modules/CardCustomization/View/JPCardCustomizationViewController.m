@@ -131,7 +131,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     [backBarButton.customView.heightAnchor constraintGreaterThanOrEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
     [backBarButton.customView.widthAnchor constraintEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
-    
+
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"jp_customise_card"._jp_localized;
 
