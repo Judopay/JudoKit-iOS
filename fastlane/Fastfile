@@ -128,7 +128,12 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
+        build_sample_app({
+          app: app, 
+          environment: env,
+          test_selection: options[:test_selection],
+          only_testing: options[:only_testing]
+        }) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -328,32 +333,34 @@ platform :ios do
     end
   end
 
-  # Determine which test package to use
-  test_selection = options[:test_selection] || 'all'
-  test_package = case test_selection
-  when 'smoke'
-    if File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip")
-      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip"
-    else
-      UI.important("Smoke test package not found, falling back to all tests")
-      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
-    end
-  when 'custom'
-    if File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-custom.zip")
-      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-custom.zip"
-    else
-      UI.important("Custom test package not found, falling back to all tests")
-      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
-    end
-  else
-    "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
-  end
-
   desc "Run instrumented tests for a sample app on Firebase"
   private_lane :test_sample_app_firebase do |options|
     if options[:app].ui_test_scheme.nil?
       UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
       next
+    end
+
+    # Determine which test package to use
+    test_selection = options[:test_selection] || 'all'
+    test_package = case test_selection
+    when 'smoke'
+      smoke_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip"
+      if File.file?(smoke_package)
+        smoke_package
+      else
+        UI.important("Smoke test package not found, falling back to all tests")
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
+      end
+    when 'custom'
+      custom_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-custom.zip"
+      if File.file?(custom_package)
+        custom_package
+      else
+        UI.important("Custom test package not found, falling back to all tests")
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
+      end
+    else
+      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
     end
 
     sh(
