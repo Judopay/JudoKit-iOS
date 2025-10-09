@@ -65,6 +65,8 @@
 
 const float kHeaderBottomHeight = 96.0F;
 const float kHeaderAmountLabelMinScaleFactor = 0.5F;
+static const float kMaxAmountTextSize = 30.0F;
+static const float kMaxAmountPrefixTextSize = 28.0F;
 const float kHeaderDefaultStackViewSpacing = 0.0F;
 const float kHeaderDefaultPadding = 0.0F;
 const float kHeaderGradientClearColorLocation = 0.0F;
@@ -101,10 +103,21 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration {
     self.theme = uiConfiguration.theme;
-    self.amountPrefixLabel.font = uiConfiguration.theme.body;
+    
+    UIFont *amountPrefixFont = uiConfiguration.theme.body;
+    if (amountPrefixFont.pointSize > kMaxAmountPrefixTextSize) {
+        amountPrefixFont = [amountPrefixFont fontWithSize:kMaxAmountPrefixTextSize];
+    }
+    self.amountPrefixLabel.font = amountPrefixFont;
     self.amountPrefixLabel.textColor = uiConfiguration.theme.jpBlackColor;
-    self.amountValueLabel.font = uiConfiguration.theme.largeTitle;
+    
+    UIFont *amountFont = uiConfiguration.theme.largeTitle;
+    if (amountFont.pointSize > kMaxAmountTextSize) {
+        amountFont = [amountFont fontWithSize:kMaxAmountTextSize];
+    }
+    self.amountValueLabel.font = amountFont;
     self.amountValueLabel.textColor = uiConfiguration.theme.jpBlackColor;
+    
     self.payButton.titleLabel.font = uiConfiguration.theme.headline;
     [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor._jp_asImage forState:UIControlStateNormal];
     [self.payButton setTitleColor:uiConfiguration.theme.buttonTitleColor forState:UIControlStateNormal];
