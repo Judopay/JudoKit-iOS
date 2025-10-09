@@ -32,8 +32,8 @@
 #import "JPTransactionButton.h"
 #import "JPTransactionScanCardButton.h"
 #import "JPTransactionViewModel.h"
-#import "UIStackView+Additions.h"
 #import "NSString+Additions.h"
+#import "UIStackView+Additions.h"
 
 @interface JPCardDetailsForm () <UIPickerViewDelegate, UIPickerViewDataSource>
 
