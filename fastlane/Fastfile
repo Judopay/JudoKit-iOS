@@ -173,6 +173,8 @@ platform :ios do
 
     build_instrumented_tests_packages({
       app: options[:app],
+      environment: options[:environment],
+      test_selection: options[:test_selection] || 'all',
       only_testing: options[:only_testing] || ''
     }) if !options[:app].ui_test_scheme.nil?
 
