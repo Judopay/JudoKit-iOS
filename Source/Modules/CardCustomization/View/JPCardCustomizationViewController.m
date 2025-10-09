@@ -31,6 +31,7 @@
 #import "JPCardCustomizationTextInputCell.h"
 #import "JPCardCustomizationView.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPConstants.h"
 #import "JPInputField.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
@@ -133,7 +134,13 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"jp_customise_card"._jp_localized;
-    titleLabel.font = self.theme.title;
+
+    UIFont *titleFont = self.theme.title;
+    if (titleFont.pointSize > kMaxNavigationTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxNavigationTitleTextSize];
+    }
+    titleLabel.font = titleFont;
+
     titleLabel.textColor = self.theme.jpBlackColor;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleLabel sizeToFit];

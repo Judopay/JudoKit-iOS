@@ -25,6 +25,7 @@
 #import "JPPaymentMethodsViewController.h"
 #import "Functions.h"
 #import "JPConfiguration.h"
+#import "JPConstants.h"
 #import "JPPaymentMethodsCardListHeaderCell.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "JPPaymentMethodsPresenter.h"
@@ -107,7 +108,13 @@
 
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"jp_payment_methods"._jp_localized;
-    titleLabel.font = self.configuration.uiConfiguration.theme.title;
+
+    UIFont *titleFont = self.configuration.uiConfiguration.theme.title;
+    if (titleFont.pointSize > kMaxNavigationTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxNavigationTitleTextSize];
+    }
+    titleLabel.font = titleFont;
+
     titleLabel.textColor = self.configuration.uiConfiguration.theme.jpBlackColor;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleLabel sizeToFit];
