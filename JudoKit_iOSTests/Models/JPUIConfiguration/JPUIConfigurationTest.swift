@@ -61,6 +61,7 @@ class JPUIConfigurationTest: XCTestCase {
         XCTAssertEqual(theme.captionBold, UIFont._jp_captionBold())
         XCTAssertEqual(theme.jpBlackColor, UIColor._jp_black())
         XCTAssertEqual(theme.jpDarkGrayColor, UIColor._jp_darkGray())
+        XCTAssertEqual(theme.jpBrownGrayColor, UIColor._jp_brownGray())
         XCTAssertEqual(theme.jpGrayColor, UIColor._jp_gray())
         XCTAssertEqual(theme.jpLightGrayColor, UIColor._jp_lightGray())
         XCTAssertEqual(theme.jpRedColor, UIColor._jp_red())

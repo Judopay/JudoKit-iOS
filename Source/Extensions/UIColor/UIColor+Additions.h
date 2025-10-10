@@ -47,9 +47,24 @@
 + (UIColor *_Nonnull)_jp_darkGrayColor;
 
 /**
+ * The brown gray color value (0x767676) used in the application
+ */
++ (UIColor *_Nonnull)_jp_brownGrayColor;
+
+/**
  * The gray color value (0xE5E5E5) used in the application
  */
 + (UIColor *_Nonnull)_jp_grayColor;
+
+/**
+ * The neutral gray color value (0x707070) used in the application
+ */
++ (UIColor *_Nonnull)_jp_neutralGrayColor;
+
+/**
+ * The graphite gray color value (0x8C8C8C) used in the application
+ */
++ (UIColor *_Nonnull)_jp_graphiteGrayColor;
 
 /**
  * The light gray color value (0xF6F6F6) used in the application

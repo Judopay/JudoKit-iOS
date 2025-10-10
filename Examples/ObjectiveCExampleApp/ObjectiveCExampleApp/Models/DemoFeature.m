@@ -11,7 +11,6 @@ static NSString *const kCellIdentifier = @"com.judo.judopaysample.tableviewcelli
     option.title = title;
     option.details = details;
     option.cellIdentifier = kCellIdentifier;
-
     return option;
 }
 

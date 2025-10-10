@@ -48,6 +48,7 @@
 "jp_choose_payment_method" = "Choose a Payment Method";
 "jp_connected_cards" = "Connected cards";
 "jp_customise_card" = "Customise Card";
+"jp_payment_methods" = "Payment Methods";
 "jp_default_amex_card_title" = "My American Express Card";
 "jp_default_chinaunionpay_card_title" = "My China Union Pay Card";
 "jp_default_dinersclub_card_title" = "My Diners Club Card";
@@ -193,6 +194,7 @@
 "jp_error_corrupt_state_label_desc" = "SDK entered an unexpected state";
 "jp_error_corrupt_state_label_reason" = "The SDK encountered an unexpected internal state. The operation did not complete";
 
+"jp_card_information_title" = "Card Information";
 "jp_billing_details_title" = "Billing Details";
 
 "jp_card_holder_name_required" = "Cardholder Name is required";

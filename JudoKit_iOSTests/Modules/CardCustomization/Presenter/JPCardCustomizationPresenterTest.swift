@@ -71,7 +71,7 @@ class JPCardCustomizationPresenterTest: XCTestCase {
      */
     func test_HandlePatternSelectionWithType_WhenChangedStyle_ShouldUpdateModelForUi() {
         sut.handlePatternSelection(with: .blue)
-        let patternModels = (controller.viewModelsSUT[2] as! JPCardCustomizationPatternPickerModel).patternModels
+        let patternModels = (controller.viewModelsSUT[1] as! JPCardCustomizationPatternPickerModel).patternModels
         let blueSelected = patternModels.filter{$0.pattern.type == .blue}.first!.isSelected
         
         XCTAssertTrue(blueSelected)
@@ -86,9 +86,9 @@ class JPCardCustomizationPresenterTest: XCTestCase {
      */
     func test_HandleCardInputFieldChangeWithInput_WhenChangedInput_ShouldUpdateCardTtitle() {
         sut.handleCardInputFieldChange(withInput: "new input")
-        let patternModels = (controller.viewModelsSUT[1] as! JPCardCustomizationHeaderModel).cardTitle
+        let cardTitle = (controller.viewModelsSUT[0] as! JPCardCustomizationHeaderModel).cardTitle
         
-        XCTAssertEqual(patternModels, "new input")
+        XCTAssertEqual(cardTitle, "new input")
     }
     
     /*
@@ -121,9 +121,9 @@ class JPCardCustomizationPresenterTest: XCTestCase {
      */
     func test_HandleToggleDefaultCardEvent_WhenToggleDefault_ShouldUpdateViewWithOpositDefault() {
         sut.prepareViewModel()
-        let initialDefault = (controller.viewModelsSUT[4] as! JPCardCustomizationIsDefaultModel).isDefault
+        let initialDefault = (controller.viewModelsSUT[3] as! JPCardCustomizationIsDefaultModel).isDefault
         sut.handleToggleDefaultCardEvent()
-        let sutDefault = (controller.viewModelsSUT[4] as! JPCardCustomizationIsDefaultModel).isDefault
+        let sutDefault = (controller.viewModelsSUT[3] as! JPCardCustomizationIsDefaultModel).isDefault
         
         XCTAssertEqual(initialDefault, !sutDefault)
 
