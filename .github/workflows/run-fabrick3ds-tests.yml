@@ -3,24 +3,10 @@ name: Run Instrumented Tests Daily
 on:
   pull_request:
   workflow_dispatch:
-    inputs:
-      test_selection:
-        description: 'Test selection (all, smoke, or custom)'
-        required: false
-        type: choice
-        options:
-          - all
-          - smoke
-          - custom
-        default: all
-      only_testing:
-        description: 'Specific tests to run (comma-separated, example: ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPayment)'
-        required: false
-        type: string
 jobs:
   test_sample_apps_firebase:
     uses: Judopay/github-actions/.github/workflows/test-sample-apps-firebase.yml@master
     secrets: inherit
     with:
       firebase_matrix_label: 'Daily Instrumented Tests Run'
-      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_selection":"${{ inputs.test_selection }}","only_testing":"${{ inputs.only_testing }}"}'
+      fastlane_options: '{"flavors":"obj-c","environment":"staging","only_testing":"Fabrick3DSTests"}'

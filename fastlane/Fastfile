@@ -179,9 +179,8 @@ platform :ios do
     build_instrumented_tests_packages({
       app: options[:app],
       environment: options[:environment],
-      test_selection: options[:test_selection] || 'all',
       only_testing: options[:only_testing] || ''
-    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
+    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production' || options[:environment] == 'staging'
 
     revert_staging_environment(
       app: options[:app],
@@ -328,7 +327,7 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_firebase({app: app, environment: env, device_set: options[:device_set], test_selection: options[:test_selection], only_testing: options[:only_testing]}) if !app.firebase_app_id(environment: env).nil?
+        test_sample_app_firebase({app: app, environment: env, device_set: options[:device_set], only_testing: options[:only_testing]}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -338,29 +337,6 @@ platform :ios do
     if options[:app].ui_test_scheme.nil?
       UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
       next
-    end
-
-    # Determine which test package to use
-    test_selection = options[:test_selection] || 'all'
-    test_package = case test_selection
-    when 'smoke'
-      smoke_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip"
-      if File.file?(smoke_package)
-        smoke_package
-      else
-        UI.important("Smoke test package not found, falling back to all tests")
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
-      end
-    when 'custom'
-      custom_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-custom.zip"
-      if File.file?(custom_package)
-        custom_package
-      else
-        UI.important("Custom test package not found, falling back to all tests")
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
-      end
-    else
-      "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
     end
 
     sh(
@@ -376,8 +352,7 @@ platform :ios do
         " --client-details=#{[
             "matrixLabel=\"#{ENV['FIREBASE_MATRIX_LABEL'] || "Manual Trigger"}\"",
             "app=\"#{options[:app].scheme}\"",
-            "project=JudoKit-iOS",
-            "testSelection=\"#{test_selection}\""
+            "project=JudoKit-iOS"
           ].join(",")}"\
         " --timeout=30m"\
         " --num-flaky-test-attempts=1"\
