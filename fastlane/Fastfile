@@ -181,7 +181,7 @@ platform :ios do
       environment: options[:environment],
       test_selection: options[:test_selection] || 'all',
       only_testing: options[:only_testing] || ''
-    }) if !options[:app].ui_test_scheme.nil?
+    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
 
     revert_staging_environment(
       app: options[:app],
