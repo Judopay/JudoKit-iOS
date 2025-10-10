@@ -1,8 +1,7 @@
 name: Run Instrumented Tests Daily
 
 on:
-  schedule:
-  - cron: "0 15 * * *" # 3pm daily
+  pull_request:
   workflow_dispatch:
     inputs:
       test_selection:
