@@ -78,8 +78,8 @@
     self.backgroundColor = UIColor.clearColor;
     [self addSubview:self.cardView];
 
-    CGFloat topConstant = 100.0 * getWidthAspectRatio();
-    CGFloat bottomConstant = -10.0 * getWidthAspectRatio();
+    CGFloat topConstant = 125.0 * getWidthAspectRatio();
+    CGFloat bottomConstant = 0.0 * getWidthAspectRatio();
 
     [NSLayoutConstraint activateConstraints:@[
         [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor

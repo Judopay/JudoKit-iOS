@@ -35,7 +35,6 @@
 @property (nonatomic, assign) BOOL shouldPreserveResponder;
 @property (nonatomic, assign) JPCardPatternType selectedPatternType;
 @property (nonatomic, strong) NSString *selectedCardTitle;
-@property (nonatomic, strong) JPCardCustomizationTitleModel *titleModel;
 @property (nonatomic, strong) JPCardCustomizationHeaderModel *headerModel;
 @property (nonatomic, strong) JPCardCustomizationPatternPickerModel *patternPickerModel;
 @property (nonatomic, strong) JPCardCustomizationTextInputModel *textInputModel;
@@ -50,7 +49,6 @@
 - (void)prepareViewModel {
     JPStoredCardDetails *cardDetails = self.interactor.cardDetails;
 
-    self.titleModel.title = @"jp_customise_card"._jp_localized;
     self.textInputModel.text = self.selectedCardTitle;
     self.submitModel.isSaveEnabled = self.isSaveButtonEnabled;
     [self updateHeaderModelWithCardDetails:cardDetails];
@@ -142,21 +140,12 @@
 
 - (NSArray *)viewModels {
     return @[
-        self.titleModel,
         self.headerModel,
         self.patternPickerModel,
         self.textInputModel,
         self.isDefaultModel,
         self.submitModel
     ];
-}
-
-- (JPCardCustomizationTitleModel *)titleModel {
-    if (!_titleModel) {
-        _titleModel = [JPCardCustomizationTitleModel new];
-        _titleModel.identifier = @"JPCardCustomizationTitleCell";
-    }
-    return _titleModel;
 }
 
 - (JPCardCustomizationHeaderModel *)headerModel {

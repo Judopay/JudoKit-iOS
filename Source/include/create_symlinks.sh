@@ -105,7 +105,6 @@ ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
 ln -s -f ../Extensions/CLLocation/CLLocation+Additions.h CLLocation+Additions.h
 ln -s -f ../Modules/CardScanController/JPCardScanControllerDelegate.h JPCardScanControllerDelegate.h
 ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
-ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTitleCell/JPCardCustomizationTitleCell.h JPCardCustomizationTitleCell.h
 ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsEmptyHeaderView.h JPPaymentMethodsEmptyHeaderView.h
 ln -s -f ../Extensions/NSArray/NSArray+Additions.h NSArray+Additions.h
