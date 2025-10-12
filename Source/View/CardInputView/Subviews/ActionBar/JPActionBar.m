@@ -81,11 +81,15 @@ static const float kMaxTopBarButtonTextSize = 28.0F;
     self.backButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.backButton.accessibilityIdentifier = @"Back Button";
     self.backButton.clipsToBounds = YES;
+    self.backButton.titleLabel.numberOfLines = 1;
+    self.backButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     self.submitButton = [JPTransactionButton new];
     self.submitButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.submitButton.accessibilityIdentifier = @"Submit Button";
     self.submitButton.clipsToBounds = YES;
+    self.submitButton.titleLabel.numberOfLines = 1;
+    self.submitButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     [self reloadArrangedSubviews];
     [self setupConstraints];
