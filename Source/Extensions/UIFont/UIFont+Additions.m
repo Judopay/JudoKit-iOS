@@ -31,7 +31,7 @@
 }
 
 + (UIFont *)_jp_title {
-    return [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
 }
 
 + (UIFont *)_jp_headline {
