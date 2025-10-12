@@ -62,6 +62,7 @@
 
 static const float kSeparatorContentSpacing = 8.0F;
 static const float kButtonAddAddressLineMinHeight = 56.0F;
+static const float kButtonContentPadding = 16.0F;
 static const float kPhoneCodeWidth = 45.0F;
 
 - (instancetype)init {
@@ -131,6 +132,8 @@ static const float kPhoneCodeWidth = 45.0F;
     self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
     self.addAddressLineButton.titleLabel.numberOfLines = 0;
     self.addAddressLineButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.addAddressLineButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    self.addAddressLineButton.contentEdgeInsets = UIEdgeInsetsMake(kButtonContentPadding, 0, kButtonContentPadding, kButtonContentPadding);
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
 
     NSString *title = [NSString stringWithFormat:@"jp_button_add_address_line_card"._jp_localized, @(2)];
