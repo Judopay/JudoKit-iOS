@@ -170,7 +170,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [widthLayout setActive:YES];
     widthLayout.priority = UILayoutPriorityDefaultHigh;
 
-    NSLayoutConstraint *widthCodeLayout = [self.phoneCodeTextField.widthAnchor constraintEqualToConstant:43];
+    NSLayoutConstraint *widthCodeLayout = [self.phoneCodeTextField.widthAnchor constraintEqualToConstant:53];
     [widthCodeLayout setActive:YES];
     widthCodeLayout.priority = UILayoutPriorityDefaultLow;
 
@@ -191,7 +191,6 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
-        [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
         [self.addAddressLineButton.heightAnchor constraintGreaterThanOrEqualToConstant:kButtonAddAddressLineMinHeight]
     ]];
 }

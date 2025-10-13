@@ -46,6 +46,8 @@ static const float kErrorConstraintOffset = -15.0F;
 static const float kErrorTopPadding = 4.0F;
 static const float kErrorSpacing = 8.0F;
 static const float kDefaultMaxWidth = 320.0F;
+static const float kIntrinsicContentHeightPadding = 16.0F;
+static const float kIntrinsicContentWidthPadding = 20.0F;
 
 #pragma mark - Initializers
 
@@ -249,7 +251,8 @@ static const float kDefaultMaxWidth = 320.0F;
 
 - (CGSize)intrinsicContentSize {
     CGSize textSize = [self.text sizeWithAttributes:@{NSFontAttributeName : self.font}];
-    CGFloat height = textSize.height + 16.0;
+    CGFloat height = textSize.height + kIntrinsicContentHeightPadding;
+    CGFloat width = textSize.width + kIntrinsicContentWidthPadding;
     if (self.isExpanded) {
         CGFloat maxWidth = self.frame.size.width > 0 ? self.frame.size.width : kDefaultMaxWidth;
         CGSize errorSize = [self.floatingLabel.text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
@@ -259,7 +262,7 @@ static const float kDefaultMaxWidth = 320.0F;
                                .size;
         height += errorSize.height + kErrorSpacing;
     }
-    return CGSizeMake(UIViewNoIntrinsicMetric, height);
+    return CGSizeMake(width, height);
 }
 
 @end
