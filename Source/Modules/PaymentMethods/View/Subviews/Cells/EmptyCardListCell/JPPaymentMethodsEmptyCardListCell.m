@@ -70,8 +70,8 @@ static const int kConstraintPriority = 999;
     UIImage *buttonImage = [UIImage _jp_imageWithIconName:emptyViewModel.addCardButtonIconName];
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, 0);
-    self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, kHorizontalEdgeInsets);
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.25, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets);
+    self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets);
 
     self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
 }
@@ -114,13 +114,14 @@ static const int kConstraintPriority = 999;
         [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
         [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
         [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
-        [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+        [self.addCardButton.heightAnchor constraintGreaterThanOrEqualToConstant:kAddCardButtonHeight],
     ];
 
     [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:kConstraintPriority];
 
     [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 }
 
 #pragma mark - Lazy properties
