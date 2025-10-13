@@ -154,6 +154,7 @@ const float kCardSmallPadding = 3.0F;
 
 - (void)setupStackView {
     UIStackView *horizontalStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kCardDefaultPadding];
+    horizontalStackView.alignment = UIStackViewAlignmentCenter;
     UIStackView *verticalStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardSmallPadding];
 
     [verticalStackView addArrangedSubview:self.titleLabel];
@@ -238,6 +239,7 @@ const float kCardSmallPadding = 3.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
 }
@@ -246,8 +248,13 @@ const float kCardSmallPadding = 3.0F;
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
         _subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _subtitleLabel.numberOfLines = 0;
     }
     return _subtitleLabel;
+}
+
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.contentView.frame.size.height);
 }
 
 @end
