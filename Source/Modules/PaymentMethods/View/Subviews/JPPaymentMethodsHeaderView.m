@@ -148,10 +148,17 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 }
 
 - (void)configureBottomHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    if (self.applePayButton.superview) {
+        [self.applePayButton removeFromSuperview];
+    }
+    if (self.payButton.superview) {
+        [self.payButton removeFromSuperview];
+    }
+    if (!self.amountStackView.superview) {
+        [self.paymentStackView addArrangedSubview:self.amountStackView];
+        [self.paymentStackView addArrangedSubview:[UIView new]];
+    }
 
-    [self.paymentStackView _jp_removeAllSubviews];
-    [self.paymentStackView addArrangedSubview:self.amountStackView];
-    [self.paymentStackView addArrangedSubview:[UIView new]];
     [self configureAmountWithViewModel:viewModel];
 
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
@@ -250,7 +257,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (void)setupAmountStackView {
     [self.amountStackView addArrangedSubview:self.amountPrefixLabel];
     [self.amountStackView addArrangedSubview:self.amountValueLabel];
-    self.amountStackView.alignment = UIStackViewAlignmentLeading;
 }
 
 - (void)setupPaymentStackView {
@@ -298,6 +304,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (UIStackView *)amountStackView {
     if (!_amountStackView) {
         _amountStackView = [UIStackView _jp_verticalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
+        _amountStackView.distribution = UIStackViewDistributionFill;
         _amountStackView.alignment = UIStackViewAlignmentLeading;
     }
     return _amountStackView;
