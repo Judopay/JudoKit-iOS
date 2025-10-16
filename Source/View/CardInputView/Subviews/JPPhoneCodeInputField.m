@@ -40,6 +40,10 @@
 @dynamic theme;
 @dynamic floatingTextField;
 
+#pragma mark - Constants
+
+static const NSInteger kDecorationLength = 3;
+
 #pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -97,6 +101,13 @@
     }
     [label sizeToFit];
     return label;
+}
+
+- (CGSize)intrinsicContentSize {
+    UIFont *font = self.floatingTextField.font;
+    NSInteger totalLength = self.floatingTextField.text.length + kDecorationLength;
+    CGSize textSize = [@"0" sizeWithAttributes:@{NSFontAttributeName: font}];
+    return CGSizeMake(textSize.width * totalLength, [super intrinsicContentSize].height);
 }
 
 @end

@@ -27,6 +27,7 @@
 #import "JPCardDetailsForm.h"
 #import "JPConstants.h"
 #import "JPInputField.h"
+#import "JPInputType.h"
 #import "JPPresentationMode.h"
 #import "JPRoundedCornerView.h"
 #import "JPThemable.h"
@@ -64,6 +65,7 @@ static const float kContentVerticalPadding = 20.0F;
 static const float kSliderCornerRadius = 10.0F;
 static const float kTightContentSpacing = 8.0F;
 static const float kLooseContentSpacing = 16.0F;
+static const NSInteger kPhoneCodeMaxLength = 4;
 
 #pragma mark - Initializers
 
@@ -268,6 +270,10 @@ static const float kLooseContentSpacing = 16.0F;
 #pragma mark - JPInputFieldDelegate
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
+    if (inputField.type == JPInputTypeBillingPhoneCode && text.length > kPhoneCodeMaxLength) {
+        return NO;
+    }
+    
     [self.delegate cardInputView:self didChangeText:text forInputType:inputField.type andEndEditing:NO];
     return NO;
 }

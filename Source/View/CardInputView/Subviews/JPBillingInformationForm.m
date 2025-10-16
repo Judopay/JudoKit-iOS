@@ -63,9 +63,6 @@
 static const float kSeparatorContentSpacing = 8.0F;
 static const float kButtonAddAddressLineMinHeight = 56.0F;
 static const float kButtonContentPadding = 16.0F;
-static const float kPhoneCodeWidth = 45.0F;
-static const float kPhoneCodeTextFieldMaxWidth = 100.0F;
-static const float kPhoneCodeTextFieldMinWidth = 53.0F;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -115,6 +112,7 @@ static const float kPhoneCodeTextFieldMinWidth = 53.0F;
     self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
     self.phoneCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneCodeTextField.backgroundMaskedCorners = kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
+    [self.phoneCodeTextField setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
     self.phoneTextField = [JPCardInputField new];
     self.phoneTextField.accessibilityIdentifier = @"Cardholder phone number Field";
@@ -185,9 +183,6 @@ static const float kPhoneCodeTextFieldMinWidth = 53.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
-        [self.phoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth],
-        [self.phoneCodeTextField.widthAnchor constraintLessThanOrEqualToConstant:kPhoneCodeTextFieldMaxWidth],
-        [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeTextFieldMinWidth],
         [self.addAddressLineButton.heightAnchor constraintGreaterThanOrEqualToConstant:kButtonAddAddressLineMinHeight]
     ]];
 }
