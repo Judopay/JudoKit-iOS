@@ -64,6 +64,8 @@ static const float kSeparatorContentSpacing = 8.0F;
 static const float kButtonAddAddressLineMinHeight = 56.0F;
 static const float kButtonContentPadding = 16.0F;
 static const float kPhoneCodeWidth = 45.0F;
+static const float kPhoneCodeTextFieldMaxWidth = 100.0F;
+static const float kPhoneCodeTextFieldMinWidth = 53.0F;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -166,14 +168,6 @@ static const float kPhoneCodeWidth = 45.0F;
     UIStackView *phoneNumberStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSeparatorContentSpacing
                                                                     andArrangedSubviews:@[ self.phoneCodeTextField, self.phoneTextField ]];
 
-    NSLayoutConstraint *widthLayout = [self.phoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth];
-    [widthLayout setActive:YES];
-    widthLayout.priority = UILayoutPriorityDefaultHigh;
-
-    NSLayoutConstraint *widthCodeLayout = [self.phoneCodeTextField.widthAnchor constraintEqualToConstant:53];
-    [widthCodeLayout setActive:YES];
-    widthCodeLayout.priority = UILayoutPriorityDefaultLow;
-
     [self.inputFieldsStackView _jp_addArrangedSubviews:@[
         self.headingLabel,
         self.emailTextField,
@@ -191,6 +185,9 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
+        [self.phoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth],
+        [self.phoneCodeTextField.widthAnchor constraintLessThanOrEqualToConstant:kPhoneCodeTextFieldMaxWidth],
+        [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeTextFieldMinWidth],
         [self.addAddressLineButton.heightAnchor constraintGreaterThanOrEqualToConstant:kButtonAddAddressLineMinHeight]
     ]];
 }
