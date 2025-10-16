@@ -46,6 +46,7 @@
 - (void)loadView {
     JPCardInputView *view = [JPCardInputView new];
     view.delegate = self;
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     self.view = view;
 }
