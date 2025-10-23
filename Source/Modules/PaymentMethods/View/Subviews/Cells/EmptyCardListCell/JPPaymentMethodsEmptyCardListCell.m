@@ -70,7 +70,7 @@ static const int kConstraintPriority = 999;
     UIImage *buttonImage = [UIImage _jp_imageWithIconName:emptyViewModel.addCardButtonIconName];
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.25, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets);
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.7, 0.0, kHorizontalEdgeInsets * 0.7, kHorizontalEdgeInsets * 0.6);
     self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets);
 
     self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
