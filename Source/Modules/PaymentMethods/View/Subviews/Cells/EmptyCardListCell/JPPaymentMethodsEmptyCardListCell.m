@@ -44,7 +44,7 @@
 
 static const float kHorizontalEdgeInsets = 12.0F;
 static const float kStackViewSpacing = 16.0F;
-static const float kStackViewTopPadding = 60.0F;
+static const float kStackViewTopPadding = 35.0F;
 static const float kAddCardButtonHeight = 36.0F;
 static const float kAddCardBorderWidth = 1.0F;
 static const float kAddCardCornerRadius = 4.0F;
