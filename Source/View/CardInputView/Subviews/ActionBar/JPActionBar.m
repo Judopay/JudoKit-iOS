@@ -36,7 +36,7 @@
 
 static const float kScanButtonCornerRadius = 4.0F;
 static const float kScanButtonBorderWidth = 1.0F;
-static const float kActionButtonHeight = 56.0F;
+static const float kActionButtonHeight = 52.0F;
 static const float kScanCardHeight = 36.0F;
 static const float kScanCardWidth = 215.0F;
 static const float kMaxTopBarButtonTextSize = 28.0F;

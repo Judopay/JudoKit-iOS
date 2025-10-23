@@ -65,14 +65,14 @@ static const float kMaxHeaderTextSize = 24.0F;
 #pragma mark - Theming
 
 - (void)applyTheme:(JPTheme *)theme {
-    UIFont *titleFont = theme.title;
+    UIFont *titleFont = theme.headline;
     if (titleFont.pointSize > kMaxHeaderTitleTextSize) {
         titleFont = [titleFont fontWithSize:kMaxHeaderTitleTextSize];
     }
     self.titleLabel.font = titleFont;
     self.titleLabel.textColor = theme.jpBlackColor;
 
-    UIFont *textFont = theme.body;
+    UIFont *textFont = theme.headlineLight;
     if (textFont.pointSize > kMaxHeaderTextSize) {
         textFont = [textFont fontWithSize:kMaxHeaderTextSize];
     }
@@ -91,7 +91,7 @@ static const float kMaxHeaderTextSize = 24.0F;
     [self addSubview:stackView];
 
     [stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:24].active = YES;
-    [stackView.widthAnchor constraintEqualToConstant:240.0].active = YES;
+    [stackView.widthAnchor constraintEqualToConstant:250.0].active = YES;
     [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:50].active = YES;
 }
 

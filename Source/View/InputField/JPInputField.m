@@ -43,7 +43,7 @@
 #pragma mark - Constants
 
 static const float kHorizontalEdgeInsets = 10.0F;
-static const float kVerticalEdgeInsets = 14.0F;
+static const float kVerticalEdgeInsets = 10.0F;
 
 #pragma mark - Initializers
 

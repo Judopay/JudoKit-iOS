@@ -38,13 +38,13 @@
 #pragma mark - Constants
 
 static const float kAnimationDuration = 0.3F;
-static const float kFontDecreaseValue = 2.0F;
+static const float kFontDecreaseValue = 1.0F;
 static const float kErrorFrameOffset = -4.0F;
 static const float kErrorTextOffset = 5.0F;
 static const float kStandardFrameOffset = 3.0F;
 static const float kErrorConstraintOffset = -15.0F;
 static const float kErrorTopPadding = 4.0F;
-static const float kErrorSpacing = 8.0F;
+static const float kErrorSpacing = 0.0F;
 static const float kDefaultMaxWidth = 320.0F;
 static const float kIntrinsicContentHeightPadding = 16.0F;
 static const float kIntrinsicContentWidthPadding = 20.0F;
