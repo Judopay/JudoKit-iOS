@@ -106,7 +106,7 @@ static const NSInteger kDecorationLength = 3;
 - (CGSize)intrinsicContentSize {
     UIFont *font = self.floatingTextField.font;
     NSInteger totalLength = self.floatingTextField.text.length + kDecorationLength;
-    CGSize textSize = [@"0" sizeWithAttributes:@{NSFontAttributeName: font}];
+    CGSize textSize = [@"0" sizeWithAttributes:@{NSFontAttributeName : font}];
     return CGSizeMake(textSize.width * totalLength, [super intrinsicContentSize].height);
 }
 

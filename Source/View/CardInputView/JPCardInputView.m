@@ -112,13 +112,16 @@ static const NSInteger kPhoneCodeMaxLength = 4;
     [self.mainContainerView addSubview:self.viewSwitcher];
 
     [self.backgroundView _jp_pinToView:self withPadding:0.0];
-    
+
     UILayoutGuide *guide = self.mainContainerView.layoutMarginsGuide;
-    
+
     [NSLayoutConstraint activateConstraints:@[
-        [self.viewSwitcher.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor constant:kContentHorizontalPadding],
-        [self.viewSwitcher.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor constant:-kContentHorizontalPadding],
-        [self.viewSwitcher.topAnchor constraintEqualToAnchor:guide.topAnchor constant:kContentVerticalPadding],
+        [self.viewSwitcher.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor
+                                                        constant:kContentHorizontalPadding],
+        [self.viewSwitcher.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor
+                                                         constant:-kContentHorizontalPadding],
+        [self.viewSwitcher.topAnchor constraintEqualToAnchor:guide.topAnchor
+                                                    constant:kContentVerticalPadding],
         [self.viewSwitcher.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
     ]];
     [self.mainContainerView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
@@ -137,7 +140,7 @@ static const NSInteger kPhoneCodeMaxLength = 4;
 
 - (void)safeAreaInsetsDidChange {
     [super safeAreaInsetsDidChange];
-    
+
     UIEdgeInsets insets = self.safeAreaInsets;
     self.viewSwitcher.layoutMargins = UIEdgeInsetsMake(insets.top, insets.left, insets.bottom, insets.right);
 }
@@ -286,7 +289,7 @@ static const NSInteger kPhoneCodeMaxLength = 4;
     if (inputField.type == JPInputTypeBillingPhoneCode && text.length > kPhoneCodeMaxLength) {
         return NO;
     }
-    
+
     [self.delegate cardInputView:self didChangeText:text forInputType:inputField.type andEndEditing:NO];
     return NO;
 }
