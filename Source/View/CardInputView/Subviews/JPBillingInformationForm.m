@@ -60,7 +60,7 @@
 
 #pragma mark - Constants
 
-static const float kSeparatorContentSpacing = 8.0F;
+static const float kSeparatorContentSpacing = -1.0F;
 static const float kButtonAddAddressLineMinHeight = 56.0F;
 static const float kButtonContentPadding = 16.0F;
 
