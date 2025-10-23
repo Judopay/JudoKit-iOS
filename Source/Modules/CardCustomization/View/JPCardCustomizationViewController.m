@@ -48,7 +48,6 @@
 #pragma mark - Constants
 
 const float kCustomizationViewTopBarPadding = 20.0F;
-const float kCustomizationViewBackButtonSize = 22.0F;
 const int kCustomizationViewMaxInputLength = 28;
 const float kCustomizationViewWhiteGradientLocation = 0.8F;
 const float kCustomizationViewClearGradientLocation = 1.0F;
@@ -128,8 +127,8 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [backBarButton.customView.heightAnchor constraintGreaterThanOrEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
-    [backBarButton.customView.widthAnchor constraintEqualToConstant:kCustomizationViewBackButtonSize].active = YES;
+    [backBarButton.customView.heightAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
+    [backBarButton.customView.widthAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
     UILabel *titleLabel = [[UILabel alloc] init];

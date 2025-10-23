@@ -133,5 +133,6 @@ static NSString *const kHeaderFieldAuthorization = @"Authorization";
 static NSString *const kHeaderFieldAPIToken = @"Api-Token";
 
 static float const kMaxNavigationTitleTextSize = 38.0F;
+static float const kNavigationBackButtonSize = 22.0F;
 
 #endif /* JPConstants_h */

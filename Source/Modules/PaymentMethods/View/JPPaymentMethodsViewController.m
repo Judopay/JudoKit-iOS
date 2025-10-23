@@ -102,8 +102,8 @@
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [backBarButton.customView.heightAnchor constraintEqualToConstant:22.0].active = YES;
-    [backBarButton.customView.widthAnchor constraintEqualToConstant:22.0].active = YES;
+    [backBarButton.customView.heightAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
+    [backBarButton.customView.widthAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
     self.navigationItem.leftBarButtonItem = backBarButton;
 
     UILabel *titleLabel = [[UILabel alloc] init];
