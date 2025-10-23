@@ -60,7 +60,7 @@ typedef enum JPCardInputViewSectionType : NSUInteger {
 
 #pragma mark - Constants
 
-static const float kContentHorizontalPadding = 24.0F;
+static const float kContentHorizontalPadding = 18.0F;
 static const float kContentVerticalPadding = 20.0F;
 static const float kSliderCornerRadius = 10.0F;
 static const float kTightContentSpacing = 8.0F;
@@ -112,9 +112,15 @@ static const NSInteger kPhoneCodeMaxLength = 4;
     [self.mainContainerView addSubview:self.viewSwitcher];
 
     [self.backgroundView _jp_pinToView:self withPadding:0.0];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeTop forView:self.mainContainerView withPadding:kContentVerticalPadding];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeBottom forView:self.mainContainerView withPadding:kContentVerticalPadding + kTightContentSpacing];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self.mainContainerView withPadding:kContentHorizontalPadding];
+    
+    UILayoutGuide *guide = self.mainContainerView.layoutMarginsGuide;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.viewSwitcher.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor constant:kContentHorizontalPadding],
+        [self.viewSwitcher.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor constant:-kContentHorizontalPadding],
+        [self.viewSwitcher.topAnchor constraintEqualToAnchor:guide.topAnchor constant:kContentVerticalPadding],
+        [self.viewSwitcher.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
+    ]];
     [self.mainContainerView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
     NSLayoutConstraint *mainContainerTopConstraint = [self.mainContainerView.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor constant:44];
@@ -127,6 +133,13 @@ static const NSInteger kPhoneCodeMaxLength = 4;
 
     [self addSubview:self.activityIndicator];
     [self.activityIndicator _jp_pinToView:self withPadding:0.0];
+}
+
+- (void)safeAreaInsetsDidChange {
+    [super safeAreaInsetsDidChange];
+    
+    UIEdgeInsets insets = self.safeAreaInsets;
+    self.viewSwitcher.layoutMargins = UIEdgeInsetsMake(insets.top, insets.left, insets.bottom, insets.right);
 }
 
 #pragma mark - Theming
