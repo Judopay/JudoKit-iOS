@@ -1,8 +1,8 @@
 //
-//  JPTokenRequest.m
+//  JPVirtualPan.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPTokenRequest.h"
-#import "JPConfiguration.h"
+#import <Foundation/Foundation.h>
 
-@implementation JPTokenRequest
+@interface JPVirtualPan : NSObject
 
-- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
-                         andCardToken:(NSString *)cardToken {
-    if (self = [super initWithConfiguration:configuration]) {
-        _cardToken = cardToken;
-        [self commonInitWIthConfiguration:configuration];
-    }
-    return self;
-}
+@property (nonatomic, strong, nullable) NSString *lastFour;
+@property (nonatomic, strong, nullable) NSString *expiryDate;
 
-- (void)commonInitWIthConfiguration:(JPConfiguration *)configuration {
-    _disableNetworkTokenisation = configuration.shouldDisableNetworkTokenisation;
-    _initialRecurringPayment = configuration.isInitialRecurringPayment;
-}
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

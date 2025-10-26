@@ -172,6 +172,7 @@ static NSString *const kShouldPaymentButtonDisplayAmount = @"should_payment_butt
 static NSString *const kIsInitialRecurringPaymentKey = @"is_initial_recurring_payment";
 static NSString *const kIsDelayedAuthorisationOnKey = @"is_delayed_authorisation_on";
 static NSString *const kIsAllowIncrementOnKey = @"is_allow_increment_on";
+static NSString *const kIsDisableNetworkTokenisationOnKey = @"is_disable_network_tokenisation_on";
 static NSString *const kShouldAskForCSCKey = @"should_ask_for_csc";
 static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardholder_name";
 
@@ -203,6 +204,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 @property (nonatomic, assign) BOOL isTokenAndSecretAuthorizationOn;
 @property (nonatomic, assign) BOOL isRecommendationFeatureOn;
 @property (nonatomic, assign) BOOL isPaymentSessionAuthorizationOn;
+@property (nonatomic, assign) BOOL isDisableNetworkTokenisationOn;
 
 #pragma mark - Payment reference section
 - (BOOL)hasPaymentReferenceSetUp;

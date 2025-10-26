@@ -800,6 +800,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>is_disable_network_tokenisation_on_title</string>
+			<key>Key</key>
+			<string>is_disable_network_tokenisation_on</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>token_payments</string>

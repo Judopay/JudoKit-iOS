@@ -335,6 +335,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     configuration.primaryAccountDetails = Settings.defaultSettings.primaryAccountDetails;
     configuration.isDelayedAuthorisation = Settings.defaultSettings.isDelayedAuthorisationOn;
     configuration.isAllowIncrement = Settings.defaultSettings.isAllowIncrementOn;
+    configuration.shouldDisableNetworkTokenisation = Settings.defaultSettings.isDisableNetworkTokenisationOn;
     
     configuration.emailAddress = Settings.defaultSettings.emailAddress;
     configuration.phoneCountryCode = Settings.defaultSettings.phoneCountryCode;

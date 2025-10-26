@@ -3,10 +3,11 @@
 @implementation CreatePaymentSessionRequest
 
 - (instancetype)initWithJudoId:(NSString *)judoId
-                         amount:(NSString *)amount
-                       currency:(NSString *)currency
-          yourConsumerReference:(NSString *)yourConsumerReference
-        yourPaymentReference:(NSString *)yourPaymentReference {
+                        amount:(NSString *)amount
+                      currency:(NSString *)currency
+         yourConsumerReference:(NSString *)yourConsumerReference
+          yourPaymentReference:(NSString *)yourPaymentReference
+    disableNetworkTokenisation:(BOOL)disableNetworkTokenisation {
     self = [super init];
     if (self) {
         _judoId = judoId;
@@ -14,6 +15,7 @@
         _currency = currency;
         _yourConsumerReference = yourConsumerReference;
         _yourPaymentReference = yourPaymentReference;
+        _disableNetworkTokenisation = disableNetworkTokenisation;
     }
     return self;
 }
@@ -24,7 +26,8 @@
         @"amount": self.amount,
         @"currency": self.currency,
         @"yourConsumerReference": self.yourConsumerReference,
-        @"yourPaymentReference": self.yourPaymentReference
+        @"yourPaymentReference": self.yourPaymentReference,
+        @"disableNetworkTokenisation": @(self.disableNetworkTokenisation)
     };
 }
 

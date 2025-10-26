@@ -26,9 +26,15 @@
 #import <Foundation/Foundation.h>
 
 @interface JPPaymentRequest : JPRequest
+
 /**
  * A  flag to sign up for a subscription-based service
  */
 @property (nonatomic, assign) BOOL initialRecurringPayment;
+
+/**
+ * A flag to disable network tokenisation
+ */
+@property (nonatomic, assign) BOOL disableNetworkTokenisation;
 
 @end
