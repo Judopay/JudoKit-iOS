@@ -31,9 +31,9 @@
     return @"0.00";
 }
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {
-        _initialRecurringPayment = configuration.isInitialRecurringPayment;
+        [self commonInitWIthConfiguration:configuration];
     }
     return self;
 }
@@ -41,9 +41,14 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                        andCardDetails:(JPCard *)card {
     if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        _initialRecurringPayment = configuration.isInitialRecurringPayment;
+        [self commonInitWIthConfiguration:configuration];
     }
     return self;
+}
+
+- (void)commonInitWIthConfiguration:(JPConfiguration *)configuration {
+    _initialRecurringPayment = configuration.isInitialRecurringPayment;
+    _disableNetworkTokenisation = configuration.shouldDisableNetworkTokenisation;
 }
 
 @end

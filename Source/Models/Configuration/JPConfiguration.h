@@ -127,6 +127,11 @@
 @property (nonatomic, assign) BOOL isAllowIncrement;
 
 /**
+ * A flag to disable network tokenisation
+ */
+@property (nonatomic, assign) BOOL shouldDisableNetworkTokenisation;
+
+/**
  * An instance of JPRecommendationConfiguration required for Recommendation Feature.
  */
 @property (nonatomic, strong, nullable) JPRecommendationConfiguration *recommendationConfiguration;

@@ -26,7 +26,7 @@
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
-@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer;
+@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer, JPNetworkTokenisationDetails;
 
 /**
  *  JPResponse is an object that references all information in correspondence with a Transaction with the judo API
@@ -132,6 +132,18 @@
  *  A reference to the  payment metadata
  */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *yourPaymentMetaData;
+
+/**
+ * Indicates whether the transaction uses network tokenisation
+ */
+@property (nonatomic, assign) BOOL disableNetworkTokenisation;
+
+/**
+ *  The network tokenisation details associated with this transaction.
+ *
+ *  @see JPNetworkTokenisationDetails
+ */
+@property (nonatomic, strong, nullable) JPNetworkTokenisationDetails *networkTokenisationDetails;
 
 /**
  *  Raw data of the received dictionary

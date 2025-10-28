@@ -53,6 +53,11 @@
 @property (nonatomic, assign) BOOL initialRecurringPayment;
 
 /**
+ * A flag to disable network tokenisation
+ */
+@property (nonatomic, assign) BOOL disableNetworkTokenisation;
+
+/**
  * Designated initializer based on the provided configuration and card token
  *
  * @param configuration - an instance of JPConfiguration that describe the merchant configuration values

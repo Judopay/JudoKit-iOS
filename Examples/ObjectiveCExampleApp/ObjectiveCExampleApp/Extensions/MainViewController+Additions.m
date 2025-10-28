@@ -59,7 +59,7 @@
     [request setValue:@"JudoKit-iOS Objective C Examples" forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"content-type"];
-    [request setValue:@"6.22.0" forHTTPHeaderField:@"Api-Version"];
+    [request setValue:@"6.23.0" forHTTPHeaderField:@"Api-Version"];
     [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     NSString *token = Settings.defaultSettings.token;
     NSString *secret = Settings.defaultSettings.secret;
@@ -70,7 +70,8 @@
                                                                                                amount:amount
                                                                                              currency:currency
                                                                                 yourConsumerReference:consumerReference
-                                                                                 yourPaymentReference:paymentReference];
+                                                                                 yourPaymentReference:paymentReference
+                                                                           disableNetworkTokenisation:Settings.defaultSettings.isDisableNetworkTokenisationOn];
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:[paymentRequest dictionaryRepresentation] options:kNilOptions error:nil];
     [request setHTTPBody:requestData];
 

@@ -25,6 +25,7 @@
 
 #import "NSString+Additions.h"
 #import "UIViewController+Additions.h"
+#import <CoreHaptics/CoreHaptics.h>
 
 @implementation UIViewController (Additions)
 
@@ -60,8 +61,11 @@
 }
 
 - (void)_jp_triggerNotificationFeedbackWithType:(UINotificationFeedbackType)type {
-    UINotificationFeedbackGenerator *feedbackGenerator = [UINotificationFeedbackGenerator new];
-    [feedbackGenerator notificationOccurred:type];
+    if (CHHapticEngine.capabilitiesForHardware.supportsHaptics) {
+        UINotificationFeedbackGenerator *feedbackGenerator = [UINotificationFeedbackGenerator new];
+        [feedbackGenerator prepare];
+        [feedbackGenerator notificationOccurred:type];
+    }
 }
 
 - (void)_jp_registerKeyboardObservers {
