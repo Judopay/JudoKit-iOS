@@ -24,13 +24,13 @@
 
 #import "JPPreAuthRequest.h"
 #import "JPConfiguration.h"
+#import "JPPaymentRequest.h"
 
 @implementation JPPreAuthRequest
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
     if (self = [super initWithConfiguration:configuration]) {
-        _delayedAuthorisation = configuration.isDelayedAuthorisation;
-        _allowIncrement = configuration.isAllowIncrement;
+        [self commonInitWIthConfiguration:configuration];
     }
     return self;
 }
@@ -38,10 +38,14 @@
 - (instancetype)initWithConfiguration:(JPConfiguration *)configuration
                        andCardDetails:(JPCard *)card {
     if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
-        _delayedAuthorisation = configuration.isDelayedAuthorisation;
-        _allowIncrement = configuration.isAllowIncrement;
+        [self commonInitWIthConfiguration:configuration];
     }
     return self;
+}
+
+- (void)commonInitWIthConfiguration:(JPConfiguration *)configuration {
+    _delayedAuthorisation = configuration.isDelayedAuthorisation;
+    _allowIncrement = configuration.isAllowIncrement;
 }
 
 @end

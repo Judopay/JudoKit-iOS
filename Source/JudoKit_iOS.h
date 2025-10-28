@@ -47,6 +47,7 @@
 #import "JPError+Additions.h"
 #import "JPError.h"
 #import "JPNetworkTimeout.h"
+#import "JPNetworkTokenisationDetails.h"
 #import "JPPaymentMethod.h"
 #import "JPPaymentMethodType.h"
 #import "JPPaymentMethods.h"
@@ -68,6 +69,7 @@
 #import "JPThreeDSecure.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
+#import "JPVirtualPan.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
 

@@ -82,6 +82,8 @@ ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
 ln -s -f ../Models/Request/JP3DSecureAuthenticationResult.h JP3DSecureAuthenticationResult.h
 ln -s -f ../Models/RecommendationConfiguration/JPRecommendationConfiguration.h JPRecommendationConfiguration.h
 ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
+ln -s -f ../Models/Response/NetworkTokenisationDetails/VirtualPan/JPVirtualPan.h JPVirtualPan.h
+ln -s -f ../Models/Response/NetworkTokenisationDetails/JPNetworkTokenisationDetails.h JPNetworkTokenisationDetails.h
 
 # project headers
 ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h

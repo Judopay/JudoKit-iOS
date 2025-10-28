@@ -108,6 +108,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
 }
 
+- (BOOL)isDisableNetworkTokenisationOn {
+    return [self.defaults boolForKey:kIsDisableNetworkTokenisationOnKey];
+}
+
 #pragma mark - Reference section
 - (BOOL)hasPaymentReferenceSetUp {
     return [self.defaults stringForKey:kPaymentReferenceKey].length > 0;

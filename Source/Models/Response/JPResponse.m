@@ -27,6 +27,7 @@
 #import "JPAmount.h"
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
+#import "JPNetworkTokenisationDetails.h"
 #import "NSString+Additions.h"
 
 static NSString *const kStatusDeclined = @"declined";
@@ -58,6 +59,7 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
     self.appearsOnStatementAs = dictionary[@"appearsOnStatementAs"];
     self.paymentMethod = dictionary[@"paymentMethod"];
     self.judoId = getSafeStringRepresentation(dictionary[@"judoId"]);
+    self.disableNetworkTokenisation = [dictionary[@"disableNetworkTokenisation"] boolValue];
 
     [self setupPaymentReferenceFromDictionary:dictionary];
     [self setupConsumerFromDictionary:dictionary];
@@ -85,6 +87,11 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
     NSDictionary *yourPaymentMetaData = dictionary[@"yourPaymentMetaData"];
     if (yourPaymentMetaData) {
         self.yourPaymentMetaData = yourPaymentMetaData;
+    }
+
+    NSDictionary *details = dictionary[@"networkTokenisationDetails"];
+    if (details) {
+        self.networkTokenisationDetails = [[JPNetworkTokenisationDetails alloc] initWithDictionary:details];
     }
 
     self.rawData = dictionary;

@@ -32,4 +32,9 @@
  */
 @property (nonatomic, assign) BOOL initialRecurringPayment;
 
+/**
+ * A flag to disable network tokenisation
+ */
+@property (nonatomic, assign) BOOL disableNetworkTokenisation;
+
 @end

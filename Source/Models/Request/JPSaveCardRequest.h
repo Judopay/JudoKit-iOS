@@ -27,4 +27,9 @@
 
 @interface JPSaveCardRequest : JPRequest
 
+/**
+ * A flag to disable network tokenisation
+ */
+@property (nonatomic, assign) BOOL disableNetworkTokenisation;
+
 @end
