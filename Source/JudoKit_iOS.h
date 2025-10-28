@@ -70,6 +70,8 @@
 #import "JPValidationResult.h"
 #import "JudoKit.h"
 #import "Typedefs.h"
+#import "JPVirtualPan.h"
+#import "JPNetworkTokenisationDetails.h"
 
 #import "JPApiService.h"
 #import "JPApplePayRequest.h"
