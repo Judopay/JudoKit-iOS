@@ -213,6 +213,10 @@ static const float kVerticalEdgeInsets = 10.0F;
     self.isAccessibilityElement = NO;
 
     [self addSubview:self.floatingTextField];
+    
+    NSLayoutConstraint *trailingConstraint = [self.floatingTextField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+                                                                                                   constant:-kHorizontalEdgeInsets];
+    trailingConstraint.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
         [self.floatingTextField.topAnchor constraintEqualToAnchor:self.topAnchor
@@ -221,8 +225,7 @@ static const float kVerticalEdgeInsets = 10.0F;
                                                             constant:-kVerticalEdgeInsets],
         [self.floatingTextField.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
                                                              constant:kHorizontalEdgeInsets],
-        [self.floatingTextField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
-                                                              constant:-kHorizontalEdgeInsets]
+        trailingConstraint
     ]];
 
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];
