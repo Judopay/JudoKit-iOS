@@ -1,8 +1,8 @@
 //
-//  AppDelegate.h
+//  SceneDelegate.m
 //  ObjectiveCExampleApp
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "SceneDelegate.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@implementation SceneDelegate
+
+- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
+}
+
+- (void)sceneDidDisconnect:(UIScene *)scene {
+}
+
+- (void)sceneDidBecomeActive:(UIScene *)scene {
+}
+
+- (void)sceneWillResignActive:(UIScene *)scene {
+}
+
+- (void)sceneWillEnterForeground:(UIScene *)scene {
+}
+
+- (void)sceneDidEnterBackground:(UIScene *)scene {
+}
 
 @end
+
+

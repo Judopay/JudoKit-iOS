@@ -31,6 +31,7 @@
 #import "JPConfiguration.h"
 #import "JPConfigurationValidationService.h"
 #import "JPError+Additions.h"
+#import "JPNavigationController.h"
 #import "JPPaymentMethodsBuilder.h"
 #import "JPPaymentMethodsViewController.h"
 #import "JPResponse.h"
@@ -204,7 +205,7 @@
         return;
     }
 
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    JPNavigationController *navController = [[JPNavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 
     [UIApplication._jp_topMostViewController presentViewController:navController

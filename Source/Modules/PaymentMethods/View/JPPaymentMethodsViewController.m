@@ -67,6 +67,12 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - Dark status bar icons
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDarkContent;
+}
+
 #pragma mark - User Actions
 
 - (void)onBackButtonTap {

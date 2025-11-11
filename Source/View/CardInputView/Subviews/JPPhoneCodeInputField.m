@@ -40,10 +40,6 @@
 @dynamic theme;
 @dynamic floatingTextField;
 
-#pragma mark - Constants
-
-static const NSInteger kDecorationLength = 3;
-
 #pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -67,6 +63,12 @@ static const NSInteger kDecorationLength = 3;
     return self;
 }
 
+#pragma mark - Overrides
+- (void)configureWithViewModel:(JPTransactionInputFieldViewModel *)viewModel {
+    [super configureWithViewModel:viewModel];
+    [self invalidateIntrinsicContentSize];
+}
+
 #pragma mark - Theming
 
 - (void)applyTheme:(JPTheme *)theme {
@@ -75,8 +77,8 @@ static const NSInteger kDecorationLength = 3;
     self.leftDecorationLabel.textColor = self.theme.jpBlackColor;
     self.rightDecorationLabel.textColor = self.theme.jpBlackColor;
 
-    self.leftDecorationLabel.font = self.theme.headlineLight;
-    self.rightDecorationLabel.font = self.theme.headlineLight;
+    self.leftDecorationLabel.font = self.theme.caption;
+    self.rightDecorationLabel.font = self.theme.caption;
 }
 
 #pragma mark - Helpers
@@ -94,8 +96,8 @@ static const NSInteger kDecorationLength = 3;
 - (UILabel *)sideViewWithText:(NSString *)text {
     UILabel *label = [UILabel new];
     label.text = text;
-    label.textColor = self.theme.jpBlackColor;
-    label.font = self.theme.headlineLight;
+    label.textColor = self.floatingTextField.textColor;
+    label.font = self.floatingTextField.font;
     if (@available(iOS 13.0, *)) {
         label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
@@ -104,10 +106,24 @@ static const NSInteger kDecorationLength = 3;
 }
 
 - (CGSize)intrinsicContentSize {
-    UIFont *font = self.floatingTextField.font;
-    NSInteger totalLength = self.floatingTextField.text.length + kDecorationLength;
-    CGSize textSize = [@"0" sizeWithAttributes:@{NSFontAttributeName : font}];
-    return CGSizeMake(textSize.width * totalLength, [super intrinsicContentSize].height);
+    UITextField *textField = self.floatingTextField;
+    UIFont *font = textField.font ?: [UIFont systemFontOfSize:17.0];
+    NSString *text = textField.text ?: @"";
+
+    CGSize textSize = [text sizeWithAttributes:@{NSFontAttributeName : font}];
+    CGFloat width = textSize.width;
+
+    if (textField.leftView && textField.leftViewMode != UITextFieldViewModeNever) {
+        width += CGRectGetWidth(textField.leftView.frame);
+    }
+
+    if (textField.rightView && textField.rightViewMode != UITextFieldViewModeNever) {
+        width += CGRectGetWidth(textField.rightView.frame);
+    }
+
+    CGFloat height = textField.intrinsicContentSize.height;
+
+    return CGSizeMake(width, height);
 }
 
 @end

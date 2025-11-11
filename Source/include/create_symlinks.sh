@@ -200,3 +200,4 @@ ln -s -f ../Models/CardTransactionDetailsOverrides/JPCardTransactionDetailsOverr
 ln -s -f ../Extensions/PKPayment/PKPayment+Additions.h PKPayment+Additions.h
 ln -s -f ../Extensions/CNPostalAddress/CNPostalAddress+Additions.h CNPostalAddress+Additions.h
 ln -s -f ../Extensions/PKContact/PKContact+Additions.h PKContact+Additions.h
+ln -s -f ../Navigation/JPNavigationController.h JPNavigationController.h

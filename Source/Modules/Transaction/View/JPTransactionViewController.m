@@ -71,6 +71,12 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - White status bar icons
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - View protocol methods
 
 - (void)updateViewWithViewModel:(JPTransactionViewModel *)viewModel {

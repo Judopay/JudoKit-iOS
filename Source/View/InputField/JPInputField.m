@@ -168,27 +168,16 @@ static const float kVerticalEdgeInsets = 10.0F;
 - (void)displayErrorWithText:(NSString *)text {
     self.floatingTextField.textColor = self.theme.jpRedColor;
     [self.floatingTextField displayFloatingLabelWithText:text];
-    [self updateHeightConstraint];
 }
 
 - (void)clearError {
     self.floatingTextField.textColor = self.textColor;
     [self.floatingTextField hideFloatingLabel];
-    [self updateHeightConstraint];
 }
 
 - (CGSize)intrinsicContentSize {
     CGSize textFieldSize = [self.floatingTextField systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return CGSizeMake(UIViewNoIntrinsicMetric, textFieldSize.height + (kVerticalEdgeInsets * 2));
-}
-
-- (void)updateHeightConstraint {
-    // Invalidate intrinsic content size to trigger layout update
-    [self invalidateIntrinsicContentSize];
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         [self.superview layoutIfNeeded];
-                     }];
 }
 
 - (BOOL)becomeFirstResponder {
@@ -213,10 +202,6 @@ static const float kVerticalEdgeInsets = 10.0F;
     self.isAccessibilityElement = NO;
 
     [self addSubview:self.floatingTextField];
-    
-    NSLayoutConstraint *trailingConstraint = [self.floatingTextField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
-                                                                                                   constant:-kHorizontalEdgeInsets];
-    trailingConstraint.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
         [self.floatingTextField.topAnchor constraintEqualToAnchor:self.topAnchor
@@ -225,7 +210,8 @@ static const float kVerticalEdgeInsets = 10.0F;
                                                             constant:-kVerticalEdgeInsets],
         [self.floatingTextField.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
                                                              constant:kHorizontalEdgeInsets],
-        trailingConstraint
+        [self.floatingTextField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
+                                                              constant:-kHorizontalEdgeInsets]
     ]];
 
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];

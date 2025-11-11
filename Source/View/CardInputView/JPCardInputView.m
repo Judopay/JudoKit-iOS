@@ -127,7 +127,6 @@ static const NSInteger kPhoneCodeMaxLength = 4;
     [self.mainContainerView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
     NSLayoutConstraint *mainContainerTopConstraint = [self.mainContainerView.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor constant:44];
-    mainContainerTopConstraint.priority = UILayoutPriorityDefaultHigh;
     self.mainContainerBottomConstraint = [self.mainContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
 
     [NSLayoutConstraint activateConstraints:@[ mainContainerTopConstraint, self.mainContainerBottomConstraint ]];
