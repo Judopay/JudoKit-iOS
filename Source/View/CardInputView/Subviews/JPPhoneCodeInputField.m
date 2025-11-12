@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPPhoneCodeInputField.h"
-#import "JPFloatingTextField.h"
+#import "JPTextInputLayout.h"
 #import "JPTheme.h"
 
 @interface JPPhoneCodeInputField ()
 
 @property (nonatomic, strong) JPTheme *theme;
-@property (nonatomic, strong) JPFloatingTextField *floatingTextField;
+@property (nonatomic, strong) JPTextInputLayout *floatingTextField;
 @property (nonatomic, strong) UILabel *leftDecorationLabel;
 @property (nonatomic, strong) UILabel *rightDecorationLabel;
 
@@ -87,26 +87,27 @@
     self.leftDecorationLabel = [self sideViewWithText:@"+("];
     self.rightDecorationLabel = [self sideViewWithText:@")"];
 
-    self.floatingTextField.leftView = self.leftDecorationLabel;
-    self.floatingTextField.rightView = self.rightDecorationLabel;
-    self.floatingTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.floatingTextField.rightViewMode = UITextFieldViewModeAlways;
+    self.floatingTextField.textField.leftView = self.leftDecorationLabel;
+    self.floatingTextField.textField.rightView = self.rightDecorationLabel;
+    self.floatingTextField.textField.leftViewMode = UITextFieldViewModeAlways;
+    self.floatingTextField.textField.rightViewMode = UITextFieldViewModeAlways;
 }
 
 - (UILabel *)sideViewWithText:(NSString *)text {
     UILabel *label = [UILabel new];
     label.text = text;
-    label.textColor = self.floatingTextField.textColor;
-    label.font = self.floatingTextField.font;
+    label.textColor = self.floatingTextField.textField.textColor;
+    label.font = self.floatingTextField.textField.font;
     if (@available(iOS 13.0, *)) {
         label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
     [label sizeToFit];
     return label;
+    return nil;
 }
 
 - (CGSize)intrinsicContentSize {
-    UITextField *textField = self.floatingTextField;
+    UITextField *textField = self.floatingTextField.textField;
     UIFont *font = textField.font ?: [UIFont systemFontOfSize:17.0];
     NSString *text = textField.text ?: @"";
 

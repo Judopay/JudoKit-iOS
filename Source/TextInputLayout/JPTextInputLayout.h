@@ -1,5 +1,5 @@
 //
-//  JPFloatingTextField.h
+//  JPTextInputLayout.h
 //  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
@@ -26,7 +26,7 @@
 
 @class JPTheme;
 
-@interface JPFloatingTextField : UITextField
+@interface JPTextInputLayout : UIView
 
 /**
  * A property that sets the color of the placeholder
@@ -37,6 +37,8 @@
  * A property that sets the font of the placeholder
  */
 @property (nonatomic, strong) UIFont *placeholderFont;
+
+@property (nonatomic, readonly) UITextField *textField;
 
 /**
  * A method used to apply a theme to the view

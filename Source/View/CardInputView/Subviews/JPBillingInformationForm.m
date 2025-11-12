@@ -112,13 +112,16 @@ static const float kButtonContentPadding = 16.0F;
     self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
     self.phoneCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneCodeTextField.backgroundMaskedCorners = kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
-    [self.phoneCodeTextField setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.phoneCodeTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.phoneCodeTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
 
     self.phoneTextField = [JPCardInputField new];
     self.phoneTextField.accessibilityIdentifier = @"Cardholder phone number Field";
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTextField.backgroundMaskedCorners = kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner;
     self.phoneTextField.textContentType = UITextContentTypeTelephoneNumber;
+    [self.phoneTextField setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.phoneTextField setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
     self.line1TextField = [JPCardInputField new];
     self.line1TextField.accessibilityIdentifier = @"Cardholder address line 1 code Field";

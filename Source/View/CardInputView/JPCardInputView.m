@@ -298,16 +298,6 @@ static const NSInteger kPhoneCodeMaxLength = 4;
     [self.delegate cardInputView:self didChangeText:text forInputType:inputField.type andEndEditing:YES];
 }
 
-//- (void)inputFieldDidBeginEditing:(JPInputField *)inputField {
-//    UIScrollView *scrollView = self.scrollView;
-//    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
-//    CGRect fieldFrame = inputField.frame;
-//
-//    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
-//        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, 80) animated:YES];
-//    }
-//}
-
 #pragma mark - JPActionBarDelegate
 
 - (void)actionBar:(JPActionBar *)actionBar didPerformAction:(JPActionBarActionType)action {

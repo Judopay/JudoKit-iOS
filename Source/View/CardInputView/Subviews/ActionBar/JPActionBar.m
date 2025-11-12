@@ -62,7 +62,7 @@ static const float kMaxTopBarButtonTextSize = 28.0F;
     self.axis = UILayoutConstraintAxisHorizontal;
 
     self.cancelButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
-    self.cancelButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.cancelButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     self.cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.cancelButton.titleLabel.numberOfLines = 1;
     self.cancelButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
