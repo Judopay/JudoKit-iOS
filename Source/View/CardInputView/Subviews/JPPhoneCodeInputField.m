@@ -29,7 +29,7 @@
 @interface JPPhoneCodeInputField ()
 
 @property (nonatomic, strong) JPTheme *theme;
-@property (nonatomic, strong) JPTextInputLayout *floatingTextField;
+@property (nonatomic, strong) JPTextInputLayout *textInputLayout;
 @property (nonatomic, strong) UILabel *leftDecorationLabel;
 @property (nonatomic, strong) UILabel *rightDecorationLabel;
 
@@ -38,7 +38,7 @@
 @implementation JPPhoneCodeInputField
 
 @dynamic theme;
-@dynamic floatingTextField;
+@dynamic textInputLayout;
 
 #pragma mark - Initializers
 
@@ -87,17 +87,17 @@
     self.leftDecorationLabel = [self sideViewWithText:@"+("];
     self.rightDecorationLabel = [self sideViewWithText:@")"];
 
-    self.floatingTextField.textField.leftView = self.leftDecorationLabel;
-    self.floatingTextField.textField.rightView = self.rightDecorationLabel;
-    self.floatingTextField.textField.leftViewMode = UITextFieldViewModeAlways;
-    self.floatingTextField.textField.rightViewMode = UITextFieldViewModeAlways;
+    self.textInputLayout.textField.leftView = self.leftDecorationLabel;
+    self.textInputLayout.textField.rightView = self.rightDecorationLabel;
+    self.textInputLayout.textField.leftViewMode = UITextFieldViewModeAlways;
+    self.textInputLayout.textField.rightViewMode = UITextFieldViewModeAlways;
 }
 
 - (UILabel *)sideViewWithText:(NSString *)text {
     UILabel *label = [UILabel new];
     label.text = text;
-    label.textColor = self.floatingTextField.textField.textColor;
-    label.font = self.floatingTextField.textField.font;
+    label.textColor = self.textInputLayout.textField.textColor;
+    label.font = self.textInputLayout.textField.font;
     if (@available(iOS 13.0, *)) {
         label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
@@ -107,7 +107,7 @@
 }
 
 - (CGSize)intrinsicContentSize {
-    UITextField *textField = self.floatingTextField.textField;
+    UITextField *textField = self.textInputLayout.textField;
     UIFont *font = textField.font ?: [UIFont systemFontOfSize:17.0];
     NSString *text = textField.text ?: @"";
 
