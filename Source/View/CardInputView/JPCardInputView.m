@@ -63,7 +63,6 @@ typedef enum JPCardInputViewSectionType : NSUInteger {
 static const float kContentHorizontalPadding = 18.0F;
 static const float kContentVerticalPadding = 20.0F;
 static const float kSliderCornerRadius = 10.0F;
-static const float kTightContentSpacing = 8.0F;
 static const float kLooseContentSpacing = 16.0F;
 static const NSInteger kPhoneCodeMaxLength = 4;
 

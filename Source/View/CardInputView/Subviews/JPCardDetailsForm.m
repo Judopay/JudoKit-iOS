@@ -56,7 +56,6 @@
 #pragma mark - Constants
 
 static const float kTightContentSpacing = 8.0F;
-static const float kInputFieldHeight = 56.0F;
 
 - (instancetype)initWithFieldsSet:(JPFormFieldsSet)fieldsSet {
     if (self = [super init]) {

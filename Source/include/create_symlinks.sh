@@ -123,7 +123,7 @@ ln -s -f ../Services/Keychain/JPKeychainService.h JPKeychainService.h
 ln -s -f ../Services/ApplePay/JPApplePayService.h JPApplePayService.h
 ln -s -f ../View/LoadingView/JPLoadingView.h JPLoadingView.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerCell/JPCardCustomizationPatternPickerCell.h JPCardCustomizationPatternPickerCell.h
-ln -s -f ../View/JPTextInputLayout/JPTextInputLayout.h JPTextInputLayout.h
+ln -s -f ../View/TextInputLayout/JPTextInputLayout.h JPTextInputLayout.h
 ln -s -f ../View/CardInputView/Subviews/JPTransactionButton.h JPTransactionButton.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListHeaderCell/JPPaymentMethodsCardListHeaderCellDelegate.h JPPaymentMethodsCardListHeaderCellDelegate.h
 ln -s -f ../Modules/CardScanController/View/JPCardScanPreviewLayer.h JPCardScanPreviewLayer.h
