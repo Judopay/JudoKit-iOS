@@ -1,6 +1,6 @@
 //
-//  AppDelegate.h
-//  ObjectiveCExampleApp
+//  JPTextInputLayout.h
+//  JudoKit_iOS
 //
 //  Copyright (c) 2020 Alternative Payments Ltd
 //
@@ -24,6 +24,39 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@class JPTheme;
+
+@interface JPTextInputLayout : UIView
+
+/**
+ * A property that sets the color of the placeholder
+ */
+@property (nonatomic, strong) UIColor *placeholderColor;
+
+/**
+ * A property that sets the font of the placeholder
+ */
+@property (nonatomic, strong) UIFont *placeholderFont;
+
+@property (nonatomic, readonly) UITextField *textField;
+
+/**
+ * A method used to apply a theme to the view
+ *
+ * @param theme - the JPTheme object used to configure the user interface
+ */
+- (void)applyTheme:(JPTheme *)theme;
+
+/**
+ * A method that displays the floating label above the text field's input text.
+ *
+ * @param text - the text of the floating label.
+ */
+- (void)displayFloatingLabelWithText:(NSString *)text;
+
+/**
+ * A method which hides the floating label above the text field's input text.
+ */
+- (void)hideFloatingLabel;
 
 @end

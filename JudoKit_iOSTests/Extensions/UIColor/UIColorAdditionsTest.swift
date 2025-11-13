@@ -80,6 +80,19 @@ class UIColorAdditionsTest: XCTestCase {
     /*
      * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
      *
+     * WHEN: the number is a valid jpBrownGray HEX value
+     *
+     * THEN: the result should be an instance of UIImage with the correct color
+     */
+    func test_JpBrownGrayColor_WhenInit_ShouldReturnRightColor() {
+        let jpBrownGrayColor = UIColor._jp_color(fromHex: 0x767676)
+        let sutColor = UIColor._jp_brownGray()
+        XCTAssertTrue(compareColors(c1: sutColor, c2: jpBrownGrayColor))
+    }
+    
+    /*
+     * GIVEN: an image is initialized by calling the [fromHex] initializer from the UIImage extension
+     *
      * WHEN: the number is a valid jpGray HEX value
      *
      * THEN: the result should be an instance of UIImage with the correct color

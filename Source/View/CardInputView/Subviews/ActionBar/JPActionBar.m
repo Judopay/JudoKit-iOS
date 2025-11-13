@@ -35,10 +35,11 @@
 #pragma mark - Constants
 
 static const float kScanButtonCornerRadius = 4.0F;
-static const float kButtonsContentSpacing = 20.0F;
 static const float kScanButtonBorderWidth = 1.0F;
-static const float kAddCardButtonHeight = 46.0F;
+static const float kActionButtonHeight = 52.0F;
 static const float kScanCardHeight = 36.0F;
+static const float kScanCardWidth = 215.0F;
+static const float kMaxTopBarButtonTextSize = 28.0F;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -59,11 +60,12 @@ static const float kScanCardHeight = 36.0F;
 - (void)commonInit {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.axis = UILayoutConstraintAxisHorizontal;
-    self.spacing = kButtonsContentSpacing;
 
     self.cancelButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
-    self.cancelButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.cancelButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     self.cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.cancelButton.titleLabel.numberOfLines = 1;
+    self.cancelButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     self.scanCardButton = [JPTransactionScanCardButton buttonWithType:UIButtonTypeSystem];
     self.scanCardButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -71,17 +73,23 @@ static const float kScanCardHeight = 36.0F;
     self.scanCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.scanCardButton.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 0);
     self.scanCardButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 10);
+    self.scanCardButton.titleLabel.numberOfLines = 1;
+    self.scanCardButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     self.backButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
     self.backButton.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 30);
     self.backButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.backButton.accessibilityIdentifier = @"Back Button";
     self.backButton.clipsToBounds = YES;
+    self.backButton.titleLabel.numberOfLines = 1;
+    self.backButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     self.submitButton = [JPTransactionButton new];
     self.submitButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.submitButton.accessibilityIdentifier = @"Submit Button";
     self.submitButton.clipsToBounds = YES;
+    self.submitButton.titleLabel.numberOfLines = 1;
+    self.submitButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     [self reloadArrangedSubviews];
     [self setupConstraints];
@@ -122,8 +130,9 @@ static const float kScanCardHeight = 36.0F;
     [NSLayoutConstraint activateConstraints:@[
         [self.cancelButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
         [self.scanCardButton.heightAnchor constraintEqualToConstant:kScanCardHeight],
-        [self.backButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
-        [self.submitButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+        [self.scanCardButton.widthAnchor constraintLessThanOrEqualToConstant:kScanCardWidth],
+        [self.backButton.heightAnchor constraintEqualToConstant:kActionButtonHeight],
+        [self.submitButton.heightAnchor constraintEqualToConstant:kActionButtonHeight],
     ]];
 }
 
@@ -153,10 +162,18 @@ static const float kScanCardHeight = 36.0F;
 }
 
 - (void)applyTheme:(JPTheme *)theme {
-    self.cancelButton.titleLabel.font = theme.bodyBold;
+    UIFont *cancelFont = theme.bodyBold;
+    if (cancelFont.pointSize > kMaxTopBarButtonTextSize) {
+        cancelFont = [cancelFont fontWithSize:kMaxTopBarButtonTextSize];
+    }
+    self.cancelButton.titleLabel.font = cancelFont;
     [self.cancelButton setTitleColor:theme.jpBlackColor forState:UIControlStateNormal];
 
-    self.scanCardButton.titleLabel.font = theme.bodyBold;
+    UIFont *scanFont = theme.bodyBold;
+    if (scanFont.pointSize > kMaxTopBarButtonTextSize) {
+        scanFont = [scanFont fontWithSize:kMaxTopBarButtonTextSize];
+    }
+    self.scanCardButton.titleLabel.font = scanFont;
     [self.scanCardButton setTitleColor:theme.jpBlackColor forState:UIControlStateNormal];
     [self.scanCardButton setTintColor:theme.jpBlackColor];
     [self.scanCardButton _jp_setBorderWithColor:theme.jpBlackColor

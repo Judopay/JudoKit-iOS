@@ -60,9 +60,9 @@
 
 #pragma mark - Constants
 
-static const float kSeparatorContentSpacing = 1.0F;
-static const float kInputFieldHeight = 44.0F;
-static const float kPhoneCodeWidth = 45.0F;
+static const float kSeparatorContentSpacing = -1.0F;
+static const float kButtonAddAddressLineMinHeight = 56.0F;
+static const float kButtonContentPadding = 16.0F;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -112,12 +112,16 @@ static const float kPhoneCodeWidth = 45.0F;
     self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
     self.phoneCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneCodeTextField.backgroundMaskedCorners = kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
+    [self.phoneCodeTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.phoneCodeTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
 
     self.phoneTextField = [JPCardInputField new];
     self.phoneTextField.accessibilityIdentifier = @"Cardholder phone number Field";
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTextField.backgroundMaskedCorners = kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner;
     self.phoneTextField.textContentType = UITextContentTypeTelephoneNumber;
+    [self.phoneTextField setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.phoneTextField setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
     self.line1TextField = [JPCardInputField new];
     self.line1TextField.accessibilityIdentifier = @"Cardholder address line 1 code Field";
@@ -129,6 +133,10 @@ static const float kPhoneCodeWidth = 45.0F;
     self.addAddressLineButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.addAddressLineButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
+    self.addAddressLineButton.titleLabel.numberOfLines = 0;
+    self.addAddressLineButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.addAddressLineButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    self.addAddressLineButton.contentEdgeInsets = UIEdgeInsetsMake(kButtonContentPadding, 0, kButtonContentPadding, kButtonContentPadding);
     [self.addAddressLineButton addTarget:self action:@selector(showNewAddressLine:) forControlEvents:UIControlEventTouchUpInside];
 
     NSString *title = [NSString stringWithFormat:@"jp_button_add_address_line_card"._jp_localized, @(2)];
@@ -161,14 +169,6 @@ static const float kPhoneCodeWidth = 45.0F;
     UIStackView *phoneNumberStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSeparatorContentSpacing
                                                                     andArrangedSubviews:@[ self.phoneCodeTextField, self.phoneTextField ]];
 
-    NSLayoutConstraint *widthLayout = [self.phoneTextField.widthAnchor constraintGreaterThanOrEqualToConstant:kPhoneCodeWidth];
-    [widthLayout setActive:YES];
-    widthLayout.priority = UILayoutPriorityDefaultHigh;
-
-    NSLayoutConstraint *widthCodeLayout = [self.phoneCodeTextField.widthAnchor constraintEqualToConstant:43];
-    [widthCodeLayout setActive:YES];
-    widthCodeLayout.priority = UILayoutPriorityDefaultLow;
-
     [self.inputFieldsStackView _jp_addArrangedSubviews:@[
         self.headingLabel,
         self.emailTextField,
@@ -186,18 +186,7 @@ static const float kPhoneCodeWidth = 45.0F;
 
 - (void)setupConstraints {
     [NSLayoutConstraint activateConstraints:@[
-        [self.emailTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.countryTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.administrativeDivisionTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.phoneCodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.phoneCodeTextField.widthAnchor constraintGreaterThanOrEqualToConstant:0],
-        [self.phoneTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line1TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.addAddressLineButton.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line2TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.line3TextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.cityTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight],
-        [self.postcodeTextField.heightAnchor constraintEqualToConstant:kInputFieldHeight]
+        [self.addAddressLineButton.heightAnchor constraintGreaterThanOrEqualToConstant:kButtonAddAddressLineMinHeight]
     ]];
 }
 
@@ -237,7 +226,7 @@ static const float kPhoneCodeWidth = 45.0F;
     [super applyTheme:theme];
 
     self.headingLabel.font = theme.headline;
-    self.headingLabel.textColor = theme.jpDarkGrayColor;
+    self.headingLabel.textColor = theme.jpBrownGrayColor;
 
     [self.emailTextField applyTheme:theme];
     [self.countryTextField applyTheme:theme];

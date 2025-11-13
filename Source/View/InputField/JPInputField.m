@@ -23,17 +23,19 @@
 //  SOFTWARE.
 
 #import "JPInputField.h"
-#import "JPFloatingTextField.h"
 #import "JPInputType.h"
+#import "JPTextInputLayout.h"
 #import "JPTheme.h"
 #import "UIColor+Additions.h"
 #import "UIFont+Additions.h"
+#import "UIStackView+Additions.h"
 #import "UITextField+Additions.h"
+#import "UIView+Additions.h"
 
 @interface JPInputField ()
 @property (nonatomic, strong) JPTheme *theme;
-@property (nonatomic, strong) JPFloatingTextField *floatingTextField;
 @property (nonatomic, strong) UIStackView *stackView;
+@property (nonatomic, strong) JPTextInputLayout *textInputLayout;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) BOOL isSettingText;
 @end
@@ -41,9 +43,10 @@
 @implementation JPInputField
 
 #pragma mark - Constants
-
-static const float kHorizontalEdgeInsets = 10.0F;
-static const float kVerticalEdgeInsets = 14.0F;
+static const float kStackViewSpacing = 4.0F;
+static const float kEdgeInsets = 8.0F;
+static const float kBorderWidth = 1.0F;
+static const float kCornerRadius = 6.0F;
 
 #pragma mark - Initializers
 
@@ -75,42 +78,42 @@ static const float kVerticalEdgeInsets = 14.0F;
     self.textColor = theme.jpBlackColor;
     self.font = theme.headlineLight;
     self.placeholderFont = theme.headlineLight;
-    self.placeholderColor = theme.jpDarkGrayColor;
-    [self.floatingTextField applyTheme:theme];
+    self.placeholderColor = theme.jpNeutralGrayColor;
+    [self.textInputLayout applyTheme:theme];
 }
 
 #pragma mark - Property setters
 
 - (void)setText:(NSString *)text {
     _text = text;
-    self.floatingTextField.text = text;
+    self.textInputLayout.textField.text = text;
 }
 
 - (void)setTextColor:(UIColor *)textColor {
     _textColor = textColor;
-    self.floatingTextField.textColor = textColor;
+    self.textInputLayout.textField.textColor = textColor;
 }
 
 - (void)setFont:(UIFont *)font {
     _font = font;
-    self.floatingTextField.font = font;
+    self.textInputLayout.textField.font = font;
 }
 
 - (void)setPlaceholderFont:(UIFont *)placeholderFont {
     _placeholderFont = placeholderFont;
-    self.floatingTextField.placeholderFont = placeholderFont;
+    self.textInputLayout.placeholderFont = placeholderFont;
 }
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {
     _placeholderColor = placeholderColor;
-    self.floatingTextField.placeholderColor = placeholderColor;
+    self.textInputLayout.placeholderColor = placeholderColor;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
     UIColor *color = self.placeholderColor ? self.placeholderColor : UIColor._jp_redColor;
     UIFont *font = self.placeholderFont ? self.placeholderFont : UIFont._jp_caption;
-    [self.floatingTextField _jp_placeholderWithText:placeholder color:color andFont:font];
+    [self.textInputLayout.textField _jp_placeholderWithText:placeholder color:color andFont:font];
 }
 
 - (void)setType:(JPInputType)type {
@@ -119,43 +122,43 @@ static const float kVerticalEdgeInsets = 14.0F;
 
 - (void)setInputView:(UIView *)inputView {
     _inputView = inputView;
-    self.floatingTextField.inputView = inputView;
+    self.textInputLayout.textField.inputView = inputView;
 }
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
 
-    if (self.floatingTextField.enabled == enabled) {
+    if (self.textInputLayout.textField.enabled == enabled) {
         return;
     }
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.1
                      animations:^{
-                         weakSelf.floatingTextField.enabled = enabled;
+                         weakSelf.textInputLayout.textField.enabled = enabled;
                          weakSelf.alpha = (enabled) ? 1.0 : 0.5;
                      }];
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
     _keyboardType = keyboardType;
-    self.floatingTextField.keyboardType = keyboardType;
+    self.textInputLayout.textField.keyboardType = keyboardType;
 }
 
 - (void)setAutocapitalizationType:(UITextAutocapitalizationType)autocapitalizationType {
     _autocapitalizationType = autocapitalizationType;
-    self.floatingTextField.autocapitalizationType = autocapitalizationType;
+    self.textInputLayout.textField.autocapitalizationType = autocapitalizationType;
 }
 
 - (void)setReturnType:(UIReturnKeyType)returnType {
     _returnType = returnType;
-    self.floatingTextField.returnKeyType = returnType;
+    self.textInputLayout.textField.returnKeyType = returnType;
 }
 
 - (void)setTextContentType:(UITextContentType)textContentType {
     if (@available(iOS 10.0, *)) {
         _textContentType = textContentType;
-        self.floatingTextField.textContentType = textContentType;
+        self.textInputLayout.textField.textContentType = textContentType;
     }
 }
 
@@ -166,47 +169,45 @@ static const float kVerticalEdgeInsets = 14.0F;
 #pragma mark - User Actions
 
 - (void)displayErrorWithText:(NSString *)text {
-    self.floatingTextField.textColor = self.theme.jpRedColor;
-    [self.floatingTextField displayFloatingLabelWithText:text];
+    self.textInputLayout.textField.textColor = self.theme.jpRedColor;
+    [self.textInputLayout displayFloatingLabelWithText:text];
 }
 
 - (void)clearError {
-    self.floatingTextField.textColor = self.textColor;
-    [self.floatingTextField hideFloatingLabel];
+    self.textInputLayout.textField.textColor = self.textColor;
+    [self.textInputLayout hideFloatingLabel];
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize textFieldSize = [self.textInputLayout.textField systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return CGSizeMake(UIViewNoIntrinsicMetric, textFieldSize.height + (kEdgeInsets * 2));
 }
 
 - (BOOL)becomeFirstResponder {
-    return [self.floatingTextField becomeFirstResponder];
+    return [self.textInputLayout.textField becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder {
-    return [self.floatingTextField resignFirstResponder];
+    return [self.textInputLayout.textField resignFirstResponder];
 }
 
 #pragma mark - Layout setup
 
 - (void)setupViews {
-    self.layer.cornerRadius = 6.0F;
     self.backgroundColor = UIColor._jp_lightGrayColor;
-    self.translatesAutoresizingMaskIntoConstraints = NO;
 
+    [self _jp_setBorderWithColor:UIColor._jp_graphiteGrayColor
+                           width:kBorderWidth
+                 andCornerRadius:kCornerRadius];
+
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.isAccessibilityElement = NO;
 
     [self addSubview:self.stackView];
-    [self.stackView addArrangedSubview:self.floatingTextField];
+    [self.stackView addArrangedSubview:self.textInputLayout];
+    [self.stackView _jp_pinToView:self withPadding:kEdgeInsets];
 
-    [NSLayoutConstraint activateConstraints:@[
-        [self.stackView.topAnchor constraintEqualToAnchor:self.topAnchor
-                                                 constant:kVerticalEdgeInsets],
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor
-                                                    constant:-kVerticalEdgeInsets],
-        [self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor
-                                                     constant:kHorizontalEdgeInsets],
-        [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor
-                                                      constant:-kHorizontalEdgeInsets]
-    ]];
-
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.floatingTextField action:@selector(becomeFirstResponder)];
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.textInputLayout.textField action:@selector(becomeFirstResponder)];
     [self addGestureRecognizer:self.tapGestureRecognizer];
 }
 
@@ -214,22 +215,23 @@ static const float kVerticalEdgeInsets = 14.0F;
     [self removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (JPFloatingTextField *)floatingTextField {
-    if (!_floatingTextField) {
-        _floatingTextField = [JPFloatingTextField new];
-        _floatingTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        _floatingTextField.font = UIFont._jp_headlineLight;
-        _floatingTextField.delegate = self;
-        if (@available(iOS 10.0, *)) {
-            _floatingTextField.textContentType = _textContentType;
-        }
+- (JPTextInputLayout *)textInputLayout {
+    if (!_textInputLayout) {
+        _textInputLayout = [JPTextInputLayout new];
+        _textInputLayout.translatesAutoresizingMaskIntoConstraints = NO;
+
+        _textInputLayout.textField.font = UIFont._jp_headlineLight;
+        _textInputLayout.textField.delegate = self;
+        _textInputLayout.textField.textContentType = _textContentType;
     }
-    return _floatingTextField;
+    return _textInputLayout;
 }
 
 - (UIStackView *)stackView {
     if (!_stackView) {
-        _stackView = [UIStackView new];
+        _stackView = [UIStackView _jp_horizontalStackViewWithSpacing:kStackViewSpacing];
+        _stackView.distribution = UIStackViewDistributionFill;
+        _stackView.alignment = UIStackViewAlignmentFill;
         _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _stackView;

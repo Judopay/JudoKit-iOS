@@ -47,7 +47,7 @@ const float kSubmitStackViewTop = 70.0F;
 const float kSubmitStackViewBottom = 30.0F;
 const float kSubmitStackViewLeading = 0.0F;
 const float kSubmitStackViewTrailing = 24.0F;
-const float kSubmitStackViewHeight = 46.0F;
+const float kSubmitStackViewHeight = 52.0F;
 const float kSubmitSaveButtonWidth = 200.0F;
 
 #pragma mark - Theming

@@ -63,8 +63,10 @@
 
 #pragma mark - Constants
 
-const float kHeaderBottomHeight = 86.0F;
+const float kHeaderBottomHeight = 90.0F;
 const float kHeaderAmountLabelMinScaleFactor = 0.5F;
+static const float kMaxAmountTextSize = 27.0F;
+static const float kMaxAmountPrefixTextSize = 25.0F;
 const float kHeaderDefaultStackViewSpacing = 0.0F;
 const float kHeaderDefaultPadding = 0.0F;
 const float kHeaderGradientClearColorLocation = 0.0F;
@@ -101,10 +103,21 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
 - (void)applyUIConfiguration:(JPUIConfiguration *)uiConfiguration {
     self.theme = uiConfiguration.theme;
-    self.amountPrefixLabel.font = uiConfiguration.theme.body;
+
+    UIFont *amountPrefixFont = uiConfiguration.theme.body;
+    if (amountPrefixFont.pointSize > kMaxAmountPrefixTextSize) {
+        amountPrefixFont = [amountPrefixFont fontWithSize:kMaxAmountPrefixTextSize];
+    }
+    self.amountPrefixLabel.font = amountPrefixFont;
     self.amountPrefixLabel.textColor = uiConfiguration.theme.jpBlackColor;
-    self.amountValueLabel.font = uiConfiguration.theme.largeTitle;
+
+    UIFont *amountFont = uiConfiguration.theme.largeTitle;
+    if (amountFont.pointSize > kMaxAmountTextSize) {
+        amountFont = [amountFont fontWithSize:kMaxAmountTextSize];
+    }
+    self.amountValueLabel.font = amountFont;
     self.amountValueLabel.textColor = uiConfiguration.theme.jpBlackColor;
+
     self.payButton.titleLabel.font = uiConfiguration.theme.headline;
     [self.payButton setBackgroundImage:uiConfiguration.theme.buttonColor._jp_asImage forState:UIControlStateNormal];
     [self.payButton setTitleColor:uiConfiguration.theme.buttonTitleColor forState:UIControlStateNormal];
@@ -135,10 +148,17 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 }
 
 - (void)configureBottomHeaderWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
+    if (self.applePayButton.superview) {
+        [self.applePayButton removeFromSuperview];
+    }
+    if (self.payButton.superview) {
+        [self.payButton removeFromSuperview];
+    }
+    if (!self.amountStackView.superview) {
+        [self.paymentStackView addArrangedSubview:self.amountStackView];
+        [self.paymentStackView addArrangedSubview:[UIView new]];
+    }
 
-    [self.paymentStackView _jp_removeAllSubviews];
-    [self.paymentStackView addArrangedSubview:self.amountStackView];
-    [self.paymentStackView addArrangedSubview:[UIView new]];
     [self configureAmountWithViewModel:viewModel];
 
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
@@ -237,7 +257,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (void)setupAmountStackView {
     [self.amountStackView addArrangedSubview:self.amountPrefixLabel];
     [self.amountStackView addArrangedSubview:self.amountValueLabel];
-    self.amountStackView.alignment = UIStackViewAlignmentLeading;
 }
 
 - (void)setupPaymentStackView {
@@ -285,6 +304,7 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 - (UIStackView *)amountStackView {
     if (!_amountStackView) {
         _amountStackView = [UIStackView _jp_verticalStackViewWithSpacing:kHeaderDefaultStackViewSpacing];
+        _amountStackView.distribution = UIStackViewDistributionFill;
         _amountStackView.alignment = UIStackViewAlignmentLeading;
     }
     return _amountStackView;
@@ -317,8 +337,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     if (!_amountValueLabel) {
         _amountValueLabel = [UILabel new];
         _amountValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _amountValueLabel.adjustsFontSizeToFitWidth = YES;
-        _amountValueLabel.minimumScaleFactor = kHeaderAmountLabelMinScaleFactor;
         _amountValueLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _amountValueLabel;
@@ -329,7 +347,6 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         _amountPrefixLabel = [UILabel new];
         _amountPrefixLabel.text = @"jp_you_will_pay"._jp_localized;
         _amountPrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _amountPrefixLabel.adjustsFontSizeToFitWidth = YES;
         _amountPrefixLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _amountPrefixLabel;

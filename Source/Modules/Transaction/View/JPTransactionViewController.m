@@ -46,6 +46,7 @@
 - (void)loadView {
     JPCardInputView *view = [JPCardInputView new];
     view.delegate = self;
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     self.view = view;
 }
@@ -68,6 +69,12 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self.cardInputView endEditing:YES];
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - White status bar icons
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - View protocol methods

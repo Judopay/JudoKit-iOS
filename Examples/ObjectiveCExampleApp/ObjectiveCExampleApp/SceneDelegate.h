@@ -1,8 +1,8 @@
 //
-//  JPCardCustomizationTitleCell.h
-//  JudoKit_iOS
+//  SceneDelegate.h
+//  ObjectiveCExampleApp
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardCustomizable.h"
-#import "JPThemable.h"
+#import <UIKit/UIKit.h>
 
-@interface JPCardCustomizationTitleCell : UITableViewCell <JPCardCustomizable, JPThemable>
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
 
 @end
+
+

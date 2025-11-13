@@ -34,6 +34,11 @@
 
 @implementation JPPaymentMethodsEmptyHeaderView
 
+#pragma mark - Constants
+
+static const float kMaxHeaderTitleTextSize = 27.0F;
+static const float kMaxHeaderTextSize = 24.0F;
+
 #pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -60,9 +65,18 @@
 #pragma mark - Theming
 
 - (void)applyTheme:(JPTheme *)theme {
-    self.titleLabel.font = theme.title;
+    UIFont *titleFont = theme.headline;
+    if (titleFont.pointSize > kMaxHeaderTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxHeaderTitleTextSize];
+    }
+    self.titleLabel.font = titleFont;
     self.titleLabel.textColor = theme.jpBlackColor;
-    self.textLabel.font = theme.body;
+
+    UIFont *textFont = theme.headlineLight;
+    if (textFont.pointSize > kMaxHeaderTextSize) {
+        textFont = [textFont fontWithSize:kMaxHeaderTextSize];
+    }
+    self.textLabel.font = textFont;
     self.textLabel.textColor = theme.jpBlackColor;
 }
 
@@ -77,7 +91,7 @@
     [self addSubview:stackView];
 
     [stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:24].active = YES;
-    [stackView.widthAnchor constraintEqualToConstant:227.0].active = YES;
+    [stackView.widthAnchor constraintEqualToConstant:250.0].active = YES;
     [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:50].active = YES;
 }
 

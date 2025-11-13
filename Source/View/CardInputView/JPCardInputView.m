@@ -27,6 +27,7 @@
 #import "JPCardDetailsForm.h"
 #import "JPConstants.h"
 #import "JPInputField.h"
+#import "JPInputType.h"
 #import "JPPresentationMode.h"
 #import "JPRoundedCornerView.h"
 #import "JPThemable.h"
@@ -59,11 +60,11 @@ typedef enum JPCardInputViewSectionType : NSUInteger {
 
 #pragma mark - Constants
 
-static const float kContentHorizontalPadding = 24.0F;
+static const float kContentHorizontalPadding = 18.0F;
 static const float kContentVerticalPadding = 20.0F;
 static const float kSliderCornerRadius = 10.0F;
-static const float kTightContentSpacing = 8.0F;
 static const float kLooseContentSpacing = 16.0F;
+static const NSInteger kPhoneCodeMaxLength = 4;
 
 #pragma mark - Initializers
 
@@ -110,9 +111,18 @@ static const float kLooseContentSpacing = 16.0F;
     [self.mainContainerView addSubview:self.viewSwitcher];
 
     [self.backgroundView _jp_pinToView:self withPadding:0.0];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeTop forView:self.mainContainerView withPadding:kContentVerticalPadding];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeBottom forView:self.mainContainerView withPadding:kContentVerticalPadding + kTightContentSpacing];
-    [self.viewSwitcher _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self.mainContainerView withPadding:kContentHorizontalPadding];
+
+    UILayoutGuide *guide = self.mainContainerView.layoutMarginsGuide;
+
+    [NSLayoutConstraint activateConstraints:@[
+        [self.viewSwitcher.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor
+                                                        constant:kContentHorizontalPadding],
+        [self.viewSwitcher.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor
+                                                         constant:-kContentHorizontalPadding],
+        [self.viewSwitcher.topAnchor constraintEqualToAnchor:guide.topAnchor
+                                                    constant:kContentVerticalPadding],
+        [self.viewSwitcher.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
+    ]];
     [self.mainContainerView _jp_pinToAnchors:JPAnchorTypeLeading | JPAnchorTypeTrailing forView:self];
 
     NSLayoutConstraint *mainContainerTopConstraint = [self.mainContainerView.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor constant:44];
@@ -125,6 +135,13 @@ static const float kLooseContentSpacing = 16.0F;
 
     [self addSubview:self.activityIndicator];
     [self.activityIndicator _jp_pinToView:self withPadding:0.0];
+}
+
+- (void)safeAreaInsetsDidChange {
+    [super safeAreaInsetsDidChange];
+
+    UIEdgeInsets insets = self.safeAreaInsets;
+    self.viewSwitcher.layoutMargins = UIEdgeInsetsMake(insets.top, insets.left, insets.bottom, insets.right);
 }
 
 #pragma mark - Theming
@@ -268,6 +285,10 @@ static const float kLooseContentSpacing = 16.0F;
 #pragma mark - JPInputFieldDelegate
 
 - (BOOL)inputField:(JPInputField *)inputField shouldChangeText:(NSString *)text {
+    if (inputField.type == JPInputTypeBillingPhoneCode && text.length > kPhoneCodeMaxLength) {
+        return NO;
+    }
+
     [self.delegate cardInputView:self didChangeText:text forInputType:inputField.type andEndEditing:NO];
     return NO;
 }
@@ -275,16 +296,6 @@ static const float kLooseContentSpacing = 16.0F;
 - (void)inputField:(JPInputField *)inputField didEndEditing:(NSString *)text {
     [self.delegate cardInputView:self didChangeText:text forInputType:inputField.type andEndEditing:YES];
 }
-
-//- (void)inputFieldDidBeginEditing:(JPInputField *)inputField {
-//    UIScrollView *scrollView = self.scrollView;
-//    CGRect visibleScrollRect = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset);
-//    CGRect fieldFrame = inputField.frame;
-//
-//    if (!CGRectContainsRect(visibleScrollRect, fieldFrame)) {
-//        [scrollView scrollRectToVisible:CGRectInset(fieldFrame, 0, 80) animated:YES];
-//    }
-//}
 
 #pragma mark - JPActionBarDelegate
 
