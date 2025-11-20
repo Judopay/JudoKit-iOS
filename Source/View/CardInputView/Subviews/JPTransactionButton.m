@@ -23,9 +23,19 @@
 //  SOFTWARE.
 
 #import "JPTransactionButton.h"
+#import "JPConstants.h"
 #import "JPTransactionViewModel.h"
 
 @implementation JPTransactionButton
+
+#pragma mark - Initializers
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.adjustsImageWhenDisabled = NO;
+    }
+    return self;
+}
 
 #pragma mark - View model configuration
 
@@ -54,7 +64,7 @@
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.1
                      animations:^{
-                         weakSelf.alpha = (enabled) ? 1.0 : 0.5;
+                         weakSelf.alpha = (enabled) ? kEnabledStateBackgroundAlpha : kDisabledStateBackgroundAlpha;
                      }];
 }
 
