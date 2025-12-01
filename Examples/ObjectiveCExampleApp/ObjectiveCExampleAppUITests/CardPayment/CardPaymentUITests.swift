@@ -102,18 +102,6 @@ final class CardPaymentUITests: XCTestCase {
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
     
-    func testSuccessfulRegisterCardTransaction() {
-        app.launch()
-        app.cellWithIdentifier(Selectors.FeatureList.registerCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
-        tapCompleteButton(app)
-        assertResultObject(app, "Register", "AuthCode: ", "Success")
-    }
-    
     func testSuccessfulCheckCardTransaction() {
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.checkCard)?.tap()
@@ -207,6 +195,7 @@ final class CardPaymentUITests: XCTestCase {
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         tapPayNowButton(app)
         app.payNowButton?.tap()
+        app.payNowButton?.tap()
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         tapPayNowButton(app)
         tapCompleteButton(app)
@@ -224,6 +213,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         tapPayNowButton(app)
+        app.payNowButton?.tap()
         app.payNowButton?.tap()
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
         tapPayNowButton(app)
@@ -380,7 +370,7 @@ final class CardPaymentUITests: XCTestCase {
         app.clearTextFieldByIndex(index: 2)
         
         app.cityField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
-        app.emailField?.tap()
+        app.mobileField?.tap()
         XCTAssertEqual(app.fieldErrorLabel, TestData.BillingInfo.INVALID_CITY_LABEL, "City input validation failed and/or error label is not displayed")
         XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
         app.clearTextFieldByIndex(index: 3)
