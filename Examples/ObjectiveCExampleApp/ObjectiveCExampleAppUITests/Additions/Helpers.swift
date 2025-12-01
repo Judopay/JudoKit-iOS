@@ -12,7 +12,7 @@ import XCTest
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
     let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
-    let rawData = tableView.cells.element(boundBy: 16)
+    let rawData = tableView.cells.staticTexts["rawData"].firstMatch
     rawData.tap()
     
     let receiptIdCell = tableView.cells.element(matching: .cell, identifier: "receiptId")
