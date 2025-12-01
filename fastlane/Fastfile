@@ -316,7 +316,7 @@ platform :ios do
         " --xcode-version 16.4"\
         " --device model=iphone14pro,version=16.6"\
         " --device model=ipad10,version=16.6"\
-        " --device model=iphonese3,version=18.4"\
+        " --device model=iphone16pro,version=18.3"\
         " --record-video"\
         " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
         " --client-details=#{[
