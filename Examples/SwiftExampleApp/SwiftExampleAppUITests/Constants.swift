@@ -12,7 +12,7 @@ class Constants {
     struct CardDetails {
         static let cardNumber = "4976 3500 0000 6891"
         static let cardHolderName = "Challenge Required"
-        static let cardExpiry = "1225"
+        static let cardExpiry = "1230"
         static let cardSecurityCode = "341"
         static let wrongCV2 = "123"
     }
