@@ -133,8 +133,7 @@ platform :ios do
       }.each do |env|
         build_sample_app({
           app: app, 
-          environment: env,
-          only_testing: options[:only_testing]
+          environment: env
         }) if !app.firebase_app_id(environment: env).nil?
       end
     end
@@ -180,8 +179,7 @@ platform :ios do
 
     build_instrumented_tests_packages({
       app: options[:app],
-      environment: options[:environment],
-      only_testing: options[:only_testing] || ''
+      environment: options[:environment]
     }) if !options[:app].ui_test_scheme.nil?
 
     revert_staging_environment(
