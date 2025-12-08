@@ -1,8 +1,8 @@
 //
-//  JPCardCustomizationTitleCell.h
+//  JPNetworkTokenisationDetails.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPCardCustomizable.h"
-#import "JPThemable.h"
+#import "JPNetworkTokenisationDetails.h"
+#import "JPVirtualPan.h"
 
-@interface JPCardCustomizationTitleCell : UITableViewCell <JPCardCustomizable, JPThemable>
+@implementation JPNetworkTokenisationDetails
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init]) {
+        _networkTokenProvisioned = [dictionary[@"networkTokenProvisioned"] boolValue];
+        _networkTokenUsed = [dictionary[@"networkTokenUsed"] boolValue];
+
+        if (dictionary[@"virtualPan"]) {
+            _virtualPan = [[JPVirtualPan alloc] initWithDictionary:dictionary[@"virtualPan"]];
+        }
+    }
+    return self;
+}
 
 @end

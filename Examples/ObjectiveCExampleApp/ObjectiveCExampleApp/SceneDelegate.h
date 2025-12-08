@@ -1,8 +1,8 @@
 //
-//  JPFloatingTextField.h
-//  JudoKit_iOS
+//  SceneDelegate.h
+//  ObjectiveCExampleApp
 //
-//  Copyright (c) 2020 Alternative Payments Ltd
+//  Copyright (c) 2025 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class JPTheme;
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 
-@interface JPFloatingTextField : UITextField
-
-/**
- * A property that sets the color of the placeholder
- */
-@property (nonatomic, strong) UIColor *placeholderColor;
-
-/**
- * A property that sets the font of the placeholder
- */
-@property (nonatomic, strong) UIFont *placeholderFont;
-
-/**
- * A method used to apply a theme to the view
- *
- * @param theme - the JPTheme object used to configure the user interface
- */
-- (void)applyTheme:(JPTheme *)theme;
-
-/**
- * A method that displays the floating label above the text field's input text.
- *
- * @param text - the text of the floating label.
- */
-- (void)displayFloatingLabelWithText:(NSString *)text;
-
-/**
- * A method which hides the floating label above the text field's input text.
- */
-- (void)hideFloatingLabel;
+@property (strong, nonatomic) UIWindow *window;
 
 @end
+
+

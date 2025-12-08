@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPSaveCardRequest.h"
+#import "JPConfiguration.h"
 
 @implementation JPSaveCardRequest
 
@@ -32,6 +33,25 @@
 
 - (NSString *)currency {
     return nil;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration {
+    if (self = [super initWithConfiguration:configuration]) {
+        [self commonInitWIthConfiguration:configuration];
+    }
+    return self;
+}
+
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                       andCardDetails:(JPCard *)card {
+    if (self = [super initWithConfiguration:configuration andCardDetails:card]) {
+        [self commonInitWIthConfiguration:configuration];
+    }
+    return self;
+}
+
+- (void)commonInitWIthConfiguration:(JPConfiguration *)configuration {
+    _disableNetworkTokenisation = configuration.shouldDisableNetworkTokenisation;
 }
 
 @end

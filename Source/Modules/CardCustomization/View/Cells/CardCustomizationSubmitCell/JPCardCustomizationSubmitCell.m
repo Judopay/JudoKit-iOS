@@ -25,6 +25,7 @@
 #import "JPCardCustomizationSubmitCell.h"
 #import "Functions.h"
 #import "JPCardCustomizationViewModel.h"
+#import "JPConstants.h"
 #import "JPTheme.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
@@ -47,7 +48,7 @@ const float kSubmitStackViewTop = 70.0F;
 const float kSubmitStackViewBottom = 30.0F;
 const float kSubmitStackViewLeading = 0.0F;
 const float kSubmitStackViewTrailing = 24.0F;
-const float kSubmitStackViewHeight = 46.0F;
+const float kSubmitStackViewHeight = 52.0F;
 const float kSubmitSaveButtonWidth = 200.0F;
 
 #pragma mark - Theming
@@ -81,6 +82,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
         JPCardCustomizationSubmitModel *submitModel;
         submitModel = (JPCardCustomizationSubmitModel *)viewModel;
         self.saveButton.enabled = submitModel.isSaveEnabled;
+        self.saveButton.alpha = submitModel.isSaveEnabled ? kEnabledStateBackgroundAlpha : kDisabledStateBackgroundAlpha;
     }
 }
 
@@ -149,6 +151,7 @@ const float kSubmitSaveButtonWidth = 200.0F;
         _saveButton = [UIButton new];
         _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
         _saveButton.layer.masksToBounds = YES;
+        _saveButton.adjustsImageWhenDisabled = NO;
         [_saveButton setTitle:@"jp_save"._jp_localized.uppercaseString
                      forState:UIControlStateNormal];
         [_saveButton addTarget:self

@@ -23,13 +23,13 @@
 //  SOFTWARE.
 
 #import "JPPhoneCodeInputField.h"
-#import "JPFloatingTextField.h"
+#import "JPTextInputLayout.h"
 #import "JPTheme.h"
 
 @interface JPPhoneCodeInputField ()
 
 @property (nonatomic, strong) JPTheme *theme;
-@property (nonatomic, strong) JPFloatingTextField *floatingTextField;
+@property (nonatomic, strong) JPTextInputLayout *textInputLayout;
 @property (nonatomic, strong) UILabel *leftDecorationLabel;
 @property (nonatomic, strong) UILabel *rightDecorationLabel;
 
@@ -38,7 +38,7 @@
 @implementation JPPhoneCodeInputField
 
 @dynamic theme;
-@dynamic floatingTextField;
+@dynamic textInputLayout;
 
 #pragma mark - Initializers
 
@@ -63,6 +63,12 @@
     return self;
 }
 
+#pragma mark - Overrides
+- (void)configureWithViewModel:(JPTransactionInputFieldViewModel *)viewModel {
+    [super configureWithViewModel:viewModel];
+    [self invalidateIntrinsicContentSize];
+}
+
 #pragma mark - Theming
 
 - (void)applyTheme:(JPTheme *)theme {
@@ -71,8 +77,8 @@
     self.leftDecorationLabel.textColor = self.theme.jpBlackColor;
     self.rightDecorationLabel.textColor = self.theme.jpBlackColor;
 
-    self.leftDecorationLabel.font = self.theme.headlineLight;
-    self.rightDecorationLabel.font = self.theme.headlineLight;
+    self.leftDecorationLabel.font = self.theme.caption;
+    self.rightDecorationLabel.font = self.theme.caption;
 }
 
 #pragma mark - Helpers
@@ -81,22 +87,44 @@
     self.leftDecorationLabel = [self sideViewWithText:@"+("];
     self.rightDecorationLabel = [self sideViewWithText:@")"];
 
-    self.floatingTextField.leftView = self.leftDecorationLabel;
-    self.floatingTextField.rightView = self.rightDecorationLabel;
-    self.floatingTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.floatingTextField.rightViewMode = UITextFieldViewModeAlways;
+    self.textInputLayout.textField.leftView = self.leftDecorationLabel;
+    self.textInputLayout.textField.rightView = self.rightDecorationLabel;
+    self.textInputLayout.textField.leftViewMode = UITextFieldViewModeAlways;
+    self.textInputLayout.textField.rightViewMode = UITextFieldViewModeAlways;
 }
 
 - (UILabel *)sideViewWithText:(NSString *)text {
     UILabel *label = [UILabel new];
     label.text = text;
-    label.textColor = self.theme.jpBlackColor;
-    label.font = self.theme.headlineLight;
+    label.textColor = self.textInputLayout.textField.textColor;
+    label.font = self.textInputLayout.textField.font;
     if (@available(iOS 13.0, *)) {
         label.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
     [label sizeToFit];
     return label;
+    return nil;
+}
+
+- (CGSize)intrinsicContentSize {
+    UITextField *textField = self.textInputLayout.textField;
+    UIFont *font = textField.font ?: [UIFont systemFontOfSize:17.0];
+    NSString *text = textField.text ?: @"";
+
+    CGSize textSize = [text sizeWithAttributes:@{NSFontAttributeName : font}];
+    CGFloat width = textSize.width;
+
+    if (textField.leftView && textField.leftViewMode != UITextFieldViewModeNever) {
+        width += CGRectGetWidth(textField.leftView.frame);
+    }
+
+    if (textField.rightView && textField.rightViewMode != UITextFieldViewModeNever) {
+        width += CGRectGetWidth(textField.rightView.frame);
+    }
+
+    CGFloat height = textField.intrinsicContentSize.height;
+
+    return CGSizeMake(width, height);
 }
 
 @end

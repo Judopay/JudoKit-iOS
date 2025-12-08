@@ -52,9 +52,10 @@ const float kCardLogoShadowOffset = 0.0F;
 const int kExpiryDateNumberOfLines = 2;
 const float kCardLogoSize = 50.0F;
 const float kCardMainStackViewPadding = 28.0F;
-const float kCardTitleStackViewSpacing = 24.0F;
+const float kCardTitleStackViewSpacing = 12.0F;
 const float kCardDefaultStackViewsSpacing = 0.0F;
 const int kSubstringPatternOffset = 4;
+static const float kMaxCardHeaderTitleTextSize = 30.0F;
 
 #pragma mark - Initializers
 
@@ -84,7 +85,11 @@ const int kSubstringPatternOffset = 4;
 - (void)applyTheme:(JPTheme *)theme {
     self.theme = theme;
     self.titleLabel.textColor = theme.jpWhiteColor;
-    self.titleLabel.font = theme.title;
+    UIFont *titleFont = theme.title;
+    if (titleFont.pointSize > kMaxCardHeaderTitleTextSize) {
+        titleFont = [titleFont fontWithSize:kMaxCardHeaderTitleTextSize];
+    }
+    self.titleLabel.font = titleFont;
     self.cardNumberLabel.font = theme.bodyBold;
     self.cardNumberLabel.textColor = theme.jpLightGrayColor;
     self.expiryDateLabel.font = theme.bodyBold;

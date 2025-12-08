@@ -28,6 +28,7 @@
 #import "JPTheme.h"
 #import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
+#import "UIColor+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIStackView+Additions.h"
 #import "UIView+Additions.h"
@@ -111,6 +112,11 @@ const float kCardSmallPadding = 3.0F;
     UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:accesoryImage];
     accessoryImageView.contentMode = UIViewContentModeScaleAspectFit;
     accessoryImageView.frame = CGRectMake(0, 0, kCardHorizontalPadding, kCardHorizontalPadding);
+    if (!cardModel.isSelected) {
+        // Apply extra tint for accessibility contrast.
+        accessoryImageView.tintColor = UIColor._jp_graphiteGrayColor;
+        accessoryImageView.image = [accesoryImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
     self.accessoryView = accessoryImageView;
 
     [self setSubtitleExpirationStatus:cardModel.cardExpirationStatus];
@@ -148,6 +154,7 @@ const float kCardSmallPadding = 3.0F;
 
 - (void)setupStackView {
     UIStackView *horizontalStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kCardDefaultPadding];
+    horizontalStackView.alignment = UIStackViewAlignmentCenter;
     UIStackView *verticalStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardSmallPadding];
 
     [verticalStackView addArrangedSubview:self.titleLabel];
@@ -232,6 +239,7 @@ const float kCardSmallPadding = 3.0F;
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
 }
@@ -240,8 +248,13 @@ const float kCardSmallPadding = 3.0F;
     if (!_subtitleLabel) {
         _subtitleLabel = [UILabel new];
         _subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _subtitleLabel.numberOfLines = 0;
     }
     return _subtitleLabel;
+}
+
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.contentView.frame.size.height);
 }
 
 @end

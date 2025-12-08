@@ -12,7 +12,7 @@ class TestData {
     struct CardDetails {
         static let CARD_NUMBER = "4976 3500 0000 6891"
         static let CARDHOLDER_NAME = "Test User"
-        static let CARD_EXPIRY = "1225"
+        static let CARD_EXPIRY = "1230"
         static let CARD_SECURITY_CODE = "341"
         static let WRONG_CV2 = "123"
         static let FABRICK_CARDHOLDER = "Challenge Required"

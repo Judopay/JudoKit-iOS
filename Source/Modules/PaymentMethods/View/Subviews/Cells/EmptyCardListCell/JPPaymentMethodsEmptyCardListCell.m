@@ -44,7 +44,7 @@
 
 static const float kHorizontalEdgeInsets = 12.0F;
 static const float kStackViewSpacing = 16.0F;
-static const float kStackViewTopPadding = 60.0F;
+static const float kStackViewTopPadding = 35.0F;
 static const float kAddCardButtonHeight = 36.0F;
 static const float kAddCardBorderWidth = 1.0F;
 static const float kAddCardCornerRadius = 4.0F;
@@ -70,8 +70,8 @@ static const int kConstraintPriority = 999;
     UIImage *buttonImage = [UIImage _jp_imageWithIconName:emptyViewModel.addCardButtonIconName];
     [self.addCardButton setImage:buttonImage forState:UIControlStateNormal];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, 0);
-    self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets, 0, kHorizontalEdgeInsets, kHorizontalEdgeInsets);
+    self.addCardButton.imageEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.7, 0.0, kHorizontalEdgeInsets * 0.7, kHorizontalEdgeInsets * 0.6);
+    self.addCardButton.contentEdgeInsets = UIEdgeInsetsMake(kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets * 0.5, kHorizontalEdgeInsets);
 
     self.onTransactionButtonTapHandler = emptyViewModel.onTransactionButtonTapHandler;
 }
@@ -114,13 +114,14 @@ static const int kConstraintPriority = 999;
         [self.stackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
         [self.stackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
         [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
-        [self.addCardButton.heightAnchor constraintEqualToConstant:kAddCardButtonHeight],
+        [self.addCardButton.heightAnchor constraintGreaterThanOrEqualToConstant:kAddCardButtonHeight],
     ];
 
     [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:kConstraintPriority];
 
     [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 }
 
 #pragma mark - Lazy properties
@@ -130,6 +131,8 @@ static const int kConstraintPriority = 999;
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.numberOfLines = 0;
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
     return _titleLabel;
 }

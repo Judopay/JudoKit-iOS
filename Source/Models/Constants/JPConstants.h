@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString *const kJudoKitName = @"JudoKit_iOS";
-static NSString *const kJudoKitVersion = @"6.0.0";
+static NSString *const kJudoKitVersion = @"6.1.0";
 
 /* Patterns */
 static NSString *const kDefaultPattern = @"XXXX XXXX XXXX XXXX";
@@ -131,5 +131,11 @@ static NSString *const kSCAExemptionTransactionRiskAnalysis = @"transactionRiskA
 static NSString *const kHeaderFieldPaymentSession = @"Payment-Session";
 static NSString *const kHeaderFieldAuthorization = @"Authorization";
 static NSString *const kHeaderFieldAPIToken = @"Api-Token";
+
+static float const kMaxNavigationTitleTextSize = 38.0F;
+static float const kNavigationBackButtonSize = 22.0F;
+
+static float const kEnabledStateBackgroundAlpha = 1.0F;
+static float const kDisabledStateBackgroundAlpha = 0.63F;
 
 #endif /* JPConstants_h */

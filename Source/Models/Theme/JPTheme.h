@@ -87,10 +87,22 @@
 @property (nonatomic, strong) UIColor *jpDarkGrayColor;
 
 /**
+ * The brown gray color value often used for heading text
+ * Defaults to 0x767676
+ */
+@property (nonatomic, strong) UIColor *jpBrownGrayColor;
+
+/**
  * The gray color value often used for placeholder colors
  * Defaults to 0xE5E5E5
  */
 @property (nonatomic, strong) UIColor *jpGrayColor;
+
+/**
+ * The neutral gray color value used for hint/placeholder colors
+ * Defaults to 0x707070
+ */
+@property (nonatomic, strong) UIColor *jpNeutralGrayColor;
 
 /**
  * The light gray color value often used for input field / selector backgrounds

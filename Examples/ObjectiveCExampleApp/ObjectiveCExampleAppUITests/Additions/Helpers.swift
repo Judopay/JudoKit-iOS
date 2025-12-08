@@ -12,12 +12,7 @@ import XCTest
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String, _ isFabrick3DS2: Bool = false) {
     let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
-    let rawData: XCUIElement
-    if isFabrick3DS2 {
-        rawData = tableView.cells.element(boundBy: 15)
-    } else {
-        rawData = tableView.cells.element(boundBy: 16)
-    }
+    let rawData = tableView.cells.staticTexts["rawData"].firstMatch
     rawData.tap()
     
     let receiptIdCell = tableView.cells.element(matching: .cell, identifier: "receiptId")

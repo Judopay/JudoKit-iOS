@@ -27,13 +27,18 @@
 
 @implementation JPTokenRequest
 
-- (nonnull instancetype)initWithConfiguration:(nonnull JPConfiguration *)configuration
-                                 andCardToken:(nonnull NSString *)cardToken {
+- (instancetype)initWithConfiguration:(JPConfiguration *)configuration
+                         andCardToken:(NSString *)cardToken {
     if (self = [super initWithConfiguration:configuration]) {
         _cardToken = cardToken;
-        _initialRecurringPayment = configuration.isInitialRecurringPayment;
+        [self commonInitWIthConfiguration:configuration];
     }
     return self;
+}
+
+- (void)commonInitWIthConfiguration:(JPConfiguration *)configuration {
+    _disableNetworkTokenisation = configuration.shouldDisableNetworkTokenisation;
+    _initialRecurringPayment = configuration.isInitialRecurringPayment;
 }
 
 @end

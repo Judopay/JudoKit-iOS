@@ -27,6 +27,22 @@
 #import "JPTheme.h"
 #import "JPTransactionViewModel.h"
 #import "UIImage+Additions.h"
+#import "UIView+Additions.h"
+
+@interface JPCardLogoImageView : UIImageView
+@end
+
+@implementation JPCardLogoImageView
+
+#pragma mark - Constants
+
+static const float kPrefferedCompressedHeight = 40.0F;
+
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, kPrefferedCompressedHeight);
+}
+
+@end
 
 @interface JPCardNumberField ()
 @property (nonatomic, strong) UIImageView *cardLogoImageView;
@@ -37,6 +53,9 @@
 @implementation JPCardNumberField
 
 @dynamic stackView;
+
+#pragma mark - Constants
+static const float kAnimationDuration = 0.25F;
 
 #pragma mark - Initializers
 
@@ -100,7 +119,7 @@
         self.cardLogoImageView.image = cardIcon;
 
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:kAnimationDuration
         animations:^{
             weakSelf.cardLogoImageView.alpha = (cardIcon) ? 1.0 : 0.0;
         }
@@ -122,7 +141,7 @@
 
 - (UIImageView *)cardLogoImageView {
     if (!_cardLogoImageView) {
-        _cardLogoImageView = [UIImageView new];
+        _cardLogoImageView = [JPCardLogoImageView new];
         _cardLogoImageView.alpha = 0.0;
         _cardLogoImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _cardLogoImageView.contentMode = UIViewContentModeScaleAspectFit;

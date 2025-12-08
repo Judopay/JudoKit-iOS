@@ -82,6 +82,8 @@ ln -s -f ../Models/Request/JPApplePayRequest.h JPApplePayRequest.h
 ln -s -f ../Models/Request/JP3DSecureAuthenticationResult.h JP3DSecureAuthenticationResult.h
 ln -s -f ../Models/RecommendationConfiguration/JPRecommendationConfiguration.h JPRecommendationConfiguration.h
 ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
+ln -s -f ../Models/Response/NetworkTokenisationDetails/VirtualPan/JPVirtualPan.h JPVirtualPan.h
+ln -s -f ../Models/Response/NetworkTokenisationDetails/JPNetworkTokenisationDetails.h JPNetworkTokenisationDetails.h
 
 # project headers
 ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h
@@ -105,7 +107,6 @@ ln -s -f ../View/RoundedCornerView/JPRoundedCornerView.h JPRoundedCornerView.h
 ln -s -f ../Extensions/CLLocation/CLLocation+Additions.h CLLocation+Additions.h
 ln -s -f ../Modules/CardScanController/JPCardScanControllerDelegate.h JPCardScanControllerDelegate.h
 ln -s -f ../Extensions/JPResponse/JPResponse+Additions.h JPResponse+Additions.h
-ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationTitleCell/JPCardCustomizationTitleCell.h JPCardCustomizationTitleCell.h
 ln -s -f ../Extensions/UITextField/UITextField+Additions.h UITextField+Additions.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Header/JPPaymentMethodsEmptyHeaderView.h JPPaymentMethodsEmptyHeaderView.h
 ln -s -f ../Extensions/NSArray/NSArray+Additions.h NSArray+Additions.h
@@ -122,7 +123,7 @@ ln -s -f ../Services/Keychain/JPKeychainService.h JPKeychainService.h
 ln -s -f ../Services/ApplePay/JPApplePayService.h JPApplePayService.h
 ln -s -f ../View/LoadingView/JPLoadingView.h JPLoadingView.h
 ln -s -f ../Modules/CardCustomization/View/Cells/CardCustomizationPatternPickerCell/JPCardCustomizationPatternPickerCell.h JPCardCustomizationPatternPickerCell.h
-ln -s -f ../View/FloatingTextField/JPFloatingTextField.h JPFloatingTextField.h
+ln -s -f ../View/TextInputLayout/JPTextInputLayout.h JPTextInputLayout.h
 ln -s -f ../View/CardInputView/Subviews/JPTransactionButton.h JPTransactionButton.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListHeaderCell/JPPaymentMethodsCardListHeaderCellDelegate.h JPPaymentMethodsCardListHeaderCellDelegate.h
 ln -s -f ../Modules/CardScanController/View/JPCardScanPreviewLayer.h JPCardScanPreviewLayer.h
@@ -199,3 +200,4 @@ ln -s -f ../Models/CardTransactionDetailsOverrides/JPCardTransactionDetailsOverr
 ln -s -f ../Extensions/PKPayment/PKPayment+Additions.h PKPayment+Additions.h
 ln -s -f ../Extensions/CNPostalAddress/CNPostalAddress+Additions.h CNPostalAddress+Additions.h
 ln -s -f ../Extensions/PKContact/PKContact+Additions.h PKContact+Additions.h
+ln -s -f ../Navigation/JPNavigationController.h JPNavigationController.h

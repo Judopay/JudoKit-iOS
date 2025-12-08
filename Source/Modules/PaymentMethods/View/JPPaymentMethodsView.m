@@ -30,6 +30,15 @@
 
 @implementation JPPaymentMethodsView
 
+#pragma mark - Constants
+
+static const float kPortraitHeaderHeight = 400.0F;
+static const float kPortraitContentInset = 340.0F;
+static const float kLandscapeHeaderHeightMultiplier = 0.35F;
+static const float kLandscapeContentInsetMultiplier = 0.12F;
+static const float kContentInsetRatio = 0.8F;
+static const float kJudoHeadlineHeight = 20.0F;
+
 #pragma mark - Initializers
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -72,7 +81,7 @@
     [self.tableView.rightAnchor constraintEqualToAnchor:self._jp_safeRightAnchor].active = YES;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.judoHeadlineImageView.topAnchor].active = YES;
 
-    self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:20.0F];
+    self.judoHeadlineHeightConstraint = [self.judoHeadlineImageView.heightAnchor constraintEqualToConstant:kJudoHeadlineHeight];
     self.judoHeadlineHeightConstraint.active = YES;
 
     [self.judoHeadlineImageView.leftAnchor constraintEqualToAnchor:self._jp_safeLeftAnchor].active = YES;
@@ -80,12 +89,31 @@
     [self.judoHeadlineImageView.bottomAnchor constraintEqualToAnchor:self._jp_safeBottomAnchor].active = YES;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self updateLayoutForCurrentOrientation];
+}
+
+- (void)updateLayoutForCurrentOrientation {
+    CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+    BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
+
+    if (isLandscape) {
+        CGFloat maxHeight = screenHeight * kLandscapeHeaderHeightMultiplier;
+        self.headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, maxHeight);
+        self.tableView.contentInset = UIEdgeInsetsMake(maxHeight * kContentInsetRatio, 0, 0, 0);
+    }
+}
+
 #pragma mark - Lazy properties
 
 - (JPPaymentMethodsHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [JPPaymentMethodsHeaderView new];
-        _headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 400 * getWidthAspectRatio());
+        CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+        BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
+        CGFloat maxHeight = isLandscape ? screenHeight * kLandscapeHeaderHeightMultiplier : kPortraitHeaderHeight * getWidthAspectRatio();
+        _headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, maxHeight);
     }
     return _headerView;
 }
@@ -97,7 +125,11 @@
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.backgroundColor = UIColor.clearColor;
         _tableView.allowsSelectionDuringEditing = YES;
-        _tableView.contentInset = UIEdgeInsetsMake(320 * getWidthAspectRatio(), 0, 0, 0);
+
+        CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+        BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
+        CGFloat contentInset = isLandscape ? screenHeight * kLandscapeContentInsetMultiplier : kPortraitContentInset * getWidthAspectRatio();
+        _tableView.contentInset = UIEdgeInsetsMake(contentInset, 0, 0, 0);
     }
     return _tableView;
 }
