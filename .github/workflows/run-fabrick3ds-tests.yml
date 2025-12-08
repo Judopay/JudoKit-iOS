@@ -9,4 +9,4 @@ jobs:
     secrets: inherit
     with:
       firebase_matrix_label: 'Daily Instrumented Tests Run'
-      fastlane_options: '{"flavors":"obj-c","environment":"staging","only_testing":"Fabrick3DSTests"}'
+      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_package":"fabrick3ds"}'

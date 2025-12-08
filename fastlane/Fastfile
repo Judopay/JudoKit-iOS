@@ -22,6 +22,9 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
     ],
+    fabrick_3ds_tests_list: [
+      "ObjectiveCExampleAppUITests/Fabrick3DSTests"
+    ]
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -131,7 +134,6 @@ platform :ios do
         build_sample_app({
           app: app, 
           environment: env,
-          test_selection: options[:test_selection],
           only_testing: options[:only_testing]
         }) if !app.firebase_app_id(environment: env).nil?
       end
@@ -180,7 +182,7 @@ platform :ios do
       app: options[:app],
       environment: options[:environment],
       only_testing: options[:only_testing] || ''
-    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production' || options[:environment] == 'staging'
+    }) if !options[:app].ui_test_scheme.nil?
 
     revert_staging_environment(
       app: options[:app],
@@ -243,13 +245,12 @@ platform :ios do
       )
     end
 
-    # If custom tests are specified, build a custom package
-    if options[:only_testing] && !options[:only_testing].empty?
-      custom_tests = options[:only_testing].split(',').map(&:strip)
-      
+    # If there is a Fabrick 3DS test list, repeat the build to create a package
+    # which will only run the subset of tests
+    if options[:app].fabrick_3ds_tests_list.nil?
       run_tests(
         {
-          only_testing: custom_tests,
+          only_testing: options[:app].fabrick_3ds_tests_list,
         }.merge(build_options)
       )
 
@@ -257,7 +258,7 @@ platform :ios do
         app: options[:app],
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
-        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-custom.zip"
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-fabrick3ds.zip"
       )
     end
   end
@@ -327,7 +328,7 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_firebase({app: app, environment: env, device_set: options[:device_set], only_testing: options[:only_testing]}) if !app.firebase_app_id(environment: env).nil?
+        test_sample_app_firebase({app: app, environment: env, test_package_suffix: options[:test_package] || "all"}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -341,7 +342,7 @@ platform :ios do
 
     sh(
       "gcloud firebase test ios run"\
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"\
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_package_suffix]}.zip"\
         " --xcode-version 16.2"\
         " --device model=iphone8,version=15.7"\
         " --device model=iphone14pro,version=16.6"\
