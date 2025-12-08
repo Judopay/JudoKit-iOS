@@ -11,6 +11,9 @@ default_platform(:ios)
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   SampleApp.new(
+    fabrick3ds_test_list: [
+      "ObjectiveCExampleAppUITests/Fabrick3DSTests"
+    ],
     firebase_app_id: {
       production: '1:34238832242:ios:d7db21b04007e9ee63eceb',
       staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb'
@@ -21,9 +24,6 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
-    ],
-    fabrick_3ds_tests_list: [
-      "ObjectiveCExampleAppUITests/Fabrick3DSTests"
     ]
   ),
   SampleApp.new(
@@ -247,10 +247,10 @@ platform :ios do
 
     # If there is a Fabrick 3DS test list, repeat the build to create a package
     # which will only run the subset of tests
-    if options[:app].fabrick_3ds_tests_list.nil?
+    if options[:app].fabrick3ds_test_list.nil?
       run_tests(
         {
-          only_testing: options[:app].fabrick_3ds_tests_list,
+          only_testing: options[:app].fabrick3ds_test_list,
         }.merge(build_options)
       )
 

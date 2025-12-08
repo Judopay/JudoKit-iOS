@@ -199,8 +199,9 @@ end
 class SampleApp
   attr_reader :bootstrap_script, :flavor, :instrumented_tests, :smoke_test_list
 
-  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, instrumented_tests: false, smoke_test_list: nil)
+  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, fabrick3ds_test_list: nil, instrumented_tests: false, smoke_test_list: nil)
     @bootstrap_script = bootstrap_script
+    @fabrick3ds_test_list = fabrick3ds_test_list
     @firebase_app_id = firebase_app_id
     @flavor = flavor
     @instrumented_tests = instrumented_tests
