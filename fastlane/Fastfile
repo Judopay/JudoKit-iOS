@@ -11,6 +11,9 @@ default_platform(:ios)
 sample_apps_dir = "#{File.expand_path('..')}/Examples"
 @sample_apps = [
   SampleApp.new(
+    fabrick3ds_test_list: [
+      "ObjectiveCExampleAppUITests/Fabrick3DSTests"
+    ],
     firebase_app_id: {
       production: '1:34238832242:ios:d7db21b04007e9ee63eceb',
       staging: '1:34238832242:ios:62eb2547e6cd6a2663eceb'
@@ -21,7 +24,7 @@ sample_apps_dir = "#{File.expand_path('..')}/Examples"
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
       "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
-    ],
+    ]
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -128,7 +131,10 @@ platform :ios do
       @environments.select{ |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
+        build_sample_app({
+          app: app, 
+          environment: env
+        }) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -171,14 +177,15 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
+    build_instrumented_tests_packages({
+      app: options[:app],
+      environment: options[:environment]
+    }) if !options[:app].ui_test_scheme.nil?
+
     revert_staging_environment(
       app: options[:app],
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
-
-    build_instrumented_tests_packages({
-      app: options[:app]
-    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
   end
 
   desc "Package Instrumented Tests for a Sample App"
@@ -200,7 +207,9 @@ platform :ios do
       derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
+      output_directory: @fl_output_dir,
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
+      result_bundle_path: "#{@fl_output_dir}/result_bundles/#{options[:app].ui_test_scheme}-#{options[:environment]}.xcresult",
       scheme: options[:app].ui_test_scheme,
       sdk: "iphoneos",
       testplan: options[:app].ui_test_plan,
@@ -216,7 +225,7 @@ platform :ios do
       app: options[:app],
       input_dir: "#{@derived_data_path}/Build/Products",
       output_dir: @fl_output_dir,
-      output_file: "#{options[:app].ui_test_scheme}-all.zip",
+      output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip",
     )
 
     # If there is a smoke test list, repeat the build to create a package
@@ -232,7 +241,24 @@ platform :ios do
         app: options[:app],
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
-        output_file: "#{options[:app].ui_test_scheme}-smoke.zip"
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip"
+      )
+    end
+
+    # If there is a Fabrick 3DS test list, repeat the build to create a package
+    # which will only run the subset of tests
+    if options[:app].fabrick3ds_test_list.nil?
+      run_tests(
+        {
+          only_testing: options[:app].fabrick3ds_test_list,
+        }.merge(build_options)
+      )
+
+      package_instrumented_tests(
+        app: options[:app],
+        input_dir: "#{@derived_data_path}/Build/Products",
+        output_dir: @fl_output_dir,
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-fabrick3ds.zip"
       )
     end
   end
@@ -299,7 +325,11 @@ platform :ios do
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      test_sample_app_firebase({app: app, device_set: options[:device_set]})
+      @environments.select{ |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        test_sample_app_firebase({app: app, environment: env, test_package_suffix: options[:test_package] || "all"}) if !app.firebase_app_id(environment: env).nil?
+      end
     end
   end
 
@@ -312,7 +342,7 @@ platform :ios do
 
     sh(
       "gcloud firebase test ios run"\
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"\
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_package_suffix]}.zip"\
         " --xcode-version 16.4"\
         " --device model=iphone14pro,version=16.6"\
         " --device model=ipad10,version=16.6"\
@@ -335,7 +365,11 @@ platform :ios do
     @sample_apps.select{ |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      test_sample_app_browserstack({app: app, device_set: options[:device_set]})
+       @environments.select{ |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        test_sample_app_browserstack({app: app, environment: env, device_set: options[:device_set]})
+      end
     end
   end
 
@@ -349,7 +383,7 @@ platform :ios do
     upload_to_browserstack_app_automate(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-production.ipa"
+      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-#{options[:environment]}.ipa"
     )
 
     app_url = ENV["BROWSERSTACK_APP_ID"]
@@ -357,9 +391,9 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ? 
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip" :
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
+      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip") ? 
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip" :
+        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
     )
 
     run_xctestrun_on_browserstack(

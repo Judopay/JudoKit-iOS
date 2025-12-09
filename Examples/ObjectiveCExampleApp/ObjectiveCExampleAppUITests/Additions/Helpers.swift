@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
+func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String, _ isFabrick3DS2: Bool = false) {
     let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 10))
     let rawData = tableView.cells.staticTexts["rawData"].firstMatch
@@ -53,13 +53,24 @@ func assertBillingInfo(_ app: XCUIApplication, _ countryCode: String, _ town: St
         .label, town, "City value on result object does not match the expected string")
 }
 
-func tapCompleteButton(_ app: XCUIApplication) {
-    let completeButton = app.buttons["COMPLETE"]
+func tapCompleteButton(_ app: XCUIApplication, _ isFabrick3DS2: Bool = false) {
+    let completeButton: XCUIElement!
+    if isFabrick3DS2 {
+        completeButton = app.buttons["Continue"]
+    } else {
+        completeButton = app.buttons["COMPLETE"]
+    }
     XCTAssert(completeButton.waitForExistence(timeout: 30))
     
     sleep(10)
     
     completeButton.tap()
+}
+
+func fill3DS2Code(_ app: XCUIApplication, _ code: String) {
+    let codeEntryField: XCUIElement = app.textFields["Enter code here"]
+    XCTAssert(codeEntryField.waitForExistence(timeout: 30))
+    codeEntryField.tapAndTypeText(code)
 }
 
 func assertResultObjectNotDisplayed(_ app: XCUIApplication) {
