@@ -207,6 +207,7 @@ platform :ios do
       derived_data_path: @derived_data_path,
       destination: "generic/platform=iOS",
       include_simulator_logs: false,
+      output_directory: @fl_output_dir,
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
       scheme: options[:app].ui_test_scheme,
       sdk: "iphoneos",
