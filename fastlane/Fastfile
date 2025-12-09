@@ -209,7 +209,7 @@ platform :ios do
       include_simulator_logs: false,
       output_directory: @fl_output_dir,
       project: !options[:app].workspace.nil? ? nil : options[:app].project,
-      result_bundle_path: @fl_output_dir,
+      result_bundle_path: "#{@fl_output_dir}/result_bundles/#{options[:app].ui_test_scheme}-#{options[:environment]}.xcresult",
       scheme: options[:app].ui_test_scheme,
       sdk: "iphoneos",
       testplan: options[:app].ui_test_plan,
