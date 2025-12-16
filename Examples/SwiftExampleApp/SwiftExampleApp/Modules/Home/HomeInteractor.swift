@@ -66,7 +66,7 @@ class HomeInteractor: HomeInteractorInput {
 
     func didSelectFeature(with featureType: FeatureType) {
         switch featureType {
-        case .payment, .preAuth, .registerCard, .checkCard, .saveCard:
+        case .payment, .preAuth, .checkCard, .saveCard:
             let type = transactionType(for: featureType)
             service.invokeTransaction(with: type, completion: completion)
         case .applePay, .applePreAuth:

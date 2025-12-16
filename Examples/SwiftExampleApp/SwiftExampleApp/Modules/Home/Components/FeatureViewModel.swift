@@ -27,7 +27,6 @@ import Foundation
 enum FeatureType {
     case payment
     case preAuth
-    case registerCard
     case checkCard
     case saveCard
     case applePay
