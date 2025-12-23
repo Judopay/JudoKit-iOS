@@ -13,7 +13,7 @@ target 'ObjectiveCExampleApp' do
   # pod 'JudoKit-iOS', '6.1.0'
 
   pod 'TTGSnackbar'
-  pod 'InAppSettingsKit', '3.8.3'
+  pod 'InAppSettingsKit', '3.9.2'
   pod 'Wormholy'
 
   target 'ObjectiveCExampleAppTests' do
