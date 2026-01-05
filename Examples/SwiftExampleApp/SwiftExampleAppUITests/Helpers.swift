@@ -99,3 +99,15 @@ func validateBillingInfoFields(_ app: XCUIApplication) {
     XCTAssertFalse(app.cardDetailsSubmitButton!.isEnabled)
     app.clearTextFieldByIndex(index: 4)
 }
+
+func waitForElementToBeHittable(element: XCUIElement, timeout: TimeInterval = 10) -> Bool {
+    return element.waitForExistence(timeout: timeout) && element.isHittable
+}
+
+func tapPaymentMethodsPayNowButton(_ app: XCUIApplication) {
+    if waitForElementToBeHittable(element: app.payNowButton!) {
+        app.payNowButton?.tap()
+    } else {
+        XCTFail("Pay now button is not hittable")
+    }
+}
