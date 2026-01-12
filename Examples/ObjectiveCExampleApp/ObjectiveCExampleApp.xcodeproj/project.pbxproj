@@ -40,6 +40,7 @@
 		D108FDA12A582165009DA094 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108FDA02A582165009DA094 /* TestData.swift */; };
 		D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B68382ADFE066007F1CA3 /* Helpers.swift */; };
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
+		D19CA9C02E96624700F3DD9D /* Fabrick3DSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */; };
 		D1B3FE512B6943BA003838B4 /* RavelinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */; };
 		FEBADF2CE2F1D30512F0FE7C /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F502AFFA74A929E8590FAEE2 /* Pods_ObjectiveCExampleApp.framework */; };
 		FF1E1CBF0FD8AE60CFC9C2CC /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCF69720DEA212111BDBD369 /* Pods_ObjectiveCExampleAppTests.framework */; };
@@ -133,6 +134,7 @@
 		D10B68382ADFE066007F1CA3 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D110D16A2AEA8F4D00B35E13 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
 		D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITests.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan; sourceTree = SOURCE_ROOT; };
+		D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fabrick3DSTests.swift; sourceTree = "<group>"; };
 		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
 		F502AFFA74A929E8590FAEE2 /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF69720DEA212111BDBD369 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -296,6 +298,7 @@
 		448AB1C72450DE93004A11CB /* ObjectiveCExampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				D19CA9BC2E9661C300F3DD9D /* Fabrick3DS */,
 				D1B3FE4F2B69432C003838B4 /* Ravelin */,
 				445E4D662A2F804E0026A515 /* Additions */,
 				445E4D652A2F7B830026A515 /* CardPayment */,
@@ -383,6 +386,14 @@
 				448D16D12B13EE9400FB826A /* MainViewController+Additions.m */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D19CA9BC2E9661C300F3DD9D /* Fabrick3DS */ = {
+			isa = PBXGroup;
+			children = (
+				D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */,
+			);
+			path = Fabrick3DS;
 			sourceTree = "<group>";
 		};
 		AE824CC42E50B671FC9A9EF2 /* Frameworks */ = {
@@ -704,6 +715,7 @@
 				D10B68392ADFE066007F1CA3 /* Helpers.swift in Sources */,
 				D108FDA12A582165009DA094 /* TestData.swift in Sources */,
 				D1B3FE512B6943BA003838B4 /* RavelinUITests.swift in Sources */,
+				D19CA9C02E96624700F3DD9D /* Fabrick3DSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

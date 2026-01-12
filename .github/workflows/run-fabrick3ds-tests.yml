@@ -1,0 +1,12 @@
+name: Run Instrumented Tests Daily
+
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test_sample_apps_firebase:
+    uses: Judopay/github-actions/.github/workflows/test-sample-apps-firebase.yml@master
+    secrets: inherit
+    with:
+      firebase_matrix_label: 'Daily Instrumented Tests Run'
+      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_package":"fabrick3ds"}'
