@@ -48,7 +48,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
@@ -60,7 +60,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: "123")
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "Card declined: Additional customer authentication required", "Declined")
     }
@@ -72,7 +72,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: "123")
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "The gateway reported an error", "Error")
     }
@@ -84,7 +84,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         let cancelButton = app.buttons["Cancel"]
         XCTAssert(cancelButton.waitForExistence(timeout: 10))
         app.cancelButton3DS2?.tap()
@@ -97,7 +97,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
@@ -109,7 +109,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "CheckCard", "AuthCode: ", "Success")
     }
@@ -123,10 +123,10 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.tokenPaymentButton?.tap()
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
@@ -140,10 +140,10 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.tokenPreauthButton?.tap()
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
@@ -156,7 +156,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: "Frictionless Successful",
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
@@ -168,7 +168,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: "Frictionless NoMethod",
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
     
@@ -180,7 +180,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: "Frictionless AuthFailed",
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
     }
     
     func testSuccessfulPaymentMethodsCardPayment() {
@@ -193,11 +193,10 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
-        app.payNowButton?.tap()
-        app.payNowButton?.tap()
+        tapCardDetailsPayNowButton(app)
+        tapPaymentMethodsPayNowButton(app)
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
@@ -212,11 +211,10 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
-        app.payNowButton?.tap()
-        app.payNowButton?.tap()
+        tapCardDetailsPayNowButton(app)
+        tapPaymentMethodsPayNowButton(app)
         app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "AuthCode: ", "Success")
     }
@@ -229,7 +227,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         let newCard = app.staticTexts["Visa Ending 7408 "]
         XCTAssert(newCard.waitForExistence(timeout: 5), "Unable to add a new card")
         newCard.swipeLeft()
@@ -248,7 +246,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
                                    addressOne: TestData.BillingInfo.VALID_ADDRESS,
@@ -256,7 +254,7 @@ final class CardPaymentUITests: XCTestCase {
                                    city: TestData.BillingInfo.VALID_CITY,
                                    postCode: TestData.BillingInfo.VALID_POSTCODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
         assertBillingInfo(app, TestData.BillingInfo.VALID_COUNTRY_CODE, TestData.BillingInfo.VALID_CITY, TestData.BillingInfo.VALID_ADDRESS, TestData.BillingInfo.VALID_ADDRESS_TWO, TestData.BillingInfo.VALID_POSTCODE)
@@ -271,7 +269,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.fillBillingInfoDetails(email: TestData.BillingInfo.VALID_EMAIL,
                                    phone: TestData.BillingInfo.VALID_MOBILE,
                                    addressOne: TestData.BillingInfo.VALID_ADDRESS,
@@ -295,7 +293,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "United States")
         app.administrativeDivisionField?.tap()
@@ -324,7 +322,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Canada")
         app.administrativeDivisionField?.tap()
@@ -349,7 +347,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         
         app.emailField?.tapAndTypeText(TestData.BillingInfo.SPECIAL_CHARACTERS)
         app.addressLineOne?.tap()
@@ -390,7 +388,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: "Frictionless Successful",
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.WRONG_CV2)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "Card declined: CV2 policy", "Declined")
     }
@@ -403,7 +401,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: "Frictionless Successful",
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.WRONG_CV2)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "PreAuth", "Card declined: CV2 policy", "Declined")
     }
@@ -416,7 +414,7 @@ final class CardPaymentUITests: XCTestCase {
                              cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertPADSent(app)
     }
@@ -433,7 +431,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "India")
         app.administrativeDivisionField?.tap()
@@ -444,7 +442,7 @@ final class CardPaymentUITests: XCTestCase {
                                    addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
                                    city: TestData.BillingInfo.VALID_CITY,
                                    postCode: TestData.BillingInfo.VALID_POSTCODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
@@ -461,7 +459,7 @@ final class CardPaymentUITests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         app.countryField?.tap()
         app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "China")
         app.administrativeDivisionField?.tap()
@@ -472,7 +470,7 @@ final class CardPaymentUITests: XCTestCase {
                                    addressTwo: TestData.BillingInfo.VALID_ADDRESS_TWO,
                                    city: TestData.BillingInfo.VALID_CITY,
                                    postCode: TestData.BillingInfo.VALID_POSTCODE)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
