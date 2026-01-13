@@ -94,7 +94,7 @@
         completion(nil, JPError.invalidPresentingViewControllerError);
         return;
     }
-    
+
     [topMostViewController presentViewController:controller animated:YES completion:nil];
 }
 
@@ -188,17 +188,16 @@
         completion(nil, configurationError);
         return;
     }
-    
+
     if (!controller) {
         completion(nil, JPError.invalidPresentingViewControllerError);
         return;
     }
-    
+
     self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
     [self.applePayService processPaymentWithConfiguration:configuration
                                           transactionMode:mode
                                             andCompletion:completion];
-
 }
 
 + (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
