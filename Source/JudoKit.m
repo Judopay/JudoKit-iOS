@@ -79,12 +79,6 @@
 - (void)invokeTransactionWithType:(JPTransactionType)type
                     configuration:(JPConfiguration *)configuration
                        completion:(JPCompletionBlock)completion {
-    UIViewController *topMostViewController = UIApplication._jp_topMostViewController;
-
-    if (!topMostViewController) {
-        completion(nil, JPError.invalidPresentingViewControllerError);
-        return;
-    }
 
     UIViewController *controller = [self transactionViewControllerWithType:type
                                                              configuration:configuration
@@ -94,6 +88,13 @@
         return;
     }
 
+    UIViewController *topMostViewController = UIApplication._jp_topMostViewController;
+
+    if (!topMostViewController) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
+    
     [topMostViewController presentViewController:controller animated:YES completion:nil];
 }
 
@@ -180,21 +181,24 @@
                  configuration:(JPConfiguration *)configuration
       presentingViewController:(UIViewController *)controller
                     completion:(JPCompletionBlock)completion {
-    if (!controller) {
-        completion(nil, JPError.invalidPresentingViewControllerError);
-        return;
-    }
 
     JPError *configurationError = [self.configurationValidationService validateApplePayConfiguration:configuration];
 
     if (configurationError) {
         completion(nil, configurationError);
-    } else {
-        self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
-        [self.applePayService processPaymentWithConfiguration:configuration
-                                              transactionMode:mode
-                                                andCompletion:completion];
+        return;
     }
+    
+    if (!controller) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
+    
+    self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
+    [self.applePayService processPaymentWithConfiguration:configuration
+                                          transactionMode:mode
+                                            andCompletion:completion];
+
 }
 
 + (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
