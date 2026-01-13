@@ -361,4 +361,8 @@ NSString *const JudoErrorDomain = @"com.judo.error";
                            userInfo:[userInfo copy]];
 }
 
++ (JPError *)invalidPresentingViewControllerError {
+    return [self unexpectedStateErrorWithDebugDecription:@"Cannot present view controller: presentingViewController is nil."];
+}
+
 @end
