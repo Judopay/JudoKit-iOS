@@ -41,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *cardholderNameTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollviewBottomConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *delayLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *delayStepper;
 
 @end
 
@@ -53,6 +55,8 @@
     self.title = @"Token payments";
     [self shouldEnableButtons:NO];
     [self _jp_registerKeyboardObservers];
+    
+    [self onDelayStepperValueChanged:self.delayStepper];
 }
 
 - (void)dealloc {
@@ -135,18 +139,29 @@
     }
 }
 
+- (IBAction)onDelayStepperValueChanged:(UIStepper *)sender {
+    self.delayLabel.text = [NSString stringWithFormat:@"Simulate delay: %d sec.", (int)sender.value];
+}
+
+- (dispatch_time_t)delayDispatchTime {
+    double delayInSeconds = self.delayStepper.value;
+    return dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+}
+
 - (IBAction)payWithCardToken:(UIButton *)sender {
     [self.payWithCardTokenButton startLoading];
 
     __weak typeof(self) weakSelf = self;
-
-    [self.judoKit invokeTokenTransactionWithType:JPTransactionTypePayment
-                                   configuration:self.configuration
-                                         details:[self cardTransactionDetails]
-                                      completion:^(JPResponse *response, JPError *error) {
-                                          [weakSelf handleResponse:response error:error showReceipt:true];
-                                          [weakSelf.payWithCardTokenButton stopLoading];
-                                      }];
+            
+    dispatch_after(self.delayDispatchTime, dispatch_get_main_queue(), ^{
+        [self.judoKit invokeTokenTransactionWithType:JPTransactionTypePayment
+                                       configuration:self.configuration
+                                             details:[self cardTransactionDetails]
+                                          completion:^(JPResponse *response, JPError *error) {
+                                              [weakSelf handleResponse:response error:error showReceipt:true];
+                                              [weakSelf.payWithCardTokenButton stopLoading];
+                                          }];
+    });
 }
 
 - (IBAction)preAuthWithCardToken:(UIButton *)sender {
@@ -154,13 +169,15 @@
 
     __weak typeof(self) weakSelf = self;
 
-    [self.judoKit invokeTokenTransactionWithType:JPTransactionTypePreAuth
-                                   configuration:self.configuration
-                                         details:[self cardTransactionDetails]
-                                      completion:^(JPResponse *response, JPError *error) {
-                                          [weakSelf handleResponse:response error:error showReceipt:true];
-                                          [weakSelf.preAuthWithCardTokenButton stopLoading];
-                                      }];
+    dispatch_after(self.delayDispatchTime, dispatch_get_main_queue(), ^{
+        [weakSelf.judoKit invokeTokenTransactionWithType:JPTransactionTypePreAuth
+                                       configuration:self.configuration
+                                             details:[self cardTransactionDetails]
+                                          completion:^(JPResponse *response, JPError *error) {
+                                              [weakSelf handleResponse:response error:error showReceipt:true];
+                                              [weakSelf.preAuthWithCardTokenButton stopLoading];
+                                          }];
+    });
 }
 
 - (JPCardTransactionDetails *)cardTransactionDetails {

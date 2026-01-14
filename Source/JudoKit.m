@@ -88,9 +88,14 @@
         return;
     }
 
-    [UIApplication._jp_topMostViewController presentViewController:controller
-                                                          animated:YES
-                                                        completion:nil];
+    UIViewController *topMostViewController = UIApplication._jp_topMostViewController;
+
+    if (!topMostViewController) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
+
+    [topMostViewController presentViewController:controller animated:YES completion:nil];
 }
 
 - (UIViewController *)transactionViewControllerWithType:(JPTransactionType)type
@@ -144,6 +149,12 @@
                          configuration:(JPConfiguration *)configuration
                                details:(JPCardTransactionDetails *)details
                             completion:(JPCompletionBlock)completion {
+    UIViewController *topMostViewController = UIApplication._jp_topMostViewController;
+
+    if (!topMostViewController) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
 
     UIViewController *controller = [self transactionViewControllerWithType:type
                                                              configuration:configuration
@@ -154,7 +165,7 @@
         return;
     }
 
-    [UIApplication._jp_topMostViewController presentViewController:controller animated:YES completion:nil];
+    [topMostViewController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)invokeApplePayWithMode:(JPTransactionMode)mode
@@ -170,16 +181,23 @@
                  configuration:(JPConfiguration *)configuration
       presentingViewController:(UIViewController *)controller
                     completion:(JPCompletionBlock)completion {
+
     JPError *configurationError = [self.configurationValidationService validateApplePayConfiguration:configuration];
 
     if (configurationError) {
         completion(nil, configurationError);
-    } else {
-        self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
-        [self.applePayService processPaymentWithConfiguration:configuration
-                                              transactionMode:mode
-                                                andCompletion:completion];
+        return;
     }
+
+    if (!controller) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
+
+    self.applePayService = [[JPApplePayService alloc] initWithApiService:self.apiService];
+    [self.applePayService processPaymentWithConfiguration:configuration
+                                          transactionMode:mode
+                                            andCompletion:completion];
 }
 
 + (BOOL)isApplePayAvailableWithConfiguration:(JPConfiguration *)configuration {
@@ -197,6 +215,13 @@
         return;
     }
 
+    UIViewController *topMostViewController = UIApplication._jp_topMostViewController;
+
+    if (!topMostViewController) {
+        completion(nil, JPError.invalidPresentingViewControllerError);
+        return;
+    }
+
     UIViewController *controller = [self paymentMethodViewControllerWithMode:mode
                                                                configuration:configuration
                                                                   completion:completion];
@@ -208,9 +233,7 @@
     JPNavigationController *navController = [[JPNavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
 
-    [UIApplication._jp_topMostViewController presentViewController:navController
-                                                          animated:YES
-                                                        completion:nil];
+    [topMostViewController presentViewController:navController animated:YES completion:nil];
 }
 
 - (UIViewController *)paymentMethodViewControllerWithMode:(JPTransactionMode)mode

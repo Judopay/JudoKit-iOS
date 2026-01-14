@@ -223,7 +223,7 @@ typedef NS_ENUM(NSInteger, JPApplePayState) {
                           andCompletion:(JPCompletionBlock)completion {
     if (self.state == JPApplePayStateIdle) {
         if (presentingController == nil) {
-            completion(nil, [JPError unexpectedStateErrorWithDebugDecription:@"Cannot present view controller: presentingViewController is nil."]);
+            completion(nil, JPError.invalidPresentingViewControllerError);
             return;
         }
 

@@ -177,5 +177,6 @@ typedef NS_ENUM(NSUInteger, JudoError) {
 + (nonnull JPError *)operationNotAllowedError;
 + (nonnull JPError *)unexpectedStateError;
 + (nonnull JPError *)unexpectedStateErrorWithDebugDecription:(nullable NSString *)description;
++ (nonnull JPError *)invalidPresentingViewControllerError;
 
 @end

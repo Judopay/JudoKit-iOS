@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bbn-UO-8s3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -186,7 +186,7 @@
                                 <rect key="frame" x="0.0" y="74" width="375" height="593"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="HVc-tb-oQI">
-                                        <rect key="frame" x="20" y="20" width="605" height="754.5"/>
+                                        <rect key="frame" x="20" y="20" width="605" height="810.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please fill in the fields from below with tokenized card details" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5X-UG-mdy">
                                                 <rect key="frame" x="0.0" y="0.0" width="605" height="20.5"/>
@@ -322,8 +322,25 @@
                                                     </view>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="zub-pV-CYx">
+                                                <rect key="frame" x="0.0" y="566.5" width="605" height="32"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRg-ya-Eoq">
+                                                        <rect key="frame" x="0.0" y="6" width="493" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-od-VFl">
+                                                        <rect key="frame" x="511" y="0.0" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="onDelayStepperValueChanged:" destination="UWo-Q7-j0K" eventType="valueChanged" id="tqz-1o-QEK"/>
+                                                        </connections>
+                                                    </stepper>
+                                                </subviews>
+                                            </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vn-u5-ZEu" customClass="JPLoadingButton">
-                                                <rect key="frame" x="0.0" y="566.5" width="605" height="46"/>
+                                                <rect key="frame" x="0.0" y="622.5" width="605" height="46"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="46" id="OLc-yW-o6m"/>
@@ -345,7 +362,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OpB-Xl-UI3" customClass="JPLoadingButton">
-                                                <rect key="frame" x="0.0" y="636.5" width="605" height="46"/>
+                                                <rect key="frame" x="0.0" y="692.5" width="605" height="46"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="46" id="DxU-ft-XDW"/>
@@ -367,7 +384,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyY-rT-AaY">
-                                                <rect key="frame" x="0.0" y="706.5" width="605" height="48"/>
+                                                <rect key="frame" x="0.0" y="762.5" width="605" height="48"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="SUe-Rt-A8U"/>
@@ -405,6 +422,8 @@
                         <outlet property="cardTokenTextField" destination="RS3-Gz-7re" id="WVN-bY-bwD"/>
                         <outlet property="cardholderNameTextField" destination="fpc-s5-cqQ" id="7kr-Up-U8x"/>
                         <outlet property="createCardTokenButton" destination="qSD-yK-iyl" id="XsZ-i8-vgs"/>
+                        <outlet property="delayLabel" destination="pRg-ya-Eoq" id="0Oh-Gj-Hq1"/>
+                        <outlet property="delayStepper" destination="Agj-od-VFl" id="ruj-vz-J0V"/>
                         <outlet property="payWithCardTokenButton" destination="7vn-u5-ZEu" id="lza-ib-FGv"/>
                         <outlet property="preAuthWithCardTokenButton" destination="OpB-Xl-UI3" id="QJJ-ax-y3E"/>
                         <outlet property="scrollView" destination="9Ri-9m-1u3" id="RXB-aK-gDt"/>
