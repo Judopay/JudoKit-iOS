@@ -474,4 +474,41 @@ final class CardPaymentUITests: XCTestCase {
         tapCompleteButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
+    
+    func testSuccessfulTokenPaymentWithDelay() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.tokenPayment)?.tap()
+        app.tokenizeNewCardButton?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        tapCardDetailsPayNowButton(app)
+        tapDelayIncrementButton(app, presses: 5)
+        app.tokenPaymentButton?.tap()
+        waitForAndFillCSCField(app)
+        tapCardDetailsPayNowButton(app)
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
+    
+    func testSuccessfulTokenPaymentWithDelayAndAppInBackground() {
+        app.launchArguments += ["-should_ask_for_csc", "true"]
+        app.launch()
+        app.cellWithIdentifier(Selectors.FeatureList.tokenPayment)?.tap()
+        app.tokenizeNewCardButton?.tap()
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
+                             cardHolder: TestData.CardDetails.CARDHOLDER_NAME,
+                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
+                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        tapCardDetailsPayNowButton(app)
+        tapDelayIncrementButton(app, presses: 5)
+        app.tokenPaymentButton?.tap()
+        cycleBackgroundState(app, for: 5)
+        waitForAndFillCSCField(app)
+        tapCardDetailsPayNowButton(app)
+        tapCompleteButton(app)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
+    }
 }
