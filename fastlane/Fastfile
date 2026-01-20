@@ -171,14 +171,15 @@ platform :ios do
       workspace: options[:app].workspace,
     })
 
+    build_instrumented_tests_packages({
+      app: options[:app]],
+      environment: options[:environment]
+    }) if !options[:app].ui_test_scheme.nil?
+
     revert_staging_environment(
       app: options[:app],
       sdk_root_path: @project_root_path
     ) if options[:environment] == 'staging'
-
-    build_instrumented_tests_packages({
-      app: options[:app]
-    }) if !options[:app].ui_test_scheme.nil? && options[:environment] == 'production'
   end
 
   desc "Package Instrumented Tests for a Sample App"
