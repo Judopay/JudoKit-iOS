@@ -20,7 +20,6 @@ class Selectors {
     struct FeatureList {
         static let payWithCard = "Pay with card"
         static let preAuthWithCard = "Pre-auth with card"
-        static let registerCard = "Register card"
         static let checkCard = "Check card"
         static let tokenPayment = "Token payments"
         static let paymentMethods = "Payment methods"
@@ -64,5 +63,6 @@ class Selectors {
         static let haltTransactionSwitch = "Halt transaction in case of any error"
         static let backButton = "Judopay examples"
         static let cancelledPaymentToastLabel = "messageLabel"
+        static let incrementDelayButton = "Increment"
     }
 }

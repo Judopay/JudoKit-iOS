@@ -174,14 +174,51 @@ func scrollToElement(element: XCUIElement, maxScrolls: Int = 10) {
 }
 
 func waitForElementToBeHittable(element: XCUIElement, timeout: TimeInterval = 10) -> Bool {
-    let exists = element.waitForExistence(timeout: timeout)
-    return exists && element.isHittable
+    let predicate = NSPredicate(format: "isHittable == true")
+    let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+    
+    let result = XCTWaiter().wait(for: [expectation], timeout: timeout)
+    
+    return result == .completed
 }
 
-func tapPayNowButton(_ app: XCUIApplication) {
+func tapCardDetailsPayNowButton(_ app: XCUIApplication) {
     if waitForElementToBeHittable(element: app.cardDetailsSubmitButton!) {
         app.cardDetailsSubmitButton?.tap()
     } else {
         XCTFail("Pay now button is not hittable")
     }
+}
+
+func tapPaymentMethodsPayNowButton(_ app: XCUIApplication) {
+    if waitForElementToBeHittable(element: app.payNowButton!) {
+        app.payNowButton?.tap()
+    } else {
+        XCTFail("Pay now button is not hittable")
+    }
+}
+
+func tapDelayIncrementButton(_ app: XCUIApplication, presses: Int = 1) {
+    guard let delayButton = app.incrementDelayButton, waitForElementToBeHittable(element: delayButton) else {
+        XCTFail("Token increment delay button is not hittable")
+        return
+    }
+    
+    for _ in 0..<presses {
+        delayButton.tap()
+    }
+}
+
+func waitForAndFillCSCField(_ app: XCUIApplication) {
+    if waitForElementToBeHittable(element: app.securityCodeTextField!, timeout: 10) {
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
+    } else {
+        XCTFail("CSC field not visible after delay")
+    }
+}
+
+func cycleBackgroundState(_ app: XCUIApplication, for duration: TimeInterval = 5) {
+    XCUIDevice.shared.press(.home)
+    Thread.sleep(forTimeInterval: duration)
+    app.activate()
 }

@@ -52,14 +52,36 @@
 }
 
 - (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    [self displayAlertWithTitle:title andMessage:error.localizedDescription];
+    NSMutableString *errorDetails = [NSMutableString string];
+    
+    [errorDetails appendFormat:@"Domain: %@\n", error.domain];
+    [errorDetails appendFormat:@"Code: %ld\n", (long)error.code];
+    
+    if (error.localizedDescription) {
+        [errorDetails appendFormat:@"\nDescription: %@\n", error.localizedDescription];
+    }
+    if (error.localizedFailureReason) {
+        [errorDetails appendFormat:@"Failure Reason: %@\n", error.localizedFailureReason];
+    }
+    if (error.localizedRecoverySuggestion) {
+        [errorDetails appendFormat:@"Recovery Suggestion: %@\n", error.localizedRecoverySuggestion];
+    }
+    
+    if (error.userInfo.count > 0) {
+        [errorDetails appendString:@"\nUser Info:\n"];
+        for (NSString *key in error.userInfo.allKeys) {
+            id value = error.userInfo[key];
+            [errorDetails appendFormat:@"  %@: %@\n", key, value];
+        }
+    }
+    
+    [self displayAlertWithTitle:title andMessage:errorDetails];
 }
 
 - (void)displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
      UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
                                                                          message:message
                                                                   preferredStyle:UIAlertControllerStyleAlert];
-
      UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                         style:UIAlertActionStyleDefault
                                                       handler:nil];

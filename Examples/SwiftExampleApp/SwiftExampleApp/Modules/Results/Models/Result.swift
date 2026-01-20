@@ -48,6 +48,10 @@ struct Result: Equatable {
                 return ResultItem(with: $0.key, value: stringValue)
             }
 
+            if let numberValue = $0.value as? NSNumber {
+                return ResultItem(with: $0.key, value: numberValue.stringValue)
+            }
+
             if let dictionaryValue = $0.value as? NSDictionary {
                 let subResult = Result(with: $0.key, from: dictionaryValue)
                 return ResultItem(with: $0.key, value: "", and: subResult)
@@ -71,6 +75,11 @@ struct Result: Equatable {
             if let value = $0.value as? String {
                 return ResultItem(with: $0.key as? String ?? "",
                                   value: value)
+            }
+
+            if let numberValue = $0.value as? NSNumber {
+                return ResultItem(with: $0.key as? String ?? "",
+                                  value: numberValue.stringValue)
             }
 
             if let arrayValue = $0.value as? NSArray {

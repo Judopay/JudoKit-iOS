@@ -35,20 +35,22 @@
 
     if (@available(iOS 13.0, *)) {
         // Find the active foreground scene with a key window
-        NSSet *connectedScenes = UIApplication.sharedApplication.connectedScenes;
-        for (UIScene *scene in connectedScenes) {
-            if (scene.activationState == UISceneActivationStateForegroundActive &&
-                [scene isKindOfClass:UIWindowScene.class]) {
-                UIWindowScene *windowScene = (UIWindowScene *)scene;
-                for (UIWindow *window in windowScene.windows) {
-                    if (window.isKeyWindow) {
-                        keyWindow = window;
-                        break;
-                    }
-                }
-                if (keyWindow) {
-                    break;
-                }
+        NSPredicate *applicationWindowScenesPredicate = [NSPredicate predicateWithFormat:@"class == %@ AND session.role == %@", UIWindowScene.class, UIWindowSceneSessionRoleApplication];
+        NSPredicate *foregroundActiveMatchingScenesPredicate = [NSPredicate predicateWithFormat:@"activationState == %d", UISceneActivationStateForegroundActive];
+        NSPredicate *keyWindowPredicate = [NSPredicate predicateWithFormat:@"isKeyWindow == YES"];
+
+        NSSet<UIWindowScene *> *applicationWindowScenes = (NSSet<UIWindowScene *> *)[UIApplication.sharedApplication.connectedScenes filteredSetUsingPredicate:applicationWindowScenesPredicate];
+        NSSet<UIWindowScene *> *foregroundActiveMatchingScenes = [applicationWindowScenes filteredSetUsingPredicate:foregroundActiveMatchingScenesPredicate];
+        // When host app is moving from background to foreground and atempts to present a view controller at the same time,
+        // the foregroundActiveMatchingScenes will be empty since the activationState of the scene will be UISceneActivationStateBackground,
+        // so we fallback to applicationWindowScenes to attempt to find a key window to present the view controller on.
+        NSSet<UIWindowScene *> *scenes = foregroundActiveMatchingScenes.count > 0 ? foregroundActiveMatchingScenes : applicationWindowScenes;
+
+        for (UIWindowScene *windowScene in scenes) {
+            NSArray<UIWindow *> *keyWindows = [windowScene.windows filteredArrayUsingPredicate:keyWindowPredicate];
+            if (keyWindows.count > 0) {
+                keyWindow = keyWindows.firstObject;
+                break;
             }
         }
     } else {
