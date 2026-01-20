@@ -233,6 +233,12 @@ extension XCUIApplication {
         }
     }
     
+    var incrementDelayButton: XCUIElement? {
+        get {
+            return buttonWithLabel(Selectors.Other.incrementDelayButton)
+        }
+    }
+    
     func configureSettings(isRavelinTest: Bool) {
         let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
         let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
@@ -245,7 +251,9 @@ extension XCUIApplication {
         launchArguments += ["-is_sandboxed", "true",
                             "-is_token_and_secret_on", "true",
                             "-should_ask_for_billing_information", "false",
-                            "-is_recommendation_enabled", "false"]
+                            "-is_recommendation_enabled", "false",
+                            "-challenge_request_indicator", "challengeAsMandate",
+                            "-sca_exemption", "lowValue"]
         
         if isRavelinTest {
             launchArguments += ["-is_payment_session_on", "true",
