@@ -172,7 +172,7 @@ platform :ios do
     })
 
     build_instrumented_tests_packages({
-      app: options[:app]],
+      app: options[:app],
       environment: options[:environment]
     }) if !options[:app].ui_test_scheme.nil?
 
