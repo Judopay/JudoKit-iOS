@@ -1,4 +1,4 @@
 git_url("git@github.com:Judopay/JudoKit-iOS-SigningCertificates.git")
 storage_mode("git")
 
-app_identifier(["com.judo.JudoPayDemoObjC", "com.judo.JudoPayDemoObjC.staging", "com.judo.JudoPayDemoSwift", "com.judo.JudoPayDemoCarthage", "com.judopay.SPMExampleApp", "com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*", "com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*"])
+app_identifier(["com.judo.JudoPayDemoObjC", "com.judo.JudoPayDemoObjC.staging", "com.judo.JudoPayDemoSwift", "com.judo.JudoPayDemoCarthage", "com.judopay.SPMExampleApp", "com.judo.JudoPayDemoObjC.ObjectiveCExampleAppUITests.*", "com.judo.JudoPayDemoObjC.staging.ObjectiveCExampleAppUITests.*", "com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*"])
