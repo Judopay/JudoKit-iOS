@@ -859,7 +859,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "[Swift]-JK";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -871,7 +870,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
 				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -890,7 +888,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "[Swift]-JK";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -902,7 +899,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift;
 				PRODUCT_NAME = "JudoKit (Swift)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.judo.JudoPayDemoSwift";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -918,8 +914,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -930,7 +924,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -948,8 +941,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -960,7 +951,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -980,8 +970,6 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -992,7 +980,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoSwift.SwiftExampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1013,8 +1000,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 95V535S6TQ;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 95V535S6TQ;
 				INFOPLIST_FILE = SwiftExampleAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1025,7 +1010,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoObjC.SwiftExampleAppUITests.xctrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.judo.JudoPayDemoSwift.SwiftExampleAppUITests.*";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
