@@ -105,7 +105,7 @@ platform :ios do
       derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
-    sh("bundle exec slather coverage --sonarqube-xml --scheme JudoKit_iOSTests #{@project_root_path}/JudoKit_iOS.xcodeproj")
+    sh("bundle exec slather coverage --sonarqube-xml --build-directory #{@derived_data_path} #{@project_root_path}/JudoKit_iOS.xcodeproj")
   end
 
   desc "Publish SDK"
