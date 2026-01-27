@@ -254,7 +254,7 @@ platform :ios do
 
     # If there is a Fabrick 3DS test list, repeat the build to create a package
     # which will only run the subset of tests
-    if options[:app].fabrick3ds_test_list.nil?
+    if !options[:app].fabrick3ds_test_list.nil?
       run_tests(
         {
           only_testing: options[:app].fabrick3ds_test_list
