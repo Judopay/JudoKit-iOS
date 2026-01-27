@@ -134,10 +134,12 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        build_sample_app({
-          app: app, 
-          environment: env
-        }) if !app.firebase_app_id(environment: env).nil?
+        if !app.firebase_app_id(environment: env).nil?
+          build_sample_app({
+            app: app,
+            environment: env
+          })
+        end
       end
     end
   end
@@ -228,7 +230,7 @@ platform :ios do
       app: options[:app],
       input_dir: "#{@derived_data_path}/Build/Products",
       output_dir: @fl_output_dir,
-      output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip",
+      output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
     )
 
     # If there is a smoke test list, repeat the build to create a package
@@ -253,7 +255,7 @@ platform :ios do
     if options[:app].fabrick3ds_test_list.nil?
       run_tests(
         {
-          only_testing: options[:app].fabrick3ds_test_list,
+          only_testing: options[:app].fabrick3ds_test_list
         }.merge(build_options)
       )
 
@@ -328,7 +330,7 @@ platform :ios do
     @sample_apps.select { |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      @environments.select{ |env|
+      @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
         test_sample_app_firebase({app: app, environment: env, test_package_suffix: options[:test_package] || "all"}) if !app.firebase_app_id(environment: env).nil?
@@ -344,14 +346,14 @@ platform :ios do
     end
 
     sh(
-      "gcloud firebase test ios run"\
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_package_suffix]}.zip"\
-        " --xcode-version 16.4"\
-        " --device model=iphone14pro,version=16.6"\
-        " --device model=ipad10,version=16.6"\
-        " --device model=iphone16pro,version=18.3"\
-        " --record-video"\
-        " --results-bucket #{ENV['FIREBASE_TEST_RESULTS_BUCKET']}"\
+      "gcloud firebase test ios run" \
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_package_suffix]}.zip" \
+        " --xcode-version 16.4" \
+        " --device model=iphone14pro,version=16.6" \
+        " --device model=ipad10,version=16.6" \
+        " --device model=iphone16pro,version=18.3" \
+        " --record-video" \
+        " --results-bucket #{ENV["FIREBASE_TEST_RESULTS_BUCKET"]}" \
         " --client-details=#{[
           "matrixLabel=\"#{ENV["FIREBASE_MATRIX_LABEL"] || "Manual Trigger"}\"",
           "app=\"#{options[:app].scheme}\"",
@@ -368,7 +370,7 @@ platform :ios do
     @sample_apps.select { |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-       @environments.select{ |env|
+      @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
         test_sample_app_browserstack({app: app, environment: env, device_set: options[:device_set]})
@@ -394,7 +396,7 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip") ? 
+      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip") ?
         "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip" :
         "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
     )
