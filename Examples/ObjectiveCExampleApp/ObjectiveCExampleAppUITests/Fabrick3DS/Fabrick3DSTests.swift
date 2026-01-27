@@ -32,7 +32,7 @@ final class Fabrick3DSTests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         fill3DS2Code(app, "12345")
         tapCompleteButton(app, true)
         assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
@@ -47,7 +47,7 @@ final class Fabrick3DSTests: XCTestCase {
                              expiryDate: TestData.CardDetails.CARD_EXPIRY,
                              securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
-        tapPayNowButton(app)
+        tapCardDetailsPayNowButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
     }
 }
