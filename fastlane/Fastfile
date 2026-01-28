@@ -105,8 +105,7 @@ platform :ios do
       derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
-    sh("find #{@project_root_path} -type f -name \"Coverage.profdata\"")
-    sh("bundle exec slather coverage --sonarqube-xml --scheme JudoKit_iOS #{@project_root_path}/JudoKit_iOS.xcodeproj")
+    sh("bundle exec slather coverage --verbose --sonarqube-xml --scheme JudoKit_iOS #{@project_root_path}/JudoKit_iOS.xcodeproj")
   end
 
   desc "Publish SDK"
@@ -375,7 +374,7 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_browserstack({app: app, environment: env, device_set: options[:device_set]})
+        test_sample_app_browserstack({app: app, environment: env, device_set: options[:device_set]}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -416,21 +415,20 @@ platform :ios do
 
   desc "Publish Sample Apps to Firebase"
   lane :publish_sample_apps do |options|
-    @environments.each do |env|
-      @sample_apps.select { |app|
+    @sample_apps.select { |app|
         !options.key?(:flavors) || options[:flavors].include?(app.flavor)
       }.each do |app|
-        publish_sample_app({app: app, environment: env})
+        @environments.select { |env|
+          !options.key?(:environment) || options[:environment] == env
+        }.each do |env|
+          publish_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
+        end
       end
     end
   end
 
   desc "Publish Sample App to Firebase"
   private_lane :publish_sample_app do |options|
-    if options[:app].firebase_app_id(environment: options[:environment]).nil?
-      UI.important("No Firebase App ID found for #{options[:app].scheme} and environment #{options[:environment]}. Won't publish.")
-      next
-    end
     firebase_app_distribution({
       groups: "default-testers",
       ipa_path: "#{@fl_output_dir}/#{options[:app].scheme}-#{options[:environment]}.ipa",
