@@ -416,13 +416,12 @@ platform :ios do
   desc "Publish Sample Apps to Firebase"
   lane :publish_sample_apps do |options|
     @sample_apps.select { |app|
-        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
-      }.each do |app|
-        @environments.select { |env|
-          !options.key?(:environment) || options[:environment] == env
-        }.each do |env|
-          publish_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
-        end
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      @environments.select { |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        publish_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
