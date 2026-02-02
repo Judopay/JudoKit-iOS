@@ -107,7 +107,7 @@ platform :ios do
     )
     slather(
       scheme: "JudoKit_iOS",
-      proj: "#{@project_root_path}",
+      proj: "#{@project_root_path}/JudoKit_iOS.xcodeproj",
       sonarqube_xml: true,
       github: true,
       verbose: true
