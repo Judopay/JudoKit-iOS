@@ -105,7 +105,7 @@ platform :ios do
       derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
-    sh("find /Users/runner/work/_temp/xcode/derived_data -name '*.profdata' -ls")
+    sh("find /Users/runner/Library/Developer/Xcode/DerivedData -name '*.profdata' -ls")
     sh("xcodebuild -project #{@project_root_path}/JudoKit_iOS.xcodeproj -scheme JudoKit_iOS -showBuildSettings | grep 'OBJROOT'")
     slather(
       scheme: "JudoKit_iOS",
