@@ -1,8 +1,8 @@
 //
-//  JPNetworkTokenisationDetails.m
+//  JPThreeDSecureResult.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2025 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPNetworkTokenisationDetails.h"
-#import "JPVirtualPan.h"
+#import <Foundation/Foundation.h>
 
-@implementation JPNetworkTokenisationDetails
+@interface JPThreeDSecureResult : NSObject
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    if (self = [super init]) {
-        _networkTokenProvisioned = [dictionary[@"networkTokenProvisioned"] boolValue];
-        _networkTokenUsed = [dictionary[@"networkTokenUsed"] boolValue];
-        _accountDetailsUpdated = [dictionary[@"accountDetailsUpdated"] boolValue];
+@property (nonatomic, assign) BOOL attempted;
+@property (strong, nonatomic, nullable) NSString *result;
+@property (strong, nonatomic, nullable) NSString *eci;
+@property (strong, nonatomic, nullable) NSString *challengeRequestIndicator;
+@property (nonatomic, assign) BOOL challengeCompleted;
 
-        if (dictionary[@"virtualPan"]) {
-            _virtualPan = [[JPVirtualPan alloc] initWithDictionary:dictionary[@"virtualPan"]];
-        }
-    }
-    return self;
-}
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 @end

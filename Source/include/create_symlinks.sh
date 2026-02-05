@@ -84,6 +84,7 @@ ln -s -f ../Models/RecommendationConfiguration/JPRecommendationConfiguration.h J
 ln -s -f ../Models/SubProductInfo/JPSubProductInfo.h JPSubProductInfo.h
 ln -s -f ../Models/Response/NetworkTokenisationDetails/VirtualPan/JPVirtualPan.h JPVirtualPan.h
 ln -s -f ../Models/Response/NetworkTokenisationDetails/JPNetworkTokenisationDetails.h JPNetworkTokenisationDetails.h
+ln -s -f ../Models/Response/ThreeDSecureResult/JPThreeDSecureResult.h JPThreeDSecureResult.h
 
 # project headers
 ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h

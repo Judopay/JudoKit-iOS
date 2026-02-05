@@ -266,6 +266,8 @@
 		30F77E54241A650800D68BF9 /* UITextField+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F77E53241A650800D68BF9 /* UITextField+Additions.m */; };
 		3BF476F21C748B5B008AE0D3 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B678BC71C735AB80001DC2F /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BF476F41C748FEA008AE0D3 /* JudoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B678BC81C735AB80001DC2F /* JudoKit.m */; };
+		440741932F340B9300347783 /* JPThreeDSecureResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 440741902F340B9300347783 /* JPThreeDSecureResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		440741942F340B9300347783 /* JPThreeDSecureResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 440741912F340B9300347783 /* JPThreeDSecureResult.m */; };
 		4416C3A22451A4060002870C /* JudoKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B678B561C6CE5190001DC2F /* JudoKit_iOS.framework */; platformFilter = ios; };
 		4421E2D92E6F8B9D009BA64F /* PKContact+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4421E2D32E6F8B9D009BA64F /* PKContact+Additions.h */; };
 		4421E2DA2E6F8B9D009BA64F /* CNPostalAddress+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4421E2D02E6F8B9D009BA64F /* CNPostalAddress+Additions.h */; };
@@ -756,6 +758,8 @@
 		3B678B5B1C6CE5190001DC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B678BC71C735AB80001DC2F /* JudoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JudoKit.h; sourceTree = "<group>"; };
 		3B678BC81C735AB80001DC2F /* JudoKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudoKit.m; sourceTree = "<group>"; };
+		440741902F340B9300347783 /* JPThreeDSecureResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPThreeDSecureResult.h; sourceTree = "<group>"; };
+		440741912F340B9300347783 /* JPThreeDSecureResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPThreeDSecureResult.m; sourceTree = "<group>"; };
 		4416C39D2451A4060002870C /* JudoKit_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKit_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4421E2D02E6F8B9D009BA64F /* CNPostalAddress+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CNPostalAddress+Additions.h"; sourceTree = "<group>"; };
 		4421E2D12E6F8B9D009BA64F /* CNPostalAddress+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CNPostalAddress+Additions.m"; sourceTree = "<group>"; };
@@ -1890,6 +1894,7 @@
 		3000729223F6AB550099F3C5 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				440741922F340B9300347783 /* ThreeDSecureResult */,
 				44B448362EB0EF53009761CE /* NetworkTokenisationDetails */,
 				4428AF022B06211000DCE4FB /* Recommendation */,
 				3000729423F6AB550099F3C5 /* JPResponse.h */,
@@ -2651,6 +2656,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		440741922F340B9300347783 /* ThreeDSecureResult */ = {
+			isa = PBXGroup;
+			children = (
+				440741902F340B9300347783 /* JPThreeDSecureResult.h */,
+				440741912F340B9300347783 /* JPThreeDSecureResult.m */,
+			);
+			path = ThreeDSecureResult;
+			sourceTree = "<group>";
+		};
 		4421E2D22E6F8B9D009BA64F /* CNPostalAddress */ = {
 			isa = PBXGroup;
 			children = (
@@ -3383,6 +3397,7 @@
 				30006F2123F6971B0099F3C5 /* JPSliderPresentationController.h in Headers */,
 				30006F9523F6993A0099F3C5 /* JPError+Additions.h in Headers */,
 				4431198D24B3345200BF961C /* JPRequest+Additions.h in Headers */,
+				440741932F340B9300347783 /* JPThreeDSecureResult.h in Headers */,
 				30221C5323FE7F6300BF2823 /* JPCardCustomizationHeaderCell.h in Headers */,
 				300072BA23F6AB560099F3C5 /* JPPaymentMethods.h in Headers */,
 				300072EE23F6AB560099F3C5 /* JPCardNetwork.h in Headers */,
@@ -3722,6 +3737,7 @@
 				0779B1732490EC05000844AF /* JPCardInputView.m in Sources */,
 				30006F6123F698A20099F3C5 /* JPInputField.m in Sources */,
 				30221CBF24040F4D00BF2823 /* JPCardCustomizationTextInputCell.m in Sources */,
+				440741942F340B9300347783 /* JPThreeDSecureResult.m in Sources */,
 				A75B3FB7980DC7CC153F9204 /* JPApiService.m in Sources */,
 				A75B3FC43AFB859D7E8A504D /* JPSession.m in Sources */,
 				A75B324EEC3B9283B1712A07 /* JPSessionConfiguration.m in Sources */,

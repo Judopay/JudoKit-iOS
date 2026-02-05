@@ -26,7 +26,7 @@
 #import "JPTransactionType.h"
 #import <Foundation/Foundation.h>
 
-@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer, JPNetworkTokenisationDetails;
+@class JPContactInformation, JPAmount, JPCardDetails, JPConsumer, JPNetworkTokenisationDetails, JPThreeDSecureResult;
 
 /**
  *  JPResponse is an object that references all information in correspondence with a Transaction with the judo API
@@ -144,6 +144,13 @@
  *  @see JPNetworkTokenisationDetails
  */
 @property (nonatomic, strong, nullable) JPNetworkTokenisationDetails *networkTokenisationDetails;
+
+/**
+ *  The result of the 3D Secure authentication performed during this transaction, if applicable.
+ *
+ *  @see JPThreeDSecureResult
+ */
+@property (nonatomic, strong, nullable) JPThreeDSecureResult *threeDSecure;
 
 /**
  *  Raw data of the received dictionary
