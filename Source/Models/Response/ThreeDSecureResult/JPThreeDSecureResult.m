@@ -1,8 +1,8 @@
 //
-//  JPNetworkTokenisationDetails.m
+//  JPThreeDSecureResult.m
 //  JudoKit_iOS
 //
-//  Copyright (c) 2025 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "JPNetworkTokenisationDetails.h"
-#import "JPVirtualPan.h"
+#import "JPThreeDSecureResult.h"
+#import "Functions.h"
 
-@implementation JPNetworkTokenisationDetails
+@implementation JPThreeDSecureResult
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        _networkTokenProvisioned = [dictionary[@"networkTokenProvisioned"] boolValue];
-        _networkTokenUsed = [dictionary[@"networkTokenUsed"] boolValue];
-        _accountDetailsUpdated = [dictionary[@"accountDetailsUpdated"] boolValue];
-
-        if (dictionary[@"virtualPan"]) {
-            _virtualPan = [[JPVirtualPan alloc] initWithDictionary:dictionary[@"virtualPan"]];
-        }
+        _attempted = [dictionary[@"attempted"] boolValue];
+        _result = getSafeStringRepresentation(dictionary[@"result"]);
+        _eci = getSafeStringRepresentation(dictionary[@"eci"]);
+        _challengeRequestIndicator = getSafeStringRepresentation(dictionary[@"challengeRequestIndicator"]);
+        _challengeCompleted = [dictionary[@"challengeCompleted"] boolValue];
     }
     return self;
 }

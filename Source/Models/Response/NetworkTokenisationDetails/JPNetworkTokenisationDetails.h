@@ -30,6 +30,7 @@
 
 @property (nonatomic, assign) BOOL networkTokenProvisioned;
 @property (nonatomic, assign) BOOL networkTokenUsed;
+@property (nonatomic, assign) BOOL accountDetailsUpdated;
 @property (strong, nonatomic, nullable) JPVirtualPan *virtualPan;
 
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;

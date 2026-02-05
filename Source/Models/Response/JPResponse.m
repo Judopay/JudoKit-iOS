@@ -28,6 +28,7 @@
 #import "JPCardDetails.h"
 #import "JPConsumer.h"
 #import "JPNetworkTokenisationDetails.h"
+#import "JPThreeDSecureResult.h"
 #import "NSString+Additions.h"
 
 static NSString *const kStatusDeclined = @"declined";
@@ -92,6 +93,11 @@ static NSString *const kTransactionTypeCheckCard = @"checkcard";
     NSDictionary *details = dictionary[@"networkTokenisationDetails"];
     if (details) {
         self.networkTokenisationDetails = [[JPNetworkTokenisationDetails alloc] initWithDictionary:details];
+    }
+
+    NSDictionary *threeDSecureDetails = dictionary[@"threeDSecure"];
+    if (threeDSecureDetails) {
+        self.threeDSecure = [[JPThreeDSecureResult alloc] initWithDictionary:threeDSecureDetails];
     }
 
     self.rawData = dictionary;

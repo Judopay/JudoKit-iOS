@@ -67,6 +67,7 @@
 #import "JPThemable.h"
 #import "JPTheme.h"
 #import "JPThreeDSecure.h"
+#import "JPThreeDSecureResult.h"
 #import "JPUIConfiguration.h"
 #import "JPValidationResult.h"
 #import "JPVirtualPan.h"
