@@ -111,7 +111,7 @@ platform :ios do
       sonarqube_xml: true,
       github: true,
       verbose: true,
-      build_directory: lane_context[SharedValues::SCAN_DERIVED_DATA_PATH],
+      build_directory: lane_context[SharedValues::SCAN_DERIVED_DATA_PATH]
     )
   end
 
