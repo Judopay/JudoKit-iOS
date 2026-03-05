@@ -110,7 +110,8 @@ platform :ios do
       proj: "#{@project_root_path}/JudoKit_iOS.xcodeproj",
       sonarqube_xml: true,
       github: true,
-      verbose: true
+      verbose: true,
+      build_directory: lane_context[SharedValues::SCAN_DERIVED_DATA_PATH],
     )
   end
 
