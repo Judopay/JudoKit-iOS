@@ -27,25 +27,7 @@ import XCTest
 @testable import JudoKit_iOS
 
 class NSNumberFormatterTests: XCTestCase {
-    
-    // Helper to create a formatter with a consistent locale for testing
-    private func createTestFormatter(currencyCode: String, isFractional: Bool) -> NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "en_US") // Use consistent locale for tests
-        formatter.currencyCode = currencyCode
-        formatter.maximumFractionDigits = isFractional ? 2 : 0
-        return formatter
-    }
-    
-    // Helper to get expected formatted string using test locale
-    private func expectedFormat(_ amount: String, currencyCode: String) -> String {
-        let amountNumber = NSDecimalNumber(string: amount)
-        let isFractional = amountNumber.doubleValue != Double(Int(amountNumber.doubleValue))
-        let formatter = createTestFormatter(currencyCode: currencyCode, isFractional: isFractional)
-        return formatter.string(from: amountNumber) ?? ""
-    }
-    
+        
     /*
      * GIVEN: a valid amount and currency code is provided
      *
@@ -53,7 +35,6 @@ class NSNumberFormatterTests: XCTestCase {
      */
     func test_OnValidAmountAndCurrency_ReturnFormattedString() {
         let formattedNumber = NumberFormatter._jp_formattedAmount("12", withCurrencyCode: "GBP")
-        _ = expectedFormat("12", currencyCode: "GBP")
         
         XCTAssertNotNil(formattedNumber)
         XCTAssertTrue(formattedNumber?.contains("12") ?? false, "Should contain the amount")
