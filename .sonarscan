@@ -1,2 +1,3 @@
-sonar.coverage.exclusions=Examples/**/*
+sonar.coverage.exclusions=Examples/**/*,*.rb
 sonar.cpd.exclusions=**/*.h
+sonar.tests=JudoKit_iOSTests
