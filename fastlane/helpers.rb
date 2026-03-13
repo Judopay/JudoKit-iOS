@@ -248,7 +248,7 @@ class SampleApp
   end
 
   def ui_fabrick_3ds2_test_plan
-    test_plan = "#{scheme}"
+    test_plan = "#{scheme}TestPlan"
     File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}Fabrick3DS2.xctestplan") ? test_plan : nil
   end
 
