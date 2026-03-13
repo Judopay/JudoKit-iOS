@@ -247,6 +247,11 @@ class SampleApp
     File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}.xctestplan") ? test_plan : nil
   end
 
+  def ui_fabrick_3ds2_test_plan
+    test_plan = "#{scheme}Fabrick3DS2TestPlan"
+    File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}.xctestplan") ? test_plan : nil
+  end
+
   def ui_test_scheme
     ui_test_scheme = "#{scheme}UITests"
     (File.directory?("#{@path}/#{ui_test_scheme}") && Dir["#{@path}/#{ui_test_scheme}/*"].length > 1) ? ui_test_scheme : nil
