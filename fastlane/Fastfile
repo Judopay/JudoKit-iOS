@@ -263,7 +263,7 @@ platform :ios do
     if !options[:app].fabrick3ds_test_list.nil?
       run_tests(
         {
-          test_plan: options[:app].ui_fabrick_3ds2_test_plan
+          testplan: options[:app].ui_fabrick_3ds2_test_plan
         }.merge(build_options)
       )
 
