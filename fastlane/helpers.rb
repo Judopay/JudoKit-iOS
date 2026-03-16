@@ -242,14 +242,8 @@ class SampleApp
     File.basename(@path)
   end
 
-  def ui_test_plan
-    test_plan = "#{scheme}TestPlan"
-    File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}.xctestplan") ? test_plan : nil
-  end
-
-  def ui_fabrick_3ds2_test_plan
-    test_plan = "#{scheme}TestPlan"
-    File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}Fabrick3DS2.xctestplan") ? test_plan : nil
+  def test_plans
+    Dir.glob("#{@path}/#{ui_test_scheme}/*.xctestplan").map do |file| File.basename(file, ".xctestplan") end
   end
 
   def ui_test_scheme

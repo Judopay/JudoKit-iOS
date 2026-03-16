@@ -20,11 +20,6 @@ sample_apps_dir = "#{File.expand_path("..")}/Examples"
     },
     flavor: "obj-c",
     path: "#{sample_apps_dir}/ObjectiveCExampleApp",
-    smoke_test_list: [
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
-    ]
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -216,60 +211,30 @@ platform :ios do
       code_signing_identity: "Apple Development"
     )
 
-    build_options = {
-      build_for_testing: true,
-      clean: false,
-      derived_data_path: @derived_data_path,
-      destination: "generic/platform=iOS",
-      include_simulator_logs: false,
-      project: (!options[:app].workspace.nil?) ? nil : options[:app].project,
-      scheme: options[:app].ui_test_scheme,
-      sdk: "iphoneos",
-      testplan: options[:app].ui_test_plan,
-      workspace: options[:app].workspace,
-      xcargs: @ui_tests_xcargs,
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild"
-    }
+    options[:app].test_plans.each do |test_plan|
+      UI.message("Found test plan: #{test_plan}")
 
-    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
-    run_tests(build_options)
-
-    package_instrumented_tests(
-      app: options[:app],
-      input_dir: "#{@derived_data_path}/Build/Products",
-      output_dir: @fl_output_dir,
-      output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
-    )
-
-    # If there is a smoke test list, repeat the build to create a package
-    # which will only run the subset of tests
-    if !options[:app].smoke_test_list.nil?
-      run_tests(
-        {
-          only_testing: options[:app].smoke_test_list
-        }.merge(build_options)
-      )
+      # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+      run_tests({
+        build_for_testing: true,
+        clean: false,
+        derived_data_path: @derived_data_path,
+        destination: "generic/platform=iOS",
+        include_simulator_logs: false,
+        project: (!options[:app].workspace.nil?) ? nil : options[:app].project,
+        scheme: options[:app].ui_test_scheme,
+        sdk: "iphoneos",
+        testplan: "#{test_plan}.xctestplan",
+        workspace: options[:app].workspace,
+        xcargs: @ui_tests_xcargs,
+        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild"
+      })
 
       package_instrumented_tests(
         app: options[:app],
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
-        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip"
-      )
-    end
-
-    # If there is a Fabrick 3DS test list, repeat the build to create a package
-    # which will only run the subset of tests
-    if !options[:app].fabrick3ds_test_list.nil?
-      run_tests(
-        build_options.merge(testplan: options[:app].ui_fabrick_3ds2_test_plan)
-      )
-
-      package_instrumented_tests(
-        app: options[:app],
-        input_dir: "#{@derived_data_path}/Build/Products",
-        output_dir: @fl_output_dir,
-        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-fabrick3ds.zip"
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-#{test_plan}.zip"
       )
     end
   end
@@ -339,7 +304,11 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_firebase({app: app, environment: env, test_package_suffix: options[:test_package] || "all"}) if !app.firebase_app_id(environment: env).nil?
+        test_sample_app_firebase({
+          app: app,
+          environment: env,
+          test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme
+        }) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -353,7 +322,7 @@ platform :ios do
 
     sh(
       "gcloud firebase test ios run" \
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_package_suffix]}.zip" \
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip" \
         " --xcode-version 16.4" \
         " --device model=iphone14pro,version=16.6" \
         " --device model=ipad10,version=16.6" \
@@ -363,6 +332,8 @@ platform :ios do
         " --client-details=#{[
           "matrixLabel=\"#{ENV["FIREBASE_MATRIX_LABEL"] || "Manual Trigger"}\"",
           "app=\"#{options[:app].scheme}\"",
+          "environment=\"#{options[:environment]}\"",
+          "test_plan=\"#{options[:test_plan]}\"",
           "project=JudoKit-iOS"
         ].join(",")}" \
         " --timeout=30m" \
@@ -379,7 +350,12 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_browserstack({app: app, environment: env, device_set: options[:device_set]}) if !app.firebase_app_id(environment: env).nil?
+        test_sample_app_browserstack({
+          app: app,
+          environment: env,
+          test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme,
+          device_set: options[:device_set]
+        }) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
@@ -390,6 +366,8 @@ platform :ios do
       UI.important("No UI test scheme found for #{options[:app].scheme}. Skipping instrumented tests.")
       next
     end
+
+    test_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip"
 
     upload_to_browserstack_app_automate(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
@@ -402,9 +380,7 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip") ?
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-smoke.zip" :
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-all.zip"
+      file_path: test_package
     )
 
     run_xctestrun_on_browserstack(
