@@ -224,7 +224,7 @@ platform :ios do
         project: (!options[:app].workspace.nil?) ? nil : options[:app].project,
         scheme: options[:app].ui_test_scheme,
         sdk: "iphoneos",
-        testplan: "#{test_plan}.xctestplan",
+        testplan: test_plan,
         workspace: options[:app].workspace,
         xcargs: @ui_tests_xcargs,
         xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild"
