@@ -136,7 +136,7 @@
 		D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITests.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan; sourceTree = SOURCE_ROOT; };
 		D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fabrick3DSTests.swift; sourceTree = "<group>"; };
 		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
-		D1E12D3D2F64207D0019DDFB /* ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; path = ObjectiveCExampleAppUITests/CardPayment/ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; sourceTree = SOURCE_ROOT; };
+		D1E12D3D2F64207D0019DDFB /* ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; sourceTree = SOURCE_ROOT; };
 		F502AFFA74A929E8590FAEE2 /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF69720DEA212111BDBD369 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
