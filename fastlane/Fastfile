@@ -324,6 +324,7 @@ platform :ios do
       "gcloud firebase test ios run" \
         " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip" \
         " --xcode-version 16.4" \
+        " --xctestrun-file=#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.xctestrun" \
         " --device model=iphone14pro,version=16.6" \
         " --device model=ipad10,version=16.6" \
         " --device model=iphone16pro,version=18.3" \
