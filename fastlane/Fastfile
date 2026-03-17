@@ -19,7 +19,7 @@ sample_apps_dir = "#{File.expand_path("..")}/Examples"
       staging: "1:34238832242:ios:62eb2547e6cd6a2663eceb"
     },
     flavor: "obj-c",
-    path: "#{sample_apps_dir}/ObjectiveCExampleApp",
+    path: "#{sample_apps_dir}/ObjectiveCExampleApp"
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -232,6 +232,7 @@ platform :ios do
 
       package_instrumented_tests(
         app: options[:app],
+        test_plan: test_plan,
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
         output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-#{test_plan}.zip"
@@ -304,11 +305,13 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_firebase({
-          app: app,
-          environment: env,
-          test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme
-        }) if !app.firebase_app_id(environment: env).nil?
+        if !app.firebase_app_id(environment: env).nil?
+          test_sample_app_firebase({
+            app: app,
+            environment: env,
+            test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme
+          })
+        end
       end
     end
   end
@@ -324,7 +327,6 @@ platform :ios do
       "gcloud firebase test ios run" \
         " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip" \
         " --xcode-version 16.4" \
-        " --xctestrun-file=#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.xctestrun" \
         " --device model=iphone14pro,version=16.6" \
         " --device model=ipad10,version=16.6" \
         " --device model=iphone16pro,version=18.3" \
@@ -351,12 +353,14 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        test_sample_app_browserstack({
-          app: app,
-          environment: env,
-          test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme,
-          device_set: options[:device_set]
-        }) if !app.firebase_app_id(environment: env).nil?
+        if !app.firebase_app_id(environment: env).nil?
+          test_sample_app_browserstack({
+            app: app,
+            environment: env,
+            test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme,
+            device_set: options[:device_set]
+          })
+        end
       end
     end
   end

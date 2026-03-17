@@ -114,13 +114,13 @@ def bump_build_number(app:, environment:)
   puts("Bumped build number to #{current_version + 1}")
 end
 
-def package_instrumented_tests(app:, input_dir:, output_dir:, output_file:)
+def package_instrumented_tests(app:, test_plan:, input_dir:, output_dir:, output_file:)
   FileUtils.mkdir_p(output_dir)
   # Firebase requires the entire Debug-iphoneos directory and the .xctestrun file
   # BrowserStack requires the Debug-iphoneos/<scheme>-Runner.app directory placed in the root of the zip file and the .xctestrun file
   Dir.chdir(input_dir) do
     FileUtils.cp_r("Debug-iphoneos/#{app.ui_test_scheme}-Runner.app", input_dir)
-    sh("zip -r #{output_dir}/#{output_file} Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
+    sh("zip -r #{output_dir}/#{output_file} Debug-iphoneos #{app.ui_test_scheme}_#{test_plan}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
   end
   puts("Instrumented tests packaged successfully into #{output_dir}/#{output_file}")
 end
@@ -243,7 +243,7 @@ class SampleApp
   end
 
   def test_plans
-    Dir.glob("#{@path}/#{ui_test_scheme}/*.xctestplan").map do |file| File.basename(file, ".xctestplan") end
+    Dir.glob("#{@path}/#{ui_test_scheme}/*.xctestplan").map { |file| File.basename(file, ".xctestplan") }
   end
 
   def ui_test_scheme

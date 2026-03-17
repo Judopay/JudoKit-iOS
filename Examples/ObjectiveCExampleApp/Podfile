@@ -1,25 +1,25 @@
-platform :ios, '13.0'
+platform :ios, "13.0"
 
 use_frameworks!
 inhibit_all_warnings!
 
-target 'ObjectiveCExampleApp' do
+target "ObjectiveCExampleApp" do
   # pod 'Judo3DS2_iOS', :path => '../../../Judo3DS2-iOS-Source'
   # pod 'DeviceDNA', :path => '../../../DeviceDNA-iOS-Source'
 
-  pod 'Judo3DS2_iOS', '1.3.0'
+  pod "Judo3DS2_iOS", "1.3.0"
 
-  pod 'JudoKit-iOS', :path => '../../'
+  pod "JudoKit-iOS", path: "../../"
   # pod 'JudoKit-iOS', '6.3.0'
 
-  pod 'TTGSnackbar'
-  pod 'InAppSettingsKit', '3.8.3'
-  pod 'Wormholy'
+  pod "TTGSnackbar"
+  pod "InAppSettingsKit", "3.8.3"
+  pod "Wormholy"
 
-  target 'ObjectiveCExampleAppTests' do
+  target "ObjectiveCExampleAppTests" do
     inherit! :search_paths
   end
 
-  target 'ObjectiveCExampleAppUITests' do
+  target "ObjectiveCExampleAppUITests" do
   end
 end
