@@ -1,6 +1,8 @@
 name: Run Instrumented Tests Daily
 
 on:
+  schedule:
+  - cron: "0 15 * * *" # 3pm daily
   workflow_dispatch:
 jobs:
   test_sample_apps_firebase:

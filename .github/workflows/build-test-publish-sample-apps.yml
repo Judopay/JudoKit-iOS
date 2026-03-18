@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - master
-  pull_request:
   workflow_dispatch:
 jobs:
   build_and_test_sample_apps:
@@ -20,7 +19,6 @@ jobs:
     secrets: inherit
     with:
       firebase_matrix_label: 'Merge to master'
-      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_plan_suffix":"Fabrick3DS2"}'
   test_sample_apps_browserstack:
     uses: Judopay/github-actions/.github/workflows/test-sample-apps-browserstack.yml@master
     needs: publish_sample_apps
