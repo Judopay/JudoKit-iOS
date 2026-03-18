@@ -71,6 +71,9 @@
          <TestPlanReference
             reference = "container:ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITestsSmoke.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
@@ -155,6 +158,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "448AB1C32450DE93004A11CB"
+            BuildableName = "ObjectiveCExampleAppUITests.xctest"
+            BlueprintName = "ObjectiveCExampleAppUITests"
+            ReferencedContainer = "container:ObjectiveCExampleApp.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
