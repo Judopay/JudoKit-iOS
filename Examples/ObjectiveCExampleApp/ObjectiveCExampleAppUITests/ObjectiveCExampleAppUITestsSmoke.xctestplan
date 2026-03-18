@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "208EDF78-5851-4044-AEA5-F10F1BAA0A1B",
+      "id" : "488A92FB-0EE2-4607-BE88-44D2CD1BF539",
       "name" : "Configuration 1",
       "options" : {
 
@@ -9,7 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
     "environmentVariableEntries" : [
       {
         "key" : "TEST_API_JUDO_ID",
@@ -86,22 +85,7 @@
         "RavelinUITests",
         "RavelinUITests\/testAllowChallengeAsMandateTransaction()",
         "RavelinUITests\/testAllowNoPreferenceTransaction()",
-        "RavelinUITests\/testCheckCardAllowAuthenticateLowValueNoPreference()",
-        "RavelinUITests\/testCheckCardAllowAuthoriseTRAChallengeAsMandate()",
-        "RavelinUITests\/testCheckCardPreventAuthenticateLowValueChallenge()",
-        "RavelinUITests\/testCheckCardReviewAuthenticateTRANoChallenge()",
-        "RavelinUITests\/testCheckCardReviewAuthoriseLowValueChallenge()",
         "RavelinUITests\/testHaltTransactionUponErrorSwitch()",
-        "RavelinUITests\/testPaymentAllowAuthenticateTRANoChallenge()",
-        "RavelinUITests\/testPaymentAllowAuthoriseLowValueNoPreference()",
-        "RavelinUITests\/testPaymentPreventAuthenticateTRANoPreference()",
-        "RavelinUITests\/testPaymentPreventAuthoriseLowValueChallengeAsMandate()",
-        "RavelinUITests\/testPaymentReviewAuthenticateTRAChallenge()",
-        "RavelinUITests\/testPreAuthAllowAuthenticateLowValueChallenge()",
-        "RavelinUITests\/testPreAuthAllowAuthoriseTRANoChallenge()",
-        "RavelinUITests\/testPreAuthPreventAuthenticateLowValueNoChallenge()",
-        "RavelinUITests\/testPreAuthReviewAuthoriseLowValueChallengeAsMandate()",
-        "RavelinUITests\/testPreAuthReviewAuthoriseTRANoPreference()",
         "RavelinUITests\/testPreventTransaction()",
         "RavelinUITests\/testPreventWithEmptyObjectTransaction()",
         "RavelinUITests\/testReviewNoChallengeTransaction()",
