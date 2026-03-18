@@ -133,6 +133,7 @@
 		D108FDA02A582165009DA094 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D10B68382ADFE066007F1CA3 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D110D16A2AEA8F4D00B35E13 /* Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
+		D11CC6A02F698FAF0049EA0F /* ObjectiveCExampleAppUITestsSmoke.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITestsSmoke.xctestplan; path = ObjectiveCExampleAppUITests/CardPayment/ObjectiveCExampleAppUITestsSmoke.xctestplan; sourceTree = SOURCE_ROOT; };
 		D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITests.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITests.xctestplan; sourceTree = SOURCE_ROOT; };
 		D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fabrick3DSTests.swift; sourceTree = "<group>"; };
 		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 				445E4D632A2F794B0026A515 /* CardPaymentUITests.swift */,
 				D1421C1E2E168DAD00C6803A /* ObjectiveCExampleAppUITests.xctestplan */,
 				D1E12D3D2F64207D0019DDFB /* ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan */,
+				D11CC6A02F698FAF0049EA0F /* ObjectiveCExampleAppUITestsSmoke.xctestplan */,
 			);
 			path = CardPayment;
 			sourceTree = "<group>";

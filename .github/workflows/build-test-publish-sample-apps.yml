@@ -26,4 +26,4 @@ jobs:
     needs: publish_sample_apps
     secrets: inherit
     with:
-      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_plan_suffix":"Fabrick3DS2"}'
+      fastlane_options: '{"flavors":"obj-c","environment":"staging","test_plan_suffix":"Smoke"}'
