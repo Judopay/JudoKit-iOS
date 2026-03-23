@@ -211,7 +211,7 @@ func tapDelayIncrementButton(_ app: XCUIApplication, presses: Int = 1) {
 
 func waitForAndFillCSCField(_ app: XCUIApplication) {
     if waitForElementToBeHittable(element: app.securityCodeTextField!, timeout: 10) {
-        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.CARD_SECURITY_CODE)
+        app.securityCodeTextField?.tapAndTypeText(TestData.CardDetails.cardSecurityCode)
     } else {
         XCTFail("CSC field not visible after delay")
     }

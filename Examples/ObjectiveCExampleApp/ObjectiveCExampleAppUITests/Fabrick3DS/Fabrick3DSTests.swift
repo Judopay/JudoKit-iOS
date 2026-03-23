@@ -27,10 +27,10 @@ final class Fabrick3DSTests: XCTestCase {
         app.launchArguments += ["-is_using_fabrick_3ds_service", "true", "-is_sandboxed", "false"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.FABRICK_CARDHOLDER,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.cardNumber,
+                             cardHolder: TestData.CardDetails.fabrickCardholder,
+                             expiryDate: TestData.CardDetails.cardExpiry,
+                             securityCode: TestData.CardDetails.cardSecurityCode)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         tapCardDetailsPayNowButton(app)
         fill3DS2Code(app, "12345")
@@ -42,10 +42,10 @@ final class Fabrick3DSTests: XCTestCase {
         app.launchArguments += ["-is_using_fabrick_3ds_service", "true", "-is_sandboxed", "false", "-challenge_request_indicator", "noPreference"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.MC_CARD_NUMBER,
-                             cardHolder: TestData.CardDetails.FRICTIONLESS_CARDHOLDER,
-                             expiryDate: TestData.CardDetails.CARD_EXPIRY,
-                             securityCode: TestData.CardDetails.CARD_SECURITY_CODE)
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.masterCardNumber,
+                             cardHolder: TestData.CardDetails.frictionlessCardholder,
+                             expiryDate: TestData.CardDetails.cardExpiry,
+                             securityCode: TestData.CardDetails.cardSecurityCode)
         XCTAssertTrue(app.cardDetailsSubmitButton!.isEnabled)
         tapCardDetailsPayNowButton(app)
         assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
