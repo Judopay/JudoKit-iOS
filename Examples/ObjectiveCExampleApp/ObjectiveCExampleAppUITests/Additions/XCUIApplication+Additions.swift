@@ -239,11 +239,21 @@ extension XCUIApplication {
         }
     }
     
-    func configureSettings(isRavelinTest: Bool) {
-        let judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
-        let apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
-        let apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
+    func configureSettings(isRavelinTest: Bool, isFabrickTest: Bool = false) {
+        let judoID: String?
+        let apiToken: String?
+        let apiSecret: String?
         
+        if isFabrickTest {
+            judoID = ProcessInfo.processInfo.environment["FABRICK3DS_JUDO_ID"]
+            apiToken = ProcessInfo.processInfo.environment["FABRICK3DS_API_TOKEN"]
+            apiSecret = ProcessInfo.processInfo.environment["FABRICK3DS_API_SECRET"]
+        } else {
+            judoID = ProcessInfo.processInfo.environment["TEST_API_JUDO_ID"]
+            apiToken = ProcessInfo.processInfo.environment["TEST_API_TOKEN"]
+            apiSecret = ProcessInfo.processInfo.environment["TEST_API_SECRET"]
+        }
+
         launchArguments += ["-judo_id", judoID ?? "",
                             "-token", apiToken ?? "",
                             "-secret", apiSecret ?? "",]

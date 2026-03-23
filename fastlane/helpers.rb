@@ -114,13 +114,13 @@ def bump_build_number(app:, environment:)
   puts("Bumped build number to #{current_version + 1}")
 end
 
-def package_instrumented_tests(app:, input_dir:, output_dir:, output_file:)
+def package_instrumented_tests(app:, test_plan:, input_dir:, output_dir:, output_file:)
   FileUtils.mkdir_p(output_dir)
   # Firebase requires the entire Debug-iphoneos directory and the .xctestrun file
   # BrowserStack requires the Debug-iphoneos/<scheme>-Runner.app directory placed in the root of the zip file and the .xctestrun file
   Dir.chdir(input_dir) do
     FileUtils.cp_r("Debug-iphoneos/#{app.ui_test_scheme}-Runner.app", input_dir)
-    sh("zip -r #{output_dir}/#{output_file} Debug-iphoneos #{app.ui_test_scheme}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
+    sh("zip -r #{output_dir}/#{output_file} Debug-iphoneos #{app.ui_test_scheme}_#{test_plan}_*.xctestrun #{app.ui_test_scheme}-Runner.app")
   end
   puts("Instrumented tests packaged successfully into #{output_dir}/#{output_file}")
 end
@@ -207,10 +207,11 @@ def find_app_by_flavor(sample_apps:, flavor:)
 end
 
 class SampleApp
-  attr_reader :bootstrap_script, :flavor, :instrumented_tests, :smoke_test_list
+  attr_reader :bootstrap_script, :flavor, :instrumented_tests, :smoke_test_list, :fabrick3ds_test_list
 
-  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, instrumented_tests: false, smoke_test_list: nil)
+  def initialize(firebase_app_id:, flavor:, path:, bootstrap_script: nil, fabrick3ds_test_list: nil, instrumented_tests: false, smoke_test_list: nil)
     @bootstrap_script = bootstrap_script
+    @fabrick3ds_test_list = fabrick3ds_test_list
     @firebase_app_id = firebase_app_id
     @flavor = flavor
     @instrumented_tests = instrumented_tests
@@ -241,9 +242,8 @@ class SampleApp
     File.basename(@path)
   end
 
-  def ui_test_plan
-    test_plan = "#{scheme}TestPlan"
-    File.file?("#{@path}/#{ui_test_scheme}/#{test_plan}.xctestplan") ? test_plan : nil
+  def test_plans
+    Dir.glob("#{@path}/#{ui_test_scheme}/*.xctestplan").map { |file| File.basename(file, ".xctestplan") }
   end
 
   def ui_test_scheme

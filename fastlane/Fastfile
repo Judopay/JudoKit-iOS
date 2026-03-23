@@ -11,17 +11,15 @@ default_platform(:ios)
 sample_apps_dir = "#{File.expand_path("..")}/Examples"
 @sample_apps = [
   SampleApp.new(
+    fabrick3ds_test_list: [
+      "ObjectiveCExampleAppUITests/Fabrick3DSTests"
+    ],
     firebase_app_id: {
       production: "1:34238832242:ios:d7db21b04007e9ee63eceb",
       staging: "1:34238832242:ios:62eb2547e6cd6a2663eceb"
     },
     flavor: "obj-c",
-    path: "#{sample_apps_dir}/ObjectiveCExampleApp",
-    smoke_test_list: [
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPaymentWithBillingDetails",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulTokenPayment",
-      "ObjectiveCExampleAppUITests/CardPaymentUITests/testSuccessfulPreauthMethodsCardPayment"
-    ]
+    path: "#{sample_apps_dir}/ObjectiveCExampleApp"
   ),
   SampleApp.new(
     firebase_app_id: {
@@ -102,6 +100,14 @@ platform :ios do
       derived_data_path: @derived_data_path,
       ensure_devices_found: true
     )
+    slather(
+      scheme: "JudoKit_iOS",
+      proj: "#{@project_root_path}/JudoKit_iOS.xcodeproj",
+      sonarqube_xml: true,
+      github: true,
+      verbose: true,
+      build_directory: @derived_data_path
+    )
   end
 
   desc "Publish SDK"
@@ -131,7 +137,12 @@ platform :ios do
       @environments.select { |env|
         !options.key?(:environment) || options[:environment] == env
       }.each do |env|
-        build_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
+        if !app.firebase_app_id(environment: env).nil?
+          build_sample_app({
+            app: app,
+            environment: env
+          })
+        end
       end
     end
   end
@@ -200,45 +211,31 @@ platform :ios do
       code_signing_identity: "Apple Development"
     )
 
-    build_options = {
-      build_for_testing: true,
-      clean: false,
-      derived_data_path: @derived_data_path,
-      destination: "generic/platform=iOS",
-      include_simulator_logs: false,
-      project: (!options[:app].workspace.nil?) ? nil : options[:app].project,
-      scheme: options[:app].ui_test_scheme,
-      sdk: "iphoneos",
-      testplan: options[:app].ui_test_plan,
-      workspace: options[:app].workspace,
-      xcargs: @ui_tests_xcargs,
-      xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild"
-    }
+    options[:app].test_plans.each do |test_plan|
+      UI.message("Found test plan: #{test_plan}")
 
-    # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
-    run_tests(build_options)
-
-    package_instrumented_tests(
-      app: options[:app],
-      input_dir: "#{@derived_data_path}/Build/Products",
-      output_dir: @fl_output_dir,
-      output_file: "#{options[:app].ui_test_scheme}-all.zip"
-    )
-
-    # If there is a smoke test list, repeat the build to create a package
-    # which will only run the subset of tests
-    if !options[:app].smoke_test_list.nil?
-      run_tests(
-        {
-          only_testing: options[:app].smoke_test_list
-        }.merge(build_options)
-      )
+      # Build the instrumented tests - does not actually run them due to "build_for_testing: true"
+      run_tests({
+        build_for_testing: true,
+        clean: false,
+        derived_data_path: @derived_data_path,
+        destination: "generic/platform=iOS",
+        include_simulator_logs: false,
+        project: (!options[:app].workspace.nil?) ? nil : options[:app].project,
+        scheme: options[:app].ui_test_scheme,
+        sdk: "iphoneos",
+        testplan: test_plan,
+        workspace: options[:app].workspace,
+        xcargs: @ui_tests_xcargs,
+        xcodebuild_command: "env NSUnbufferedIO=YES xcodebuild"
+      })
 
       package_instrumented_tests(
         app: options[:app],
+        test_plan: test_plan,
         input_dir: "#{@derived_data_path}/Build/Products",
         output_dir: @fl_output_dir,
-        output_file: "#{options[:app].ui_test_scheme}-smoke.zip"
+        output_file: "#{options[:app].ui_test_scheme}-#{options[:environment]}-#{test_plan}.zip"
       )
     end
   end
@@ -305,7 +302,17 @@ platform :ios do
     @sample_apps.select { |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      test_sample_app_firebase({app: app, device_set: options[:device_set]})
+      @environments.select { |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        if !app.firebase_app_id(environment: env).nil?
+          test_sample_app_firebase({
+            app: app,
+            environment: env,
+            test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme
+          })
+        end
+      end
     end
   end
 
@@ -318,7 +325,7 @@ platform :ios do
 
     sh(
       "gcloud firebase test ios run" \
-        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip" \
+        " --test #{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip" \
         " --xcode-version 16.4" \
         " --device model=iphone14pro,version=16.6" \
         " --device model=ipad10,version=16.6" \
@@ -328,6 +335,8 @@ platform :ios do
         " --client-details=#{[
           "matrixLabel=\"#{ENV["FIREBASE_MATRIX_LABEL"] || "Manual Trigger"}\"",
           "app=\"#{options[:app].scheme}\"",
+          "environment=\"#{options[:environment]}\"",
+          "test_plan=\"#{options[:test_plan]}\"",
           "project=JudoKit-iOS"
         ].join(",")}" \
         " --timeout=30m" \
@@ -341,7 +350,18 @@ platform :ios do
     @sample_apps.select { |app|
       !options.key?(:flavors) || options[:flavors].include?(app.flavor)
     }.each do |app|
-      test_sample_app_browserstack({app: app, device_set: options[:device_set]})
+      @environments.select { |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        if !app.firebase_app_id(environment: env).nil?
+          test_sample_app_browserstack({
+            app: app,
+            environment: env,
+            test_plan: options.key?(:test_plan_suffix) ? "#{app.ui_test_scheme}#{options[:test_plan_suffix]}" : app.ui_test_scheme,
+            device_set: options[:device_set]
+          })
+        end
+      end
     end
   end
 
@@ -352,10 +372,12 @@ platform :ios do
       next
     end
 
+    test_package = "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-#{options[:environment]}-#{options[:test_plan]}.zip"
+
     upload_to_browserstack_app_automate(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-production.ipa"
+      file_path: "#{@fl_output_dir}/#{options[:app].scheme}-#{options[:environment]}.ipa"
     )
 
     app_url = ENV["BROWSERSTACK_APP_ID"]
@@ -363,9 +385,7 @@ platform :ios do
     test_suite_url = upload_xctestrun_to_browserstack(
       browserstack_username: ENV["BROWSERSTACK_USERNAME"],
       browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: File.file?("#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip") ?
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-smoke.zip" :
-        "#{@fl_output_dir}/#{options[:app].ui_test_scheme}-all.zip"
+      file_path: test_package
     )
 
     run_xctestrun_on_browserstack(
@@ -381,21 +401,19 @@ platform :ios do
 
   desc "Publish Sample Apps to Firebase"
   lane :publish_sample_apps do |options|
-    @environments.each do |env|
-      @sample_apps.select { |app|
-        !options.key?(:flavors) || options[:flavors].include?(app.flavor)
-      }.each do |app|
-        publish_sample_app({app: app, environment: env})
+    @sample_apps.select { |app|
+      !options.key?(:flavors) || options[:flavors].include?(app.flavor)
+    }.each do |app|
+      @environments.select { |env|
+        !options.key?(:environment) || options[:environment] == env
+      }.each do |env|
+        publish_sample_app({app: app, environment: env}) if !app.firebase_app_id(environment: env).nil?
       end
     end
   end
 
   desc "Publish Sample App to Firebase"
   private_lane :publish_sample_app do |options|
-    if options[:app].firebase_app_id(environment: options[:environment]).nil?
-      UI.important("No Firebase App ID found for #{options[:app].scheme} and environment #{options[:environment]}. Won't publish.")
-      next
-    end
     firebase_app_distribution({
       groups: "default-testers",
       ipa_path: "#{@fl_output_dir}/#{options[:app].scheme}-#{options[:environment]}.ipa",
