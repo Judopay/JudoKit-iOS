@@ -33,7 +33,7 @@ info "Executing carthage bootstrap..."
 
 cd "${carthage_example_app_dir}" || error "Executing \`cd\` failed"
 
-carthage bootstrap --platform ios --use-xcframeworks --cache-builds --verbose 
+carthage bootstrap --platform ios --use-xcframeworks --cache-builds
 
 carthage_exit_code="$?"
 
