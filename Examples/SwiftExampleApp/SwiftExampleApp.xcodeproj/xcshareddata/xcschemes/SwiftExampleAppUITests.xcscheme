@@ -27,7 +27,7 @@
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
             <TestPlanReference
-               reference = "container:SwiftExampleAppUITests/SwiftExampleAppTestPlan.xctestplan">
+               reference = "container:SwiftExampleAppUITests/SwiftExampleAppUITests.xctestplan">
             </TestPlanReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,7 +39,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:SwiftExampleAppUITests/SwiftExampleAppTestPlan.xctestplan"
+            reference = "container:SwiftExampleAppUITests/SwiftExampleAppUITests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
