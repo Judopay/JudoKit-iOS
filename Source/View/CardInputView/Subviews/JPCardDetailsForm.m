@@ -205,7 +205,7 @@ static const float kTightContentSpacing = 8.0F;
 - (JPCardNumberField *)cardNumberTextField {
     if (!_cardNumberTextField) {
         _cardNumberTextField = [JPCardNumberField new];
-        _cardNumberTextField.accessibilityIdentifier = @"Card Number Field";
+        _cardNumberTextField.accessibilityIdentifier = @"card_number";
         _cardNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
         _cardNumberTextField.textContentType = UITextContentTypeCreditCardNumber;
         _cardNumberTextField.delegate = self.inputFieldDelegate;
@@ -216,7 +216,7 @@ static const float kTightContentSpacing = 8.0F;
 - (JPCardInputField *)cardHolderNameTextField {
     if (!_cardHolderNameTextField) {
         _cardHolderNameTextField = [JPCardInputField new];
-        _cardHolderNameTextField.accessibilityIdentifier = @"Cardholder Name Field";
+        _cardHolderNameTextField.accessibilityIdentifier = @"cardholder_name";
         _cardHolderNameTextField.keyboardType = UIKeyboardTypeDefault;
         _cardHolderNameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 
@@ -235,7 +235,7 @@ static const float kTightContentSpacing = 8.0F;
 - (JPCardInputField *)expiryDateTextField {
     if (!_expiryDateTextField) {
         _expiryDateTextField = [JPCardInputField new];
-        _expiryDateTextField.accessibilityIdentifier = @"Expiry Date Field";
+        _expiryDateTextField.accessibilityIdentifier = @"expiry_date";
         _expiryDateTextField.keyboardType = UIKeyboardTypeNumberPad;
 
 // TODO: Remove after April 2024
@@ -253,7 +253,7 @@ static const float kTightContentSpacing = 8.0F;
 - (JPCardInputField *)cardSecurityCodeTextField {
     if (!_cardSecurityCodeTextField) {
         _cardSecurityCodeTextField = [JPCardInputField new];
-        _cardSecurityCodeTextField.accessibilityIdentifier = @"Security Code Field";
+        _cardSecurityCodeTextField.accessibilityIdentifier = @"security_code";
         _cardSecurityCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
 
 // TODO: Remove after April 2024
@@ -272,7 +272,7 @@ static const float kTightContentSpacing = 8.0F;
     if (!_countryTextField) {
         _countryTextField = [JPCardInputField new];
         _countryTextField.inputView = self.countryPickerView;
-        _countryTextField.accessibilityIdentifier = @"Country Field";
+        _countryTextField.accessibilityIdentifier = @"country_field";
         _countryTextField.textContentType = UITextContentTypeCountryName;
         _countryTextField.delegate = self.inputFieldDelegate;
     }
@@ -283,7 +283,7 @@ static const float kTightContentSpacing = 8.0F;
     if (!_postcodeTextField) {
         _postcodeTextField = [JPCardInputField new];
         _postcodeTextField.keyboardType = UIKeyboardTypeDefault;
-        _postcodeTextField.accessibilityIdentifier = @"Post Code Field";
+        _postcodeTextField.accessibilityIdentifier = @"postcode_field";
         _postcodeTextField.textContentType = UITextContentTypePostalCode;
         _postcodeTextField.delegate = self.inputFieldDelegate;
     }
@@ -293,7 +293,7 @@ static const float kTightContentSpacing = 8.0F;
 - (UIPickerView *)countryPickerView {
     if (!_countryPickerView) {
         _countryPickerView = [UIPickerView new];
-        _countryPickerView.accessibilityIdentifier = @"Country Picker";
+        _countryPickerView.accessibilityIdentifier = @"country_picker";
         _countryPickerView.delegate = self;
         _countryPickerView.dataSource = self;
     }

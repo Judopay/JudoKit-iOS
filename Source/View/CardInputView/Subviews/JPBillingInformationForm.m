@@ -82,7 +82,7 @@ static const float kButtonContentPadding = 16.0F;
     self.headingLabel.numberOfLines = 0;
 
     self.emailTextField = [JPCardInputField new];
-    self.emailTextField.accessibilityIdentifier = @"Cardholder Email Field";
+    self.emailTextField.accessibilityIdentifier = @"cardholder_email_field";
     self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailTextField.textContentType = UITextContentTypeEmailAddress;
@@ -90,33 +90,33 @@ static const float kButtonContentPadding = 16.0F;
     self.countryPickerView = [UIPickerView new];
     self.countryPickerView.delegate = self;
     self.countryPickerView.dataSource = self;
-    self.countryPickerView.accessibilityIdentifier = @"Country Picker";
+    self.countryPickerView.accessibilityIdentifier = @"country_picker";
 
     self.administrativeDivisionPickerView = [UIPickerView new];
     self.administrativeDivisionPickerView.delegate = self;
     self.administrativeDivisionPickerView.dataSource = self;
-    self.administrativeDivisionPickerView.accessibilityIdentifier = @"Administrative Division Picker";
+    self.administrativeDivisionPickerView.accessibilityIdentifier = @"administrative_division_picker";
 
     self.countryTextField = [JPCardInputField new];
     self.countryTextField.inputView = self.countryPickerView;
-    self.countryTextField.accessibilityIdentifier = @"Country Field";
+    self.countryTextField.accessibilityIdentifier = @"country_field";
     self.countryTextField.textContentType = UITextContentTypeCountryName;
 
     self.administrativeDivisionTextField = [JPCardInputField new];
     self.administrativeDivisionTextField.inputView = self.administrativeDivisionPickerView;
-    self.administrativeDivisionTextField.accessibilityIdentifier = @"Administrative Division Field";
+    self.administrativeDivisionTextField.accessibilityIdentifier = @"administrative_division_field";
     self.administrativeDivisionTextField.hidden = YES;
     self.administrativeDivisionTextField.textContentType = UITextContentTypeAddressState;
 
     self.phoneCodeTextField = [JPPhoneCodeInputField new];
-    self.phoneCodeTextField.accessibilityIdentifier = @"Cardholder phone code Field";
+    self.phoneCodeTextField.accessibilityIdentifier = @"cardholder_phone_code_field";
     self.phoneCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneCodeTextField.backgroundMaskedCorners = kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
     [self.phoneCodeTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.phoneCodeTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
 
     self.phoneTextField = [JPCardInputField new];
-    self.phoneTextField.accessibilityIdentifier = @"Cardholder phone number Field";
+    self.phoneTextField.accessibilityIdentifier = @"cardholder_phone_number_field";
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTextField.backgroundMaskedCorners = kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner;
     self.phoneTextField.textContentType = UITextContentTypeTelephoneNumber;
@@ -124,7 +124,7 @@ static const float kButtonContentPadding = 16.0F;
     [self.phoneTextField setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
     self.line1TextField = [JPCardInputField new];
-    self.line1TextField.accessibilityIdentifier = @"Cardholder address line 1 code Field";
+    self.line1TextField.accessibilityIdentifier = @"cardholder_address_line_1_field";
     self.line1TextField.keyboardType = UIKeyboardTypeDefault;
     self.line1TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.line1TextField.textContentType = UITextContentTypeStreetAddressLine1;
@@ -132,7 +132,7 @@ static const float kButtonContentPadding = 16.0F;
     self.addAddressLineButton = [JPTransactionButton buttonWithType:UIButtonTypeSystem];
     self.addAddressLineButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.addAddressLineButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.addAddressLineButton.accessibilityIdentifier = @"Add address line Button";
+    self.addAddressLineButton.accessibilityIdentifier = @"add_address_line_button";
     self.addAddressLineButton.titleLabel.numberOfLines = 0;
     self.addAddressLineButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.addAddressLineButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
@@ -143,27 +143,27 @@ static const float kButtonContentPadding = 16.0F;
     [self.addAddressLineButton setTitle:title forState:UIControlStateNormal];
 
     self.line2TextField = [JPCardInputField new];
-    self.line2TextField.accessibilityIdentifier = @"Cardholder address line 2 Field";
+    self.line2TextField.accessibilityIdentifier = @"cardholder_address_line_2_field";
     self.line2TextField.keyboardType = UIKeyboardTypeDefault;
     self.line2TextField.hidden = YES;
     self.line2TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.line2TextField.textContentType = UITextContentTypeStreetAddressLine2;
 
     self.line3TextField = [JPCardInputField new];
-    self.line3TextField.accessibilityIdentifier = @"Cardholder address line 3 Field";
+    self.line3TextField.accessibilityIdentifier = @"cardholder_address_line_3_field";
     self.line3TextField.keyboardType = UIKeyboardTypeDefault;
     self.line3TextField.hidden = YES;
     self.line3TextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 
     self.cityTextField = [JPCardInputField new];
-    self.cityTextField.accessibilityIdentifier = @"Cardholder city Field";
+    self.cityTextField.accessibilityIdentifier = @"cardholder_city_field";
     self.cityTextField.keyboardType = UIKeyboardTypeDefault;
     self.cityTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.cityTextField.textContentType = UITextContentTypeAddressCity;
 
     self.postcodeTextField = [JPCardInputField new];
     self.postcodeTextField.keyboardType = UIKeyboardTypeDefault;
-    self.postcodeTextField.accessibilityIdentifier = @"Post Code Field";
+    self.postcodeTextField.accessibilityIdentifier = @"post_code_field";
     self.postcodeTextField.textContentType = UITextContentTypePostalCode;
 
     UIStackView *phoneNumberStackView = [UIStackView _jp_horizontalStackViewWithSpacing:kSeparatorContentSpacing
