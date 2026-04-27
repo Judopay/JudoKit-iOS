@@ -42,7 +42,7 @@ final class Fabrick3DSTests: XCTestCase {
         app.launchArguments += ["-is_using_fabrick_3ds_service", "true", "-is_sandboxed", "false", "-challenge_request_indicator", "noPreference"]
         app.launch()
         app.cellWithIdentifier(Selectors.FeatureList.payWithCard)?.tap()
-        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.masterCardNumber,
+        app.fillCardSheetDetails(cardNumber: TestData.CardDetails.cardNumber,
                              cardHolder: TestData.CardDetails.frictionlessCardholder,
                              expiryDate: TestData.CardDetails.cardExpiry,
                              securityCode: TestData.CardDetails.cardSecurityCode)
