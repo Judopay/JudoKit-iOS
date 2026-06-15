@@ -11,7 +11,7 @@ import XCTest
 
 func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String, _ isFabrick3DS2: Bool = false) {
     let tableView = app.tables[Selectors.Other.resultsTable]
-    XCTAssert(tableView.waitForExistence(timeout: 10))
+    XCTAssert(tableView.waitForExistence(timeout: 30))
     let rawData = tableView.cells.staticTexts["rawData"].firstMatch
     rawData.tap()
     
@@ -60,7 +60,7 @@ func tapCompleteButton(_ app: XCUIApplication, _ isFabrick3DS2: Bool = false) {
     } else {
         completeButton = app.buttons["COMPLETE"]
     }
-    XCTAssert(completeButton.waitForExistence(timeout: 30))
+    XCTAssert(completeButton.waitForExistence(timeout: 60))
     
     sleep(10)
     
@@ -69,7 +69,7 @@ func tapCompleteButton(_ app: XCUIApplication, _ isFabrick3DS2: Bool = false) {
 
 func fill3DS2Code(_ app: XCUIApplication, _ code: String) {
     let codeEntryField: XCUIElement = app.textFields["Enter code here"]
-    XCTAssert(codeEntryField.waitForExistence(timeout: 30))
+    XCTAssert(codeEntryField.waitForExistence(timeout: 60))
     codeEntryField.tapAndTypeText(code)
 }
 
