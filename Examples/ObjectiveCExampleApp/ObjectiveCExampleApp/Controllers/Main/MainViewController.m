@@ -36,6 +36,7 @@
 #import "NoUICardPayViewController.h"
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
+#import "SettingsImporter.h"
 #import "UIViewController+Additions.h"
 #import "MainViewController+Additions.h"
 
@@ -69,7 +70,14 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     self.networkInspectorButton.accessibilityIdentifier = @"Network requests inspector button";
     self.networkInspectorButton.action = @selector(presentNetworkRequestsInspector);
     self.networkInspectorButton.target = self;
-        
+
+    UIBarButtonItem *importItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.arrow.down"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(didTapImportSettings)];
+    importItem.accessibilityIdentifier = @"Import settings button";
+    self.navigationItem.rightBarButtonItems = @[ self.settingsButton, importItem, self.networkInspectorButton ];
+
     self.shouldUpdateKitAuth = YES;
     [self requestLocationPermissions];
     
@@ -154,6 +162,20 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         NoUICardPayViewController *controller = segue.destinationViewController;
         controller.configuration = self.configuration;
     }
+}
+
+// MARK: Settings import
+
+- (void)didTapImportSettings {
+    ImportSettingsViewController *importController = [ImportSettingsViewController new];
+    importController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    importController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    __weak typeof(self) weakSelf = self;
+    importController.onImported = ^{
+        weakSelf.shouldUpdateKitAuth = YES;
+        [weakSelf updateKitAuth];
+    };
+    [self presentViewController:importController animated:YES completion:nil];
 }
 
 // MARK: Setup methods

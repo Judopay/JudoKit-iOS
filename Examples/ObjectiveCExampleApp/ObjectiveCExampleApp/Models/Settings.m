@@ -518,7 +518,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)recommendationTimeout {
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self timeoutForKey:kRecommendationApiTimeoutKey];
+        return [self timeoutForKey:kRecommendationTimeoutKey];
     }
     return nil;
 }

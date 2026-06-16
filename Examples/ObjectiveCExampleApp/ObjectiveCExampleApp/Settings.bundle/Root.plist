@@ -240,9 +240,9 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>recommendation_api_timeout_title</string>
+			<string>recommendation_timeout_title</string>
 			<key>Key</key>
-			<string>recommendation_api_timeout</string>
+			<string>recommendation_timeout</string>
 		</dict>
 		<dict>
 			<key>Type</key>

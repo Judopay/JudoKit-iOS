@@ -30,6 +30,7 @@
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
+		DDEE0000000000000000B103 /* SettingsImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000B102 /* SettingsImporter.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
 		44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */; };
 		44ABF2832BFC8D79002E8B2C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44ABF2822BFC8D79002E8B2C /* PrivacyInfo.xcprivacy */; };
@@ -113,6 +114,8 @@
 		449495112450ED870050C6A0 /* DemoFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFeature.h; sourceTree = "<group>"; };
 		449495122450ED870050C6A0 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		449495132450ED870050C6A0 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		DDEE0000000000000000B101 /* SettingsImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsImporter.h; sourceTree = "<group>"; };
+		DDEE0000000000000000B102 /* SettingsImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsImporter.m; sourceTree = "<group>"; };
 		449495142450ED870050C6A0 /* DemoFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFeature.m; sourceTree = "<group>"; };
 		4494951C2450F1340050C6A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		4494951E2450F13F0050C6A0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -371,6 +374,8 @@
 			children = (
 				449495122450ED870050C6A0 /* Settings.h */,
 				449495132450ED870050C6A0 /* Settings.m */,
+				DDEE0000000000000000B101 /* SettingsImporter.h */,
+				DDEE0000000000000000B102 /* SettingsImporter.m */,
 				449495112450ED870050C6A0 /* DemoFeature.h */,
 				449495142450ED870050C6A0 /* DemoFeature.m */,
 			);
@@ -696,6 +701,7 @@
 				448AB1B42450DE93004A11CB /* main.m in Sources */,
 				4490D14924882747004290DD /* ResultItem.m in Sources */,
 				4494951A2450ED870050C6A0 /* Settings.m in Sources */,
+				DDEE0000000000000000B103 /* SettingsImporter.m in Sources */,
 				A75B3B9103686DE365D7A95F /* IASKAppSettingsViewController+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
