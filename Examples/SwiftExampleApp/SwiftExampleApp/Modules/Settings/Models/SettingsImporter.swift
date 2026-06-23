@@ -153,10 +153,20 @@ enum SettingsImporter {
 }
 
 final class ImportSettingsViewController: UIViewController {
-    var onImported: (() -> Void)?
+    // MARK: - Constants
 
     private let kTitle = "Import Settings from JSON"
     private let kPlaceholder = "Paste JSON here…"
+    private let kHorizontalMargin: CGFloat = 24.0
+    private let kContentInset: CGFloat = 16.0
+    private let kCardWidth: CGFloat = 320.0
+    private let kTextViewHeight: CGFloat = 150.0
+    private let kFontSize: CGFloat = 14.0
+    private let kCornerRadius: CGFloat = 12.0
+
+    // MARK: - Variables
+
+    var onImported: (() -> Void)?
 
     private var cardCenterYConstraint: NSLayoutConstraint?
 
@@ -259,33 +269,33 @@ final class ImportSettingsViewController: UIViewController {
         let centerY = cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         cardCenterYConstraint = centerY
 
-        let width = cardView.widthAnchor.constraint(equalToConstant: 320)
+        let width = cardView.widthAnchor.constraint(equalToConstant: kCardWidth)
         width.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
             cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             centerY,
             width,
-            cardView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 24),
-            cardView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -24),
+            cardView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: kHorizontalMargin),
+            cardView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -kHorizontalMargin),
 
-            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: kContentInset),
+            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
 
-            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            textView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            textView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
-            textView.heightAnchor.constraint(equalToConstant: 150),
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kContentInset),
+            textView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            textView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
+            textView.heightAnchor.constraint(equalToConstant: kTextViewHeight),
 
-            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 8),
-            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 5),
-            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -5),
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: kContentInset / 2),
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: kContentInset / 3),
+            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -kContentInset / 3),
 
-            buttonStackView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 16),
-            buttonStackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16),
-            buttonStackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16),
-            buttonStackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -16)
+            buttonStackView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: kContentInset),
+            buttonStackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            buttonStackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
+            buttonStackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -kContentInset)
         ])
     }
 
@@ -293,7 +303,7 @@ final class ImportSettingsViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 14
+        view.layer.cornerRadius = kCornerRadius
         return view
     }()
 
@@ -309,7 +319,7 @@ final class ImportSettingsViewController: UIViewController {
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
+        textView.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         textView.smartQuotesType = .no
@@ -317,7 +327,7 @@ final class ImportSettingsViewController: UIViewController {
         textView.delegate = self
         textView.layer.borderColor = UIColor.separator.cgColor
         textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 8
+        textView.layer.cornerRadius = kCornerRadius / 1.5
         textView.accessibilityIdentifier = "Import settings text view"
         return textView
     }()
@@ -326,7 +336,7 @@ final class ImportSettingsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = kPlaceholder
-        label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
+        label.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
         label.textColor = .placeholderText
         label.numberOfLines = 0
         return label
@@ -345,7 +355,7 @@ final class ImportSettingsViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.spacing = 16
+        stackView.spacing = kContentInset
         return stackView
     }()
 

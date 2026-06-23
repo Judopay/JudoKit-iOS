@@ -173,8 +173,6 @@
 
 @end
 
-static NSString *const kImportDialogTitle = @"Import Settings from JSON";
-
 @interface ImportSettingsViewController () <UITextViewDelegate, UIDocumentPickerDelegate>
 @property (nonatomic, strong) UIView *cardView;
 @property (nonatomic, strong) UITextView *textView;
@@ -183,6 +181,23 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
 @end
 
 @implementation ImportSettingsViewController
+
+//------------------------------------------------------
+// MARK: - Constants
+//------------------------------------------------------
+
+static NSString *const kTitle = @"Import Settings from JSON";
+static NSString *const kPlaceholder = @"Paste JSON here…";
+static CGFloat const kHorizontalMargin = 24.0;
+static CGFloat const kContentInset = 16.0;
+static CGFloat const kCardWidth = 320.0;
+static CGFloat const kTextViewHeight = 150.0;
+static CGFloat const kFontSize = 14.0;
+static CGFloat const kCornerRadius = 12.0;
+
+//------------------------------------------------------
+// MARK: - View lifecycle
+//------------------------------------------------------
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -216,7 +231,7 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
 - (void)didTapImport {
     NSString *json = self.textView.text;
     if ([json stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length == 0) {
-        [self showAlertWithTitle:kImportDialogTitle message:@"Please enter the settings JSON or choose a file."];
+        [self showAlertWithTitle:kTitle message:@"Please enter the settings JSON or choose a file."];
         return;
     }
     [self applyJson:json];
@@ -240,7 +255,7 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
         if (self.onImported) {
             self.onImported();
         }
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:kImportDialogTitle
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:kTitle
                                                                       message:@"Settings imported successfully."
                                                                preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK"
@@ -251,7 +266,7 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         NSString *reason = error.localizedDescription ?: @"Unknown error";
-        [self showAlertWithTitle:kImportDialogTitle
+        [self showAlertWithTitle:kTitle
                          message:[NSString stringWithFormat:@"Failed to import settings: %@", reason]];
     }
 }
@@ -291,19 +306,19 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
     self.cardView = [UIView new];
     self.cardView.translatesAutoresizingMaskIntoConstraints = NO;
     self.cardView.backgroundColor = UIColor.systemBackgroundColor;
-    self.cardView.layer.cornerRadius = 14;
+    self.cardView.layer.cornerRadius = kCornerRadius;
     [self.view addSubview:self.cardView];
 
     UILabel *titleLabel = [UILabel new];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    titleLabel.text = kImportDialogTitle;
+    titleLabel.text = kTitle;
     titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     titleLabel.numberOfLines = 0;
     [self.cardView addSubview:titleLabel];
 
     self.textView = [UITextView new];
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.textView.font = [UIFont monospacedSystemFontOfSize:14 weight:UIFontWeightRegular];
+    self.textView.font = [UIFont monospacedSystemFontOfSize:kFontSize weight:UIFontWeightRegular];
     self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textView.smartQuotesType = UITextSmartQuotesTypeNo;
@@ -311,14 +326,14 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
     self.textView.delegate = self;
     self.textView.layer.borderColor = UIColor.separatorColor.CGColor;
     self.textView.layer.borderWidth = 1;
-    self.textView.layer.cornerRadius = 8;
+    self.textView.layer.cornerRadius = kCornerRadius / 1.5;
     self.textView.accessibilityIdentifier = @"Import settings text view";
     [self.cardView addSubview:self.textView];
 
     self.placeholderLabel = [UILabel new];
     self.placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.placeholderLabel.text = @"Paste JSON here…";
-    self.placeholderLabel.font = [UIFont monospacedSystemFontOfSize:14 weight:UIFontWeightRegular];
+    self.placeholderLabel.text = kPlaceholder;
+    self.placeholderLabel.font = [UIFont monospacedSystemFontOfSize:kFontSize weight:UIFontWeightRegular];
     self.placeholderLabel.textColor = UIColor.placeholderTextColor;
     self.placeholderLabel.numberOfLines = 0;
     [self.textView addSubview:self.placeholderLabel];
@@ -335,38 +350,38 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
     buttonStack.translatesAutoresizingMaskIntoConstraints = NO;
     buttonStack.axis = UILayoutConstraintAxisHorizontal;
     buttonStack.alignment = UIStackViewAlignmentCenter;
-    buttonStack.spacing = 16;
+    buttonStack.spacing = kContentInset;
     [self.cardView addSubview:buttonStack];
 
     self.cardCenterYConstraint = [self.cardView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor];
 
-    NSLayoutConstraint *width = [self.cardView.widthAnchor constraintEqualToConstant:320];
+    NSLayoutConstraint *width = [self.cardView.widthAnchor constraintEqualToConstant:kCardWidth];
     width.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
         [self.cardView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
         self.cardCenterYConstraint,
         width,
-        [self.cardView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.leadingAnchor constant:24],
-        [self.cardView.trailingAnchor constraintLessThanOrEqualToAnchor:self.view.trailingAnchor constant:-24],
+        [self.cardView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.leadingAnchor constant:kHorizontalMargin],
+        [self.cardView.trailingAnchor constraintLessThanOrEqualToAnchor:self.view.trailingAnchor constant:-kHorizontalMargin],
 
-        [titleLabel.topAnchor constraintEqualToAnchor:self.cardView.topAnchor constant:20],
-        [titleLabel.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:20],
-        [titleLabel.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-20],
+        [titleLabel.topAnchor constraintEqualToAnchor:self.cardView.topAnchor constant:kContentInset],
+        [titleLabel.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:kContentInset],
+        [titleLabel.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-kContentInset],
 
-        [self.textView.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:16],
-        [self.textView.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:20],
-        [self.textView.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-20],
-        [self.textView.heightAnchor constraintEqualToConstant:150],
+        [self.textView.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:kContentInset],
+        [self.textView.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:kContentInset],
+        [self.textView.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-kContentInset],
+        [self.textView.heightAnchor constraintEqualToConstant:kTextViewHeight],
 
-        [self.placeholderLabel.topAnchor constraintEqualToAnchor:self.textView.topAnchor constant:8],
-        [self.placeholderLabel.leadingAnchor constraintEqualToAnchor:self.textView.leadingAnchor constant:5],
-        [self.placeholderLabel.trailingAnchor constraintEqualToAnchor:self.textView.trailingAnchor constant:-5],
+        [self.placeholderLabel.topAnchor constraintEqualToAnchor:self.textView.topAnchor constant:kContentInset / 2.0],
+        [self.placeholderLabel.leadingAnchor constraintEqualToAnchor:self.textView.leadingAnchor constant:kContentInset / 3.0],
+        [self.placeholderLabel.trailingAnchor constraintEqualToAnchor:self.textView.trailingAnchor constant:-kContentInset / 3.0],
 
-        [buttonStack.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:16],
-        [buttonStack.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:16],
-        [buttonStack.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-16],
-        [buttonStack.bottomAnchor constraintEqualToAnchor:self.cardView.bottomAnchor constant:-16]
+        [buttonStack.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:kContentInset],
+        [buttonStack.leadingAnchor constraintEqualToAnchor:self.cardView.leadingAnchor constant:kContentInset],
+        [buttonStack.trailingAnchor constraintEqualToAnchor:self.cardView.trailingAnchor constant:-kContentInset],
+        [buttonStack.bottomAnchor constraintEqualToAnchor:self.cardView.bottomAnchor constant:-kContentInset]
     ]];
 }
 
@@ -399,7 +414,7 @@ static NSString *const kImportDialogTitle = @"Import Settings from JSON";
 
     if (readError || json.length == 0) {
         NSString *reason = readError.localizedDescription ?: @"The file is empty.";
-        [self showAlertWithTitle:kImportDialogTitle
+        [self showAlertWithTitle:kTitle
                          message:[NSString stringWithFormat:@"Failed to read file: %@", reason]];
         return;
     }
