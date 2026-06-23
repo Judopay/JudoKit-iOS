@@ -11,6 +11,7 @@
 		305687272581193500195C93 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687262581193500195C93 /* AppCoordinator.swift */; };
 		3056872D2581197100195C93 /* SettingsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056872C2581197100195C93 /* SettingsModule.swift */; };
 		305687402581227500195C93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056873F2581227500195C93 /* Settings.swift */; };
+		DDEE0000000000000000A102 /* SettingsImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000A101 /* SettingsImporter.swift */; };
 		305687452581280600195C93 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687442581280600195C93 /* SettingsKeys.swift */; };
 		3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */; };
 		3056875225812F5600195C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056875125812F5600195C93 /* SettingsViewController.swift */; };
@@ -77,6 +78,7 @@
 		305687262581193500195C93 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3056872C2581197100195C93 /* SettingsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModule.swift; sourceTree = "<group>"; };
 		3056873F2581227500195C93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		DDEE0000000000000000A101 /* SettingsImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImporter.swift; sourceTree = "<group>"; };
 		305687442581280600195C93 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IASKAppSettingsViewController+Additions.swift"; sourceTree = "<group>"; };
 		3056875125812F5600195C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				3056873F2581227500195C93 /* Settings.swift */,
 				305687442581280600195C93 /* SettingsKeys.swift */,
+				DDEE0000000000000000A101 /* SettingsImporter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				30568A162583AD9200195C93 /* TokenViewController.swift in Sources */,
 				ADE6EA16287F311B007448DE /* ResultsCell.swift in Sources */,
 				305687452581280600195C93 /* SettingsKeys.swift in Sources */,
+				DDEE0000000000000000A102 /* SettingsImporter.swift in Sources */,
 				3056875225812F5600195C93 /* SettingsViewController.swift in Sources */,
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,

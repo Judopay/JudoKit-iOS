@@ -31,6 +31,13 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
         coordinator?.pushTo(.settings)
     }
 
+    @objc private func didTapImportButton() {
+        let importViewController = ImportSettingsViewController()
+        importViewController.modalPresentationStyle = .overFullScreen
+        importViewController.modalTransitionStyle = .crossDissolve
+        present(importViewController, animated: true)
+    }
+
     // MARK: - View model configuration
 
     func configure(with viewModels: [FeatureViewModel]) {
@@ -66,7 +73,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     private func setupLayout() {
         navigationItem.title = kNavigationItemTitle
         navigationItem.backButtonTitle = " "
-        navigationItem.rightBarButtonItems = [settingsButton, networkRequestsInspectorButton]
+        navigationItem.rightBarButtonItems = [settingsButton, importButton, networkRequestsInspectorButton]
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
     }
@@ -94,6 +101,16 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
                                      target: self,
                                      action: #selector(didTapSettingsButton))
         button.accessibilityIdentifier = "Settings button"
+        return button
+    }()
+
+    private lazy var importButton: UIBarButtonItem = {
+        let importIcon = UIImage(systemName: "square.and.arrow.down")
+        let button = UIBarButtonItem(image: importIcon,
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(didTapImportButton))
+        button.accessibilityIdentifier = "Import settings button"
         return button
     }()
 
