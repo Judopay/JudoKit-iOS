@@ -67,6 +67,18 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        // Applies updateLayoutForCurrentOrientation so the header frame and table inset match the new orientation.
+        [self.paymentMethodsView layoutIfNeeded];
+        // Re-runs configureWithViewModel so header constraints pick up the new screen aspect ratio.
+        [self.presenter viewModelNeedsUpdate];
+    }];
+}
+
 #pragma mark - Dark status bar icons
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
