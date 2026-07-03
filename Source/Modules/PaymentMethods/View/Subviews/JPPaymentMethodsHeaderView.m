@@ -57,6 +57,8 @@
 
 @property (nonatomic, strong) JPTheme *theme;
 
+- (void)prepareForOrientationChange;
+
 @end
 
 @implementation JPPaymentMethodsHeaderView
@@ -273,6 +275,11 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         [self.paymentStackView.bottomAnchor constraintEqualToAnchor:self.bottomView.bottomAnchor
                                                            constant:-kHeaderPaymentStackViewVerticalPadding],
     ]];
+}
+
+- (void)prepareForOrientationChange {
+    [_cardHeaderView removeFromSuperview];
+    _cardHeaderView = nil;
 }
 
 #pragma mark - Lazy Properties

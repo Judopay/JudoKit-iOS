@@ -40,6 +40,10 @@
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
+@interface JPPaymentMethodsHeaderView (Orientation)
+- (void)prepareForOrientationChange;
+@end
+
 @interface JPPaymentMethodsViewController ()
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
@@ -74,6 +78,8 @@
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         // Applies updateLayoutForCurrentOrientation so the header frame and table inset match the new orientation.
         [self.paymentMethodsView layoutIfNeeded];
+        // Discards the cached card header so reconfigure creates one with fresh orientation constraints.
+        [self.paymentMethodsView.headerView prepareForOrientationChange];
         // Re-runs configureWithViewModel so header constraints pick up the new screen aspect ratio.
         [self.presenter viewModelNeedsUpdate];
     }];
