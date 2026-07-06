@@ -1,0 +1,283 @@
+//
+//  ImportSettingsViewController.swift
+//  SwiftExampleApp
+//
+//  Copyright (c) 2026 Alternative Payments Ltd
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+
+import UIKit
+
+protocol ImportSettingsViewControllerDelegate: AnyObject {
+    func importSettingsViewControllerDidImportSettings(_ controller: ImportSettingsViewController)
+}
+
+final class ImportSettingsViewController: UIViewController {
+    // MARK: - Constants
+
+    private let kTitle = "Import Settings from JSON"
+    private let kPlaceholder = "Paste JSON here…"
+    private let kHorizontalMargin: CGFloat = 24.0
+    private let kContentInset: CGFloat = 16.0
+    private let kCardWidth: CGFloat = 320.0
+    private let kTextViewHeight: CGFloat = 150.0
+    private let kFontSize: CGFloat = 14.0
+    private let kCornerRadius: CGFloat = 12.0
+
+    // MARK: - Variables
+
+    weak var delegate: ImportSettingsViewControllerDelegate?
+
+    private var cardCenterYConstraint: NSLayoutConstraint?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        setupCard()
+        registerForKeyboardNotifications()
+
+        let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(didTapBackground(_:)))
+        backgroundTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(backgroundTap)
+    }
+
+    @objc private func didTapBackground(_ recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: view)
+        if !cardView.frame.contains(location) {
+            view.endEditing(true)
+            dismiss(animated: true)
+        }
+    }
+
+    @objc private func didTapCancel() {
+        dismiss(animated: true)
+    }
+
+    @objc private func didTapImport() {
+        let json = textView.text ?? ""
+        guard !json.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showAlert(title: kTitle, message: "Please enter the settings JSON or choose a file.")
+            return
+        }
+        apply(json: json)
+    }
+
+    @objc private func didTapChooseFile() {
+        let picker: UIDocumentPickerViewController
+        if #available(iOS 14.0, *) {
+            picker = UIDocumentPickerViewController(forOpeningContentTypes: [.json, .text])
+        } else {
+            picker = UIDocumentPickerViewController(documentTypes: ["public.json", "public.text"], in: .import)
+        }
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+        present(picker, animated: true)
+    }
+
+    private func apply(json: String) {
+        do {
+            try SettingsImporter.importSettings(json)
+            delegate?.importSettingsViewControllerDidImportSettings(self)
+            let alert = UIAlertController(title: kTitle,
+                                          message: "Settings imported successfully.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                self?.dismiss(animated: true)
+            })
+            present(alert, animated: true)
+        } catch {
+            showAlert(title: kTitle, message: "Failed to import settings: \(error.localizedDescription)")
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillChange(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc private func keyboardWillChange(_ notification: Notification) {
+        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let overlap = view.bounds.height - frame.origin.y
+        cardCenterYConstraint?.constant = overlap > 0 ? -overlap / 2 : 0
+        UIView.animate(withDuration: 0.25) { self.view.layoutIfNeeded() }
+    }
+
+    @objc private func keyboardWillHide() {
+        cardCenterYConstraint?.constant = 0
+        UIView.animate(withDuration: 0.25) { self.view.layoutIfNeeded() }
+    }
+
+    private func setupCard() {
+        view.addSubview(cardView)
+        cardView.addSubview(titleLabel)
+        cardView.addSubview(textView)
+        textView.addSubview(placeholderLabel)
+        cardView.addSubview(buttonStackView)
+
+        let centerY = cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        cardCenterYConstraint = centerY
+
+        let width = cardView.widthAnchor.constraint(equalToConstant: kCardWidth)
+        width.priority = .defaultHigh
+
+        NSLayoutConstraint.activate([
+            cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            centerY,
+            width,
+            cardView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: kHorizontalMargin),
+            cardView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -kHorizontalMargin),
+
+            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: kContentInset),
+            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
+
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kContentInset),
+            textView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            textView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
+            textView.heightAnchor.constraint(equalToConstant: kTextViewHeight),
+
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: kContentInset / 2),
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: kContentInset / 3),
+            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -kContentInset / 3),
+
+            buttonStackView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: kContentInset),
+            buttonStackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
+            buttonStackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
+            buttonStackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -kContentInset)
+        ])
+    }
+
+    private lazy var cardView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = kCornerRadius
+        return view
+    }()
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = kTitle
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
+        textView.autocapitalizationType = .none
+        textView.autocorrectionType = .no
+        textView.smartQuotesType = .no
+        textView.smartDashesType = .no
+        textView.delegate = self
+        textView.layer.borderColor = UIColor.separator.cgColor
+        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = kCornerRadius / 1.5
+        textView.accessibilityIdentifier = "Import settings text view"
+        return textView
+    }()
+
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = kPlaceholder
+        label.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
+        label.textColor = .placeholderText
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private lazy var buttonStackView: UIStackView = {
+        let chooseFileButton = makeButton(title: "Choose File", action: #selector(didTapChooseFile))
+        let cancelButton = makeButton(title: "Cancel", action: #selector(didTapCancel))
+        let importButton = makeButton(title: "Import", action: #selector(didTapImport))
+        importButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+
+        let spacer = UIView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+        let stackView = UIStackView(arrangedSubviews: [chooseFileButton, spacer, cancelButton, importButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = kContentInset
+        return stackView
+    }()
+
+    private func makeButton(title: String, action: Selector) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        return button
+    }
+}
+
+extension ImportSettingsViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
+    }
+}
+
+extension ImportSettingsViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+
+        let shouldStopAccessing = url.startAccessingSecurityScopedResource()
+        defer {
+            if shouldStopAccessing {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+
+        let presentOutcome: () -> Void
+        do {
+            let json = try String(contentsOf: url, encoding: .utf8)
+            textView.text = json
+            placeholderLabel.isHidden = !json.isEmpty
+            presentOutcome = { [weak self] in self?.apply(json: json) }
+        } catch {
+            presentOutcome = { [weak self] in
+                self?.showAlert(title: "Import Settings", message: "Failed to read file: \(error.localizedDescription)")
+            }
+        }
+
+        // Alerts cannot be presented while the picker's dismissal transition is still running.
+        if let coordinator = controller.transitionCoordinator {
+            coordinator.animate(alongsideTransition: nil) { _ in presentOutcome() }
+        } else {
+            DispatchQueue.main.async(execute: presentOutcome)
+        }
+    }
+}

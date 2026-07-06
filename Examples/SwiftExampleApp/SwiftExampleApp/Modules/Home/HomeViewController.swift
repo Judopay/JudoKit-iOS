@@ -33,6 +33,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
 
     @objc private func didTapImportButton() {
         let importViewController = ImportSettingsViewController()
+        importViewController.delegate = self
         importViewController.modalPresentationStyle = .overFullScreen
         importViewController.modalTransitionStyle = .crossDissolve
         present(importViewController, animated: true)
@@ -170,5 +171,11 @@ extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         "To view test card details:\nSign in to judo and go to Developer/Tools."
+    }
+}
+
+extension HomeViewController: ImportSettingsViewControllerDelegate {
+    func importSettingsViewControllerDidImportSettings(_ controller: ImportSettingsViewController) {
+        interactor.viewDidLoad()
     }
 }

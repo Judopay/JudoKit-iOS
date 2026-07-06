@@ -225,7 +225,7 @@ class Settings {
            let rsaKey = userDefaults.string(forKey: kRsaKey),
            let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
            let URL = URL(string: URLString) {
-           let timeout = NSNumber(integerLiteral: userDefaults.integer(forKey: kRecommendationTimeoutKey))
+           let timeout = NSNumber(value: timeoutFor(key: kRecommendationTimeoutKey))
             return JPRecommendationConfiguration(url: URL, rsaPublicKey: rsaKey, andTimeout: timeout)
         }
         return nil

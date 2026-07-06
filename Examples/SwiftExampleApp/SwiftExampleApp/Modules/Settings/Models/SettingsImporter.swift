@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
 enum SettingsImporter {
     enum ImportError: LocalizedError {
@@ -59,6 +59,12 @@ enum SettingsImporter {
         }
     }
 
+    // JSON-dialect keys shared with the Android example app; they do not map 1:1
+    // onto stored settings keys and are translated on import/export.
+    private static let isPaymentSessionEnabledJsonKey = "is_payment_session_enabled"
+    private static let supportedNetworksJsonKey = "supported_networks"
+    private static let paymentMethodsJsonKey = "payment_methods"
+
     private static let cardNetworkKeysByValue: [String: String] = [
         "VISA": kVisaEnabledKey,
         "MASTERCARD": kMasterCardEnabledKey,
@@ -88,18 +94,18 @@ enum SettingsImporter {
 
     private static func applyLeaf(_ value: Any, forKey rawKey: String, into defaults: UserDefaults) {
         switch rawKey {
-        case "is_payment_session_enabled":
+        case isPaymentSessionEnabledJsonKey:
             if let number = value as? NSNumber, isBoolean(number) {
                 defaults.set(number.boolValue, forKey: kIsPaymentSessionOnKey)
                 defaults.set(!number.boolValue, forKey: kIsTokenAndSecretOnKey)
             }
             return
-        case "supported_networks":
+        case supportedNetworksJsonKey:
             if let array = value as? [Any] {
                 applyCardNetworks(array.map { "\($0)" }, into: defaults)
             }
             return
-        case "payment_methods":
+        case paymentMethodsJsonKey:
             if let array = value as? [Any] {
                 applyPaymentMethods(array.map { "\($0)" }, into: defaults)
             }
@@ -110,7 +116,7 @@ enum SettingsImporter {
 
         switch value {
         case let array as [Any]:
-            defaults.set(array.map { "\($0)" }, forKey: rawKey)
+            defaults.set(array.compactMap { $0 is NSNull ? nil : "\($0)" }, forKey: rawKey)
         case let number as NSNumber where isBoolean(number):
             defaults.set(number.boolValue, forKey: rawKey)
         case let number as NSNumber:
@@ -150,248 +156,201 @@ enum SettingsImporter {
     private static func isBoolean(_ number: NSNumber) -> Bool {
         CFGetTypeID(number) == CFBooleanGetTypeID()
     }
-}
 
-final class ImportSettingsViewController: UIViewController {
-    // MARK: - Constants
+    // MARK: - Export
 
-    private let kTitle = "Import Settings from JSON"
-    private let kPlaceholder = "Paste JSON here…"
-    private let kHorizontalMargin: CGFloat = 24.0
-    private let kContentInset: CGFloat = 16.0
-    private let kCardWidth: CGFloat = 320.0
-    private let kTextViewHeight: CGFloat = 150.0
-    private let kFontSize: CGFloat = 14.0
-    private let kCornerRadius: CGFloat = 12.0
-
-    // MARK: - Variables
-
-    var onImported: (() -> Void)?
-
-    private var cardCenterYConstraint: NSLayoutConstraint?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        setupCard()
-        registerForKeyboardNotifications()
-
-        let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(didTapBackground(_:)))
-        backgroundTap.cancelsTouchesInView = false
-        view.addGestureRecognizer(backgroundTap)
-    }
-
-    @objc private func didTapBackground(_ recognizer: UITapGestureRecognizer) {
-        let location = recognizer.location(in: view)
-        if !cardView.frame.contains(location) {
-            view.endEditing(true)
-            dismiss(animated: true)
-        }
-    }
-
-    @objc private func didTapCancel() {
-        dismiss(animated: true)
-    }
-
-    @objc private func didTapImport() {
-        let json = textView.text ?? ""
-        guard !json.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            showAlert(title: kTitle, message: "Please enter the settings JSON or choose a file.")
-            return
-        }
-        apply(json: json)
-    }
-
-    @objc private func didTapChooseFile() {
-        let picker: UIDocumentPickerViewController
-        if #available(iOS 14.0, *) {
-            picker = UIDocumentPickerViewController(forOpeningContentTypes: [.json, .text])
-        } else {
-            picker = UIDocumentPickerViewController(documentTypes: ["public.json", "public.text"], in: .import)
-        }
-        picker.delegate = self
-        picker.allowsMultipleSelection = false
-        present(picker, animated: true)
-    }
-
-    private func apply(json: String) {
-        do {
-            try SettingsImporter.importSettings(json)
-            onImported?()
-            let alert = UIAlertController(title: kTitle,
-                                          message: "Settings imported successfully.",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-                self?.dismiss(animated: true)
-            })
-            present(alert, animated: true)
-        } catch {
-            showAlert(title: kTitle, message: "Failed to import settings: \(error.localizedDescription)")
-        }
-    }
-
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-
-    private func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillChange(_:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
-    @objc private func keyboardWillChange(_ notification: Notification) {
-        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let overlap = view.bounds.height - frame.origin.y
-        cardCenterYConstraint?.constant = overlap > 0 ? -overlap / 2 : 0
-        UIView.animate(withDuration: 0.25) { self.view.layoutIfNeeded() }
-    }
-
-    @objc private func keyboardWillHide() {
-        cardCenterYConstraint?.constant = 0
-        UIView.animate(withDuration: 0.25) { self.view.layoutIfNeeded() }
-    }
-
-    private func setupCard() {
-        view.addSubview(cardView)
-        cardView.addSubview(titleLabel)
-        cardView.addSubview(textView)
-        textView.addSubview(placeholderLabel)
-        cardView.addSubview(buttonStackView)
-
-        let centerY = cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        cardCenterYConstraint = centerY
-
-        let width = cardView.widthAnchor.constraint(equalToConstant: kCardWidth)
-        width.priority = .defaultHigh
-
-        NSLayoutConstraint.activate([
-            cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            centerY,
-            width,
-            cardView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: kHorizontalMargin),
-            cardView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -kHorizontalMargin),
-
-            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: kContentInset),
-            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
-            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
-
-            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kContentInset),
-            textView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
-            textView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
-            textView.heightAnchor.constraint(equalToConstant: kTextViewHeight),
-
-            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: kContentInset / 2),
-            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: kContentInset / 3),
-            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -kContentInset / 3),
-
-            buttonStackView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: kContentInset),
-            buttonStackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: kContentInset),
-            buttonStackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -kContentInset),
-            buttonStackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -kContentInset)
+    // Section layout mirrors SettingsImporter.SECTIONS in the Android example app
+    // so both platforms produce the same JSON structure for shared fixtures.
+    private static let sections: [(name: String, keys: [String])] = [
+        ("api", [
+            kSandboxedKey,
+            kJudoIdKey,
+            kTokenKey,
+            kSecretKey,
+            isPaymentSessionEnabledJsonKey,
+            kPaymentSessionKey,
+            kSessionTokenKey,
+            kPaymentReferenceKey,
+            kConsumerReferenceKey
+        ]),
+        ("recommendation", [
+            kIsRecommendationOnKey,
+            kRecommendationUrlKey,
+            kRsaKey,
+            kRecommendationTimeoutKey
+        ]),
+        ("three_ds", [
+            kShouldAskForBillingInformationKey,
+            kChallengeRequestIndicatorKey,
+            kScaExemptionKey,
+            kThreeDsTwoMaxTimeoutKey,
+            kConnectTimeoutKey,
+            kReadTimeoutKey,
+            kWriteTimeoutKey,
+            kThreeDSTwoMessageVersionKey
+        ]),
+        ("three_ds_ui_customisation", [
+            kIsThreeDSUICustomisationEnabledKey,
+            kThreeDSToolbarTextFontNameKey,
+            kThreeDSToolbarTextColorKey,
+            kThreeDSToolbarTextFontSizeKey,
+            kThreeDSToolbarBackgroundColorKey,
+            kThreeDSToolbarHeaderTextKey,
+            kThreeDSToolbarButtonTextKey,
+            kThreeDSLabelTextFontNameKey,
+            kThreeDSLabelTextColorKey,
+            kThreeDSLabelTextFontSizeKey,
+            kThreeDSLabelHeadingTextFontNameKey,
+            kThreeDSLabelHeadingTextColorKey,
+            kThreeDSLabelHeadingTextFontSizeKey,
+            kThreeDSTextBoxTextFontNameKey,
+            kThreeDSTextBoxTextColorKey,
+            kThreeDSTextBoxTextFontSizeKey,
+            kThreeDSTextBoxBorderWidthKey,
+            kThreeDSTextBoxBorderColorKey,
+            kThreeDSTextBoxCornerRadiusKey,
+            kThreeDSSubmitButtonTextFontNameKey,
+            kThreeDSSubmitButtonTextColorKey,
+            kThreeDSSubmitButtonTextFontSizeKey,
+            kThreeDSSubmitButtonBackgroundColorKey,
+            kThreeDSSubmitButtonCornerRadiusKey,
+            kThreeDSNextButtonTextFontNameKey,
+            kThreeDSNextButtonTextColorKey,
+            kThreeDSNextButtonTextFontSizeKey,
+            kThreeDSNextButtonBackgroundColorKey,
+            kThreeDSNextButtonCornerRadiusKey,
+            kThreeDSContinueButtonTextFontNameKey,
+            kThreeDSContinueButtonTextColorKey,
+            kThreeDSContinueButtonTextFontSizeKey,
+            kThreeDSContinueButtonBackgroundColorKey,
+            kThreeDSContinueButtonCornerRadiusKey,
+            kThreeDSCancelButtonTextFontNameKey,
+            kThreeDSCancelButtonTextColorKey,
+            kThreeDSCancelButtonTextFontSizeKey,
+            kThreeDSCancelButtonBackgroundColorKey,
+            kThreeDSCancelButtonCornerRadiusKey,
+            kThreeDSResendButtonTextFontNameKey,
+            kThreeDSResendButtonTextColorKey,
+            kThreeDSResendButtonTextFontSizeKey,
+            kThreeDSResendButtonBackgroundColorKey,
+            kThreeDSResendButtonCornerRadiusKey
+        ]),
+        ("amount", [
+            kAmountKey,
+            kCurrencyKey
+        ]),
+        ("address", [
+            kIsAddressOnKey,
+            kAddressLine1Key,
+            kAddressLine2Key,
+            kAddressLine3Key,
+            kAddressTownKey,
+            kAddressPostCodeKey,
+            kAddressCountryCodeKey,
+            kAddressAdministrativeDivisionKey,
+            kAddressPhoneCountryCodeKey,
+            kAddressMobileNumberKey,
+            kAddressEmailAddressKey
+        ]),
+        ("primary_account", [
+            kIsPrimaryAccountDetailsOnKey,
+            kPrimaryAccountNameKey,
+            kPrimaryAccountAccountNumberKey,
+            kPrimaryAccountDateOfBirthKey,
+            kPrimaryAccountPostCodeKey
+        ]),
+        ("apple_pay", [
+            kMerchantIdKey,
+            kIsApplePayBillingContactInfoRequired,
+            kIsApplePayShippingContactInfoRequired,
+            kIsBillingContactFieldPostalAddressRequiredKey,
+            kIsBillingContactFieldPhoneRequiredKey,
+            kIsBillingContactFieldEmailRequiredKey,
+            kIsBillingContactFieldNameRequiredKey,
+            kIsShippingContactFieldPostalAddressRequiredKey,
+            kIsShippingContactFieldPhoneRequiredKey,
+            kIsShippingContactFieldEmailRequiredKey,
+            kIsShippingContactFieldNameRequiredKey
+        ]),
+        ("others", [
+            kAVSEnabledKey,
+            kShouldPaymentMethodsDisplayAmount,
+            kShouldPaymentButtonDisplayAmount,
+            kIsInitialRecurringPaymentKey,
+            kIsDelayedAuthorisationOnKey,
+            supportedNetworksJsonKey,
+            paymentMethodsJsonKey
+        ]),
+        ("token_payments", [
+            kShouldAskForCSCKey,
+            kShouldAskForCardholderNameKey
         ])
-    }
+    ]
 
-    private lazy var cardView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = kCornerRadius
-        return view
-    }()
+    private static let paymentMethodKeysByValue: [String: String] = [
+        "CARD": kCardPaymentMethodEnabledKey,
+        "APPLE_PAY": kApplePayPaymentMethodEnabledKey
+    ]
 
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = kTitle
-        label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        return label
-    }()
+    private static let challengeRequestIndicatorExportValues: [String: String] =
+        Dictionary(uniqueKeysWithValues: challengeRequestIndicatorImportValues.map { ($0.value, $0.key) })
 
-    private lazy var textView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
-        textView.autocapitalizationType = .none
-        textView.autocorrectionType = .no
-        textView.smartQuotesType = .no
-        textView.smartDashesType = .no
-        textView.delegate = self
-        textView.layer.borderColor = UIColor.separator.cgColor
-        textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = kCornerRadius / 1.5
-        textView.accessibilityIdentifier = "Import settings text view"
-        return textView
-    }()
+    private static let scaExemptionExportValues: [String: String] =
+        Dictionary(uniqueKeysWithValues: scaExemptionImportValues.map { ($0.value, $0.key) })
 
-    private lazy var placeholderLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = kPlaceholder
-        label.font = .monospacedSystemFont(ofSize: kFontSize, weight: .regular)
-        label.textColor = .placeholderText
-        label.numberOfLines = 0
-        return label
-    }()
-
-    private lazy var buttonStackView: UIStackView = {
-        let chooseFileButton = makeButton(title: "Choose File", action: #selector(didTapChooseFile))
-        let cancelButton = makeButton(title: "Cancel", action: #selector(didTapCancel))
-        let importButton = makeButton(title: "Import", action: #selector(didTapImport))
-        importButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-
-        let spacer = UIView()
-        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
-        let stackView = UIStackView(arrangedSubviews: [chooseFileButton, spacer, cancelButton, importButton])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.spacing = kContentInset
-        return stackView
-    }()
-
-    private func makeButton(title: String, action: Selector) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.addTarget(self, action: action, for: .touchUpInside)
-        button.setContentHuggingPriority(.required, for: .horizontal)
-        return button
-    }
-}
-
-extension ImportSettingsViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !textView.text.isEmpty
-    }
-}
-
-extension ImportSettingsViewController: UIDocumentPickerDelegate {
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else { return }
-
-        let shouldStopAccessing = url.startAccessingSecurityScopedResource()
-        defer {
-            if shouldStopAccessing {
-                url.stopAccessingSecurityScopedResource()
+    static func export(from defaults: UserDefaults = .standard) -> String {
+        var root: [String: Any] = [:]
+        for (name, keys) in sections {
+            var section: [String: Any] = [:]
+            for key in keys {
+                if let value = exportValue(for: key, from: defaults) {
+                    section[key] = value
+                }
+            }
+            if !section.isEmpty {
+                root[name] = section
             }
         }
 
-        do {
-            let json = try String(contentsOf: url, encoding: .utf8)
-            textView.text = json
-            placeholderLabel.isHidden = !json.isEmpty
-            apply(json: json)
-        } catch {
-            showAlert(title: "Import Settings", message: "Failed to read file: \(error.localizedDescription)")
+        guard let data = try? JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys]),
+              let json = String(data: data, encoding: .utf8) else {
+            return "{}"
         }
+        return json
+    }
+
+    private static func exportValue(for key: String, from defaults: UserDefaults) -> Any? {
+        switch key {
+        case isPaymentSessionEnabledJsonKey:
+            guard let number = defaults.object(forKey: kIsPaymentSessionOnKey) as? NSNumber else { return nil }
+            return number.boolValue
+        case supportedNetworksJsonKey:
+            return enabledValues(from: cardNetworkKeysByValue, in: defaults)
+        case paymentMethodsJsonKey:
+            return enabledValues(from: paymentMethodKeysByValue, in: defaults)
+        case kChallengeRequestIndicatorKey:
+            return defaults.string(forKey: key).map { challengeRequestIndicatorExportValues[$0] ?? $0 }
+        case kScaExemptionKey:
+            return defaults.string(forKey: key).map { scaExemptionExportValues[$0] ?? $0 }
+        default:
+            switch defaults.object(forKey: key) {
+            case let number as NSNumber where isBoolean(number):
+                return number.boolValue
+            case let number as NSNumber:
+                return number
+            case let string as String:
+                return string
+            case let array as [Any]:
+                return array.map { "\($0)" }
+            default:
+                return nil
+            }
+        }
+    }
+
+    private static func enabledValues(from keysByValue: [String: String], in defaults: UserDefaults) -> [String]? {
+        let present = keysByValue.filter { defaults.object(forKey: $0.value) != nil }
+        guard !present.isEmpty else { return nil }
+        return present.filter { defaults.bool(forKey: $0.value) }.keys.sorted()
     }
 }

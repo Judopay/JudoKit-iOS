@@ -1,5 +1,5 @@
 //
-//  SettingsImporter.h
+//  ImportSettingsViewController.h
 //  ObjectiveCExampleApp
 //
 //  Copyright (c) 2026 Alternative Payments Ltd
@@ -22,17 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SettingsImporter : NSObject
+@class ImportSettingsViewController;
 
-+ (BOOL)importSettings:(NSString *)json
-            intoDefaults:(NSUserDefaults *)defaults
-                   error:(NSError **)error;
+@protocol ImportSettingsViewControllerDelegate <NSObject>
 
-+ (NSString *)exportSettingsFromDefaults:(NSUserDefaults *)defaults;
+- (void)importSettingsViewControllerDidImportSettings:(ImportSettingsViewController *)controller;
+
+@end
+
+@interface ImportSettingsViewController : UIViewController
+
+@property (nonatomic, weak, nullable) id<ImportSettingsViewControllerDelegate> delegate;
 
 @end
 
