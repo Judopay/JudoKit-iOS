@@ -43,7 +43,7 @@
 
         kRsaKey,
         kRecommendationUrlKey,
-        kRecommendationApiTimeoutKey,
+        kRecommendationTimeoutKey,
         kIsRecommendationHaltTransactionOnKey,
 
         kAddressLine1Key,
@@ -87,7 +87,7 @@
         [hiddenKeys removeObjectsInArray:@[
             kRsaKey,
             kRecommendationUrlKey,
-            kRecommendationApiTimeoutKey,
+            kRecommendationTimeoutKey,
             kIsRecommendationHaltTransactionOnKey,
         ]];
     }

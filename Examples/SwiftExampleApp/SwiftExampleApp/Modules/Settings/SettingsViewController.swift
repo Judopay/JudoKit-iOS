@@ -1,9 +1,10 @@
 import InAppSettingsKit
+import UIKit
 
 class SettingsViewController: IASKAppSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItem = exportButton
 
         if let defaults = settingsReader?.gatherDefaultsLimited(toEditableFields: true) {
             UserDefaults.standard.register(defaults: defaults)
@@ -34,5 +35,24 @@ class SettingsViewController: IASKAppSettingsViewController {
             ]),
             animated: true)
         }
+    }
+
+    private lazy var exportButton: UIBarButtonItem = {
+        let exportIcon = UIImage(systemName: "square.and.arrow.up")
+        let button = UIBarButtonItem(image: exportIcon,
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(didTapExportButton))
+        button.accessibilityIdentifier = "Export settings button"
+        return button
+    }()
+
+    @objc private func didTapExportButton() {
+        UIPasteboard.general.string = SettingsImporter.export()
+        let alert = UIAlertController(title: "Export Settings",
+                                      message: "Settings JSON copied to clipboard.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
