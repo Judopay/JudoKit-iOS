@@ -409,7 +409,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)timeoutForKey:(NSString *)key {
     NSString *timeout = [self.defaults stringForKey:key];
-    NSInteger timeoutInSeconds = [timeout intValue] * 60;
+    NSInteger timeoutInSeconds = [timeout intValue];
     return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
 }
 
@@ -518,7 +518,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)recommendationTimeout {
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self timeoutForKey:kRecommendationApiTimeoutKey];
+        return [self timeoutForKey:kRecommendationTimeoutKey];
     }
     return nil;
 }

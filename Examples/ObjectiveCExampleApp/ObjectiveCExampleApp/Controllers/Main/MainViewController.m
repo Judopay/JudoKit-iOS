@@ -32,10 +32,12 @@
 #import "DemoFeature.h"
 #import "ExampleAppStorage.h"
 #import "IASKAppSettingsViewController+Additions.h"
+#import "ImportSettingsViewController.h"
 #import "MainViewController.h"
 #import "NoUICardPayViewController.h"
 #import "PayWithCardTokenViewController.h"
 #import "Settings.h"
+#import "SettingsImporter.h"
 #import "UIViewController+Additions.h"
 #import "MainViewController+Additions.h"
 
@@ -43,7 +45,7 @@ static NSString *const kTokenPaymentsScreenSegue = @"tokenPayments";
 static NSString *const kApplePayScreenSegue = @"showApplePayScreen";
 static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
-@interface MainViewController ()
+@interface MainViewController () <ImportSettingsViewControllerDelegate>
 
 @property (nonatomic, strong) JudoKit *judoKit;
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -69,7 +71,14 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     self.networkInspectorButton.accessibilityIdentifier = @"Network requests inspector button";
     self.networkInspectorButton.action = @selector(presentNetworkRequestsInspector);
     self.networkInspectorButton.target = self;
-        
+
+    UIBarButtonItem *importItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.arrow.down"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(didTapImportSettings)];
+    importItem.accessibilityIdentifier = @"Import settings button";
+    self.navigationItem.rightBarButtonItems = @[ self.settingsButton, importItem, self.networkInspectorButton ];
+
     self.shouldUpdateKitAuth = YES;
     [self requestLocationPermissions];
     
@@ -144,6 +153,13 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         _settingsViewController.neverShowPrivacySettings = YES;
         _settingsViewController.delegate = self;
         [_settingsViewController updateHiddenKeys];
+
+        UIBarButtonItem *exportItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapExportSettings)];
+        exportItem.accessibilityIdentifier = @"Export settings button";
+        _settingsViewController.navigationItem.rightBarButtonItem = exportItem;
     }
     if ([segue.destinationViewController isKindOfClass:PayWithCardTokenViewController.class]) {
         PayWithCardTokenViewController *controller = segue.destinationViewController;
@@ -154,6 +170,26 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         NoUICardPayViewController *controller = segue.destinationViewController;
         controller.configuration = self.configuration;
     }
+}
+
+// MARK: Settings import
+
+- (void)didTapImportSettings {
+    ImportSettingsViewController *importController = [ImportSettingsViewController new];
+    importController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    importController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    importController.delegate = self;
+    [self presentViewController:importController animated:YES completion:nil];
+}
+
+- (void)importSettingsViewControllerDidImportSettings:(ImportSettingsViewController *)controller {
+    self.shouldUpdateKitAuth = YES;
+    [self updateKitAuth];
+}
+
+- (void)didTapExportSettings {
+    UIPasteboard.generalPasteboard.string = [SettingsImporter exportSettingsFromDefaults:NSUserDefaults.standardUserDefaults];
+    [self displayAlertWithTitle:@"Export Settings" andMessage:@"Settings JSON copied to clipboard."];
 }
 
 // MARK: Setup methods
