@@ -76,13 +76,13 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        // Applies updateLayoutForCurrentOrientation so the header frame and table inset match the new orientation.
-        [self.paymentMethodsView layoutIfNeeded];
-        // Discards the cached card header so reconfigure creates one with fresh orientation constraints.
-        [self.paymentMethodsView.headerView prepareForOrientationChange];
-        // Re-runs configureWithViewModel so header constraints pick up the new screen aspect ratio.
-        [self.presenter viewModelNeedsUpdate];
-    }];
+                                     // Applies updateLayoutForCurrentOrientation so the header frame and table inset match the new orientation.
+                                     [self.paymentMethodsView layoutIfNeeded];
+                                     // Discards the cached card header so reconfigure creates one with fresh orientation constraints.
+                                     [self.paymentMethodsView.headerView prepareForOrientationChange];
+                                     // Re-runs configureWithViewModel so header constraints pick up the new screen aspect ratio.
+                                     [self.presenter viewModelNeedsUpdate];
+                                 }];
 }
 
 #pragma mark - Dark status bar icons
