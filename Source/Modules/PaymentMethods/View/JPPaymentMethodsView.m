@@ -104,8 +104,6 @@ static const float kJudoHeadlineHeight = 20.0F;
         self.headerView.frame = CGRectMake(0, 0, screenWidth, maxHeight);
         self.tableView.contentInset = UIEdgeInsetsMake(maxHeight * kContentInsetRatio, 0, 0, 0);
     } else {
-        CGFloat headerHeight = kPortraitHeaderHeight * getWidthAspectRatio();
-        self.headerView.frame = CGRectMake(0, 0, screenWidth, headerHeight);
         self.tableView.contentInset = UIEdgeInsetsMake(kPortraitContentInset * getWidthAspectRatio(), 0, 0, 0);
     }
 }

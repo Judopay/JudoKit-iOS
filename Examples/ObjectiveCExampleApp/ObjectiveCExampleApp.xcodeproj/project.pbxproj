@@ -30,8 +30,6 @@
 		449495182450ED870050C6A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4494950D2450ED870050C6A0 /* MainViewController.m */; };
 		449495192450ED870050C6A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4494950F2450ED870050C6A0 /* Settings.bundle */; };
 		4494951A2450ED870050C6A0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495132450ED870050C6A0 /* Settings.m */; };
-		DDEE0000000000000000B103 /* SettingsImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000B102 /* SettingsImporter.m */; };
-		DDEE0000000000000000B106 /* ImportSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000B105 /* ImportSettingsViewController.m */; };
 		4494951B2450ED870050C6A0 /* DemoFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 449495142450ED870050C6A0 /* DemoFeature.m */; };
 		44A826ED269CEBC900AD5229 /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A826EC269CE81C00AD5229 /* UIViewController+Additions.m */; };
 		44ABF2832BFC8D79002E8B2C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44ABF2822BFC8D79002E8B2C /* PrivacyInfo.xcprivacy */; };
@@ -44,6 +42,8 @@
 		D110D16B2AEA8F4D00B35E13 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110D16A2AEA8F4D00B35E13 /* Selectors.swift */; };
 		D19CA9C02E96624700F3DD9D /* Fabrick3DSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CA9BF2E96624700F3DD9D /* Fabrick3DSTests.swift */; };
 		D1B3FE512B6943BA003838B4 /* RavelinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */; };
+		DDEE0000000000000000B103 /* SettingsImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000B102 /* SettingsImporter.m */; };
+		DDEE0000000000000000B106 /* ImportSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000B105 /* ImportSettingsViewController.m */; };
 		FEBADF2CE2F1D30512F0FE7C /* Pods_ObjectiveCExampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F502AFFA74A929E8590FAEE2 /* Pods_ObjectiveCExampleApp.framework */; };
 		FF1E1CBF0FD8AE60CFC9C2CC /* Pods_ObjectiveCExampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCF69720DEA212111BDBD369 /* Pods_ObjectiveCExampleAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -115,10 +115,6 @@
 		449495112450ED870050C6A0 /* DemoFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFeature.h; sourceTree = "<group>"; };
 		449495122450ED870050C6A0 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		449495132450ED870050C6A0 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		DDEE0000000000000000B101 /* SettingsImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsImporter.h; sourceTree = "<group>"; };
-		DDEE0000000000000000B102 /* SettingsImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsImporter.m; sourceTree = "<group>"; };
-		DDEE0000000000000000B104 /* ImportSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportSettingsViewController.h; sourceTree = "<group>"; };
-		DDEE0000000000000000B105 /* ImportSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportSettingsViewController.m; sourceTree = "<group>"; };
 		449495142450ED870050C6A0 /* DemoFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFeature.m; sourceTree = "<group>"; };
 		4494951C2450F1340050C6A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		4494951E2450F13F0050C6A0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -144,6 +140,10 @@
 		D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavelinUITests.swift; sourceTree = "<group>"; };
 		D1B41A822F6AB0DC004F5659 /* ObjectiveCExampleAppUITestsSmoke.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITestsSmoke.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITestsSmoke.xctestplan; sourceTree = SOURCE_ROOT; };
 		D1E12D3D2F64207D0019DDFB /* ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; path = ObjectiveCExampleAppUITests/ObjectiveCExampleAppUITestsFabrick3DS2.xctestplan; sourceTree = SOURCE_ROOT; };
+		DDEE0000000000000000B101 /* SettingsImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsImporter.h; sourceTree = "<group>"; };
+		DDEE0000000000000000B102 /* SettingsImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsImporter.m; sourceTree = "<group>"; };
+		DDEE0000000000000000B104 /* ImportSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportSettingsViewController.h; sourceTree = "<group>"; };
+		DDEE0000000000000000B105 /* ImportSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportSettingsViewController.m; sourceTree = "<group>"; };
 		F502AFFA74A929E8590FAEE2 /* Pods_ObjectiveCExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF69720DEA212111BDBD369 /* Pods_ObjectiveCExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjectiveCExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -363,15 +363,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		DDEE0000000000000000B107 /* ImportSettings */ = {
-			isa = PBXGroup;
-			children = (
-				DDEE0000000000000000B104 /* ImportSettingsViewController.h */,
-				DDEE0000000000000000B105 /* ImportSettingsViewController.m */,
-			);
-			path = ImportSettings;
-			sourceTree = "<group>";
-		};
 		4494950C2450ED870050C6A0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +425,15 @@
 				D1B3FE502B6943BA003838B4 /* RavelinUITests.swift */,
 			);
 			path = Ravelin;
+			sourceTree = "<group>";
+		};
+		DDEE0000000000000000B107 /* ImportSettings */ = {
+			isa = PBXGroup;
+			children = (
+				DDEE0000000000000000B104 /* ImportSettingsViewController.h */,
+				DDEE0000000000000000B105 /* ImportSettingsViewController.m */,
+			);
+			path = ImportSettings;
 			sourceTree = "<group>";
 		};
 		EE7B4BE418A8C03392F6261E /* Pods */ = {
@@ -664,9 +664,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ObjectiveCExampleApp/Pods-ObjectiveCExampleApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -681,9 +685,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests/Pods-ObjectiveCExampleApp-ObjectiveCExampleAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -909,9 +917,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ObjectiveCExampleApp/ObjectiveCExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 121;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "[ObjC]-JK";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -939,9 +947,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ObjectiveCExampleApp/ObjectiveCExampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 121;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95V535S6TQ;
 				INFOPLIST_FILE = ObjectiveCExampleApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "[ObjC]-JK";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
