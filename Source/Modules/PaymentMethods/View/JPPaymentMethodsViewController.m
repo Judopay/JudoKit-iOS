@@ -230,6 +230,10 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // This is for portrait-only parallax effect.
+    if (UIScreen.mainScreen.bounds.size.width > UIScreen.mainScreen.bounds.size.height) {
+        return;
+    }
     CGFloat yValue = -scrollView.contentOffset.y;
     CGFloat height = MIN(MAX(yValue, 395 * getWidthAspectRatio()), 435 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
