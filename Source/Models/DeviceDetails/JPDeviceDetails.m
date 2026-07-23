@@ -45,11 +45,16 @@
 
 - (NSDictionary *)_jp_toDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
-    if (self.kDeviceId) dict[@"kDeviceId"] = self.kDeviceId;
-    if (self.vDeviceId) dict[@"vDeviceId"] = self.vDeviceId;
-    if (self.countryCode) dict[@"countryCode"] = self.countryCode;
-    if (self.cultureLocale) dict[@"cultureLocale"] = self.cultureLocale;
-    if (self.os) dict[@"os"] = self.os;
+    if (self.kDeviceId)
+        dict[@"kDeviceId"] = self.kDeviceId;
+    if (self.vDeviceId)
+        dict[@"vDeviceId"] = self.vDeviceId;
+    if (self.countryCode)
+        dict[@"countryCode"] = self.countryCode;
+    if (self.cultureLocale)
+        dict[@"cultureLocale"] = self.cultureLocale;
+    if (self.os)
+        dict[@"os"] = self.os;
     return dict;
 }
 
