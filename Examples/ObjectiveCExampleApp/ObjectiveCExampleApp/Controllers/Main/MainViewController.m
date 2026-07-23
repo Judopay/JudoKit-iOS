@@ -432,7 +432,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     if (Settings.defaultSettings.isApplePayRecurringPaymentOn) {
 
         NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayRecurringPaymentManagementUrl];
-        
+
         if (@available(iOS 16.0, *)) {
             JPRecurringPaymentSummaryItem *regularBilling = [JPRecurringPaymentSummaryItem itemWithLabel:Settings.defaultSettings.applePayRecurringPaymentLabel
                                                                                                   amount:Settings.defaultSettings.applePayRecurringPaymentAmount
@@ -440,7 +440,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
                                                                                            intervalCount:Settings.defaultSettings.applePayRecurringPaymentIntervalCount
                                                                                                startDate:Settings.defaultSettings.applePayRecurringPaymentStartDate
                                                                                               andEndDate:Settings.defaultSettings.applePayRecurringPaymentEndDate];
-            
+
             JPRecurringPaymentRequest *request = [JPRecurringPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayRecurringPaymentDescription
                                                                                            regularBilling:regularBilling
                                                                                          andManagementURL:managementURL];
@@ -448,6 +448,42 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
             configuration.recurringPaymentRequest = request;
         }
     }
+
+    if (Settings.defaultSettings.isApplePayAutomaticReloadPaymentOn) {
+
+        NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayAutomaticReloadPaymentManagementUrl];
+
+        if (@available(iOS 16.0, *)) {
+            JPAutomaticReloadPaymentSummaryItem *reloadBilling = [JPAutomaticReloadPaymentSummaryItem itemWithLabel:Settings.defaultSettings.applePayAutomaticReloadPaymentLabel
+                                                                                                            amount:Settings.defaultSettings.applePayAutomaticReloadPaymentAmount
+                                                                                                   thresholdAmount:Settings.defaultSettings.applePayAutomaticReloadPaymentThresholdAmount];
+
+            JPAutomaticReloadPaymentRequest *request = [JPAutomaticReloadPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayAutomaticReloadPaymentDescription
+                                                                                               automaticReloadBilling:reloadBilling
+                                                                                                     andManagementURL:managementURL];
+            request.billingAgreement = Settings.defaultSettings.applePayAutomaticReloadPaymentBillingAgreement;
+            configuration.automaticReloadPaymentRequest = request;
+        }
+    }
+
+    if (Settings.defaultSettings.isApplePayDeferredPaymentOn) {
+
+        NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayDeferredPaymentManagementUrl];
+
+        if (@available(iOS 16.4, *)) {
+            JPDeferredPaymentSummaryItem *deferredBilling = [JPDeferredPaymentSummaryItem itemWithLabel:Settings.defaultSettings.applePayDeferredPaymentLabel
+                                                                                                amount:Settings.defaultSettings.applePayDeferredPaymentAmount
+                                                                                          deferredDate:Settings.defaultSettings.applePayDeferredPaymentDeferredDate];
+
+            JPDeferredPaymentRequest *request = [JPDeferredPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayDeferredPaymentDescription
+                                                                                        deferredBilling:deferredBilling
+                                                                                       andManagementURL:managementURL];
+            request.billingAgreement = Settings.defaultSettings.applePayDeferredPaymentBillingAgreement;
+            request.freeCancellationDate = Settings.defaultSettings.applePayDeferredPaymentFreeCancellationDate;
+            configuration.deferredPaymentRequest = request;
+        }
+    }
+
     return configuration;
 }
 

@@ -25,7 +25,10 @@
 #import "JPApplePayWrappers.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayTypes.h"
+#import "JPAutomaticReloadPaymentRequest.h"
 #import "JPConfiguration.h"
+#import "JPDeferredPaymentRequest.h"
+#import "JPDeferredPaymentSummaryItem.h"
 
 @implementation JPApplePayWrappers
 
@@ -46,6 +49,11 @@
 
     if (@available(iOS 16.0, *)) {
         paymentRequest.recurringPaymentRequest = applePayConfiguration.recurringPaymentRequest.toPKRecurringPaymentRequest;
+        paymentRequest.automaticReloadPaymentRequest = applePayConfiguration.automaticReloadPaymentRequest.toPKAutomaticReloadPaymentRequest;
+    }
+
+    if (@available(iOS 16.4, *)) {
+        paymentRequest.deferredPaymentRequest = applePayConfiguration.deferredPaymentRequest.toPKDeferredPaymentRequest;
     }
 
     paymentRequest.merchantIdentifier = applePayConfiguration.merchantId;
@@ -113,6 +121,12 @@
     NSMutableArray<PKPaymentSummaryItem *> *pkPaymentSummaryItems = [NSMutableArray new];
 
     for (JPPaymentSummaryItem *item in configuration.applePayConfiguration.paymentSummaryItems) {
+        if (@available(iOS 16.4, *)) {
+            if ([item isKindOfClass:JPDeferredPaymentSummaryItem.class]) {
+                [pkPaymentSummaryItems addObject:[(JPDeferredPaymentSummaryItem *)item toPKDeferredPaymentSummaryItem]];
+                continue;
+            }
+        }
         PKPaymentSummaryItemType summaryItemType = [self pkSummaryItemTypeFromType:item.type];
         [pkPaymentSummaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:item.label
                                                                              amount:item.amount

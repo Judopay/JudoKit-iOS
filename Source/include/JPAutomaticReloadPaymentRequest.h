@@ -1,0 +1,1 @@
+../Models/ApplePayConfiguration/AutomaticReloadPaymentRequest/JPAutomaticReloadPaymentRequest.h

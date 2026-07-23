@@ -179,12 +179,55 @@ class JPApplePayWrappersTests: XCTestCase {
         configuration.applePayConfiguration = appleConfig
         configuration.applePayConfiguration?.supportedCardNetworks = [.all]
         let networks = JPApplePayWrappers.pkPaymentNetworks(for: configuration)
-        
+
         if #available(iOS 12, *) {
             XCTAssertEqual(networks, [.visa, .masterCard, .amex, .maestro, .JCB, .discover, .chinaUnionPay])
         } else {
             XCTAssertEqual(networks, [.visa, .masterCard, .amex, .JCB, .discover, .chinaUnionPay])
         }
 
+    }
+
+    /**
+     * GIVEN: JPApplePayWrappers is used to create a PKPaymentAuthorizationViewController
+     *
+     * WHEN: an automaticReloadPaymentRequest is set in the Apple Pay configuration
+     *
+     * THEN: a valid PKPaymentAuthorizationViewController should still be returned
+     */
+    @available(iOS 16.0, *)
+    func test_OnPaymentControllerCreation_WhenAutomaticReloadPaymentRequestSet_ReturnsController() {
+        let billingItem = JPAutomaticReloadPaymentSummaryItem(label: "Top-up",
+                                                              amount: NSDecimalNumber(string: "20.00"),
+                                                              thresholdAmount: NSDecimalNumber(string: "5.00"))
+        let reloadRequest = JPAutomaticReloadPaymentRequest(paymentDescription: "Auto top-up",
+                                                            automaticReloadBilling: billingItem,
+                                                            andManagementURL: URL(string: "https://example.com/manage")!)
+        configuration.applePayConfiguration = appleConfig
+        configuration.applePayConfiguration?.automaticReloadPaymentRequest = reloadRequest
+        let paymentController = JPApplePayWrappers.pkPaymentController(for: configuration)
+        XCTAssertNotNil(paymentController)
+    }
+
+    /**
+     * GIVEN: JPApplePayWrappers is used to create a PKPaymentAuthorizationViewController
+     *
+     * WHEN: a deferredPaymentRequest is set in the Apple Pay configuration
+     *
+     * THEN: a valid PKPaymentAuthorizationViewController should still be returned
+     */
+    @available(iOS 16.4, *)
+    func test_OnPaymentControllerCreation_WhenDeferredPaymentRequestSet_ReturnsController() {
+        let billingItem = JPDeferredPaymentSummaryItem(label: "Hotel",
+                                                       amount: NSDecimalNumber(string: "150.00"),
+                                                       deferredDate: Date().addingTimeInterval(30 * 24 * 3600))
+        let deferredRequest = JPDeferredPaymentRequest(paymentDescription: "Hotel pre-auth",
+                                                       deferredBilling: billingItem,
+                                                       andManagementURL: URL(string: "https://example.com/manage")!)
+        configuration.applePayConfiguration = appleConfig
+        configuration.applePayConfiguration?.paymentSummaryItems = summaryItems + [billingItem]
+        configuration.applePayConfiguration?.deferredPaymentRequest = deferredRequest
+        let paymentController = JPApplePayWrappers.pkPaymentController(for: configuration)
+        XCTAssertNotNil(paymentController)
     }
 }

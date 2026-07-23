@@ -1,0 +1,1 @@
+../Models/ApplePayConfiguration/AutomaticReloadPaymentSummaryItem/JPAutomaticReloadPaymentSummaryItem.h
