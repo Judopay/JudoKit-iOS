@@ -35,7 +35,7 @@ class JPDeviceDetailsProviderTests: XCTestCase {
     override func setUp() {
         super.setUp()
         userDefaults = UserDefaults(suiteName: suiteName)!
-        sut = JPDeviceDetailsProvider(device: UIDevice.current, locale: locale, userDefaults: userDefaults)
+        sut = JPDeviceDetailsProvider(device: UIDevice.current, locale: locale as Locale, userDefaults: userDefaults)
     }
 
     override func tearDown() {
