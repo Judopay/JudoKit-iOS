@@ -95,13 +95,16 @@ static const float kJudoHeadlineHeight = 20.0F;
 }
 
 - (void)updateLayoutForCurrentOrientation {
+    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
     CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
-    BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
+    BOOL isLandscape = screenHeight < screenWidth;
 
     if (isLandscape) {
         CGFloat maxHeight = screenHeight * kLandscapeHeaderHeightMultiplier;
-        self.headerView.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, maxHeight);
+        self.headerView.frame = CGRectMake(0, 0, screenWidth, maxHeight);
         self.tableView.contentInset = UIEdgeInsetsMake(maxHeight * kContentInsetRatio, 0, 0, 0);
+    } else {
+        self.tableView.contentInset = UIEdgeInsetsMake(kPortraitContentInset * getWidthAspectRatio(), 0, 0, 0);
     }
 }
 

@@ -57,6 +57,8 @@
 
 @property (nonatomic, strong) JPTheme *theme;
 
+- (void)prepareForOrientationChange;
+
 @end
 
 @implementation JPPaymentMethodsHeaderView
@@ -161,6 +163,10 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
 
     [self configureAmountWithViewModel:viewModel];
 
+    CGSize screenBounds = UIScreen.mainScreen.bounds.size;
+    CGFloat paymentButtonAspectRatio = getWidthAspectRatio() * MIN(screenBounds.width, screenBounds.height) / screenBounds.width;
+    CGFloat paymentButtonWidth = kHeaderPaymentButtonHeight * paymentButtonAspectRatio;
+
     if (viewModel.paymentMethodType == JPPaymentMethodTypeApplePay) {
 
         JPApplePayButtonType type = viewModel.isApplePaySetUp
@@ -171,12 +177,12 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
                                                          style:JPApplePayButtonStyleBlack];
 
         [self.paymentStackView addArrangedSubview:self.applePayButton];
-        [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+        [self.applePayButton.widthAnchor constraintEqualToConstant:paymentButtonWidth].active = YES;
         return;
     }
 
     [self.paymentStackView addArrangedSubview:self.payButton];
-    [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+    [self.payButton.widthAnchor constraintEqualToConstant:paymentButtonWidth].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
 }
 
@@ -273,6 +279,11 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         [self.paymentStackView.bottomAnchor constraintEqualToAnchor:self.bottomView.bottomAnchor
                                                            constant:-kHeaderPaymentStackViewVerticalPadding],
     ]];
+}
+
+- (void)prepareForOrientationChange {
+    [_cardHeaderView removeFromSuperview];
+    _cardHeaderView = nil;
 }
 
 #pragma mark - Lazy Properties

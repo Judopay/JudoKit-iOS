@@ -40,6 +40,10 @@
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
 
+@interface JPPaymentMethodsHeaderView (Orientation)
+- (void)prepareForOrientationChange;
+@end
+
 @interface JPPaymentMethodsViewController ()
 
 @property (nonatomic, strong) JPPaymentMethodsView *paymentMethodsView;
@@ -65,6 +69,20 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self.presenter orderCards];
     [super viewWillDisappear:animated];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                                     // Applies updateLayoutForCurrentOrientation so the header frame and table inset match the new orientation.
+                                     [self.paymentMethodsView layoutIfNeeded];
+                                     // Discards the cached card header so reconfigure creates one with fresh orientation constraints.
+                                     [self.paymentMethodsView.headerView prepareForOrientationChange];
+                                     // Re-runs configureWithViewModel so header constraints pick up the new screen aspect ratio.
+                                     [self.presenter viewModelNeedsUpdate];
+                                 }];
 }
 
 #pragma mark - Dark status bar icons
@@ -212,6 +230,10 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // This is for portrait-only parallax effect.
+    if (UIScreen.mainScreen.bounds.size.width > UIScreen.mainScreen.bounds.size.height) {
+        return;
+    }
     CGFloat yValue = -scrollView.contentOffset.y;
     CGFloat height = MIN(MAX(yValue, 395 * getWidthAspectRatio()), 435 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
