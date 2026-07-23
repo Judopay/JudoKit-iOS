@@ -24,22 +24,20 @@
 
 #import "JPRequestEnricher.h"
 
-#import <CoreLocation/CoreLocation.h>
-#import <DeviceDNA/DeviceDNA.h>
-
-#import "Functions.h"
 #import "JPBrowser.h"
 #import "JPConstants.h"
 #import "JPConsumerDevice.h"
+#import "JPDeviceDetails.h"
+#import "JPDeviceDetailsProvider.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPSDKInfo.h"
 #import "JPThreeDSecure.h"
 
-static NSString *const kClientDetailsKey = @"clientDetails";
+static NSString *const kDeviceDetailsKey = @"deviceDetails";
 static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 @interface JPRequestEnricher ()
-@property (nonatomic, strong) DeviceDNA *deviceDNA;
+@property (nonatomic, strong) JPDeviceDetailsProvider *deviceDetailsProvider;
 @end
 
 @implementation JPRequestEnricher
@@ -48,7 +46,7 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 - (instancetype)init {
     if (self = [super init]) {
-        _deviceDNA = [DeviceDNA new];
+        _deviceDetailsProvider = [JPDeviceDetailsProvider new];
     }
     return self;
 }
@@ -57,24 +55,14 @@ static NSString *const kEnhancedPaymentDetailKey = @"EnhancedPaymentDetail";
 
 - (void)enrichRequestParameters:(NSDictionary *)dictionary
                  withCompletion:(JPEnricherCompletionBlock)completion {
-    __weak typeof(self) weakSelf = self;
+    JPEnhancedPaymentDetail *detail = [self buildEnhancedPaymentDetail];
+    JPDeviceDetails *deviceDetails = [self.deviceDetailsProvider deviceDetails];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
+    NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+    enrichedRequest[kEnhancedPaymentDetailKey] = [detail _jp_toDictionary];
+    enrichedRequest[kDeviceDetailsKey] = [deviceDetails _jp_toDictionary];
 
-        [strongSelf.deviceDNA getDeviceSignals:^(NSDictionary *device, NSError *__unused error) {
-            JPEnhancedPaymentDetail *detail = [strongSelf buildEnhancedPaymentDetail];
-            NSMutableDictionary *enrichedRequest = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-            enrichedRequest[kEnhancedPaymentDetailKey] = [detail _jp_toDictionary];
-            enrichedRequest[kClientDetailsKey] = device;
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion([NSDictionary dictionaryWithDictionary:enrichedRequest]);
-            });
-        }];
-    });
+    completion([NSDictionary dictionaryWithDictionary:enrichedRequest]);
 }
 
 #pragma mark - Helper methods

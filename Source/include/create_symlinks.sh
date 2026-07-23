@@ -87,6 +87,8 @@ ln -s -f ../Models/Response/NetworkTokenisationDetails/JPNetworkTokenisationDeta
 ln -s -f ../Models/Response/ThreeDSecureResult/JPThreeDSecureResult.h JPThreeDSecureResult.h
 
 # project headers
+ln -s -f ../Models/DeviceDetails/JPDeviceDetails.h JPDeviceDetails.h
+ln -s -f ../Models/DeviceDetails/JPDeviceDetailsProvider.h JPDeviceDetailsProvider.h
 ln -s -f ../View/SectionView/JPSectionViewDelegate.h JPSectionViewDelegate.h
 ln -s -f ../Modules/PaymentMethods/Interactor/JPPaymentMethodsInteractor.h JPPaymentMethodsInteractor.h
 ln -s -f ../Modules/PaymentMethods/View/Subviews/Cells/CardListFooterCell/JPPaymentMethodsCardListFooterCell.h JPPaymentMethodsCardListFooterCell.h
