@@ -10,7 +10,8 @@
         kIsRecommendationOnKey,
         kIsAddressOnKey,
         kIsPrimaryAccountDetailsOnKey,
-        kIsRecurringPaymentOnKey
+        kIsRecurringPaymentOnKey,
+        kIsDeferredPaymentOnKey
     ]];
     [self setHiddenKeys:hiddenKeys];
 }
@@ -23,8 +24,8 @@
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
     } else if ([keys containsObject:kIsTokenAndSecretOnKey]) {
         hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsTokenAndSecretOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecommendationOnKey, kIsRecurringPaymentOnKey ]];
-    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey] || [keys containsObject:kIsRecurringPaymentOnKey]) {
-        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey ]];
+    } else if ([keys containsObject:kIsAddressOnKey] || [keys containsObject:kIsPrimaryAccountDetailsOnKey] || [keys containsObject:kIsRecommendationOnKey] || [keys containsObject:kIsRecurringPaymentOnKey] || [keys containsObject:kIsDeferredPaymentOnKey]) {
+        hiddenKeys = [self computeHiddenKeysWithPriority:@[ kIsPaymentSessionOnKey, kIsTokenAndSecretOnKey, kIsRecommendationOnKey, kIsAddressOnKey, kIsPrimaryAccountDetailsOnKey, kIsRecurringPaymentOnKey, kIsDeferredPaymentOnKey ]];
     }
 
     if (hiddenKeys.count > 0) {
@@ -70,7 +71,15 @@
         kRecurringPaymentIntervalUnitKey,
         kRecurringPaymentIntervalCountKey,
         kRecurringPaymentStartDateKey,
-        kRecurringPaymentEndDateKey
+        kRecurringPaymentEndDateKey,
+
+        kDeferredPaymentDescriptionKey,
+        kDeferredPaymentBillingAgreementKey,
+        kDeferredPaymentManagementUrlKey,
+        kDeferredPaymentLabelKey,
+        kDeferredPaymentAmountKey,
+        kDeferredPaymentDeferredDateKey,
+        kDeferredPaymentFreeCancellationDateKey
     ]];
 
     if ([keys containsObject:kIsPaymentSessionOnKey] && Settings.defaultSettings.isPaymentSessionAuthorizationOn) {
@@ -127,6 +136,18 @@
             kRecurringPaymentIntervalCountKey,
             kRecurringPaymentStartDateKey,
             kRecurringPaymentEndDateKey
+        ]];
+    }
+
+    if ([keys containsObject:kIsDeferredPaymentOnKey] && Settings.defaultSettings.isApplePayDeferredPaymentOn) {
+        [hiddenKeys removeObjectsInArray:@[
+            kDeferredPaymentDescriptionKey,
+            kDeferredPaymentBillingAgreementKey,
+            kDeferredPaymentManagementUrlKey,
+            kDeferredPaymentLabelKey,
+            kDeferredPaymentAmountKey,
+            kDeferredPaymentDeferredDateKey,
+            kDeferredPaymentFreeCancellationDateKey
         ]];
     }
 

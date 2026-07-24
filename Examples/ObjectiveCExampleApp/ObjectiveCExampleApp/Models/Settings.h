@@ -148,6 +148,15 @@ static NSString *const kRecurringPaymentIntervalCountKey = @"recurring_payment_i
 static NSString *const kRecurringPaymentStartDateKey = @"recurring_payment_start_date";
 static NSString *const kRecurringPaymentEndDateKey = @"recurring_payment_end_date";
 
+static NSString *const kIsDeferredPaymentOnKey = @"is_deferred_payment_enabled";
+static NSString *const kDeferredPaymentDescriptionKey = @"deferred_payment_description";
+static NSString *const kDeferredPaymentBillingAgreementKey = @"deferred_payment_billing_agreement";
+static NSString *const kDeferredPaymentManagementUrlKey = @"deferred_payment_management_url";
+static NSString *const kDeferredPaymentLabelKey = @"deferred_payment_label";
+static NSString *const kDeferredPaymentAmountKey = @"deferred_payment_amount";
+static NSString *const kDeferredPaymentDeferredDateKey = @"deferred_payment_deferred_date";
+static NSString *const kDeferredPaymentFreeCancellationDateKey = @"deferred_payment_free_cancellation_date";
+
 #pragma mark - Supported card networks section keys
 
 static NSString *const kVisaEnabledKey = @"is_card_network_visa_enabled";
@@ -232,6 +241,14 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSDate *)applePayRecurringPaymentStartDate;
 - (NSDate *)applePayRecurringPaymentEndDate;
 
+- (NSString *)applePayDeferredPaymentDescription;
+- (NSString *)applePayDeferredPaymentBillingAgreement;
+- (NSString *)applePayDeferredPaymentManagementUrl;
+- (NSString *)applePayDeferredPaymentLabel;
+- (NSDecimalNumber *)applePayDeferredPaymentAmount;
+- (NSDate *)applePayDeferredPaymentDeferredDate;
+- (NSDate *)applePayDeferredPaymentFreeCancellationDate;
+
 #pragma mark - Supported card networks section
 
 - (JPCardNetworkType)supportedCardNetworks;
@@ -250,6 +267,7 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isApplePayRecurringPaymentOn;
+- (BOOL)isApplePayDeferredPaymentOn;
 - (BOOL)isDelayedAuthorisationOn;
 - (BOOL)isAllowIncrementOn;
 - (BOOL)shouldAskForCSC;

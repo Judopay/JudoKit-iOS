@@ -43,6 +43,8 @@
 #import "JPConsumerDevice.h"
 #import "JPContactInformation.h"
 #import "JPCountry.h"
+#import "JPDeferredPaymentRequest.h"
+#import "JPDeferredPaymentSummaryItem.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPError+Additions.h"
 #import "JPError.h"

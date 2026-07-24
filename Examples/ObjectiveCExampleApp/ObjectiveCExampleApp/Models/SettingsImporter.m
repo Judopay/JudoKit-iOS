@@ -306,7 +306,15 @@ static NSString *const kPaymentMethodsJsonKey = @"payment_methods";
             kRecurringPaymentIntervalUnitKey,
             kRecurringPaymentIntervalCountKey,
             kRecurringPaymentStartDateKey,
-            kRecurringPaymentEndDateKey
+            kRecurringPaymentEndDateKey,
+            kIsDeferredPaymentOnKey,
+            kDeferredPaymentDescriptionKey,
+            kDeferredPaymentBillingAgreementKey,
+            kDeferredPaymentManagementUrlKey,
+            kDeferredPaymentLabelKey,
+            kDeferredPaymentAmountKey,
+            kDeferredPaymentDeferredDateKey,
+            kDeferredPaymentFreeCancellationDateKey
         ] ],
         @[ @"others", @[
             kAVSEnabledKey,

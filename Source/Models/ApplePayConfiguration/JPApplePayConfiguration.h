@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPCardNetworkType.h"
+#import "JPDeferredPaymentRequest.h"
 #import "JPPaymentShippingMethod.h"
 #import "JPPaymentSummaryItem.h"
 #import "JPRecurringPaymentRequest.h"
@@ -100,9 +101,16 @@
 /**
  * [OPTIONAL] Recurring Payment configuration object.
  *
- * * [NOTE: Recurring Payment is only available starting with iOS 16.0]
+ * [NOTE: Recurring Payment is only available starting with iOS 16.0]
  */
 @property (nonatomic, strong, nullable) JPRecurringPaymentRequest *recurringPaymentRequest API_AVAILABLE(macos(13.0), ios(16.0)) API_UNAVAILABLE(watchos);
+
+/**
+ * [OPTIONAL] Deferred Payment configuration object (e.g. hotel bookings, pre-orders).
+ *
+ * [NOTE: Deferred Payment is only available starting with iOS 16.4]
+ */
+@property (nonatomic, strong, nullable) JPDeferredPaymentRequest *deferredPaymentRequest API_AVAILABLE(macos(13.3), ios(16.4)) API_UNAVAILABLE(watchos);
 
 /**
  * Designated initializer necesary for the bare minimum configuration of a PKPaymentRequest object.
