@@ -191,27 +191,6 @@ class JPApplePayWrappersTests: XCTestCase {
     /**
      * GIVEN: JPApplePayWrappers is used to create a PKPaymentAuthorizationViewController
      *
-     * WHEN: an automaticReloadPaymentRequest is set in the Apple Pay configuration
-     *
-     * THEN: a valid PKPaymentAuthorizationViewController should still be returned
-     */
-    @available(iOS 16.0, *)
-    func test_OnPaymentControllerCreation_WhenAutomaticReloadPaymentRequestSet_ReturnsController() {
-        let billingItem = JPAutomaticReloadPaymentSummaryItem(label: "Top-up",
-                                                              amount: NSDecimalNumber(string: "20.00"),
-                                                              thresholdAmount: NSDecimalNumber(string: "5.00"))
-        let reloadRequest = JPAutomaticReloadPaymentRequest(paymentDescription: "Auto top-up",
-                                                            automaticReloadBilling: billingItem,
-                                                            andManagementURL: URL(string: "https://example.com/manage")!)
-        configuration.applePayConfiguration = appleConfig
-        configuration.applePayConfiguration?.automaticReloadPaymentRequest = reloadRequest
-        let paymentController = JPApplePayWrappers.pkPaymentController(for: configuration)
-        XCTAssertNotNil(paymentController)
-    }
-
-    /**
-     * GIVEN: JPApplePayWrappers is used to create a PKPaymentAuthorizationViewController
-     *
      * WHEN: a deferredPaymentRequest is set in the Apple Pay configuration
      *
      * THEN: a valid PKPaymentAuthorizationViewController should still be returned

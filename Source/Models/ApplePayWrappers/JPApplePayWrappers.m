@@ -25,7 +25,6 @@
 #import "JPApplePayWrappers.h"
 #import "JPApplePayConfiguration.h"
 #import "JPApplePayTypes.h"
-#import "JPAutomaticReloadPaymentRequest.h"
 #import "JPConfiguration.h"
 #import "JPDeferredPaymentRequest.h"
 #import "JPDeferredPaymentSummaryItem.h"
@@ -49,7 +48,6 @@
 
     if (@available(iOS 16.0, *)) {
         paymentRequest.recurringPaymentRequest = applePayConfiguration.recurringPaymentRequest.toPKRecurringPaymentRequest;
-        paymentRequest.automaticReloadPaymentRequest = applePayConfiguration.automaticReloadPaymentRequest.toPKAutomaticReloadPaymentRequest;
     }
 
     if (@available(iOS 16.4, *)) {

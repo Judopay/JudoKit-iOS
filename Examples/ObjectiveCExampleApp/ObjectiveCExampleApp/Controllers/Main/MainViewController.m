@@ -449,23 +449,6 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
         }
     }
 
-    if (Settings.defaultSettings.isApplePayAutomaticReloadPaymentOn) {
-
-        NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayAutomaticReloadPaymentManagementUrl];
-
-        if (@available(iOS 16.0, *)) {
-            JPAutomaticReloadPaymentSummaryItem *reloadBilling = [JPAutomaticReloadPaymentSummaryItem itemWithLabel:Settings.defaultSettings.applePayAutomaticReloadPaymentLabel
-                                                                                                            amount:Settings.defaultSettings.applePayAutomaticReloadPaymentAmount
-                                                                                                   thresholdAmount:Settings.defaultSettings.applePayAutomaticReloadPaymentThresholdAmount];
-
-            JPAutomaticReloadPaymentRequest *request = [JPAutomaticReloadPaymentRequest requestWithPaymentDescription:Settings.defaultSettings.applePayAutomaticReloadPaymentDescription
-                                                                                               automaticReloadBilling:reloadBilling
-                                                                                                     andManagementURL:managementURL];
-            request.billingAgreement = Settings.defaultSettings.applePayAutomaticReloadPaymentBillingAgreement;
-            configuration.automaticReloadPaymentRequest = request;
-        }
-    }
-
     if (Settings.defaultSettings.isApplePayDeferredPaymentOn) {
 
         NSURL *managementURL = [NSURL URLWithString:Settings.defaultSettings.applePayDeferredPaymentManagementUrl];

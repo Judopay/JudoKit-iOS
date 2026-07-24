@@ -108,10 +108,6 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
 }
 
-- (BOOL)isApplePayAutomaticReloadPaymentOn {
-    return [self.defaults boolForKey:kIsAutomaticReloadPaymentOnKey];
-}
-
 - (BOOL)isApplePayDeferredPaymentOn {
     return [self.defaults boolForKey:kIsDeferredPaymentOnKey];
 }
@@ -258,36 +254,6 @@ NSString *safeString(NSString *aString) {
 
 - (NSDate *)applePayRecurringPaymentEndDate {
     return [self.defaults objectForKey:kRecurringPaymentEndDateKey];
-}
-
-- (NSString *)applePayAutomaticReloadPaymentDescription {
-    NSString *description = [self.defaults stringForKey:kAutomaticReloadPaymentDescriptionKey];
-    return description.length > 0 ? description : nil;
-}
-
-- (NSString *)applePayAutomaticReloadPaymentBillingAgreement {
-    NSString *billingAgreement = [self.defaults stringForKey:kAutomaticReloadPaymentBillingAgreementKey];
-    return billingAgreement.length > 0 ? billingAgreement : nil;
-}
-
-- (NSString *)applePayAutomaticReloadPaymentManagementUrl {
-    NSString *managementUrl = [self.defaults stringForKey:kAutomaticReloadPaymentManagementUrlKey];
-    return managementUrl.length > 0 ? managementUrl : nil;
-}
-
-- (NSString *)applePayAutomaticReloadPaymentLabel {
-    NSString *label = [self.defaults stringForKey:kAutomaticReloadPaymentLabelKey];
-    return label.length > 0 ? label : nil;
-}
-
-- (NSDecimalNumber *)applePayAutomaticReloadPaymentAmount {
-    NSDecimalNumber *decimalForm = [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kAutomaticReloadPaymentAmountKey]];
-    return ![NSDecimalNumber.notANumber isEqualToNumber:decimalForm] ? decimalForm : nil;
-}
-
-- (NSDecimalNumber *)applePayAutomaticReloadPaymentThresholdAmount {
-    NSDecimalNumber *decimalForm = [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kAutomaticReloadPaymentThresholdAmountKey]];
-    return ![NSDecimalNumber.notANumber isEqualToNumber:decimalForm] ? decimalForm : nil;
 }
 
 - (NSString *)applePayDeferredPaymentDescription {

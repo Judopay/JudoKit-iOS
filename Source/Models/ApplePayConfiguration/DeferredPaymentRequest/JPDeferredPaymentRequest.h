@@ -34,7 +34,6 @@ API_UNAVAILABLE(watchos)
 @property (nonatomic, strong, nonnull) NSURL *managementURL;
 @property (nonatomic, strong, nonnull) JPDeferredPaymentSummaryItem *deferredBilling;
 @property (nonatomic, strong, nullable) NSString *billingAgreement;
-@property (nonatomic, strong, nullable) NSURL *tokenNotificationURL;
 @property (nonatomic, strong, nullable) NSDate *freeCancellationDate;
 @property (nonatomic, strong, nullable) NSTimeZone *freeCancellationDateTimeZone;
 

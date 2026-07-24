@@ -148,14 +148,6 @@ static NSString *const kRecurringPaymentIntervalCountKey = @"recurring_payment_i
 static NSString *const kRecurringPaymentStartDateKey = @"recurring_payment_start_date";
 static NSString *const kRecurringPaymentEndDateKey = @"recurring_payment_end_date";
 
-static NSString *const kIsAutomaticReloadPaymentOnKey = @"is_automatic_reload_payment_enabled";
-static NSString *const kAutomaticReloadPaymentDescriptionKey = @"automatic_reload_payment_description";
-static NSString *const kAutomaticReloadPaymentBillingAgreementKey = @"automatic_reload_payment_billing_agreement";
-static NSString *const kAutomaticReloadPaymentManagementUrlKey = @"automatic_reload_payment_management_url";
-static NSString *const kAutomaticReloadPaymentLabelKey = @"automatic_reload_payment_label";
-static NSString *const kAutomaticReloadPaymentAmountKey = @"automatic_reload_payment_amount";
-static NSString *const kAutomaticReloadPaymentThresholdAmountKey = @"automatic_reload_payment_threshold_amount";
-
 static NSString *const kIsDeferredPaymentOnKey = @"is_deferred_payment_enabled";
 static NSString *const kDeferredPaymentDescriptionKey = @"deferred_payment_description";
 static NSString *const kDeferredPaymentBillingAgreementKey = @"deferred_payment_billing_agreement";
@@ -249,13 +241,6 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (NSDate *)applePayRecurringPaymentStartDate;
 - (NSDate *)applePayRecurringPaymentEndDate;
 
-- (NSString *)applePayAutomaticReloadPaymentDescription;
-- (NSString *)applePayAutomaticReloadPaymentBillingAgreement;
-- (NSString *)applePayAutomaticReloadPaymentManagementUrl;
-- (NSString *)applePayAutomaticReloadPaymentLabel;
-- (NSDecimalNumber *)applePayAutomaticReloadPaymentAmount;
-- (NSDecimalNumber *)applePayAutomaticReloadPaymentThresholdAmount;
-
 - (NSString *)applePayDeferredPaymentDescription;
 - (NSString *)applePayDeferredPaymentBillingAgreement;
 - (NSString *)applePayDeferredPaymentManagementUrl;
@@ -282,7 +267,6 @@ static NSString *const kShouldAskForCardholderNameKey = @"should_ask_for_cardhol
 - (BOOL)isAddressOn;
 - (BOOL)isPrimaryAccountDetailsOn;
 - (BOOL)isApplePayRecurringPaymentOn;
-- (BOOL)isApplePayAutomaticReloadPaymentOn;
 - (BOOL)isApplePayDeferredPaymentOn;
 - (BOOL)isDelayedAuthorisationOn;
 - (BOOL)isAllowIncrementOn;

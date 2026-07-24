@@ -53,7 +53,6 @@
                                                                                          deferredBilling:item
                                                                                            managementURL:self.managementURL];
         request.billingAgreement = self.billingAgreement;
-        request.tokenNotificationURL = self.tokenNotificationURL;
         request.freeCancellationDate = self.freeCancellationDate;
         request.freeCancellationDateTimeZone = self.freeCancellationDateTimeZone;
         return request;

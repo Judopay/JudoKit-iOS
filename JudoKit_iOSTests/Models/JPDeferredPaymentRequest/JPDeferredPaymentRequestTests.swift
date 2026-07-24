@@ -33,7 +33,6 @@ class JPDeferredPaymentRequestTests: XCTestCase {
     private let deferredDate = Date(timeIntervalSinceReferenceDate: 1_000_000)
     private let billingAgreement = "Pre-authorisation terms"
     private let freeCancellationDate = Date(timeIntervalSinceReferenceDate: 500_000)
-    private let tokenNotificationURL = URL(string: "https://example.com/token-notify")!
 
     private var billingItem: JPDeferredPaymentSummaryItem!
     private var sut: JPDeferredPaymentRequest!
@@ -98,7 +97,6 @@ class JPDeferredPaymentRequestTests: XCTestCase {
      */
     func test_OnInitialization_OptionalPropertiesAreNil() {
         XCTAssertNil(sut.billingAgreement)
-        XCTAssertNil(sut.tokenNotificationURL)
         XCTAssertNil(sut.freeCancellationDate)
         XCTAssertNil(sut.freeCancellationDateTimeZone)
     }
@@ -143,16 +141,4 @@ class JPDeferredPaymentRequestTests: XCTestCase {
         XCTAssertEqual(pkRequest?.freeCancellationDate, freeCancellationDate)
     }
 
-    /**
-     * GIVEN: a JPDeferredPaymentRequest has tokenNotificationURL set
-     *
-     * WHEN: toPKDeferredPaymentRequest is called
-     *
-     * THEN: the returned request must have the tokenNotificationURL set
-     */
-    func test_ToPKRequest_MapsTokenNotificationURLWhenSet() {
-        sut.tokenNotificationURL = tokenNotificationURL
-        let pkRequest = sut.toPKDeferredPaymentRequest()
-        XCTAssertEqual(pkRequest?.tokenNotificationURL, tokenNotificationURL)
-    }
 }

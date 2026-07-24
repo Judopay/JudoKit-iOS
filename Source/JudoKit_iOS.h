@@ -28,8 +28,6 @@
 #import "JPAdministrativeDivision.h"
 #import "JPAmount.h"
 #import "JPApplePayConfiguration.h"
-#import "JPAutomaticReloadPaymentRequest.h"
-#import "JPAutomaticReloadPaymentSummaryItem.h"
 #import "JPBillingCountry.h"
 #import "JPBrowser.h"
 #import "JPCard.h"
