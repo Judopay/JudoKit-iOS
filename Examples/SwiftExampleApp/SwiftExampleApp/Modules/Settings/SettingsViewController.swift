@@ -34,6 +34,12 @@ class SettingsViewController: IASKAppSettingsViewController {
                 kIsPrimaryAccountDetailsOnKey
             ]),
             animated: true)
+        } else if key == kIsRecurringPaymentOnKey || key == kIsDeferredPaymentOnKey {
+            // These keys live in the Apple Pay child pane; skip when we are the root controller
+            if file != "Root" {
+                setHiddenKeys(computeHiddenKeys(from: [kIsRecurringPaymentOnKey, kIsDeferredPaymentOnKey]),
+                              animated: true)
+            }
         }
     }
 
