@@ -137,6 +137,7 @@
             kRecurringPaymentStartDateKey,
             kRecurringPaymentEndDateKey
         ]];
+        [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsDeferredPaymentOnKey];
     }
 
     if ([keys containsObject:kIsDeferredPaymentOnKey] && Settings.defaultSettings.isApplePayDeferredPaymentOn) {
@@ -149,6 +150,7 @@
             kDeferredPaymentDeferredDateKey,
             kDeferredPaymentFreeCancellationDateKey
         ]];
+        [NSUserDefaults.standardUserDefaults setBool:NO forKey:kIsRecurringPaymentOnKey];
     }
 
     return [NSSet setWithArray:hiddenKeys];
