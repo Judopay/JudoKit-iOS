@@ -4,6 +4,8 @@
 <dict>
 	<key>Title</key>
 	<string>apple_pay_settings_header</string>
+	<key>StringsTable</key>
+	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>

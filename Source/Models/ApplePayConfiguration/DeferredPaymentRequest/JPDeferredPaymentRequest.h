@@ -1,8 +1,8 @@
 //
-//  JPRecurringPaymentRequest.h
+//  JPDeferredPaymentRequest.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2023 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,29 @@
 
 #import <PassKit/PassKit.h>
 
-@class JPRecurringPaymentSummaryItem;
+@class JPDeferredPaymentSummaryItem;
 
-API_AVAILABLE(ios(16.0))
+API_AVAILABLE(ios(16.4))
 API_UNAVAILABLE(watchos)
-@interface JPRecurringPaymentRequest : NSObject
+@interface JPDeferredPaymentRequest : NSObject
 
 @property (nonatomic, strong, nonnull) NSString *paymentDescription;
 @property (nonatomic, strong, nonnull) NSURL *managementURL;
-@property (nonatomic, strong, nonnull) JPRecurringPaymentSummaryItem *regularBilling;
-@property (nonatomic, strong, nullable) JPRecurringPaymentSummaryItem *trialBilling;
+@property (nonatomic, strong, nonnull) JPDeferredPaymentSummaryItem *deferredBilling;
 @property (nonatomic, strong, nullable) NSString *billingAgreement;
+@property (nonatomic, strong, nullable) NSDate *freeCancellationDate;
+@property (nonatomic, strong, nullable) NSTimeZone *freeCancellationDateTimeZone;
 
 + (nonnull instancetype)requestWithPaymentDescription:(nonnull NSString *)paymentDescription
-                                       regularBilling:(nonnull JPRecurringPaymentSummaryItem *)regularBilling
+                                      deferredBilling:(nonnull JPDeferredPaymentSummaryItem *)deferredBilling
                                      andManagementURL:(nonnull NSURL *)managementURL;
 
 - (nonnull instancetype)initWithPaymentDescription:(nonnull NSString *)paymentDescription
-                                    regularBilling:(nonnull JPRecurringPaymentSummaryItem *)regularBilling
+                                   deferredBilling:(nonnull JPDeferredPaymentSummaryItem *)deferredBilling
                                   andManagementURL:(nonnull NSURL *)managementURL;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
-- (nullable PKRecurringPaymentRequest *)toPKRecurringPaymentRequest;
+- (nullable PKDeferredPaymentRequest *)toPKDeferredPaymentRequest;
 
 @end
