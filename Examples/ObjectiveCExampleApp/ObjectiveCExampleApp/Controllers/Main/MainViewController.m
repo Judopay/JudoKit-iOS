@@ -332,14 +332,14 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
 
 - (void)handleResponse:(JPResponse *)response error:(NSError *)error {
     if (error) {
-        [self displaySnackBarWith:error.localizedDescription];
+        [self displayAlertWithError:error];
         return;
     }
-    
+
     if (!response) {
         return;
     }
-    
+
     [self presentResultViewControllerWithResponse:response];
 }
 

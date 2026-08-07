@@ -63,6 +63,35 @@ class ResultsViewController: UIViewController, ResultsInteractorOutput {
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
         navigationItem.rightBarButtonItems = [networkRequestsInspectorButton]
+        setupIconHeader()
+    }
+
+    private func setupIconHeader() {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 168))
+        let color = UIColor.systemBlue
+
+        let circle = UIView()
+        circle.backgroundColor = color.withAlphaComponent(0.12)
+        circle.layer.cornerRadius = 60
+        circle.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(circle)
+
+        let config = UIImage.SymbolConfiguration(pointSize: 56)
+        let icon = UIImageView(image: UIImage(systemName: "checkmark.circle.fill", withConfiguration: config))
+        icon.tintColor = color
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(icon)
+
+        NSLayoutConstraint.activate([
+            circle.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            circle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            circle.widthAnchor.constraint(equalToConstant: 120),
+            circle.heightAnchor.constraint(equalToConstant: 120),
+            icon.centerXAnchor.constraint(equalTo: circle.centerXAnchor),
+            icon.centerYAnchor.constraint(equalTo: circle.centerYAnchor),
+        ])
+
+        tableView.tableHeaderView = headerView
     }
 
     private func setupConstraints() {

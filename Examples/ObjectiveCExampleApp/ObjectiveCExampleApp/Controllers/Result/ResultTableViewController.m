@@ -60,13 +60,14 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     UINib *cellNib = [UINib nibWithNibName:@"ResultItemTableViewCell" bundle:NSBundle.mainBundle];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:kTableViewCellReuseIdentifier];
-    
+
     self.title = self.result.title;
     self.view.accessibilityIdentifier = @"Results View";
     self.tableView.accessibilityIdentifier = @"Results View";
+    [self setupIconHeader];
     
     UIImage *networkImage = [UIImage systemImageNamed:@"network"];
     UIImage *xImage = [UIImage systemImageNamed:@"xmark"];
@@ -93,6 +94,36 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)onClose {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)setupIconHeader {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 168)];
+
+    UIColor *color = UIColor.systemBlueColor;
+
+    UIView *circle = [UIView new];
+    circle.backgroundColor = [color colorWithAlphaComponent:0.12];
+    circle.layer.cornerRadius = 60;
+    circle.translatesAutoresizingMaskIntoConstraints = NO;
+    [headerView addSubview:circle];
+
+    UIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithPointSize:56];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"checkmark.circle.fill"
+                                                                   withConfiguration:config]];
+    icon.tintColor = color;
+    icon.translatesAutoresizingMaskIntoConstraints = NO;
+    [headerView addSubview:icon];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [circle.centerXAnchor constraintEqualToAnchor:headerView.centerXAnchor],
+        [circle.centerYAnchor constraintEqualToAnchor:headerView.centerYAnchor],
+        [circle.widthAnchor constraintEqualToConstant:120],
+        [circle.heightAnchor constraintEqualToConstant:120],
+        [icon.centerXAnchor constraintEqualToAnchor:circle.centerXAnchor],
+        [icon.centerYAnchor constraintEqualToAnchor:circle.centerYAnchor],
+    ]];
+
+    self.tableView.tableHeaderView = headerView;
 }
 
 //------------------------------------------------------
@@ -146,7 +177,7 @@ static CGFloat const kTableViewCellHeight = 64.F;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     ResultItem *item = self.result.items[indexPath.row];
     if (item.subResult) {
         UIViewController *controller = [[ResultTableViewController alloc] initWithResult:item.subResult];
