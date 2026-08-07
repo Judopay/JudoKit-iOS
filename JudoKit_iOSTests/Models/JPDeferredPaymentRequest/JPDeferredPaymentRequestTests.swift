@@ -139,7 +139,7 @@ class JPDeferredPaymentRequestTests: XCTestCase {
         sut.freeCancellationDate = freeCancellationDate
         let pkRequest = sut.toPKDeferredPaymentRequest()
         XCTAssertEqual(pkRequest?.freeCancellationDate, freeCancellationDate)
-        XCTAssertEqual(pkRequest?.freeCancellationDateTimeZone, .local)
+        XCTAssertEqual(pkRequest?.freeCancellationDateTimeZone, .autoupdatingCurrent)
     }
 
     /**
