@@ -129,16 +129,33 @@ class JPDeferredPaymentRequestTests: XCTestCase {
     }
 
     /**
-     * GIVEN: a JPDeferredPaymentRequest has freeCancellationDate set
+     * GIVEN: a JPDeferredPaymentRequest has only freeCancellationDate set (no timezone)
      *
      * WHEN: toPKDeferredPaymentRequest is called
      *
-     * THEN: the returned request must have the freeCancellationDate set
+     * THEN: the returned request must have freeCancellationDate set and timezone defaulted to local
      */
     func test_ToPKRequest_MapsFreeCancellationDateWhenSet() {
         sut.freeCancellationDate = freeCancellationDate
         let pkRequest = sut.toPKDeferredPaymentRequest()
         XCTAssertEqual(pkRequest?.freeCancellationDate, freeCancellationDate)
+        XCTAssertEqual(pkRequest?.freeCancellationDateTimeZone, .local)
+    }
+
+    /**
+     * GIVEN: a JPDeferredPaymentRequest has both freeCancellationDate and freeCancellationDateTimeZone set
+     *
+     * WHEN: toPKDeferredPaymentRequest is called
+     *
+     * THEN: the returned request must have both values mapped as provided
+     */
+    func test_ToPKRequest_MapsFreeCancellationDateTimeZoneWhenSet() {
+        let timeZone = TimeZone(identifier: "America/New_York")!
+        sut.freeCancellationDate = freeCancellationDate
+        sut.freeCancellationDateTimeZone = timeZone
+        let pkRequest = sut.toPKDeferredPaymentRequest()
+        XCTAssertEqual(pkRequest?.freeCancellationDate, freeCancellationDate)
+        XCTAssertEqual(pkRequest?.freeCancellationDateTimeZone, timeZone)
     }
 
 }

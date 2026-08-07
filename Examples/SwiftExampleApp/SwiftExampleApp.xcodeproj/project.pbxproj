@@ -11,8 +11,6 @@
 		305687272581193500195C93 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687262581193500195C93 /* AppCoordinator.swift */; };
 		3056872D2581197100195C93 /* SettingsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056872C2581197100195C93 /* SettingsModule.swift */; };
 		305687402581227500195C93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056873F2581227500195C93 /* Settings.swift */; };
-		DDEE0000000000000000A102 /* SettingsImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000A101 /* SettingsImporter.swift */; };
-		DDEE0000000000000000A104 /* ImportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000A103 /* ImportSettingsViewController.swift */; };
 		305687452581280600195C93 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687442581280600195C93 /* SettingsKeys.swift */; };
 		3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */; };
 		3056875225812F5600195C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056875125812F5600195C93 /* SettingsViewController.swift */; };
@@ -54,6 +52,9 @@
 		D1F01A4E2C9C27F2001AC792 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4D2C9C27F2001AC792 /* Selectors.swift */; };
 		D1F01A502C9C2839001AC792 /* XCUIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A4F2C9C2839001AC792 /* XCUIApplication+Additions.swift */; };
 		D1F01A522C9C28CE001AC792 /* XCUIElement+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */; };
+		DDEE0000000000000000A102 /* SettingsImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000A101 /* SettingsImporter.swift */; };
+		DDEE0000000000000000A104 /* ImportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEE0000000000000000A103 /* ImportSettingsViewController.swift */; };
+		EB1DA775D5F0310A09C98BDB /* JudoSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51EE2D739843D55012CCF94 /* JudoSheets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +80,6 @@
 		305687262581193500195C93 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3056872C2581197100195C93 /* SettingsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModule.swift; sourceTree = "<group>"; };
 		3056873F2581227500195C93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		DDEE0000000000000000A101 /* SettingsImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImporter.swift; sourceTree = "<group>"; };
-		DDEE0000000000000000A103 /* ImportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSettingsViewController.swift; sourceTree = "<group>"; };
 		305687442581280600195C93 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IASKAppSettingsViewController+Additions.swift"; sourceTree = "<group>"; };
 		3056875125812F5600195C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +121,7 @@
 		ADBFBC6F2A128A880094859B /* NoUICardPayModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayModule.swift; sourceTree = "<group>"; };
 		ADBFBC712A128B2C0094859B /* NoUICardPayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayView.swift; sourceTree = "<group>"; };
 		ADBFBC752A12997D0094859B /* NoUICardPayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUICardPayViewModel.swift; sourceTree = "<group>"; };
+		B51EE2D739843D55012CCF94 /* JudoSheets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JudoSheets.swift; sourceTree = "<group>"; };
 		BB51388758C04FBB45FE0CE3 /* Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp-SwiftExampleAppUITests/Pods-SwiftExampleApp-SwiftExampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1C7D453B0F2D8A54EF0682A /* Pods-SwiftExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SwiftExampleApp/Pods-SwiftExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C721A0EA88E53947BF0C4D32 /* Pods_SwiftExampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +136,8 @@
 		D1F01A512C9C28CE001AC792 /* XCUIElement+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Additions.swift"; sourceTree = "<group>"; };
 		D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp_SwiftExampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FFBCF43B0E88669F4DDED3 /* Pods_SwiftExampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftExampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDEE0000000000000000A101 /* SettingsImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImporter.swift; sourceTree = "<group>"; };
+		DDEE0000000000000000A103 /* ImportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +278,7 @@
 				30585426257FABA4000B00DF /* UIViewController+Additions.swift */,
 				3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */,
 				305689F025836F3000195C93 /* NSObject+Additions.swift */,
+				B51EE2D739843D55012CCF94 /* JudoSheets.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */,
 				305853BF257F7C9F000B00DF /* FeatureCell.swift in Sources */,
 				30FF8EB5259B37200077B5C8 /* ApplePayModule.swift in Sources */,
+				EB1DA775D5F0310A09C98BDB /* JudoSheets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

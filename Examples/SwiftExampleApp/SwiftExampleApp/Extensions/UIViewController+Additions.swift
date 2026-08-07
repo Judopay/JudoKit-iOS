@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+import SwiftUI
 import UIKit
 
 extension UIViewController {
@@ -29,14 +30,29 @@ extension UIViewController {
     typealias TextInputCompletion = (String) -> Void
 
     func displayErrorAlert(with error: NSError) {
-        let alertController = UIAlertController(title: error.localizedDescription,
-                                                message: error.localizedFailureReason,
-                                                preferredStyle: .alert)
+        var msg = "Domain: \(error.domain)\nCode: \(error.code)"
+        msg += "\n\nDescription: \(error.localizedDescription)"
+        if let reason = error.localizedFailureReason {
+            msg += "\nFailure Reason: \(reason)"
+        }
+        if let suggestion = error.localizedRecoverySuggestion {
+            msg += "\nRecovery Suggestion: \(suggestion)"
+        }
+        if !error.userInfo.isEmpty {
+            msg += "\n\nUser Info:"
+            for (key, value) in error.userInfo {
+                msg += "\n  \(key): \(value)"
+            }
+        }
 
-        let confirmAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(confirmAction)
-
-        present(alertController, animated: true, completion: nil)
+        let hostVC = UIHostingController(rootView: ErrorSheetView(message: msg))
+        if #available(iOS 15.0, *) {
+            if let sheet = hostVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+        present(hostVC, animated: true)
     }
 
     func displayInputAlert(with title: String,

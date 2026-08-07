@@ -53,8 +53,10 @@
                                                                                          deferredBilling:item
                                                                                            managementURL:self.managementURL];
         request.billingAgreement = self.billingAgreement;
-        request.freeCancellationDate = self.freeCancellationDate;
-        request.freeCancellationDateTimeZone = self.freeCancellationDateTimeZone;
+        if (self.freeCancellationDate) {
+            request.freeCancellationDate = self.freeCancellationDate;
+            request.freeCancellationDateTimeZone = self.freeCancellationDateTimeZone ?: NSTimeZone.localTimeZone;
+        }
         return request;
     }
     return nil;
