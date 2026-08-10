@@ -1,9 +1,7 @@
 PODS:
-  - DeviceDNA (2.1.2)
   - InAppSettingsKit (3.9.2)
   - Judo3DS2_iOS (1.4.0)
   - JudoKit-iOS (6.4.0):
-    - DeviceDNA (= 2.1.2)
     - Judo3DS2_iOS (= 1.4.0)
     - RavelinEncrypt (= 1.1.2)
     - TrustKit (~> 3.0.7)
@@ -21,7 +19,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - DeviceDNA
     - InAppSettingsKit
     - Judo3DS2_iOS
     - RavelinEncrypt
@@ -34,10 +31,9 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DeviceDNA: a2812a2a54bdaf3bafd4d109bd9072759e4d9506
   InAppSettingsKit: 960d91fde94cae12a007c2272e34700a171df600
   Judo3DS2_iOS: b56210b385e21570a62e3ecfefd658578b1e465b
-  JudoKit-iOS: d796d66047fc2dcea6b01bf907636b6fe50a21d6
+  JudoKit-iOS: f39041fb49d37febe5eb04130a7fda3ef537fe52
   RavelinEncrypt: ea533da1cb48ccf84382cb161979b27bfb23d467
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7

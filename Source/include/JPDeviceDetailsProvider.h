@@ -1,0 +1,1 @@
+../Models/DeviceDetails/JPDeviceDetailsProvider.h

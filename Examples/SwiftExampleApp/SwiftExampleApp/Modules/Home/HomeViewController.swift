@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
 
     var interactor: HomeInteractorInput!
     var coordinator: Coordinator?
+    private var resultsSheetCoordinator: ResultsSheetCoordinator?
 
     // MARK: - View lifecycle
 
@@ -54,7 +55,26 @@ class HomeViewController: UIViewController, HomeInteractorOutput {
     }
 
     func navigateToResultsModule(with result: Result) {
-        coordinator?.pushTo(.results(result))
+        let module = ResultsModule.make(with: result)
+        let sheetCoordinator = ResultsSheetCoordinator()
+        resultsSheetCoordinator = sheetCoordinator
+        module.rootViewController.coordinator = sheetCoordinator
+
+        let navController = UINavigationController(rootViewController: module.rootViewController)
+        sheetCoordinator.navigationController = navController
+
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: sheetCoordinator,
+                                         action: #selector(ResultsSheetCoordinator.dismissSheet))
+        module.rootViewController.navigationItem.leftBarButtonItem = doneButton
+
+        if #available(iOS 15.0, *) {
+            if let sheet = navController.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+        present(navController, animated: true)
     }
 
     func navigateToTokenModule() {
@@ -177,5 +197,28 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: ImportSettingsViewControllerDelegate {
     func importSettingsViewControllerDidImportSettings(_ controller: ImportSettingsViewController) {
         interactor.viewDidLoad()
+    }
+}
+
+// MARK: - ResultsSheetCoordinator
+
+private class ResultsSheetCoordinator: Coordinator {
+    weak var navigationController: UINavigationController?
+
+    func start() {}
+
+    func pushTo(_ screen: AppScreen) {
+        guard case let .results(result) = screen else { return }
+        let module = ResultsModule.make(with: result)
+        module.rootViewController.coordinator = self
+        navigationController?.pushViewController(module.rootViewController, animated: true)
+    }
+
+    func pop() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @objc func dismissSheet() {
+        navigationController?.dismiss(animated: true)
     }
 }

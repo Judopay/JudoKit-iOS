@@ -92,7 +92,7 @@ class FeatureService {
         config.uiConfiguration.threeDSUICustomization = settings.threeDSUICustomization
         config.supportedCardNetworks = settings.supportedCardNetworks
         config.applePayConfiguration = applePayConfiguration
-        config.isInitialRecurringPayment = config.isInitialRecurringPayment
+        config.isInitialRecurringPayment = settings.isInitialRecurringPaymentEnabled
         config.cardAddress = settings.address
         config.isDelayedAuthorisation = settings.isDelayedAuthorisationOn
         config.emailAddress = settings.emailAddress
@@ -140,6 +140,51 @@ class FeatureService {
         appleConfig.requiredShippingContactFields = settings.applePayShippingContactFields
         appleConfig.returnedContactInfo = settings.applePayReturnedContactInfo
         appleConfig.supportedCardNetworks = settings.supportedCardNetworks
+
+        if settings.isRecurringPaymentOn,
+           let managementURLString = settings.recurringPaymentManagementUrl,
+           let managementURL = URL(string: managementURLString),
+           let label = settings.recurringPaymentLabel,
+           let amount = settings.recurringPaymentAmount,
+           let description = settings.recurringPaymentDescription {
+            if #available(iOS 16.0, *) {
+                let regularBilling = JPRecurringPaymentSummaryItem(
+                    label: label,
+                    amount: amount,
+                    intervalUnit: settings.recurringPaymentIntervalUnit,
+                    andIntervalCount: settings.recurringPaymentIntervalCount)
+                regularBilling.startDate = settings.recurringPaymentStartDate
+                regularBilling.endDate = settings.recurringPaymentEndDate
+                let request = JPRecurringPaymentRequest(
+                    paymentDescription: description,
+                    regularBilling: regularBilling,
+                    andManagementURL: managementURL)
+                request.billingAgreement = settings.recurringPaymentBillingAgreement
+                appleConfig.recurringPaymentRequest = request
+            }
+        }
+
+        if settings.isDeferredPaymentOn,
+           let managementURLString = settings.deferredPaymentManagementUrl,
+           let managementURL = URL(string: managementURLString),
+           let label = settings.deferredPaymentLabel,
+           let amount = settings.deferredPaymentAmount,
+           let description = settings.deferredPaymentDescription,
+           let deferredDate = settings.deferredPaymentDeferredDate {
+            if #available(iOS 16.4, *) {
+                let deferredBilling = JPDeferredPaymentSummaryItem(
+                    label: label,
+                    amount: amount,
+                    deferredDate: deferredDate)
+                let request = JPDeferredPaymentRequest(
+                    paymentDescription: description,
+                    deferredBilling: deferredBilling,
+                    andManagementURL: managementURL)
+                request.billingAgreement = settings.deferredPaymentBillingAgreement
+                request.freeCancellationDate = settings.deferredPaymentFreeCancellationDate
+                appleConfig.deferredPaymentRequest = request
+            }
+        }
 
         return appleConfig
     }
