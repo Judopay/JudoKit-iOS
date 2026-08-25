@@ -156,7 +156,7 @@ static const float kPrefferedCompressedHeight = 40.0F;
         _floatingLabel.hidden = YES;
 
         _floatingLabel.isAccessibilityElement = YES;
-        _floatingLabel.accessibilityIdentifier = @"Error Floating Label";
+        _floatingLabel.accessibilityIdentifier = @"error_floating_label";
     }
     return _floatingLabel;
 }

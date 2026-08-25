@@ -90,11 +90,11 @@ static const int kConstraintPriority = 999;
 
         switch (paymentMethod.type) {
             case JPPaymentMethodTypeCard:
-                section.accessibilityIdentifier = @"Card Selector View";
+                section.accessibilityIdentifier = @"card_selector_view";
                 break;
 
             case JPPaymentMethodTypeApplePay:
-                section.accessibilityIdentifier = @"Apple Pay Selector View";
+                section.accessibilityIdentifier = @"apple_pay_selector_view";
         }
 
         [sections addObject:section];

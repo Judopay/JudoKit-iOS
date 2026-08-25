@@ -67,7 +67,7 @@ static NSString *const kNoUIPaymentsScreenSegue = @"noUIPayments";
     
     // Setup accessibility identifiers
     self.view.accessibilityIdentifier = @"Main View";
-    self.settingsButton.accessibilityIdentifier = @"Settings Button";
+    self.settingsButton.accessibilityIdentifier = @"settings_button";
     self.networkInspectorButton.accessibilityIdentifier = @"Network requests inspector button";
     self.networkInspectorButton.action = @selector(presentNetworkRequestsInspector);
     self.networkInspectorButton.target = self;
