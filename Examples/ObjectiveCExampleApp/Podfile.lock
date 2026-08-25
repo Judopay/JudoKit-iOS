@@ -1,7 +1,7 @@
 PODS:
   - InAppSettingsKit (3.9.2)
   - Judo3DS2_iOS (1.4.0)
-  - JudoKit-iOS (6.4.0):
+  - JudoKit-iOS (6.5.0):
     - Judo3DS2_iOS (= 1.4.0)
     - RavelinEncrypt (= 1.1.2)
     - TrustKit (~> 3.0.7)
@@ -33,12 +33,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   InAppSettingsKit: 960d91fde94cae12a007c2272e34700a171df600
   Judo3DS2_iOS: b56210b385e21570a62e3ecfefd658578b1e465b
-  JudoKit-iOS: f39041fb49d37febe5eb04130a7fda3ef537fe52
+  JudoKit-iOS: e5c340a2d2fb7a9df355712e8e0a53ef3a91fe9a
   RavelinEncrypt: ea533da1cb48ccf84382cb161979b27bfb23d467
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 497eef68bf5a63dc926d00937b4e86bd85290975
+PODFILE CHECKSUM: 1c71bc6cdbfd6c3cfa3eb4ea2f9753435072ca6c
 
 COCOAPODS: 1.17.0
