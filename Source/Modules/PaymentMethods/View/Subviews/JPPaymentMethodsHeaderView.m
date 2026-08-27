@@ -264,9 +264,9 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     [self.bottomView addSubview:self.paymentStackView];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.leadingAnchor
+        [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.safeAreaLayoutGuide.leadingAnchor
                                                             constant:kHeaderPaymentStackViewHorizontalPadding],
-        [self.paymentStackView.trailingAnchor constraintEqualToAnchor:self.bottomView.trailingAnchor
+        [self.paymentStackView.trailingAnchor constraintEqualToAnchor:self.bottomView.safeAreaLayoutGuide.trailingAnchor
                                                              constant:-kHeaderPaymentStackViewHorizontalPadding],
         [self.paymentStackView.topAnchor constraintEqualToAnchor:self.bottomView.topAnchor
                                                         constant:kHeaderPaymentStackViewVerticalPadding],
