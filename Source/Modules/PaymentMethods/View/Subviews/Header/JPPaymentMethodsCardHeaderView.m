@@ -92,6 +92,15 @@
     ]];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    // The landscape header is too short to fit the card, so no card is shown there.
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    BOOL isLandscape = screenSize.width > screenSize.height;
+    self.cardView.hidden = isLandscape;
+}
+
 #pragma mark - Animations
 
 - (void)animateCardChangeTransitionWithViewModel:(JPPaymentMethodsHeaderModel *)viewModel {
