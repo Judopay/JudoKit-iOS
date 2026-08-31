@@ -220,7 +220,8 @@
     }
 
     CGFloat yValue = -scrollView.contentOffset.y;
-    CGFloat height = MIN(MAX(yValue, 395 * getWidthAspectRatio()), 435 * getWidthAspectRatio());
+    CGFloat height = MIN(MAX(yValue, kPaymentMethodsPortraitHeaderParallaxMin * getWidthAspectRatio()),
+                         kPaymentMethodsPortraitHeaderParallaxMax * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
     self.paymentMethodsView.headerView.frame = newFrame;
 }

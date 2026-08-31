@@ -24,6 +24,7 @@
 
 #import "JPPaymentMethodsView.h"
 #import "Functions.h"
+#import "JPConstants.h"
 #import "JPPaymentMethodsHeaderView.h"
 #import "UIImage+Additions.h"
 #import "UIView+Additions.h"
@@ -104,8 +105,11 @@ static const float kJudoHeadlineHeight = 20.0F;
         self.headerView.frame = CGRectMake(0, 0, screenWidth, maxHeight);
         self.tableView.contentInset = UIEdgeInsetsMake(maxHeight * kContentInsetRatio, 0, 0, 0);
     } else {
-        self.headerView.frame = CGRectMake(0, 0, screenWidth, kPortraitHeaderHeight * getWidthAspectRatio());
-        self.tableView.contentInset = UIEdgeInsetsMake(kPortraitContentInset * getWidthAspectRatio(), 0, 0, 0);
+        CGFloat ratio = getWidthAspectRatio();
+        self.tableView.contentInset = UIEdgeInsetsMake(kPortraitContentInset * ratio, 0, 0, 0);
+        CGFloat height = MIN(MAX(-self.tableView.contentOffset.y, kPaymentMethodsPortraitHeaderParallaxMin * ratio),
+                             kPaymentMethodsPortraitHeaderParallaxMax * ratio);
+        self.headerView.frame = CGRectMake(0, 0, screenWidth, height);
     }
 }
 
