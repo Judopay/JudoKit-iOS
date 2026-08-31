@@ -53,6 +53,7 @@
 
 @property (nonatomic, strong) UIStackView *amountStackView;
 @property (nonatomic, strong) UIStackView *paymentStackView;
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
 @property (nonatomic, strong) JPTheme *theme;
 
@@ -251,6 +252,11 @@ static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
     ]];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.gradientLayer.frame = self.bottomView.bounds;
+}
+
 - (void)setupBackgroundImageView {
     [self addSubview:self.backgroundImageView];
     [self.backgroundImageView _jp_pinToView:self withPadding:kHeaderDefaultPadding];
@@ -292,13 +298,13 @@ static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
         _bottomView = [UIView new];
         _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
         CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, kHeaderBottomHeight);
 
         UIColor *clearWhite = [UIColor.whiteColor colorWithAlphaComponent:0.0];
         gradient.colors = @[ (id)clearWhite.CGColor, (id)UIColor.whiteColor.CGColor ];
         gradient.locations = @[ @(kHeaderGradientClearColorLocation), @(kHeaderGradientWhiteColorLocation) ];
 
         [_bottomView.layer insertSublayer:gradient atIndex:0];
+        _gradientLayer = gradient;
     }
     return _bottomView;
 }
