@@ -255,6 +255,7 @@ static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.gradientLayer.frame = self.bottomView.bounds;
+    self.emptyHeaderView.hidden = self.bounds.size.width > self.bounds.size.height;
 }
 
 - (void)setupBackgroundImageView {
