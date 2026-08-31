@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsHeaderView.h"
-#import "Functions.h"
 #import "JPAmount.h"
 #import "JPPaymentMethodsCardHeaderView.h"
 #import "JPPaymentMethodsEmptyHeaderView.h"
@@ -75,6 +74,7 @@ const float kHeaderPaymentStackViewHorizontalPadding = 24.0F;
 const float kHeaderPaymentStackViewVerticalPadding = 20.0F;
 const float kHeaderPaymentButtonHeight = 200.0F;
 const float kHeaderEmptyHeaderViewYOffset = 100.0F;
+static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
 
 #pragma mark - Initializers
 
@@ -171,12 +171,14 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
                                                          style:JPApplePayButtonStyleBlack];
 
         [self.paymentStackView addArrangedSubview:self.applePayButton];
-        [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+        [self.applePayButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
+                                                      multiplier:kHeaderPaymentButtonWidthMultiplier].active = YES;
         return;
     }
 
     [self.paymentStackView addArrangedSubview:self.payButton];
-    [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+    [self.payButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
+                                           multiplier:kHeaderPaymentButtonWidthMultiplier].active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
 }
 
