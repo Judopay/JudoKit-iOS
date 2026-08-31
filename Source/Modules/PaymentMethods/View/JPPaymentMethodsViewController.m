@@ -212,6 +212,13 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Portrait-only parallax: in landscape this math makes the header taller than the screen.
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    BOOL isLandscape = screenSize.width > screenSize.height;
+    if (isLandscape) {
+        return;
+    }
+
     CGFloat yValue = -scrollView.contentOffset.y;
     CGFloat height = MIN(MAX(yValue, 395 * getWidthAspectRatio()), 435 * getWidthAspectRatio());
     CGRect newFrame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, height);
