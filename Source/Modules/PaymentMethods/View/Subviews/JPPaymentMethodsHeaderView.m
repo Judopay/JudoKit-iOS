@@ -173,13 +173,15 @@ static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
 
         [self.paymentStackView addArrangedSubview:self.applePayButton];
         [self.applePayButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
-                                                      multiplier:kHeaderPaymentButtonWidthMultiplier].active = YES;
+                                                      multiplier:kHeaderPaymentButtonWidthMultiplier]
+            .active = YES;
         return;
     }
 
     [self.paymentStackView addArrangedSubview:self.payButton];
     [self.payButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
-                                           multiplier:kHeaderPaymentButtonWidthMultiplier].active = YES;
+                                             multiplier:kHeaderPaymentButtonWidthMultiplier]
+        .active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
 }
 
