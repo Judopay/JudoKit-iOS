@@ -26,6 +26,7 @@
 #import "JPCardView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
+#import "NSLayoutConstraint+Additions.h"
 
 @interface JPPaymentMethodsCardHeaderView ()
 @property (nonatomic, strong) JPCardView *cardView;
@@ -81,14 +82,16 @@
     CGFloat ratio = MIN(screenSize.width, screenSize.height) / 414.0;
     CGFloat topConstant = 125.0 * ratio;
 
-    [NSLayoutConstraint activateConstraints:@[
+    NSArray *constraints = @[
         [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor
                                                 constant:topConstant],
         [self.cardView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         [self.cardView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
         [self.cardView.widthAnchor constraintEqualToAnchor:self.cardView.heightAnchor
                                                 multiplier:1.715],
-    ]];
+    ];
+
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:999];
 }
 
 - (void)layoutSubviews {

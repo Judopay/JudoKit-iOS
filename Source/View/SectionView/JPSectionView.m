@@ -25,6 +25,7 @@
 #import "JPSectionView.h"
 #import "JPSection.h"
 #import "JPTheme.h"
+#import "NSLayoutConstraint+Additions.h"
 #import "UIColor+Additions.h"
 
 @interface JPSectionView ()
@@ -216,7 +217,7 @@ static const float kSliderCornerRadius = 10.0F;
                                             multiplier:aspectRatio]
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints];
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:999];
 
     return imageView;
 }
