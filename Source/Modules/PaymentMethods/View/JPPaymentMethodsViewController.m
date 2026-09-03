@@ -36,6 +36,7 @@
 #import "JPTheme.h"
 #import "JPTransactionButton.h"
 #import "JPUIConfiguration.h"
+#import "NSLayoutConstraint+Additions.h"
 #import "NSString+Additions.h"
 #import "UIImage+Additions.h"
 #import "UIViewController+Additions.h"
@@ -108,8 +109,11 @@
     [backButton addTarget:self action:@selector(onBackButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [backBarButton.customView.heightAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
-    [backBarButton.customView.widthAnchor constraintEqualToConstant:kNavigationBackButtonSize].active = YES;
+    NSArray *backButtonConstraints = @[
+        [backBarButton.customView.heightAnchor constraintEqualToConstant:kNavigationBackButtonSize],
+        [backBarButton.customView.widthAnchor constraintEqualToConstant:kNavigationBackButtonSize],
+    ];
+    [NSLayoutConstraint _jp_activateConstraints:backButtonConstraints withPriority:999];
     self.navigationItem.leftBarButtonItem = backBarButton;
 
     UILabel *titleLabel = [[UILabel alloc] init];
