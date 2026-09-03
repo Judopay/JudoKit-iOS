@@ -1,3 +1,4 @@
+#import "JPSheetViewController.h"
 #import "Result.h"
 #import "ResultTableViewController.h"
 #import "UIViewController+Additions.h"
@@ -8,9 +9,9 @@
 
 - (void)presentResultViewControllerWithResponse:(JPResponse *)response {
     Result *result = [Result resultFromObject:response];
-    UIViewController *controller = [[ResultTableViewController alloc] initWithResult:result];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:navController animated:YES completion:nil];
+    ResultTableViewController *resultsVC = [[ResultTableViewController alloc] initWithResult:result];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:resultsVC];
+    [self presentAsSheet:navController];
 }
 
 - (void)presentTextFieldAlertControllerWithTitle:(NSString *)title
@@ -48,34 +49,21 @@
 }
 
 - (void)displayAlertWithError:(NSError *)error {
-    [self displayAlertWithTitle:@"Error" andError:error];
+    JPSheetViewController *sheetVC = [JPSheetViewController controllerForError:error];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:sheetVC];
+    [self presentAsSheet:navController];
 }
 
-- (void)displayAlertWithTitle:(NSString *)title andError:(NSError *)error {
-    NSMutableString *errorDetails = [NSMutableString string];
-    
-    [errorDetails appendFormat:@"Domain: %@\n", error.domain];
-    [errorDetails appendFormat:@"Code: %ld\n", (long)error.code];
-    
-    if (error.localizedDescription) {
-        [errorDetails appendFormat:@"\nDescription: %@\n", error.localizedDescription];
+- (void)presentAsSheet:(UINavigationController *)navController {
+    if (@available(iOS 15.0, *)) {
+        UISheetPresentationController *sheet = navController.sheetPresentationController;
+        sheet.detents = @[
+            [UISheetPresentationControllerDetent mediumDetent],
+            [UISheetPresentationControllerDetent largeDetent],
+        ];
+        sheet.prefersGrabberVisible = YES;
     }
-    if (error.localizedFailureReason) {
-        [errorDetails appendFormat:@"Failure Reason: %@\n", error.localizedFailureReason];
-    }
-    if (error.localizedRecoverySuggestion) {
-        [errorDetails appendFormat:@"Recovery Suggestion: %@\n", error.localizedRecoverySuggestion];
-    }
-    
-    if (error.userInfo.count > 0) {
-        [errorDetails appendString:@"\nUser Info:\n"];
-        for (NSString *key in error.userInfo.allKeys) {
-            id value = error.userInfo[key];
-            [errorDetails appendFormat:@"  %@: %@\n", key, value];
-        }
-    }
-    
-    [self displayAlertWithTitle:title andMessage:errorDetails];
+    [self.parentController presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)displayAlertWithTitle:(NSString *)title andMessage:(NSString *)message {

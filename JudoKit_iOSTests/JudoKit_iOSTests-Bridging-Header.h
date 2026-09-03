@@ -61,3 +61,5 @@
 #import "JPSessionAuthorization.h"
 #import "JPInputType.h"
 #import "JPPresentationMode.h"
+#import "JPDeviceDetailsProvider.h"
+#import "JPDeviceDetails.h"

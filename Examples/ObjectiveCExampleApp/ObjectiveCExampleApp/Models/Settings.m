@@ -108,6 +108,10 @@ NSString *safeString(NSString *aString) {
     return [self.defaults boolForKey:kIsRecurringPaymentOnKey];
 }
 
+- (BOOL)isApplePayDeferredPaymentOn {
+    return [self.defaults boolForKey:kIsDeferredPaymentOnKey];
+}
+
 - (BOOL)isDisableNetworkTokenisationOn {
     return [self.defaults boolForKey:kIsDisableNetworkTokenisationOnKey];
 }
@@ -250,6 +254,39 @@ NSString *safeString(NSString *aString) {
 
 - (NSDate *)applePayRecurringPaymentEndDate {
     return [self.defaults objectForKey:kRecurringPaymentEndDateKey];
+}
+
+- (NSString *)applePayDeferredPaymentDescription {
+    NSString *description = [self.defaults stringForKey:kDeferredPaymentDescriptionKey];
+    return description.length > 0 ? description : nil;
+}
+
+- (NSString *)applePayDeferredPaymentBillingAgreement {
+    NSString *billingAgreement = [self.defaults stringForKey:kDeferredPaymentBillingAgreementKey];
+    return billingAgreement.length > 0 ? billingAgreement : nil;
+}
+
+- (NSString *)applePayDeferredPaymentManagementUrl {
+    NSString *managementUrl = [self.defaults stringForKey:kDeferredPaymentManagementUrlKey];
+    return managementUrl.length > 0 ? managementUrl : nil;
+}
+
+- (NSString *)applePayDeferredPaymentLabel {
+    NSString *label = [self.defaults stringForKey:kDeferredPaymentLabelKey];
+    return label.length > 0 ? label : nil;
+}
+
+- (NSDecimalNumber *)applePayDeferredPaymentAmount {
+    NSDecimalNumber *decimalForm = [NSDecimalNumber decimalNumberWithString:[self.defaults objectForKey:kDeferredPaymentAmountKey]];
+    return ![NSDecimalNumber.notANumber isEqualToNumber:decimalForm] ? decimalForm : nil;
+}
+
+- (NSDate *)applePayDeferredPaymentDeferredDate {
+    return [self.defaults objectForKey:kDeferredPaymentDeferredDateKey];
+}
+
+- (NSDate *)applePayDeferredPaymentFreeCancellationDate {
+    return [self.defaults objectForKey:kDeferredPaymentFreeCancellationDateKey];
 }
 
 #pragma mark - Supported card networks section
@@ -409,7 +446,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)timeoutForKey:(NSString *)key {
     NSString *timeout = [self.defaults stringForKey:key];
-    NSInteger timeoutInSeconds = [timeout intValue] * 60;
+    NSInteger timeoutInSeconds = [timeout intValue];
     return timeoutInSeconds == 0 ? @(600) : @(timeoutInSeconds);
 }
 
@@ -518,7 +555,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSNumber *)recommendationTimeout {
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self timeoutForKey:kRecommendationApiTimeoutKey];
+        return [self timeoutForKey:kRecommendationTimeoutKey];
     }
     return nil;
 }

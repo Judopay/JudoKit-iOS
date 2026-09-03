@@ -81,6 +81,86 @@ class Settings {
         userDefaults.string(forKey: kMerchantIdKey) ?? ""
     }
 
+    // MARK: - Apple Pay Recurring Payment
+
+    var isRecurringPaymentOn: Bool {
+        userDefaults.bool(forKey: kIsRecurringPaymentOnKey)
+    }
+
+    var recurringPaymentDescription: String? {
+        userDefaults.string(forKey: kRecurringPaymentDescriptionKey)
+    }
+
+    var recurringPaymentBillingAgreement: String? {
+        userDefaults.string(forKey: kRecurringPaymentBillingAgreementKey)
+    }
+
+    var recurringPaymentManagementUrl: String? {
+        userDefaults.string(forKey: kRecurringPaymentManagementUrlKey)
+    }
+
+    var recurringPaymentLabel: String? {
+        userDefaults.string(forKey: kRecurringPaymentLabelKey)
+    }
+
+    var recurringPaymentAmount: NSDecimalNumber? {
+        guard let str = userDefaults.string(forKey: kRecurringPaymentAmountKey), !str.isEmpty else { return nil }
+        return NSDecimalNumber(string: str)
+    }
+
+    var recurringPaymentIntervalUnit: NSCalendar.Unit {
+        let rawValue = userDefaults.integer(forKey: kRecurringPaymentIntervalUnitKey)
+        return NSCalendar.Unit(rawValue: UInt(rawValue))
+    }
+
+    var recurringPaymentIntervalCount: Int {
+        let value = userDefaults.string(forKey: kRecurringPaymentIntervalCountKey) ?? "0"
+        return Int(value) ?? 0
+    }
+
+    var recurringPaymentStartDate: Date? {
+        userDefaults.object(forKey: kRecurringPaymentStartDateKey) as? Date
+    }
+
+    var recurringPaymentEndDate: Date? {
+        userDefaults.object(forKey: kRecurringPaymentEndDateKey) as? Date
+    }
+
+    // MARK: - Apple Pay Deferred Payment
+
+    var isDeferredPaymentOn: Bool {
+        userDefaults.bool(forKey: kIsDeferredPaymentOnKey)
+    }
+
+    var deferredPaymentDescription: String? {
+        userDefaults.string(forKey: kDeferredPaymentDescriptionKey)
+    }
+
+    var deferredPaymentBillingAgreement: String? {
+        userDefaults.string(forKey: kDeferredPaymentBillingAgreementKey)
+    }
+
+    var deferredPaymentManagementUrl: String? {
+        userDefaults.string(forKey: kDeferredPaymentManagementUrlKey)
+    }
+
+    var deferredPaymentLabel: String? {
+        userDefaults.string(forKey: kDeferredPaymentLabelKey)
+    }
+
+    var deferredPaymentAmount: NSDecimalNumber? {
+        guard let str = userDefaults.string(forKey: kDeferredPaymentAmountKey), !str.isEmpty else { return nil }
+        return NSDecimalNumber(string: str)
+    }
+
+    var deferredPaymentDeferredDate: Date? {
+        userDefaults.object(forKey: kDeferredPaymentDeferredDateKey) as? Date
+    }
+
+    var deferredPaymentFreeCancellationDate: Date? {
+        userDefaults.object(forKey: kDeferredPaymentFreeCancellationDateKey) as? Date
+    }
+
     var applePayReturnedContactInfo: JPReturnedInfo {
         var fields: JPReturnedInfo = []
         if userDefaults.bool(forKey: kIsApplePayBillingContactInfoRequired) {
@@ -225,7 +305,7 @@ class Settings {
            let rsaKey = userDefaults.string(forKey: kRsaKey),
            let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
            let URL = URL(string: URLString) {
-           let timeout = NSNumber(integerLiteral: userDefaults.integer(forKey: kRecommendationTimeoutKey))
+           let timeout = NSNumber(value: timeoutFor(key: kRecommendationTimeoutKey))
             return JPRecommendationConfiguration(url: URL, rsaPublicKey: rsaKey, andTimeout: timeout)
         }
         return nil

@@ -6,7 +6,9 @@ extension IASKAppSettingsViewController {
                                                   kIsTokenAndSecretOnKey,
                                                   kIsAddressOnKey,
                                                   kIsRecommendationOnKey,
-                                                  kIsPrimaryAccountDetailsOnKey])
+                                                  kIsPrimaryAccountDetailsOnKey,
+                                                  kIsRecurringPaymentOnKey,
+                                                  kIsDeferredPaymentOnKey])
         setHiddenKeys(hiddenKeys, animated: false)
     }
 
@@ -36,7 +38,25 @@ extension IASKAppSettingsViewController {
             kPrimaryAccountNameKey,
             kPrimaryAccountAccountNumberKey,
             kPrimaryAccountDateOfBirthKey,
-            kPrimaryAccountPostCodeKey
+            kPrimaryAccountPostCodeKey,
+
+            kRecurringPaymentDescriptionKey,
+            kRecurringPaymentBillingAgreementKey,
+            kRecurringPaymentManagementUrlKey,
+            kRecurringPaymentLabelKey,
+            kRecurringPaymentAmountKey,
+            kRecurringPaymentIntervalUnitKey,
+            kRecurringPaymentIntervalCountKey,
+            kRecurringPaymentStartDateKey,
+            kRecurringPaymentEndDateKey,
+
+            kDeferredPaymentDescriptionKey,
+            kDeferredPaymentBillingAgreementKey,
+            kDeferredPaymentManagementUrlKey,
+            kDeferredPaymentLabelKey,
+            kDeferredPaymentAmountKey,
+            kDeferredPaymentDeferredDateKey,
+            kDeferredPaymentFreeCancellationDateKey
         ]
 
         if keys.contains(kIsPaymentSessionOnKey), Settings.standard.isSessionAuthorizationOn {
@@ -75,6 +95,30 @@ extension IASKAppSettingsViewController {
             hiddenKeys.remove(kPrimaryAccountAccountNumberKey)
             hiddenKeys.remove(kPrimaryAccountDateOfBirthKey)
             hiddenKeys.remove(kPrimaryAccountPostCodeKey)
+        }
+
+        if keys.contains(kIsRecurringPaymentOnKey), Settings.standard.isRecurringPaymentOn {
+            hiddenKeys.remove(kRecurringPaymentDescriptionKey)
+            hiddenKeys.remove(kRecurringPaymentBillingAgreementKey)
+            hiddenKeys.remove(kRecurringPaymentManagementUrlKey)
+            hiddenKeys.remove(kRecurringPaymentLabelKey)
+            hiddenKeys.remove(kRecurringPaymentAmountKey)
+            hiddenKeys.remove(kRecurringPaymentIntervalUnitKey)
+            hiddenKeys.remove(kRecurringPaymentIntervalCountKey)
+            hiddenKeys.remove(kRecurringPaymentStartDateKey)
+            hiddenKeys.remove(kRecurringPaymentEndDateKey)
+            UserDefaults.standard.setValue(false, forKey: kIsDeferredPaymentOnKey)
+        }
+
+        if keys.contains(kIsDeferredPaymentOnKey), Settings.standard.isDeferredPaymentOn {
+            hiddenKeys.remove(kDeferredPaymentDescriptionKey)
+            hiddenKeys.remove(kDeferredPaymentBillingAgreementKey)
+            hiddenKeys.remove(kDeferredPaymentManagementUrlKey)
+            hiddenKeys.remove(kDeferredPaymentLabelKey)
+            hiddenKeys.remove(kDeferredPaymentAmountKey)
+            hiddenKeys.remove(kDeferredPaymentDeferredDateKey)
+            hiddenKeys.remove(kDeferredPaymentFreeCancellationDateKey)
+            UserDefaults.standard.setValue(false, forKey: kIsRecurringPaymentOnKey)
         }
 
         return hiddenKeys

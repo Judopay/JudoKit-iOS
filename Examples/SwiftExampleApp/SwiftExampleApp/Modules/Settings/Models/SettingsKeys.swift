@@ -156,6 +156,26 @@ let kIsShippingContactFieldPhoneRequiredKey = "is_shipping_contact_field_phone_r
 let kIsShippingContactFieldEmailRequiredKey = "is_shipping_contact_field_email_required"
 let kIsShippingContactFieldNameRequiredKey = "is_shipping_contact_field_name_required"
 
+let kIsRecurringPaymentOnKey = "is_recurring_payment_enabled"
+let kRecurringPaymentDescriptionKey = "recurring_payment_description"
+let kRecurringPaymentBillingAgreementKey = "recurring_payment_billing_agreement"
+let kRecurringPaymentManagementUrlKey = "recurring_payment_management_url"
+let kRecurringPaymentLabelKey = "recurring_payment_label"
+let kRecurringPaymentAmountKey = "recurring_payment_amount"
+let kRecurringPaymentIntervalUnitKey = "recurring_payment_interval_unit"
+let kRecurringPaymentIntervalCountKey = "recurring_payment_interval_count"
+let kRecurringPaymentStartDateKey = "recurring_payment_start_date"
+let kRecurringPaymentEndDateKey = "recurring_payment_end_date"
+
+let kIsDeferredPaymentOnKey = "is_deferred_payment_enabled"
+let kDeferredPaymentDescriptionKey = "deferred_payment_description"
+let kDeferredPaymentBillingAgreementKey = "deferred_payment_billing_agreement"
+let kDeferredPaymentManagementUrlKey = "deferred_payment_management_url"
+let kDeferredPaymentLabelKey = "deferred_payment_label"
+let kDeferredPaymentAmountKey = "deferred_payment_amount"
+let kDeferredPaymentDeferredDateKey = "deferred_payment_deferred_date"
+let kDeferredPaymentFreeCancellationDateKey = "deferred_payment_free_cancellation_date"
+
 // MARK: - Supported card networks section keys
 
 let kVisaEnabledKey = "is_card_network_visa_enabled"
