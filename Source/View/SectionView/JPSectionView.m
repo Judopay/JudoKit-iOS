@@ -25,13 +25,14 @@
 #import "JPSectionView.h"
 #import "JPSection.h"
 #import "JPTheme.h"
+#import "NSLayoutConstraint+Additions.h"
 #import "UIColor+Additions.h"
 
 @interface JPSectionView ()
 
 @property (nonatomic, strong) JPTheme *theme;
 @property (nonatomic, strong) NSArray<JPSection *> *sections;
-@property (nonatomic, assign) CGFloat contentWidth;
+@property (nonatomic, assign) NSUInteger selectedIndex;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *backgroundView;
@@ -90,6 +91,24 @@ static const float kSliderCornerRadius = 10.0F;
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self updateSectionFrames];
+}
+
+- (void)updateSectionFrames {
+    CGFloat sectionWidth = self.adaptiveSectionWidth;
+    CGFloat contentWidth = (double)self.sections.count * sectionWidth;
+
+    self.scrollView.contentSize = CGSizeMake(contentWidth, kSectionHeight);
+    self.backgroundView.frame = CGRectMake(0, 0, contentWidth, kSectionHeight);
+    self.contentStackView.frame = CGRectMake(0, 0, contentWidth, kSectionHeight);
+    self.sliderView.frame = CGRectMake(kContentPadding + (double)self.selectedIndex * sectionWidth,
+                                       kContentPadding,
+                                       sectionWidth - kContentPadding * 2,
+                                       kSectionHeight - kContentPadding * 2);
+}
+
 - (void)setupGestureRecognizers {
     UITapGestureRecognizer *tapGesture;
     SEL tapSelector = @selector(didTapSectionView:);
@@ -121,16 +140,6 @@ static const float kSliderCornerRadius = 10.0F;
                       title:(NSString *)title
     accessibilityIdentifier:(NSString *)accessibilityIdentifier {
 
-    self.contentWidth += self.adaptiveSectionWidth;
-
-    self.scrollView.contentSize = CGSizeMake(self.contentWidth, kSectionHeight);
-    self.backgroundView.frame = CGRectMake(0, 0, self.contentWidth, kSectionHeight);
-    self.contentStackView.frame = CGRectMake(0, 0, self.contentWidth, kSectionHeight);
-    self.sliderView.frame = CGRectMake(kContentPadding,
-                                       kContentPadding,
-                                       self.adaptiveSectionWidth - kContentPadding * 2,
-                                       kSectionHeight - kContentPadding * 2);
-
     UIStackView *horizontalStackView = [self generateHorizontalStackView];
     UIStackView *verticalStackView = [self generateVerticalStackView];
 
@@ -157,16 +166,13 @@ static const float kSliderCornerRadius = 10.0F;
 #pragma mark - Helper methods
 
 - (void)moveSliderToIndex:(NSUInteger)index {
-
-    CGFloat xPosition = kContentPadding + (double)index * self.adaptiveSectionWidth;
-    CGFloat yPosition = kContentPadding;
-    CGFloat width = self.adaptiveSectionWidth - kContentPadding * 2;
-    CGFloat height = kSectionHeight - kContentPadding * 2;
+    self.selectedIndex = index;
+    [self setNeedsLayout];
 
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:kAnimationDuration
                      animations:^{
-                         weakSelf.sliderView.frame = CGRectMake(xPosition, yPosition, width, height);
+                         [weakSelf layoutIfNeeded];
                      }];
 }
 
@@ -190,13 +196,13 @@ static const float kSliderCornerRadius = 10.0F;
 #pragma mark - Getters
 
 - (CGFloat)adaptiveSectionWidth {
-    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+    CGFloat availableWidth = CGRectGetWidth(self.bounds);
 
-    if ((double)self.sections.count * kSectionWidth > screenWidth) {
+    if ((double)self.sections.count * kSectionWidth > availableWidth) {
         return kSectionWidth;
     }
 
-    return (screenWidth - kBackgroundPadding * 2) / (double)self.sections.count;
+    return (availableWidth - kBackgroundPadding * 2) / (double)self.sections.count;
 }
 
 - (UIImageView *)generateSectionImageViewFromImage:(UIImage *)image {
@@ -211,7 +217,7 @@ static const float kSliderCornerRadius = 10.0F;
                                             multiplier:aspectRatio]
     ];
 
-    [NSLayoutConstraint activateConstraints:constraints];
+    [NSLayoutConstraint _jp_activateConstraints:constraints withPriority:999];
 
     return imageView;
 }

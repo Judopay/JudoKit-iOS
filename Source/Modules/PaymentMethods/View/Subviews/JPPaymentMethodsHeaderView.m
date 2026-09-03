@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsHeaderView.h"
-#import "Functions.h"
 #import "JPAmount.h"
 #import "JPPaymentMethodsCardHeaderView.h"
 #import "JPPaymentMethodsEmptyHeaderView.h"
@@ -54,6 +53,7 @@
 
 @property (nonatomic, strong) UIStackView *amountStackView;
 @property (nonatomic, strong) UIStackView *paymentStackView;
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
 @property (nonatomic, strong) JPTheme *theme;
 
@@ -75,6 +75,7 @@ const float kHeaderPaymentStackViewHorizontalPadding = 24.0F;
 const float kHeaderPaymentStackViewVerticalPadding = 20.0F;
 const float kHeaderPaymentButtonHeight = 200.0F;
 const float kHeaderEmptyHeaderViewYOffset = 100.0F;
+static const float kHeaderPaymentButtonWidthMultiplier = 0.55F;
 
 #pragma mark - Initializers
 
@@ -171,12 +172,16 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
                                                          style:JPApplePayButtonStyleBlack];
 
         [self.paymentStackView addArrangedSubview:self.applePayButton];
-        [self.applePayButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+        [self.applePayButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
+                                                      multiplier:kHeaderPaymentButtonWidthMultiplier]
+            .active = YES;
         return;
     }
 
     [self.paymentStackView addArrangedSubview:self.payButton];
-    [self.payButton.widthAnchor constraintEqualToConstant:kHeaderPaymentButtonHeight * getWidthAspectRatio()].active = YES;
+    [self.payButton.widthAnchor constraintEqualToAnchor:self.paymentStackView.widthAnchor
+                                             multiplier:kHeaderPaymentButtonWidthMultiplier]
+        .active = YES;
     [self.payButton configureWithViewModel:viewModel.payButtonModel];
 }
 
@@ -249,6 +254,12 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     ]];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.gradientLayer.frame = self.bottomView.bounds;
+    self.emptyHeaderView.hidden = self.bounds.size.width > self.bounds.size.height;
+}
+
 - (void)setupBackgroundImageView {
     [self addSubview:self.backgroundImageView];
     [self.backgroundImageView _jp_pinToView:self withPadding:kHeaderDefaultPadding];
@@ -264,9 +275,9 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
     [self.bottomView addSubview:self.paymentStackView];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.leadingAnchor
+        [self.paymentStackView.leadingAnchor constraintEqualToAnchor:self.bottomView.safeAreaLayoutGuide.leadingAnchor
                                                             constant:kHeaderPaymentStackViewHorizontalPadding],
-        [self.paymentStackView.trailingAnchor constraintEqualToAnchor:self.bottomView.trailingAnchor
+        [self.paymentStackView.trailingAnchor constraintEqualToAnchor:self.bottomView.safeAreaLayoutGuide.trailingAnchor
                                                              constant:-kHeaderPaymentStackViewHorizontalPadding],
         [self.paymentStackView.topAnchor constraintEqualToAnchor:self.bottomView.topAnchor
                                                         constant:kHeaderPaymentStackViewVerticalPadding],
@@ -290,13 +301,13 @@ const float kHeaderEmptyHeaderViewYOffset = 100.0F;
         _bottomView = [UIView new];
         _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
         CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, kHeaderBottomHeight);
 
         UIColor *clearWhite = [UIColor.whiteColor colorWithAlphaComponent:0.0];
         gradient.colors = @[ (id)clearWhite.CGColor, (id)UIColor.whiteColor.CGColor ];
         gradient.locations = @[ @(kHeaderGradientClearColorLocation), @(kHeaderGradientWhiteColorLocation) ];
 
         [_bottomView.layer insertSublayer:gradient atIndex:0];
+        _gradientLayer = gradient;
     }
     return _bottomView;
 }
