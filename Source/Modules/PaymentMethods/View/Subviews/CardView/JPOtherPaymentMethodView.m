@@ -49,6 +49,11 @@ static const float kLeadingImageViewHeight = 31.0F;
 static const float kTrailingImageViewWidth = 30.0F;
 static const float kContentPadding = 28.0F;
 
+static CGFloat JPPortraitWidthAspectRatio(void) {
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    return getWidthAspectRatio() * MIN(screenSize.width, screenSize.height) / screenSize.width;
+}
+
 #pragma mark - Initializers
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -121,7 +126,7 @@ static const float kContentPadding = 28.0F;
     [mainStackView addArrangedSubview:bottomStackView];
 
     [self addSubview:mainStackView];
-    [mainStackView _jp_pinToView:self withPadding:kContentPadding * getWidthAspectRatio()];
+    [mainStackView _jp_pinToView:self withPadding:kContentPadding * JPPortraitWidthAspectRatio()];
 }
 
 #pragma mark - Lazy Properties

@@ -36,7 +36,6 @@
 static const float kPortraitHeaderHeight = 400.0F;
 static const float kPortraitContentInset = 340.0F;
 static const float kLandscapeHeaderHeightMultiplier = 0.35F;
-static const float kLandscapeContentInsetMultiplier = 0.12F;
 static const float kContentInsetRatio = 0.8F;
 static const float kJudoHeadlineHeight = 20.0F;
 
@@ -136,8 +135,9 @@ static const float kJudoHeadlineHeight = 20.0F;
 
         CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
         BOOL isLandscape = screenHeight < UIScreen.mainScreen.bounds.size.width;
-        CGFloat contentInset = isLandscape ? screenHeight * kLandscapeContentInsetMultiplier : kPortraitContentInset * getWidthAspectRatio();
+        CGFloat contentInset = isLandscape ? screenHeight * kLandscapeHeaderHeightMultiplier * kContentInsetRatio : kPortraitContentInset * getWidthAspectRatio();
         _tableView.contentInset = UIEdgeInsetsMake(contentInset, 0, 0, 0);
+        _tableView.contentOffset = CGPointMake(0, -contentInset);
     }
     return _tableView;
 }
