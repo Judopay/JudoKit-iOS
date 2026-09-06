@@ -224,17 +224,23 @@ static const float kSliderCornerRadius = 10.0F;
 
 - (UILabel *)generateSectionLabelWithTitle:(NSString *)title {
     UILabel *label = [UILabel new];
-    label.text = title;
     label.contentMode = UIViewContentModeScaleAspectFit;
-    label.textColor = self.theme.jpBlackColor;
-    label.font = self.theme.headline;
     label.adjustsFontSizeToFitWidth = YES;
+
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.firstLineHeadIndent = kContentPadding;
+    paragraphStyle.headIndent = kContentPadding;
+    label.attributedText = [[NSAttributedString alloc] initWithString:title
+                                                           attributes:@{
+                                                               NSParagraphStyleAttributeName : paragraphStyle,
+                                                               NSFontAttributeName : self.theme.headline,
+                                                               NSForegroundColorAttributeName : self.theme.jpBlackColor
+                                                           }];
     return label;
 }
 
 - (UIStackView *)generateHorizontalStackView {
     UIStackView *stackView = [UIStackView new];
-    stackView.spacing = kContentPadding;
     stackView.alignment = UIStackViewAlignmentCenter;
     return stackView;
 }
