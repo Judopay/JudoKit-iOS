@@ -99,7 +99,9 @@ NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters) {
 }
 
 double getWidthAspectRatio(void) {
-    return UIScreen.mainScreen.bounds.size.width / 414;
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    double widthRatio = screenSize.width / 414;
+    return widthRatio * MIN(screenSize.width, screenSize.height) / screenSize.width;
 }
 
 NSString *getUserAgent(JPSubProductInfo *subProductInfo) {

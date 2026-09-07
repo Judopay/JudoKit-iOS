@@ -57,11 +57,6 @@ const float kCardDefaultStackViewsSpacing = 0.0F;
 const int kSubstringPatternOffset = 4;
 static const float kMaxCardHeaderTitleTextSize = 30.0F;
 
-static CGFloat JPPortraitWidthAspectRatio(void) {
-    CGSize screenSize = UIScreen.mainScreen.bounds.size;
-    return getWidthAspectRatio() * MIN(screenSize.width, screenSize.height) / screenSize.width;
-}
-
 #pragma mark - Initializers
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -144,7 +139,7 @@ static CGFloat JPPortraitWidthAspectRatio(void) {
     [bottomStackView addArrangedSubview:self.cardNumberLabel];
     [bottomStackView addArrangedSubview:self.expiryDateLabel];
 
-    UIStackView *cardTitleStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardTitleStackViewSpacing * JPPortraitWidthAspectRatio()];
+    UIStackView *cardTitleStackView = [UIStackView _jp_verticalStackViewWithSpacing:kCardTitleStackViewSpacing * getWidthAspectRatio()];
     [cardTitleStackView addArrangedSubview:self.titleLabel];
     [cardTitleStackView addArrangedSubview:bottomStackView];
 
@@ -157,11 +152,11 @@ static CGFloat JPPortraitWidthAspectRatio(void) {
     [mainStackView addArrangedSubview:[UIView new]];
     [mainStackView addArrangedSubview:cardTitleStackView];
 
-    [self.logoImageView.widthAnchor constraintEqualToConstant:kCardLogoSize * JPPortraitWidthAspectRatio()].active = YES;
-    [self.logoImageView.heightAnchor constraintEqualToConstant:kCardLogoSize * JPPortraitWidthAspectRatio()].active = YES;
+    [self.logoImageView.widthAnchor constraintEqualToConstant:kCardLogoSize * getWidthAspectRatio()].active = YES;
+    [self.logoImageView.heightAnchor constraintEqualToConstant:kCardLogoSize * getWidthAspectRatio()].active = YES;
 
     [self addSubview:mainStackView];
-    [mainStackView _jp_pinToView:self withPadding:kCardMainStackViewPadding * JPPortraitWidthAspectRatio()];
+    [mainStackView _jp_pinToView:self withPadding:kCardMainStackViewPadding * getWidthAspectRatio()];
 }
 
 - (void)setCardAsExpired {

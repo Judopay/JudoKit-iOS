@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 #import "JPPaymentMethodsCardHeaderView.h"
+#import "Functions.h"
 #import "JPCardView.h"
 #import "JPPaymentMethodsViewModel.h"
 #import "JPTheme.h"
@@ -78,9 +79,7 @@
     self.backgroundColor = UIColor.clearColor;
     [self addSubview:self.cardView];
 
-    CGSize screenSize = UIScreen.mainScreen.bounds.size;
-    CGFloat ratio = MIN(screenSize.width, screenSize.height) / 414.0;
-    CGFloat topConstant = 125.0 * ratio;
+    CGFloat topConstant = 125.0 * getWidthAspectRatio();
 
     NSArray *constraints = @[
         [self.cardView.topAnchor constraintEqualToAnchor:self.topAnchor
