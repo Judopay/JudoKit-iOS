@@ -166,7 +166,7 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
         [self.fadedView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.fadedView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         [self.fadedView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
-                                                   constant:kCustomizationViewTopBarPadding],
+                                                    constant:kCustomizationViewTopBarPadding],
     ]];
 }
 
