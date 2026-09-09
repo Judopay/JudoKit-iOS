@@ -26,6 +26,12 @@
 #import <ifaddrs.h>
 
 #import "Functions.h"
+
+#if SWIFT_PACKAGE
+@import TrustKit;
+#else
+#import <TrustKit/TrustKit.h>
+#endif
 #import "JPConstants.h"
 #import "JPSubProductInfo.h"
 #import "NSString+Additions.h"
@@ -191,4 +197,19 @@ NSString *getSafeStringRepresentation(id object) {
     }
 
     return [NSString stringWithFormat:@"%@", object];
+}
+
+TrustKit *makeTrustKit(void) {
+    NSDictionary *config = @{
+        kTSKPinnedDomains : @{
+            @"judopay.com" : @{
+                kTSKPublicKeyHashes : @[
+                    @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+                    @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
+                ],
+                kTSKIncludeSubdomains : @YES
+            }
+        }
+    };
+    return [[TrustKit alloc] initWithConfiguration:config];
 }

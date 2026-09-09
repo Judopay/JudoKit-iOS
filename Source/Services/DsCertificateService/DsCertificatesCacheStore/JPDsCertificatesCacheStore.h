@@ -1,8 +1,8 @@
 //
-//  Functions.h
+//  JPDsCertificatesCacheStore.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,45 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPDsCertificateEntry.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPSubProductInfo;
-@class TrustKit;
+@interface JPDsCertificatesCache : NSObject
 
-@interface JPQueryStringPair : NSObject
+@property (nonatomic, copy, nullable) NSString *etag;
+@property (nonatomic, copy, nullable) NSString *lastModified;
+@property (nonatomic, assign) NSTimeInterval fetchedAt;
+@property (nonatomic, assign) NSTimeInterval maxAge;
+@property (nonatomic, strong) NSArray<JPDsCertificateEntry *> *entries;
 
-@property (readwrite, nonatomic, strong, nonnull) NSString *field;
-@property (readwrite, nonatomic, strong, nullable) NSString *value;
-
-- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
-- (NSString *)URLEncodedValue;
+- (BOOL)isFreshForDate:(NSDate *)date;
+- (BOOL)hasNearExpiryEntryForDate:(NSDate *)date threshold:(NSTimeInterval)threshold;
 
 @end
 
-NSString *RFC3986PercentEscapedStringFromString(NSString *string);
-NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
+@interface JPDsCertificatesCacheStore : NSObject
 
-/**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
- */
-double getWidthAspectRatio(void);
++ (instancetype)sharedInstance;
 
-/**
- * A method which returns general information about the platform and operating system the app runs on
- */
-NSString *getUserAgent(JPSubProductInfo *_Nullable subProductInfo);
+- (nullable JPDsCertificatesCache *)load;
+- (void)save:(JPDsCertificatesCache *)cache;
+- (void)clear;
 
-/**
- * A method which returns the IP address of the device
- */
-NSString *getIPAddress(void);
-
-NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
-
-NSString *getSafeStringRepresentation(id object);
-
-TrustKit *makeTrustKit(void);
+@end
 
 NS_ASSUME_NONNULL_END

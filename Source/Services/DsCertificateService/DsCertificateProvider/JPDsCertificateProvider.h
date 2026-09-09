@@ -1,8 +1,8 @@
 //
-//  Functions.h
+//  JPDsCertificateProvider.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,45 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPDsCertificateRepository.h"
+#import <Foundation/Foundation.h>
+#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPSubProductInfo;
-@class TrustKit;
+/**
+ * Implements JP3DSDirectoryServerCertificateProvider to supply dynamic DS certificates
+ * fetched from the Judo CDN. Returns nil for any DS ID not found in the cache,
+ * which causes the 3DS SDK to fall back to its bundled certificates.
+ */
+@interface JPDsCertificateProvider : NSObject <JP3DSDirectoryServerCertificateProvider>
 
-@interface JPQueryStringPair : NSObject
-
-@property (readwrite, nonatomic, strong, nonnull) NSString *field;
-@property (readwrite, nonatomic, strong, nullable) NSString *value;
-
-- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
-- (NSString *)URLEncodedValue;
+- (instancetype)initWithRepository:(JPDsCertificateRepository *)repository;
 
 @end
-
-NSString *RFC3986PercentEscapedStringFromString(NSString *string);
-NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
-
-/**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
- */
-double getWidthAspectRatio(void);
-
-/**
- * A method which returns general information about the platform and operating system the app runs on
- */
-NSString *getUserAgent(JPSubProductInfo *_Nullable subProductInfo);
-
-/**
- * A method which returns the IP address of the device
- */
-NSString *getIPAddress(void);
-
-NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
-
-NSString *getSafeStringRepresentation(id object);
-
-TrustKit *makeTrustKit(void);
 
 NS_ASSUME_NONNULL_END
