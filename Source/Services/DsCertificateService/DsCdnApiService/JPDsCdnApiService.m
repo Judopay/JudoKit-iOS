@@ -42,6 +42,8 @@ static NSString *const kHeaderIfModifiedSince = @"If-Modified-Since";
 static NSString *const kHeaderETag = @"ETag";
 static NSString *const kHeaderLastModified = @"Last-Modified";
 static NSString *const kHeaderCacheControl = @"Cache-Control";
+static NSString *const kHeaderAccept = @"Accept";
+static NSString *const kHeaderAcceptValueJSON = @"application/json";
 
 @interface JPDsCdnApiService () <NSURLSessionDelegate>
 @property (nonatomic, strong) NSURLSession *session;
@@ -88,6 +90,9 @@ static NSString *const kHeaderCacheControl = @"Cache-Control";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.timeoutInterval = 10;
     [request setValue:getUserAgent(self.subProductInfo) forHTTPHeaderField:kHeaderUserAgent];
+    [request setValue:kHeaderAcceptValueJSON forHTTPHeaderField:kHeaderAccept];
+    request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    
     if (etag) {
         [request setValue:etag forHTTPHeaderField:kHeaderIfNoneMatch];
     }
@@ -113,9 +118,12 @@ static NSString *const kHeaderCacheControl = @"Cache-Control";
                          JPDsCertificatesResponse *certsResponse = [JPDsCertificatesResponse responseFromDictionary:json];
 
                          if (certsResponse) {
-                             certsResponse.etag = httpResponse.allHeaderFields[kHeaderETag];
-                             certsResponse.lastModified = httpResponse.allHeaderFields[kHeaderLastModified];
-                             certsResponse.maxAge = [httpResponse.allHeaderFields[kHeaderCacheControl] _jp_cacheControlMaxAge];
+                             // allHeaderFields keys are normalized by the URL loading system (e.g. "Etag",
+                             // not "ETag") and can vary by protocol/proxy, so look up header values with the
+                             // case-insensitive accessor rather than a literal-cased dictionary subscript.
+                             certsResponse.etag = [httpResponse valueForHTTPHeaderField:kHeaderETag];
+                             certsResponse.lastModified = [httpResponse valueForHTTPHeaderField:kHeaderLastModified];
+                             certsResponse.maxAge = [[httpResponse valueForHTTPHeaderField:kHeaderCacheControl] _jp_cacheControlMaxAge];
                          }
 
                          completion(certsResponse, nil, statusCode);

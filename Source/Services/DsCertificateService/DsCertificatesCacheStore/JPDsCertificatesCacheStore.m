@@ -25,6 +25,7 @@
 #import "JPDsCertificatesCacheStore.h"
 
 static NSString *const kCacheKey = @"judokit_ds_certs_v1";
+static NSString *const kSuiteName = @"com.judopay.judokit.dscerts";
 
 @implementation JPDsCertificatesCache
 
@@ -55,8 +56,12 @@ static NSString *const kCacheKey = @"judokit_ds_certs_v1";
     return instance;
 }
 
+- (NSUserDefaults *)defaults {
+    return [[NSUserDefaults alloc] initWithSuiteName:kSuiteName];
+}
+
 - (nullable JPDsCertificatesCache *)load {
-    NSData *data = [NSUserDefaults.standardUserDefaults dataForKey:kCacheKey];
+    NSData *data = [self.defaults dataForKey:kCacheKey];
     if (!data) {
         return nil;
     }
@@ -89,7 +94,7 @@ static NSString *const kCacheKey = @"judokit_ds_certs_v1";
 }
 
 - (void)clear {
-    [NSUserDefaults.standardUserDefaults removeObjectForKey:kCacheKey];
+    [self.defaults removeObjectForKey:kCacheKey];
 }
 
 - (void)save:(JPDsCertificatesCache *)cache {
@@ -109,7 +114,7 @@ static NSString *const kCacheKey = @"judokit_ds_certs_v1";
 
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
     if (data) {
-        [NSUserDefaults.standardUserDefaults setObject:data forKey:kCacheKey];
+        [self.defaults setObject:data forKey:kCacheKey];
     }
 }
 

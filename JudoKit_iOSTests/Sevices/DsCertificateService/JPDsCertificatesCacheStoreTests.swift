@@ -121,16 +121,20 @@ class JPDsCertificatesCacheTests: XCTestCase {
 class JPDsCertificatesCacheStoreTests: XCTestCase {
 
     private let cacheKey = "judokit_ds_certs_v1"
+    private let suiteName = "com.judopay.judokit.dscerts"
+    private var suiteDefaults: UserDefaults!
     private var sut: JPDsCertificatesCacheStore!
 
     override func setUp() {
         super.setUp()
-        UserDefaults.standard.removeObject(forKey: cacheKey)
+        suiteDefaults = UserDefaults(suiteName: suiteName)
+        suiteDefaults.removeObject(forKey: cacheKey)
         sut = JPDsCertificatesCacheStore.sharedInstance()
     }
 
     override func tearDown() {
-        UserDefaults.standard.removeObject(forKey: cacheKey)
+        suiteDefaults.removeObject(forKey: cacheKey)
+        suiteDefaults = nil
         sut = nil
         super.tearDown()
     }
@@ -177,7 +181,7 @@ class JPDsCertificatesCacheStoreTests: XCTestCase {
      */
     func test_load_WithCorruptData_ReturnsNil() {
         let corrupt = "not-valid-json{{{{".data(using: .utf8)!
-        UserDefaults.standard.set(corrupt, forKey: cacheKey)
+        suiteDefaults.set(corrupt, forKey: cacheKey)
         XCTAssertNil(sut.load())
     }
 
