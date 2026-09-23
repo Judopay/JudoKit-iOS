@@ -198,10 +198,10 @@ class JPDsCertificateEntryTests: XCTestCase {
      *
      * WHEN: isNotExpiredForDate: is called
      *
-     * THEN: returns true (unparseable date is treated as no expiry)
+     * THEN: returns false (a present but unparseable date is treated as expired, matching Android)
      */
-    func test_isNotExpiredForDate_WithUnparseableValidUntil_ReturnsTrue() {
-        XCTAssertTrue(makeEntry(validUntil: "not-a-date").isNotExpired(for: Date()))
+    func test_isNotExpiredForDate_WithUnparseableValidUntil_ReturnsFalse() {
+        XCTAssertFalse(makeEntry(validUntil: "not-a-date").isNotExpired(for: Date()))
     }
 
     // MARK: - isNearExpiryForDate:threshold:

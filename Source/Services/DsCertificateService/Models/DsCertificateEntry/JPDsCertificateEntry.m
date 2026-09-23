@@ -76,7 +76,8 @@ static NSDate *_Nullable jp_parseISO8601Date(NSString *string) {
     }
     NSDate *expiry = jp_parseISO8601Date(self.validUntil);
     if (!expiry) {
-        return YES;
+        // A present but unparseable validUntil is treated as expired, matching Android.
+        return NO;
     }
     return [expiry compare:date] == NSOrderedDescending;
 }
