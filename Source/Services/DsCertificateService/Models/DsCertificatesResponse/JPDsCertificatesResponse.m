@@ -24,6 +24,8 @@
 
 #import "JPDsCertificatesResponse.h"
 
+static NSInteger const kCompatibleSchemaMajorVersion = 1;
+
 @implementation JPDsCertificatesResponse
 
 + (nullable instancetype)responseFromDictionary:(NSDictionary *)dict {
@@ -53,7 +55,7 @@
     if (parts.count == 0) {
         return NO;
     }
-    return [parts.firstObject integerValue] == 1;
+    return [parts.firstObject integerValue] == kCompatibleSchemaMajorVersion;
 }
 
 @end
