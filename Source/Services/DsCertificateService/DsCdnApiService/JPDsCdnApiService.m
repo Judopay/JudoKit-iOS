@@ -92,7 +92,7 @@ static NSString *const kHeaderAcceptValueJSON = @"application/json";
     [request setValue:getUserAgent(self.subProductInfo) forHTTPHeaderField:kHeaderUserAgent];
     [request setValue:kHeaderAcceptValueJSON forHTTPHeaderField:kHeaderAccept];
     request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    
+
     if (etag) {
         [request setValue:etag forHTTPHeaderField:kHeaderIfNoneMatch];
     }
