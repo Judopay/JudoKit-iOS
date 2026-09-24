@@ -15,7 +15,7 @@ let package = Package(
             targets: ["JudoKit_iOS"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Judopay/Judo3DS2-iOS", exact: "1.4.0"),
+        .package(url: "https://github.com/Judopay/Judo3DS2-iOS", exact: "2.0.0"),
         .package(url: "https://github.com/datatheorem/TrustKit", from: "3.0.7"),
         .package(
             url: "https://github.com/unravelin/ravelin-encrypt-ios-xcframework-distribution",
