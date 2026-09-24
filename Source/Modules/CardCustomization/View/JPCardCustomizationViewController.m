@@ -65,6 +65,16 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
     [self.presenter prepareViewModel];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateFadedViewFrame];
+}
+
+- (void)updateFadedViewFrame {
+    // CALayer frames do not follow Auto Layout, so the fade must be resized after rotation.
+    self.fadedView.layer.sublayers.firstObject.frame = self.fadedView.bounds;
+}
+
 #pragma mark - User actions
 
 - (void)onBackButtonTap {
@@ -155,7 +165,8 @@ const float kCustomizationViewClearGradientLocation = 1.0F;
         [self.fadedView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
         [self.fadedView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.fadedView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.fadedView.heightAnchor constraintEqualToConstant:self._jp_topBarHeight + kCustomizationViewTopBarPadding],
+        [self.fadedView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
+                                                    constant:kCustomizationViewTopBarPadding],
     ]];
 }
 
