@@ -28,16 +28,22 @@ import XCTest
 class JPDsCertificateRepositoryTests: XCTestCase {
 
     private var sut: JPDsCertificateRepository!
+    // Isolated per-test store, so refreshes started elsewhere (e.g. by JPCardTransactionService)
+    // writing to the shared store can't make the cache look fresh here.
+    private var suiteName: String!
+    private var cacheStore: JPDsCertificatesCacheStore!
 
     override func setUp() {
         super.setUp()
-        JPDsCertificatesCacheStore.sharedInstance().clear()
+        suiteName = "com.judopay.judokit.dscerts.tests.\(UUID().uuidString)"
+        cacheStore = JPDsCertificatesCacheStore(suiteName: suiteName)
         HTTPStubs.setEnabled(true)
     }
 
     override func tearDown() {
         HTTPStubs.removeAllStubs()
-        JPDsCertificatesCacheStore.sharedInstance().clear()
+        UserDefaults.standard.removePersistentDomain(forName: suiteName)
+        cacheStore = nil
         sut = nil
         super.tearDown()
     }
@@ -58,11 +64,12 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     }
 
     private func makeCache(dsId: String = "A000000003",
-                           validUntil: String? = "2099-01-01T00:00:00Z") -> JPDsCertificatesCache {
+                           validUntil: String? = "2099-01-01T00:00:00Z",
+                           fetchedAt: TimeInterval = Date().timeIntervalSince1970) -> JPDsCertificatesCache {
         let entry = JPDsCertificateEntry(from: makeEntryDict(dsId: dsId, validUntil: validUntil))!
         let cache = JPDsCertificatesCache()
         cache.etag = "test-etag"
-        cache.fetchedAt = Date().timeIntervalSince1970
+        cache.fetchedAt = fetchedAt
         cache.maxAge = 86400
         cache.entries = [entry]
         return cache
@@ -70,10 +77,10 @@ class JPDsCertificateRepositoryTests: XCTestCase {
 
     private func seedAndCreateRepository(cache: JPDsCertificatesCache? = nil) -> JPDsCertificateRepository {
         if let cache = cache {
-            JPDsCertificatesCacheStore.sharedInstance().save(cache)
+            cacheStore.save(cache)
         }
         let apiService = JPDsCdnApiService(subProductInfo: nil, isSandboxed: true)
-        return JPDsCertificateRepository(apiService: apiService, cacheStore: .sharedInstance())
+        return JPDsCertificateRepository(apiService: apiService, cacheStore: cacheStore)
     }
 
     private func cdnResponseData(schemaVersion: String = "1.0") -> Data {
@@ -159,6 +166,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     func test_prefetch_CDNReturns200_ContactsCDNEndpoint() {
         sut = seedAndCreateRepository()
         let networkCalled = expectation(description: "CDN endpoint called")
+        networkCalled.assertForOverFulfill = false
 
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url?.absoluteString.contains("ds-certs") == true
@@ -174,18 +182,21 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     }
 
     /*
-     * GIVEN: the CDN returns a 304 Not Modified response
+     * GIVEN: the cache is stale and the CDN returns a 304 Not Modified response
      *
      * WHEN: prefetch is called
      *
-     * THEN: the CDN is contacted and the call completes without crashing
+     * THEN: the CDN is contacted with the cached ETag and the call completes without crashing
      */
     func test_prefetch_CDNReturns304_CompletesWithoutCrash() {
-        sut = seedAndCreateRepository(cache: makeCache())
+        let twoDaysAgo = Date().timeIntervalSince1970 - 2 * 86400
+        sut = seedAndCreateRepository(cache: makeCache(fetchedAt: twoDaysAgo))
         let networkCalled = expectation(description: "CDN endpoint called")
+        networkCalled.assertForOverFulfill = false
 
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url?.absoluteString.contains("ds-certs") == true
+                && request.value(forHTTPHeaderField: "If-None-Match") == "test-etag"
         }, withStubResponse: { _ in
             networkCalled.fulfill()
             return HTTPStubsResponse(data: Data(), statusCode: 304, headers: nil)
@@ -205,6 +216,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     func test_prefetch_CDNReturns500_DoesNotCrash() {
         sut = seedAndCreateRepository()
         let networkCalled = expectation(description: "CDN endpoint called")
+        networkCalled.assertForOverFulfill = false
 
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url?.absoluteString.contains("ds-certs") == true
@@ -227,6 +239,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     func test_prefetch_NetworkTimeout_DoesNotCrash() {
         sut = seedAndCreateRepository()
         let networkCalled = expectation(description: "CDN endpoint called")
+        networkCalled.assertForOverFulfill = false
 
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url?.absoluteString.contains("ds-certs") == true
@@ -250,6 +263,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     func test_prefetch_UnsupportedSchemaVersion_DoesNotCrash() {
         sut = seedAndCreateRepository()
         let networkCalled = expectation(description: "CDN endpoint called")
+        networkCalled.assertForOverFulfill = false
 
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url?.absoluteString.contains("ds-certs") == true

@@ -34,7 +34,6 @@ static const NSTimeInterval kDefaultMaxAge = 24 * 60 * 60;          // 24 hours
 static const NSTimeInterval kPreExpiryThreshold = 7 * 24 * 60 * 60; // 7 days
 
 static const NSInteger kHTTPNotModified = 304;
-static const NSTimeInterval kCDNRequestTimeout = 30.0;
 
 @interface JPDsCertificateRepository ()
 
@@ -122,8 +121,8 @@ static const NSTimeInterval kCDNRequestTimeout = 30.0;
         cachedLastModified = self.memoryCache.lastModified;
     });
 
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
+    // Don't block a thread waiting for the response: the request's own timeout bounds the
+    // refresh, and isRefreshing is cleared once the completion has run.
     [self.apiService fetchCertsWithEtag:cachedEtag
                            lastModified:cachedLastModified
                              completion:^(JPDsCertificatesResponse *certsResponse, NSError *error, NSInteger httpStatusCode) {
@@ -132,17 +131,10 @@ static const NSTimeInterval kCDNRequestTimeout = 30.0;
                                  } @catch (NSException *exception) {
                                      NSLog(@"[%@] WARNING: unexpected exception during refresh: %@", kLogTag, exception.reason);
                                  }
-                                 dispatch_semaphore_signal(semaphore);
+                                 dispatch_async(self.cacheQueue, ^{
+                                     self.isRefreshing = NO;
+                                 });
                              }];
-
-    dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kCDNRequestTimeout * NSEC_PER_SEC));
-    if (dispatch_semaphore_wait(semaphore, timeout) != 0) {
-        NSLog(@"[%@] WARNING: CDN request timed out after %.0f seconds", kLogTag, kCDNRequestTimeout);
-    }
-
-    dispatch_sync(self.cacheQueue, ^{
-        self.isRefreshing = NO;
-    });
 }
 
 - (void)handleCDNResponse:(JPDsCertificatesResponse *)certsResponse

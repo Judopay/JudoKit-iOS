@@ -44,6 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 
+/**
+ * Creates a store backed by the given NSUserDefaults suite. Intended for tests;
+ * production code should use +sharedInstance.
+ */
+- (instancetype)initWithSuiteName:(NSString *)suiteName;
+
 - (nullable JPDsCertificatesCache *)load;
 - (void)save:(JPDsCertificatesCache *)cache;
 - (void)clear;

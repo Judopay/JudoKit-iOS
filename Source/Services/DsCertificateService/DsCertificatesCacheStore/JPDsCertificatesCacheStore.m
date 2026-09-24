@@ -45,19 +45,30 @@ static NSString *const kSuiteName = @"com.judopay.judokit.dscerts";
 
 @end
 
+@interface JPDsCertificatesCacheStore ()
+@property (nonatomic, copy) NSString *suiteName;
+@end
+
 @implementation JPDsCertificatesCacheStore
 
 + (instancetype)sharedInstance {
     static JPDsCertificatesCacheStore *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [JPDsCertificatesCacheStore new];
+        instance = [[JPDsCertificatesCacheStore alloc] initWithSuiteName:kSuiteName];
     });
     return instance;
 }
 
+- (instancetype)initWithSuiteName:(NSString *)suiteName {
+    if (self = [super init]) {
+        _suiteName = [suiteName copy];
+    }
+    return self;
+}
+
 - (NSUserDefaults *)defaults {
-    return [[NSUserDefaults alloc] initWithSuiteName:kSuiteName];
+    return [[NSUserDefaults alloc] initWithSuiteName:self.suiteName];
 }
 
 - (nullable JPDsCertificatesCache *)load {
