@@ -38,7 +38,7 @@ class JPDsCertificatesCacheTests: XCTestCase {
             "keyId": "key-id-123"
         ]
         if let v = validUntil { dict["validUntil"] = v }
-        return JPDsCertificateEntry.entry(fromDictionary: dict)!
+        return JPDsCertificateEntry(from: dict)!
     }
 
     private func makeCache(fetchedAt: TimeInterval = Date().timeIntervalSince1970,
@@ -155,7 +155,7 @@ class JPDsCertificatesCacheStoreTests: XCTestCase {
         cache.lastModified = "Tue, 01 Mar 2025 00:00:00 GMT"
         cache.fetchedAt = 1_000_000
         cache.maxAge = 86400
-        cache.entries = [JPDsCertificateEntry.entry(fromDictionary: entryDict)!]
+        cache.entries = [JPDsCertificateEntry(from: entryDict)!]
         return cache
     }
 

@@ -58,7 +58,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: a populated response is returned
      */
     func test_responseFromDictionary_WithValidDict_ReturnsPopulatedResponse() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict())
+        let response = JPDsCertificatesResponse(from: validDict())
         XCTAssertNotNil(response)
         XCTAssertEqual(response?.schemaVersion, "1.0")
         XCTAssertEqual(response?.publishedAt, "2025-01-01T00:00:00Z")
@@ -78,7 +78,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
             "schemaVersion": "1.0",
             "entries": [["dsId": "missing-cert-and-keyid"]]
         ]
-        let response = JPDsCertificatesResponse.response(fromDictionary: dict)
+        let response = JPDsCertificatesResponse(from: dict)
         XCTAssertNotNil(response)
         XCTAssertEqual(response?.entries.count, 0)
     }
@@ -93,7 +93,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
     func test_responseFromDictionary_WithoutPublishedAt_ReturnsResponseWithNilPublishedAt() {
         var dict = validDict()
         dict.removeValue(forKey: "publishedAt")
-        let response = JPDsCertificatesResponse.response(fromDictionary: dict)
+        let response = JPDsCertificatesResponse(from: dict)
         XCTAssertNotNil(response)
         XCTAssertNil(response?.publishedAt)
     }
@@ -108,7 +108,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: returns true
      */
     func test_hasCompatibleSchemaVersion_With1_0_ReturnsTrue() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict(schemaVersion: "1.0"))!
+        let response = JPDsCertificatesResponse(from: validDict(schemaVersion: "1.0"))!
         XCTAssertTrue(response.hasCompatibleSchemaVersion())
     }
 
@@ -120,7 +120,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: returns true (same major version)
      */
     func test_hasCompatibleSchemaVersion_With1_5_ReturnsTrue() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict(schemaVersion: "1.5"))!
+        let response = JPDsCertificatesResponse(from: validDict(schemaVersion: "1.5"))!
         XCTAssertTrue(response.hasCompatibleSchemaVersion())
     }
 
@@ -132,7 +132,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: returns false (incompatible major version)
      */
     func test_hasCompatibleSchemaVersion_With2_0_ReturnsFalse() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict(schemaVersion: "2.0"))!
+        let response = JPDsCertificatesResponse(from: validDict(schemaVersion: "2.0"))!
         XCTAssertFalse(response.hasCompatibleSchemaVersion())
     }
 
@@ -144,7 +144,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: returns false (major version is 0, not 1)
      */
     func test_hasCompatibleSchemaVersion_With0_9_ReturnsFalse() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict(schemaVersion: "0.9"))!
+        let response = JPDsCertificatesResponse(from: validDict(schemaVersion: "0.9"))!
         XCTAssertFalse(response.hasCompatibleSchemaVersion())
     }
 
@@ -156,7 +156,7 @@ class JPDsCertificatesResponseTests: XCTestCase {
      * THEN: returns false
      */
     func test_hasCompatibleSchemaVersion_WithEmptyVersion_ReturnsFalse() {
-        let response = JPDsCertificatesResponse.response(fromDictionary: validDict(schemaVersion: ""))!
+        let response = JPDsCertificatesResponse(from: validDict(schemaVersion: ""))!
         XCTAssertFalse(response.hasCompatibleSchemaVersion())
     }
 }

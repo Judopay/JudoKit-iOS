@@ -45,7 +45,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     private func makeEntry(validUntil: String? = "2099-01-01T00:00:00Z") -> JPDsCertificateEntry {
         var dict = makeValidDict()
         if let v = validUntil { dict["validUntil"] = v } else { dict.removeValue(forKey: "validUntil") }
-        return JPDsCertificateEntry.entry(fromDictionary: dict)!
+        return JPDsCertificateEntry(from: dict)!
     }
 
     // MARK: - entryFromDictionary:
@@ -58,7 +58,7 @@ class JPDsCertificateEntryTests: XCTestCase {
      * THEN: a fully populated entry is returned
      */
     func test_entryFromDictionary_WithAllRequiredFields_ReturnsPopulatedEntry() {
-        let entry = JPDsCertificateEntry.entry(fromDictionary: makeValidDict())
+        let entry = JPDsCertificateEntry(from: makeValidDict())
         XCTAssertNotNil(entry)
         XCTAssertEqual(entry?.dsId, "A000000003")
         XCTAssertEqual(entry?.dsName, "Visa")
@@ -78,7 +78,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     func test_entryFromDictionary_MissingDsId_ReturnsNil() {
         var dict = makeValidDict()
         dict.removeValue(forKey: "dsId")
-        XCTAssertNil(JPDsCertificateEntry.entry(fromDictionary: dict))
+        XCTAssertNil(JPDsCertificateEntry(from: dict))
     }
 
     /*
@@ -91,7 +91,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     func test_entryFromDictionary_MissingDsCertificate_ReturnsNil() {
         var dict = makeValidDict()
         dict.removeValue(forKey: "dsCertificate")
-        XCTAssertNil(JPDsCertificateEntry.entry(fromDictionary: dict))
+        XCTAssertNil(JPDsCertificateEntry(from: dict))
     }
 
     /*
@@ -104,7 +104,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     func test_entryFromDictionary_MissingKeyId_ReturnsNil() {
         var dict = makeValidDict()
         dict.removeValue(forKey: "keyId")
-        XCTAssertNil(JPDsCertificateEntry.entry(fromDictionary: dict))
+        XCTAssertNil(JPDsCertificateEntry(from: dict))
     }
 
     /*
@@ -117,7 +117,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     func test_entryFromDictionary_WithoutRootCertificates_DefaultsToEmptyArray() {
         var dict = makeValidDict()
         dict.removeValue(forKey: "rootCertificates")
-        let entry = JPDsCertificateEntry.entry(fromDictionary: dict)
+        let entry = JPDsCertificateEntry(from: dict)
         XCTAssertNotNil(entry)
         XCTAssertEqual(entry?.rootCertificates, [])
     }
@@ -132,7 +132,7 @@ class JPDsCertificateEntryTests: XCTestCase {
     func test_entryFromDictionary_WithoutValidUntil_ReturnsEntryWithNilExpiry() {
         var dict = makeValidDict()
         dict.removeValue(forKey: "validUntil")
-        let entry = JPDsCertificateEntry.entry(fromDictionary: dict)
+        let entry = JPDsCertificateEntry(from: dict)
         XCTAssertNotNil(entry)
         XCTAssertNil(entry?.validUntil)
     }
@@ -147,8 +147,8 @@ class JPDsCertificateEntryTests: XCTestCase {
      * THEN: all fields survive the round-trip
      */
     func test_toDictionary_RoundTrip_PreservesAllFields() {
-        let original = JPDsCertificateEntry.entry(fromDictionary: makeValidDict())!
-        let restored = JPDsCertificateEntry.entry(fromDictionary: original.toDictionary())
+        let original = JPDsCertificateEntry(from: makeValidDict())!
+        let restored = JPDsCertificateEntry(from: original.toDictionary())
         XCTAssertNotNil(restored)
         XCTAssertEqual(restored?.dsId, original.dsId)
         XCTAssertEqual(restored?.dsName, original.dsName)

@@ -61,7 +61,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
 
     private func makeCache(dsId: String = "A000000003",
                            validUntil: String? = "2099-01-01T00:00:00Z") -> JPDsCertificatesCache {
-        let entry = JPDsCertificateEntry.entry(fromDictionary: makeEntryDict(dsId: dsId, validUntil: validUntil))!
+        let entry = JPDsCertificateEntry(from: makeEntryDict(dsId: dsId, validUntil: validUntil))!
         let cache = JPDsCertificatesCache()
         cache.etag = "test-etag"
         cache.fetchedAt = Date().timeIntervalSince1970
