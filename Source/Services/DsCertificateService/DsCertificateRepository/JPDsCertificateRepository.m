@@ -68,7 +68,10 @@ static const NSInteger kHTTPNotModified = 304;
 #pragma mark - Public API
 
 - (void)prefetch {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    // Utility rather than background QoS: the certificates are needed for an upcoming 3DS
+    // transaction, and background-QoS work can be deferred for a long time when the device
+    // is busy or in Low Power Mode (it only runs on efficiency cores on Apple Silicon).
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
         [self refresh];
     });
 }
