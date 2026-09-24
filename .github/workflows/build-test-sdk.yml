@@ -5,5 +5,5 @@ on:
   workflow_dispatch:
 jobs:
   build_and_test:
-    uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@master
+    uses: Judopay/github-actions/.github/workflows/ios-build-and-test.yml@fix/NONE/pod-load-fix
     secrets: inherit
