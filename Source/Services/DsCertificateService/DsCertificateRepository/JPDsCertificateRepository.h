@@ -1,8 +1,8 @@
 //
-//  Functions.h
+//  JPDsCertificateRepository.h
 //  JudoKit_iOS
 //
-//  Copyright (c) 2019 Alternative Payments Ltd
+//  Copyright (c) 2026 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,45 +22,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "JPDsCertificateEntry.h"
+#import <Foundation/Foundation.h>
+
+@class JPDsCdnApiService;
+@class JPDsCertificatesCacheStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class JPSubProductInfo;
-@class TrustKit;
+@interface JPDsCertificateRepository : NSObject
 
-@interface JPQueryStringPair : NSObject
+- (instancetype)initWithApiService:(JPDsCdnApiService *)apiService
+                        cacheStore:(JPDsCertificatesCacheStore *)cacheStore;
 
-@property (readwrite, nonatomic, strong, nonnull) NSString *field;
-@property (readwrite, nonatomic, strong, nullable) NSString *value;
+/**
+ * Triggers a background refresh of DS certificates if needed.
+ * Non-blocking — all errors are swallowed and logged.
+ * Safe to call repeatedly; concurrent refreshes are serialised.
+ */
+- (void)prefetch;
 
-- (instancetype)initWithField:(NSString *)field value:(NSString *)value;
-- (NSString *)URLEncodedValue;
+/**
+ * Returns the cached entry for the given directory server ID, or nil
+ * if no valid (non-expired) entry exists. Never blocks on the network.
+ */
+- (nullable JPDsCertificateEntry *)cachedEntryForDsId:(NSString *)dsId;
 
 @end
-
-NSString *RFC3986PercentEscapedStringFromString(NSString *string);
-NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
-
-/**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
- */
-double getWidthAspectRatio(void);
-
-/**
- * A method which returns general information about the platform and operating system the app runs on
- */
-NSString *getUserAgent(JPSubProductInfo *_Nullable subProductInfo);
-
-/**
- * A method which returns the IP address of the device
- */
-NSString *getIPAddress(void);
-
-NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
-
-NSString *getSafeStringRepresentation(id object);
-
-TrustKit *makeTrustKit(void);
 
 NS_ASSUME_NONNULL_END
