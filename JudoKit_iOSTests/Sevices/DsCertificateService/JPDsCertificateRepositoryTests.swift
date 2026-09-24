@@ -27,19 +27,17 @@ import XCTest
 
 class JPDsCertificateRepositoryTests: XCTestCase {
 
-    private let cacheKey = "judokit_ds_certs_v1"
-    private let testBaseURL = URL(string: "https://cdn.judopay-sandbox.com")!
     private var sut: JPDsCertificateRepository!
 
     override func setUp() {
         super.setUp()
-        UserDefaults.standard.removeObject(forKey: cacheKey)
+        JPDsCertificatesCacheStore.sharedInstance().clear()
         HTTPStubs.setEnabled(true)
     }
 
     override func tearDown() {
         HTTPStubs.removeAllStubs()
-        UserDefaults.standard.removeObject(forKey: cacheKey)
+        JPDsCertificatesCacheStore.sharedInstance().clear()
         sut = nil
         super.tearDown()
     }
@@ -74,7 +72,8 @@ class JPDsCertificateRepositoryTests: XCTestCase {
         if let cache = cache {
             JPDsCertificatesCacheStore.sharedInstance().save(cache)
         }
-        return JPDsCertificateRepository(baseURL: testBaseURL)
+        let apiService = JPDsCdnApiService(subProductInfo: nil, isSandboxed: true)
+        return JPDsCertificateRepository(apiService: apiService, cacheStore: .sharedInstance())
     }
 
     private func cdnResponseData(schemaVersion: String = "1.0") -> Data {
@@ -89,7 +88,7 @@ class JPDsCertificateRepositoryTests: XCTestCase {
     // MARK: - cachedEntryForDsId:
 
     /*
-     * GIVEN: the cache is empty (nothing persisted in NSUserDefaults)
+     * GIVEN: the cache is empty (nothing persisted in the cache store)
      *
      * WHEN: cachedEntryForDsId: is called
      *

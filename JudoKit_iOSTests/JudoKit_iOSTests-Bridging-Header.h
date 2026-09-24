@@ -68,3 +68,5 @@
 #import "JPDsCertificatesResponse.h"
 #import "JPDsCertificatesCacheStore.h"
 #import "JPDsCertificateRepository.h"
+#import "JPDsCdnApiService.h"
+#import "JPSubProductInfo.h"
