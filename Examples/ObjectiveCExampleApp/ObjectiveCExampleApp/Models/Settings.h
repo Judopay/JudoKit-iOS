@@ -20,6 +20,7 @@ static NSString *const kSecretKey = @"secret";
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
 static NSString *const kGeneratePaymentSessionKey = @"generate_payment_session";
+static NSString *const kClearDsCertCacheKey = @"clear_ds_cert_cache";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 

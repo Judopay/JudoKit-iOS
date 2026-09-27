@@ -206,3 +206,9 @@ ln -s -f ../Extensions/PKPayment/PKPayment+Additions.h PKPayment+Additions.h
 ln -s -f ../Extensions/CNPostalAddress/CNPostalAddress+Additions.h CNPostalAddress+Additions.h
 ln -s -f ../Extensions/PKContact/PKContact+Additions.h PKContact+Additions.h
 ln -s -f ../Navigation/JPNavigationController.h JPNavigationController.h
+ln -s -f ../Services/DsCertificateService/DsCdnApiService/JPDsCdnApiService.h JPDsCdnApiService.h
+ln -s -f ../Services/DsCertificateService/DsCertificateProvider/JPDsCertificateProvider.h JPDsCertificateProvider.h
+ln -s -f ../Services/DsCertificateService/DsCertificateRepository/JPDsCertificateRepository.h JPDsCertificateRepository.h
+ln -s -f ../Services/DsCertificateService/DsCertificatesCacheStore/JPDsCertificatesCacheStore.h JPDsCertificatesCacheStore.h
+ln -s -f ../Services/DsCertificateService/Models/DsCertificateEntry/JPDsCertificateEntry.h JPDsCertificateEntry.h
+ln -s -f ../Services/DsCertificateService/Models/DsCertificatesResponse/JPDsCertificatesResponse.h JPDsCertificatesResponse.h

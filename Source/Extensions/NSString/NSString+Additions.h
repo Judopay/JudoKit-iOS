@@ -104,4 +104,10 @@
 - (BOOL)_jp_isValidCity;
 - (BOOL)_jp_isEqualIgnoringCaseToString:(nullable NSString *)aString;
 
+/**
+ * Parses the max-age directive from a Cache-Control header value.
+ * Returns 0 if the directive is absent or the string is nil.
+ */
+@property (nonatomic, assign, readonly) NSTimeInterval _jp_cacheControlMaxAge;
+
 @end

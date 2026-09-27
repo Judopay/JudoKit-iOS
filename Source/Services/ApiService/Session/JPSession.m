@@ -90,20 +90,7 @@ static NSString *const kHeaderFieldUserAgent = @"User-Agent";
 
 - (TrustKit *)trustKit {
     if (!_trustKit) {
-        NSDictionary *trustKitConfig =
-            @{
-                kTSKPinnedDomains : @{
-                    @"judopay.com" : @{
-                        kTSKPublicKeyHashes : @[
-                            @"SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
-                            @"c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8=",
-                        ],
-                        kTSKIncludeSubdomains : @YES
-                    }
-                }
-            };
-
-        _trustKit = [[TrustKit alloc] initWithConfiguration:trustKitConfig];
+        _trustKit = makeTrustKit();
     }
     return _trustKit;
 }

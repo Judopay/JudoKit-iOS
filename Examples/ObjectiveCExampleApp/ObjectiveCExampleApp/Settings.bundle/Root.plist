@@ -116,6 +116,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>clear_ds_cert_cache_title</string>
+			<key>Key</key>
+			<string>clear_ds_cert_cache</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>is_3ds2_enabled_title</string>
