@@ -201,6 +201,36 @@ platform :ios do
     end
   end
 
+  desc "Build a Sample App for the iOS Simulator"
+  lane :build_sample_app_simulator do |options|
+    app = find_app_by_flavor(sample_apps: @sample_apps, flavor: options[:flavor] || @default_sample_app_flavor)
+    environment = options[:environment] || "production"
+
+    cocoapods(podfile: app.podfile) if !app.podfile.nil?
+    sh("#{@scripts_dir}/#{app.bootstrap_script}") if !app.bootstrap_script.nil?
+    inject_staging_environment(app: app, sdk_root_path: @project_root_path) if environment == "staging"
+
+    build_app({
+      configuration: "Release",
+      derived_data_path: @derived_data_path,
+      destination: "generic/platform=iOS Simulator",
+      project: (!app.workspace.nil?) ? nil : app.project,
+      scheme: app.scheme,
+      skip_archive: true,
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      workspace: app.workspace
+    })
+
+    # The product name differs from the scheme, so take the one app the build produced.
+    built_apps = Dir.glob("#{@derived_data_path}/Build/Products/Release-iphonesimulator/*.app")
+    UI.user_error!("Expected one simulator app, found #{built_apps.length}") if built_apps.length != 1
+    FileUtils.mkdir_p(@fl_output_dir)
+    FileUtils.cp_r(built_apps.first, "#{@fl_output_dir}/#{app.scheme}-#{environment}-simulator.app")
+
+    revert_staging_environment(app: app, sdk_root_path: @project_root_path) if environment == "staging"
+  end
+
   desc "Package Instrumented Tests for a Sample App"
   private_lane :build_instrumented_tests_packages do |options|
     # Packaging the instrumented tests requires the development provisioning profile and debug build
