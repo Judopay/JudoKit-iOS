@@ -302,7 +302,7 @@ class Settings {
 
     var recommendationConfiguration: JPRecommendationConfiguration? {
         if isRecommendationOn,
-           let rsaKey = userDefaults.string(forKey: kRsaKey),
+           let rsaKey = userDefaults.string(forKey: kRecommendationRsaKey),
            let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
            let URL = URL(string: URLString) {
            let timeout = NSNumber(value: timeoutFor(key: kRecommendationTimeoutKey))

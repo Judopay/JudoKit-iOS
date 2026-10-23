@@ -61,7 +61,7 @@ let kPrimaryAccountDateOfBirthKey = "primary_account_date_of_birth"
 let kPrimaryAccountPostCodeKey = "primary_account_post_code"
 
 // MARK: - Recommendation Feature keys
-let kRsaKey = "rsa_key"
+let kRecommendationRsaKey = "recommendation_rsa_key"
 let kRecommendationUrlKey = "recommendation_url"
 let kRecommendationTimeoutKey = "recommendation_timeout"
 

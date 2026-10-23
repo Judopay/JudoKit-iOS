@@ -176,7 +176,7 @@ enum SettingsImporter {
         ("recommendation", [
             kIsRecommendationOnKey,
             kRecommendationUrlKey,
-            kRsaKey,
+            kRecommendationRsaKey,
             kRecommendationTimeoutKey
         ]),
         ("three_ds", [

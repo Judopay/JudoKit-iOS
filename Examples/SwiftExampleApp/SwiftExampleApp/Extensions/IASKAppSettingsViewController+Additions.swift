@@ -20,7 +20,7 @@ extension IASKAppSettingsViewController {
             kSessionTokenKey,
             kPaymentSessionKey,
 
-            kRsaKey,
+            kRecommendationRsaKey,
             kRecommendationUrlKey,
             kRecommendationTimeoutKey,
 
@@ -72,7 +72,7 @@ extension IASKAppSettingsViewController {
         }
 
         if keys.contains(kIsRecommendationOnKey), Settings.standard.isRecommendationOn {
-            hiddenKeys.remove(kRsaKey)
+            hiddenKeys.remove(kRecommendationRsaKey)
             hiddenKeys.remove(kRecommendationUrlKey)
             hiddenKeys.remove(kRecommendationTimeoutKey)
         }
