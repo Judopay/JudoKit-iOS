@@ -541,7 +541,7 @@ NSString *safeString(NSString *aString) {
 
 - (NSString *)rsaKey {
     if (Settings.defaultSettings.isRecommendationFeatureOn) {
-        return [self.defaults stringForKey:kRsaKey];
+        return [self.defaults stringForKey:kRecommendationRsaKey];
     }
     return nil;
 }

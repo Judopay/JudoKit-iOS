@@ -42,7 +42,7 @@
         kPaymentSessionKey,
         kGeneratePaymentSessionKey,
 
-        kRsaKey,
+        kRecommendationRsaKey,
         kRecommendationUrlKey,
         kRecommendationTimeoutKey,
         kIsRecommendationHaltTransactionOnKey,
@@ -94,7 +94,7 @@
 
     if ([keys containsObject:kIsRecommendationOnKey] && Settings.defaultSettings.isRecommendationFeatureOn) {
         [hiddenKeys removeObjectsInArray:@[
-            kRsaKey,
+            kRecommendationRsaKey,
             kRecommendationUrlKey,
             kRecommendationTimeoutKey,
             kIsRecommendationHaltTransactionOnKey,

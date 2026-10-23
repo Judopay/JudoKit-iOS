@@ -281,7 +281,7 @@ extension XCUIApplication {
         let url = (ravelinMockServerURL ?? "") + suffix
         
         launchArguments += ["-is_recommendation_enabled", "true",
-                            "-rsa_key", rsaPublicKey ?? "",
+                            "-recommendation_rsa_key", rsaPublicKey ?? "",
                             "-recommendation_url", url]
     }
     

@@ -42,7 +42,7 @@ static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code"
 
 #pragma mark - Recommendation Feature section keys
 static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
-static NSString *const kRsaKey = @"rsa_key";
+static NSString *const kRecommendationRsaKey = @"recommendation_rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationTimeoutKey = @"recommendation_timeout";
 static NSString *const kIsRecommendationHaltTransactionOnKey = @"is_recommendation_halt_transaction_enabled";
