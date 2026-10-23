@@ -64,6 +64,7 @@ let kPrimaryAccountPostCodeKey = "primary_account_post_code"
 let kRecommendationRsaKey = "recommendation_rsa_key"
 let kRecommendationUrlKey = "recommendation_url"
 let kRecommendationTimeoutKey = "recommendation_timeout"
+let kIsRecommendationHaltTransactionOnKey = "is_recommendation_halt_transaction_enabled"
 
 // MARK: - 3DS 2.0 section keys
 

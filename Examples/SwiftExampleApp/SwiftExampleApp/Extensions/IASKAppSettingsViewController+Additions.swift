@@ -23,6 +23,7 @@ extension IASKAppSettingsViewController {
             kRecommendationRsaKey,
             kRecommendationUrlKey,
             kRecommendationTimeoutKey,
+            kIsRecommendationHaltTransactionOnKey,
 
             kAddressLine1Key,
             kAddressLine2Key,
@@ -75,6 +76,7 @@ extension IASKAppSettingsViewController {
             hiddenKeys.remove(kRecommendationRsaKey)
             hiddenKeys.remove(kRecommendationUrlKey)
             hiddenKeys.remove(kRecommendationTimeoutKey)
+            hiddenKeys.remove(kIsRecommendationHaltTransactionOnKey)
         }
 
         if keys.contains(kIsAddressOnKey), Settings.standard.isAddressOn {

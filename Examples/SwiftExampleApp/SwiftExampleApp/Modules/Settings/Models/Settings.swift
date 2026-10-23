@@ -278,6 +278,10 @@ class Settings {
         userDefaults.bool(forKey: kIsRecommendationOnKey)
     }
 
+    var isRecommendationHaltTransactionOn: Bool {
+        userDefaults.bool(forKey: kIsRecommendationHaltTransactionOnKey)
+    }
+
     var isAddressOn: Bool {
         userDefaults.bool(forKey: kIsAddressOnKey)
     }
@@ -306,7 +310,10 @@ class Settings {
            let URLString = userDefaults.string(forKey: kRecommendationUrlKey),
            let URL = URL(string: URLString) {
            let timeout = NSNumber(value: timeoutFor(key: kRecommendationTimeoutKey))
-            return JPRecommendationConfiguration(url: URL, rsaPublicKey: rsaKey, andTimeout: timeout)
+            return JPRecommendationConfiguration(url: URL,
+                                                 rsaPublicKey: rsaKey,
+                                                 timeout: timeout,
+                                                 andHaltTransactionInCaseOfAnyError: isRecommendationHaltTransactionOn)
         }
         return nil
     }
