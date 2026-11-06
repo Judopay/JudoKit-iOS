@@ -4,5 +4,5 @@ on:
   workflow_dispatch:
 jobs:
   maestro_tests:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@feature/DO-3542/maestro-ios
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
     secrets: inherit
