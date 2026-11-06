@@ -18,7 +18,8 @@ DerivedData
 *.xcuserstate
 .DS_Store
 *.env.local
-asc_key.json
+
+.json
 
 # AppCode
 #
