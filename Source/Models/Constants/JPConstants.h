@@ -134,6 +134,8 @@ static NSString *const kHeaderFieldAPIToken = @"Api-Token";
 
 static float const kMaxNavigationTitleTextSize = 38.0F;
 static float const kNavigationBackButtonSize = 22.0F;
+static float const kPaymentMethodsPortraitHeaderParallaxMin = 395.0F;
+static float const kPaymentMethodsPortraitHeaderParallaxMax = 435.0F;
 
 static float const kEnabledStateBackgroundAlpha = 1.0F;
 static float const kDisabledStateBackgroundAlpha = 0.63F;
