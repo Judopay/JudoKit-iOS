@@ -201,7 +201,7 @@ static NSString *const kPaymentMethodsJsonKey = @"payment_methods";
         @[ @"recommendation", @[
             kIsRecommendationOnKey,
             kRecommendationUrlKey,
-            kRsaKey,
+            kRecommendationRsaKey,
             kRecommendationTimeoutKey,
             kIsRecommendationHaltTransactionOnKey
         ] ],

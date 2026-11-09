@@ -35,6 +35,6 @@ final class Fabrick3DSTests: XCTestCase {
         tapCardDetailsPayNowButton(app)
         fill3DS2Code(app, "12345")
         tapCompleteButton(app, true)
-        assertResultObject(app, "Payment", "AuthCode: ", "Success", true)
+        assertResultObject(app, "Payment", "AuthCode: ", "Success")
     }
 }

@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class JPSubProductInfo;
+@class TrustKit;
 
 @interface JPQueryStringPair : NSObject
 
@@ -42,7 +43,8 @@ NSString *RFC3986PercentEscapedStringFromString(NSString *string);
 NSString *queryParameters(NSArray<JPQueryStringPair *> *parameters);
 
 /**
- * A method which returns the width aspect ratio (compared to an iPhone XR)
+ * A method which returns the width aspect ratio compared to an iPhone XR,
+ * always based on the shorter screen side so it does not change on rotation.
  */
 double getWidthAspectRatio(void);
 
@@ -59,5 +61,7 @@ NSString *getIPAddress(void);
 NSString *generateBasicAuthHeader(NSString *token, NSString *secret);
 
 NSString *getSafeStringRepresentation(id object);
+
+TrustKit *makeTrustKit(void);
 
 NS_ASSUME_NONNULL_END

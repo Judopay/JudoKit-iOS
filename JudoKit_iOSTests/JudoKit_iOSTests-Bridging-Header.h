@@ -63,3 +63,10 @@
 #import "JPPresentationMode.h"
 #import "JPDeviceDetailsProvider.h"
 #import "JPDeviceDetails.h"
+
+#import "JPDsCertificateEntry.h"
+#import "JPDsCertificatesResponse.h"
+#import "JPDsCertificatesCacheStore.h"
+#import "JPDsCertificateRepository.h"
+#import "JPDsCdnApiService.h"
+#import "JPSubProductInfo.h"

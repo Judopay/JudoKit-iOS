@@ -9,6 +9,7 @@
 #import "CreatePaymentSessionRequest.h"
 #import "Settings.h"
 #import <InAppSettingsKit/IASKSpecifier.h>
+#import "JPDsCertificatesCacheStore.h"
 
 @implementation MainViewController (Additions)
 
@@ -20,6 +21,9 @@
       buttonTappedForSpecifier:(IASKSpecifier*)specifier {
     if ([specifier.key isEqualToString:kGeneratePaymentSessionKey]) {
         [self createPaymentSession];
+    } else if ([specifier.key isEqualToString:kClearDsCertCacheKey]) {
+        [JPDsCertificatesCacheStore.sharedInstance clear];
+        [self displaySnackBarWith:@"DS certificate cache cleared."];
     }
 }
 

@@ -36,6 +36,11 @@
 #import "JPCheckCardRequest.h"
 #import "JPComplete3DS2Request.h"
 #import "JPConfiguration.h"
+#import "JPConstants.h"
+#import "JPDsCdnApiService.h"
+#import "JPDsCertificateProvider.h"
+#import "JPDsCertificateRepository.h"
+#import "JPDsCertificatesCacheStore.h"
 #import "JPError+Additions.h"
 #import "JPPaymentRequest.h"
 #import "JPPreAuthRequest.h"
@@ -200,6 +205,8 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
 @property (strong, nonatomic) JPRecommendationService *recommendationService;
 @property (strong, nonatomic) JP3DS2Service *threeDSTwoService;
 @property (strong, nonatomic) JP3DSConfigParameters *threeDSTwoConfigParameters;
+@property (strong, nonatomic) JPDsCertificateRepository *dsCertificateRepository;
+@property (strong, nonatomic) JPDsCertificateProvider *dsCertificateProvider;
 
 @property (strong, nonatomic) JP3DSTransaction *transaction;
 
@@ -217,6 +224,8 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
                                                         locale:nil
                                                uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
+
+        [self setupDsCertificateServiceWithIsSandboxed:apiService.isSandboxed];
     }
     return self;
 }
@@ -233,8 +242,23 @@ BOOL isRecommendationFeatureAvailable(JPCardTransactionType type) {
         [self.threeDSTwoService initializeWithConfigParameters:self.threeDSTwoConfigParameters
                                                         locale:nil
                                                uiCustomization:configuration.uiConfiguration.threeDSUICustomization];
+
+        [self setupDsCertificateServiceWithIsSandboxed:sandboxed];
     }
     return self;
+}
+
+- (void)setupDsCertificateServiceWithIsSandboxed:(BOOL)isSandboxed {
+    JPDsCdnApiService *apiService = [[JPDsCdnApiService alloc] initWithSubProductInfo:self.apiService.subProductInfo
+                                                                          isSandboxed:isSandboxed];
+    _dsCertificateRepository = [[JPDsCertificateRepository alloc] initWithApiService:apiService
+                                                                          cacheStore:JPDsCertificatesCacheStore.sharedInstance];
+    _dsCertificateProvider = [[JPDsCertificateProvider alloc] initWithRepository:_dsCertificateRepository];
+
+    // certificateProvider is a weak property on JP3DS2Service; we hold the strong ref here
+    self.threeDSTwoService.certificateProvider = _dsCertificateProvider;
+
+    [_dsCertificateRepository prefetch];
 }
 
 - (void)invokePaymentWithDetails:(JPCardTransactionDetails *)details andCompletion:(JPCompletionBlock)completion {

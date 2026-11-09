@@ -198,4 +198,15 @@
     return self && aString && [self caseInsensitiveCompare:aString] == NSOrderedSame;
 }
 
+- (NSTimeInterval)_jp_cacheControlMaxAge {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"max-age=(\\d+)"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    NSTextCheckingResult *match = [regex firstMatchInString:self options:0 range:NSMakeRange(0, self.length)];
+    if (match && match.numberOfRanges > 1) {
+        return [[self substringWithRange:[match rangeAtIndex:1]] doubleValue];
+    }
+    return 0;
+}
+
 @end

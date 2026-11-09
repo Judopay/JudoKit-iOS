@@ -20,6 +20,7 @@ static NSString *const kSecretKey = @"secret";
 static NSString *const kSessionTokenKey = @"session_token";
 static NSString *const kPaymentSessionKey = @"payment_session";
 static NSString *const kGeneratePaymentSessionKey = @"generate_payment_session";
+static NSString *const kClearDsCertCacheKey = @"clear_ds_cert_cache";
 static NSString *const kIsAddressOnKey = @"is_address_enabled";
 static NSString *const kIsPrimaryAccountDetailsOnKey = @"is_primary_account_details_enabled";
 
@@ -41,7 +42,7 @@ static NSString *const kPrimaryAccountPostCodeKey = @"primary_account_post_code"
 
 #pragma mark - Recommendation Feature section keys
 static NSString *const kIsRecommendationOnKey = @"is_recommendation_enabled";
-static NSString *const kRsaKey = @"rsa_key";
+static NSString *const kRecommendationRsaKey = @"recommendation_rsa_key";
 static NSString *const kRecommendationUrlKey = @"recommendation_url";
 static NSString *const kRecommendationTimeoutKey = @"recommendation_timeout";
 static NSString *const kIsRecommendationHaltTransactionOnKey = @"is_recommendation_halt_transaction_enabled";

@@ -176,8 +176,9 @@ enum SettingsImporter {
         ("recommendation", [
             kIsRecommendationOnKey,
             kRecommendationUrlKey,
-            kRsaKey,
-            kRecommendationTimeoutKey
+            kRecommendationRsaKey,
+            kRecommendationTimeoutKey,
+            kIsRecommendationHaltTransactionOnKey
         ]),
         ("three_ds", [
             kShouldAskForBillingInformationKey,

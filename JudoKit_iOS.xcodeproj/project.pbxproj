@@ -397,6 +397,22 @@
 		44CD3A7C2B1F454300002FBB /* JPRecurringPaymentSummaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44E770EB2EC26AFE00286F3F /* JPNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 44E770E92EC26AFE00286F3F /* JPNavigationController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		44E770EC2EC26AFE00286F3F /* JPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E770EA2EC26AFE00286F3F /* JPNavigationController.m */; };
+		44F8C717304ED1B600100B15 /* JPDsCertificatesCacheStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C70D304ED1B600100B15 /* JPDsCertificatesCacheStore.m */; };
+		44F8C718304ED1B600100B15 /* JPDsCertificateRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C70A304ED1B600100B15 /* JPDsCertificateRepository.m */; };
+		44F8C719304ED1B600100B15 /* JPDsCertificatesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C713304ED1B600100B15 /* JPDsCertificatesResponse.m */; };
+		44F8C71A304ED1B600100B15 /* JPDsCertificateEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C710304ED1B600100B15 /* JPDsCertificateEntry.m */; };
+		44F8C71B304ED1B600100B15 /* JPDsCertificateProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C707304ED1B600100B15 /* JPDsCertificateProvider.m */; };
+		44F8C71C304ED1B600100B15 /* JPDsCertificateProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C706304ED1B600100B15 /* JPDsCertificateProvider.h */; };
+		44F8C71D304ED1B600100B15 /* JPDsCertificateRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C709304ED1B600100B15 /* JPDsCertificateRepository.h */; };
+		44F8C71E304ED1B600100B15 /* JPDsCertificatesCacheStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C70C304ED1B600100B15 /* JPDsCertificatesCacheStore.h */; };
+		44F8C71F304ED1B600100B15 /* JPDsCertificateEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C70F304ED1B600100B15 /* JPDsCertificateEntry.h */; };
+		44F8C720304ED1B600100B15 /* JPDsCertificatesResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C712304ED1B600100B15 /* JPDsCertificatesResponse.h */; };
+		44F8C723304ED56F00100B15 /* JPDsCertificateEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C722304ED56F00100B15 /* JPDsCertificateEntryTests.swift */; };
+		44F8C725304ED58100100B15 /* JPDsCertificatesResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C724304ED58100100B15 /* JPDsCertificatesResponseTests.swift */; };
+		44F8C727304ED59C00100B15 /* JPDsCertificatesCacheStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C726304ED59C00100B15 /* JPDsCertificatesCacheStoreTests.swift */; };
+		44F8C729304ED5BA00100B15 /* JPDsCertificateRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C728304ED5BA00100B15 /* JPDsCertificateRepositoryTests.swift */; };
+		44F8C732305172A700100B15 /* JPDsCdnApiService.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F8C72F305172A700100B15 /* JPDsCdnApiService.h */; };
+		44F8C733305172A700100B15 /* JPDsCdnApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8C730305172A700100B15 /* JPDsCdnApiService.m */; };
 		525FF3D8252C41CF001F030E /* JPCardScanControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D0252C41CF001F030E /* JPCardScanControllerDelegate.h */; };
 		525FF3D9252C41CF001F030E /* JPCardScanController.h in Headers */ = {isa = PBXBuildFile; fileRef = 525FF3D1252C41CF001F030E /* JPCardScanController.h */; };
 		525FF3DA252C41CF001F030E /* JPCardScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525FF3D2252C41CF001F030E /* JPCardScanController.m */; };
@@ -896,6 +912,22 @@
 		44CD3A782B1F454300002FBB /* JPRecurringPaymentSummaryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRecurringPaymentSummaryItem.h; sourceTree = "<group>"; };
 		44E770E92EC26AFE00286F3F /* JPNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNavigationController.h; sourceTree = "<group>"; };
 		44E770EA2EC26AFE00286F3F /* JPNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNavigationController.m; sourceTree = "<group>"; };
+		44F8C706304ED1B600100B15 /* JPDsCertificateProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCertificateProvider.h; sourceTree = "<group>"; };
+		44F8C707304ED1B600100B15 /* JPDsCertificateProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCertificateProvider.m; sourceTree = "<group>"; };
+		44F8C709304ED1B600100B15 /* JPDsCertificateRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCertificateRepository.h; sourceTree = "<group>"; };
+		44F8C70A304ED1B600100B15 /* JPDsCertificateRepository.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCertificateRepository.m; sourceTree = "<group>"; };
+		44F8C70C304ED1B600100B15 /* JPDsCertificatesCacheStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCertificatesCacheStore.h; sourceTree = "<group>"; };
+		44F8C70D304ED1B600100B15 /* JPDsCertificatesCacheStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCertificatesCacheStore.m; sourceTree = "<group>"; };
+		44F8C70F304ED1B600100B15 /* JPDsCertificateEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCertificateEntry.h; sourceTree = "<group>"; };
+		44F8C710304ED1B600100B15 /* JPDsCertificateEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCertificateEntry.m; sourceTree = "<group>"; };
+		44F8C712304ED1B600100B15 /* JPDsCertificatesResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCertificatesResponse.h; sourceTree = "<group>"; };
+		44F8C713304ED1B600100B15 /* JPDsCertificatesResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCertificatesResponse.m; sourceTree = "<group>"; };
+		44F8C722304ED56F00100B15 /* JPDsCertificateEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPDsCertificateEntryTests.swift; sourceTree = "<group>"; };
+		44F8C724304ED58100100B15 /* JPDsCertificatesResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPDsCertificatesResponseTests.swift; sourceTree = "<group>"; };
+		44F8C726304ED59C00100B15 /* JPDsCertificatesCacheStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPDsCertificatesCacheStoreTests.swift; sourceTree = "<group>"; };
+		44F8C728304ED5BA00100B15 /* JPDsCertificateRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPDsCertificateRepositoryTests.swift; sourceTree = "<group>"; };
+		44F8C72F305172A700100B15 /* JPDsCdnApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDsCdnApiService.h; sourceTree = "<group>"; };
+		44F8C730305172A700100B15 /* JPDsCdnApiService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDsCdnApiService.m; sourceTree = "<group>"; };
 		525FF3D0252C41CF001F030E /* JPCardScanControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardScanControllerDelegate.h; sourceTree = "<group>"; };
 		525FF3D1252C41CF001F030E /* JPCardScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPCardScanController.h; sourceTree = "<group>"; };
 		525FF3D2252C41CF001F030E /* JPCardScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPCardScanController.m; sourceTree = "<group>"; };
@@ -1051,6 +1083,7 @@
 				0777B988247BC9BB00867B9F /* CardInputValidator */,
 				0777B98E247BC9BB00867B9F /* ConfigurationValidator */,
 				0777B984247BC9BB00867B9F /* PostCodesValidation */,
+				44F8C721304ED54B00100B15 /* DsCertificateService */,
 			);
 			path = Sevices;
 			sourceTree = "<group>";
@@ -2583,6 +2616,7 @@
 		30DB511E23100E6B00B73D66 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				44F8C716304ED1B600100B15 /* DsCertificateService */,
 				9930A0DB2AAF2BEB0090D164 /* RecommendationService */,
 				30006F2F23F697B60099F3C5 /* ApiService */,
 				30006F2323F697B60099F3C5 /* ApplePay */,
@@ -2992,6 +3026,92 @@
 				44E770EA2EC26AFE00286F3F /* JPNavigationController.m */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		44F8C708304ED1B600100B15 /* DsCertificateProvider */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C706304ED1B600100B15 /* JPDsCertificateProvider.h */,
+				44F8C707304ED1B600100B15 /* JPDsCertificateProvider.m */,
+			);
+			path = DsCertificateProvider;
+			sourceTree = "<group>";
+		};
+		44F8C70B304ED1B600100B15 /* DsCertificateRepository */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C709304ED1B600100B15 /* JPDsCertificateRepository.h */,
+				44F8C70A304ED1B600100B15 /* JPDsCertificateRepository.m */,
+			);
+			path = DsCertificateRepository;
+			sourceTree = "<group>";
+		};
+		44F8C70E304ED1B600100B15 /* DsCertsCacheStore */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C70C304ED1B600100B15 /* JPDsCertificatesCacheStore.h */,
+				44F8C70D304ED1B600100B15 /* JPDsCertificatesCacheStore.m */,
+			);
+			path = DsCertificatesCacheStore;
+			sourceTree = "<group>";
+		};
+		44F8C711304ED1B600100B15 /* DsCertEntry */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C70F304ED1B600100B15 /* JPDsCertificateEntry.h */,
+				44F8C710304ED1B600100B15 /* JPDsCertificateEntry.m */,
+			);
+			path = DsCertificateEntry;
+			sourceTree = "<group>";
+		};
+		44F8C714304ED1B600100B15 /* DsCertsResponse */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C712304ED1B600100B15 /* JPDsCertificatesResponse.h */,
+				44F8C713304ED1B600100B15 /* JPDsCertificatesResponse.m */,
+			);
+			path = DsCertificatesResponse;
+			sourceTree = "<group>";
+		};
+		44F8C715304ED1B600100B15 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C711304ED1B600100B15 /* DsCertEntry */,
+				44F8C714304ED1B600100B15 /* DsCertsResponse */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44F8C716304ED1B600100B15 /* DsCertificateService */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C731305172A700100B15 /* DsCdnApiService */,
+				44F8C708304ED1B600100B15 /* DsCertificateProvider */,
+				44F8C70B304ED1B600100B15 /* DsCertificateRepository */,
+				44F8C70E304ED1B600100B15 /* DsCertsCacheStore */,
+				44F8C715304ED1B600100B15 /* Models */,
+			);
+			path = DsCertificateService;
+			sourceTree = "<group>";
+		};
+		44F8C721304ED54B00100B15 /* DsCertificateService */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C722304ED56F00100B15 /* JPDsCertificateEntryTests.swift */,
+				44F8C724304ED58100100B15 /* JPDsCertificatesResponseTests.swift */,
+				44F8C726304ED59C00100B15 /* JPDsCertificatesCacheStoreTests.swift */,
+				44F8C728304ED5BA00100B15 /* JPDsCertificateRepositoryTests.swift */,
+			);
+			path = DsCertificateService;
+			sourceTree = "<group>";
+		};
+		44F8C731305172A700100B15 /* DsCdnApiService */ = {
+			isa = PBXGroup;
+			children = (
+				44F8C72F305172A700100B15 /* JPDsCdnApiService.h */,
+				44F8C730305172A700100B15 /* JPDsCdnApiService.m */,
+			);
+			path = DsCdnApiService;
 			sourceTree = "<group>";
 		};
 		525FF3CF252C41CF001F030E /* CardScanController */ = {
@@ -3423,6 +3543,7 @@
 				4439AE3F300826EB00DA049D /* JPDeviceDetailsProvider.h in Headers */,
 				30006F6223F698A20099F3C5 /* JPInputField.h in Headers */,
 				300072E123F6AB560099F3C5 /* JPAddress.h in Headers */,
+				44F8C732305172A700100B15 /* JPDsCdnApiService.h in Headers */,
 				30006F9D23F6993A0099F3C5 /* UIStackView+Additions.h in Headers */,
 				300072C723F6AB560099F3C5 /* JPBrowser.h in Headers */,
 				ADB514C0286DF03900332E47 /* JPThreeDSecureTwo.h in Headers */,
@@ -3484,6 +3605,11 @@
 				300072EE23F6AB560099F3C5 /* JPCardNetwork.h in Headers */,
 				30006FA123F6993A0099F3C5 /* UIFont+Additions.h in Headers */,
 				30006F8B23F6993A0099F3C5 /* UIView+Additions.h in Headers */,
+				44F8C71C304ED1B600100B15 /* JPDsCertificateProvider.h in Headers */,
+				44F8C71D304ED1B600100B15 /* JPDsCertificateRepository.h in Headers */,
+				44F8C71E304ED1B600100B15 /* JPDsCertificatesCacheStore.h in Headers */,
+				44F8C71F304ED1B600100B15 /* JPDsCertificateEntry.h in Headers */,
+				44F8C720304ED1B600100B15 /* JPDsCertificatesResponse.h in Headers */,
 				30221C3D23FE739800BF2823 /* JPCardCustomizationView.h in Headers */,
 				525FF3DD252C41CF001F030E /* JPCardScanView.h in Headers */,
 				30221C3723FE6D9200BF2823 /* JPCardCustomizationRouter.h in Headers */,
@@ -3744,6 +3870,11 @@
 				30006F3223F697B60099F3C5 /* JPApplePayService.m in Sources */,
 				4480E1F929FB1402000712E4 /* JPConfiguration+Additions.m in Sources */,
 				AD0F05A7286B67D600470534 /* JPComplete3DS2Request.m in Sources */,
+				44F8C717304ED1B600100B15 /* JPDsCertificatesCacheStore.m in Sources */,
+				44F8C718304ED1B600100B15 /* JPDsCertificateRepository.m in Sources */,
+				44F8C719304ED1B600100B15 /* JPDsCertificatesResponse.m in Sources */,
+				44F8C71A304ED1B600100B15 /* JPDsCertificateEntry.m in Sources */,
+				44F8C71B304ED1B600100B15 /* JPDsCertificateProvider.m in Sources */,
 				52B74DA223F98B4C009FE38C /* JPTransactionRouter.m in Sources */,
 				446002C7293036D7005FBCBD /* JPPreAuthTokenRequest.m in Sources */,
 				30221BC823FD7E4D00BF2823 /* JPLoadingView.m in Sources */,
@@ -3811,6 +3942,7 @@
 				44A18B5529F94D8A00D2963B /* JPTransactionScanCardButton.m in Sources */,
 				30D61D6623BB741A004E5CEE /* JPPaymentMethodsCardCell.m in Sources */,
 				52D23DB025248A9D007C79EB /* JPPaymentSummaryItem.m in Sources */,
+				44F8C733305172A700100B15 /* JPDsCdnApiService.m in Sources */,
 				447E0A7428DCA0120092BA28 /* NSNumber+Additions.m in Sources */,
 				300072D623F6AB560099F3C5 /* JPPrimaryAccountDetails.m in Sources */,
 				300072F323F6AB560099F3C5 /* JPClientDetails.m in Sources */,
@@ -3867,12 +3999,15 @@
 				0777BA13247BC9BB00867B9F /* JPPaymentMethodsPresenterTest.swift in Sources */,
 				0777B9F9247BC9BB00867B9F /* SDKInfoTest.swift in Sources */,
 				300F938C24C9BED5003DECA5 /* JPApplePayRequestTests.swift in Sources */,
+				44F8C727304ED59C00100B15 /* JPDsCertificatesCacheStoreTests.swift in Sources */,
 				0777BA01247BC9BB00867B9F /* NSLayoutConstraintAdditionsTests.swift in Sources */,
 				AD13DC1828831C07002B82CD /* JPPaymentMethodsTest.swift in Sources */,
+				44F8C725304ED58100100B15 /* JPDsCertificatesResponseTests.swift in Sources */,
 				446A946A2E3169F400BAC4F8 /* Helpers.swift in Sources */,
 				0777B9FB247BC9BB00867B9F /* JPCardStorageTest.swift in Sources */,
 				0777BA12247BC9BB00867B9F /* JPPaymentMethodsInteractorMock.swift in Sources */,
 				30D3640E24B873790029BC86 /* UIColorAdditionsTest.swift in Sources */,
+				44F8C723304ED56F00100B15 /* JPDsCertificateEntryTests.swift in Sources */,
 				300F938624C9B9A0003DECA5 /* JPSaveCardRequestTests.swift in Sources */,
 				4439AE4230082B2C00DA049D /* JPDeviceDetailsProviderTests.swift in Sources */,
 				30D3644724B876620029BC86 /* JPApiServiceTests.swift in Sources */,
@@ -3884,6 +4019,7 @@
 				0777BA16247BC9BB00867B9F /* JPFormattersTests.swift in Sources */,
 				0777BA03247BC9BB00867B9F /* JPErrorAdditionsTests.swift in Sources */,
 				0777B9EB247BC9BB00867B9F /* JPAppleConfigurationValidationServiceTest.swift in Sources */,
+				44F8C729304ED5BA00100B15 /* JPDsCertificateRepositoryTests.swift in Sources */,
 				30D3643524B874060029BC86 /* JPThreeDSecureTest.swift in Sources */,
 				0777BA0A247BC9BB00867B9F /* JPCardCustomizationInteractorMock.swift in Sources */,
 				079A871824BDDDDE00108714 /* JPSessionAuthorizationTest.swift in Sources */,
@@ -3993,9 +4129,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 6.5.0;
+				MARKETING_VERSION = 6.6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = "";
@@ -4049,9 +4185,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 6.5.0;
+				MARKETING_VERSION = 6.6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = "";
 				SDKROOT = iphoneos;
@@ -4076,7 +4212,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4111,7 +4247,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

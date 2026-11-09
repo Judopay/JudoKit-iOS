@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String, _ isFabrick3DS2: Bool = false) {
+func assertResultObject(_ app: XCUIApplication, _ type: String, _ message: String, _ result: String) {
     let tableView = app.tables[Selectors.Other.resultsTable]
     XCTAssert(tableView.waitForExistence(timeout: 30))
     let rawData = tableView.cells.staticTexts["rawData"].firstMatch
@@ -68,7 +68,9 @@ func tapCompleteButton(_ app: XCUIApplication, _ isFabrick3DS2: Bool = false) {
 }
 
 func fill3DS2Code(_ app: XCUIApplication, _ code: String) {
-    let codeEntryField: XCUIElement = app.textFields["Enter code here"]
+    let three3DS2Screen: XCUIElement = app.staticTexts["Payment Verification"].firstMatch
+    XCTAssert(three3DS2Screen.waitForExistence(timeout: 60))
+    let codeEntryField: XCUIElement = app.textFields.element(boundBy: 2)
     XCTAssert(codeEntryField.waitForExistence(timeout: 60))
     codeEntryField.tapAndTypeText(code)
 }
