@@ -16,6 +16,11 @@ class SettingsViewController: IASKAppSettingsViewController {
                                                object: nil)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateHiddenKeys()
+    }
+
     @objc func didChangeSettings(_ notification: Notification) {
         guard notification.name == .IASKSettingChanged, let key = notification.userInfo?.first?.key as? String else {
             return
