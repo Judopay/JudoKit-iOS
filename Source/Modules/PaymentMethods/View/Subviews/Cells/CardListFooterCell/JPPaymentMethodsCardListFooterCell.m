@@ -112,6 +112,8 @@ static const float kHorizontalEdgeInsets = 12.0F;
     [self.contentView addSubview:self.addCardButton];
     [self.addCardButton _jp_pinToAnchors:JPAnchorTypeTrailing forView:self.contentView withPadding:24.0];
     [self.addCardButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
+    [self.addCardButton.topAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.topAnchor].active = YES;
+    [self.addCardButton.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     [self.addCardButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.addCardButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }

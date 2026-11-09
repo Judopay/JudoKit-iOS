@@ -90,7 +90,7 @@ static const float kMaxHeaderTextSize = 24.0F;
 
     [self addSubview:stackView];
 
-    [stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:24].active = YES;
+    [stackView.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:24].active = YES;
     [stackView.widthAnchor constraintEqualToConstant:250.0].active = YES;
     [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:50].active = YES;
 }
