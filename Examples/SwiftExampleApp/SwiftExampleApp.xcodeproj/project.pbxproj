@@ -13,6 +13,7 @@
 		305687402581227500195C93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056873F2581227500195C93 /* Settings.swift */; };
 		305687452581280600195C93 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305687442581280600195C93 /* SettingsKeys.swift */; };
 		3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */; };
+		A7C3E91B2F4D6A8011B0C001 /* SettingsViewController+PaymentSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C3E91B2F4D6A8011B0C002 /* SettingsViewController+PaymentSession.swift */; };
 		3056875225812F5600195C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056875125812F5600195C93 /* SettingsViewController.swift */; };
 		30568809258238A400195C93 /* ResultsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30568808258238A400195C93 /* ResultsModule.swift */; };
 		3056880E258238AE00195C93 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056880D258238AE00195C93 /* ResultsViewController.swift */; };
@@ -82,6 +83,7 @@
 		3056873F2581227500195C93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		305687442581280600195C93 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IASKAppSettingsViewController+Additions.swift"; sourceTree = "<group>"; };
+		A7C3E91B2F4D6A8011B0C002 /* SettingsViewController+PaymentSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+PaymentSession.swift"; sourceTree = "<group>"; };
 		3056875125812F5600195C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		30568808258238A400195C93 /* ResultsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModule.swift; sourceTree = "<group>"; };
 		3056880D258238AE00195C93 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				30585426257FABA4000B00DF /* UIViewController+Additions.swift */,
 				3056874C25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift */,
+				A7C3E91B2F4D6A8011B0C002 /* SettingsViewController+PaymentSession.swift */,
 				305689F025836F3000195C93 /* NSObject+Additions.swift */,
 				B51EE2D739843D55012CCF94 /* JudoSheets.swift */,
 			);
@@ -681,6 +684,7 @@
 				DDEE0000000000000000A104 /* ImportSettingsViewController.swift in Sources */,
 				3056875225812F5600195C93 /* SettingsViewController.swift in Sources */,
 				3056874D25812D9900195C93 /* IASKAppSettingsViewController+Additions.swift in Sources */,
+				A7C3E91B2F4D6A8011B0C001 /* SettingsViewController+PaymentSession.swift in Sources */,
 				305853DC257F83D0000B00DF /* FeatureRepository.swift in Sources */,
 				305689FC2583786700195C93 /* ResultsViewModel.swift in Sources */,
 				ADBFBC702A128A880094859B /* NoUICardPayModule.swift in Sources */,
