@@ -39,6 +39,7 @@ let kSecretKey = "secret"
 
 let kSessionTokenKey = "session_token"
 let kPaymentSessionKey = "payment_session"
+let kGeneratePaymentSessionKey = "generate_payment_session"
 
 let kIsRecommendationOnKey = "is_recommendation_enabled"
 let kIsAddressOnKey = "is_address_enabled"
@@ -202,3 +203,4 @@ let kIsInitialRecurringPaymentKey = "is_initial_recurring_payment"
 let kIsDelayedAuthorisationOnKey = "is_delayed_authorisation_on"
 let kShouldAskForCSCKey = "should_ask_for_csc"
 let kShouldAskForCardholderNameKey = "should_ask_for_cardholder_name"
+let kIsDisableNetworkTokenisationOnKey = "is_disable_network_tokenisation_on"

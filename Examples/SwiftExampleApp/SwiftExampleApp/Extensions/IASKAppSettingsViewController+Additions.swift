@@ -19,6 +19,7 @@ extension IASKAppSettingsViewController {
 
             kSessionTokenKey,
             kPaymentSessionKey,
+            kGeneratePaymentSessionKey,
 
             kRecommendationRsaKey,
             kRecommendationUrlKey,
@@ -63,6 +64,7 @@ extension IASKAppSettingsViewController {
         if keys.contains(kIsPaymentSessionOnKey), Settings.standard.isSessionAuthorizationOn {
             hiddenKeys.remove(kSessionTokenKey)
             hiddenKeys.remove(kPaymentSessionKey)
+            hiddenKeys.remove(kGeneratePaymentSessionKey)
             UserDefaults.standard.setValue(false, forKey: kIsTokenAndSecretOnKey)
         }
 
