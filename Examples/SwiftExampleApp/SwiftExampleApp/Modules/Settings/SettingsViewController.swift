@@ -14,6 +14,7 @@ class SettingsViewController: IASKAppSettingsViewController {
                                                selector: #selector(didChangeSettings),
                                                name: .IASKSettingChanged,
                                                object: nil)
+        delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
