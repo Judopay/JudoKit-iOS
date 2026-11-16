@@ -33,6 +33,13 @@ info "Executing carthage bootstrap..."
 
 cd "${carthage_example_app_dir}" || error "Executing \`cd\` failed"
 
+# Some dependencies (e.g. TrustKit) still target iOS 12, which current Xcode versions no longer
+# build for (the minimum is iOS 15). Raise the deployment target for the Carthage builds only.
+carthage_xcconfig="$(mktemp -t carthage_example)"
+trap 'rm -f "${carthage_xcconfig}"' EXIT
+echo "IPHONEOS_DEPLOYMENT_TARGET = 15.0" > "${carthage_xcconfig}"
+export XCODE_XCCONFIG_FILE="${carthage_xcconfig}"
+
 carthage bootstrap --platform ios --use-xcframeworks --cache-builds
 
 carthage_exit_code="$?"

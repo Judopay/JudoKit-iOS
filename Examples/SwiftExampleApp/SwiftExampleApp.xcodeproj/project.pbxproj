@@ -34,6 +34,7 @@
 		30FF8EBA259B37290077B5C8 /* ApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF8EB9259B37290077B5C8 /* ApplePayViewController.swift */; };
 		44469A762BFDF92400F922B8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 44469A752BFDF92400F922B8 /* PrivacyInfo.xcprivacy */; };
 		448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448AB1E22450DF22004A11CB /* AppDelegate.swift */; };
+		455645DB1A415368CC74F55A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83AA77F23303A21719833D5 /* SceneDelegate.swift */; };
 		448AB1EC2450DF24004A11CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1EB2450DF24004A11CB /* Assets.xcassets */; };
 		448AB1EF2450DF24004A11CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */; };
 		49584B8CB009346FCBBF5DC0 /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44002E1B9DB19BC377EDE0C /* Pods_SwiftExampleApp_SwiftExampleAppUITests.framework */; };
@@ -107,6 +108,7 @@
 		44469A752BFDF92400F922B8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		448AB1DF2450DF22004A11CB /* JudoKit (Swift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JudoKit (Swift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448AB1E22450DF22004A11CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F83AA77F23303A21719833D5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		448AB1EB2450DF24004A11CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		448AB1EE2450DF24004A11CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		448AB1F02450DF24004A11CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				30585425257FAB89000B00DF /* Extensions */,
 				305853B6257F79AF000B00DF /* Modules */,
 				448AB1E22450DF22004A11CB /* AppDelegate.swift */,
+				F83AA77F23303A21719833D5 /* SceneDelegate.swift */,
 				305687262581193500195C93 /* AppCoordinator.swift */,
 				448AB1EB2450DF24004A11CB /* Assets.xcassets */,
 				448AB1ED2450DF24004A11CB /* LaunchScreen.storyboard */,
@@ -668,6 +671,7 @@
 				305687402581227500195C93 /* Settings.swift in Sources */,
 				ADBFBC722A128B2C0094859B /* NoUICardPayView.swift in Sources */,
 				448AB1E32450DF22004A11CB /* AppDelegate.swift in Sources */,
+				455645DB1A415368CC74F55A /* SceneDelegate.swift in Sources */,
 				ADE6EA18287F3152007448DE /* FeatureService.swift in Sources */,
 				305687272581193500195C93 /* AppCoordinator.swift in Sources */,
 				305853B9257F79CC000B00DF /* HomeViewController.swift in Sources */,

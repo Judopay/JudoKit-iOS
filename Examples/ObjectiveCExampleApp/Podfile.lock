@@ -12,6 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - InAppSettingsKit (= 3.9.2)
+  - Judo3DS2_iOS (= 2.0.0)
   - JudoKit-iOS (from `../../`)
   - TTGSnackbar
   - Wormholy
@@ -38,6 +39,6 @@ SPEC CHECKSUMS:
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
 
-PODFILE CHECKSUM: 18c820cbd0b18998f4269be5708e2f98983da505
+PODFILE CHECKSUM: 58aa1b3facc2ca652f47c884b85af9f158066cf0
 
 COCOAPODS: 1.17.0
