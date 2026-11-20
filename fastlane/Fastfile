@@ -35,13 +35,6 @@ sample_apps_dir = "#{File.expand_path("..")}/Examples"
     },
     flavor: "carthage",
     path: "#{sample_apps_dir}/CarthageExampleApp"
-  ),
-  SampleApp.new(
-    firebase_app_id: {
-      production: "1:34238832242:ios:f07ce32928073fa463eceb"
-    },
-    flavor: "spm",
-    path: "#{sample_apps_dir}/SPMExampleApp"
   )
 ]
 @scripts_dir = "#{File.expand_path("..")}/scripts"
