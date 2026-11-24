@@ -9,3 +9,5 @@ jobs:
   maestro_tests:
     uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@fix/DO-3542/maestro-retries
     secrets: inherit
+    with:
+      tests_ref: chore/DO-3542/test-typo-fix
