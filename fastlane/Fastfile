@@ -222,9 +222,10 @@ platform :ios do
       workspace: app.workspace
     })
 
-    # The product name differs from the scheme, so take the one app the build produced.
-    built_apps = Dir.glob("#{@derived_data_path}/Build/Products/Release-iphonesimulator/*.app")
-    UI.user_error!("Expected one simulator app, found #{built_apps.length}") if built_apps.length != 1
+    # The product name differs from the scheme, so take the one app the build produced. A UI test
+    # target in the scheme adds its own -Runner.app, which is left out.
+    built_apps = Dir.glob("#{@derived_data_path}/Build/Products/Release-iphonesimulator/*.app").reject { |path| path.end_with?("-Runner.app") }
+    UI.user_error!("Expected one simulator app, found #{built_apps.map { |path| File.basename(path) }}") if built_apps.length != 1
     FileUtils.mkdir_p(@fl_output_dir)
     FileUtils.cp_r(built_apps.first, "#{@fl_output_dir}/#{app.scheme}-#{environment}-simulator.app")
 

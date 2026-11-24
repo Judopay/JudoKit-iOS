@@ -6,3 +6,9 @@ jobs:
   maestro_tests:
     uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
     secrets: inherit
+  maestro_tests_swift:
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
+    secrets: inherit
+    with:
+      flavor: swift
+      exclude_tags: ravelin,android_only,objc_only
