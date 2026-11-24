@@ -2,7 +2,10 @@ name: iOS Test Sample Apps with Maestro
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - chore/DO-3542/test-retries
 jobs:
   maestro_tests:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@fix/DO-3542/maestro-retries
     secrets: inherit
