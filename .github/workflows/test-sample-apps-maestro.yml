@@ -2,13 +2,19 @@ name: iOS Test Sample Apps with Maestro
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - chore/DO-3542/test-tests-pr-17
 jobs:
   maestro_tests:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@chore/DO-3542/test-master-plus-51
     secrets: inherit
+    with:
+      tests_ref: chore/NONE/increase-script-timeout
   maestro_tests_swift:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@chore/DO-3542/test-master-plus-51
     secrets: inherit
     with:
       flavor: swift
       exclude_tags: ravelin,android_only,objc_only
+      tests_ref: chore/NONE/increase-script-timeout
