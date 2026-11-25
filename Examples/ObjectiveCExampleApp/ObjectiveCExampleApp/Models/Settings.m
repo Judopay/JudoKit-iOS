@@ -1,5 +1,5 @@
 #import "Settings.h"
-#import <Judo3DS2_iOS/Judo3DS2_iOS.h>
+@import Judo3DS2_iOS;
 
 static NSString *const kDefaultConsumerReference = @"my-unique-consumer-ref";
 static NSString *const kDontSet = @"dontSet";

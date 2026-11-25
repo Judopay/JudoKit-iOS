@@ -45,6 +45,7 @@
 #import "JPCountry.h"
 #import "JPDeferredPaymentRequest.h"
 #import "JPDeferredPaymentSummaryItem.h"
+#import "JPDsCertificatesCacheStore.h"
 #import "JPEnhancedPaymentDetail.h"
 #import "JPError+Additions.h"
 #import "JPError.h"
@@ -92,6 +93,7 @@
 #import "JPSaveCardRequest.h"
 #import "JPTokenRequest.h"
 
+#import "JPApplePayButton.h"
 #import "JPAuthorization.h"
 #import "JPBasicAuthorization.h"
 #import "JPLoadingButton.h"
@@ -108,6 +110,7 @@
 #import "NSBundle+Additions.h"
 #import "NSNumber+Additions.h"
 #import "NSString+Additions.h"
+#import "UIViewController+Additions.h"
 
 //! Project version number for JudoKit_iOS.
 FOUNDATION_EXPORT double JudoKit_iOSVersionNumber;

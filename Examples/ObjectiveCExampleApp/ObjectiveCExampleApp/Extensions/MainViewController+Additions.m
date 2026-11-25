@@ -8,7 +8,6 @@
 #import "MainViewController+Additions.h"
 #import "CreatePaymentSessionRequest.h"
 #import "Settings.h"
-#import <InAppSettingsKit/IASKSpecifier.h>
 #import "JPDsCertificatesCacheStore.h"
 
 @implementation MainViewController (Additions)

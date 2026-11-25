@@ -26,7 +26,7 @@ git_hash="$(git rev-parse HEAD)"
 echo "git \"${git_repo}\" \"${git_hash}\"" > "${carthage_example_app_dir}/Cartfile"
 
 info "Resolving SPM packages as a workaround for Cartahge timeouts..."
-xcodebuild -resolvePackageDependencies -project "${judo_kit_dir}/Examples/SPMExampleApp/SPMExampleApp.xcodeproj" -scheme SPMExampleApp
+swift package resolve --package-path "${judo_kit_dir}"
 
 # Execute carthage bootstrap
 info "Executing carthage bootstrap..."

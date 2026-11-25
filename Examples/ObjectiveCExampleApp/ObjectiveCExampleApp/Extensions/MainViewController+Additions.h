@@ -4,7 +4,7 @@
 //
 
 #import "MainViewController.h"
-#import <InAppSettingsKit/IASKAppSettingsViewController.h>
+@import InAppSettingsKit;
 
 @interface MainViewController (Additions) <IASKSettingsDelegate>
 

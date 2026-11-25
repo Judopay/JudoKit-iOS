@@ -24,8 +24,7 @@
 
 @import TTGSnackbar;
 #import <CoreLocation/CoreLocation.h>
-#import <InAppSettingsKit/IASKAppSettingsViewController.h>
-#import <InAppSettingsKit/IASKSettingsReader.h>
+@import InAppSettingsKit;
 @import JudoKit_iOS;
 
 #import "ApplePayViewController.h"

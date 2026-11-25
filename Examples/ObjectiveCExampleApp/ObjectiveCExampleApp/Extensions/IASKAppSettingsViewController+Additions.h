@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <InAppSettingsKit/IASKAppSettingsViewController.h>
+@import InAppSettingsKit;
 
 @interface IASKAppSettingsViewController (Additions)
 - (void)updateHiddenKeys;
