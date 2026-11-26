@@ -7,12 +7,12 @@ on:
       - chore/DO-3542/test-tests-pr-17
 jobs:
   maestro_tests:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@fix/DO-3542/ios-simulator-log
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
     secrets: inherit
     with:
       tests_ref: chore/NONE/increase-script-timeout
   maestro_tests_swift:
-    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@fix/DO-3542/ios-simulator-log
+    uses: Judopay/github-actions/.github/workflows/ios-test-sample-apps-maestro.yml@master
     secrets: inherit
     with:
       flavor: swift
