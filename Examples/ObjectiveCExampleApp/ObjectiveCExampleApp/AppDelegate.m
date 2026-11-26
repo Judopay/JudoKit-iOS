@@ -25,14 +25,21 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "Settings.h"
+#import "SettingsImporter.h"
 
 @import JudoKit_iOS;
+
+// Launch argument holding a settings JSON, base64 encoded, to import at launch. Lets UI tests set up
+// the app in one step, e.g. `xcrun simctl launch <device> com.judo.JudoPayDemoObjC -importSettings
+// <base64 JSON>`.
+static NSString *const kImportSettingsArgument = @"importSettings";
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load settings defaults
     [self registerDefaultsFromSettingsBundle];
+    [self importSettingsFromLaunchArguments];
     return YES;
 }
 
@@ -43,6 +50,31 @@
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options API_AVAILABLE(ios(13.0)) {
     UISceneConfiguration *configuration = [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
     return configuration;
+}
+
+- (void)importSettingsFromLaunchArguments {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    // "-importSettings <value>" on the launch command line lands in the argument domain, which lasts
+    // for this launch only.
+    NSString *encoded = [defaults volatileDomainForName:NSArgumentDomain][kImportSettingsArgument];
+    if (![encoded isKindOfClass:NSString.class] || encoded.length == 0) {
+        return;
+    }
+
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:encoded
+                                                       options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString *json = data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
+    if (!json) {
+        NSLog(@"SettingsImport: Settings import failed: invalid base64");
+        return;
+    }
+
+    NSError *error = nil;
+    if ([SettingsImporter importSettings:json intoDefaults:defaults error:&error]) {
+        NSLog(@"SettingsImport: Settings imported");
+    } else {
+        NSLog(@"SettingsImport: Settings import failed: %@", error.localizedDescription);
+    }
 }
 
 - (void)registerDefaultsFromSettingsBundle {

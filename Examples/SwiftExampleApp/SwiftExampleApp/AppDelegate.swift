@@ -24,26 +24,49 @@
 
 import UIKit
 
+// Launch argument holding a settings JSON, base64 encoded, to import at launch. Lets UI tests set up
+// the app in one step, e.g. `xcrun simctl launch <device> com.judo.JudoPayDemoSwift -importSettings
+// <base64 JSON>`.
+private let kImportSettingsArgument = "importSettings"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return true
-    }
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let appCoordinator = AppCoordinator(window: window!)
-
-        appCoordinator.start()
+        // Runs before the scene connects, so the screens SceneDelegate builds read the imported settings.
+        importSettingsFromLaunchArguments()
         return true
+    }
+
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+
+    private func importSettingsFromLaunchArguments() {
+        let defaults = UserDefaults.standard
+        // "-importSettings <value>" on the launch command line lands in the argument domain, which
+        // lasts for this launch only.
+        guard let encoded = defaults.volatileDomain(forName: UserDefaults.argumentDomain)[kImportSettingsArgument] as? String,
+              !encoded.isEmpty else {
+            return
+        }
+
+        guard let data = Data(base64Encoded: encoded, options: .ignoreUnknownCharacters),
+              let json = String(data: data, encoding: .utf8) else {
+            NSLog("SettingsImport: Settings import failed: invalid base64")
+            return
+        }
+
+        do {
+            try SettingsImporter.importSettings(json, into: defaults)
+            NSLog("SettingsImport: Settings imported")
+        } catch {
+            NSLog("SettingsImport: Settings import failed: %@", error.localizedDescription)
+        }
     }
 }
