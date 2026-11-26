@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import SwiftUI
+import TTGSnackbar
 import UIKit
 
 extension UIViewController {
@@ -91,5 +92,11 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completion?() })
         present(alert, animated: true)
+    }
+
+    func displaySnackBar(_ text: String) {
+        let bar = TTGSnackbar(message: text, duration: .middle)
+        bar.shouldDismissOnSwipe = true
+        TTGSnackbarManager.shared.show(snackbar: bar)
     }
 }

@@ -96,9 +96,9 @@ extension SettingsViewController: IASKSettingsDelegate {
 
             Settings.standard.updateAuthorization(withPaymentSession: paymentSession,
                                                   andToken: Settings.standard.token)
-            displayAlert(message: "Success generating payment session, settings updated, navigating back to main screen.") { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
+
+            displaySnackBar("Success generating payment session, settings updated, navigating back to main screen.")
+            navigationController?.popViewController(animated: true)
         } catch {
             displayAlert(message: "JSON deserialization error: \(error.localizedDescription).")
         }
