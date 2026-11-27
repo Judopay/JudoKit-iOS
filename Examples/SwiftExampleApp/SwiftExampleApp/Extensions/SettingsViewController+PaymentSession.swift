@@ -78,19 +78,25 @@ extension SettingsViewController: IASKSettingsDelegate {
 
     private func onCreatePaymentSessionComplete(data: Data?, error: Error?) {
         if let error {
-            displayAlert(message: "Error: \(error.localizedDescription).")
+            displaySnackBar("Error: \(error).")
             return
         }
 
         do {
             guard let data,
                   let responseDict = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                displayAlert(message: "JSON deserialization error.")
+                displaySnackBar("JSON deserialization error.")
+                return
+            }
+
+            if responseDict["code"] != nil {
+                let message = (responseDict["message"] as? String) ?? "Payment session request failed."
+                displaySnackBar("Error: \(message).")
                 return
             }
 
             guard let paymentSession = responseDict["reference"] as? String, !paymentSession.isEmpty else {
-                displayAlert(message: "Error: missing payment session reference.")
+                displaySnackBar("Error: missing payment session reference.")
                 return
             }
 
@@ -100,7 +106,7 @@ extension SettingsViewController: IASKSettingsDelegate {
             displaySnackBar("Success generating payment session, settings updated, navigating back to main screen.")
             navigationController?.popViewController(animated: true)
         } catch {
-            displayAlert(message: "JSON deserialization error: \(error.localizedDescription).")
+            displaySnackBar("JSON deserialization error: \(error).")
         }
     }
 }
