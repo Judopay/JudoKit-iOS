@@ -9,6 +9,7 @@ target "SwiftExampleApp" do
   pod "JudoKit-iOS", path: "../../"
 
   pod "InAppSettingsKit", "3.9.2"
+  pod "TTGSnackbar", "1.12.0"
   pod "Wormholy"
   pod "SwiftLint"
 

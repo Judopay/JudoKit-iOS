@@ -41,6 +41,40 @@ class Settings {
         userDefaults.bool(forKey: kIsPaymentSessionOnKey)
     }
 
+    var token: String? {
+        userDefaults.string(forKey: kTokenKey)
+    }
+
+    var secret: String? {
+        userDefaults.string(forKey: kSecretKey)
+    }
+
+    var isDisableNetworkTokenisationOn: Bool {
+        userDefaults.bool(forKey: kIsDisableNetworkTokenisationOnKey)
+    }
+
+    var hasPaymentReferenceSetUp: Bool {
+        !(userDefaults.string(forKey: kPaymentReferenceKey) ?? "").isEmpty
+    }
+
+    var hasConsumerReferenceSetUp: Bool {
+        !(userDefaults.string(forKey: kConsumerReferenceKey) ?? "").isEmpty
+    }
+
+    func persistGeneratedReferencesIfNeeded(paymentReference: String, consumerReference: String) {
+        if !hasPaymentReferenceSetUp {
+            userDefaults.set(paymentReference, forKey: kPaymentReferenceKey)
+        }
+        if !hasConsumerReferenceSetUp {
+            userDefaults.set(consumerReference, forKey: kConsumerReferenceKey)
+        }
+    }
+
+    func updateAuthorization(withPaymentSession session: String?, andToken token: String?) {
+        userDefaults.set(session, forKey: kPaymentSessionKey)
+        userDefaults.set(token, forKey: kSessionTokenKey)
+    }
+
     public var authorization: JPAuthorization {
         if isBasicAuthorizationOn {
             let token = userDefaults.string(forKey: kTokenKey) ?? ""

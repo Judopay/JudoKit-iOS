@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import SwiftUI
+import TTGSnackbar
 import UIKit
 
 extension UIViewController {
@@ -81,9 +82,21 @@ extension UIViewController {
 
         present(alertController, animated: true, completion: nil)
     }
-    
+
     @objc func presentNetworkRequestsInspector() {
         let name = NSNotification.Name(rawValue: "wormholy_fire")
         NotificationCenter.default.post(name: name, object: nil)
+    }
+
+    func displayAlert(title: String? = nil, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completion?() })
+        present(alert, animated: true)
+    }
+
+    func displaySnackBar(_ text: String) {
+        let bar = TTGSnackbar(message: text, duration: .middle)
+        bar.shouldDismissOnSwipe = true
+        TTGSnackbarManager.shared.show(snackbar: bar)
     }
 }
