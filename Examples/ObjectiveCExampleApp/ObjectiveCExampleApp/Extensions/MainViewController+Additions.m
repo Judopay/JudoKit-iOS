@@ -105,10 +105,22 @@
         [self displaySnackBarWith:[NSString stringWithFormat:@"JSON deserialization error: %@.", jsonError]];
         return;
     }
-    
-    [Settings.defaultSettings updateAuthorizationWithPaymentSession:[responseDict objectForKey:@"reference"]
+
+    if (responseDict[@"code"] != nil) {
+        NSString *message = responseDict[@"message"] ?: @"Payment session request failed.";
+        [self displaySnackBarWith:[NSString stringWithFormat:@"Error: %@.", message]];
+        return;
+    }
+
+    NSString *paymentSession = responseDict[@"reference"];
+    if (paymentSession.length == 0) {
+        [self displaySnackBarWith:@"Error: missing payment session reference."];
+        return;
+    }
+
+    [Settings.defaultSettings updateAuthorizationWithPaymentSession:paymentSession
                                                            andToken:Settings.defaultSettings.token];
-    
+
     [self displaySnackBarWith:@"Success generating payment session, settings updated, navigating back to main screen."];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
